@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OPHIR · Gestionnaire de patrimoine numérique</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<style>
+*{box-sizing:border-box}html,body{margin:0}
+:root{--card:#1a1a1a;--line:rgba(255,255,255,.25);--soft:rgba(255,255,255,.10);--mut:#bababa;--txt:#fff;--up:#7fd1a8;--down:#e88f8f;--acc:#a9cdf5;--acc2:#e6c27a}
+body{color:var(--txt);font-family:Inter,"Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;background:#000;min-height:100vh}
+#hbg{position:fixed;inset:0;z-index:-1;background-color:#0c1016;background-image:url("https://trouveemmanuel67-eng.github.io/hub-working/bg-storm.jpg");background-image:image-set(url("https://trouveemmanuel67-eng.github.io/hub-working/bg-storm.webp") type("image/webp"),url("https://trouveemmanuel67-eng.github.io/hub-working/bg-storm.jpg") type("image/jpeg"));background-position:right bottom;background-size:cover}
+#hbg:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,12,18,.72),rgba(8,12,18,.55) 40%,rgba(8,12,18,.68))}
+#hh{text-align:center;padding:16px 12px 8px}
+#hh h1{margin:0 0 4px;font-weight:600;font-size:22px;letter-spacing:.14em;text-transform:uppercase}
+#hh .sub{color:var(--mut);font-size:12px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px}
+nav{display:inline-flex;flex-wrap:wrap;justify-content:center;gap:8px}
+nav a{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;color:#fff;text-decoration:none;font-size:14px;font-weight:500;border-radius:999px;transition:transform .25s,box-shadow .25s,background-color .25s}
+nav a.on{background:rgba(255,255,255,.18);backdrop-filter:blur(12px)}
+nav a:not(.off):hover{transform:scale(1.06);box-shadow:0 0 0 1px rgba(210,235,255,.5),0 0 16px rgba(140,200,255,.35);background:rgba(255,255,255,.16)}
+nav a.off{color:rgba(255,255,255,.45);cursor:not-allowed}
+nav a .soon{font-size:10px;letter-spacing:.08em;text-transform:uppercase;border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:1px 6px}
+main{max-width:1240px;margin:8px auto 0;padding:0 14px 20px}
+.tab{display:none}.tab.on{display:block}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:0 10px 28px rgba(0,0,0,.4);padding:18px 20px;margin-bottom:18px}
+.card h2{margin:0;font-size:13px;letter-spacing:.08em;text-transform:uppercase;font-weight:700}
+.card .desc{color:var(--mut);font-size:13px;margin:4px 0 14px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-bottom:14px}
+.kpi{border:1px solid var(--soft);border-radius:10px;padding:10px 12px;background:rgba(255,255,255,.02)}
+.kpi .l{font-size:11px;color:var(--mut);letter-spacing:.06em;text-transform:uppercase}
+.kpi .v{font-size:26px;font-weight:700;margin-top:4px;font-variant-numeric:tabular-nums}
+.kpi .s{font-size:12px;color:var(--mut);margin-top:2px}
+.up{color:var(--up)}.down{color:var(--down)}
+.chart{position:relative;height:320px}
+.grid2{display:grid;grid-template-columns:1.6fr 1fr;gap:16px}
+@media(max-width:900px){.grid2{grid-template-columns:1fr}}
+table{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums}
+th,td{padding:7px 8px;white-space:nowrap;border-bottom:1px solid var(--soft);text-align:right}
+th:first-child,td:first-child{text-align:left;white-space:normal}
+th{color:var(--mut);font-weight:600;font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+.bar{height:6px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden;margin-top:3px}.bar i{display:block;height:100%;background:var(--acc2)}
+.src{margin-top:14px;padding-top:10px;border-top:1px solid var(--soft);font-size:12px;color:var(--mut);line-height:1.55}
+.src a{color:var(--acc)}
+.note{font-size:12px;color:var(--mut);border-left:2px solid rgba(230,194,122,.6);padding:4px 10px;margin:10px 0 0}
+.gauge{display:flex;height:34px;border-radius:999px;overflow:hidden;border:1px solid var(--line);font-size:12px;font-weight:700}
+.gauge div{display:flex;align-items:center;justify-content:center;white-space:nowrap}
+.toggle{display:inline-flex;gap:6px;margin:0 0 10px}
+.toggle button{background:transparent;color:#fff;border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:12px;cursor:pointer;font-family:inherit}
+.toggle button.on{background:#fff;color:#000}
+footer{text-align:center;color:var(--mut);font-size:12px;padding:6px 14px 26px;max-width:1240px;margin:0 auto}
+.placeholder{text-align:center;color:var(--mut);padding:50px}
+</style>
+</head>
+<body>
+<div id="hbg"></div>
+<header id="hh">
+  <h1>OPHIR</h1>
+  <div class="sub">Gestionnaire de patrimoine numérique · Emmanuel Trouvé</div>
+  <nav id="nav"></nav>
+</header>
+<main id="tabs"></main>
+<footer>Données indicatives issues de sources officielles (INSEE, Notaires-INSEE, Observatoire Crédit Logement/CSA, Banque de France, Google Trends). Ne constitue pas un conseil en investissement.</footer>
+
+<script id="data" type="application/json">{"generated": "2026-11-15 12:07", "prix": {"idbank": "010567059", "last_update": "2026-09-08", "series": [["2001-Q1", 51.5, "A"], ["2001-Q2", 52.6, "A"], ["2001-Q3", 53.4, "A"], ["2001-Q4", 54.4, "A"], ["2002-Q1", 55.3, "A"], ["2002-Q2", 56.7, "A"], ["2002-Q3", 58.3, "A"], ["2002-Q4", 59.9, "A"], ["2003-Q1", 61.5, "A"], ["2003-Q2", 63.4, "A"], ["2003-Q3", 65.2, "A"], ["2003-Q4", 67.5, "A"], ["2004-Q1", 70.2, "A"], ["2004-Q2", 72.6, "A"], ["2004-Q3", 75.3, "A"], ["2004-Q4", 78.2, "A"], ["2005-Q1", 81.1, "A"], ["2005-Q2", 84.1, "A"], ["2005-Q3", 87.1, "A"], ["2005-Q4", 89.8, "A"], ["2006-Q1", 92.6, "A"], ["2006-Q2", 95.0, "A"], ["2006-Q3", 97.0, "A"], ["2006-Q4", 98.7, "A"], ["2007-Q1", 100.2, "A"], ["2007-Q2", 101.4, "A"], ["2007-Q3", 102.6, "A"], ["2007-Q4", 104.1, "A"], ["2008-Q1", 104.6, "A"], ["2008-Q2", 104.2, "A"], ["2008-Q3", 103.1, "A"], ["2008-Q4", 100.2, "A"], ["2009-Q1", 96.9, "A"], ["2009-Q2", 94.8, "A"], ["2009-Q3", 95.0, "A"], ["2009-Q4", 96.1, "A"], ["2010-Q1", 98.0, "A"], ["2010-Q2", 99.7, "A"], ["2010-Q3", 101.2, "A"], ["2010-Q4", 103.4, "A"], ["2011-Q1", 104.9, "A"], ["2011-Q2", 106.7, "A"], ["2011-Q3", 107.4, "A"], ["2011-Q4", 107.2, "A"], ["2012-Q1", 106.8, "A"], ["2012-Q2", 106.3, "A"], ["2012-Q3", 105.7, "A"], ["2012-Q4", 105.1, "A"], ["2013-Q1", 104.7, "A"], ["2013-Q2", 104.0, "A"], ["2013-Q3", 103.3, "A"], ["2013-Q4", 103.2, "A"], ["2014-Q1", 102.7, "A"], ["2014-Q2", 102.6, "A"], ["2014-Q3", 101.8, "A"], ["2014-Q4", 100.6, "A"], ["2015-Q1", 100.2, "A"], ["2015-Q2", 99.8, "A"], ["2015-Q3", 99.9, "A"], ["2015-Q4", 100.1, "A"], ["2016-Q1", 100.4, "A"], ["2016-Q2", 100.5, "A"], ["2016-Q3", 101.2, "A"], ["2016-Q4", 101.6, "A"], ["2017-Q1", 102.9, "A"], ["2017-Q2", 103.6, "A"], ["2017-Q3", 104.5, "A"], ["2017-Q4", 104.9, "A"], ["2018-Q1", 105.9, "A"], ["2018-Q2", 106.6, "A"], ["2018-Q3", 107.7, "A"], ["2018-Q4", 108.3, "A"], ["2019-Q1", 109.0, "A"], ["2019-Q2", 110.0, "A"], ["2019-Q3", 111.2, "A"], ["2019-Q4", 112.5, "A"], ["2020-Q1", 114.5, "A"], ["2020-Q2", 116.3, "A"], ["2020-Q3", 116.8, "A"], ["2020-Q4", 119.6, "A"], ["2021-Q1", 121.3, "A"], ["2021-Q2", 123.5, "A"], ["2021-Q3", 125.5, "A"], ["2021-Q4", 128.0, "A"], ["2022-Q1", 130.2, "A"], ["2022-Q2", 131.9, "A"], ["2022-Q3", 133.6, "A"], ["2022-Q4", 134.0, "A"], ["2023-Q1", 133.6, "A"], ["2023-Q2", 132.7, "A"], ["2023-Q3", 131.1, "A"], ["2023-Q4", 128.8, "A"], ["2024-Q1", 126.7, "A"], ["2024-Q2", 126.1, "A"], ["2024-Q3", 126.0, "A"], ["2024-Q4", 126.1, "A"], ["2025-Q1", 127.0, "A"], ["2025-Q2", 126.8, "A"], ["2025-Q3", 126.8, "A"], ["2025-Q4", 127.3, "A"], ["2026-Q1", 127.0, "A"], ["2026-Q2", 125.7, "P"]], "last": {"period": "2026-Q2", "value": 125.7, "status": "P"}, "ev": {"25": {"from": "2001-Q2", "v0": 52.6, "pct": 139.0, "cagr": 3.55}, "10": {"from": "2016-Q2", "v0": 100.5, "pct": 25.1, "cagr": 2.26}, "5": {"from": "2021-Q2", "v0": 123.5, "pct": 1.8, "cagr": 0.35}}, "peak": {"period": "2022-Q4", "value": 134.0, "dd": -6.2}, "first_available": "1996-Q1"}, "taux": {"key": "MIR.M.FR.B.A2C.P.R.A.2250.EUR.N", "series": [["2001-01", 6.13, "E"], ["2001-02", 6.06, "E"], ["2001-03", 6.0, "E"], ["2001-04", 6.04, "E"], ["2001-05", 5.95, "E"], ["2001-06", 5.81, "E"], ["2001-07", 5.81, "E"], ["2001-08", 5.79, "E"], ["2001-09", 5.66, "E"], ["2001-10", 5.62, "E"], ["2001-11", 5.56, "E"], ["2001-12", 5.49, "E"], ["2002-01", 5.4, "E"], ["2002-02", 5.39, "E"], ["2002-03", 5.49, "E"], ["2002-04", 5.44, "E"], ["2002-05", 5.45, "E"], ["2002-06", 5.54, "E"], ["2002-07", 5.45, "E"], ["2002-08", 5.41, "E"], ["2002-09", 5.41, "E"], ["2002-10", 5.3, "E"], ["2002-11", 5.2, "E"], ["2002-12", 5.13, "E"], ["2003-01", 4.97, "A"], ["2003-02", 4.98, "A"], ["2003-03", 4.85, "A"], ["2003-04", 4.75, "A"], ["2003-05", 4.64, "A"], ["2003-06", 4.64, "A"], ["2003-07", 4.42, "A"], ["2003-08", 4.36, "A"], ["2003-09", 4.36, "A"], ["2003-10", 4.42, "A"], ["2003-11", 4.51, "A"], ["2003-12", 4.51, "A"], ["2004-01", 4.57, "A"], ["2004-02", 4.64, "A"], ["2004-03", 4.52, "A"], ["2004-04", 4.54, "A"], ["2004-05", 4.37, "A"], ["2004-06", 4.35, "A"], ["2004-07", 4.34, "A"], ["2004-08", 4.36, "A"], ["2004-09", 4.36, "A"], ["2004-10", 4.34, "A"], ["2004-11", 4.32, "A"], ["2004-12", 4.11, "A"], ["2005-01", 4.21, "A"], ["2005-02", 4.13, "A"], ["2005-03", 4.0, "A"], ["2005-04", 3.97, "A"], ["2005-05", 3.95, "A"], ["2005-06", 3.9, "A"], ["2005-07", 3.85, "A"], ["2005-08", 3.76, "A"], ["2005-09", 3.72, "A"], ["2005-10", 3.67, "A"], ["2005-11", 3.63, "A"], ["2005-12", 3.63, "A"], ["2006-01", 3.64, "A"], ["2006-02", 3.73, "A"], ["2006-03", 3.73, "A"], ["2006-04", 3.74, "A"], ["2006-05", 3.75, "A"], ["2006-06", 3.84, "A"], ["2006-07", 3.89, "A"], ["2006-08", 3.96, "A"], ["2006-09", 4.04, "A"], ["2006-10", 4.08, "A"], ["2006-11", 4.09, "A"], ["2006-12", 4.1, "A"], ["2007-01", 4.09, "A"], ["2007-02", 4.13, "A"], ["2007-03", 4.15, "A"], ["2007-04", 4.17, "A"], ["2007-05", 4.19, "A"], ["2007-06", 4.24, "A"], ["2007-07", 4.36, "A"], ["2007-08", 4.48, "A"], ["2007-09", 4.58, "A"], ["2007-10", 4.68, "A"], ["2007-11", 4.78, "A"], ["2007-12", 4.83, "A"], ["2008-01", 4.86, "A"], ["2008-02", 4.89, "A"], ["2008-03", 4.89, "A"], ["2008-04", 4.89, "A"], ["2008-05", 4.88, "A"], ["2008-06", 4.88, "A"], ["2008-07", 4.99, "A"], ["2008-08", 5.05, "A"], ["2008-09", 5.18, "A"], ["2008-10", 5.23, "A"], ["2008-11", 5.27, "A"], ["2008-12", 5.33, "A"], ["2009-01", 5.22, "A"], ["2009-02", 5.04, "A"], ["2009-03", 4.84, "A"], ["2009-04", 4.68, "A"], ["2009-05", 4.47, "A"], ["2009-06", 4.41, "A"], ["2009-07", 4.33, "A"], ["2009-08", 4.29, "A"], ["2009-09", 4.28, "A"], ["2009-10", 4.2, "A"], ["2009-11", 4.13, "A"], ["2009-12", 4.04, "A"], ["2010-01", 4.01, "A"], ["2010-02", 3.98, "A"], ["2010-03", 3.95, "A"], ["2010-04", 3.88, "A"], ["2010-05", 3.84, "A"], ["2010-06", 3.81, "A"], ["2010-07", 3.77, "A"], ["2010-08", 3.7, "A"], ["2010-09", 3.68, "A"], ["2010-10", 3.6, "A"], ["2010-11", 3.58, "A"], ["2010-12", 3.54, "A"], ["2011-01", 3.6, "A"], ["2011-02", 3.67, "A"], ["2011-03", 3.77, "A"], ["2011-04", 3.85, "A"], ["2011-05", 3.94, "A"], ["2011-06", 4.01, "A"], ["2011-07", 4.05, "A"], ["2011-08", 4.09, "A"], ["2011-09", 4.1, "A"], ["2011-10", 4.07, "A"], ["2011-11", 4.09, "A"], ["2011-12", 4.07, "A"], ["2012-01", 4.12, "A"], ["2012-02", 4.17, "A"], ["2012-03", 4.16, "A"], ["2012-04", 4.09, "A"], ["2012-05", 4.04, "A"], ["2012-06", 3.96, "A"], ["2012-07", 3.87, "A"], ["2012-08", 3.8, "A"], ["2012-09", 3.74, "A"], ["2012-10", 3.66, "A"], ["2012-11", 3.57, "A"], ["2012-12", 3.52, "A"], ["2013-01", 3.43, "A"], ["2013-02", 3.43, "A"], ["2013-03", 3.38, "A"], ["2013-04", 3.35, "A"], ["2013-05", 3.3, "A"], ["2013-06", 3.24, "A"], ["2013-07", 3.2, "A"], ["2013-08", 3.19, "A"], ["2013-09", 3.2, "A"], ["2013-10", 3.2, "A"], ["2013-11", 3.28, "A"], ["2013-12", 3.28, "A"], ["2014-01", 3.3, "A"], ["2014-02", 3.29, "A"], ["2014-03", 3.28, "A"], ["2014-04", 3.24, "A"], ["2014-05", 3.17, "A"], ["2014-06", 3.11, "A"], ["2014-07", 3.02, "A"], ["2014-08", 2.95, "A"], ["2014-09", 2.9, "A"], ["2014-10", 2.82, "A"], ["2014-11", 2.75, "A"], ["2014-12", 2.66, "A"], ["2015-01", 2.62, "A"], ["2015-02", 2.57, "A"], ["2015-03", 2.48, "A"], ["2015-04", 2.38, "A"], ["2015-05", 2.3, "A"], ["2015-06", 2.22, "B"], ["2015-07", 2.19, "A"], ["2015-08", 2.22, "A"], ["2015-09", 2.27, "A"], ["2015-10", 2.31, "A"], ["2015-11", 2.4, "B"], ["2015-12", 2.37, "A"], ["2016-01", 2.37, "A"], ["2016-02", 2.31, "A"], ["2016-03", 2.23, "A"], ["2016-04", 2.14, "A"], ["2016-05", 2.01, "A"], ["2016-06", 1.89, "A"], ["2016-07", 1.82, "A"], ["2016-08", 1.76, "A"], ["2016-09", 1.7, "A"], ["2016-10", 1.63, "A"], ["2016-11", 1.59, "A"], ["2016-12", 1.53, "A"], ["2017-01", 1.53, "A"], ["2017-02", 1.57, "A"], ["2017-03", 1.57, "A"], ["2017-04", 1.6, "A"], ["2017-05", 1.62, "A"], ["2017-06", 1.64, "A"], ["2017-07", 1.65, "A"], ["2017-08", 1.69, "A"], ["2017-09", 1.68, "A"], ["2017-10", 1.69, "A"], ["2017-11", 1.67, "A"], ["2017-12", 1.64, "A"], ["2018-01", 1.65, "A"], ["2018-02", 1.65, "A"], ["2018-03", 1.61, "A"], ["2018-04", 1.61, "A"], ["2018-05", 1.6, "A"], ["2018-06", 1.58, "A"], ["2018-07", 1.57, "A"], ["2018-08", 1.56, "A"], ["2018-09", 1.54, "A"], ["2018-10", 1.53, "A"], ["2018-11", 1.53, "A"], ["2018-12", 1.51, "A"], ["2019-01", 1.52, "A"], ["2019-02", 1.54, "A"], ["2019-03", 1.53, "A"], ["2019-04", 1.51, "A"], ["2019-05", 1.47, "A"], ["2019-06", 1.42, "A"], ["2019-07", 1.37, "A"], ["2019-08", 1.33, "A"], ["2019-09", 1.29, "A"], ["2019-10", 1.25, "A"], ["2019-11", 1.22, "A"], ["2019-12", 1.19, "A"], ["2020-01", 1.19, "A"], ["2020-02", 1.2, "A"], ["2020-03", 1.21, "A"], ["2020-04", 1.38, "A"], ["2020-05", 1.28, "A"], ["2020-06", 1.27, "A"], ["2020-07", 1.31, "A"], ["2020-08", 1.32, "A"], ["2020-09", 1.31, "A"], ["2020-10", 1.3, "A"], ["2020-11", 1.29, "A"], ["2020-12", 1.25, "A"], ["2021-01", 1.25, "A"], ["2021-02", 1.23, "A"], ["2021-03", 1.19, "A"], ["2021-04", 1.16, "A"], ["2021-05", 1.15, "A"], ["2021-06", 1.13, "A"], ["2021-07", 1.13, "A"], ["2021-08", 1.13, "A"], ["2021-09", 1.13, "A"], ["2021-10", 1.14, "A"], ["2021-11", 1.13, "A"], ["2021-12", 1.11, "A"], ["2022-01", 1.13, "A"], ["2022-02", 1.14, "A"], ["2022-03", 1.15, "A"], ["2022-04", 1.2, "A"], ["2022-05", 1.27, "A"], ["2022-06", 1.36, "A"], ["2022-07", 1.47, "A"], ["2022-08", 1.59, "A"], ["2022-09", 1.7, "A"], ["2022-10", 1.79, "A"], ["2022-11", 1.93, "A"], ["2022-12", 2.07, "A"], ["2023-01", 2.21, "A"], ["2023-02", 2.37, "A"], ["2023-03", 2.56, "A"], ["2023-04", 2.73, "A"], ["2023-05", 2.91, "A"], ["2023-06", 3.06, "A"], ["2023-07", 3.18, "A"], ["2023-08", 3.31, "A"], ["2023-09", 3.38, "A"], ["2023-10", 3.44, "A"], ["2023-11", 3.55, "A"], ["2023-12", 3.62, "A"], ["2024-01", 3.6, "A"], ["2024-02", 3.52, "A"], ["2024-03", 3.5, "A"], ["2024-04", 3.49, "A"], ["2024-05", 3.46, "A"], ["2024-06", 3.43, "A"], ["2024-07", 3.38, "A"], ["2024-08", 3.36, "A"], ["2024-09", 3.31, "A"], ["2024-10", 3.25, "A"], ["2024-11", 3.16, "A"], ["2024-12", 3.12, "A"], ["2025-01", 3.1, "A"], ["2025-02", 2.98, "A"], ["2025-03", 3.03, "A"], ["2025-04", 3.0, "A"], ["2025-05", 3.01, "A"], ["2025-06", 3.0, "A"], ["2025-07", 3.0, "A"], ["2025-08", 3.01, "A"], ["2025-09", 2.99, "A"], ["2025-10", 2.99, "A"], ["2025-11", 3.0, "A"], ["2025-12", 3.0, "A"], ["2026-01", 3.06, "A"], ["2026-02", 3.1, "A"], ["2026-03", 3.11, "A"], ["2026-04", 3.12, "A"], ["2026-05", 3.11, "A"], ["2026-06", 3.16, "A"], ["2026-07", 3.19, "A"], ["2026-08", 3.21, "A"], ["2026-09", 3.19, "P"]], "annual": {"2001": 5.83, "2002": 5.38, "2003": 4.62, "2004": 4.4, "2005": 3.87, "2006": 3.88, "2007": 4.39, "2008": 5.03, "2009": 4.49, "2010": 3.78, "2011": 3.94, "2012": 3.89, "2013": 3.29, "2014": 3.04, "2015": 2.36, "2016": 1.92, "2017": 1.63, "2018": 1.58, "2019": 1.39, "2020": 1.28, "2021": 1.16, "2022": 1.48, "2023": 3.03, "2024": 3.38, "2025": 3.01, "2026": 3.14}, "last": ["2026-09", 3.19, "P"], "min": ["2021-12", 1.11, "A"], "max": ["2001-01", 6.13, "E"], "cl": {"oct2026": 3.49, "sep2026": 3.4, "table": [["Décembre 2025", 3.16, 3.09, 3.17, 3.25], ["Mars 2026", 3.22, 3.04, 3.21, 3.27], ["Juin 2026", 3.25, 3.12, 3.22, 3.3], ["Septembre 2026", 3.4, 3.21, 3.39, 3.45], ["Octobre 2026", 3.49, 3.32, 3.54, 3.57]]}, "sim": [{"label": "2001 (moy. annuelle BdF)", "rate": 5.83, "mens": 1267.9, "interets": 180370, "src": "bdf"}, {"label": "2008 (moy. annuelle BdF)", "rate": 5.03, "mens": 1172.68, "interets": 151804, "src": "bdf"}, {"label": "2012 (moy. annuelle BdF)", "rate": 3.89, "mens": 1043.56, "interets": 113069, "src": "bdf"}, {"label": "2016 (moy. annuelle BdF)", "rate": 1.92, "mens": 839.94, "interets": 51982, "src": "bdf"}, {"label": "2021 (moy. annuelle BdF)", "rate": 1.16, "mens": 768.32, "interets": 30496, "src": "bdf"}, {"label": "2023 (moy. annuelle BdF)", "rate": 3.03, "mens": 951.55, "interets": 85464, "src": "bdf"}, {"label": "Sept. 2026 (BdF)", "rate": 3.19, "mens": 968.31, "interets": 90492, "src": "bdf"}, {"label": "Oct. 2026 (CL/CSA, prêts 25 ans)", "rate": 3.57, "mens": 1008.77, "interets": 102631, "src": "cl"}]}, "trends": {"dates": ["2025-11-09", "2025-11-16", "2025-11-23", "2025-11-30", "2025-12-07", "2025-12-14", "2025-12-21", "2025-12-28", "2026-01-04", "2026-01-11", "2026-01-18", "2026-01-25", "2026-02-01", "2026-02-08", "2026-02-15", "2026-02-22", "2026-03-01", "2026-03-08", "2026-03-15", "2026-03-22", "2026-03-29", "2026-04-05", "2026-04-12", "2026-04-19", "2026-04-26", "2026-05-03", "2026-05-10", "2026-05-17", "2026-05-24", "2026-05-31", "2026-06-07", "2026-06-14", "2026-06-21", "2026-06-28", "2026-07-05", "2026-07-12", "2026-07-19", "2026-07-26", "2026-08-02", "2026-08-09", "2026-08-16", "2026-08-23", "2026-08-30", "2026-09-06", "2026-09-13", "2026-09-20", "2026-09-27", "2026-10-04", "2026-10-11", "2026-10-18", "2026-10-25", "2026-11-01", "2026-11-08", "2026-11-15"], "partial": [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true], "terms": {"achat immobilier": [52, 50, 45, 46, 44, 44, 47, 53, 54, 58, 62, 55, 54, 52, 55, 59, 60, 63, 56, 61, 58, 54, 60, 56, 50, 53, 53, 51, 49, 53, 51, 51, 44, 41, 44, 43, 48, 48, 44, 43, 49, 49, 47, 47, 46, 49, 47, 44, 46, 44, 47, 42, 39, 39], "acheter immobilier": [13, 11, 12, 15, 15, 13, 12, 15, 15, 17, 17, 18, 16, 15, 13, 17, 15, 15, 16, 16, 16, 15, 15, 16, 14, 19, 16, 12, 14, 16, 16, 12, 10, 12, 14, 13, 13, 14, 11, 14, 15, 14, 14, 11, 16, 16, 13, 11, 12, 11, 12, 11, 11, 16], "acheter maison": [79, 63, 67, 64, 66, 66, 69, 80, 65, 80, 76, 79, 75, 68, 78, 84, 80, 79, 79, 80, 75, 75, 74, 80, 82, 78, 82, 78, 82, 68, 70, 73, 80, 73, 69, 75, 76, 85, 96, 98, 100, 91, 83, 82, 93, 88, 81, 71, 85, 74, 85, 77, 81, 84], "acheter appartement": [40, 37, 37, 32, 34, 32, 38, 45, 40, 45, 46, 45, 43, 43, 46, 48, 42, 40, 43, 41, 39, 39, 43, 46, 41, 41, 40, 40, 40, 39, 40, 37, 34, 37, 36, 39, 39, 42, 45, 47, 47, 42, 44, 40, 42, 41, 39, 37, 41, 38, 41, 40, 39, 44], "vente immobilier": [79.3, 66.4, 68.6, 62.2, 70.7, 64.3, 60.0, 60.0, 66.4, 81.5, 83.6, 79.3, 79.3, 79.3, 81.5, 81.5, 83.6, 81.5, 81.5, 77.2, 79.3, 75.0, 81.5, 85.7, 105.0, 107.2, 83.6, 70.7, 75.0, 77.2, 79.3, 64.3, 66.4, 64.3, 64.3, 66.4, 68.6, 66.4, 68.6, 66.4, 70.7, 70.7, 64.3, 66.4, 68.6, 68.6, 66.4, 64.3, 66.4, 62.2, 66.4, 70.7, 62.2, 68.6], "vendre immobilier": [77.2, 72.9, 62.2, 60.0, 64.3, 57.9, 62.2, 66.4, 64.3, 83.6, 79.3, 85.7, 81.5, 81.5, 77.2, 87.9, 81.5, 90.0, 81.5, 83.6, 87.9, 85.7, 85.7, 83.6, 81.5, 79.3, 83.6, 72.9, 70.7, 81.5, 81.5, 72.9, 66.4, 66.4, 72.9, 70.7, 83.6, 70.7, 77.2, 79.3, 87.9, 70.7, 72.9, 72.9, 75.0, 75.0, 68.6, 77.2, 81.5, 77.2, 83.6, 87.9, 75.0, 83.6], "estimation immobilière": [2.1, 2.1, 4.3, 2.1, 4.3, 4.3, 2.1, 4.3, 2.1, 4.3, 2.1, 4.3, 4.3, 4.3, 4.3, 4.3, 6.4, 4.3, 2.1, 4.3, 4.3, 4.3, 6.4, 4.3, 2.1, 4.3, 4.3, 4.3, 4.3, 2.1, 4.3, 4.3, 4.3, 4.3, 4.3, 2.1, 6.4, 4.3, 2.1, 2.1, 4.3, 4.3, 2.1, 6.4, 4.3, 4.3, 4.3, 6.4, 4.3, 4.3, 6.4, 4.3, 4.3, 4.3], "agence immobilière": [173.6, 173.6, 162.9, 150.0, 152.2, 152.2, 113.6, 139.3, 165.1, 201.5, 207.9, 197.2, 190.8, 188.6, 188.6, 190.8, 199.3, 197.2, 195.1, 199.3, 197.2, 184.3, 199.3, 201.5, 186.5, 197.2, 190.8, 188.6, 175.8, 192.9, 207.9, 190.8, 173.6, 190.8, 192.9, 184.3, 214.4, 186.5, 192.9, 184.3, 205.8, 207.9, 195.1, 212.2, 192.9, 197.2, 180.1, 182.2, 175.8, 175.8, 180.1, 165.1, 158.6, 111.5]}, "ga": [184, 161, 161, 157, 159, 155, 166, 193, 174, 200, 201, 197, 188, 178, 192, 208, 197, 197, 194, 198, 188, 183, 192, 198, 187, 191, 191, 181, 185, 176, 177, 173, 168, 163, 163, 170, 176, 189, 196, 202, 211, 196, 188, 180, 197, 194, 180, 163, 184, 167, 185, 170, 170, 183], "gv": [332.2, 315.0, 298.0, 274.3, 291.5, 278.7, 237.9, 270.0, 297.9, 370.9, 372.9, 366.5, 355.9, 353.7, 351.6, 364.5, 370.8, 373.0, 360.2, 364.4, 368.7, 349.3, 372.9, 375.1, 375.1, 388.0, 362.3, 336.5, 325.8, 353.7, 373.0, 332.3, 310.7, 325.8, 334.4, 323.5, 373.0, 327.9, 340.8, 332.1, 368.7, 353.6, 334.4, 357.9, 340.8, 345.1, 319.4, 330.1, 328.0, 319.5, 336.5, 328.0, 300.1, 268.0], "k": 2.144, "ratio12": 0.54, "ratio3": 0.55, "trendA": 2.8, "trendV": -0.6, "retrieved": "2026-11-15 12:06"}}</script>
+<script>
+"use strict";
+const DATA = JSON.parse(document.getElementById('data').textContent);
+const fmt=(v,d=1)=>v.toLocaleString('fr-FR',{minimumFractionDigits:d,maximumFractionDigits:d});
+const eur=v=>v.toLocaleString('fr-FR',{maximumFractionDigits:0})+' €';
+const sign=(v,d=1)=>(v>0?'+':'')+fmt(v,d);
+const cls=v=>v>=0?'up':'down';
+const qfr=p=>{const [y,q]=p.split('-');return 'T'+q.slice(1)+' '+y};
+const MOIS=['janv.','févr.','mars','avr.','mai','juin','juil.','août','sept.','oct.','nov.','déc.'];
+const mfr=p=>{const [y,m]=p.split('-');return MOIS[+m-1]+' '+y};
+const dfr=s=>new Date(s).toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'});
+
+Chart.defaults.color='#bababa';Chart.defaults.borderColor='rgba(255,255,255,.08)';
+Chart.defaults.font.family='Inter,"Helvetica Neue",Helvetica,Arial,system-ui,sans-serif';
+Chart.defaults.plugins.legend.labels.boxWidth=12;
+const charts=[];
+
+/* ===== Registre des onglets : ajouter un onglet = ajouter un objet ici ===== */
+const TABS=[
+  {id:'immobilier',label:'Immobilier',enabled:true,render:renderImmobilier},
+  {id:'actions',label:'Actions',enabled:false},
+  {id:'crypto',label:'Crypto',enabled:false},
+  {id:'liquidites',label:'Liquidités',enabled:false},
+];
+
+function buildTabs(){
+  const nav=document.getElementById('nav'),main=document.getElementById('tabs');
+  TABS.forEach(t=>{
+    const a=document.createElement('a');a.href='#'+t.id;a.id='t'+t.id;a.innerHTML=t.label+(t.enabled?'':' <span class="soon">bientôt</span>');
+    if(!t.enabled){a.classList.add('off');a.setAttribute('aria-disabled','true');a.addEventListener('click',e=>e.preventDefault());}
+    nav.appendChild(a);
+    const s=document.createElement('section');s.className='tab';s.id='p'+t.id;
+    if(!t.enabled) s.innerHTML='<div class="card placeholder">Onglet « '+t.label+' » : bientôt disponible.</div>';
+    main.appendChild(s);
+  });
+  window.addEventListener('hashchange',show);show();
+}
+function show(){
+  let id=location.hash.slice(1);let t=TABS.find(x=>x.id===id&&x.enabled)||TABS.find(x=>x.enabled);
+  TABS.forEach(x=>{document.getElementById('t'+x.id).classList.toggle('on',x===t);document.getElementById('p'+x.id).classList.toggle('on',x===t);});
+  if(t.render&&!t.done){t.render(document.getElementById('p'+t.id));t.done=true;}
+}
+
+/* ===== Onglet IMMOBILIER ===== */
+function renderImmobilier(el){
+  el.innerHTML=blocPrix()+blocTaux()+blocTrends();
+  chartPrix();chartTaux();chartTrends();
+}
+
+function blocPrix(){
+  const P=DATA.prix,L=P.last,e=P.ev;
+  const k=(n)=>`<div class="kpi"><div class="l">Évolution ${n} ans</div><div class="v ${cls(e[n].pct)}">${sign(e[n].pct)} %</div><div class="s">depuis ${qfr(e[n].from)} (${fmt(e[n].v0)}) · ${sign(e[n].cagr,2)} %/an</div></div>`;
+  return `<div class="card"><h2>Prix des logements anciens · France métropolitaine</h2>
+  <div class="desc">Indice Notaires-INSEE, ensemble des logements, base 100 en moyenne 2015, série CVS trimestrielle, ${qfr(P.series[0][0])} → ${qfr(L.period)}.</div>
+  <div class="kpis">
+   <div class="kpi"><div class="l">Dernière valeur</div><div class="v">${fmt(L.value)}</div><div class="s">${qfr(L.period)}${L.status==='P'?' · provisoire':''}</div></div>
+   ${k(25)}${k(10)}${k(5)}
+   <div class="kpi"><div class="l">Écart au plus haut</div><div class="v ${cls(P.peak.dd)}">${sign(P.peak.dd)} %</div><div class="s">pic ${fmt(P.peak.value)} au ${qfr(P.peak.period)}</div></div>
+  </div>
+  <div class="chart"><canvas id="cPrix"></canvas></div>
+  <div class="note">Indice nominal, non corrigé de l'inflation. La valeur du dernier trimestre est provisoire et peut être révisée. La série INSEE démarre en ${qfr(P.first_available)} ; l'affichage commence en 2001.</div>
+  <div class="src">Source : INSEE, Notaires de France (base BDM) · idbank <a href="https://www.insee.fr/fr/statistiques/serie/${P.idbank}" target="_blank" rel="noopener">${P.idbank}</a> · données brutes via <a href="https://bdm.insee.fr/series/sdmx/data/SERIES_BDM/${P.idbank}" target="_blank" rel="noopener">API SDMX INSEE</a>.<br>Dernière mise à jour INSEE : ${dfr(P.last_update)} · récupéré le ${dfr(DATA.generated.slice(0,10))}. Série longue complémentaire : <a href="https://www.igedd.developpement-durable.gouv.fr/prix-immobilier-evolution-a-long-terme-a1048.html" target="_blank" rel="noopener">IGEDD (J. Friggit)</a>, non intégrée ici.</div></div>`;
+}
+function chartPrix(){
+  const s=DATA.prix.series;
+  charts.push(new Chart(document.getElementById('cPrix'),{type:'line',data:{labels:s.map(x=>qfr(x[0])),datasets:[{label:'Indice (base 100 = 2015)',data:s.map(x=>x[1]),borderColor:'#e6c27a',backgroundColor:'rgba(230,194,122,.10)',fill:true,pointRadius:0,borderWidth:2,tension:.2}]},
+  options:{maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' Indice : '+fmt(c.parsed.y)}}},scales:{x:{ticks:{maxTicksLimit:13,autoSkip:true}},y:{title:{display:true,text:'base 100 = 2015'}}}}}));
+}
+
+function blocTaux(){
+  const T=DATA.taux,CL=T.cl,last=T.last,cl=CL.table[CL.table.length-1];
+  const rows=T.sim.map(r=>`<tr><td>${r.label}</td><td>${fmt(r.rate,2)} %</td><td>${eur(r.mens)}</td><td>${eur(r.interets)}<div class="bar"><i style="width:${(r.interets/T.sim.reduce((m,x)=>Math.max(m,x.interets),0)*100).toFixed(1)}%"></i></div></td></tr>`).join('');
+  return `<div class="card"><h2>Coût du crédit immobilier · taux fixe hors assurance</h2>
+  <div class="desc">Taux moyen des crédits nouveaux à l'habitat aux particuliers, taux fixe sur plus de 10 ans, hors assurance, ${mfr(T.series[0][0])} → ${mfr(last[0])}.</div>
+  <div class="kpis">
+   <div class="kpi"><div class="l">Taux actuel · Crédit Logement/CSA</div><div class="v">${fmt(CL.oct2026,2)} %</div><div class="s">octobre 2026 · ${sign(Math.round((CL.oct2026-CL.sep2026)*100),0)} pdb sur un mois</div></div>
+   <div class="kpi"><div class="l">Prêts sur 25 ans · CL/CSA</div><div class="v">${fmt(cl[4],2)} %</div><div class="s">octobre 2026 (15 ans : ${fmt(cl[2],2)} % · 20 ans : ${fmt(cl[3],2)} %)</div></div>
+   <div class="kpi"><div class="l">Taux Banque de France</div><div class="v">${fmt(last[1],2)} %</div><div class="s">${mfr(last[0])}${last[2]==='P'?' · provisoire':''}</div></div>
+   <div class="kpi"><div class="l">Plus bas / plus haut (BdF)</div><div class="v" style="font-size:20px">${fmt(T.min[1],2)} % · ${fmt(T.max[1],2)} %</div><div class="s">${mfr(T.min[0])} · ${mfr(T.max[0])}</div></div>
+  </div>
+  <div class="grid2">
+   <div><div class="chart"><canvas id="cTaux"></canvas></div></div>
+   <div><div style="font-size:12px;color:var(--mut);margin-bottom:6px">Emprunt de 200 000 € sur 25 ans, mensualité constante, hors assurance et frais</div>
+    <table><thead><tr><th>Taux de référence</th><th>Taux</th><th>Mensualité</th><th>Intérêts totaux</th></tr></thead><tbody>${rows}</tbody></table></div>
+  </div>
+  <div class="note">Deux mesures différentes. La Banque de France donne le taux effectif au sens étroit (TESE) des crédits nouveaux, y compris les renégociations. Crédit Logement/CSA donne le taux nominal moyen du secteur concurrentiel. Les valeurs 2000-2002 de la série BdF sont des estimations (statut « E »), et il y a une rupture de série en 2015. L'historique Crédit Logement/CSA récupéré ne couvre que décembre 2025 à octobre 2026 ; la courbe sur 25 ans s'appuie donc sur la série BdF. Le calcul utilise la formule d'annuité M = C·i / (1 − (1+i)<sup>−n</sup>), avec i le taux mensuel et n = 300 mois.</div>
+  <div class="src">Sources : Banque de France, statistiques des taux d'intérêt MIR, série <a href="https://data.ecb.europa.eu/data/datasets/MIR/${T.key}" target="_blank" rel="noopener">${T.key}</a> (diffusée par le portail BCE, agence source FR2 = Banque de France ; voir aussi <a href="https://webstat.banque-france.fr/" target="_blank" rel="noopener">Webstat</a>), dernière observation ${mfr(last[0])}.<br>L'Observatoire Crédit Logement/CSA, <a href="https://lobservatoire.creditlogement.fr/publications/analyse-marche-immobilier-octobre-2026/" target="_blank" rel="noopener">tableau de bord d'octobre 2026</a> (publié en novembre 2026). Les deux ont été récupérés le ${dfr(DATA.generated.slice(0,10))}.</div></div>`;
+}
+function chartTaux(){
+  const T=DATA.taux,s=T.series,labels=s.map(x=>x[0]);
+  const clPts={'2025-12':3.16,'2026-03':3.22,'2026-06':3.25,'2026-09':3.40};
+  const clData=labels.map(l=>clPts[l]??null);
+  labels.push('2026-10');const bdf=s.map(x=>x[1]);bdf.push(null);clData.push(T.cl.oct2026);
+  charts.push(new Chart(document.getElementById('cTaux'),{type:'line',data:{labels:labels.map(mfr),datasets:[
+   {label:'Banque de France · fixe > 10 ans',data:bdf,borderColor:'#a9cdf5',backgroundColor:'rgba(169,205,245,.08)',fill:true,pointRadius:0,borderWidth:2,tension:.15},
+   {label:'Crédit Logement/CSA · taux moyen',data:clData,borderColor:'#e6c27a',backgroundColor:'#e6c27a',showLine:false,pointRadius:4,pointHoverRadius:6}]},
+  options:{maintainAspectRatio:false,spanGaps:false,interaction:{mode:'index',intersect:false},plugins:{tooltip:{callbacks:{label:c=>c.parsed.y==null?'':' '+c.dataset.label+' : '+fmt(c.parsed.y,2)+' %'}}},scales:{x:{ticks:{maxTicksLimit:12}},y:{title:{display:true,text:'%'},ticks:{callback:v=>v+' %'}}}}}));
+}
+
+const AK=["achat immobilier","acheter immobilier","acheter maison","acheter appartement"];
+const VK=["vente immobilier","vendre immobilier","estimation immobilière","agence immobilière"];
+function trendsStats(excl){
+  const T=DATA.trends,vk=VK.filter(k=>!excl||k!=='agence immobilière');
+  const idx=T.dates.map((d,i)=>i).filter(i=>!T.partial[i]);
+  const ga=T.dates.map((d,i)=>AK.reduce((s,k)=>s+T.terms[k][i],0));
+  const gv=T.dates.map((d,i)=>vk.reduce((s,k)=>s+T.terms[k][i],0));
+  const avg=(l,ix)=>ix.reduce((s,i)=>s+l[i],0)/ix.length;
+  const i3=idx.slice(-13),ip=idx.slice(-26,-13);
+  return {ga,gv,vk,share12:avg(ga,idx)/(avg(ga,idx)+avg(gv,idx))*100,share3:avg(ga,i3)/(avg(ga,i3)+avg(gv,i3))*100,
+    tA:(avg(ga,i3)/avg(ga,ip)-1)*100,tV:(avg(gv,i3)/avg(gv,ip)-1)*100};
+}
+function blocTrends(){
+  const T=DATA.trends;
+  return `<div class="card"><h2>Intérêt de recherche · Google Trends France</h2>
+  <div class="desc">Volume relatif de recherche hebdomadaire sur les 12 derniers mois (${dfr(T.dates[0])} → ${dfr(T.dates[T.dates.length-1])}). Groupe achat contre groupe vente, sur une échelle commune.</div>
+  <div class="toggle" id="trToggle"><button class="on" data-x="0">Vente avec « agence immobilière »</button><button data-x="1">Vente sans « agence immobilière »</button></div>
+  <div class="kpis" id="trKpis"></div>
+  <div style="margin:0 0 14px"><div style="font-size:11px;color:var(--mut);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px">Part achat / vente · moyenne sur 12 mois</div><div class="gauge" id="trGauge"></div></div>
+  <div class="grid2"><div><div class="chart"><canvas id="cTrG"></canvas></div></div><div><div class="chart"><canvas id="cTrT"></canvas></div></div></div>
+  <div class="note">Les valeurs Google Trends sont relatives (0-100) et calculées sur un échantillon. Deux requêtes de 5 termes au maximum ont été faites, puis la requête « vente » a été recalée sur la requête « achat » grâce au terme pivot commun « acheter maison » (facteur ×${fmt(T.k,3)}). Les chiffres sont des indices et non des volumes absolus. La semaine en cours, partielle, est exclue des moyennes. « Agence immobilière » est surtout une recherche de navigation et pèse lourd dans le groupe vente : le bouton ci-dessus permet de l'exclure. Les tendances comparent les 13 dernières semaines complètes aux 13 précédentes.</div>
+  <div class="src">Source : <a href="https://trends.google.com/trends/explore?date=today%2012-m&geo=FR&q=achat%20immobilier,acheter%20immobilier,acheter%20maison,acheter%20appartement" target="_blank" rel="noopener">Google Trends, groupe achat</a> · <a href="https://trends.google.com/trends/explore?date=today%2012-m&geo=FR&q=vente%20immobilier,vendre%20immobilier,estimation%20immobili%C3%A8re,agence%20immobili%C3%A8re,acheter%20maison" target="_blank" rel="noopener">groupe vente + pivot</a> (géo : France, 12 derniers mois). Récupéré le ${dfr(T.retrieved.slice(0,10))} à ${T.retrieved.slice(11)} (heure de Paris) via pytrends.</div></div>`;
+}
+let trG,trT;
+function chartTrends(){
+  const T=DATA.trends,labels=T.dates.map(d=>new Date(d).toLocaleDateString('fr-FR',{day:'2-digit',month:'short'}));
+  trG=new Chart(document.getElementById('cTrG'),{type:'line',data:{labels,datasets:[
+    {label:'Achat (somme 4 termes)',data:[],borderColor:'#7fd1a8',pointRadius:0,borderWidth:2,tension:.25},
+    {label:'Vente (somme)',data:[],borderColor:'#e88f8f',pointRadius:0,borderWidth:2,tension:.25}]},
+    options:{maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{title:{display:true,text:'Achat vs vente (indice recalé)'}},scales:{x:{ticks:{maxTicksLimit:8}},y:{beginAtZero:true}}}});
+  const pal=['#7fd1a8','#5fb38b','#a6e3c6','#3d8f68','#e88f8f','#c96f6f','#f2b6b6','#a94f4f'];
+  trT=new Chart(document.getElementById('cTrT'),{type:'line',data:{labels,datasets:[...AK,...VK].map((k,i)=>({label:k,data:T.terms[k],borderColor:pal[i],pointRadius:0,borderWidth:1.5,tension:.25,borderDash:i>=4?[4,3]:[]}))},
+    options:{maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{title:{display:true,text:'Détail par terme'},legend:{labels:{font:{size:10}}}},scales:{x:{ticks:{maxTicksLimit:6}},y:{beginAtZero:true}}}});
+  charts.push(trG,trT);
+  const upd=(excl)=>{
+    const s=trendsStats(excl);
+    trG.data.datasets[0].data=s.ga.map(v=>+v.toFixed(1));trG.data.datasets[1].data=s.gv.map(v=>+v.toFixed(1));
+    trG.data.datasets[1].label='Vente (somme '+s.vk.length+' termes)';trG.update();
+    trT.data.datasets.forEach(d=>d.hidden=excl&&d.label==='agence immobilière');trT.update();
+    document.getElementById('trKpis').innerHTML=
+     `<div class="kpi"><div class="l">Part de l'achat · 12 mois</div><div class="v">${fmt(s.share12,0)} %</div><div class="s">vente : ${fmt(100-s.share12,0)} %</div></div>
+      <div class="kpi"><div class="l">Part de l'achat · 3 derniers mois</div><div class="v">${fmt(s.share3,0)} %</div><div class="s">${sign(s.share3-s.share12)} pt contre 12 mois</div></div>
+      <div class="kpi"><div class="l">Tendance achat (13 sem.)</div><div class="v ${cls(s.tA)}">${sign(s.tA)} %</div><div class="s">contre les 13 semaines précédentes</div></div>
+      <div class="kpi"><div class="l">Tendance vente (13 sem.)</div><div class="v ${cls(s.tV)}">${sign(s.tV)} %</div><div class="s">contre les 13 semaines précédentes</div></div>`;
+    document.getElementById('trGauge').innerHTML=`<div style="width:${s.share12}%;background:rgba(127,209,168,.85);color:#000">Achat ${fmt(s.share12,0)} %</div><div style="width:${100-s.share12}%;background:rgba(232,143,143,.85);color:#000">Vente ${fmt(100-s.share12,0)} %</div>`;
+  };
+  document.querySelectorAll('#trToggle button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('#trToggle button').forEach(x=>x.classList.toggle('on',x===b));upd(b.dataset.x==='1');}));
+  upd(false);
+}
+buildTabs();
+</script>
+</body>
+</html>
