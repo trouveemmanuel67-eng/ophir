@@ -124,10 +124,10 @@ const charts=[];
 
 /* ===== Registre des onglets : ajouter un onglet = ajouter un objet ici ===== */
 const TABS=[
-  {id:'immobilier',label:'Immobilier',enabled:true,render:renderImmobilier},
   {id:'actions',label:'Actions',enabled:true,render:el=>renderActions(el)},
   {id:'crypto',label:'Crypto',enabled:true,render:el=>renderCrypto(el)},
   {id:'liquidites',label:'Liquidités',enabled:true,render:el=>renderLiquidites(el)},
+  {id:'immobilier',label:'Immobilier',enabled:true,render:renderImmobilier},
 ];
 
 function buildTabs(){
