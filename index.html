@@ -90,7 +90,7 @@ main{max-width:1240px;margin:8px auto 0;padding:0 14px 20px}
 .ind-cur{position:absolute;top:6px;width:14px;height:24px;margin-left:-7px;border-radius:4px;background:#fff;border:2px solid #0b0f14}
 .ind-scale{display:flex;justify-content:space-between;font-size:10px;color:var(--mut);margin:0 2px 10px}
 .ind-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.ind-stats div{border:1px solid var(--soft);border-radius:8px;padding:6px 8px}.ind-stats span{display:block;font-size:10px;color:var(--mut);text-transform:uppercase;letter-spacing:.04em}.ind-stats b{font-size:16px}.ind-stats small{display:block;font-size:10px;color:var(--mut)}
-.ind-legend{font-size:10px;color:var(--mut);margin:8px 0 4px}.ind-legend i{display:inline-block;vertical-align:middle}.lg-avg{width:2px;height:10px;background:#fff}.lg-rng{width:14px;height:8px;border:1px solid rgba(255,255,255,.55);border-radius:3px}.lg-cur{width:7px;height:10px;background:#fff;border-radius:2px}
+.ind-bar.ind-bar-mir{background:linear-gradient(90deg,#00e5ff 0%,#22c55e 34%,#ff9a1f 67%,#ff2d2d 100%)}.sc-t{text-shadow:0 1px 2px rgba(0,0,0,.85),0 0 1px rgba(0,0,0,.6)}.flag-us{display:inline-block;height:1.05em;width:auto;vertical-align:-.17em;object-fit:contain;margin-right:.45em;border-radius:2px;box-shadow:0 0 0 1px rgba(255,255,255,.35);flex:none}.sent-mir{font-size:10.5px;color:var(--mut);margin:2px 0 6px}.ind-legend{font-size:10px;color:var(--mut);margin:8px 0 4px}.ind-legend i{display:inline-block;vertical-align:middle}.lg-avg{width:2px;height:10px;background:#fff}.lg-rng{width:14px;height:8px;border:1px solid rgba(255,255,255,.55);border-radius:3px}.lg-cur{width:7px;height:10px;background:#fff;border-radius:2px}
 .ind-spark{position:relative;height:120px;margin-top:4px}
 .ind-sub{margin-top:12px}.ind-subt{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
 .ind-sb{margin-bottom:8px}.ind-sbl{display:flex;justify-content:space-between;gap:8px;font-size:12px}.ind-sbt{height:5px;background:rgba(255,255,255,.08);border-radius:3px;margin-top:3px;overflow:hidden}.ind-sbt i{display:block;height:100%;border-radius:3px}.ind-sbd{font-size:10.5px;color:var(--mut);margin-top:2px;line-height:1.4}
@@ -189,6 +189,20 @@ th{color:var(--mut);font-weight:600;font-size:11px;letter-spacing:.06em;text-tra
 .kpi.na .v{font-size:15px;color:var(--mut);font-weight:600}.mut{color:var(--mut)}
 .btnlink{display:inline-block;background:#fff;color:#000;text-decoration:none;border-radius:999px;padding:8px 16px;font-size:13px;font-weight:600}
 .placeholder{text-align:center;color:var(--mut);padding:50px}
+
+/* ===== Curseurs en lettres : AV (achat / vente) au-dessus de la barre, S (sentiment) en dessous ===== */
+.db-cur,.ind-gauge.lt .ind-cur{width:auto!important;height:auto!important;margin-left:0!important;border:0!important;border-radius:0!important;background:none!important;box-shadow:none!important;transform:translateX(-50%);font-weight:800;font-style:normal;line-height:1;letter-spacing:.02em;white-space:nowrap;-webkit-text-stroke:3px rgba(5,7,10,.95);paint-order:stroke fill;text-shadow:0 1px 3px rgba(0,0,0,.85);pointer-events:auto}
+.db-cur::after,.ind-gauge.lt .ind-cur::after{content:"";position:absolute;left:50%;width:2px;margin-left:-1px;background:currentColor;box-shadow:0 0 0 1px rgba(5,7,10,.9)}
+.db-cur.db-a,.ind-gauge.lt .ind-cur.cur-a{top:0!important;bottom:auto!important;z-index:3}.db-cur.db-a::after,.ind-gauge.lt .ind-cur.cur-a::after{top:100%;height:var(--pk,3px)}
+.db-cur.db-s,.ind-gauge.lt .ind-cur.cur-s{top:auto!important;bottom:0!important;z-index:2}.db-cur.db-s::after,.ind-gauge.lt .ind-cur.cur-s::after{bottom:100%;height:var(--pk,3px)}
+.db-g{height:40px}.db-g .ind-bar{top:15px;height:10px}.db-g .av-tick{top:13px;height:14px}.db-mid{top:12px;height:16px}.db-cur{font-size:12px}
+.db-lg .db-g{height:50px}.db-lg .db-g .ind-bar{top:18px;height:14px}.db-lg .db-g .av-tick{top:16px;height:18px}.db-lg .db-mid{top:15px;height:20px}.db-lg .db-cur{font-size:15px}
+.db-sm .db-g{height:34px}.db-sm .db-g .ind-bar{top:13px;height:8px}.db-sm .db-g .av-tick{top:11px;height:12px}.db-sm .db-mid{top:10px;height:14px}.db-sm .db-cur{font-size:11px;--pk:2px}
+.ind-gauge.lt{height:50px}.ind-gauge.lt .ind-bar{top:18px;height:12px}.ind-gauge.lt .ind-range{top:14px;height:20px}.ind-gauge.lt .ind-avg{top:12px;height:24px}.ind-gauge.lt .av-tick{top:16px;height:16px}.ind-gauge.lt .ind-cur{font-size:14px;--pk:4px}
+.db-dot{display:inline;width:auto;height:auto;border:0!important;border-radius:0!important;box-shadow:none!important;background:none;font-style:normal;font-weight:800;font-size:.95em;margin-right:4px;vertical-align:baseline;letter-spacing:.02em;-webkit-text-stroke:2px rgba(5,7,10,.9);paint-order:stroke fill}
+.db-dot.db-a,.db-dot.db-s{background:none;border-radius:0}.db-dot.db-a:not([style]){background:linear-gradient(90deg,#ff2d2d,#ff9a1f,#22c55e,#00e5ff);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-stroke:0}
+.db-dot.db-s:not([style]){background:linear-gradient(90deg,#00e5ff,#22c55e,#ff9a1f,#ff2d2d);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-stroke:0}
+@media(max-width:600px){.db-lg .db-cur{font-size:14px}}
 </style>
 </head>
 <body>
@@ -560,20 +574,20 @@ function renderIndicator(tabId){
   if(indChart){indChart.destroy();const i=charts.indexOf(indChart);if(i>=0)charts.splice(i,1);indChart=null;}
   if(!g){box.innerHTML='<div class="card"><h2>Indicateur</h2><div class="desc">Aucun indicateur pour cet onglet.</div></div>';return;}
   const pos=v=>`${Math.max(0,Math.min(100,v))}%`;
-  const comps=g.components.length?`<div class="ind-sub"><div class="ind-subt">${g.official?'Sous-indicateurs (notés par la source)':'Composantes'}</div>${g.components.map(c=>`<div class="ind-sb"><div class="ind-sbl"><span>${c.name}</span><b style="color:${gcol(c.value)}">${fmt(c.value,0)}</b></div><div class="ind-sbt"><i style="width:${pos(c.value)};background:${gcol(c.value)}"></i></div>${c.weight?`<div class="ind-sbd">poids ${fmt(c.weight*100,0)} % · ${c.detail}</div>`:(c.date?`<div class="ind-sbd">au ${dshort(c.date)}</div>`:'')}</div>`).join('')}</div>`:'';
+  const comps=g.components.length?`<div class="ind-sub"><div class="ind-subt">${g.official?'Sous-indicateurs (notés par la source)':'Composantes'}</div>${g.components.map(c=>`<div class="ind-sb"><div class="ind-sbl"><span>${c.name}</span><b class="sc-t" style="color:${gmir(c.value)}">${fmt(c.value,0)}</b></div><div class="ind-sbt"><i style="width:${pos(c.value)};background:${gmir(c.value)}"></i></div>${c.weight?`<div class="ind-sbd">poids ${fmt(c.weight*100,0)} % · ${c.detail}</div>`:(c.date?`<div class="ind-sbd">au ${dshort(c.date)}</div>`:'')}</div>`).join('')}</div>`:'';
   box.innerHTML=`<div class="card ind-card">
    <h2>Indicateur</h2>
    <div class="ind-slot" data-slot="sentiment">
     <div class="ind-t">Sentiment de marché, 1 an</div>
     <div class="ind-n">${g.title}</div>
     ${g.official?'':'<div class="ind-badge">Indice composite APEX, pas un indice officiel</div>'}
-    <div class="ind-val"><span style="color:${gcol(g.value)};text-shadow:0 0 14px ${gcol(g.value,.55)}">${fmt(g.value,0)}</span><em style="color:${gcol(g.value)}">${g.label}</em></div>
+    <div class="ind-val"><span class="sc-t" style="color:${gmir(g.value)}">${fmt(g.value,0)}</span><em class="sc-t" style="color:${gmir(g.value)}">${g.label}</em></div>
     <div class="ind-date">au ${dshort(g.date)}</div>
     <div class="ind-gauge">
       <div class="ind-range" style="left:${pos(g.min[1])};width:${Math.max(0.5,g.max[1]-g.min[1])}%" title="plage 1 an"></div>
-      <div class="ind-bar"></div>
+      <div class="ind-bar ind-bar-mir"></div>
       <div class="ind-avg" style="left:${pos(g.avg)}" title="moyenne 1 an"></div>
-      <div class="ind-cur" style="left:${pos(g.value)};box-shadow:0 0 10px ${gcol(g.value,.9)}"></div>
+      <div class="ind-cur" style="left:${pos(g.value)};background:${gmir(g.value)}"></div>
     </div>
     <div class="ind-scale"><span>0 · Peur extrême</span><span>Neutre</span><span>Euphorie · 100</span></div>
     <div class="ind-stats">
@@ -581,7 +595,6 @@ function renderIndicator(tabId){
       <div><span>Min 1 an</span><b>${fmt(g.min[1],1)}</b><small>${dshort(g.min[0])}</small></div>
       <div><span>Max 1 an</span><b>${fmt(g.max[1],1)}</b><small>${dshort(g.max[0])}</small></div>
     </div>
-    <div class="ind-legend"><i class="lg-avg"></i> moyenne · <i class="lg-rng"></i> plage min–max 1 an · <i class="lg-cur"></i> valeur actuelle</div>
     <div class="ind-spark"><canvas id="cInd"></canvas></div>
     ${comps}
     ${g.missing.length?`<div class="note">${g.missing.join(' ')}</div>`:''}
@@ -592,7 +605,7 @@ function renderIndicator(tabId){
   </div>`;
   const s=g.series;
   indChart=new Chart(document.getElementById('cInd'),{type:'line',data:{labels:s.map(x=>dshort(x[0])),datasets:[{data:s.map(x=>x[1]),pointRadius:0,borderWidth:2,tension:.25,
-    segment:{borderColor:ctx=>gcol((ctx.p0.parsed.y+ctx.p1.parsed.y)/2)},borderColor:gcol(g.value)},
+    segment:{borderColor:ctx=>gmir((ctx.p0.parsed.y+ctx.p1.parsed.y)/2)},borderColor:gmir(g.value)},
     {data:s.map(()=>g.avg),borderColor:'rgba(255,255,255,.35)',borderDash:[3,3],borderWidth:1,pointRadius:0}]},
     options:{maintainAspectRatio:false,animation:false,interaction:{mode:'index',intersect:false},plugins:{legend:{display:false},tooltip:{filter:i=>i.datasetIndex===0,callbacks:{label:c=>' '+fmt(c.parsed.y,1)+' · '+label5(c.parsed.y)}}},
     scales:{x:{ticks:{maxTicksLimit:4,font:{size:10}},grid:{display:false}},y:{min:0,max:100,ticks:{stepSize:25,font:{size:10}}}}}});
@@ -614,9 +627,9 @@ function dualBar(sv,sl,av,al,cls='',compact=false){
    :`<div class="db-sc db-top"><span>−100 · Vente</span><span>Neutre · 0</span><span>Achat · +100</span></div>
    <div class="db-tk">${T.map(v=>`<i style="left:${avPos(v)}%">${v>0?'+':'−'}${Math.abs(v)}</i>`).join('')}</div>`}
    <div class="db-g"><div class="ind-bar"></div>${T.map(v=>`<i class="av-tick" style="left:${avPos(v)}%"></i>`).join('')}<div class="db-mid"></div>
-    <div class="db-cur db-s" style="left:${sp}%;background:${gmir(sp)}" data-p="${sp}" title="Sentiment ${fmt(sv,0)} · ${sl} (couleur du dégradé miroir à cette position)"></div><div class="db-cur db-a" style="left:${ap}%;background:${gsol(ap)}" data-p="${ap}" title="Achat / Vente ${sign(av,0)} · ${al} (couleur de la barre à cette position)"></div></div>
+    <div class="db-cur db-s" style="left:${sp}%;color:${gmir(sp)}" data-p="${sp}" title="Sentiment ${fmt(sv,0)} · ${sl} (couleur du dégradé miroir à cette position)">S</div><div class="db-cur db-a" style="left:${ap}%;color:${gsol(ap)}" data-p="${ap}" title="Achat / Vente ${sign(av,0)} · ${al} (couleur de la barre à cette position)">AV</div></div>
    <div class="db-sc db-bot"><span>0 · Peur extrême</span><span>Neutre</span><span>Euphorie · 100</span></div>
-   ${compact?`<div class="db-leg"><span><i class="db-dot db-a" style="background:${gsol(ap)}"></i>Achat/Vente <b style="color:${avCol(av)}">${sign(av,0)}</b> ${al}</span><span><i class="db-dot db-s" style="background:${gmir(sp)}"></i>Sentiment <b style="color:${gcol(sv)}">${fmt(sv,0)}</b> ${sl}</span></div>`:''}
+   ${compact?`<div class="db-leg"><span><i class="db-dot db-a" style="color:${gsol(ap)}">AV</i>Achat/Vente <b class="sc-t" style="color:${gsol(ap)}">${sign(av,0)} ${al}</b></span><span><i class="db-dot db-s" style="color:${gmir(sp)}">S</i>Sentiment <b class="sc-t" style="color:${gmir(sp)}">${fmt(sv,0)} ${sl}</b></span></div>`:''}
   </div>`;
 }
 function avBar(score,mn,mx,avg,cls){   // barre horizontale −100 … +100, même rendu que la jauge de sentiment
@@ -714,7 +727,7 @@ function srWarn(s){return s.warn.length?`<span class="sec-warn" title="${s.warn.
 function srCells(s){
   return `<div class="sr-c sr-d">${dualBar(s.sent.value,s.sent.label,s.av.score,s.av.label,'db-sm',true)}</div>`;
 }
-function srHead(first){return `<div class="sr sr-hd" aria-hidden="true"><div>${first}</div><div><i class="db-dot db-a"></i>Achat / Vente (−100 à +100, échelle du haut) · <i class="db-dot db-s"></i>Sentiment (0 à 100, échelle du bas)</div><div>Détails</div></div>`;}
+function srHead(first){return `<div class="sr sr-hd" aria-hidden="true"><div>${first}</div><div><i class="db-dot db-a">AV</i>Achat / Vente (−100 à +100, échelle du haut) · <i class="db-dot db-s">S</i>Sentiment (0 à 100, échelle du bas)</div><div>Détails</div></div>`;}
 /* Les panneaux <details> s'ouvrent sous la ligne ; leurs boutons sont placés dans la dernière colonne */
 function srWire(root){
   root.querySelectorAll('.sec').forEach(sec=>{const box=sec.querySelector('.sr-b');
@@ -727,7 +740,7 @@ function srWire(root){
 const SEC=JSON.parse(document.getElementById('data5').textContent);
 function secTile(s,i){
   const v=s.sent.value,a=s.av.score,pos=x=>`${Math.max(0,Math.min(100,x))}%`;
-  const sc=s.sent.components.map(c=>`<div class="ind-sb"><div class="ind-sbl"><span>${c.name}</span><b style="color:${c.value==null?'#888':gcol(c.value)}">${c.value==null?'n.d.':fmt(c.value,0)}</b></div><div class="ind-sbt">${c.value==null?'':`<i style="width:${pos(c.value)};background:${gcol(c.value)}"></i>`}</div><div class="ind-sbd">poids ${fmt(c.weight*100,1)} % · ${c.raw}</div></div>`).join('');
+  const sc=s.sent.components.map(c=>`<div class="ind-sb"><div class="ind-sbl"><span>${c.name}</span><b class="sc-t" style="color:${c.value==null?'#888':gmir(c.value)}">${c.value==null?'n.d.':fmt(c.value,0)}</b></div><div class="ind-sbt">${c.value==null?'':`<i style="width:${pos(c.value)};background:${gmir(c.value)}"></i>`}</div><div class="ind-sbd">poids ${fmt(c.weight*100,1)} % · ${c.raw}</div></div>`).join('');
   const ac=s.av.components.map(c=>{const n=c.note;return `<div class="av-c"><div class="av-cl"><span>${c.nom}</span><b style="color:${n==null?'#888':avCol(n)}">${n==null?'n.d.':sign(n,0)}</b></div><div class="av-cb"><div class="av-mid"></div>${n==null?'':`<i style="${n>=0?'left:50%':'right:50%'};width:${Math.abs(n)/2}%;background:${avCol(n)}"></i>`}</div><div class="av-cd">valeur ${c.valeur} · poids ${fmt(c.poids*100,0)} % · contribution <b>${c.contrib==null?'retirée':sign(c.contrib,1)}</b> · règle : ${c.regle}</div></div>`;}).join('');
   return `<div class="sec">
    <div class="sr">
@@ -742,6 +755,7 @@ function secTile(s,i){
      ${s.warn.map(w=>`<div class="note">${w}</div>`).join('')}
      <div class="ind-subt" style="margin-top:8px">Sentiment, 52 semaines (moy. ${fmt(s.sent.avg,0)} · min ${fmt(s.sent.min[1],0)} le ${dshort(s.sent.min[0])} · max ${fmt(s.sent.max[1],0)} le ${dshort(s.sent.max[0])})</div>
      <div class="ind-spark" style="height:90px"><canvas id="cSecS${i}"></canvas></div>
+     <p class="sent-mir">Couleurs du sentiment (points de la courbe, barres des composantes) en dégradé miroir, lecture contrarienne : peur = bleu (zone d'achat), euphorie = rouge (zone de vente).</p>
      <div class="ind-subt">Achat / Vente, 52 semaines (moy. ${sign(s.av.avg,0)} · min ${sign(s.av.min[1],0)} · max ${sign(s.av.max[1],0)})</div>
      <div class="ind-spark" style="height:90px"><canvas id="cSecA${i}"></canvas></div>
      <div class="ind-sub"><div class="ind-subt">Composantes du sentiment (0-100)</div>${sc}</div>
@@ -756,7 +770,7 @@ function secCharts(det){
   const x={ticks:{maxTicksLimit:3,maxRotation:0,autoSkip:true,font:{size:9}},grid:{display:false}};
   const ml=d=>new Date(d).toLocaleDateString('fr-FR',{month:'short',year:'2-digit'});
   const ss=s.sent.series,ah=s.av.history;
-  charts.push(new Chart(document.getElementById('cSecS'+i),{type:'line',data:{labels:ss.map(p=>ml(p[0])),datasets:[{data:ss.map(p=>p[1]),borderColor:'rgba(255,255,255,.55)',borderWidth:1.2,pointRadius:2,pointBackgroundColor:ss.map(p=>gcol(p[1])),pointBorderWidth:0,tension:.25}]},
+  charts.push(new Chart(document.getElementById('cSecS'+i),{type:'line',data:{labels:ss.map(p=>ml(p[0])),datasets:[{data:ss.map(p=>p[1]),borderColor:'rgba(255,255,255,.55)',borderWidth:1.2,pointRadius:2,pointBackgroundColor:ss.map(p=>gmir(p[1])),pointBorderWidth:0,tension:.25}]},
     options:{maintainAspectRatio:false,animation:false,plugins:{legend:{display:false},tooltip:{callbacks:{title:c=>dshort(ss[c[0].dataIndex][0])}}},scales:{x,y:{min:0,max:100,ticks:{stepSize:50,font:{size:9}}}}}}));
   charts.push(new Chart(document.getElementById('cSecA'+i),{type:'bar',data:{labels:ah.map(p=>ml(p[0])),datasets:[{data:ah.map(p=>p[1]),backgroundColor:ah.map(p=>avCol(p[1])),borderWidth:0,barPercentage:1,categoryPercentage:.9}]},
     options:{maintainAspectRatio:false,animation:false,plugins:{legend:{display:false},tooltip:{callbacks:{title:c=>dshort(ah[c[0].dataIndex][0])}}},scales:{x,y:{min:-100,max:100,ticks:{stepSize:100,font:{size:9}}}}}}));
@@ -766,7 +780,7 @@ function renderSecteurs(el){
   const hi=S.reduce((a,b)=>b.sent.value>a.sent.value?b:a),lo=S.reduce((a,b)=>b.sent.value<a.sent.value?b:a);
   const nAth=S.filter(s=>s.warn.length).length;
   const c=document.createElement('div');c.className='card no-group';
-  c.innerHTML=`<h2>Secteurs · sentiment et achat / vente</h2>
+  c.innerHTML=`<h2><img class="flag-us" src="flag-us.png" width="28" height="15" alt="Drapeau des États-Unis">Secteurs USA · sentiment et achat / vente</h2>
    <div class="desc acc-sum">11 secteurs GICS · au ${dshort(d)} · <i>Achat</i> <b>${cnt('Achat')}</b> · <i>Neutre</i> <b>${cnt('Neutre')}</b> · <i>Vente</i> <b>${cnt('Vente')}</b> · <i>sentiment max</i> <b>${hi.nom} ${fmt(hi.sent.value,0)}</b> · <i>min</i> <b>${lo.nom} ${fmt(lo.sent.value,0)}</b>${nAth?` · <i>⚠ près du record</i> <b>${nAth}</b>`:''}</div>
    <div class="ind-badge" style="margin-top:4px">Indices composites APEX, pas des indices officiels</div>
    <div class="sr-mention"><span class="sr-date">Clôtures hebdomadaires au ${dshort(d)} (bougies clôturées uniquement)</span><span class="av-short">${MENTION_AV}</span></div>
@@ -865,7 +879,7 @@ function obList(s){
 }
 function segTile(s,i){
   const v=s.sent.value,a=s.av.score,pos=x=>`${Math.max(0,Math.min(100,x))}%`;
-  const sc=s.sent.components.map(c=>`<div class="ind-sb"><div class="ind-sbl"><span>${c.name}</span><b style="color:${c.value==null?'#888':gcol(c.value)}">${c.value==null?'n.d.':fmt(c.value,0)}</b></div><div class="ind-sbt">${c.value==null?'':`<i style="width:${pos(c.value)};background:${gcol(c.value)}"></i>`}</div><div class="ind-sbd">poids ${fmt(c.weight*100,1)} % · ${c.raw}</div></div>`).join('');
+  const sc=s.sent.components.map(c=>`<div class="ind-sb"><div class="ind-sbl"><span>${c.name}</span><b class="sc-t" style="color:${c.value==null?'#888':gmir(c.value)}">${c.value==null?'n.d.':fmt(c.value,0)}</b></div><div class="ind-sbt">${c.value==null?'':`<i style="width:${pos(c.value)};background:${gmir(c.value)}"></i>`}</div><div class="ind-sbd">poids ${fmt(c.weight*100,1)} % · ${c.raw}</div></div>`).join('');
   const ac=s.av.components.map(c=>{const n=c.note;return `<div class="av-c"><div class="av-cl"><span>${c.nom}</span><b style="color:${n==null?'#888':avCol(n)}">${n==null?'n.d.':sign(n,0)}</b></div><div class="av-cb"><div class="av-mid"></div>${n==null?'':`<i style="${n>=0?'left:50%':'right:50%'};width:${Math.abs(n)/2}%;background:${avCol(n)}"></i>`}</div><div class="av-cd">valeur ${c.valeur} · poids ${fmt(c.poids*100,0)} % · contribution <b>${c.contrib==null?'retirée':sign(c.contrib,1)}</b> · règle : ${c.regle}</div></div>`;}).join('');
   return `<div class="sec">
    <div class="sr">
@@ -880,6 +894,7 @@ function segTile(s,i){
      ${s.warn.map(w=>`<div class="note">${w}</div>`).join('')}
      <div class="ind-subt" style="margin-top:8px">Sentiment, 52 semaines (moy. ${fmt(s.sent.avg,0)} · min ${fmt(s.sent.min[1],0)} · max ${fmt(s.sent.max[1],0)})</div>
      <div class="ind-spark" style="height:90px"><canvas id="cObS${i}"></canvas></div>
+     <p class="sent-mir">Couleurs du sentiment (points de la courbe, barres des composantes) en dégradé miroir, lecture contrarienne : peur = bleu (zone d'achat), euphorie = rouge (zone de vente).</p>
      <div class="ind-subt">Achat / Vente, 52 semaines (moy. ${sign(s.av.avg,0)} · min ${sign(s.av.min[1],0)} · max ${sign(s.av.max[1],0)})</div>
      <div class="ind-spark" style="height:90px"><canvas id="cObA${i}"></canvas></div>
      <div class="ind-sub"><div class="ind-subt">Composantes du sentiment (0-100)</div>${sc}</div>
@@ -892,7 +907,7 @@ function obCharts(det){
   if(det.dataset.done)return;det.dataset.done='1';const i=det.dataset.i,s=OB.segments[+i];
   const ml=d=>new Date(d).toLocaleDateString('fr-FR',{month:'short',year:'2-digit'}),x={ticks:{maxTicksLimit:3,maxRotation:0,font:{size:9}},grid:{display:false}};
   const ss=s.sent.series,ah=s.av.history;
-  charts.push(new Chart(document.getElementById('cObS'+i),{type:'line',data:{labels:ss.map(p=>ml(p[0])),datasets:[{data:ss.map(p=>p[1]),borderColor:'rgba(255,255,255,.55)',borderWidth:1.2,pointRadius:2,pointBackgroundColor:ss.map(p=>gcol(p[1])),pointBorderWidth:0,tension:.25}]},
+  charts.push(new Chart(document.getElementById('cObS'+i),{type:'line',data:{labels:ss.map(p=>ml(p[0])),datasets:[{data:ss.map(p=>p[1]),borderColor:'rgba(255,255,255,.55)',borderWidth:1.2,pointRadius:2,pointBackgroundColor:ss.map(p=>gmir(p[1])),pointBorderWidth:0,tension:.25}]},
     options:{maintainAspectRatio:false,animation:false,plugins:{legend:{display:false},tooltip:{callbacks:{title:c=>dshort(ss[c[0].dataIndex][0])}}},scales:{x,y:{min:0,max:100,ticks:{stepSize:50,font:{size:9}}}}}}));
   charts.push(new Chart(document.getElementById('cObA'+i),{type:'bar',data:{labels:ah.map(p=>ml(p[0])),datasets:[{data:ah.map(p=>p[1]),backgroundColor:ah.map(p=>avCol(p[1])),borderWidth:0,barPercentage:1,categoryPercentage:.9}]},
     options:{maintainAspectRatio:false,animation:false,plugins:{legend:{display:false},tooltip:{callbacks:{title:c=>dshort(ah[c[0].dataIndex][0])}}},scales:{x,y:{min:-100,max:100,ticks:{stepSize:100,font:{size:9}}}}}}));
@@ -1014,25 +1029,25 @@ function duoBuild(tabId){
   card.innerHTML=`<div class="irow duo-row">
    <div class="ir ir-t"><h2>Sentiment &amp; Achat / Vente</h2></div>
    <div class="ir ir-s">
-    <div class="duo-sc" title="Achat / Vente, échelle −100 à +100"><small><i class="db-dot db-a"></i>Achat / Vente</small><div class="av-val"><span style="color:${avCol(ga.score)}">${sign(ga.score,0)}</span><em style="color:${avCol(ga.score)}">${ga.label}</em></div></div>
-    <div class="duo-sc" title="Sentiment de marché, échelle 0 à 100"><small><i class="db-dot db-s"></i>Sentiment</small><div class="ind-val"><span style="color:${gcol(gi.value)}">${fmt(gi.value,0)}</span><em style="color:${gcol(gi.value)}">${gi.label}</em></div></div></div>
+    <div class="duo-sc" title="Achat / Vente, échelle −100 à +100"><small><i class="db-dot db-a">AV</i>Achat / Vente</small><div class="av-val"><span class="sc-t" style="color:${gsol(avPos(ga.score))}">${sign(ga.score,0)}</span><em class="sc-t" style="color:${gsol(avPos(ga.score))}">${ga.label}</em></div></div>
+    <div class="duo-sc" title="Sentiment de marché, échelle 0 à 100"><small><i class="db-dot db-s">S</i>Sentiment</small><div class="ind-val"><span class="sc-t" style="color:${gmir(gi.value)}">${fmt(gi.value,0)}</span><em class="sc-t" style="color:${gmir(gi.value)}">${gi.label}</em></div></div></div>
    <div class="ir ir-g">${dualBar(gi.value,gi.label,ga.score,ga.label,'db-lg')}</div></div>`;
   const info=document.createElement('div');info.className='duo-info';
-  info.innerHTML=`<div><div class="duo-n"><i class="db-dot db-s"></i><b>Sentiment de marché, 1 an</b> · ${gi.title}${gi.official?'':' <span class="duo-b">composite APEX, pas un indice officiel</span>'}</div>
+  info.innerHTML=`<div><div class="duo-n"><i class="db-dot db-s">S</i><b>Sentiment de marché, 1 an</b> · ${gi.title}${gi.official?'':' <span class="duo-b">composite APEX, pas un indice officiel</span>'}</div>
      <div class="ind-date">${(q(sl,'.ind-date')||{}).innerHTML||''}</div>${src(ic)}</div>
-    <div><div class="duo-n"><i class="db-dot db-a"></i><b>Achat / Vente</b> · indicateur composite APEX</div>
+    <div><div class="duo-n"><i class="db-dot db-a">AV</i><b>Achat / Vente</b> · indicateur composite APEX</div>
      <div class="ind-date">${(q(ac,'.ind-date')||{}).innerHTML||''}</div>${src(ac)}${(q(ac,'.av-sens')||{}).outerHTML||''}
      <div class="av-short">Indicateur composite APEX, purement informatif. Ne constitue pas un conseil ni un signal d'ordre.</div></div>
-    <p class="duo-scales">Lecture de la barre : deux échelles linéaires distinctes sur la même largeur. Achat / vente de −100 à +100 (graduations au-dessus), curseur rectangulaire ; sentiment de 0 à 100 (graduations en dessous), curseur rond. Le rectangle achat / vente prend la couleur de la barre à sa position. Le rond sentiment prend la couleur du dégradé inversé (miroir : couleur de la barre à la position 100 − p), en lecture contrarienne : la peur est une zone d'achat (bleu), l'euphorie une zone de vente (rouge).</p>`;
+    <p class="duo-scales">Lecture de la barre : deux échelles linéaires distinctes sur la même largeur. Achat / vente de −100 à +100 (graduations au-dessus), curseur « AV » au-dessus de la barre ; sentiment de 0 à 100 (graduations en dessous), curseur « S » sous la barre. Le centre de chaque lettre (et sa petite pointe) marque la valeur exacte. « AV » prend la couleur de la barre à sa position. « S » prend la couleur du dégradé inversé (miroir : couleur de la barre à la position 100 − p), en lecture contrarienne : la peur est une zone d'achat (bleu), l'euphorie une zone de vente (rouge). Toutes les représentations du sentiment suivent ce dégradé miroir : jauge 1 an (barre et curseur), courbe d'historique, barres des composantes. Sur la jauge 1 an : trait blanc = moyenne, cadre = plage min–max sur 1 an, curseur = valeur actuelle.</p>`;
   const col=(t,nodes)=>{const d=document.createElement('div');d.className='duo-col';d.innerHTML=`<div class="duo-ct">${t}</div>`;nodes.filter(Boolean).forEach(n=>d.appendChild(n));return d;};
   const iRest=[...sl.children].filter(n=>!['ind-t','ind-n','ind-badge','ind-val','ind-date'].some(c=>n.classList.contains(c))).concat(sl!==ic?[...ic.children].filter(n=>n!==sl&&n.tagName!=='H2'):[]);
   const aRest=[...ac.children].filter(n=>n.tagName!=='H2'&&!['av-sens','av-val','ind-date'].some(c=>n.classList.contains(c)));
   [...iRest,...aRest].forEach(n=>{if(n.classList&&(n.classList.contains('ind-gauge')))n.insertAdjacentHTML('beforebegin','<div class="duo-pl">Plage sur 1 an (cadre) et moyenne (pointillé)</div>');});
-  iRest.forEach(n=>n.classList&&n.classList.contains('ind-gauge')&&n.querySelectorAll('.ind-cur').forEach(c=>{c.classList.add('cur-s');c.style.background=gmir(gi.value);}));
-  aRest.forEach(n=>n.classList&&n.classList.contains('ind-gauge')&&n.querySelectorAll('.ind-cur').forEach(c=>{c.classList.add('cur-a');c.style.background=gsol(avPos(ga.score));}));
-  card.appendChild(accBody([info,col('<i class="db-dot db-s"></i>Sentiment de marché · historique et composantes',iRest),col('<i class="db-dot db-a"></i>Achat / Vente · historique et composantes',aRest)]));
-  card.querySelectorAll('.db-dot.db-a').forEach(d=>d.style.background=gsol(avPos(ga.score)));
-  card.querySelectorAll('.db-dot.db-s').forEach(d=>d.style.background=gmir(gi.value));
+  iRest.forEach(n=>n.classList&&n.classList.contains('ind-gauge')&&(n.classList.add('lt'),n.querySelectorAll('.ind-cur').forEach(c=>{c.classList.add('cur-s');c.style.color=gmir(gi.value);c.textContent='S';})));
+  aRest.forEach(n=>n.classList&&n.classList.contains('ind-gauge')&&(n.classList.add('lt'),n.querySelectorAll('.ind-cur').forEach(c=>{c.classList.add('cur-a');c.style.color=gsol(avPos(ga.score));c.textContent='AV';})));
+  card.appendChild(accBody([info,col('<i class="db-dot db-s">S</i>Sentiment de marché · historique et composantes',iRest),col('<i class="db-dot db-a">AV</i>Achat / Vente · historique et composantes',aRest)]));
+  card.querySelectorAll('.db-dot.db-a').forEach(d=>d.style.color=gsol(avPos(ga.score)));
+  card.querySelectorAll('.db-dot.db-s').forEach(d=>d.style.color=gmir(gi.value));
   D.innerHTML='';D.appendChild(card);I.innerHTML='';A.innerHTML='';
   accWire(card,'duo-'+tabId,card.querySelector('h2'));
 }
