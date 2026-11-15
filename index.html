@@ -46,7 +46,7 @@ main{max-width:1240px;margin:8px auto 0;padding:0 14px 20px}
 .as-flex{display:flex;flex-wrap:wrap;justify-content:space-between;gap:2px 16px}.as-sep{display:none}
 .duo-card .acc-in{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 30px}.duo-card.acc-open .acc-in{padding-top:12px}
 .duo-col{min-width:0}.duo-ct{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:#fff;font-weight:700;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid rgba(255,255,255,.12)}
-.duo-pl{font-size:10px;color:var(--mut);margin-top:4px}
+.duo-scales{grid-column:1/-1;font-size:11px;color:var(--mut);margin:8px 0 0;line-height:1.45}.duo-pl{font-size:10px;color:var(--mut);margin-top:4px}
 .duo-n{font-size:11.5px;color:var(--mut);margin-top:4px}.duo-n b{color:#fff}.duo-b{font-size:10px;color:#e6c27a;border:1px solid rgba(230,194,122,.45);border-radius:999px;padding:0 6px;white-space:nowrap}
 .duo-row .ir-src{margin-top:2px}
 .ir-s{display:flex;flex-direction:column;gap:8px}.duo-sc small{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--mut)}
@@ -616,7 +616,7 @@ function dualBar(sv,sl,av,al,cls='',compact=false){
    <div class="db-g"><div class="ind-bar"></div>${T.map(v=>`<i class="av-tick" style="left:${avPos(v)}%"></i>`).join('')}<div class="db-mid"></div>
     <div class="db-cur db-s" style="left:${sp}%;background:${gmir(sp)}" data-p="${sp}" title="Sentiment ${fmt(sv,0)} · ${sl} (couleur du dégradé miroir à cette position)"></div><div class="db-cur db-a" style="left:${ap}%;background:${gsol(ap)}" data-p="${ap}" title="Achat / Vente ${sign(av,0)} · ${al} (couleur de la barre à cette position)"></div></div>
    <div class="db-sc db-bot"><span>0 · Peur extrême</span><span>Neutre</span><span>Euphorie · 100</span></div>
-   <div class="db-leg"><span><i class="db-dot db-a" style="background:${gsol(ap)}"></i>Achat/Vente <b style="color:${avCol(av)}">${sign(av,0)}</b> ${al}</span><span><i class="db-dot db-s" style="background:${gmir(sp)}"></i>Sentiment <b style="color:${gcol(sv)}">${fmt(sv,0)}</b> ${sl}</span>${compact?'':'<small>Deux échelles distinctes : achat / vente de −100 à +100 (au-dessus), sentiment de 0 à 100 (en dessous). Rectangle = achat / vente, couleur de la barre à sa position ; rond = sentiment, couleur du dégradé miroir (bleu à gauche, rouge à droite), soit la couleur de la barre à la position symétrique 100 − p.</small>'}</div>
+   ${compact?`<div class="db-leg"><span><i class="db-dot db-a" style="background:${gsol(ap)}"></i>Achat/Vente <b style="color:${avCol(av)}">${sign(av,0)}</b> ${al}</span><span><i class="db-dot db-s" style="background:${gmir(sp)}"></i>Sentiment <b style="color:${gcol(sv)}">${fmt(sv,0)}</b> ${sl}</span></div>`:''}
   </div>`;
 }
 function avBar(score,mn,mx,avg,cls){   // barre horizontale −100 … +100, même rendu que la jauge de sentiment
@@ -1022,7 +1022,8 @@ function duoBuild(tabId){
      <div class="ind-date">${(q(sl,'.ind-date')||{}).innerHTML||''}</div>${src(ic)}</div>
     <div><div class="duo-n"><i class="db-dot db-a"></i><b>Achat / Vente</b> · indicateur composite APEX</div>
      <div class="ind-date">${(q(ac,'.ind-date')||{}).innerHTML||''}</div>${src(ac)}${(q(ac,'.av-sens')||{}).outerHTML||''}
-     <div class="av-short">Indicateur composite APEX, purement informatif. Ne constitue pas un conseil ni un signal d'ordre.</div></div>`;
+     <div class="av-short">Indicateur composite APEX, purement informatif. Ne constitue pas un conseil ni un signal d'ordre.</div></div>
+    <p class="duo-scales">Lecture de la barre : deux échelles linéaires distinctes sur la même largeur. Achat / vente de −100 à +100 (graduations au-dessus), curseur rectangulaire ; sentiment de 0 à 100 (graduations en dessous), curseur rond. Le rectangle achat / vente prend la couleur de la barre à sa position. Le rond sentiment prend la couleur du dégradé inversé (miroir : couleur de la barre à la position 100 − p), en lecture contrarienne : la peur est une zone d'achat (bleu), l'euphorie une zone de vente (rouge).</p>`;
   const col=(t,nodes)=>{const d=document.createElement('div');d.className='duo-col';d.innerHTML=`<div class="duo-ct">${t}</div>`;nodes.filter(Boolean).forEach(n=>d.appendChild(n));return d;};
   const iRest=[...sl.children].filter(n=>!['ind-t','ind-n','ind-badge','ind-val','ind-date'].some(c=>n.classList.contains(c))).concat(sl!==ic?[...ic.children].filter(n=>n!==sl&&n.tagName!=='H2'):[]);
   const aRest=[...ac.children].filter(n=>n.tagName!=='H2'&&!['av-sens','av-val','ind-date'].some(c=>n.classList.contains(c)));
