@@ -60,7 +60,7 @@ main{max-width:1240px;margin:8px auto 0;padding:0 14px 20px}
 .db-cur.db-a{box-shadow:0 0 0 1.5px rgba(255,255,255,.9),0 2px 8px rgba(0,0,0,.7);z-index:2}
 .db-cur.db-s{top:4px;width:18px;height:18px;margin-left:-9px;border-radius:50%;z-index:1;box-shadow:0 0 0 1.5px rgba(255,255,255,.9),0 2px 8px rgba(0,0,0,.7)}
 .ind-cur.cur-s{border-radius:50%;width:22px;height:22px;margin-left:-11px;top:7px;box-shadow:0 0 0 1.5px rgba(255,255,255,.9),0 2px 8px rgba(0,0,0,.7)!important}.ind-cur.cur-a{box-shadow:0 0 0 1.5px rgba(255,255,255,.9),0 2px 8px rgba(0,0,0,.7)!important}
-.db-dot{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:4px;vertical-align:-1px;border:1px solid #0b0f14}.db-dot{box-shadow:0 0 0 1px rgba(255,255,255,.7)}.db-dot.db-a{background:linear-gradient(90deg,#ff2d2d,#ff9a1f,#22c55e,#00e5ff)}.db-dot.db-s{background:linear-gradient(90deg,#00d2d2,#0065e0,#dd3aa1,#ff1a00);border-radius:50%}
+.db-dot{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:4px;vertical-align:-1px;border:1px solid #0b0f14}.db-dot{box-shadow:0 0 0 1px rgba(255,255,255,.7)}.db-dot.db-a{background:linear-gradient(90deg,#ff2d2d,#ff9a1f,#22c55e,#00e5ff)}.db-dot.db-s{background:linear-gradient(90deg,#ff2d2d,#ff9a1f,#22c55e,#00e5ff);border-radius:50%}
 .db-leg{display:flex;flex-wrap:wrap;gap:2px 12px;font-size:10.5px;color:var(--mut);margin-top:3px}.db-leg b{font-weight:700}.db-leg small{flex-basis:100%;font-size:9.5px;opacity:.85}
 .db-lg .db-sc{font-size:10.5px}.db-lg .db-tk{font-size:9.5px;height:13px}.db-lg .db-g{height:34px}.db-lg .db-g .ind-bar{top:11px;height:12px}.db-lg .db-g .av-tick{top:9px;height:16px}.db-lg .db-mid{height:30px}
 .db-lg .db-cur{height:32px;width:14px;margin-left:-7px}.db-lg .db-cur.db-s{top:6px;width:22px;height:22px;margin-left:-11px}.db-lg .db-leg{font-size:12px;margin-top:5px}
@@ -611,9 +611,9 @@ function dualBar(sv,sl,av,al,cls='',compact=false){
    :`<div class="db-sc db-top"><span>−100 · Vente</span><span>Neutre · 0</span><span>Achat · +100</span></div>
    <div class="db-tk">${T.map(v=>`<i style="left:${avPos(v)}%">${v>0?'+':'−'}${Math.abs(v)}</i>`).join('')}</div>`}
    <div class="db-g"><div class="ind-bar"></div>${T.map(v=>`<i class="av-tick" style="left:${avPos(v)}%"></i>`).join('')}<div class="db-mid"></div>
-    <div class="db-cur db-s" style="left:${sp}%;background:${ginv(sp)}" data-p="${sp}" title="Sentiment ${fmt(sv,0)} · ${sl} (couleur inverse de la barre à cette position)"></div><div class="db-cur db-a" style="left:${ap}%;background:${gsol(ap)}" data-p="${ap}" title="Achat / Vente ${sign(av,0)} · ${al} (couleur de la barre à cette position)"></div></div>
+    <div class="db-cur db-s" style="left:${sp}%;background:${gsol(sp)}" data-p="${sp}" title="Sentiment ${fmt(sv,0)} · ${sl} (couleur de la barre à cette position)"></div><div class="db-cur db-a" style="left:${ap}%;background:${gsol(ap)}" data-p="${ap}" title="Achat / Vente ${sign(av,0)} · ${al} (couleur de la barre à cette position)"></div></div>
    <div class="db-sc db-bot"><span>0 · Peur extrême</span><span>Neutre</span><span>Euphorie · 100</span></div>
-   <div class="db-leg"><span><i class="db-dot db-a" style="background:${gsol(ap)}"></i>Achat/Vente <b style="color:${avCol(av)}">${sign(av,0)}</b> ${al}</span><span><i class="db-dot db-s" style="background:${ginv(sp)}"></i>Sentiment <b style="color:${gcol(sv)}">${fmt(sv,0)}</b> ${sl}</span>${compact?'':'<small>Deux échelles distinctes : achat / vente de −100 à +100 (au-dessus), sentiment de 0 à 100 (en dessous). Rectangle = achat / vente, couleur de la barre à sa position ; rond = sentiment, couleur inverse de la barre à sa position.</small>'}</div>
+   <div class="db-leg"><span><i class="db-dot db-a" style="background:${gsol(ap)}"></i>Achat/Vente <b style="color:${avCol(av)}">${sign(av,0)}</b> ${al}</span><span><i class="db-dot db-s" style="background:${gsol(sp)}"></i>Sentiment <b style="color:${gcol(sv)}">${fmt(sv,0)}</b> ${sl}</span>${compact?'':'<small>Deux échelles distinctes : achat / vente de −100 à +100 (au-dessus), sentiment de 0 à 100 (en dessous). Rectangle = achat / vente, rond = sentiment ; chaque curseur prend la couleur de la barre à sa position.</small>'}</div>
   </div>`;
 }
 function avBar(score,mn,mx,avg,cls){   // barre horizontale −100 … +100, même rendu que la jauge de sentiment
@@ -959,11 +959,10 @@ function accMain(section,tabId){
     const keys=subs.map(c=>c.querySelector(':scope>.acc-head .acc-key')).filter(Boolean)
       .map(k=>{const sm=k.querySelector('small');const v=k.cloneNode(true);v.querySelector('small')&&v.querySelector('small').remove();return `<i>${sm?sm.textContent:''}</i> <b>${v.textContent.trim()}</b>`;});
     const kids=[...section.childNodes].filter(n=>!(n.classList&&n.classList.contains('no-group')));
-    const after=section.querySelector(':scope>.no-group');
     const g=document.createElement('div');g.className='card acc-group';
     const head=document.createElement('div');
     head.innerHTML=`<h2>CHIFFRES ET CHARTES GRAPHIQUES</h2><div class="desc acc-sum">${subs.length} sections · ${keys.join(' · ')}</div>`;
-    g.appendChild(head);g.appendChild(accBody(kids));section.insertBefore(g,after);
+    g.appendChild(head);g.appendChild(accBody(kids));section.appendChild(g);   /* ordre : Secteurs / Segments puis CHIFFRES */
     accWire(g,tabId+'-grp',head);
   }
 }
@@ -1025,11 +1024,11 @@ function duoBuild(tabId){
   const iRest=[...sl.children].filter(n=>!['ind-t','ind-n','ind-badge','ind-val','ind-date'].some(c=>n.classList.contains(c))).concat(sl!==ic?[...ic.children].filter(n=>n!==sl&&n.tagName!=='H2'):[]);
   const aRest=[...ac.children].filter(n=>n.tagName!=='H2'&&!['av-sens','av-val','ind-date'].some(c=>n.classList.contains(c)));
   [...iRest,...aRest].forEach(n=>{if(n.classList&&(n.classList.contains('ind-gauge')))n.insertAdjacentHTML('beforebegin','<div class="duo-pl">Plage sur 1 an (cadre) et moyenne (pointillé)</div>');});
-  iRest.forEach(n=>n.classList&&n.classList.contains('ind-gauge')&&n.querySelectorAll('.ind-cur').forEach(c=>{c.classList.add('cur-s');c.style.background=ginv(gi.value);}));
+  iRest.forEach(n=>n.classList&&n.classList.contains('ind-gauge')&&n.querySelectorAll('.ind-cur').forEach(c=>{c.classList.add('cur-s');c.style.background=gsol(gi.value);}));
   aRest.forEach(n=>n.classList&&n.classList.contains('ind-gauge')&&n.querySelectorAll('.ind-cur').forEach(c=>{c.classList.add('cur-a');c.style.background=gsol(avPos(ga.score));}));
   card.appendChild(accBody([info,col('<i class="db-dot db-s"></i>Sentiment de marché · historique et composantes',iRest),col('<i class="db-dot db-a"></i>Achat / Vente · historique et composantes',aRest)]));
   card.querySelectorAll('.db-dot.db-a').forEach(d=>d.style.background=gsol(avPos(ga.score)));
-  card.querySelectorAll('.db-dot.db-s').forEach(d=>d.style.background=ginv(gi.value));
+  card.querySelectorAll('.db-dot.db-s').forEach(d=>d.style.background=gsol(gi.value));
   D.innerHTML='';D.appendChild(card);I.innerHTML='';A.innerHTML='';
   accWire(card,'duo-'+tabId,card.querySelector('h2'));
 }
