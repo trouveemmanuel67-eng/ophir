@@ -58,6 +58,25 @@ main{max-width:1240px;margin:8px auto 0;padding:0 14px 20px}
 .ind-sb{margin-bottom:8px}.ind-sbl{display:flex;justify-content:space-between;gap:8px;font-size:12px}.ind-sbt{height:5px;background:rgba(255,255,255,.08);border-radius:3px;margin-top:3px;overflow:hidden}.ind-sbt i{display:block;height:100%;border-radius:3px}.ind-sbd{font-size:10.5px;color:var(--mut);margin-top:2px;line-height:1.4}
 .ind-meth{margin-top:10px;font-size:12px;color:var(--mut)}.ind-meth summary{cursor:pointer;color:var(--acc);font-weight:600}.ind-meth p{line-height:1.55;margin:6px 0}
 .ind-more:empty{display:none}
+.acc-head{cursor:pointer;user-select:none}
+.acc-head h2{display:grid;grid-template-columns:12px minmax(0,1fr) auto;align-items:baseline;column-gap:8px;row-gap:2px}
+.acc-tt{min-width:0}
+@media(max-width:600px){.acc-key{grid-column:2/4;margin-left:0!important}}
+.acc-chev{display:inline-block;width:12px;font-size:12px;color:var(--mut);transition:transform .25s ease}
+.acc-open .acc-chev{transform:rotate(90deg)}
+.acc-key small{font-size:10.5px;font-weight:500;color:var(--mut);margin-right:4px;text-transform:uppercase;letter-spacing:.04em}
+.acc-key{margin-left:auto;font-size:13px;font-weight:700;letter-spacing:0;text-transform:none;color:#fff;white-space:nowrap}
+.acc-head:hover .acc-chev{color:#fff}.acc-head:focus-visible{outline:2px solid #fff;outline-offset:4px;border-radius:6px}
+.acc-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .3s ease,opacity .3s ease;opacity:0}
+.acc-open>.acc-body,.acc-open .ind-slot>.acc-body{grid-template-rows:1fr;opacity:1}
+.acc-in{min-height:0;overflow:hidden}
+.card.acc:not(.acc-open) .desc{margin-bottom:0}
+.acc-open>.acc-body>.acc-in{padding-top:2px}
+.av-short{margin-top:8px;font-size:10.5px;line-height:1.35;color:#e6c27a;text-align:center}
+.acc-tools{margin-top:10px}
+.acc-tools button{background:transparent;color:#fff;border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:12px;cursor:pointer;font-family:inherit}
+.acc-tools button:hover{background:rgba(255,255,255,.12)}
+@media(prefers-reduced-motion:reduce){.acc-body,.acc-chev{transition:none}}
 .tab{display:none}.tab.on{display:block}
 .card{background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:0 10px 28px rgba(0,0,0,.4);padding:18px 20px;margin-bottom:18px}
 .card h2{margin:0;font-size:13px;letter-spacing:.08em;text-transform:uppercase;font-weight:700}
@@ -97,6 +116,7 @@ footer{text-align:center;color:var(--mut);font-size:12px;padding:6px 24px 26px;m
   <h1>OPHIR</h1>
   <div class="sub">Gestionnaire de patrimoine numérique · Emmanuel Trouvé</div>
   <nav id="nav"></nav>
+  <div class="acc-tools"><button id="accAll" type="button" onclick="accAll(this.dataset.open==='1')">▾ Tout déplier</button></div>
 </header>
 <div class="layout"><main id="tabs"></main><div class="side"><aside id="ind" aria-label="Sentiment de marché"></aside><aside id="av" aria-label="Achat / Vente"></aside></div></div>
 <footer>Données indicatives issues de sources officielles et publiques (INSEE, Notaires-INSEE, Observatoire Crédit Logement/CSA, Banque de France, Caisse des Dépôts, BCE, Federal Reserve/FRED, Google Trends, Yahoo Finance, multpl/R. Shiller, CoinMetrics, Binance, CoinGecko, alternative.me). Ne constitue pas un conseil en investissement.</footer>
@@ -148,6 +168,7 @@ function show(){
   if(t.render&&!t.done){t.render(document.getElementById('p'+t.id));t.done=true;}
   if(typeof renderIndicator==='function') renderIndicator(t.id);
   if(typeof renderAchatVente==='function') renderAchatVente(t.id);
+  if(typeof accMain==='function'){accMain(document.getElementById('p'+t.id),t.id);accSide('ind',t.id);accSide('av',t.id);accBtn();}
 }
 
 /* ===== Onglet IMMOBILIER ===== */
@@ -534,6 +555,68 @@ function renderAchatVente(tabId){
     options:{maintainAspectRatio:false,animation:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' '+sign(c.parsed.y,1)+' · '+(AVZ.find(z=>c.parsed.y<=z[1])||AVZ[4])[3]}}},scales:{x:{ticks:{maxTicksLimit:4,maxRotation:0,font:{size:10}},grid:{display:false}},y:{min:-100,max:100,ticks:{stepSize:50,font:{size:10}}}}}});
   charts.push(avChart);
 }
+
+/* ===== Accordéons : cartes repliées par défaut, état mémorisé dans localStorage ===== */
+const ACC_KEY='ophir-acc:';
+const accGet=id=>{try{return localStorage.getItem(ACC_KEY+id)==='1';}catch(e){return false;}};
+const accSet=(id,v)=>{try{localStorage.setItem(ACC_KEY+id,v?'1':'0');}catch(e){}};
+function accResize(card){card.querySelectorAll('canvas').forEach(c=>{const ch=Chart.getChart(c);if(ch)ch.resize();});}
+function accToggle(card,open,save=true){
+  card.classList.toggle('acc-open',open);
+  const h=card.querySelector('.acc-head');if(h)h.setAttribute('aria-expanded',open);
+  if(save)accSet(card.dataset.acc,open);
+  if(open){requestAnimationFrame(()=>accResize(card));setTimeout(()=>accResize(card),320);}
+}
+function accWire(card,id,head){
+  card.dataset.acc=id;card.classList.add('acc');
+  head.classList.add('acc-head');head.setAttribute('role','button');head.setAttribute('tabindex','0');
+  const h2=head.querySelector('h2')||head;
+  if(!h2.querySelector('.acc-chev')){const tt=document.createElement('span');tt.className='acc-tt';
+    [...h2.childNodes].filter(n=>!(n.classList&&n.classList.contains('acc-key'))).forEach(n=>tt.appendChild(n));
+    h2.insertBefore(tt,h2.firstChild);h2.insertAdjacentHTML('afterbegin','<span class="acc-chev" aria-hidden="true">▸</span>');}
+  const go=e=>{if(e.target.closest('a,button:not(.acc-head)'))return;accToggle(card,!card.classList.contains('acc-open'));};
+  head.addEventListener('click',go);head.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go(e);}});
+  accToggle(card,accGet(id),false);
+}
+function accBody(nodes){const b=document.createElement('div');b.className='acc-body';const i=document.createElement('div');i.className='acc-in';b.appendChild(i);nodes.forEach(n=>i.appendChild(n));return b;}
+/* Cartes du contenu principal : seul l'en-tête (titre + sous-titre) reste visible */
+function accMain(section,tabId){
+  section.querySelectorAll('.card').forEach((card,k)=>{
+    if(card.classList.contains('acc')||card.classList.contains('placeholder'))return;
+    const h2=card.querySelector(':scope>h2');if(!h2)return;
+    const desc=h2.nextElementSibling&&h2.nextElementSibling.classList.contains('desc')?h2.nextElementSibling:null;
+    const head=document.createElement('div');card.insertBefore(head,h2);head.appendChild(h2);if(desc)head.appendChild(desc);
+    const kv=card.querySelector('.kpi .v');   // chiffre clé repris dans l'en-tête
+    if(kv){const kl=card.querySelector('.kpi .l');const lab=kl?kl.textContent.split(' · ')[0]:'';h2.insertAdjacentHTML('beforeend',`<span class="acc-key" title="${kl?kl.textContent:''}"><small>${lab}</small> ${kv.innerHTML}</span>`);}
+    const rest=[...card.childNodes].filter(n=>n!==head);
+    card.appendChild(accBody(rest));
+    accWire(card,tabId+'-'+k,head);
+  });
+}
+/* Colonnes de droite : garde visibles les éléments essentiels, replie le reste */
+function accSide(boxId,tabId){
+  const card=document.querySelector('#'+boxId+' .card');if(!card||card.classList.contains('acc'))return;
+  const keep=boxId==='ind'?['ind-t','ind-n','ind-badge','ind-val','ind-date','ind-gauge','ind-scale']:['av-sens','av-svg','av-val','ind-date','av-short'];
+  const host=boxId==='ind'?card.querySelector('.ind-slot'):card;
+  const h2=card.querySelector(':scope>h2');
+  if(boxId==='av'){const w=card.querySelector('.av-warn');w.insertAdjacentHTML('beforebegin','<div class="av-short">Indicateur composite Ophir, purement informatif. Ne constitue pas un conseil ni un signal d\'ordre.</div>');}
+  const rest=[...host.children].filter(n=>n!==h2&&!keep.some(c=>n.classList&&n.classList.contains(c)));
+  host.appendChild(accBody(rest));
+  accWire(card,'side-'+boxId+'-'+tabId,h2);
+}
+function accAll(open){
+  const tab=document.querySelector('section.tab.on');
+  [...tab.querySelectorAll('.card.acc'),...document.querySelectorAll('.side .card.acc')].forEach(c=>accToggle(c,open));
+  accBtn();
+}
+function accBtn(){
+  const b=document.getElementById('accAll');if(!b)return;
+  const tab=document.querySelector('section.tab.on');if(!tab)return;
+  const all=[...tab.querySelectorAll('.card.acc'),...document.querySelectorAll('.side .card.acc')];
+  const anyClosed=all.some(c=>!c.classList.contains('acc-open'));
+  b.textContent=anyClosed?'▾ Tout déplier':'▸ Tout replier';b.dataset.open=anyClosed?'1':'0';
+}
+document.addEventListener('click',e=>{if(e.target.closest('.acc-head'))setTimeout(accBtn,0);});
 
 buildTabs();
 </script>
