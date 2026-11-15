@@ -31,9 +31,10 @@ main{max-width:1240px;margin:8px auto 0;padding:0 14px 20px}
 @media(max-width:1500px){.layout{grid-template-columns:minmax(0,1fr) 340px}.side{grid-template-columns:340px}}
 @media(max-width:1100px){.layout{grid-template-columns:1fr;padding:0 14px 20px}.side{position:static;max-height:none;overflow:visible;grid-template-columns:1fr}}
 .av-sens{font-size:12px;color:var(--mut);margin:-4px 0 4px;line-height:1.45}
-.av-svg{display:block;width:100%;max-width:300px;margin:4px auto 0}
-.av-val{display:flex;align-items:baseline;justify-content:center;gap:10px;margin-top:-4px}.av-val span{font-size:38px;font-weight:800;font-variant-numeric:tabular-nums}.av-val em{font-style:normal;font-weight:700;font-size:15px}
-.av-card .ind-date{text-align:center}
+.av-tick{position:absolute;top:10px;width:1px;height:16px;margin-left:-.5px;background:rgba(11,15,20,.55)}
+.sec-gauge .av-tick{top:5px;height:12px}
+.av-val{display:flex;align-items:baseline;gap:10px;margin-top:10px}.av-val span{font-size:40px;font-weight:800;font-variant-numeric:tabular-nums}.av-val em{font-style:normal;font-weight:700;font-size:15px}
+.av-card .ind-date{text-align:left}
 .av-c{margin-bottom:8px}.av-cl{display:flex;justify-content:space-between;gap:8px;font-size:12px}.av-cb{position:relative;height:6px;background:rgba(255,255,255,.08);border-radius:3px;margin-top:3px}.av-cb i{position:absolute;top:0;height:100%;border-radius:3px}.av-mid{position:absolute;left:50%;top:-2px;width:1px;height:10px;background:rgba(255,255,255,.5)}
 .av-cd{font-size:10.5px;color:var(--mut);margin-top:2px;line-height:1.4}
 .ind-meth ul{padding-left:16px;margin:6px 0;line-height:1.5}
@@ -88,7 +89,7 @@ main{max-width:1240px;margin:8px auto 0;padding:0 14px 20px}
 .sec-row{display:flex;align-items:baseline;gap:6px;margin-top:6px}.sec-l{font-size:10.5px;color:var(--mut);text-transform:uppercase;letter-spacing:.06em;margin-right:auto}
 .sec-v{font-size:22px;font-weight:700;line-height:1}.sec-row em{font-style:normal;font-size:12px;font-weight:600}
 .sec-gauge{position:relative;height:22px;margin:4px 2px 0}.sec-gauge .ind-bar{top:7px;height:8px}.sec-gauge .ind-cur{top:3px;width:10px;height:16px;margin-left:-5px}.sec-gauge .ind-range{top:3px;height:16px}
-.sec-svg{display:block;width:100%;max-width:190px;margin:2px auto 0}.sec-avv{justify-content:center;margin-top:0}
+.sec-scale{display:flex;justify-content:space-between;font-size:9.5px;color:var(--mut);margin:1px 2px 0}
 .sec-d{font-size:10.5px;color:var(--mut);text-align:center;margin-top:4px;line-height:1.35}
 .sec .av-short{margin-top:6px}
 @media(max-width:600px){.sec-grid{grid-template-columns:1fr 1fr;gap:8px}.sec{padding:8px}.sec-v{font-size:18px}.sec-row{flex-wrap:wrap;gap:2px 6px}.sec-l{font-size:9.5px}.sec-h b{font-size:12px}.sec .av-short,.sec-d{font-size:9.5px}}.sec-det{margin-top:6px}
@@ -527,32 +528,32 @@ const label5=v=>v<25?'Peur extrême':v<45?'Peur':v<=55?'Neutre':v<=75?'Avidité'
 /* ===== Compteur ACHAT / VENTE (aiguille en demi-cercle, score −100 … +100) ===== */
 const AV=JSON.parse(document.getElementById('data4').textContent);
 const AVZ=[[-100,-60,'#ff2d2d','Vente forte'],[-60,-20,'#ff9a1f','Vente'],[-20,20,'#e6c27a','Neutre'],[20,60,'#22c55e','Achat'],[60,100,'#00e5ff','Achat fort']];
-const avCol=s=>(AVZ.find(z=>s<=z[1])||AVZ[4])[2];
-const avAng=s=>-90+(Math.max(-100,Math.min(100,s))+100)/200*180;   // −100 → −90° (gauche), +100 → +90° (droite)
-function avArc(a0,a1,r){const p=a=>{const t=(a-90)*Math.PI/180;return [100+r*Math.cos(t),100+r*Math.sin(t)];};const [x0,y0]=p(a0),[x1,y1]=p(a1);return `M${x0.toFixed(2)},${y0.toFixed(2)} A${r},${r} 0 0 1 ${x1.toFixed(2)},${y1.toFixed(2)}`;}
+const avPos=s=>(Math.max(-100,Math.min(100,s))+100)/2;   // −100 → 0 % (gauche), +100 → 100 % (droite)
+const avCol=(s,a=1)=>gcol(avPos(s),a);                   // même dégradé que la barre de sentiment
+function avBar(score,mn,mx,avg,cls){   // barre horizontale −100 … +100, même rendu que la jauge de sentiment
+  const p=v=>avPos(v)+'%';
+  return `<div class="${cls}" role="img" aria-label="Achat / Vente : ${fmt(score,0)} sur une échelle de −100 à +100">
+    ${mn!=null?`<div class="ind-range" style="left:${p(mn)};width:${Math.max(.5,avPos(mx)-avPos(mn))}%" title="plage 1 an"></div>`:''}
+    <div class="ind-bar"></div>${[-60,-20,20,60].map(v=>`<i class="av-tick" style="left:${p(v)}"></i>`).join('')}
+    ${avg!=null?`<div class="ind-avg" style="left:${p(avg)}" title="moyenne 1 an"></div>`:''}
+    <div class="ind-cur" style="left:${p(score)};box-shadow:0 0 10px ${avCol(score,.9)}"></div></div>`;
+}
 let avChart=null;
 function renderAchatVente(tabId){
   const box=document.getElementById('av'),g=AV[tabId];
   if(avChart){avChart.destroy();const i=charts.indexOf(avChart);if(i>=0)charts.splice(i,1);avChart=null;}
   if(!g){box.innerHTML='';return;}
-  const arcs=AVZ.map(z=>`<path d="${avArc(avAng(z[0])+.6,avAng(z[1])-.6,80)}" stroke="${z[2]}" stroke-width="16" fill="none" stroke-linecap="butt" style="filter:drop-shadow(0 0 ${z[2]==='#00e5ff'?6:3}px ${z[2]}88)"/>`).join('');
-  const ticks=[-100,-60,-20,20,60,100].map(v=>{const t=(avAng(v)-90)*Math.PI/180;return `<line x1="${100+92*Math.cos(t)}" y1="${100+92*Math.sin(t)}" x2="${100+97*Math.cos(t)}" y2="${100+97*Math.sin(t)}" stroke="rgba(255,255,255,.5)" stroke-width="1"/>`;}).join('');
-  const zl=AVZ.map(z=>{const a=(avAng((z[0]+z[1])/2)-90)*Math.PI/180;return `<text x="${(100+52*Math.cos(a)).toFixed(1)}" y="${(100+52*Math.sin(a)+2).toFixed(1)}" text-anchor="middle" font-size="5.4" fill="${z[2]}" font-weight="700">${z[3].toUpperCase()}</text>`;}).join('');
   const cmax=Math.max(...g.components.map(c=>Math.abs(c.contrib||0)),1);
   const rows=g.components.map(c=>{const n=c.note;return `<div class="av-c"><div class="av-cl"><span>${c.nom}</span><b style="color:${n==null?'#888':avCol(n)}">${n==null?'n.d.':sign(n,0)}</b></div>
     <div class="av-cb"><div class="av-mid"></div>${n==null?'':`<i style="${n>=0?'left:50%':'right:50%'};width:${Math.abs(n)/2}%;background:${avCol(n)}"></i>`}</div>
     <div class="av-cd">valeur ${c.valeur} · poids ${fmt(c.poids*100,0)} % · contribution <b>${c.contrib==null?'retirée':sign(c.contrib,1)}</b></div></div>`;}).join('');
   box.innerHTML=`<div class="card av-card"><h2>Achat / Vente</h2>
    <div class="av-sens">${g.sens}</div>
-   <svg class="av-svg" viewBox="0 0 200 112" role="img" aria-label="Compteur achat vente : ${fmt(g.score,0)}, ${g.label}">
-     ${arcs}${ticks}${zl}
-     <g id="avNeedle" data-angle="${avAng(g.score).toFixed(2)}" style="transform:rotate(-90deg);transform-origin:100px 100px;transition:transform 1.2s cubic-bezier(.22,.61,.36,1)">
-       <path d="M98,100 L100,26 L102,100 Z" fill="#fff" style="filter:drop-shadow(0 0 4px ${avCol(g.score)})"/></g>
-     <circle cx="100" cy="100" r="6" fill="#0b0f14" stroke="#fff" stroke-width="1.5"/>
-     <text x="8" y="110" font-size="7" fill="#bababa">−100</text><text x="192" y="110" font-size="7" fill="#bababa" text-anchor="end">+100</text>
-   </svg>
-   <div class="av-val"><span style="color:${avCol(g.score)};text-shadow:0 0 14px ${avCol(g.score)}88">${sign(g.score,0)}</span><em style="color:${avCol(g.score)}">${g.label}</em></div>
+   <div class="av-val"><span style="color:${avCol(g.score)};text-shadow:0 0 14px ${avCol(g.score,.55)}">${sign(g.score,0)}</span><em style="color:${avCol(g.score)}">${g.label}</em></div>
    <div class="ind-date">score de −100 à +100 · au ${dshort(g.date)} (dernière bougie hebdomadaire clôturée)</div>
+   ${avBar(g.score,g.min[1],g.max[1],g.avg,'ind-gauge av-gauge')}
+   <div class="ind-scale av-scale"><span>−100 · Vente</span><span>Neutre · 0</span><span>Achat · +100</span></div>
+   <div class="ind-legend"><i class="lg-avg"></i> moyenne · <i class="lg-rng"></i> plage min–max 1 an · <i class="lg-cur"></i> score actuel</div>
    <div class="ind-stats" style="margin-top:8px"><div><span>Moyenne 12 mois</span><b>${sign(g.avg,0)}</b></div><div><span>Min</span><b>${sign(g.min[1],0)}</b><small>${dshort(g.min[0])}</small></div><div><span>Max</span><b>${sign(g.max[1],0)}</b><small>${dshort(g.max[0])}</small></div></div>
    <div class="ind-spark" style="height:100px"><canvas id="cAv"></canvas></div>
    <div class="ind-sub"><div class="ind-subt">Composantes (note de −100 à +100)</div>${rows}</div>
@@ -563,7 +564,6 @@ function renderAchatVente(tabId){
      <p>Sources : ${g.sources.map(s=>lnk(s[1],s[0])).join(' · ')}. Calcul reproductible avec <code>src/build_achatvente.py</code>.</p></details>
    <div class="av-warn">Indicateur composite Ophir, purement informatif. Ne constitue pas un conseil ni un signal d'ordre. Les scores techniques peuvent se tromper lors des retournements.</div>
   </div>`;
-  requestAnimationFrame(()=>requestAnimationFrame(()=>{const n=document.getElementById('avNeedle');if(n)n.style.transform=`rotate(${n.dataset.angle}deg)`;}));
   const h=g.history;
   avChart=new Chart(document.getElementById('cAv'),{type:'bar',data:{labels:h.map(x=>dshort(x[0])),datasets:[{data:h.map(x=>x[1]),backgroundColor:h.map(x=>avCol(x[1])),borderWidth:0,barPercentage:1,categoryPercentage:.9}]},
     options:{maintainAspectRatio:false,animation:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' '+sign(c.parsed.y,1)+' · '+(AVZ.find(z=>c.parsed.y<=z[1])||AVZ[4])[3]}}},scales:{x:{ticks:{maxTicksLimit:4,maxRotation:0,font:{size:10}},grid:{display:false}},y:{min:-100,max:100,ticks:{stepSize:50,font:{size:10}}}}}});
@@ -572,13 +572,6 @@ function renderAchatVente(tabId){
 
 /* ===== Onglet Actions · SECTEURS : sentiment 0-100 + compteur ACHAT / VENTE par secteur GICS (ETF SPDR) ===== */
 const SEC=JSON.parse(document.getElementById('data5').textContent);
-function secGauge(score){
-  const arcs=AVZ.map(z=>`<path d="${avArc(avAng(z[0])+.8,avAng(z[1])-.8,80)}" stroke="${z[2]}" stroke-width="18" fill="none"/>`).join('');
-  return `<svg class="sec-svg" viewBox="0 0 200 108" role="img" aria-label="Achat vente ${fmt(score,0)}">${arcs}
-   <g style="transform:rotate(${avAng(score).toFixed(2)}deg);transform-origin:100px 100px"><path d="M97,100 L100,30 L103,100 Z" fill="#fff" style="filter:drop-shadow(0 0 4px ${avCol(score)})"/></g>
-   <circle cx="100" cy="100" r="7" fill="#0b0f14" stroke="#fff" stroke-width="2"/>
-   <text x="6" y="106" font-size="13" fill="#bababa">−100</text><text x="194" y="106" font-size="13" fill="#bababa" text-anchor="end">+100</text></svg>`;
-}
 function secTile(s,i){
   const v=s.sent.value,a=s.av.score,pos=x=>`${Math.max(0,Math.min(100,x))}%`;
   const sc=s.sent.components.map(c=>`<div class="ind-sb"><div class="ind-sbl"><span>${c.name}</span><b style="color:${c.value==null?'#888':gcol(c.value)}">${c.value==null?'n.d.':fmt(c.value,0)}</b></div><div class="ind-sbt">${c.value==null?'':`<i style="width:${pos(c.value)};background:${gcol(c.value)}"></i>`}</div><div class="ind-sbd">poids ${fmt(c.weight*100,1)} % · ${c.raw}</div></div>`).join('');
@@ -588,9 +581,10 @@ function secTile(s,i){
    ${s.warn.length?`<div class="sec-warn" title="${s.warn.join(' ')}">⚠ ${s.ath.dd>=-2?'Proche du plus haut historique':'Proche du plus haut 52 semaines'}</div>`:''}
    <div class="sec-row"><span class="sec-l">Sentiment</span><span class="sec-v" style="color:${gcol(v)}">${fmt(v,0)}</span><em style="color:${gcol(v)}">${s.sent.label}</em></div>
    <div class="sec-gauge"><div class="ind-range" style="left:${pos(s.sent.min[1])};width:${Math.max(.5,s.sent.max[1]-s.sent.min[1])}%" title="plage 1 an"></div><div class="ind-bar"></div><div class="ind-cur" style="left:${pos(v)};box-shadow:0 0 8px ${gcol(v,.9)}"></div></div>
-   <div class="sec-l" style="margin-top:6px">Achat / Vente</div>
-   ${secGauge(a)}
-   <div class="sec-row sec-avv"><span class="sec-v" style="color:${avCol(a)}">${sign(a,0)}</span><em style="color:${avCol(a)}">${s.av.label}</em></div>
+   <div class="sec-scale"><span>Peur</span><span>Neutre</span><span>Euphorie</span></div>
+   <div class="sec-row"><span class="sec-l">Achat / Vente</span><span class="sec-v" style="color:${avCol(a)}">${sign(a,0)}</span><em style="color:${avCol(a)}">${s.av.label}</em></div>
+   ${avBar(a,s.av.min[1],s.av.max[1],null,'sec-gauge')}
+   <div class="sec-scale"><span>−100 · Vente</span><span>Neutre</span><span>Achat · +100</span></div>
    <div class="sec-d">clôture hebdo du ${dshort(s.date)} · ${fmt(s.close,2)} $ · bougie clôturée${s.live?` (semaine en cours au ${dshort(s.live.date)} : ${fmt(s.live.close,2)} $, non utilisée)`:''}</div>
    <div class="av-short">Indicateur composite Ophir, purement informatif. Ne constitue pas un conseil ni un signal d'ordre.</div>
    <details class="ind-meth sec-det" data-i="${i}"><summary>Détail et historique 1 an</summary>
@@ -687,7 +681,7 @@ function accMain(section,tabId){
 /* Colonnes de droite : garde visibles les éléments essentiels, replie le reste */
 function accSide(boxId,tabId){
   const card=document.querySelector('#'+boxId+' .card');if(!card||card.classList.contains('acc'))return;
-  const keep=boxId==='ind'?['ind-t','ind-n','ind-badge','ind-val','ind-date','ind-gauge','ind-scale']:['av-sens','av-svg','av-val','ind-date','av-short'];
+  const keep=boxId==='ind'?['ind-t','ind-n','ind-badge','ind-val','ind-date','ind-gauge','ind-scale']:['av-sens','av-val','ind-date','av-gauge','av-scale','av-short'];
   const host=boxId==='ind'?card.querySelector('.ind-slot'):card;
   const h2=card.querySelector(':scope>h2');
   if(boxId==='av'){const w=card.querySelector('.av-warn');w.insertAdjacentHTML('beforebegin','<div class="av-short">Indicateur composite Ophir, purement informatif. Ne constitue pas un conseil ni un signal d\'ordre.</div>');}
