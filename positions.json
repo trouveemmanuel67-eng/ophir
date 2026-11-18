@@ -32,7 +32,23 @@
       "apex_score": null,
       "apex_label": null,
       "drapeau": null,
-      "drapeau_code": null
+      "drapeau_code": null,
+      "courtier": "revolut",
+      "valeur_usd": 1352.52,
+      "investi_usd": 1509.5,
+      "valeur_eur": 1223.78,
+      "investi_eur": 1365.82,
+      "perf_debut_pct": -10.4,
+      "perf_1an_yahoo": "NKE",
+      "perf_1an_pct": -40.8,
+      "perf_1an_base": "52s",
+      "perf_1an_libelle": "actif, 52 semaines",
+      "perf_1an_note": "Rendement de l'actif (Yahoo NKE) entre la clôture hebdomadaire du 2025-11-14 et celle du 2026-11-13. Ce n'est pas le rendement de la ligne depuis l'achat : la date d'achat n'est pas dans le relevé Revolut, elle n'est pas inventée. Si la position a moins d'un an, ce chiffre ne s'applique pas à la ligne.",
+      "perf_1an_dates": {
+        "debut": "2025-11-14",
+        "fin": "2026-11-13"
+      },
+      "poids_pct": 15.5
     },
     {
       "id": "US912810TR95",
@@ -60,7 +76,19 @@
       "apex_score": 33.5,
       "apex_label": "Achat",
       "drapeau": "vert",
-      "drapeau_code": "green"
+      "drapeau_code": "green",
+      "courtier": "revolut",
+      "valeur_usd": 1255.56,
+      "investi_usd": 1326.71,
+      "valeur_eur": 1136.05,
+      "investi_eur": 1200.43,
+      "perf_debut_pct": -5.36,
+      "perf_1an_yahoo": null,
+      "perf_1an_pct": null,
+      "perf_1an_base": null,
+      "perf_1an_libelle": "à venir",
+      "perf_1an_note": "Pas d'historique de cours Yahoo pour cette ligne (obligation en direct) : le rendement sur 52 semaines n'est pas calculé, aucune donnée n'est inventée.",
+      "poids_pct": 14.4
     },
     {
       "id": "US912810SA79",
@@ -88,7 +116,19 @@
       "apex_score": 33.5,
       "apex_label": "Achat",
       "drapeau": "vert",
-      "drapeau_code": "green"
+      "drapeau_code": "green",
+      "courtier": "revolut",
+      "valeur_usd": 1163.15,
+      "investi_usd": 1210.25,
+      "valeur_eur": 1052.43,
+      "investi_eur": 1095.05,
+      "perf_debut_pct": -3.89,
+      "perf_1an_yahoo": null,
+      "perf_1an_pct": null,
+      "perf_1an_base": null,
+      "perf_1an_libelle": "à venir",
+      "perf_1an_note": "Pas d'historique de cours Yahoo pour cette ligne (obligation en direct) : le rendement sur 52 semaines n'est pas calculé, aucune donnée n'est inventée.",
+      "poids_pct": 13.3
     },
     {
       "id": "STLA",
@@ -116,7 +156,23 @@
       "apex_score": null,
       "apex_label": null,
       "drapeau": null,
-      "drapeau_code": null
+      "drapeau_code": null,
+      "courtier": "revolut",
+      "valeur_usd": 1109.49,
+      "investi_usd": 1623.73,
+      "valeur_eur": 1003.88,
+      "investi_eur": 1469.17,
+      "perf_debut_pct": -31.67,
+      "perf_1an_yahoo": "STLA",
+      "perf_1an_pct": -63.2,
+      "perf_1an_base": "52s",
+      "perf_1an_libelle": "actif, 52 semaines",
+      "perf_1an_note": "Rendement de l'actif (Yahoo STLA) entre la clôture hebdomadaire du 2025-11-14 et celle du 2026-11-13. Ce n'est pas le rendement de la ligne depuis l'achat : la date d'achat n'est pas dans le relevé Revolut, elle n'est pas inventée. Si la position a moins d'un an, ce chiffre ne s'applique pas à la ligne.",
+      "perf_1an_dates": {
+        "debut": "2025-11-14",
+        "fin": "2026-11-13"
+      },
+      "poids_pct": 12.7
     },
     {
       "id": "US91086QAV05",
@@ -144,7 +200,19 @@
       "apex_score": -3.1,
       "apex_label": "Neutre",
       "drapeau": "orange",
-      "drapeau_code": "yellow"
+      "drapeau_code": "yellow",
+      "courtier": "revolut",
+      "valeur_usd": 811.65,
+      "investi_usd": 850.35,
+      "valeur_eur": 734.39,
+      "investi_eur": 769.41,
+      "perf_debut_pct": -4.55,
+      "perf_1an_yahoo": null,
+      "perf_1an_pct": null,
+      "perf_1an_base": null,
+      "perf_1an_libelle": "à venir",
+      "perf_1an_note": "Pas d'historique de cours Yahoo pour cette ligne (obligation en direct) : le rendement sur 52 semaines n'est pas calculé, aucune donnée n'est inventée.",
+      "poids_pct": 9.3
     },
     {
       "id": "PAH3",
@@ -172,7 +240,23 @@
       "apex_score": null,
       "apex_label": null,
       "drapeau": null,
-      "drapeau_code": null
+      "drapeau_code": null,
+      "courtier": "revolut",
+      "valeur_eur": 800.82,
+      "investi_eur": 996.64,
+      "valeur_usd": 885.07,
+      "investi_usd": 1101.49,
+      "perf_debut_pct": -19.65,
+      "perf_1an_yahoo": "PAH3.DE",
+      "perf_1an_pct": -34.8,
+      "perf_1an_base": "52s",
+      "perf_1an_libelle": "actif, 52 semaines",
+      "perf_1an_note": "Rendement de l'actif (Yahoo PAH3.DE) entre la clôture hebdomadaire du 2025-11-14 et celle du 2026-11-13. Ce n'est pas le rendement de la ligne depuis l'achat : la date d'achat n'est pas dans le relevé Revolut, elle n'est pas inventée. Si la position a moins d'un an, ce chiffre ne s'applique pas à la ligne.",
+      "perf_1an_dates": {
+        "debut": "2025-11-14",
+        "fin": "2026-11-13"
+      },
+      "poids_pct": 10.1
     },
     {
       "id": "AGNC",
@@ -200,7 +284,23 @@
       "apex_score": null,
       "apex_label": null,
       "drapeau": null,
-      "drapeau_code": null
+      "drapeau_code": null,
+      "courtier": "revolut",
+      "valeur_usd": 408.57,
+      "investi_usd": 532.82,
+      "valeur_eur": 369.68,
+      "investi_eur": 482.1,
+      "perf_debut_pct": -23.32,
+      "perf_1an_yahoo": "AGNC",
+      "perf_1an_pct": -18.9,
+      "perf_1an_base": "52s",
+      "perf_1an_libelle": "actif, 52 semaines",
+      "perf_1an_note": "Rendement de l'actif (Yahoo AGNC) entre la clôture hebdomadaire du 2025-11-14 et celle du 2026-11-13. Ce n'est pas le rendement de la ligne depuis l'achat : la date d'achat n'est pas dans le relevé Revolut, elle n'est pas inventée. Si la position a moins d'un an, ce chiffre ne s'applique pas à la ligne.",
+      "perf_1an_dates": {
+        "debut": "2025-11-14",
+        "fin": "2026-11-13"
+      },
+      "poids_pct": 4.7
     },
     {
       "id": "NLY",
@@ -228,7 +328,23 @@
       "apex_score": null,
       "apex_label": null,
       "drapeau": null,
-      "drapeau_code": null
+      "drapeau_code": null,
+      "courtier": "revolut",
+      "valeur_usd": 350.73,
+      "investi_usd": 442.08,
+      "valeur_eur": 317.35,
+      "investi_eur": 400.0,
+      "perf_debut_pct": -20.66,
+      "perf_1an_yahoo": "NLY",
+      "perf_1an_pct": -18.5,
+      "perf_1an_base": "52s",
+      "perf_1an_libelle": "actif, 52 semaines",
+      "perf_1an_note": "Rendement de l'actif (Yahoo NLY) entre la clôture hebdomadaire du 2025-11-14 et celle du 2026-11-13. Ce n'est pas le rendement de la ligne depuis l'achat : la date d'achat n'est pas dans le relevé Revolut, elle n'est pas inventée. Si la position a moins d'un an, ce chiffre ne s'applique pas à la ligne.",
+      "perf_1an_dates": {
+        "debut": "2025-11-14",
+        "fin": "2026-11-13"
+      },
+      "poids_pct": 4.0
     },
     {
       "id": "US260543BJ10",
@@ -256,7 +372,19 @@
       "apex_score": 11.7,
       "apex_label": "Neutre",
       "drapeau": "orange",
-      "drapeau_code": "yellow"
+      "drapeau_code": "yellow",
+      "courtier": "revolut",
+      "valeur_usd": 253.48,
+      "investi_usd": 262.11,
+      "valeur_eur": 229.35,
+      "investi_eur": 237.16,
+      "perf_debut_pct": -3.29,
+      "perf_1an_yahoo": null,
+      "perf_1an_pct": null,
+      "perf_1an_base": null,
+      "perf_1an_libelle": "à venir",
+      "perf_1an_note": "Pas d'historique de cours Yahoo pour cette ligne (obligation en direct) : le rendement sur 52 semaines n'est pas calculé, aucune donnée n'est inventée.",
+      "poids_pct": 2.9
     },
     {
       "id": "RDDT",
@@ -284,7 +412,23 @@
       "apex_score": -24.2,
       "apex_label": "Vente",
       "drapeau": "orange",
-      "drapeau_code": "yellow"
+      "drapeau_code": "yellow",
+      "courtier": "revolut",
+      "valeur_usd": 252.61,
+      "investi_usd": 249.99,
+      "valeur_eur": 228.56,
+      "investi_eur": 226.19,
+      "perf_debut_pct": 1.05,
+      "perf_1an_yahoo": "RDDT",
+      "perf_1an_pct": -49.1,
+      "perf_1an_base": "52s",
+      "perf_1an_libelle": "actif, 52 semaines",
+      "perf_1an_note": "Rendement de l'actif (Yahoo RDDT) entre la clôture hebdomadaire du 2025-11-14 et celle du 2026-11-13. Ce n'est pas le rendement de la ligne depuis l'achat : la date d'achat n'est pas dans le relevé Revolut, elle n'est pas inventée. Si la position a moins d'un an, ce chiffre ne s'applique pas à la ligne.",
+      "perf_1an_dates": {
+        "debut": "2025-11-14",
+        "fin": "2026-11-13"
+      },
+      "poids_pct": 2.9
     },
     {
       "id": "NFLX",
@@ -312,7 +456,23 @@
       "apex_score": 21.7,
       "apex_label": "Achat",
       "drapeau": "orange",
-      "drapeau_code": "yellow"
+      "drapeau_code": "yellow",
+      "courtier": "revolut",
+      "valeur_usd": 246.41,
+      "investi_usd": 250.0,
+      "valeur_eur": 222.96,
+      "investi_eur": 226.2,
+      "perf_debut_pct": -1.44,
+      "perf_1an_yahoo": "NFLX",
+      "perf_1an_pct": -44.1,
+      "perf_1an_base": "52s",
+      "perf_1an_libelle": "actif, 52 semaines",
+      "perf_1an_note": "Rendement de l'actif (Yahoo NFLX) entre la clôture hebdomadaire du 2025-11-14 et celle du 2026-11-13. Ce n'est pas le rendement de la ligne depuis l'achat : la date d'achat n'est pas dans le relevé Revolut, elle n'est pas inventée. Si la position a moins d'un an, ce chiffre ne s'applique pas à la ligne.",
+      "perf_1an_dates": {
+        "debut": "2025-11-14",
+        "fin": "2026-11-13"
+      },
+      "poids_pct": 2.8
     },
     {
       "id": "MBG",
@@ -340,7 +500,23 @@
       "apex_score": 4.4,
       "apex_label": "Neutre",
       "drapeau": "orange",
-      "drapeau_code": "yellow"
+      "drapeau_code": "yellow",
+      "courtier": "revolut",
+      "valeur_eur": 222.32,
+      "investi_eur": 249.03,
+      "valeur_usd": 245.71,
+      "investi_usd": 275.23,
+      "perf_debut_pct": -10.72,
+      "perf_1an_yahoo": "MBG.DE",
+      "perf_1an_pct": -31.6,
+      "perf_1an_base": "52s",
+      "perf_1an_libelle": "actif, 52 semaines",
+      "perf_1an_note": "Rendement de l'actif (Yahoo MBG.DE) entre la clôture hebdomadaire du 2025-11-14 et celle du 2026-11-13. Ce n'est pas le rendement de la ligne depuis l'achat : la date d'achat n'est pas dans le relevé Revolut, elle n'est pas inventée. Si la position a moins d'un an, ce chiffre ne s'applique pas à la ligne.",
+      "perf_1an_dates": {
+        "debut": "2025-11-14",
+        "fin": "2026-11-13"
+      },
+      "poids_pct": 2.8
     },
     {
       "id": "PDSE",
@@ -368,7 +544,23 @@
       "apex_score": null,
       "apex_label": null,
       "drapeau": null,
-      "drapeau_code": null
+      "drapeau_code": null,
+      "courtier": "revolut",
+      "valeur_eur": 191.17,
+      "investi_eur": 215.79,
+      "valeur_usd": 211.28,
+      "investi_usd": 238.49,
+      "perf_debut_pct": -11.41,
+      "perf_1an_yahoo": "PDSE.DE",
+      "perf_1an_pct": -17.0,
+      "perf_1an_base": "52s",
+      "perf_1an_libelle": "actif, 52 semaines",
+      "perf_1an_note": "Rendement de l'actif (Yahoo PDSE.DE) entre la clôture hebdomadaire du 2025-11-14 et celle du 2026-11-13. Ce n'est pas le rendement de la ligne depuis l'achat : la date d'achat n'est pas dans le relevé Revolut, elle n'est pas inventée. Si la position a moins d'un an, ce chiffre ne s'applique pas à la ligne.",
+      "perf_1an_dates": {
+        "debut": "2025-11-14",
+        "fin": "2026-11-13"
+      },
+      "poids_pct": 2.4
     },
     {
       "id": "US105756BB58",
@@ -396,7 +588,19 @@
       "apex_score": -3.1,
       "apex_label": "Neutre",
       "drapeau": "orange",
-      "drapeau_code": "yellow"
+      "drapeau_code": "yellow",
+      "courtier": "revolut",
+      "valeur_usd": 190.91,
+      "investi_usd": 199.9,
+      "valeur_eur": 172.74,
+      "investi_eur": 180.87,
+      "perf_debut_pct": -4.5,
+      "perf_1an_yahoo": null,
+      "perf_1an_pct": null,
+      "perf_1an_base": null,
+      "perf_1an_libelle": "à venir",
+      "perf_1an_note": "Pas d'historique de cours Yahoo pour cette ligne (obligation en direct) : le rendement sur 52 semaines n'est pas calculé, aucune donnée n'est inventée.",
+      "poids_pct": 2.2
     },
     {
       "id": "URNU",
@@ -425,7 +629,19 @@
       "apex_label": "Achat",
       "drapeau": "orange",
       "drapeau_code": "yellow",
-      "expiration": "2026-11-19T21:00:00+01:00"
+      "expiration": "2026-11-19T21:00:00+01:00",
+      "courtier": "revolut",
+      "valeur_eur": 454.74,
+      "investi_eur": 454.74,
+      "valeur_usd": 502.58,
+      "investi_usd": 502.58,
+      "perf_debut_pct": null,
+      "perf_1an_yahoo": "URNU.DE",
+      "perf_1an_pct": null,
+      "perf_1an_base": null,
+      "perf_1an_libelle": "—",
+      "perf_1an_note": null,
+      "poids_pct": null
     },
     {
       "id": "HMI",
@@ -454,7 +670,19 @@
       "apex_label": "Neutre",
       "drapeau": "orange",
       "drapeau_code": "yellow",
-      "expiration": "2026-11-19T21:00:00+01:00"
+      "expiration": "2026-11-19T21:00:00+01:00",
+      "courtier": "revolut",
+      "valeur_eur": 452.95,
+      "investi_eur": 452.95,
+      "valeur_usd": 500.6,
+      "investi_usd": 500.6,
+      "perf_debut_pct": null,
+      "perf_1an_yahoo": "HMI.DE",
+      "perf_1an_pct": null,
+      "perf_1an_base": null,
+      "perf_1an_libelle": "—",
+      "perf_1an_note": null,
+      "poids_pct": null
     },
     {
       "id": "PPX",
@@ -483,7 +711,19 @@
       "apex_label": "Neutre",
       "drapeau": "orange",
       "drapeau_code": "yellow",
-      "expiration": "2026-11-19T21:00:00+01:00"
+      "expiration": "2026-11-19T21:00:00+01:00",
+      "courtier": "revolut",
+      "valeur_eur": 451.91,
+      "investi_eur": 451.91,
+      "valeur_usd": 499.45,
+      "investi_usd": 499.45,
+      "perf_debut_pct": null,
+      "perf_1an_yahoo": "PPX.DE",
+      "perf_1an_pct": null,
+      "perf_1an_base": null,
+      "perf_1an_libelle": "—",
+      "perf_1an_note": null,
+      "poids_pct": null
     },
     {
       "id": "FUC",
@@ -512,7 +752,52 @@
       "apex_label": "Neutre",
       "drapeau": "orange",
       "drapeau_code": "yellow",
-      "expiration": "2026-11-19T21:00:00+01:00"
+      "expiration": "2026-11-19T21:00:00+01:00",
+      "courtier": "revolut",
+      "valeur_eur": 453.73,
+      "investi_eur": 453.73,
+      "valeur_usd": 501.46,
+      "investi_usd": 501.46,
+      "perf_debut_pct": null,
+      "perf_1an_yahoo": "6954.T",
+      "perf_1an_pct": null,
+      "perf_1an_base": null,
+      "perf_1an_libelle": "—",
+      "perf_1an_note": null,
+      "poids_pct": null
     }
-  ]
+  ],
+  "fx": {
+    "paire": "EURUSD",
+    "taux": 1.1052,
+    "date": "2026-11-13",
+    "source": "Yahoo Finance, clôture hebdomadaire (même série que l’onglet Liquidités du site APEX)",
+    "zone": "Europe/Paris"
+  },
+  "totaux": {
+    "devise_principale": "USD",
+    "total_usd": 8737.14,
+    "total_eur": 7905.48,
+    "investi_usd": 10072.65,
+    "investi_eur": 9113.87,
+    "perf_debut_pct": -13.3,
+    "perf_1an_pct": null,
+    "perf_1an_libelle": "à venir",
+    "perf_1an_note": "Le rendement du portefeuille sur 1 an n'est pas calculable proprement : le relevé ne donne pas la date d'achat de chaque ligne, et il n'existe pas d'historique hebdomadaire de la valeur du portefeuille. Aucune donnée n'est inventée.",
+    "courtiers": {
+      "revolut": {
+        "valeur_usd": 8737.14,
+        "valeur_eur": 7905.48,
+        "statut": "ok",
+        "n": 14
+      },
+      "xtb": {
+        "valeur_usd": 0,
+        "valeur_eur": 0,
+        "statut": "a_integrer",
+        "libelle": "à intégrer",
+        "n": 0
+      }
+    }
+  }
 }
