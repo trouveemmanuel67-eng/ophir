@@ -405,7 +405,7 @@ th{color:var(--mut);font-weight:600;font-size:11px;letter-spacing:.06em;text-tra
       "devise": "USD",
       "investi": 1623.73,
       "investi_arrondi": 1624,
-      "valeur": 1109.5,
+      "valeur": 1109.49,
       "valeur_arrondie": 1109,
       "pnl_valeur": -514.23,
       "pnl_pct": -31.67,
@@ -2132,7 +2132,7 @@ function renderMesPositions(){
       ? `<button type="button" class="pos-link" data-tab="${p.tab}" data-tv="${p.fiche_tv}">${nom}</button>`
       : `<span>${nom}</span>`;
     const sous=p.fiche_tv
-      ? `<div class="pos-sous">${p.fiche_proxy?'Fiche la plus proche · ':''}${p.fiche_tv}${p.fiche_note?` · ${p.fiche_note}`:''}</div>`
+      ? `<div class="pos-sous">${p.fiche_note?p.fiche_note:p.fiche_tv}</div>`
       : `<div class="pos-sous">Pas de fiche sur le site APEX</div>`;
     const tick=p.ticker!==p.nom?`<span class="pos-tick">${p.ticker}</span>`:'';
     return `<tr class="${p.statut==='en_attente'?'is-pend':''}${p.fiche_tv?' has-fiche':''}">
