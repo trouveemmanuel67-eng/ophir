@@ -2066,7 +2066,7 @@ const posAmt=(n,d)=>{
 const posPct=p=>{
   if(p==null||p==='') return '—';
   const s=p<0?-1:1, a=Math.abs(Number(p));
-  const r=Math.round(a*10-1e-9+0.5)/10; /* arrondi commercial à 1 décimale */
+  const r=Math.round(a*10+1e-9)/10; /* 1 décimale, arrondi 0,5 vers le haut */
   const t=(s<0?'−':'+')+r.toFixed(1).replace('.',',');
   return t+'\u00a0%';
 };
