@@ -4496,16 +4496,6 @@ function homePctHTML(pct,star){
 function homeKv(label, amount, pctHtml, tip){
   return `<div class="home-kv"${tip?` title="${homeEsc(tip)}"`:''}><span class="l">${homeEsc(label)}</span><b>${amount}</b>${pctHtml?`<small>${pctHtml}</small>`:''}</div>`;
 }
-const HOME_CATS=[
-  {type:'equity',label:'Actions'},
-  {type:'bond',label:'Obligations'},
-  {type:'etf',label:'ETF'},
-  {type:'commodity',label:'Matières premières'},
-  {type:'metal',label:'Métaux'},
-  {type:'crypto',label:'Crypto'},
-  {type:'reit',label:'Immobilier'}
-];
-
 function renderAccueil(el){
   const P=(typeof POS!=='undefined'&&POS)?POS:{positions:[],totaux:{},courtiers:{}};
   const T=P.totaux||{};
@@ -4527,21 +4517,8 @@ function renderAccueil(el){
   const revAmt=revBook.val?posAmt(revBook.val,'EUR'):(rev.valeur_eur!=null?posAmt(rev.valeur_eur,'EUR'):'—');
   const xtbAmt=xtbBook.val?posAmt(xtbBook.val,'EUR'):((!xtb.n||xtb.statut==='a_integrer')?(xtb.libelle||'—'):(xtb.valeur_eur!=null?posAmt(xtb.valeur_eur,'EUR'):'—'));
   const rxAmt=rxBook.val?posAmt(rxBook.val,'EUR'):(rxC.valeur_eur!=null?posAmt(rxC.valeur_eur,'EUR'):'—');
-  const liq=P.liquidites||{};
-  const cash=liq.usd!=null||liq.eur!=null?{cash:liq.usd,eur:liq.eur,cfd:null}:homeCashFromSource(P.source||'');
-  const fxTaux=(liq.taux!=null?Number(liq.taux):(P.fx&&Number(P.fx.taux)));
-  const cashEur=cash.eur!=null?Number(cash.eur):(cash.cash!=null&&Number.isFinite(fxTaux)&&fxTaux>0)?(cash.cash/fxTaux):null;
-  const cashTip=cash.cash!=null
-    ? `${Number(cash.cash).toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})}\u00a0$ · hors total, comme dans Mes positions. CFD exclus.`
-    : 'Hors total, comme dans Mes positions. CFD exclus.';
   const releve=P.releve_libelle||'';
   const heroTip=[releve, 'Liquidités et CFD exclus du total, comme dans Mes positions.'].filter(Boolean).join(' · ');
-  const catBits=HOME_CATS.map(c=>{
-    const b=homeBook(act.filter(p=>p.type===c.type));
-    if(!b.val) return '';
-    return homeKv(c.label, posAmt(b.val,'EUR'), homePctHTML(b.pct,b.star), c.type==='crypto'&&b.star?'Revolut X · hors Bitcoin':'');
-  }).filter(Boolean);
-  if(cashEur!=null) catBits.push(homeKv('Liq.', posAmt(cashEur,'EUR'), '', cashTip));
 
   const vix=homeLastPair(typeof T2!=='undefined'&&T2.actions&&T2.actions.vix);
   const us10=homeLastPair(typeof T2!=='undefined'&&T2.actions&&T2.actions.taux10&&T2.actions.taux10.us_last);
@@ -4620,9 +4597,6 @@ function renderAccueil(el){
         ${homeKv('Revolut', revAmt, homePctHTML(revBook.pct,revBook.star), 'Revolut Brokerage')}
         ${homeKv('XTB', xtbAmt, homePctHTML(xtbBook.pct,xtbBook.star), 'XTB')}
         ${homeKv('Crypto', rxAmt, homePctHTML(rxBook.pct,rxBook.star), 'Revolut X · hors Bitcoin')}
-      </div>
-      <div class="home-strip home-cats">
-        ${catBits.join('')}
       </div>
     </div>
     <div class="home-table-scroll">
