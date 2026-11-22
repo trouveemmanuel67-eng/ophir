@@ -315,57 +315,73 @@ th{color:var(--mut);font-weight:600;font-size:11px;letter-spacing:.06em;text-tra
 /* ===== Accueil ===== */
 body.home-on #accAll{display:none}
 body.home-on .layout .side{display:none}
-.home-hero{padding:22px 24px 20px;border-color:rgba(230,194,122,.32);background:linear-gradient(180deg,rgba(230,194,122,.07),transparent 48%),var(--card)}
-.home-hero h2{color:#e6c27a}
-.home-tot{display:flex;flex-wrap:wrap;gap:6px 22px;align-items:baseline;margin:10px 0 4px;font-variant-numeric:tabular-nums}
-.home-tot .home-big{font-size:34px;font-weight:700;letter-spacing:-.02em;color:#fff;line-height:1.1}
-.home-tot .home-sub{font-size:22px;font-weight:650;color:#d8d0c2}
-.home-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:14px 0 12px}
-.home-kpis .kpi .v{font-size:22px}
-.home-split{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 12px}
-.home-split>div{border:1px solid var(--soft);border-radius:10px;padding:10px 12px;background:rgba(255,255,255,.02)}
-.home-split .l{font-size:11px;color:var(--mut);letter-spacing:.06em;text-transform:uppercase}
-.home-split .v{font-size:18px;font-weight:700;margin-top:3px;font-variant-numeric:tabular-nums}
-.home-split .s{font-size:12px;color:var(--mut);margin-top:2px}
-.home-lines{display:grid;grid-template-columns:1fr 1fr;gap:10px 18px;margin:4px 0 8px}
-.home-lines h3{margin:0 0 6px;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--mut);font-weight:650}
-.home-lines ol{margin:0;padding:0;list-style:none}
-.home-lines li{display:flex;justify-content:space-between;gap:10px;padding:5px 0;border-bottom:1px solid var(--soft);font-size:13px;font-variant-numeric:tabular-nums}
-.home-lines li:last-child{border-bottom:0}
-.home-lines .nm{color:#fff;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.home-cash{font-size:12.5px;color:var(--mut);margin:8px 0 0;line-height:1.5}
-.home-openpos{display:inline-flex;align-items:center;margin-top:14px;background:transparent;color:#e6c27a;border:1px solid rgba(230,194,122,.5);border-radius:999px;padding:6px 14px;font-family:inherit;font-size:12px;cursor:pointer}
+body.home-on #hh{padding-top:10px;padding-bottom:4px}
+body.home-on #hh h1{margin-bottom:6px;gap:4px}
+body.home-on #hh .brand{height:48px}
+body.home-on .acc-tools{margin-top:6px}
+body.home-on .layout{margin-top:4px;padding-bottom:10px}
+body.home-on .page{padding-bottom:8px}
+body.home-on.pos-open #mes-pos{max-height:calc(100vh - 158px);margin-top:8px}
+.home-hero{padding:12px 16px 10px;margin-bottom:8px;border-color:rgba(230,194,122,.32);background:linear-gradient(180deg,rgba(230,194,122,.07),transparent 55%),var(--card)}
+.home-hero h2{color:#e6c27a;font-size:11px}
+.home-hero-top{display:flex;align-items:baseline;gap:10px 14px;flex-wrap:wrap;margin-bottom:8px}
+.home-hero-top .desc,.home-rel{color:var(--mut);font-size:11px;margin:0}
+.home-hero-top .home-openpos{margin-top:0;margin-left:auto;padding:4px 12px}
+.home-strip{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px;font-variant-numeric:tabular-nums}
+.home-tot{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;margin:0}
+.home-tot .home-big{font-size:26px;font-weight:700;letter-spacing:-.02em;color:#fff;line-height:1.1}
+.home-tot .home-sub{font-size:16px;font-weight:650;color:#d8d0c2}
+.home-kv{display:flex;align-items:baseline;gap:6px;white-space:nowrap;min-width:0}
+.home-kv .l{font-size:10px;color:var(--mut);letter-spacing:.06em;text-transform:uppercase}
+.home-kv b{font-size:14px;font-weight:700;color:#fff}
+.home-kv small{font-size:11px;color:var(--mut);font-weight:500}
+.home-bw{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px;margin-top:8px;font-size:12.5px;font-variant-numeric:tabular-nums;line-height:1.35}
+.home-bw-g{flex-wrap:nowrap;white-space:nowrap}
+.home-bw-g{display:flex;flex-wrap:nowrap;align-items:baseline;gap:2px 0;min-width:0;white-space:nowrap}
+.home-bw-l{font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:var(--mut);font-weight:650;margin-right:8px;flex:none}
+.home-bw-g span.nm{color:#fff}
+.home-bw-g .sep{color:var(--mut);margin:0 7px}
+
+.home-cash{font-size:11.5px;color:var(--mut);margin:6px 0 0;line-height:1.4}
+.home-openpos{display:inline-flex;align-items:center;background:transparent;color:#e6c27a;border:1px solid rgba(230,194,122,.5);border-radius:999px;padding:6px 14px;font-family:inherit;font-size:12px;cursor:pointer}
 .home-openpos:hover{background:rgba(230,194,122,.12)}
-.home-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:2px}
-a.home-card{display:block;margin-bottom:0;padding:16px 18px;color:inherit;text-decoration:none;transition:border-color .15s,transform .15s,background .15s;min-height:100%}
-a.home-card:hover{border-color:rgba(230,194,122,.55);background:rgba(230,194,122,.05);transform:translateY(-1px)}
-a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:3px}
-.home-card .home-card-h{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:10px}
-.home-card h2{font-size:13px;color:#fff}
-.home-sig{display:flex;flex-direction:column;align-items:flex-end;text-align:right;line-height:1.15;font-variant-numeric:tabular-nums}
-.home-sig b{font-size:20px;font-weight:800}
-.home-sig em{font-style:normal;font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-weight:650}
-.home-flags{font-size:13px;color:#d8d0c2;display:flex;flex-wrap:wrap;gap:2px 0;margin:2px 0 8px}
-.home-flags i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;vertical-align:middle}
+.home-table-scroll{margin-top:0}
+.home-table{display:flex;flex-direction:column;gap:3px}
+.home-table-h,a.home-card{
+  display:grid;
+  grid-template-columns:6.8rem 7.4rem 6.2rem 5.6rem minmax(6.4rem,0.9fr) minmax(7.2rem,1.15fr) 1.2rem;
+  align-items:center;
+  gap:0 10px;
+  min-width:0;
+}
+.home-table-h{padding:2px 12px 4px;font-size:9.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--mut);font-weight:650}
+a.home-card.card{margin-bottom:0;padding:7px 12px;min-height:0;border-radius:8px;color:inherit;text-decoration:none;transition:border-color .15s,background-color .15s,transform .15s,box-shadow .15s}
+a.home-card:hover{border-color:rgba(230,194,122,.6);background:rgba(230,194,122,.07);transform:translateX(2px);box-shadow:0 0 0 1px rgba(230,194,122,.15)}
+a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
+.home-card h2{margin:0;font-size:12px;letter-spacing:.08em;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.home-sig{display:flex;align-items:baseline;gap:6px;text-align:left;line-height:1.15;font-variant-numeric:tabular-nums;white-space:nowrap;min-width:0}
+.home-sig b{font-size:15px;font-weight:800}
+.home-sig em{font-style:normal;font-size:11px;letter-spacing:.04em;text-transform:uppercase;font-weight:650}
+.home-flags{font-size:12.5px;color:#d8d0c2;display:flex;align-items:center;gap:7px;margin:0;white-space:nowrap;font-variant-numeric:tabular-nums}
+.home-flags i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:4px;vertical-align:middle}
 .home-flags .g{background:#7fd1a8}.home-flags .o{background:#ff9a1f}.home-flags .r{background:#e88f8f}
-.home-flags .sep{color:var(--mut);margin:0 7px}
-.home-held{font-size:13px;color:#fff;margin:0 0 8px}
-.home-held span{color:var(--mut)}
-.home-marks{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 8px}
-.home-mark{font-size:11px;color:#d8d0c2;border:1px solid var(--soft);border-radius:999px;padding:3px 9px;background:rgba(255,255,255,.03)}
-.home-go{font-size:11px;color:#e6c27a;letter-spacing:.06em;text-transform:uppercase;font-weight:650}
+.home-held{font-size:13px;color:#fff;margin:0;white-space:nowrap;font-variant-numeric:tabular-nums}
+.home-mark{font-size:12px;color:#d8d0c2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.home-mark.is-empty{color:var(--mut)}
+.home-go{font-size:14px;color:#e6c27a;font-weight:700;text-align:right;letter-spacing:0;text-transform:none}
 @media(max-width:900px){
-  .home-kpis,.home-split,.home-lines,.home-grid{grid-template-columns:1fr}
-  .home-tot .home-big{font-size:28px}
-  .home-tot .home-sub{font-size:18px}
+  .home-tot .home-big{font-size:22px}
+  .home-tot .home-sub{font-size:15px}
+  .home-hero-top .home-openpos{margin-left:0}
+}
+@media(max-width:800px){
+  .home-table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -14px;padding:0 14px}
+  .home-table{min-width:720px}
 }
 @media(max-width:600px){
-  .home-hero{padding:16px 14px 14px}
-  a.home-card{padding:14px 14px}
-  .home-tot .home-big{font-size:24px}
-  .home-kpis .kpi .v{font-size:20px}
+  .home-hero{padding:12px 12px 10px}
+  .home-bw{font-size:12px}
 }
-
 
 </style>
 </head>
@@ -7762,7 +7778,7 @@ function posInit(){
   }catch(e){}
 }
 
-/* ===== Accueil : patrimoine + cartes de secteurs (données déjà présentes, lecture seule) ===== */
+/* ===== Accueil : patrimoine + lignes de secteurs (données déjà présentes, lecture seule) ===== */
 function homeTabOf(p){
   const tab=p&&p.tab;
   if(tab==='obligations'||tab==='energie'||tab==='crypto'||tab==='metaux'||tab==='liquidites'||tab==='immobilier'||tab==='actions') return tab;
@@ -7793,15 +7809,6 @@ function homeScoresOf(list, pick){
   });
   return out;
 }
-function homeFlagWord(n, one, many){return n+' '+(n>1?many:one);}
-function homeFlagsHTML(t){
-  if(!t||!t.n) return '<div class="home-flags">Verts / oranges / rouges : —</div>';
-  return `<div class="home-flags" title="Nombre de fiches notées dans cet onglet (vert &gt; +33, orange −33 à +33, rouge &lt; −33)">
-    <span><i class="g"></i>${homeFlagWord(t.green,'vert','verts')}</span><span class="sep">·</span>
-    <span><i class="o"></i>${homeFlagWord(t.orange,'orange','oranges')}</span><span class="sep">·</span>
-    <span><i class="r"></i>${homeFlagWord(t.red,'rouge','rouges')}</span>
-  </div>`;
-}
 function homeAvOf(id){
   if(id==='obligations'&&typeof OB!=='undefined'&&OB.av) return OB.av;
   if(id==='metaux'&&typeof MT!=='undefined'&&MT.av) return MT.av;
@@ -7814,18 +7821,7 @@ function homeIndOf(id){
   if(typeof IND!=='undefined'&&IND[id]) return IND[id];
   return null;
 }
-function homeSigHTML(av){
-  if(!av||av.score==null||av.score==='') return `<div class="home-sig"><b>—</b><em>Signal</em></div>`;
-  const col=(typeof avCol==='function')?avCol(av.score):'#e6c27a';
-  const lab=av.label||'';
-  return `<div class="home-sig"><b style="color:${col}">${sign(av.score,0)}</b><em style="color:${col}">${lab||'Signal'}</em></div>`;
-}
-function homeHeld(map,id){
-  const v=map[id];
-  if(v==null||!(v>0)) return `<div class="home-held"><span>Détenu</span> —</div>`;
-  return `<div class="home-held"><span>Détenu</span> ${posAmt(v,'EUR')}</div>`;
-}
-function homeMark(txt){return txt?`<span class="home-mark">${txt}</span>`:'';}
+function homeEsc(s){return String(s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');}
 function homeLastPair(v){
   if(!v) return null;
   if(Array.isArray(v)&&v.length>=2&&typeof v[0]==='string'&&typeof v[1]==='number') return v;
@@ -7884,24 +7880,66 @@ function homeBestWorst(act,n){
   const worst=[...withPnl].sort((a,b)=>-by(a,b)).slice(0,n);
   return {best,worst};
 }
-function homeLine(p){
+function homeShortName(p){
   const nom=p.nom||p.titre||p.ticker||'—';
-  const pct=p.pnl_pct==null?'—':`<span class="${p.pnl_pct>=0?'up':'down'}">${posPct(p.pnl_pct)}</span>`;
-  return `<li><span class="nm">${nom}</span>${pct}</li>`;
+  if(nom==='Enphase Energy') return 'Enphase';
+  if(nom==='AGNC Investment') return 'AGNC';
+  return nom;
 }
-function homeList(arr,empty){
-  if(!arr||!arr.length) return `<li><span class="nm">${empty||'—'}</span></li>`;
-  return arr.map(homeLine).join('');
+function homeBwBits(arr){
+  if(!arr||!arr.length) return '—';
+  return arr.map((p,i)=>{
+    const pct=p.pnl_pct==null?'—':`<span class="${p.pnl_pct>=0?'up':'down'}">${posPct(p.pnl_pct)}</span>`;
+    const sep=i?`<span class="sep">·</span>`:'';
+    return `${sep}<span class="nm">${homeEsc(homeShortName(p))}</span>\u00a0${pct}`;
+  }).join('');
 }
-function homeCard({id,label,counts,held,marks}){
+function homeLab(ind){
+  if(!ind||!ind.label) return '';
+  return ind.label==='Peur extrême'?'Peur ext.':ind.label;
+}
+function homeSentMark(ind){
+  if(!ind||ind.value==null) return null;
+  const bits=[ind.title,ind.date&&homeD(ind.date)].filter(Boolean);
+  return {text:`S ${fmt(ind.value,0)} ${homeLab(ind)}`.trim(), title:bits.join(' · ')};
+}
+function homeValMark(text, title){
+  if(!text) return null;
+  return {text, title:title||''};
+}
+function homeFlagsHTML(t){
+  if(!t||!t.n) return '<div class="home-flags" title="Aucune fiche notée dans cet onglet">—</div>';
+  const tip=`${t.green} vert${t.green>1?'s':''} · ${t.orange} orange${t.orange>1?'s':''} · ${t.red} rouge${t.red>1?'s':''} (vert &gt; +33, orange −33 à +33, rouge &lt; −33)`;
+  return `<div class="home-flags" title="${tip}"><span><i class="g"></i>${t.green}</span><span><i class="o"></i>${t.orange}</span><span><i class="r"></i>${t.red}</span></div>`;
+}
+function homeSigHTML(av){
+  if(!av||av.score==null||av.score==='') return `<div class="home-sig"><b>—</b></div>`;
+  const col=(typeof avCol==='function')?avCol(av.score):'#e6c27a';
+  const lab=av.label||'';
+  return `<div class="home-sig"><b style="color:${col}">${sign(av.score,0)}</b><em style="color:${col}">${lab}</em></div>`;
+}
+function homeHeldHTML(map,id){
+  const v=map[id];
+  if(v==null||!(v>0)) return `<div class="home-held" title="Détenu">—</div>`;
+  return `<div class="home-held" title="Détenu">${posAmt(v,'EUR')}</div>`;
+}
+function homeMarkHTML(m){
+  if(!m||!m.text||m.text==='—') return `<div class="home-mark is-empty">—</div>`;
+  const tip=m.title?` title="${homeEsc(m.title)}"`:'';
+  return `<div class="home-mark"${tip}>${homeEsc(m.text)}</div>`;
+}
+function homeCard({id,label,short,counts,held,marks}){
   const av=homeAvOf(id);
-  const marksHTML=(marks||[]).filter(Boolean).slice(0,2).map(homeMark).join('');
-  return `<a class="card home-card no-acc no-group" href="#${id}">
-    <div class="home-card-h"><h2>${label}</h2>${homeSigHTML(av)}</div>
+  const pair=[(marks&&marks[0])||{text:'—'},(marks&&marks[1])||{text:'—'}];
+  const full=label||short;
+  return `<a class="card home-card no-acc no-group" href="#${id}" title="${homeEsc('Ouvrir l’onglet '+full)}">
+    <h2 title="${homeEsc(full)}">${homeEsc(short||label)}</h2>
+    ${homeSigHTML(av)}
     ${homeFlagsHTML(counts)}
-    ${homeHeld(held,id)}
-    ${marksHTML?`<div class="home-marks">${marksHTML}</div>`:''}
-    <div class="home-go">Ouvrir l’onglet →</div>
+    ${homeHeldHTML(held,id)}
+    ${homeMarkHTML(pair[0])}
+    ${homeMarkHTML(pair[1])}
+    <div class="home-go" aria-hidden="true">→</div>
   </a>`;
 }
 function renderAccueil(el){
@@ -7920,19 +7958,21 @@ function renderAccueil(el){
     ? (T.perf_1an_libelle||'—')
     : `<span class="${T.perf_1an_pct>=0?'up':'down'}">${posPct(T.perf_1an_pct)}</span>`;
   const cash=homeCashFromSource(P.source||'');
-  const cashTxt=(()=>{
+  const cashShort=(()=>{
     const bits=[];
-    if(cash.cash!=null) bits.push(`${posAmt(cash.cash,'USD')} de liquidités Revolut, hors total (comme dans Mes positions)`);
-    if(cash.cfd!=null) bits.push(`CFD ${posAmt(cash.cfd,'USD')} exclus, règle APEX`);
-    if(!bits.length) return 'Liquidités et CFD exclus du patrimoine investi, comme aujourd’hui.';
-    return bits.join(' · ')+'.';
+    if(cash.cash!=null) bits.push(`Liq. ${posAmt(cash.cash,'USD')}`);
+    if(cash.cfd!=null) bits.push(`CFD ${posAmt(cash.cfd,'USD')}`);
+    return bits.join(' · ')||'Liq. et CFD exclus du total';
   })();
+  const cashTip='Liquidités Revolut hors patrimoine investi, comme dans Mes positions. CFD exclus, règle APEX.';
   const revN=rev.n!=null?rev.n:(act.filter(p=>p.courtier==='revolut').length);
   const xtbN=xtb.n!=null?xtb.n:(act.filter(p=>p.courtier==='xtb').length);
-  const revAmt=rev.valeur_eur!=null?posAmt(rev.valeur_eur,'EUR')+' / '+posAmt(rev.valeur_usd||0,'USD'):'—';
+  const revAmt=rev.valeur_eur!=null?posAmt(rev.valeur_eur,'EUR'):'—';
   const xtbAmt=(!xtb.n||xtb.statut==='a_integrer')
     ? (xtb.libelle||'—')
-    : (xtb.valeur_eur!=null?posAmt(xtb.valeur_eur,'EUR')+' / '+posAmt(xtb.valeur_usd||0,'USD'):'—');
+    : (xtb.valeur_eur!=null?posAmt(xtb.valeur_eur,'EUR'):'—');
+  const revTip=rev.valeur_eur!=null?`${posAmt(rev.valeur_eur,'EUR')} / ${posAmt(rev.valeur_usd||0,'USD')} · ${revN} ligne${revN>1?'s':''}`:'';
+  const xtbTip=xtb.valeur_eur!=null?`${posAmt(xtb.valeur_eur,'EUR')} / ${posAmt(xtb.valeur_usd||0,'USD')} · ${xtbN} ligne${xtbN>1?'s':''}`:'';
   const releve=P.releve_libelle||'—';
   const totEur=T.total_eur==null?'—':posAmt(T.total_eur,'EUR');
   const totUsd=T.total_usd==null?'—':posAmt(T.total_usd,'USD');
@@ -7941,93 +7981,89 @@ function renderAccueil(el){
   const us10=homeLastPair(typeof T2!=='undefined'&&T2.actions&&T2.actions.taux10&&T2.actions.taux10.us_last);
   const orRow=(typeof MT!=='undefined'&&(MT.rows||[])).find(r=>/or/i.test(r.nom||''));
   const liv=(typeof T2!=='undefined'&&T2.liquidites&&T2.liquidites.livrets&&T2.liquidites.livrets.last);
-  const estr=homeLastPair(typeof T2!=='undefined'&&T2.liquidites&&T2.liquidites.bce&&T2.liquidites.bce.estr_last);
   const prix=(typeof DATA!=='undefined'&&DATA.prix)||{};
-  const txImmo=(typeof DATA!=='undefined'&&DATA.taux&&DATA.taux.last);
-
-  const indAct=homeIndOf('actions');
-  const indOb=homeIndOf('obligations');
-  const indMt=homeIndOf('metaux');
-  const indCx=homeIndOf('crypto');
-  const indLiq=homeIndOf('liquidites');
-  const indIm=homeIndOf('immobilier');
 
   const marks={
     actions:[
-      indAct&&indAct.value!=null?`S ${fmt(indAct.value,0)} ${indAct.label||''}`.trim():null,
-      vix?`VIX ${homeNum(vix[1],1)} (${homeD(vix[0])})`:null,
-      us10?`US10Y ${homeNum(us10[1],1)}\u00a0% (${homeD(us10[0])})`:null
+      homeSentMark(homeIndOf('actions')),
+      vix?homeValMark(`VIX ${homeNum(vix[1],1)}`, homeD(vix[0])):null
     ],
     obligations:[
-      indOb&&indOb.value!=null?`S ${fmt(indOb.value,0)} ${indOb.label||''}`.trim():null,
-      us10?`US10Y ${homeNum(us10[1],1)}\u00a0% (${homeD(us10[0])})`:null
+      homeSentMark(homeIndOf('obligations')),
+      us10?homeValMark(`US10Y ${homeNum(us10[1],1)}\u00a0%`, homeD(us10[0])):null
     ],
     metaux:[
-      indMt&&indMt.value!=null?`S ${fmt(indMt.value,0)} ${indMt.label||''}`.trim():null,
-      orRow&&orRow.close!=null?`Or ${homeNum(orRow.close,0)}\u00a0$`+(orRow.date?` (${homeD(orRow.date)})`:''):null
+      homeSentMark(homeIndOf('metaux')),
+      orRow&&orRow.close!=null?homeValMark(`Or ${homeNum(orRow.close,0)}\u00a0$`, orRow.date?homeD(orRow.date):''):null
     ],
-    energie:[],
+    energie:[null,null],
     crypto:[
-      indCx&&indCx.value!=null?`S ${fmt(indCx.value,0)} ${indCx.label||''}`.trim():null
+      homeSentMark(homeIndOf('crypto'))
     ],
     liquidites:[
-      indLiq&&indLiq.value!=null?`S ${fmt(indLiq.value,0)} ${indLiq.label||''}`.trim():null,
-      Array.isArray(liv)&&liv.length>=3?`Livret A ${homeNum(liv[1],1)}\u00a0% · LEP ${homeNum(liv[2],1)}\u00a0% (${homeD(liv[0])})`:null,
-      estr?`€STR ${homeNum(estr[1],3)}\u00a0% (${homeD(estr[0])})`:null
+      homeSentMark(homeIndOf('liquidites')),
+      Array.isArray(liv)&&liv.length>=3?homeValMark(`LA ${homeNum(liv[1],1)}\u00a0% · LEP ${homeNum(liv[2],1)}\u00a0%`, homeD(liv[0])):null
     ],
     immobilier:[
-      indIm&&indIm.value!=null?`S ${fmt(indIm.value,0)} ${indIm.label||''}`.trim():null,
-      prix.last&&prix.last.value!=null?`Indice ${homeNum(prix.last.value,1)} (${homeD(prix.last.period)})`+(prix.peak&&prix.peak.dd!=null?` · ${homePct1(prix.peak.dd)} vs sommet`:''):null,
-      Array.isArray(txImmo)&&txImmo[1]!=null?`Taux ${homeNum(txImmo[1],2)}\u00a0% (${homeD(txImmo[0])})`:null
+      homeSentMark(homeIndOf('immobilier')),
+      prix.last&&prix.last.value!=null?homeValMark(
+        `Indice ${homeNum(prix.last.value,1)}`,
+        [homeD(prix.last.period), prix.peak&&prix.peak.dd!=null?`${homePct1(prix.peak.dd)} vs sommet`:''].filter(Boolean).join(' · ')
+      ):null
     ]
   };
-  // énergie : au plus un ou deux repères déjà présents, sans inventer de signal global
   if(typeof T2!=='undefined'&&T2.energie&&Array.isArray(T2.energie.assets)){
     const urnu=T2.energie.assets.find(a=>a.sym==='URNU'&&a.av&&a.av.score!=null);
-    if(urnu) marks.energie.push(`URNU ${sign(urnu.av.score,0)} ${urnu.av.label||''}`.trim());
+    if(urnu) marks.energie[1]=homeValMark(`URNU ${sign(urnu.av.score,0)} ${urnu.av.label||''}`.trim(), 'Fiche URNU, déjà sur l’onglet Énergie');
   }
 
   const cards=[
-    {id:'actions',label:'Actions',counts:homeCount(homeActionScores()),held,marks:marks.actions},
-    {id:'obligations',label:'Obligations',counts:homeCount(homeScoresOf((typeof OB!=='undefined'&&OB.segments)||[])),held,marks:marks.obligations},
-    {id:'metaux',label:'Métaux précieux',counts:homeCount(homeScoresOf((typeof MT!=='undefined'&&MT.rows)||[])),held,marks:marks.metaux},
-    {id:'energie',label:'Énergie',counts:homeCount(homeScoresOf((typeof T2!=='undefined'&&T2.energie&&T2.energie.assets)||[])),held,marks:marks.energie},
-    {id:'crypto',label:'Crypto',counts:homeCount(homeScoresOf((typeof T2!=='undefined'&&T2.crypto&&T2.crypto.fiches&&T2.crypto.fiches.assets)||[])),held,marks:marks.crypto},
-    {id:'liquidites',label:'Liquidités',counts:{n:0,green:0,orange:0,red:0},held,marks:marks.liquidites},
-    {id:'immobilier',label:'Immobilier',counts:{n:0,green:0,orange:0,red:0},held,marks:marks.immobilier}
+    {id:'actions',label:'Actions',short:'Actions',counts:homeCount(homeActionScores()),held,marks:marks.actions},
+    {id:'obligations',label:'Obligations',short:'Oblig.',counts:homeCount(homeScoresOf((typeof OB!=='undefined'&&OB.segments)||[])),held,marks:marks.obligations},
+    {id:'metaux',label:'Métaux précieux',short:'Métaux',counts:homeCount(homeScoresOf((typeof MT!=='undefined'&&MT.rows)||[])),held,marks:marks.metaux},
+    {id:'energie',label:'Énergie',short:'Énergie',counts:homeCount(homeScoresOf((typeof T2!=='undefined'&&T2.energie&&T2.energie.assets)||[])),held,marks:marks.energie},
+    {id:'crypto',label:'Crypto',short:'Crypto',counts:homeCount(homeScoresOf((typeof T2!=='undefined'&&T2.crypto&&T2.crypto.fiches&&T2.crypto.fiches.assets)||[])),held,marks:marks.crypto},
+    {id:'liquidites',label:'Liquidités',short:'Liq.',counts:{n:0,green:0,orange:0,red:0},held,marks:marks.liquidites},
+    {id:'immobilier',label:'Immobilier',short:'Immo',counts:{n:0,green:0,orange:0,red:0},held,marks:marks.immobilier}
   ];
 
-  const nTxt=nAct+' position'+(nAct>1?'s':'')+' active'+(nAct>1?'s':'')+(pend.length?` · ${pend.length} en attente`:'');
+  const nTip=nAct+' position'+(nAct>1?'s':'')+' active'+(nAct>1?'s':'')+(pend.length?` · ${pend.length} en attente`:'');
 
   el.innerHTML=`
     <div class="card no-group no-acc home-hero">
-      <h2>Patrimoine et positions</h2>
-      <div class="desc">Relevé ${releve} · liquidités et CFD exclus du total, comme dans Mes positions. Aucun rendement n’est promis.</div>
-      <div class="home-tot">
-        <span class="home-big">${totEur}</span>
-        <span class="home-sub">${totUsd}</span>
+      <div class="home-hero-top">
+        <h2>Patrimoine et positions</h2>
+        <span class="home-rel" title="Liquidités et CFD exclus du total, comme dans Mes positions. Aucun rendement n’est promis.">Relevé ${homeEsc(releve)}</span>
+        <button type="button" class="home-openpos" id="homeOpenPos">Mes positions →</button>
       </div>
-      <div class="home-kpis">
-        <div class="kpi"><div class="l">Depuis le début</div><div class="v">${totDeb}</div><div class="s">Performance du patrimoine investi</div></div>
-        <div class="kpi"><div class="l">Résultat 1 an</div><div class="v" title="${(T.perf_1an_note||'').replace(/"/g,'&quot;')}">${tot1an}</div><div class="s">Comme dans Mes positions</div></div>
-        <div class="kpi"><div class="l">Positions actives</div><div class="v">${nAct||'—'}</div><div class="s">${nTxt}</div></div>
-        <div class="kpi"><div class="l">Courtiers</div><div class="v" style="font-size:16px;line-height:1.25">Revolut ${revN} · XTB ${xtbN}</div><div class="s">Répartition ci-dessous</div></div>
+      <div class="home-strip">
+        <div class="home-tot">
+          <span class="home-big">${totEur}</span>
+          <span class="home-sub">${totUsd}</span>
+        </div>
+        <div class="home-kv" title="Performance depuis le début"><span class="l">Début</span><b>${totDeb}</b></div>
+        <div class="home-kv" title="${homeEsc(T.perf_1an_note||'Comme dans Mes positions')}"><span class="l">1 an</span><b>${tot1an}</b></div>
+        <div class="home-kv" title="${homeEsc(nTip)}"><span class="l">Pos.</span><b>${nAct||'—'}</b></div>
+        <div class="home-kv" title="${homeEsc(revTip)}"><span class="l">Revolut</span><b>${revAmt}</b><small>${revN}</small></div>
+        <div class="home-kv" title="${homeEsc(xtbTip)}"><span class="l">XTB</span><b>${xtbAmt}</b><small>${xtbN}</small></div>
+        <div class="home-kv" title="${homeEsc(cashTip)}"><span class="l">Liq.</span><b>${cash.cash!=null?posAmt(cash.cash,'USD'):'—'}</b></div>
       </div>
-      <div class="home-split">
-        <div><div class="l">Revolut</div><div class="v">${revAmt}</div><div class="s">${revN} ligne${revN>1?'s':''}</div></div>
-        <div><div class="l">XTB</div><div class="v">${xtbAmt}</div><div class="s">${xtbN} ligne${xtbN>1?'s':''}</div></div>
+      <div class="home-bw">
+        <div class="home-bw-g"><span class="home-bw-l">Meilleures</span>${homeBwBits(bw.best)}</div>
+        <div class="home-bw-g"><span class="home-bw-l">Pires</span>${homeBwBits(bw.worst)}</div>
       </div>
-      <div class="home-lines">
-        <div><h3>Meilleures lignes</h3><ol>${homeList(bw.best)}</ol></div>
-        <div><h3>Pires lignes</h3><ol>${homeList(bw.worst)}</ol></div>
-      </div>
-      <p class="home-cash">${cashTxt}</p>
-      <button type="button" class="home-openpos" id="homeOpenPos">Ouvrir Mes positions →</button>
     </div>
-    <div class="home-grid">${cards.map(homeCard).join('')}</div>`;
+    <div class="home-table-scroll">
+      <div class="home-table">
+        <div class="home-table-h" aria-hidden="true">
+          <span>Secteur</span><span>Signal</span><span>Drapeaux</span><span>Détenu</span><span>Sentiment</span><span>Repère</span><span></span>
+        </div>
+        ${cards.map(homeCard).join('')}
+      </div>
+    </div>`;
 
   const btn=el.querySelector('#homeOpenPos');
-  if(btn) btn.addEventListener('click',()=>{if(typeof posSetOpen==='function') posSetOpen(true);});
+  if(btn) btn.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();if(typeof posSetOpen==='function') posSetOpen(true);});
 }
 
 buildTabs();
