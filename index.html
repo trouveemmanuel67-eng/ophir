@@ -32,8 +32,9 @@
 *{box-sizing:border-box}html,body{margin:0}
 :root{--card:#1a1a1a;--line:rgba(255,255,255,.25);--soft:rgba(255,255,255,.10);--mut:#bababa;--txt:#fff;--up:#7fd1a8;--down:#e88f8f;--acc:#a9cdf5;--acc2:#e6c27a}
 body{color:var(--txt);font-family:Inter,"Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;background:#000;min-height:100vh}
-#hbg{position:fixed;inset:0;z-index:-1;background-color:#0c1016;background-image:url("bg-ophir.jpg");background-image:image-set(url("bg-ophir.webp") type("image/webp"),url("bg-ophir.jpg") type("image/jpeg"));background-position:center bottom;background-size:cover}
-#hbg:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,12,18,.72),rgba(8,12,18,.55) 40%,rgba(8,12,18,.68))}
+#hbg{position:fixed;inset:0;z-index:-1;background-color:#0c1016;background-image:url("bg-ophir.jpg");background-image:image-set(url("bg-ophir.webp") type("image/webp"),url("bg-ophir.jpg") type("image/jpeg"));background-position:center center;background-size:cover;background-repeat:no-repeat}
+#hbg:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,10,12,.78),rgba(8,10,12,.62) 42%,rgba(8,10,12,.76))}
+@media(max-width:600px){#hbg{background-position:18% center}}
 #hh{text-align:center;padding:16px 12px 8px}
 #hh h1{margin:0 0 10px;display:flex;flex-direction:column;align-items:center;gap:7px;font-weight:600;font-size:22px}
 #hh .brand{display:block;height:56px;width:auto;max-width:min(92vw,280px)}
@@ -310,6 +311,61 @@ th{color:var(--mut);font-weight:600;font-size:11px;letter-spacing:.06em;text-tra
 .pos-act{background:rgba(230,194,122,.16);color:#e6c27a;border:1px solid rgba(230,194,122,.45)}
 .pos-pend{background:rgba(169,205,245,.16);color:#c5def8;border:1px solid rgba(169,205,245,.5)}
 .pos-flash{outline:2px solid #e6c27a;outline-offset:3px;border-radius:10px;transition:outline-color .4s}
+
+/* ===== Accueil ===== */
+body.home-on #accAll{display:none}
+body.home-on .layout .side{display:none}
+.home-hero{padding:22px 24px 20px;border-color:rgba(230,194,122,.32);background:linear-gradient(180deg,rgba(230,194,122,.07),transparent 48%),var(--card)}
+.home-hero h2{color:#e6c27a}
+.home-tot{display:flex;flex-wrap:wrap;gap:6px 22px;align-items:baseline;margin:10px 0 4px;font-variant-numeric:tabular-nums}
+.home-tot .home-big{font-size:34px;font-weight:700;letter-spacing:-.02em;color:#fff;line-height:1.1}
+.home-tot .home-sub{font-size:22px;font-weight:650;color:#d8d0c2}
+.home-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:14px 0 12px}
+.home-kpis .kpi .v{font-size:22px}
+.home-split{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 12px}
+.home-split>div{border:1px solid var(--soft);border-radius:10px;padding:10px 12px;background:rgba(255,255,255,.02)}
+.home-split .l{font-size:11px;color:var(--mut);letter-spacing:.06em;text-transform:uppercase}
+.home-split .v{font-size:18px;font-weight:700;margin-top:3px;font-variant-numeric:tabular-nums}
+.home-split .s{font-size:12px;color:var(--mut);margin-top:2px}
+.home-lines{display:grid;grid-template-columns:1fr 1fr;gap:10px 18px;margin:4px 0 8px}
+.home-lines h3{margin:0 0 6px;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--mut);font-weight:650}
+.home-lines ol{margin:0;padding:0;list-style:none}
+.home-lines li{display:flex;justify-content:space-between;gap:10px;padding:5px 0;border-bottom:1px solid var(--soft);font-size:13px;font-variant-numeric:tabular-nums}
+.home-lines li:last-child{border-bottom:0}
+.home-lines .nm{color:#fff;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.home-cash{font-size:12.5px;color:var(--mut);margin:8px 0 0;line-height:1.5}
+.home-openpos{display:inline-flex;align-items:center;margin-top:14px;background:transparent;color:#e6c27a;border:1px solid rgba(230,194,122,.5);border-radius:999px;padding:6px 14px;font-family:inherit;font-size:12px;cursor:pointer}
+.home-openpos:hover{background:rgba(230,194,122,.12)}
+.home-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:2px}
+a.home-card{display:block;margin-bottom:0;padding:16px 18px;color:inherit;text-decoration:none;transition:border-color .15s,transform .15s,background .15s;min-height:100%}
+a.home-card:hover{border-color:rgba(230,194,122,.55);background:rgba(230,194,122,.05);transform:translateY(-1px)}
+a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:3px}
+.home-card .home-card-h{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:10px}
+.home-card h2{font-size:13px;color:#fff}
+.home-sig{display:flex;flex-direction:column;align-items:flex-end;text-align:right;line-height:1.15;font-variant-numeric:tabular-nums}
+.home-sig b{font-size:20px;font-weight:800}
+.home-sig em{font-style:normal;font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-weight:650}
+.home-flags{font-size:13px;color:#d8d0c2;display:flex;flex-wrap:wrap;gap:2px 0;margin:2px 0 8px}
+.home-flags i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;vertical-align:middle}
+.home-flags .g{background:#7fd1a8}.home-flags .o{background:#ff9a1f}.home-flags .r{background:#e88f8f}
+.home-flags .sep{color:var(--mut);margin:0 7px}
+.home-held{font-size:13px;color:#fff;margin:0 0 8px}
+.home-held span{color:var(--mut)}
+.home-marks{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 8px}
+.home-mark{font-size:11px;color:#d8d0c2;border:1px solid var(--soft);border-radius:999px;padding:3px 9px;background:rgba(255,255,255,.03)}
+.home-go{font-size:11px;color:#e6c27a;letter-spacing:.06em;text-transform:uppercase;font-weight:650}
+@media(max-width:900px){
+  .home-kpis,.home-split,.home-lines,.home-grid{grid-template-columns:1fr}
+  .home-tot .home-big{font-size:28px}
+  .home-tot .home-sub{font-size:18px}
+}
+@media(max-width:600px){
+  .home-hero{padding:16px 14px 14px}
+  a.home-card{padding:14px 14px}
+  .home-tot .home-big{font-size:24px}
+  .home-kpis .kpi .v{font-size:20px}
+}
+
 
 </style>
 </head>
@@ -6267,6 +6323,7 @@ const charts=[];
 
 /* ===== Registre des onglets : ajouter un onglet = ajouter un objet ici ===== */
 const TABS=[
+  {id:'accueil',label:'Accueil',enabled:true,render:el=>renderAccueil(el)},
   {id:'actions',label:'Actions',enabled:true,render:el=>renderActions(el)},
   {id:'obligations',label:'Obligations',enabled:true,render:el=>renderObligations(el)},
   {id:'metaux',label:'Métaux précieux',enabled:true,render:el=>renderMetaux(el)},
@@ -6289,8 +6346,11 @@ function buildTabs(){
   window.addEventListener('hashchange',show);show();
 }
 function show(){
+  if(!location.hash){try{history.replaceState(null,'',location.pathname+location.search+'#accueil');}catch(e){location.hash='accueil';}}
   let id=location.hash.slice(1);let t=TABS.find(x=>x.id===id&&x.enabled)||TABS.find(x=>x.enabled);
   TABS.forEach(x=>{document.getElementById('t'+x.id).classList.toggle('on',x===t);document.getElementById('p'+x.id).classList.toggle('on',x===t);});
+  document.body.classList.toggle('home-on',t.id==='accueil');
+  const accAllBtn=document.getElementById('accAll');if(accAllBtn)accAllBtn.hidden=(t.id==='accueil');
   if(t.render&&!t.done){t.render(document.getElementById('p'+t.id));t.done=true;}
   {const du=document.getElementById('duo');if(du)du.innerHTML='';}   /* évite les id de canvas en double avant le nouveau rendu */
   if(typeof renderIndicator==='function') renderIndicator(t.id);
@@ -7393,7 +7453,7 @@ function accBody(nodes){const b=document.createElement('div');b.className='acc-b
 /* Cartes du contenu principal : seul l'en-tête (titre + sous-titre) reste visible */
 function accMain(section,tabId){
   section.querySelectorAll('.card').forEach((card,k)=>{
-    if(card.classList.contains('acc')||card.classList.contains('placeholder'))return;
+    if(card.classList.contains('acc')||card.classList.contains('placeholder')||card.classList.contains('no-acc')||card.classList.contains('home-card')||card.classList.contains('home-hero'))return;
     const h2=card.querySelector(':scope>h2');if(!h2)return;
     const desc=h2.nextElementSibling&&h2.nextElementSibling.classList.contains('desc')?h2.nextElementSibling:null;
     const head=document.createElement('div');card.insertBefore(head,h2);head.appendChild(h2);if(desc)head.appendChild(desc);
@@ -7650,6 +7710,7 @@ function renderMesPositions(){
     ? `<span class="pos-na" title="${(T.perf_1an_note||'').replace(/"/g,'&quot;')}">${T.perf_1an_libelle||'à venir'}</span>`
     : `<span class="${T.perf_1an_pct>=0?'up':'down'}">${posPct(T.perf_1an_pct)}</span>`;
   const totDeb=T.perf_debut_pct==null?'—':`<span class="${T.perf_debut_pct>=0?'up':'down'}">${posPct(T.perf_debut_pct)}</span>`;
+  const xtbPending=xtb.statut==='a_integrer'||!xtb.n;
   const xtbTxt=xtbPending
     ? `${xtb.libelle||'à intégrer'} (0)`
     : posAmt(xtb.valeur_usd||0,'USD');
@@ -7661,7 +7722,6 @@ function renderMesPositions(){
     if(!bits.length) return '';
     return 'Conversion '+bits.join(', ')+` au ${fx.date} (${fx.source_court||fx.source||'Yahoo'}, Europe/Paris).`;
   })();
-  const xtbPending=xtb.statut==='a_integrer'||!xtb.n;
   host.innerHTML=`<div class="card no-group" id="mesPosCard">
     <div class="pos-rail-h">
       <h2>Mes positions</h2>
@@ -7700,6 +7760,274 @@ function posInit(){
   try{
     fetch('positions.json',{cache:'no-cache'}).then(r=>r.ok?r.json():null).then(d=>{if(d&&d.positions) apply(d);}).catch(()=>{});
   }catch(e){}
+}
+
+/* ===== Accueil : patrimoine + cartes de secteurs (données déjà présentes, lecture seule) ===== */
+function homeTabOf(p){
+  const tab=p&&p.tab;
+  if(tab==='obligations'||tab==='energie'||tab==='crypto'||tab==='metaux'||tab==='liquidites'||tab==='immobilier'||tab==='actions') return tab;
+  if(tab==='pays') return 'actions';
+  if(p&&p.type==='bond') return 'obligations';
+  if(p&&(p.type==='equity'||p.type==='etf')) return 'actions';
+  return null;
+}
+function homeColor(score){
+  if(score==null||score==='') return null;
+  const s=Number(score);
+  if(!Number.isFinite(s)) return null;
+  if(s>33) return 'green';
+  if(s<-33) return 'red';
+  return 'orange';
+}
+function homeCount(scores){
+  const t={green:0,orange:0,red:0,n:0};
+  (scores||[]).forEach(s=>{const c=homeColor(s);if(!c)return;t[c]++;t.n++;});
+  return t;
+}
+function homeScoresOf(list, pick){
+  const out=[];
+  (list||[]).forEach(item=>{
+    const av=pick?pick(item):(item&&item.av);
+    const s=av&&av.score;
+    if(s!=null&&s!==''&&Number.isFinite(Number(s))) out.push(Number(s));
+  });
+  return out;
+}
+function homeFlagWord(n, one, many){return n+' '+(n>1?many:one);}
+function homeFlagsHTML(t){
+  if(!t||!t.n) return '<div class="home-flags">Verts / oranges / rouges : —</div>';
+  return `<div class="home-flags" title="Nombre de fiches notées dans cet onglet (vert &gt; +33, orange −33 à +33, rouge &lt; −33)">
+    <span><i class="g"></i>${homeFlagWord(t.green,'vert','verts')}</span><span class="sep">·</span>
+    <span><i class="o"></i>${homeFlagWord(t.orange,'orange','oranges')}</span><span class="sep">·</span>
+    <span><i class="r"></i>${homeFlagWord(t.red,'rouge','rouges')}</span>
+  </div>`;
+}
+function homeAvOf(id){
+  if(id==='obligations'&&typeof OB!=='undefined'&&OB.av) return OB.av;
+  if(id==='metaux'&&typeof MT!=='undefined'&&MT.av) return MT.av;
+  if(typeof AV!=='undefined'&&AV[id]) return AV[id];
+  return null;
+}
+function homeIndOf(id){
+  if(id==='obligations'&&typeof OB!=='undefined'&&OB.ind) return OB.ind;
+  if(id==='metaux'&&typeof MT!=='undefined'&&MT.ind) return MT.ind;
+  if(typeof IND!=='undefined'&&IND[id]) return IND[id];
+  return null;
+}
+function homeSigHTML(av){
+  if(!av||av.score==null||av.score==='') return `<div class="home-sig"><b>—</b><em>Signal</em></div>`;
+  const col=(typeof avCol==='function')?avCol(av.score):'#e6c27a';
+  const lab=av.label||'';
+  return `<div class="home-sig"><b style="color:${col}">${sign(av.score,0)}</b><em style="color:${col}">${lab||'Signal'}</em></div>`;
+}
+function homeHeld(map,id){
+  const v=map[id];
+  if(v==null||!(v>0)) return `<div class="home-held"><span>Détenu</span> —</div>`;
+  return `<div class="home-held"><span>Détenu</span> ${posAmt(v,'EUR')}</div>`;
+}
+function homeMark(txt){return txt?`<span class="home-mark">${txt}</span>`:'';}
+function homeLastPair(v){
+  if(!v) return null;
+  if(Array.isArray(v)&&v.length>=2&&typeof v[0]==='string'&&typeof v[1]==='number') return v;
+  if(v.last) return homeLastPair(v.last);
+  return null;
+}
+function homeD(s){
+  if(!s) return '';
+  if(/^\d{4}-Q[1-4]$/.test(s)) return (typeof qfr==='function')?qfr(s):s;
+  if(/^\d{4}-\d{2}$/.test(s)) return (typeof mfr==='function')?mfr(s):s;
+  if(/^\d{4}-\d{2}-\d{2}$/.test(s)){
+    const d=new Date(s+'T00:00:00');
+    return isNaN(d)?s:d.toLocaleDateString('fr-FR',{day:'numeric',month:'short'});
+  }
+  return s;
+}
+function homePct1(v){
+  if(v==null||!Number.isFinite(Number(v))) return '—';
+  const n=Number(v);return (n>0?'+':n<0?'−':'')+Math.abs(n).toLocaleString('fr-FR',{minimumFractionDigits:1,maximumFractionDigits:1})+'\u00a0%';
+}
+function homeNum(v,d){
+  if(v==null||!Number.isFinite(Number(v))) return '—';
+  return Number(v).toLocaleString('fr-FR',{minimumFractionDigits:d,maximumFractionDigits:d});
+}
+function homeCashFromSource(src){
+  if(!src) return {cash:null,cfd:null};
+  const cash=src.match(/([0-9][0-9 \u00a0\u202f]*,[0-9]{2})\s*\$\s*de liquidités/i);
+  const cfd=src.match(/compte CFD de\s*([0-9][0-9 \u00a0\u202f]*,[0-9]{2})\s*\$/i);
+  const toNum=s=>s?Number(s.replace(/[ \u00a0\u202f]/g,'').replace(',','.')):null;
+  return {cash:toNum(cash&&cash[1]),cfd:toNum(cfd&&cfd[1])};
+}
+function homeHeldMap(act){
+  const map={actions:0,obligations:0,metaux:0,energie:0,crypto:0,liquidites:0,immobilier:0};
+  act.forEach(p=>{
+    const tab=homeTabOf(p);
+    if(!tab||!(tab in map)) return;
+    const v=p.valeur_eur;
+    if(v!=null&&Number.isFinite(Number(v))) map[tab]+=Number(v);
+  });
+  return map;
+}
+function homeActionScores(){
+  const scores=[];
+  if(typeof SEC!=='undefined') homeScoresOf(SEC.sectors||SEC.secteurs).forEach(s=>scores.push(s));
+  if(typeof PAYS!=='undefined') (PAYS.countries||PAYS.pays||[]).forEach(c=>{
+    if(c.head) homeScoresOf([c.head]).forEach(s=>scores.push(s));
+    else homeScoresOf([c]).forEach(s=>scores.push(s));
+    homeScoresOf(c.rows||[]).forEach(s=>scores.push(s));
+  });
+  return scores;
+}
+function homeBestWorst(act,n){
+  const withPnl=act.filter(p=>p.pnl_pct!=null&&Number.isFinite(Number(p.pnl_pct)));
+  const by=(a,b)=>Number(b.pnl_pct)-Number(a.pnl_pct);
+  const best=[...withPnl].sort(by).slice(0,n);
+  const worst=[...withPnl].sort((a,b)=>-by(a,b)).slice(0,n);
+  return {best,worst};
+}
+function homeLine(p){
+  const nom=p.nom||p.titre||p.ticker||'—';
+  const pct=p.pnl_pct==null?'—':`<span class="${p.pnl_pct>=0?'up':'down'}">${posPct(p.pnl_pct)}</span>`;
+  return `<li><span class="nm">${nom}</span>${pct}</li>`;
+}
+function homeList(arr,empty){
+  if(!arr||!arr.length) return `<li><span class="nm">${empty||'—'}</span></li>`;
+  return arr.map(homeLine).join('');
+}
+function homeCard({id,label,counts,held,marks}){
+  const av=homeAvOf(id);
+  const marksHTML=(marks||[]).filter(Boolean).slice(0,2).map(homeMark).join('');
+  return `<a class="card home-card no-acc no-group" href="#${id}">
+    <div class="home-card-h"><h2>${label}</h2>${homeSigHTML(av)}</div>
+    ${homeFlagsHTML(counts)}
+    ${homeHeld(held,id)}
+    ${marksHTML?`<div class="home-marks">${marksHTML}</div>`:''}
+    <div class="home-go">Ouvrir l’onglet →</div>
+  </a>`;
+}
+function renderAccueil(el){
+  const P=(typeof POS!=='undefined'&&POS)?POS:{positions:[],totaux:{},courtiers:{}};
+  const T=P.totaux||{};
+  const C=(T.courtiers)||{};
+  const act=(P.positions||[]).filter(p=>p.statut==='active');
+  const pend=(P.positions||[]).filter(p=>p.statut==='en_attente');
+  const held=homeHeldMap(act);
+  const bw=homeBestWorst(act,3);
+  const nAct=P.n_actives!=null?P.n_actives:act.length;
+  const rev=C.revolut||{};
+  const xtb=C.xtb||{};
+  const totDeb=T.perf_debut_pct==null?'—':`<span class="${T.perf_debut_pct>=0?'up':'down'}">${posPct(T.perf_debut_pct)}</span>`;
+  const tot1an=T.perf_1an_pct==null
+    ? (T.perf_1an_libelle||'—')
+    : `<span class="${T.perf_1an_pct>=0?'up':'down'}">${posPct(T.perf_1an_pct)}</span>`;
+  const cash=homeCashFromSource(P.source||'');
+  const cashTxt=(()=>{
+    const bits=[];
+    if(cash.cash!=null) bits.push(`${posAmt(cash.cash,'USD')} de liquidités Revolut, hors total (comme dans Mes positions)`);
+    if(cash.cfd!=null) bits.push(`CFD ${posAmt(cash.cfd,'USD')} exclus, règle APEX`);
+    if(!bits.length) return 'Liquidités et CFD exclus du patrimoine investi, comme aujourd’hui.';
+    return bits.join(' · ')+'.';
+  })();
+  const revN=rev.n!=null?rev.n:(act.filter(p=>p.courtier==='revolut').length);
+  const xtbN=xtb.n!=null?xtb.n:(act.filter(p=>p.courtier==='xtb').length);
+  const revAmt=rev.valeur_eur!=null?posAmt(rev.valeur_eur,'EUR')+' / '+posAmt(rev.valeur_usd||0,'USD'):'—';
+  const xtbAmt=(!xtb.n||xtb.statut==='a_integrer')
+    ? (xtb.libelle||'—')
+    : (xtb.valeur_eur!=null?posAmt(xtb.valeur_eur,'EUR')+' / '+posAmt(xtb.valeur_usd||0,'USD'):'—');
+  const releve=P.releve_libelle||'—';
+  const totEur=T.total_eur==null?'—':posAmt(T.total_eur,'EUR');
+  const totUsd=T.total_usd==null?'—':posAmt(T.total_usd,'USD');
+
+  const vix=homeLastPair(typeof T2!=='undefined'&&T2.actions&&T2.actions.vix);
+  const us10=homeLastPair(typeof T2!=='undefined'&&T2.actions&&T2.actions.taux10&&T2.actions.taux10.us_last);
+  const orRow=(typeof MT!=='undefined'&&(MT.rows||[])).find(r=>/or/i.test(r.nom||''));
+  const liv=(typeof T2!=='undefined'&&T2.liquidites&&T2.liquidites.livrets&&T2.liquidites.livrets.last);
+  const estr=homeLastPair(typeof T2!=='undefined'&&T2.liquidites&&T2.liquidites.bce&&T2.liquidites.bce.estr_last);
+  const prix=(typeof DATA!=='undefined'&&DATA.prix)||{};
+  const txImmo=(typeof DATA!=='undefined'&&DATA.taux&&DATA.taux.last);
+
+  const indAct=homeIndOf('actions');
+  const indOb=homeIndOf('obligations');
+  const indMt=homeIndOf('metaux');
+  const indCx=homeIndOf('crypto');
+  const indLiq=homeIndOf('liquidites');
+  const indIm=homeIndOf('immobilier');
+
+  const marks={
+    actions:[
+      indAct&&indAct.value!=null?`S ${fmt(indAct.value,0)} ${indAct.label||''}`.trim():null,
+      vix?`VIX ${homeNum(vix[1],1)} (${homeD(vix[0])})`:null,
+      us10?`US10Y ${homeNum(us10[1],1)}\u00a0% (${homeD(us10[0])})`:null
+    ],
+    obligations:[
+      indOb&&indOb.value!=null?`S ${fmt(indOb.value,0)} ${indOb.label||''}`.trim():null,
+      us10?`US10Y ${homeNum(us10[1],1)}\u00a0% (${homeD(us10[0])})`:null
+    ],
+    metaux:[
+      indMt&&indMt.value!=null?`S ${fmt(indMt.value,0)} ${indMt.label||''}`.trim():null,
+      orRow&&orRow.close!=null?`Or ${homeNum(orRow.close,0)}\u00a0$`+(orRow.date?` (${homeD(orRow.date)})`:''):null
+    ],
+    energie:[],
+    crypto:[
+      indCx&&indCx.value!=null?`S ${fmt(indCx.value,0)} ${indCx.label||''}`.trim():null
+    ],
+    liquidites:[
+      indLiq&&indLiq.value!=null?`S ${fmt(indLiq.value,0)} ${indLiq.label||''}`.trim():null,
+      Array.isArray(liv)&&liv.length>=3?`Livret A ${homeNum(liv[1],1)}\u00a0% · LEP ${homeNum(liv[2],1)}\u00a0% (${homeD(liv[0])})`:null,
+      estr?`€STR ${homeNum(estr[1],3)}\u00a0% (${homeD(estr[0])})`:null
+    ],
+    immobilier:[
+      indIm&&indIm.value!=null?`S ${fmt(indIm.value,0)} ${indIm.label||''}`.trim():null,
+      prix.last&&prix.last.value!=null?`Indice ${homeNum(prix.last.value,1)} (${homeD(prix.last.period)})`+(prix.peak&&prix.peak.dd!=null?` · ${homePct1(prix.peak.dd)} vs sommet`:''):null,
+      Array.isArray(txImmo)&&txImmo[1]!=null?`Taux ${homeNum(txImmo[1],2)}\u00a0% (${homeD(txImmo[0])})`:null
+    ]
+  };
+  // énergie : au plus un ou deux repères déjà présents, sans inventer de signal global
+  if(typeof T2!=='undefined'&&T2.energie&&Array.isArray(T2.energie.assets)){
+    const urnu=T2.energie.assets.find(a=>a.sym==='URNU'&&a.av&&a.av.score!=null);
+    if(urnu) marks.energie.push(`URNU ${sign(urnu.av.score,0)} ${urnu.av.label||''}`.trim());
+  }
+
+  const cards=[
+    {id:'actions',label:'Actions',counts:homeCount(homeActionScores()),held,marks:marks.actions},
+    {id:'obligations',label:'Obligations',counts:homeCount(homeScoresOf((typeof OB!=='undefined'&&OB.segments)||[])),held,marks:marks.obligations},
+    {id:'metaux',label:'Métaux précieux',counts:homeCount(homeScoresOf((typeof MT!=='undefined'&&MT.rows)||[])),held,marks:marks.metaux},
+    {id:'energie',label:'Énergie',counts:homeCount(homeScoresOf((typeof T2!=='undefined'&&T2.energie&&T2.energie.assets)||[])),held,marks:marks.energie},
+    {id:'crypto',label:'Crypto',counts:homeCount(homeScoresOf((typeof T2!=='undefined'&&T2.crypto&&T2.crypto.fiches&&T2.crypto.fiches.assets)||[])),held,marks:marks.crypto},
+    {id:'liquidites',label:'Liquidités',counts:{n:0,green:0,orange:0,red:0},held,marks:marks.liquidites},
+    {id:'immobilier',label:'Immobilier',counts:{n:0,green:0,orange:0,red:0},held,marks:marks.immobilier}
+  ];
+
+  const nTxt=nAct+' position'+(nAct>1?'s':'')+' active'+(nAct>1?'s':'')+(pend.length?` · ${pend.length} en attente`:'');
+
+  el.innerHTML=`
+    <div class="card no-group no-acc home-hero">
+      <h2>Patrimoine et positions</h2>
+      <div class="desc">Relevé ${releve} · liquidités et CFD exclus du total, comme dans Mes positions. Aucun rendement n’est promis.</div>
+      <div class="home-tot">
+        <span class="home-big">${totEur}</span>
+        <span class="home-sub">${totUsd}</span>
+      </div>
+      <div class="home-kpis">
+        <div class="kpi"><div class="l">Depuis le début</div><div class="v">${totDeb}</div><div class="s">Performance du patrimoine investi</div></div>
+        <div class="kpi"><div class="l">Résultat 1 an</div><div class="v" title="${(T.perf_1an_note||'').replace(/"/g,'&quot;')}">${tot1an}</div><div class="s">Comme dans Mes positions</div></div>
+        <div class="kpi"><div class="l">Positions actives</div><div class="v">${nAct||'—'}</div><div class="s">${nTxt}</div></div>
+        <div class="kpi"><div class="l">Courtiers</div><div class="v" style="font-size:16px;line-height:1.25">Revolut ${revN} · XTB ${xtbN}</div><div class="s">Répartition ci-dessous</div></div>
+      </div>
+      <div class="home-split">
+        <div><div class="l">Revolut</div><div class="v">${revAmt}</div><div class="s">${revN} ligne${revN>1?'s':''}</div></div>
+        <div><div class="l">XTB</div><div class="v">${xtbAmt}</div><div class="s">${xtbN} ligne${xtbN>1?'s':''}</div></div>
+      </div>
+      <div class="home-lines">
+        <div><h3>Meilleures lignes</h3><ol>${homeList(bw.best)}</ol></div>
+        <div><h3>Pires lignes</h3><ol>${homeList(bw.worst)}</ol></div>
+      </div>
+      <p class="home-cash">${cashTxt}</p>
+      <button type="button" class="home-openpos" id="homeOpenPos">Ouvrir Mes positions →</button>
+    </div>
+    <div class="home-grid">${cards.map(homeCard).join('')}</div>`;
+
+  const btn=el.querySelector('#homeOpenPos');
+  if(btn) btn.addEventListener('click',()=>{if(typeof posSetOpen==='function') posSetOpen(true);});
 }
 
 buildTabs();
