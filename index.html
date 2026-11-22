@@ -20,8 +20,8 @@
 <meta property="og:url" content="https://trouveemmanuel67-eng.github.io/ophir/">
 <meta property="og:image" content="https://trouveemmanuel67-eng.github.io/ophir/apex-logo-full.png">
 <meta property="og:image:type" content="image/png">
-<meta property="og:image:width" content="1168">
-<meta property="og:image:height" content="784">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Logo APEX Indicator Investment">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="APEX INDICATOR INVESTMENT">
@@ -35,13 +35,15 @@ body{color:var(--txt);font-family:Inter,"Helvetica Neue",Helvetica,Arial,system-
 #hbg{position:fixed;inset:0;z-index:-1;background-color:#0c1016;background-image:url("bg-ophir.jpg");background-image:image-set(url("bg-ophir.webp") type("image/webp"),url("bg-ophir.jpg") type("image/jpeg"));background-position:center center;background-size:cover;background-repeat:no-repeat}
 #hbg:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,10,12,.78),rgba(8,10,12,.62) 42%,rgba(8,10,12,.76))}
 @media(max-width:600px){#hbg{background-position:18% center}}
-#hh{text-align:center;padding:10px 12px 4px}
-#hh h1{margin:0 0 6px;display:flex;flex-direction:column;align-items:center;gap:4px;font-weight:600;font-size:22px}
-#hh .brand{display:block;height:48px;width:auto;max-width:min(92vw,280px)}
-#hh .brand-sub{font-size:10px;letter-spacing:.22em;text-transform:uppercase;font-weight:600;color:#fff;line-height:1}
-@media(max-width:600px){#hh{padding-top:12px}#hh .brand{height:48px}#hh .brand-sub{font-size:9px;letter-spacing:.18em}}
-@media(min-width:900px){#hh .brand{height:52px}}
-nav{display:inline-flex;flex-wrap:wrap;justify-content:center;gap:8px}
+#hh{text-align:left;padding:8px 12px 4px}
+#hh .hh-top{display:flex;align-items:center;gap:10px 22px;flex-wrap:wrap}
+#hh h1{margin:0;display:flex;flex-direction:row;align-items:center;gap:10px;font-weight:600;font-size:22px;flex:none}
+#hh .brand{display:block;height:64px;width:auto;max-width:min(42vw,140px)}
+#hh .brand-sub{font-size:9px;letter-spacing:.18em;text-transform:uppercase;font-weight:600;color:#fff;line-height:1.35;max-width:8.6em}
+#hh .hh-nav{display:flex;flex-direction:column;align-items:flex-start;gap:6px;flex:1;min-width:min(100%,420px)}
+@media(max-width:600px){#hh{padding-top:10px}#hh .brand{height:44px}#hh .brand-sub{font-size:8px;letter-spacing:.14em}}
+@media(min-width:900px){#hh .brand{height:68px}}
+nav{display:inline-flex;flex-wrap:wrap;justify-content:flex-start;gap:8px}
 nav a{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;color:#fff;text-decoration:none;font-size:14px;font-weight:500;border-radius:999px;transition:transform .25s,box-shadow .25s,background-color .25s}
 nav a.on{background:rgba(255,255,255,.18);backdrop-filter:blur(12px)}
 nav a:not(.off):hover{transform:scale(1.06);box-shadow:0 0 0 1px rgba(210,235,255,.5),0 0 16px rgba(140,200,255,.35);background:rgba(255,255,255,.16)}
@@ -139,7 +141,7 @@ main{max-width:1240px;margin:8px auto 0;padding:0 14px 20px}
 .card.acc:not(.acc-open)>.acc-head .desc{margin-bottom:0}
 .acc-open>.acc-body>.acc-in{padding-top:2px}
 .av-short{margin-top:8px;font-size:10.5px;line-height:1.35;color:#e6c27a;text-align:center}
-.acc-tools{margin-top:6px}
+.acc-tools{margin-top:0}
 .acc-tools button{background:transparent;color:#fff;border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:12px;cursor:pointer;font-family:inherit}
 .acc-tools button:hover{background:rgba(255,255,255,.12)}
 @media(prefers-reduced-motion:reduce){.acc-body,.acc-chev{transition:none}}
@@ -392,10 +394,9 @@ body{display:flex;flex-direction:column;min-height:100vh}
 /* ===== Accueil ===== */
 body.home-on #accAll{display:none}
 body.home-on .layout .side{display:none}
-body.home-on #hh{padding-top:10px;padding-bottom:4px}
-body.home-on #hh h1{margin-bottom:6px;gap:4px}
-body.home-on #hh .brand{height:48px}
-body.home-on .acc-tools{margin-top:6px}
+body.home-on #hh{padding-top:8px;padding-bottom:4px}
+body.home-on #hh h1{margin-bottom:0;gap:10px}
+body.home-on .acc-tools{margin-top:0}
 body.home-on .layout{margin-top:4px;padding-bottom:10px}
 body.home-on .page{padding-bottom:8px}
 body.home-on.pos-open #mes-pos{margin-top:8px}
@@ -465,12 +466,16 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
 <body>
 <div id="hbg"></div>
 <header id="hh">
-  <h1>
-    <img class="brand" src="apex-logo.png" width="116" height="64" alt="APEX">
-    <span class="brand-sub">Indicator Investment</span>
-  </h1>
-  <nav id="nav"></nav>
-  <div class="acc-tools"><button id="accAll" type="button" onclick="accAll(this.dataset.open==='1')">▾ Tout déplier</button><button id="posToggle" class="pos-toggle" type="button" aria-expanded="false" aria-controls="mes-pos">Mes positions ▾</button></div>
+  <div class="hh-top">
+    <h1>
+      <img class="brand" src="apex-logo.png" width="311" height="320" alt="APEX">
+      <span class="brand-sub">Indicator<br>Investment</span>
+    </h1>
+    <div class="hh-nav">
+      <nav id="nav"></nav>
+      <div class="acc-tools"><button id="accAll" type="button" onclick="accAll(this.dataset.open==='1')">▾ Tout déplier</button><button id="posToggle" class="pos-toggle" type="button" aria-expanded="false" aria-controls="mes-pos">Mes positions ▾</button></div>
+    </div>
+  </div>
 </header>
 <div class="page">
 <div class="layout"><main id="tabs"></main><div class="side"><aside id="duo" aria-label="Sentiment de marché et Achat / Vente"></aside><aside id="ind" hidden></aside><aside id="av" hidden></aside></div></div>
@@ -3329,6 +3334,19 @@ function renderAccueil(el){
     {id:'liquidites',label:'Liquidités',short:'Liq.',counts:{n:0,green:0,orange:0,red:0},held,marks:marks.liquidites},
     {id:'immobilier',label:'Immobilier',short:'Immo',counts:{n:0,green:0,orange:0,red:0},held,marks:marks.immobilier}
   ];
+  const sigScore=id=>{
+    const av=homeAvOf(id);
+    if(!av||av.score==null||av.score==='') return null;
+    const n=Number(av.score);
+    return Number.isFinite(n)?n:null;
+  };
+  cards.sort((a,b)=>{
+    const sa=sigScore(a.id),sb=sigScore(b.id);
+    if(sa==null&&sb==null) return 0;
+    if(sa==null) return 1;
+    if(sb==null) return -1;
+    return sb-sa;
+  });
 
   const nTip=nAct+' position'+(nAct>1?'s':'')+' active'+(nAct>1?'s':'')+(pend.length?` · ${pend.length} en attente`:'');
 
