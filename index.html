@@ -35,12 +35,12 @@ body{color:var(--txt);font-family:Inter,"Helvetica Neue",Helvetica,Arial,system-
 #hbg{position:fixed;inset:0;z-index:-1;background-color:#0c1016;background-image:url("bg-ophir.jpg");background-image:image-set(url("bg-ophir.webp") type("image/webp"),url("bg-ophir.jpg") type("image/jpeg"));background-position:center center;background-size:cover;background-repeat:no-repeat}
 #hbg:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,10,12,.78),rgba(8,10,12,.62) 42%,rgba(8,10,12,.76))}
 @media(max-width:600px){#hbg{background-position:18% center}}
-#hh{text-align:center;padding:16px 12px 8px}
-#hh h1{margin:0 0 10px;display:flex;flex-direction:column;align-items:center;gap:7px;font-weight:600;font-size:22px}
-#hh .brand{display:block;height:56px;width:auto;max-width:min(92vw,280px)}
+#hh{text-align:center;padding:10px 12px 4px}
+#hh h1{margin:0 0 6px;display:flex;flex-direction:column;align-items:center;gap:4px;font-weight:600;font-size:22px}
+#hh .brand{display:block;height:48px;width:auto;max-width:min(92vw,280px)}
 #hh .brand-sub{font-size:10px;letter-spacing:.22em;text-transform:uppercase;font-weight:600;color:#fff;line-height:1}
 @media(max-width:600px){#hh{padding-top:12px}#hh .brand{height:48px}#hh .brand-sub{font-size:9px;letter-spacing:.18em}}
-@media(min-width:900px){#hh .brand{height:64px}}
+@media(min-width:900px){#hh .brand{height:52px}}
 nav{display:inline-flex;flex-wrap:wrap;justify-content:center;gap:8px}
 nav a{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;color:#fff;text-decoration:none;font-size:14px;font-weight:500;border-radius:999px;transition:transform .25s,box-shadow .25s,background-color .25s}
 nav a.on{background:rgba(255,255,255,.18);backdrop-filter:blur(12px)}
@@ -49,9 +49,9 @@ nav a.off{color:rgba(255,255,255,.45);cursor:not-allowed}
 nav a .soon{font-size:10px;letter-spacing:.08em;text-transform:uppercase;border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:1px 6px}
 main{max-width:1240px;margin:8px auto 0;padding:0 14px 20px}
 #hh{padding-left:24px;padding-right:24px}
-.layout{display:flex;flex-direction:column;width:100%;max-width:1720px;margin:8px auto 0;padding:0 24px 20px}
+.layout{display:flex;flex-direction:column;width:100%;max-width:1720px;margin:4px auto 0;padding:0 24px 12px}
 .layout>main{max-width:none;margin:0;padding:0;min-width:0}
-.side{order:-1;display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:14px}
+.side{order:-1;display:grid;grid-template-columns:1fr;gap:8px;margin-bottom:8px}
 .side>aside>.card{margin-bottom:0}
 @media(max-width:1100px){.layout{padding:0 14px 20px}}
 /* Lignes INDICATEUR et ACHAT / VENTE */
@@ -139,19 +139,19 @@ main{max-width:1240px;margin:8px auto 0;padding:0 14px 20px}
 .card.acc:not(.acc-open)>.acc-head .desc{margin-bottom:0}
 .acc-open>.acc-body>.acc-in{padding-top:2px}
 .av-short{margin-top:8px;font-size:10.5px;line-height:1.35;color:#e6c27a;text-align:center}
-.acc-tools{margin-top:10px}
+.acc-tools{margin-top:6px}
 .acc-tools button{background:transparent;color:#fff;border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:12px;cursor:pointer;font-family:inherit}
 .acc-tools button:hover{background:rgba(255,255,255,.12)}
 @media(prefers-reduced-motion:reduce){.acc-body,.acc-chev{transition:none}}
 .sec-grid{display:flex;flex-direction:column;margin-top:10px;border:1px solid rgba(255,255,255,.14);border-radius:10px;overflow:hidden}
-.sr{display:grid;grid-template-columns:minmax(240px,1.35fr) minmax(320px,2.6fr) minmax(170px,.85fr);gap:6px 22px;align-items:center;padding:9px 14px}
+.sr{display:grid;grid-template-columns:minmax(240px,1.35fr) minmax(320px,2.6fr) minmax(170px,.85fr);gap:6px 22px;align-items:center;padding:6px 12px}
 .sr-hd{font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--mut);font-weight:600;background:rgba(255,255,255,.05);padding:7px 14px}
 .sec{border-top:1px solid rgba(255,255,255,.1);min-width:0}.sec:nth-child(odd){background:rgba(255,255,255,.022)}.sec:hover{background:rgba(255,255,255,.05)}
 .sec.sec-open{background:rgba(0,229,255,.04)}
 .sr-c{min-width:0}.sr-l{display:none}
 .sr-n{display:flex;flex-direction:column;gap:2px;align-items:flex-start}.sr-n b{font-size:13px;color:#fff}.sr-n span{font-size:11px;color:var(--mut);font-weight:600}
 .sec-warn{display:inline-block;margin-top:2px;font-size:10.5px;color:#ffb347;border:1px solid rgba(255,179,71,.5);border-radius:999px;padding:1px 8px}
-.sr-v{display:flex;align-items:baseline;gap:6px}.sr-v b{font-size:20px;font-weight:700;line-height:1}.sr-v em{font-style:normal;font-size:12px;font-weight:600}
+.sr-v{display:flex;align-items:baseline;gap:6px}.sr-v b{font-size:17px;font-weight:700;line-height:1}.sr-v em{font-style:normal;font-size:12px;font-weight:600}
 .sec-gauge{position:relative;height:22px;margin:2px 2px 0}.sec-gauge .ind-bar{top:7px;height:8px}.sec-gauge .ind-cur{top:3px;width:10px;height:16px;margin-left:-5px}.sec-gauge .ind-range{top:3px;height:16px}
 .sec-gauge .av-tick{top:5px;height:12px}
 .sec-scale{display:flex;justify-content:space-between;font-size:9px;color:var(--mut);margin:0 2px}
@@ -169,7 +169,7 @@ main{max-width:1240px;margin:8px auto 0;padding:0 14px 20px}
 .fl-etf{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;margin:8px 0;padding:8px 10px;border:1px solid rgba(0,229,255,.35);border-radius:8px;background:rgba(0,229,255,.05)}
 .fl-etf b{color:#fff;font-size:12.5px}.fl-k{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#00e5ff}
 .fl{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:8px}
-.fl li{border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:8px 10px;background:rgba(255,255,255,.03);min-width:0}
+.fl li{border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:6px 8px;background:rgba(255,255,255,.03);min-width:0}
 .fl-h{display:flex;justify-content:space-between;gap:6px;align-items:baseline}.fl-h b{color:#fff;font-size:12.5px;min-width:0;overflow-wrap:anywhere}
 .fl-sc{font-size:18px;font-weight:800;color:#22c55e;white-space:nowrap}.fl-sc small{font-size:10px;color:var(--mut);font-weight:500}
 .tvs{display:inline-flex;align-items:center;gap:4px;margin:3px 0}.tvs code{font-size:11.5px;color:#00e5ff;background:rgba(0,229,255,.08);border-radius:4px;padding:1px 5px}
@@ -273,10 +273,14 @@ th{color:var(--mut);font-weight:600;font-size:11px;letter-spacing:.06em;text-tra
 .dispo-badge.dispo-verif{background:rgba(255,154,31,.12);color:#ffc46b;border-color:rgba(255,154,31,.4)}
 .dispo-badge.dispo-xtb{background:rgba(169,205,245,.12);color:#c5def8;border-color:rgba(169,205,245,.45)}
 .dispo-badge.dispo-both{background:rgba(230,194,122,.14);color:#e6c27a;border-color:rgba(230,194,122,.45)}
+html,body{height:100%}
+body{display:flex;flex-direction:column;min-height:100vh}
+#hh{flex:none}
+.page{flex:1 1 auto;min-height:0}
 @media(min-width:1100px){
-  .page{display:flex;align-items:flex-start;max-width:2100px;padding:0 16px 20px;box-sizing:border-box}
-  .page>.layout{flex:1;min-width:0;max-width:none;margin:8px 0 0;padding:0}
-  body.pos-open #mes-pos{display:block;position:sticky;top:12px;flex:0 0 360px;width:360px;max-height:calc(100vh - 24px);overflow:auto;margin:8px 0 0 16px;padding:0}
+  .page{display:flex;align-items:stretch;max-width:2100px;padding:0 16px 8px;box-sizing:border-box;overflow:auto}
+  .page>.layout{flex:1;min-width:0;max-width:none;margin:4px 0 0;padding:0}
+  body.pos-open #mes-pos{display:block;position:sticky;top:0;flex:0 0 360px;width:360px;max-height:100%;overflow:auto;margin:4px 0 0 16px;padding:0;align-self:stretch}
   body.pos-open #mes-pos .pos-close{display:inline-flex;align-items:center;justify-content:center}
   body:not(.pos-open) #mes-pos{display:none}
   #pos-overlay{display:none !important}
@@ -312,6 +316,79 @@ th{color:var(--mut);font-weight:600;font-size:11px;letter-spacing:.06em;text-tra
 .pos-pend{background:rgba(169,205,245,.16);color:#c5def8;border:1px solid rgba(169,205,245,.5)}
 .pos-flash{outline:2px solid #e6c27a;outline-offset:3px;border-radius:10px;transition:outline-color .4s}
 
+
+/* ===== En-têtes et jauge compactés (tous les onglets) ===== */
+.card.acc{padding:4px 10px;margin-bottom:2px;border-radius:8px;transition:border-color .15s,background-color .15s,transform .15s,padding .15s}
+.card.acc.acc-open{padding:12px 16px;margin-bottom:10px}
+.card.acc:not(.acc-open):hover{border-color:rgba(230,194,122,.55);background:rgba(230,194,122,.06);transform:translateX(2px)}
+.card.acc:not(.acc-open) .desc{margin:0}
+.acc-head:has(.acc-line){display:grid;grid-template-columns:14px minmax(7.2rem,1.05fr) minmax(6.4rem,0.9fr) 6.2rem minmax(6.2rem,1fr) minmax(5.2rem,0.85fr) 3rem;align-items:center;column-gap:8px;min-height:28px}
+.acc-head:has(.acc-line) h2{display:contents;font-size:12px;letter-spacing:.06em}
+.acc-head:has(.acc-line) .acc-tt{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#fff}
+.acc-head:has(.acc-line) .acc-key{display:none}
+.acc-head:has(.acc-line) .acc-chev{grid-column:1;width:14px}
+.acc-line{display:contents}
+.al{font-size:12.5px;color:#d8d0c2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;font-variant-numeric:tabular-nums}
+.al.is-empty{color:var(--mut)}
+.al-mkt b,.al b{color:#fff;font-weight:700}
+.al-dots{display:flex;align-items:center;gap:7px;color:#d8d0c2;font-size:12.5px}
+.al-dots i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:4px;vertical-align:middle}
+.al-dots .g{background:#7fd1a8}.al-dots .o{background:#ff9a1f}.al-dots .r{background:#e88f8f}
+.al-warn{color:#ffb347;font-weight:650}
+.al-keys{font-size:11.5px}
+.acc-group>.acc-head:has(.acc-line) h2,.acc-group>.acc-head:has(.acc-line) .acc-tt{font-size:12px;letter-spacing:.06em}
+/* Duo : une ligne, jauge mince */
+.duo-card.card.acc{padding:5px 12px}
+.duo-card.card.acc.acc-open{padding:12px 16px}
+.duo-row.duo-slim{grid-template-columns:auto auto minmax(0,1fr)!important;gap:6px 14px;align-items:center;min-height:32px}
+.duo-row.duo-slim .ir-t h2{margin:0;white-space:nowrap;font-size:12px;letter-spacing:.06em}
+.duo-row.duo-slim .ir-s{flex-direction:row;align-items:baseline;gap:14px}
+.duo-row.duo-slim .duo-sc small{display:none}
+.duo-row.duo-slim .duo-sc .av-val,.duo-row.duo-slim .duo-sc .ind-val{display:flex;align-items:baseline;gap:6px}
+.duo-row.duo-slim .duo-sc .av-val span,.duo-row.duo-slim .duo-sc .ind-val span{font-size:16px;font-weight:800}
+.duo-row.duo-slim .duo-sc .av-val em,.duo-row.duo-slim .duo-sc .ind-val em{font-size:11px;letter-spacing:.04em;text-transform:uppercase;font-style:normal;font-weight:650}
+.db.db-slim .db-sc,.db.db-slim .db-tk,.db.db-slim .db-leg{display:none}
+.db.db-slim .db-g{height:16px;margin:0}
+.db.db-slim .db-g .ind-bar{top:4px;height:8px}
+.db.db-slim .db-g .av-tick{top:2px;height:12px}
+.db.db-slim .db-mid{top:2px;height:12px}
+.db.db-slim .db-cur{height:16px;width:16px;margin-left:-8px;font-size:8px;line-height:16px;top:0}
+.db.db-slim .db-cur.db-s{width:16px;height:16px;margin-left:-8px;top:0}
+.duo-row.duo-slim .ir-g{min-width:0}
+@media(max-width:1100px){
+  .duo-row.duo-slim{grid-template-columns:auto auto minmax(0,1fr)!important}
+  .duo-row.duo-slim .ir-g{grid-column:auto}
+}
+@media(max-width:800px){
+  .layout, #duo, section.tab{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .acc-head:has(.acc-line),.duo-row.duo-slim{min-width:720px}
+}
+
+
+/* ===== Mes positions compact ===== */
+#mesPosCard{padding:10px 10px 8px}
+#mesPosCard .desc,#mesPosCard>.note,.pos-fx{display:none}
+.pos-total{margin:4px 0 5px;padding:6px 9px}
+.pos-total-v{font-size:18px;margin:0 0 3px;font-variant-numeric:tabular-nums}
+.pos-total-strip{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;font-variant-numeric:tabular-nums}
+.pos-kv{display:inline-flex;align-items:baseline;gap:5px;white-space:nowrap}
+.pos-kv .l{font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--mut);font-weight:650}
+.pos-kv b{font-size:13px;color:#fff}
+.pos-list{gap:2px}
+.pos-row-c{display:grid;grid-template-columns:16px minmax(0,1.15fr) auto auto auto 3.6rem;align-items:center;gap:2px 7px;padding:2px 7px;border-radius:8px;font-variant-numeric:tabular-nums;font-size:12.5px}
+.pos-row-c .pos-id{min-width:0;display:flex;align-items:baseline;gap:5px;overflow:hidden}
+.pos-row-c .pos-link,.pos-row-c .pos-nm,.pos-row-c button.pos-link{font-weight:650;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0;background:none;border:0;padding:0;font:inherit;cursor:pointer;text-align:left;box-shadow:none;appearance:none;-webkit-appearance:none}
+.pos-total-strip{flex-wrap:nowrap}
+.pos-row-c .pos-tick{margin-left:0;flex:none}
+.pos-row-c .pos-m{font-size:12.5px;font-weight:700;color:#fff;white-space:nowrap;justify-self:end}
+.pos-row-c .pos-p,.pos-row-c .pos-d{white-space:nowrap;justify-self:end;font-size:12px}
+.pos-cx{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:4px;font-size:9px;font-weight:800;letter-spacing:0;flex:none;line-height:1}
+.pos-cx-r{background:rgba(230,194,122,.18);color:#e6c27a;border:1px solid rgba(230,194,122,.45)}
+.pos-cx-x{background:rgba(169,205,245,.16);color:#c5def8;border:1px solid rgba(169,205,245,.45)}
+.pos-chip{display:inline-flex;justify-content:flex-end;align-items:center;font-size:11px;font-weight:700;border:1px solid transparent;border-radius:999px;padding:0 5px;white-space:nowrap;min-height:16px}
+.pos-chip.is-empty{border:0;padding:0;min-height:0}
+.pos-row-c.has-fiche .pos-link{text-decoration-color:rgba(230,194,122,.45)}
+
 /* ===== Accueil ===== */
 body.home-on #accAll{display:none}
 body.home-on .layout .side{display:none}
@@ -321,7 +398,7 @@ body.home-on #hh .brand{height:48px}
 body.home-on .acc-tools{margin-top:6px}
 body.home-on .layout{margin-top:4px;padding-bottom:10px}
 body.home-on .page{padding-bottom:8px}
-body.home-on.pos-open #mes-pos{max-height:calc(100vh - 158px);margin-top:8px}
+body.home-on.pos-open #mes-pos{margin-top:8px}
 .home-hero{padding:12px 16px 10px;margin-bottom:8px;border-color:rgba(230,194,122,.32);background:linear-gradient(180deg,rgba(230,194,122,.07),transparent 55%),var(--card)}
 .home-hero h2{color:#e6c27a;font-size:11px}
 .home-hero-top{display:flex;align-items:baseline;gap:10px 14px;flex-wrap:wrap;margin-bottom:8px}
@@ -7449,18 +7526,157 @@ function accToggle(card,open,save=true){
   if(save)accSet(card.dataset.acc,open);
   if(open){requestAnimationFrame(()=>accResize(card));setTimeout(()=>accResize(card),320);}
 }
+function accEsc(s){return String(s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');}
+function accPlain(html){const d=document.createElement('div');d.innerHTML=html;return (d.textContent||'').replace(/\s+/g,' ').trim();}
+function accAbbrevTitle(full){
+  let t=(full||'').replace(/^▸\s*/,'').trim();
+  t=t.replace(/\s*·\s*(taux,\s*)?sentiment et achat \/ vente\s*$/i,'');
+  t=t.replace(/\s*·\s*taux \(repère de marché\)\s*$/i,'');
+  t=t.replace(/\s*·\s*notes APEX\s*$/i,'');
+  t=t.replace(/^Secteurs\s+/i,'');
+  t=t.replace(/^Obligations\s+/i,'');
+  t=t.replace(/^CHIFFRES ET CHARTES GRAPHIQUES$/i,'Chiffres');
+  t=t.replace(/^zone euro, crédit et émergents$/i,'Zone euro');
+  t=t.replace(/^Corée du Sud$/i,'Corée');
+  t=t.replace(/^BTC, ETH, XRP, SOL et MSTR$/i,'BTC–MSTR');
+  t=t.replace(/^Métaux$/i,'Métaux');
+  return t;
+}
+function accShortNom(n){
+  const m={
+    'Technologie':'Techno','Consommation discrétionnaire':'Conso. disc.','Consommation de base':'Conso. base',
+    'Services aux collectivités':'Services','Biens de consommation':'Conso.','Santé':'Santé',
+    'Finance':'Finance','Énergie':'Énergie','Industrie':'Industrie','Matériaux':'Matériaux',
+    'Immobilier':'Immo','Télécommunications':'Télécom','Services de communication':'Com.',
+    'Argent':'Ag','Platine':'Pt','Palladium':'Pd'
+  };
+  return m[n]||n;
+}
+function accParseSum(el){
+  const raw=(el.innerText||'').replace(/\s+/g,' ').trim();
+  const html=el.innerHTML;
+  const pairs=[];
+  const re=/<i>([\s\S]*?)<\/i>\s*<b>([\s\S]*?)<\/b>/gi;
+  let m;
+  while((m=re.exec(html))) pairs.push({k:accPlain(m[1]),v:accPlain(m[2])});
+  const lead=accPlain(html.split(/<i>/i)[0]);
+  const out={raw,date:'',count:'',mkt:'',achat:null,neutre:null,vente:null,smax:'',smin:'',warn:'',rate:'',spread:'',slope:'',av:'',sent:'',extra:[],sans:false,keys:[]};
+  const dateM=raw.match(/\bau\s+(\d{1,2}\s+\S+(?:\s+\d{4})?)/i)||raw.match(/clôtures? hebdomadaires au\s+([^·]+)/i);
+  if(dateM) out.date=dateM[1].trim();
+  let gics=lead.match(/(\d+)\s+secteurs\s+GICS/i);
+  let sect=lead.match(/(\d+)\s+secteurs\b/i);
+  let seg=lead.match(/(\d+)\s+segments/i);
+  let met=lead.match(/(\d+)\s+métaux/i);
+  let secn=lead.match(/(\d+)\s+sections/i);
+  let nc=lead.match(/\+(\d+)\s+non couvert/i);
+  if(gics) out.count=gics[1]+' GICS';
+  else if(sect) out.count=sect[1]+' sect.';
+  else if(seg) out.count=seg[1]+' seg.';
+  else if(met) out.count=met[1]+' métaux';
+  else if(secn) out.count=secn[1]+' sect.';
+  if(nc) out.count=(out.count?out.count+' ':'')+'+'+nc[1]+' n.c.';
+  const nRep=(raw.match(/repères de marché\s+(\d+)/i)||[])[1];
+  const nNa=(raw.match(/indisponible\s+(\d+)/i)||[])[1];
+  if(nRep) out.extra.push(nRep+' repères');
+  if(nNa) out.extra.push(nNa+' n.d.');
+  const metals=[];
+  pairs.forEach(({k,v})=>{
+    const kl=k.toLowerCase();
+    if(kl==='marché') out.mkt=v;
+    else if(kl==='achat') out.achat=parseInt(v,10);
+    else if(kl==='neutre') out.neutre=parseInt(v,10);
+    else if(kl==='vente') out.vente=parseInt(v,10);
+    else if(kl==='sentiment max'||kl==='sent. max') out.smax=v;
+    else if(kl==='min') out.smin=v;
+    else if(/^⚠/.test(k)||/près du record/i.test(k)) out.warn=v;
+    else if(kl==='10 ans') out.rate=v;
+    else if(/écart\s*\/\s*bund/i.test(k)) out.spread=v;
+    else if(/ans\s*[−\-]\s*/.test(k)||/pente/i.test(k)) out.slope=k.replace(/\s+/g,' ')+' '+v;
+    else if(kl==='achat / vente') out.av=v;
+    else if(kl==='sentiment') out.sent=v;
+    else if(/sans note/i.test(k)||/sans note/i.test(v)) out.sans=true;
+    else if(/^(or|argent|platine|palladium)$/i.test(k)){
+      const sc=(v.match(/([+−\-]?\d+)/)||[])[1];
+      metals.push(accShortNom(k)+(sc?' '+sc.replace('-','−'):''));
+      if(/Achat/i.test(v)) out.achat=(out.achat||0)+1;
+      else if(/Vente/i.test(v)) out.vente=(out.vente||0)+1;
+      else if(/Neutre/i.test(v)) out.neutre=(out.neutre||0)+1;
+    } else {
+      out.keys.push({k,v});
+    }
+  });
+  if(metals.length) out.extra.push(metals.join(' · '));
+  return out;
+}
+function accDotsHTML(p){
+  if(p.achat==null&&p.neutre==null&&p.vente==null) return '';
+  const a=p.achat||0,n=p.neutre||0,r=p.vente||0;
+  const tip=a+' achat · '+n+' neutre · '+r+' vente';
+  return `<span class="al al-dots" title="${accEsc(tip)}"><span><i class="g"></i>${a}</span><span><i class="o"></i>${n}</span><span><i class="r"></i>${r}</span></span>`;
+}
+function accCell(cls,text,title){
+  const empty=!text;
+  return `<span class="al ${cls}${empty?' is-empty':''}"${title?` title="${accEsc(title)}"`:''}>${empty?'—':text}</span>`;
+}
+function accLineHTML(p){
+  let mkt=p.mkt?`Marché ${p.mkt}`:(p.rate?`10 ans ${p.rate}`:'');
+  if(p.spread&&mkt) mkt+=' · '+p.spread;
+  else if(p.spread&&!mkt) mkt='Bund '+p.spread;
+  let mid=accDotsHTML(p);
+  if(!mid&&p.av) mid=accCell('al-dots',p.av);
+  if(!mid) mid=accCell('al-dots','');
+  let mx='';
+  if(p.smax){const parts=p.smax.split(/\s+/);const nom=parts.length>1?accShortNom(parts.slice(0,-1).join(' '))+' '+parts[parts.length-1]:p.smax;mx='S max '+nom;}
+  else if(p.sent) mx='S '+p.sent;
+  else if(p.spread&&!p.rate) mx='Bund '+p.spread;
+  else if(p.extra[0]&&!p.smax) mx=p.extra[0];
+  let mn='';
+  if(p.smin){const parts=p.smin.split(/\s+/);const nom=parts.length>1?accShortNom(parts.slice(0,-1).join(' '))+' '+parts[parts.length-1]:p.smin;mn='min '+nom;}
+  else if(p.slope) mn=p.slope.replace(/^10 ans\s*[−\-]\s*/,'10−')
+    .replace(/^10 ans /,'10y ');
+  else if(p.extra[1]) mn=p.extra[1];
+  else if(p.sans) mn='sans note';
+  let wn=p.warn?('⚠ '+p.warn):(p.sans&&!mn?'sans note':'');
+  if(p.keys.length && !p.mkt && !p.rate && p.achat==null){
+    const packed=p.keys.slice(0,3).map(x=>`<i>${accEsc(x.k)}</i> <b>${accEsc(x.v)}</b>`).join(' · ');
+    return accCell('al-mkt','')+mid+`<span class="al al-keys al-max" style="grid-column:span 3" title="${accEsc(p.raw)}">${packed}</span>`;
+  }
+  return accCell('al-mkt',mkt)+mid+accCell('al-max',mx)+accCell('al-min',mn)+accCell('al-warn',wn,wn&&p.raw);
+}
+function accShortenTitle(head, parsed){
+  const tt=head.querySelector('.acc-tt'); if(!tt) return;
+  const full=tt.innerText.replace(/\s+/g,' ').trim();
+  const imgs=[...tt.querySelectorAll('img')];
+  let short=accAbbrevTitle(full);
+  if(parsed&&parsed.count && !/GICS|sect\.|seg\.|métaux|n\.c\./i.test(short))
+    short=(short?short+' · ':'')+parsed.count;
+  tt.title=full+(parsed&&parsed.date?(' · au '+parsed.date):'');
+  tt.textContent='';
+  imgs.forEach(img=>tt.appendChild(img));
+  tt.appendChild(document.createTextNode(short));
+}
+function accCompactSum(head){
+  const desc=head.querySelector('.acc-sum');
+  if(!desc||desc.classList.contains('acc-line')) return;
+  const parsed=accParseSum(desc);
+  const full=parsed.raw||desc.innerText.replace(/\s+/g,' ').trim();
+  desc.className='desc acc-sum acc-line';
+  desc.setAttribute('title',full);
+  desc.innerHTML=accLineHTML(parsed);
+  accShortenTitle(head, parsed);
+}
 function accSumSpread(head){
-  head.querySelectorAll('.acc-sum:not(.as-flex)').forEach(e=>{e.classList.add('as-flex');
-    e.innerHTML=e.innerHTML.split(' · ').map(x=>`<span class="as-it">${x.trim()}</span>`).join('<span class="as-sep"> · </span>');});
+  /* conservé pour compatibilité : l'accueil compact passe par accCompactSum */
+  accCompactSum(head);
 }
 function accWire(card,id,head){
-  accSumSpread(head);
   card.dataset.acc=id;card.classList.add('acc');
   head.classList.add('acc-head');head.setAttribute('role','button');head.setAttribute('tabindex','0');
   const h2=head.querySelector('h2')||head;
   if(!h2.querySelector('.acc-chev')){const tt=document.createElement('span');tt.className='acc-tt';
     [...h2.childNodes].filter(n=>!(n.classList&&n.classList.contains('acc-key'))).forEach(n=>tt.appendChild(n));
     h2.insertBefore(tt,h2.firstChild);h2.insertAdjacentHTML('afterbegin','<span class="acc-chev" aria-hidden="true">▸</span>');}
+  accCompactSum(head);
   const go=e=>{if(e.target.closest('a,button:not(.acc-head)'))return;accToggle(card,!card.classList.contains('acc-open'));};
   head.addEventListener('click',go);head.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go(e);}});
   accToggle(card,accGet(id),false);
@@ -7534,12 +7750,14 @@ function duoBuild(tabId){
   const sl=ic.querySelector('.ind-slot')||ic,q=(r,c)=>r.querySelector(':scope>'+c);
   const src=c=>{const e=c.querySelector('.src')||[...c.querySelectorAll('p')].find(p=>/^Sources? :/.test(p.textContent.trim()));if(!e)return '';const k=e.cloneNode(true);k.className='ir-src';return k.outerHTML;};
   const card=document.createElement('div');card.className='card duo-card';
-  card.innerHTML=`<div class="irow duo-row">
-   <div class="ir ir-t"><h2>Sentiment &amp; Achat / Vente</h2></div>
+  const sLab=gi.label==='Peur extrême'?'Peur ext.':gi.label;
+  const duoDate=[gi.date&&('S au '+dshort(gi.date)),ga.date&&('AV au '+dshort(ga.date))].filter(Boolean).join(' · ');
+  card.innerHTML=`<div class="irow duo-row duo-slim" title="${accEsc('Sentiment & Achat / Vente'+(duoDate?' · '+duoDate:''))}">
+   <div class="ir ir-t"><h2 title="Sentiment &amp; Achat / Vente">Sentiment &amp; AV</h2></div>
    <div class="ir ir-s">
-    <div class="duo-sc" title="Achat / Vente, échelle −100 à +100"><small><i class="db-dot db-a">AV</i>Achat / Vente</small><div class="av-val"><span class="sc-t" style="color:${gsol(avPos(ga.score))}">${sign(ga.score,0)}</span><em class="sc-t" style="color:${gsol(avPos(ga.score))}">${ga.label}</em></div></div>
-    <div class="duo-sc" title="Sentiment de marché, échelle 0 à 100"><small><i class="db-dot db-s">S</i>Sentiment</small><div class="ind-val"><span class="sc-t" style="color:${gmir(gi.value)}">${fmt(gi.value,0)}</span><em class="sc-t" style="color:${gmir(gi.value)}">${gi.label}</em></div></div></div>
-   <div class="ir ir-g">${dualBar(gi.value,gi.label,ga.score,ga.label,'db-lg')}</div></div>`;
+    <div class="duo-sc" title="${accEsc('Achat / Vente, échelle −100 à +100'+(ga.date?' · au '+dshort(ga.date):''))}"><div class="av-val"><span class="sc-t" style="color:${gsol(avPos(ga.score))}">${sign(ga.score,0)}</span><em class="sc-t" style="color:${gsol(avPos(ga.score))}">${ga.label}</em></div></div>
+    <div class="duo-sc" title="${accEsc('Sentiment de marché, échelle 0 à 100'+(gi.date?' · au '+dshort(gi.date):''))}"><div class="ind-val"><span class="sc-t" style="color:${gmir(gi.value)}">${fmt(gi.value,0)}</span><em class="sc-t" style="color:${gmir(gi.value)}">${sLab}</em></div></div></div>
+   <div class="ir ir-g">${dualBar(gi.value,gi.label,ga.score,ga.label,'db-lg db-slim')}</div></div>`;
   const info=document.createElement('div');info.className='duo-info';
   info.innerHTML=`<div><div class="duo-n"><i class="db-dot db-s">S</i><b>Sentiment de marché, 1 an</b> · ${gi.title}${gi.official?'':' <span class="duo-b">composite APEX, pas un indice officiel</span>'}</div>
      <div class="ind-date">${(q(sl,'.ind-date')||{}).innerHTML||''}</div>${src(ic)}</div>
@@ -7557,7 +7775,7 @@ function duoBuild(tabId){
   card.querySelectorAll('.db-dot.db-a').forEach(d=>d.style.color=gsol(avPos(ga.score)));
   card.querySelectorAll('.db-dot.db-s').forEach(d=>d.style.color=gmir(gi.value));
   D.innerHTML='';D.appendChild(card);I.innerHTML='';A.innerHTML='';
-  accWire(card,'duo-'+tabId,card.querySelector('h2'));
+  accWire(card,'duo-'+tabId,card.querySelector('.duo-row'));
 }
 
 /* ===== Disponibilité Revolut / XTB sur chaque fiche (data/disponibilites.json) =====
@@ -7689,6 +7907,31 @@ function posLinePerf(p, kind){
   const tip=(p.perf_1an_note||p.perf_1an_libelle||'').replace(/"/g,'&quot;');
   return `<span class="${p.perf_1an_pct>=0?'up':'down'}" title="${tip}">${posPct(p.perf_1an_pct)}<small> 52 sem. actif</small></span>`;
 }
+function posShortName(p){
+  let n=p.nom||p.ticker||'—';
+  const map={
+    'Enphase Energy':'Enphase','AGNC Investment':'AGNC','Annaly Capital Management':'Annaly',
+    'Porsche Automobil Holding SE':'Porsche','Hermès International':'Hermès','Fanuc Corporation':'Fanuc',
+    'Mercedes-Benz Group AG':'Mercedes','Global X Uranium UCITS ETF':'Uranium',
+    'Invesco Preferred Shares UCITS ETF (EUR Hdg)':'Preferred Shares'
+  };
+  if(map[n]) return map[n];
+  n=n.replace(/\s+(janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)\s+(\d{4})/i,' $2');
+  n=n.replace(/^US Treasury\s+/,'T ');
+  n=n.replace(/^Dow Chemical\s+/,'Dow ');
+  n=n.replace(/\s+UCITS ETF(?:\s*\([^)]+\))?$/i,'');
+  n=n.replace(/\s+(Corporation|International|Group AG|Holding SE)$/i,'');
+  return n;
+}
+function posApexChip(p){
+  if(p.apex_score==null||p.apex_score==='') return '';
+  const col=(typeof avCol==='function')?avCol(p.apex_score):(posFlagCol[p.drapeau_code]||'#e6c27a');
+  const lab=p.apex_label||'';
+  const sg=p.apex_score>0?'+':'';
+  const txt=sg+Number(p.apex_score).toLocaleString('fr-FR',{minimumFractionDigits:1,maximumFractionDigits:1});
+  const tip=[txt,lab,p.drapeau].filter(Boolean).join(' \u00b7 ');
+  return `<span class="pos-chip" style="color:${col};border-color:${col}" title="${tip.replace(/"/g,'&quot;')}">${txt}</span>`;
+}
 function renderMesPositions(){
   const host=document.getElementById('mes-pos'); if(!host) return;
   const L=POS.positions||[];
@@ -7702,24 +7945,21 @@ function renderMesPositions(){
   const row=p=>{
     const mon=posAmt(p.valeur,p.devise);
     const court=posCourtNom[p.courtier]||p.courtier||'';
+    const cx=p.courtier==='xtb'?'X':'R';
+    const nm=posShortName(p);
     const go=(p.tab&&p.fiche_tv)
-      ? `<button type="button" class="pos-link" data-tab="${p.tab}" data-tv="${p.fiche_tv}">${p.nom}</button>`
-      : `<span>${p.nom}</span>`;
-    const sous=p.fiche_tv
-      ? `<div class="pos-sous">${p.fiche_note?p.fiche_note:p.fiche_tv}</div>`
-      : `<div class="pos-sous">Pas de fiche sur le site APEX</div>`;
-    const tick=p.ticker!==p.nom?`<span class="pos-tick">${p.ticker}</span>`:'';
-    const poids=p.poids_pct==null?'':`<span class="pos-w">${posPct(p.poids_pct).replace('+','')} du total</span>`;
-    return `<article class="pos-row ${p.statut==='en_attente'?'is-pend':''}${p.fiche_tv?' has-fiche':''}">
-      <div class="pos-actif">${go} ${tick}${sous}</div>
-      <div class="pos-meta">${court}${poids?` · ${poids}`:''}</div>
-      <div class="pos-grid">
-        <div><span>Montant</span><b>${mon}</b></div>
-        <div><span>Poids</span><b>${p.poids_pct==null?'—':posPct(p.poids_pct).replace('+','')}</b></div>
-        <div><span>Depuis le début</span><b>${posLinePerf(p,'debut')}</b></div>
-        <div><span>1 an</span><b>${posLinePerf(p,'1an')}</b></div>
-      </div>
-      <div class="pos-apex">${p.apex_score==null?'Pas de note APEX':posNoteHTML(p)}${p.drapeau?` · ${posFlagHTML(p)}`:''}</div>
+      ? `<button type="button" class="pos-link" data-tab="${p.tab}" data-tv="${p.fiche_tv}">${nm}</button>`
+      : `<span class="pos-nm">${nm}</span>`;
+    const tick=p.ticker&&p.ticker!==nm&&p.ticker.length<=6?`<span class="pos-tick">${p.ticker}</span>`:'';
+    const poids=p.poids_pct==null?'—':posPct(p.poids_pct).replace('+','');
+    const tip=[p.nom,p.ticker&&p.ticker!==p.nom?p.ticker:'',court,p.fiche_note||''].filter(Boolean).join(' \u00b7 ');
+    return `<article class="pos-row pos-row-c ${p.statut==='en_attente'?'is-pend':''}${p.fiche_tv?' has-fiche':''}" title="${tip.replace(/"/g,'&quot;')}">
+      <span class="pos-cx pos-cx-${cx.toLowerCase()}" title="${court}">${cx}</span>
+      <span class="pos-id">${go}${tick}</span>
+      <b class="pos-m">${mon}</b>
+      <span class="pos-p">${poids}</span>
+      <span class="pos-d">${posLinePerf(p,'debut')}</span>
+      ${posApexChip(p)||'<span class="pos-chip is-empty"></span>'}
     </article>`;
   };
   const tot1an=T.perf_1an_pct==null
@@ -7732,34 +7972,28 @@ function renderMesPositions(){
     : posAmt(xtb.valeur_usd||0,'USD');
   const fxNote=(()=>{
     const bits=[];
-    if(fx.taux) bits.push(`EUR/USD ${String(fx.taux).replace('.',',')}`);
-    if(fx.cadusd) bits.push(`CAD/USD ${String(fx.cadusd).replace('.',',')}`);
-    if(fx.eurcad) bits.push(`EUR/CAD ${String(fx.eurcad).replace('.',',')}`);
+    if(fx.taux) bits.push('EUR/USD '+String(fx.taux).replace('.',','));
+    if(fx.cadusd) bits.push('CAD/USD '+String(fx.cadusd).replace('.',','));
+    if(fx.eurcad) bits.push('EUR/CAD '+String(fx.eurcad).replace('.',','));
     if(!bits.length) return '';
-    return 'Conversion '+bits.join(', ')+` au ${fx.date} (${fx.source_court||fx.source||'Yahoo'}, Europe/Paris).`;
+    return 'Conversion '+bits.join(', ')+' au '+fx.date+' ('+(fx.source_court||fx.source||'Yahoo')+', Europe/Paris).';
   })();
+  const headTip=[POS.desc||('Relevé '+(POS.releve_libelle||'')),fxNote,xtbPending?'XTB n\u2019est pas encore intégré.':'',T.perf_1an_note||'','CFD exclus. Aucun PEA ouvert chez XTB.'].filter(Boolean).join(' ');
   host.innerHTML=`<div class="card no-group" id="mesPosCard">
     <div class="pos-rail-h">
-      <h2>Mes positions</h2>
+      <h2 title="${headTip.replace(/"/g,'&quot;')}">Mes positions</h2>
       <button type="button" class="pos-close" aria-label="Replier Mes positions">×</button>
     </div>
-    <div class="desc">${POS.desc||('Relevé du '+(POS.releve_libelle||''))} · ${act.length} position${act.length>1?'s':''} active${act.length>1?'s':''}${pend.length?` · ${pend.length} ordre${pend.length>1?'s':''} en attente (expiration le 19/11/2026 à 21 h, Europe/Paris)`:''} · CFD exclus. Les obligations individuelles sont rattachées à la fiche ETF la plus proche, sans créer de nouvelle fiche. Aucun PEA ouvert chez XTB.</div>
     <div class="pos-total">
-      <div class="pos-total-k">Montant total détenu</div>
-      <div class="pos-total-v">${posAmt(T.total_usd||0,'USD')} <small>/ ${posAmt(T.total_eur||0,'EUR')}</small></div>
-      <div class="pos-total-g">
-        <div><span>Depuis le début</span><b>${totDeb}</b></div>
-        <div><span>Résultat 1 an</span><b>${tot1an}</b></div>
+      <div class="pos-total-v" title="${headTip.replace(/"/g,'&quot;')}">${posAmt(T.total_usd||0,'USD')} <small>/ ${posAmt(T.total_eur||0,'EUR')}</small></div>
+      <div class="pos-total-strip">
+        <span class="pos-kv"><span class="l">Début</span><b>${totDeb}</b></span>
+        <span class="pos-kv"><span class="l">R</span><b>${posAmt(rev.valeur_usd||0,'USD')}</b></span>
+        <span class="pos-kv"><span class="l">X</span><b>${xtbTxt}</b></span>
       </div>
-      <div class="pos-brokers">
-        <div><span>Revolut</span><b>${posAmt(rev.valeur_usd||0,'USD')}</b></div>
-        <div><span>XTB</span><b>${xtbTxt}</b></div>
-      </div>
-      <div class="pos-fx">${fxNote}${xtbPending?' XTB n’est pas encore intégré : sous-total à 0 jusqu’à réception des positions.':''}</div>
     </div>
-    <div class="pos-list">${act.map(row).join('')||'<div class="note">Aucune position active.</div>'}</div>
-    ${pend.length?`<h3 class="pos-h3">Ordres en attente</h3><div class="pos-list">${pend.map(row).join('')}</div>`:''}
-    <div class="note">Le résultat depuis le début est (valeur − coût) / coût, à partir du relevé (quantité × prix moyen). Le résultat sur 1 an de chaque ligne est le rendement de l’actif sur 52 semaines (Yahoo), pas celui de la position si elle a moins d’un an : la date d’achat n’est pas dans le relevé et n’est pas inventée. Le total sur 1 an reste « à venir » tant qu’un historique de portefeuille n’est pas calculable proprement.</div>
+    <div class="pos-list">${act.map(row).join('')||'<div class="note">—</div>'}</div>
+    ${pend.length?`<div class="pos-list pos-pend-list">${pend.map(row).join('')}</div>`:''}
   </div>`;
   host.querySelectorAll('.pos-link').forEach(b=>b.addEventListener('click',()=>{
     if(window.matchMedia('(max-width:1099px)').matches) posSetOpen(false);
