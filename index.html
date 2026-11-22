@@ -3702,10 +3702,36 @@ function obRatesCharts(cc){
     options:{maintainAspectRatio:false,animation:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' '+fmt(c.parsed.y,2)+' % · '+(P.curve[c.dataIndex][1][0].length===7?'moyenne de '+mfr(P.curve[c.dataIndex][1][0]):dshort(P.curve[c.dataIndex][1][0]))}}},scales:{y:{ticks:{callback:v=>v+' %'}}}}}));
   if(document.getElementById(id+'L')&&P.slope&&P.slope.series)lineChart(id+'L',P.slope.series.map(x=>mfr(x[0])),[{label:P.slope.nom,data:P.slope.series.map(x=>x[1]),borderColor:'#a9cdf5',fill:{target:'origin',below:'rgba(255,45,45,.18)'}}],{unit:' pt',ticks:8});
 }
+function obAvScore(s){
+  const n=s&&s.av&&s.av.score;
+  return (n!=null&&n!==''&&Number.isFinite(Number(n)))?Number(n):null;
+}
+function obAvSort(a,b){
+  const sa=obAvScore(a),sb=obAvScore(b);
+  if(sa==null&&sb==null) return 0;
+  if(sa==null) return 1;
+  if(sb==null) return -1;
+  return sb-sa;
+}
 function renderSegments(el){
   const byKey=Object.fromEntries(OB.segments.map((s,i)=>[s.key,[s,i]]));
+  const blocks=[];
   Object.entries(OB_GROUPS).forEach(([g,keys])=>{
-    const L=keys.map(k=>byKey[k]).filter(Boolean),S=L.map(x=>x[0]);
+    const L=keys.map(k=>byKey[k]).filter(Boolean);
+    L.sort((a,b)=>obAvSort(a[0],b[0]));
+    const S=L.map(x=>x[0]);
+    if(!S.length&&!OBP.countries[g]) return;
+    blocks.push({g,L,S,score:S.length===1?obAvScore(S[0]):null,marker:!S.length});
+  });
+  const multi=blocks.filter(b=>b.S.length>1);
+  const scored=blocks.filter(b=>b.S.length===1).sort((a,b)=>{
+    if(a.score==null&&b.score==null) return 0;
+    if(a.score==null) return 1;
+    if(b.score==null) return -1;
+    return b.score-a.score;
+  });
+  const markers=blocks.filter(b=>!b.S.length);
+  [...multi,...scored,...markers].forEach(({g,L,S})=>{
     if(!S.length){   // 17/11/2026 : segment retiré (aucun ETF disponible chez Revolut) -> taux du pays seuls, sans note APEX
       const P0=OBP.countries[g],F0=OB_FLAG[g];if(!P0&&!S.length)return;if(!P0)return;
       const c0=document.createElement('div');c0.className='card no-group ob-card';c0.dataset.cc=g;
