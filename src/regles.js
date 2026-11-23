@@ -18,7 +18,12 @@ function rgEsc(s){
 function rgNum(x, d){
   const n=Number(x);
   if(!Number.isFinite(n)) return '—';
-  const dd=d!=null?d:(Math.abs(n-Math.round(n))<1e-6?0:1);
+  let dd=d;
+  if(dd==null){
+    if(Math.abs(n-Math.round(n))<1e-9) dd=0;
+    else if(Math.abs(n-Math.round(n*10)/10)<1e-9) dd=1;
+    else dd=2;
+  }
   return n.toLocaleString('fr-FR',{minimumFractionDigits:dd,maximumFractionDigits:dd}).replace(/\s/g,'\u00a0');
 }
 function rgAmp(){
