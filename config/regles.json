@@ -138,5 +138,34 @@
     "heure_paris": "22:30",
     "anomalie_saut_points": 3.0,
     "fichier_changements": "data/changements_du_jour.json"
+  },
+  "univers": {
+    "pays_actions_obligations": [
+      "USA",
+      "France",
+      "Allemagne",
+      "Canada",
+      "Suisse"
+    ],
+    "cc": [
+      "us",
+      "fr",
+      "de",
+      "ca",
+      "ch"
+    ],
+    "sections_toujours": [
+      "crypto",
+      "metaux",
+      "indices_macro",
+      "etf_multipays",
+      "placements",
+      "liquidites",
+      "immobilier",
+      "energie_macro"
+    ],
+    "positions_hors_univers_visibles": true,
+    "date": "2026-11-23",
+    "tache": "t322u"
   }
 }

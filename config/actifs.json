@@ -33,7 +33,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:EVD",
@@ -53,7 +55,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:DTE",
@@ -73,7 +77,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:G24",
@@ -93,7 +99,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:SPG",
@@ -113,7 +121,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:SAX",
@@ -133,7 +143,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:UTDI",
@@ -153,7 +165,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:FNTN",
@@ -173,7 +187,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:BMW",
@@ -193,7 +209,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:CON",
@@ -213,7 +231,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:P911",
@@ -233,7 +253,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:KBX",
@@ -253,7 +275,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:MBG",
@@ -273,7 +297,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:VOW3",
@@ -293,7 +319,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:ADS",
@@ -313,7 +341,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:ALV",
@@ -333,7 +363,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:CBK",
@@ -353,7 +385,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:DBK",
@@ -373,7 +407,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:DB1",
@@ -393,7 +429,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:HNR1",
@@ -413,7 +451,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:MUV2",
@@ -433,7 +473,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:TLX",
@@ -453,7 +495,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:LEG",
@@ -473,7 +517,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:TEG",
@@ -493,7 +539,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:VNA",
@@ -513,7 +561,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:DHL",
@@ -533,7 +583,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:DTG",
@@ -553,7 +605,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:HOT",
@@ -573,7 +627,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:HLAG",
@@ -593,7 +649,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:MTX",
@@ -613,7 +671,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:RHM",
@@ -633,7 +693,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:SIE",
@@ -653,7 +715,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:ENR",
@@ -674,7 +738,9 @@
         "apex_bars",
         "pays_top",
         "energie"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:BAS",
@@ -694,7 +760,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:BNR",
@@ -714,7 +782,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:EVK",
@@ -734,7 +804,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:FPE3",
@@ -754,7 +826,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:HEI",
@@ -774,7 +848,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:SY1",
@@ -794,7 +870,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:WCH",
@@ -814,7 +892,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:BAYN",
@@ -834,7 +914,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:FME",
@@ -854,7 +936,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:FRE",
@@ -874,7 +958,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:MRK",
@@ -894,7 +980,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:SRT3",
@@ -914,7 +1002,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:SHL",
@@ -934,7 +1024,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:EOAN",
@@ -955,7 +1047,9 @@
         "apex_bars",
         "pays_top",
         "energie"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:RWE",
@@ -976,7 +1070,9 @@
         "apex_bars",
         "pays_top",
         "energie"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:UN0",
@@ -996,7 +1092,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:AIXA",
@@ -1016,7 +1114,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:ELG",
@@ -1036,7 +1136,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:IOS",
@@ -1056,7 +1158,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:IFX",
@@ -1076,7 +1180,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:JEN",
@@ -1096,7 +1202,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:NEM",
@@ -1116,7 +1224,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:SAP",
@@ -1136,7 +1246,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:WAF",
@@ -1156,7 +1268,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "ASX:SEK",
@@ -1176,7 +1290,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "ASX:TLS",
@@ -1196,7 +1312,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "ASX:COL",
@@ -1216,7 +1334,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "ASX:EDV",
@@ -1236,7 +1356,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "ASX:MTS",
@@ -1256,7 +1378,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "ASX:WOW",
@@ -1276,7 +1400,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "ASX:ALL",
@@ -1296,7 +1422,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "ASX:BRG",
@@ -1316,7 +1444,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "ASX:WES",
@@ -1336,7 +1466,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "ASX:CBA",
@@ -1356,7 +1488,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "ASX:CPU",
@@ -1376,7 +1510,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "ASX:MQG",
@@ -1396,7 +1532,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "ASX:QBE",
@@ -1416,7 +1554,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "ASX:ALQ",
@@ -1436,7 +1576,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "ASX:QAN",
@@ -1456,7 +1598,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "NYSE:BHP",
@@ -1476,7 +1620,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "ASX:EVN",
@@ -1496,7 +1642,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "ASX:FMG",
@@ -1516,7 +1664,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "ASX:NST",
@@ -1536,7 +1686,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "ASX:COH",
@@ -1556,7 +1708,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "ASX:RHC",
@@ -1576,7 +1730,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "ASX:SIG",
@@ -1596,7 +1752,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "ASX:SHL",
@@ -1616,7 +1774,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "ASX:AGL",
@@ -1636,7 +1796,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "ASX:ORG",
@@ -1656,7 +1818,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "ASX:NXT",
@@ -1676,7 +1840,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "ASX:TNE",
@@ -1696,7 +1862,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "ASX:WTC",
@@ -1716,7 +1884,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "ASX:ALD",
@@ -1736,7 +1906,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "ASX:STO",
@@ -1756,7 +1928,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "ASX:WHC",
@@ -1776,7 +1950,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "NYSE:WDS",
@@ -1796,7 +1972,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "ASX:WOR",
@@ -1816,7 +1994,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "NYSE:BCE",
@@ -1836,7 +2016,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:IMAX",
@@ -1856,7 +2038,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:TU",
@@ -1876,7 +2060,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:GOOS",
@@ -1896,7 +2082,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:GIL",
@@ -1916,7 +2104,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:MGA",
@@ -1936,7 +2126,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:QSR",
@@ -1956,7 +2148,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:BMO",
@@ -1976,7 +2170,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:CM",
@@ -1996,7 +2192,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:HUT",
@@ -2016,7 +2214,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:MFC",
@@ -2036,7 +2236,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:RY",
@@ -2056,7 +2258,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:SII",
@@ -2076,7 +2280,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:SLF",
@@ -2096,7 +2302,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:BNS",
@@ -2116,7 +2324,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:TD",
@@ -2136,7 +2346,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:CIGI",
@@ -2156,7 +2368,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:FSV",
@@ -2176,7 +2390,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:REAX",
@@ -2196,7 +2412,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:CAE",
@@ -2216,7 +2434,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:CNI",
@@ -2236,7 +2456,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:CP",
@@ -2256,7 +2478,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:GFL",
@@ -2276,7 +2500,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:MDA",
@@ -2296,7 +2522,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:RBA",
@@ -2316,7 +2544,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:STN",
@@ -2336,7 +2566,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:TFII",
@@ -2356,7 +2588,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:TRI",
@@ -2376,7 +2610,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:WCN",
@@ -2396,7 +2632,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:AGI",
@@ -2416,7 +2654,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:B",
@@ -2436,7 +2676,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "AMEX:EQX",
@@ -2456,7 +2698,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:AG",
@@ -2477,7 +2721,9 @@
         "apex_bars",
         "pays_top",
         "metaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:FSM",
@@ -2497,7 +2743,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:FNV",
@@ -2518,7 +2766,9 @@
         "apex_bars",
         "pays_top",
         "metaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:HBM",
@@ -2538,7 +2788,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:IAG",
@@ -2558,7 +2810,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:PAAS",
@@ -2579,7 +2833,9 @@
         "apex_bars",
         "pays_top",
         "metaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:SSRM",
@@ -2599,7 +2855,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:ABCL",
@@ -2619,7 +2877,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:AUPH",
@@ -2639,7 +2899,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:BLCO",
@@ -2659,7 +2921,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:BHC",
@@ -2679,7 +2943,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:CRON",
@@ -2699,7 +2965,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:DFTX",
@@ -2719,7 +2987,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:DMAC",
@@ -2739,7 +3009,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:FENC",
@@ -2759,7 +3031,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:VMD",
@@ -2779,7 +3053,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:XENE",
@@ -2799,7 +3075,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:AQN",
@@ -2820,7 +3098,9 @@
         "apex_bars",
         "pays_top",
         "energie"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:BEPC",
@@ -2841,7 +3121,9 @@
         "apex_bars",
         "pays_top",
         "energie"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:FTS",
@@ -2862,7 +3144,9 @@
         "apex_bars",
         "pays_top",
         "energie"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:BB",
@@ -2882,7 +3166,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:GIB",
@@ -2902,7 +3188,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:CLS",
@@ -2922,7 +3210,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:DCBO",
@@ -2942,7 +3232,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:LSPD",
@@ -2962,7 +3254,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:NOVT",
@@ -2982,7 +3276,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:OTEX",
@@ -3002,7 +3298,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:SHOP",
@@ -3022,7 +3320,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:DSGX",
@@ -3042,7 +3342,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:CNQ",
@@ -3062,7 +3364,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:CVE",
@@ -3082,7 +3386,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "AMEX:DNN",
@@ -3102,7 +3408,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "AMEX:IMO",
@@ -3123,7 +3431,9 @@
         "apex_bars",
         "pays_top",
         "energie"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "OMXSTO:IPCO",
@@ -3143,7 +3453,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:PBA",
@@ -3164,7 +3476,9 @@
         "apex_bars",
         "pays_top",
         "energie"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:SOBO",
@@ -3185,7 +3499,9 @@
         "apex_bars",
         "pays_top",
         "energie"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:SU",
@@ -3205,7 +3521,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:TRP",
@@ -3226,7 +3544,9 @@
         "apex_bars",
         "pays_top",
         "energie"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:CCJ",
@@ -3247,7 +3567,9 @@
         "apex_bars",
         "pays_top",
         "energie"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:SKM",
@@ -3267,7 +3589,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "NYSE:SHG",
@@ -3287,7 +3611,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "NYSE:PKX",
@@ -3307,7 +3633,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": "positions",
+      "univers": "positions_seulement"
     },
     {
       "tv": "KRX:000660",
@@ -3327,7 +3655,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "BITSTAMP:BTCUSD",
@@ -3346,7 +3676,9 @@
       "note": true,
       "sources": [
         "crypto"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "BITSTAMP:ETHUSD",
@@ -3365,7 +3697,9 @@
       "note": true,
       "sources": [
         "crypto"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "CRYPTO:SOLUSD",
@@ -3384,7 +3718,9 @@
       "note": true,
       "sources": [
         "crypto"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "CRYPTO:MSTRUSD",
@@ -3403,7 +3739,9 @@
       "note": true,
       "sources": [
         "crypto"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "CRYPTO:XRPUSD",
@@ -3422,7 +3760,9 @@
       "note": true,
       "sources": [
         "crypto"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:BOL",
@@ -3442,7 +3782,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:ETL",
@@ -3462,7 +3804,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:DEC",
@@ -3482,7 +3826,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:MMT",
@@ -3502,7 +3848,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:ORA",
@@ -3522,7 +3870,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:PUB",
@@ -3542,7 +3892,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:TFI",
@@ -3562,7 +3914,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:VIV",
@@ -3582,7 +3936,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:CA",
@@ -3602,7 +3958,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:BN",
@@ -3622,7 +3980,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:ITP",
@@ -3642,7 +4002,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:OR",
@@ -3662,7 +4024,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:RI",
@@ -3682,7 +4046,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:RCO",
@@ -3702,7 +4068,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:BB",
@@ -3722,7 +4090,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:AC",
@@ -3742,7 +4112,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:RMS",
@@ -3762,7 +4134,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:KER",
@@ -3782,7 +4156,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:MC",
@@ -3802,7 +4178,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:RNO",
@@ -3822,7 +4200,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:SK",
@@ -3842,7 +4222,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:CS",
@@ -3862,7 +4244,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:BNP",
@@ -3882,7 +4266,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:ACA",
@@ -3902,7 +4288,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:EDEN",
@@ -3922,7 +4310,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:SCR",
@@ -3942,7 +4332,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:GLE",
@@ -3962,7 +4354,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:COV",
@@ -3982,7 +4376,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:GFC",
@@ -4002,7 +4398,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:LI",
@@ -4022,7 +4420,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:URW",
@@ -4042,7 +4442,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:SGO",
@@ -4062,7 +4464,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:AM",
@@ -4082,7 +4486,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:LR",
@@ -4102,7 +4508,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:SAF",
@@ -4122,7 +4530,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:SU",
@@ -4142,7 +4552,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:HO",
@@ -4162,7 +4574,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:VIE",
@@ -4182,7 +4596,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:DG",
@@ -4202,7 +4618,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:AKE",
@@ -4222,7 +4640,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:ERA",
@@ -4242,7 +4662,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:AI",
@@ -4262,7 +4684,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:RBT",
@@ -4282,7 +4706,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:VK",
@@ -4302,7 +4728,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:VCT",
@@ -4322,7 +4750,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:ABVX",
@@ -4342,7 +4772,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:EL",
@@ -4362,7 +4794,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:IPN",
@@ -4382,7 +4816,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:SAN",
@@ -4402,7 +4838,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:DIM",
@@ -4422,7 +4860,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:VIRP",
@@ -4442,7 +4882,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:BIM",
@@ -4462,7 +4904,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:ENGI",
@@ -4483,7 +4927,9 @@
         "apex_bars",
         "pays_top",
         "energie"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:VLTSA",
@@ -4503,7 +4949,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:ATE",
@@ -4523,7 +4971,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:CAP",
@@ -4543,7 +4993,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:DSY",
@@ -4563,7 +5015,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:OVH",
@@ -4583,7 +5037,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:RXL",
@@ -4603,7 +5059,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:SOI",
@@ -4623,7 +5081,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:SOP",
@@ -4643,7 +5103,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:VU",
@@ -4663,7 +5125,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:MAU",
@@ -4683,7 +5147,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:GTT",
@@ -4704,7 +5170,9 @@
         "apex_bars",
         "pays_top",
         "energie"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:RUI",
@@ -4724,7 +5192,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:TE",
@@ -4744,7 +5214,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:TTE",
@@ -4765,7 +5237,9 @@
         "apex_bars",
         "pays_top",
         "energie"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:VIRI",
@@ -4785,7 +5259,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "MIL:MFEB",
@@ -4805,7 +5281,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "MIL:RWAY",
@@ -4825,7 +5303,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "MIL:TIT",
@@ -4845,7 +5325,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "MIL:CPR",
@@ -4865,7 +5347,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "MIL:ITM",
@@ -4885,7 +5369,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "MIL:BRE",
@@ -4905,7 +5391,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "MIL:BC",
@@ -4925,7 +5413,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "MIL:DLG",
@@ -4945,7 +5435,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "MIL:RACE",
@@ -4965,7 +5457,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "MIL:LTMC",
@@ -4985,7 +5479,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "MIL:MONC",
@@ -5005,7 +5501,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "MIL:PIRC",
@@ -5025,7 +5523,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "MIL:TGYM",
@@ -5045,7 +5545,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "MIL:G",
@@ -5065,7 +5567,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "MIL:BPE",
@@ -5085,7 +5589,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "MIL:BMPS",
@@ -5105,7 +5611,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "MIL:BAMI",
@@ -5125,7 +5633,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "MIL:ISP",
@@ -5145,7 +5655,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "MIL:UCG",
@@ -5165,7 +5677,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "MIL:INW",
@@ -5185,7 +5699,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "MIL:FCT",
@@ -5205,7 +5721,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "MIL:IP",
@@ -5225,7 +5743,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "MIL:IVG",
@@ -5245,7 +5765,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "MIL:LDO",
@@ -5265,7 +5787,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "MIL:PST",
@@ -5285,7 +5809,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "MIL:PRY",
@@ -5305,7 +5831,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "MIL:BZU",
@@ -5325,7 +5853,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "MIL:SOL",
@@ -5345,7 +5875,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "MIL:AMP",
@@ -5365,7 +5897,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "MIL:DIA",
@@ -5385,7 +5919,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "MIL:ELN",
@@ -5405,7 +5941,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "MIL:REC",
@@ -5425,7 +5963,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "MIL:A2A",
@@ -5445,7 +5985,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "MIL:ACE",
@@ -5465,7 +6007,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "MIL:ERG",
@@ -5485,7 +6029,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "MIL:ENEL",
@@ -5506,7 +6052,9 @@
         "apex_bars",
         "pays_top",
         "energie"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "MIL:HER",
@@ -5526,7 +6074,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "MIL:IG",
@@ -5547,7 +6097,9 @@
         "apex_bars",
         "pays_top",
         "energie"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "MIL:SRG",
@@ -5567,7 +6119,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "MIL:TRN",
@@ -5587,7 +6141,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "MIL:NEXI",
@@ -5607,7 +6163,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "MIL:TPRO",
@@ -5627,7 +6185,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "MIL:WIIT",
@@ -5647,7 +6207,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "MIL:ENI",
@@ -5667,7 +6229,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "MIL:SPM",
@@ -5687,7 +6251,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:5714",
@@ -5707,7 +6273,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:5411",
@@ -5727,7 +6295,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:5401",
@@ -5747,7 +6317,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:5713",
@@ -5767,7 +6339,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:2802",
@@ -5787,7 +6361,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:2914",
@@ -5807,7 +6383,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:2801",
@@ -5827,7 +6405,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:2269",
@@ -5847,7 +6427,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:5108",
@@ -5867,7 +6449,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:7270",
@@ -5887,7 +6471,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:5802",
@@ -5907,7 +6493,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:7269",
@@ -5927,7 +6515,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:7272",
@@ -5947,7 +6537,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:7182",
@@ -5967,7 +6559,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "NYSE:MUFG",
@@ -5987,7 +6581,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "NYSE:MFG",
@@ -6007,7 +6603,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:5838",
@@ -6027,7 +6625,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:8308",
@@ -6047,7 +6647,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:9983",
@@ -6067,7 +6669,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:7453",
@@ -6087,7 +6691,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:7550",
@@ -6107,7 +6713,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:5803",
@@ -6127,7 +6735,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:6501",
@@ -6147,7 +6757,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:8053",
@@ -6167,7 +6779,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:8015",
@@ -6187,7 +6801,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:6367",
@@ -6207,7 +6823,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:1944",
@@ -6227,7 +6845,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:1802",
@@ -6247,7 +6867,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:8750",
@@ -6267,7 +6889,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:8601",
@@ -6287,7 +6911,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:8725",
@@ -6307,7 +6933,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "NYSE:IX",
@@ -6327,7 +6955,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:8630",
@@ -6347,7 +6977,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:1925",
@@ -6367,7 +6999,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:3003",
@@ -6387,7 +7021,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:8802",
@@ -6407,7 +7043,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:3288",
@@ -6427,7 +7065,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:6954",
@@ -6447,7 +7087,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": "positions",
+      "univers": "positions_seulement"
     },
     {
       "tv": "TSE:6301",
@@ -6467,7 +7109,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:7011",
@@ -6487,7 +7131,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:6273",
@@ -6507,7 +7153,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:4091",
@@ -6527,7 +7175,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:6988",
@@ -6547,7 +7197,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:4063",
@@ -6567,7 +7219,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:8113",
@@ -6587,7 +7241,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:4519",
@@ -6607,7 +7263,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:4523",
@@ -6627,7 +7285,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:4151",
@@ -6647,7 +7307,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:4507",
@@ -6667,7 +7329,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "NYSE:TAK",
@@ -6687,7 +7351,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:5020",
@@ -6707,7 +7373,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:1605",
@@ -6727,7 +7395,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:1662",
@@ -6747,7 +7417,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:9433",
@@ -6767,7 +7439,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:7974",
@@ -6787,7 +7461,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:4661",
@@ -6807,7 +7483,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:6098",
@@ -6827,7 +7505,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:9434",
@@ -6847,7 +7527,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:9022",
@@ -6867,7 +7549,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:9020",
@@ -6887,7 +7571,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:9201",
@@ -6907,7 +7593,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:9101",
@@ -6927,7 +7615,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:9513",
@@ -6947,7 +7637,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:9532",
@@ -6967,7 +7659,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:9501",
@@ -6987,7 +7681,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:9531",
@@ -7007,7 +7703,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:6857",
@@ -7027,7 +7725,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:7741",
@@ -7047,7 +7747,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:6861",
@@ -7067,7 +7769,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:285A",
@@ -7087,7 +7791,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "TSE:8035",
@@ -7107,7 +7813,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "FX:EURUSD",
@@ -7126,7 +7834,9 @@
       "note": true,
       "sources": [
         "fx"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "FX:EURAUD",
@@ -7145,7 +7855,9 @@
       "note": true,
       "sources": [
         "fx"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "FX:EURCAD",
@@ -7164,7 +7876,9 @@
       "note": true,
       "sources": [
         "fx"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "FX:EURCHF",
@@ -7183,7 +7897,9 @@
       "note": true,
       "sources": [
         "fx"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "FX:EURGBP",
@@ -7202,7 +7918,9 @@
       "note": true,
       "sources": [
         "fx"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "FX:EURKRW",
@@ -7221,7 +7939,9 @@
       "note": true,
       "sources": [
         "fx"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "FX:EURJPY",
@@ -7240,7 +7960,9 @@
       "note": true,
       "sources": [
         "fx"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:EXS1",
@@ -7259,7 +7981,9 @@
       "note": true,
       "sources": [
         "pays_head"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:IBC6",
@@ -7278,7 +8002,9 @@
       "note": true,
       "sources": [
         "pays_head"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "XETR:SXR2",
@@ -7297,7 +8023,9 @@
       "note": true,
       "sources": [
         "pays_head"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:IQQK",
@@ -7316,7 +8044,9 @@
       "note": true,
       "sources": [
         "pays_head"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "EURONEXT:CAC",
@@ -7335,7 +8065,9 @@
       "note": true,
       "sources": [
         "pays_head"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:SXRY",
@@ -7354,7 +8086,9 @@
       "note": true,
       "sources": [
         "pays_head"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "XETR:EUNN",
@@ -7373,7 +8107,9 @@
       "note": true,
       "sources": [
         "pays_head"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "XETR:XSMI",
@@ -7392,7 +8128,9 @@
       "note": true,
       "sources": [
         "pays_head"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "OANDA:XAGUSD",
@@ -7412,7 +8150,9 @@
       "sources": [
         "apex_bars",
         "metaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:8PSB",
@@ -7432,7 +8172,9 @@
       "sources": [
         "apex_bars",
         "metaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "LSE:PHAG",
@@ -7452,7 +8194,9 @@
       "sources": [
         "apex_bars",
         "metaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:XAD6",
@@ -7472,7 +8216,9 @@
       "sources": [
         "apex_bars",
         "metaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "LSE:ISLN",
@@ -7492,7 +8238,9 @@
       "sources": [
         "apex_bars",
         "metaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:GLDA",
@@ -7512,7 +8260,9 @@
       "sources": [
         "apex_bars",
         "metaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:8PSG",
@@ -7532,7 +8282,9 @@
       "sources": [
         "apex_bars",
         "metaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:RGLD",
@@ -7552,7 +8304,9 @@
       "sources": [
         "apex_bars",
         "metaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "LSE:PHGP",
@@ -7572,7 +8326,9 @@
       "sources": [
         "apex_bars",
         "metaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:4GLD",
@@ -7592,7 +8348,9 @@
       "sources": [
         "apex_bars",
         "metaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:XAD5",
@@ -7612,7 +8370,9 @@
       "sources": [
         "apex_bars",
         "metaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "LSE:IGLN",
@@ -7632,7 +8392,9 @@
       "sources": [
         "apex_bars",
         "metaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:8PSC",
@@ -7652,7 +8414,9 @@
       "sources": [
         "apex_bars",
         "metaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "OANDA:XPDUSD",
@@ -7672,7 +8436,9 @@
       "sources": [
         "apex_bars",
         "metaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:PHPD",
@@ -7692,7 +8458,9 @@
       "sources": [
         "apex_bars",
         "metaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "LSE:IPDM",
@@ -7712,7 +8480,9 @@
       "sources": [
         "apex_bars",
         "metaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:8PSA",
@@ -7732,7 +8502,9 @@
       "sources": [
         "apex_bars",
         "metaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "OANDA:XPTUSD",
@@ -7752,7 +8524,9 @@
       "sources": [
         "apex_bars",
         "metaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:SBSW",
@@ -7772,7 +8546,9 @@
       "sources": [
         "apex_bars",
         "metaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:XPPT",
@@ -7792,7 +8568,9 @@
       "sources": [
         "apex_bars",
         "metaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:XAD3",
@@ -7812,7 +8590,9 @@
       "sources": [
         "apex_bars",
         "metaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "LSE:IPLT",
@@ -7832,7 +8612,9 @@
       "sources": [
         "apex_bars",
         "metaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:28IY",
@@ -7853,7 +8635,9 @@
       "sources": [
         "apex_bars",
         "obligations"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "XETR:X03G",
@@ -7874,7 +8658,9 @@
       "sources": [
         "apex_bars",
         "obligations"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:EXX6",
@@ -7895,7 +8681,9 @@
       "sources": [
         "apex_bars",
         "obligations"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:EXHC",
@@ -7916,7 +8704,9 @@
       "sources": [
         "apex_bars",
         "obligations"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:EXHD",
@@ -7937,7 +8727,9 @@
       "sources": [
         "apex_bars",
         "obligations"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:EXHA",
@@ -7958,7 +8750,9 @@
       "sources": [
         "apex_bars",
         "obligations"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:EMBH",
@@ -7979,7 +8773,9 @@
       "sources": [
         "apex_bars",
         "obligations"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:ENDH",
@@ -8000,7 +8796,9 @@
       "sources": [
         "apex_bars",
         "obligations"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:PEML",
@@ -8021,7 +8819,9 @@
       "sources": [
         "apex_bars",
         "obligations"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:XEMB",
@@ -8042,7 +8842,9 @@
       "sources": [
         "apex_bars",
         "obligations"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:XUEM",
@@ -8063,7 +8865,9 @@
       "sources": [
         "apex_bars",
         "obligations"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:AEHY",
@@ -8084,7 +8888,9 @@
       "sources": [
         "apex_bars",
         "obligations"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:XHYG",
@@ -8105,7 +8911,9 @@
       "sources": [
         "apex_bars",
         "obligations"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:CBU1",
@@ -8126,7 +8934,9 @@
       "sources": [
         "apex_bars",
         "obligations"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:EH1Y",
@@ -8147,7 +8957,9 @@
       "sources": [
         "apex_bars",
         "obligations"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:PR1C",
@@ -8168,7 +8980,9 @@
       "sources": [
         "apex_bars",
         "obligations"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:JEBE",
@@ -8189,7 +9003,9 @@
       "sources": [
         "apex_bars",
         "obligations"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:SYBC",
@@ -8210,7 +9026,9 @@
       "sources": [
         "apex_bars",
         "obligations"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:D5BG",
@@ -8231,7 +9049,9 @@
       "sources": [
         "apex_bars",
         "obligations"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:PRAP",
@@ -8252,7 +9072,9 @@
       "sources": [
         "apex_bars",
         "obligations"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:GCRE",
@@ -8273,7 +9095,9 @@
       "sources": [
         "apex_bars",
         "obligations"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:SYBN",
@@ -8294,7 +9118,9 @@
       "sources": [
         "apex_bars",
         "obligations"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:XDGU",
@@ -8315,7 +9141,9 @@
       "sources": [
         "apex_bars",
         "obligations"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:CEB2",
@@ -8336,7 +9164,9 @@
       "sources": [
         "apex_bars",
         "obligations"
-      ]
+      ],
+      "visible": false,
+      "univers": "hors"
     },
     {
       "tv": "XETR:LYQ7",
@@ -8357,7 +9187,9 @@
       "sources": [
         "apex_bars",
         "obligations"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:XEIN",
@@ -8378,7 +9210,9 @@
       "sources": [
         "apex_bars",
         "obligations"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:IBC5",
@@ -8399,7 +9233,9 @@
       "sources": [
         "apex_bars",
         "obligations"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:IBCI",
@@ -8420,7 +9256,9 @@
       "sources": [
         "apex_bars",
         "obligations"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:PRAR",
@@ -8441,7 +9279,9 @@
       "sources": [
         "apex_bars",
         "obligations"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:XGLE",
@@ -8462,7 +9302,9 @@
       "sources": [
         "apex_bars",
         "obligations"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:SECA",
@@ -8483,7 +9325,9 @@
       "sources": [
         "apex_bars",
         "obligations"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:TRD3",
@@ -8504,7 +9348,9 @@
       "sources": [
         "apex_bars",
         "obligations"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:JA13",
@@ -8525,7 +9371,9 @@
       "sources": [
         "apex_bars",
         "obligations"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:2B7S",
@@ -8546,7 +9394,9 @@
       "sources": [
         "apex_bars",
         "obligations"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:DJAD",
@@ -8567,7 +9417,9 @@
       "sources": [
         "apex_bars",
         "obligations"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:SPPX",
@@ -8588,7 +9440,9 @@
       "sources": [
         "apex_bars",
         "obligations"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:XUTL",
@@ -8609,7 +9463,9 @@
       "sources": [
         "apex_bars",
         "obligations"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "TVC:DXY",
@@ -8628,7 +9484,9 @@
       "note": false,
       "sources": [
         "reperes"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "TVC:US10Y",
@@ -8647,7 +9505,9 @@
       "note": false,
       "sources": [
         "reperes"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "TVC:US30Y",
@@ -8666,7 +9526,9 @@
       "note": false,
       "sources": [
         "reperes"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "TVC:VIX",
@@ -8685,7 +9547,9 @@
       "note": false,
       "sources": [
         "reperes"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "SIX:ARYN",
@@ -8705,7 +9569,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "SIX:BARN",
@@ -8725,7 +9591,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "SIX:LISN",
@@ -8745,7 +9613,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "SIX:NESN",
@@ -8765,7 +9635,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "SIX:CFR",
@@ -8785,7 +9657,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "SIX:SIGN",
@@ -8805,7 +9679,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "SIX:UHR",
@@ -8825,7 +9701,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "SIX:EFGN",
@@ -8845,7 +9723,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "SIX:BAER",
@@ -8865,7 +9745,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "SIX:PGHN",
@@ -8885,7 +9767,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "SIX:SLHN",
@@ -8905,7 +9789,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "SIX:SREN",
@@ -8925,7 +9811,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "SIX:SQN",
@@ -8945,7 +9833,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "SIX:UBSG",
@@ -8965,7 +9855,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "SIX:ZURN",
@@ -8985,7 +9877,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "SIX:ABBN",
@@ -9005,7 +9899,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "SIX:ACLN",
@@ -9025,7 +9921,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "SIX:ADEN",
@@ -9045,7 +9943,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "SIX:JFN",
@@ -9065,7 +9965,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "SIX:OERL",
@@ -9085,7 +9987,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "SIX:SGSN",
@@ -9105,7 +10009,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "SIX:SCHN",
@@ -9125,7 +10031,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "SIX:VACN",
@@ -9145,7 +10053,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "SIX:AMRZ",
@@ -9165,7 +10075,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "SIX:GIVN",
@@ -9185,7 +10097,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "SIX:HOLN",
@@ -9205,7 +10119,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "SIX:ALC",
@@ -9225,7 +10141,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "SIX:LONN",
@@ -9245,7 +10163,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "SIX:NOVN",
@@ -9265,7 +10185,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "SIX:PPGN",
@@ -9285,7 +10207,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "SIX:SDZ",
@@ -9305,7 +10229,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "SIX:SOON",
@@ -9325,7 +10251,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "SIX:STMN",
@@ -9345,7 +10273,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "SIX:TECN",
@@ -9365,7 +10295,9 @@
       "sources": [
         "apex_bars",
         "pays_top"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:ZPDK",
@@ -9384,7 +10316,9 @@
       "note": true,
       "sources": [
         "secteurs"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:ZPDS",
@@ -9403,7 +10337,9 @@
       "note": true,
       "sources": [
         "secteurs"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:ZPDD",
@@ -9422,7 +10358,9 @@
       "note": true,
       "sources": [
         "secteurs"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:ZPDF",
@@ -9441,7 +10379,9 @@
       "note": true,
       "sources": [
         "secteurs"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:IQQ7",
@@ -9460,7 +10400,9 @@
       "note": true,
       "sources": [
         "secteurs"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:ZPDI",
@@ -9479,7 +10421,9 @@
       "note": true,
       "sources": [
         "secteurs"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:ZPDM",
@@ -9498,7 +10442,9 @@
       "note": true,
       "sources": [
         "secteurs"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:ZPDH",
@@ -9517,7 +10463,9 @@
       "note": true,
       "sources": [
         "secteurs"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:ZPDU",
@@ -9537,7 +10485,9 @@
       "sources": [
         "secteurs",
         "energie"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:QDVE",
@@ -9556,7 +10506,9 @@
       "note": true,
       "sources": [
         "secteurs"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:CF",
@@ -9576,7 +10528,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:ECL",
@@ -9596,7 +10550,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:FCX",
@@ -9616,7 +10572,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:IP",
@@ -9636,7 +10594,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:LIN",
@@ -9656,7 +10616,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:MLM",
@@ -9676,7 +10638,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:NEM",
@@ -9696,7 +10660,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:NUE",
@@ -9716,7 +10682,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:PKG",
@@ -9736,7 +10704,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:STLD",
@@ -9756,7 +10726,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:GOOGL",
@@ -9776,7 +10748,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:APP",
@@ -9796,7 +10770,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:LYV",
@@ -9816,7 +10792,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:META",
@@ -9836,7 +10814,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:NFLX",
@@ -9856,7 +10836,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:OMC",
@@ -9876,7 +10858,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:RDDT",
@@ -9896,7 +10880,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:TMUS",
@@ -9916,7 +10902,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:TKO",
@@ -9936,7 +10924,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:TTWO",
@@ -9956,7 +10946,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:APA",
@@ -9976,7 +10968,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:CVX",
@@ -9997,7 +10991,9 @@
         "apex_bars",
         "fondamentaux",
         "energie"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:COP",
@@ -10018,7 +11014,9 @@
         "apex_bars",
         "fondamentaux",
         "energie"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:DVN",
@@ -10039,7 +11037,9 @@
         "apex_bars",
         "fondamentaux",
         "energie"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:EOG",
@@ -10060,7 +11060,9 @@
         "apex_bars",
         "fondamentaux",
         "energie"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:EQT",
@@ -10080,7 +11082,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:XOM",
@@ -10101,7 +11105,9 @@
         "apex_bars",
         "fondamentaux",
         "energie"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:OXY",
@@ -10122,7 +11128,9 @@
         "apex_bars",
         "fondamentaux",
         "energie"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:TRGP",
@@ -10143,7 +11151,9 @@
         "apex_bars",
         "fondamentaux",
         "energie"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:VLO",
@@ -10164,7 +11174,9 @@
         "apex_bars",
         "fondamentaux",
         "energie"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:AXP",
@@ -10184,7 +11196,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:BLK",
@@ -10204,7 +11218,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:CME",
@@ -10224,7 +11240,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:ICE",
@@ -10244,7 +11262,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:JPM",
@@ -10264,7 +11284,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:MA",
@@ -10284,7 +11306,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:MS",
@@ -10304,7 +11328,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:SPGI",
@@ -10324,7 +11350,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:SCHW",
@@ -10344,7 +11372,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:V",
@@ -10364,7 +11394,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:ADP",
@@ -10384,7 +11416,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:CSX",
@@ -10404,7 +11438,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:CAT",
@@ -10424,7 +11460,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:ETN",
@@ -10444,7 +11482,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:GE",
@@ -10464,7 +11504,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:GEV",
@@ -10484,7 +11526,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:HWM",
@@ -10504,7 +11548,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:PWR",
@@ -10524,7 +11570,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:TT",
@@ -10544,7 +11592,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:UBER",
@@ -10564,7 +11614,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:AMD",
@@ -10584,7 +11636,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:ANET",
@@ -10604,7 +11658,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:AVGO",
@@ -10624,7 +11680,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:CRWD",
@@ -10644,7 +11702,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:KLAC",
@@ -10664,7 +11724,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:LRCX",
@@ -10684,7 +11746,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:MU",
@@ -10704,7 +11768,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:NVDA",
@@ -10724,7 +11790,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:PLTR",
@@ -10744,7 +11812,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:TXN",
@@ -10764,7 +11834,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:CHD",
@@ -10784,7 +11856,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:CL",
@@ -10804,7 +11878,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:COST",
@@ -10824,7 +11900,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:KDP",
@@ -10844,7 +11922,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:KMB",
@@ -10864,7 +11944,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:MNST",
@@ -10884,7 +11966,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:PM",
@@ -10904,7 +11988,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:KO",
@@ -10924,7 +12010,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:EL",
@@ -10944,7 +12032,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:PG",
@@ -10964,7 +12054,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:AMT",
@@ -10984,7 +12076,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:CBRE",
@@ -11004,7 +12098,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:DLR",
@@ -11024,7 +12120,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:EQIX",
@@ -11044,7 +12142,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:ESS",
@@ -11064,7 +12164,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:IRM",
@@ -11084,7 +12186,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:PLD",
@@ -11104,7 +12208,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:PSA",
@@ -11124,7 +12230,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:O",
@@ -11144,7 +12252,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:SPG",
@@ -11164,7 +12274,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:AWK",
@@ -11185,7 +12297,9 @@
         "apex_bars",
         "fondamentaux",
         "energie"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:ATO",
@@ -11205,7 +12319,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:CNP",
@@ -11225,7 +12341,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:CEG",
@@ -11246,7 +12364,9 @@
         "apex_bars",
         "fondamentaux",
         "energie"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:ETR",
@@ -11267,7 +12387,9 @@
         "apex_bars",
         "fondamentaux",
         "energie"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:NEE",
@@ -11288,7 +12410,9 @@
         "apex_bars",
         "fondamentaux",
         "energie"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:SO",
@@ -11309,7 +12433,9 @@
         "apex_bars",
         "fondamentaux",
         "energie"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:VST",
@@ -11330,7 +12456,9 @@
         "apex_bars",
         "fondamentaux",
         "energie"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:WEC",
@@ -11350,7 +12478,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:XEL",
@@ -11371,7 +12501,9 @@
         "apex_bars",
         "fondamentaux",
         "energie"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:ABBV",
@@ -11391,7 +12523,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:AMGN",
@@ -11411,7 +12545,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:DHR",
@@ -11431,7 +12567,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:LLY",
@@ -11451,7 +12589,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:GILD",
@@ -11471,7 +12611,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:ISRG",
@@ -11491,7 +12633,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:MRK",
@@ -11511,7 +12655,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:REGN",
@@ -11531,7 +12677,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:SYK",
@@ -11551,7 +12699,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:VRTX",
@@ -11571,7 +12721,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:ABNB",
@@ -11591,7 +12743,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:BKNG",
@@ -11611,7 +12765,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:CVNA",
@@ -11631,7 +12787,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:DASH",
@@ -11651,7 +12809,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:GRMN",
@@ -11671,7 +12831,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:HLT",
@@ -11691,7 +12853,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:MAR",
@@ -11711,7 +12875,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:ROST",
@@ -11731,7 +12897,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:TSLA",
@@ -11751,7 +12919,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:EBAY",
@@ -11771,7 +12941,9 @@
       "sources": [
         "apex_bars",
         "fondamentaux"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:XDW0",
@@ -11791,7 +12963,9 @@
       "sources": [
         "secteurs",
         "energie"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "EURONEXT:PHPT",
@@ -11810,7 +12984,9 @@
       "note": true,
       "sources": [
         "apex_bars"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:BTU",
@@ -11829,7 +13005,9 @@
       "note": true,
       "sources": [
         "energie"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:ENB",
@@ -11848,7 +13026,9 @@
       "note": true,
       "sources": [
         "energie"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:BNQ9",
@@ -11867,7 +13047,9 @@
       "note": false,
       "sources": [
         "energie"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:KMI",
@@ -11886,7 +13068,9 @@
       "note": true,
       "sources": [
         "energie"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:OKE",
@@ -11905,7 +13089,9 @@
       "note": true,
       "sources": [
         "energie"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:WMB",
@@ -11924,7 +13110,9 @@
       "note": true,
       "sources": [
         "energie"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:BLDP",
@@ -11943,7 +13131,9 @@
       "note": true,
       "sources": [
         "energie"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:U3O8",
@@ -11962,7 +13152,9 @@
       "note": true,
       "sources": [
         "energie"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "XETR:URNU",
@@ -11981,7 +13173,9 @@
       "note": true,
       "sources": [
         "energie"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:FANG",
@@ -12000,7 +13194,9 @@
       "note": true,
       "sources": [
         "energie"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYMEX:RB1!",
@@ -12019,7 +13215,9 @@
       "note": false,
       "sources": [
         "energie"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYMEX:HO1!",
@@ -12038,7 +13236,9 @@
       "note": false,
       "sources": [
         "energie"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "TVC:UKOIL",
@@ -12057,7 +13257,9 @@
       "note": false,
       "sources": [
         "energie"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYMEX:CL1!",
@@ -12076,7 +13278,9 @@
       "note": false,
       "sources": [
         "energie"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:CSIQ",
@@ -12095,7 +13299,9 @@
       "note": true,
       "sources": [
         "energie"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:ENPH",
@@ -12114,7 +13320,9 @@
       "note": true,
       "sources": [
         "energie"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NASDAQ:AEP",
@@ -12133,7 +13341,9 @@
       "note": true,
       "sources": [
         "energie"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     },
     {
       "tv": "NYSE:DUK",
@@ -12152,7 +13362,12 @@
       "note": true,
       "sources": [
         "energie"
-      ]
+      ],
+      "visible": true,
+      "univers": "oui"
     }
-  ]
+  ],
+  "n_visibles": 447,
+  "n_hors": 157,
+  "n_positions_seulement": 2
 }

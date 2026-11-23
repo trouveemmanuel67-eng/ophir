@@ -66,6 +66,9 @@ def build() -> dict:
         if note_rec.get('cap') == 'moyenne':
             return
         meta = actif(tv) or {}
+        # t322u : hors univers (pays retirés) et titres seulement en positions
+        if meta.get('univers') in ('hors', 'positions_seulement') or meta.get('visible') is False or meta.get('visible')=='positions':
+            return
         if _is_held(tv, yahoo or meta.get('yahoo'), held):
             return
         if tv in seen:

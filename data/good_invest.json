@@ -1,6 +1,6 @@
 {
   "seuil": 7.5,
-  "n": 12,
+  "n": 11,
   "liste": [
     {
       "tv": "XETR:PRAR",
@@ -115,23 +115,6 @@
       "bande": "vert",
       "av": 30.8,
       "section": "Obligations – Investment grade EUR",
-      "montant": 500,
-      "brokers": {
-        "revolut": true,
-        "xtb": true
-      }
-    },
-    {
-      "tv": "XETR:IQQK",
-      "yahoo": "IQQK.DE",
-      "nom": "iShares MSCI Korea UCITS ETF USD (Dist)",
-      "note": 7.5,
-      "display": "7,5",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": 28.6,
-      "section": "Marché Corée du Sud",
       "montant": 500,
       "brokers": {
         "revolut": true,

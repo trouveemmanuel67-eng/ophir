@@ -1,4 +1,4 @@
-/* ===== Onglet Actions · SECTEURS PAR PAYS (France, Allemagne, Italie, Japon, Corée du Sud, Australie, Canada, Suisse) ===== */
+/* ===== Onglet Actions · SECTEURS PAR PAYS (France, Allemagne, Canada, Suisse — plus USA via secteurs). Univers t322u. ===== */
 const PAYS=JSON.parse(document.getElementById('data8').textContent);
 const pCur=c=>({EUR:'€',JPY:'¥',KRW:'₩',AUD:'A$',GBp:'p',USD:'$',CAD:'C$',CHF:'CHF',SEK:'SEK'}[c]||c||'');
 const pNum=(v,c)=>fmt(v,c==='KRW'||c==='JPY'?0:2)+' '+pCur(c);

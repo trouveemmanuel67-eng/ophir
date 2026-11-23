@@ -67,7 +67,22 @@ function giPush(out, rec){
   }
   giEnrich(prev, rec);
 }
+function giPrecomputed(){
+  try{
+    const el=document.getElementById('dataGi');
+    if(!el) return null;
+    const j=JSON.parse(el.textContent||'null');
+    if(!j||!Array.isArray(j.liste)) return null;
+    const held=giHeldSet();
+    return j.liste
+      .filter(it=>it&&it.tv&&it.note!=null&&Number(it.note)>=GI_SEUIL&&!giIsHeld(it,held))
+      .map(it=>Object.assign({},it,{montant:it.montant!=null?it.montant:giMontant(it.note)}))
+      .sort((a,b)=> (b.note-a.note) || ((b.av||0)-(a.av||0)) || String(a.tv).localeCompare(String(b.tv)));
+  }catch(e){ return null; }
+}
 function giCollect(){
+  const pre=giPrecomputed();
+  if(pre) return pre;
   const out=new Map();
   const bars=(typeof APEX_BARS!=='undefined'&&APEX_BARS&&APEX_BARS.bars)?APEX_BARS.bars:{};
   const take=(tv, nom, section, rec, av, tab, yahoo, ticker)=>{

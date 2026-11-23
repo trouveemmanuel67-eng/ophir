@@ -138,7 +138,7 @@ function obCharts(det){
     options:{maintainAspectRatio:false,animation:false,plugins:{legend:{display:false},tooltip:{callbacks:{title:c=>dshort(ah[c[0].dataIndex][0])}}},scales:{x,y:{min:-100,max:100,ticks:{stepSize:100,font:{size:9}}}}}}));
 }
 const OBP=JSON.parse(document.getElementById('data9').textContent);
-const OB_GROUPS={us:['tcourt','tlong','usig','hy','infl'],eu:['eurgov','eurig','em'],fr:['france'],de:['de'],it:['it'],es:['es'],gb:['gb'],jp:['jp'],ch:['ch'],nl:['nl'],be:['be'],au:['au'],kr:['kr'],ca:['ca']};
+const OB_GROUPS={us:['tcourt','tlong','usig','hy','infl'],eu:['eurgov','eurig','em'],fr:['france'],de:['de'],ch:['ch'],ca:['ca']};
 const OB_FLAG={us:['flag-us.png','États-Unis'],fr:['flag-fr.png','France'],de:['flag-de.png','Allemagne'],it:['flag-it.png','Italie'],es:['flag-es.png','Espagne'],gb:['flag-gb.png','Royaume-Uni'],jp:['flag-jp.png','Japon'],ch:['flag-ch.png','Suisse'],nl:['flag-nl.png','Pays-Bas'],be:['flag-be.png','Belgique'],kr:['flag-kr.png','Corée du Sud'],au:['flag-au.png','Australie'],ca:['flag-ca.png','Canada']};
 const MAT_COL={'2':'#a9cdf5','10':'#e6c27a','30':'#e88f8f'};
 function obRates(cc){

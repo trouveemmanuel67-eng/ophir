@@ -1,0 +1,616 @@
+tv,nom,pays,section,type,decision,motif,detenue
+ASX:SEK,SEEK Limited,Australie,Australie – Communication,action,supprimer,actions ou obligations hors 5 pays,non
+ASX:TLS,Telstra Group Limited,Australie,Australie – Communication,action,supprimer,actions ou obligations hors 5 pays,non
+ASX:COL,Coles Group Limited,Australie,Australie – Consommation de base,action,supprimer,actions ou obligations hors 5 pays,non
+ASX:EDV,Endeavour Group Limited,Australie,Australie – Consommation de base,action,supprimer,actions ou obligations hors 5 pays,non
+ASX:MTS,Metcash Limited,Australie,Australie – Consommation de base,action,supprimer,actions ou obligations hors 5 pays,non
+ASX:WOW,Woolworths Group Limited,Australie,Australie – Consommation de base,action,supprimer,actions ou obligations hors 5 pays,non
+ASX:ALL,Aristocrat Leisure Limited,Australie,Australie – Consommation discrétionnaire,action,supprimer,actions ou obligations hors 5 pays,non
+ASX:BRG,Breville Group Limited,Australie,Australie – Consommation discrétionnaire,action,supprimer,actions ou obligations hors 5 pays,non
+ASX:WES,Wesfarmers Limited,Australie,Australie – Consommation discrétionnaire,action,supprimer,actions ou obligations hors 5 pays,non
+ASX:CBA,Commonwealth Bank of Australia,Australie,Australie – Finance,action,supprimer,actions ou obligations hors 5 pays,non
+ASX:CPU,Computershare Limited,Australie,Australie – Finance,action,supprimer,actions ou obligations hors 5 pays,non
+ASX:MQG,Macquarie Group Limited,Australie,Australie – Finance,action,supprimer,actions ou obligations hors 5 pays,non
+ASX:QBE,QBE Insurance Group Limited,Australie,Australie – Finance,action,supprimer,actions ou obligations hors 5 pays,non
+ASX:ALQ,ALS Limited,Australie,Australie – Industrie,action,supprimer,actions ou obligations hors 5 pays,non
+ASX:QAN,Qantas Airways Limited,Australie,Australie – Industrie,action,supprimer,actions ou obligations hors 5 pays,non
+ASX:EVN,Evolution Mining Limited,Australie,Australie – Matériaux,action,supprimer,actions ou obligations hors 5 pays,non
+ASX:FMG,Fortescue Ltd,Australie,Australie – Matériaux,action,supprimer,actions ou obligations hors 5 pays,non
+ASX:NST,Northern Star Resources Limited,Australie,Australie – Matériaux,action,supprimer,actions ou obligations hors 5 pays,non
+NYSE:BHP,BHP Group Limited,Australie,Australie – Matériaux,action,supprimer,actions ou obligations hors 5 pays,non
+ASX:COH,Cochlear Limited,Australie,Australie – Santé,action,supprimer,actions ou obligations hors 5 pays,non
+ASX:RHC,Ramsay Health Care Limited,Australie,Australie – Santé,action,supprimer,actions ou obligations hors 5 pays,non
+ASX:SHL,Sonic Healthcare Limited,Australie,Australie – Santé,action,supprimer,actions ou obligations hors 5 pays,non
+ASX:SIG,Sigma Healthcare Limited,Australie,Australie – Santé,action,supprimer,actions ou obligations hors 5 pays,non
+ASX:AGL,AGL Energy Limited,Australie,Australie – Services aux collectivités,action,supprimer,actions ou obligations hors 5 pays,non
+ASX:ORG,Origin Energy Limited,Australie,Australie – Services aux collectivités,action,supprimer,actions ou obligations hors 5 pays,non
+ASX:NXT,NEXTDC Limited,Australie,Australie – Technologie,action,supprimer,actions ou obligations hors 5 pays,non
+ASX:TNE,Technology One Limited,Australie,Australie – Technologie,action,supprimer,actions ou obligations hors 5 pays,non
+ASX:WTC,WiseTech Global Limited,Australie,Australie – Technologie,action,supprimer,actions ou obligations hors 5 pays,non
+ASX:ALD,Ampol Limited,Australie,Australie – Énergie,action,supprimer,actions ou obligations hors 5 pays,non
+ASX:STO,Santos Limited,Australie,Australie – Énergie,action,supprimer,actions ou obligations hors 5 pays,non
+ASX:WHC,Whitehaven Coal Limited,Australie,Australie – Énergie,action,supprimer,actions ou obligations hors 5 pays,non
+ASX:WOR,Worley Limited,Australie,Australie – Énergie,action,supprimer,actions ou obligations hors 5 pays,non
+NYSE:WDS,Woodside Energy Group Ltd,Australie,Australie – Énergie,action,supprimer,actions ou obligations hors 5 pays,non
+XETR:IBC6,iShares MSCI Australia UCITS ETF USD (Acc),Australie,Marché Australie,etf,supprimer,actions ou obligations hors 5 pays,non
+NYSE:SKM,"SK Telecom Co., Ltd.",Corée du Sud,Corée du Sud – Communication,action,supprimer,actions ou obligations hors 5 pays,non
+NYSE:SHG,"Shinhan Financial Group Co., Ltd.",Corée du Sud,Corée du Sud – Finance,action,supprimer,actions ou obligations hors 5 pays,non
+KRX:000660,SK hynix Inc.,Corée du Sud,Corée du Sud – Technologie,action,supprimer,actions ou obligations hors 5 pays,non
+XETR:IQQK,iShares MSCI Korea UCITS ETF USD (Dist),Corée du Sud,Marché Corée du Sud,etf,supprimer,actions ou obligations hors 5 pays,non
+MIL:MFEB,MFE-Mediaforeurope N.V.,Italie,Italie – Communication,action,supprimer,actions ou obligations hors 5 pays,non
+MIL:RWAY,Rai Way S.p.A.,Italie,Italie – Communication,action,supprimer,actions ou obligations hors 5 pays,non
+MIL:TIT,Telecom Italia S.p.A.,Italie,Italie – Communication,action,supprimer,actions ou obligations hors 5 pays,non
+MIL:CPR,Davide Campari-Milano N.V.,Italie,Italie – Consommation de base,action,supprimer,actions ou obligations hors 5 pays,non
+MIL:ITM,Italmobiliare S.p.A.,Italie,Italie – Consommation de base,action,supprimer,actions ou obligations hors 5 pays,non
+MIL:BC,Brunello Cucinelli S.p.A.,Italie,Italie – Consommation discrétionnaire,action,supprimer,actions ou obligations hors 5 pays,non
+MIL:BRE,Brembo N.V.,Italie,Italie – Consommation discrétionnaire,action,supprimer,actions ou obligations hors 5 pays,non
+MIL:DLG,De'Longhi S.p.A.,Italie,Italie – Consommation discrétionnaire,action,supprimer,actions ou obligations hors 5 pays,non
+MIL:LTMC,Lottomatica Group S.p.A.,Italie,Italie – Consommation discrétionnaire,action,supprimer,actions ou obligations hors 5 pays,non
+MIL:MONC,Moncler S.p.A.,Italie,Italie – Consommation discrétionnaire,action,supprimer,actions ou obligations hors 5 pays,non
+MIL:PIRC,Pirelli & C. S.p.A.,Italie,Italie – Consommation discrétionnaire,action,supprimer,actions ou obligations hors 5 pays,non
+MIL:RACE,Ferrari N.V.,Italie,Italie – Consommation discrétionnaire,action,supprimer,actions ou obligations hors 5 pays,non
+MIL:TGYM,Technogym S.p.A.,Italie,Italie – Consommation discrétionnaire,action,supprimer,actions ou obligations hors 5 pays,non
+MIL:BAMI,Banco BPM S.p.A.,Italie,Italie – Finance,action,supprimer,actions ou obligations hors 5 pays,non
+MIL:BMPS,Banca Monte dei Paschi di Siena S.p.A.,Italie,Italie – Finance,action,supprimer,actions ou obligations hors 5 pays,non
+MIL:BPE,BPER Banca SpA,Italie,Italie – Finance,action,supprimer,actions ou obligations hors 5 pays,non
+MIL:G,Assicurazioni Generali S.p.A.,Italie,Italie – Finance,action,supprimer,actions ou obligations hors 5 pays,non
+MIL:ISP,Intesa Sanpaolo S.p.A.,Italie,Italie – Finance,action,supprimer,actions ou obligations hors 5 pays,non
+MIL:UCG,UniCredit S.p.A.,Italie,Italie – Finance,action,supprimer,actions ou obligations hors 5 pays,non
+MIL:INW,Infrastrutture Wireless Italiane S.p.A.,Italie,Italie – Immobilier,action,supprimer,actions ou obligations hors 5 pays,non
+MIL:FCT,Fincantieri S.p.A.,Italie,Italie – Industrie,action,supprimer,actions ou obligations hors 5 pays,non
+MIL:IP,Interpump Group S.p.A.,Italie,Italie – Industrie,action,supprimer,actions ou obligations hors 5 pays,non
+MIL:IVG,Iveco Group N.V.,Italie,Italie – Industrie,action,supprimer,actions ou obligations hors 5 pays,non
+MIL:LDO,Leonardo S.p.a.,Italie,Italie – Industrie,action,supprimer,actions ou obligations hors 5 pays,non
+MIL:PRY,Prysmian S.p.A.,Italie,Italie – Industrie,action,supprimer,actions ou obligations hors 5 pays,non
+MIL:PST,Poste Italiane S.p.A.,Italie,Italie – Industrie,action,supprimer,actions ou obligations hors 5 pays,non
+MIL:BZU,Buzzi S.p.A.,Italie,Italie – Matériaux,action,supprimer,actions ou obligations hors 5 pays,non
+MIL:SOL,SOL S.p.A.,Italie,Italie – Matériaux,action,supprimer,actions ou obligations hors 5 pays,non
+MIL:AMP,Amplifon S.p.A.,Italie,Italie – Santé,action,supprimer,actions ou obligations hors 5 pays,non
+MIL:DIA,DiaSorin S.p.A.,Italie,Italie – Santé,action,supprimer,actions ou obligations hors 5 pays,non
+MIL:ELN,EL.En. S.p.A.,Italie,Italie – Santé,action,supprimer,actions ou obligations hors 5 pays,non
+MIL:REC,Recordati Industria Chimica e Farmaceutica S.p.A.,Italie,Italie – Santé,action,supprimer,actions ou obligations hors 5 pays,non
+MIL:A2A,A2A S.p.A.,Italie,Italie – Services aux collectivités,action,supprimer,actions ou obligations hors 5 pays,non
+MIL:ACE,ACEA S.p.A.,Italie,Italie – Services aux collectivités,action,supprimer,actions ou obligations hors 5 pays,non
+MIL:ENEL,Enel SpA,Italie,Italie – Services aux collectivités,action,supprimer,actions ou obligations hors 5 pays,non
+MIL:ERG,ERG S.p.A.,Italie,Italie – Services aux collectivités,action,supprimer,actions ou obligations hors 5 pays,non
+MIL:HER,Hera S.p.A.,Italie,Italie – Services aux collectivités,action,supprimer,actions ou obligations hors 5 pays,non
+MIL:IG,Italgas S.p.A.,Italie,Italie – Services aux collectivités,action,supprimer,actions ou obligations hors 5 pays,non
+MIL:SRG,Snam S.p.A.,Italie,Italie – Services aux collectivités,action,supprimer,actions ou obligations hors 5 pays,non
+MIL:TRN,Terna S.p.A.,Italie,Italie – Services aux collectivités,action,supprimer,actions ou obligations hors 5 pays,non
+MIL:NEXI,Nexi S.p.A.,Italie,Italie – Technologie,action,supprimer,actions ou obligations hors 5 pays,non
+MIL:TPRO,Technoprobe S.p.A.,Italie,Italie – Technologie,action,supprimer,actions ou obligations hors 5 pays,non
+MIL:WIIT,Wiit S.p.A.,Italie,Italie – Technologie,action,supprimer,actions ou obligations hors 5 pays,non
+MIL:ENI,Eni S.p.A.,Italie,Italie – Énergie,action,supprimer,actions ou obligations hors 5 pays,non
+MIL:SPM,Saipem SpA,Italie,Italie – Énergie,action,supprimer,actions ou obligations hors 5 pays,non
+XETR:SXRY,iShares VII PLC - iShares FTSE MIB ETF EUR Acc,Italie,Marché Italie,etf,supprimer,actions ou obligations hors 5 pays,non
+XETR:28IY,iShares iBonds Dec 2028 Term € (Italie) UCITS ETF (Dist),Italie,Obligations – BTP / dette italienne,etf,supprimer,actions ou obligations hors 5 pays,non
+TSE:5401,Nippon Steel Corporation,Japon,Japon – Acier et métaux non ferreux,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:5411,"JFE Holdings, Inc.",Japon,Japon – Acier et métaux non ferreux,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:5713,"Sumitomo Metal Mining Co., Ltd.",Japon,Japon – Acier et métaux non ferreux,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:5714,"Dowa Holdings Co., Ltd.",Japon,Japon – Acier et métaux non ferreux,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:2269,"Meiji Holdings Co., Ltd.",Japon,Japon – Alimentation,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:2801,Kikkoman Corporation,Japon,Japon – Alimentation,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:2802,"Ajinomoto Co., Inc.",Japon,Japon – Alimentation,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:2914,Japan Tobacco Inc.,Japon,Japon – Alimentation,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:5108,Bridgestone Corporation,Japon,Japon – Automobile et équipements de transport,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:5802,"Sumitomo Electric Industries, Ltd.",Japon,Japon – Automobile et équipements de transport,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:7269,Suzuki Motor Corporation,Japon,Japon – Automobile et équipements de transport,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:7270,Subaru Corporation,Japon,Japon – Automobile et équipements de transport,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:7272,"Yamaha Motor Co., Ltd.",Japon,Japon – Automobile et équipements de transport,action,supprimer,actions ou obligations hors 5 pays,non
+NYSE:MFG,"Mizuho Financial Group, Inc.",Japon,Japon – Banques,action,supprimer,actions ou obligations hors 5 pays,non
+NYSE:MUFG,"Mitsubishi UFJ Financial Group, Inc.",Japon,Japon – Banques,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:5838,"Rakuten Bank, Ltd.",Japon,Japon – Banques,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:7182,"JAPAN POST BANK Co., Ltd.",Japon,Japon – Banques,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:8308,"Resona Holdings, Inc.",Japon,Japon – Banques,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:7453,"Ryohin Keikaku Co., Ltd.",Japon,Japon – Commerce de détail,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:7550,"Zensho Holdings Co., Ltd.",Japon,Japon – Commerce de détail,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:9983,"Fast Retailing Co., Ltd.",Japon,Japon – Commerce de détail,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:5803,Fujikura Ltd.,Japon,Japon – Commerce de gros,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:6501,"Hitachi, Ltd.",Japon,Japon – Commerce de gros,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:8015,Toyota Tsusho Corporation,Japon,Japon – Commerce de gros,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:8053,Sumitomo Corporation,Japon,Japon – Commerce de gros,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:1802,Obayashi Corporation,Japon,Japon – Construction et matériaux,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:1944,Kinden Corporation,Japon,Japon – Construction et matériaux,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:6367,"Daikin Industries,Ltd.",Japon,Japon – Construction et matériaux,action,supprimer,actions ou obligations hors 5 pays,non
+NYSE:IX,ORIX Corporation,Japon,Japon – Finance hors banques,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:8601,Daiwa Securities Group Inc.,Japon,Japon – Finance hors banques,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:8630,"Sompo Holdings, Inc.",Japon,Japon – Finance hors banques,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:8725,"MS&AD Insurance Group Holdings, Inc.",Japon,Japon – Finance hors banques,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:8750,"Daiichi Life Group, Inc.",Japon,Japon – Finance hors banques,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:1925,"Daiwa House Industry Co., Ltd.",Japon,Japon – Immobilier,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:3003,"Hulic Co., Ltd.",Japon,Japon – Immobilier,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:3288,"Open House Group Co., Ltd.",Japon,Japon – Immobilier,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:8802,"Mitsubishi Estate Co., Ltd.",Japon,Japon – Immobilier,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:6273,SMC Corporation,Japon,Japon – Machines,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:6301,Komatsu Ltd.,Japon,Japon – Machines,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:7011,"Mitsubishi Heavy Industries, Ltd.",Japon,Japon – Machines,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:4063,"Shin-Etsu Chemical Co., Ltd.",Japon,Japon – Matières premières et chimie,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:4091,Nippon Sanso Holdings Corporation,Japon,Japon – Matières premières et chimie,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:6988,Nitto Denko Corporation,Japon,Japon – Matières premières et chimie,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:8113,Unicharm Corporation,Japon,Japon – Matières premières et chimie,action,supprimer,actions ou obligations hors 5 pays,non
+NYSE:TAK,Takeda Pharmaceutical Company Limited,Japon,Japon – Pharmacie,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:4151,"Kyowa Kirin Co., Ltd.",Japon,Japon – Pharmacie,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:4507,"Shionogi & Co., Ltd.",Japon,Japon – Pharmacie,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:4519,"Chugai Pharmaceutical Co., Ltd.",Japon,Japon – Pharmacie,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:4523,"Eisai Co., Ltd.",Japon,Japon – Pharmacie,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:1605,Inpex Corporation,Japon,Japon – Ressources énergétiques,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:1662,"Japan Petroleum Exploration Co., Ltd.",Japon,Japon – Ressources énergétiques,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:5020,"ENEOS Holdings, Inc.",Japon,Japon – Ressources énergétiques,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:4661,"Oriental Land Co., Ltd.",Japon,"Japon – TI, services et autres",action,supprimer,actions ou obligations hors 5 pays,non
+TSE:6098,"Recruit Holdings Co., Ltd.",Japon,"Japon – TI, services et autres",action,supprimer,actions ou obligations hors 5 pays,non
+TSE:7974,"Nintendo Co., Ltd.",Japon,"Japon – TI, services et autres",action,supprimer,actions ou obligations hors 5 pays,non
+TSE:9433,KDDI Corporation,Japon,"Japon – TI, services et autres",action,supprimer,actions ou obligations hors 5 pays,non
+TSE:9434,SoftBank Corp.,Japon,"Japon – TI, services et autres",action,supprimer,actions ou obligations hors 5 pays,non
+TSE:9020,East Japan Railway Company,Japon,Japon – Transport et logistique,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:9022,Central Japan Railway Company,Japon,Japon – Transport et logistique,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:9101,Nippon Yusen Kabushiki Kaisha,Japon,Japon – Transport et logistique,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:9201,"Japan Airlines Co., Ltd.",Japon,Japon – Transport et logistique,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:9501,"Tokyo Electric Power Company Holdings, Incorporated",Japon,Japon – Électricité et gaz,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:9513,"Electric Power Development Co., Ltd.",Japon,Japon – Électricité et gaz,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:9531,"Tokyo Gas Co.,Ltd.",Japon,Japon – Électricité et gaz,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:9532,"Osaka Gas Co., Ltd.",Japon,Japon – Électricité et gaz,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:285A,Kioxia Holdings Corporation,Japon,Japon – Électronique et instruments de précision,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:6857,Advantest Corporation,Japon,Japon – Électronique et instruments de précision,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:6861,Keyence Corporation,Japon,Japon – Électronique et instruments de précision,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:7741,HOYA Corporation,Japon,Japon – Électronique et instruments de précision,action,supprimer,actions ou obligations hors 5 pays,non
+TSE:8035,Tokyo Electron Limited,Japon,Japon – Électronique et instruments de précision,action,supprimer,actions ou obligations hors 5 pays,non
+XETR:EUNN,iShares Core MSCI Japan IMI UCITS ETF USD (Acc),Japon,Marché Japon,etf,supprimer,actions ou obligations hors 5 pays,non
+XETR:CEB2,iShares Japan Govt Bond ETF EUR Hdg Acc,Japon,Obligations – JGB / dette japonaise,etf,supprimer,actions ou obligations hors 5 pays,non
+NYSE:PKX,POSCO Holdings Inc.,Corée du Sud,Corée du Sud – Matériaux,action,garder_positions_seulement,détenu : visible seulement dans Mes positions,oui
+TSE:6954,Fanuc Corporation,Japon,Japon – Machines,action,garder_positions_seulement,détenu : visible seulement dans Mes positions,oui
+PAH3,Porsche Automobil Holding SE,Allemagne,Allemagne,action,garder,pays conservé (détenu),oui
+XETR:1U1,1&1 AG,Allemagne,Allemagne – Communication,action,garder,pays conservé,non
+XETR:DTE,Deutsche Telekom AG,Allemagne,Allemagne – Communication,action,garder,pays conservé,non
+XETR:EVD,CTS Eventim AG & Co. KGaA,Allemagne,Allemagne – Communication,action,garder,pays conservé,non
+XETR:FNTN,freenet AG,Allemagne,Allemagne – Communication,action,garder,pays conservé,non
+XETR:G24,Scout24 SE,Allemagne,Allemagne – Communication,action,garder,pays conservé,non
+XETR:SAX,Ströer SE & Co. KGaA,Allemagne,Allemagne – Communication,action,garder,pays conservé,non
+XETR:SPG,Springer Nature AG & Co. KGaA,Allemagne,Allemagne – Communication,action,garder,pays conservé,non
+XETR:UTDI,United Internet AG,Allemagne,Allemagne – Communication,action,garder,pays conservé,non
+XETR:ADS,adidas AG,Allemagne,Allemagne – Consommation discrétionnaire,action,garder,pays conservé,non
+XETR:BMW,Bayerische Motoren Werke Aktiengesellschaft,Allemagne,Allemagne – Consommation discrétionnaire,action,garder,pays conservé,non
+XETR:CON,Continental Aktiengesellschaft,Allemagne,Allemagne – Consommation discrétionnaire,action,garder,pays conservé,non
+XETR:KBX,Knorr-Bremse AG,Allemagne,Allemagne – Consommation discrétionnaire,action,garder,pays conservé,non
+XETR:MBG,Mercedes-Benz Group AG,Allemagne,Allemagne – Consommation discrétionnaire,action,garder,pays conservé,oui
+XETR:P911,Dr. Ing. h.c. F. Porsche AG,Allemagne,Allemagne – Consommation discrétionnaire,action,garder,pays conservé,non
+XETR:VOW3,Volkswagen AG,Allemagne,Allemagne – Consommation discrétionnaire,action,garder,pays conservé,non
+XETR:ALV,Allianz SE,Allemagne,Allemagne – Finance,action,garder,pays conservé,non
+XETR:CBK,Commerzbank AG,Allemagne,Allemagne – Finance,action,garder,pays conservé,non
+XETR:DB1,Deutsche Börse AG,Allemagne,Allemagne – Finance,action,garder,pays conservé,non
+XETR:DBK,Deutsche Bank Aktiengesellschaft,Allemagne,Allemagne – Finance,action,garder,pays conservé,non
+XETR:HNR1,Hannover Rück SE,Allemagne,Allemagne – Finance,action,garder,pays conservé,non
+XETR:MUV2,Münchener Rückversicherungs-Gesellschaft Aktiengesellschaft in München,Allemagne,Allemagne – Finance,action,garder,pays conservé,non
+XETR:TLX,Talanx AG,Allemagne,Allemagne – Finance,action,garder,pays conservé,non
+XETR:LEG,LEG Immobilien SE,Allemagne,Allemagne – Immobilier,action,garder,pays conservé,non
+XETR:TEG,TAG Immobilien AG,Allemagne,Allemagne – Immobilier,action,garder,pays conservé,non
+XETR:VNA,Vonovia SE,Allemagne,Allemagne – Immobilier,action,garder,pays conservé,non
+XETR:DHL,DHL AG,Allemagne,Allemagne – Industrie,action,garder,pays conservé,non
+XETR:DTG,Daimler Truck Holding AG,Allemagne,Allemagne – Industrie,action,garder,pays conservé,non
+XETR:ENR,Siemens Energy AG,Allemagne,Allemagne – Industrie,action,garder,pays conservé,non
+XETR:HLAG,Hapag-Lloyd Aktiengesellschaft,Allemagne,Allemagne – Industrie,action,garder,pays conservé,non
+XETR:HOT,HOCHTIEF Aktiengesellschaft,Allemagne,Allemagne – Industrie,action,garder,pays conservé,non
+XETR:MTX,MTU Aero Engines AG,Allemagne,Allemagne – Industrie,action,garder,pays conservé,non
+XETR:RHM,Rheinmetall AG,Allemagne,Allemagne – Industrie,action,garder,pays conservé,non
+XETR:SIE,Siemens Aktiengesellschaft,Allemagne,Allemagne – Industrie,action,garder,pays conservé,non
+XETR:BAS,BASF SE,Allemagne,Allemagne – Matériaux,action,garder,pays conservé,non
+XETR:BNR,Brenntag SE,Allemagne,Allemagne – Matériaux,action,garder,pays conservé,non
+XETR:EVK,Evonik Industries AG,Allemagne,Allemagne – Matériaux,action,garder,pays conservé,non
+XETR:FPE3,Fuchs SE,Allemagne,Allemagne – Matériaux,action,garder,pays conservé,non
+XETR:HEI,Heidelberg Materials AG,Allemagne,Allemagne – Matériaux,action,garder,pays conservé,non
+XETR:SY1,Symrise AG,Allemagne,Allemagne – Matériaux,action,garder,pays conservé,non
+XETR:WCH,Wacker Chemie AG,Allemagne,Allemagne – Matériaux,action,garder,pays conservé,non
+XETR:BAYN,Bayer Aktiengesellschaft,Allemagne,Allemagne – Santé,action,garder,pays conservé,non
+XETR:FME,Fresenius Medical Care AG,Allemagne,Allemagne – Santé,action,garder,pays conservé,non
+XETR:FRE,Fresenius SE & Co. KGaA,Allemagne,Allemagne – Santé,action,garder,pays conservé,non
+XETR:MRK,Merck KGaA,Allemagne,Allemagne – Santé,action,garder,pays conservé,non
+XETR:SHL,Siemens Healthineers AG,Allemagne,Allemagne – Santé,action,garder,pays conservé,non
+XETR:SRT3,Sartorius Aktiengesellschaft,Allemagne,Allemagne – Santé,action,garder,pays conservé,non
+XETR:EOAN,E.ON SE,Allemagne,Allemagne – Services aux collectivités,action,garder,pays conservé,non
+XETR:RWE,RWE Aktiengesellschaft,Allemagne,Allemagne – Services aux collectivités,action,garder,pays conservé,non
+XETR:UN0,Uniper SE,Allemagne,Allemagne – Services aux collectivités,action,garder,pays conservé,non
+XETR:AIXA,AIXTRON SE,Allemagne,Allemagne – Technologie,action,garder,pays conservé,non
+XETR:ELG,Elmos Semiconductor SE,Allemagne,Allemagne – Technologie,action,garder,pays conservé,non
+XETR:IFX,Infineon Technologies AG,Allemagne,Allemagne – Technologie,action,garder,pays conservé,non
+XETR:IOS,IONOS Group SE,Allemagne,Allemagne – Technologie,action,garder,pays conservé,non
+XETR:JEN,Jenoptik AG,Allemagne,Allemagne – Technologie,action,garder,pays conservé,non
+XETR:NEM,Nemetschek SE,Allemagne,Allemagne – Technologie,action,garder,pays conservé,non
+XETR:SAP,SAP SE,Allemagne,Allemagne – Technologie,action,garder,pays conservé,non
+XETR:WAF,Siltronic AG,Allemagne,Allemagne – Technologie,action,garder,pays conservé,non
+XETR:EXS1,iShares Core DAX UCITS ETF (DE) EUR (Acc),Allemagne,Marché Allemagne,etf,garder,pays conservé,non
+XETR:EXHA,iShares eb.rexx Government Germany UCITS ETF (DE),Allemagne,Obligations – Bund / dette allemande,etf,garder,ETF / obligations multi-pays ou pays conservé,non
+XETR:EXHC,iShares eb.rexx Government Germany 2.5-5.5yr UCITS ETF (DE),Allemagne,Obligations – Bund / dette allemande,etf,garder,ETF / obligations multi-pays ou pays conservé,non
+XETR:EXHD,iShares eb.rexx Government Germany 5.5-10.5yr UCITS ETF (DE),Allemagne,Obligations – Bund / dette allemande,etf,garder,ETF / obligations multi-pays ou pays conservé,non
+XETR:EXX6,iShares eb.rexx Government Germany 10.5+yr UCITS ETF (DE),Allemagne,Obligations – Bund / dette allemande,etf,garder,ETF / obligations multi-pays ou pays conservé,non
+XETR:X03G,Xtrackers II Germany Government Bond UCITS ETF 1C,Allemagne,Obligations – Bund / dette allemande,etf,garder,ETF / obligations multi-pays ou pays conservé,non
+NYSE:BCE,BCE Inc.,Canada,Canada – Communication,action,garder,pays conservé,non
+NYSE:IMAX,IMAX Corporation,Canada,Canada – Communication,action,garder,pays conservé,non
+NYSE:TU,TELUS Corporation,Canada,Canada – Communication,action,garder,pays conservé,non
+NYSE:GIL,Gildan Activewear Inc.,Canada,Canada – Consommation discrétionnaire,action,garder,pays conservé,non
+NYSE:GOOS,Canada Goose Holdings Inc.,Canada,Canada – Consommation discrétionnaire,action,garder,pays conservé,non
+NYSE:MGA,Magna International Inc.,Canada,Canada – Consommation discrétionnaire,action,garder,pays conservé,non
+NYSE:QSR,Restaurant Brands International Inc.,Canada,Canada – Consommation discrétionnaire,action,garder,pays conservé,non
+NASDAQ:HUT,Hut 8 Corp.,Canada,Canada – Finance,action,garder,pays conservé,non
+NYSE:BMO,Bank of Montreal,Canada,Canada – Finance,action,garder,pays conservé,non
+NYSE:BNS,The Bank of Nova Scotia,Canada,Canada – Finance,action,garder,pays conservé,non
+NYSE:CM,Canadian Imperial Bank of Commerce,Canada,Canada – Finance,action,garder,pays conservé,non
+NYSE:MFC,Manulife Financial Corporation,Canada,Canada – Finance,action,garder,pays conservé,non
+NYSE:RY,Royal Bank of Canada,Canada,Canada – Finance,action,garder,pays conservé,non
+NYSE:SII,Sprott Inc.,Canada,Canada – Finance,action,garder,pays conservé,non
+NYSE:SLF,Sun Life Financial Inc.,Canada,Canada – Finance,action,garder,pays conservé,non
+NYSE:TD,The Toronto-Dominion Bank,Canada,Canada – Finance,action,garder,pays conservé,non
+NASDAQ:CIGI,Colliers International Group Inc.,Canada,Canada – Immobilier,action,garder,pays conservé,non
+NASDAQ:FSV,FirstService Corporation,Canada,Canada – Immobilier,action,garder,pays conservé,non
+NASDAQ:REAX,Real REMAX Group Inc.,Canada,Canada – Immobilier,action,garder,pays conservé,non
+NASDAQ:CAE,CAE Inc.,Canada,Canada – Industrie,action,garder,pays conservé,non
+NASDAQ:TRI,Thomson Reuters Corporation,Canada,Canada – Industrie,action,garder,pays conservé,non
+NYSE:CNI,Canadian National Railway Company,Canada,Canada – Industrie,action,garder,pays conservé,non
+NYSE:CP,Canadian Pacific Kansas City Limited,Canada,Canada – Industrie,action,garder,pays conservé,non
+NYSE:GFL,GFL Environmental Inc.,Canada,Canada – Industrie,action,garder,pays conservé,non
+NYSE:MDA,MDA Space Ltd.,Canada,Canada – Industrie,action,garder,pays conservé,non
+NYSE:RBA,"RB Global, Inc.",Canada,Canada – Industrie,action,garder,pays conservé,non
+NYSE:STN,Stantec Inc.,Canada,Canada – Industrie,action,garder,pays conservé,non
+NYSE:TFII,TFI International Inc.,Canada,Canada – Industrie,action,garder,pays conservé,non
+NYSE:WCN,"Waste Connections, Inc.",Canada,Canada – Industrie,action,garder,pays conservé,non
+AMEX:EQX,Equinox Gold Corp.,Canada,Canada – Matériaux,action,garder,pays conservé,non
+NASDAQ:SSRM,SSR Mining Inc.,Canada,Canada – Matériaux,action,garder,pays conservé,non
+NYSE:AG,First Majestic Silver Corp.,Canada,Canada – Matériaux,action,garder,pays conservé,non
+NYSE:AGI,Alamos Gold Inc.,Canada,Canada – Matériaux,action,garder,pays conservé,non
+NYSE:B,Barrick Mining Corporation,Canada,Canada – Matériaux,action,garder,pays conservé,non
+NYSE:FNV,Franco-Nevada Corporation,Canada,Canada – Matériaux,action,garder,pays conservé,non
+NYSE:FSM,Fortuna Mining Corp.,Canada,Canada – Matériaux,action,garder,pays conservé,non
+NYSE:HBM,Hudbay Minerals Inc.,Canada,Canada – Matériaux,action,garder,pays conservé,non
+NYSE:IAG,IAMGOLD Corporation,Canada,Canada – Matériaux,action,garder,pays conservé,non
+NYSE:PAAS,Pan American Silver Corp.,Canada,Canada – Matériaux,action,garder,pays conservé,non
+NASDAQ:ABCL,AbCellera Biologics Inc.,Canada,Canada – Santé,action,garder,pays conservé,non
+NASDAQ:AUPH,Aurinia Pharmaceuticals Inc.,Canada,Canada – Santé,action,garder,pays conservé,non
+NASDAQ:CRON,Cronos Group Inc.,Canada,Canada – Santé,action,garder,pays conservé,non
+NASDAQ:DFTX,"Definium Therapeutics, Inc.",Canada,Canada – Santé,action,garder,pays conservé,non
+NASDAQ:DMAC,DiaMedica Therapeutics Inc.,Canada,Canada – Santé,action,garder,pays conservé,non
+NASDAQ:FENC,Fennec Pharmaceuticals Inc.,Canada,Canada – Santé,action,garder,pays conservé,non
+NASDAQ:VMD,"Viemed Healthcare, Inc.",Canada,Canada – Santé,action,garder,pays conservé,non
+NASDAQ:XENE,Xenon Pharmaceuticals Inc.,Canada,Canada – Santé,action,garder,pays conservé,non
+NYSE:BHC,Bausch Health Companies Inc.,Canada,Canada – Santé,action,garder,pays conservé,non
+NYSE:BLCO,Bausch + Lomb Corporation,Canada,Canada – Santé,action,garder,pays conservé,non
+NYSE:AQN,Algonquin Power & Utilities Corp.,Canada,Canada – Services aux collectivités,action,garder,pays conservé,non
+NYSE:BEPC,Brookfield Renewable Corporation,Canada,Canada – Services aux collectivités,action,garder,pays conservé,non
+NYSE:FTS,Fortis Inc.,Canada,Canada – Services aux collectivités,action,garder,pays conservé,non
+NASDAQ:DCBO,Docebo Inc.,Canada,Canada – Technologie,action,garder,pays conservé,non
+NASDAQ:DSGX,The Descartes Systems Group Inc.,Canada,Canada – Technologie,action,garder,pays conservé,non
+NASDAQ:NOVT,Novanta Inc.,Canada,Canada – Technologie,action,garder,pays conservé,non
+NASDAQ:OTEX,Open Text Corporation,Canada,Canada – Technologie,action,garder,pays conservé,non
+NASDAQ:SHOP,Shopify Inc.,Canada,Canada – Technologie,action,garder,pays conservé,non
+NYSE:BB,BlackBerry Limited,Canada,Canada – Technologie,action,garder,pays conservé,non
+NYSE:CLS,Celestica Inc.,Canada,Canada – Technologie,action,garder,pays conservé,non
+NYSE:GIB,CGI Inc.,Canada,Canada – Technologie,action,garder,pays conservé,non
+NYSE:LSPD,Lightspeed Commerce Inc.,Canada,Canada – Technologie,action,garder,pays conservé,non
+AMEX:DNN,Denison Mines Corp.,Canada,Canada – Énergie,action,garder,pays conservé,non
+AMEX:IMO,Imperial Oil Limited,Canada,Canada – Énergie,action,garder,pays conservé,non
+NYSE:CCJ,Uranium · proxy Cameco,Canada,Canada – Énergie,action,garder,pays conservé,non
+NYSE:CNQ,Canadian Natural Resources Limited,Canada,Canada – Énergie,action,garder,pays conservé,non
+NYSE:CVE,Cenovus Energy Inc.,Canada,Canada – Énergie,action,garder,pays conservé,non
+NYSE:PBA,Pembina Pipeline Corporation,Canada,Canada – Énergie,action,garder,pays conservé,non
+NYSE:SOBO,South Bow Corporation,Canada,Canada – Énergie,action,garder,pays conservé,non
+NYSE:SU,Suncor Energy Inc.,Canada,Canada – Énergie,action,garder,pays conservé,non
+NYSE:TRP,TC Energy Corporation,Canada,Canada – Énergie,action,garder,pays conservé,non
+OMXSTO:IPCO,International Petroleum Corporation,Canada,Canada – Énergie,action,garder,pays conservé,non
+XETR:SXR2,iShares VII PLC - iShares MSCI Canada ETF USD Acc,Canada,Marché Canada,etf,garder,pays conservé,non
+EURONEXT:BOL,Bolloré SE,France,France – Communication,action,garder,pays conservé,non
+EURONEXT:DEC,JCDecaux SE,France,France – Communication,action,garder,pays conservé,non
+EURONEXT:ETL,Eutelsat Communications S.A.,France,France – Communication,action,garder,pays conservé,non
+EURONEXT:MMT,Métropole Télévision S.A.,France,France – Communication,action,garder,pays conservé,non
+EURONEXT:ORA,Orange S.A.,France,France – Communication,action,garder,pays conservé,non
+EURONEXT:PUB,Publicis Groupe S.A.,France,France – Communication,action,garder,pays conservé,non
+EURONEXT:TFI,TF1 SA,France,France – Communication,action,garder,pays conservé,non
+EURONEXT:VIV,Vivendi SE,France,France – Communication,action,garder,pays conservé,non
+EURONEXT:BB,Société BIC SA,France,France – Consommation de base,action,garder,pays conservé,non
+EURONEXT:BN,Danone S.A.,France,France – Consommation de base,action,garder,pays conservé,non
+EURONEXT:CA,Carrefour SA,France,France – Consommation de base,action,garder,pays conservé,non
+EURONEXT:ITP,Interparfums SA,France,France – Consommation de base,action,garder,pays conservé,non
+EURONEXT:OR,L'Oréal S.A.,France,France – Consommation de base,action,garder,pays conservé,non
+EURONEXT:RCO,Rémy Cointreau SA,France,France – Consommation de base,action,garder,pays conservé,non
+EURONEXT:RI,Pernod Ricard SA,France,France – Consommation de base,action,garder,pays conservé,non
+EURONEXT:AC,Accor SA,France,France – Consommation discrétionnaire,action,garder,pays conservé,non
+EURONEXT:KER,Kering SA,France,France – Consommation discrétionnaire,action,garder,pays conservé,oui
+EURONEXT:MC,"LVMH Moët Hennessy - Louis Vuitton, Société Européenne",France,France – Consommation discrétionnaire,action,garder,pays conservé,non
+EURONEXT:RMS,Hermès International Société en commandite par actions,France,France – Consommation discrétionnaire,action,garder,pays conservé,oui
+EURONEXT:RNO,Renault SA,France,France – Consommation discrétionnaire,action,garder,pays conservé,non
+EURONEXT:SK,SEB SA,France,France – Consommation discrétionnaire,action,garder,pays conservé,non
+EURONEXT:ACA,Crédit Agricole S.A.,France,France – Finance,action,garder,pays conservé,non
+EURONEXT:BNP,BNP Paribas SA,France,France – Finance,action,garder,pays conservé,non
+EURONEXT:CS,AXA SA,France,France – Finance,action,garder,pays conservé,non
+EURONEXT:EDEN,Edenred SE,France,France – Finance,action,garder,pays conservé,non
+EURONEXT:GLE,Société Générale Société anonyme,France,France – Finance,action,garder,pays conservé,non
+EURONEXT:SCR,SCOR SE,France,France – Finance,action,garder,pays conservé,non
+EURONEXT:COV,Covivio,France,France – Immobilier,action,garder,pays conservé,non
+EURONEXT:GFC,Gecina,France,France – Immobilier,action,garder,pays conservé,non
+EURONEXT:LI,Klépierre SA,France,France – Immobilier,action,garder,pays conservé,non
+EURONEXT:URW,Unibail-Rodamco-Westfield SE,France,France – Immobilier,action,garder,pays conservé,non
+EURONEXT:AM,Dassault Aviation société anonyme,France,France – Industrie,action,garder,pays conservé,non
+EURONEXT:DG,Vinci SA,France,France – Industrie,action,garder,pays conservé,non
+EURONEXT:HO,Thales S.A.,France,France – Industrie,action,garder,pays conservé,non
+EURONEXT:LR,Legrand SA,France,France – Industrie,action,garder,pays conservé,non
+EURONEXT:SAF,Safran SA,France,France – Industrie,action,garder,pays conservé,non
+EURONEXT:SGO,Compagnie de Saint-Gobain S.A.,France,France – Industrie,action,garder,pays conservé,non
+EURONEXT:SU,Schneider Electric S.E.,France,France – Industrie,action,garder,pays conservé,non
+EURONEXT:VIE,Veolia Environnement SA,France,France – Industrie,action,garder,pays conservé,non
+EURONEXT:AI,L'Air Liquide S.A.,France,France – Matériaux,action,garder,pays conservé,non
+EURONEXT:AKE,Arkema S.A.,France,France – Matériaux,action,garder,pays conservé,non
+EURONEXT:ERA,ERAMET S.A.,France,France – Matériaux,action,garder,pays conservé,non
+EURONEXT:RBT,Robertet SA,France,France – Matériaux,action,garder,pays conservé,non
+EURONEXT:VCT,Vicat S.A.,France,France – Matériaux,action,garder,pays conservé,non
+EURONEXT:VK,Vallourec S.A.,France,France – Matériaux,action,garder,pays conservé,non
+EURONEXT:ABVX,ABIVAX Société Anonyme,France,France – Santé,action,garder,pays conservé,non
+EURONEXT:BIM,bioMérieux S.A.,France,France – Santé,action,garder,pays conservé,non
+EURONEXT:DIM,Sartorius Stedim Biotech S.A.,France,France – Santé,action,garder,pays conservé,non
+EURONEXT:EL,EssilorLuxottica Société anonyme,France,France – Santé,action,garder,pays conservé,non
+EURONEXT:IPN,Ipsen S.A.,France,France – Santé,action,garder,pays conservé,non
+EURONEXT:SAN,Sanofi,France,France – Santé,action,garder,pays conservé,non
+EURONEXT:VIRP,Virbac SA,France,France – Santé,action,garder,pays conservé,non
+EURONEXT:ENGI,Engie SA,France,France – Services aux collectivités,action,garder,pays conservé,non
+EURONEXT:VLTSA,Voltalia SA,France,France – Services aux collectivités,action,garder,pays conservé,non
+EURONEXT:ATE,Alten S.A.,France,France – Technologie,action,garder,pays conservé,non
+EURONEXT:CAP,Capgemini SE,France,France – Technologie,action,garder,pays conservé,non
+EURONEXT:DSY,Dassault Systèmes SE,France,France – Technologie,action,garder,pays conservé,non
+EURONEXT:OVH,OVH Groupe S.A.,France,France – Technologie,action,garder,pays conservé,non
+EURONEXT:RXL,Rexel S.A.,France,France – Technologie,action,garder,pays conservé,non
+EURONEXT:SOI,Soitec SA,France,France – Technologie,action,garder,pays conservé,non
+EURONEXT:SOP,Sopra Steria Group SA,France,France – Technologie,action,garder,pays conservé,non
+EURONEXT:VU,Vusion S.A.,France,France – Technologie,action,garder,pays conservé,non
+EURONEXT:GTT,Gaztransport & Technigaz SA,France,France – Énergie,action,garder,pays conservé,non
+EURONEXT:MAU,Etablissements Maurel & Prom S.A.,France,France – Énergie,action,garder,pays conservé,non
+EURONEXT:RUI,Rubis,France,France – Énergie,action,garder,pays conservé,non
+EURONEXT:TE,Technip Energies N.V.,France,France – Énergie,action,garder,pays conservé,non
+EURONEXT:TTE,TotalEnergies SE,France,France – Énergie,action,garder,pays conservé,non
+EURONEXT:VIRI,Viridien Société anonyme,France,France – Énergie,action,garder,pays conservé,non
+EURONEXT:CAC,Amundi CAC 40 UCITS ETF Dist,France,Marché France,etf,garder,pays conservé,non
+STLA,Stellantis,France,Mes positions,action,garder,"cotation US / Europe, détenu — reste dans Mes positions (et univers 5 pays)",oui
+PDSE,Invesco Preferred Shares UCITS ETF (EUR Hdg),Multi-pays (Europe),Liquidités / ETF,etf,garder,"ETF, détenu",oui
+XETR:AEHY,Amundi Core EUR High Yield Bond UCITS ETF Acc,Multi-pays (Europe),Obligations – High yield (haut rendement),etf,garder,ETF / obligations multi-pays ou pays conservé,non
+XETR:CBU1,iShares Broad $ High Yield Corp Bond UCITS ETF EUR Hedged (Acc),Multi-pays (Europe),Obligations – High yield (haut rendement),etf,garder,ETF / obligations multi-pays ou pays conservé,non
+XETR:EH1Y,iShares Broad € High Yield Corp Bond UCITS ETF EUR (Dist),Multi-pays (Europe),Obligations – High yield (haut rendement),etf,garder,ETF / obligations multi-pays ou pays conservé,non
+XETR:XHYG,Xtrackers II EUR High Yield Corporate Bond UCITS ETF 1D,Multi-pays (Europe),Obligations – High yield (haut rendement),etf,garder,ETF / obligations multi-pays ou pays conservé,non
+XETR:D5BG,Xtrackers II EUR Corporate Bond UCITS ETF 1C,Multi-pays (Europe),Obligations – Investment grade EUR,etf,garder,ETF / obligations multi-pays ou pays conservé,non
+XETR:JEBE,JPMorgan ETFs Ireland ICAV - JPM EUR IG Corporate Bond Active UCITS ETF - EUR (dist),Multi-pays (Europe),Obligations – Investment grade EUR,etf,garder,ETF / obligations multi-pays ou pays conservé,non
+XETR:PR1C,Amundi Core EUR Corporate Bond UCITS ETF Dist,Multi-pays (Europe),Obligations – Investment grade EUR,etf,garder,ETF / obligations multi-pays ou pays conservé,non
+XETR:SYBC,State Street SPDR Bloomberg Euro Corporate Bond UCITS ETF,Multi-pays (Europe),Obligations – Investment grade EUR,etf,garder,ETF / obligations multi-pays ou pays conservé,non
+EURONEXT:IBCI,iShares € Inflation Linked Govt Bond UCITS ETF EUR (Acc),Multi-pays (Europe),Obligations – Obligations indexées sur l'inflation,etf,garder,ETF / obligations multi-pays ou pays conservé,non
+XETR:IBC5,iShares $ TIPS UCITS ETF EUR Hedged (Acc),Multi-pays (Europe),Obligations – Obligations indexées sur l'inflation,etf,garder,ETF / obligations multi-pays ou pays conservé,non
+XETR:LYQ7,Amundi Euro Government Inflation-Linked Bond UCITS ETF Acc,Multi-pays (Europe),Obligations – Obligations indexées sur l'inflation,etf,garder,ETF / obligations multi-pays ou pays conservé,non
+XETR:XEIN,Xtrackers II Eurozone Inflation-Linked Bond UCITS ETF 1C,Multi-pays (Europe),Obligations – Obligations indexées sur l'inflation,etf,garder,ETF / obligations multi-pays ou pays conservé,non
+XETR:PRAR,Amundi Index Solutions - Amundi Prime Euro Government Bond UCITS ETF Acc,Multi-pays (Europe),Obligations – Souverains zone euro,etf,garder,ETF / obligations multi-pays ou pays conservé,non
+XETR:SECA,iShares € Govt Bond Climate UCITS ETF EUR (Acc),Multi-pays (Europe),Obligations – Souverains zone euro,etf,garder,ETF / obligations multi-pays ou pays conservé,non
+XETR:XGLE,Xtrackers II Eurozone Government Bond UCITS ETF 1C EUR,Multi-pays (Europe),Obligations – Souverains zone euro,etf,garder,ETF / obligations multi-pays ou pays conservé,non
+EURONEXT:EMBH,BNP Paribas Easy JPM ESG EMBI Global Diversified UCITS ETF EUR Hedged,Multi-pays (émergents),Obligations – Dette émergente,etf,garder,ETF / obligations multi-pays ou pays conservé,non
+XETR:ENDH,L&G Emerging Markets Government Bond (USD) 0-5 Year Screened UCITS ETF EUR Hedged Accumulation,Multi-pays (émergents),Obligations – Dette émergente,etf,garder,ETF / obligations multi-pays ou pays conservé,non
+XETR:IUS7,"Mexique 6,05 % janvier 2040",Multi-pays (émergents),Obligations – Dette émergente,obligation,garder,"ETF / titres émergents, détenus",oui
+XETR:PEML,PIMCO Advantage Emerging Markets Local Bond UCITS ETF Acc USD,Multi-pays (émergents),Obligations – Dette émergente,etf,garder,ETF / obligations multi-pays ou pays conservé,non
+XETR:XEMB,Xtrackers II J.P. Morgan USD Emerging Markets Bond UCITS ETF 1C - EUR Hedged,Multi-pays (émergents),Obligations – Dette émergente,etf,garder,ETF / obligations multi-pays ou pays conservé,non
+XETR:XUEM,Xtrackers II J.P. Morgan USD Emerging Markets Bond UCITS ETF 2D,Multi-pays (émergents),Obligations – Dette émergente,etf,garder,ETF / obligations multi-pays ou pays conservé,non
+XETR:XSMI,Xtrackers Switzerland UCITS ETF 1D,Suisse,Marché Suisse,etf,garder,pays conservé,non
+SIX:ARYN,ARYZTA AG,Suisse,Suisse – Consommation de base,action,garder,pays conservé,non
+SIX:BARN,Barry Callebaut AG,Suisse,Suisse – Consommation de base,action,garder,pays conservé,non
+SIX:LISN,Chocoladefabriken Lindt & Sprüngli AG,Suisse,Suisse – Consommation de base,action,garder,pays conservé,non
+SIX:NESN,Nestlé S.A.,Suisse,Suisse – Consommation de base,action,garder,pays conservé,non
+SIX:CFR,Compagnie Financière Richemont SA,Suisse,Suisse – Consommation discrétionnaire,action,garder,pays conservé,non
+SIX:SIGN,SIG Group AG,Suisse,Suisse – Consommation discrétionnaire,action,garder,pays conservé,non
+SIX:UHR,The Swatch Group AG,Suisse,Suisse – Consommation discrétionnaire,action,garder,pays conservé,non
+SIX:BAER,Julius Bär Gruppe AG,Suisse,Suisse – Finance,action,garder,pays conservé,non
+SIX:EFGN,EFG International AG,Suisse,Suisse – Finance,action,garder,pays conservé,non
+SIX:PGHN,Partners Group Holding AG,Suisse,Suisse – Finance,action,garder,pays conservé,non
+SIX:SLHN,Swiss Life Holding AG,Suisse,Suisse – Finance,action,garder,pays conservé,non
+SIX:SQN,Swissquote Group Holding SA,Suisse,Suisse – Finance,action,garder,pays conservé,non
+SIX:SREN,Swiss Re AG,Suisse,Suisse – Finance,action,garder,pays conservé,non
+SIX:UBSG,UBS Group AG,Suisse,Suisse – Finance,action,garder,pays conservé,non
+SIX:ZURN,Zurich Insurance Group AG,Suisse,Suisse – Finance,action,garder,pays conservé,non
+SIX:ABBN,ABB Ltd,Suisse,Suisse – Industrie,action,garder,pays conservé,non
+SIX:ACLN,Accelleron Industries AG,Suisse,Suisse – Industrie,action,garder,pays conservé,non
+SIX:ADEN,Adecco Group AG,Suisse,Suisse – Industrie,action,garder,pays conservé,non
+SIX:JFN,Jungfraubahn Holding AG,Suisse,Suisse – Industrie,action,garder,pays conservé,non
+SIX:OERL,OC Oerlikon Corporation AG,Suisse,Suisse – Industrie,action,garder,pays conservé,non
+SIX:SCHN,Schindler Holding AG,Suisse,Suisse – Industrie,action,garder,pays conservé,non
+SIX:SGSN,SGS SA,Suisse,Suisse – Industrie,action,garder,pays conservé,non
+SIX:VACN,VAT Group AG,Suisse,Suisse – Industrie,action,garder,pays conservé,non
+SIX:AMRZ,Amrize AG,Suisse,Suisse – Matériaux,action,garder,pays conservé,non
+SIX:GIVN,Givaudan SA,Suisse,Suisse – Matériaux,action,garder,pays conservé,non
+SIX:HOLN,Holcim AG,Suisse,Suisse – Matériaux,action,garder,pays conservé,non
+SIX:ALC,Alcon Inc.,Suisse,Suisse – Santé,action,garder,pays conservé,non
+SIX:LONN,Lonza Group AG,Suisse,Suisse – Santé,action,garder,pays conservé,non
+SIX:NOVN,Novartis AG,Suisse,Suisse – Santé,action,garder,pays conservé,non
+SIX:PPGN,PolyPeptide Group AG,Suisse,Suisse – Santé,action,garder,pays conservé,non
+SIX:SDZ,Sandoz Group AG,Suisse,Suisse – Santé,action,garder,pays conservé,non
+SIX:SOON,Sonova Holding AG,Suisse,Suisse – Santé,action,garder,pays conservé,non
+SIX:STMN,Straumann Holding AG,Suisse,Suisse – Santé,action,garder,pays conservé,non
+SIX:TECN,Tecan Group AG,Suisse,Suisse – Santé,action,garder,pays conservé,non
+XETR:GCRE,Amundi Global Corporate Bond 1-5Y UCITS ETF EUR Hedged,USA,Obligations – Investment grade USD,etf,garder,ETF / obligations multi-pays ou pays conservé,non
+XETR:PRAP,Amundi Core USD Corporate Bond UCITS ETF Acc,USA,Obligations – Investment grade USD,etf,garder,ETF / obligations multi-pays ou pays conservé,non
+XETR:SYBN,State Street SPDR Bloomberg 10+ Year U.S. Corporate Bond UCITS ETF,USA,Obligations – Investment grade USD,etf,garder,ETF / obligations multi-pays ou pays conservé,non
+XETR:XDGU,Xtrackers USD Corporate Bond UCITS ETF 1D,USA,Obligations – Investment grade USD,etf,garder,ETF / obligations multi-pays ou pays conservé,non
+XETR:IS04,"US Treasury 3,625 % mai 2053",USA,Obligations – Treasuries US,obligation,garder,"obligation US, détenue",oui
+XETR:2B7S,iShares $ Treasury Bond 1-3yr UCITS ETF EUR Hedged (Acc),USA,Obligations – Treasuries US courts (1-3 ans),etf,garder,ETF / obligations multi-pays ou pays conservé,non
+XETR:JA13,JPM BetaBuilders US Treasury Bond 1-3 yr UCITS ETF - USD (acc),USA,Obligations – Treasuries US courts (1-3 ans),etf,garder,ETF / obligations multi-pays ou pays conservé,non
+XETR:TRD3,Invesco US Treasury Bond 1-3 Year UCITS ETF USD Dist,USA,Obligations – Treasuries US courts (1-3 ans),etf,garder,ETF / obligations multi-pays ou pays conservé,non
+XETR:DJAD,Amundi US Treasury Bond Long Dated UCITS ETF Dist,USA,Obligations – Treasuries US longs (20 ans et +),etf,garder,ETF / obligations multi-pays ou pays conservé,non
+XETR:SPPX,State Street SPDR Bloomberg 10+ Year U.S. Treasury Bond UCITS ETF (Dist),USA,Obligations – Treasuries US longs (20 ans et +),etf,garder,ETF / obligations multi-pays ou pays conservé,non
+XETR:XUTL,Xtrackers II US Treasuries 10+ ETF 1D,USA,Obligations – Treasuries US longs (20 ans et +),etf,garder,ETF / obligations multi-pays ou pays conservé,oui
+XETR:IBCD,"Dow Chemical 7,375 % novembre 2029",USA,Obligations – crédit USD,obligation,garder,"obligation US, détenue",oui
+AGNC,AGNC Investment,USA,USA,action,garder,pays conservé (détenu),oui
+NKE,Nike,USA,USA,action,garder,pays conservé (détenu),oui
+NLY,Annaly Capital Management,USA,USA,action,garder,pays conservé (détenu),oui
+XETR:ZPDK,State Street SPDR S&P U.S. Communication Services Select Sector UCITS ETF,USA,USA – Communication,etf,garder,pays conservé,non
+XETR:ZPDS,State Street SPDR S&P U.S. Consumer Staples Select Sector UCITS ETF,USA,USA – Consommation de base,etf,garder,pays conservé,non
+XETR:ZPDD,State Street SPDR S&P U.S. Consumer Discretionary Select Sector UCITS ETF,USA,USA – Consommation discrétionnaire,etf,garder,pays conservé,non
+XETR:ZPDF,State Street SPDR S&P U.S. Financials Select Sector UCITS ETF,USA,USA – Finance,etf,garder,pays conservé,non
+XETR:IQQ7,iShares US Property Yield UCITS ETF USD (Dist),USA,USA – Immobilier,etf,garder,pays conservé,non
+XETR:ZPDI,State Street SPDR S&P U.S. Industrials Select Sector UCITS ETF,USA,USA – Industrie,etf,garder,pays conservé,non
+XETR:ZPDM,State Street SPDR S&P U.S. Materials Select Sector UCITS ETF,USA,USA – Matériaux,etf,garder,pays conservé,non
+XETR:ZPDH,State Street SPDR S&P U.S. Health Care Select Sector UCITS ETF,USA,USA – Santé,etf,garder,pays conservé,non
+XETR:ZPDU,State Street SPDR S&P U.S. Utilities Select Sector UCITS ETF,USA,USA – Services aux collectivités,etf,garder,pays conservé,non
+XETR:QDVE,iShares S&P 500 Information Technology Sector UCITS ETF USD (Acc),USA,USA – Technologie,etf,garder,pays conservé,non
+NASDAQ:LIN,Linde plc,USA,USA – XLB,action,garder,pays conservé,non
+NASDAQ:STLD,"Steel Dynamics, Inc.",USA,USA – XLB,action,garder,pays conservé,non
+NYSE:CF,"CF Industries Holdings, Inc.",USA,USA – XLB,action,garder,pays conservé,non
+NYSE:ECL,Ecolab Inc.,USA,USA – XLB,action,garder,pays conservé,non
+NYSE:FCX,Freeport-McMoRan Inc.,USA,USA – XLB,action,garder,pays conservé,non
+NYSE:IP,International Paper Company,USA,USA – XLB,action,garder,pays conservé,non
+NYSE:MLM,"Martin Marietta Materials, Inc.",USA,USA – XLB,action,garder,pays conservé,non
+NYSE:NEM,Newmont Corporation,USA,USA – XLB,action,garder,pays conservé,non
+NYSE:NUE,Nucor Corporation,USA,USA – XLB,action,garder,pays conservé,non
+NYSE:PKG,Packaging Corporation of America,USA,USA – XLB,action,garder,pays conservé,non
+NASDAQ:APP,AppLovin Corporation,USA,USA – XLC,action,garder,pays conservé,non
+NASDAQ:GOOGL,Alphabet Inc.,USA,USA – XLC,action,garder,pays conservé,non
+NASDAQ:META,"Meta Platforms, Inc.",USA,USA – XLC,action,garder,pays conservé,non
+NASDAQ:NFLX,"Netflix, Inc.",USA,USA – XLC,action,garder,pays conservé,oui
+NASDAQ:TMUS,"T-Mobile US, Inc.",USA,USA – XLC,action,garder,pays conservé,non
+NASDAQ:TTWO,"Take-Two Interactive Software, Inc.",USA,USA – XLC,action,garder,pays conservé,non
+NYSE:LYV,"Live Nation Entertainment, Inc.",USA,USA – XLC,action,garder,pays conservé,non
+NYSE:OMC,Omnicom Group Inc.,USA,USA – XLC,action,garder,pays conservé,non
+NYSE:RDDT,"Reddit, Inc.",USA,USA – XLC,action,garder,pays conservé,oui
+NYSE:TKO,"TKO Group Holdings, Inc.",USA,USA – XLC,action,garder,pays conservé,non
+NASDAQ:APA,APA Corporation,USA,USA – XLE,action,garder,pays conservé,non
+NYSE:COP,ConocoPhillips,USA,USA – XLE,action,garder,pays conservé,non
+NYSE:CVX,Chevron Corporation,USA,USA – XLE,action,garder,pays conservé,non
+NYSE:DVN,Devon Energy Corporation,USA,USA – XLE,action,garder,pays conservé,non
+NYSE:EOG,"EOG Resources, Inc.",USA,USA – XLE,action,garder,pays conservé,non
+NYSE:EQT,EQT Corporation,USA,USA – XLE,action,garder,pays conservé,non
+NYSE:OXY,Occidental Petroleum Corporation,USA,USA – XLE,action,garder,pays conservé,non
+NYSE:TRGP,Targa Resources Corp.,USA,USA – XLE,action,garder,pays conservé,non
+NYSE:VLO,Valero Energy Corporation,USA,USA – XLE,action,garder,pays conservé,non
+NYSE:XOM,ExxonMobil Holdings Corporation,USA,USA – XLE,action,garder,pays conservé,non
+NASDAQ:CME,CME Group Inc.,USA,USA – XLF,action,garder,pays conservé,non
+NYSE:AXP,American Express Company,USA,USA – XLF,action,garder,pays conservé,non
+NYSE:BLK,"BlackRock, Inc.",USA,USA – XLF,action,garder,pays conservé,non
+NYSE:ICE,"Intercontinental Exchange, Inc.",USA,USA – XLF,action,garder,pays conservé,non
+NYSE:JPM,JPMorgan Chase & Co.,USA,USA – XLF,action,garder,pays conservé,non
+NYSE:MA,Mastercard Incorporated,USA,USA – XLF,action,garder,pays conservé,non
+NYSE:MS,Morgan Stanley,USA,USA – XLF,action,garder,pays conservé,non
+NYSE:SCHW,The Charles Schwab Corporation,USA,USA – XLF,action,garder,pays conservé,non
+NYSE:SPGI,S&P Global Inc.,USA,USA – XLF,action,garder,pays conservé,non
+NYSE:V,Visa Inc.,USA,USA – XLF,action,garder,pays conservé,non
+NASDAQ:ADP,"Automatic Data Processing, Inc.",USA,USA – XLI,action,garder,pays conservé,non
+NASDAQ:CSX,CSX Corporation,USA,USA – XLI,action,garder,pays conservé,non
+NYSE:CAT,Caterpillar Inc.,USA,USA – XLI,action,garder,pays conservé,non
+NYSE:ETN,Eaton Corporation plc,USA,USA – XLI,action,garder,pays conservé,non
+NYSE:GE,GE Aerospace,USA,USA – XLI,action,garder,pays conservé,non
+NYSE:GEV,GE Vernova Inc.,USA,USA – XLI,action,garder,pays conservé,non
+NYSE:HWM,Howmet Aerospace Inc.,USA,USA – XLI,action,garder,pays conservé,non
+NYSE:PWR,"Quanta Services, Inc.",USA,USA – XLI,action,garder,pays conservé,non
+NYSE:TT,Trane Technologies plc,USA,USA – XLI,action,garder,pays conservé,non
+NYSE:UBER,"Uber Technologies, Inc.",USA,USA – XLI,action,garder,pays conservé,non
+NASDAQ:AMD,"Advanced Micro Devices, Inc.",USA,USA – XLK,action,garder,pays conservé,non
+NASDAQ:AVGO,Broadcom Inc.,USA,USA – XLK,action,garder,pays conservé,non
+NASDAQ:CRWD,"CrowdStrike Holdings, Inc.",USA,USA – XLK,action,garder,pays conservé,non
+NASDAQ:KLAC,KLA Corporation,USA,USA – XLK,action,garder,pays conservé,non
+NASDAQ:LRCX,Lam Research Corporation,USA,USA – XLK,action,garder,pays conservé,non
+NASDAQ:MU,"Micron Technology, Inc.",USA,USA – XLK,action,garder,pays conservé,non
+NASDAQ:NVDA,NVIDIA Corporation,USA,USA – XLK,action,garder,pays conservé,non
+NASDAQ:PLTR,Palantir Technologies Inc.,USA,USA – XLK,action,garder,pays conservé,non
+NASDAQ:TXN,Texas Instruments Incorporated,USA,USA – XLK,action,garder,pays conservé,non
+NYSE:ANET,"Arista Networks, Inc.",USA,USA – XLK,action,garder,pays conservé,non
+NASDAQ:COST,Costco Wholesale Corporation,USA,USA – XLP,action,garder,pays conservé,non
+NASDAQ:KDP,Keurig Dr Pepper Inc.,USA,USA – XLP,action,garder,pays conservé,non
+NASDAQ:KMB,Kimberly-Clark Corporation,USA,USA – XLP,action,garder,pays conservé,non
+NASDAQ:MNST,Monster Beverage Corporation,USA,USA – XLP,action,garder,pays conservé,non
+NYSE:CHD,"Church & Dwight Co., Inc.",USA,USA – XLP,action,garder,pays conservé,non
+NYSE:CL,Colgate-Palmolive Company,USA,USA – XLP,action,garder,pays conservé,non
+NYSE:EL,The Estée Lauder Companies Inc.,USA,USA – XLP,action,garder,pays conservé,non
+NYSE:KO,The Coca-Cola Company,USA,USA – XLP,action,garder,pays conservé,non
+NYSE:PG,The Procter & Gamble Company,USA,USA – XLP,action,garder,pays conservé,non
+NYSE:PM,Philip Morris International Inc.,USA,USA – XLP,action,garder,pays conservé,non
+NASDAQ:EQIX,"Equinix, Inc.",USA,USA – XLRE,action,garder,pays conservé,non
+NYSE:AMT,American Tower Corporation,USA,USA – XLRE,action,garder,pays conservé,non
+NYSE:CBRE,"CBRE Group, Inc.",USA,USA – XLRE,action,garder,pays conservé,non
+NYSE:DLR,"Digital Realty Trust, Inc.",USA,USA – XLRE,action,garder,pays conservé,non
+NYSE:ESS,"Essex Property Trust, Inc.",USA,USA – XLRE,action,garder,pays conservé,non
+NYSE:IRM,Iron Mountain Incorporated,USA,USA – XLRE,action,garder,pays conservé,non
+NYSE:O,Realty Income Corporation,USA,USA – XLRE,action,garder,pays conservé,non
+NYSE:PLD,"Prologis, Inc.",USA,USA – XLRE,action,garder,pays conservé,non
+NYSE:PSA,Public Storage,USA,USA – XLRE,action,garder,pays conservé,non
+NYSE:SPG,"Simon Property Group, Inc.",USA,USA – XLRE,action,garder,pays conservé,non
+NASDAQ:CEG,Constellation Energy Corporation,USA,USA – XLU,action,garder,pays conservé,non
+NASDAQ:XEL,Xcel Energy Inc.,USA,USA – XLU,action,garder,pays conservé,non
+NYSE:ATO,Atmos Energy Corporation,USA,USA – XLU,action,garder,pays conservé,non
+NYSE:AWK,"American Water Works Company, Inc.",USA,USA – XLU,action,garder,pays conservé,non
+NYSE:CNP,"CenterPoint Energy, Inc.",USA,USA – XLU,action,garder,pays conservé,non
+NYSE:ETR,Entergy Corporation,USA,USA – XLU,action,garder,pays conservé,non
+NYSE:NEE,"NextEra Energy, Inc.",USA,USA – XLU,action,garder,pays conservé,non
+NYSE:SO,The Southern Company,USA,USA – XLU,action,garder,pays conservé,non
+NYSE:VST,Vistra Corp.,USA,USA – XLU,action,garder,pays conservé,non
+NYSE:WEC,"WEC Energy Group, Inc.",USA,USA – XLU,action,garder,pays conservé,non
+NASDAQ:AMGN,Amgen Inc.,USA,USA – XLV,action,garder,pays conservé,non
+NASDAQ:GILD,"Gilead Sciences, Inc.",USA,USA – XLV,action,garder,pays conservé,non
+NASDAQ:ISRG,"Intuitive Surgical, Inc.",USA,USA – XLV,action,garder,pays conservé,non
+NASDAQ:REGN,"Regeneron Pharmaceuticals, Inc.",USA,USA – XLV,action,garder,pays conservé,non
+NASDAQ:VRTX,Vertex Pharmaceuticals Incorporated,USA,USA – XLV,action,garder,pays conservé,non
+NYSE:ABBV,AbbVie Inc.,USA,USA – XLV,action,garder,pays conservé,non
+NYSE:DHR,Danaher Corporation,USA,USA – XLV,action,garder,pays conservé,non
+NYSE:LLY,Eli Lilly and Company,USA,USA – XLV,action,garder,pays conservé,non
+NYSE:MRK,"Merck & Co., Inc.",USA,USA – XLV,action,garder,pays conservé,non
+NYSE:SYK,Stryker Corporation,USA,USA – XLV,action,garder,pays conservé,non
+NASDAQ:ABNB,"Airbnb, Inc.",USA,USA – XLY,action,garder,pays conservé,non
+NASDAQ:BKNG,Booking Holdings Inc.,USA,USA – XLY,action,garder,pays conservé,non
+NASDAQ:DASH,"DoorDash, Inc.",USA,USA – XLY,action,garder,pays conservé,non
+NASDAQ:EBAY,eBay Inc.,USA,USA – XLY,action,garder,pays conservé,non
+NASDAQ:HLT,Hilton Worldwide Holdings Inc.,USA,USA – XLY,action,garder,pays conservé,non
+NASDAQ:MAR,"Marriott International, Inc.",USA,USA – XLY,action,garder,pays conservé,non
+NASDAQ:ROST,"Ross Stores, Inc.",USA,USA – XLY,action,garder,pays conservé,non
+NASDAQ:TSLA,"Tesla, Inc.",USA,USA – XLY,action,garder,pays conservé,non
+NYSE:CVNA,Carvana Co.,USA,USA – XLY,action,garder,pays conservé,non
+NYSE:GRMN,Garmin Ltd.,USA,USA – XLY,action,garder,pays conservé,non
+XETR:XDW0,Xtrackers MSCI World Energy UCITS ETF 1C,USA,USA – Énergie,etf,garder,pays conservé,non
+EURONEXT:PHPT,EURONEXT:PHPT,—,,action,garder,place des 5 pays,non
+BITSTAMP:BTCUSD,Bitcoin,—,Crypto,crypto,garder,section conservée (crypto / métaux / liquidités / indice-macro),non
+BITSTAMP:ETHUSD,Ether,—,Crypto,crypto,garder,section conservée (crypto / métaux / liquidités / indice-macro),non
+CRYPTO:MSTRUSD,Strategy (ex-MicroStrategy),—,Crypto,crypto,garder,section conservée (crypto / métaux / liquidités / indice-macro),non
+CRYPTO:SOLUSD,Solana,—,Crypto,crypto,garder,section conservée (crypto / métaux / liquidités / indice-macro),non
+CRYPTO:XRPUSD,XRP,—,Crypto,crypto,garder,section conservée (crypto / métaux / liquidités / indice-macro),non
+FX:EURAUD,Dollar australien,—,Liquidités – devises,devise,garder,section conservée (crypto / métaux / liquidités / indice-macro),non
+FX:EURCAD,Dollar canadien,—,Liquidités – devises,devise,garder,section conservée (crypto / métaux / liquidités / indice-macro),non
+FX:EURCHF,Franc suisse,—,Liquidités – devises,devise,garder,section conservée (crypto / métaux / liquidités / indice-macro),non
+FX:EURGBP,Livre sterling,—,Liquidités – devises,devise,garder,section conservée (crypto / métaux / liquidités / indice-macro),non
+FX:EURJPY,Yen japonais,—,Liquidités – devises,devise,garder,section conservée (crypto / métaux / liquidités / indice-macro),non
+FX:EURKRW,Won sud-coréen,—,Liquidités – devises,devise,garder,section conservée (crypto / métaux / liquidités / indice-macro),non
+FX:EURUSD,Dollar américain,—,Liquidités – devises,devise,garder,section conservée (crypto / métaux / liquidités / indice-macro),non
+LSE:ISLN,iShares Physical Silver ETC,—,Métaux – Argent,etc,garder,section conservée (crypto / métaux / liquidités / indice-macro),non
+LSE:PHAG,WisdomTree Physical Silver,—,Métaux – Argent,etc,garder,section conservée (crypto / métaux / liquidités / indice-macro),non
+OANDA:XAGUSD,Argent au comptant Revolut,—,Métaux – Argent,metal,garder,section conservée (crypto / métaux / liquidités / indice-macro),non
+XETR:8PSB,Invesco Physical Silver ETC,—,Métaux – Argent,etc,garder,section conservée (crypto / métaux / liquidités / indice-macro),non
+XETR:XAD6,Xtrackers Physical Silver ETC (EUR),—,Métaux – Argent,etc,garder,section conservée (crypto / métaux / liquidités / indice-macro),non
+LSE:IGLN,iShares Physical Gold ETC,—,Métaux – Or,etc,garder,section conservée (crypto / métaux / liquidités / indice-macro),non
+LSE:PHGP,WisdomTree Physical Gold,—,Métaux – Or,etc,garder,section conservée (crypto / métaux / liquidités / indice-macro),non
+NASDAQ:RGLD,"Royal Gold, Inc.",—,Métaux – Or,action,garder,section conservée,non
+XETR:4GLD,Xetra-Gold,—,Métaux – Or,etc,garder,section conservée (crypto / métaux / liquidités / indice-macro),non
+XETR:8PSG,Invesco Physical Gold ETC,—,Métaux – Or,etc,garder,section conservée (crypto / métaux / liquidités / indice-macro),non
+XETR:GLDA,Amundi Physical Gold ETC C,—,Métaux – Or,etc,garder,section conservée (crypto / métaux / liquidités / indice-macro),non
+XETR:XAD5,Xtrackers Physical Gold ETC (EUR),—,Métaux – Or,etc,garder,section conservée (crypto / métaux / liquidités / indice-macro),non
+EURONEXT:PHPD,WisdomTree Physical Palladium,—,Métaux – Palladium,etc,garder,section conservée (crypto / métaux / liquidités / indice-macro),non
+LSE:IPDM,iShares Physical Palladium ETC,—,Métaux – Palladium,etc,garder,section conservée (crypto / métaux / liquidités / indice-macro),non
+OANDA:XPDUSD,Palladium au comptant Revolut,—,Métaux – Palladium,metal,garder,section conservée (crypto / métaux / liquidités / indice-macro),non
+XETR:8PSC,Invesco Physical Palladium ETC,—,Métaux – Palladium,etc,garder,section conservée (crypto / métaux / liquidités / indice-macro),non
+LSE:IPLT,iShares Physical Platinum ETC,—,Métaux – Platine,etc,garder,section conservée (crypto / métaux / liquidités / indice-macro),non
+NYSE:SBSW,Sibanye Stillwater Limited,—,Métaux – Platine,action,garder,section conservée,non
+OANDA:XPTUSD,Platine au comptant Revolut,—,Métaux – Platine,metal,garder,section conservée (crypto / métaux / liquidités / indice-macro),non
+XETR:8PSA,Invesco Physical Platinum ETC,—,Métaux – Platine,etc,garder,section conservée (crypto / métaux / liquidités / indice-macro),non
+XETR:XAD3,Xtrackers Physical Platinum EUR Hedged ETC,—,Métaux – Platine,etc,garder,section conservée (crypto / métaux / liquidités / indice-macro),non
+XETR:XPPT,Xtrackers ETC plc - Xtrackers IE Physical Platinum ETC 1,—,Métaux – Platine,etc,garder,section conservée (crypto / métaux / liquidités / indice-macro),non
+TVC:DXY,Dollar Index,—,Repères,repere,garder,section conservée (crypto / métaux / liquidités / indice-macro),non
+TVC:US10Y,US 10Y,—,Repères,repere,garder,section conservée (crypto / métaux / liquidités / indice-macro),non
+TVC:US30Y,US 30Y,—,Repères,repere,garder,section conservée (crypto / métaux / liquidités / indice-macro),oui
+TVC:VIX,VIX,—,Repères,repere,garder,section conservée (crypto / métaux / liquidités / indice-macro),non
+NYSE:BTU,Charbon · proxy Peabody Energy,—,Énergie – Charbon,action,garder,action cotée US,non
+NYSE:ENB,Enbridge,—,Énergie – Gaz naturel,action,garder,action cotée US,non
+NYSE:KMI,Kinder Morgan,—,Énergie – Gaz naturel,action,garder,action cotée US,non
+NYSE:OKE,ONEOK,—,Énergie – Gaz naturel,action,garder,action cotée US,non
+NYSE:WMB,Williams Companies,—,Énergie – Gaz naturel,action,garder,action cotée US,non
+XETR:BNQ9,Gaz naturel (BNQ9),—,Énergie – Gaz naturel,repere,garder,section conservée (crypto / métaux / liquidités / indice-macro),non
+NASDAQ:BLDP,Ballard Power Systems,—,Énergie – Hydrogène et stockage,action,garder,action cotée US,non
+XETR:U3O8,ETF minières uranium U3O8 (UCITS),—,Énergie – Nucléaire et uranium,etf,garder,ETF énergie / macro,non
+XETR:URNU,ETF uranium URNU (UCITS),—,Énergie – Nucléaire et uranium,etf,garder,ETF énergie / macro,oui
+NASDAQ:FANG,Diamondback Energy,—,Énergie – Pétrole et gaz,action,garder,action cotée US,non
+NYMEX:CL1!,Pétrole WTI,—,Énergie – Pétrole et gaz,repere,garder,section conservée (crypto / métaux / liquidités / indice-macro),non
+NYMEX:HO1!,Fioul (heating oil),—,Énergie – Pétrole et gaz,repere,garder,section conservée (crypto / métaux / liquidités / indice-macro),non
+NYMEX:RB1!,Essence RBOB,—,Énergie – Pétrole et gaz,repere,garder,section conservée (crypto / métaux / liquidités / indice-macro),non
+TVC:UKOIL,Pétrole Brent,—,Énergie – Pétrole et gaz,repere,garder,section conservée (crypto / métaux / liquidités / indice-macro),non
+NASDAQ:CSIQ,Canadian Solar,—,Énergie – Solaire,action,garder,action cotée US,non
+NASDAQ:ENPH,Enphase Energy,—,Énergie – Solaire,action,garder,action cotée US,oui
+NASDAQ:AEP,American Electric Power,—,Énergie – Électricité et utilities,action,garder,action cotée US,non
+NYSE:DUK,Duke Energy,—,Énergie – Électricité et utilities,action,garder,action cotée US,non
