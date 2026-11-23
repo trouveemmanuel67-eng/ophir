@@ -8,6 +8,12 @@ from . import paths
 from .config import actifs, actifs_a_suivre
 
 UA = {'User-Agent': 'Mozilla/5.0 (compatible; APEX/1.0)'}
+# Indices et contrats requis par les scripts de build (pas tous dans actifs.json).
+BENCHMARKS = [
+    '^GSPC', '^FCHI', '^GDAXI', '^SSMI', '^GSPTSE', '^VIX',
+    'DBC', 'GC=F', 'SI=F', 'PL=F', 'PA=F',
+    'EURUSD=X', 'DX-Y.NYB', 'URTH',
+]
 P1 = -2208988800  # 1900
 
 
@@ -129,6 +135,11 @@ def run(limit=None, sleep=0.15) -> dict:
     cache_dir().mkdir(parents=True, exist_ok=True)
     # Univers réduit : pas les titres hors pays (sauf positions encore détenues).
     items = [a for a in actifs_a_suivre() if a.get('yahoo')]
+    have = {a['yahoo'] for a in items}
+    for sym in BENCHMARKS:
+        if sym not in have:
+            items.append({'yahoo': sym, 'tv': f'BENCH:{sym}'})
+            have.add(sym)
     if limit:
         items = items[: int(limit)]
     ok, absent, missing = [], [], []
