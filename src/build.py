@@ -27,6 +27,21 @@ _pp=_P(B+'data/apex_achat_v2_pilot.json')
 pilot=_pp.read_text() if _pp.exists() else ''
 t=t.replace('__DATA_PILOT__', esc(pilot) if pilot else 'null')
 
+
+# identifiant de build (cache-busting) : horodatage Paris + sha court si dispo
+import datetime as _dt, subprocess as _sp
+from zoneinfo import ZoneInfo as _TZ
+_build=_dt.datetime.now(_TZ('Europe/Paris')).strftime('%Y%m%d-%H%M%S')
+try:
+    _sha=_sp.check_output(['git','-C',str(_SITE if "_SITE" in dir() else B),'rev-parse','--short','HEAD'], text=True, stderr=_sp.DEVNULL).strip()
+    if _sha:
+        _build=_sha+'-'+_build
+except Exception:
+    pass
+t=t.replace('__BUILD__', _build)
+(_P(B)/'data'/'build-version.json').write_text('{"version":"%s"}\n'%_build, encoding='utf-8')
+print('build', _build)
+
 open(B+'index.html','w').write(t)
 print('ok',len(t))
 # copie vers le site publié si distinct

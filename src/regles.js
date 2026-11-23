@@ -450,8 +450,8 @@ function rgActionsGrid(v, opts){
   const tech=ordre.map(id=>by[id]).filter(Boolean);
   const techSum=tech.reduce((s,c)=>s+(Number(c.max)||0),0);
   const fond=v.fondamental||{};
-  const fondPerso=fond.a_personnaliser===true||fond.points_non_fixes===true;
-  const fondMax=fondPerso?null:(fond.max!=null?Number(fond.max):90);
+  const fondPerso=false;
+  const fondMax=fond.max!=null?Number(fond.max):90;
   const boardId=opts.boardId||'rg-table-actions';
   const card=(id, label, ruleHtml, pts)=>`<article class="rg-card" data-id="${rgEsc(id||'')}">
       <span class="rg-card-pts">${rgEsc(pts)}</span>
@@ -464,7 +464,7 @@ function rgActionsGrid(v, opts){
       const perso=el.a_personnaliser===true||fondPerso;
       const bon=el.bon_si?rgEsc(el.bon_si):'';
       const av=el.seuil_a_valider===true?' <span class="rg-av">à valider</span>':'';
-      const pers=perso?' <span class="rg-av">à personnaliser</span>':'';
+      const pers='';
       const rule=(bon||av||pers)?`<span class="rg-seuil">${bon}</span>${av}${pers}`:'';
       const pts=perso?'—':rgFmtPlus(el.points!=null?el.points:fond.points_si_bon);
       return card(el.id, el.label||el.id, rule, pts);
@@ -491,7 +491,7 @@ function rgActionsGrid(v, opts){
     </section>`
     :'';
   const fondTitle=fond.label||'Fondamental';
-  const fondPts=fondPerso?'à personnaliser':rgNum(fondMax);
+  const fondPts=rgNum(fondMax);
   const note=opts.note||v.champ_application||'';
   const noteHtml=note?`<p class="rg-p rg-app">${rgEsc(note)}</p>`:'';
   return `${noteHtml}<div class="rg-board" id="${rgEsc(boardId)}">

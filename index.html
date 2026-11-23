@@ -3,17 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="ophir-build" content="56dcd10-20261123-231302">
 <title>APEX INDICATOR INVESTMENT</title>
 <meta name="description" content="APEX Indicator Investment — notes et indicateurs de marché.">
 <meta name="theme-color" content="#0a1128">
 <meta name="apple-mobile-web-app-title" content="APEX">
 <meta name="application-name" content="APEX">
-<link rel="icon" href="favicon.ico" sizes="any">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
-<link rel="icon" type="image/png" sizes="64x64" href="favicon.png">
-<link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="icon" href="favicon.ico?v=56dcd10-20261123-231302" sizes="any">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=56dcd10-20261123-231302">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=56dcd10-20261123-231302">
+<link rel="icon" type="image/png" sizes="64x64" href="favicon.png?v=56dcd10-20261123-231302">
+<link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png?v=56dcd10-20261123-231302">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=56dcd10-20261123-231302">
 <meta property="og:type" content="website">
 <meta property="og:title" content="APEX INDICATOR INVESTMENT">
 <meta property="og:description" content="APEX Indicator Investment — notes et indicateurs de marché.">
@@ -10664,6 +10668,9 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
   }
 }
 </script>
+<script type="application/json" id="dataBuild">{"version":"56dcd10-20261123-231302"}</script>
+<link rel="preload" href="config/regles.json?v=56dcd10-20261123-231302" as="fetch" crossorigin>
+
 <script type="application/json" id="dataMaj">{
   "at": "2026-11-23T21:45:22.168885+01:00",
   "label": "23/11/2026 21:45 Europe/Paris",
@@ -18330,8 +18337,8 @@ function rgActionsGrid(v, opts){
   const tech=ordre.map(id=>by[id]).filter(Boolean);
   const techSum=tech.reduce((s,c)=>s+(Number(c.max)||0),0);
   const fond=v.fondamental||{};
-  const fondPerso=fond.a_personnaliser===true||fond.points_non_fixes===true;
-  const fondMax=fondPerso?null:(fond.max!=null?Number(fond.max):90);
+  const fondPerso=false;
+  const fondMax=fond.max!=null?Number(fond.max):90;
   const boardId=opts.boardId||'rg-table-actions';
   const card=(id, label, ruleHtml, pts)=>`<article class="rg-card" data-id="${rgEsc(id||'')}">
       <span class="rg-card-pts">${rgEsc(pts)}</span>
@@ -18344,7 +18351,7 @@ function rgActionsGrid(v, opts){
       const perso=el.a_personnaliser===true||fondPerso;
       const bon=el.bon_si?rgEsc(el.bon_si):'';
       const av=el.seuil_a_valider===true?' <span class="rg-av">à valider</span>':'';
-      const pers=perso?' <span class="rg-av">à personnaliser</span>':'';
+      const pers='';
       const rule=(bon||av||pers)?`<span class="rg-seuil">${bon}</span>${av}${pers}`:'';
       const pts=perso?'—':rgFmtPlus(el.points!=null?el.points:fond.points_si_bon);
       return card(el.id, el.label||el.id, rule, pts);
@@ -18371,7 +18378,7 @@ function rgActionsGrid(v, opts){
     </section>`
     :'';
   const fondTitle=fond.label||'Fondamental';
-  const fondPts=fondPerso?'à personnaliser':rgNum(fondMax);
+  const fondPts=rgNum(fondMax);
   const note=opts.note||v.champ_application||'';
   const noteHtml=note?`<p class="rg-p rg-app">${rgEsc(note)}</p>`:'';
   return `${noteHtml}<div class="rg-board" id="${rgEsc(boardId)}">
