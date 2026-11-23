@@ -266,14 +266,35 @@ function apexSortByNote(arr){
 }
 
 
-/* ===== Pilote APEX ACHAT (accumulation de points) : Actions USA Communication uniquement ===== */
+/* ===== Pilote APEX ACHAT (accumulation de points) : Communication + Finance/banques USA ===== */
 const PILOT=(function(){
   const el=document.getElementById('dataPilot');
   if(!el||!el.textContent||el.textContent.trim()==='null') return null;
   try{const d=JSON.parse(el.textContent);return (d&&d.pilot)?d:null;}catch(e){return null;}
 })();
-function isPilotSector(sym){return !!(PILOT&&PILOT.secteur_sym&&sym===PILOT.secteur_sym);}
-function pilotRec(tv){return (PILOT&&PILOT.by_tv&&tv)?PILOT.by_tv[tv]:null;}
+function isPilotSector(sym){
+  if(!PILOT||!sym) return false;
+  if(PILOT.secteur_sym===sym) return true;
+  if(PILOT.pilotes&&PILOT.pilotes[sym]) return true;
+  const list=PILOT.secteurs_pilotes;
+  return !!(list&&list.indexOf&&list.indexOf(sym)>=0);
+}
+function pilotOf(sym){
+  if(!PILOT||!sym) return null;
+  if(PILOT.pilotes&&PILOT.pilotes[sym]) return PILOT.pilotes[sym];
+  if(PILOT.secteur_sym===sym) return PILOT;
+  return null;
+}
+function pilotRec(tv){
+  if(!tv||!PILOT) return null;
+  if(PILOT.by_tv&&PILOT.by_tv[tv]) return PILOT.by_tv[tv];
+  const map=PILOT.pilotes||{};
+  for(const k of Object.keys(map)){
+    const p=map[k];
+    if(p&&p.by_tv&&p.by_tv[tv]) return p.by_tv[tv];
+  }
+  return null;
+}
 function pilotScale(){
   const mn=(PILOT&&PILOT.scale&&PILOT.scale.min!=null)?PILOT.scale.min:-50;
   const mx=(PILOT&&PILOT.scale&&PILOT.scale.max!=null)?PILOT.scale.max:270;

@@ -3,8 +3,9 @@ const MENTION_AV="";
 const srPos=x=>`${Math.max(0,Math.min(100,x))}%`;
 function srWarn(s){return s.warn.length?`<span class="sec-warn" title="${s.warn.join(' ')}">⚠ ${s.ath.dd>=-2?'Proche du plus haut historique':'Proche du plus haut 52 semaines'}</span>`:'';}
 function srCells(s){
-  if(typeof isPilotSector==='function' && isPilotSector(s.sym) && PILOT && PILOT.etf && PILOT.etf.ok){
-    return `<div class="sr-c sr-d">${dualBarPilot(PILOT.etf, true)}</div>`;
+  const pSec=(typeof pilotOf==='function')?pilotOf(s.sym):((typeof isPilotSector==='function'&&isPilotSector(s.sym)&&PILOT)||null);
+  if(pSec && pSec.etf && pSec.etf.ok){
+    return `<div class="sr-c sr-d">${dualBarPilot(pSec.etf, true)}</div>`;
   }
   const avObj=s.av||{};
   const av=(avObj.score_affiche!=null)?avObj.score_affiche:avObj.score;

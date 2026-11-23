@@ -311,9 +311,11 @@ def test_actions_hors_banque_et_accordeon_bancaire(regles):
     assert 'apex_achat_v2_banques' not in regles
     assert b.get('date_validation') == '23/11/2026'
     assert b.get('reglage_valide') is True
-    assert b.get('utilise_par_le_calcul') is False
-    assert b.get('affichage_seulement') is True
-    assert b.get('applique_au_calcul') is False
+    assert b.get('utilise_par_le_calcul') is True
+    assert b.get('affichage_seulement') is False
+    assert b.get('applique_au_calcul') is True
+    assert 'pilote' in (b.get('champ_application') or '').lower()
+    assert 'Actions USA bancaire' in (b.get('champ_application') or '') + ' ' + (b.get('intro') or '')
     assert [c['id'] for c in (b.get('criteres') or [])] == [c['id'] for c in (v.get('criteres') or [])]
     assert (b.get('sentiment') or {}).get('id') == (v.get('sentiment') or {}).get('id')
     fond = b['fondamental']
@@ -349,6 +351,9 @@ def test_actions_hors_banque_et_accordeon_bancaire(regles):
     assert 'apex_achat_v2_banque' in js
     assert 'rgActionsScale(vBan).label' in js
     assert 'rg-table-banques' in js
-    # le moteur de note officiel n'utilise pas encore ces règles
+    # le moteur de note historique /100 (apex/score.py) reste inchangé ; le pilote bancaire
+    # est calculé par build_apex_achat_v2_pilot.py (règles apex_achat_v2_banque).
     score = (ROOT / 'apex' / 'score.py').read_text(encoding='utf-8')
     assert 'apex_achat_v2_banque' not in score
+    builder = (ROOT / 'src' / 'build_apex_achat_v2_pilot.py').read_text(encoding='utf-8')
+    assert 'FOND_RULES_BANQUE' in builder and 'apex_achat_v2_banque' in builder

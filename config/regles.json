@@ -1606,11 +1606,11 @@
   "apex_achat_v2_banque": {
     "titre": "Actions bancaires",
     "section_titre": "Actions bancaires",
-    "intro": "Même technique (130) et même Fear & Greed (±50) que les actions hors banque. Fondamental bancaire validé le 23/11/2026 : 90 points, 9 critères à +10 chacun (0 si le seuil n’est pas atteint ou si la donnée manque). Ces règles ne servent pas encore au calcul des notes des banques.",
-    "champ_application": "Ces règles ne servent pas encore au calcul des notes des banques.",
-    "utilise_par_le_calcul": false,
-    "affichage_seulement": true,
-    "applique_au_calcul": false,
+    "intro": "Même technique (130) et même Fear & Greed (±50) que les actions hors banque. Fondamental bancaire validé le 23/11/2026 : 90 points, 9 critères à +10 chacun (0 si le seuil n’est pas atteint ou si la donnée manque). Utilisé en pilote sur Actions USA bancaire (section Finance, ETF XETR:ZPDF / XLF).",
+    "champ_application": "Utilisé en pilote sur Actions USA bancaire (section Finance, ETF XETR:ZPDF / XLF).",
+    "utilise_par_le_calcul": true,
+    "affichage_seulement": false,
+    "applique_au_calcul": true,
     "criteres": [
       {
         "id": "rsi_14_hebdo",

@@ -165,3 +165,56 @@ def test_fond_points_seuils_valides():
     total2, els2 = P.fond_points({'nd_ebitda': None})
     assert total2 == 0
     assert all(e['points'] == 0 for e in els2)
+
+
+def test_fond_points_banque_seuils_et_manquants():
+    total, els = P.fond_points({
+        'roe': 11, 'roa': 1.1, 'ratio_cet1': None, 'cout_du_risque': None,
+        'coefficient_exploitation': None, 'eps_0y': 11, 'eps_1y': 10,
+        'rev_0y': 6, 'rev_1y': 5,
+    }, P.FOND_RULES_BANQUE)
+    by = {e['id']: e for e in els}
+    assert by['roe']['points'] == 10
+    assert by['roa']['points'] == 10
+    assert by['ratio_cet1']['points'] == 0 and by['ratio_cet1']['manquant'] is True
+    assert by['cout_du_risque']['points'] == 0 and by['cout_du_risque']['manquant'] is True
+    assert by['coefficient_exploitation']['points'] == 0 and by['coefficient_exploitation']['manquant'] is True
+    assert by['bpa_cette_annee']['points'] == 10
+    assert by['bpa_annee_prochaine']['points'] == 0  # 10 n'est pas > 10
+    assert by['pnb_cette_annee']['points'] == 10
+    assert by['pnb_annee_prochaine']['points'] == 0  # 5 n'est pas > 5
+    assert total == 40
+    # sans aucune donnée : 0, rien n'est inventé
+    total0, els0 = P.fond_points({}, P.FOND_RULES_BANQUE)
+    assert total0 == 0 and len(els0) == 9 and all(e['manquant'] and e['points'] == 0 for e in els0)
+
+
+def test_pilote_banque_xlf_dans_le_fichier():
+    d = json.loads((ROOT / 'data' / 'apex_achat_v2_pilot.json').read_text())
+    assert d['secteur_sym'] == 'XLC'
+    assert 'XLF' in (d.get('secteurs_pilotes') or [])
+    xlf = d['pilotes']['XLF']
+    assert xlf['secteur_sym'] == 'XLF'
+    assert xlf['regles'] == 'apex_achat_v2_banque'
+    assert xlf['etf']['tv'] == 'XETR:ZPDF'
+    assert xlf['etf']['ok'] is True
+    assert len(xlf['actions']) == 5
+    assert {a['tv'] for a in xlf['actions']} == {
+        'NYSE:MA', 'NYSE:SCHW', 'NYSE:V', 'NYSE:BLK', 'NYSE:SPGI'
+    }
+    for rec in [xlf['etf']] + xlf['actions']:
+        pts = rec['points']
+        expected = (pts['rsi'] + pts['macd'] + pts['fibonacci'] + pts['elliott']
+                    + pts['cci'] + pts['fondamental'] + (pts['fear_greed'] or 0))
+        assert rec['total'] == expected == pts['total']
+        assert rec['total_min'] == -50 and rec['total_max'] == 270
+        assert rec['detail']['cci'].get('cci_period') == 28
+    # Communication inchangée
+    assert d['etf']['tv'] == 'XETR:ZPDK' and d['etf']['total'] == 140
+    # les 3 ratios bancaires spécifiques manquent pour chaque action (jamais inventés)
+    miss_ids = {(m['tv'], m['critere']) for m in xlf['manquantes']}
+    for tv in ('NYSE:MA', 'NYSE:SCHW', 'NYSE:V', 'NYSE:BLK', 'NYSE:SPGI'):
+        for cid in ('ratio_cet1', 'cout_du_risque', 'coefficient_exploitation'):
+            assert (tv, cid) in miss_ids
+    # by_tv fusionné
+    assert 'XETR:ZPDF' in d['by_tv'] and 'XETR:ZPDK' in d['by_tv']

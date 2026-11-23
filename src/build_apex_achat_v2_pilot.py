@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
-"""Pilote APEX ACHAT (accumulation de points) — UNIQUEMENT Actions USA Communication
-(ZPDK + 5 actions qualité / croissance). Les autres sections ne sont pas recalculées.
+"""Pilote APEX ACHAT (accumulation de points).
+
+Communication (XLC / ZPDK) : règles apex_achat_v2.
+Finance / banques USA (XLF / ZPDF) : règles apex_achat_v2_banque.
+Les autres sections ne sont pas recalculées ici.
 
 Règles : tableau RÈGLES (commit ca3fba7+), bougies hebdo clôturées, départ 0.
 """
@@ -404,15 +407,64 @@ FOND_RULES = [
 ]
 
 
-def fond_points(m):
+FOND_RULES_BANQUE = [
+    ('roe', 'ROE', 'roe', lambda v: v is not None and v > 10, '> 10 %'),
+    ('roa', 'ROA', 'roa', lambda v: v is not None and v > 1, '> 1 %'),
+    ('ratio_cet1', 'Ratio CET1', 'ratio_cet1', lambda v: v is not None and v > 12, '> 12 %'),
+    ('cout_du_risque', 'Coût du risque', 'cout_du_risque', lambda v: v is not None and v < 0.5, '< 0,5 %'),
+    ('coefficient_exploitation', "Coefficient d'exploitation", 'coefficient_exploitation', lambda v: v is not None and v < 60, '< 60 %'),
+    ('bpa_cette_annee', 'Croissance BPA année en cours', 'eps_0y', lambda v: v is not None and v > 10, '> 10 %'),
+    ('bpa_annee_prochaine', 'Croissance BPA année prochaine', 'eps_1y', lambda v: v is not None and v > 10, '> 10 %'),
+    ('pnb_cette_annee', 'Croissance PNB année en cours', 'rev_0y', lambda v: v is not None and v > 5, '> 5 %'),
+    ('pnb_annee_prochaine', 'Croissance PNB année prochaine', 'rev_1y', lambda v: v is not None and v > 5, '> 5 %'),
+]
+
+# PNB : le consensus Yahoo « Revenue growth » (rev_0y / rev_1y) est la seule
+# série d'estimations disponible. Pour les banques US, la ligne « Revenue »
+# Yahoo correspond au total net revenue (intérêt + hors intérêt), proxy usuel
+# du PNB. Ce n'est pas une ligne nominative « PNB ». On ne fabrique aucune
+# autre valeur. CET1, coût du risque et coefficient d'exploitation sont absents
+# des caches Yahoo / fondamentaux.json : 0 point, listés en manquantes.
+PNB_SOURCE = (
+    "Yahoo Finance, croissance du chiffre d'affaires / total net revenue "
+    "(consensus analystes) — proxy du PNB, seule donnée disponible ; "
+    "pas une ligne nominative « PNB »."
+)
+BANK_MISSING_SOURCES = {
+    'ratio_cet1': (
+        "Introuvable dans fondamentaux.json (clés m), dans les caches "
+        "data/secteurs/fond et dans les statistiques / états financiers Yahoo "
+        "précédemment inspectés (yfinance T.info et comptes JPM). Non inventé."
+    ),
+    'cout_du_risque': (
+        "Introuvable dans fondamentaux.json, caches fond et états Yahoo "
+        "(pas de ligne cost of risk / coût du risque). Non inventé."
+    ),
+    'coefficient_exploitation': (
+        "Introuvable dans fondamentaux.json, caches fond et états Yahoo "
+        "(pas de ligne efficiency ratio / coefficient d'exploitation). Non inventé."
+    ),
+}
+
+
+def fond_points(m, rules=None):
     m = m or {}
+    rules = rules or FOND_RULES
     elems, total = [], 0
-    for eid, label, key, pred, seuil in FOND_RULES:
+    for eid, label, key, pred, seuil in rules:
         val = m.get(key)
-        ok = pred(val)
+        ok = bool(pred(val))
         pts = 10 if ok else 0
         total += pts
-        elems.append({'id': eid, 'label': label, 'cle': key, 'valeur': val, 'seuil': seuil, 'ok': ok, 'points': pts})
+        rec = {
+            'id': eid, 'label': label, 'cle': key, 'valeur': val,
+            'seuil': seuil, 'ok': ok, 'points': pts, 'manquant': val is None,
+        }
+        if eid in ('pnb_cette_annee', 'pnb_annee_prochaine'):
+            rec['source'] = PNB_SOURCE
+        if val is None and eid in BANK_MISSING_SOURCES:
+            rec['source'] = BANK_MISSING_SOURCES[eid]
+        elems.append(rec)
     return total, elems
 
 
@@ -451,7 +503,7 @@ def compact_line(parts, total):
     return ' · '.join(bits) + f'  →  {total} / {SCALE_MAX}'
 
 
-def score_asset(asset, fg, elliott_key=None):
+def score_asset(asset, fg, elliott_key=None, fond_rules=None):
     path, used = find_wk(yahoo_cands(asset['tv'], asset.get('yahoo'), asset.get('ticker')))
     out = {
         'id': asset.get('id') or asset.get('ticker'),
@@ -495,7 +547,7 @@ def score_asset(asset, fg, elliott_key=None):
             'source': fib.get('source_historique'),
         })
     ell_pts, ell_det = elliott_entry(o, c, ds, stored_key=elliott_key)
-    # Pilote Communication uniquement : CCI Stochastic de Daveatt, clôtures hebdo fermées.
+    # CCI Stochastic de Daveatt (pilotes Communication et banques USA), clôtures hebdo fermées.
     k_s, d_s, cci_raw = K.cci_stochastic_kd(c)
     cci_val = d_s[-1] if d_s else None
     cci_k = k_s[-1] if k_s else None
@@ -519,7 +571,7 @@ def score_asset(asset, fg, elliott_key=None):
         fond_elems = asset.get('fond_elems')
         fond_mode = asset.get('fond_mode')
     else:
-        fond_total, fond_elems = fond_points(fond_m)
+        fond_total, fond_elems = fond_points(fond_m, fond_rules)
         fond_mode = 'ratios de l’émetteur (Yahoo Finance, fondamentaux déjà en base)'
 
     fg_pts = fg['points'] if fg.get('ok') else 0
@@ -577,7 +629,7 @@ def band_label(total):
 
 
 def load_elliott_key(tv, sector_obj=None):
-    if sector_obj and (sector_obj.get('tv') == tv or sector_obj.get('tick') == 'ZPDK'):
+    if sector_obj and sector_obj.get('tv') == tv:
         ell = sector_obj.get('elliott') or {}
         if ell.get('key'):
             return ell['key']
@@ -587,70 +639,82 @@ def load_elliott_key(tv, sector_obj=None):
     return ell.get('key')
 
 
-def main():
-    fond_all = json.loads((ROOT / 'data' / 'fondamentaux.json').read_text())
-    sec_fond = fond_all['sectors'][SECTOR_SYM]
+def _pack_sector(sector_sym, etf_meta, fond_rules, section, fg, fond_all, secteurs, regles_id, fond_etf_intro):
+    sec_fond = fond_all['sectors'][sector_sym]
     top5 = list(sec_fond['top'][:5])
-    secteurs = json.loads((ROOT / 'data' / 'secteurs.json').read_text())
-    comm = next(s for s in secteurs['sectors'] if s['sym'] == SECTOR_SYM)
-
-    fg = fetch_cnn_fng()
-    print('F&G', fg.get('ok'), fg.get('value'), fg.get('points'), fg.get('date_valeur'), fg.get('erreur'))
+    sec = next(s for s in secteurs['sectors'] if s['sym'] == sector_sym)
 
     actions = []
     for r in top5:
         actions.append({
             'id': r['ticker'], 'ticker': r['ticker'], 'yahoo': r.get('yahoo') or r['ticker'],
             'tv': r['tv'], 'nom': r['name'], 'name': r['name'], 'kind': 'action', 'm': r.get('m'),
+            'industry': r.get('industry'),
         })
 
-    # Fondamental ETF : moyenne des 5 actions affichées (l'ETF n'a pas de ratios d'émetteur comparables)
     action_fonds = []
     for a in actions:
-        tot, elems = fond_points(a['m'])
+        tot, elems = fond_points(a['m'], fond_rules)
         a['_fond_tot'], a['_fond_elems'] = tot, elems
         action_fonds.append((tot, elems))
     n = len(action_fonds) or 1
     avg_total = sum(t for t, _ in action_fonds) / n
-    # moyenne par critère
     etf_elems = []
-    for i, rule in enumerate(FOND_RULES):
+    for i, rule in enumerate(fond_rules):
         eid, label, key, pred, seuil = rule
         vals = [el[i]['points'] for _, el in action_fonds]
         oks = [el[i]['ok'] for _, el in action_fonds]
+        manqs = [el[i].get('manquant') for _, el in action_fonds]
         avg_pts = sum(vals) / n
-        etf_elems.append({
+        rec = {
             'id': eid, 'label': label, 'seuil': seuil,
             'points': round(avg_pts, 1),
             'ok': None,
             'moyenne_5': True,
             'n_bons': sum(1 for x in oks if x),
+            'n_manquants': sum(1 for x in manqs if x),
             'n': n,
-        })
-    etf_fond_total = round(avg_total)  # entier pour le total affiché
-    # réconcilier : somme des moyennes arrondies vs moyenne des totaux
-    # on conserve la moyenne des totaux, arrondie à l'entier le plus proche
-
+        }
+        srcs = [el[i].get('source') for _, el in action_fonds if el[i].get('source')]
+        if srcs:
+            rec['source'] = srcs[0]
+        etf_elems.append(rec)
+    etf_fond_total = round(avg_total)
+    names = ', '.join(a['ticker'] for a in actions)
     etf_asset = {
-        **ETF, 'kind': 'etf',
+        **etf_meta, 'kind': 'etf',
         'fond_total': etf_fond_total,
         'fond_elems': etf_elems,
-        'fond_mode': (
-            "Moyenne des 5 actions « qualité / croissance » affichées dans le détail "
-            "(APP, RDDT, META, NFLX, GOOGL). L'ETF n'a pas de Dette nette/EBITDA, marges, "
-            "ROE, ratio de liquidité ou consensus BPA/CA d'émetteur comparables ; on n'invente pas ces ratios."
-        ),
+        'fond_mode': fond_etf_intro.format(names=names, n=n),
     }
+    etf_score = score_asset(etf_asset, fg, elliott_key=load_elliott_key(etf_meta['tv'], sec), fond_rules=fond_rules)
+    action_scores = [score_asset(a, fg, elliott_key=load_elliott_key(a['tv']), fond_rules=fond_rules) for a in actions]
 
-    etf_score = score_asset(etf_asset, fg, elliott_key=load_elliott_key(ETF['tv'], comm))
-    action_scores = [score_asset(a, fg, elliott_key=load_elliott_key(a['tv'])) for a in actions]
+    manquantes = []
+    for rec in action_scores:
+        if not rec.get('ok'):
+            manquantes.append({
+                'tv': rec.get('tv'), 'nom': rec.get('nom'),
+                'critere': 'serie_hebdo', 'label': 'Série hebdomadaire',
+                'raison': rec.get('erreur') or 'scoring incomplet',
+            })
+            continue
+        for e in (rec.get('detail') or {}).get('fondamental', {}).get('elements') or []:
+            if e.get('manquant'):
+                manquantes.append({
+                    'tv': rec.get('tv'), 'nom': rec.get('nom'), 'ticker': rec.get('ticker'),
+                    'critere': e['id'], 'label': e['label'], 'seuil': e.get('seuil'),
+                    'points': 0,
+                    'source': e.get('source') or 'donnée absente des fondamentaux en base (Yahoo Finance)',
+                })
 
     out = {
         'generated': NOW.strftime('%Y-%m-%d %H:%M') + ' Europe/Paris',
         'pilot': True,
-        'section': 'Actions USA – Communication',
-        'secteur_sym': SECTOR_SYM,
-        'etf_tv': ETF['tv'],
+        'section': section,
+        'secteur_sym': sector_sym,
+        'regles': regles_id,
+        'etf_tv': etf_meta['tv'],
         'scale': {'min': SCALE_MIN, 'max': SCALE_MAX, 'tech_max': TECH_MAX, 'fond_max': FOND_MAX, 'fg_abs': FG_ABS,
                   'bandes': [
                       {'id': name, 'de': lo, 'a': hi, 'hex': hx}
@@ -660,30 +724,81 @@ def main():
         'etf': etf_score,
         'actions': action_scores,
         'by_tv': {},
+        'manquantes': manquantes,
         'interpretations': {
             'fibo': "« Sous X % » = retracement depuis le plus haut historique r ≥ X %, corps hebdo clôturés (plus bas historique → plus haut historique).",
             'elliott': "Zone d’entrée +20 : fin de vague 2, fin de vague 4, vague C ; et après une C terminée, tant qu’aucune nouvelle vague 1 n’est confirmée (clé new1, officielle ou lecture alternative sur le même ZigZag).",
             'cci': "CCI Stochastic hebdo de Daveatt (script TradingView XZyG5SOx) : CCI 28 sur la clôture, stochastique 28 du CCI, lissages SMA 3 et 3, ligne D (0–100). +20 si sous 20.",
             'fg': "Tranches entières : floor(|50 − valeur| / 10) × 10, signé, max ±50. Même valeur CNN pour tous les titres du pilote.",
             'fond_etf': etf_asset['fond_mode'],
-            'ligne_secteur': "La ligne secteur affiche le total de l'ETF ZPDK (représentant du secteur), pas une moyenne des 5 actions.",
+            'ligne_secteur': f"La ligne secteur affiche le total de l'ETF {etf_meta['ticker']} (représentant du secteur), pas une moyenne des 5 actions.",
             'bougies': "Uniquement les semaines dont le vendredi est passé (yahoo_week.friday_closed). La barre de la semaine en cours est ignorée.",
         },
     }
     for rec in [etf_score] + action_scores:
         if rec.get('tv'):
             out['by_tv'][rec['tv']] = rec
+    return out
+
+
+def main():
+    fond_all = json.loads((ROOT / 'data' / 'fondamentaux.json').read_text())
+    secteurs = json.loads((ROOT / 'data' / 'secteurs.json').read_text())
+
+    fg = fetch_cnn_fng()
+    print('F&G', fg.get('ok'), fg.get('value'), fg.get('points'), fg.get('date_valeur'), fg.get('erreur'))
+
+    etf_xlc = {
+        'id': 'etf', 'ticker': 'ZPDK', 'yahoo': 'ZPDK.DE', 'tv': 'XETR:ZPDK',
+        'nom': 'SPDR S&P U.S. Communication Services Select Sector UCITS ETF',
+    }
+    etf_xlf = {
+        'id': 'etf', 'ticker': 'ZPDF', 'yahoo': 'ZPDF.DE', 'tv': 'XETR:ZPDF',
+        'nom': 'SPDR S&P U.S. Financials Select Sector UCITS ETF',
+    }
+    xlc = _pack_sector(
+        'XLC', etf_xlc, FOND_RULES, 'Actions USA – Communication',
+        fg, fond_all, secteurs, 'apex_achat_v2',
+        "Moyenne des {n} actions « qualité / croissance » affichées dans le détail "
+        "({names}). L'ETF n'a pas de ratios d'émetteur comparables ; on n'invente pas ces ratios.",
+    )
+    xlf = _pack_sector(
+        'XLF', etf_xlf, FOND_RULES_BANQUE, 'Actions USA – Finance / banques',
+        fg, fond_all, secteurs, 'apex_achat_v2_banque',
+        "Moyenne des {n} actions « qualité / croissance » affichées dans le détail "
+        "({names}). Fondamental bancaire (apex_achat_v2_banque) : 9 critères à +10. "
+        "L'ETF n'a pas de ratios d'émetteur ; moyenne des 5, donnée manquante = 0, rien n'est inventé.",
+    )
+
+    out = dict(xlc)
+    out['pilotes'] = {'XLC': xlc, 'XLF': xlf}
+    out['secteurs_pilotes'] = ['XLC', 'XLF']
+    out['by_tv'] = {}
+    out['by_tv'].update(xlc.get('by_tv') or {})
+    out['by_tv'].update(xlf.get('by_tv') or {})
+    out['fear_greed'] = fg
 
     dest = ROOT / 'data' / 'apex_achat_v2_pilot.json'
     dest.write_text(json.dumps(out, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
     print('wrote', dest)
+
     def show(rec):
-        pts = rec.get('points') or {}
-        print(f"{rec.get('tv')}  {rec.get('nom')}: {rec.get('display')}  {rec.get('ligne')}  clot={rec.get('date_cloture')}")
-    show(etf_score)
-    for a in action_scores:
+        print(f"{rec.get('tv')}  {rec.get('nom')}: {rec.get('display')}  {rec.get('ligne')}  clot={rec.get('date_cloture')} ok={rec.get('ok')}")
+    print('--- XLC ---')
+    show(xlc['etf'])
+    for a in xlc['actions']:
         show(a)
-    return 0 if etf_score.get('ok') and all(a.get('ok') for a in action_scores) and fg.get('ok') else 2
+    print('--- XLF ---')
+    show(xlf['etf'])
+    for a in xlf['actions']:
+        show(a)
+    print('manquantes XLF', len(xlf.get('manquantes') or []))
+    ok = (
+        xlc['etf'].get('ok') and all(a.get('ok') for a in xlc['actions'])
+        and xlf['etf'].get('ok') and all(a.get('ok') for a in xlf['actions'])
+        and fg.get('ok')
+    )
+    return 0 if ok else 2
 
 
 if __name__ == '__main__':
