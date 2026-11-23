@@ -329,22 +329,45 @@ function dualBarPilot(rec, compact){
   const {min:mn,max:mx}=pilotScale();
   const ap=pilotPos(total);
   const sv=Number(fg.value);
+  const sp=Number.isFinite(sv)?Math.max(0,Math.min(100,sv)):null;
   const ticks=[-50,30,110,190,270];
+  const sTicks=[0,25,50,75,100];
   const pos=v=>((v-mn)/(mx-mn))*100;
   const hex=pilotHex(rec);
   const sl=fg.label||'–';
+  const scol=sp!=null?gmir(sp):'#888';
   const tickHTML=ticks.map((v,i)=>{
     const edge=i===0?' db-e0':(i===ticks.length-1?' db-e1':'');
     const left=i===ticks.length-1?'':` style="left:${pos(v)}%"`;
     const lab=v<0?('−'+Math.abs(v)):String(v);
     return `<i class="${edge.trim()}"${left}>${lab}</i>`;
   }).join('');
-  const bar=`<div class="db db-pilot ${compact?'db-sm':''}" role="img" aria-label="Score APEX ${total==null?'n.d.':total} sur ${mn} à ${mx}">
+  const sTickHTML=sTicks.map((v,i)=>{
+    const edge=i===0?' db-e0':(i===sTicks.length-1?' db-e1':'');
+    const left=i===sTicks.length-1?'':` style="left:${v}%"`;
+    return `<i class="${edge.trim()}"${left}>${v}</i>`;
+  }).join('');
+  let rng='';
+  if(fg.min&&fg.max&&Number.isFinite(fg.min[1])&&Number.isFinite(fg.max[1])){
+    const lo=Math.max(0,Math.min(100,fg.min[1])), hi=Math.max(0,Math.min(100,fg.max[1]));
+    const left=Math.min(lo,hi), width=Math.max(0.5,Math.abs(hi-lo));
+    const tip=`Plage 1 an : min ${fmt(fg.min[1],0)} (${dshort(fg.min[0])}) → max ${fmt(fg.max[1],0)} (${dshort(fg.max[0])})`;
+    rng=`<div class="db-srange" style="left:${left}%;width:${width}%" title="${tip}"></div>`;
+  }
+  const bar=`<div class="db db-pilot ${compact?'db-sm':''}" role="img" aria-label="Score APEX ${total==null?'n.d.':total} sur ${mn} à ${mx} ; Fear & Greed CNN ${Number.isFinite(sv)?fmt(sv,1):'–'} (${sl}) sur 0 à 100">
    <div class="db-tk db-tk1">${tickHTML}</div>
    <div class="db-g db-g-av"><div class="ind-bar db-pilot-bar"></div>
     ${total!=null?`<div class="db-cur db-a" style="left:${ap}%;color:${hex}" data-p="${ap.toFixed(1)}" title="Score APEX ${total} / ${mx}">AV</div>`:''}
    </div>
-   <div class="pilot-fg">${pilotSpark(fg)}<span>Fear &amp; Greed ${Number.isFinite(sv)?fmt(sv,1):'–'} ${sl}</span></div>
+   <div class="db-srow">
+    <div class="db-srow-bar">
+     <div class="db-tk db-tk1 db-tk-s">${sTickHTML}</div>
+     <div class="db-g db-g-s"><div class="ind-bar ind-bar-mir"></div>${rng}
+      ${sp!=null?`<div class="db-cur db-s" style="left:${sp}%;color:${scol}" data-p="${sp}" title="S = CNN Fear & Greed Index ${fmt(sv,1)} · ${sl}">S</div>`:''}
+     </div>
+    </div>
+    <div class="db-srow-meta">${pilotSpark(fg)}<span>Fear &amp; Greed ${Number.isFinite(sv)?fmt(sv,1):'–'} ${sl}</span></div>
+   </div>
   </div>`;
   return `<div class="apex-block apex-block-pilot${compact?' apex-block-line':''}">${pilotNoteHTML(rec)}<div class="apex-rest">${bar}${pilotBrk(rec)}</div></div>`;
 }

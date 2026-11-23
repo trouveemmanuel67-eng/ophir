@@ -246,7 +246,7 @@ main{max-width:1240px;margin:8px auto 0;padding:0 14px 20px}
 .apex-block-line .apex10 small{font-size:.85rem}
 .apex-block-line .apex-rest{min-width:0}
 .apex-block-line .pilot-brk{margin:2px 0 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.apex-block-line .pilot-fg{margin-top:2px}
+.apex-block-line .db-srow{margin-top:2px}
 @media(max-width:800px){
   .fl.fl-pilot>li,.fl-row{grid-template-columns:2em minmax(0,1fr)}
   .fl-pilot .fl-apex{grid-column:1/-1}
@@ -834,16 +834,19 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
 .apex10-pilot{min-width:4.6em}
 .apex10-pilot small{font-size:11px;margin-left:2px;opacity:.85}
 .pilot-brk{margin:4px 0 0;font-size:11.5px;line-height:1.35;color:#c8c4bc;white-space:normal}
-.db-pilot .db-g-av{position:relative;margin:2px 0 4px}
-.db-pilot-bar{background:linear-gradient(90deg,#ff2d2d 0%,#ff2d2d 25%,#ffd400 25%,#ffd400 50%,#22c55e 50%,#22c55e 75%,#00e5ff 75%,#00e5ff 100%)!important;box-shadow:none}
-.pilot-fg{display:flex;align-items:center;gap:8px;margin-top:2px;font-size:11.5px;line-height:1.3;color:#c8c4bc;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.db-pilot .db-g-av,.db-pilot .db-g-s{position:relative;margin:0}
+.db-pilot-bar{background:linear-gradient(90deg,#ff2d2d 0%,#ff2d2d 12.5%,#ffd400 37.5%,#22c55e 62.5%,#00e5ff 87.5%,#00e5ff 100%)!important}
+.db-srow{display:flex;align-items:center;gap:10px 12px;margin-top:2px;min-width:0}
+.db-srow-bar{flex:1 1 auto;min-width:8em}
+.db-srow-meta{display:flex;align-items:center;gap:8px;flex:0 1 auto;min-width:0;font-size:11.5px;line-height:1.3;color:#c8c4bc;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.db-srange{position:absolute;top:3px;bottom:3px;border:1px solid rgba(255,255,255,.55);border-radius:4px;background:rgba(255,255,255,.08);pointer-events:none;z-index:1}
 .pilot-spark{display:block;color:#8aa;opacity:.95;flex:0 0 auto}
 .fl-etf .fl-apex{margin-top:8px}
 .db-pilot .db-tk1{position:relative;height:14px;font-size:10px;color:#b0aaa2}
 .db-pilot .db-tk1 i{position:absolute;transform:translateX(-50%);white-space:nowrap;font-style:normal}
 .db-pilot .db-tk1 i.db-e0{left:0;transform:none}
 .db-pilot .db-tk1 i.db-e1{left:auto;right:0;transform:none}
-.db-pilot .db-sc,.db-pilot .db-leg,.db-pilot .db-g-s{display:none}
+.db-pilot .db-sc,.db-pilot .db-leg{display:none}
 </style>
 </head>
 <body>
