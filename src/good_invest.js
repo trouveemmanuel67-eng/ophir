@@ -1,5 +1,5 @@
-/* ===== MEILLEURES ENTRÉES : actifs APEX ≥ 7,5/10 absents du portefeuille ===== */
-const GI_SEUIL=7.5;
+/* ===== MEILLEURES ENTRÉES : actifs APEX ≥ 75/100 absents du portefeuille ===== */
+const GI_SEUIL=75;
 const GI_LIST_KEY='apex-gi-list';
 
 function giHeldSet(){
@@ -235,7 +235,7 @@ function giRender(){
     const sec=it.section?`<span class="gi-sec">${String(it.section).replace(/</g,'')}</span>`:'';
     return `<article class="gi-row${it.tv?' has-fiche':''}" title="${tip.replace(/"/g,'&quot;')}">
       <div class="gi-id">${go}</div>
-      <span class="gi-note" style="color:${col}"><b>${note}</b><small>/10</small></span>
+      <span class="gi-note" style="color:${col}"><b>${note}</b><small>/100</small></span>
       <span class="gi-amt">${amt}</span>
       <div class="gi-meta">${tick}${sec}</div>
       <span class="${d.cls}">${d.lab}</span>
@@ -248,7 +248,7 @@ function giRender(){
       <span class="pos-head-tot">${n}<small>titre${n>1?'s':''}</small></span>
     </div>
     <div class="pos-body gi-body" id="giBody">
-      <div class="gi-list">${rows||'<div class="gi-empty">Aucun titre à 7,5/10 ou plus hors portefeuille.</div>'}</div>
+      <div class="gi-list">${rows||'<div class="gi-empty">Aucun titre à 75/100 ou plus hors portefeuille.</div>'}</div>
     </div>
   </div>`;
   const wasOpen=giListIsOpen();

@@ -1,4 +1,4 @@
-"""Attache la note APEX /10 à toutes les listes publiées (après le recalcul AV)."""
+"""Attache la note APEX /100 à toutes les listes publiées (après le recalcul AV)."""
 import os as _os
 _APEX_ROOT = _os.path.abspath(_os.environ.get('APEX_ROOT') or _os.path.join(_os.path.dirname(__file__), '..'))
 import json, os, sys, datetime as D
@@ -107,7 +107,7 @@ def fond_aggregate(members, idx, weight_key='w'):
 
 
 def moyenne_apex(notes, detail):
-    """Moyenne des notes /10 affichées, arrondie au demi-point (règle t311u)."""
+    """Moyenne des notes /100 affichées, arrondie au point (règle t311u)."""
     import flags_couleur as FC
     if not notes:
         rec = N.compute(None)
@@ -117,7 +117,7 @@ def moyenne_apex(notes, detail):
         return rec
     avg = N.round_half(sum(notes) / len(notes))
     avg = max(N.NOTE_MIN, min(N.NOTE_MAX, avg))
-    pos = avg * 10.0
+    pos = avg
     return {
         'note': avg, 'display': N.fmt10(avg),
         'hex': FC.hex_from_apex10(avg),
@@ -136,8 +136,8 @@ def moyenne_av(scores):
 
 
 DETAIL_SECTION = (
-    "Moyenne des notes /10 des actifs affichés dans la section "
-    "(hors panier théorique non négociable), arrondie au demi-point."
+    "Moyenne des notes /100 des actifs affichés dans la section "
+    "(hors panier théorique non négociable), arrondie au point."
 )
 
 
@@ -225,7 +225,7 @@ def main():
                 s['av']['label'] = avg_av['label']
                 s['av']['n'] = avg_av['n']
                 s['av']['source'] = 'actifs_affiches'
-        # Note pays USA : moyenne des notes /10 des secteurs GICS visibles
+        # Note pays USA : moyenne des notes /100 des secteurs GICS visibles
         # (pas d'ETF « Marché USA » dédié, contrairement aux autres pays).
         notes=[]
         avs=[]
@@ -241,14 +241,14 @@ def main():
             import ind_core as K
             avg=N.round_half(sum(notes)/len(notes))
             avg=max(N.NOTE_MIN, min(N.NOTE_MAX, avg))
-            pos=avg*10.0
+            pos=avg
             SG['apex10']={
                 'note':avg,'display':N.fmt10(avg),
                 'hex':FC.hex_from_apex10(avg),
                 'flag':N.flag_from_apex10(avg),'pos':pos,
                 'cap':'moyenne','fond':None,'brut':None,
                 'n_moy':len(notes),
-                'detail':'Moyenne des notes /10 des secteurs GICS du pays (même méthode que les lignes de section), arrondie au demi-point.',
+                'detail':'Moyenne des notes /100 des secteurs GICS du pays (même méthode que les lignes de section), arrondie au point.',
             }
             if avs:
                 sc=round(sum(avs)/len(avs),1)
@@ -312,7 +312,7 @@ def main():
                 else:
                     # Aucun titre affiché : pas de note, pas de signal trompeur du panier.
                     r['av'] = {'score': None, 'label': '–', 'n': 0, 'source': 'actifs_affiches'}
-            # Bandeau pays = moyenne des notes /10 affichées des secteurs couverts
+            # Bandeau pays = moyenne des notes /100 affichées des secteurs couverts
             # (même règle que le bandeau d'onglet), pas la note de l'ETF « Marché ».
             notes, avs, sents = [], [], []
             for r in C.get('rows') or []:
@@ -330,14 +330,14 @@ def main():
                 import ind_core as K
                 avg = N.round_half(sum(notes) / len(notes))
                 avg = max(N.NOTE_MIN, min(N.NOTE_MAX, avg))
-                pos = avg * 10.0
+                pos = avg
                 C['apex10'] = {
                     'note': avg, 'display': N.fmt10(avg),
                     'hex': FC.hex_from_apex10(avg),
                     'flag': N.flag_from_apex10(avg), 'pos': pos,
                     'cap': 'moyenne', 'fond': None, 'brut': None,
                     'n_moy': len(notes),
-                    'detail': 'Moyenne des notes /10 des secteurs couverts du pays (même méthode que le bandeau de section), arrondie au demi-point.',
+                    'detail': 'Moyenne des notes /100 des secteurs couverts du pays (même méthode que le bandeau de section), arrondie au point.',
                 }
                 if avs:
                     sc = round(sum(avs) / len(avs), 1)
@@ -409,7 +409,7 @@ def main():
             if notes:
                 avg = N.round_half(sum(notes)/len(notes))
                 avg = max(N.NOTE_MIN, min(N.NOTE_MAX, avg))
-                pos = avg * 10.0
+                pos = avg
                 r['apex10'] = {
                     'note': avg, 'display': N.fmt10(avg),
                     'hex': FC.hex_from_apex10(avg),
@@ -417,7 +417,7 @@ def main():
                     'cap': 'moyenne', 'timing': rec_fut.get('timing'),
                     'fond': None, 'brut': rec_fut.get('brut'),
                     'n_moy': len(notes),
-                    'detail': 'Moyenne des notes /10 des instruments visibles (ETC, métal au comptant, minières), hors titres sans note.',
+                    'detail': 'Moyenne des notes /100 des instruments visibles (ETC, métal au comptant, minières), hors titres sans note.',
                 }
                 # couleur de la moyenne, pas celle du futur
                 import flags_couleur as FC
@@ -460,14 +460,14 @@ def main():
             import flags_couleur as FC
             avg = N.round_half(sum(notes) / len(notes))
             avg = max(N.NOTE_MIN, min(N.NOTE_MAX, avg))
-            pos = avg * 10.0
+            pos = avg
             EN['apex10'] = {
                 'note': avg, 'display': N.fmt10(avg),
                 'hex': FC.hex_from_apex10(avg),
                 'flag': N.flag_from_apex10(avg), 'pos': pos,
                 'cap': 'moyenne', 'fond': None, 'brut': None,
                 'n_moy': len(notes),
-                'detail': "Moyenne des notes /10 des actifs Énergie affichés, hors repères de marché, arrondie au demi-point.",
+                'detail': "Moyenne des notes /100 des actifs Énergie affichés, hors repères de marché, arrondie au point.",
             }
         EN['apex10_generated'] = NOW.strftime('%Y-%m-%d %H:%M')
         save('energie.json', EN)
@@ -492,7 +492,7 @@ def main():
             count(rec)
         save('achatvente.json', AV)
 
-    # --- fx / tabs : notes /10 sur les devises (hors DXY, repère) ---
+    # --- fx / tabs : notes /100 sur les devises (hors DXY, repère) ---
     tabs = load('tabs_data.json')
     if tabs and isinstance(tabs, dict):
         fx = ((tabs.get('liquidites') or {}).get('fx') or {})
@@ -514,7 +514,7 @@ def main():
         if changed:
             save('tabs_data.json', tabs)
 
-    print('notes /10 ok', n_ok, 'sans note', n_na, 'generated', NOW.strftime('%Y-%m-%d %H:%M'))
+    print('notes /100 ok', n_ok, 'sans note', n_na, 'generated', NOW.strftime('%Y-%m-%d %H:%M'))
     try:
         import snapshot_notes as SN
         SN.main()

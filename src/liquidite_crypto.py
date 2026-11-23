@@ -1,6 +1,6 @@
 """Score de liquidité 0–100 pour les fiches crypto (23/11/2026).
 
-Remplace le fondamental dans la note APEX /10. Plus de liquidité accumulée
+Remplace le fondamental dans la note APEX /100. Plus de liquidité accumulée
 non encore liquidée au-dessus du prix = signal d'achat ; plus en dessous =
 signal de vente.
 

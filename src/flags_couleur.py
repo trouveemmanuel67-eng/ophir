@@ -1,17 +1,17 @@
-"""Couleur de la note APEX /10 et drapeau TradingView (règle du 23/11/2026, t328u : tranches égales).
+"""Couleur de la note APEX /100 et drapeau TradingView (t337u : 5 tranches de 20).
 
-La couleur vient UNIQUEMENT de la note APEX /10 affichée sur le site
+La couleur vient UNIQUEMENT de la note APEX /100 affichée sur le site
 (après overrides), copiée telle quelle. Pas de score AV, pas de milieux ±33.
 
-Échelle (notes arrondies au demi-point, 5 tranches égales, t328u) :
+Échelle (notes arrondies au point, 5 tranches de 20) :
 
-  0 à 1,5   violet   — drapeau TV : purple
-  2 à 3,5   rouge    — drapeau TV : red
-  4 à 5,5   jaune    — drapeau TV : orange (pas de drapeau jaune sur TradingView)
-  6 à 7,5   vert     — drapeau TV : green
-  8 à 10    cyan     — drapeau TV : cyan (pas bleu)
+  0 à <20   violet   — drapeau TV : purple
+  20 à <40  rouge    — drapeau TV : red
+  40 à <60  jaune    — drapeau TV : orange (pas de drapeau jaune sur TradingView)
+  60 à <80  vert     — drapeau TV : green
+  80 à 100  cyan     — drapeau TV : cyan (pas bleu)
 
-Les barres Achat/Vente et sentiment (t327u) restent en 5 tranches égales de 20 points (0–100), indépendantes de cette échelle /10.
+Les barres Achat/Vente et sentiment (t327u) restent en 5 tranches égales de 20 points (0–100), indépendantes de la note /100.
 Repères de marché et actifs sans note : pas de drapeau.
 """
 
@@ -80,26 +80,26 @@ def hex_of(rgb):
 
 
 def bande_from_apex10(note):
-    """Note /10 → nom de bande site (violet/rouge/jaune/vert/cyan), ou None."""
+    """Note /100 → nom de bande site (violet/rouge/jaune/vert/cyan), ou None."""
     if note is None:
         return None
     try:
         n = float(note)
     except (TypeError, ValueError):
         return None
-    if n <= 1.5:
+    if n < 20:
         return 'violet'
-    if n <= 3.5:
+    if n < 40:
         return 'rouge'
-    if n <= 5.5:
+    if n < 60:
         return 'jaune'
-    if n <= 7.5:
+    if n < 80:
         return 'vert'
     return 'cyan'
 
 
 def flag_from_apex10(note):
-    """Note APEX /10 affichée → code drapeau TradingView (purple/red/orange/green/cyan/none)."""
+    """Note APEX /100 affichée → code drapeau TradingView (purple/red/orange/green/cyan/none)."""
     b = bande_from_apex10(note)
     if not b:
         return 'none'
@@ -107,7 +107,7 @@ def flag_from_apex10(note):
 
 
 def hex_from_apex10(note):
-    """Note /10 → hex site (couleur de bande, sans interpolation)."""
+    """Note /100 → hex site (couleur de bande, sans interpolation)."""
     b = bande_from_apex10(note)
     if not b:
         return None
@@ -115,10 +115,10 @@ def hex_from_apex10(note):
 
 
 def flag_from_pos(pos):
-    """Position 0–100 (= note × 10) → drapeau TV. Uniquement si la position vient d'une note /10."""
+    """Position 0–100 (= note /100) → drapeau TV."""
     if pos is None:
         return 'none'
-    return flag_from_apex10(float(pos) / 10.0)
+    return flag_from_apex10(float(pos))
 
 
 def flag_ancien_from_apex10(note):
@@ -133,9 +133,9 @@ def flag_ancien_from_apex10(note):
 
 
 def couleur_apex10(note):
-    """Note /10 → (code TV, hex site, position 0–100)."""
+    """Note /100 → (code TV, hex site, position 0–100)."""
     if note is None:
         return 'none', None, None
     n = float(note)
-    pos = n * 10.0
+    pos = n
     return flag_from_apex10(n), hex_from_apex10(n), pos

@@ -86,7 +86,7 @@ def main(argv=None):
     report = note_diff.compare(before, after)
     note_diff.write(report)
     if report['blocking'] and not args.no_rebuild and not args.force_publish:
-        print('GROS ÉCARTS de notes APEX /10 — publication annulée, JSON restaurés.', flush=True)
+        print('GROS ÉCARTS de notes APEX /100 — publication annulée, JSON restaurés.', flush=True)
         note_diff.restore_files(bak)
         note_diff.write(report)
         return 2

@@ -159,24 +159,24 @@ for key,nom,fut,principal,others,miners in MET:
         row['note_revolut']=("Instrument Revolut retenu pour l'or : GLDA (XETR:GLDA), ETC physique, plus 8PSG et XAD5 aussi chez Revolut. "
             "Le ticker XAU de l'onglet Matières premières n'est pas dans le référentiel de disponibilité APEX : il n'est pas ajouté comme instrument. "
             "Le contrat à terme TVC:GOLD n'est pas achetable au comptant. "
-            "La note APEX /10 de cette ligne est la moyenne des notes des instruments visibles dans le bouton ci-dessous.")
+            "La note APEX /100 de cette ligne est la moyenne des notes des instruments visibles dans le bouton ci-dessous.")
         list_note=("Six ETC physiques (ISIN distincts), hors CFD et ETP de futures. 4GLD, IGLN et PHGP : chez XTB (table OMI 24/09/2026), pas chez Revolut. Ajoutés le 23/11/2026.")
     elif key=='argent':
         row['note_revolut']=("Instruments Revolut : XAG (OANDA:XAGUSD, métal au comptant ; bouton Acheter visible, achat non confirmé) et l'ETC Invesco Physical Silver 8PSB (XETR:8PSB), plus XAD6. "
             "Attention : 8PSB n'est pas un ETC platine, c'est l'argent physique. "
-            "La note APEX /10 de cette ligne est la moyenne des notes des instruments visibles dans le bouton ci-dessous.")
+            "La note APEX /100 de cette ligne est la moyenne des notes des instruments visibles dans le bouton ci-dessous.")
         list_note=("Quatre ETC physiques à ISIN distincts trouvés avec un historique Yahoo exploitable (XAD6, 8PSB, PHAG, ISLN). Pas de 5ᵉ ETC argent physique distinct, sans ETP de futures ni doublon d'ISIN. ISLN est chez XTB (OMI 24/09/2026).")
     elif key=='platine':
         row['note_revolut']=("Instrument Revolut : XPT (OANDA:XPTUSD, métal au comptant de l'onglet Matières premières ; bouton Acheter visible, achat non confirmé). "
             "Les nouveaux clients français ne peuvent plus s'inscrire aux matières premières ; les titulaires existants gardent l'accès (aide Revolut, 2026). "
             "Aucun ETC platine n'est disponible chez Revolut (8PSB, visible chez Revolut, est l'ETC d'argent Invesco, pas le platine). "
             "Chez XTB (table OMI France du 24/09/2026, hors CFD) : iShares Physical Platinum ETC (IPLT.UK / LSE:IPLT). "
-            "La note APEX /10 de cette ligne est la moyenne des notes des instruments visibles dans le bouton ci-dessous.")
+            "La note APEX /100 de cette ligne est la moyenne des notes des instruments visibles dans le bouton ci-dessous.")
         list_note=("Cinq ETC physiques : IPLT, 8PSA, XPPT, XAD3 (couvert en euros) et WisdomTree PHPT. La série Yahoo de PHPT n'est pas assez fiable pour une note. Ce ne sont pas des CFD ni des ETP de futures.")
     else:
         row['note_revolut']=("Instrument Revolut : XPD (OANDA:XPDUSD, métal au comptant ; bouton Acheter visible, achat non confirmé). "
             "Aucun ETC palladium n'est chez Revolut. Chez XTB (OMI 24/09/2026) : iShares Physical Palladium ETC (IPDM.UK / LSE:IPDM). "
-            "La note APEX /10 de cette ligne est la moyenne des notes des instruments visibles dans le bouton ci-dessous.")
+            "La note APEX /100 de cette ligne est la moyenne des notes des instruments visibles dans le bouton ci-dessous.")
         list_note=("Seuls trois ETC palladium physiques à ISIN distincts sont cotés en Europe (iShares IPDM, Invesco 8PSC, WisdomTree PHPD). Le marché est étroit : pas de 4ᵉ ou 5ᵉ ETC physique trouvé, hors ETP de futures et hors doublons d'ISIN (SPAL est le même Invesco que 8PSC).")
     row['mlist']={'head':head,'items':lst,'miner_note':mnote,'n':len(lst),'list_note':list_note,'excluded':[[x['ticker'],x['why_not']] for x in (score([dict(x) for x in mins if x.get('m')],'std') and []) ]}
     rows.append(row)

@@ -1,4 +1,4 @@
-"""Compare les notes APEX /10 avant et après un recalcul. Signale les gros écarts."""
+"""Compare les notes APEX /100 avant et après un recalcul. Signale les gros écarts."""
 from __future__ import annotations
 import json
 from pathlib import Path
@@ -12,8 +12,8 @@ JSON_FILES = (
 )
 
 # Seuil « gros écart » : ne pas publier (écart de note ou note devenue vide).
-MAX_ABS = 1.5
-MAX_N_ABS_HALF = 25  # trop de mouvements ≥ 0,5 = suspect hors clôture hebdo
+MAX_ABS = 15
+MAX_N_ABS_HALF = 25  # trop de mouvements ≥ 5 points = suspect hors clôture hebdo
 
 
 def _walk(o, out, parent_key=''):
@@ -89,10 +89,10 @@ def _bande(note):
         return bande_couleur(note)
     except Exception:
         n = float(note)
-        if n <= 1.5: return 'violet'
-        if n <= 3.5: return 'rouge'
-        if n <= 5.5: return 'jaune'
-        if n <= 7.5: return 'vert'
+        if n < 20: return 'violet'
+        if n < 40: return 'rouge'
+        if n < 60: return 'jaune'
+        if n < 80: return 'vert'
         return 'cyan'
 
 
@@ -139,7 +139,7 @@ def compare(before: dict, after: dict) -> dict:
         })
     changes.sort(key=lambda x: (-abs(x['delta']), x['tv']))
     n_big = sum(1 for c in changes if abs(c['delta']) >= MAX_ABS)
-    n_half = sum(1 for c in changes if abs(c['delta']) >= 0.5)
+    n_half = sum(1 for c in changes if abs(c['delta']) >= 5)
     blocking = (
         n_big > 0
         or n_half > MAX_N_ABS_HALF
@@ -166,7 +166,7 @@ def compare(before: dict, after: dict) -> dict:
         ),
         'n_changements': len(changes),
         'n_delta_ge_0_5': n_half,
-        'n_delta_ge_1_5': n_big,
+        'n_delta_ge_15': n_big,
         'n_apparus': len(appeared),
         'n_disparus': len(disappeared),
         'couleurs_avant': couleurs_avant,
@@ -186,7 +186,7 @@ def write(report: dict, dest: Path | None = None) -> Path:
     dest.write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
     print(
         'note_diff: changements', report['n_changements'],
-        'delta>=1,5', report['n_delta_ge_1_5'],
+        'delta>=15', report['n_delta_ge_15'],
         'apparus', report['n_apparus'],
         'disparus', report['n_disparus'],
         'couleurs', report.get('changements_couleur'),

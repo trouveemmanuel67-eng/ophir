@@ -42,7 +42,7 @@ function ttRender(){
   const rows=lignes.map(l=>{
     const col=ttColor(l.note);
     return `<tr>
-      <th scope="row"><span class="tt-note" style="color:${col};text-shadow:0 0 14px ${col}80">${ttNoteTxt(l.note)}<small>/10</small></span></th>
+      <th scope="row"><span class="tt-note" style="color:${col};text-shadow:0 0 14px ${col}80">${ttNoteTxt(l.note)}<small>/100</small></span></th>
       <td>${ttMontantTxt(l.montant, unite)}</td>
     </tr>`;
   }).join('');

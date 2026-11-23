@@ -134,7 +134,7 @@ function homeValMark(text, title){
 }
 function homeFlagsHTML(t){
   if(!t||!t.n) return '<div class="home-flags" title="Aucune fiche notée dans cet onglet">—</div>';
-  const tip=`${t.cyan} cyan · ${t.vert} vert${t.vert>1?'s':''} · ${t.jaune} jaune${t.jaune>1?'s':''} · ${t.rouge} rouge${t.rouge>1?'s':''} · ${t.violet} violet${t.violet>1?'s':''} (échelle /10 : 0–1,5 violet · 2–3,5 rouge · 4–5,5 jaune · 6–7,5 vert · 8–10 cyan)`;
+  const tip=`${t.cyan} cyan · ${t.vert} vert${t.vert>1?'s':''} · ${t.jaune} jaune${t.jaune>1?'s':''} · ${t.rouge} rouge${t.rouge>1?'s':''} · ${t.violet} violet${t.violet>1?'s':''} (échelle /100 : 0–<20 violet · 20–<40 rouge · 40–<60 jaune · 60–<80 vert · 80–100 cyan)`;
   return `<div class="home-flags" title="${tip}"><span><i class="c"></i>${t.cyan}</span><span><i class="g"></i>${t.vert}</span><span><i class="y"></i>${t.jaune}</span><span><i class="r"></i>${t.rouge}</span><span><i class="vi"></i>${t.violet}</span></div>`;
 }
 function homeSigHTML(av,tabId){
@@ -142,7 +142,7 @@ function homeSigHTML(av,tabId){
   const a=(st&&st.apex10)||(av&&av.apex10)||null; /* t320u : pas de recalcul JS */
   if(a&&a.note!=null){
     const col=(typeof apex10Col==='function')?apex10Col(a):((typeof gcol==='function')?gcol(a.pos):'#e6c27a');
-    return `<div class="home-sig apex10"><b style="color:${col}">${a.display}</b><small style="color:${col}">/10</small></div>`;
+    return `<div class="home-sig apex10"><b style="color:${col}">${a.display}</b><small style="color:${col}">/100</small></div>`;
   }
   if(!av||av.score==null||av.score==='') return `<div class="home-sig"><b>–</b></div>`;
   const col=(typeof avCol==='function')?avCol(av.score):'#e6c27a';

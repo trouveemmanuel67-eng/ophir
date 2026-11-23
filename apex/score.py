@@ -1,10 +1,10 @@
-"""Calcul unique de la note APEX /10 (t329u).
+"""Calcul unique de la note APEX /100 (t337u).
 
-Lit config/regles.json. Note = 50 % fondamental + 50 % technique
-(Elliott, structure, Fibonacci, figure, RSI, MACD, CCI). Sans fondamental,
-le technique est renormalisé à 100 %. Les bonus Elliott ne s'appliquent
-que sur un comptage manuel. Une note ≥ 8 exige un AV Achat fort et une
-confirmation. Les couleurs découlent uniquement de la note affichée.
+Lit config/regles.json. Note = somme des points (fondamental 50 + technique 50 :
+Elliott 10, structure 10, Fibo 8, figure 7, RSI 5, MACD 5, CCI 5). Sans
+fondamental, le technique est renormalisé à 100 points. Les bonus Elliott
+ne s'appliquent que sur un comptage manuel. Une note ≥ 80 exige un AV Achat
+fort et une confirmation. Les couleurs découlent uniquement de la note affichée.
 """
 from __future__ import annotations
 import sys
@@ -105,8 +105,13 @@ def bande_couleur(note):
     if note is None:
         return None
     n = float(note)
-    for b in _R()['couleurs']['bandes']:
-        if b['min'] - 1e-9 <= n <= b['max'] + 1e-9:
+    bandes = _R()['couleurs']['bandes']
+    for i, b in enumerate(bandes):
+        nxt = bandes[i + 1]['min'] if i + 1 < len(bandes) else None
+        if nxt is None:
+            if n >= b['min'] - 1e-9:
+                return b['site']
+        elif b['min'] - 1e-9 <= n < nxt:
             return b['site']
     return None
 
@@ -121,7 +126,7 @@ flag_from_apex10 = flag_tv
 
 
 def montant_template(note):
-    """Barème TEMPLATE TRADE : 7,5 → 500 $, +100 $ par 0,5, jusqu'à 10 → 1 000 $."""
+    """Barème TEMPLATE TRADE : 75 → 500 $, +100 $ par 5 points, jusqu'à 100 → 1 000 $."""
     if note is None:
         return None
     t = _R()['template_trade']
@@ -183,7 +188,7 @@ def _fmt_pts(x):
 def _hex_of_pts(pts, poids):
     if not poids:
         return '#8a8a8a'
-    return FC.hex_from_apex10(10.0 * float(pts) / float(poids))
+    return FC.hex_from_apex10(100.0 * float(pts) / float(poids))
 
 
 def collect_parts(obj):
@@ -197,7 +202,7 @@ def collect_parts(obj):
 
 
 def compute(av, fond=None, elliott=None, divergence=None, parts=None, classe=None):
-    """Calcule la note APEX /10 (t329u).
+    """Calcule la note APEX /100 (t337u).
 
     parts : scores −100…+100 des composantes techniques. Si absent, la
     note technique est l'AV normalisé (onglets au barème spécifique, ou
@@ -281,7 +286,7 @@ def compute(av, fond=None, elliott=None, divergence=None, parts=None, classe=Non
         pts_total += pts
 
     brut = pts_total
-    n = brut / 10.0
+    n = brut
     pen = fond_penalty(None if renormalise else fond)
     if pen:
         n = n - pen
@@ -314,7 +319,7 @@ def compute(av, fond=None, elliott=None, divergence=None, parts=None, classe=Non
         if not (av_fort and conf):
             n = cy['plafond_sans_confirmation']
             cap.append('cyan')
-    pos = n * 10.0
+    pos = n
     prefix = ''
     if renormalise:
         prefix = 'sans fond. · '

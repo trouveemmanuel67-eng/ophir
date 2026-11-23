@@ -4,27 +4,27 @@
   "unite": "$",
   "lignes": [
     {
-      "note": 7.5,
+      "note": 75.0,
       "montant": 500
     },
     {
-      "note": 8.0,
+      "note": 80.0,
       "montant": 600
     },
     {
-      "note": 8.5,
+      "note": 85.0,
       "montant": 700
     },
     {
-      "note": 9.0,
+      "note": 90.0,
       "montant": 800
     },
     {
-      "note": 9.5,
+      "note": 95.0,
       "montant": 900
     },
     {
-      "note": 10.0,
+      "note": 100.0,
       "montant": 1000
     }
   ]

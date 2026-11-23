@@ -1,7 +1,7 @@
-"""Composantes techniques de la note APEX /10 (t329u).
+"""Composantes techniques de la note APEX /100 (t337u / t338u).
 
 Les scores sont dans [-100, +100] (+ = achat). Ils n'entrent pas dans
-la note Achat / Vente du bandeau : seulement dans la note /10.
+la note Achat / Vente du bandeau : seulement dans la note /100.
 Structure = moyenne de (tendance hebdo, plus hauts et plus bas, position vs ATH).
 Figure = détection hebdo (triangle, épaule-tête-épaule, double, biseau, drapeau) ;
 neutre (0) si aucune figure validée.
@@ -16,7 +16,7 @@ if str(_SRC) not in sys.path:
     sys.path.insert(0, str(_SRC))
 
 import charte as CH
-from ind_core import clip, r_dd, cci_note
+from ind_core import clip, r_dd, cci_note, rsi, macd_series, cci20, hist_streak
 
 TECH_IDS = ('elliott', 'structure', 'fibonacci', 'figure', 'rsi', 'macd', 'cci')
 
@@ -268,9 +268,8 @@ def pack_from_compute(out, closes, dates, opens=None, hl=None):
     """Construit le dict technique à partir du résultat de ind_core.compute."""
     av = (out or {}).get('av') or {}
     got = notes_from_components(av.get('components'))
-    # CCI hors zone ±100 : neutre 0 pour la note /10 (le critère compte toujours).
-    if got.get('cci') is None:
-        got['cci'] = 0.0
+    # RSI / MACD / CCI : scores APEX (contrariens), pas les notes du bandeau AV.
+    _applique_scores_apex(got, closes, dates, opens)
     hi, lo = _hl_aligned(dates, hl, closes)
     st, st_d = score_structure(closes, hi, lo)
     got['structure'] = None if st is None else round(st, 1)
@@ -313,6 +312,88 @@ def collect_parts(obj):
     return None
 
 
-def cci_score_always(v):
+def score_rsi_apex(rsi_val):
+    """Lecture contrarienne du RSI 14 hebdo : clip((50 − RSI) / 20 × 100).
+    RSI 30 = +100, 50 = 0, 70 = −100. Plus c'est bas, plus ça donne des points à l'achat.
+    Ce score n'est utilisé que pour la note APEX, pas pour le bandeau Achat / Vente.
+    """
+    if rsi_val is None:
+        return None
+    return clip((50.0 - float(rsi_val)) / 20.0 * 100.0)
+
+
+def score_macd_apex(m, s, h, hp=None, hist=None, i=None):
+    """Lecture contrarienne du MACD 12/26/9 hebdo (règle dans config/regles.json).
+
+    Position : sous zéro et sous la signal = +70 ; sous zéro et au-dessus de la
+    signal = +40 ; au-dessus de zéro et sous la signal = −40 ; au-dessus de zéro
+    et au-dessus de la signal = −70. Bonus +30 si le MACD est sous zéro et que
+    l'histogramme remonte (retournement). Malus −30 si le MACD est au-dessus de
+    zéro avec au moins 4 barres d'histogramme positives consécutives (étendu).
+    """
+    if m is None or s is None:
+        return None
+    sous_zero = m < 0
+    sous_signal = m < s
+    if sous_zero and sous_signal:
+        base = 70.0
+    elif sous_zero:
+        base = 40.0
+    elif sous_signal:
+        base = -40.0
+    else:
+        base = -70.0
+    adj = 0.0
+    if sous_zero and hp is not None and h is not None and h > hp:
+        adj += 30.0
+    if hist is not None and i is not None and not sous_zero:
+        sign, k = hist_streak(hist, i)
+        if sign > 0 and k >= 4:
+            adj -= 30.0
+    return clip(base + adj)
+
+
+def score_cci_apex(v):
+    """t338u : pas de score continu en zone neutre.
+
+    CCI ≤ −100 (cyan sous la barre de survente) : +80, +100 si ≤ −200.
+    CCI ≥ +100 (violet au-dessus de la barre de surachat) : −80, −100 si ≥ +200.
+    Entre −100 et +100 : neutre 0 (moitié des points). Toujours compté.
+    Si la valeur manque : 0.
+    """
+    if v is None:
+        return 0.0
     n = cci_note(v)
     return 0.0 if n is None else float(n)
+
+
+def cci_score_always(v):
+    return score_cci_apex(v)
+
+
+def _applique_scores_apex(got, closes, dates, opens=None):
+    """Remplace les notes RSI/MACD/CCI du bandeau AV par les scores APEX contrariens."""
+    if not closes or len(closes) < 15:
+        if got.get('cci') is None:
+            got['cci'] = 0.0
+        return got
+    c = [float(x) for x in closes]
+    r = rsi(c)
+    m, sg, h = macd_series(c)
+    last = len(c) - 1
+    # ouvertures alignées pour le CCI sur les corps
+    if opens and dates and len(dates) == len(c):
+        if isinstance(opens, dict):
+            op = [opens.get(d) for d in dates]
+        else:
+            op = list(opens)
+    else:
+        op = [None] * len(c)
+    cc = cci20(op, c)
+    got['rsi'] = None if r[last] is None else round(score_rsi_apex(r[last]), 1)
+    if last >= 1 and None not in (m[last], sg[last], h[last], h[last - 1]):
+        got['macd'] = round(score_macd_apex(m[last], sg[last], h[last], h[last - 1], h, last), 1)
+    else:
+        got['macd'] = None
+    got['cci'] = round(score_cci_apex(cc[last] if last < len(cc) else None), 1)
+    return got

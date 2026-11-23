@@ -167,7 +167,7 @@ function posNoteHTML(p){
   const a=posApex10Of(p);
   if(a&&a.note!=null){
     const col=(typeof apex10Col==='function')?apex10Col(a):(a.hex||'#e6c27a');
-    return `<span class="apex10"><b style="color:${col}">${a.display}</b><small style="color:${col}">/10</small></span>`;
+    return `<span class="apex10"><b style="color:${col}">${a.display}</b><small style="color:${col}">/100</small></span>`;
   }
   if(p.apex_score==null) return '–';
   const lab=p.apex_label?` ${p.apex_label}`:'';
@@ -260,7 +260,7 @@ function posApexChip(p){
   const a=posApex10Of(p);
   if(a&&a.note!=null){
     const col=(typeof apex10Col==='function')?apex10Col(a):(a.hex||'#e6c27a');
-    return `<span class="pos-chip apex10" style="color:${col};border-color:${col}" title="Note APEX ${a.display}/10">${a.display}<small>/10</small></span>`;
+    return `<span class="pos-chip apex10" style="color:${col};border-color:${col}" title="Note APEX ${a.display}/100">${a.display}<small>/100</small></span>`;
   }
   if(p.apex_score==null||p.apex_score==='') return '';
   const col=(typeof avCol==='function')?avCol(p.apex_score):(posFlagCol[p.drapeau_code]||'#e6c27a');

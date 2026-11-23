@@ -1,6 +1,6 @@
 {
   "version": "2026-11-23",
-  "tache": "t329u",
+  "tache": "t337u/t338u",
   "timezone": "Europe/Paris",
   "note_apex": {
     "poids_timing": 0.5,
@@ -8,11 +8,11 @@
     "av_lo": -60.0,
     "av_hi": 60.0,
     "fond_seuil": 40.0,
-    "fond_pen_max": 2.0,
+    "fond_pen_max": 20.0,
     "crypto_fond": "liquidite",
-    "note_min": 1.0,
-    "note_max": 10.0,
-    "arrondi": 0.5,
+    "note_min": 0.0,
+    "note_max": 100.0,
+    "arrondi": 1.0,
     "obligations_sans_fondamental": true,
     "score_selection_etf_pas_fondamental": true,
     "poids_technique": 0.5,
@@ -29,42 +29,77 @@
     "renormaliser_sans_fondamental": true,
     "figure_neutre_si_aucune": true,
     "cci_periode": 20,
-    "cci_neutre_hors_zone": true
+    "cci_neutre_hors_zone": false,
+    "echelle": 100,
+    "rsi": {
+      "regle": "Lecture contrarienne du RSI 14 hebdomadaire : score = clip((50 − RSI) / 20 × 100). RSI 30 = +100, RSI 50 = 0, RSI 70 = −100. Plus le RSI est bas, plus le critère donne de points à l'achat.",
+      "formule": "(50 - rsi) / 20 * 100",
+      "timeframe": "1wk",
+      "periode": 14
+    },
+    "macd": {
+      "regle": "Lecture contrarienne du MACD 12/26/9 hebdomadaire : plus le MACD est bas, plus il donne de points à l'achat. Position : sous zéro et sous la signal = +70 ; sous zéro et au-dessus de la signal = +40 ; au-dessus de zéro et sous la signal = −40 ; au-dessus de zéro et au-dessus de la signal = −70. Bonus +30 si le MACD est sous zéro et que l'histogramme remonte (retournement). Malus −30 si le MACD est au-dessus de zéro et que l'histogramme a au moins 4 barres positives consécutives (impulsion étendue). Total ramené dans [−100, +100].",
+      "timeframe": "1wk",
+      "fast": 12,
+      "slow": 26,
+      "signal": 9,
+      "position": {
+        "sous_zero_sous_signal": 70,
+        "sous_zero_sur_signal": 40,
+        "sur_zero_sous_signal": -40,
+        "sur_zero_sur_signal": -70
+      },
+      "bonus_retournement_sous_zero": 30,
+      "malus_extension_sur_zero": 30,
+      "extension_barres": 4
+    },
+    "cci": {
+      "regle": "CCI 20 hebdomadaire (corps). Le CCI ajoute des points s’il passe en cyan sous sa barre de survente, et retire des points s’il est en violet au-dessus de sa barre de surachat. CCI ≤ −100 : +80 (+100 si ≤ −200). CCI ≥ +100 : −80 (−100 si ≥ +200). Entre −100 et +100 : neutre (score 0 = moitié des 5 points). Le critère compte toujours ; le dénominateur n’est pas redistribué.",
+      "periode": 20,
+      "timeframe": "1wk",
+      "sous_100": 80,
+      "sous_200": 100,
+      "sur_100": -80,
+      "sur_200": -100,
+      "zone_neutre": 0,
+      "toujours_compte": true,
+      "continu_zone_neutre": false
+    }
   },
   "couleurs": {
-    "regle": "Uniquement la note APEX /10 affichée (après overrides). 5 tranches égales au pas de 0,5 : 0–1,5 violet, 2–3,5 rouge, 4–5,5 jaune (orange sur TradingView), 6–7,5 vert, 8–10 cyan.",
+    "regle": "Uniquement la note APEX /100 affichée (après overrides). 5 tranches égales de 20 points : 0–<20 violet, 20–<40 rouge, 40–<60 jaune (orange sur TradingView), 60–<80 vert, 80–100 cyan.",
     "bandes": [
       {
         "min": 0.0,
-        "max": 1.5,
+        "max": 19.0,
         "site": "violet",
         "hex": "#9d54ff",
         "tv": "purple"
       },
       {
-        "min": 2.0,
-        "max": 3.5,
+        "min": 20.0,
+        "max": 39.0,
         "site": "rouge",
         "hex": "#ff2d2d",
         "tv": "red"
       },
       {
-        "min": 4.0,
-        "max": 5.5,
+        "min": 40.0,
+        "max": 59.0,
         "site": "jaune",
         "hex": "#ffd400",
         "tv": "orange"
       },
       {
-        "min": 6.0,
-        "max": 7.5,
+        "min": 60.0,
+        "max": 79.0,
         "site": "vert",
         "hex": "#22c55e",
         "tv": "green"
       },
       {
-        "min": 8.0,
-        "max": 10.0,
+        "min": 80.0,
+        "max": 100.0,
         "site": "cyan",
         "hex": "#00e5ff",
         "tv": "cyan"
@@ -72,7 +107,7 @@
     ]
   },
   "elliott": {
-    "plafond_rouge": 4.0,
+    "plafond_rouge": 40.0,
     "vagues_rouges": [
       "w1",
       "w3",
@@ -106,16 +141,16 @@
       "fin_4_conf",
       "fin_c_conf"
     ],
-    "bonus_entry": 0.5,
-    "bonus_conf": 1.0,
+    "bonus_entry": 5.0,
+    "bonus_conf": 10.0,
     "bonus_seulement_manuel": true,
     "overrides_fichier": "data/elliott_overrides.json",
     "overrides_primacy": true
   },
   "cyan": {
-    "note_min": 8.0,
+    "note_min": 80.0,
     "av_achat_fort": 60.0,
-    "plafond_sans_confirmation": 7.5,
+    "plafond_sans_confirmation": 75.0,
     "confirmation": [
       "divergence_haussiere_hebdo",
       "elliott_vert_manuel"
@@ -130,18 +165,18 @@
     "base": "plus_bas_historique_vers_plus_haut_historique"
   },
   "good_invest": {
-    "seuil": 7.5,
+    "seuil": 75.0,
     "hors_portefeuille": true,
     "inclut_ventes_en_attente": true
   },
   "template_trade": {
     "devise": "USD",
     "unite": "$",
-    "base_note": 7.5,
+    "base_note": 75.0,
     "base_montant": 500,
-    "pas_note": 0.5,
+    "pas_note": 5.0,
     "pas_montant": 100,
-    "max_note": 10.0,
+    "max_note": 100.0,
     "max_montant": 1000
   },
   "section": {
@@ -186,7 +221,7 @@
   "fiche_regles": {
     "titre_bouton": "Règles",
     "titre_panneau": "Règles de la note APEX",
-    "intro": "La note APEX /10 vaut 50 % de fondamental et 50 % de technique. Pour la crypto, la liquidité remplace le fondamental. Sans fondamental (obligations, ETF obligataires, et tout actif sans note fondamentale), le technique est renormalisé à 100 % — c’est signalé sur la fiche. Les poids techniques sont lus dans config/regles.json et restent modifiables.",
+    "intro": "La note APEX /100 est la somme des points de chaque critère : 50 points de fondamental et 50 points de technique. Pour la crypto, la liquidité remplace le fondamental. Sans fondamental (obligations, ETF obligataires, et tout actif sans note fondamentale), le technique est renormalisé à 100 points — c’est signalé sur la fiche. RSI et MACD sont lus à contre-courant : plus l’indicateur est bas, plus il donne de points à l’achat. Le CCI n’ajoute ou ne retire des points que hors de sa zone neutre (sous −100 ou au-dessus de +100). Les poids techniques sont lus dans config/regles.json et restent modifiables.",
     "ordre_site": [
       "actions",
       "etf_actions",
@@ -414,19 +449,22 @@
             },
             {
               "id": "rsi",
-              "label": "RSI 14 hebdo",
-              "poids": 0.1
+              "label": "RSI 14 hebdo (contrarien : plus c’est bas, plus ça donne des points à l’achat)",
+              "poids": 0.1,
+              "regle": "Lecture contrarienne du RSI 14 hebdomadaire : score = clip((50 − RSI) / 20 × 100). RSI 30 = +100, RSI 50 = 0, RSI 70 = −100. Plus le RSI est bas, plus le critère donne de points à l'achat."
             },
             {
               "id": "macd",
-              "label": "MACD 12/26/9 hebdo",
-              "poids": 0.1
+              "label": "MACD 12/26/9 hebdo (contrarien : plus c’est bas, plus ça donne des points à l’achat)",
+              "poids": 0.1,
+              "regle": "Lecture contrarienne du MACD 12/26/9 hebdomadaire : plus le MACD est bas, plus il donne de points à l'achat. Position : sous zéro et sous la signal = +70 ; sous zéro et au-dessus de la signal = +40 ; au-dessus de zéro et sous la signal = −40 ; au-dessus de zéro et au-dessus de la signal = −70. Bonus +30 si le MACD est sous zéro et que l'histogramme remonte (retournement). Malus −30 si le MACD est au-dessus de zéro et que l'histogramme a au moins 4 barres positives consécutives (impulsion étendue). Total ramené dans [−100, +100]."
             },
             {
               "id": "cci",
-              "label": "CCI 20 hebdo (corps)",
+              "label": "CCI 20 hebdo (corps) : +80/+100 sous la barre cyan (≤ −100 / ≤ −200), −80/−100 au-dessus de la barre violette (≥ +100 / ≥ +200), neutre (0) entre les deux — toujours compté",
               "poids": 0.1,
-              "si_absent": "Hors des zones ±100, le critère est neutre (0) mais reste compté (5 % de la note, ou 10 % si le technique est renormalisé)."
+              "si_absent": "Entre −100 et +100, le CCI est neutre (score 0 = moitié des points) mais reste compté (5 points de la note, ou 10 si le technique est renormalisé). Si la valeur est indisponible, même traitement (neutre 0).",
+              "regle": "CCI 20 hebdomadaire (corps). Le CCI ajoute des points s’il passe en cyan sous sa barre de survente, et retire des points s’il est en violet au-dessus de sa barre de surachat. CCI ≤ −100 : +80 (+100 si ≤ −200). CCI ≥ +100 : −80 (−100 si ≥ +200). Entre −100 et +100 : neutre (score 0 = moitié des 5 points). Le critère compte toujours ; le dénominateur n’est pas redistribué."
             }
           ],
           "renormalise": false
@@ -540,19 +578,22 @@
             },
             {
               "id": "rsi",
-              "label": "RSI 14 hebdo",
-              "poids": 0.1
+              "label": "RSI 14 hebdo (contrarien : plus c’est bas, plus ça donne des points à l’achat)",
+              "poids": 0.1,
+              "regle": "Lecture contrarienne du RSI 14 hebdomadaire : score = clip((50 − RSI) / 20 × 100). RSI 30 = +100, RSI 50 = 0, RSI 70 = −100. Plus le RSI est bas, plus le critère donne de points à l'achat."
             },
             {
               "id": "macd",
-              "label": "MACD 12/26/9 hebdo",
-              "poids": 0.1
+              "label": "MACD 12/26/9 hebdo (contrarien : plus c’est bas, plus ça donne des points à l’achat)",
+              "poids": 0.1,
+              "regle": "Lecture contrarienne du MACD 12/26/9 hebdomadaire : plus le MACD est bas, plus il donne de points à l'achat. Position : sous zéro et sous la signal = +70 ; sous zéro et au-dessus de la signal = +40 ; au-dessus de zéro et sous la signal = −40 ; au-dessus de zéro et au-dessus de la signal = −70. Bonus +30 si le MACD est sous zéro et que l'histogramme remonte (retournement). Malus −30 si le MACD est au-dessus de zéro et que l'histogramme a au moins 4 barres positives consécutives (impulsion étendue). Total ramené dans [−100, +100]."
             },
             {
               "id": "cci",
-              "label": "CCI 20 hebdo (corps)",
+              "label": "CCI 20 hebdo (corps) : +80/+100 sous la barre cyan (≤ −100 / ≤ −200), −80/−100 au-dessus de la barre violette (≥ +100 / ≥ +200), neutre (0) entre les deux — toujours compté",
               "poids": 0.1,
-              "si_absent": "Hors des zones ±100, le critère est neutre (0) mais reste compté (5 % de la note, ou 10 % si le technique est renormalisé)."
+              "si_absent": "Entre −100 et +100, le CCI est neutre (score 0 = moitié des points) mais reste compté (5 points de la note, ou 10 si le technique est renormalisé). Si la valeur est indisponible, même traitement (neutre 0).",
+              "regle": "CCI 20 hebdomadaire (corps). Le CCI ajoute des points s’il passe en cyan sous sa barre de survente, et retire des points s’il est en violet au-dessus de sa barre de surachat. CCI ≤ −100 : +80 (+100 si ≤ −200). CCI ≥ +100 : −80 (−100 si ≥ +200). Entre −100 et +100 : neutre (score 0 = moitié des 5 points). Le critère compte toujours ; le dénominateur n’est pas redistribué."
             }
           ],
           "renormalise": true
@@ -666,19 +707,22 @@
             },
             {
               "id": "rsi",
-              "label": "RSI 14 hebdo",
-              "poids": 0.1
+              "label": "RSI 14 hebdo (contrarien : plus c’est bas, plus ça donne des points à l’achat)",
+              "poids": 0.1,
+              "regle": "Lecture contrarienne du RSI 14 hebdomadaire : score = clip((50 − RSI) / 20 × 100). RSI 30 = +100, RSI 50 = 0, RSI 70 = −100. Plus le RSI est bas, plus le critère donne de points à l'achat."
             },
             {
               "id": "macd",
-              "label": "MACD 12/26/9 hebdo",
-              "poids": 0.1
+              "label": "MACD 12/26/9 hebdo (contrarien : plus c’est bas, plus ça donne des points à l’achat)",
+              "poids": 0.1,
+              "regle": "Lecture contrarienne du MACD 12/26/9 hebdomadaire : plus le MACD est bas, plus il donne de points à l'achat. Position : sous zéro et sous la signal = +70 ; sous zéro et au-dessus de la signal = +40 ; au-dessus de zéro et sous la signal = −40 ; au-dessus de zéro et au-dessus de la signal = −70. Bonus +30 si le MACD est sous zéro et que l'histogramme remonte (retournement). Malus −30 si le MACD est au-dessus de zéro et que l'histogramme a au moins 4 barres positives consécutives (impulsion étendue). Total ramené dans [−100, +100]."
             },
             {
               "id": "cci",
-              "label": "CCI 20 hebdo (corps)",
+              "label": "CCI 20 hebdo (corps) : +80/+100 sous la barre cyan (≤ −100 / ≤ −200), −80/−100 au-dessus de la barre violette (≥ +100 / ≥ +200), neutre (0) entre les deux — toujours compté",
               "poids": 0.1,
-              "si_absent": "Hors des zones ±100, le critère est neutre (0) mais reste compté (5 % de la note, ou 10 % si le technique est renormalisé)."
+              "si_absent": "Entre −100 et +100, le CCI est neutre (score 0 = moitié des points) mais reste compté (5 points de la note, ou 10 si le technique est renormalisé). Si la valeur est indisponible, même traitement (neutre 0).",
+              "regle": "CCI 20 hebdomadaire (corps). Le CCI ajoute des points s’il passe en cyan sous sa barre de survente, et retire des points s’il est en violet au-dessus de sa barre de surachat. CCI ≤ −100 : +80 (+100 si ≤ −200). CCI ≥ +100 : −80 (−100 si ≥ +200). Entre −100 et +100 : neutre (score 0 = moitié des 5 points). Le critère compte toujours ; le dénominateur n’est pas redistribué."
             }
           ],
           "renormalise": true
@@ -797,19 +841,22 @@
             },
             {
               "id": "rsi",
-              "label": "RSI 14 hebdo",
-              "poids": 0.1
+              "label": "RSI 14 hebdo (contrarien : plus c’est bas, plus ça donne des points à l’achat)",
+              "poids": 0.1,
+              "regle": "Lecture contrarienne du RSI 14 hebdomadaire : score = clip((50 − RSI) / 20 × 100). RSI 30 = +100, RSI 50 = 0, RSI 70 = −100. Plus le RSI est bas, plus le critère donne de points à l'achat."
             },
             {
               "id": "macd",
-              "label": "MACD 12/26/9 hebdo",
-              "poids": 0.1
+              "label": "MACD 12/26/9 hebdo (contrarien : plus c’est bas, plus ça donne des points à l’achat)",
+              "poids": 0.1,
+              "regle": "Lecture contrarienne du MACD 12/26/9 hebdomadaire : plus le MACD est bas, plus il donne de points à l'achat. Position : sous zéro et sous la signal = +70 ; sous zéro et au-dessus de la signal = +40 ; au-dessus de zéro et sous la signal = −40 ; au-dessus de zéro et au-dessus de la signal = −70. Bonus +30 si le MACD est sous zéro et que l'histogramme remonte (retournement). Malus −30 si le MACD est au-dessus de zéro et que l'histogramme a au moins 4 barres positives consécutives (impulsion étendue). Total ramené dans [−100, +100]."
             },
             {
               "id": "cci",
-              "label": "CCI 20 hebdo (corps)",
+              "label": "CCI 20 hebdo (corps) : +80/+100 sous la barre cyan (≤ −100 / ≤ −200), −80/−100 au-dessus de la barre violette (≥ +100 / ≥ +200), neutre (0) entre les deux — toujours compté",
               "poids": 0.1,
-              "si_absent": "Hors des zones ±100, le critère est neutre (0) mais reste compté (5 % de la note, ou 10 % si le technique est renormalisé)."
+              "si_absent": "Entre −100 et +100, le CCI est neutre (score 0 = moitié des points) mais reste compté (5 points de la note, ou 10 si le technique est renormalisé). Si la valeur est indisponible, même traitement (neutre 0).",
+              "regle": "CCI 20 hebdomadaire (corps). Le CCI ajoute des points s’il passe en cyan sous sa barre de survente, et retire des points s’il est en violet au-dessus de sa barre de surachat. CCI ≤ −100 : +80 (+100 si ≤ −200). CCI ≥ +100 : −80 (−100 si ≥ +200). Entre −100 et +100 : neutre (score 0 = moitié des 5 points). Le critère compte toujours ; le dénominateur n’est pas redistribué."
             }
           ],
           "renormalise": false
@@ -928,19 +975,22 @@
             },
             {
               "id": "rsi",
-              "label": "RSI 14 hebdo",
-              "poids": 0.1
+              "label": "RSI 14 hebdo (contrarien : plus c’est bas, plus ça donne des points à l’achat)",
+              "poids": 0.1,
+              "regle": "Lecture contrarienne du RSI 14 hebdomadaire : score = clip((50 − RSI) / 20 × 100). RSI 30 = +100, RSI 50 = 0, RSI 70 = −100. Plus le RSI est bas, plus le critère donne de points à l'achat."
             },
             {
               "id": "macd",
-              "label": "MACD 12/26/9 hebdo",
-              "poids": 0.1
+              "label": "MACD 12/26/9 hebdo (contrarien : plus c’est bas, plus ça donne des points à l’achat)",
+              "poids": 0.1,
+              "regle": "Lecture contrarienne du MACD 12/26/9 hebdomadaire : plus le MACD est bas, plus il donne de points à l'achat. Position : sous zéro et sous la signal = +70 ; sous zéro et au-dessus de la signal = +40 ; au-dessus de zéro et sous la signal = −40 ; au-dessus de zéro et au-dessus de la signal = −70. Bonus +30 si le MACD est sous zéro et que l'histogramme remonte (retournement). Malus −30 si le MACD est au-dessus de zéro et que l'histogramme a au moins 4 barres positives consécutives (impulsion étendue). Total ramené dans [−100, +100]."
             },
             {
               "id": "cci",
-              "label": "CCI 20 hebdo (corps)",
+              "label": "CCI 20 hebdo (corps) : +80/+100 sous la barre cyan (≤ −100 / ≤ −200), −80/−100 au-dessus de la barre violette (≥ +100 / ≥ +200), neutre (0) entre les deux — toujours compté",
               "poids": 0.1,
-              "si_absent": "Hors des zones ±100, le critère est neutre (0) mais reste compté (5 % de la note, ou 10 % si le technique est renormalisé)."
+              "si_absent": "Entre −100 et +100, le CCI est neutre (score 0 = moitié des points) mais reste compté (5 points de la note, ou 10 si le technique est renormalisé). Si la valeur est indisponible, même traitement (neutre 0).",
+              "regle": "CCI 20 hebdomadaire (corps). Le CCI ajoute des points s’il passe en cyan sous sa barre de survente, et retire des points s’il est en violet au-dessus de sa barre de surachat. CCI ≤ −100 : +80 (+100 si ≤ −200). CCI ≥ +100 : −80 (−100 si ≥ +200). Entre −100 et +100 : neutre (score 0 = moitié des 5 points). Le critère compte toujours ; le dénominateur n’est pas redistribué."
             }
           ],
           "renormalise": false
@@ -1077,19 +1127,22 @@
             },
             {
               "id": "rsi",
-              "label": "RSI 14 hebdo",
-              "poids": 0.1
+              "label": "RSI 14 hebdo (contrarien : plus c’est bas, plus ça donne des points à l’achat)",
+              "poids": 0.1,
+              "regle": "Lecture contrarienne du RSI 14 hebdomadaire : score = clip((50 − RSI) / 20 × 100). RSI 30 = +100, RSI 50 = 0, RSI 70 = −100. Plus le RSI est bas, plus le critère donne de points à l'achat."
             },
             {
               "id": "macd",
-              "label": "MACD 12/26/9 hebdo",
-              "poids": 0.1
+              "label": "MACD 12/26/9 hebdo (contrarien : plus c’est bas, plus ça donne des points à l’achat)",
+              "poids": 0.1,
+              "regle": "Lecture contrarienne du MACD 12/26/9 hebdomadaire : plus le MACD est bas, plus il donne de points à l'achat. Position : sous zéro et sous la signal = +70 ; sous zéro et au-dessus de la signal = +40 ; au-dessus de zéro et sous la signal = −40 ; au-dessus de zéro et au-dessus de la signal = −70. Bonus +30 si le MACD est sous zéro et que l'histogramme remonte (retournement). Malus −30 si le MACD est au-dessus de zéro et que l'histogramme a au moins 4 barres positives consécutives (impulsion étendue). Total ramené dans [−100, +100]."
             },
             {
               "id": "cci",
-              "label": "CCI 20 hebdo (corps)",
+              "label": "CCI 20 hebdo (corps) : +80/+100 sous la barre cyan (≤ −100 / ≤ −200), −80/−100 au-dessus de la barre violette (≥ +100 / ≥ +200), neutre (0) entre les deux — toujours compté",
               "poids": 0.1,
-              "si_absent": "Hors des zones ±100, le critère est neutre (0) mais reste compté (5 % de la note, ou 10 % si le technique est renormalisé)."
+              "si_absent": "Entre −100 et +100, le CCI est neutre (score 0 = moitié des points) mais reste compté (5 points de la note, ou 10 si le technique est renormalisé). Si la valeur est indisponible, même traitement (neutre 0).",
+              "regle": "CCI 20 hebdomadaire (corps). Le CCI ajoute des points s’il passe en cyan sous sa barre de survente, et retire des points s’il est en violet au-dessus de sa barre de surachat. CCI ≤ −100 : +80 (+100 si ≤ −200). CCI ≥ +100 : −80 (−100 si ≥ +200). Entre −100 et +100 : neutre (score 0 = moitié des 5 points). Le critère compte toujours ; le dénominateur n’est pas redistribué."
             }
           ],
           "renormalise": false
@@ -1203,19 +1256,22 @@
             },
             {
               "id": "rsi",
-              "label": "RSI 14 hebdo",
-              "poids": 0.1
+              "label": "RSI 14 hebdo (contrarien : plus c’est bas, plus ça donne des points à l’achat)",
+              "poids": 0.1,
+              "regle": "Lecture contrarienne du RSI 14 hebdomadaire : score = clip((50 − RSI) / 20 × 100). RSI 30 = +100, RSI 50 = 0, RSI 70 = −100. Plus le RSI est bas, plus le critère donne de points à l'achat."
             },
             {
               "id": "macd",
-              "label": "MACD 12/26/9 hebdo",
-              "poids": 0.1
+              "label": "MACD 12/26/9 hebdo (contrarien : plus c’est bas, plus ça donne des points à l’achat)",
+              "poids": 0.1,
+              "regle": "Lecture contrarienne du MACD 12/26/9 hebdomadaire : plus le MACD est bas, plus il donne de points à l'achat. Position : sous zéro et sous la signal = +70 ; sous zéro et au-dessus de la signal = +40 ; au-dessus de zéro et sous la signal = −40 ; au-dessus de zéro et au-dessus de la signal = −70. Bonus +30 si le MACD est sous zéro et que l'histogramme remonte (retournement). Malus −30 si le MACD est au-dessus de zéro et que l'histogramme a au moins 4 barres positives consécutives (impulsion étendue). Total ramené dans [−100, +100]."
             },
             {
               "id": "cci",
-              "label": "CCI 20 hebdo (corps)",
+              "label": "CCI 20 hebdo (corps) : +80/+100 sous la barre cyan (≤ −100 / ≤ −200), −80/−100 au-dessus de la barre violette (≥ +100 / ≥ +200), neutre (0) entre les deux — toujours compté",
               "poids": 0.1,
-              "si_absent": "Hors des zones ±100, le critère est neutre (0) mais reste compté (5 % de la note, ou 10 % si le technique est renormalisé)."
+              "si_absent": "Entre −100 et +100, le CCI est neutre (score 0 = moitié des points) mais reste compté (5 points de la note, ou 10 si le technique est renormalisé). Si la valeur est indisponible, même traitement (neutre 0).",
+              "regle": "CCI 20 hebdomadaire (corps). Le CCI ajoute des points s’il passe en cyan sous sa barre de survente, et retire des points s’il est en violet au-dessus de sa barre de surachat. CCI ≤ −100 : +80 (+100 si ≤ −200). CCI ≥ +100 : −80 (−100 si ≥ +200). Entre −100 et +100 : neutre (score 0 = moitié des 5 points). Le critère compte toujours ; le dénominateur n’est pas redistribué."
             }
           ],
           "renormalise": true
@@ -1274,7 +1330,7 @@
         "note": null,
         "timing": null,
         "fondamental": null,
-        "precision": "Les lignes de l'onglet Placements sont un relevé patrimonial. Elles n'ont pas de note APEX /10.",
+        "precision": "Les lignes de l'onglet Placements sont un relevé patrimonial. Elles n'ont pas de note APEX /100.",
         "technique": null
       },
       {

@@ -17,7 +17,7 @@ function listApexBar(r){
   if(!av||av.score==null||!sent||sent.value==null){
     if(a10&&a10.display&&a10.display!=='–'){
       const dec=(typeof apexDecomp==='function')?apexDecomp(a10):'';
-      return `<div class="fl-apex"><div class="apex10"><b>${a10.display}</b><small>/10</small></div>${dec}</div>`;
+      return `<div class="fl-apex"><div class="apex10"><b>${a10.display}</b><small>/100</small></div>${dec}</div>`;
     }
     return '<div class="fl-apex fl-apex-na"><div class="apex10 apex10-na"><b>–</b></div></div>';
   }

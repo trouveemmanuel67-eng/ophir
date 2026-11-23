@@ -52,7 +52,7 @@ function apex10Col(a){
 function apexNoteHTML(a){
   if(!a||a.note==null||a.display==='–') return `<div class="apex10 apex10-na"><b>–</b></div>`;
   const col=apex10Col(a);
-  return `<div class="apex10"><b style="color:${col};text-shadow:0 0 16px ${col}80">${a.display}</b><small style="color:${col}">/10</small></div>`;
+  return `<div class="apex10"><b style="color:${col};text-shadow:0 0 16px ${col}80">${a.display}</b><small style="color:${col}">/100</small></div>`;
 }
 /* Barre fusionnée : une seule barre dégradée, échelle Achat / Vente (−100 → +100) au-dessus, Sentiment (0 → 100) en dessous.
    Curseur blanc = Achat / Vente, curseur gris (rond) = Sentiment. Deux échelles linéaires distinctes sur la même largeur. */
@@ -110,7 +110,7 @@ function renderAchatVente(tabId){
   charts.push(avChart);
 }
 
-/* Moyenne des notes /10 affichées d'une section (bandeau NOTE APEX), 23/11/2026 */
+/* Moyenne des notes /100 affichées d'une section (bandeau NOTE APEX), 23/11/2026 */
 function labAv(s){
   s=Number(s);
   return s<=-60?'Vente forte':s<=-20?'Vente':s<20?'Neutre':s<60?'Achat':'Achat fort';
@@ -127,7 +127,7 @@ function apex10FromAvg(notes){
   return {
     note:n, display:fmtApex10(n), pos, hex:(typeof gcol==='function')?gcol(pos):null,
     cap:'moyenne', n_moy:xs.length,
-    detail:'Moyenne des notes /10 affichées des actifs de la section, arrondie au demi-point.'
+    detail:'Moyenne des notes /100 affichées des actifs de la section, arrondie au point.'
   };
 }
 function meanNum(xs){

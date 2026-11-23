@@ -110,7 +110,7 @@ function accApexHTML(p){
   const a=p&&p.apex;
   if(!a||!a.display||a.display==='–'||a.display==='-') return '';
   const col=a.hex||'#e6c27a';
-  return `<span class="al al-note apex10" title="Note APEX /10"><b style="color:${col}">${accEsc(a.display)}</b><small style="color:${col}">/10</small></span>`;
+  return `<span class="al al-note apex10" title="Note APEX /100"><b style="color:${col}">${accEsc(a.display)}</b><small style="color:${col}">/100</small></span>`;
 }
 function accLineHTML(p){
   const note=accApexHTML(p);
@@ -256,7 +256,7 @@ function duoBuild(tabId){
   const duoDate=st
     ?('Moyenne de '+st.n+' actif'+(st.n>1?'s':'')+' de la section')
     :[gi&&gi.date&&('S au '+dshort(gi.date)),ga&&ga.date&&('AV au '+dshort(ga.date))].filter(Boolean).join(' · ');
-  const tip='Note APEX /10'+(st?' : moyenne des notes affichées de la section, arrondie au demi-point':'')+(duoDate?' · '+duoDate:'');
+  const tip='Note APEX /100'+(st?' : moyenne des notes affichées de la section, arrondie au point':'')+(duoDate?' · '+duoDate:'');
   card.innerHTML=`<div class="irow duo-row duo-slim" title="${accEsc(tip)}">
    <div class="ir ir-t"><h2 title="Note APEX">Note APEX</h2></div>
    <div class="ir ir-s">${typeof apexNoteHTML==='function'?apexNoteHTML(a10):''}
@@ -266,7 +266,7 @@ function duoBuild(tabId){
   const hasDetails=!!(gi&&ga&&ic&&ac&&sl);
   if(hasDetails){
     const info=document.createElement('div');info.className='duo-info';
-    const avgTxt=st?`<p class="duo-avg">Le bandeau affiche la moyenne des notes /10 visibles de la section (${st.n} actif${st.n>1?'s':''}), arrondie au demi-point, avec les curseurs AV et S à la moyenne des mêmes actifs. L'historique et les composantes ci-dessous restent ceux de l'indicateur composite de l'onglet.</p>`:'';
+    const avgTxt=st?`<p class="duo-avg">Le bandeau affiche la moyenne des notes /100 visibles de la section (${st.n} actif${st.n>1?'s':''}), arrondie au point, avec les curseurs AV et S à la moyenne des mêmes actifs. L'historique et les composantes ci-dessous restent ceux de l'indicateur composite de l'onglet.</p>`:'';
     info.innerHTML=`${avgTxt}<div><div class="duo-n"><i class="db-dot db-s">S</i><b>Sentiment de marché, 1 an</b> · ${gi.title||''}</div>
      <div class="ind-date">${(q(sl,'.ind-date')||{}).innerHTML||''}</div>${src(ic)}</div>
     <div><div class="duo-n"><i class="db-dot db-a">AV</i><b>Achat / Vente</b> · indicateur composite APEX</div>
@@ -284,7 +284,7 @@ function duoBuild(tabId){
     card.querySelectorAll('.db-dot.db-s').forEach(d=>d.style.color=gmir(seObj.value));
   }else if(st){
     const info=document.createElement('div');info.className='duo-info';
-    info.innerHTML=`<p class="duo-avg">Le bandeau affiche la moyenne des notes /10 visibles de la section (${st.n} actif${st.n>1?'s':''}), arrondie au demi-point, avec les curseurs AV et S à la moyenne des mêmes actifs. Les repères de marché (sans note) sont exclus.</p>
+    info.innerHTML=`<p class="duo-avg">Le bandeau affiche la moyenne des notes /100 visibles de la section (${st.n} actif${st.n>1?'s':''}), arrondie au point, avec les curseurs AV et S à la moyenne des mêmes actifs. Les repères de marché (sans note) sont exclus.</p>
     <p class="duo-scales">Lecture de la barre : deux échelles linéaires distinctes sur la même largeur. Achat / vente de −100 à +100, curseur « AV » ; sentiment de 0 à 100, curseur « S ». « S » prend la couleur du dégradé miroir (lecture contrarienne).</p>`;
     card.appendChild(accBody([info]));
   }

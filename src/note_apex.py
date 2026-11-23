@@ -1,10 +1,10 @@
-"""Note APEX /10 — calcul unique dans apex.score (t329u).
+"""Note APEX /100 — calcul unique dans apex.score (t337u).
 
-50 % fondamental + 50 % technique (Elliott, structure, Fibonacci, figure,
-RSI, MACD, CCI). Sans fondamental, le technique est renormalisé à 100 %.
-Les bonus Elliott ne s'appliquent que sur un comptage manuel. Une note ≥ 8
-exige un AV Achat fort et une confirmation. Les couleurs découlent de la
-note affichée.
+50 points de fondamental + 50 points de technique (Elliott, structure,
+Fibonacci, figure, RSI, MACD, CCI). Sans fondamental, le technique est
+renormalisé à 100 points. Les bonus Elliott ne s'appliquent que sur un
+comptage manuel. Une note ≥ 80 exige un AV Achat fort et une confirmation.
+Les couleurs découlent de la note affichée.
 """
 from __future__ import annotations
 import sys
@@ -30,4 +30,4 @@ NOTE_CYAN = float(load_regles()['cyan']['note_min'])
 W_AV = float(_r.get('poids_technique', _r.get('poids_timing', 0.5)))
 W_FOND = float(_r.get('poids_fondamental', 0.5))
 FOND_SEUIL = float(_r.get('fond_seuil', 40))
-FOND_PEN_MAX = float(_r.get('fond_pen_max', 2))
+FOND_PEN_MAX = float(_r.get('fond_pen_max', 20))

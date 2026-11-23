@@ -283,7 +283,7 @@ function cxFichesHTML(){
      <p><b>Sentiment Peur / Euphorie (0-100).</b> ${apexPlain(F.method_sent)}</p>
      <p><b>Achat / Vente (−100 à +100).</b> ${apexPlain(F.method_av)}</p>
      <p>Le S&amp;P 500 sert de référence pour la force relative, comme sur l'onglet Actions. MSTR n'est pas du bitcoin au comptant. Calcul reproductible avec <code>src/build_crypto_fiches.py</code>.</p>
-     <p><b>Note APEX /10 et liquidité.</b> Pour les cryptoactifs, la part fondamentale (40 %) est remplacée par un score de liquidité 0–100, lu sur les cartes CoinAnk de liquidités accumulées non encore liquidées : plus au-dessus du prix = achat, plus en dessous = vente. La carte 1 an pèse 70 %, la carte 1 mois 30 %. Les plafonds et bonus Elliott restent les mêmes. MSTR, et tout actif sans carte saisie (ex. SOL tant qu'une capture n'est pas fournie), restent notés sur le timing seul. Source et formule : <code>ressources/criteres_apex_2026-11-18.md</code> § g et <code>src/liquidite_crypto.py</code>.</p>
+     <p><b>Note APEX /100 et liquidité.</b> Pour les cryptoactifs, la part fondamentale (50 %) est remplacée par un score de liquidité 0–100, lu sur les cartes CoinAnk de liquidités accumulées non encore liquidées : plus au-dessus du prix = achat, plus en dessous = vente. La carte 1 an pèse 70 %, la carte 1 mois 30 %. Les plafonds et bonus Elliott restent les mêmes. MSTR, et tout actif sans carte saisie (ex. SOL tant qu'une capture n'est pas fournie), restent notés sur le timing seul. Source et formule : <code>ressources/criteres_apex_2026-11-18.md</code> § g et <code>src/liquidite_crypto.py</code>.</p>
    </details>
    <div class="src">Sources : ${lnk('https://www.binance.com/fr/trade/BTC_USDT','Binance (BTC/USDT et ETH/USDT, klines 1w)')} · ${lnk('https://finance.yahoo.com/quote/XRP-USD/history/','Yahoo Finance (XRP-USD, SOL-USD, MSTR et S&P 500)')} · ${lnk('https://coinmetrics.io/community-network-data/','CoinMetrics')} (préfixe de l'historique Fibonacci BTC, ETH et XRP) · ${lnk('https://alternative.me/crypto/fear-and-greed-index/','alternative.me')} (Fear &amp; Greed, contexte) · ${lnk('https://coinank.com/liqHeatMap','CoinAnk Liquidation Heatmap')} (liquidité accumulée, saisie manuelle des captures d'Emmanuel, 23/11/2026). Récupéré le ${(F.retrieved&&F.retrieved.binance_btc||'').replace(' ',' à ')} (heure de Paris).</div></div>`;
 }
@@ -378,7 +378,7 @@ function enFichesHTML(){
   const retD=ret['CL=F']||ret['XDW0.DE']||F.generated||'';
   const a10=F.apex10||((typeof sectionApexAvg==='function'&&(sectionApexAvg('energie')||{}).apex10)||null);
   const apexTag=a10&&a10.display?`<span class="js-apex10" hidden data-display="${a10.display}" data-hex="${a10.hex||''}" data-note="${a10.note}"></span>`:'';
-  const apexVis=a10&&a10.display?` · moyenne <b>${a10.display}/10</b>`:'';
+  const apexVis=a10&&a10.display?` · moyenne <b>${a10.display}/100</b>`:'';
   return `<div class="card no-group no-acc" id="enFiches">${apexTag}<h2>Énergie · notes APEX</h2>
    <div class="desc acc-sum">${groupes.length} sous-sections${apexVis} · ${d?('clôtures hebdomadaires au '+dshort(d)):(dSpan?('clôtures hebdomadaires du '+dSpan+' selon la fiche'):'dates selon la fiche')} · <i>Achat</i> <b>${cnt('Achat')}</b> · <i>Neutre</i> <b>${cnt('Neutre')}</b> · <i>Vente</i> <b>${cnt('Vente')}</b>${nAth?` · <i>⚠ près du record</i> <b>${nAth}</b>`:''}${nNa?` · <i>indisponible</i> <b>${nNa}</b>`:''}${nRep?` · <i>repères de marché</i> <b>${nRep}</b>`:''}${F.av&&F.av.score!=null?` · signal XDW0 <b>${sign(F.av.score,0)} ${F.av.label||''}</b>`:''}</div>
    <div class="sr-mention"><span class="sr-date">Bougies hebdomadaires clôturées uniquement${d?' · au '+dshort(d):''}</span></div>
@@ -386,7 +386,7 @@ function enFichesHTML(){
    <details class="ind-meth"><summary>Méthode et pondérations</summary>
      <p><b>Sentiment Peur / Euphorie (0-100).</b> ${apexPlain(F.method_sent)}</p>
      <p><b>Achat / Vente (−100 à +100).</b> ${apexPlain(F.method_av)}</p>
-     <p>Le S&amp;P 500 sert de référence pour la force relative, comme sur l'onglet Actions. Chaque actif achetable au comptant (hors repères de marché) reçoit une note APEX /10, avec la même méthode et les mêmes règles Elliott (plafond zone rouge, bonus zone verte) que sur les autres onglets. Les listes sont triées par note. Le bandeau de l'onglet est la moyenne de ces notes, arrondie au demi-point. Les ETF ou ETP adossés à des contrats à terme (UNG, USO, BNO, UGA, KRBN) ne sont pas notés. Le gaz est suivi par l'ETP BNQ9 (BNPP Natural Gas ETC, ISIN DE000PB6GAS5), affiché comme repère de marché sans note : il est adossé à des contrats à terme, avec un coût de roll en détention longue, et très volatil. Les contrats à terme (WTI, Brent, fioul, essence) restent des repères de marché sans note. Le charbon est suivi par l'action Peabody Energy (BTU), proxy clairement identifié. Calcul reproductible avec <code>src/build_energie.py</code> et <code>src/build_apex10.py</code>.</p>
+     <p>Le S&amp;P 500 sert de référence pour la force relative, comme sur l'onglet Actions. Chaque actif achetable au comptant (hors repères de marché) reçoit une note APEX /100, avec la même méthode et les mêmes règles Elliott (plafond zone rouge, bonus zone verte) que sur les autres onglets. Les listes sont triées par note. Le bandeau de l'onglet est la moyenne de ces notes, arrondie au point. Les ETF ou ETP adossés à des contrats à terme (UNG, USO, BNO, UGA, KRBN) ne sont pas notés. Le gaz est suivi par l'ETP BNQ9 (BNPP Natural Gas ETC, ISIN DE000PB6GAS5), affiché comme repère de marché sans note : il est adossé à des contrats à terme, avec un coût de roll en détention longue, et très volatil. Les contrats à terme (WTI, Brent, fioul, essence) restent des repères de marché sans note. Le charbon est suivi par l'action Peabody Energy (BTU), proxy clairement identifié. Calcul reproductible avec <code>src/build_energie.py</code> et <code>src/build_apex10.py</code>.</p>
    </details>
    <div class="src">Sources : ${lnk('https://finance.yahoo.com/','Yahoo Finance')} (actions et ETF UCITS au comptant ; ETP gaz BNQ9.DE et contrats à terme continus CL=F, BZ=F, HO=F, RB=F en repères ; S&amp;P 500 pour la force relative). Récupéré le ${(retD||'').replace(' ',' à ')} (heure de Paris).</div></div>`;
 }
@@ -424,7 +424,7 @@ function fxSigHTML(av,apex){
   const a=apex||(av&&av.apex10)||null; /* t320u : pas de recalcul JS */
   if(a&&a.note!=null){
     const col=(typeof apex10Col==='function')?apex10Col(a):((typeof gcol==='function')?gcol(a.pos):'#e6c27a');
-    return `<span class="home-sig apex10"><b style="color:${col}">${a.display}</b><small style="color:${col}">/10</small></span>`;
+    return `<span class="home-sig apex10"><b style="color:${col}">${a.display}</b><small style="color:${col}">/100</small></span>`;
   }
   if(!av||av.score==null||av.score==='') return `<span class="home-sig"><b>–</b></span>`;
   const col=(typeof avCol==='function')?avCol(av.score):'#e6c27a';
