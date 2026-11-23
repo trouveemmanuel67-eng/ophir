@@ -66,3 +66,44 @@ def test_garde_fou_ouvre_la_page():
     src = (ROOT / 'scripts' / 'garde_fou_site.py').read_text(encoding='utf-8')
     assert 'CHECK_REGLES_OPEN_JS' in src
     assert 'page RÈGLES' in src
+
+
+def test_apex_achat_v2_rsi_seulement(regles):
+    v = regles['apex_achat_v2']
+    assert v.get('utilise_par_le_calcul') is False
+    assert v.get('affichage_seulement') is True
+    assert 'accumulation' in (v.get('intro') or '').lower() or 'accumulation' in (v.get('titre') or '').lower()
+    criteres = v.get('criteres') or []
+    assert [c['id'] for c in criteres] == ['rsi_14_hebdo']
+    rsi = criteres[0]
+    assert rsi['max'] == 30
+    assert rsi.get('retrait') is False
+    assert rsi.get('cumulables') is True
+    pts = {c['id']: c['points'] for c in rsi['conditions']}
+    assert pts['rsi_sous_40'] == 10
+    assert pts['divergence_rsi_haussiere_hebdo'] == 20
+    # les règles de calcul de la note actuelle restent inchangées
+    assert regles['note_apex']['technique']['rsi'] == 0.05
+    assert regles['note_apex']['note_base'] == 50
+
+
+def test_apex_achat_v2_ignore_par_le_calcul():
+    src = (ROOT / 'apex' / 'score.py').read_text(encoding='utf-8')
+    assert 'apex_achat_v2' not in src
+
+
+def test_js_rsi_affiche_regles_achat_dans_le_tableau():
+    js = (ROOT / 'src' / 'regles.js').read_text(encoding='utf-8')
+    css = (ROOT / 'src' / 'template.html').read_text(encoding='utf-8')
+    assert 'function rgAchatV2Critere' in js
+    assert 'function rgAchatV2Rule' in js
+    assert 'rg-table-actions' in js
+    # pas de tableau séparé ni de bloc replié
+    assert 'rg-table-achat' not in js
+    assert 'function rgAchatV2()' not in js
+    assert 'rg-ref' not in js
+    assert 'rg-table-achat' not in css
+    assert '.rg-ref' not in css
+    # la ligne RSI du tableau principal est remplacée par les règles d'affichage
+    assert 'rgAchatV2Critere(x.id)' in js
+    assert 'rgAchatV2Rule(v2)' in js

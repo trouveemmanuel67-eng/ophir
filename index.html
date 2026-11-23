@@ -8679,7 +8679,7 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
 </script>
 <script id="dataRegles" type="application/json">{
   "version": "2026-11-23",
-  "tache": "t347u",
+  "tache": "t354u",
   "timezone": "Europe/Paris",
   "note_apex": {
     "poids_timing": 0.5,
@@ -10078,12 +10078,41 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
         "classe": "actions"
       }
     ]
+  },
+  "apex_achat_v2": {
+    "titre": "APEX ACHAT — nouvelles règles (en construction)",
+    "intro": "L’indicateur APEX ACHAT se construit par accumulation de points, critère par critère. Ces règles sont en cours de définition : elles ne servent pas encore au calcul des notes.",
+    "utilise_par_le_calcul": false,
+    "reference_titre": "Règles actuelles de la note APEX (référence)",
+    "criteres": [
+      {
+        "id": "rsi_14_hebdo",
+        "label": "RSI 14 hebdo",
+        "max": 30,
+        "retrait": false,
+        "cumulables": true,
+        "precision": "Les deux conditions sont cumulables. Maximum 30 points sur le RSI. Aucun retrait.",
+        "conditions": [
+          {
+            "id": "rsi_sous_40",
+            "label": "RSI < 40",
+            "points": 10
+          },
+          {
+            "id": "divergence_rsi_haussiere_hebdo",
+            "label": "Divergence RSI haussière, hebdomadaire",
+            "points": 20
+          }
+        ]
+      }
+    ],
+    "affichage_seulement": true
   }
 }
 </script>
 <script type="application/json" id="dataMaj">{
-  "at": "2026-11-23T21:04:36.891880+01:00",
-  "label": "23/11/2026 21:04 Europe/Paris",
+  "at": "2026-11-23T21:11:43.011024+01:00",
+  "label": "23/11/2026 21:11 Europe/Paris",
   "date": "2026-11-23",
   "timezone": "Europe/Paris"
 }
@@ -13454,6 +13483,15 @@ function rgRowsActions(cls){
     else if(x.id==='figure') regle=rgFigureRule(x.label);
     else if(x.id==='rsi'||x.id==='macd'||x.id==='cci') regle=rgRuleOf(x.id, x.label);
     else if(x.id==='structure') regle=x.label||'Structure (tendance hebdomadaire, plus hauts et plus bas, position par rapport à l’ATH).';
+    const v2=rgAchatV2Critere(x.id);
+    if(v2){
+      rows.push({
+        id:x.id, kind:'achat', label:v2.label||rgShortLabel(x.id, x.label),
+        poids:null, pts:v2.max, ptsLabel:v2.max!=null?rgNum(v2.max):'—',
+        regle:rgAchatV2Rule(v2)
+      });
+      return;
+    }
     rows.push({
       id:x.id, kind:'tech', label:rgShortLabel(x.id, x.label),
       poids:wNote, pts:rgPtsMax(wNote), ptsLabel:rgFmtPts(rgPtsMax(wNote)),
@@ -13579,6 +13617,33 @@ function rgTable(rows){
       <tbody>${body}</tbody>
     </table>
   </div>`;
+}
+function rgFmtPlus(x){
+  if(x==null||!Number.isFinite(Number(x))) return '—';
+  const n=Number(x);
+  if(n===0) return '0';
+  const s=rgNum(n);
+  return n>0?'+'+s:s;
+}
+function rgAchatV2Critere(id){
+  const v=(RG&&RG.apex_achat_v2)||{};
+  const all=Array.isArray(v.criteres)?v.criteres:[];
+  const aliases={rsi:['rsi','rsi_14_hebdo']};
+  const want=aliases[id]||[id, id+'_14_hebdo'];
+  return all.find(c=>c&&want.includes(c.id))||null;
+}
+function rgAchatV2Rule(c){
+  if(!c) return '';
+  const conds=(c.conditions||[]).map(x=>(x.label||x.id||'')+' : '+rgFmtPlus(x.points)+' points');
+  const bits=[];
+  if(conds.length) bits.push(conds.join(' ; ')+'.');
+  if(c.precision) bits.push(String(c.precision).trim());
+  else{
+    if(c.cumulables) bits.push('Conditions cumulables.');
+    if(c.max!=null) bits.push('Maximum '+rgNum(c.max)+' points.');
+    if(c.retrait===false) bits.push('Aucun retrait.');
+  }
+  return bits.join(' ').replace(/\s+/g,' ').trim();
 }
 function rgPageHTML(){
   if(!RG) return '<p class="rg-p">Règles indisponibles.</p>';

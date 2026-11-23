@@ -371,6 +371,8 @@ CHECK_REGLES_OPEN_JS = (
     "  const vis = !!(page && document.body.classList.contains('rg-on') && !page.hasAttribute('hidden'));"
     "  const covers = !!(r && r.width >= window.innerWidth * 0.95 && r.height >= window.innerHeight * 0.95);"
     "  const h2 = Array.from((page||document).querySelectorAll('h2')).map(el => (el.innerText||'').trim());"
+    "  const rsiRow = table && Array.from(table.rows).find(row => /RSI/.test(row.innerText||''));"
+    "  const rsiText = rsiRow ? ((rsiRow.innerText||'')+'').replace(/\\s+/g,' ') : '';"
     "  return {"
     "    vis, covers,"
     "    w: r && Math.round(r.width), h: r && Math.round(r.height),"
@@ -382,6 +384,11 @@ CHECK_REGLES_OPEN_JS = (
     "    hasBase: /part de 50|Base/.test(text),"
     "    hasActions: h2.some(s => /^Actions$/.test(s)),"
     "    otherH2: h2.filter(s => !/^Actions$/.test(s) && !/Fondamental|Règles communes/.test(s)),"
+    "    noAchatTable: !document.getElementById('rg-table-achat'),"
+    "    noRefFold: !document.getElementById('rg-ref'),"
+    "    rsiText,"
+    "    rsiNew: /\\+10/.test(rsiText) && /\\+20/.test(rsiText) && /\\b30\\b/.test(rsiText),"
+    "    rsiOldGone: !(/±\\s*3[,.]75/.test(rsiText) || /clip\\s*\\(/.test(rsiText) || /5\\s*%/.test(rsiText)),"
     "    hash: location.hash"
     "  };"
     "})()"
@@ -550,6 +557,19 @@ def check_headless(root=ROOT):
         if not regles_open.get('hasActions') or not regles_open.get('hasBase'):
             _fail(
                 "page RÈGLES : le tableau Actions (base 50) est incomplet "
+                f"({regles_open!r})."
+            )
+            raise SystemExit(1)
+        if not regles_open.get('rsiNew') or not regles_open.get('rsiOldGone'):
+            _fail(
+                "page RÈGLES : la ligne RSI doit afficher +10 / +20 / max 30, "
+                "sans poids 5 %, ±3,75 ni formule clip "
+                f"({regles_open.get('rsiText')!r})."
+            )
+            raise SystemExit(1)
+        if not regles_open.get('noAchatTable') or not regles_open.get('noRefFold'):
+            _fail(
+                "page RÈGLES : pas de tableau APEX ACHAT séparé ni de bloc replié "
                 f"({regles_open!r})."
             )
             raise SystemExit(1)

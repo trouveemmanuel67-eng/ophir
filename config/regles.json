@@ -1,6 +1,6 @@
 {
   "version": "2026-11-23",
-  "tache": "t347u",
+  "tache": "t354u",
   "timezone": "Europe/Paris",
   "note_apex": {
     "poids_timing": 0.5,
@@ -1399,5 +1399,34 @@
         "classe": "actions"
       }
     ]
+  },
+  "apex_achat_v2": {
+    "titre": "APEX ACHAT — nouvelles règles (en construction)",
+    "intro": "L’indicateur APEX ACHAT se construit par accumulation de points, critère par critère. Ces règles sont en cours de définition : elles ne servent pas encore au calcul des notes.",
+    "utilise_par_le_calcul": false,
+    "reference_titre": "Règles actuelles de la note APEX (référence)",
+    "criteres": [
+      {
+        "id": "rsi_14_hebdo",
+        "label": "RSI 14 hebdo",
+        "max": 30,
+        "retrait": false,
+        "cumulables": true,
+        "precision": "Les deux conditions sont cumulables. Maximum 30 points sur le RSI. Aucun retrait.",
+        "conditions": [
+          {
+            "id": "rsi_sous_40",
+            "label": "RSI < 40",
+            "points": 10
+          },
+          {
+            "id": "divergence_rsi_haussiere_hebdo",
+            "label": "Divergence RSI haussière, hebdomadaire",
+            "points": 20
+          }
+        ]
+      }
+    ],
+    "affichage_seulement": true
   }
 }

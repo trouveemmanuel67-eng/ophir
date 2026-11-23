@@ -183,6 +183,15 @@ function rgRowsActions(cls){
     else if(x.id==='figure') regle=rgFigureRule(x.label);
     else if(x.id==='rsi'||x.id==='macd'||x.id==='cci') regle=rgRuleOf(x.id, x.label);
     else if(x.id==='structure') regle=x.label||'Structure (tendance hebdomadaire, plus hauts et plus bas, position par rapport à l’ATH).';
+    const v2=rgAchatV2Critere(x.id);
+    if(v2){
+      rows.push({
+        id:x.id, kind:'achat', label:v2.label||rgShortLabel(x.id, x.label),
+        poids:null, pts:v2.max, ptsLabel:v2.max!=null?rgNum(v2.max):'—',
+        regle:rgAchatV2Rule(v2)
+      });
+      return;
+    }
     rows.push({
       id:x.id, kind:'tech', label:rgShortLabel(x.id, x.label),
       poids:wNote, pts:rgPtsMax(wNote), ptsLabel:rgFmtPts(rgPtsMax(wNote)),
@@ -308,6 +317,33 @@ function rgTable(rows){
       <tbody>${body}</tbody>
     </table>
   </div>`;
+}
+function rgFmtPlus(x){
+  if(x==null||!Number.isFinite(Number(x))) return '—';
+  const n=Number(x);
+  if(n===0) return '0';
+  const s=rgNum(n);
+  return n>0?'+'+s:s;
+}
+function rgAchatV2Critere(id){
+  const v=(RG&&RG.apex_achat_v2)||{};
+  const all=Array.isArray(v.criteres)?v.criteres:[];
+  const aliases={rsi:['rsi','rsi_14_hebdo']};
+  const want=aliases[id]||[id, id+'_14_hebdo'];
+  return all.find(c=>c&&want.includes(c.id))||null;
+}
+function rgAchatV2Rule(c){
+  if(!c) return '';
+  const conds=(c.conditions||[]).map(x=>(x.label||x.id||'')+' : '+rgFmtPlus(x.points)+' points');
+  const bits=[];
+  if(conds.length) bits.push(conds.join(' ; ')+'.');
+  if(c.precision) bits.push(String(c.precision).trim());
+  else{
+    if(c.cumulables) bits.push('Conditions cumulables.');
+    if(c.max!=null) bits.push('Maximum '+rgNum(c.max)+' points.');
+    if(c.retrait===false) bits.push('Aucun retrait.');
+  }
+  return bits.join(' ').replace(/\s+/g,' ').trim();
 }
 function rgPageHTML(){
   if(!RG) return '<p class="rg-p">Règles indisponibles.</p>';
