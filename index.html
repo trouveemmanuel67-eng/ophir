@@ -52,21 +52,21 @@ nav a{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;color:#fff
 }
 @media(min-width:601px){
   #hh .hh-top{min-height:88px}
-  #hh .hh-nav{position:absolute;left:50%;transform:translateX(-50%);align-items:center;z-index:1;flex:none;min-width:0;max-width:calc(100% - 240px)}
+  #hh .hh-nav{position:absolute;left:50%;transform:translateX(-50%);align-items:center;z-index:1;flex:none;min-width:0;max-width:calc(100% - 280px)}
   nav{justify-content:center}
 }
 @media(min-width:900px){
   #hh .brand{height:116px}
   #hh .hh-top{min-height:124px}
   #hh .brand-sub{font-size:11px;letter-spacing:.16em}
-  #hh .hh-nav{max-width:calc(100% - 260px)}
+  #hh .hh-nav{max-width:calc(100% - 300px)}
   nav{gap:6px}
   nav a{padding:6px 11px;font-size:13.5px}
 }
 @media(min-width:1100px){
   #hh .brand{height:118px}
   /* logo à gauche, bouton Mes positions → à droite, menu sur une seule ligne au centre */
-  #hh .hh-nav{max-width:calc(100% - 230px - 150px)}
+  #hh .hh-nav{max-width:calc(100% - 230px - 180px)}
   nav{flex-wrap:nowrap;gap:6px}
   nav a{padding:5px 8px;font-size:12.5px}
 }
@@ -485,6 +485,33 @@ body{display:flex;flex-direction:column;min-height:100vh}
 }
 
 
+
+/* ===== TEMPLATE TRADE (haut à droite, hors menu) ===== */
+#hh,.hh-top{overflow:visible}#tt-wrap{position:absolute;top:50%;right:0;transform:translateY(-50%);z-index:45;flex:none}
+.tt-btn{appearance:none;-webkit-appearance:none;display:inline-flex;align-items:center;margin:0;padding:6px 12px;font-family:inherit;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#e6c27a;background:rgba(230,194,122,.10);border:1px solid rgba(230,194,122,.55);border-radius:999px;cursor:pointer;white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,.25)}
+.tt-btn:hover,.tt-wrap.is-open .tt-btn{background:rgba(230,194,122,.18);box-shadow:0 0 0 1px rgba(230,194,122,.45),0 0 16px rgba(230,194,122,.25)}
+.tt-btn:focus-visible{outline:1px solid rgba(230,194,122,.8);outline-offset:2px}
+.tt-panel{display:none;position:absolute;top:calc(100% + 10px);right:0;width:min(280px,calc(100vw - 32px));margin:0;padding:12px 14px;z-index:46}
+.tt-wrap.is-open .tt-panel{display:block !important}
+.tt-table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.tt-table th,.tt-table td{padding:7px 4px;border-bottom:1px solid var(--soft);text-align:right;font-size:14px}
+.tt-table thead th{text-align:left;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);font-weight:650;padding-top:0}
+.tt-table thead th:last-child{text-align:right}
+.tt-table tbody th{text-align:left;font-weight:700}
+.tt-table tbody td{font-weight:700;color:#fff;white-space:nowrap}
+.tt-table tbody tr:last-child th,.tt-table tbody tr:last-child td{border-bottom:0;padding-bottom:2px}
+.tt-note{font-size:18px;font-weight:800;letter-spacing:-.02em}
+.tt-note small{font-size:11px;font-weight:700;margin-left:2px;opacity:.9}
+@media(max-width:600px){
+  #tt-wrap{position:absolute;top:10px;right:0;transform:none}
+  .tt-btn{padding:5px 10px;font-size:10px}
+}
+@media(min-width:1100px){
+  #tt-wrap{right:0}
+  /* Décale le tableau à gauche de la colonne Mes positions (rail 360px + gouttière) */
+  .tt-panel{right:364px;left:auto;top:calc(100% + 8px);margin-right:0}
+}
+
 /* ===== Mes positions compact ===== */
 #mesPosCard{padding:10px 10px 8px}
 #mesPosCard .desc,#mesPosCard>.note,.pos-fx{display:none}
@@ -609,6 +636,7 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
       <nav id="nav"></nav>
       <div class="acc-tools"><button id="accAll" type="button" onclick="accAll(this.dataset.open==='1')">▾ Tout déplier</button></div>
     </div>
+    <div id="tt-wrap"></div>
   </div>
 </header>
 <div class="page">
@@ -8488,6 +8516,38 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
   ]
 }
 </script>
+<script id="data18" type="application/json">{
+  "titre": "TEMPLATE TRADE",
+  "devise": "USD",
+  "unite": "$",
+  "lignes": [
+    {
+      "note": 7.5,
+      "montant": 500
+    },
+    {
+      "note": 8.0,
+      "montant": 600
+    },
+    {
+      "note": 8.5,
+      "montant": 700
+    },
+    {
+      "note": 9.0,
+      "montant": 800
+    },
+    {
+      "note": 9.5,
+      "montant": 900
+    },
+    {
+      "note": 10.0,
+      "montant": 1000
+    }
+  ]
+}
+</script>
 <script>
 "use strict";
 const DATA = JSON.parse(document.getElementById('data').textContent);
@@ -11115,7 +11175,80 @@ function renderPlacements(el){
   </div>`;
 }
 
+/* ===== TEMPLATE TRADE : grilles de taille de position selon la note APEX ===== */
+const TT=(()=>{try{return JSON.parse(document.getElementById('data18').textContent);}catch(e){return {lignes:[]};}})();
+
+function ttNoteTxt(n){
+  const x=Number(n);
+  const d=Number.isInteger(x)?0:1;
+  return x.toLocaleString('fr-FR',{minimumFractionDigits:d,maximumFractionDigits:1});
+}
+function ttMontantTxt(v, unite){
+  const n=Number(v);
+  if(!Number.isFinite(n)) return '—';
+  const s=Math.round(n).toLocaleString('fr-FR');
+  const u=unite||TT.unite||'$';
+  return s+'\u00a0'+u;
+}
+function ttColor(note){
+  const n=Number(note);
+  if(!Number.isFinite(n)) return '#e6c27a';
+  if(typeof gcol==='function') return gcol(Math.max(0, Math.min(100, n*10)));
+  if(typeof apex10Col==='function') return apex10Col({note:n,pos:n*10});
+  return '#e6c27a';
+}
+function ttIsOpen(){
+  const w=document.getElementById('tt-wrap');
+  return !!(w&&w.classList.contains('is-open'));
+}
+function ttSetOpen(on){
+  const w=document.getElementById('tt-wrap');
+  const b=document.getElementById('ttBtn');
+  const pan=document.getElementById('ttPanel');
+  if(!w||!b) return;
+  w.classList.toggle('is-open',!!on);
+  b.setAttribute('aria-expanded', on?'true':'false');
+  if(pan) pan.style.display=on?'block':'none';
+}
+function ttRender(){
+  const host=document.getElementById('tt-wrap');
+  if(!host) return;
+  const lignes=Array.isArray(TT.lignes)?TT.lignes:[];
+  const titre=TT.titre||'TEMPLATE TRADE';
+  const unite=TT.unite||'$';
+  const rows=lignes.map(l=>{
+    const col=ttColor(l.note);
+    return `<tr>
+      <th scope="row"><span class="tt-note" style="color:${col};text-shadow:0 0 14px ${col}80">${ttNoteTxt(l.note)}<small>/10</small></span></th>
+      <td>${ttMontantTxt(l.montant, unite)}</td>
+    </tr>`;
+  }).join('');
+  host.innerHTML=`<button type="button" id="ttBtn" class="tt-btn" aria-expanded="false" aria-controls="ttPanel">${titre}</button>
+    <div class="tt-panel card no-group no-acc" id="ttPanel" role="dialog" aria-label="${titre.replace(/"/g,'&quot;')}">
+      <table class="tt-table">
+        <thead><tr><th>Note APEX</th><th>Montant</th></tr></thead>
+        <tbody>${rows||'<tr><td colspan="2">—</td></tr>'}</tbody>
+      </table>
+    </div>`;
+  const btn=document.getElementById('ttBtn');
+  if(btn) btn.addEventListener('click',e=>{e.stopPropagation();ttSetOpen(!ttIsOpen());});
+}
+function ttInit(){
+  ttRender();
+  if(document.documentElement._ttDocBound) return;
+  document.documentElement._ttDocBound=true;
+  document.addEventListener('pointerdown',e=>{
+    if(!ttIsOpen()) return;
+    const w=document.getElementById('tt-wrap');
+    if(w&&!w.contains(e.target)) ttSetOpen(false);
+  });
+  document.addEventListener('keydown',e=>{
+    if(e.key==='Escape'&&ttIsOpen()) ttSetOpen(false);
+  });
+}
+
 buildTabs();
+if(typeof ttInit==='function') ttInit();
 if(typeof posInit==='function') posInit();
 </script>
 </body>
