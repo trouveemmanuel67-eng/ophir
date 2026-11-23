@@ -1,6 +1,6 @@
 {
   "version": "2026-11-23",
-  "tache": "t357u",
+  "tache": "t359u",
   "timezone": "Europe/Paris",
   "note_apex": {
     "poids_timing": 0.5,
@@ -1447,6 +1447,9 @@
         ]
       }
     ],
-    "affichage_seulement": true
+    "affichage_seulement": true,
+    "masquer_criteres": [
+      "structure"
+    ]
   }
 }

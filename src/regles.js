@@ -173,7 +173,9 @@ function rgRowsActions(cls){
       regle:regle
     });
   }
+  const masquer=(((RG&&RG.apex_achat_v2)||{}).masquer_criteres)||[];
   (tech.fixes||[]).forEach(x=>{
+    if(masquer.indexOf(x.id)>=0) return;
     const p=Number(x.poids);
     if(!Number.isFinite(p)) return;
     const wNote=p*Number(wTech||0);

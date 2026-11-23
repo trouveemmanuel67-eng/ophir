@@ -8679,7 +8679,7 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
 </script>
 <script id="dataRegles" type="application/json">{
   "version": "2026-11-23",
-  "tache": "t357u",
+  "tache": "t359u",
   "timezone": "Europe/Paris",
   "note_apex": {
     "poids_timing": 0.5,
@@ -10126,13 +10126,16 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
         ]
       }
     ],
-    "affichage_seulement": true
+    "affichage_seulement": true,
+    "masquer_criteres": [
+      "structure"
+    ]
   }
 }
 </script>
 <script type="application/json" id="dataMaj">{
-  "at": "2026-11-23T21:13:27.016520+01:00",
-  "label": "23/11/2026 21:13 Europe/Paris",
+  "at": "2026-11-23T21:16:10.572491+01:00",
+  "label": "23/11/2026 21:16 Europe/Paris",
   "date": "2026-11-23",
   "timezone": "Europe/Paris"
 }
@@ -13493,7 +13496,9 @@ function rgRowsActions(cls){
       regle:regle
     });
   }
+  const masquer=(((RG&&RG.apex_achat_v2)||{}).masquer_criteres)||[];
   (tech.fixes||[]).forEach(x=>{
+    if(masquer.indexOf(x.id)>=0) return;
     const p=Number(x.poids);
     if(!Number.isFinite(p)) return;
     const wNote=p*Number(wTech||0);

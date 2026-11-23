@@ -394,6 +394,7 @@ CHECK_REGLES_OPEN_JS = (
     "    macdText,"
     "    rsiOldGone: !(/±\\s*3[,.]75/.test(rsiText) || /clip\\s*\\(/.test(rsiText) || /5\\s*%/.test(rsiText)),"
     "    macdOldGone: !(/±\\s*3[,.]75/.test(macdText) || /clip\\s*\\(/.test(macdText) || /5\\s*%/.test(macdText)),"
+    "    noStructure: !table || !Array.from(table.rows).some(row => /^\\s*Structure\\b/i.test((row.querySelector('th,td')||{}).innerText||'')),"
     "    hash: location.hash"
     "  };"
     "})()"
@@ -577,6 +578,12 @@ def check_headless(root=ROOT):
                 "page RÈGLES : la ligne MACD doit afficher +10 / +20 / max 30, "
                 "sans poids 5 %, ±3,75 ni formule clip "
                 f"({regles_open.get('macdText')!r})."
+            )
+            raise SystemExit(1)
+        if not regles_open.get('noStructure'):
+            _fail(
+                "page RÈGLES : la ligne Structure doit être retirée du tableau Actions "
+                f"({regles_open!r})."
             )
             raise SystemExit(1)
         if not regles_open.get('noAchatTable') or not regles_open.get('noRefFold'):

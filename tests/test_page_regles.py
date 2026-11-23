@@ -112,3 +112,11 @@ def test_js_rsi_affiche_regles_achat_dans_le_tableau():
     # la ligne RSI du tableau principal est remplacée par les règles d'affichage
     assert 'rgAchatV2Critere(x.id)' in js
     assert 'rgAchatV2Rule(v2)' in js
+
+def test_structure_masquee_affichage_seulement(regles):
+    assert 'structure' in (regles['apex_achat_v2'].get('masquer_criteres') or [])
+    # le calcul conserve le poids Structure
+    assert regles['note_apex']['technique']['structure'] == 0.10
+    js = (ROOT / 'src' / 'regles.js').read_text(encoding='utf-8')
+    assert 'masquer_criteres' in js
+    assert 'masquer.indexOf(x.id)>=0' in js
