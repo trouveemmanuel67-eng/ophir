@@ -835,7 +835,6 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
 .apex10-pilot small{font-size:11px;margin-left:2px;opacity:.85}
 .pilot-brk{margin:4px 0 0;font-size:11.5px;line-height:1.35;color:#c8c4bc;white-space:normal}
 .db-pilot .db-g-av,.db-pilot .db-g-s{position:relative;margin:0}
-.db-pilot-bar{background:linear-gradient(90deg,#ff2d2d 0%,#ff2d2d 12.5%,#ffd400 37.5%,#22c55e 62.5%,#00e5ff 87.5%,#00e5ff 100%)!important}
 .db-srow{display:flex;align-items:center;gap:10px 12px;margin-top:2px;min-width:0}
 .db-srow-bar{flex:1 1 auto;min-width:8em}
 .db-srow-meta{display:flex;align-items:center;gap:8px;flex:0 1 auto;min-width:0;font-size:11.5px;line-height:1.3;color:#c8c4bc;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -15717,15 +15716,17 @@ function dualBarPilot(rec, compact){
     const tip=`Plage 1 an : min ${fmt(fg.min[1],0)} (${dshort(fg.min[0])}) → max ${fmt(fg.max[1],0)} (${dshort(fg.max[0])})`;
     rng=`<div class="db-srange" style="left:${left}%;width:${width}%" title="${tip}"></div>`;
   }
+  /* Même dégradé et mêmes traits de repère que les sections non pilotes (.ind-bar + .av-tick à 20/40/60/80 %). */
+  const bandTicks=[20,40,60,80].map(p=>`<i class="av-tick" style="left:${p}%"></i>`).join('');
   const bar=`<div class="db db-pilot ${compact?'db-sm':''}" role="img" aria-label="Score APEX ${total==null?'n.d.':total} sur ${mn} à ${mx} ; Fear & Greed CNN ${Number.isFinite(sv)?fmt(sv,1):'–'} (${sl}) sur 0 à 100">
    <div class="db-tk db-tk1">${tickHTML}</div>
-   <div class="db-g db-g-av"><div class="ind-bar db-pilot-bar"></div>
+   <div class="db-g db-g-av"><div class="ind-bar"></div>${bandTicks}
     ${total!=null?`<div class="db-cur db-a" style="left:${ap}%;color:${hex}" data-p="${ap.toFixed(1)}" title="Score APEX ${total} / ${mx}">AV</div>`:''}
    </div>
    <div class="db-srow">
     <div class="db-srow-bar">
      <div class="db-tk db-tk1 db-tk-s">${sTickHTML}</div>
-     <div class="db-g db-g-s"><div class="ind-bar ind-bar-mir"></div>${rng}
+     <div class="db-g db-g-s"><div class="ind-bar"></div>${bandTicks}${rng}
       ${sp!=null?`<div class="db-cur db-s" style="left:${sp}%;color:${scol}" data-p="${sp}" title="S = CNN Fear & Greed Index ${fmt(sv,1)} · ${sl}">S</div>`:''}
      </div>
     </div>

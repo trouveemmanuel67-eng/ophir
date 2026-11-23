@@ -354,15 +354,17 @@ function dualBarPilot(rec, compact){
     const tip=`Plage 1 an : min ${fmt(fg.min[1],0)} (${dshort(fg.min[0])}) → max ${fmt(fg.max[1],0)} (${dshort(fg.max[0])})`;
     rng=`<div class="db-srange" style="left:${left}%;width:${width}%" title="${tip}"></div>`;
   }
+  /* Même dégradé et mêmes traits de repère que les sections non pilotes (.ind-bar + .av-tick à 20/40/60/80 %). */
+  const bandTicks=[20,40,60,80].map(p=>`<i class="av-tick" style="left:${p}%"></i>`).join('');
   const bar=`<div class="db db-pilot ${compact?'db-sm':''}" role="img" aria-label="Score APEX ${total==null?'n.d.':total} sur ${mn} à ${mx} ; Fear & Greed CNN ${Number.isFinite(sv)?fmt(sv,1):'–'} (${sl}) sur 0 à 100">
    <div class="db-tk db-tk1">${tickHTML}</div>
-   <div class="db-g db-g-av"><div class="ind-bar db-pilot-bar"></div>
+   <div class="db-g db-g-av"><div class="ind-bar"></div>${bandTicks}
     ${total!=null?`<div class="db-cur db-a" style="left:${ap}%;color:${hex}" data-p="${ap.toFixed(1)}" title="Score APEX ${total} / ${mx}">AV</div>`:''}
    </div>
    <div class="db-srow">
     <div class="db-srow-bar">
      <div class="db-tk db-tk1 db-tk-s">${sTickHTML}</div>
-     <div class="db-g db-g-s"><div class="ind-bar ind-bar-mir"></div>${rng}
+     <div class="db-g db-g-s"><div class="ind-bar"></div>${bandTicks}${rng}
       ${sp!=null?`<div class="db-cur db-s" style="left:${sp}%;color:${scol}" data-p="${sp}" title="S = CNN Fear & Greed Index ${fmt(sv,1)} · ${sl}">S</div>`:''}
      </div>
     </div>
