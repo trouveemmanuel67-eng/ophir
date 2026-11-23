@@ -10,10 +10,8 @@ function pComps(s){
 }
 function pList(C,s){
   const f=s.fond;if(!f)return '';
-  const rows=apexSortByNote(f.top).map((r,k)=>`<li${r.tv?` data-pos-tv="${r.tv}"`:''}><div class="fl-h"><b>${k+1}. ${r.name}</b>${fondQualite(r)}</div>
-     ${tvTag(r.tv)}${typeof posBadges==='function'?posBadges(r.tv):''}${typeof dispoBadge==='function'?dispoBadge(r.tv):''}${listApexBar(r)}<div class="fl-m">${fondChips(r,f.profile)}</div>
-     <div class="fl-sub">santé ${fmt(r.health,0)} · croissance ${fmt(r.growth,0)} · ${r.analysts} analystes · ${r.industry||''} · données au ${dshort(r.retrieved.slice(0,10))}</div>
-     <div class="fl-t">${fondTiming(r.timing)}</div>${r.note_revolut?`<div class="fl-sub">${r.note_revolut}</div>`:''}</li>`).join('');
+  const rows=apexSortByNote(f.top).map((r,k)=>`<li${r.tv?` data-pos-tv="${r.tv}"`:''}><div class="fl-h"><b>${k+1}. ${r.name}</b></div>
+     ${tvTag(r.tv)}${typeof posBadges==='function'?posBadges(r.tv):''}${typeof dispoBadge==='function'?dispoBadge(r.tv):''}${listApexBar(r)}${r.note_revolut?`<div class="fl-sub">${r.note_revolut}</div>`:''}</li>`).join('');
   const head=s.kind==='basket'
     ?`<div class="fl-etf"><span class="fl-k">Instrument</span><b>Panier APEX (non négociable)</b><span class="sec-d" style="text-align:left">${s.ex_ref?`${s.ex_ref} (${C.nom}) n'est pas disponible chez Revolut : lecture du secteur via ce panier`:`Aucun ETF sectoriel ${C.nom} coté n'a été retenu`} ; composition : ${s.basket.map(b=>`${b.name} ${fmt(b.w,1)} %`).join(' · ')}.</span></div>`
     :`<div class="fl-etf"><span class="fl-k">${s.kind==='index'?'Indice sectoriel':'ETF principal'}</span><b>${s.etf}</b>${tvTag(s.tv)}</div>`;

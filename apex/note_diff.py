@@ -16,10 +16,12 @@ MAX_ABS = 1.5
 MAX_N_ABS_HALF = 25  # trop de mouvements ≥ 0,5 = suspect hors clôture hebdo
 
 
-def _walk(o, out, path=''):
+def _walk(o, out, parent_key=''):
     if isinstance(o, dict):
         a = o.get('apex10') or o.get('apex10_instrument')
-        tv = o.get('tv') or o.get('fiche_tv') or o.get('symbol') or o.get('ticker')
+        tv = o.get('tv') or o.get('fiche_tv') or o.get('symbol') or o.get('ticker') or o.get('key') or o.get('sym')
+        if a and isinstance(a, dict) and not tv and parent_key and (':' in str(parent_key) or str(parent_key).isupper()):
+            tv = parent_key
         if a and isinstance(a, dict) and tv:
             note = a.get('note')
             out.append({
@@ -27,14 +29,15 @@ def _walk(o, out, path=''):
                 'nom': o.get('nom') or o.get('name') or o.get('titre') or '',
                 'note': note,
                 'display': a.get('display'),
+                'flag': a.get('flag'),
             })
         for k, v in o.items():
             if k in ('series', 'historique', 'ohlc', 'components', 'charts'):
                 continue
-            _walk(v, out, path)
+            _walk(v, out, k)
     elif isinstance(o, list):
         for v in o:
-            _walk(v, out, path)
+            _walk(v, out, parent_key)
 
 
 def collect(data_dir: Path | None = None) -> dict:
@@ -78,6 +81,30 @@ def restore_files(src: Path, data_dir: Path | None = None) -> None:
         print('note_diff: restauré', dest)
 
 
+def _bande(note):
+    if note is None:
+        return None
+    try:
+        from apex.score import bande_couleur
+        return bande_couleur(note)
+    except Exception:
+        n = float(note)
+        if n <= 1.5: return 'violet'
+        if n <= 3.5: return 'rouge'
+        if n <= 5.5: return 'jaune'
+        if n <= 7.5: return 'vert'
+        return 'cyan'
+
+
+def _count_bandes(by):
+    out = {}
+    for v in by.values():
+        b = _bande(v.get('note'))
+        if b:
+            out[b] = out.get(b, 0) + 1
+    return out
+
+
 def compare(before: dict, after: dict) -> dict:
     tvs = sorted(set(before) | set(after), key=str)
     changes = []
@@ -107,6 +134,8 @@ def compare(before: dict, after: dict) -> dict:
             'avant': bn,
             'apres': an,
             'delta': round(d, 4),
+            'couleur_avant': _bande(bn),
+            'couleur_apres': _bande(an),
         })
     changes.sort(key=lambda x: (-abs(x['delta']), x['tv']))
     n_big = sum(1 for c in changes if abs(c['delta']) >= MAX_ABS)
@@ -116,6 +145,16 @@ def compare(before: dict, after: dict) -> dict:
         or n_half > MAX_N_ABS_HALF
         or len(disappeared) > 5
     )
+    couleurs_avant = _count_bandes(before)
+    couleurs_apres = _count_bandes(after)
+    changements_couleur = {}
+    for c in changes:
+        a, b_ = c.get('couleur_avant'), c.get('couleur_apres')
+        if a and b_ and a != b_:
+            k = f'{a}→{b_}'
+            changements_couleur[k] = changements_couleur.get(k, 0) + 1
+    # aussi les notes inchangées ne changent pas de bande
+    n_coul = sum(changements_couleur.values())
     return {
         'n_avant': sum(1 for v in before.values() if v.get('note') is not None),
         'n_apres': sum(1 for v in after.values() if v.get('note') is not None),
@@ -130,6 +169,10 @@ def compare(before: dict, after: dict) -> dict:
         'n_delta_ge_1_5': n_big,
         'n_apparus': len(appeared),
         'n_disparus': len(disappeared),
+        'couleurs_avant': couleurs_avant,
+        'couleurs_apres': couleurs_apres,
+        'n_changements_couleur': n_coul,
+        'changements_couleur': changements_couleur,
         'blocking': blocking,
         'seuil_abs': MAX_ABS,
         'changements': changes,
@@ -146,6 +189,7 @@ def write(report: dict, dest: Path | None = None) -> Path:
         'delta>=1,5', report['n_delta_ge_1_5'],
         'apparus', report['n_apparus'],
         'disparus', report['n_disparus'],
+        'couleurs', report.get('changements_couleur'),
         'blocking', report['blocking'],
     )
     for c in report['changements'][:30]:

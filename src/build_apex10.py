@@ -62,14 +62,15 @@ def fond_lookup(idx, *keys):
     return None
 
 
-def attach(obj, av=None, fond=None, elliott=None, divergence=None):
+def attach(obj, av=None, fond=None, elliott=None, divergence=None, classe=None):
     if av is None and obj is not None:
         av = (obj.get('av') or {}).get('score') if isinstance(obj.get('av'), dict) else None
     if elliott is None:
         elliott = ell_of(obj)
     if divergence is None and obj is not None:
         divergence = N.divergence_of(obj)
-    rec = N.compute(av, fond, elliott, divergence=divergence)
+    parts = N.collect_parts(obj) if obj is not None else None
+    rec = N.compute(av, fond, elliott, divergence=divergence, parts=parts, classe=classe)
     if obj is not None:
         obj['apex10'] = rec
     return rec
@@ -194,7 +195,7 @@ def main():
             if s.get('av') is not None and 'av_instrument' not in s:
                 avp = s.get('av') or {}
                 s['av_instrument'] = {k: avp[k] for k in avp if k in ('score', 'label', 'score_raw', 'score_affiche', 'cap_zone')}
-            inst_rec = N.compute((s.get('av_instrument') or s.get('av') or {}).get('score'), fond, s.get('elliott'), divergence=N.divergence_of(s))
+            inst_rec = N.compute((s.get('av_instrument') or s.get('av') or {}).get('score'), fond, s.get('elliott'), divergence=N.divergence_of(s), parts=N.collect_parts(s))
             s['apex10_instrument'] = inst_rec
             notes, avs = [], []
             # L'ETF de section est affiché en tête : il compte dans la moyenne.
@@ -277,7 +278,7 @@ def main():
                     ep = r.get('elliott') or {}
                     if isinstance(ep, dict):
                         r['elliott_panier'] = {k: ep[k] for k in ep if k in ('key', 'phase', 'zone', 'conf', 'texte')}
-                panier_rec = N.compute((r.get('av_panier') or r.get('av') or {}).get('score'), fond, r.get('elliott_panier') or r.get('elliott'), divergence=N.divergence_of(r))
+                panier_rec = N.compute((r.get('av_panier') or r.get('av') or {}).get('score'), fond, r.get('elliott_panier') or r.get('elliott'), divergence=N.divergence_of(r), parts=N.collect_parts(r))
                 r['apex10_panier'] = panier_rec
                 notes, avs = [], []
                 for t in ((r.get('fond') or {}).get('top') or []):
@@ -354,7 +355,7 @@ def main():
             if s.get('av') is not None and 'av_panier' not in s:
                 avp = s.get('av') or {}
                 s['av_panier'] = {k: avp[k] for k in avp if k in ('score', 'label', 'score_raw', 'score_affiche', 'cap_zone')}
-            s['apex10_panier'] = N.compute((s.get('av_panier') or s.get('av') or {}).get('score'), None, s.get('elliott'), divergence=N.divergence_of(s))
+            s['apex10_panier'] = N.compute((s.get('av_panier') or s.get('av') or {}).get('score'), None, s.get('elliott'), divergence=N.divergence_of(s), parts=N.collect_parts(s))
             notes, avs = [], []
             for r in s.get('list') or []:
                 av = (r.get('av') or {}).get('score') if isinstance(r.get('av'), dict) else None
@@ -362,9 +363,9 @@ def main():
                 bar = (AB or {}).get('bars', {}).get(r.get('tv') or r.get('yahoo')) if AB else None
                 if av is None and bar:
                     av = (bar.get('av') or {}).get('score')
-                    r['apex10'] = bar.get('apex10') or N.compute(av, None, bar.get('elliott'), divergence=N.divergence_of(bar))
+                    r['apex10'] = bar.get('apex10') or N.compute(av, None, bar.get('elliott'), divergence=N.divergence_of(bar), parts=N.collect_parts(bar) or N.collect_parts(r))
                 else:
-                    r['apex10'] = N.compute(av, None, ell_of(r) or ell_of(s), divergence=N.divergence_of(r) or N.divergence_of(s))
+                    r['apex10'] = N.compute(av, None, ell_of(r) or ell_of(s), divergence=N.divergence_of(r) or N.divergence_of(s), parts=N.collect_parts(r) or N.collect_parts(s))
                 count(r['apex10'])
                 rec = r.get('apex10') or {}
                 if rec.get('note') is not None:
@@ -433,7 +434,7 @@ def main():
             liq = LQ.for_asset(a)
             a['liquidite'] = liq
             fond = liq.get('score')  # None si pas de carte (SOL, MSTR, saisie manquante)
-            rec = attach(a, (a.get('av') or {}).get('score'), fond, a.get('elliott'))
+            rec = attach(a, (a.get('av') or {}).get('score'), fond, a.get('elliott'), classe='crypto')
             count(rec)
         save('crypto_fiches.json', CF)
         tabs = load('tabs_data.json')

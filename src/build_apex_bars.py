@@ -146,13 +146,19 @@ def compact(r, sent):
                 break
     if div is not None:
         av_out['divergence']=div
-    return {
+    rec = {
         'ok': True,
         'date': r['date'],
         'av': av_out,
         'sent': {'value': sent['value'], 'label': sent['label']},
         'elliott': ell_out,
     }
+    tech = r.get('technique') or (r.get('av') or {}).get('technique')
+    if tech:
+        rec['technique'] = {k: tech.get(k) for k in ('elliott','structure','fibonacci','figure','rsi','macd','cci')}
+        if tech.get('figure_texte'):
+            rec['technique']['figure_texte'] = tech.get('figure_texte')
+    return rec
 
 def score_one(it, bens):
     key = it.get('tv') or it.get('yahoo') or it.get('name')

@@ -1,15 +1,2724 @@
 {
-  "n_avant": 347,
-  "n_apres": 347,
-  "n_identiques": 347,
-  "n_changements": 0,
-  "n_delta_ge_0_5": 0,
-  "n_delta_ge_1_5": 0,
+  "n_avant": 612,
+  "n_apres": 459,
+  "n_identiques": 252,
+  "n_changements": 207,
+  "n_delta_ge_0_5": 207,
+  "n_delta_ge_1_5": 40,
   "n_apparus": 0,
-  "n_disparus": 0,
-  "blocking": false,
+  "n_disparus": 153,
+  "couleurs_avant": {
+    "violet": 17,
+    "jaune": 326,
+    "rouge": 214,
+    "vert": 55
+  },
+  "couleurs_apres": {
+    "rouge": 48,
+    "jaune": 376,
+    "vert": 35
+  },
+  "n_changements_couleur": 145,
+  "changements_couleur": {
+    "violet→jaune": 3,
+    "violet→rouge": 8,
+    "vert→jaune": 17,
+    "rouge→jaune": 103,
+    "jaune→vert": 8,
+    "jaune→rouge": 6
+  },
+  "blocking": true,
   "seuil_abs": 1.5,
-  "changements": [],
+  "changements": [
+    {
+      "tv": "NASDAQ:AEP",
+      "nom": "American Electric Power",
+      "avant": 1.5,
+      "apres": 4.0,
+      "delta": 2.5,
+      "couleur_avant": "violet",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NASDAQ:FANG",
+      "nom": "Diamondback Energy",
+      "avant": 1.0,
+      "apres": 3.5,
+      "delta": 2.5,
+      "couleur_avant": "violet",
+      "couleur_apres": "rouge"
+    },
+    {
+      "tv": "NYSE:ENB",
+      "nom": "Enbridge",
+      "avant": 1.5,
+      "apres": 4.0,
+      "delta": 2.5,
+      "couleur_avant": "violet",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NYSE:OKE",
+      "nom": "ONEOK",
+      "avant": 1.5,
+      "apres": 4.0,
+      "delta": 2.5,
+      "couleur_avant": "violet",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "XETR:XSMI",
+      "nom": "Marché Suisse",
+      "avant": 1.0,
+      "apres": 3.5,
+      "delta": 2.5,
+      "couleur_avant": "violet",
+      "couleur_apres": "rouge"
+    },
+    {
+      "tv": "XETR:XUEM",
+      "nom": "Xtrackers II J.P. Morgan USD Emerging Markets Bond UCITS ETF 2D",
+      "avant": 7.5,
+      "apres": 5.0,
+      "delta": -2.5,
+      "couleur_avant": "vert",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "EURONEXT:CAC",
+      "nom": "Marché France",
+      "avant": 1.5,
+      "apres": 3.5,
+      "delta": 2.0,
+      "couleur_avant": "violet",
+      "couleur_apres": "rouge"
+    },
+    {
+      "tv": "FX:EURAUD",
+      "nom": "Dollar australien",
+      "avant": 2.0,
+      "apres": 4.0,
+      "delta": 2.0,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "FX:EURCHF",
+      "nom": "Franc suisse",
+      "avant": 1.0,
+      "apres": 3.0,
+      "delta": 2.0,
+      "couleur_avant": "violet",
+      "couleur_apres": "rouge"
+    },
+    {
+      "tv": "XETR:2B7S",
+      "nom": "iShares $ Treasury Bond 1-3yr UCITS ETF EUR Hedged (Acc)",
+      "avant": 2.0,
+      "apres": 4.0,
+      "delta": 2.0,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "XETR:4GLD",
+      "nom": "Xetra-Gold",
+      "avant": 4.0,
+      "apres": 6.0,
+      "delta": 2.0,
+      "couleur_avant": "jaune",
+      "couleur_apres": "vert"
+    },
+    {
+      "tv": "XETR:EXHC",
+      "nom": "iShares eb.rexx Government Germany 2.5-5.5yr UCITS ETF (DE)",
+      "avant": 7.5,
+      "apres": 5.5,
+      "delta": -2.0,
+      "couleur_avant": "vert",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "XETR:EXS1",
+      "nom": "Marché Allemagne",
+      "avant": 1.0,
+      "apres": 3.0,
+      "delta": 2.0,
+      "couleur_avant": "violet",
+      "couleur_apres": "rouge"
+    },
+    {
+      "tv": "XETR:FNTN",
+      "nom": "freenet AG",
+      "avant": 7.0,
+      "apres": 5.0,
+      "delta": -2.0,
+      "couleur_avant": "vert",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "XETR:SXR2",
+      "nom": "Marché Canada",
+      "avant": 2.0,
+      "apres": 4.0,
+      "delta": 2.0,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "XETR:UTDI",
+      "nom": "United Internet AG",
+      "avant": 7.0,
+      "apres": 5.0,
+      "delta": -2.0,
+      "couleur_avant": "vert",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "EURONEXT:EMBH",
+      "nom": "BNP Paribas Easy JPM ESG EMBI Global Diversified UCITS ETF EUR Hedged",
+      "avant": 2.5,
+      "apres": 4.0,
+      "delta": 1.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "EURONEXT:GFC",
+      "nom": "Gecina",
+      "avant": 4.5,
+      "apres": 3.0,
+      "delta": -1.5,
+      "couleur_avant": "jaune",
+      "couleur_apres": "rouge"
+    },
+    {
+      "tv": "LSE:PHGP",
+      "nom": "WisdomTree Physical Gold",
+      "avant": 7.0,
+      "apres": 5.5,
+      "delta": -1.5,
+      "couleur_avant": "vert",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "MIL:IG",
+      "nom": "Italgas",
+      "avant": 2.0,
+      "apres": 3.5,
+      "delta": 1.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "rouge"
+    },
+    {
+      "tv": "NASDAQ:DFTX",
+      "nom": "Definium Therapeutics, Inc.",
+      "avant": 5.5,
+      "apres": 4.0,
+      "delta": -1.5,
+      "couleur_avant": "jaune",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NASDAQ:RGLD",
+      "nom": "Royal Gold, Inc.",
+      "avant": 2.0,
+      "apres": 3.5,
+      "delta": 1.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "rouge"
+    },
+    {
+      "tv": "NASDAQ:VMD",
+      "nom": "Viemed Healthcare, Inc.",
+      "avant": 3.5,
+      "apres": 5.0,
+      "delta": 1.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NYSE:DLR",
+      "nom": "",
+      "avant": 2.5,
+      "apres": 4.0,
+      "delta": 1.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NYSE:IRM",
+      "nom": "",
+      "avant": 3.5,
+      "apres": 5.0,
+      "delta": 1.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NYSE:MFC",
+      "nom": "Manulife Financial Corporation",
+      "avant": 2.0,
+      "apres": 3.5,
+      "delta": 1.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "rouge"
+    },
+    {
+      "tv": "NYSE:PBA",
+      "nom": "Pembina Pipeline Corporation",
+      "avant": 2.5,
+      "apres": 4.0,
+      "delta": 1.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NYSE:TRP",
+      "nom": "TC Energy Corporation",
+      "avant": 2.5,
+      "apres": 4.0,
+      "delta": 1.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "SIX:NOVN",
+      "nom": "Novartis AG",
+      "avant": 2.5,
+      "apres": 4.0,
+      "delta": 1.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "SIX:OERL",
+      "nom": "OC Oerlikon Corporation AG",
+      "avant": 6.5,
+      "apres": 5.0,
+      "delta": -1.5,
+      "couleur_avant": "vert",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "SIX:VACN",
+      "nom": "VAT Group AG",
+      "avant": 5.0,
+      "apres": 6.5,
+      "delta": 1.5,
+      "couleur_avant": "jaune",
+      "couleur_apres": "vert"
+    },
+    {
+      "tv": "XETR:8PSC",
+      "nom": "Invesco Physical Palladium ETC",
+      "avant": 2.5,
+      "apres": 4.0,
+      "delta": 1.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "XETR:DTE",
+      "nom": "Deutsche Telekom AG",
+      "avant": 7.5,
+      "apres": 6.0,
+      "delta": -1.5,
+      "couleur_avant": "vert",
+      "couleur_apres": "vert"
+    },
+    {
+      "tv": "XETR:EH1Y",
+      "nom": "iShares Broad € High Yield Corp Bond UCITS ETF EUR (Dist)",
+      "avant": 6.5,
+      "apres": 5.0,
+      "delta": -1.5,
+      "couleur_avant": "vert",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "XETR:IUSU",
+      "nom": "Treasuries US courts (1-3 ans)",
+      "avant": 2.5,
+      "apres": 4.0,
+      "delta": 1.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "XETR:JA13",
+      "nom": "JPM BetaBuilders US Treasury Bond 1-3 yr UCITS ETF - USD (acc)",
+      "avant": 2.5,
+      "apres": 4.0,
+      "delta": 1.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "XETR:JEBE",
+      "nom": "JPMorgan ETFs Ireland ICAV - JPM EUR IG Corporate Bond Active UCITS ETF - EUR (dist)",
+      "avant": 7.5,
+      "apres": 6.0,
+      "delta": -1.5,
+      "couleur_avant": "vert",
+      "couleur_apres": "vert"
+    },
+    {
+      "tv": "XETR:XAD5",
+      "nom": "Xtrackers Physical Gold ETC (EUR)",
+      "avant": 2.5,
+      "apres": 4.0,
+      "delta": 1.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "XETR:XEMB",
+      "nom": "Xtrackers II J.P. Morgan USD Emerging Markets Bond UCITS ETF 1C - EUR Hedged",
+      "avant": 2.5,
+      "apres": 4.0,
+      "delta": 1.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "btc",
+      "nom": "Bitcoin",
+      "avant": 5.0,
+      "apres": 6.5,
+      "delta": 1.5,
+      "couleur_avant": "jaune",
+      "couleur_apres": "vert"
+    },
+    {
+      "tv": "AMEX:IMO",
+      "nom": "Imperial Oil Limited",
+      "avant": 3.0,
+      "apres": 4.0,
+      "delta": 1.0,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "EURONEXT:IBCI",
+      "nom": "iShares € Inflation Linked Govt Bond UCITS ETF EUR (Acc)",
+      "avant": 3.0,
+      "apres": 4.0,
+      "delta": 1.0,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "EURONEXT:LR",
+      "nom": "Legrand SA",
+      "avant": 5.0,
+      "apres": 6.0,
+      "delta": 1.0,
+      "couleur_avant": "jaune",
+      "couleur_apres": "vert"
+    },
+    {
+      "tv": "EURONEXT:MAU",
+      "nom": "Etablissements Maurel & Prom S.A.",
+      "avant": 6.5,
+      "apres": 5.5,
+      "delta": -1.0,
+      "couleur_avant": "vert",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "EURONEXT:MC",
+      "nom": "LVMH Moët Hennessy - Louis Vuitton, Société Européenne",
+      "avant": 6.0,
+      "apres": 5.0,
+      "delta": -1.0,
+      "couleur_avant": "vert",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "EURONEXT:RBT",
+      "nom": "Robertet SA",
+      "avant": 7.0,
+      "apres": 6.0,
+      "delta": -1.0,
+      "couleur_avant": "vert",
+      "couleur_apres": "vert"
+    },
+    {
+      "tv": "EURONEXT:RUI",
+      "nom": "Rubis",
+      "avant": 3.0,
+      "apres": 4.0,
+      "delta": 1.0,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "EURONEXT:RXL",
+      "nom": "Rexel S.A.",
+      "avant": 2.5,
+      "apres": 3.5,
+      "delta": 1.0,
+      "couleur_avant": "rouge",
+      "couleur_apres": "rouge"
+    },
+    {
+      "tv": "EURONEXT:SOI",
+      "nom": "Soitec SA",
+      "avant": 5.0,
+      "apres": 6.0,
+      "delta": 1.0,
+      "couleur_avant": "jaune",
+      "couleur_apres": "vert"
+    },
+    {
+      "tv": "EURONEXT:VK",
+      "nom": "Vallourec S.A.",
+      "avant": 7.5,
+      "apres": 6.5,
+      "delta": -1.0,
+      "couleur_avant": "vert",
+      "couleur_apres": "vert"
+    },
+    {
+      "tv": "FX:EURJPY",
+      "nom": "Yen japonais",
+      "avant": 3.0,
+      "apres": 4.0,
+      "delta": 1.0,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "FX:EURKRW",
+      "nom": "Won sud-coréen",
+      "avant": 4.0,
+      "apres": 5.0,
+      "delta": 1.0,
+      "couleur_avant": "jaune",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "LSE:IGLN",
+      "nom": "iShares Physical Gold ETC",
+      "avant": 7.0,
+      "apres": 6.0,
+      "delta": -1.0,
+      "couleur_avant": "vert",
+      "couleur_apres": "vert"
+    },
+    {
+      "tv": "LSE:IPDM",
+      "nom": "iShares Physical Palladium ETC",
+      "avant": 3.0,
+      "apres": 4.0,
+      "delta": 1.0,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "MIL:ENEL",
+      "nom": "Enel",
+      "avant": 2.5,
+      "apres": 3.5,
+      "delta": 1.0,
+      "couleur_avant": "rouge",
+      "couleur_apres": "rouge"
+    },
+    {
+      "tv": "NASDAQ:ABCL",
+      "nom": "AbCellera Biologics Inc.",
+      "avant": 6.0,
+      "apres": 5.0,
+      "delta": -1.0,
+      "couleur_avant": "vert",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NASDAQ:ENPH",
+      "nom": "Enphase Energy",
+      "avant": 3.0,
+      "apres": 4.0,
+      "delta": 1.0,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NASDAQ:GILD",
+      "nom": "",
+      "avant": 3.0,
+      "apres": 4.0,
+      "delta": 1.0,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NASDAQ:KLAC",
+      "nom": "",
+      "avant": 3.0,
+      "apres": 4.0,
+      "delta": 1.0,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NASDAQ:NFLX",
+      "nom": "",
+      "avant": 7.0,
+      "apres": 6.0,
+      "delta": -1.0,
+      "couleur_avant": "vert",
+      "couleur_apres": "vert"
+    },
+    {
+      "tv": "NASDAQ:ROST",
+      "nom": "",
+      "avant": 3.0,
+      "apres": 4.0,
+      "delta": 1.0,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NASDAQ:TSLA",
+      "nom": "",
+      "avant": 3.0,
+      "apres": 4.0,
+      "delta": 1.0,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NASDAQ:XEL",
+      "nom": "Xcel Energy",
+      "avant": 3.0,
+      "apres": 4.0,
+      "delta": 1.0,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NASDAQ:XENE",
+      "nom": "Xenon Pharmaceuticals Inc.",
+      "avant": 3.0,
+      "apres": 4.0,
+      "delta": 1.0,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NYSE:CNP",
+      "nom": "",
+      "avant": 3.0,
+      "apres": 4.0,
+      "delta": 1.0,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NYSE:CNQ",
+      "nom": "Canadian Natural Resources Limited",
+      "avant": 3.0,
+      "apres": 4.0,
+      "delta": 1.0,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NYSE:DUK",
+      "nom": "Duke Energy",
+      "avant": 2.0,
+      "apres": 3.0,
+      "delta": 1.0,
+      "couleur_avant": "rouge",
+      "couleur_apres": "rouge"
+    },
+    {
+      "tv": "NYSE:EQT",
+      "nom": "",
+      "avant": 3.0,
+      "apres": 4.0,
+      "delta": 1.0,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NYSE:FSM",
+      "nom": "Fortuna Mining Corp.",
+      "avant": 5.5,
+      "apres": 6.5,
+      "delta": 1.0,
+      "couleur_avant": "jaune",
+      "couleur_apres": "vert"
+    },
+    {
+      "tv": "NYSE:FTS",
+      "nom": "Fortis Inc.",
+      "avant": 3.0,
+      "apres": 4.0,
+      "delta": 1.0,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NYSE:KO",
+      "nom": "",
+      "avant": 3.0,
+      "apres": 4.0,
+      "delta": 1.0,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NYSE:MLM",
+      "nom": "",
+      "avant": 3.0,
+      "apres": 4.0,
+      "delta": 1.0,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NYSE:MS",
+      "nom": "",
+      "avant": 3.0,
+      "apres": 4.0,
+      "delta": 1.0,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NYSE:SLF",
+      "nom": "Sun Life Financial Inc.",
+      "avant": 1.5,
+      "apres": 2.5,
+      "delta": 1.0,
+      "couleur_avant": "violet",
+      "couleur_apres": "rouge"
+    },
+    {
+      "tv": "NYSE:TKO",
+      "nom": "",
+      "avant": 6.5,
+      "apres": 5.5,
+      "delta": -1.0,
+      "couleur_avant": "vert",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NYSE:TRGP",
+      "nom": "Targa Resources",
+      "avant": 3.0,
+      "apres": 4.0,
+      "delta": 1.0,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NYSE:TU",
+      "nom": "TELUS Corporation",
+      "avant": 4.0,
+      "apres": 3.0,
+      "delta": -1.0,
+      "couleur_avant": "jaune",
+      "couleur_apres": "rouge"
+    },
+    {
+      "tv": "NYSE:WEC",
+      "nom": "",
+      "avant": 3.0,
+      "apres": 4.0,
+      "delta": 1.0,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "SIX:SCHN",
+      "nom": "Schindler Holding AG",
+      "avant": 2.5,
+      "apres": 3.5,
+      "delta": 1.0,
+      "couleur_avant": "rouge",
+      "couleur_apres": "rouge"
+    },
+    {
+      "tv": "SIX:SGSN",
+      "nom": "SGS SA",
+      "avant": 3.0,
+      "apres": 4.0,
+      "delta": 1.0,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "SIX:SLHN",
+      "nom": "Swiss Life Holding AG",
+      "avant": 1.5,
+      "apres": 2.5,
+      "delta": 1.0,
+      "couleur_avant": "violet",
+      "couleur_apres": "rouge"
+    },
+    {
+      "tv": "SIX:SREN",
+      "nom": "Swiss Re AG",
+      "avant": 2.5,
+      "apres": 3.5,
+      "delta": 1.0,
+      "couleur_avant": "rouge",
+      "couleur_apres": "rouge"
+    },
+    {
+      "tv": "XETR:ALV",
+      "nom": "Allianz SE",
+      "avant": 3.0,
+      "apres": 4.0,
+      "delta": 1.0,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "XETR:DHL",
+      "nom": "DHL AG",
+      "avant": 1.5,
+      "apres": 2.5,
+      "delta": 1.0,
+      "couleur_avant": "violet",
+      "couleur_apres": "rouge"
+    },
+    {
+      "tv": "XETR:EXHD",
+      "nom": "iShares eb.rexx Government Germany 5.5-10.5yr UCITS ETF (DE)",
+      "avant": 3.0,
+      "apres": 4.0,
+      "delta": 1.0,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "XETR:GLDA",
+      "nom": "Amundi Physical Gold ETC C",
+      "avant": 7.0,
+      "apres": 6.0,
+      "delta": -1.0,
+      "couleur_avant": "vert",
+      "couleur_apres": "vert"
+    },
+    {
+      "tv": "XETR:PEML",
+      "nom": "PIMCO Advantage Emerging Markets Local Bond UCITS ETF Acc USD",
+      "avant": 3.0,
+      "apres": 4.0,
+      "delta": 1.0,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "XETR:PR1C",
+      "nom": "Amundi Core EUR Corporate Bond UCITS ETF Dist",
+      "avant": 5.5,
+      "apres": 6.5,
+      "delta": 1.0,
+      "couleur_avant": "jaune",
+      "couleur_apres": "vert"
+    },
+    {
+      "tv": "XETR:RWE",
+      "nom": "RWE Aktiengesellschaft",
+      "avant": 2.5,
+      "apres": 3.5,
+      "delta": 1.0,
+      "couleur_avant": "rouge",
+      "couleur_apres": "rouge"
+    },
+    {
+      "tv": "XETR:SAX",
+      "nom": "Ströer SE & Co. KGaA",
+      "avant": 3.0,
+      "apres": 4.0,
+      "delta": 1.0,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "XETR:SIE",
+      "nom": "Siemens Aktiengesellschaft",
+      "avant": 3.0,
+      "apres": 4.0,
+      "delta": 1.0,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "XETR:SYBC",
+      "nom": "State Street SPDR Bloomberg Euro Corporate Bond UCITS ETF",
+      "avant": 7.5,
+      "apres": 6.5,
+      "delta": -1.0,
+      "couleur_avant": "vert",
+      "couleur_apres": "vert"
+    },
+    {
+      "tv": "XETR:TIUP",
+      "nom": "Obligations indexées sur l'inflation",
+      "avant": 4.0,
+      "apres": 5.0,
+      "delta": 1.0,
+      "couleur_avant": "jaune",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "XETR:TLX",
+      "nom": "Talanx AG",
+      "avant": 3.0,
+      "apres": 4.0,
+      "delta": 1.0,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "XETR:VOW3",
+      "nom": "Volkswagen AG",
+      "avant": 2.0,
+      "apres": 3.0,
+      "delta": 1.0,
+      "couleur_avant": "rouge",
+      "couleur_apres": "rouge"
+    },
+    {
+      "tv": "XETR:XEIN",
+      "nom": "Xtrackers II Eurozone Inflation-Linked Bond UCITS ETF 1C",
+      "avant": 3.0,
+      "apres": 4.0,
+      "delta": 1.0,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "XETR:XHYG",
+      "nom": "Xtrackers II EUR High Yield Corporate Bond UCITS ETF 1D",
+      "avant": 7.0,
+      "apres": 6.0,
+      "delta": -1.0,
+      "couleur_avant": "vert",
+      "couleur_apres": "vert"
+    },
+    {
+      "tv": "EURONEXT:ABVX",
+      "nom": "ABIVAX Société Anonyme",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "EURONEXT:AC",
+      "nom": "Accor SA",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "EURONEXT:ACA",
+      "nom": "Crédit Agricole S.A.",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "EURONEXT:AI",
+      "nom": "L'Air Liquide S.A.",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "EURONEXT:AKE",
+      "nom": "Arkema S.A.",
+      "avant": 2.5,
+      "apres": 3.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "rouge"
+    },
+    {
+      "tv": "EURONEXT:CA",
+      "nom": "Carrefour SA",
+      "avant": 2.5,
+      "apres": 3.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "rouge"
+    },
+    {
+      "tv": "EURONEXT:DG",
+      "nom": "Vinci SA",
+      "avant": 2.5,
+      "apres": 3.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "rouge"
+    },
+    {
+      "tv": "EURONEXT:DIM",
+      "nom": "Sartorius Stedim Biotech S.A.",
+      "avant": 5.0,
+      "apres": 5.5,
+      "delta": 0.5,
+      "couleur_avant": "jaune",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "EURONEXT:ENGI",
+      "nom": "Engie SA",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "EURONEXT:GLE",
+      "nom": "Société Générale Société anonyme",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "EURONEXT:GTT",
+      "nom": "Gaztransport & Technigaz SA",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "EURONEXT:MMT",
+      "nom": "Métropole Télévision S.A.",
+      "avant": 5.5,
+      "apres": 5.0,
+      "delta": -0.5,
+      "couleur_avant": "jaune",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "EURONEXT:RMS",
+      "nom": "Hermès International Société en commandite par actions",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "EURONEXT:SCR",
+      "nom": "SCOR SE",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "EURONEXT:SOP",
+      "nom": "Sopra Steria Group SA",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "EURONEXT:URW",
+      "nom": "Unibail-Rodamco-Westfield SE",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "EURONEXT:VIRI",
+      "nom": "Viridien Société anonyme",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "EURONEXT:VLTSA",
+      "nom": "Voltalia SA",
+      "avant": 3.0,
+      "apres": 2.5,
+      "delta": -0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "rouge"
+    },
+    {
+      "tv": "FX:EURCAD",
+      "nom": "Dollar canadien",
+      "avant": 4.5,
+      "apres": 5.0,
+      "delta": 0.5,
+      "couleur_avant": "jaune",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "FX:EURUSD",
+      "nom": "Dollar américain",
+      "avant": 5.0,
+      "apres": 5.5,
+      "delta": 0.5,
+      "couleur_avant": "jaune",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NASDAQ:AMGN",
+      "nom": "",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NASDAQ:AUPH",
+      "nom": "Aurinia Pharmaceuticals Inc.",
+      "avant": 6.0,
+      "apres": 5.5,
+      "delta": -0.5,
+      "couleur_avant": "vert",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NASDAQ:CIGI",
+      "nom": "Colliers International Group Inc.",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NASDAQ:CME",
+      "nom": "",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NASDAQ:COST",
+      "nom": "",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NASDAQ:CRWD",
+      "nom": "",
+      "avant": 5.5,
+      "apres": 5.0,
+      "delta": -0.5,
+      "couleur_avant": "jaune",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NASDAQ:DASH",
+      "nom": "",
+      "avant": 7.0,
+      "apres": 6.5,
+      "delta": -0.5,
+      "couleur_avant": "vert",
+      "couleur_apres": "vert"
+    },
+    {
+      "tv": "NASDAQ:EBAY",
+      "nom": "",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NASDAQ:GOOGL",
+      "nom": "",
+      "avant": 5.0,
+      "apres": 5.5,
+      "delta": 0.5,
+      "couleur_avant": "jaune",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NASDAQ:HLT",
+      "nom": "",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NASDAQ:KMB",
+      "nom": "",
+      "avant": 6.0,
+      "apres": 5.5,
+      "delta": -0.5,
+      "couleur_avant": "vert",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NASDAQ:MAR",
+      "nom": "",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NASDAQ:NOVT",
+      "nom": "Novanta Inc.",
+      "avant": 5.5,
+      "apres": 5.0,
+      "delta": -0.5,
+      "couleur_avant": "jaune",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NASDAQ:OTEX",
+      "nom": "Open Text Corporation",
+      "avant": 4.0,
+      "apres": 3.5,
+      "delta": -0.5,
+      "couleur_avant": "jaune",
+      "couleur_apres": "rouge"
+    },
+    {
+      "tv": "NASDAQ:STLD",
+      "nom": "",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NYSE:AQN",
+      "nom": "Algonquin Power & Utilities Corp.",
+      "avant": 3.0,
+      "apres": 2.5,
+      "delta": -0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "rouge"
+    },
+    {
+      "tv": "NYSE:B",
+      "nom": "Barrick Mining Corporation",
+      "avant": 6.5,
+      "apres": 6.0,
+      "delta": -0.5,
+      "couleur_avant": "vert",
+      "couleur_apres": "vert"
+    },
+    {
+      "tv": "NYSE:BEPC",
+      "nom": "Brookfield Renewable Corporation",
+      "avant": 6.0,
+      "apres": 5.5,
+      "delta": -0.5,
+      "couleur_avant": "vert",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NYSE:CAT",
+      "nom": "",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NYSE:CBRE",
+      "nom": "",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NYSE:CHD",
+      "nom": "",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NYSE:CL",
+      "nom": "",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NYSE:CLS",
+      "nom": "Celestica Inc.",
+      "avant": 6.5,
+      "apres": 7.0,
+      "delta": 0.5,
+      "couleur_avant": "vert",
+      "couleur_apres": "vert"
+    },
+    {
+      "tv": "NYSE:CNI",
+      "nom": "Canadian National Railway Company",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NYSE:CVX",
+      "nom": "Chevron",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NYSE:DVN",
+      "nom": "Devon Energy",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NYSE:ETN",
+      "nom": "",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NYSE:GEV",
+      "nom": "",
+      "avant": 6.5,
+      "apres": 6.0,
+      "delta": -0.5,
+      "couleur_avant": "vert",
+      "couleur_apres": "vert"
+    },
+    {
+      "tv": "NYSE:GFL",
+      "nom": "GFL Environmental Inc.",
+      "avant": 4.5,
+      "apres": 5.0,
+      "delta": 0.5,
+      "couleur_avant": "jaune",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NYSE:GIL",
+      "nom": "Gildan Activewear Inc.",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NYSE:IAG",
+      "nom": "IAMGOLD Corporation",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NYSE:ICE",
+      "nom": "",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NYSE:KMI",
+      "nom": "Kinder Morgan",
+      "avant": 3.0,
+      "apres": 3.5,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "rouge"
+    },
+    {
+      "tv": "NYSE:LYV",
+      "nom": "",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NYSE:MRK",
+      "nom": "",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NYSE:O",
+      "nom": "",
+      "avant": 6.0,
+      "apres": 5.5,
+      "delta": -0.5,
+      "couleur_avant": "vert",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NYSE:OXY",
+      "nom": "Occidental Petroleum",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NYSE:PG",
+      "nom": "",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NYSE:PKG",
+      "nom": "",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NYSE:PLD",
+      "nom": "",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NYSE:PWR",
+      "nom": "",
+      "avant": 5.0,
+      "apres": 5.5,
+      "delta": 0.5,
+      "couleur_avant": "jaune",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NYSE:QSR",
+      "nom": "Restaurant Brands International Inc.",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NYSE:RBA",
+      "nom": "RB Global, Inc.",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NYSE:SII",
+      "nom": "Sprott Inc.",
+      "avant": 6.0,
+      "apres": 6.5,
+      "delta": 0.5,
+      "couleur_avant": "vert",
+      "couleur_apres": "vert"
+    },
+    {
+      "tv": "NYSE:SO",
+      "nom": "Southern Company",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NYSE:TD",
+      "nom": "The Toronto-Dominion Bank",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NYSE:TFII",
+      "nom": "TFI International Inc.",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NYSE:UBER",
+      "nom": "",
+      "avant": 5.0,
+      "apres": 5.5,
+      "delta": 0.5,
+      "couleur_avant": "jaune",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NYSE:VLO",
+      "nom": "Valero Energy",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "NYSE:XOM",
+      "nom": "Exxon Mobil",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "OANDA:XPDUSD",
+      "nom": "Palladium",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "SIX:ADEN",
+      "nom": "Adecco Group AG",
+      "avant": 3.0,
+      "apres": 2.5,
+      "delta": -0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "rouge"
+    },
+    {
+      "tv": "SIX:ALC",
+      "nom": "Alcon Inc.",
+      "avant": 5.5,
+      "apres": 5.0,
+      "delta": -0.5,
+      "couleur_avant": "jaune",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "SIX:BAER",
+      "nom": "Julius Bär Gruppe AG",
+      "avant": 6.0,
+      "apres": 5.5,
+      "delta": -0.5,
+      "couleur_avant": "vert",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "SIX:CFR",
+      "nom": "Compagnie Financière Richemont SA",
+      "avant": 5.5,
+      "apres": 6.0,
+      "delta": 0.5,
+      "couleur_avant": "jaune",
+      "couleur_apres": "vert"
+    },
+    {
+      "tv": "SIX:NESN",
+      "nom": "Nestlé S.A.",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "SIX:PPGN",
+      "nom": "PolyPeptide Group AG",
+      "avant": 6.0,
+      "apres": 6.5,
+      "delta": 0.5,
+      "couleur_avant": "vert",
+      "couleur_apres": "vert"
+    },
+    {
+      "tv": "SIX:SDZ",
+      "nom": "Sandoz Group AG",
+      "avant": 3.0,
+      "apres": 3.5,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "rouge"
+    },
+    {
+      "tv": "SIX:SOON",
+      "nom": "Sonova Holding AG",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "SIX:ZURN",
+      "nom": "Zurich Insurance Group AG",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "XETR:AEHY",
+      "nom": "Amundi Core EUR High Yield Bond UCITS ETF Acc",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "XETR:BMW",
+      "nom": "Bayerische Motoren Werke Aktiengesellschaft",
+      "avant": 4.0,
+      "apres": 3.5,
+      "delta": -0.5,
+      "couleur_avant": "jaune",
+      "couleur_apres": "rouge"
+    },
+    {
+      "tv": "XETR:BNR",
+      "nom": "Brenntag SE",
+      "avant": 3.0,
+      "apres": 3.5,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "rouge"
+    },
+    {
+      "tv": "XETR:D5BG",
+      "nom": "Xtrackers II EUR Corporate Bond UCITS ETF 1C",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "XETR:DTG",
+      "nom": "Daimler Truck Holding AG",
+      "avant": 5.0,
+      "apres": 4.5,
+      "delta": -0.5,
+      "couleur_avant": "jaune",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "XETR:FRE",
+      "nom": "Fresenius SE & Co. KGaA",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "XETR:GCRE",
+      "nom": "Amundi Global Corporate Bond 1-5Y UCITS ETF EUR Hedged",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "XETR:HNR1",
+      "nom": "Hannover Rück SE",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "XETR:IBC5",
+      "nom": "iShares $ TIPS UCITS ETF EUR Hedged (Acc)",
+      "avant": 7.5,
+      "apres": 7.0,
+      "delta": -0.5,
+      "couleur_avant": "vert",
+      "couleur_apres": "vert"
+    },
+    {
+      "tv": "XETR:IFX",
+      "nom": "Infineon Technologies AG",
+      "avant": 4.5,
+      "apres": 5.0,
+      "delta": 0.5,
+      "couleur_avant": "jaune",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "XETR:IOS",
+      "nom": "IONOS Group SE",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "XETR:JEN",
+      "nom": "Jenoptik AG",
+      "avant": 6.0,
+      "apres": 5.5,
+      "delta": -0.5,
+      "couleur_avant": "vert",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "XETR:LYQ7",
+      "nom": "Amundi Euro Government Inflation-Linked Bond UCITS ETF Acc",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "XETR:MTX",
+      "nom": "MTU Aero Engines AG",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "XETR:MUV2",
+      "nom": "Münchener Rückversicherungs-Gesellschaft Aktiengesellschaft in München",
+      "avant": 2.5,
+      "apres": 3.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "rouge"
+    },
+    {
+      "tv": "XETR:PRAP",
+      "nom": "Amundi Core USD Corporate Bond UCITS ETF Acc",
+      "avant": 4.0,
+      "apres": 3.5,
+      "delta": -0.5,
+      "couleur_avant": "jaune",
+      "couleur_apres": "rouge"
+    },
+    {
+      "tv": "XETR:PRAR",
+      "nom": "Amundi Index Solutions - Amundi Prime Euro Government Bond UCITS ETF Acc",
+      "avant": 7.5,
+      "apres": 7.0,
+      "delta": -0.5,
+      "couleur_avant": "vert",
+      "couleur_apres": "vert"
+    },
+    {
+      "tv": "XETR:SECA",
+      "nom": "iShares € Govt Bond Climate UCITS ETF EUR (Acc)",
+      "avant": 7.5,
+      "apres": 7.0,
+      "delta": -0.5,
+      "couleur_avant": "vert",
+      "couleur_apres": "vert"
+    },
+    {
+      "tv": "XETR:TRD3",
+      "nom": "Invesco US Treasury Bond 1-3 Year UCITS ETF USD Dist",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "XETR:UN0",
+      "nom": "Uniper SE",
+      "avant": 5.0,
+      "apres": 5.5,
+      "delta": 0.5,
+      "couleur_avant": "jaune",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "XETR:URNU",
+      "nom": "ETF uranium URNU (UCITS)",
+      "avant": 7.0,
+      "apres": 6.5,
+      "delta": -0.5,
+      "couleur_avant": "vert",
+      "couleur_apres": "vert"
+    },
+    {
+      "tv": "XETR:VNA",
+      "nom": "Vonovia SE",
+      "avant": 4.0,
+      "apres": 3.5,
+      "delta": -0.5,
+      "couleur_avant": "jaune",
+      "couleur_apres": "rouge"
+    },
+    {
+      "tv": "XETR:WAF",
+      "nom": "Siltronic AG",
+      "avant": 3.5,
+      "apres": 3.0,
+      "delta": -0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "rouge"
+    },
+    {
+      "tv": "XETR:X03G",
+      "nom": "Xtrackers II Germany Government Bond UCITS ETF 1C",
+      "avant": 6.0,
+      "apres": 6.5,
+      "delta": 0.5,
+      "couleur_avant": "vert",
+      "couleur_apres": "vert"
+    },
+    {
+      "tv": "XETR:XDW0",
+      "nom": "Énergie",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "XETR:XGLE",
+      "nom": "Xtrackers II Eurozone Government Bond UCITS ETF 1C EUR",
+      "avant": 3.5,
+      "apres": 4.0,
+      "delta": 0.5,
+      "couleur_avant": "rouge",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "XETR:ZPDD",
+      "nom": "Consommation discrétionnaire",
+      "avant": 4.0,
+      "apres": 4.5,
+      "delta": 0.5,
+      "couleur_avant": "jaune",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "immo",
+      "nom": "Immobilier",
+      "avant": 4.5,
+      "apres": 4.0,
+      "delta": -0.5,
+      "couleur_avant": "jaune",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "mat",
+      "nom": "Matériaux",
+      "avant": 5.0,
+      "apres": 4.5,
+      "delta": -0.5,
+      "couleur_avant": "jaune",
+      "couleur_apres": "jaune"
+    },
+    {
+      "tv": "tech",
+      "nom": "Technologie",
+      "avant": 4.0,
+      "apres": 4.5,
+      "delta": 0.5,
+      "couleur_avant": "jaune",
+      "couleur_apres": "jaune"
+    }
+  ],
   "apparus": [],
-  "disparus": []
+  "disparus": [
+    {
+      "tv": "ASX:AGL",
+      "nom": "",
+      "note": 4.0
+    },
+    {
+      "tv": "ASX:ALD",
+      "nom": "",
+      "note": 5.0
+    },
+    {
+      "tv": "ASX:ALL",
+      "nom": "",
+      "note": 3.0
+    },
+    {
+      "tv": "ASX:ALQ",
+      "nom": "",
+      "note": 2.5
+    },
+    {
+      "tv": "ASX:BRG",
+      "nom": "",
+      "note": 3.5
+    },
+    {
+      "tv": "ASX:CBA",
+      "nom": "",
+      "note": 3.5
+    },
+    {
+      "tv": "ASX:COH",
+      "nom": "",
+      "note": 4.0
+    },
+    {
+      "tv": "ASX:COL",
+      "nom": "",
+      "note": 3.0
+    },
+    {
+      "tv": "ASX:CPU",
+      "nom": "",
+      "note": 2.0
+    },
+    {
+      "tv": "ASX:EDV",
+      "nom": "",
+      "note": 4.0
+    },
+    {
+      "tv": "ASX:EVN",
+      "nom": "",
+      "note": 4.5
+    },
+    {
+      "tv": "ASX:FMG",
+      "nom": "",
+      "note": 2.0
+    },
+    {
+      "tv": "ASX:MQG",
+      "nom": "",
+      "note": 1.5
+    },
+    {
+      "tv": "ASX:MTS",
+      "nom": "",
+      "note": 4.0
+    },
+    {
+      "tv": "ASX:NST",
+      "nom": "",
+      "note": 3.5
+    },
+    {
+      "tv": "ASX:NXT",
+      "nom": "",
+      "note": 3.5
+    },
+    {
+      "tv": "ASX:ORG",
+      "nom": "",
+      "note": 2.5
+    },
+    {
+      "tv": "ASX:QAN",
+      "nom": "",
+      "note": 6.0
+    },
+    {
+      "tv": "ASX:QBE",
+      "nom": "",
+      "note": 2.0
+    },
+    {
+      "tv": "ASX:RHC",
+      "nom": "",
+      "note": 3.0
+    },
+    {
+      "tv": "ASX:SEK",
+      "nom": "",
+      "note": 7.5
+    },
+    {
+      "tv": "ASX:SHL",
+      "nom": "",
+      "note": 7.5
+    },
+    {
+      "tv": "ASX:SIG",
+      "nom": "",
+      "note": 5.0
+    },
+    {
+      "tv": "ASX:STO",
+      "nom": "",
+      "note": 4.5
+    },
+    {
+      "tv": "ASX:TLS",
+      "nom": "",
+      "note": 4.0
+    },
+    {
+      "tv": "ASX:TNE",
+      "nom": "",
+      "note": 3.0
+    },
+    {
+      "tv": "ASX:WES",
+      "nom": "",
+      "note": 3.0
+    },
+    {
+      "tv": "ASX:WHC",
+      "nom": "",
+      "note": 5.5
+    },
+    {
+      "tv": "ASX:WOR",
+      "nom": "",
+      "note": 4.0
+    },
+    {
+      "tv": "ASX:WOW",
+      "nom": "",
+      "note": 2.0
+    },
+    {
+      "tv": "ASX:WTC",
+      "nom": "",
+      "note": 4.0
+    },
+    {
+      "tv": "KRX:000660",
+      "nom": "",
+      "note": 3.0
+    },
+    {
+      "tv": "MIL:A2A",
+      "nom": "",
+      "note": 4.0
+    },
+    {
+      "tv": "MIL:ACE",
+      "nom": "",
+      "note": 5.5
+    },
+    {
+      "tv": "MIL:AMP",
+      "nom": "",
+      "note": 7.5
+    },
+    {
+      "tv": "MIL:BAMI",
+      "nom": "",
+      "note": 4.0
+    },
+    {
+      "tv": "MIL:BC",
+      "nom": "",
+      "note": 4.0
+    },
+    {
+      "tv": "MIL:BMPS",
+      "nom": "",
+      "note": 4.0
+    },
+    {
+      "tv": "MIL:BPE",
+      "nom": "",
+      "note": 3.0
+    },
+    {
+      "tv": "MIL:BRE",
+      "nom": "",
+      "note": 3.0
+    },
+    {
+      "tv": "MIL:BZU",
+      "nom": "",
+      "note": 4.0
+    },
+    {
+      "tv": "MIL:CPR",
+      "nom": "",
+      "note": 4.0
+    },
+    {
+      "tv": "MIL:DIA",
+      "nom": "",
+      "note": 4.0
+    },
+    {
+      "tv": "MIL:DLG",
+      "nom": "",
+      "note": 2.0
+    },
+    {
+      "tv": "MIL:ELN",
+      "nom": "",
+      "note": 4.0
+    },
+    {
+      "tv": "MIL:ENI",
+      "nom": "",
+      "note": 2.5
+    },
+    {
+      "tv": "MIL:ERG",
+      "nom": "",
+      "note": 2.0
+    },
+    {
+      "tv": "MIL:FCT",
+      "nom": "",
+      "note": 3.0
+    },
+    {
+      "tv": "MIL:G",
+      "nom": "",
+      "note": 3.0
+    },
+    {
+      "tv": "MIL:HER",
+      "nom": "",
+      "note": 1.5
+    },
+    {
+      "tv": "MIL:INW",
+      "nom": "",
+      "note": 5.0
+    },
+    {
+      "tv": "MIL:IP",
+      "nom": "",
+      "note": 5.0
+    },
+    {
+      "tv": "MIL:ISP",
+      "nom": "",
+      "note": 3.0
+    },
+    {
+      "tv": "MIL:ITM",
+      "nom": "",
+      "note": 5.5
+    },
+    {
+      "tv": "MIL:IVG",
+      "nom": "",
+      "note": 2.5
+    },
+    {
+      "tv": "MIL:LDO",
+      "nom": "",
+      "note": 6.0
+    },
+    {
+      "tv": "MIL:LTMC",
+      "nom": "",
+      "note": 4.0
+    },
+    {
+      "tv": "MIL:MFEB",
+      "nom": "",
+      "note": 4.5
+    },
+    {
+      "tv": "MIL:MONC",
+      "nom": "",
+      "note": 3.5
+    },
+    {
+      "tv": "MIL:NEXI",
+      "nom": "",
+      "note": 4.0
+    },
+    {
+      "tv": "MIL:PIRC",
+      "nom": "",
+      "note": 2.0
+    },
+    {
+      "tv": "MIL:PRY",
+      "nom": "",
+      "note": 2.5
+    },
+    {
+      "tv": "MIL:PST",
+      "nom": "",
+      "note": 2.5
+    },
+    {
+      "tv": "MIL:RACE",
+      "nom": "",
+      "note": 3.5
+    },
+    {
+      "tv": "MIL:REC",
+      "nom": "",
+      "note": 1.5
+    },
+    {
+      "tv": "MIL:RWAY",
+      "nom": "",
+      "note": 4.0
+    },
+    {
+      "tv": "MIL:SOL",
+      "nom": "",
+      "note": 2.0
+    },
+    {
+      "tv": "MIL:SPM",
+      "nom": "",
+      "note": 4.0
+    },
+    {
+      "tv": "MIL:SRG",
+      "nom": "",
+      "note": 4.0
+    },
+    {
+      "tv": "MIL:TGYM",
+      "nom": "",
+      "note": 4.0
+    },
+    {
+      "tv": "MIL:TIT",
+      "nom": "",
+      "note": 2.5
+    },
+    {
+      "tv": "MIL:TPRO",
+      "nom": "",
+      "note": 2.5
+    },
+    {
+      "tv": "MIL:TRN",
+      "nom": "",
+      "note": 2.5
+    },
+    {
+      "tv": "MIL:UCG",
+      "nom": "",
+      "note": 4.0
+    },
+    {
+      "tv": "MIL:WIIT",
+      "nom": "",
+      "note": 3.0
+    },
+    {
+      "tv": "NYSE:BHP",
+      "nom": "",
+      "note": 3.0
+    },
+    {
+      "tv": "NYSE:IX",
+      "nom": "",
+      "note": 1.5
+    },
+    {
+      "tv": "NYSE:MFG",
+      "nom": "",
+      "note": 4.0
+    },
+    {
+      "tv": "NYSE:MUFG",
+      "nom": "",
+      "note": 3.0
+    },
+    {
+      "tv": "NYSE:PKX",
+      "nom": "",
+      "note": 3.5
+    },
+    {
+      "tv": "NYSE:SHG",
+      "nom": "",
+      "note": 3.0
+    },
+    {
+      "tv": "NYSE:SKM",
+      "nom": "",
+      "note": 4.0
+    },
+    {
+      "tv": "NYSE:TAK",
+      "nom": "",
+      "note": 3.5
+    },
+    {
+      "tv": "NYSE:WDS",
+      "nom": "",
+      "note": 4.0
+    },
+    {
+      "tv": "TSE:1605",
+      "nom": "",
+      "note": 2.0
+    },
+    {
+      "tv": "TSE:1662",
+      "nom": "",
+      "note": 2.5
+    },
+    {
+      "tv": "TSE:1802",
+      "nom": "",
+      "note": 4.0
+    },
+    {
+      "tv": "TSE:1925",
+      "nom": "",
+      "note": 4.0
+    },
+    {
+      "tv": "TSE:1944",
+      "nom": "",
+      "note": 2.0
+    },
+    {
+      "tv": "TSE:2269",
+      "nom": "",
+      "note": 3.0
+    },
+    {
+      "tv": "TSE:2801",
+      "nom": "",
+      "note": 2.0
+    },
+    {
+      "tv": "TSE:2802",
+      "nom": "",
+      "note": 7.0
+    },
+    {
+      "tv": "TSE:285A",
+      "nom": "",
+      "note": 4.0
+    },
+    {
+      "tv": "TSE:2914",
+      "nom": "",
+      "note": 1.5
+    },
+    {
+      "tv": "TSE:3003",
+      "nom": "",
+      "note": 3.0
+    },
+    {
+      "tv": "TSE:3288",
+      "nom": "",
+      "note": 1.5
+    },
+    {
+      "tv": "TSE:4063",
+      "nom": "",
+      "note": 2.0
+    },
+    {
+      "tv": "TSE:4091",
+      "nom": "",
+      "note": 2.0
+    },
+    {
+      "tv": "TSE:4151",
+      "nom": "",
+      "note": 4.0
+    },
+    {
+      "tv": "TSE:4507",
+      "nom": "",
+      "note": 3.5
+    },
+    {
+      "tv": "TSE:4519",
+      "nom": "",
+      "note": 3.0
+    },
+    {
+      "tv": "TSE:4523",
+      "nom": "",
+      "note": 4.0
+    },
+    {
+      "tv": "TSE:4661",
+      "nom": "",
+      "note": 4.0
+    },
+    {
+      "tv": "TSE:5020",
+      "nom": "",
+      "note": 5.0
+    },
+    {
+      "tv": "TSE:5108",
+      "nom": "",
+      "note": 2.5
+    },
+    {
+      "tv": "TSE:5401",
+      "nom": "",
+      "note": 4.0
+    },
+    {
+      "tv": "TSE:5411",
+      "nom": "",
+      "note": 4.0
+    },
+    {
+      "tv": "TSE:5713",
+      "nom": "",
+      "note": 3.0
+    },
+    {
+      "tv": "TSE:5714",
+      "nom": "",
+      "note": 4.5
+    },
+    {
+      "tv": "TSE:5802",
+      "nom": "",
+      "note": 2.5
+    },
+    {
+      "tv": "TSE:5803",
+      "nom": "",
+      "note": 5.0
+    },
+    {
+      "tv": "TSE:5838",
+      "nom": "",
+      "note": 5.5
+    },
+    {
+      "tv": "TSE:6098",
+      "nom": "",
+      "note": 3.0
+    },
+    {
+      "tv": "TSE:6273",
+      "nom": "",
+      "note": 7.0
+    },
+    {
+      "tv": "TSE:6301",
+      "nom": "",
+      "note": 2.5
+    },
+    {
+      "tv": "TSE:6367",
+      "nom": "",
+      "note": 4.0
+    },
+    {
+      "tv": "TSE:6501",
+      "nom": "",
+      "note": 2.0
+    },
+    {
+      "tv": "TSE:6857",
+      "nom": "",
+      "note": 3.0
+    },
+    {
+      "tv": "TSE:6861",
+      "nom": "",
+      "note": 4.0
+    },
+    {
+      "tv": "TSE:6954",
+      "nom": "",
+      "note": 4.0
+    },
+    {
+      "tv": "TSE:6988",
+      "nom": "",
+      "note": 3.0
+    },
+    {
+      "tv": "TSE:7011",
+      "nom": "",
+      "note": 6.0
+    },
+    {
+      "tv": "TSE:7182",
+      "nom": "",
+      "note": 2.0
+    },
+    {
+      "tv": "TSE:7269",
+      "nom": "",
+      "note": 4.0
+    },
+    {
+      "tv": "TSE:7270",
+      "nom": "",
+      "note": 6.0
+    },
+    {
+      "tv": "TSE:7272",
+      "nom": "",
+      "note": 6.0
+    },
+    {
+      "tv": "TSE:7453",
+      "nom": "",
+      "note": 2.0
+    },
+    {
+      "tv": "TSE:7550",
+      "nom": "",
+      "note": 2.0
+    },
+    {
+      "tv": "TSE:7741",
+      "nom": "",
+      "note": 2.0
+    },
+    {
+      "tv": "TSE:7974",
+      "nom": "",
+      "note": 4.0
+    },
+    {
+      "tv": "TSE:8015",
+      "nom": "",
+      "note": 2.0
+    },
+    {
+      "tv": "TSE:8035",
+      "nom": "",
+      "note": 3.5
+    },
+    {
+      "tv": "TSE:8053",
+      "nom": "",
+      "note": 5.5
+    },
+    {
+      "tv": "TSE:8113",
+      "nom": "",
+      "note": 3.5
+    },
+    {
+      "tv": "TSE:8308",
+      "nom": "",
+      "note": 3.5
+    },
+    {
+      "tv": "TSE:8601",
+      "nom": "",
+      "note": 4.0
+    },
+    {
+      "tv": "TSE:8630",
+      "nom": "",
+      "note": 2.0
+    },
+    {
+      "tv": "TSE:8725",
+      "nom": "",
+      "note": 3.0
+    },
+    {
+      "tv": "TSE:8750",
+      "nom": "",
+      "note": 3.5
+    },
+    {
+      "tv": "TSE:8802",
+      "nom": "",
+      "note": 3.5
+    },
+    {
+      "tv": "TSE:9020",
+      "nom": "",
+      "note": 2.5
+    },
+    {
+      "tv": "TSE:9022",
+      "nom": "",
+      "note": 4.0
+    },
+    {
+      "tv": "TSE:9101",
+      "nom": "",
+      "note": 2.0
+    },
+    {
+      "tv": "TSE:9201",
+      "nom": "",
+      "note": 4.0
+    },
+    {
+      "tv": "TSE:9433",
+      "nom": "",
+      "note": 2.5
+    },
+    {
+      "tv": "TSE:9434",
+      "nom": "",
+      "note": 5.0
+    },
+    {
+      "tv": "TSE:9501",
+      "nom": "",
+      "note": 6.5
+    },
+    {
+      "tv": "TSE:9513",
+      "nom": "",
+      "note": 3.0
+    },
+    {
+      "tv": "TSE:9531",
+      "nom": "",
+      "note": 3.5
+    },
+    {
+      "tv": "TSE:9532",
+      "nom": "",
+      "note": 3.5
+    },
+    {
+      "tv": "TSE:9983",
+      "nom": "",
+      "note": 3.0
+    },
+    {
+      "tv": "XETR:28IY",
+      "nom": "",
+      "note": 4.0
+    },
+    {
+      "tv": "XETR:CEB2",
+      "nom": "",
+      "note": 4.0
+    }
+  ],
+  "source_avant": "ophir-site 980adea (formule 60/40, avant t329u)",
+  "formule_apres": "t329u 50/50",
+  "resume": {
+    "formule_apres": "50 % fondamental + 50 % technique (t329u)",
+    "notes_comparables": 459,
+    "moyenne_avant": 3.9,
+    "moyenne_apres": 4.21,
+    "min_max_apres": [
+      2.0,
+      7.0
+    ],
+    "notes_exactement_4_0": 326,
+    "dont_plafond_elliott": 301,
+    "notes_ge_7_5": 0,
+    "meilleures_entrees": 0,
+    "cyan": 0,
+    "absurde": false,
+    "commentaire": "Les notes ne sont pas absurdes (pas de 10 généralisés, pas d'effondrement aléatoire, mouvements max ±2,5). La distribution se tasse : 326 notes exactement à 4,0, dont 301 à cause du plafond Elliott en vagues 1, 3, 5, A, B (règle conservée). Aucune note ≥ 7,5, donc Meilleures entrées est vide (seuil inchangé à 7,5). Les 153 « disparus » sont surtout des titres TSE/MIL/ASX encore présents dans le JSON publié (fallback 980adea) après le retrait d'univers t322u, pas un effet de la formule.",
+    "focus": {
+      "NASDAQ:NFLX": {
+        "avant": 7.0,
+        "apres": 6.0,
+        "couleur": "vert"
+      },
+      "NASDAQ:PLTR": {
+        "avant": 4.0,
+        "apres": 4.0,
+        "couleur": "jaune",
+        "cap": "elliott"
+      },
+      "EURONEXT:VK": {
+        "avant": 7.5,
+        "apres": 6.5,
+        "couleur": "vert",
+        "cap": "bonus"
+      },
+      "XETR:PRAR": {
+        "avant": 7.5,
+        "apres": 7.0,
+        "couleur": "vert",
+        "renormalise": true
+      },
+      "btc": {
+        "avant": 5.0,
+        "apres": 6.5,
+        "couleur": "vert",
+        "cap": "bonus",
+        "libelle": "Liq."
+      }
+    }
+  },
+  "disparus_prefixes": {
+    "ASX": 31,
+    "KRX": 1,
+    "MIL": 43,
+    "NYSE": 9,
+    "TSE": 67,
+    "XETR": 2
+  }
 }

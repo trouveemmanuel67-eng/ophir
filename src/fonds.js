@@ -16,12 +16,14 @@ function listApexBar(r){
   const a10=(r&&r.apex10)||(b&&b.apex10)||null;
   if(!av||av.score==null||!sent||sent.value==null){
     if(a10&&a10.display&&a10.display!=='–')
-      return `<div class="fl-apex"><div class="apex10"><b>${a10.display}</b><small>/10</small></div></div>`;
+      const dec=(typeof apexDecomp==='function')?apexDecomp(a10):'';
+      return `<div class="fl-apex"><div class="apex10"><b>${a10.display}</b><small>/10</small></div>${dec}</div>`;
     return '<div class="fl-apex fl-apex-na"><div class="apex10 apex10-na"><b>–</b></div></div>';
   }
   const rec=a10||null; /* t320u : pas de recalcul JS */
   const avAff=(av.score_affiche!=null)?av.score_affiche:av.score;
-  return `<div class="fl-apex">${dualBar(sent.value,sent.label,avAff,av.label,'db-sm db-list',true,rec)}</div>`;
+  const dec=(typeof apexDecomp==='function')?apexDecomp(rec):'';
+  return `<div class="fl-apex">${dualBar(sent.value,sent.label,avAff,av.label,'db-sm db-list',true,rec)}${dec}</div>`;
 }
 function fondQualite(r){
   if(!r||r.score==null) return '';
@@ -53,10 +55,8 @@ function fondTiming(t){
 }
 function fondList(sym){
   const s=FOND.sectors[sym];if(!s)return '';
-  const rows=apexSortByNote(s.top).map((r,k)=>`<li${r.tv?` data-pos-tv="${r.tv}"`:''}><div class="fl-h"><b>${k+1}. ${r.name}</b>${fondQualite(r)}</div>
-     ${tvTag(r.tv)}${typeof posBadges==='function'?posBadges(r.tv):''}${typeof dispoBadge==='function'?dispoBadge(r.tv):''}${listApexBar(r)}<div class="fl-m">${fondChips(r,s.profile)}</div>
-     <div class="fl-sub">santé ${fmt(r.health,0)} · croissance ${fmt(r.growth,0)} · ${r.analysts} analystes · ${r.industry||''}</div>
-     <div class="fl-t">${fondTiming(r.timing)}</div></li>`).join('');
+  const rows=apexSortByNote(s.top).map((r,k)=>`<li${r.tv?` data-pos-tv="${r.tv}"`:''}><div class="fl-h"><b>${k+1}. ${r.name}</b></div>
+     ${tvTag(r.tv)}${typeof posBadges==='function'?posBadges(r.tv):''}${typeof dispoBadge==='function'?dispoBadge(r.tv):''}${listApexBar(r)}</li>`).join('');
   const d=s.top[0];
   return `<details class="ind-meth sec-list"><summary>ETF + 5 actions qualité / croissance</summary>
    <div class="fl-etf"><span class="fl-k">ETF principal</span><b>${s.etf.name}</b>${tvTag(s.etf.tv)}</div>

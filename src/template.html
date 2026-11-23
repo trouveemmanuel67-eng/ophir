@@ -256,6 +256,13 @@ main{max-width:1240px;margin:8px auto 0;padding:0 14px 20px}
 .fl-m{display:flex;flex-wrap:wrap;gap:3px 10px;font-size:11px;color:#fff}.fl-m i{font-style:normal;color:var(--mut)}
 .fl-sub{font-size:10px;color:var(--mut);margin-top:2px}
 .fl-t{font-size:10.5px;color:var(--mut);margin-top:4px;display:flex;flex-wrap:wrap;gap:3px 6px;align-items:center}
+.apex-dec{display:flex;align-items:center;gap:8px;margin-top:5px;font-size:10.5px;color:var(--mut);letter-spacing:.01em;line-height:1.35;font-variant-numeric:tabular-nums}
+.apex-dec-bar{display:flex;height:4px;border-radius:2px;overflow:hidden;flex:0 0 92px;min-width:72px;background:rgba(255,255,255,.08)}
+.apex-dec-bar>i{display:block;height:100%;min-width:0}
+.apex-dec-txt{flex:1;min-width:0}
+.fl-apex .apex-dec,.sr-d .apex-dec{width:100%}
+.sr-d{display:flex;flex-direction:column;align-items:stretch;gap:2px}
+
 .fl-ok{font-weight:600;color:#22c55e;border:1px solid rgba(34,197,94,.5);border-radius:999px;padding:0 7px;font-size:10px}
 .fl-warn{font-weight:600;color:#ffb347;border:1px solid rgba(255,179,71,.5);border-radius:999px;padding:0 7px;font-size:10px}
 @media(max-width:600px){.fl{grid-template-columns:1fr}.fl-sc{font-size:14px}.fl-apex .db-list .db-leg{font-size:10px;flex-wrap:wrap}.fl-apex .db-sm .db-g{height:28px}.fl-apex .db-sm .db-g .ind-bar{top:11px;height:6px}.fl-apex .db-sm .db-g .av-tick{top:9px;height:10px}.fl-apex .db-sm .db-mid{top:8px;height:12px}.fl-apex .db-sm .db-cur{font-size:10px}}
@@ -535,7 +542,7 @@ body{display:flex;flex-direction:column;min-height:100vh}
 }
 
 /* ===== TEMPLATE TRADE (haut à droite, hors menu) ===== */
-#hh,.hh-top{overflow:visible}#tt-wrap{position:absolute;top:50%;right:0;transform:translateY(-50%);z-index:45;flex:none}
+#hh,.hh-top{overflow:visible}
 .tt-btn{appearance:none;-webkit-appearance:none;display:inline-flex;align-items:center;margin:0;padding:6px 12px;font-family:inherit;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#e6c27a;background:rgba(230,194,122,.10);border:1px solid rgba(230,194,122,.55);border-radius:999px;cursor:pointer;white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,.25)}
 .tt-btn:hover,.tt-wrap.is-open .tt-btn{background:rgba(230,194,122,.18);box-shadow:0 0 0 1px rgba(230,194,122,.45),0 0 16px rgba(230,194,122,.25)}
 .tt-btn:focus-visible{outline:1px solid rgba(230,194,122,.8);outline-offset:2px}
@@ -551,13 +558,61 @@ body{display:flex;flex-direction:column;min-height:100vh}
 .tt-note{font-size:18px;font-weight:800;letter-spacing:-.02em}
 .tt-note small{font-size:11px;font-weight:700;margin-left:2px;opacity:.9}
 @media(max-width:600px){
-  #tt-wrap{position:absolute;top:10px;right:0;transform:none}
   .tt-btn{padding:5px 10px;font-size:10px}
 }
+
+
+/* ===== RÈGLES (au-dessus de TEMPLATE TRADE) ===== */
+#hh-tools{position:absolute;top:50%;right:0;transform:translateY(-50%);z-index:45;display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+#rg-wrap,#tt-wrap{position:relative;top:auto;right:auto;transform:none;z-index:45;flex:none}
+.rg-btn{appearance:none;-webkit-appearance:none;display:inline-flex;align-items:center;margin:0;padding:6px 12px;font-family:inherit;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#d8d0c2;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.22);border-radius:999px;cursor:pointer;white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,.25)}
+.rg-btn:hover,.rg-wrap.is-open .rg-btn{background:rgba(255,255,255,.12);color:#fff;box-shadow:0 0 0 1px rgba(255,255,255,.28)}
+.rg-btn:focus-visible{outline:1px solid rgba(255,255,255,.7);outline-offset:2px}
+.rg-panel{display:none;position:absolute;top:calc(100% + 10px);right:0;width:min(560px,calc(100vw - 32px));margin:0;padding:14px 16px 16px;z-index:47;max-height:min(78vh,720px);overflow:auto}
+.rg-wrap.is-open .rg-panel{display:block !important}
+.rg-head{font-size:15px;font-weight:750;letter-spacing:.02em;margin:0 0 6px;color:#fff}
+.rg-intro{font-size:12.5px;color:var(--mut);margin:0 0 12px;line-height:1.45}
+.rg-layout{display:flex;gap:14px;align-items:flex-start}
+.rg-nav{display:flex;flex-direction:column;gap:4px;flex:0 0 148px;position:sticky;top:0}
+.rg-nav button{appearance:none;width:100%;text-align:left;margin:0;padding:6px 9px;font-family:inherit;font-size:12px;font-weight:600;color:#d8d0c2;background:transparent;border:1px solid transparent;border-radius:8px;cursor:pointer}
+.rg-nav button:hover{background:rgba(255,255,255,.06);color:#fff}
+.rg-nav button.on{background:rgba(255,255,255,.10);color:#fff;border-color:rgba(255,255,255,.16)}
+.rg-main{flex:1;min-width:0}
+.rg-k{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);font-weight:650;margin:12px 0 6px}
+.rg-p{font-size:12.5px;color:#d8d0c2;line-height:1.45;margin:0 0 8px}
+.rg-part{font-size:13.5px;margin:0 0 4px;color:#fff}
+.rg-part b{font-weight:700;margin-right:6px}
+.rg-list{list-style:none;margin:0;padding:0}
+.rg-list li{display:flex;flex-wrap:wrap;justify-content:space-between;gap:2px 10px;padding:6px 0;border-bottom:1px solid var(--soft);font-size:12.5px}
+.rg-list li b{font-weight:650;color:#fff}
+.rg-list li span{color:var(--mut);font-variant-numeric:tabular-nums}
+.rg-list li small{flex:1 0 100%;font-size:11px;color:var(--mut);line-height:1.35;margin-top:2px}
+.rg-list li.rg-opt b{font-weight:500;color:#d8d0c2}
+.rg-list-plain li{display:block;border-bottom:0;padding:4px 0}
+.rg-bar{display:flex;height:8px;border-radius:99px;overflow:hidden;background:rgba(255,255,255,.06);margin:0 0 10px}
+.rg-seg{display:block;height:100%}
+.rg-donut-wrap{display:flex;align-items:center;gap:12px;margin:0 0 12px}
+.rg-donut{width:64px;height:64px;flex:none;transform:rotate(-90deg)}
+.rg-donut-leg{display:flex;flex-direction:column;gap:4px;font-size:12px;color:#d8d0c2}
+.rg-donut-leg i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:middle}
+.rg-profils{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin:8px 0}
+.rg-profil{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:8px}
+.rg-profil-t{font-size:11.5px;font-weight:700;color:#fff;margin:0 0 4px}
+.rg-profil ul{list-style:none;margin:0;padding:0;font-size:11px;color:var(--mut);line-height:1.4}
+.rg-commons{margin-top:14px;padding-top:10px;border-top:1px solid var(--soft)}
+.rg-bands{display:inline-flex;flex-wrap:wrap;gap:6px 10px;vertical-align:middle}
+.rg-band{display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+.rg-band i{width:8px;height:8px;border-radius:50%;display:inline-block}
+@media(max-width:600px){
+  #hh-tools{position:absolute;top:10px;right:0;transform:none}
+  .rg-btn{padding:5px 10px;font-size:10px}
+  .rg-layout{flex-direction:column}
+  .rg-nav{flex-direction:row;flex-wrap:wrap;flex-basis:auto;width:100%;position:static}
+  .rg-nav button{width:auto}
+}
 @media(min-width:1100px){
-  #tt-wrap{right:0}
-  /* Décale le tableau à gauche de la colonne Mes positions (rail 360px + gouttière) */
-  .tt-panel{right:364px;left:auto;top:calc(100% + 8px);margin-right:0}
+  #hh-tools{right:0}
+  .rg-panel,.tt-panel{right:364px;left:auto;top:calc(100% + 8px)}
 }
 
 /* ===== Mes positions compact ===== */
@@ -684,7 +739,7 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
       <nav id="nav"></nav>
       <div class="acc-tools"><button id="accAll" type="button" onclick="accAll(this.dataset.open==='1')">▾ Tout déplier</button></div>
     </div>
-    <div id="tt-wrap"></div>
+    <div id="hh-tools"><div id="rg-wrap"></div><div id="tt-wrap"></div></div>
   </div>
 </header>
 <div class="page">
@@ -712,6 +767,7 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
 <script id="data16" type="application/json">__DATA16__</script>
 <script id="data17" type="application/json">__DATA17__</script>
 <script id="data18" type="application/json">__DATA18__</script>
+<script id="dataRegles" type="application/json">__DATA19__</script>
 <script type="application/json" id="dataMaj">__MAJ__</script>
 <script type="application/json" id="dataGi">__GI__</script>
 <script>
@@ -914,9 +970,11 @@ function chartTrends(){
 /*__ACCUEILJS__*/
 /*__PLCJS__*/
 /*__TTJS__*/
+/*__RGJS__*/
 /*__GIJS__*/
 buildTabs();
 if(typeof ttInit==='function') ttInit();
+if(typeof rgInit==='function') rgInit();
 if(typeof posInit==='function') posInit();
 if(typeof giInit==='function') giInit();
 </script>

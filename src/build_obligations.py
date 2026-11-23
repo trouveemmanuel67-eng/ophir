@@ -44,9 +44,26 @@ def ecb(f):
 def asof(series,d):
     keys=[x[0] for x in series];i=bisect.bisect_right(keys,d)-1
     return series[i] if i>=0 else None
+def _chart_weekly(j):
+    """Accepte le format Yahoo chart (celui qu'écrit fetch_yahoo) ou {weekly: [[date, close], ...]}."""
+    if isinstance(j, dict) and j.get('weekly'):
+        return j['weekly'], j
+    res=((j.get('chart') or {}).get('result') or [None])[0] or {}
+    ts=res.get('timestamp') or []
+    q=((res.get('indicators') or {}).get('quote') or [{}])[0]
+    closes=q.get('close') or []
+    weekly=[]
+    import datetime as _D
+    for t,c in zip(ts, closes):
+        if c is None:
+            continue
+        weekly.append([_D.datetime.utcfromtimestamp(int(t)).strftime('%Y-%m-%d %H:%M:%S'), float(c)])
+    meta=res.get('meta') or {}
+    return weekly, {'symbol': meta.get('symbol'), 'name': meta.get('shortName') or meta.get('symbol'), 'weekly': weekly}
+
 def weekly(sym):
-    j=json.load(open(B+f'w_{sym.replace("^","_")}.json')); wk={}
-    for d0,c0 in j['weekly']:
+    raw=json.load(open(B+f'w_{sym.replace("^","_")}.json')); pairs,j=_chart_weekly(raw); wk={}
+    for d0,c0 in pairs:
         d1=D.date.fromisoformat(d0[:10]); fri=d1+D.timedelta(days=(4-d1.weekday())%7) if d1.weekday()<=4 else d1-D.timedelta(days=d1.weekday()-4)
         wk[fri]=c0
     cl=[(f.isoformat(),wk[f]) for f in sorted(wk) if f<TODAY]

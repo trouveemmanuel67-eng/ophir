@@ -235,4 +235,7 @@ def compute(w,BEN,BN,opens=None,fsym=None,fpre=None,hl=None,syms=None,fibo_adjus
     EZ.appliquer_av(out['av'], out.get('elliott'))
     if out.get('elliott') and not out['elliott'].get('zone'):
         out['elliott']['zone']=EZ.zone_of(out['elliott'].get('key'))
+    import technique_apex as TA
+    out['technique'] = TA.pack_from_compute(out, c, ds, op, hl)
+    out['av']['technique'] = {k: out['technique'].get(k) for k in TA.TECH_IDS}
     return out

@@ -6,7 +6,8 @@ function srCells(s){
   const avObj=s.av||{};
   const av=(avObj.score_affiche!=null)?avObj.score_affiche:avObj.score;
   const sent=s.sent||{};
-  return `<div class="sr-c sr-d">${dualBar(sent.value,sent.label||'–',av,avObj.label||'–','db-sm',true,s.apex10)}</div>`;
+  const dec=(typeof apexDecomp==='function')?apexDecomp(s.apex10):'';
+  return `<div class="sr-c sr-d">${dualBar(sent.value,sent.label||'–',av,avObj.label||'–','db-sm',true,s.apex10)}${dec}</div>`;
 }
 function srHead(first){return `<div class="sr sr-hd" aria-hidden="true"><div>${first}</div><div><i class="db-dot db-a">AV</i>Achat / Vente (−100 à +100, échelle du haut) · <i class="db-dot db-s">S</i>Sentiment (0 à 100, échelle du bas)</div><div>Détails</div></div>`;}
 /* Les panneaux <details> s'ouvrent sous la ligne ; leurs boutons sont placés dans la dernière colonne */

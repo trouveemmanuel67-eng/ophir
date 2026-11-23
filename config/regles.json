@@ -1,10 +1,10 @@
 {
   "version": "2026-11-23",
-  "tache": "t328u",
+  "tache": "t329u",
   "timezone": "Europe/Paris",
   "note_apex": {
-    "poids_timing": 0.6,
-    "poids_fondamental": 0.4,
+    "poids_timing": 0.5,
+    "poids_fondamental": 0.5,
     "av_lo": -60.0,
     "av_hi": 60.0,
     "fond_seuil": 40.0,
@@ -14,7 +14,22 @@
     "note_max": 10.0,
     "arrondi": 0.5,
     "obligations_sans_fondamental": true,
-    "score_selection_etf_pas_fondamental": true
+    "score_selection_etf_pas_fondamental": true,
+    "poids_technique": 0.5,
+    "technique": {
+      "elliott": 0.1,
+      "structure": 0.1,
+      "fibonacci": 0.08,
+      "figure": 0.07,
+      "rsi": 0.05,
+      "macd": 0.05,
+      "cci": 0.05
+    },
+    "technique_somme": 0.5,
+    "renormaliser_sans_fondamental": true,
+    "figure_neutre_si_aucune": true,
+    "cci_periode": 20,
+    "cci_neutre_hors_zone": true
   },
   "couleurs": {
     "regle": "Uniquement la note APEX /10 affichée (après overrides). 5 tranches égales au pas de 0,5 : 0–1,5 violet, 2–3,5 rouge, 4–5,5 jaune (orange sur TradingView), 6–7,5 vert, 8–10 cyan.",
@@ -167,5 +182,1152 @@
     "positions_hors_univers_visibles": true,
     "date": "2026-11-23",
     "tache": "t322u"
+  },
+  "fiche_regles": {
+    "titre_bouton": "Règles",
+    "titre_panneau": "Règles de la note APEX",
+    "intro": "La note APEX /10 vaut 50 % de fondamental et 50 % de technique. Pour la crypto, la liquidité remplace le fondamental. Sans fondamental (obligations, ETF obligataires, et tout actif sans note fondamentale), le technique est renormalisé à 100 % — c’est signalé sur la fiche. Les poids techniques sont lus dans config/regles.json et restent modifiables.",
+    "ordre_site": [
+      "actions",
+      "etf_actions",
+      "obligations",
+      "metaux",
+      "energie",
+      "crypto",
+      "indices_macro",
+      "liquidites",
+      "placements",
+      "immobilier"
+    ],
+    "classes": [
+      {
+        "id": "actions",
+        "label": "Actions",
+        "onglet": "Actions",
+        "note": {
+          "parts": [
+            {
+              "id": "fondamental",
+              "label": "Fondamental",
+              "poids": 0.5
+            },
+            {
+              "id": "technique",
+              "label": "Technique",
+              "poids": 0.5
+            }
+          ]
+        },
+        "timing": {
+          "source": "config/regles.json · apex/score.py · src/technique_apex.py",
+          "fixes": [
+            {
+              "id": "elliott",
+              "label": "Vagues d'Elliott",
+              "poids": 0.2
+            },
+            {
+              "id": "structure",
+              "label": "Structure (tendance hebdo, plus hauts et plus bas, position par rapport à l’ATH)",
+              "poids": 0.2
+            },
+            {
+              "id": "fibonacci",
+              "label": "Retracement de Fibonacci",
+              "poids": 0.16,
+              "parts": [
+                {
+                  "id": "historique",
+                  "label": "Retracement historique (plus bas historique → plus haut historique, corps hebdo)",
+                  "poids": 0.6666666666666666
+                },
+                {
+                  "id": "dernier_mouvement",
+                  "label": "Retracement sur 52 semaines",
+                  "poids": 0.3333333333333333
+                }
+              ]
+            },
+            {
+              "id": "figure",
+              "label": "Figure chartiste weekly (triangle, épaule-tête-épaule, double creux ou sommet, biseau, drapeau)",
+              "poids": 0.14,
+              "si_absent": "Neutre (0) si aucune figure n’est détectée. Le dénominateur reste de 7 % de la note (14 % si le technique est renormalisé)."
+            },
+            {
+              "id": "rsi",
+              "label": "RSI 14 hebdo",
+              "poids": 0.1
+            },
+            {
+              "id": "macd",
+              "label": "MACD 12/26/9 hebdo",
+              "poids": 0.1
+            },
+            {
+              "id": "cci",
+              "label": "CCI 20 hebdo (corps)",
+              "poids": 0.1,
+              "si_absent": "Hors des zones ±100, le critère est neutre (0) mais reste compté (5 % de la note, ou 10 % si le technique est renormalisé)."
+            }
+          ],
+          "renormalise": false
+        },
+        "fondamental": {
+          "label": "Fondamental",
+          "poids": 0.5,
+          "formule": "moyenne moitié santé, moitié croissance (score 0–100, uniquement si les données sont suffisantes)",
+          "part_sante": 0.5,
+          "part_croissance": 0.5,
+          "profils": {
+            "std": {
+              "label": "Actions non financières",
+              "sante": [
+                {
+                  "label": "Dette nette / EBITDA",
+                  "poids": 0.125,
+                  "inverse": true
+                },
+                {
+                  "label": "Marge opérationnelle",
+                  "poids": 0.125
+                },
+                {
+                  "label": "Marge de free cash-flow",
+                  "poids": 0.125
+                },
+                {
+                  "label": "ROE",
+                  "poids": 0.075
+                },
+                {
+                  "label": "Current ratio",
+                  "poids": 0.05
+                }
+              ]
+            },
+            "fin": {
+              "label": "Banques et assurances",
+              "sante": [
+                {
+                  "label": "ROE",
+                  "poids": 0.15
+                },
+                {
+                  "label": "ROA",
+                  "poids": 0.15
+                },
+                {
+                  "label": "Marge nette",
+                  "poids": 0.125
+                },
+                {
+                  "label": "Marge opérationnelle",
+                  "poids": 0.075
+                }
+              ]
+            },
+            "reit": {
+              "label": "Foncières et REIT",
+              "sante": [
+                {
+                  "label": "Dette nette / EBITDA",
+                  "poids": 0.175,
+                  "inverse": true
+                },
+                {
+                  "label": "Marge d'EBITDA",
+                  "poids": 0.125
+                },
+                {
+                  "label": "Marge opérationnelle",
+                  "poids": 0.125
+                },
+                {
+                  "label": "ROA",
+                  "poids": 0.075
+                }
+              ]
+            }
+          },
+          "croissance": [
+            {
+              "label": "Croissance BPA estimée, exercice en cours",
+              "poids": 0.125
+            },
+            {
+              "label": "Croissance BPA estimée, exercice suivant",
+              "poids": 0.175
+            },
+            {
+              "label": "Croissance CA estimée, exercice en cours",
+              "poids": 0.075
+            },
+            {
+              "label": "Croissance CA estimée, exercice suivant",
+              "poids": 0.125
+            }
+          ],
+          "si_absent": "Sans fondamental disponible, le technique est renormalisé à 100 % et la fiche le signale.",
+          "penalite": {
+            "seuil": 40.0,
+            "maximum": 2.0,
+            "texte": "Si le fondamental est inférieur au seuil, une pénalité proportionnelle est retranchée de la note, plafonnée au maximum indiqué."
+          }
+        },
+        "precision": "Actions cotées : 50 % fondamental (santé + croissance) et 50 % technique. Le bandeau Achat / Vente reste calculé à part, sur sa propre grille, et sert aussi à la règle cyan.",
+        "technique": {
+          "source": "config/regles.json · apex/score.py · src/technique_apex.py",
+          "fixes": [
+            {
+              "id": "elliott",
+              "label": "Vagues d'Elliott",
+              "poids": 0.2
+            },
+            {
+              "id": "structure",
+              "label": "Structure (tendance hebdo, plus hauts et plus bas, position par rapport à l’ATH)",
+              "poids": 0.2
+            },
+            {
+              "id": "fibonacci",
+              "label": "Retracement de Fibonacci",
+              "poids": 0.16,
+              "parts": [
+                {
+                  "id": "historique",
+                  "label": "Retracement historique (plus bas historique → plus haut historique, corps hebdo)",
+                  "poids": 0.6666666666666666
+                },
+                {
+                  "id": "dernier_mouvement",
+                  "label": "Retracement sur 52 semaines",
+                  "poids": 0.3333333333333333
+                }
+              ]
+            },
+            {
+              "id": "figure",
+              "label": "Figure chartiste weekly (triangle, épaule-tête-épaule, double creux ou sommet, biseau, drapeau)",
+              "poids": 0.14,
+              "si_absent": "Neutre (0) si aucune figure n’est détectée. Le dénominateur reste de 7 % de la note (14 % si le technique est renormalisé)."
+            },
+            {
+              "id": "rsi",
+              "label": "RSI 14 hebdo",
+              "poids": 0.1
+            },
+            {
+              "id": "macd",
+              "label": "MACD 12/26/9 hebdo",
+              "poids": 0.1
+            },
+            {
+              "id": "cci",
+              "label": "CCI 20 hebdo (corps)",
+              "poids": 0.1,
+              "si_absent": "Hors des zones ±100, le critère est neutre (0) mais reste compté (5 % de la note, ou 10 % si le technique est renormalisé)."
+            }
+          ],
+          "renormalise": false
+        }
+      },
+      {
+        "id": "etf_actions",
+        "label": "ETF actions et paniers",
+        "onglet": "Actions",
+        "note": {
+          "parts": [
+            {
+              "id": "technique",
+              "label": "Technique (renormalisé)",
+              "poids": 1.0
+            }
+          ]
+        },
+        "timing": {
+          "source": "config/regles.json · apex/score.py · src/technique_apex.py",
+          "fixes": [
+            {
+              "id": "elliott",
+              "label": "Vagues d'Elliott",
+              "poids": 0.2
+            },
+            {
+              "id": "structure",
+              "label": "Structure (tendance hebdo, plus hauts et plus bas, position par rapport à l’ATH)",
+              "poids": 0.2
+            },
+            {
+              "id": "fibonacci",
+              "label": "Retracement de Fibonacci",
+              "poids": 0.16,
+              "parts": [
+                {
+                  "id": "historique",
+                  "label": "Retracement historique (plus bas historique → plus haut historique, corps hebdo)",
+                  "poids": 0.6666666666666666
+                },
+                {
+                  "id": "dernier_mouvement",
+                  "label": "Retracement sur 52 semaines",
+                  "poids": 0.3333333333333333
+                }
+              ]
+            },
+            {
+              "id": "figure",
+              "label": "Figure chartiste weekly (triangle, épaule-tête-épaule, double creux ou sommet, biseau, drapeau)",
+              "poids": 0.14,
+              "si_absent": "Neutre (0) si aucune figure n’est détectée. Le dénominateur reste de 7 % de la note (14 % si le technique est renormalisé)."
+            },
+            {
+              "id": "rsi",
+              "label": "RSI 14 hebdo",
+              "poids": 0.1
+            },
+            {
+              "id": "macd",
+              "label": "MACD 12/26/9 hebdo",
+              "poids": 0.1
+            },
+            {
+              "id": "cci",
+              "label": "CCI 20 hebdo (corps)",
+              "poids": 0.1,
+              "si_absent": "Hors des zones ±100, le critère est neutre (0) mais reste compté (5 % de la note, ou 10 % si le technique est renormalisé)."
+            }
+          ],
+          "renormalise": true
+        },
+        "fondamental": null,
+        "precision": "Les ETF actions n’ont pas de fondamental d’émetteur. Le technique (Elliott, structure, Fibonacci, figure, RSI, MACD, CCI) est renormalisé à 100 %. C’est signalé sur chaque fiche (« sans fond. »).",
+        "technique": {
+          "source": "config/regles.json · apex/score.py · src/technique_apex.py",
+          "fixes": [
+            {
+              "id": "elliott",
+              "label": "Vagues d'Elliott",
+              "poids": 0.2
+            },
+            {
+              "id": "structure",
+              "label": "Structure (tendance hebdo, plus hauts et plus bas, position par rapport à l’ATH)",
+              "poids": 0.2
+            },
+            {
+              "id": "fibonacci",
+              "label": "Retracement de Fibonacci",
+              "poids": 0.16,
+              "parts": [
+                {
+                  "id": "historique",
+                  "label": "Retracement historique (plus bas historique → plus haut historique, corps hebdo)",
+                  "poids": 0.6666666666666666
+                },
+                {
+                  "id": "dernier_mouvement",
+                  "label": "Retracement sur 52 semaines",
+                  "poids": 0.3333333333333333
+                }
+              ]
+            },
+            {
+              "id": "figure",
+              "label": "Figure chartiste weekly (triangle, épaule-tête-épaule, double creux ou sommet, biseau, drapeau)",
+              "poids": 0.14,
+              "si_absent": "Neutre (0) si aucune figure n’est détectée. Le dénominateur reste de 7 % de la note (14 % si le technique est renormalisé)."
+            },
+            {
+              "id": "rsi",
+              "label": "RSI 14 hebdo",
+              "poids": 0.1
+            },
+            {
+              "id": "macd",
+              "label": "MACD 12/26/9 hebdo",
+              "poids": 0.1
+            },
+            {
+              "id": "cci",
+              "label": "CCI 20 hebdo (corps)",
+              "poids": 0.1,
+              "si_absent": "Hors des zones ±100, le critère est neutre (0) mais reste compté (5 % de la note, ou 10 % si le technique est renormalisé)."
+            }
+          ],
+          "renormalise": true
+        }
+      },
+      {
+        "id": "obligations",
+        "label": "Obligations",
+        "onglet": "Obligations",
+        "note": {
+          "parts": [
+            {
+              "id": "technique",
+              "label": "Technique (renormalisé)",
+              "poids": 1.0
+            }
+          ]
+        },
+        "timing": {
+          "source": "config/regles.json · apex/score.py · src/technique_apex.py",
+          "fixes": [
+            {
+              "id": "elliott",
+              "label": "Vagues d'Elliott",
+              "poids": 0.2
+            },
+            {
+              "id": "structure",
+              "label": "Structure (tendance hebdo, plus hauts et plus bas, position par rapport à l’ATH)",
+              "poids": 0.2
+            },
+            {
+              "id": "fibonacci",
+              "label": "Retracement de Fibonacci",
+              "poids": 0.16,
+              "parts": [
+                {
+                  "id": "historique",
+                  "label": "Retracement historique (plus bas historique → plus haut historique, corps hebdo)",
+                  "poids": 0.6666666666666666
+                },
+                {
+                  "id": "dernier_mouvement",
+                  "label": "Retracement sur 52 semaines",
+                  "poids": 0.3333333333333333
+                }
+              ]
+            },
+            {
+              "id": "figure",
+              "label": "Figure chartiste weekly (triangle, épaule-tête-épaule, double creux ou sommet, biseau, drapeau)",
+              "poids": 0.14,
+              "si_absent": "Neutre (0) si aucune figure n’est détectée. Le dénominateur reste de 7 % de la note (14 % si le technique est renormalisé)."
+            },
+            {
+              "id": "rsi",
+              "label": "RSI 14 hebdo",
+              "poids": 0.1
+            },
+            {
+              "id": "macd",
+              "label": "MACD 12/26/9 hebdo",
+              "poids": 0.1
+            },
+            {
+              "id": "cci",
+              "label": "CCI 20 hebdo (corps)",
+              "poids": 0.1,
+              "si_absent": "Hors des zones ±100, le critère est neutre (0) mais reste compté (5 % de la note, ou 10 % si le technique est renormalisé)."
+            }
+          ],
+          "renormalise": true
+        },
+        "fondamental": null,
+        "precision": "Obligations et ETF obligataires : pas de fondamental. Le technique est renormalisé à 100 % et la fiche le signale. Les scores de sélection d’un ETF (frais, liquidité) ne rentrent pas dans la note APEX.",
+        "technique": {
+          "source": "config/regles.json · apex/score.py · src/technique_apex.py",
+          "fixes": [
+            {
+              "id": "elliott",
+              "label": "Vagues d'Elliott",
+              "poids": 0.2
+            },
+            {
+              "id": "structure",
+              "label": "Structure (tendance hebdo, plus hauts et plus bas, position par rapport à l’ATH)",
+              "poids": 0.2
+            },
+            {
+              "id": "fibonacci",
+              "label": "Retracement de Fibonacci",
+              "poids": 0.16,
+              "parts": [
+                {
+                  "id": "historique",
+                  "label": "Retracement historique (plus bas historique → plus haut historique, corps hebdo)",
+                  "poids": 0.6666666666666666
+                },
+                {
+                  "id": "dernier_mouvement",
+                  "label": "Retracement sur 52 semaines",
+                  "poids": 0.3333333333333333
+                }
+              ]
+            },
+            {
+              "id": "figure",
+              "label": "Figure chartiste weekly (triangle, épaule-tête-épaule, double creux ou sommet, biseau, drapeau)",
+              "poids": 0.14,
+              "si_absent": "Neutre (0) si aucune figure n’est détectée. Le dénominateur reste de 7 % de la note (14 % si le technique est renormalisé)."
+            },
+            {
+              "id": "rsi",
+              "label": "RSI 14 hebdo",
+              "poids": 0.1
+            },
+            {
+              "id": "macd",
+              "label": "MACD 12/26/9 hebdo",
+              "poids": 0.1
+            },
+            {
+              "id": "cci",
+              "label": "CCI 20 hebdo (corps)",
+              "poids": 0.1,
+              "si_absent": "Hors des zones ±100, le critère est neutre (0) mais reste compté (5 % de la note, ou 10 % si le technique est renormalisé)."
+            }
+          ],
+          "renormalise": true
+        }
+      },
+      {
+        "id": "metaux",
+        "label": "Métaux précieux",
+        "onglet": "Métaux précieux",
+        "note": {
+          "parts": [
+            {
+              "id": "fondamental",
+              "label": "Fondamental (mines, si disponible)",
+              "poids": 0.5
+            },
+            {
+              "id": "technique",
+              "label": "Technique",
+              "poids": 0.5
+            }
+          ]
+        },
+        "timing": {
+          "source": "config/regles.json · apex/score.py · src/technique_apex.py",
+          "fixes": [
+            {
+              "id": "elliott",
+              "label": "Vagues d'Elliott",
+              "poids": 0.2
+            },
+            {
+              "id": "structure",
+              "label": "Structure (tendance hebdo, plus hauts et plus bas, position par rapport à l’ATH)",
+              "poids": 0.2
+            },
+            {
+              "id": "fibonacci",
+              "label": "Retracement de Fibonacci",
+              "poids": 0.16,
+              "parts": [
+                {
+                  "id": "historique",
+                  "label": "Retracement historique (plus bas historique → plus haut historique, corps hebdo)",
+                  "poids": 0.6666666666666666
+                },
+                {
+                  "id": "dernier_mouvement",
+                  "label": "Retracement sur 52 semaines",
+                  "poids": 0.3333333333333333
+                }
+              ]
+            },
+            {
+              "id": "figure",
+              "label": "Figure chartiste weekly (triangle, épaule-tête-épaule, double creux ou sommet, biseau, drapeau)",
+              "poids": 0.14,
+              "si_absent": "Neutre (0) si aucune figure n’est détectée. Le dénominateur reste de 7 % de la note (14 % si le technique est renormalisé)."
+            },
+            {
+              "id": "rsi",
+              "label": "RSI 14 hebdo",
+              "poids": 0.1
+            },
+            {
+              "id": "macd",
+              "label": "MACD 12/26/9 hebdo",
+              "poids": 0.1
+            },
+            {
+              "id": "cci",
+              "label": "CCI 20 hebdo (corps)",
+              "poids": 0.1,
+              "si_absent": "Hors des zones ±100, le critère est neutre (0) mais reste compté (5 % de la note, ou 10 % si le technique est renormalisé)."
+            }
+          ],
+          "renormalise": false
+        },
+        "fondamental": null,
+        "precision": "Minières avec fondamental : 50 / 50. ETC, contrats et métaux au comptant sans fondamental : technique renormalisé à 100 %, signalé sur la fiche.",
+        "technique": {
+          "source": "config/regles.json · apex/score.py · src/technique_apex.py",
+          "fixes": [
+            {
+              "id": "elliott",
+              "label": "Vagues d'Elliott",
+              "poids": 0.2
+            },
+            {
+              "id": "structure",
+              "label": "Structure (tendance hebdo, plus hauts et plus bas, position par rapport à l’ATH)",
+              "poids": 0.2
+            },
+            {
+              "id": "fibonacci",
+              "label": "Retracement de Fibonacci",
+              "poids": 0.16,
+              "parts": [
+                {
+                  "id": "historique",
+                  "label": "Retracement historique (plus bas historique → plus haut historique, corps hebdo)",
+                  "poids": 0.6666666666666666
+                },
+                {
+                  "id": "dernier_mouvement",
+                  "label": "Retracement sur 52 semaines",
+                  "poids": 0.3333333333333333
+                }
+              ]
+            },
+            {
+              "id": "figure",
+              "label": "Figure chartiste weekly (triangle, épaule-tête-épaule, double creux ou sommet, biseau, drapeau)",
+              "poids": 0.14,
+              "si_absent": "Neutre (0) si aucune figure n’est détectée. Le dénominateur reste de 7 % de la note (14 % si le technique est renormalisé)."
+            },
+            {
+              "id": "rsi",
+              "label": "RSI 14 hebdo",
+              "poids": 0.1
+            },
+            {
+              "id": "macd",
+              "label": "MACD 12/26/9 hebdo",
+              "poids": 0.1
+            },
+            {
+              "id": "cci",
+              "label": "CCI 20 hebdo (corps)",
+              "poids": 0.1,
+              "si_absent": "Hors des zones ±100, le critère est neutre (0) mais reste compté (5 % de la note, ou 10 % si le technique est renormalisé)."
+            }
+          ],
+          "renormalise": false
+        }
+      },
+      {
+        "id": "energie",
+        "label": "Énergie",
+        "onglet": "Énergie",
+        "note": {
+          "parts": [
+            {
+              "id": "fondamental",
+              "label": "Fondamental (si l’actif en a un)",
+              "poids": 0.5
+            },
+            {
+              "id": "technique",
+              "label": "Technique",
+              "poids": 0.5
+            }
+          ]
+        },
+        "timing": {
+          "source": "config/regles.json · apex/score.py · src/technique_apex.py",
+          "fixes": [
+            {
+              "id": "elliott",
+              "label": "Vagues d'Elliott",
+              "poids": 0.2
+            },
+            {
+              "id": "structure",
+              "label": "Structure (tendance hebdo, plus hauts et plus bas, position par rapport à l’ATH)",
+              "poids": 0.2
+            },
+            {
+              "id": "fibonacci",
+              "label": "Retracement de Fibonacci",
+              "poids": 0.16,
+              "parts": [
+                {
+                  "id": "historique",
+                  "label": "Retracement historique (plus bas historique → plus haut historique, corps hebdo)",
+                  "poids": 0.6666666666666666
+                },
+                {
+                  "id": "dernier_mouvement",
+                  "label": "Retracement sur 52 semaines",
+                  "poids": 0.3333333333333333
+                }
+              ]
+            },
+            {
+              "id": "figure",
+              "label": "Figure chartiste weekly (triangle, épaule-tête-épaule, double creux ou sommet, biseau, drapeau)",
+              "poids": 0.14,
+              "si_absent": "Neutre (0) si aucune figure n’est détectée. Le dénominateur reste de 7 % de la note (14 % si le technique est renormalisé)."
+            },
+            {
+              "id": "rsi",
+              "label": "RSI 14 hebdo",
+              "poids": 0.1
+            },
+            {
+              "id": "macd",
+              "label": "MACD 12/26/9 hebdo",
+              "poids": 0.1
+            },
+            {
+              "id": "cci",
+              "label": "CCI 20 hebdo (corps)",
+              "poids": 0.1,
+              "si_absent": "Hors des zones ±100, le critère est neutre (0) mais reste compté (5 % de la note, ou 10 % si le technique est renormalisé)."
+            }
+          ],
+          "renormalise": false
+        },
+        "fondamental": null,
+        "precision": "Producteurs et actions énergétiques : 50 % fondamental + 50 % technique. Les ETP adossés à des contrats à terme et les contrats eux-mêmes restent des repères de marché, sans note, ou reçoivent un technique renormalisé à 100 % s’ils sont notés.",
+        "technique": {
+          "source": "config/regles.json · apex/score.py · src/technique_apex.py",
+          "fixes": [
+            {
+              "id": "elliott",
+              "label": "Vagues d'Elliott",
+              "poids": 0.2
+            },
+            {
+              "id": "structure",
+              "label": "Structure (tendance hebdo, plus hauts et plus bas, position par rapport à l’ATH)",
+              "poids": 0.2
+            },
+            {
+              "id": "fibonacci",
+              "label": "Retracement de Fibonacci",
+              "poids": 0.16,
+              "parts": [
+                {
+                  "id": "historique",
+                  "label": "Retracement historique (plus bas historique → plus haut historique, corps hebdo)",
+                  "poids": 0.6666666666666666
+                },
+                {
+                  "id": "dernier_mouvement",
+                  "label": "Retracement sur 52 semaines",
+                  "poids": 0.3333333333333333
+                }
+              ]
+            },
+            {
+              "id": "figure",
+              "label": "Figure chartiste weekly (triangle, épaule-tête-épaule, double creux ou sommet, biseau, drapeau)",
+              "poids": 0.14,
+              "si_absent": "Neutre (0) si aucune figure n’est détectée. Le dénominateur reste de 7 % de la note (14 % si le technique est renormalisé)."
+            },
+            {
+              "id": "rsi",
+              "label": "RSI 14 hebdo",
+              "poids": 0.1
+            },
+            {
+              "id": "macd",
+              "label": "MACD 12/26/9 hebdo",
+              "poids": 0.1
+            },
+            {
+              "id": "cci",
+              "label": "CCI 20 hebdo (corps)",
+              "poids": 0.1,
+              "si_absent": "Hors des zones ±100, le critère est neutre (0) mais reste compté (5 % de la note, ou 10 % si le technique est renormalisé)."
+            }
+          ],
+          "renormalise": false
+        }
+      },
+      {
+        "id": "crypto",
+        "label": "Crypto",
+        "onglet": "Crypto",
+        "note": {
+          "parts": [
+            {
+              "id": "liquidite",
+              "label": "Liquidité (à la place du fondamental)",
+              "poids": 0.5
+            },
+            {
+              "id": "technique",
+              "label": "Technique",
+              "poids": 0.5
+            }
+          ]
+        },
+        "timing": {
+          "source": "config/regles.json · apex/score.py · src/technique_apex.py",
+          "fixes": [
+            {
+              "id": "elliott",
+              "label": "Vagues d'Elliott",
+              "poids": 0.2
+            },
+            {
+              "id": "structure",
+              "label": "Structure (tendance hebdo, plus hauts et plus bas, position par rapport à l’ATH)",
+              "poids": 0.2
+            },
+            {
+              "id": "fibonacci",
+              "label": "Retracement de Fibonacci",
+              "poids": 0.16,
+              "parts": [
+                {
+                  "id": "historique",
+                  "label": "Retracement historique (plus bas historique → plus haut historique, corps hebdo)",
+                  "poids": 0.6666666666666666
+                },
+                {
+                  "id": "dernier_mouvement",
+                  "label": "Retracement sur 52 semaines",
+                  "poids": 0.3333333333333333
+                }
+              ]
+            },
+            {
+              "id": "figure",
+              "label": "Figure chartiste weekly (triangle, épaule-tête-épaule, double creux ou sommet, biseau, drapeau)",
+              "poids": 0.14,
+              "si_absent": "Neutre (0) si aucune figure n’est détectée. Le dénominateur reste de 7 % de la note (14 % si le technique est renormalisé)."
+            },
+            {
+              "id": "rsi",
+              "label": "RSI 14 hebdo",
+              "poids": 0.1
+            },
+            {
+              "id": "macd",
+              "label": "MACD 12/26/9 hebdo",
+              "poids": 0.1
+            },
+            {
+              "id": "cci",
+              "label": "CCI 20 hebdo (corps)",
+              "poids": 0.1,
+              "si_absent": "Hors des zones ±100, le critère est neutre (0) mais reste compté (5 % de la note, ou 10 % si le technique est renormalisé)."
+            }
+          ],
+          "renormalise": false
+        },
+        "fondamental": {
+          "label": "Liquidité",
+          "poids": 0.5,
+          "remplace": true,
+          "source": "src/liquidite_crypto.py",
+          "composantes": [
+            {
+              "id": "carte_1an",
+              "label": "Carte de liquidité 1 an",
+              "poids": 0.7
+            },
+            {
+              "id": "carte_1mois",
+              "label": "Carte de liquidité 1 mois",
+              "poids": 0.3
+            }
+          ],
+          "si_absent": "Sans score de liquidité, le technique est renormalisé à 100 % (signalé)."
+        },
+        "precision": "Pour la crypto, la liquidité accumulée non liquidée remplace le fondamental (50 %). Le technique compte pour l’autre moitié, avec les mêmes poids que les actions. Sans score de liquidité, le technique est renormalisé à 100 % et la fiche le signale.",
+        "technique": {
+          "source": "config/regles.json · apex/score.py · src/technique_apex.py",
+          "fixes": [
+            {
+              "id": "elliott",
+              "label": "Vagues d'Elliott",
+              "poids": 0.2
+            },
+            {
+              "id": "structure",
+              "label": "Structure (tendance hebdo, plus hauts et plus bas, position par rapport à l’ATH)",
+              "poids": 0.2
+            },
+            {
+              "id": "fibonacci",
+              "label": "Retracement de Fibonacci",
+              "poids": 0.16,
+              "parts": [
+                {
+                  "id": "historique",
+                  "label": "Retracement historique (plus bas historique → plus haut historique, corps hebdo)",
+                  "poids": 0.6666666666666666
+                },
+                {
+                  "id": "dernier_mouvement",
+                  "label": "Retracement sur 52 semaines",
+                  "poids": 0.3333333333333333
+                }
+              ]
+            },
+            {
+              "id": "figure",
+              "label": "Figure chartiste weekly (triangle, épaule-tête-épaule, double creux ou sommet, biseau, drapeau)",
+              "poids": 0.14,
+              "si_absent": "Neutre (0) si aucune figure n’est détectée. Le dénominateur reste de 7 % de la note (14 % si le technique est renormalisé)."
+            },
+            {
+              "id": "rsi",
+              "label": "RSI 14 hebdo",
+              "poids": 0.1
+            },
+            {
+              "id": "macd",
+              "label": "MACD 12/26/9 hebdo",
+              "poids": 0.1
+            },
+            {
+              "id": "cci",
+              "label": "CCI 20 hebdo (corps)",
+              "poids": 0.1,
+              "si_absent": "Hors des zones ±100, le critère est neutre (0) mais reste compté (5 % de la note, ou 10 % si le technique est renormalisé)."
+            }
+          ],
+          "renormalise": false
+        }
+      },
+      {
+        "id": "indices_macro",
+        "label": "Indices et macro",
+        "onglet": "Actions",
+        "note": {
+          "parts": [
+            {
+              "id": "technique",
+              "label": "Technique (renormalisé)",
+              "poids": 1.0
+            }
+          ]
+        },
+        "timing": {
+          "source": "config/regles.json · apex/score.py · src/technique_apex.py",
+          "fixes": [
+            {
+              "id": "elliott",
+              "label": "Vagues d'Elliott",
+              "poids": 0.2
+            },
+            {
+              "id": "structure",
+              "label": "Structure (tendance hebdo, plus hauts et plus bas, position par rapport à l’ATH)",
+              "poids": 0.2
+            },
+            {
+              "id": "fibonacci",
+              "label": "Retracement de Fibonacci",
+              "poids": 0.16,
+              "parts": [
+                {
+                  "id": "historique",
+                  "label": "Retracement historique (plus bas historique → plus haut historique, corps hebdo)",
+                  "poids": 0.6666666666666666
+                },
+                {
+                  "id": "dernier_mouvement",
+                  "label": "Retracement sur 52 semaines",
+                  "poids": 0.3333333333333333
+                }
+              ]
+            },
+            {
+              "id": "figure",
+              "label": "Figure chartiste weekly (triangle, épaule-tête-épaule, double creux ou sommet, biseau, drapeau)",
+              "poids": 0.14,
+              "si_absent": "Neutre (0) si aucune figure n’est détectée. Le dénominateur reste de 7 % de la note (14 % si le technique est renormalisé)."
+            },
+            {
+              "id": "rsi",
+              "label": "RSI 14 hebdo",
+              "poids": 0.1
+            },
+            {
+              "id": "macd",
+              "label": "MACD 12/26/9 hebdo",
+              "poids": 0.1
+            },
+            {
+              "id": "cci",
+              "label": "CCI 20 hebdo (corps)",
+              "poids": 0.1,
+              "si_absent": "Hors des zones ±100, le critère est neutre (0) mais reste compté (5 % de la note, ou 10 % si le technique est renormalisé)."
+            }
+          ],
+          "renormalise": true
+        },
+        "fondamental": null,
+        "precision": "Indices et indicateurs macro notés : pas de fondamental d’émetteur. Le technique est renormalisé à 100 %, signalé sur la fiche. Certains repères de marché restent sans note.",
+        "technique": {
+          "source": "config/regles.json · apex/score.py · src/technique_apex.py",
+          "fixes": [
+            {
+              "id": "elliott",
+              "label": "Vagues d'Elliott",
+              "poids": 0.2
+            },
+            {
+              "id": "structure",
+              "label": "Structure (tendance hebdo, plus hauts et plus bas, position par rapport à l’ATH)",
+              "poids": 0.2
+            },
+            {
+              "id": "fibonacci",
+              "label": "Retracement de Fibonacci",
+              "poids": 0.16,
+              "parts": [
+                {
+                  "id": "historique",
+                  "label": "Retracement historique (plus bas historique → plus haut historique, corps hebdo)",
+                  "poids": 0.6666666666666666
+                },
+                {
+                  "id": "dernier_mouvement",
+                  "label": "Retracement sur 52 semaines",
+                  "poids": 0.3333333333333333
+                }
+              ]
+            },
+            {
+              "id": "figure",
+              "label": "Figure chartiste weekly (triangle, épaule-tête-épaule, double creux ou sommet, biseau, drapeau)",
+              "poids": 0.14,
+              "si_absent": "Neutre (0) si aucune figure n’est détectée. Le dénominateur reste de 7 % de la note (14 % si le technique est renormalisé)."
+            },
+            {
+              "id": "rsi",
+              "label": "RSI 14 hebdo",
+              "poids": 0.1
+            },
+            {
+              "id": "macd",
+              "label": "MACD 12/26/9 hebdo",
+              "poids": 0.1
+            },
+            {
+              "id": "cci",
+              "label": "CCI 20 hebdo (corps)",
+              "poids": 0.1,
+              "si_absent": "Hors des zones ±100, le critère est neutre (0) mais reste compté (5 % de la note, ou 10 % si le technique est renormalisé)."
+            }
+          ],
+          "renormalise": true
+        }
+      },
+      {
+        "id": "liquidites",
+        "label": "Liquidités",
+        "onglet": "Liquidités",
+        "note": {
+          "parts": [
+            {
+              "id": "timing",
+              "label": "Barème de l’onglet",
+              "poids": 1.0
+            }
+          ]
+        },
+        "timing": {
+          "source": "src/build_achatvente.py",
+          "fixes": [],
+          "panier": {
+            "poids_total": 1.0,
+            "composantes": [
+              {
+                "id": "rendement_reel",
+                "label": "Rendement réel du cash (€STR − inflation)",
+                "poids_dans_panier": 0.3
+              },
+              {
+                "id": "estr",
+                "label": "Niveau de l'€STR (rémunération du monétaire)",
+                "poids_dans_panier": 0.2
+              },
+              {
+                "id": "tendance_bce",
+                "label": "Tendance du taux de dépôt BCE sur 6 mois",
+                "poids_dans_panier": 0.2
+              },
+              {
+                "id": "appetit_risque",
+                "label": "Appétit pour le risque APEX (lecture inverse)",
+                "poids_dans_panier": 0.3
+              }
+            ]
+          }
+        },
+        "fondamental": null,
+        "precision": "L’onglet Liquidités conserve son barème propre (rendement réel, €STR, tendance des dépôts BCE, appétit pour le risque inversé), qui constitue 100 % de la note d’onglet.",
+        "technique": null
+      },
+      {
+        "id": "placements",
+        "label": "Placements",
+        "onglet": "Placements",
+        "note": null,
+        "timing": null,
+        "fondamental": null,
+        "precision": "Les lignes de l'onglet Placements sont un relevé patrimonial. Elles n'ont pas de note APEX /10.",
+        "technique": null
+      },
+      {
+        "id": "immobilier",
+        "label": "Immobilier",
+        "onglet": "Immobilier",
+        "note": {
+          "parts": [
+            {
+              "id": "timing",
+              "label": "Barème de l’onglet",
+              "poids": 1.0
+            }
+          ]
+        },
+        "timing": {
+          "source": "src/build_achatvente.py",
+          "fixes": [],
+          "panier": {
+            "poids_total": 1.0,
+            "composantes": [
+              {
+                "id": "prix",
+                "label": "Momentum des prix (Notaires-INSEE sur 1 an)",
+                "poids_dans_panier": 0.25
+              },
+              {
+                "id": "taux_niveau",
+                "label": "Niveau des taux de crédit (percentile depuis 2000)",
+                "poids_dans_panier": 0.2
+              },
+              {
+                "id": "taux_tendance",
+                "label": "Tendance des taux sur 6 mois",
+                "poids_dans_panier": 0.2
+              },
+              {
+                "id": "trends",
+                "label": "Ratio achat/vente Google Trends (percentile 12 mois)",
+                "poids_dans_panier": 0.15
+              },
+              {
+                "id": "sentiment",
+                "label": "Sentiment immobilier APEX (lecture contrarienne)",
+                "poids_dans_panier": 0.2
+              }
+            ]
+          }
+        },
+        "fondamental": null,
+        "precision": "L’onglet Immobilier (foncières, REIT, SCPI selon ce qui est présent) conserve son barème propre de timing, qui constitue 100 % de la note d’onglet. Les titres individuels d’une liste, s’ils ont un fondamental, suivent la formule 50 / 50 des actions.",
+        "technique": null
+      }
+    ]
   }
 }

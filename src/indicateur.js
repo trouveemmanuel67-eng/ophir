@@ -22,6 +22,24 @@ const APEX_HEX={violet:'#9d54ff',rouge:'#ff2d2d',jaune:'#ffd400',vert:'#22c55e',
 const APEX_TV={violet:'purple',rouge:'red',jaune:'orange',vert:'green',cyan:'cyan'};
 function apexHexOf(note){const b=apexBand(note);return b?APEX_HEX[b]:'#8a8a8a';}
 function apexFlagTV(note){const b=apexBand(note);return b?APEX_TV[b]:'none';}
+
+function fmtPts(x){
+  if(x==null||!Number.isFinite(Number(x))) return '–';
+  const r=Math.round(Number(x)*10)/10;
+  if(Math.abs(r-Math.round(r))<1e-9) return String(Math.round(r));
+  return String(r).replace('.',',');
+}
+function apexDecomp(rec){
+  const d=rec&&rec.decomp;
+  if(!d||!d.lignes||!d.lignes.length) return '';
+  const bar=d.lignes.map(l=>{
+    const w=Math.max(0,Number(l.poids)||0);
+    const hex=l.hex||(typeof apexHexOf==='function'?apexHexOf(10*(l.pts||0)/Math.max(w,1)):'#8a8a8a');
+    return `<i style="flex:${w};background:${hex}"></i>`;
+  }).join('');
+  const txt=d.texte||d.lignes.map(l=>`${l.label} ${fmtPts(l.pts)}/${l.poids}`).join(' · ');
+  return `<div class="apex-dec"><span class="apex-dec-bar" aria-hidden="true">${bar}</span><span class="apex-dec-txt">${txt}</span></div>`;
+}
 let indChart=null;
 function renderIndicator(tabId){
   const box=document.getElementById('ind'),g=IND[tabId];

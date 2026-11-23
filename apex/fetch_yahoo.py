@@ -14,6 +14,13 @@ BENCHMARKS = [
     'DBC', 'GC=F', 'SI=F', 'PL=F', 'PA=F',
     'EURUSD=X', 'DX-Y.NYB', 'URTH',
 ]
+# Références obligataires lues par build_obligations.weekly() (data/obligations/w_*.json).
+BONDS_BENCH = [
+    'TLT', 'IEF', 'SHY', 'AGG', 'LQD', 'HYG', 'TIP', 'EMB', '^MOVE',
+    'EUNH.DE', 'IFRB.AS', 'EUN5.DE', 'IS0L.DE', 'IS0M.DE', 'XJSE.DE',
+    '148070.KS', 'XCS2.DE', 'IUSU.DE', 'IS04.DE', 'IBCD.DE', 'XUHY.DE',
+    'TIUP.DE', 'IUS7.DE', 'IS0P.DE', 'CBUS.DE',
+]
 P1 = -2208988800  # 1900
 
 
@@ -138,7 +145,7 @@ def run(limit=None, sleep=0.15) -> dict:
     # Univers réduit : pas les titres hors pays (sauf positions encore détenues).
     items = [a for a in actifs_a_suivre() if a.get('yahoo')]
     have = {a['yahoo'] for a in items}
-    for sym in BENCHMARKS:
+    for sym in list(BENCHMARKS) + list(BONDS_BENCH):
         if sym not in have:
             items.append({'yahoo': sym, 'tv': f'BENCH:{sym}'})
             have.add(sym)
