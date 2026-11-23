@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-23 22:23 Europe/Paris",
+  "generated": "2026-11-23 22:50 Europe/Paris",
   "pilot": true,
   "section": "Actions USA – Communication",
   "secteur_sym": "XLC",
@@ -47,7 +47,7 @@
     "date_valeur": "2026-11-23 21:59 Europe/Paris",
     "date_serie": "2026-11-23",
     "timestamp_cnn": "2026-11-23T20:59:10+00:00",
-    "retrieved": "2026-11-23 22:23 Europe/Paris",
+    "retrieved": "2026-11-23 22:50 Europe/Paris",
     "source": {
       "name": "CNN Business",
       "url": "https://edition.cnn.com/markets/fear-and-greed",
@@ -1090,10 +1090,10 @@
       "macd": 30,
       "fibonacci": 0,
       "elliott": 0,
-      "cci": 20,
-      "fondamental": 82,
+      "cci": 0,
+      "fondamental": 80,
       "fear_greed": 30,
-      "total": 162
+      "total": 140
     },
     "detail": {
       "rsi": {
@@ -1177,14 +1177,23 @@
         "points": 0
       },
       "cci": {
-        "ok": true,
-        "valeur": -106.4,
-        "points": 20,
+        "ok": false,
+        "valeur": 24.0,
+        "points": 0,
+        "k": 33.64,
+        "d": 24.0,
+        "cci": -155.47,
+        "cci_period": 28,
+        "stoch_period": 28,
+        "smooth_k": 3,
+        "smooth_d": 3,
+        "ligne": "D",
+        "source": "close hebdo clôturé",
         "seuil": 20,
-        "precision": "seuil littéral d’Emmanuel, en attente de confirmation"
+        "precision": "CCI Stochastic Daveatt (CCI 28, stoch 28, lissages SMA 3 et 3, ligne D) ; +20 si < 20"
       },
       "fondamental": {
-        "points": 82,
+        "points": 80,
         "max": 90,
         "elements": [
           {
@@ -1240,17 +1249,17 @@
           {
             "id": "bpa_annee_prochaine",
             "label": "BPA année prochaine",
-            "seuil": "> 0 %",
-            "points": 8.0,
+            "seuil": "> 10 %",
+            "points": 6.0,
             "ok": null,
             "moyenne_5": true,
-            "n_bons": 4,
+            "n_bons": 3,
             "n": 5
           },
           {
             "id": "bpa_cette_annee",
             "label": "BPA cette année",
-            "seuil": "> 0 %",
+            "seuil": "> 10 %",
             "points": 10.0,
             "ok": null,
             "moyenne_5": true,
@@ -1260,7 +1269,7 @@
           {
             "id": "ca_annee_prochaine",
             "label": "CA année prochaine",
-            "seuil": "> 0 %",
+            "seuil": "> 5 %",
             "points": 10.0,
             "ok": null,
             "moyenne_5": true,
@@ -1270,7 +1279,7 @@
           {
             "id": "ca_cette_annee",
             "label": "CA cette année",
-            "seuil": "> 0 %",
+            "seuil": "> 5 %",
             "points": 10.0,
             "ok": null,
             "moyenne_5": true,
@@ -1281,11 +1290,11 @@
         "mode": "Moyenne des 5 actions « qualité / croissance » affichées dans le détail (APP, RDDT, META, NFLX, GOOGL). L'ETF n'a pas de Dette nette/EBITDA, marges, ROE, ratio de liquidité ou consensus BPA/CA d'émetteur comparables ; on n'invente pas ces ratios."
       }
     },
-    "ligne": "RSI 0 · MACD +30 · Fibo 0 · Elliott 0 · CCI +20 · Fond +82 · F&G +30  →  162 / 270",
-    "total": 162,
+    "ligne": "RSI 0 · MACD +30 · Fibo 0 · Elliott 0 · CCI 0 · Fond +80 · F&G +30  →  140 / 270",
+    "total": 140,
     "total_max": 270,
     "total_min": -50,
-    "display": "162 / 270",
+    "display": "140 / 270",
     "band": "vert",
     "hex": "#22c55e",
     "av_label": "Favorable"
@@ -1424,10 +1433,19 @@
         },
         "cci": {
           "ok": false,
-          "valeur": 39.2,
+          "valeur": 54.29,
           "points": 0,
+          "k": 67.72,
+          "d": 54.29,
+          "cci": -29.68,
+          "cci_period": 28,
+          "stoch_period": 28,
+          "smooth_k": 3,
+          "smooth_d": 3,
+          "ligne": "D",
+          "source": "close hebdo clôturé",
           "seuil": 20,
-          "precision": "seuil littéral d’Emmanuel, en attente de confirmation"
+          "precision": "CCI Stochastic Daveatt (CCI 28, stoch 28, lissages SMA 3 et 3, ligne D) ; +20 si < 20"
         },
         "fondamental": {
           "points": 90,
@@ -1483,7 +1501,7 @@
               "label": "BPA année prochaine",
               "cle": "eps_1y",
               "valeur": 27.44,
-              "seuil": "> 0 %",
+              "seuil": "> 10 %",
               "ok": true,
               "points": 10
             },
@@ -1492,7 +1510,7 @@
               "label": "BPA cette année",
               "cle": "eps_0y",
               "valeur": 66.79,
-              "seuil": "> 0 %",
+              "seuil": "> 10 %",
               "ok": true,
               "points": 10
             },
@@ -1501,7 +1519,7 @@
               "label": "CA année prochaine",
               "cle": "rev_1y",
               "valeur": 25.37,
-              "seuil": "> 0 %",
+              "seuil": "> 5 %",
               "ok": true,
               "points": 10
             },
@@ -1510,7 +1528,7 @@
               "label": "CA cette année",
               "cle": "rev_0y",
               "valeur": 52.14,
-              "seuil": "> 0 %",
+              "seuil": "> 5 %",
               "ok": true,
               "points": 10
             }
@@ -1628,10 +1646,19 @@
         },
         "cci": {
           "ok": true,
-          "valeur": -194.9,
+          "valeur": 14.87,
           "points": 20,
+          "k": 24.21,
+          "d": 14.87,
+          "cci": -224.23,
+          "cci_period": 28,
+          "stoch_period": 28,
+          "smooth_k": 3,
+          "smooth_d": 3,
+          "ligne": "D",
+          "source": "close hebdo clôturé",
           "seuil": 20,
-          "precision": "seuil littéral d’Emmanuel, en attente de confirmation"
+          "precision": "CCI Stochastic Daveatt (CCI 28, stoch 28, lissages SMA 3 et 3, ligne D) ; +20 si < 20"
         },
         "fondamental": {
           "points": 90,
@@ -1687,7 +1714,7 @@
               "label": "BPA année prochaine",
               "cle": "eps_1y",
               "valeur": 24.17,
-              "seuil": "> 0 %",
+              "seuil": "> 10 %",
               "ok": true,
               "points": 10
             },
@@ -1696,7 +1723,7 @@
               "label": "BPA cette année",
               "cle": "eps_0y",
               "valeur": 109.77,
-              "seuil": "> 0 %",
+              "seuil": "> 10 %",
               "ok": true,
               "points": 10
             },
@@ -1705,7 +1732,7 @@
               "label": "CA année prochaine",
               "cle": "rev_1y",
               "valeur": 28.43,
-              "seuil": "> 0 %",
+              "seuil": "> 5 %",
               "ok": true,
               "points": 10
             },
@@ -1714,7 +1741,7 @@
               "label": "CA cette année",
               "cle": "rev_0y",
               "valeur": 53.72,
-              "seuil": "> 0 %",
+              "seuil": "> 5 %",
               "ok": true,
               "points": 10
             }
@@ -1750,10 +1777,10 @@
         "macd": 0,
         "fibonacci": 0,
         "elliott": 0,
-        "cci": 20,
+        "cci": 0,
         "fondamental": 80,
         "fear_greed": 30,
-        "total": 130
+        "total": 110
       },
       "detail": {
         "rsi": {
@@ -1839,11 +1866,20 @@
           "points": 0
         },
         "cci": {
-          "ok": true,
-          "valeur": -73.6,
-          "points": 20,
+          "ok": false,
+          "valeur": 33.95,
+          "points": 0,
+          "k": 29.77,
+          "d": 33.95,
+          "cci": -92.99,
+          "cci_period": 28,
+          "stoch_period": 28,
+          "smooth_k": 3,
+          "smooth_d": 3,
+          "ligne": "D",
+          "source": "close hebdo clôturé",
           "seuil": 20,
-          "precision": "seuil littéral d’Emmanuel, en attente de confirmation"
+          "precision": "CCI Stochastic Daveatt (CCI 28, stoch 28, lissages SMA 3 et 3, ligne D) ; +20 si < 20"
         },
         "fondamental": {
           "points": 80,
@@ -1899,7 +1935,7 @@
               "label": "BPA année prochaine",
               "cle": "eps_1y",
               "valeur": 16.81,
-              "seuil": "> 0 %",
+              "seuil": "> 10 %",
               "ok": true,
               "points": 10
             },
@@ -1908,7 +1944,7 @@
               "label": "BPA cette année",
               "cle": "eps_0y",
               "valeur": 23.72,
-              "seuil": "> 0 %",
+              "seuil": "> 10 %",
               "ok": true,
               "points": 10
             },
@@ -1917,7 +1953,7 @@
               "label": "CA année prochaine",
               "cle": "rev_1y",
               "valeur": 21.73,
-              "seuil": "> 0 %",
+              "seuil": "> 5 %",
               "ok": true,
               "points": 10
             },
@@ -1926,7 +1962,7 @@
               "label": "CA cette année",
               "cle": "rev_0y",
               "valeur": 27.82,
-              "seuil": "> 0 %",
+              "seuil": "> 5 %",
               "ok": true,
               "points": 10
             }
@@ -1934,11 +1970,11 @@
           "mode": "ratios de l’émetteur (Yahoo Finance, fondamentaux déjà en base)"
         }
       },
-      "ligne": "RSI 0 · MACD 0 · Fibo 0 · Elliott 0 · CCI +20 · Fond +80 · F&G +30  →  130 / 270",
-      "total": 130,
+      "ligne": "RSI 0 · MACD 0 · Fibo 0 · Elliott 0 · CCI 0 · Fond +80 · F&G +30  →  110 / 270",
+      "total": 110,
       "total_max": 270,
       "total_min": -50,
-      "display": "130 / 270",
+      "display": "110 / 270",
       "band": "vert",
       "hex": "#22c55e",
       "av_label": "Favorable"
@@ -1963,9 +1999,9 @@
         "fibonacci": 10,
         "elliott": 20,
         "cci": 20,
-        "fondamental": 80,
+        "fondamental": 70,
         "fear_greed": 30,
-        "total": 200
+        "total": 190
       },
       "detail": {
         "rsi": {
@@ -2054,13 +2090,22 @@
         },
         "cci": {
           "ok": true,
-          "valeur": -172.1,
+          "valeur": 17.6,
           "points": 20,
+          "k": 15.25,
+          "d": 17.6,
+          "cci": -180.26,
+          "cci_period": 28,
+          "stoch_period": 28,
+          "smooth_k": 3,
+          "smooth_d": 3,
+          "ligne": "D",
+          "source": "close hebdo clôturé",
           "seuil": 20,
-          "precision": "seuil littéral d’Emmanuel, en attente de confirmation"
+          "precision": "CCI Stochastic Daveatt (CCI 28, stoch 28, lissages SMA 3 et 3, ligne D) ; +20 si < 20"
         },
         "fondamental": {
-          "points": 80,
+          "points": 70,
           "max": 90,
           "elements": [
             {
@@ -2113,16 +2158,16 @@
               "label": "BPA année prochaine",
               "cle": "eps_1y",
               "valeur": 5.1,
-              "seuil": "> 0 %",
-              "ok": true,
-              "points": 10
+              "seuil": "> 10 %",
+              "ok": false,
+              "points": 0
             },
             {
               "id": "bpa_cette_annee",
               "label": "BPA cette année",
               "cle": "eps_0y",
               "valeur": 41.65,
-              "seuil": "> 0 %",
+              "seuil": "> 10 %",
               "ok": true,
               "points": 10
             },
@@ -2131,7 +2176,7 @@
               "label": "CA année prochaine",
               "cle": "rev_1y",
               "valeur": 10.71,
-              "seuil": "> 0 %",
+              "seuil": "> 5 %",
               "ok": true,
               "points": 10
             },
@@ -2140,7 +2185,7 @@
               "label": "CA cette année",
               "cle": "rev_0y",
               "valeur": 13.15,
-              "seuil": "> 0 %",
+              "seuil": "> 5 %",
               "ok": true,
               "points": 10
             }
@@ -2148,11 +2193,11 @@
           "mode": "ratios de l’émetteur (Yahoo Finance, fondamentaux déjà en base)"
         }
       },
-      "ligne": "RSI +10 · MACD +30 · Fibo +10 · Elliott +20 · CCI +20 · Fond +80 · F&G +30  →  200 / 270",
-      "total": 200,
+      "ligne": "RSI +10 · MACD +30 · Fibo +10 · Elliott +20 · CCI +20 · Fond +70 · F&G +30  →  190 / 270",
+      "total": 190,
       "total_max": 270,
       "total_min": -50,
-      "display": "200 / 270",
+      "display": "190 / 270",
       "band": "cyan",
       "hex": "#00e5ff",
       "av_label": "Très favorable"
@@ -2268,10 +2313,19 @@
         },
         "cci": {
           "ok": true,
-          "valeur": -200.5,
+          "valeur": 8.12,
           "points": 20,
+          "k": 11.88,
+          "d": 8.12,
+          "cci": -238.91,
+          "cci_period": 28,
+          "stoch_period": 28,
+          "smooth_k": 3,
+          "smooth_d": 3,
+          "ligne": "D",
+          "source": "close hebdo clôturé",
           "seuil": 20,
-          "precision": "seuil littéral d’Emmanuel, en attente de confirmation"
+          "precision": "CCI Stochastic Daveatt (CCI 28, stoch 28, lissages SMA 3 et 3, ligne D) ; +20 si < 20"
         },
         "fondamental": {
           "points": 70,
@@ -2327,7 +2381,7 @@
               "label": "BPA année prochaine",
               "cle": "eps_1y",
               "valeur": -23.47,
-              "seuil": "> 0 %",
+              "seuil": "> 10 %",
               "ok": false,
               "points": 0
             },
@@ -2336,7 +2390,7 @@
               "label": "BPA cette année",
               "cle": "eps_0y",
               "valeur": 80.95,
-              "seuil": "> 0 %",
+              "seuil": "> 10 %",
               "ok": true,
               "points": 10
             },
@@ -2345,7 +2399,7 @@
               "label": "CA année prochaine",
               "cle": "rev_1y",
               "valeur": 27.59,
-              "seuil": "> 0 %",
+              "seuil": "> 5 %",
               "ok": true,
               "points": 10
             },
@@ -2354,7 +2408,7 @@
               "label": "CA cette année",
               "cle": "rev_0y",
               "valeur": 24.04,
-              "seuil": "> 0 %",
+              "seuil": "> 5 %",
               "ok": true,
               "points": 10
             }
@@ -2392,10 +2446,10 @@
         "macd": 30,
         "fibonacci": 0,
         "elliott": 0,
-        "cci": 20,
-        "fondamental": 82,
+        "cci": 0,
+        "fondamental": 80,
         "fear_greed": 30,
-        "total": 162
+        "total": 140
       },
       "detail": {
         "rsi": {
@@ -2479,14 +2533,23 @@
           "points": 0
         },
         "cci": {
-          "ok": true,
-          "valeur": -106.4,
-          "points": 20,
+          "ok": false,
+          "valeur": 24.0,
+          "points": 0,
+          "k": 33.64,
+          "d": 24.0,
+          "cci": -155.47,
+          "cci_period": 28,
+          "stoch_period": 28,
+          "smooth_k": 3,
+          "smooth_d": 3,
+          "ligne": "D",
+          "source": "close hebdo clôturé",
           "seuil": 20,
-          "precision": "seuil littéral d’Emmanuel, en attente de confirmation"
+          "precision": "CCI Stochastic Daveatt (CCI 28, stoch 28, lissages SMA 3 et 3, ligne D) ; +20 si < 20"
         },
         "fondamental": {
-          "points": 82,
+          "points": 80,
           "max": 90,
           "elements": [
             {
@@ -2542,17 +2605,17 @@
             {
               "id": "bpa_annee_prochaine",
               "label": "BPA année prochaine",
-              "seuil": "> 0 %",
-              "points": 8.0,
+              "seuil": "> 10 %",
+              "points": 6.0,
               "ok": null,
               "moyenne_5": true,
-              "n_bons": 4,
+              "n_bons": 3,
               "n": 5
             },
             {
               "id": "bpa_cette_annee",
               "label": "BPA cette année",
-              "seuil": "> 0 %",
+              "seuil": "> 10 %",
               "points": 10.0,
               "ok": null,
               "moyenne_5": true,
@@ -2562,7 +2625,7 @@
             {
               "id": "ca_annee_prochaine",
               "label": "CA année prochaine",
-              "seuil": "> 0 %",
+              "seuil": "> 5 %",
               "points": 10.0,
               "ok": null,
               "moyenne_5": true,
@@ -2572,7 +2635,7 @@
             {
               "id": "ca_cette_annee",
               "label": "CA cette année",
-              "seuil": "> 0 %",
+              "seuil": "> 5 %",
               "points": 10.0,
               "ok": null,
               "moyenne_5": true,
@@ -2583,11 +2646,11 @@
           "mode": "Moyenne des 5 actions « qualité / croissance » affichées dans le détail (APP, RDDT, META, NFLX, GOOGL). L'ETF n'a pas de Dette nette/EBITDA, marges, ROE, ratio de liquidité ou consensus BPA/CA d'émetteur comparables ; on n'invente pas ces ratios."
         }
       },
-      "ligne": "RSI 0 · MACD +30 · Fibo 0 · Elliott 0 · CCI +20 · Fond +82 · F&G +30  →  162 / 270",
-      "total": 162,
+      "ligne": "RSI 0 · MACD +30 · Fibo 0 · Elliott 0 · CCI 0 · Fond +80 · F&G +30  →  140 / 270",
+      "total": 140,
       "total_max": 270,
       "total_min": -50,
-      "display": "162 / 270",
+      "display": "140 / 270",
       "band": "vert",
       "hex": "#22c55e",
       "av_label": "Favorable"
@@ -2725,10 +2788,19 @@
         },
         "cci": {
           "ok": false,
-          "valeur": 39.2,
+          "valeur": 54.29,
           "points": 0,
+          "k": 67.72,
+          "d": 54.29,
+          "cci": -29.68,
+          "cci_period": 28,
+          "stoch_period": 28,
+          "smooth_k": 3,
+          "smooth_d": 3,
+          "ligne": "D",
+          "source": "close hebdo clôturé",
           "seuil": 20,
-          "precision": "seuil littéral d’Emmanuel, en attente de confirmation"
+          "precision": "CCI Stochastic Daveatt (CCI 28, stoch 28, lissages SMA 3 et 3, ligne D) ; +20 si < 20"
         },
         "fondamental": {
           "points": 90,
@@ -2784,7 +2856,7 @@
               "label": "BPA année prochaine",
               "cle": "eps_1y",
               "valeur": 27.44,
-              "seuil": "> 0 %",
+              "seuil": "> 10 %",
               "ok": true,
               "points": 10
             },
@@ -2793,7 +2865,7 @@
               "label": "BPA cette année",
               "cle": "eps_0y",
               "valeur": 66.79,
-              "seuil": "> 0 %",
+              "seuil": "> 10 %",
               "ok": true,
               "points": 10
             },
@@ -2802,7 +2874,7 @@
               "label": "CA année prochaine",
               "cle": "rev_1y",
               "valeur": 25.37,
-              "seuil": "> 0 %",
+              "seuil": "> 5 %",
               "ok": true,
               "points": 10
             },
@@ -2811,7 +2883,7 @@
               "label": "CA cette année",
               "cle": "rev_0y",
               "valeur": 52.14,
-              "seuil": "> 0 %",
+              "seuil": "> 5 %",
               "ok": true,
               "points": 10
             }
@@ -2929,10 +3001,19 @@
         },
         "cci": {
           "ok": true,
-          "valeur": -194.9,
+          "valeur": 14.87,
           "points": 20,
+          "k": 24.21,
+          "d": 14.87,
+          "cci": -224.23,
+          "cci_period": 28,
+          "stoch_period": 28,
+          "smooth_k": 3,
+          "smooth_d": 3,
+          "ligne": "D",
+          "source": "close hebdo clôturé",
           "seuil": 20,
-          "precision": "seuil littéral d’Emmanuel, en attente de confirmation"
+          "precision": "CCI Stochastic Daveatt (CCI 28, stoch 28, lissages SMA 3 et 3, ligne D) ; +20 si < 20"
         },
         "fondamental": {
           "points": 90,
@@ -2988,7 +3069,7 @@
               "label": "BPA année prochaine",
               "cle": "eps_1y",
               "valeur": 24.17,
-              "seuil": "> 0 %",
+              "seuil": "> 10 %",
               "ok": true,
               "points": 10
             },
@@ -2997,7 +3078,7 @@
               "label": "BPA cette année",
               "cle": "eps_0y",
               "valeur": 109.77,
-              "seuil": "> 0 %",
+              "seuil": "> 10 %",
               "ok": true,
               "points": 10
             },
@@ -3006,7 +3087,7 @@
               "label": "CA année prochaine",
               "cle": "rev_1y",
               "valeur": 28.43,
-              "seuil": "> 0 %",
+              "seuil": "> 5 %",
               "ok": true,
               "points": 10
             },
@@ -3015,7 +3096,7 @@
               "label": "CA cette année",
               "cle": "rev_0y",
               "valeur": 53.72,
-              "seuil": "> 0 %",
+              "seuil": "> 5 %",
               "ok": true,
               "points": 10
             }
@@ -3051,10 +3132,10 @@
         "macd": 0,
         "fibonacci": 0,
         "elliott": 0,
-        "cci": 20,
+        "cci": 0,
         "fondamental": 80,
         "fear_greed": 30,
-        "total": 130
+        "total": 110
       },
       "detail": {
         "rsi": {
@@ -3140,11 +3221,20 @@
           "points": 0
         },
         "cci": {
-          "ok": true,
-          "valeur": -73.6,
-          "points": 20,
+          "ok": false,
+          "valeur": 33.95,
+          "points": 0,
+          "k": 29.77,
+          "d": 33.95,
+          "cci": -92.99,
+          "cci_period": 28,
+          "stoch_period": 28,
+          "smooth_k": 3,
+          "smooth_d": 3,
+          "ligne": "D",
+          "source": "close hebdo clôturé",
           "seuil": 20,
-          "precision": "seuil littéral d’Emmanuel, en attente de confirmation"
+          "precision": "CCI Stochastic Daveatt (CCI 28, stoch 28, lissages SMA 3 et 3, ligne D) ; +20 si < 20"
         },
         "fondamental": {
           "points": 80,
@@ -3200,7 +3290,7 @@
               "label": "BPA année prochaine",
               "cle": "eps_1y",
               "valeur": 16.81,
-              "seuil": "> 0 %",
+              "seuil": "> 10 %",
               "ok": true,
               "points": 10
             },
@@ -3209,7 +3299,7 @@
               "label": "BPA cette année",
               "cle": "eps_0y",
               "valeur": 23.72,
-              "seuil": "> 0 %",
+              "seuil": "> 10 %",
               "ok": true,
               "points": 10
             },
@@ -3218,7 +3308,7 @@
               "label": "CA année prochaine",
               "cle": "rev_1y",
               "valeur": 21.73,
-              "seuil": "> 0 %",
+              "seuil": "> 5 %",
               "ok": true,
               "points": 10
             },
@@ -3227,7 +3317,7 @@
               "label": "CA cette année",
               "cle": "rev_0y",
               "valeur": 27.82,
-              "seuil": "> 0 %",
+              "seuil": "> 5 %",
               "ok": true,
               "points": 10
             }
@@ -3235,11 +3325,11 @@
           "mode": "ratios de l’émetteur (Yahoo Finance, fondamentaux déjà en base)"
         }
       },
-      "ligne": "RSI 0 · MACD 0 · Fibo 0 · Elliott 0 · CCI +20 · Fond +80 · F&G +30  →  130 / 270",
-      "total": 130,
+      "ligne": "RSI 0 · MACD 0 · Fibo 0 · Elliott 0 · CCI 0 · Fond +80 · F&G +30  →  110 / 270",
+      "total": 110,
       "total_max": 270,
       "total_min": -50,
-      "display": "130 / 270",
+      "display": "110 / 270",
       "band": "vert",
       "hex": "#22c55e",
       "av_label": "Favorable"
@@ -3264,9 +3354,9 @@
         "fibonacci": 10,
         "elliott": 20,
         "cci": 20,
-        "fondamental": 80,
+        "fondamental": 70,
         "fear_greed": 30,
-        "total": 200
+        "total": 190
       },
       "detail": {
         "rsi": {
@@ -3355,13 +3445,22 @@
         },
         "cci": {
           "ok": true,
-          "valeur": -172.1,
+          "valeur": 17.6,
           "points": 20,
+          "k": 15.25,
+          "d": 17.6,
+          "cci": -180.26,
+          "cci_period": 28,
+          "stoch_period": 28,
+          "smooth_k": 3,
+          "smooth_d": 3,
+          "ligne": "D",
+          "source": "close hebdo clôturé",
           "seuil": 20,
-          "precision": "seuil littéral d’Emmanuel, en attente de confirmation"
+          "precision": "CCI Stochastic Daveatt (CCI 28, stoch 28, lissages SMA 3 et 3, ligne D) ; +20 si < 20"
         },
         "fondamental": {
-          "points": 80,
+          "points": 70,
           "max": 90,
           "elements": [
             {
@@ -3414,16 +3513,16 @@
               "label": "BPA année prochaine",
               "cle": "eps_1y",
               "valeur": 5.1,
-              "seuil": "> 0 %",
-              "ok": true,
-              "points": 10
+              "seuil": "> 10 %",
+              "ok": false,
+              "points": 0
             },
             {
               "id": "bpa_cette_annee",
               "label": "BPA cette année",
               "cle": "eps_0y",
               "valeur": 41.65,
-              "seuil": "> 0 %",
+              "seuil": "> 10 %",
               "ok": true,
               "points": 10
             },
@@ -3432,7 +3531,7 @@
               "label": "CA année prochaine",
               "cle": "rev_1y",
               "valeur": 10.71,
-              "seuil": "> 0 %",
+              "seuil": "> 5 %",
               "ok": true,
               "points": 10
             },
@@ -3441,7 +3540,7 @@
               "label": "CA cette année",
               "cle": "rev_0y",
               "valeur": 13.15,
-              "seuil": "> 0 %",
+              "seuil": "> 5 %",
               "ok": true,
               "points": 10
             }
@@ -3449,11 +3548,11 @@
           "mode": "ratios de l’émetteur (Yahoo Finance, fondamentaux déjà en base)"
         }
       },
-      "ligne": "RSI +10 · MACD +30 · Fibo +10 · Elliott +20 · CCI +20 · Fond +80 · F&G +30  →  200 / 270",
-      "total": 200,
+      "ligne": "RSI +10 · MACD +30 · Fibo +10 · Elliott +20 · CCI +20 · Fond +70 · F&G +30  →  190 / 270",
+      "total": 190,
       "total_max": 270,
       "total_min": -50,
-      "display": "200 / 270",
+      "display": "190 / 270",
       "band": "cyan",
       "hex": "#00e5ff",
       "av_label": "Très favorable"
@@ -3569,10 +3668,19 @@
         },
         "cci": {
           "ok": true,
-          "valeur": -200.5,
+          "valeur": 8.12,
           "points": 20,
+          "k": 11.88,
+          "d": 8.12,
+          "cci": -238.91,
+          "cci_period": 28,
+          "stoch_period": 28,
+          "smooth_k": 3,
+          "smooth_d": 3,
+          "ligne": "D",
+          "source": "close hebdo clôturé",
           "seuil": 20,
-          "precision": "seuil littéral d’Emmanuel, en attente de confirmation"
+          "precision": "CCI Stochastic Daveatt (CCI 28, stoch 28, lissages SMA 3 et 3, ligne D) ; +20 si < 20"
         },
         "fondamental": {
           "points": 70,
@@ -3628,7 +3736,7 @@
               "label": "BPA année prochaine",
               "cle": "eps_1y",
               "valeur": -23.47,
-              "seuil": "> 0 %",
+              "seuil": "> 10 %",
               "ok": false,
               "points": 0
             },
@@ -3637,7 +3745,7 @@
               "label": "BPA cette année",
               "cle": "eps_0y",
               "valeur": 80.95,
-              "seuil": "> 0 %",
+              "seuil": "> 10 %",
               "ok": true,
               "points": 10
             },
@@ -3646,7 +3754,7 @@
               "label": "CA année prochaine",
               "cle": "rev_1y",
               "valeur": 27.59,
-              "seuil": "> 0 %",
+              "seuil": "> 5 %",
               "ok": true,
               "points": 10
             },
@@ -3655,7 +3763,7 @@
               "label": "CA cette année",
               "cle": "rev_0y",
               "valeur": 24.04,
-              "seuil": "> 0 %",
+              "seuil": "> 5 %",
               "ok": true,
               "points": 10
             }
@@ -3676,7 +3784,7 @@
   "interpretations": {
     "fibo": "« Sous X % » = retracement depuis le plus haut historique r ≥ X %, corps hebdo clôturés (plus bas historique → plus haut historique).",
     "elliott": "Zone d’entrée +20 : fin de vague 2, fin de vague 4, vague C ; et après une C terminée, tant qu’aucune nouvelle vague 1 n’est confirmée (clé new1, officielle ou lecture alternative sur le même ZigZag).",
-    "cci": "CCI 20 hebdo < 20 (seuil littéral d'Emmanuel, en attente de confirmation) ; ce n'est pas ±100.",
+    "cci": "CCI Stochastic hebdo de Daveatt (script TradingView XZyG5SOx) : CCI 28 sur la clôture, stochastique 28 du CCI, lissages SMA 3 et 3, ligne D (0–100). +20 si sous 20.",
     "fg": "Tranches entières : floor(|50 − valeur| / 10) × 10, signé, max ±50. Même valeur CNN pour tous les titres du pilote.",
     "fond_etf": "Moyenne des 5 actions « qualité / croissance » affichées dans le détail (APP, RDDT, META, NFLX, GOOGL). L'ETF n'a pas de Dette nette/EBITDA, marges, ROE, ratio de liquidité ou consensus BPA/CA d'émetteur comparables ; on n'invente pas ces ratios.",
     "ligne_secteur": "La ligne secteur affiche le total de l'ETF ZPDK (représentant du secteur), pas une moyenne des 5 actions.",

@@ -1408,19 +1408,19 @@
       },
       {
         "id": "cci_20_hebdo",
-        "label": "CCI 20 hebdo",
+        "label": "CCI Stochastic 28 hebdo (Daveatt)",
         "max": 20,
         "retrait": false,
         "cumulables": false,
-        "precision": "Maximum 20 points. Aucun retrait.",
+        "precision": "Maximum 20 points. Aucun retrait. Formule Daveatt (CCI 28, stoch 28, lissages 3 et 3, ligne D).",
         "conditions": [
           {
             "id": "cci_sous_20",
-            "label": "CCI sous 20",
+            "label": "CCI Stochastic sous 20",
             "points": 20
           }
         ],
-        "regle_courte": "+20 si CCI sous 20"
+        "regle_courte": "+20 si sous 20"
       }
     ],
     "affichage_seulement": true,
@@ -1434,7 +1434,7 @@
       "max": 90,
       "points_si_bon": 10,
       "retrait": false,
-      "precision": "Chaque élément rapporte +10 points s’il est bon, sinon 0. 9 éléments, maximum 90 points. Les seuils « bon si » sont proposés, à valider.",
+      "precision": "Chaque élément rapporte +10 points s’il est bon, sinon 0 (donnée manquante = 0). 9 éléments, maximum 90 points. Seuils validés.",
       "groupes": [
         {
           "id": "sante",
@@ -1445,35 +1445,35 @@
               "label": "Dette nette / EBITDA",
               "bon_si": "< 2",
               "points": 10,
-              "seuil_a_valider": true
+              "seuil_a_valider": false
             },
             {
               "id": "marge_operationnelle",
               "label": "Marge opérationnelle",
               "bon_si": "> 15 %",
               "points": 10,
-              "seuil_a_valider": true
+              "seuil_a_valider": false
             },
             {
               "id": "marge_fcf",
               "label": "Marge de cash-flow libre",
               "bon_si": "> 10 %",
               "points": 10,
-              "seuil_a_valider": true
+              "seuil_a_valider": false
             },
             {
               "id": "roe",
               "label": "ROE",
               "bon_si": "> 15 %",
               "points": 10,
-              "seuil_a_valider": true
+              "seuil_a_valider": false
             },
             {
               "id": "ratio_liquidite_courante",
               "label": "Ratio de liquidité courante",
               "bon_si": "> 1,2",
               "points": 10,
-              "seuil_a_valider": true
+              "seuil_a_valider": false
             }
           ]
         },
@@ -1484,30 +1484,30 @@
             {
               "id": "bpa_annee_prochaine",
               "label": "BPA année prochaine",
-              "bon_si": "> 0 %",
+              "bon_si": "> 10 %",
               "points": 10,
-              "seuil_a_valider": true
+              "seuil_a_valider": false
             },
             {
               "id": "bpa_cette_annee",
               "label": "BPA cette année",
-              "bon_si": "> 0 %",
+              "bon_si": "> 10 %",
               "points": 10,
-              "seuil_a_valider": true
+              "seuil_a_valider": false
             },
             {
               "id": "ca_annee_prochaine",
               "label": "CA année prochaine",
-              "bon_si": "> 0 %",
+              "bon_si": "> 5 %",
               "points": 10,
-              "seuil_a_valider": true
+              "seuil_a_valider": false
             },
             {
               "id": "ca_cette_annee",
               "label": "CA cette année",
-              "bon_si": "> 0 %",
+              "bon_si": "> 5 %",
               "points": 10,
-              "seuil_a_valider": true
+              "seuil_a_valider": false
             }
           ]
         }

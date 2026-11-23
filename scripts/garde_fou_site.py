@@ -430,7 +430,7 @@ CHECK_REGLES_OPEN_JS = r"""
     has90: /\b90\b/.test(text),
     hasFondV2: /dette nette/i.test(text) && /Santé/i.test(text),
     fondText: text.replace(/\s+/g,' '),
-    fondOk: (function(){ const s=(text||'').toLowerCase(); return /\+10/.test(s) && /\b90\b/.test(s) && /à valider/.test(s) && /dette nette/.test(s) && /marge opérationnelle/.test(s) && /cash-flow libre/.test(s) && /\broe\b/.test(s) && /liquidité courante/.test(s) && /bpa année prochaine/.test(s) && /bpa cette année/.test(s) && /ca année prochaine/.test(s) && /ca cette année/.test(s) && /<\s*2/.test(s) && /15\s*%/.test(s) && /10\s*%/.test(s) && /1[,.]2/.test(s) && />\s*0\s*%/.test(s); })(),
+    fondOk: (function(){ const s=(text||'').toLowerCase(); return /\+10/.test(s) && /\b90\b/.test(s) && !/à valider/.test(s) && /dette nette/.test(s) && /marge opérationnelle/.test(s) && /cash-flow libre/.test(s) && /\broe\b/.test(s) && /liquidité courante/.test(s) && /bpa année prochaine/.test(s) && /bpa cette année/.test(s) && /ca année prochaine/.test(s) && /ca cette année/.test(s) && /<\s*2/.test(s) && /15\s*%/.test(s) && />\s*10\s*%/.test(s) && />\s*5\s*%/.test(s) && /1[,.]2/.test(s); })(),
     hasSentiment: /Sentiment/i.test(text) && /Fear\s*&\s*Greed/i.test(text),
     sentOk: /milieu\s*50/.test((text||'').toLowerCase()) && /peur/.test((text||'').toLowerCase()) && /avidité/.test((text||'').toLowerCase()) && /±\s*50/.test(text),
     noStructure: !names.some(n => /^Structure\b/i.test(n)),
@@ -666,7 +666,7 @@ def check_headless(root=ROOT):
             raise SystemExit(1)
         if not regles_open.get('cciNew') or not regles_open.get('cciOldGone'):
             _fail(
-                "page RÈGLES : la ligne CCI doit afficher +20 si CCI sous 20, max 20, "
+                "page RÈGLES : la ligne CCI doit afficher +20 si sous 20, max 20, CCI Stochastic Daveatt, "
                 "sans poids 5 %, ±3,75 ni formule clip "
                 f"({regles_open.get('cciText')!r})."
             )

@@ -86,6 +86,90 @@ def cci20(op,c,n=20):
         out[i]=0.0 if md==0 else (tp[i]-sma)/(0.015*md)
     return out
 
+
+# CCI Stochastic de Daveatt — script TradingView public XZyG5SOx
+# « CCI Stochastic and a quick lesson on Scalping & Trading Systems »
+# https://www.tradingview.com/script/XZyG5SOx-CCI-Stochastic-and-a-quick-lesson-on-Scalping-Trading-Systems/
+# Défauts officiels de l'auteur (ne pas inventer) : CCI Period = 28, Stoch Period = 28,
+# Stoch Smooth K = 3, Stoch Smooth D = 3, ligne tracée = D, source = close,
+# seuils 20 / 80. Formule Pine v4 :
+#   cci = cci(source, cci_period)
+#   stoch_cci_k = sma(stoch(cci, cci, cci, stoch_period), stoch_smooth_k)
+#   stoch_cci_d = sma(stoch_cci_k, stoch_smooth_d)
+#   ma = (d_or_k == "D") ? stoch_cci_d : stoch_cci_k
+# Recopie bit-exact : theonetrade/pynecore-strategies
+#   assets/indicator/bit-exact/cci_stochastic_and_a_quick_lesson_on_scalping_trading_systems_XZyG5SOx.pine
+CCI_STOCH_CCI_PERIOD = 28
+CCI_STOCH_STOCH_PERIOD = 28
+CCI_STOCH_SMOOTH_K = 3
+CCI_STOCH_SMOOTH_D = 3
+CCI_STOCH_LINE = 'D'
+
+def _sma_valid(v, n):
+    """SMA de n valeurs, None si une valeur de la fenêtre manque (aligné sur Pine)."""
+    out = [None] * len(v)
+    if n <= 0:
+        return out
+    for i in range(n - 1, len(v)):
+        w = v[i - n + 1:i + 1]
+        if any(x is None for x in w):
+            continue
+        out[i] = sum(w) / n
+    return out
+
+def cci_src(src, n=28):
+    """ta.cci(src, n) de Pine : (src − SMA) / (0,015 × écart moyen à la SMA de la fenêtre)."""
+    out = [None] * len(src)
+    if n <= 0:
+        return out
+    for i in range(n - 1, len(src)):
+        w = src[i - n + 1:i + 1]
+        if any(x is None for x in w):
+            continue
+        s = sum(w) / n
+        md = sum(abs(x - s) for x in w) / n
+        out[i] = 0.0 if md == 0 else (src[i] - s) / (0.015 * md)
+    return out
+
+def stoch_of(series, length):
+    """ta.stoch(s, s, s, length) : 100 × (s − plus bas) / (plus haut − plus bas) sur la fenêtre.
+    Dénominateur nul → None (na Pine)."""
+    out = [None] * len(series)
+    if length <= 0:
+        return out
+    for i in range(length - 1, len(series)):
+        w = series[i - length + 1:i + 1]
+        if any(x is None for x in w):
+            continue
+        lo, hi = min(w), max(w)
+        if hi == lo:
+            out[i] = None
+            continue
+        out[i] = 100.0 * (series[i] - lo) / (hi - lo)
+    return out
+
+def cci_stochastic(src, cci_period=CCI_STOCH_CCI_PERIOD, stoch_period=CCI_STOCH_STOCH_PERIOD,
+                   smooth_k=CCI_STOCH_SMOOTH_K, smooth_d=CCI_STOCH_SMOOTH_D, line=CCI_STOCH_LINE):
+    """CCI Stochastic de Daveatt (hebdo : passer les clôtures des bougies déjà fermées).
+
+    Retourne la série de la ligne tracée (D par défaut, ou K). Chaque élément est
+    dans [0, 100] ou None. Voir constantes CCI_STOCH_* pour les longueurs officielles.
+    """
+    cci = cci_src(src, cci_period)
+    raw = stoch_of(cci, stoch_period)
+    k = _sma_valid(raw, smooth_k)
+    d = _sma_valid(k, smooth_d)
+    return d if str(line).upper() == 'D' else k
+
+def cci_stochastic_kd(src, cci_period=CCI_STOCH_CCI_PERIOD, stoch_period=CCI_STOCH_STOCH_PERIOD,
+                      smooth_k=CCI_STOCH_SMOOTH_K, smooth_d=CCI_STOCH_SMOOTH_D):
+    """Comme cci_stochastic, mais renvoie (k, d, cci) pour le détail / les tests."""
+    cci = cci_src(src, cci_period)
+    raw = stoch_of(cci, stoch_period)
+    k = _sma_valid(raw, smooth_k)
+    d = _sma_valid(k, smooth_d)
+    return k, d, cci
+
 def cci_note(v):
     """Note facultative du CCI 20. Hors zone ±100 : None (poids redistribué). Au-dessus de +100 : pénalité ; sous −100 : bonus.
     |CCI| ≥ 200 → ±100 ; 100 ≤ |CCI| < 200 → ±80. Le seuil violet de la vue APEX est le +100 du CCI_S (période 20)."""

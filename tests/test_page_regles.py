@@ -99,7 +99,8 @@ def test_apex_achat_v2_rsi_seulement(regles):
     assert elliott['conditions'][0]['points'] == 20
     cci = by['cci_20_hebdo']
     assert cci['max'] == 20
-    assert cci['conditions'][0]['label'] == 'CCI sous 20'
+    assert 'sous 20' in (cci['conditions'][0]['label'] + ' ' + (cci.get('regle_courte') or ''))
+    assert 'Daveatt' in (cci.get('label') or '')
     assert 'sous 20' in cci['conditions'][0]['label']
     assert cci['conditions'][0]['points'] == 20
     assert sum(c['max'] for c in criteres) == 130
@@ -151,15 +152,17 @@ def test_fondamental_v2_neuf_elements(regles):
         'ratio_liquidite_courante', 'bpa_annee_prochaine', 'bpa_cette_annee',
         'ca_annee_prochaine', 'ca_cette_annee',
     ]
-    assert all(e['points'] == 10 and e.get('seuil_a_valider') is True for e in els)
+    assert all(e['points'] == 10 and e.get('seuil_a_valider') is False for e in els)
     by = {e['id']: e for e in els}
     assert by['dette_nette_ebitda']['bon_si'] == '< 2'
     assert by['marge_operationnelle']['bon_si'] == '> 15 %'
     assert by['marge_fcf']['bon_si'] == '> 10 %'
     assert by['roe']['bon_si'] == '> 15 %'
     assert by['ratio_liquidite_courante']['bon_si'] == '> 1,2'
-    assert by['bpa_annee_prochaine']['bon_si'] == '> 0 %'
-    assert by['ca_cette_annee']['bon_si'] == '> 0 %'
+    assert by['bpa_annee_prochaine']['bon_si'] == '> 10 %'
+    assert by['bpa_cette_annee']['bon_si'] == '> 10 %'
+    assert by['ca_annee_prochaine']['bon_si'] == '> 5 %'
+    assert by['ca_cette_annee']['bon_si'] == '> 5 %'
     tech = sum(c['max'] for c in regles['apex_achat_v2']['criteres'])
     assert tech == 130
     assert tech + fond['max'] == 220
@@ -265,3 +268,29 @@ def test_elliott_regle_courte_apres_vague_c(regles):
     assert 'vague C' in txt or 'vague C' in txt.replace('’', "'")
     assert 'nouvelle vague' in txt or 'nouvelle vague' in txt.replace('’', "'")
     assert '+20' in (ell.get('regle_courte') or '')
+
+
+def test_cci_stochastic_daveatt_regle(regles):
+    cci = {c['id']: c for c in (regles['apex_achat_v2']['criteres'] or [])}['cci_20_hebdo']
+    assert cci['max'] == 20
+    assert 'CCI Stochastic' in (cci.get('label') or '')
+    assert 'Daveatt' in (cci.get('label') or '')
+    assert '28' in (cci.get('label') or '')
+    assert '+20 si sous 20' in (cci.get('regle_courte') or '')
+
+
+def test_seuils_fondamentaux_valides(regles):
+    fond = regles['apex_achat_v2']['fondamental']
+    els = [e for g in fond['groupes'] for e in g['elements']]
+    assert all(e.get('seuil_a_valider') is False for e in els)
+    assert 'à valider' not in (fond.get('precision') or '').lower()
+    by = {e['id']: e for e in els}
+    assert by['dette_nette_ebitda']['bon_si'] == '< 2'
+    assert by['marge_operationnelle']['bon_si'] == '> 15 %'
+    assert by['marge_fcf']['bon_si'] == '> 10 %'
+    assert by['roe']['bon_si'] == '> 15 %'
+    assert by['ratio_liquidite_courante']['bon_si'] == '> 1,2'
+    assert by['bpa_annee_prochaine']['bon_si'] == '> 10 %'
+    assert by['bpa_cette_annee']['bon_si'] == '> 10 %'
+    assert by['ca_annee_prochaine']['bon_si'] == '> 5 %'
+    assert by['ca_cette_annee']['bon_si'] == '> 5 %'

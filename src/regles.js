@@ -231,7 +231,7 @@ function rgShortLabel(id, label){
     figure:'Figure chartiste',
     rsi:'RSI 14 hebdo',
     macd:'MACD 12/26/9 hebdo',
-    cci:'CCI 20 hebdo'
+    cci:'CCI Stochastic 28 hebdo (Daveatt)'
   })[id]||label||id;
 }
 function rgFondDetails(fond){
@@ -340,7 +340,7 @@ function rgFondAchatV2HTML(fond){
   if(!fond) return '';
   const groupes=(fond.groupes||[]).map(g=>{
     const rows=(g.elements||[]).map(el=>{
-      const av=el.seuil_a_valider!==false;
+      const av=el.seuil_a_valider===true;
       const extra=el.precision?`<div class="rg-fond-note">${rgEsc(el.precision)}</div>`:'';
       const bon=el.bon_si||'';
       return `<tr>
@@ -459,7 +459,7 @@ function rgActionsGrid(){
   const fondCols=(fond.groupes||[]).map(g=>{
     const cards=(g.elements||[]).map(el=>{
       const bon=el.bon_si?rgEsc(el.bon_si):'';
-      const av=el.seuil_a_valider!==false?' <span class="rg-av">à valider</span>':'';
+      const av=el.seuil_a_valider===true?' <span class="rg-av">à valider</span>':'';
       const rule=bon?`<span class="rg-seuil">${bon}</span>${av}`:'';
       return card(el.id, el.label||el.id, rule, rgFmtPlus(el.points!=null?el.points:fond.points_si_bon));
     }).join('');

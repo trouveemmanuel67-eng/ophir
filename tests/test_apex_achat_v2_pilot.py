@@ -60,11 +60,11 @@ def test_quatre_tranches_egales():
     assert P.band_of(190) == 'cyan'
     assert P.band_of(270) == 'cyan'
     # totaux publiés du pilote Communication
-    assert P.band_of(130) == 'vert'   # META
-    assert P.band_of(140) == 'vert'   # APP
-    assert P.band_of(162) == 'vert'   # ZPDK
+    assert P.band_of(110) == 'vert'   # META (borne de la tranche verte)
+    assert P.band_of(140) == 'vert'   # ZPDK
+    assert P.band_of(160) == 'vert'   # APP
     assert P.band_of(180) == 'vert'   # GOOGL
-    assert P.band_of(200) == 'cyan'   # NFLX
+    assert P.band_of(190) == 'cyan'   # NFLX
     assert P.band_of(210) == 'cyan'   # RDDT
 
 
@@ -94,13 +94,74 @@ def test_elliott_apres_vague_c_app_uniquement():
     assert ell.get('key_officielle') == 'b'
     assert ell.get('c_fin') and abs(ell['c_fin']['prix'] - 228.5) < 1
     # inchangés
-    assert by['XETR:ZPDK']['points']['elliott'] == 0 and by['XETR:ZPDK']['total'] == 162
+    assert by['XETR:ZPDK']['points']['elliott'] == 0 and by['XETR:ZPDK']['total'] == 140
     assert by['NYSE:RDDT']['points']['elliott'] == 0 and by['NYSE:RDDT']['total'] == 210
-    assert by['NASDAQ:META']['points']['elliott'] == 0 and by['NASDAQ:META']['total'] == 130
-    assert by['NASDAQ:NFLX']['points']['elliott'] == 20 and by['NASDAQ:NFLX']['total'] == 200
+    assert by['NASDAQ:META']['points']['elliott'] == 0 and by['NASDAQ:META']['total'] == 110
+    assert by['NASDAQ:NFLX']['points']['elliott'] == 20 and by['NASDAQ:NFLX']['total'] == 190
     assert by['NASDAQ:GOOGL']['points']['elliott'] == 20 and by['NASDAQ:GOOGL']['total'] == 180
     # tri attendu après règle C : RDDT, NFLX, GOOGL, APP, META
     order = sorted(d['actions'], key=lambda a: -a['total'])
     assert [a['tv'] for a in order] == [
         'NYSE:RDDT', 'NASDAQ:NFLX', 'NASDAQ:GOOGL', 'NASDAQ:APP', 'NASDAQ:META'
     ]
+
+
+def test_cci_stochastic_formule_daveatt():
+    """Formule Pine de Daveatt (XZyG5SOx) sur une série courte, longueurs réduites."""
+    import ind_core as K
+    assert K.CCI_STOCH_CCI_PERIOD == 28
+    assert K.CCI_STOCH_STOCH_PERIOD == 28
+    assert K.CCI_STOCH_SMOOTH_K == 3 and K.CCI_STOCH_SMOOTH_D == 3
+    assert K.CCI_STOCH_LINE == 'D'
+    src = [10.0, 20.0, 30.0, 10.0, 5.0, 40.0, 35.0, 25.0, 15.0, 18.0]
+    k, d, cci = K.cci_stochastic_kd(src, 3, 3, 2, 2)
+    assert cci[2] == 100.0 and cci[3] == -100.0
+    assert abs(cci[4] - (-200.0 / 3.0)) < 1e-9
+    assert abs(d[6] - 69.935897) < 1e-5
+    assert abs(d[-1] - 25.0) < 1e-9
+    # la ligne par défaut est D, bornée 0–100
+    line = K.cci_stochastic(src, 3, 3, 2, 2)
+    assert line[-1] == d[-1]
+    assert all(x is None or 0 <= x <= 100 for x in line)
+
+
+def test_cci_stoch_et_fond_valides_sur_pilote():
+    d = json.loads((ROOT / 'data' / 'apex_achat_v2_pilot.json').read_text())
+    expected = {
+        'XETR:ZPDK':  {'cci_pts': 0,  'cci': 24.00, 'fond': 80, 'total': 140},
+        'NASDAQ:APP': {'cci_pts': 0,  'cci': 54.29, 'fond': 90, 'total': 160},
+        'NYSE:RDDT':  {'cci_pts': 20, 'cci': 14.87, 'fond': 90, 'total': 210},
+        'NASDAQ:META':{'cci_pts': 0,  'cci': 33.95, 'fond': 80, 'total': 110},
+        'NASDAQ:NFLX':{'cci_pts': 20, 'cci': 17.60, 'fond': 70, 'total': 190},
+        'NASDAQ:GOOGL':{'cci_pts': 20,'cci': 8.12,  'fond': 70, 'total': 180},
+    }
+    recs = [d['etf']] + d['actions']
+    for rec in recs:
+        exp = expected[rec['tv']]
+        det = rec['detail']['cci']
+        assert rec['points']['cci'] == exp['cci_pts']
+        assert abs(det['valeur'] - exp['cci']) < 0.05
+        assert det.get('ligne') == 'D' and det.get('cci_period') == 28 and det.get('stoch_period') == 28
+        assert rec['points']['fondamental'] == exp['fond']
+        assert rec['total'] == exp['total']
+    # NFLX : BPA année prochaine 5,1 % ne passe plus le seuil > 10 %
+    nflx = next(a for a in d['actions'] if a['tv'] == 'NASDAQ:NFLX')
+    bpa = next(e for e in nflx['detail']['fondamental']['elements'] if e['id'] == 'bpa_annee_prochaine')
+    assert bpa['ok'] is False and bpa['points'] == 0 and bpa['seuil'] == '> 10 %'
+
+
+def test_fond_points_seuils_valides():
+    # BPA > 10 %, CA > 5 %, donnée manquante = 0
+    total, els = P.fond_points({
+        'nd_ebitda': 1.9, 'op_margin': 16, 'fcf_margin': 11, 'roe': 16, 'current': 1.3,
+        'eps_1y': 10, 'eps_0y': 10.1, 'rev_1y': 5, 'rev_0y': 5.1,
+    })
+    by = {e['id']: e for e in els}
+    assert by['bpa_annee_prochaine']['points'] == 0   # 10 n'est pas > 10
+    assert by['bpa_cette_annee']['points'] == 10
+    assert by['ca_annee_prochaine']['points'] == 0   # 5 n'est pas > 5
+    assert by['ca_cette_annee']['points'] == 10
+    assert total == 70
+    total2, els2 = P.fond_points({'nd_ebitda': None})
+    assert total2 == 0
+    assert all(e['points'] == 0 for e in els2)

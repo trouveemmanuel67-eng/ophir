@@ -384,13 +384,11 @@ def elliott_entry(opens, closes, dates, stored_key=None):
 
 
 def cci_points(cci_val):
-    """Seuil littéral d'Emmanuel : CCI < 20 (en attente de confirmation).
-    Ce n'est pas le seuil classique ±100.
-    """
+    """CCI Stochastic de Daveatt (0–100) : +20 si la ligne D est sous 20, sinon 0."""
     if cci_val is None:
         return 0, {'ok': False, 'valeur': None, 'points': 0}
     ok = cci_val < 20
-    return (20 if ok else 0), {'ok': ok, 'valeur': round(cci_val, 1), 'points': 20 if ok else 0}
+    return (20 if ok else 0), {'ok': ok, 'valeur': round(cci_val, 2), 'points': 20 if ok else 0}
 
 
 FOND_RULES = [
@@ -399,10 +397,10 @@ FOND_RULES = [
     ('marge_fcf', 'Marge de cash-flow libre', 'fcf_margin', lambda v: v is not None and v > 10, '> 10 %'),
     ('roe', 'ROE', 'roe', lambda v: v is not None and v > 15, '> 15 %'),
     ('ratio_liquidite_courante', 'Ratio de liquidité courante', 'current', lambda v: v is not None and v > 1.2, '> 1,2'),
-    ('bpa_annee_prochaine', 'BPA année prochaine', 'eps_1y', lambda v: v is not None and v > 0, '> 0 %'),
-    ('bpa_cette_annee', 'BPA cette année', 'eps_0y', lambda v: v is not None and v > 0, '> 0 %'),
-    ('ca_annee_prochaine', 'CA année prochaine', 'rev_1y', lambda v: v is not None and v > 0, '> 0 %'),
-    ('ca_cette_annee', 'CA cette année', 'rev_0y', lambda v: v is not None and v > 0, '> 0 %'),
+    ('bpa_annee_prochaine', 'BPA année prochaine', 'eps_1y', lambda v: v is not None and v > 10, '> 10 %'),
+    ('bpa_cette_annee', 'BPA cette année', 'eps_0y', lambda v: v is not None and v > 10, '> 10 %'),
+    ('ca_annee_prochaine', 'CA année prochaine', 'rev_1y', lambda v: v is not None and v > 5, '> 5 %'),
+    ('ca_cette_annee', 'CA cette année', 'rev_0y', lambda v: v is not None and v > 5, '> 5 %'),
 ]
 
 
@@ -497,9 +495,23 @@ def score_asset(asset, fg, elliott_key=None):
             'source': fib.get('source_historique'),
         })
     ell_pts, ell_det = elliott_entry(o, c, ds, stored_key=elliott_key)
-    cci_series = K.cci20(o, c)
-    cci_val = cci_series[-1] if cci_series else None
+    # Pilote Communication uniquement : CCI Stochastic de Daveatt, clôtures hebdo fermées.
+    k_s, d_s, cci_raw = K.cci_stochastic_kd(c)
+    cci_val = d_s[-1] if d_s else None
+    cci_k = k_s[-1] if k_s else None
+    cci_cci = cci_raw[-1] if cci_raw else None
     cci_pts, cci_det = cci_points(cci_val)
+    cci_det.update({
+        'k': None if cci_k is None else round(cci_k, 2),
+        'd': None if cci_val is None else round(cci_val, 2),
+        'cci': None if cci_cci is None else round(cci_cci, 2),
+        'cci_period': K.CCI_STOCH_CCI_PERIOD,
+        'stoch_period': K.CCI_STOCH_STOCH_PERIOD,
+        'smooth_k': K.CCI_STOCH_SMOOTH_K,
+        'smooth_d': K.CCI_STOCH_SMOOTH_D,
+        'ligne': K.CCI_STOCH_LINE,
+        'source': 'close hebdo clôturé',
+    })
 
     fond_m = asset.get('m')
     if asset.get('kind') == 'etf':
@@ -544,7 +556,7 @@ def score_asset(asset, fg, elliott_key=None):
                 "(le cours a retracé au-delà du niveau X % depuis le haut)."
             )},
             'elliott': ell_det,
-            'cci': {**cci_det, 'seuil': 20, 'precision': 'seuil littéral d’Emmanuel, en attente de confirmation'},
+            'cci': {**cci_det, 'seuil': 20, 'precision': 'CCI Stochastic Daveatt (CCI 28, stoch 28, lissages SMA 3 et 3, ligne D) ; +20 si < 20'},
             'fondamental': {'points': int(round(fond_total or 0)), 'max': 90, 'elements': fond_elems, 'mode': fond_mode},
         },
         'ligne': compact_line(parts, total),
@@ -651,7 +663,7 @@ def main():
         'interpretations': {
             'fibo': "« Sous X % » = retracement depuis le plus haut historique r ≥ X %, corps hebdo clôturés (plus bas historique → plus haut historique).",
             'elliott': "Zone d’entrée +20 : fin de vague 2, fin de vague 4, vague C ; et après une C terminée, tant qu’aucune nouvelle vague 1 n’est confirmée (clé new1, officielle ou lecture alternative sur le même ZigZag).",
-            'cci': "CCI 20 hebdo < 20 (seuil littéral d'Emmanuel, en attente de confirmation) ; ce n'est pas ±100.",
+            'cci': "CCI Stochastic hebdo de Daveatt (script TradingView XZyG5SOx) : CCI 28 sur la clôture, stochastique 28 du CCI, lissages SMA 3 et 3, ligne D (0–100). +20 si sous 20.",
             'fg': "Tranches entières : floor(|50 − valeur| / 10) × 10, signé, max ±50. Même valeur CNN pour tous les titres du pilote.",
             'fond_etf': etf_asset['fond_mode'],
             'ligne_secteur': "La ligne secteur affiche le total de l'ETF ZPDK (représentant du secteur), pas une moyenne des 5 actions.",
