@@ -360,6 +360,43 @@ EVAL_JS = (
     "})()"
 )
 
+CHECK_REGLES_OPEN_JS = (
+    "(() => {"
+    "  const btn = document.getElementById('rgBtn');"
+    "  if (btn) btn.click();"
+    "  const page = document.getElementById('rg-page');"
+    "  const r = page ? page.getBoundingClientRect() : null;"
+    "  const table = document.getElementById('rg-table-actions');"
+    "  const text = page ? (page.innerText || '') : '';"
+    "  const vis = !!(page && document.body.classList.contains('rg-on') && !page.hasAttribute('hidden'));"
+    "  const covers = !!(r && r.width >= window.innerWidth * 0.95 && r.height >= window.innerHeight * 0.95);"
+    "  const h2 = Array.from((page||document).querySelectorAll('h2')).map(el => (el.innerText||'').trim());"
+    "  return {"
+    "    vis, covers,"
+    "    w: r && Math.round(r.width), h: r && Math.round(r.height),"
+    "    vw: window.innerWidth, vh: window.innerHeight,"
+    "    hasTable: !!(table && table.rows && table.rows.length >= 8),"
+    "    rows: table && table.rows ? table.rows.length : 0,"
+    "    hasBack: !!document.getElementById('rgBack'),"
+    "    hasClose: !!document.getElementById('rgClose'),"
+    "    hasBase: /part de 50|Base/.test(text),"
+    "    hasActions: h2.some(s => /^Actions$/.test(s)),"
+    "    otherH2: h2.filter(s => !/^Actions$/.test(s) && !/Fondamental|Règles communes/.test(s)),"
+    "    hash: location.hash"
+    "  };"
+    "})()"
+)
+
+CHECK_REGLES_CLOSE_JS = (
+    "(() => {"
+    "  const b = document.getElementById('rgBack') || document.getElementById('rgClose');"
+    "  if (b) b.click();"
+    "  const page = document.getElementById('rg-page');"
+    "  const open = !!(document.body.classList.contains('rg-on') && page && !page.hasAttribute('hidden'));"
+    "  return {open, hash: location.hash};"
+    "})()"
+)
+
 CLICK_ACTIONS_JS = (
     "(() => {"
     "  const a = document.getElementById('tactions');"
@@ -452,6 +489,15 @@ def check_headless(root=ROOT):
             return ((res.get('result') or {}).get('value')) or {}
 
         accueil = ev()
+        regles_open = ((cs(
+            'Runtime.evaluate',
+            {'expression': CHECK_REGLES_OPEN_JS, 'returnByValue': True},
+        ).get('result') or {}).get('value')) or {}
+        time.sleep(0.4)
+        regles_close = ((cs(
+            'Runtime.evaluate',
+            {'expression': CHECK_REGLES_CLOSE_JS, 'returnByValue': True},
+        ).get('result') or {}).get('value')) or {}
         cs(
             'Runtime.evaluate',
             {'expression': CLICK_ACTIONS_JS, 'returnByValue': True},
@@ -489,6 +535,36 @@ def check_headless(root=ROOT):
                     f"(tens={tens}, max={mx}, sigs={accueil.get('home_sigs')!r})."
                 )
                 raise SystemExit(1)
+        if not regles_open.get('vis') or not regles_open.get('covers'):
+            _fail(
+                "page RÈGLES : la vue plein écran ne s'ouvre pas ou ne couvre pas l'écran "
+                f"({regles_open!r})."
+            )
+            raise SystemExit(1)
+        if not regles_open.get('hasTable') or not regles_open.get('hasBack') or not regles_open.get('hasClose'):
+            _fail(
+                "page RÈGLES : tableau Actions, bouton Retour ou Fermer manquant "
+                f"({regles_open!r})."
+            )
+            raise SystemExit(1)
+        if not regles_open.get('hasActions') or not regles_open.get('hasBase'):
+            _fail(
+                "page RÈGLES : le tableau Actions (base 50) est incomplet "
+                f"({regles_open!r})."
+            )
+            raise SystemExit(1)
+        if regles_open.get('otherH2'):
+            _fail(
+                "page RÈGLES : des sections autres qu'Actions sont présentes "
+                f"({regles_open.get('otherH2')!r})."
+            )
+            raise SystemExit(1)
+        if regles_close.get('open'):
+            _fail(
+                "page RÈGLES : le bouton Retour/Fermer ne referme pas la page "
+                f"({regles_close!r})."
+            )
+            raise SystemExit(1)
         n_fiches = max(actions.get('notes') or 0, actions.get('n_lis') or 0)
         if n_fiches < MIN_FICHES_ACTIONS:
             _fail(
@@ -498,7 +574,7 @@ def check_headless(root=ROOT):
             raise SystemExit(1)
         _ok(
             f'aucune exception, Accueil {accueil.get("notes")} notes, signaux classes max {accueil.get("home_sig_max")}, '
-            f'onglet Actions {n_fiches} fiches (Chrome {Path(chrome).name})'
+            f'onglet Actions {n_fiches} fiches, page RÈGLES ok (Chrome {Path(chrome).name})'
         )
         return 0
     finally:

@@ -1,6 +1,6 @@
 {
   "version": "2026-11-23",
-  "tache": "t342u",
+  "tache": "t347u",
   "timezone": "Europe/Paris",
   "note_apex": {
     "poids_timing": 0.5,
@@ -1389,6 +1389,14 @@
         "fondamental": null,
         "precision": "L’onglet Immobilier (foncières, REIT, SCPI selon ce qui est présent) conserve son barème propre de timing, qui constitue 100 % de la note d’onglet. Les titres individuels d’une liste, s’ils ont un fondamental, suivent la formule 50 / 50 des actions.",
         "technique": null
+      }
+    ],
+    "page_titre": "Règles de la note APEX",
+    "page_sections": [
+      {
+        "id": "actions",
+        "label": "Actions",
+        "classe": "actions"
       }
     ]
   }
