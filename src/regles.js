@@ -155,10 +155,6 @@ function rgRowsActions(cls){
   const tech=cls.technique||cls.timing||{};
   const fond=cls.fondamental||{};
   const rows=[];
-  rows.push({
-    id:'base', kind:'base', label:'Base', poids:null, pts:amp.base, ptsLabel:rgNum(amp.base),
-    regle:'Point de départ de la note. Un critère neutre (score 0) n’ajoute ni ne retire aucun point.'
-  });
   const fondV2=RG&&RG.apex_achat_v2&&RG.apex_achat_v2.fondamental;
   if(fondV2){
     rows.push({id:'fond', kind:'fond-v2', html:rgFondAchatV2HTML(fondV2)});
@@ -411,16 +407,87 @@ function rgAchatV2Rule(c){
   }
   return bits.join(' ').replace(/\s+/g,' ').trim();
 }
+function rgAchatV2RuleShort(c){
+  if(!c) return '';
+  if(c.regle_courte) return String(c.regle_courte).trim();
+  if(c.regle) return String(c.regle).trim();
+  const conds=(c.conditions||[]).map(x=>(x.label||x.id||'')+' : '+rgFmtPlus(x.points));
+  const bits=[];
+  if(c.preambule) bits.push(String(c.preambule).trim().replace(/\.$/, ''));
+  if(conds.length) bits.push(conds.join(' ; ')+'.');
+  if(c.cumulables===false) bits.push('Paliers non cumulables.');
+  else if(c.cumulables) bits.push('Cumulables.');
+  return bits.join(' ').replace(/\s+/g,' ').trim();
+}
+function rgActionsGrid(){
+  const v=(RG&&RG.apex_achat_v2)||{};
+  const ordre=['rsi_14_hebdo','macd_12_26_9_hebdo','fibonacci','elliott','cci_20_hebdo'];
+  const by={};
+  (v.criteres||[]).forEach(c=>{if(c&&c.id) by[c.id]=c;});
+  const tech=ordre.map(id=>by[id]).filter(Boolean);
+  const techSum=tech.reduce((s,c)=>s+(Number(c.max)||0),0);
+  const fond=v.fondamental||{};
+  const fondMax=fond.max!=null?Number(fond.max):90;
+  const card=(id, label, ruleHtml, pts)=>`<article class="rg-card" data-id="${rgEsc(id||'')}">
+      <div class="rg-card-top">
+        <h3 class="rg-card-name">${rgEsc(label)}</h3>
+        <span class="rg-card-pts">${rgEsc(pts)}</span>
+      </div>
+      <p class="rg-card-rule">${ruleHtml}</p>
+    </article>`;
+  const techCards=tech.map(c=>card(c.id, c.label||c.id, rgEsc(rgAchatV2RuleShort(c)), c.max!=null?rgNum(c.max):'—')).join('');
+  const fondCols=(fond.groupes||[]).map(g=>{
+    const cards=(g.elements||[]).map(el=>{
+      const bon=el.bon_si?rgEsc(el.bon_si):'';
+      const av=el.seuil_a_valider!==false?' <span class="rg-av">à valider</span>':'';
+      const rule=bon?`<span class="rg-seuil">${bon}</span>${av}`:'';
+      return card(el.id, el.label||el.id, rule, rgFmtPlus(el.points!=null?el.points:fond.points_si_bon));
+    }).join('');
+    return `<div class="rg-fond-col">
+      <h3 class="rg-subh">${rgEsc(g.label||g.id||'')}</h3>
+      <div class="rg-cards rg-cards-stack">${cards}</div>
+    </div>`;
+  }).join('');
+  const sent=v.sentiment||{};
+  const sentMax=sent.max_affiche||(sent.max!=null?('±'+rgNum(sent.max)):'±50');
+  const sentCards=(sent.criteres||sent.elements||[]).map(el=>{
+    const rule=rgEsc(el.regle_courte||el.regle||el.precision||rgAchatV2RuleShort(el));
+    const pts=el.points_max||el.max_affiche||sentMax;
+    return card(el.id, el.label||el.id, rule, pts);
+  }).join('');
+  const sentBlock=sentCards
+    ?`<section class="rg-block" data-group="sentiment">
+      <header class="rg-block-h">
+        <div class="rg-block-title">${rgEsc(sent.label||'Sentiment')}</div>
+        <span class="rg-block-pts">${rgEsc(sentMax)}</span>
+      </header>
+      <div class="rg-cards rg-cards-span">${sentCards}</div>
+    </section>`
+    :'';
+  return `<div class="rg-board" id="rg-table-actions">
+    <section class="rg-block" data-group="technique">
+      <header class="rg-block-h">
+        <div class="rg-block-title">Technique <span class="rg-group-note">RSI 30 · MACD 30 · Fibonacci 30 · Elliott 20 · CCI 20</span></div>
+        <span class="rg-block-pts">${rgNum(techSum)}</span>
+      </header>
+      <div class="rg-cards">${techCards}</div>
+    </section>
+    <section class="rg-block" data-group="fondamental">
+      <header class="rg-block-h">
+        <div class="rg-block-title">Fondamental</div>
+        <span class="rg-block-pts">${rgNum(fondMax)}</span>
+      </header>
+      <div class="rg-fond-cols">${fondCols}</div>
+    </section>
+    ${sentBlock}
+  </div>`;
+}
 function rgPageHTML(){
   if(!RG) return '<p class="rg-p">Règles indisponibles.</p>';
   const fr=RG.fiche_regles||{};
-  const cls=rgActionClass();
-  const amp=rgAmp();
+  const v=(RG&&RG.apex_achat_v2)||{};
   const titre=fr.page_titre||fr.titre_panneau||'Règles de la note APEX';
-  const intro=`La note APEX /100 des actions part de ${rgNum(amp.base)}. Chaque critère ajoute ou retire des points selon son score −100…+100 (neutre = 0), avec une amplitude ×${rgNum(amp.echelle)} (±${rgNum(amp.totale)}), puis un clip dans 0–100.`;
-  const lead=cls&&cls.precision?`<p class="rg-p">${rgEsc(cls.precision)}</p>`:'';
-  const rows=cls?rgRowsActions(cls):[];
-  const fond=cls&&cls.fondamental;
+  const accroche=v.accroche||'La note part de 0 : chaque critère ajoute ses points.';
   return `<header class="rg-top">
       <button type="button" id="rgBack" class="rg-back">← Retour</button>
       <h1 id="rgPageTitle">${rgEsc(titre)}</h1>
@@ -428,13 +495,11 @@ function rgPageHTML(){
     </header>
     <div class="rg-page-body">
       <div class="rg-page-main">
-        <p class="rg-intro">${rgEsc(intro)}</p>
-        ${lead}
         <section class="rg-sec" id="rg-sec-actions">
           <h2 class="rg-h2">Actions</h2>
-          ${rgTable(rows)}
+          <p class="rg-lead">${rgEsc(accroche)}</p>
+          ${rgActionsGrid()}
         </section>
-        ${(RG&&RG.apex_achat_v2&&RG.apex_achat_v2.fondamental)?'':rgFondDetails(fond)}
         ${rgCommons()}
       </div>
     </div>`;

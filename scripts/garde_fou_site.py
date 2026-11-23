@@ -360,68 +360,80 @@ EVAL_JS = (
     "})()"
 )
 
-CHECK_REGLES_OPEN_JS = (
-    "(() => {"
-    "  const btn = document.getElementById('rgBtn');"
-    "  if (btn) btn.click();"
-    "  const page = document.getElementById('rg-page');"
-    "  const r = page ? page.getBoundingClientRect() : null;"
-    "  const table = document.getElementById('rg-table-actions');"
-    "  const text = page ? (page.innerText || '') : '';"
-    "  const vis = !!(page && document.body.classList.contains('rg-on') && !page.hasAttribute('hidden'));"
-    "  const covers = !!(r && r.width >= window.innerWidth * 0.95 && r.height >= window.innerHeight * 0.95);"
-    "  const h2 = Array.from((page||document).querySelectorAll('h2')).map(el => (el.innerText||'').trim());"
-    "  const rowHead = row => { const el=row && row.querySelector && row.querySelector('th'); return ((el && (el.textContent||el.innerText))||'').trim(); };"
-    "  const findRow = re => table && Array.from(table.querySelectorAll('tbody tr')).find(row => re.test(rowHead(row)));"
-    "  const rsiRow = findRow(/^RSI\\b/i);"
-    "  const macdRow = findRow(/^MACD\\b/i);"
-    "  const fiboRow = findRow(/^Fibonacci\\b/i);"
-    "  const ellRow = findRow(/Elliott/i);"
-    "  const cciRow = findRow(/^CCI\\b/i);"
-    "  const totRow = table && (table.tFoot && table.tFoot.rows[0]);"
-    "  const rsiText = rsiRow ? ((rsiRow.innerText||'')+'').replace(/\\s+/g,' ') : '';"
-    "  const macdText = macdRow ? ((macdRow.innerText||'')+'').replace(/\\s+/g,' ') : '';"
-    "  const fiboText = fiboRow ? ((fiboRow.innerText||'')+'').replace(/\\s+/g,' ') : '';"
-    "  const ellText = ellRow ? ((ellRow.innerText||'')+'').replace(/\\s+/g,' ') : '';"
-    "  const cciText = cciRow ? ((cciRow.innerText||'')+'').replace(/\\s+/g,' ') : '';"
-    "  const totText = totRow ? ((totRow.innerText||'')+'').replace(/\\s+/g,' ') : '';"
-    "  const poidsOf = row => row && row.querySelector ? ((row.querySelector('td')||{}).innerText||'').replace(/\\s+/g,' ').trim() : '';"
-    "  const fiboPoids = poidsOf(fiboRow), ellPoids = poidsOf(ellRow), cciPoids = poidsOf(cciRow);"
-    "  return {"
-    "    vis, covers,"
-    "    w: r && Math.round(r.width), h: r && Math.round(r.height),"
-    "    vw: window.innerWidth, vh: window.innerHeight,"
-    "    hasTable: !!(table && table.rows && table.rows.length >= 8),"
-    "    rows: table && table.rows ? table.rows.length : 0,"
-    "    hasBack: !!document.getElementById('rgBack'),"
-    "    hasClose: !!document.getElementById('rgClose'),"
-    "    hasBase: /part de 50|Base/.test(text),"
-    "    hasActions: h2.some(s => /^Actions$/.test(s)),"
-    "    otherH2: h2.filter(s => !/^Actions$/.test(s) && !/Fondamental|Règles communes/.test(s)),"
-    "    noAchatTable: !document.getElementById('rg-table-achat'),"
-    "    noRefFold: !document.getElementById('rg-ref'),"
-    "    rsiText,"
-    "    rsiNew: /\\+10/.test(rsiText) && /\\+20/.test(rsiText) && /\\b30\\b/.test(rsiText),"
-    "    macdNew: /\\+10/.test(macdText) && /\\+20/.test(macdText) && /\\b30\\b/.test(macdText),"
-    "    macdText,"
-    "    rsiOldGone: !(/±\\s*3[,.]75/.test(rsiText) || /clip\\s*\\(/.test(rsiText) || /5\\s*%/.test(rsiText)),"
-    "    macdOldGone: !(/±\\s*3[,.]75/.test(macdText) || /clip\\s*\\(/.test(macdText) || /5\\s*%/.test(macdText)),"
-    "    fiboText, ellText, cciText, totText,"
-    "    fiboNew: /38[,.]2/.test(fiboText) && /61[,.]8/.test(fiboText) && /78[,.]6/.test(fiboText) && /\\b30\\b/.test(fiboText),"
-    "    fiboOldGone: !(/±\\s*6\\b/.test(fiboText) || /%/.test(fiboPoids)),"
-    "    ellNew: /\\+20/.test(ellText) && /zone d.entrée|vague C/.test(ellText),"
-    "    ellOldGone: !(/±\\s*7[,.]5/.test(ellText) || /%/.test(ellPoids)),"
-    "    cciNew: /sous 20/.test(cciText) && /\\+20/.test(cciText) && /\\b20\\b/.test(cciText),"
-    "    cciOldGone: !(/±\\s*3[,.]75/.test(cciText) || /clip\\s*\\(/.test(cciText) || /%/.test(cciPoids)),"
-    "    tot220: /\\b220\\b/.test(totText) && /\\b90\\b/.test(totText),"
-    "    hasFondV2: !!document.getElementById('rg-fond-v2'),"
-    "    fondText: ((document.getElementById('rg-fond-v2')||{}).innerText||'').replace(/\\s+/g,' '),"
-    "    fondOk: (function(){ const s=(((document.getElementById('rg-fond-v2')||{}).innerText||'')+'').toLowerCase(); return /\\+10/.test(s) && /\\b90\\b/.test(s) && /à valider/.test(s) && /dette nette/.test(s) && /marge opérationnelle/.test(s) && /cash-flow libre/.test(s) && /\\broe\\b/.test(s) && /liquidité courante/.test(s) && /bpa année prochaine/.test(s) && /bpa cette année/.test(s) && /ca année prochaine/.test(s) && /ca cette année/.test(s) && /<\\s*2/.test(s) && /15\\s*%/.test(s) && /10\\s*%/.test(s) && /1[,.]2/.test(s) && />\\s*0\\s*%/.test(s); })(),"
-    "    noStructure: !table || !Array.from(table.rows).some(row => /^\\s*Structure\\b/i.test((row.querySelector('th,td')||{}).innerText||'')),"
-    "    hash: location.hash"
-    "  };"
-    "})()"
-)
+CHECK_REGLES_OPEN_JS = r"""
+(() => {
+  const btn = document.getElementById('rgBtn');
+  if (btn) btn.click();
+  const page = document.getElementById('rg-page');
+  const r = page ? page.getBoundingClientRect() : null;
+  const root = document.getElementById('rg-table-actions');
+  const text = page ? (page.innerText || '') : '';
+  const vis = !!(page && document.body.classList.contains('rg-on') && !page.hasAttribute('hidden'));
+  const covers = !!(r && r.width >= window.innerWidth * 0.95 && r.height >= window.innerHeight * 0.95);
+  const h2 = Array.from((page||document).querySelectorAll('h2')).map(el => (el.innerText||'').trim());
+  const cards = root ? Array.from(root.querySelectorAll('.rg-card')) : [];
+  const nameOf = c => ((c.querySelector('.rg-card-name')||{}).textContent||'').trim();
+  const findCard = re => cards.find(c => re.test(nameOf(c)));
+  const cardText = c => c ? ((c.innerText||'')+'').replace(/\s+/g,' ') : '';
+  const rsiText = cardText(findCard(/^RSI\b/i));
+  const macdText = cardText(findCard(/^MACD\b/i));
+  const fiboText = cardText(findCard(/^Fibonacci\b/i));
+  const ellText = cardText(findCard(/Elliott/i));
+  const cciText = cardText(findCard(/^CCI\b/i));
+  const totText = '';
+  const names = cards.map(nameOf);
+  const sameRow = (a,b) => !!(a&&b) && Math.abs(a.getBoundingClientRect().top - b.getBoundingClientRect().top) < 12;
+  const techBox = root && root.querySelector('[data-group="technique"] .rg-cards');
+  const techKids = techBox ? Array.from(techBox.children) : [];
+  const fondCols = root ? Array.from(root.querySelectorAll('.rg-fond-col')) : [];
+  return {
+    vis, covers,
+    w: r && Math.round(r.width), h: r && Math.round(r.height),
+    vw: window.innerWidth, vh: window.innerHeight,
+    hasTable: cards.length >= 14,
+    rows: cards.length,
+    hasBack: !!document.getElementById('rgBack'),
+    hasClose: !!document.getElementById('rgClose'),
+    hasBase: /La note part de 0/.test(text) && /chaque critère ajoute ses points/.test(text),
+    noOldIntro: !/part de 50/.test(text) && !/clip dans/.test(text) && !/Actions cotées/i.test(text),
+    noBaseRow: !names.some(n => /^Base\b/i.test(n)),
+    hasActions: h2.some(s => /^Actions$/.test(s)),
+    otherH2: h2.filter(s => !/^Actions$/.test(s) && !/Fondamental|Règles communes/.test(s)),
+    noAchatTable: !document.getElementById('rg-table-achat'),
+    noRefFold: !document.getElementById('rg-ref'),
+    rsiText,
+    rsiNew: /\+10/.test(rsiText) && /\+20/.test(rsiText) && /\b30\b/.test(rsiText),
+    macdNew: /\+10/.test(macdText) && /\+20/.test(macdText) && /\b30\b/.test(macdText),
+    macdText,
+    rsiOldGone: !(/±\s*3[,.]75/.test(rsiText) || /clip\s*\(/.test(rsiText) || /5\s*%/.test(rsiText)),
+    macdOldGone: !(/±\s*3[,.]75/.test(macdText) || /clip\s*\(/.test(macdText) || /5\s*%/.test(macdText)),
+    fiboText, ellText, cciText, totText,
+    fiboNew: /38[,.]2/.test(fiboText) && /61[,.]8/.test(fiboText) && /78[,.]6/.test(fiboText) && /\b30\b/.test(fiboText),
+    fiboOldGone: !/±\s*6\b/.test(fiboText),
+    ellNew: /\+20/.test(ellText) && /zone d.entrée|vague C/.test(ellText),
+    ellOldGone: !/±\s*7[,.]5/.test(ellText),
+    cciNew: /sous 20/.test(cciText) && /\+20/.test(cciText) && /\b20\b/.test(cciText),
+    cciOldGone: !(/±\s*3[,.]75/.test(cciText) || /clip\s*\(/.test(cciText)),
+    noTotal220: !/\b220\b/.test(text),
+    has130: /\b130\b/.test(text),
+    has90: /\b90\b/.test(text),
+    hasFondV2: /dette nette/i.test(text) && /Santé/i.test(text),
+    fondText: text.replace(/\s+/g,' '),
+    fondOk: (function(){ const s=(text||'').toLowerCase(); return /\+10/.test(s) && /\b90\b/.test(s) && /à valider/.test(s) && /dette nette/.test(s) && /marge opérationnelle/.test(s) && /cash-flow libre/.test(s) && /\broe\b/.test(s) && /liquidité courante/.test(s) && /bpa année prochaine/.test(s) && /bpa cette année/.test(s) && /ca année prochaine/.test(s) && /ca cette année/.test(s) && /<\s*2/.test(s) && /15\s*%/.test(s) && /10\s*%/.test(s) && /1[,.]2/.test(s) && />\s*0\s*%/.test(s); })(),
+    hasSentiment: /Sentiment/i.test(text) && /Fear\s*&\s*Greed/i.test(text),
+    sentOk: /milieu\s*50/.test((text||'').toLowerCase()) && /peur/.test((text||'').toLowerCase()) && /avidité/.test((text||'').toLowerCase()) && /±\s*50/.test(text),
+    noStructure: !names.some(n => /^Structure\b/i.test(n)),
+    noFigure: !names.some(n => /^Figure\b/i.test(n)),
+    twoCols: techKids.length>=2 && sameRow(techKids[0], techKids[1]),
+    fondSideBySide: fondCols.length>=2 && sameRow(fondCols[0], fondCols[1]),
+    noPoids: !root || !/poids/i.test(root.innerText||''),
+    noIdeal: !/idéalement/i.test(text),
+    hasTechGroup: /Technique/i.test(text) && /Fondamental/i.test(text) && /Santé/i.test(text),
+    hash: location.hash
+  };
+})()
+""".strip()
+
 
 CHECK_REGLES_CLOSE_JS = (
     "(() => {"
@@ -585,7 +597,13 @@ def check_headless(root=ROOT):
             raise SystemExit(1)
         if not regles_open.get('hasActions') or not regles_open.get('hasBase'):
             _fail(
-                "page RÈGLES : le tableau Actions (base 50) est incomplet "
+                "page RÈGLES : le tableau Actions ou la phrase « La note part de 0 : chaque critère ajoute ses points. » est manquant "
+                f"({regles_open!r})."
+            )
+            raise SystemExit(1)
+        if not regles_open.get('noOldIntro') or not regles_open.get('noBaseRow'):
+            _fail(
+                "page RÈGLES : l'intro « part de 50 » / « Actions cotées » ou la ligne Base est encore visible "
                 f"({regles_open!r})."
             )
             raise SystemExit(1)
@@ -624,16 +642,28 @@ def check_headless(root=ROOT):
                 f"({regles_open.get('cciText')!r})."
             )
             raise SystemExit(1)
-        if not regles_open.get('tot220'):
+        if not regles_open.get('twoCols') or not regles_open.get('fondSideBySide') or not regles_open.get('noPoids'):
             _fail(
-                "page RÈGLES : le total maximum provisoire 220 (technique 130 + fondamental 90) est manquant "
-                f"({regles_open.get('totText')!r})."
+                "page RÈGLES : la grille doit être en deux colonnes (Santé/Croissance côte à côte), sans Poids "
+                f"({regles_open!r})."
             )
             raise SystemExit(1)
-        if not regles_open.get('hasFondV2') or not regles_open.get('fondOk'):
+        if not regles_open.get('noFigure') or not regles_open.get('noTotal220') or not regles_open.get('noIdeal'):
             _fail(
-                "page RÈGLES : le sous-tableau Fondamental (9 éléments, +10, max 90, seuils à valider) est incomplet "
-                f"({regles_open.get('fondText')!r})."
+                "page RÈGLES : Figure, total 220 ou « idéalement > 10 % » encore visibles "
+                f"({regles_open!r})."
+            )
+            raise SystemExit(1)
+        if not regles_open.get('hasTechGroup') or not regles_open.get('has130') or not regles_open.get('has90'):
+            _fail(
+                "page RÈGLES : groupes Technique / Fondamental ou sous-totaux 130 / 90 manquants "
+                f"({regles_open!r})."
+            )
+            raise SystemExit(1)
+        if not regles_open.get('hasSentiment') or not regles_open.get('sentOk'):
+            _fail(
+                "page RÈGLES : le groupe Sentiment (Fear & Greed Index, ±50) est manquant ou incomplet "
+                f"({regles_open!r})."
             )
             raise SystemExit(1)
         if not regles_open.get('noStructure'):

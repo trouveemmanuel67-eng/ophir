@@ -11,7 +11,7 @@ from apex.score import compute, montant_template, bande_couleur, flag_tv, fmt10
 
 
 def _parts(**kw):
-    base = dict(elliott=0, structure=0, fibonacci=0, figure=0, rsi=0, macd=0, cci=0)
+    base = dict(elliott=0, structure=0, fibonacci=0, rsi=0, macd=0, cci=0)
     base.update(kw)
     return base
 
@@ -34,8 +34,10 @@ def test_formule_base50_amplitude_1_5():
     assert r['decomp']['renormalise'] is False
     by = {x['id']: x for x in r['decomp']['lignes']}
     assert by['fond']['poids'] == 50 and by['fond']['pts'] == pytest.approx(37.5)
-    assert by['elliott']['poids'] == 10 and by['elliott']['pts'] == pytest.approx(0)
-    assert by['fibonacci']['poids'] == 8
+    assert 'figure' not in by
+    assert by['elliott']['pts'] == pytest.approx(0)
+    assert by['elliott']['poids'] == int(round(0.1162790698 * 100))
+    assert by['fibonacci']['poids'] == int(round(0.0930232558 * 100))
     assert 'Fond. +37,5' in r['decomp']['texte'] or 'Fond. +37.5' in r['decomp']['texte']
     assert 'Elliott 0' in r['decomp']['texte']
 
@@ -45,10 +47,10 @@ def test_renormalise_sans_fondamental():
     assert r['renormalise'] is True
     by = {x['id']: x for x in r['decomp']['lignes']}
     assert 'fond' not in by
-    assert by['elliott']['poids'] == 20
-    assert by['fibonacci']['poids'] == 16
-    assert by['figure']['poids'] == 14
-    assert by['rsi']['poids'] == 10
+    assert 'figure' not in by
+    assert by['elliott']['poids'] == int(round(0.1162790698 * 2 * 100))
+    assert by['fibonacci']['poids'] == int(round(0.0930232558 * 2 * 100))
+    assert by['rsi']['poids'] == int(round(0.0581395349 * 2 * 100))
     assert r['note'] == 50  # tout neutre, 100 % technique
     assert 'sans fond.' in r['decomp']['texte']
 
@@ -80,7 +82,7 @@ def test_pas_de_plafond_elliott_sur_la_note():
     assert 'bonus' not in r3['cap']
     assert r3['note'] == 75
     # Sans portail (AV fort + confirmation) et vague rouge : la note peut dépasser 40
-    hi = _parts(elliott=-60, structure=100, fibonacci=100, figure=100, rsi=100, macd=100, cci=100)
+    hi = _parts(elliott=-60, structure=100, fibonacci=100, rsi=100, macd=100, cci=100)
     r4 = compute(65, 80, ell, divergence=100, parts=hi)
     assert r4['note'] > 40
     assert 'elliott' not in r4['cap']
@@ -88,7 +90,7 @@ def test_pas_de_plafond_elliott_sur_la_note():
 
 def test_regle_cyan_achat_fort_et_divergence():
     # Technique au maximum, pas de fond → 100 brut, autorisé si AV ≥ +60 et divergence
-    hi = _parts(elliott=100, structure=100, fibonacci=100, figure=100, rsi=100, macd=100, cci=100)
+    hi = _parts(elliott=100, structure=100, fibonacci=100, rsi=100, macd=100, cci=100)
     r = compute(65, None, None, divergence=100, parts=hi)
     assert r['note'] == 100 and r['flag'] == 'cyan'
     # Achat fort sans confirmation → 75

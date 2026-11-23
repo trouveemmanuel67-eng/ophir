@@ -24,25 +24,20 @@ def test_fiche_regles_presentes(regles):
 def test_poids_techniques_identiques_au_json(regles):
     na = regles['note_apex']['technique']
     # poids dans la note finale
-    assert na['elliott'] == pytest.approx(0.10)
-    assert na['structure'] == pytest.approx(0.10)
-    assert na['fibonacci'] == pytest.approx(0.08)
-    assert na['figure'] == pytest.approx(0.07)
-    assert na['rsi'] == pytest.approx(0.05)
-    assert na['macd'] == pytest.approx(0.05)
-    assert na['cci'] == pytest.approx(0.05)
+    assert 'figure' not in na
     assert sum(na[k] for k in na) == pytest.approx(regles['note_apex']['poids_technique'])
+    # figure retirée : les poids restants sont renormalisés (× 50/43)
+    assert na['elliott'] == pytest.approx(0.10 * 50 / 43, rel=1e-6)
+    assert na['structure'] == pytest.approx(0.10 * 50 / 43, rel=1e-6)
+    assert na['fibonacci'] == pytest.approx(0.08 * 50 / 43, rel=1e-6)
+    assert na['rsi'] == pytest.approx(0.05 * 50 / 43, rel=1e-6)
     tech = next(c for c in regles['fiche_regles']['classes'] if c['id'] == 'actions')['technique']
     fixes = {x['id']: x['poids'] for x in tech['fixes']}
-    # dans la fiche, les poids sont ceux du bloc technique (somme 1)
-    assert fixes['elliott'] == pytest.approx(0.20)
-    assert fixes['structure'] == pytest.approx(0.20)
-    assert fixes['fibonacci'] == pytest.approx(0.16)
-    assert fixes['figure'] == pytest.approx(0.14)
-    assert fixes['rsi'] == pytest.approx(0.10)
-    assert fixes['macd'] == pytest.approx(0.10)
-    assert fixes['cci'] == pytest.approx(0.10)
+    assert 'figure' not in fixes
     assert sum(fixes.values()) == pytest.approx(1.0)
+    assert fixes['elliott'] == pytest.approx(0.20 / 0.86, rel=1e-6)
+    assert fixes['fibonacci'] == pytest.approx(0.16 / 0.86, rel=1e-6)
+    assert fixes['rsi'] == pytest.approx(0.10 / 0.86, rel=1e-6)
     # et × 50 % = poids dans la note
     w = next(p['poids'] for p in next(c for c in regles['fiche_regles']['classes'] if c['id']=='actions')['note']['parts'] if p['id']=='technique')
     assert w == pytest.approx(0.5)

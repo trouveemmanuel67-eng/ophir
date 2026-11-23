@@ -1,157 +1,21 @@
 {
   "seuil": 75.0,
-  "n": 19,
+  "n": 26,
   "liste": [
     {
-      "tv": "XETR:XHYG",
-      "yahoo": "XHYG.DE",
-      "nom": "Xtrackers II EUR High Yield Corporate Bond UCITS ETF 1D",
+      "tv": "LSE:PHGP",
+      "yahoo": "PHGP.L",
+      "nom": "WisdomTree Physical Gold",
       "note": 79.0,
       "display": "79",
       "hex": "#22c55e",
       "flag": "green",
       "bande": "vert",
-      "av": 22.2,
-      "section": "Obligations – High yield (haut rendement)",
-      "montant": 600,
-      "brokers": {
-        "revolut": true,
-        "xtb": true
-      }
-    },
-    {
-      "tv": "XETR:GLDA",
-      "yahoo": "GLDA.DE",
-      "nom": "Amundi Physical Gold ETC C",
-      "note": 79.0,
-      "display": "79",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": 21.8,
-      "section": "Métaux – Or",
-      "montant": 600,
-      "brokers": {
-        "revolut": true,
-        "xtb": false
-      }
-    },
-    {
-      "tv": "XETR:4GLD",
-      "yahoo": "4GLD.DE",
-      "nom": "Xetra-Gold",
-      "note": 79.0,
-      "display": "79",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": -14.7,
+      "av": 23.5,
       "section": "Métaux – Or",
       "montant": 600,
       "brokers": {
         "revolut": false,
-        "xtb": true
-      }
-    },
-    {
-      "tv": "OANDA:XPTUSD",
-      "yahoo": "XPT",
-      "nom": "Platine au comptant Revolut",
-      "note": 78.0,
-      "display": "78",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": 27.7,
-      "section": "Métaux – Platine",
-      "montant": 600,
-      "brokers": {
-        "revolut": true,
-        "xtb": false
-      }
-    },
-    {
-      "tv": "NYSE:SII",
-      "yahoo": "SII",
-      "nom": "Sprott Inc.",
-      "note": 78.0,
-      "display": "78",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": 6.5,
-      "section": "Canada – Finance",
-      "montant": 600,
-      "brokers": {
-        "revolut": null,
-        "xtb": true
-      }
-    },
-    {
-      "tv": "NYSE:VST",
-      "yahoo": "VST",
-      "nom": "Vistra Corp.",
-      "note": 78.0,
-      "display": "78",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": -5.2,
-      "section": "USA – XLU",
-      "montant": 600,
-      "brokers": {
-        "revolut": true,
-        "xtb": true
-      }
-    },
-    {
-      "tv": "SIX:VACN",
-      "yahoo": "VACN.SW",
-      "nom": "VAT Group AG",
-      "note": 78.0,
-      "display": "78",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": -25.9,
-      "section": "Suisse – Industrie",
-      "montant": 600,
-      "brokers": {
-        "revolut": false,
-        "xtb": true
-      }
-    },
-    {
-      "tv": "NYSE:FSM",
-      "yahoo": "FSM",
-      "nom": "Fortuna Mining Corp.",
-      "note": 77.0,
-      "display": "77",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": -9.8,
-      "section": "Canada – Matériaux",
-      "montant": 500,
-      "brokers": {
-        "revolut": null,
-        "xtb": true
-      }
-    },
-    {
-      "tv": "XETR:KBX",
-      "yahoo": "KBX.DE",
-      "nom": "Knorr-Bremse AG",
-      "note": 76.0,
-      "display": "76",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": 9.1,
-      "section": "Allemagne – Consommation discrétionnaire",
-      "montant": 500,
-      "brokers": {
-        "revolut": true,
         "xtb": true
       }
     },
@@ -159,14 +23,14 @@
       "tv": "XETR:PRAR",
       "yahoo": "PRAR.DE",
       "nom": "Amundi Index Solutions - Amundi Prime Euro Government Bond UCITS ETF Acc",
-      "note": 75.0,
-      "display": "75",
+      "note": 78.0,
+      "display": "78",
       "hex": "#22c55e",
       "flag": "green",
       "bande": "vert",
       "av": 45.2,
       "section": "Obligations – Souverains zone euro",
-      "montant": 500,
+      "montant": 600,
       "brokers": {
         "revolut": true,
         "xtb": true
@@ -176,14 +40,14 @@
       "tv": "XETR:SECA",
       "yahoo": "SECA.DE",
       "nom": "iShares € Govt Bond Climate UCITS ETF EUR (Acc)",
-      "note": 75.0,
-      "display": "75",
+      "note": 78.0,
+      "display": "78",
       "hex": "#22c55e",
       "flag": "green",
       "bande": "vert",
       "av": 44.9,
       "section": "Obligations – Souverains zone euro",
-      "montant": 500,
+      "montant": 600,
       "brokers": {
         "revolut": true,
         "xtb": false
@@ -193,17 +57,136 @@
       "tv": "XETR:IBC5",
       "yahoo": "IBC5.DE",
       "nom": "iShares $ TIPS UCITS ETF EUR Hedged (Acc)",
-      "note": 75.0,
-      "display": "75",
+      "note": 78.0,
+      "display": "78",
       "hex": "#22c55e",
       "flag": "green",
       "bande": "vert",
       "av": 42.4,
       "section": "Obligations – Obligations indexées sur l'inflation",
+      "montant": 600,
+      "brokers": {
+        "revolut": true,
+        "xtb": true
+      }
+    },
+    {
+      "tv": "NASDAQ:BKNG",
+      "yahoo": "BKNG",
+      "nom": "Booking Holdings Inc.",
+      "note": 78.0,
+      "display": "78",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": 3.5,
+      "section": "USA – XLY",
+      "montant": 600,
+      "brokers": {
+        "revolut": true,
+        "xtb": true
+      }
+    },
+    {
+      "tv": "XETR:PR1C",
+      "yahoo": "PR1C.DE",
+      "nom": "Amundi Core EUR Corporate Bond UCITS ETF Dist",
+      "note": 77.0,
+      "display": "77",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": 8.6,
+      "section": "Obligations – Investment grade EUR",
       "montant": 500,
       "brokers": {
         "revolut": true,
         "xtb": true
+      }
+    },
+    {
+      "tv": "XETR:SYBC",
+      "yahoo": "SYBC.DE",
+      "nom": "State Street SPDR Bloomberg Euro Corporate Bond UCITS ETF",
+      "note": 76.0,
+      "display": "76",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": 39.6,
+      "section": "Obligations – Investment grade EUR",
+      "montant": 500,
+      "brokers": {
+        "revolut": true,
+        "xtb": true
+      }
+    },
+    {
+      "tv": "XETR:X03G",
+      "yahoo": "X03G.DE",
+      "nom": "Xtrackers II Germany Government Bond UCITS ETF 1C",
+      "note": 76.0,
+      "display": "76",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": 10.8,
+      "section": "Obligations – Bund / dette allemande",
+      "montant": 500,
+      "brokers": {
+        "revolut": true,
+        "xtb": true
+      }
+    },
+    {
+      "tv": "SIX:CFR",
+      "yahoo": "CFR.SW",
+      "nom": "Compagnie Financière Richemont SA",
+      "note": 76.0,
+      "display": "76",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": -7.9,
+      "section": "Suisse – Consommation discrétionnaire",
+      "montant": 500,
+      "brokers": {
+        "revolut": false,
+        "xtb": true
+      }
+    },
+    {
+      "tv": "XETR:EXHC",
+      "yahoo": "EXHC.DE",
+      "nom": "iShares eb.rexx Government Germany 2.5-5.5yr UCITS ETF (DE)",
+      "note": 75.0,
+      "display": "75",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": 31.4,
+      "section": "Obligations – Bund / dette allemande",
+      "montant": 500,
+      "brokers": {
+        "revolut": true,
+        "xtb": true
+      }
+    },
+    {
+      "tv": "OANDA:XPTUSD",
+      "yahoo": "XPT",
+      "nom": "Platine au comptant Revolut",
+      "note": 75.0,
+      "display": "75",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": 27.7,
+      "section": "Métaux – Platine",
+      "montant": 500,
+      "brokers": {
+        "revolut": true,
+        "xtb": false
       }
     },
     {
@@ -224,23 +207,6 @@
       }
     },
     {
-      "tv": "LSE:PHGP",
-      "yahoo": "PHGP.L",
-      "nom": "WisdomTree Physical Gold",
-      "note": 75.0,
-      "display": "75",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": 23.5,
-      "section": "Métaux – Or",
-      "montant": 500,
-      "brokers": {
-        "revolut": false,
-        "xtb": true
-      }
-    },
-    {
       "tv": "LSE:IGLN",
       "yahoo": "IGLN.L",
       "nom": "iShares Physical Gold ETC",
@@ -255,6 +221,40 @@
       "brokers": {
         "revolut": false,
         "xtb": true
+      }
+    },
+    {
+      "tv": "XETR:XHYG",
+      "yahoo": "XHYG.DE",
+      "nom": "Xtrackers II EUR High Yield Corporate Bond UCITS ETF 1D",
+      "note": 75.0,
+      "display": "75",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": 22.2,
+      "section": "Obligations – High yield (haut rendement)",
+      "montant": 500,
+      "brokers": {
+        "revolut": true,
+        "xtb": true
+      }
+    },
+    {
+      "tv": "XETR:GLDA",
+      "yahoo": "GLDA.DE",
+      "nom": "Amundi Physical Gold ETC C",
+      "note": 75.0,
+      "display": "75",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": 21.8,
+      "section": "Métaux – Or",
+      "montant": 500,
+      "brokers": {
+        "revolut": true,
+        "xtb": false
       }
     },
     {
@@ -292,6 +292,23 @@
       }
     },
     {
+      "tv": "XETR:EH1Y",
+      "yahoo": "EH1Y.DE",
+      "nom": "iShares Broad € High Yield Corp Bond UCITS ETF EUR (Dist)",
+      "note": 75.0,
+      "display": "75",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": 16.4,
+      "section": "Obligations – High yield (haut rendement)",
+      "montant": 500,
+      "brokers": {
+        "revolut": true,
+        "xtb": true
+      }
+    },
+    {
       "tv": "NYSE:CLS",
       "yahoo": "CLS",
       "nom": "Celestica Inc.",
@@ -309,19 +326,121 @@
       }
     },
     {
-      "tv": "XETR:X03G",
-      "yahoo": "X03G.DE",
-      "nom": "Xtrackers II Germany Government Bond UCITS ETF 1C",
+      "tv": "XETR:KBX",
+      "yahoo": "KBX.DE",
+      "nom": "Knorr-Bremse AG",
       "note": 75.0,
       "display": "75",
       "hex": "#22c55e",
       "flag": "green",
       "bande": "vert",
-      "av": 10.8,
-      "section": "Obligations – Bund / dette allemande",
+      "av": 9.1,
+      "section": "Allemagne – Consommation discrétionnaire",
       "montant": 500,
       "brokers": {
         "revolut": true,
+        "xtb": true
+      }
+    },
+    {
+      "tv": "XETR:8PSG",
+      "yahoo": "8PSG.DE",
+      "nom": "Invesco Physical Gold ETC",
+      "note": 75.0,
+      "display": "75",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": 7.5,
+      "section": "Métaux – Or",
+      "montant": 500,
+      "brokers": {
+        "revolut": true,
+        "xtb": false
+      }
+    },
+    {
+      "tv": "NYSE:SII",
+      "yahoo": "SII",
+      "nom": "Sprott Inc.",
+      "note": 75.0,
+      "display": "75",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": 6.5,
+      "section": "Canada – Finance",
+      "montant": 500,
+      "brokers": {
+        "revolut": null,
+        "xtb": true
+      }
+    },
+    {
+      "tv": "NYSE:VST",
+      "yahoo": "VST",
+      "nom": "Vistra Corp.",
+      "note": 75.0,
+      "display": "75",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": -5.2,
+      "section": "USA – XLU",
+      "montant": 500,
+      "brokers": {
+        "revolut": true,
+        "xtb": true
+      }
+    },
+    {
+      "tv": "NYSE:FSM",
+      "yahoo": "FSM",
+      "nom": "Fortuna Mining Corp.",
+      "note": 75.0,
+      "display": "75",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": -9.8,
+      "section": "Canada – Matériaux",
+      "montant": 500,
+      "brokers": {
+        "revolut": null,
+        "xtb": true
+      }
+    },
+    {
+      "tv": "XETR:4GLD",
+      "yahoo": "4GLD.DE",
+      "nom": "Xetra-Gold",
+      "note": 75.0,
+      "display": "75",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": -14.7,
+      "section": "Métaux – Or",
+      "montant": 500,
+      "brokers": {
+        "revolut": false,
+        "xtb": true
+      }
+    },
+    {
+      "tv": "SIX:VACN",
+      "yahoo": "VACN.SW",
+      "nom": "VAT Group AG",
+      "note": 75.0,
+      "display": "75",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": -25.9,
+      "section": "Suisse – Industrie",
+      "montant": 500,
+      "brokers": {
+        "revolut": false,
         "xtb": true
       }
     }

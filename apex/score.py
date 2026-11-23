@@ -1,7 +1,8 @@
 """Calcul unique de la note APEX /100 (t337u).
 
-Lit config/regles.json. Note = somme des points (fondamental 50 + technique 50 :
-Elliott 10, structure 10, Fibo 8, figure 7, RSI 5, MACD 5, CCI 5). Sans
+Lit config/regles.json. Note = somme des points (fondamental 50 + technique 50 ;
+le poids « figure chartiste » a été retiré et les autres critères techniques
+sont renormalisés proportionnellement). Sans
 fondamental, le technique est renormalisé à 100 points. Les bonus Elliott
 ne s'appliquent que sur un comptage manuel. Une note ≥ 80 exige un AV Achat
 fort et une confirmation. Les couleurs découlent uniquement de la note affichée.
@@ -143,7 +144,6 @@ TECH_ORDER = (
     ('elliott', 'Elliott'),
     ('structure', 'Struct.'),
     ('fibonacci', 'Fibo'),
-    ('figure', 'Figure'),
     ('rsi', 'RSI'),
     ('macd', 'MACD'),
     ('cci', 'CCI'),
@@ -295,7 +295,7 @@ def compute(av, fond=None, elliott=None, divergence=None, parts=None, classe=Non
                 'id': key, 'label': label, 'pts': round(pts, 2),
                 'poids': poids, 'score': sc,
                 'hex': _hex_of_score(0.0 if score is None else score),
-                'neutre': (score is None and key == 'figure') or (sc is not None and abs(sc) < 1e-9),
+                'neutre': (sc is not None and abs(sc) < 1e-9),
             })
             pts_total += pts
             tech_used = True

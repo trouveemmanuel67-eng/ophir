@@ -28,11 +28,12 @@ def test_points_max_amplitude(regles):
     assert amp == pytest.approx(75)
     # poids dans la note × amplitude = points max
     assert na['poids_fondamental'] * amp == pytest.approx(37.5)
-    assert na['technique']['elliott'] * amp == pytest.approx(7.5)
-    assert na['technique']['structure'] * amp == pytest.approx(7.5)
-    assert na['technique']['fibonacci'] * amp == pytest.approx(6.0)
-    assert na['technique']['figure'] * amp == pytest.approx(5.25)
-    assert na['technique']['rsi'] * amp == pytest.approx(3.75)
+    assert 'figure' not in na['technique']
+    assert sum(na['technique'].values()) == pytest.approx(0.5)
+    assert na['technique']['elliott'] * amp == pytest.approx(0.10 * 50 / 43 * 75, rel=1e-6)
+    assert na['technique']['structure'] * amp == pytest.approx(0.10 * 50 / 43 * 75, rel=1e-6)
+    assert na['technique']['fibonacci'] * amp == pytest.approx(0.08 * 50 / 43 * 75, rel=1e-6)
+    assert na['technique']['rsi'] * amp == pytest.approx(0.05 * 50 / 43 * 75, rel=1e-6)
     assert na['fond_pen_max'] == pytest.approx(20)
 
 
@@ -103,10 +104,8 @@ def test_apex_achat_v2_rsi_seulement(regles):
     assert cci['conditions'][0]['points'] == 20
     assert sum(c['max'] for c in criteres) == 130
     # les règles de calcul de la note actuelle restent inchangées
-    assert regles['note_apex']['technique']['rsi'] == 0.05
-    assert regles['note_apex']['technique']['fibonacci'] == 0.08
-    assert regles['note_apex']['technique']['elliott'] == 0.10
-    assert regles['note_apex']['technique']['cci'] == 0.05
+    assert 'figure' not in regles['note_apex']['technique']
+    assert abs(sum(regles['note_apex']['technique'].values()) - 0.5) < 1e-9
     assert regles['note_apex']['note_base'] == 50
 
 
@@ -135,8 +134,9 @@ def test_js_rsi_affiche_regles_achat_dans_le_tableau():
 
 def test_structure_masquee_affichage_seulement(regles):
     assert 'structure' in (regles['apex_achat_v2'].get('masquer_criteres') or [])
-    # le calcul conserve le poids Structure
-    assert regles['note_apex']['technique']['structure'] == 0.10
+    # le calcul conserve Structure (poids renormalisé après retrait de Figure)
+    assert 'structure' in regles['note_apex']['technique']
+    assert regles['note_apex']['technique']['structure'] == pytest.approx(0.10 * 50 / 43, rel=1e-6)
     js = (ROOT / 'src' / 'regles.js').read_text(encoding='utf-8')
     assert 'masquer_criteres' in js
     assert 'masquer.indexOf(x.id)>=0' in js
@@ -166,6 +166,65 @@ def test_fondamental_v2_neuf_elements(regles):
     # calcul inchangé
     assert regles['note_apex']['poids_fondamental'] == 0.5
     js = (ROOT / 'src' / 'regles.js').read_text(encoding='utf-8')
-    assert 'function rgFondAchatV2HTML' in js
-    assert 'rg-fond-v2' in js
-    assert 'rg-table-fond-v2' in js
+    assert 'function rgActionsGrid' in js
+    assert 'rg-cards' in js
+    assert 'rg-card' in js
+
+def test_tableau_grille_homogene():
+    js = (ROOT / 'src' / 'regles.js').read_text(encoding='utf-8')
+    css = (ROOT / 'src' / 'template.html').read_text(encoding='utf-8')
+    assert 'function rgActionsGrid' in js
+    body = js.split('function rgActionsGrid')[1].split('function rgPageHTML')[0]
+    assert 'rg-cards' in body and 'rg-fond-cols' in body
+    assert 'Poids' not in body
+    assert '220' not in body
+    assert 'idéalement' not in body.lower()
+    assert 'Figure chartiste' not in body
+    assert 'RSI 30' in body and 'techSum' in body
+    assert 'Fondamental' in body
+    assert 'Sentiment' in body or 'sentBlock' in body
+    assert '.rg-cards' in css
+    assert 'grid-template-columns:1fr 1fr' in css
+    assert '@media(max-width:800px)' in css
+    # une colonne sur mobile
+    mobile = css.split('@media(max-width:800px)')[1]
+    assert '.rg-cards,.rg-fond-cols{grid-template-columns:1fr' in mobile or 'grid-template-columns:1fr' in mobile
+
+
+def test_sentiment_fear_greed_affichage_seulement(regles):
+    sent = regles['apex_achat_v2']['sentiment']
+    assert sent.get('utilise_par_le_calcul') is False
+    assert sent.get('affichage_seulement') is True
+    assert sent.get('max_affiche') == '±50'
+    assert 'fear_greed' not in (regles['note_apex'].get('technique') or {})
+    assert 'sentiment' not in (regles['note_apex'].get('technique') or {})
+    fg = (sent.get('criteres') or sent.get('elements') or [None])[0]
+    assert fg and fg['id'] == 'fear_greed_index'
+    assert fg['label'] == 'Fear & Greed Index'
+    assert fg['points_max'] == '±50'
+    assert 'Milieu 50' in fg['regle']
+    assert 'peur 40 → +10' in fg['regle']
+    assert 'avidité 60 → −10' in fg['regle']
+    by = {c['valeur']: c['points'] for c in fg['conditions']}
+    assert by[50] == 0
+    assert by[40] == 10 and by[0] == 50
+    assert by[60] == -10 and by[100] == -50
+    js = (ROOT / 'src' / 'regles.js').read_text(encoding='utf-8')
+    assert 'sentBlock' in js
+    assert 'Fear' in js or 'sentiment' in js
+
+
+def test_accroche_part_de_zero_affichage_seulement(regles):
+    # le calcul part toujours de 50 ; seule la page RÈGLES affiche « part de 0 »
+    assert regles['note_apex']['note_base'] == 50
+    v = regles['apex_achat_v2']
+    assert v.get('accroche') == 'La note part de 0 : chaque critère ajoute ses points.'
+    js = (ROOT / 'src' / 'regles.js').read_text(encoding='utf-8')
+    page = js.split('function rgPageHTML')[1].split('function rgRender')[0]
+    assert 'rg-lead' in page
+    assert 'accroche' in page
+    assert 'clip dans 0–100' not in page
+    assert 'Actions cotées' not in page
+    grid = js.split('function rgActionsGrid')[1].split('function rgPageHTML')[0]
+    assert "label:'Base'" not in grid
+    assert 'id:\'base\'' not in grid and 'id:"base"' not in grid
