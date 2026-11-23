@@ -1,6 +1,6 @@
 {
   "version": "2026-11-23",
-  "tache": "t354u",
+  "tache": "t357u",
   "timezone": "Europe/Paris",
   "note_apex": {
     "poids_timing": 0.5,
@@ -1422,6 +1422,26 @@
           {
             "id": "divergence_rsi_haussiere_hebdo",
             "label": "Divergence RSI haussière, hebdomadaire",
+            "points": 20
+          }
+        ]
+      },
+      {
+        "id": "macd_12_26_9_hebdo",
+        "label": "MACD 12/26/9 hebdo",
+        "max": 30,
+        "retrait": false,
+        "cumulables": true,
+        "precision": "Les deux conditions sont cumulables. Maximum 30 points sur le MACD. Aucun retrait.",
+        "conditions": [
+          {
+            "id": "macd_sous_0",
+            "label": "MACD < 0",
+            "points": 10
+          },
+          {
+            "id": "histo_4_barres_rouges_sous_0",
+            "label": "Au moins 4 barres d’histogramme rouges consécutives sous 0",
             "points": 20
           }
         ]

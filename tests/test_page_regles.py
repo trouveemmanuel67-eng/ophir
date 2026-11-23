@@ -74,14 +74,19 @@ def test_apex_achat_v2_rsi_seulement(regles):
     assert v.get('affichage_seulement') is True
     assert 'accumulation' in (v.get('intro') or '').lower() or 'accumulation' in (v.get('titre') or '').lower()
     criteres = v.get('criteres') or []
-    assert [c['id'] for c in criteres] == ['rsi_14_hebdo']
-    rsi = criteres[0]
-    assert rsi['max'] == 30
-    assert rsi.get('retrait') is False
-    assert rsi.get('cumulables') is True
+    assert [c['id'] for c in criteres] == ['rsi_14_hebdo', 'macd_12_26_9_hebdo']
+    by = {c['id']: c for c in criteres}
+    rsi, macd = by['rsi_14_hebdo'], by['macd_12_26_9_hebdo']
+    for c in (rsi, macd):
+        assert c['max'] == 30
+        assert c.get('retrait') is False
+        assert c.get('cumulables') is True
     pts = {c['id']: c['points'] for c in rsi['conditions']}
     assert pts['rsi_sous_40'] == 10
     assert pts['divergence_rsi_haussiere_hebdo'] == 20
+    pts = {c['id']: c['points'] for c in macd['conditions']}
+    assert pts['macd_sous_0'] == 10
+    assert pts['histo_4_barres_rouges_sous_0'] == 20
     # les règles de calcul de la note actuelle restent inchangées
     assert regles['note_apex']['technique']['rsi'] == 0.05
     assert regles['note_apex']['note_base'] == 50

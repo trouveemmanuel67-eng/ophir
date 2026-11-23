@@ -328,8 +328,8 @@ function rgFmtPlus(x){
 function rgAchatV2Critere(id){
   const v=(RG&&RG.apex_achat_v2)||{};
   const all=Array.isArray(v.criteres)?v.criteres:[];
-  const aliases={rsi:['rsi','rsi_14_hebdo']};
-  const want=aliases[id]||[id, id+'_14_hebdo'];
+  const aliases={rsi:['rsi','rsi_14_hebdo'],macd:['macd','macd_12_26_9','macd_12_26_9_hebdo']};
+  const want=aliases[id]||[id];
   return all.find(c=>c&&want.includes(c.id))||null;
 }
 function rgAchatV2Rule(c){

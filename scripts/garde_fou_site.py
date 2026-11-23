@@ -372,7 +372,9 @@ CHECK_REGLES_OPEN_JS = (
     "  const covers = !!(r && r.width >= window.innerWidth * 0.95 && r.height >= window.innerHeight * 0.95);"
     "  const h2 = Array.from((page||document).querySelectorAll('h2')).map(el => (el.innerText||'').trim());"
     "  const rsiRow = table && Array.from(table.rows).find(row => /RSI/.test(row.innerText||''));"
+    "  const macdRow = table && Array.from(table.rows).find(row => /MACD/.test(row.innerText||''));"
     "  const rsiText = rsiRow ? ((rsiRow.innerText||'')+'').replace(/\\s+/g,' ') : '';"
+    "  const macdText = macdRow ? ((macdRow.innerText||'')+'').replace(/\\s+/g,' ') : '';"
     "  return {"
     "    vis, covers,"
     "    w: r && Math.round(r.width), h: r && Math.round(r.height),"
@@ -388,7 +390,10 @@ CHECK_REGLES_OPEN_JS = (
     "    noRefFold: !document.getElementById('rg-ref'),"
     "    rsiText,"
     "    rsiNew: /\\+10/.test(rsiText) && /\\+20/.test(rsiText) && /\\b30\\b/.test(rsiText),"
+    "    macdNew: /\\+10/.test(macdText) && /\\+20/.test(macdText) && /\\b30\\b/.test(macdText),"
+    "    macdText,"
     "    rsiOldGone: !(/±\\s*3[,.]75/.test(rsiText) || /clip\\s*\\(/.test(rsiText) || /5\\s*%/.test(rsiText)),"
+    "    macdOldGone: !(/±\\s*3[,.]75/.test(macdText) || /clip\\s*\\(/.test(macdText) || /5\\s*%/.test(macdText)),"
     "    hash: location.hash"
     "  };"
     "})()"
@@ -565,6 +570,13 @@ def check_headless(root=ROOT):
                 "page RÈGLES : la ligne RSI doit afficher +10 / +20 / max 30, "
                 "sans poids 5 %, ±3,75 ni formule clip "
                 f"({regles_open.get('rsiText')!r})."
+            )
+            raise SystemExit(1)
+        if not regles_open.get('macdNew') or not regles_open.get('macdOldGone'):
+            _fail(
+                "page RÈGLES : la ligne MACD doit afficher +10 / +20 / max 30, "
+                "sans poids 5 %, ±3,75 ni formule clip "
+                f"({regles_open.get('macdText')!r})."
             )
             raise SystemExit(1)
         if not regles_open.get('noAchatTable') or not regles_open.get('noRefFold'):
