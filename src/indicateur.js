@@ -1,6 +1,6 @@
 /* ===== Colonne INDICATEUR (une jauge par onglet + emplacement pour de futurs indicateurs) ===== */
 const IND=JSON.parse(document.getElementById('data3').textContent);
-const GRAD=[[0,[157,84,255]],[20,[157,84,255]],[25,[255,45,45]],[50,[255,45,45]],[55,[255,212,0]],[65,[255,212,0]],[70,[34,197,94]],[75,[34,197,94]],[80,[0,229,255]],[100,[0,229,255]]]; // violet → rouge → jaune → vert → cyan
+const GRAD=[[0,[157,84,255]],[16,[157,84,255]],[24,[255,45,45]],[36,[255,45,45]],[44,[255,212,0]],[56,[255,212,0]],[64,[34,197,94]],[76,[34,197,94]],[84,[0,229,255]],[100,[0,229,255]]]; // t327u : 5 tranches égales de 20 (violet, rouge, jaune, vert, cyan), fondu doux aux frontières
 /* Couleur de la barre à une position (0-100) en [r,g,b], et sa couleur inverse (255−R, 255−G, 255−B) */
 function grgb(v){v=Math.max(0,Math.min(100,v));for(let i=1;i<GRAD.length;i++){const [p1,c1]=GRAD[i-1],[p2,c2]=GRAD[i];if(v<=p2){const t=(v-p1)/(p2-p1);return c1.map((x,j)=>Math.round(x+(c2[j]-x)*t));}}return GRAD[GRAD.length-1][1];}
 const gmir=v=>gsol(100-v);   /* dégradé miroir : couleur de la barre à la position symétrique */
