@@ -1,0 +1,315 @@
+{
+  "note": "Actions suisses au comptant dans la table OMI XTB France du 24/09/2026 (suffixe .CH, ISIN CH, hors close-only). ETF pays : XSMI.DE, également OMI XTB. Disponibilité Revolut non confirmée dans les sources locales : revolut=false, à indiquer XTB.",
+  "date": "23/11/2026",
+  "etf": {
+    "xtb": "XSMI.DE",
+    "yahoo": "XSMI.DE",
+    "tv": "XETR:XSMI",
+    "isin": "LU0274221281",
+    "nom": "Xtrackers Switzerland UCITS ETF (Dist EUR)",
+    "kind": "etf"
+  },
+  "stocks": [
+    {
+      "xtb": "ABBN.CH",
+      "yahoo": "ABBN.SW",
+      "tv": "SIX:ABBN",
+      "isin": "CH0012221716",
+      "nom": "ABB Ltd"
+    },
+    {
+      "xtb": "ACLN.CH",
+      "yahoo": "ACLN.SW",
+      "tv": "SIX:ACLN",
+      "isin": "CH1169360919",
+      "nom": "Accelleron Industries AG"
+    },
+    {
+      "xtb": "ADEN.CH",
+      "yahoo": "ADEN.SW",
+      "tv": "SIX:ADEN",
+      "isin": "CH0012138605",
+      "nom": "Adecco Group AG"
+    },
+    {
+      "xtb": "ALC.CH",
+      "yahoo": "ALC.SW",
+      "tv": "SIX:ALC",
+      "isin": "CH0432492467",
+      "nom": "Alcon Inc"
+    },
+    {
+      "xtb": "AMRZ.CH",
+      "yahoo": "AMRZ.SW",
+      "tv": "SIX:AMRZ",
+      "isin": "CH1430134226",
+      "nom": "Amrize AG"
+    },
+    {
+      "xtb": "ARYN.CH",
+      "yahoo": "ARYN.SW",
+      "tv": "SIX:ARYN",
+      "isin": "CH0043238366",
+      "nom": "Aryzta AG"
+    },
+    {
+      "xtb": "BAER.CH",
+      "yahoo": "BAER.SW",
+      "tv": "SIX:BAER",
+      "isin": "CH0102484968",
+      "nom": "Julius Baer Group Ltd"
+    },
+    {
+      "xtb": "BARN.CH",
+      "yahoo": "BARN.SW",
+      "tv": "SIX:BARN",
+      "isin": "CH0009002962",
+      "nom": "Barry Callebaut AG"
+    },
+    {
+      "xtb": "CFR.CH",
+      "yahoo": "CFR.SW",
+      "tv": "SIX:CFR",
+      "isin": "CH0210483332",
+      "nom": "Cie Financiere Richemont SA"
+    },
+    {
+      "xtb": "EFGN.CH",
+      "yahoo": "EFGN.SW",
+      "tv": "SIX:EFGN",
+      "isin": "CH0022268228",
+      "nom": "EFG International AG"
+    },
+    {
+      "xtb": "GEBN.CH",
+      "yahoo": "GEBN.SW",
+      "tv": "SIX:GEBN",
+      "isin": "CH0030170408",
+      "nom": "Geberit AG"
+    },
+    {
+      "xtb": "GIVN.CH",
+      "yahoo": "GIVN.SW",
+      "tv": "SIX:GIVN",
+      "isin": "CH0010645932",
+      "nom": "Givaudan SA"
+    },
+    {
+      "xtb": "HOLN.CH",
+      "yahoo": "HOLN.SW",
+      "tv": "SIX:HOLN",
+      "isin": "CH0012214059",
+      "nom": "Holcim AG"
+    },
+    {
+      "xtb": "JFN.CH",
+      "yahoo": "JFN.SW",
+      "tv": "SIX:JFN",
+      "isin": "CH0017875789",
+      "nom": "Jungfraubahn Holding AG"
+    },
+    {
+      "xtb": "LISN.CH",
+      "yahoo": "LISN.SW",
+      "tv": "SIX:LISN",
+      "isin": "CH0010570759",
+      "nom": "Chocoladefabriken Lindt & Spruengli AG"
+    },
+    {
+      "xtb": "LONN.CH",
+      "yahoo": "LONN.SW",
+      "tv": "SIX:LONN",
+      "isin": "CH0013841017",
+      "nom": "Lonza Group AG"
+    },
+    {
+      "xtb": "MMTX.CH",
+      "yahoo": "MMTX.SW",
+      "tv": "SIX:MMTX",
+      "isin": "CH1251125998",
+      "nom": "MindMaze Therapeutics Holding SA"
+    },
+    {
+      "xtb": "NESN.CH",
+      "yahoo": "NESN.SW",
+      "tv": "SIX:NESN",
+      "isin": "CH0038863350",
+      "nom": "Nestle SA"
+    },
+    {
+      "xtb": "NOVN.CH",
+      "yahoo": "NOVN.SW",
+      "tv": "SIX:NOVN",
+      "isin": "CH0012005267",
+      "nom": "Novartis AG"
+    },
+    {
+      "xtb": "OERL.CH",
+      "yahoo": "OERL.SW",
+      "tv": "SIX:OERL",
+      "isin": "CH0000816824",
+      "nom": "OC Oerlikon Corporation AG Pfaeffikon"
+    },
+    {
+      "xtb": "PGHN.CH",
+      "yahoo": "PGHN.SW",
+      "tv": "SIX:PGHN",
+      "isin": "CH0024608827",
+      "nom": "Partners Group Holding AG"
+    },
+    {
+      "xtb": "PPGN.CH",
+      "yahoo": "PPGN.SW",
+      "tv": "SIX:PPGN",
+      "isin": "CH1110760852",
+      "nom": "PolyPeptide Group AG"
+    },
+    {
+      "xtb": "ROG.CH",
+      "yahoo": "RO.SW",
+      "tv": "SIX:RO",
+      "isin": "CH0012032048",
+      "nom": "Roche Holding AG"
+    },
+    {
+      "xtb": "SCHN.CH",
+      "yahoo": "SCHN.SW",
+      "tv": "SIX:SCHN",
+      "isin": "CH0024638212",
+      "nom": "Schindler Holding AG - class N"
+    },
+    {
+      "xtb": "SCMN.CH",
+      "yahoo": "SCMN.SW",
+      "tv": "SIX:SCMN",
+      "isin": "CH0008742519",
+      "nom": "Swisscom AG"
+    },
+    {
+      "xtb": "SDZ.CH",
+      "yahoo": "SDZ.SW",
+      "tv": "SIX:SDZ",
+      "isin": "CH1243598427",
+      "nom": "Sandoz Group AG"
+    },
+    {
+      "xtb": "SGSN.CH",
+      "yahoo": "SGSN.SW",
+      "tv": "SIX:SGSN",
+      "isin": "CH0002497458",
+      "nom": "SGS SA"
+    },
+    {
+      "xtb": "SIGN.CH",
+      "yahoo": "SIGN.SW",
+      "tv": "SIX:SIGN",
+      "isin": "CH0435377954",
+      "nom": "SIG Combibloc Group AG"
+    },
+    {
+      "xtb": "SIK.CH",
+      "yahoo": "SIKA.SW",
+      "tv": "SIX:SIKA",
+      "isin": "CH0418792922",
+      "nom": "Sika AG"
+    },
+    {
+      "xtb": "SLHN.CH",
+      "yahoo": "SLHN.SW",
+      "tv": "SIX:SLHN",
+      "isin": "CH0014852781",
+      "nom": "Swiss Life Holding AG"
+    },
+    {
+      "xtb": "SOON.CH",
+      "yahoo": "SOON.SW",
+      "tv": "SIX:SOON",
+      "isin": "CH0012549785",
+      "nom": "Sonova Holding AG"
+    },
+    {
+      "xtb": "SPSN.CH",
+      "yahoo": "SPSN.SW",
+      "tv": "SIX:SPSN",
+      "isin": "CH0008038389",
+      "nom": "Swiss Prime Site AG"
+    },
+    {
+      "xtb": "SQN.CH",
+      "yahoo": "SQN.SW",
+      "tv": "SIX:SQN",
+      "isin": "CH0010675863",
+      "nom": "Swissquote Group Holding SA"
+    },
+    {
+      "xtb": "SREN.CH",
+      "yahoo": "SREN.SW",
+      "tv": "SIX:SREN",
+      "isin": "CH0126881561",
+      "nom": "Swiss Re AG"
+    },
+    {
+      "xtb": "STMN.CH",
+      "yahoo": "STMN.SW",
+      "tv": "SIX:STMN",
+      "isin": "CH1175448666",
+      "nom": "Straumann Holding AG"
+    },
+    {
+      "xtb": "SWON.CH",
+      "yahoo": "SWON.SW",
+      "tv": "SIX:SWON",
+      "isin": "CH0496451508",
+      "nom": "Softwareone Holding AG"
+    },
+    {
+      "xtb": "TECN.CH",
+      "yahoo": "TECN.SW",
+      "tv": "SIX:TECN",
+      "isin": "CH0012100191",
+      "nom": "Tecan Group AG - class N"
+    },
+    {
+      "xtb": "TEMN.CH",
+      "yahoo": "TEMN.SW",
+      "tv": "SIX:TEMN",
+      "isin": "CH0012453913",
+      "nom": "Temenos AG"
+    },
+    {
+      "xtb": "UBSG.CH",
+      "yahoo": "UBSG.SW",
+      "tv": "SIX:UBSG",
+      "isin": "CH0244767585",
+      "nom": "UBS Group AG"
+    },
+    {
+      "xtb": "UBXN.CH",
+      "yahoo": "UBXN.SW",
+      "tv": "SIX:UBXN",
+      "isin": "CH0033361673",
+      "nom": "U Blox Holding AG"
+    },
+    {
+      "xtb": "UHR.CH",
+      "yahoo": "UHR.SW",
+      "tv": "SIX:UHR",
+      "isin": "CH0012255151",
+      "nom": "Swatch Group AG"
+    },
+    {
+      "xtb": "VACN.CH",
+      "yahoo": "VACN.SW",
+      "tv": "SIX:VACN",
+      "isin": "CH0311864901",
+      "nom": "VAT Group AG"
+    },
+    {
+      "xtb": "ZURN.CH",
+      "yahoo": "ZURN.SW",
+      "tv": "SIX:ZURN",
+      "isin": "CH0011075394",
+      "nom": "Zurich Insurance Group AG"
+    }
+  ]
+}

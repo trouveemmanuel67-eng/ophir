@@ -1,0 +1,39 @@
+{
+  "max_par_pays": 5,
+  "date_libelle": "rendements Revolut au 22/11/2026",
+  "source": "Captures Revolut d'Emmanuel, 22/11/2026 à 22 h 44 (Europe/Paris)",
+  "pays": {
+    "fr": {
+      "emetteur": "Agence France Trésor",
+      "lignes": [
+        {
+          "nom": "OAT 2,75 % oct. 2027",
+          "rdt": 3.06,
+          "terme": "court terme"
+        },
+        {
+          "nom": "OAT 2,50 % mai 2030",
+          "rdt": 3.86,
+          "terme": "court terme"
+        },
+        {
+          "nom": "OAT 1,75 % juin 2039",
+          "rdt": 4.97,
+          "terme": "moyen terme",
+          "reference": true,
+          "reference_libelle": "Référence du bloc"
+        },
+        {
+          "nom": "OAT 3,25 % mai 2045",
+          "rdt": 5.26,
+          "terme": "long terme"
+        },
+        {
+          "nom": "OAT 4,00 % avr. 2060",
+          "rdt": 5.38,
+          "terme": "long terme"
+        }
+      ]
+    }
+  }
+}

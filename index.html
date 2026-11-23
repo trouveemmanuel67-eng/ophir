@@ -32,6 +32,7 @@
 *{box-sizing:border-box}html,body{margin:0}
 :root{--card:#1a1a1a;--line:rgba(255,255,255,.25);--soft:rgba(255,255,255,.10);--mut:#bababa;--txt:#fff;--up:#7fd1a8;--down:#e88f8f;--acc:#a9cdf5;--acc2:#e6c27a;--scroll-thumb:#3d4a5c;--scroll-thumb-hover:#5b6b82;--scroll-thumb-active:#00e5ff}
 html{color-scheme:dark}
+#apex-maj{font-size:11px;color:var(--mut);letter-spacing:.02em;margin:2px 0 0;font-weight:500}
 body{color:var(--txt);font-family:Inter,"Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;background:#000;min-height:100vh}
 /* Barres de défilement (t318u) : 8 px, piste du fond sombre, poignée arrondie, sans flèches */
 *{scrollbar-width:thin;scrollbar-color:var(--scroll-thumb) transparent}
@@ -8590,6 +8591,13 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
   ]
 }
 </script>
+<script type="application/json" id="dataMaj">{
+  "at": "2026-11-23T17:19:51.020838+01:00",
+  "label": "23/11/2026 17:19 Europe/Paris",
+  "date": "2026-11-23",
+  "timezone": "Europe/Paris"
+}
+</script>
 <script>
 "use strict";
 const DATA = JSON.parse(document.getElementById('data').textContent);
@@ -9199,7 +9207,7 @@ function fxSort(assets){
   return (typeof apexSortByNote==='function')?apexSortByNote(assets):[...(assets||[])];
 }
 function fxSigHTML(av,apex){
-  const a=apex||(av&&av.apex10)||((av&&typeof apex10Compute==='function')?apex10Compute(av.score):null);
+  const a=apex||(av&&av.apex10)||null; /* t320u : pas de recalcul JS */
   if(a&&a.note!=null){
     const col=(typeof apex10Col==='function')?apex10Col(a):((typeof gcol==='function')?gcol(a.pos):'#e6c27a');
     return `<span class="home-sig apex10"><b style="color:${col}">${a.display}</b><small style="color:${col}">/10</small></span>`;
@@ -9554,8 +9562,8 @@ function sectionApexItems(tabId){
     let se=null;
     if(o.sent&&o.sent.value!=null&&o.sent.value!=='') se=Number(o.sent.value);
     else if(o.ind&&o.ind.value!=null) se=Number(o.ind.value);
-    if(note==null&&opts&&opts.fromAv&&av!=null&&typeof apex10Compute==='function'){
-      const r=apex10Compute(av);
+    if(false&&note==null&&opts&&opts.fromAv){ /* t320u : plus de calcul de note côté JS */
+      const r=null;
       if(r&&r.note!=null) note=r.note;
     }
     if(note==null) return;
@@ -9615,8 +9623,8 @@ function apexNoteOf(o){
     if(b&&b.apex10&&b.apex10.note!=null&&b.apex10.display!=='–') return Number(b.apex10.note);
   }
   if(o.av&&o.av.score!=null&&o.av.apex10&&o.av.apex10.note!=null) return Number(o.av.apex10.note);
-  if(o.av&&o.av.score!=null&&typeof apex10Compute==='function'){
-    const r=apex10Compute(o.av.score);
+  if(false&&o.av&&o.av.score!=null){ /* t320u : la note vient du JSON, pas d'un recalcul JS */
+    const r=null;
     if(r&&r.note!=null) return Number(r.note);
   }
   return null;
@@ -9667,7 +9675,7 @@ function listApexBar(r){
       return `<div class="fl-apex"><div class="apex10"><b>${a10.display}</b><small>/10</small></div></div>`;
     return '<div class="fl-apex fl-apex-na"><div class="apex10 apex10-na"><b>–</b></div></div>';
   }
-  const rec=a10||apex10Compute(av.score,null,ell&&ell.key);
+  const rec=a10||null; /* t320u : pas de recalcul JS */
   const avAff=(av.score_affiche!=null)?av.score_affiche:av.score;
   return `<div class="fl-apex">${dualBar(sent.value,sent.label,avAff,av.label,'db-sm db-list',true,rec)}</div>`;
 }
@@ -10475,7 +10483,7 @@ function duoBuild(tabId){
   const avObj=(st&&st.av)||(ga?{score:ga.score,label:ga.label}:null);
   const seObj=(st&&st.sent)||(gi?{value:gi.value,label:gi.label}:null);
   if(!avObj||!seObj){D.innerHTML='';return;}
-  const a10=(st&&st.apex10)||(ga&&(ga.apex10||((typeof apex10Compute==='function')?apex10Compute(ga.score):null)));
+  const a10=(st&&st.apex10)||(ga&&ga.apex10)||null; /* t320u : pas de recalcul JS */
   const sl=ic&&(ic.querySelector('.ind-slot')||ic);
   const q=(r,c)=>r&&r.querySelector(':scope>'+c);
   const src=c=>{if(!c)return '';const e=c.querySelector('.src')||[...c.querySelectorAll('p')].find(p=>/^Sources? :/.test(p.textContent.trim()));if(!e)return '';const k=e.cloneNode(true);k.className='ir-src';return k.outerHTML;};
@@ -10619,7 +10627,7 @@ function posMergeRevolutX(rx){
       if(a&&a.av&&a.av.score!=null){
         p.apex_score=a.av.score;p.apex_label=a.av.label||null;
         const s=Number(a.av.score);
-        p.apex10=a.apex10||((typeof apex10Compute==='function')?apex10Compute(s,null,a.elliott&&a.elliott.key):null);
+        p.apex10=a.apex10||null; /* t320u : pas de recalcul JS */
         p.drapeau=p.apex10&&p.apex10.flag?p.apex10.flag:p.apex_label;
         p.drapeau_code=(p.apex10&&p.apex10.flag)||'none';
       }
@@ -10698,7 +10706,7 @@ function posApex10Of(p){
   const key=p&&(p.fiche_tv||p.tv_note||p.tv||p.ticker);
   const b=(typeof APEX_BARS!=='undefined'&&APEX_BARS.bars&&key)?(APEX_BARS.bars[key]||null):null;
   if(b&&b.apex10&&b.apex10.note!=null) return b.apex10;
-  if(p&&p.apex_score!=null&&typeof apex10Compute==='function') return apex10Compute(p.apex_score);
+  if(false&&p&&p.apex_score!=null) return null; /* t320u : pas de recalcul JS */
   return null;
 }
 function posFlagHTML(p){
@@ -11072,7 +11080,7 @@ function homeFlagsHTML(t){
 }
 function homeSigHTML(av,tabId){
   const st=(tabId&&typeof sectionApexAvg==='function')?sectionApexAvg(tabId):null;
-  const a=(st&&st.apex10)||(av&&(av.apex10||((typeof apex10Compute==='function')?apex10Compute(av.score):null)));
+  const a=(st&&st.apex10)||(av&&av.apex10)||null; /* t320u : pas de recalcul JS */
   if(a&&a.note!=null){
     const col=(typeof apex10Col==='function')?apex10Col(a):((typeof gcol==='function')?gcol(a.pos):'#e6c27a');
     return `<div class="home-sig apex10"><b style="color:${col}">${a.display}</b><small style="color:${col}">/10</small></div>`;
@@ -11604,5 +11612,28 @@ if(typeof ttInit==='function') ttInit();
 if(typeof posInit==='function') posInit();
 if(typeof giInit==='function') giInit();
 </script>
+
+<script>
+function apexShowMaj(){
+  try{
+    var el=document.getElementById('dataMaj');
+    if(!el) return;
+    var j=JSON.parse(el.textContent||'null');
+    if(!j||!j.label) return;
+    var n=document.getElementById('apex-maj');
+    if(!n){
+      n=document.createElement('div');
+      n.id='apex-maj';
+      var host=document.querySelector('#hh .hh-top')||document.getElementById('hh')||document.body;
+      host.appendChild(n);
+    }
+    n.textContent='Mise à jour : '+j.label;
+    n.setAttribute('title','Dernière mise à jour des notes APEX (heure de Paris)');
+    document.querySelectorAll('.fiche-maj').forEach(function(x){ x.textContent=j.label; });
+  }catch(e){}
+}
+document.addEventListener('DOMContentLoaded', apexShowMaj);
+</script>
+
 </body>
 </html>

@@ -1,0 +1,142 @@
+{
+  "version": "2026-11-23",
+  "tache": "t320u",
+  "timezone": "Europe/Paris",
+  "note_apex": {
+    "poids_timing": 0.6,
+    "poids_fondamental": 0.4,
+    "av_lo": -60.0,
+    "av_hi": 60.0,
+    "fond_seuil": 40.0,
+    "fond_pen_max": 2.0,
+    "crypto_fond": "liquidite",
+    "note_min": 1.0,
+    "note_max": 10.0,
+    "arrondi": 0.5,
+    "obligations_sans_fondamental": true,
+    "score_selection_etf_pas_fondamental": true
+  },
+  "couleurs": {
+    "regle": "Uniquement la note APEX /10 affichée (après overrides). Pas de score AV, pas de milieux ±33.",
+    "bandes": [
+      {
+        "min": 0.0,
+        "max": 2.0,
+        "site": "violet",
+        "hex": "#9d54ff",
+        "tv": "purple"
+      },
+      {
+        "min": 2.5,
+        "max": 5.0,
+        "site": "rouge",
+        "hex": "#ff2d2d",
+        "tv": "red"
+      },
+      {
+        "min": 5.5,
+        "max": 6.5,
+        "site": "jaune",
+        "hex": "#ffd400",
+        "tv": "orange"
+      },
+      {
+        "min": 7.0,
+        "max": 7.5,
+        "site": "vert",
+        "hex": "#22c55e",
+        "tv": "green"
+      },
+      {
+        "min": 8.0,
+        "max": 10.0,
+        "site": "cyan",
+        "hex": "#00e5ff",
+        "tv": "cyan"
+      }
+    ]
+  },
+  "elliott": {
+    "plafond_rouge": 4.0,
+    "vagues_rouges": [
+      "w1",
+      "w3",
+      "w5",
+      "deb_5",
+      "new1",
+      "bear_135",
+      "a",
+      "fin_a",
+      "b"
+    ],
+    "vagues_vertes": [
+      "fin_2",
+      "fin_2_conf",
+      "fin_4",
+      "fin_4_conf",
+      "fin_c",
+      "fin_c_conf",
+      "c",
+      "c_mid"
+    ],
+    "bonus_05": [
+      "fin_2",
+      "fin_4",
+      "fin_c",
+      "c",
+      "c_mid"
+    ],
+    "bonus_10": [
+      "fin_2_conf",
+      "fin_4_conf",
+      "fin_c_conf"
+    ],
+    "bonus_entry": 0.5,
+    "bonus_conf": 1.0,
+    "bonus_seulement_manuel": true,
+    "overrides_fichier": "data/elliott_overrides.json",
+    "overrides_primacy": true
+  },
+  "cyan": {
+    "note_min": 8.0,
+    "av_achat_fort": 60.0,
+    "plafond_sans_confirmation": 7.5,
+    "confirmation": [
+      "divergence_haussiere_hebdo",
+      "elliott_vert_manuel"
+    ]
+  },
+  "fibonacci": {
+    "poids_dans_av": 0.15,
+    "part_historique": 0.6666666666666666,
+    "part_dernier_mouvement": 0.3333333333333333,
+    "corps_seulement": true,
+    "timeframe": "1wk",
+    "base": "plus_bas_historique_vers_plus_haut_historique"
+  },
+  "good_invest": {
+    "seuil": 7.5,
+    "hors_portefeuille": true,
+    "inclut_ventes_en_attente": true
+  },
+  "template_trade": {
+    "devise": "USD",
+    "unite": "$",
+    "base_note": 7.5,
+    "base_montant": 500,
+    "pas_note": 0.5,
+    "pas_montant": 100,
+    "max_note": 10.0,
+    "max_montant": 1000
+  },
+  "section": {
+    "note": "moyenne_actifs_affiches",
+    "arrondi": 0.5,
+    "exclure_sans_note": true
+  },
+  "quotidien": {
+    "heure_paris": "22:30",
+    "anomalie_saut_points": 3.0,
+    "fichier_changements": "data/changements_du_jour.json"
+  }
+}

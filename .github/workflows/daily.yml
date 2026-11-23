@@ -1,0 +1,111 @@
+# Mise à jour quotidienne APEX — 22:30 Europe/Paris
+# Hiver (UTC+1) : 21:30 UTC ; été (UTC+2) : 20:30 UTC.
+# Deux crons + un garde-fou sur l'heure de Paris.
+name: APEX quotidien
+
+on:
+  workflow_dispatch:
+    inputs:
+      fetch:
+        description: "Télécharger les cours Yahoo et tout recalculer"
+        type: boolean
+        default: true
+  schedule:
+    - cron: "30 20 * * *"
+    - cron: "30 21 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: apex-daily
+  cancel-in-progress: false
+
+jobs:
+  daily:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Garde-fou 22:30 Europe/Paris
+        if: github.event_name == 'schedule'
+        run: |
+          set -euo pipefail
+          HM=$(TZ=Europe/Paris date +%H%M)
+          echo "Heure de Paris : $HM ($(TZ=Europe/Paris date -R))"
+          # Fenêtre 22:15–22:45 ; sinon c'est l'autre cron (changement d'heure).
+          if [ "$HM" -lt 2215 ] || [ "$HM" -gt 2245 ]; then
+            echo "Hors fenêtre 22h30 Europe/Paris — on s'arrête."
+            echo "skip=true" >> "$GITHUB_ENV"
+          else
+            echo "skip=false" >> "$GITHUB_ENV"
+          fi
+
+      - name: Python
+        if: env.skip != 'true'
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Dépendances
+        if: env.skip != 'true'
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Cache Yahoo hebdo
+        if: env.skip != 'true'
+        uses: actions/cache@v4
+        with:
+          path: data/yahoo_cache
+          key: yahoo-cache-${{ github.run_id }}
+          restore-keys: |
+            yahoo-cache-
+
+      - name: Tests
+        if: env.skip != 'true'
+        run: python -m pytest -q
+        env:
+          APEX_ROOT: ${{ github.workspace }}
+
+      - name: Recalcul APEX
+        if: env.skip != 'true'
+        env:
+          APEX_ROOT: ${{ github.workspace }}
+          APEX_SITE: ${{ github.workspace }}
+          PYTHONPATH: ${{ github.workspace }}:${{ github.workspace }}/src
+        run: |
+          set -euo pipefail
+          FETCH="${{ github.event_name == 'schedule' && 'true' || github.event.inputs.fetch }}"
+          # workflow_dispatch : ${{ inputs.fetch }} vaut 'true' ou 'false'
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            FETCH="${{ github.event.inputs.fetch }}"
+          else
+            FETCH=true
+          fi
+          echo "fetch=$FETCH"
+          if [ "$FETCH" = "true" ]; then
+            if ! python -m apex.pipeline --fetch; then
+              echo "Le recalcul complet a échoué (Yahoo ?). Publication à partir des JSON déjà présents."
+              python -m apex.pipeline --no-rebuild
+            fi
+          else
+            python -m apex.pipeline --no-rebuild
+          fi
+
+      - name: Commit et publication Pages
+        if: env.skip != 'true'
+        run: |
+          set -euo pipefail
+          git config user.name "trouveemmanuel67-eng"
+          git config user.email "trouveemmanuel67-eng@users.noreply.github.com"
+          git add -A index.html config apex tests src data/*.json data/historique_notes || true
+          if git diff --cached --quiet; then
+            echo "Aucun changement à publier."
+          else
+            git commit -m "APEX · Mise à jour quotidienne ($(TZ=Europe/Paris date '+%d/%m/%Y %H:%M') Europe/Paris)."
+            git push origin HEAD
+          fi

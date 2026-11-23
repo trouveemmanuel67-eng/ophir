@@ -1,0 +1,387 @@
+/* ===== Positions : positions.json (XTB + livre Revolut 19/11, inchangé) + positions_revolut.json + positions_revolutx.json ===== */
+const POS=(()=>{try{return JSON.parse(document.getElementById('data11').textContent);}catch(e){return {positions:[]};}})();
+let POS_RV=(()=>{try{const el=document.getElementById('data14');return el?JSON.parse(el.textContent):null;}catch(e){return null;}})();
+let POS_RX=(()=>{try{const el=document.getElementById('data13');return el?JSON.parse(el.textContent):null;}catch(e){return null;}})();
+function posMergeRevolut(rv){
+  const R=rv||POS_RV;
+  if(!R||!Array.isArray(R.positions)||!R.positions.length) return;
+  const others=(POS.positions||[]).filter(p=>p.courtier!=='revolut');
+  POS.positions=R.positions.map(p=>Object.assign({},p)).concat(others);
+  if(R.liquidites) POS.liquidites=R.liquidites;
+  POS._rvMerged=true;
+}
+function posRecompute(){
+  const act=(POS.positions||[]).filter(p=>p.statut==='active');
+  const T=POS.totaux||(POS.totaux={});
+  const prevXtb=(T.courtiers&&T.courtiers.xtb)?Object.assign({},T.courtiers.xtb):null;
+  const C={};
+  let te=0,tu=0,ie=0,iu=0,vk=0,ik=0;
+  act.forEach(p=>{
+    const c=p.courtier||'revolut';
+    const e=Number(p.valeur_eur)||0, u=Number(p.valeur_usd)||0;
+    const eI=p.investi_eur, uI=p.investi_usd;
+    const o=C[c]||(C[c]={valeur_eur:0,valeur_usd:0,investi_eur:0,investi_usd:0,val_known:0,n:0,statut:'ok'});
+    o.valeur_eur+=e;o.valeur_usd+=u;o.n++;
+    if(eI!=null&&eI!==''&&Number.isFinite(Number(eI))){o.investi_eur+=Number(eI);o.val_known+=e;}
+    if(uI!=null&&uI!==''&&Number.isFinite(Number(uI))) o.investi_usd+=Number(uI);
+    te+=e;tu+=u;
+    if(eI!=null&&eI!==''&&Number.isFinite(Number(eI))){vk+=e;ik+=Number(eI);}
+    if(uI!=null&&uI!==''&&Number.isFinite(Number(uI))) iu+=Number(uI);
+  });
+  Object.keys(C).forEach(c=>{
+    const o=C[c];
+    ['valeur_eur','valeur_usd','investi_eur','investi_usd'].forEach(k=>o[k]=Math.round((o[k]+1e-12)*100)/100);
+    if(o.investi_eur>0) o.perf_debut_pct=Math.round(((o.val_known/o.investi_eur-1)*100)*10+1e-9)/10;
+    delete o.val_known;
+  });
+  if(prevXtb){
+    C.xtb=Object.assign({},prevXtb,C.xtb||{});
+    if(POS_RV&&!(C.xtb.compte)) {/* conserve les champs XTB du livre */}
+  }
+  T.total_eur=Math.round((te+1e-12)*100)/100;
+  T.total_usd=Math.round((tu+1e-12)*100)/100;
+  T.investi_eur=Math.round((ik+1e-12)*100)/100;
+  T.investi_usd=Math.round((iu+1e-12)*100)/100;
+  T.courtiers=C;
+  T.perf_debut_pct=ik>0?Math.round(((vk/ik-1)*100)*10+1e-9)/10:null;
+  POS.n_actives=act.length;
+  POS.n_en_attente=(POS.positions||[]).filter(p=>p.statut==='en_attente').length;
+  const totU=T.total_usd||0;
+  if(totU>0) POS.positions.forEach(p=>{
+    const v=Number(p.valeur_usd!=null?p.valeur_usd:p.valeur)||0;
+    p.poids_pct=Math.round((1000*v/totU)+1e-9)/10;
+  });
+  const bits=[];
+  if(POS_RV&&POS_RV.releve_libelle) bits.push(POS_RV.releve_libelle);
+  bits.push('XTB 23/11/2026 à 13 h 48 (Europe/Paris)');
+  if(POS_RX&&POS_RX.releve_libelle) bits.push(POS_RX.releve_libelle);
+  POS.releve_libelle=bits.join(' · ');
+}
+function posApplyOverlays(){
+  posMergeRevolut(POS_RV);
+  posMergeRevolutX(POS_RX);
+  posRecompute();
+}
+function posMergeRevolutX(rx){
+  const R=rx||POS_RX;
+  if(!R||!Array.isArray(R.positions)||!R.positions.length) return;
+  const base=POS.positions||[];
+  if(base.some(p=>p.courtier==='revolutx')) return;
+  const extra=R.positions.map(p=>Object.assign({},p));
+  if(typeof T2!=='undefined'&&T2.crypto&&T2.crypto.fiches&&T2.crypto.fiches.assets){
+    extra.forEach(p=>{
+      const a=(T2.crypto.fiches.assets||[]).find(x=>x.sym===p.ticker||x.tv===p.fiche_tv);
+      if(a&&a.av&&a.av.score!=null){
+        p.apex_score=a.av.score;p.apex_label=a.av.label||null;
+        const s=Number(a.av.score);
+        p.apex10=a.apex10||null; /* t320u : pas de recalcul JS */
+        p.drapeau=p.apex10&&p.apex10.flag?p.apex10.flag:p.apex_label;
+        p.drapeau_code=(p.apex10&&p.apex10.flag)||'none';
+      }
+    });
+  }
+  POS.positions=base.concat(extra);
+  const T=POS.totaux||(POS.totaux={});
+  const addEur=Number(R.totaux&&R.totaux.valeur_eur)||extra.reduce((s,p)=>s+(Number(p.valeur_eur)||0),0);
+  const addUsd=Number(R.totaux&&R.totaux.valeur_usd)||extra.reduce((s,p)=>s+(Number(p.valeur_usd)||0),0);
+  T.total_eur=(Number(T.total_eur)||0)+addEur;
+  T.total_usd=(Number(T.total_usd)||0)+addUsd;
+  T.courtiers=T.courtiers||{};
+  T.courtiers.revolutx={valeur_eur:addEur,valeur_usd:addUsd,n:extra.length,statut:'ok',libelle:R.releve_libelle||'Revolut X'};
+  const tot=T.total_usd||0;
+  if(tot>0) POS.positions.forEach(p=>{
+    const v=Number(p.valeur_usd!=null?p.valeur_usd:p.valeur)||0;
+    p.poids_pct=Math.round((1000*v/tot)+1e-9)/10;
+  });
+  POS.n_actives=POS.positions.filter(p=>p.statut==='active').length;
+}
+const posSym=d=>d==='USD'?'$':d==='EUR'?'€':d==='CAD'?'C$':d;
+const posAmt=(n,d)=>{
+  const v=Math.round(n);
+  return v.toLocaleString('fr-FR')+'\u00a0'+posSym(d);
+};
+const posPct=p=>{
+  if(p==null||p==='') return '—';
+  const s=p<0?-1:1, a=Math.abs(Number(p));
+  const r=Math.round(a*10+1e-9)/10; /* 1 décimale, arrondi 0,5 vers le haut */
+  const t=(s<0?'−':'+')+r.toFixed(1).replace('.',',');
+  return t+'\u00a0%';
+};
+const posFlagCol={green:'#22c55e',orange:'#ff9a1f',red:'#ff2d2d',cyan:'#00e5ff',none:'#888'};
+const posCourtNom={revolut:'Revolut',xtb:'XTB',revolutx:'Revolut X'};
+posApplyOverlays();
+function posOfTv(tv){
+  if(!tv||!POS.positions) return [];
+  return POS.positions.filter(p=>p.fiche_tv===tv || p.tv_note===tv);
+}
+function posBadgeHTML(p){
+  const court=posCourtNom[p.courtier]||p.courtier||'Revolut';
+  if(p.statut==='en_attente')
+    return `<span class="pos-badge pos-pend" title="${(p.fiche_note||'Ordre d’achat au marché chez '+court)+' · expiration le 19/11/2026 à 21 h (Europe/Paris)'}">Ordre en attente · ${posAmt(p.valeur,p.devise)}</span>`;
+  const pnl=p.pnl_pct==null?'':` · ${posPct(p.pnl_pct)}`;
+  const tip=[p.fiche_note,p.fiche_proxy?'Ce n’est pas le titre exact détenu.':''].filter(Boolean).join(' ');
+  return `<span class="pos-badge pos-act"${tip?` title="${tip.replace(/"/g,'&quot;')}"`:''}>Position active · ${posAmt(p.valeur,p.devise)} · ${court}${pnl}</span>`;
+}
+function posBadges(tv){
+  const L=posOfTv(tv); if(!L.length) return '';
+  return `<span class="pos-badges">${L.map(posBadgeHTML).join('')}</span>`;
+}
+function posOpenFiche(tab,tv){
+  const go=()=>{
+    const el=document.querySelector('[data-pos-tv="'+tv+'"]');
+    if(!el) return;
+    el.closestAll=el.closest;
+    let n=el;
+    while(n&&n!==document){
+      if(n.tagName==='DETAILS'&&!n.open) n.open=true;
+      if(n.classList&&n.classList.contains('card')&&n.classList.contains('acc')&&typeof accToggle==='function')
+        accToggle(n,true,false);
+      n=n.parentElement;
+    }
+    el.classList.add('pos-flash');
+    el.scrollIntoView({behavior:'smooth',block:'center'});
+    setTimeout(()=>el.classList.remove('pos-flash'),2200);
+  };
+  const cur=(location.hash||'').slice(1);
+  if(tab && cur!==tab){
+    location.hash=tab;
+    setTimeout(go,350); setTimeout(go,900);
+  } else go();
+}
+function posApex10Of(p){
+  if(p&&p.apex10&&p.apex10.note!=null) return p.apex10;
+  const key=p&&(p.fiche_tv||p.tv_note||p.tv||p.ticker);
+  const b=(typeof APEX_BARS!=='undefined'&&APEX_BARS.bars&&key)?(APEX_BARS.bars[key]||null):null;
+  if(b&&b.apex10&&b.apex10.note!=null) return b.apex10;
+  if(false&&p&&p.apex_score!=null) return null; /* t320u : pas de recalcul JS */
+  return null;
+}
+function posFlagHTML(p){
+  const a=posApex10Of(p);
+  const code=(a&&a.flag)||p.drapeau_code;
+  if(!code||code==='none') return '–';
+  const col=(a&&a.hex)||posFlagCol[code]||'#888';
+  return `<span class="pos-flag pos-${code}"><i style="background:${col}"></i></span>`;
+}
+function posNoteHTML(p){
+  const a=posApex10Of(p);
+  if(a&&a.note!=null){
+    const col=(typeof apex10Col==='function')?apex10Col(a):(a.hex||'#e6c27a');
+    return `<span class="apex10"><b style="color:${col}">${a.display}</b><small style="color:${col}">/10</small></span>`;
+  }
+  if(p.apex_score==null) return '–';
+  const lab=p.apex_label?` ${p.apex_label}`:'';
+  const sign=p.apex_score>0?'+':'';
+  return `${sign}${Number(p.apex_score).toLocaleString('fr-FR',{minimumFractionDigits:1,maximumFractionDigits:1})}${lab}`;
+}
+function posIsOpen(){return document.body.classList.contains('pos-open');}
+function posSetOpen(on,persist){
+  document.body.classList.toggle('pos-open',!!on);
+  const b=document.getElementById('posReopen');
+  if(b) b.setAttribute('aria-expanded', on?'true':'false');
+  const ov=document.getElementById('pos-overlay');
+  if(ov) ov.hidden=!on;
+  if(persist!==false){ try{ localStorage.setItem('apex-pos-open', on?'1':'0'); }catch(e){} }
+}
+function posInitToggle(){
+  const b=document.getElementById('posReopen');
+  if(b) b.hidden=true;
+  const ov=document.getElementById('pos-overlay');
+  if(ov && !ov._posBound){
+    ov._posBound=true;
+    ov.addEventListener('click',()=>{posSetListOpen(false); if(typeof giSetListOpen==='function') giSetListOpen(false);});
+  }
+  /* Le bouton Mes positions reste toujours visible : plus de masquage par la croix. */
+  posSetOpen(true,false);
+  posApplyListState();
+}
+const POS_LIST_KEY='apex-pos-list';
+function posListIsOpen(){
+  const c=document.getElementById('mesPosCard');
+  return !!(c&&!c.classList.contains('pos-collapsed'));
+}
+function posSyncListChrome(on){
+  document.body.classList.toggle('pos-list-open',!!on);
+  const giOn=typeof giListIsOpen==='function'&&giListIsOpen();
+  document.body.classList.toggle('gi-list-open',!!giOn);
+  const rail=document.getElementById('mes-pos');
+  if(rail) rail.classList.toggle('is-expanded',!!on||!!giOn);
+  const ov=document.getElementById('pos-overlay');
+  if(ov){
+    const mobile=window.matchMedia('(max-width:1099px)').matches;
+    ov.hidden=!(mobile&&(on||giOn));
+  }
+}
+function posApplyListState(force){
+  const c=document.getElementById('mesPosCard'); if(!c) return;
+  let saved=null;
+  try{ saved=localStorage.getItem(POS_LIST_KEY); }catch(e){}
+  const on=force!==undefined?force:(saved==='1'); /* replié par défaut */
+  c.classList.toggle('pos-collapsed',!on);
+  const h=c.querySelector('.pos-rail-h');
+  if(h){ h.setAttribute('aria-expanded',on?'true':'false'); }
+  posSyncListChrome(on);
+}
+function posSetListOpen(on,persist){
+  const c=document.getElementById('mesPosCard'); if(!c) return;
+  c.classList.toggle('pos-collapsed',!on);
+  const h=c.querySelector('.pos-rail-h');
+  if(h) h.setAttribute('aria-expanded',on?'true':'false');
+  posSyncListChrome(on);
+  if(persist!==false){ try{ localStorage.setItem(POS_LIST_KEY,on?'1':'0'); }catch(e){} }
+}
+function posLinePerf(p, kind){
+  if(p.statut==='en_attente') return '—';
+  if(kind==='debut') return p.perf_debut_pct==null?'—':`<span class="${p.perf_debut_pct>=0?'up':'down'}">${posPct(p.perf_debut_pct)}</span>`;
+  if(p.perf_1an_pct==null){
+    const lab=p.perf_1an_libelle||'à venir';
+    return `<span class="pos-na" title="${(p.perf_1an_note||'').replace(/"/g,'&quot;')}">${lab}</span>`;
+  }
+  const tip=(p.perf_1an_note||p.perf_1an_libelle||'').replace(/"/g,'&quot;');
+  return `<span class="${p.perf_1an_pct>=0?'up':'down'}" title="${tip}">${posPct(p.perf_1an_pct)}<small> 52 sem. actif</small></span>`;
+}
+function posShortName(p){
+  let n=p.nom||p.ticker||'—';
+  const map={
+    'Enphase Energy':'Enphase','AGNC Investment':'AGNC','Annaly Capital Management':'Annaly',
+    'Porsche Automobil Holding SE':'Porsche','Hermès International':'Hermès','Fanuc Corporation':'Fanuc',
+    'Mercedes-Benz Group AG':'Mercedes','Global X Uranium UCITS ETF':'Uranium',
+    'Invesco Preferred Shares UCITS ETF (EUR Hdg)':'Preferred Shares'
+  };
+  if(map[n]) return map[n];
+  n=n.replace(/\s+(janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)\s+(\d{4})/i,' $2');
+  n=n.replace(/^US Treasury\s+/,'T ');
+  n=n.replace(/^Dow Chemical\s+/,'Dow ');
+  n=n.replace(/\s+UCITS ETF(?:\s*\([^)]+\))?$/i,'');
+  n=n.replace(/\s+(Corporation|International|Group AG|Holding SE)$/i,'');
+  return n;
+}
+function posApexChip(p){
+  const a=posApex10Of(p);
+  if(a&&a.note!=null){
+    const col=(typeof apex10Col==='function')?apex10Col(a):(a.hex||'#e6c27a');
+    return `<span class="pos-chip apex10" style="color:${col};border-color:${col}" title="Note APEX ${a.display}/10">${a.display}<small>/10</small></span>`;
+  }
+  if(p.apex_score==null||p.apex_score==='') return '';
+  const col=(typeof avCol==='function')?avCol(p.apex_score):(posFlagCol[p.drapeau_code]||'#e6c27a');
+  const lab=p.apex_label||'';
+  const sg=p.apex_score>0?'+':'';
+  const txt=sg+Number(p.apex_score).toLocaleString('fr-FR',{minimumFractionDigits:1,maximumFractionDigits:1});
+  const tip=[txt,lab,p.drapeau].filter(Boolean).join(' \u00b7 ');
+  return `<span class="pos-chip" style="color:${col};border-color:${col}" title="${tip.replace(/"/g,'&quot;')}">${txt}</span>`;
+}
+function renderMesPositions(){
+  const host=document.getElementById('mes-pos'); if(!host) return;
+  const L=POS.positions||[];
+  const act=L.filter(p=>p.statut==='active');
+  const pend=L.filter(p=>p.statut==='en_attente');
+  const T=POS.totaux||{};
+  const C=T.courtiers||{};
+  const rev=C.revolut||{};
+  const xtb=C.xtb||{};
+  const rxC=C.revolutx||{};
+  const fx=POS.fx||{};
+  const row=p=>{
+    const mon=posAmt(p.valeur,p.devise);
+    const court=posCourtNom[p.courtier]||p.courtier||'';
+    const cx=p.courtier==='revolutx'?'RX':p.courtier==='xtb'?'X':'R';
+    const nm=posShortName(p);
+    const go=(p.tab&&p.fiche_tv)
+      ? `<button type="button" class="pos-link" data-tab="${p.tab}" data-tv="${p.fiche_tv}">${nm}</button>`
+      : `<span class="pos-nm">${nm}</span>`;
+    const tick=p.ticker&&p.ticker!==nm&&p.ticker.length<=6?`<span class="pos-tick">${p.ticker}</span>`:'';
+    const poids=p.poids_pct==null?'—':posPct(p.poids_pct).replace('+','');
+    const sell=p.vente_en_attente?`<span class="pos-mark pos-mark-sell" title="${(p.vente_en_attente_note||'Vente en attente').replace(/"/g,'&quot;')}">vente</span>`:'';
+    const stale=p.non_reverifie?`<span class="pos-mark pos-mark-stale" title="Non revérifié le ${String(p.non_reverifie).replace(/"/g,'&quot;')}"></span>`:'';
+    const tip=[p.nom,p.ticker&&p.ticker!==p.nom?p.ticker:'',court,p.vente_en_attente_note||'',p.non_reverifie_note||'',p.fiche_note||''].filter(Boolean).join(' \u00b7 ');
+    return `<article class="pos-row pos-row-c ${p.statut==='en_attente'?'is-pend':''}${p.vente_en_attente?' is-sell':''}${p.fiche_tv?' has-fiche':''}" title="${tip.replace(/"/g,'&quot;')}">
+      <span class="pos-cx pos-cx-${cx.toLowerCase()}" title="${court}">${cx}</span>
+      <span class="pos-id">${go}${tick}${sell}${stale}</span>
+      <b class="pos-m">${mon}</b>
+      <span class="pos-p">${poids}</span>
+      <span class="pos-d">${posLinePerf(p,'debut')}</span>
+      ${posApexChip(p)||'<span class="pos-chip is-empty"></span>'}
+    </article>`;
+  };
+  const tot1an=T.perf_1an_pct==null
+    ? `<span class="pos-na" title="${(T.perf_1an_note||'').replace(/"/g,'&quot;')}">${T.perf_1an_libelle||'à venir'}</span>`
+    : `<span class="${T.perf_1an_pct>=0?'up':'down'}">${posPct(T.perf_1an_pct)}</span>`;
+  const totDeb=T.perf_debut_pct==null?'—':`<span class="${T.perf_debut_pct>=0?'up':'down'}">${posPct(T.perf_debut_pct)}</span>`;
+  const xtbPending=xtb.statut==='a_integrer'||!xtb.n;
+  const rxKv=rxC.n?`<span class="pos-kv"><span class="l">RX</span><b>${posAmt(rxC.valeur_usd||rxC.valeur_eur||0,rxC.valeur_usd!=null?'USD':'EUR')}</b></span>`:'';
+  const xtbTxt=xtbPending
+    ? `${xtb.libelle||'à intégrer'} (0)`
+    : posAmt(xtb.valeur_usd||0,'USD');
+  const fxNote=(()=>{
+    const bits=[];
+    if(fx.taux) bits.push('EUR/USD '+String(fx.taux).replace('.',','));
+    if(fx.cadusd) bits.push('CAD/USD '+String(fx.cadusd).replace('.',','));
+    if(fx.eurcad) bits.push('EUR/CAD '+String(fx.eurcad).replace('.',','));
+    if(!bits.length) return '';
+    return 'Conversion '+bits.join(', ')+' au '+fx.date+' ('+(fx.source_court||fx.source||'Yahoo')+', Europe/Paris).';
+  })();
+  const headTip=[POS.desc||('Relevé '+(POS.releve_libelle||'')),fxNote,xtbPending?'XTB n\u2019est pas encore intégré.':'',T.perf_1an_note||'','CFD exclus.'].filter(Boolean).join(' ');
+  const html=`<div class="card no-group" id="mesPosCard">
+    <div class="pos-rail-h" role="button" tabindex="0" aria-expanded="false" aria-controls="posBody" title="${headTip.replace(/"/g,'&quot;')}">
+      <span class="pos-chev" aria-hidden="true">▸</span>
+      <h2>Mes positions</h2>
+      <span class="pos-head-tot">${posAmt(T.total_usd||0,'USD')} <small>${totDeb}</small></span>
+    </div>
+    <div class="pos-body" id="posBody">
+      <div class="pos-total">
+        <div class="pos-total-v" title="${headTip.replace(/"/g,'&quot;')}">${posAmt(T.total_usd||0,'USD')} <small>/ ${posAmt(T.total_eur||0,'EUR')}</small></div>
+        <div class="pos-total-strip">
+          <span class="pos-kv"><span class="l">Début</span><b>${totDeb}</b></span>
+          <span class="pos-kv"><span class="l">R</span><b>${posAmt(rev.valeur_usd||0,'USD')}</b></span>
+          <span class="pos-kv"><span class="l">X</span><b>${xtbTxt}</b></span>
+          ${rxKv}
+        </div>
+      </div>
+      <div class="pos-list">${act.map(row).join('')||'<div class="note">—</div>'}</div>
+      ${pend.length?`<div class="pos-list pos-pend-list">${pend.map(row).join('')}</div>`:''}
+    </div>
+  </div>`;
+  const prev=document.getElementById('mesPosCard');
+  if(prev) prev.outerHTML=html;
+  else host.insertAdjacentHTML('afterbegin', html);
+  const card=document.getElementById('mesPosCard');
+  if(!card) return;
+  card.querySelectorAll('.pos-link').forEach(b=>b.addEventListener('click',()=>{
+    if(window.matchMedia('(max-width:1099px)').matches) posSetListOpen(false);
+    posOpenFiche(b.dataset.tab,b.dataset.tv);
+  }));
+  const head=card.querySelector('.pos-rail-h');
+  if(head){
+    const tog=e=>{
+      e.preventDefault();
+      posSetListOpen(!posListIsOpen());
+    };
+    head.addEventListener('click',tog);
+    head.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();tog(e);}});
+  }
+  posApplyListState();
+  if(typeof giRender==='function') giRender();
+}
+/* recharge éventuelle depuis positions.json (mise à jour sans reconstruire index.html) */
+function posInit(){
+  const apply=(base,rv,rx)=>{
+    if(base&&base.positions){Object.keys(base).forEach(k=>{if(k!=='_rvMerged'&&k!=='_rxMerged') POS[k]=base[k];});}
+    if(rv&&rv.positions) POS_RV=rv;
+    if(rx&&rx.positions) POS_RX=rx;
+    posApplyOverlays();
+    renderMesPositions(); posInitToggle();
+    if(typeof renderAccueil==='function'){
+      const el=document.getElementById('paccueil')||document.getElementById('accueil');
+      if(el&&document.body.classList.contains('home-on')) renderAccueil(el);
+    }
+  };
+  renderMesPositions();
+  posInitToggle();
+  try{
+    Promise.all([
+      fetch('positions.json',{cache:'no-cache'}).then(r=>r.ok?r.json():null).catch(()=>null),
+      fetch('positions_revolut.json',{cache:'no-cache'}).then(r=>r.ok?r.json():null).catch(()=>null),
+      fetch('positions_revolutx.json',{cache:'no-cache'}).then(r=>r.ok?r.json():null).catch(()=>null)
+    ]).then(([base,rv,rx])=>{if((base&&base.positions)||(rv&&rv.positions)||(rx&&rx.positions)) apply(base,rv,rx);});
+  }catch(e){}
+}

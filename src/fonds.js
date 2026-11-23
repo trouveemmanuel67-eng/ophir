@@ -1,0 +1,74 @@
+/* ===== Secteurs : ETF principal + 5 actions (sélection quantitative APEX) + bouton copier le symbole TradingView ===== */
+const FOND=JSON.parse(document.getElementById('data6').textContent);
+const APEX_BARS=(function(){
+  const el=document.getElementById('data16');
+  if(!el) return {bars:{}};
+  try{return JSON.parse(el.textContent)||{bars:{}};}catch(e){return {bars:{}};}
+})();
+function listApexBar(r){
+  const key=r&&(r.tv||r.yahoo||r.ticker);
+  const b=key&&APEX_BARS.bars?APEX_BARS.bars[key]:null;
+  // 23/11/2026 : préférer la note déjà posée sur l'instrument (ETC / métal au
+  // comptant calculés dans build_metaux, absents d'apex_bars).
+  const av=(r&&r.av&&r.av.score!=null)?r.av:(b&&b.av);
+  const sent=(r&&r.sent&&r.sent.value!=null)?r.sent:(b&&b.sent);
+  const ell=(r&&r.elliott)||(b&&b.elliott);
+  const a10=(r&&r.apex10)||(b&&b.apex10)||null;
+  if(!av||av.score==null||!sent||sent.value==null){
+    if(a10&&a10.display&&a10.display!=='–')
+      return `<div class="fl-apex"><div class="apex10"><b>${a10.display}</b><small>/10</small></div></div>`;
+    return '<div class="fl-apex fl-apex-na"><div class="apex10 apex10-na"><b>–</b></div></div>';
+  }
+  const rec=a10||null; /* t320u : pas de recalcul JS */
+  const avAff=(av.score_affiche!=null)?av.score_affiche:av.score;
+  return `<div class="fl-apex">${dualBar(sent.value,sent.label,avAff,av.label,'db-sm db-list',true,rec)}</div>`;
+}
+function fondQualite(r){
+  if(!r||r.score==null) return '';
+  const tip=(r.health!=null||r.growth!=null)?`Santé ${fmt(r.health,0)} · Croissance ${fmt(r.growth,0)}`:'';
+  return `<span class="fl-sc" style="color:${gcol(r.score)}"${tip?` title="${tip}"`:''}><i>Qualité fondamentale</i>${fmt(r.score,0)}<small>/100</small></span>`;
+}
+const CPSVG='<svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" fill="none" stroke="currentColor" stroke-width="2"/></svg>';
+const tvTag=s=>s?`<span class="tvs"><code>${s}</code><button type="button" class="cp" data-c="${s}" aria-label="Copier ${s}" title="Copier ${s}">${CPSVG}</button></span>`:'<span class="tvs"><code>non vérifié</code></span>';
+function ophirCopy(btn){
+  const t=btn.dataset.c;
+  const done=ok=>{btn.classList.remove('ok','ko');void btn.offsetWidth;btn.classList.add(ok?'ok':'ko');btn.dataset.tip=ok?'Copié':'Échec';clearTimeout(btn._t);btn._t=setTimeout(()=>btn.classList.remove('ok','ko'),1600);};
+  const fb=()=>{const ta=document.createElement('textarea');ta.value=t;ta.setAttribute('readonly','');ta.style.cssText='position:fixed;top:0;left:0;opacity:0;font-size:16px';
+    document.body.appendChild(ta);ta.focus();ta.select();ta.setSelectionRange(0,t.length);let ok=false;try{ok=document.execCommand('copy');}catch(e){}ta.remove();done(ok);};
+  if(navigator.clipboard&&window.isSecureContext)navigator.clipboard.writeText(t).then(()=>done(true),fb);else fb();
+}
+document.addEventListener('click',e=>{const b=e.target.closest('.cp');if(b){e.preventDefault();e.stopPropagation();ophirCopy(b);}});
+const pc=(v,d=0)=>v==null?'n.d.':sign(v,d)+' %';
+function fondChips(r,prof){
+  const m=r.m,c=[];
+  if(prof==='fin'){c.push(['ROE',m.roe==null?'n.d.':fmt(m.roe,0)+' %']);c.push(['ROA',m.roa==null?'n.d.':fmt(m.roa,1)+' %']);}
+  else{c.push(['Dette nette / EBITDA',m.nd_ebitda==null?'n.d.':fmt(m.nd_ebitda,1)+' ×']);c.push([prof==='reit'?'Marge EBITDA':'Marge op.',(prof==='reit'?m.ebitda_margin:m.op_margin)==null?'n.d.':fmt(prof==='reit'?m.ebitda_margin:m.op_margin,0)+' %']);}
+  c.push(['BPA est. N+1',pc(m.eps_1y)]);c.push(['CA est. N+1',pc(m.rev_1y)]);
+  return c.map(([k,v])=>`<span><i>${k}</i> ${v}</span>`).join('');
+}
+function fondTiming(t){
+  const b=t.near?`<b class="fl-warn">⚠ proche du plus haut${t.near==='ath'?' historique':' 52 s.'}</b>`:'';
+  const ob=t.overbought?'<b class="fl-warn">RSI ≥ 70 suracheté</b>':'';
+  return `${b}${ob}<span>${sign(t.dd52,1)} % vs plus haut 52 s. · ${sign(t.ddath,1)} % vs record (${dshort(t.ath_date)}) · RSI hebdo ${t.rsi==null?'n.d.':fmt(t.rsi,0)}</span>`;
+}
+function fondList(sym){
+  const s=FOND.sectors[sym];if(!s)return '';
+  const rows=apexSortByNote(s.top).map((r,k)=>`<li${r.tv?` data-pos-tv="${r.tv}"`:''}><div class="fl-h"><b>${k+1}. ${r.name}</b>${fondQualite(r)}</div>
+     ${tvTag(r.tv)}${typeof posBadges==='function'?posBadges(r.tv):''}${typeof dispoBadge==='function'?dispoBadge(r.tv):''}${listApexBar(r)}<div class="fl-m">${fondChips(r,s.profile)}</div>
+     <div class="fl-sub">santé ${fmt(r.health,0)} · croissance ${fmt(r.growth,0)} · ${r.analysts} analystes · ${r.industry||''}</div>
+     <div class="fl-t">${fondTiming(r.timing)}</div></li>`).join('');
+  const d=s.top[0];
+  return `<details class="ind-meth sec-list"><summary>ETF + 5 actions qualité / croissance</summary>
+   <div class="fl-etf"><span class="fl-k">ETF principal</span><b>${s.etf.name}</b>${tvTag(s.etf.tv)}</div>
+   <ol class="fl">${rows}</ol>
+   <div class="sec-d" style="text-align:left">Score de qualité fondamentale 0-100 = 50 % santé financière + 50 % croissance prévue, en rang parmi les ${s.eligible} titres éligibles des 20 premières lignes de ${sym} (composition State Street au ${s.asof}).${s.profile==='fin'?' Profil financier : ROE, ROA, marges (ratios bancaires CET1 / créances douteuses non disponibles).':s.profile==='reit'?' Profil immobilier : dette nette / EBITDA, marges, ROA (FFO non disponible : la croissance repose sur le BPA estimé).':''} Timing (plus haut, RSI) affiché à part, hors score. Données ${lnk('https://finance.yahoo.com/quote/'+(d?d.yahoo:sym)+'/key-statistics/','Yahoo Finance')} récupérées le ${d?d.retrieved.replace(' ',' à '):'?'} ; clôtures hebdo au ${d?dshort(d.timing.date):'?'}.</div>
+  </details>`;
+}
+function fondMethod(){
+  const w=(a)=>a.map(([n,x])=>`${n} ${fmt(x*100,1)} %`).join(' · ');
+  const ex=Object.entries(FOND.sectors).flatMap(([k,s])=>s.excluded.map(e=>`${k} ${e[0]}`));
+  return `<p><b>Listes « ETF + 5 actions » (sélection quantitative APEX).</b> Univers : les 20 premières lignes de chaque ETF SPDR d'après le fichier officiel des positions de State Street (doublons de catégories d'actions retirés : GOOG, FOX, NWS). Données : Yahoo Finance via yfinance (ratios sur 12 mois glissants et consensus d'analystes), récupérées le ${FOND.generated.replace(' ',' à ')}. Chaque métrique est convertie en rang percentile au sein de l'univers du secteur, puis pondérée ; un bloc se recalcule sur les métriques disponibles. Score = 50 % santé + 50 % croissance. Éligibilité : au moins 5 analystes (3 pour l'immobilier, où le consensus porte surtout sur le FFO et non sur le BPA), 2 métriques de croissance et l'essentiel des métriques de santé ; la croissance du BPA est ignorée si la base de comparaison est négative.</p>
+   <ul><li><b>Santé, profil standard (50 %)</b> : ${w(FOND.weights.std)}</li><li><b>Santé, Finance (50 %)</b> : ${w(FOND.weights.fin)} ; ratios bancaires (CET1, créances douteuses) et ratio combiné des assureurs non disponibles</li>
+   <li><b>Santé, Immobilier (50 %)</b> : ${w(FOND.weights.reit)} ; FFO / AFFO non disponibles dans la source</li><li><b>Croissance prévue (50 %)</b> : ${w(FOND.growth_weights)} ; la croissance long terme (5 ans) n'est pas fournie par la source pour les titres individuels</li></ul>
+   <p>Timing, hors score : distance au plus haut 52 semaines et au record (clôtures hebdomadaires depuis la cotation), RSI 14 hebdo. ⚠ si le cours est à moins de 2 % du plus haut ; badge si RSI ≥ 70. La position dans une « vague 5 » d'Elliott n'est pas évaluée (non mesurable de façon objective).${ex.length?` Titres non classés faute de données : ${ex.join(', ')}.`:''}</p>`;
+}

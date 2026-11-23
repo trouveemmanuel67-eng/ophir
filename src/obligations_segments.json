@@ -1,0 +1,766 @@
+{
+  "tcourt": {
+    "nom": "Treasuries US courts (1-3 ans)",
+    "principal": {
+      "yahoo": "SHY",
+      "ref": true
+    },
+    "principal_tv_query": [
+      [
+        "SHY",
+        ""
+      ]
+    ],
+    "queries": [
+      "Treasury 1-3"
+    ],
+    "must": [
+      [
+        "treasury"
+      ],
+      [
+        "1-3"
+      ]
+    ],
+    "exclude": [
+      "leverage",
+      "5x",
+      "options",
+      "ibonds",
+      "bulletshares",
+      "hkd",
+      "gbp",
+      "chf",
+      "sgd",
+      "mxn",
+      "jpy hedged"
+    ]
+  },
+  "tlong": {
+    "nom": "Treasuries US longs (20 ans et +)",
+    "principal": {
+      "yahoo": "TLT",
+      "ref": true
+    },
+    "principal_tv_query": [
+      [
+        "TLT",
+        ""
+      ]
+    ],
+    "queries": [
+      "Treasury 20",
+      "Treasury 10+",
+      "Treasury Long Dated",
+      "Treasury 25Y+",
+      "Treasuries 10+",
+      "US Treas"
+    ],
+    "must": [
+      [
+        "treasur",
+        "treas"
+      ],
+      [
+        "20+",
+        "10+",
+        "25y+",
+        "25+",
+        "long"
+      ]
+    ],
+    "exclude": [
+      "leverage",
+      "5x",
+      "options",
+      "ibonds",
+      "bulletshares",
+      "income",
+      "hkd",
+      "gbp",
+      "chf",
+      "sgd",
+      "mxn",
+      "jpy hedged"
+    ]
+  },
+  "eurgov": {
+    "nom": "Souverains zone euro",
+    "principal": {
+      "yahoo": "EUNH.DE"
+    },
+    "principal_tv_query": [
+      [
+        "EUNH",
+        "XETR"
+      ]
+    ],
+    "queries": [
+      "Euro Government Bond",
+      "Eurozone Government",
+      "EUR Govt Bond"
+    ],
+    "must": [
+      [
+        "euro",
+        "eur ",
+        "eurozone"
+      ],
+      [
+        "govt",
+        "government"
+      ]
+    ],
+    "exclude": [
+      "1-3",
+      "3-5",
+      "5-7",
+      "7-10",
+      "10-15",
+      "15+",
+      "0-1",
+      "25+",
+      "3-7",
+      "inflation",
+      "green",
+      "tilted",
+      "yield plus",
+      "esg",
+      "global",
+      "italy",
+      "spain",
+      "germany",
+      "france",
+      "hedged",
+      "floating",
+      "hkd",
+      "gbp",
+      "chf",
+      "sgd",
+      "mxn",
+      "jpy hedged"
+    ]
+  },
+  "france": {
+    "nom": "OAT / dette française",
+    "principal": {
+      "yahoo": "IFRB.AS"
+    },
+    "principal_tv_query": [
+      [
+        "IFRB",
+        "EURONEXT"
+      ]
+    ],
+    "queries": [
+      "France Govt Bond",
+      "France Government",
+      "French Government",
+      "OAT"
+    ],
+    "must": [
+      [
+        "france",
+        "french"
+      ],
+      [
+        "govt",
+        "government",
+        "oat",
+        "bond"
+      ]
+    ],
+    "exclude": [
+      "leverage",
+      "equity",
+      "cac",
+      "hkd",
+      "gbp",
+      "chf",
+      "sgd",
+      "mxn",
+      "jpy hedged"
+    ],
+    "pays": "fr",
+    "verif_courtier": "à vérifier Revolut/XTB"
+  },
+  "usig": {
+    "nom": "Investment grade USD",
+    "principal": {
+      "yahoo": "LQD",
+      "ref": true
+    },
+    "principal_tv_query": [
+      [
+        "LQD",
+        ""
+      ]
+    ],
+    "queries": [
+      "USD Corporate Bond",
+      "USD Corp Bond",
+      "USD Investment Grade Corporate"
+    ],
+    "must": [
+      [
+        "usd",
+        "$ ",
+        "u.s."
+      ],
+      [
+        "corporate",
+        "corp "
+      ]
+    ],
+    "exclude": [
+      "high yield",
+      "bulletshares",
+      "green",
+      "esg",
+      "yield plus",
+      "1-5",
+      "0-3",
+      "floating",
+      "hybrid",
+      "ibonds",
+      "enhanced",
+      "eur corp",
+      "€ corp",
+      "asia",
+      "hkd",
+      "gbp",
+      "chf",
+      "sgd",
+      "mxn",
+      "jpy hedged"
+    ]
+  },
+  "eurig": {
+    "nom": "Investment grade EUR",
+    "principal": {
+      "yahoo": "EUN5.DE"
+    },
+    "principal_tv_query": [
+      [
+        "EUN5",
+        "XETR"
+      ]
+    ],
+    "queries": [
+      "Euro Corporate Bond",
+      "EUR Corporate Bond",
+      "EUR Corp Bond"
+    ],
+    "must": [
+      [
+        "euro",
+        "eur "
+      ],
+      [
+        "corporate",
+        "corp "
+      ]
+    ],
+    "exclude": [
+      "hybrid",
+      "bulletshares",
+      "low duration",
+      "high yield",
+      "green",
+      "esg",
+      "1-5",
+      "0-3",
+      "floating",
+      "ex-financ",
+      "sustainable",
+      "universal",
+      "1-3",
+      "3-5",
+      "ibonds",
+      "hkd",
+      "gbp",
+      "chf",
+      "sgd",
+      "mxn",
+      "jpy hedged"
+    ]
+  },
+  "hy": {
+    "nom": "High yield (haut rendement)",
+    "principal": {
+      "yahoo": "HYG",
+      "ref": true
+    },
+    "principal_tv_query": [
+      [
+        "HYG",
+        ""
+      ]
+    ],
+    "queries": [
+      "Euro High Yield",
+      "USD High Yield",
+      "High Yield Corp Bond"
+    ],
+    "must": [
+      [
+        "high yield"
+      ],
+      [
+        "bond",
+        "corp"
+      ]
+    ],
+    "exclude": [
+      "dividend",
+      "equity",
+      "esg",
+      "leverage",
+      "5x",
+      "short-term",
+      "0-5",
+      "bulletshares",
+      "fallen",
+      "hkd",
+      "gbp",
+      "chf",
+      "sgd",
+      "mxn",
+      "jpy hedged"
+    ]
+  },
+  "infl": {
+    "nom": "Obligations indexées sur l'inflation",
+    "principal": {
+      "yahoo": "TIP",
+      "ref": true
+    },
+    "principal_tv_query": [
+      [
+        "TIP",
+        ""
+      ]
+    ],
+    "queries": [
+      "Euro Inflation Linked",
+      "TIPS",
+      "Inflation Linked Govt"
+    ],
+    "must": [
+      [
+        "inflation",
+        "tips"
+      ]
+    ],
+    "exclude": [
+      "expectations",
+      "leverage",
+      "5x",
+      "ultrashort",
+      "short",
+      "0-5",
+      "equity",
+      "hkd",
+      "gbp",
+      "chf",
+      "sgd",
+      "mxn",
+      "jpy hedged"
+    ]
+  },
+  "em": {
+    "nom": "Dette émergente",
+    "principal": {
+      "yahoo": "EMB",
+      "ref": true
+    },
+    "principal_tv_query": [
+      [
+        "EMB",
+        ""
+      ]
+    ],
+    "queries": [
+      "Emerging Markets Bond",
+      "Emerging Markets Government Bond",
+      "USD Emerging Markets"
+    ],
+    "must": [
+      [
+        "emerging"
+      ],
+      [
+        "bond",
+        "debt",
+        "govt",
+        "government"
+      ]
+    ],
+    "exclude": [
+      "green",
+      "esg",
+      "equity",
+      "leverage",
+      "0-3",
+      "1-3",
+      "hkd",
+      "gbp",
+      "chf",
+      "sgd",
+      "mxn",
+      "jpy hedged"
+    ]
+  },
+  "de": {
+    "nom": "Bund / dette allemande",
+    "pays": "de",
+    "ccy": "EUR",
+    "principal": {
+      "yahoo": "IS0L.DE"
+    },
+    "principal_tv_query": [
+      [
+        "IS0L",
+        "XETR"
+      ]
+    ],
+    "queries": [
+      "Germany Government Bond",
+      "Germany Govt Bond",
+      "eb.rexx Government Germany",
+      "German Government Bond",
+      "Bund"
+    ],
+    "must": [
+      [
+        "germany",
+        "german",
+        "eb.rexx"
+      ],
+      [
+        "govt",
+        "government",
+        "bund"
+      ]
+    ],
+    "exclude": [
+      "leverage",
+      "inverse",
+      "short",
+      "2x",
+      "3x",
+      "gbp",
+      "chf",
+      "sgd",
+      "mxn",
+      "hkd",
+      "usd hedged",
+      "inflation",
+      "linker",
+      "target maturity",
+      "ibonds",
+      "term",
+      "0-1",
+      "money market"
+    ]
+  },
+  "it": {
+    "nom": "BTP / dette italienne",
+    "pays": "it",
+    "ccy": "EUR",
+    "principal": {
+      "yahoo": "IS0M.DE"
+    },
+    "principal_tv_query": [
+      [
+        "IS0M",
+        "XETR"
+      ]
+    ],
+    "queries": [
+      "Italy Govt Bond",
+      "Italy Government Bond",
+      "Italy BTP",
+      "BTP Government Bond",
+      "Xtrackers Italy"
+    ],
+    "must": [
+      [
+        "italy",
+        "btp"
+      ],
+      [
+        "govt",
+        "government",
+        "btp"
+      ]
+    ],
+    "exclude": [
+      "leverage",
+      "inverse",
+      "short",
+      "2x",
+      "3x",
+      "gbp",
+      "chf",
+      "sgd",
+      "mxn",
+      "hkd",
+      "usd hedged",
+      "inflation",
+      "linker",
+      "target maturity",
+      "ibonds",
+      "term",
+      "spain",
+      "bot ",
+      "ex-bank",
+      "fixed maturity",
+      "5x"
+    ]
+  },
+  "jp": {
+    "nom": "JGB / dette japonaise",
+    "pays": "jp",
+    "ccy": "EUR",
+    "principal": {
+      "yahoo": "XJSE.DE"
+    },
+    "principal_tv_query": [
+      [
+        "XJSE",
+        "XETR"
+      ]
+    ],
+    "queries": [
+      "Japan Government Bond",
+      "Japan Govt Bond",
+      "JGB"
+    ],
+    "must": [
+      [
+        "japan",
+        "jgb"
+      ],
+      [
+        "govt",
+        "government",
+        "jgb"
+      ]
+    ],
+    "exclude": [
+      "leverage",
+      "inverse",
+      "short",
+      "2x",
+      "3x",
+      "gbp",
+      "chf",
+      "sgd",
+      "mxn",
+      "hkd",
+      "usd hedged",
+      "inflation",
+      "linker",
+      "target maturity",
+      "ibonds",
+      "term"
+    ]
+  },
+  "kr": {
+    "nom": "KTB / dette coréenne",
+    "pays": "kr",
+    "ccy": "KRW",
+    "bench": "none",
+    "principal": {
+      "yahoo": "148070.KS"
+    },
+    "principal_tv_query": [
+      [
+        "148070",
+        "KRX"
+      ]
+    ],
+    "queries": [],
+    "must": [
+      [
+        "korea"
+      ],
+      [
+        "govt",
+        "government",
+        "treasury"
+      ]
+    ],
+    "exclude": [
+      "leverage",
+      "inverse",
+      "short",
+      "2x",
+      "3x",
+      "gbp",
+      "chf",
+      "sgd",
+      "mxn",
+      "hkd",
+      "usd hedged",
+      "inflation",
+      "linker",
+      "target maturity",
+      "ibonds",
+      "term"
+    ]
+  },
+  "au": {
+    "nom": "ACGB / dette australienne",
+    "pays": "au",
+    "ccy": "EUR",
+    "principal": {
+      "yahoo": "XCS2.DE"
+    },
+    "principal_tv_query": [
+      [
+        "XCS2",
+        "XETR"
+      ]
+    ],
+    "queries": [
+      "Australia Government Bond",
+      "Australian Government Bond",
+      "Australia Govt Bond"
+    ],
+    "must": [
+      [
+        "australia"
+      ],
+      [
+        "govt",
+        "government"
+      ]
+    ],
+    "exclude": [
+      "leverage",
+      "inverse",
+      "short",
+      "2x",
+      "3x",
+      "gbp",
+      "chf",
+      "sgd",
+      "mxn",
+      "hkd",
+      "usd hedged",
+      "inflation",
+      "linker",
+      "target maturity",
+      "ibonds",
+      "term"
+    ]
+  },
+  "es": {
+    "nom": "Bonos / dette espagnole",
+    "pays": "es",
+    "ccy": "EUR",
+    "principal": {
+      "yahoo": "IS0P.DE"
+    },
+    "principal_tv_query": [
+      [
+        "IS0P",
+        "XETR"
+      ]
+    ],
+    "queries": [
+      "Spain Government Bond",
+      "Spain Govt Bond",
+      "Spanish Government Bond",
+      "Bonos"
+    ],
+    "must": [
+      [
+        "spain",
+        "spanish"
+      ],
+      [
+        "govt",
+        "government",
+        "bonos",
+        "bond"
+      ]
+    ],
+    "exclude": [
+      "leverage",
+      "inverse",
+      "short",
+      "2x",
+      "3x",
+      "gbp",
+      "chf",
+      "sgd",
+      "mxn",
+      "hkd",
+      "usd hedged",
+      "inflation",
+      "linker",
+      "target maturity",
+      "ibonds",
+      "term",
+      "0-1",
+      "money market",
+      "equity"
+    ],
+    "verif_courtier": "à vérifier Revolut/XTB"
+  },
+  "gb": {
+    "nom": "Gilts / dette britannique",
+    "pays": "gb",
+    "ccy": "EUR",
+    "principal": {
+      "yahoo": "CBUS.DE"
+    },
+    "principal_tv_query": [
+      [
+        "CBUS",
+        "XETR"
+      ]
+    ],
+    "queries": [
+      "UK Gilts",
+      "UK Government Bond",
+      "United Kingdom Government Bond",
+      "Core UK Gilts"
+    ],
+    "must": [
+      [
+        "uk",
+        "united kingdom",
+        "gilt",
+        "gilts",
+        "britain",
+        "british"
+      ],
+      [
+        "govt",
+        "government",
+        "gilt",
+        "bond"
+      ]
+    ],
+    "exclude": [
+      "leverage",
+      "inverse",
+      "short",
+      "2x",
+      "3x",
+      "inflation",
+      "linker",
+      "index-linked",
+      "index linked",
+      "target maturity",
+      "ibonds",
+      "equity"
+    ],
+    "verif_courtier": "à vérifier Revolut/XTB",
+    "note": "Part iShares Core UK Gilts couverte en euro (ISIN IE000BI0GCN3), cotée sur Xetra."
+  }
+}

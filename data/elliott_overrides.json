@@ -1,0 +1,144 @@
+{
+  "note": "Comptages manuels d'Emmanuel, prioritaires sur le décompte automatique. Règle des zones vertes / rouges du 23/11/2026 (dessin validé « PARFAIT »).",
+  "date": "23/11/2026",
+  "overrides": {
+    "BITSTAMP:BTCUSD": {
+      "alias": [
+        "BTC",
+        "BTC-USD",
+        "BTCUSDT",
+        "CRYPTO:BTCUSD",
+        "XBTUSD",
+        "BTCUSD"
+      ],
+      "date": "23 nov. 2026",
+      "key": "c",
+      "zone": "verte",
+      "texte": "Vague C en cours (après (a) et (b)). Cibles de C : 0,471 = 55 081 (déjà touchée en mèche), 0,618 = 45 018 et 1 = 18 836. Retracements : 61,8 % à 47 186 et 78,6 % à 26 435. Comptage manuel d'Emmanuel, 23/11/2026.",
+      "cibles": {
+        "0,471": 55081,
+        "0,618": 45018,
+        "1": 18836
+      },
+      "retracements": {
+        "61,8 %": 47186,
+        "78,6 %": 26435
+      }
+    },
+    "CRYPTO:XRPUSD": {
+      "alias": [
+        "XRP",
+        "XRP-USD",
+        "XRPUSDT",
+        "XRPUSD"
+      ],
+      "date": "23 nov. 2026",
+      "key": "fin_a",
+      "zone": "rouge",
+      "texte": "Fin de vague A (A à 1,369 = 0,85963). Vague B attendue vers 1,93 à 2,26. Zone rouge : aucune entrée. Comptage manuel d'Emmanuel, 23/11/2026.",
+      "A": {
+        "ratio": "1,369",
+        "prix": 0.85963
+      },
+      "B_attendue": {
+        "bas": 1.93,
+        "haut": 2.26
+      }
+    },
+    "NYSE:NEM": {
+      "alias": [
+        "NEM",
+        "NEM.DE",
+        "NEM.AX",
+        "XETR:NEM",
+        "ASX:NEM"
+      ],
+      "date": "23 nov. 2026",
+      "key": "a",
+      "zone": "rouge",
+      "texte": "Vague A en cours, après une vague 5 à 133,40 (corps). A à 0,889 = 93,90. Vague B attendue vers 109,71 (0,382), 114,60 (0,5) ou 119,48 (0,618). Retracements : 38,2 % à 84,87, 61,8 % à 54,89 et 78,6 % à 33,55. Comptage manuel d'Emmanuel, 23/11/2026.",
+      "vague5_corps": 133.4,
+      "A": {
+        "ratio": "0,889",
+        "prix": 93.9
+      },
+      "B_attendue": {
+        "0,382": 109.71,
+        "0,5": 114.6,
+        "0,618": 119.48
+      },
+      "retracements": {
+        "38,2 %": 84.87,
+        "61,8 %": 54.89,
+        "78,6 %": 33.55
+      }
+    },
+    "NYSE:MFG": {
+      "alias": [
+        "MFG",
+        "TSE:8411",
+        "8411.T",
+        "8411",
+        "JPX:8411",
+        "TYO:8411"
+      ],
+      "date": "23 nov. 2026",
+      "key": "a",
+      "zone": "rouge",
+      "texte": "Vague 5 terminée à 11,45 (sommet), puis vague (a) en cours / atteinte à 0,661 = 8,88 (cours 9,29). Vague (b) attendue en 0,382 / 0,5 / 0,618 = 9,88 / 10,19 / 10,49. Zone rouge (vague A, puis B) : aucune entrée. Comptage manuel d'Emmanuel, 23/11/2026.",
+      "vague5_sommet": 11.45,
+      "A": {
+        "ratio": "0,661",
+        "prix": 8.88,
+        "cours": 9.29
+      },
+      "B_attendue": {
+        "0,382": 9.88,
+        "0,5": 10.19,
+        "0,618": 10.49
+      }
+    },
+    "EURONEXT:VK": {
+      "alias": [
+        "VK",
+        "VK.PA",
+        "EPA:VK",
+        "VALLOUREC",
+        "VK.FR"
+      ],
+      "date": "23 nov. 2026",
+      "key": "fin_4",
+      "zone": "verte",
+      "texte": "Fin de vague 4 à 0,592 = 14,845 (cours ~14,94). Vague 5 visée à 1,618 = 32,11. Zone verte (fin_4). Comptage manuel d'Emmanuel, 23/11/2026.",
+      "fin_4": {
+        "ratio": "0,592",
+        "prix": 14.845,
+        "cours": 14.94
+      },
+      "vague5_visee": {
+        "ratio": "1,618",
+        "prix": 32.11
+      }
+    },
+    "NASDAQ:PLTR": {
+      "alias": [
+        "PLTR"
+      ],
+      "date": "23 nov. 2026",
+      "key": "a",
+      "zone": "rouge",
+      "texte": "Vague 5 terminée à 209,05, vague (a) à 0,663 = 142,28 (cours 159,11). Vague (b) visée en 0,382 / 0,5 / 0,618 = 169,27 / 177,61 / 185,95. Zone rouge (vague A, puis B) : aucune entrée, note plafonnée à 4. Comptage manuel d'Emmanuel, 23/11/2026.",
+      "vague5_sommet": 209.05,
+      "A": {
+        "ratio": "0,663",
+        "prix": 142.28,
+        "cours": 159.11
+      },
+      "B_attendue": {
+        "0,382": 169.27,
+        "0,5": 177.61,
+        "0,618": 185.95
+      }
+    }
+  }
+}

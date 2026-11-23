@@ -1,0 +1,31 @@
+{
+ "note": "Lectures manuelles des graphiques weekly par Emmanuel. Elles remplacent la détection automatique des critères « Charte graphique » et « Divergence RSI weekly » (dernière bougie uniquement). Clés : elliott (phase pour le critère Vagues d'Elliott, ex. « a » = vague A après la 5), structure, figure, divergence (note −100 … +100 et texte). Une clé absente garde la détection automatique ; une valeur null signifie « rien à signaler ».",
+ "lectures": {
+  "NASDAQ:AMD": {
+   "alias": [
+    "AMD"
+   ],
+   "date": "17 nov. 2026",
+   "source": "Graphique weekly d'Emmanuel (TradingView), capture du 17/11/2026",
+   "elliott": {
+    "key": "a",
+    "texte": "Vague (5) terminée, vague A de correction en cours : attendre la fin de la C"
+   },
+   "structure": {
+    "note": -100,
+    "texte": "Structure : vagues (3)-(4)-(5) terminées, sommet de la (5) vers 660 $ (mèche) ; début de correction A-B-C"
+   },
+   "figure": null,
+   "divergence": {
+    "note": -100,
+    "texte": "Divergence RSI baissière (« Bear ») sur la vague (5) : prix plus haut, RSI plus bas ; MACD qui croise à la baisse"
+   },
+   "zone_attente": {
+    "haut": 420,
+    "bas": 391.78,
+    "texte": "entre 420 $ (creux de la vague 4) et 391,78 $ (Fibonacci 38,2 %)"
+   },
+   "commentaire": "Cours vers 494 $ ; zone d'attente entre 420 $ (creux de la vague 4) et 391,78 $ (Fibonacci 38,2 %) ; pas d'entrée avant la fin de la vague C"
+  }
+ }
+}
