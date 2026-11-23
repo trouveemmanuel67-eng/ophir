@@ -57,7 +57,7 @@ for key,name,f,sym,cur in idx_cfg:
     pk=max(range(len(vals)),key=lambda i:vals[i])
     indices[key]={'name':name,'symbol':sym,'currency':cur,'dates':dates,'close':vals,'last':{'date':dates[-1],'value':vals[-1]},
       'perf':perf(dates,vals,[25,10,5,1]),'peak':{'date':dates[pk],'value':vals[pk],'dd':round((vals[-1]/vals[pk]-1)*100,1)},
-      'tech':tech(dates,vals),'first':dates[0],'market_time':D.datetime.fromtimestamp(meta['regularMarketTime'],D.timezone.utc).strftime('%Y-%m-%d %H:%M UTC')}
+      'tech':tech(dates,vals),'first':dates[0],'market_time':(D.datetime.fromtimestamp(meta['regularMarketTime'],D.timezone.utc).strftime('%Y-%m-%d %H:%M UTC') if meta.get('regularMarketTime') else None)}
 # CAPE (multpl, données Shiller)
 s=open(B+'actions/multpl_cape.html').read()
 rows=re.findall(r'<td>([A-Z][a-z]{2} \d{1,2}, \d{4})</td>\s*<td>\s*(?:&#x2002;)?\s*([0-9.]+)\s*</td>',s)

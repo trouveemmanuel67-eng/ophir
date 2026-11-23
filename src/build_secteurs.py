@@ -121,7 +121,7 @@ for sym,fr,gics in SECT:
       'nom':fr,'gics':gics,'etf':etf_name,'etf_src':etf_src,'currency':meta.get('currency'),
       'date':ds[last],'close':round(c[last],2),'first':ds[0],
       'live':({'date':live[-1][0],'close':round(live[-1][1],2)} if live else None),
-      'market_time':D.datetime.fromtimestamp(meta['regularMarketTime'],ZoneInfo('Europe/Paris')).strftime('%Y-%m-%d %H:%M'),
+      'market_time':(D.datetime.fromtimestamp(meta['regularMarketTime'],ZoneInfo('Europe/Paris')).strftime('%Y-%m-%d %H:%M') if meta.get('regularMarketTime') else None),
       'sent':{'value':round(sv,1),'label':lab_s(sv),'avg':round(sum(vals)/len(vals),1),'min':mn,'max':mx,'series':ss,
               'components':[{'name':nm,'weight':wt,'value':None if p is None else round(p,1),'raw':rw} for (nm,wt),p,rw in zip(W_S,parts,raw)]},
       'av':{'score':a,'label':lab_av(a),'components':comps,'history':avh,'missing':K.missing(comps),

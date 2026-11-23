@@ -65,7 +65,9 @@ def _yfinance(sym: str):
         'chart': {
             'result': [{
                 'meta': {'symbol': sym, 'instrumentType': 'EQUITY', 'dataGranularity': '1wk',
-                         'source': 'yfinance'},
+                         'source': 'yfinance',
+                         'regularMarketTime': ts[-1] if ts else None,
+                         'regularMarketPrice': (col('Close')[-1] if col('Close') else None)},
                 'timestamp': ts,
                 'indicators': {'quote': [{
                     'open': col('Open'), 'high': col('High'), 'low': col('Low'),
