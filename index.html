@@ -315,7 +315,8 @@ th{color:var(--mut);font-weight:600;font-size:11px;letter-spacing:.06em;text-tra
 .cx-ind .s{font-size:10.5px;color:var(--mut);line-height:1.35;margin-top:1px}
 .cx-risk{margin:0 14px 8px;font-size:11px;line-height:1.45;color:#e6c27a}
 .cx-div,.cx-ell{font-size:12px;line-height:1.45;color:#ddd}
-.cx-liq{margin:4px 14px 10px;padding:8px 10px;border:1px solid rgba(230,194,122,.28);border-radius:10px;background:rgba(0,0,0,.22);font-size:12px;line-height:1.45;color:#ddd}
+.cx-liq-line{margin:0 14px 8px;font-size:12px;line-height:1.35;color:#c8c8c8}
+.cx-liq{margin:4px 0 10px;padding:8px 10px;border:1px solid rgba(230,194,122,.28);border-radius:10px;background:rgba(0,0,0,.22);font-size:12px;line-height:1.45;color:#ddd}
 .cx-liq-h{margin-bottom:6px;color:#eee}
 .cx-liq-hzn{margin-top:4px}
 .cx-liq-hzn .l{font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--mut);margin-right:6px}
@@ -2845,7 +2846,8 @@ function cxUsd(x){
     return (v>=10?v.toFixed(0):String(Math.round(v*100)/100)).replace('.',',')+' Md$';
   }
   const v=n/1e6;
-  const s=v>=10?v.toFixed(0):(v>=1?String(Math.round(v*10)/10):String(Math.round(v*10)/10));
+  const r=Math.round(v*10)/10;
+  const s=Number.isInteger(r)?String(r):r.toFixed(1);
   return s.replace('.',',')+' M$';
 }
 function cxLiqBands(arr, extra){
@@ -2854,6 +2856,19 @@ function cxLiqBands(arr, extra){
     const amt=b.usd==null?'montant n.c.':(cxUsd(b.usd)+(b.est?' est.':''));
     return (b.label||'')+(b.label? ' · ':'')+amt;
   }).join(' ; ')+(extra||'');
+}
+function cxLiqLine(s){
+  const L=s.liquidite;
+  if(!L) return '';
+  const a=L.above_usd, b=L.below_usd;
+  if(a==null && b==null) return '';
+  let dir='';
+  if(a!=null && b!=null){
+    if(a>b) dir=' → achat';
+    else if(b>a) dir=' → vente';
+    else dir=' → neutre';
+  }
+  return `<div class="cx-liq-line">Liquidité : ${cxUsd(a)} au-dessus / ${cxUsd(b)} en dessous${dir}</div>`;
 }
 function cxLiqBox(s){
   const L=s.liquidite;
@@ -2920,12 +2935,16 @@ function cxTile(s,i,pack){
   const chS=chC?((chC.charte&&chC.charte.source==='manuel')?'lecture manuelle · ':'')+'poids '+pw(chC.poids)+' % de la note APEX':'indisponible';
   return `<div class="sec" ${s.tv?`data-pos-tv="${s.tv||s.sym}"`:''}>
    <div class="sr">
-    <div class="sr-c sec-h sr-n"><b>${s.nom}</b><span>${s.sym} · ${s.sous}</span>${typeof srWarn==='function'?srWarn(s):''}${typeof posBadges==='function'?posBadges(s.tv||s.sym):''}${typeof dispoBadge==='function'?dispoBadge(s.tv):''}</div>
+    <div class="sr-c sec-h sr-n"><b>${s.nom}</b><span>${s.sym} · ${s.sous}</span>${typeof posBadges==='function'?posBadges(s.tv||s.sym):''}${typeof dispoBadge==='function'?dispoBadge(s.tv):''}</div>
     ${typeof srCells==='function'?srCells(s):''}
     <div class="sr-c sr-b"></div>
    </div>
-   ${s.liquidite?cxLiqBox(s):''}
-   <div class="cx-inds">
+   ${cxLiqLine(s)}
+   <details class="ind-meth sec-det" data-cx="${i}" data-pack="${pack||'crypto'}"><summary>Détail et historique 1 an</summary>
+     <p class="sr-close">Clôture hebdomadaire du ${dshort(s.date)} : <b>${cxPx(s)}</b> (${s.sym} · ${s.sous}) · bougie clôturée${s.live?` ; semaine en cours au ${dshort(s.live.date)} : ${fmt(s.live.close,s.live.close>=1000?0:2)} ${s.unit||'$'}, non utilisée`:''}.</p>
+     ${s.warn&&s.warn.length?s.warn.map(w=>`<div class="note">${w}</div>`).join(''):''}
+     ${s.liquidite?cxLiqBox(s):''}
+     <div class="cx-inds">
     <div class="cx-ind"><div class="l">RSI 14 hebdo</div><div class="v">${rsiV}</div><div class="s">${I.rsi_zone||'n.d.'} · ${div.type&&div.type!=='aucune'&&div.type!=='indisponible'?'divergence '+div.type:div.type==='indisponible'?'divergence n.d.':'pas de divergence récente'}</div></div>
     <div class="cx-ind"><div class="l">MACD 12/26/9</div><div class="v">${I.macd==null?'n.d.':fmt(I.macd,2)}</div><div class="s">${I.macd_texte||'n.d.'}</div></div>
     <div class="cx-ind"><div class="l">CCI 20 (corps)</div><div class="v">${cciV}</div><div class="s">${I.cci_zone||'n.d.'}</div></div>
@@ -2934,10 +2953,7 @@ function cxTile(s,i,pack){
     <div class="cx-ind"><div class="l">Vague d'Elliott</div><div class="v">${s.elliott&&s.elliott.phase?s.elliott.phase+' · '+ellV:'n.d.'}</div><div class="s">${ellS}</div></div>
     <div class="cx-ind"><div class="l">Charte graphique</div><div class="v">${chV}</div><div class="s">${chS}</div></div>
     <div class="cx-ind"><div class="l">Divergence RSI weekly</div><div class="v">${dvC&&dvC.note!=null?`<span style="color:${avCol(dvC.note)}">${sign(dvC.note,0)}</span>`:'non comptée'}</div><div class="s">${dvC&&dvC.note!=null?(dvC.note<0?'baissière':'haussière')+' · poids '+pw(dvC.poids)+' %':'aucune divergence récente · poids redistribué'}</div></div>
-   </div>
-   <details class="ind-meth sec-det" data-cx="${i}" data-pack="${pack||'crypto'}"><summary>Détail et historique 1 an</summary>
-     <p class="sr-close">Clôture hebdomadaire du ${dshort(s.date)} : <b>${cxPx(s)}</b> (${s.sym} · ${s.sous}) · bougie clôturée${s.live?` ; semaine en cours au ${dshort(s.live.date)} : ${fmt(s.live.close,s.live.close>=1000?0:2)} ${s.unit||'$'}, non utilisée`:''}.</p>
-     ${s.warn&&s.warn.length?s.warn.map(w=>`<div class="note">${w}</div>`).join(''):''}
+     </div>
      <p class="cx-div">${divS}</p>
      ${s.fng?`<p>Fear &amp; Greed (contexte, hors note) au ${dshort(s.fng.date)} : <b>${s.fng.value}</b> · ${s.fng.label}.</p>`:''}
      <div class="ind-subt" style="margin-top:8px">Sentiment, 52 semaines (moy. ${fmt(s.sent.avg,0)} · min ${fmt(s.sent.min[1],0)} le ${dshort(s.sent.min[0])} · max ${fmt(s.sent.max[1],0)} le ${dshort(s.sent.max[0])})</div>
@@ -2977,9 +2993,8 @@ function cxFichesHTML(){
   if(!F||!F.assets||!F.assets.length) return '';
   const S=F.assets,ok=S.filter(s=>s.ok),d=ok[0]&&ok[0].date;
   const cnt=z=>ok.filter(s=>s.av&&s.av.label&&s.av.label.includes(z)).length;
-  const nAth=ok.filter(s=>s.warn&&s.warn.length).length;
-  return `<div class="card no-group" id="cxFiches"><h2>BTC, ETH, XRP, SOL et MSTR · notes APEX</h2>
-   <div class="desc acc-sum">Bitcoin, Ether, XRP, Solana et Strategy (action NASDAQ, proxy bitcoin) · ${d?('clôtures hebdomadaires au '+dshort(d)):'dates indisponibles'} · <i>Achat</i> <b>${cnt('Achat')}</b> · <i>Neutre</i> <b>${cnt('Neutre')}</b> · <i>Vente</i> <b>${cnt('Vente')}</b>${nAth?` · <i>⚠ près du record</i> <b>${nAth}</b>`:''}</div>
+  return `<div class="card no-group no-acc" id="cxFiches"><h2>BTC, ETH, XRP, SOL et MSTR · notes APEX</h2>
+   <div class="desc acc-sum">Bitcoin, Ether, XRP, Solana et Strategy (action NASDAQ, proxy bitcoin) · ${d?('clôtures hebdomadaires au '+dshort(d)):'dates indisponibles'} · <i>Achat</i> <b>${cnt('Achat')}</b> · <i>Neutre</i> <b>${cnt('Neutre')}</b> · <i>Vente</i> <b>${cnt('Vente')}</b></div>
    <div class="sr-mention"><span class="sr-date">Bougies hebdomadaires clôturées uniquement${d?' · au '+dshort(d):(dSpan?' · du '+dSpan+' selon la fiche':'')}</span></div>
    <div class="sec-grid">${typeof srHead==='function'?srHead('Actif'):''}${S.map(cxTile).join('')}</div>
    <details class="ind-meth"><summary>Méthode et pondérations</summary>
