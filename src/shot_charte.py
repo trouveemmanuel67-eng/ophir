@@ -1,6 +1,8 @@
 """Contrôle JS de tous les onglets + captures du critère Charte graphique (fiche BTC, fiche AMD n'existe pas sur le site)."""
+import os as _os
+_APEX_ROOT = _os.path.abspath(_os.environ.get('APEX_ROOT') or _os.path.join(_os.path.dirname(__file__), '..'))
 from playwright.sync_api import sync_playwright
-B="/workspace/invest/patrimoine-dashboard/"; OUT=B+"captures/"
+B=_APEX_ROOT + "/"; OUT=B+"captures/"
 logs=[]
 with sync_playwright() as p:
     b=p.chromium.launch(executable_path="/usr/bin/google-chrome", args=["--no-sandbox","--disable-gpu"])

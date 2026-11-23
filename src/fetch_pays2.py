@@ -3,11 +3,13 @@ S) classement par secteur (ou industries pour le Japon / TOPIX-17) via le screen
 Q) une requête quoteSummary par candidat (profil, ratios, consensus), lente et reprenable
 H) clôtures hebdomadaires via l'API chart
 T) symboles TradingView.  -> data/pays/"""
+import os as _os
+_APEX_ROOT = _os.path.abspath(_os.environ.get('APEX_ROOT') or _os.path.join(_os.path.dirname(__file__), '..'))
 import json, os, sys, time, urllib.request, urllib.parse, datetime as D
 import yfinance as yf
 from yfinance import EquityQuery as Q
-B='/workspace/invest/patrimoine-dashboard/data/pays/'
-CFG=json.load(open('/workspace/invest/patrimoine-dashboard/src/pays_config.json'))
+B=_APEX_ROOT + '/data/pays/'
+CFG=json.load(open(_APEX_ROOT + '/src/pays_config.json'))
 UA={'User-Agent':'Mozilla/5.0'}
 N=int(os.environ.get('N','12'))
 now=lambda:D.datetime.now().strftime('%Y-%m-%d %H:%M')

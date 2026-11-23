@@ -1,7 +1,9 @@
 """Étape 1 : sections pays de l'onglet Actions — captures repliée / ouverte par pays, contrôles (ordre, lettres AV/S, couleurs miroir, défilement horizontal, console)."""
+import os as _os
+_APEX_ROOT = _os.path.abspath(_os.environ.get('APEX_ROOT') or _os.path.join(_os.path.dirname(__file__), '..'))
 from playwright.sync_api import sync_playwright
 import sys,re
-U=(sys.argv[1] if len(sys.argv)>1 else 'file:///workspace/invest/patrimoine-dashboard/index.html');O='/workspace/invest/patrimoine-dashboard/shots';TAG=sys.argv[2] if len(sys.argv)>2 else ''
+U=(sys.argv[1] if len(sys.argv)>1 else 'file://' + _APEX_ROOT + '/index.html');O=_APEX_ROOT + '/shots';TAG=sys.argv[2] if len(sys.argv)>2 else ''
 errs=[];fails=[]
 CC=['fr','de','it','jp','kr','au']
 with sync_playwright() as p:

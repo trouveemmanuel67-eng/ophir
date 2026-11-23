@@ -1,7 +1,9 @@
 """Télécharge les historiques hebdomadaires Yahoo (période max) pour l'onglet ÉNERGIE."""
+import os as _os
+_APEX_ROOT = _os.path.abspath(_os.environ.get('APEX_ROOT') or _os.path.join(_os.path.dirname(__file__), '..'))
 import json, os, time, urllib.parse, urllib.request, sys
 
-R = '/workspace/invest/patrimoine-dashboard/data/'
+R = _APEX_ROOT + '/data/'
 O = R + 'energie/'
 F = R + 'fibo_max/'
 YC = '/workspace/invest/indiv/yc/'

@@ -1,9 +1,11 @@
 """Étape 2 · taux souverains par pays -> data/obpays.json (graphiques 2 / 10 / 30 ans sur 25 ans, écarts contre le Bund, courbe).
 Sources : BCE (taux longs 10 ans FR / DE / IT, mensuels), Bundesbank (Bund 2 / 10 / 30 ans, courbe Svensson, quotidien),
 Ministère des Finances du Japon (JGB 2 / 10 / 30 ans, quotidien), OCDE (taux longs 10 ans et taux 3 mois, mensuels), FRED (Treasuries)."""
+import os as _os
+_APEX_ROOT = _os.path.abspath(_os.environ.get('APEX_ROOT') or _os.path.join(_os.path.dirname(__file__), '..'))
 import csv, json, os, datetime as D
 from zoneinfo import ZoneInfo
-R='/workspace/invest/patrimoine-dashboard/'; B=R+'data/obpays/'; O=R+'data/obligations/'
+R=_APEX_ROOT + '/'; B=R+'data/obpays/'; O=R+'data/obligations/'
 NOW=D.datetime.now(ZoneInfo('Europe/Paris')); START='2001-01'
 SRC=json.load(open(B+'sources.json'))
 def mt(p): return D.datetime.fromtimestamp(os.path.getmtime(p),ZoneInfo('Europe/Paris')).strftime('%Y-%m-%d %H:%M')

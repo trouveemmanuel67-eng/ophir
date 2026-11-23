@@ -1,7 +1,9 @@
 """Captures de contrôle après application de la règle Revolut (17/11/2026) : onglets Actions, Obligations, Métaux, Énergie."""
+import os as _os
+_APEX_ROOT = _os.path.abspath(_os.environ.get('APEX_ROOT') or _os.path.join(_os.path.dirname(__file__), '..'))
 import sys
 from playwright.sync_api import sync_playwright
-B="/workspace/invest/patrimoine-dashboard/"; OUT=B+"captures/revolut/"
+B=_APEX_ROOT + "/"; OUT=B+"captures/revolut/"
 URL=(sys.argv[1] if len(sys.argv)>1 else "file://"+B+"index.html")
 pref=(sys.argv[2] if len(sys.argv)>2 else "local")
 with sync_playwright() as p:

@@ -1,7 +1,9 @@
 """Captures de l'onglet Énergie (fiches APEX)."""
+import os as _os
+_APEX_ROOT = _os.path.abspath(_os.environ.get('APEX_ROOT') or _os.path.join(_os.path.dirname(__file__), '..'))
 import os
 from playwright.sync_api import sync_playwright
-B="/workspace/invest/patrimoine-dashboard/"
+B=_APEX_ROOT + "/"
 OUT=B+"captures/"
 os.makedirs(OUT, exist_ok=True)
 URL="file://"+B+"index.html#energie"

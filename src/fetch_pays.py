@@ -4,13 +4,15 @@ B) fiche Yahoo (secteur, industrie, pays, ratios) de chaque titre
 C) consensus (BPA, CA) + cours hebdomadaires des candidats retenus
 D) clôtures hebdomadaires des instruments sectoriels, ETF pays et indices de référence
 E) vérification des symboles TradingView.  -> data/pays/"""
+import os as _os
+_APEX_ROOT = _os.path.abspath(_os.environ.get('APEX_ROOT') or _os.path.join(_os.path.dirname(__file__), '..'))
 import json, os, sys, time, math, urllib.request, urllib.parse, datetime as D
 from concurrent.futures import ThreadPoolExecutor
 import yfinance as yf
 from yfinance import EquityQuery as Q
-B='/workspace/invest/patrimoine-dashboard/data/pays/'
+B=_APEX_ROOT + '/data/pays/'
 UA={'User-Agent':'Mozilla/5.0'}
-CFG=json.load(open('/workspace/invest/patrimoine-dashboard/src/pays_config.json'))
+CFG=json.load(open(_APEX_ROOT + '/src/pays_config.json'))
 def get(url,h=None): return urllib.request.urlopen(urllib.request.Request(url,headers={**UA,**(h or {})}),timeout=40).read()
 def clean(x):
     if hasattr(x,'item'): x=x.item()

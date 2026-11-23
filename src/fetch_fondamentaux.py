@@ -1,9 +1,11 @@
 """Composants des ETF SPDR sectoriels (fichiers officiels State Street) + données fondamentales,
 consensus d'analystes et cours hebdomadaires Yahoo Finance (yfinance) + vérification du symbole TradingView.
 -> data/secteurs/holdings/*.xlsx, data/secteurs/fond/<TICKER>.json, data/secteurs/tv_<SYM>.json"""
+import os as _os
+_APEX_ROOT = _os.path.abspath(_os.environ.get('APEX_ROOT') or _os.path.join(_os.path.dirname(__file__), '..'))
 import json, os, sys, time, math, urllib.request, datetime as D
 import openpyxl, yfinance as yf
-B='/workspace/invest/patrimoine-dashboard/data/secteurs/'
+B=_APEX_ROOT + '/data/secteurs/'
 ETFS=['XLC','XLY','XLP','XLE','XLF','XLV','XLI','XLB','XLRE','XLK','XLU']
 TOP=int(os.environ.get('TOP','20'))
 UA={'User-Agent':'Mozilla/5.0'}

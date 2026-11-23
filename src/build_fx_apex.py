@@ -2,6 +2,8 @@
 Une note positive = contexte plus favorable à l'achat de cette devise contre l'euro.
 Source : Yahoo Finance hebdo (bougies clôturées), série inversée. DXY non noté.
 """
+import os as _os
+_APEX_ROOT = _os.path.abspath(_os.environ.get('APEX_ROOT') or _os.path.join(_os.path.dirname(__file__), '..'))
 import elliott_zones as EZ
 import json, os, sys, math, datetime as D, urllib.parse
 from zoneinfo import ZoneInfo
@@ -12,7 +14,7 @@ import ind_core as K
 import fibo as FB
 import charte as CH
 
-B = '/workspace/invest/patrimoine-dashboard/data/'
+B = _APEX_ROOT + '/data/'
 L = B + 'liquidites/'
 NOW = D.datetime.now(ZoneInfo('Europe/Paris'))
 TODAY = NOW.date()

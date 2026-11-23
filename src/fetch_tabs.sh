@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
+: "${APEX_ROOT:=$(cd "$(dirname "$0")/.." && pwd)}"
 # Retélécharge les données brutes des onglets Actions, Crypto et Liquidités dans data/.
 # Ensuite : python3 src/build_data_tabs.py && python3 src/build.py && python3 src/shot.py
 set -e
-D=/workspace/invest/patrimoine-dashboard/data; mkdir -p $D/{actions,crypto,liquidites}
+D=${APEX_ROOT}/data; mkdir -p $D/{actions,crypto,liquidites}
 P2=$(date +%s); UA="Mozilla/5.0"
 for s in %5EFCHI %5EGSPC %5E990100-USD-STRD DX-Y.NYB; do
   curl -sf -m 30 -A "$UA" "https://query2.finance.yahoo.com/v8/finance/chart/$s?period1=946684800&period2=$P2&interval=1wk&events=history" -o $D/actions/yahoo_1wk_$s.json; sleep 3; done
@@ -14,7 +15,7 @@ import json,urllib.request
 for a in ['btc','eth','xrp']:
     url=f"https://community-api.coinmetrics.io/v4/timeseries/asset-metrics?assets={a}&metrics=PriceUSD,CapMrktCurUSD&frequency=1d&page_size=10000&start_time=2010-01-01"; r=[]
     while url: d=json.load(urllib.request.urlopen(url,timeout=60)); r+=d['data']; url=d.get('next_page_url')
-    json.dump(r,open(f'/workspace/invest/patrimoine-dashboard/data/crypto/coinmetrics_{a}_daily.json','w'))
+    json.dump(r,open(f'${APEX_ROOT}/data/crypto/coinmetrics_{a}_daily.json','w'))
 P
 for s in BTCUSDT ETHUSDT; do curl -sf -m 30 "https://api.binance.com/api/v3/klines?symbol=$s&interval=1w&limit=1000" -o $D/crypto/binance_${s}_1w.json; done
 for s in XRP-USD SOL-USD; do curl -sf -m 30 -A "$UA" "https://query2.finance.yahoo.com/v8/finance/chart/$s?period1=-2208988800&period2=$P2&interval=1wk&events=history" -o $D/crypto/yahoo_1wk_$s.json; cp -f $D/crypto/yahoo_1wk_$s.json $D/fibo_max/$s.json; sleep 2; done
@@ -31,8 +32,8 @@ mkdir -p $D/indicateur
 curl -sf -m 30 "https://api.alternative.me/fng/?limit=400&format=json" -o $D/indicateur/alternative_fng_400.json
 START=$(date -d "-410 days" +%Y-%m-%d)
 curl -sf -m 30 -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36" -H "Accept: application/json" -H "Referer: https://edition.cnn.com/" -H "Origin: https://edition.cnn.com" "https://production.dataviz.cnn.io/index/fearandgreed/graphdata/$START" -o $D/indicateur/cnn_fng.json
-bash /workspace/invest/patrimoine-dashboard/src/fetch_secteurs.sh
-python3 /workspace/invest/patrimoine-dashboard/src/fetch_fondamentaux.py   # ~15 min (yfinance, State Street, TradingView)
-OBL_KEEP=1 python3 /workspace/invest/patrimoine-dashboard/src/fetch_obligations.py   # ~5-25 min (FRED, BCE, Yahoo, TradingView ; OBL_KEEP=1 garde les fiches ETF de moins de 24 h)
+bash ${APEX_ROOT}/src/fetch_secteurs.sh
+python3 ${APEX_ROOT}/src/fetch_fondamentaux.py   # ~15 min (yfinance, State Street, TradingView)
+OBL_KEEP=1 python3 ${APEX_ROOT}/src/fetch_obligations.py   # ~5-25 min (FRED, BCE, Yahoo, TradingView ; OBL_KEEP=1 garde les fiches ETF de moins de 24 h)
 # Ensuite : python3 src/build_data_tabs.py && python3 src/build_secteurs.py && python3 src/build_fondamentaux.py && python3 src/build_obligations.py && python3 src/build_indicateur.py && python3 src/build_achatvente.py && python3 src/build.py && python3 src/shot.py && python3 src/shot_indicateur.py && python3 src/shot_achatvente.py && python3 src/shot_obligations.py
 echo "Données brutes mises à jour."

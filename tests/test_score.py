@@ -92,3 +92,35 @@ def test_fmt10():
     assert fmt10(7.5) == '7,5'
     assert fmt10(10.0) == '10'
     assert fmt10(None) == '–'
+
+def test_scripts_sans_chemin_boite():
+    """Les scripts du pipeline quotidien ne doivent plus pointer vers le chemin de la boîte."""
+    from pathlib import Path
+    hard = '/workspace/invest/patrimoine-dashboard'
+    src = Path(__file__).resolve().parents[1] / 'src'
+    pipeline = [
+        'build.py', 'build_apex10.py', 'build_apex_bars.py', 'build_achatvente.py',
+        'build_indicateur.py', 'build_data_tabs.py', 'build_secteurs.py', 'build_pays.py',
+        'build_energie.py', 'build_metaux.py', 'build_obligations.py', 'build_crypto_fiches.py',
+        'build_fx_apex.py', 'build_obpays.py', 'liquidite_crypto.py',
+    ]
+    hits = []
+    for name in pipeline:
+        text = (src / name).read_text(encoding='utf-8')
+        if hard in text:
+            hits.append(name)
+    assert hits == [], hits
+
+
+def test_actifs_a_suivre_exclut_hors():
+    from apex.config import actifs, actifs_a_suivre
+    tous = actifs()
+    suivis = actifs_a_suivre()
+    hors = [a for a in tous if a.get('univers') == 'hors']
+    pos = [a for a in suivis if a.get('univers') == 'positions_seulement']
+    assert len(hors) == 157
+    assert all(a.get('univers') != 'hors' for a in suivis)
+    tvs = {a['tv'] for a in pos}
+    assert 'TSE:6954' in tvs and 'NYSE:PKX' in tvs
+    assert len(suivis) == 449  # 447 visibles + 2 positions seulement
+

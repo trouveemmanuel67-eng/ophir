@@ -2,13 +2,15 @@
 Ne recalcule pas les fiches déjà publiées (secteurs, pays têtes, énergie, etc.).
 Aucune note n'est inventée : historique < 52 semaines → données insuffisantes.
 """
+import os as _os
+_APEX_ROOT = _os.path.abspath(_os.environ.get('APEX_ROOT') or _os.path.join(_os.path.dirname(__file__), '..'))
 import json, os, sys, traceback, urllib.parse, datetime as D
 from zoneinfo import ZoneInfo
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import ind_core as K
 import fibo as FB
 
-B = '/workspace/invest/patrimoine-dashboard/data/'
+B = _APEX_ROOT + '/data/'
 NOW = D.datetime.now(ZoneInfo('Europe/Paris'))
 MIN_W = 52
 

@@ -11,9 +11,11 @@ le 23/11/2026). Les liquidations déjà exécutées (historiques) ne sont pas
 ce que mesure cet indicateur.
 """
 from __future__ import annotations
+import os as _os
+_APEX_ROOT = _os.path.abspath(_os.environ.get('APEX_ROOT') or _os.path.join(_os.path.dirname(__file__), '..'))
 import json, os
 
-B = '/workspace/invest/patrimoine-dashboard/data/'
+B = _APEX_ROOT + '/data/'
 PATH = B + 'crypto_liquidite.json'
 
 # Pondération des horizons (1 an plus fort que 1 mois)

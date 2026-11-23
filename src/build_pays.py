@@ -2,13 +2,15 @@
 Instrument de chaque secteur : ETF sectoriel coté (Japon NEXT FUNDS TOPIX-17, Corée KODEX / TIGER), indice sectoriel officiel (Australie S&P/ASX 200)
 ou, à défaut, « panier APEX » : panier pondéré par la capitalisation (plafond 25 %) des plus grandes valeurs du pays dans le secteur Yahoo.
 Indicateurs : mêmes formules que les secteurs USA (src/ind_core.py), force relative contre l'indice national. Bougies hebdomadaires clôturées uniquement."""
+import os as _os
+_APEX_ROOT = _os.path.abspath(_os.environ.get('APEX_ROOT') or _os.path.join(_os.path.dirname(__file__), '..'))
 PANIER_MAX=10
 PANIER_ACTUEL=10
 
 import json, os, sys, datetime as D, urllib.parse
 from zoneinfo import ZoneInfo
 sys.path.insert(0,os.path.dirname(__file__)); import ind_core as K, revolut_rules as RV, courtier_cash as CC
-R='/workspace/invest/patrimoine-dashboard/'; B=R+'data/pays/'
+R=_APEX_ROOT + '/'; B=R+'data/pays/'
 CFG=json.load(open(R+'src/pays_config.json'))['countries']; SCR=json.load(open(B+'screen.json'))
 _SW=json.load(open(R+'src/swiss_xtb.json'))
 SWISS_YAHOO=set(x['yahoo'] for x in _SW.get('stocks') or [])

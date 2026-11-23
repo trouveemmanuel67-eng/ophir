@@ -2,10 +2,12 @@
 pour les 11 secteurs GICS, mesurés par les ETF SPDR Select Sector (Yahoo Finance, clôtures hebdomadaires).
 Indices composites APEX, non officiels. Bougies hebdomadaires clôturées uniquement, sans données futures.
 -> data/secteurs.json"""
+import os as _os
+_APEX_ROOT = _os.path.abspath(_os.environ.get('APEX_ROOT') or _os.path.join(_os.path.dirname(__file__), '..'))
 import json, os, math, datetime as D, statistics as st, urllib.parse
 from zoneinfo import ZoneInfo
 import sys; sys.path.insert(0,os.path.dirname(os.path.abspath(__file__))); import elliott as E, ind_core as K, fibo as FB, charte as CH, revolut_rules as RV
-B='/workspace/invest/patrimoine-dashboard/data/'
+B=_APEX_ROOT + '/data/'
 NOW=D.datetime.now(ZoneInfo('Europe/Paris'))
 clip=lambda x:max(-100.0,min(100.0,x))
 def prank(h,v):
@@ -107,7 +109,7 @@ for sym,fr,gics in SECT:
     elif dd52[last]>=-2: warn.append(f"Proche du plus haut sur 52 semaines ({fs(dd52[last])} %) : risque d'entrée au sommet.")
     vals=[x[1] for x in ss]; mn=min(ss,key=lambda x:x[1]); mx=max(ss,key=lambda x:x[1])
     etf_name,etf_src=meta.get('longName'),'Yahoo Finance'
-    hx=f'/workspace/invest/patrimoine-dashboard/data/secteurs/holdings/{sym}.xlsx'
+    hx=f'{_APEX_ROOT}/data/secteurs/holdings/{sym}.xlsx'
     if False and os.path.exists(hx):
         try:
             import openpyxl

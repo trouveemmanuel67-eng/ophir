@@ -1,7 +1,8 @@
 #!/bin/bash
+: "${APEX_ROOT:=$(cd "$(dirname "$0")/.." && pwd)}"
 # Recalcule toutes les notes AV / sentiment sur les vraies bougies hebdo closes, puis la note /10, puis le site.
 set -euo pipefail
-SRC=/workspace/invest/patrimoine-dashboard/src
+SRC=${APEX_ROOT}/src
 LOG=/tmp/rebuild_apex10.log
 cd "$SRC"
 exec > >(tee -a "$LOG") 2>&1

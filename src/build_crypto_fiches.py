@@ -13,13 +13,15 @@ alternative.me (Fear & Greed, contexte, hors note).
 
 -> data/crypto_fiches.json  (inclus ensuite dans tabs_data.json)
 """
+import os as _os
+_APEX_ROOT = _os.path.abspath(_os.environ.get('APEX_ROOT') or _os.path.join(_os.path.dirname(__file__), '..'))
 import elliott_zones as EZ
 import json, os, sys, math, datetime as D, statistics as st
 from zoneinfo import ZoneInfo
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import elliott as E, ind_core as K, fibo as FB
 
-B = '/workspace/invest/patrimoine-dashboard/data/'
+B = _APEX_ROOT + '/data/'
 NOW = D.datetime.now(ZoneInfo('Europe/Paris'))
 TODAY = NOW.date()
 f1 = K.f1

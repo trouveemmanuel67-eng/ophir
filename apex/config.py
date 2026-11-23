@@ -24,6 +24,17 @@ def actifs() -> list:
 def actifs_by_tv() -> dict:
     return {a['tv']: a for a in actifs() if a.get('tv')}
 
+def actifs_a_suivre() -> list:
+    """Univers réduit (t322u) : visibles + titres détenus hors pays. Exclut univers=hors."""
+    out = []
+    for a in actifs():
+        u = a.get('univers')
+        if u == 'hors' or a.get('visible') is False:
+            continue
+        out.append(a)
+    return out
+
+
 @lru_cache(maxsize=1)
 def overrides() -> dict:
     """Overrides Elliott : le fichier reste à part et prime."""

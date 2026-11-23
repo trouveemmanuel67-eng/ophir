@@ -7,6 +7,8 @@ disponibles hors sentiment, poids renormalisés) et la note /10 (timing seul +
 plafonds / bonus Elliott automatique), puis on mesure le rendement à 4, 12 et 26
 semaines. Aucune promesse de rendement.
 """
+import os as _os
+_APEX_ROOT = _os.path.abspath(_os.environ.get('APEX_ROOT') or _os.path.join(_os.path.dirname(__file__), '..'))
 import json, os, sys, math, time, statistics as st
 from collections import defaultdict
 from datetime import date
@@ -21,7 +23,7 @@ import charte as CH
 import elliott_zones as EZ
 import note_apex as N
 
-B = Path('/workspace/invest/patrimoine-dashboard/data')
+B = Path(_APEX_ROOT + '/data')
 OUT_MD = Path('/workspace/invest/backtest_apex_2026-11-23.md')
 OUT_JSON = Path('/workspace/invest/backtest_apex_2026-11-23.json')
 

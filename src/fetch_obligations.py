@@ -1,9 +1,11 @@
 """Onglet OBLIGATIONS : données brutes -> data/obligations/
 FRED (taux, courbe, TIPS, breakeven, spreads ICE BofA, Fed), BCE (taux 10 ans FR/DE, taux de dépôt), Yahoo (ETF obligataires hebdo, ^MOVE),
 recherche TradingView (ETF UCITS cotés sur Xetra / Euronext) + fiches Yahoo des candidats."""
+import os as _os
+_APEX_ROOT = _os.path.abspath(_os.environ.get('APEX_ROOT') or _os.path.join(_os.path.dirname(__file__), '..'))
 import json, os, time, math, urllib.request, urllib.parse, datetime as D
 import yfinance as yf
-B='/workspace/invest/patrimoine-dashboard/data/obligations/'
+B=_APEX_ROOT + '/data/obligations/'
 UA={'User-Agent':'Mozilla/5.0'}
 def get(url,h=None,t=90):
     """curl (plus fiable que urllib avec FRED), 4 essais"""
@@ -34,7 +36,7 @@ def tv(q,ex=''):
     u='https://symbol-search.tradingview.com/symbol_search/v3/?text='+urllib.parse.quote(q)+'&hl=0&exchange='+ex+'&lang=en&search_type=undefined&domain=production'
     try: return json.loads(get(u,{'Origin':'https://www.tradingview.com','Referer':'https://www.tradingview.com/'},30)).get('symbols',[])
     except Exception as e: return []
-SEG=json.load(open('/workspace/invest/patrimoine-dashboard/src/obligations_segments.json'))
+SEG=json.load(open(_APEX_ROOT + '/src/obligations_segments.json'))
 tvres={}
 for k,s in SEG.items():
     found=[]

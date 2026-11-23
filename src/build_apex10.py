@@ -1,11 +1,13 @@
 """Attache la note APEX /10 à toutes les listes publiées (après le recalcul AV)."""
+import os as _os
+_APEX_ROOT = _os.path.abspath(_os.environ.get('APEX_ROOT') or _os.path.join(_os.path.dirname(__file__), '..'))
 import json, os, sys, datetime as D
 from zoneinfo import ZoneInfo
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import note_apex as N
 import liquidite_crypto as LQ
 
-B = '/workspace/invest/patrimoine-dashboard/data/'
+B = _APEX_ROOT + '/data/'
 NOW = D.datetime.now(ZoneInfo('Europe/Paris'))
 
 

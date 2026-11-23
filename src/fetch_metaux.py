@@ -1,7 +1,9 @@
 """Onglet MÉTAUX PRÉCIEUX : cours hebdomadaires Yahoo (contrats à terme COMEX / NYMEX, ETC physiques, minières), FRED (EUR/USD, taux réel 10 ans US),
 CFTC (positions Commitments of Traders, rapport « disaggregated », contrats à terme seuls). -> data/metaux/"""
+import os as _os
+_APEX_ROOT = _os.path.abspath(_os.environ.get('APEX_ROOT') or _os.path.join(_os.path.dirname(__file__), '..'))
 import json, os, time, io, zipfile, csv, urllib.request, urllib.parse, datetime as D
-B='/workspace/invest/patrimoine-dashboard/data/metaux/'; UA={'User-Agent':'Mozilla/5.0'}
+B=_APEX_ROOT + '/data/metaux/'; UA={'User-Agent':'Mozilla/5.0'}
 def get(u,h=None,t=120): return urllib.request.urlopen(urllib.request.Request(u,headers={**UA,**(h or {})}),timeout=t).read()
 P2=int(time.time())
 SY=['GC=F','SI=F','PL=F','PA=F','DBC','^GSPC','4GLD.DE','XAD5.DE','8PSG.DE','PPFB.DE','GOLD.PA','G2X.DE','IS0E.DE','XAD6.DE','PHAG.L','SSLN.L','SILV.L','PHPT.L','IPLT.L','XAD3.DE','PHPD.L','SPAL.L',

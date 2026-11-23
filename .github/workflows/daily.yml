@@ -61,8 +61,9 @@ jobs:
         uses: actions/cache@v4
         with:
           path: data/yahoo_cache
-          key: yahoo-cache-${{ github.run_id }}
+          key: yahoo-cache-v1-${{ github.run_id }}
           restore-keys: |
+            yahoo-cache-v1-
             yahoo-cache-
 
       - name: Tests

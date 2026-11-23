@@ -1,15 +1,17 @@
 """Étape 2 · obligations par pays : ETF de référence (IS0L, IS0M, XJSE, 148070, XCS2), recherche TradingView des ETF UCITS
 et fiches Yahoo des candidats, sans relancer tout fetch_obligations.py. Fusionne dans data/obligations/{tv_search,candidats}.json."""
+import os as _os
+_APEX_ROOT = _os.path.abspath(_os.environ.get('APEX_ROOT') or _os.path.join(_os.path.dirname(__file__), '..'))
 import json, os, time, datetime as D, sys
 sys.argv=[sys.argv[0]]
 import importlib.util
 import yfinance as yf
-B='/workspace/invest/patrimoine-dashboard/data/obligations/'
-exec(open('/workspace/invest/patrimoine-dashboard/src/fetch_obligations.py').read().split("FRED=[")[0])   # get(), clean()
+B=_APEX_ROOT + '/data/obligations/'
+exec(open(_APEX_ROOT + '/src/fetch_obligations.py').read().split("FRED=[")[0])   # get(), clean()
 def weekly(sym):
     h=yf.Ticker(sym).history(period='max',interval='1wk',auto_adjust=False)
     return [[str(i)[:19],clean(r['Close'])] for i,r in h.iterrows() if clean(r['Close']) is not None]
-SEG=json.load(open('/workspace/invest/patrimoine-dashboard/src/obligations_segments.json'))
+SEG=json.load(open(_APEX_ROOT + '/src/obligations_segments.json'))
 NEW=['de','it','jp','kr','au']
 for k in NEW:
     s=SEG[k]['principal']['yahoo']

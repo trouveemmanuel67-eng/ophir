@@ -1,8 +1,10 @@
 """Onglet MÉTAUX PRÉCIEUX (complément) : cours Yahoo des ETC platine / palladium / argent cotés sur Xetra, fiches quoteSummary des minières
 (santé financière et croissance prévue), recherche TradingView de chaque instrument (vérification symbole + place). -> data/metaux/"""
+import os as _os
+_APEX_ROOT = _os.path.abspath(_os.environ.get('APEX_ROOT') or _os.path.join(_os.path.dirname(__file__), '..'))
 import json, os, time, urllib.request, urllib.parse, datetime as D
 from yfinance.data import YfData
-B='/workspace/invest/patrimoine-dashboard/data/metaux/'; UA={'User-Agent':'Mozilla/5.0'}
+B=_APEX_ROOT + '/data/metaux/'; UA={'User-Agent':'Mozilla/5.0'}
 now=lambda:D.datetime.now().strftime('%Y-%m-%d %H:%M')
 def get(u,h=None,t=60): return urllib.request.urlopen(urllib.request.Request(u,headers={**UA,**(h or {})}),timeout=t).read()
 P2=int(time.time())

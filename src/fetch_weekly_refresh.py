@@ -1,22 +1,24 @@
 """Retélécharge toutes les séries hebdomadaires Yahoo déjà en cache (après clôture du vendredi).
 Écrit le même historique maximal dans tous les chemins existants d'un symbole."""
+import os as _os
+_APEX_ROOT = _os.path.abspath(_os.environ.get('APEX_ROOT') or _os.path.join(_os.path.dirname(__file__), '..'))
 import os, sys, json, glob, time, urllib.parse, urllib.request, datetime as D
 from collections import defaultdict
 
 ROOTS = [
-    '/workspace/invest/patrimoine-dashboard/data/fibo_max/*.json',
+    _APEX_ROOT + '/data/fibo_max/*.json',
     '/workspace/invest/indiv/y/*.json',
     '/workspace/invest/indiv/yc/*.json',
-    '/workspace/invest/patrimoine-dashboard/data/secteurs/yahoo_1wk_*.json',
-    '/workspace/invest/patrimoine-dashboard/data/pays/yahoo_1wk_*.json',
-    '/workspace/invest/patrimoine-dashboard/data/pays/wk/*.json',
-    '/workspace/invest/patrimoine-dashboard/data/actions/yahoo_1wk_*.json',
-    '/workspace/invest/patrimoine-dashboard/data/energie/yahoo_1wk_*.json',
-    '/workspace/invest/patrimoine-dashboard/data/metaux/y_*.json',
-    '/workspace/invest/patrimoine-dashboard/data/obligations/w_*.json',
-    '/workspace/invest/patrimoine-dashboard/data/crypto/yahoo_1wk_*.json',
-    '/workspace/invest/patrimoine-dashboard/data/liquidites/yahoo_1wk_*.json',
-    '/workspace/invest/patrimoine-dashboard/data/fx/yahoo_1wk_*.json',
+    _APEX_ROOT + '/data/secteurs/yahoo_1wk_*.json',
+    _APEX_ROOT + '/data/pays/yahoo_1wk_*.json',
+    _APEX_ROOT + '/data/pays/wk/*.json',
+    _APEX_ROOT + '/data/actions/yahoo_1wk_*.json',
+    _APEX_ROOT + '/data/energie/yahoo_1wk_*.json',
+    _APEX_ROOT + '/data/metaux/y_*.json',
+    _APEX_ROOT + '/data/obligations/w_*.json',
+    _APEX_ROOT + '/data/crypto/yahoo_1wk_*.json',
+    _APEX_ROOT + '/data/liquidites/yahoo_1wk_*.json',
+    _APEX_ROOT + '/data/fx/yahoo_1wk_*.json',
 ]
 
 PREFIXES = (

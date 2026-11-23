@@ -1,10 +1,12 @@
 """Compteur ACHAT / VENTE par onglet -> data/achatvente.json
 Chaque composante est notée de −100 à +100 par une règle explicite (voir RULES), puis pondérée.
 Score = Σ(poids × note) / Σ(poids des composantes disponibles). Bougies hebdomadaires clôturées uniquement."""
+import os as _os
+_APEX_ROOT = _os.path.abspath(_os.environ.get('APEX_ROOT') or _os.path.join(_os.path.dirname(__file__), '..'))
 import json, csv, re, os, sys, datetime as D, bisect
 sys.path.insert(0,os.path.dirname(os.path.abspath(__file__))); import elliott as E, ind_core as K, fibo as FB, charte as CH
 W_EL=K.W_EL; W_FI=K.W_FI; W_CH=K.W_CH; W_DV=K.W_DV; SC=K.SC   # 17/11/2026 : Elliott 15 % + Fibonacci 15 % + Charte graphique 20 % + Divergence RSI weekly 10 %, autres poids ×0,40 (proportions conservées)
-B='/workspace/invest/patrimoine-dashboard/data/'
+B=_APEX_ROOT + '/data/'
 NOW=D.datetime.now(D.timezone.utc)
 clip=lambda x:max(-100.0,min(100.0,x))
 def prank(h,v): return 100*(sum(1 for x in h if x<v)+0.5*sum(1 for x in h if x==v))/len(h)

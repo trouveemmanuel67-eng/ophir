@@ -1,7 +1,9 @@
 """Historique hebdomadaire MAXIMAL Yahoo (period1=1900, interval=1wk) pour le retracement de Fibonacci base → ATH.
 Attention : range=max renvoie des bougies trimestrielles/mensuelles ; il faut period1/period2 pour garder l'hebdo."""
+import os as _os
+_APEX_ROOT = _os.path.abspath(_os.environ.get('APEX_ROOT') or _os.path.join(_os.path.dirname(__file__), '..'))
 import json,os,glob,time,urllib.parse,urllib.request,sys
-R='/workspace/invest/patrimoine-dashboard/data/'; O=R+'fibo_max/'
+R=_APEX_ROOT + '/data/'; O=R+'fibo_max/'
 S=set()
 uq=lambda f:urllib.parse.unquote(f)
 for f in glob.glob(R+'secteurs/yahoo_1wk_*.json')+glob.glob(R+'pays/yahoo_1wk_*.json')+glob.glob(R+'actions/yahoo_1wk_*.json'):

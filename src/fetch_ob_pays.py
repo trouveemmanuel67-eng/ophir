@@ -1,8 +1,10 @@
 """Onglet Obligations · taux souverains par pays (25 ans) -> data/obpays/
 OCDE (SDMX, taux longs 10 ans IRLT et taux 3 mois IR3TIB, mensuels), Bundesbank (Bund 2, 10, 30 ans, quotidiens),
 Ministère des Finances du Japon (JGB 2, 10, 30 ans, quotidiens). États-Unis : FRED (déjà récupéré par fetch_obligations.py)."""
+import os as _os
+_APEX_ROOT = _os.path.abspath(_os.environ.get('APEX_ROOT') or _os.path.join(_os.path.dirname(__file__), '..'))
 import subprocess, time, datetime as D, json
-B='/workspace/invest/patrimoine-dashboard/data/obpays/'
+B=_APEX_ROOT + '/data/obpays/'
 def get(url,t=120):
     for k in range(4):
         r=subprocess.run(['curl','-sfL','-m',str(t),'-A','Mozilla/5.0',url],capture_output=True)

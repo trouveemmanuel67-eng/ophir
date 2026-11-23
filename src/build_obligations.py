@@ -1,10 +1,11 @@
-import re
 """Onglet OBLIGATIONS -> data/obligations.json : graphiques, sentiment (0-100), ACHAT / VENTE (−100…+100),
 segments (sentiment + achat/vente + liste ETF UCITS). Indices composites APEX, non officiels. Bougies hebdo clôturées uniquement."""
-import json, sys as _s; _s.path.insert(0,'/workspace/invest/patrimoine-dashboard/src'); import revolut_rules as RV; import json, csv, os, math, bisect, statistics as st, datetime as D, re
+import os as _os
+_APEX_ROOT = _os.path.abspath(_os.environ.get('APEX_ROOT') or _os.path.join(_os.path.dirname(__file__), '..'))
+import json, sys as _s; _s.path.insert(0,_APEX_ROOT + '/src'); import revolut_rules as RV; import json, csv, os, math, bisect, statistics as st, datetime as D, re
 from zoneinfo import ZoneInfo
 import sys; sys.path.insert(0,os.path.dirname(os.path.abspath(__file__))); import elliott as E, fibo as FB, charte as CH, ind_core as K
-B='/workspace/invest/patrimoine-dashboard/data/obligations/'
+B=_APEX_ROOT + '/data/obligations/'
 NOW=D.datetime.now(ZoneInfo('Europe/Paris')); TODAY=NOW.date()
 clip=lambda x:max(-100.0,min(100.0,x))
 def mt(p): return D.datetime.fromtimestamp(os.path.getmtime(B+p),ZoneInfo('Europe/Paris')).strftime('%Y-%m-%d %H:%M')
@@ -176,13 +177,13 @@ out['av']={'score':a,'label':lab_av(a),'date':dates[-1],'sens':"Score > 0 : cont
   'components':c,'missing':[x['nom'] for x in c if x['note'] is None and not x.get('facultatif')],'history':hist,'avg':round(sum(x[1] for x in hist)/len(hist),1),'min':min(hist,key=lambda x:x[1]),'max':max(hist,key=lambda x:x[1]),
   'method':"Douze composantes notées de −100 à +100 puis pondérées : vagues d'Elliott de TLT, IEF et AGG selon ta règle (15 %, moyenne des trois : zones vertes d'entrée : fin de vague 2, fin de vague 4, vague C ; zones rouges (aucune entrée) : vagues 1, 3, 5, A et B), retracement de Fibonacci plus bas historique → plus haut historique des mêmes ETF (15 %, moyenne des trois : plus le cours est bas dans le retracement, plus la note pousse à l'achat), "+CH.TXT_CRIT+" (moyennes des trois ETF), technique hebdo des mêmes ETF (RSI 6 %, MACD 6 % avec plafond −50 dès 4 barres d'histogramme positives, CCI 20 facultatif 6 % en zone ±100, moyenne mobile 40 semaines 4 %), niveau du taux réel 10 ans US (6 %), pente 10 − 2 ans (4 %), spread high yield (4 %), tendance du taux de la Fed sur 6 mois (4 %), sentiment obligataire APEX lu de façon contrarienne (6 %). Les vagues, le retracement et la Charte graphique sont lus automatiquement sur les corps des bougies hebdomadaires (clôture précédente → clôture, faute d'ouverture dans les données Yahoo enregistrées) : approximation qui peut différer de ton indicateur TradingView. Bougies hebdomadaires clôturées uniquement ; historique 52 semaines.",
   'sources':[['Yahoo Finance (TLT, IEF, AGG)','https://finance.yahoo.com/quote/AGG/history/'],['FRED (DFII10, T10Y2Y, BAMLH0A0HYM2, DFEDTARU)','https://fred.stlouisfed.org/series/DFII10']]}
-json.dump(out,open('/workspace/invest/patrimoine-dashboard/data/obligations.json','w'),ensure_ascii=False)
+json.dump(out,open(_APEX_ROOT + '/data/obligations.json','w'),ensure_ascii=False)
 print('sentiment',out['ind']['value'],out['ind']['label'],out['ind']['date'],[(x['name'][:30],x['value']) for x in out['ind']['components']])
 print('achat/vente',a,lab_av(a),[(x['nom'][:25],x['valeur'],x['note']) for x in c])
 print('last',ch['last'],ch['pct'],'inversion fin',ch['inv_last'])
 
 # ================= SEGMENTS =================
-SEG=json.load(open('/workspace/invest/patrimoine-dashboard/src/obligations_segments.json'))
+SEG=json.load(open(_APEX_ROOT + '/src/obligations_segments.json'))
 # 17/11/2026 · règle Revolut : ETF de référence US (non vendus en UE) remplacés par l'ETF UCITS cité comme doublon dans la proposition validée ;
 # segments sans ETF achetable : Corée retirée (taux seuls). France rétablie le 18/11/2026 avec IFRB, à vérifier Revolut/XTB.
 PRV={'tcourt':('IUSU.DE','XETR:IUSU','NASDAQ:SHY'),'tlong':('IS04.DE','XETR:IS04','NASDAQ:TLT'),'usig':('IBCD.DE','XETR:IBCD','AMEX:LQD'),'hy':('XUHY.DE','XETR:XUHY','AMEX:HYG'),'infl':('TIUP.DE','XETR:TIUP','AMEX:TIP'),'em':('IUS7.DE','XETR:IUS7','NASDAQ:EMB')}
@@ -198,7 +199,7 @@ VAL={'tcourt':('Niveau du taux US 2 ans (rang depuis 2000)',F['DGS2'],'2000-01-0
      'eurgov':('Niveau du Bund 10 ans (rang depuis 2000)',[[m+'-28',v] for m,v in DE],'2000-01-01'),'france':('Niveau de l\'OAT 10 ans (rang depuis 2000)',[[m+'-28',v] for m,v in FR],'2000-01-01'),
      'usig':('Spread investment grade US (rang depuis nov. 2023)',F['BAMLC0A0CM'],'2023-01-01'),'eurig':None,'hy':('Spread high yield US (rang depuis nov. 2023)',F['BAMLH0A0HYM2'],'2023-01-01'),
      'infl':('Niveau du taux réel 10 ans US (rang depuis 2003)',F['DFII10'],'2003-01-01'),'em':('Spread des obligations d\'entreprises émergentes (ICE BofA, rang depuis nov. 2023)',F['BAMLEMCBPIOAS'],'2023-01-01')}
-OBP=json.load(open('/workspace/invest/patrimoine-dashboard/data/obpays.json'))['countries']
+OBP=json.load(open(_APEX_ROOT + '/data/obpays.json'))['countries']
 _m=lambda cc:[[m+'-28',v] for m,v in OBP[cc]['y']['10']]
 _SRC={'de':'Bund 10 ans, Bundesbank','it':'BTP 10 ans, BCE','jp':'JGB 10 ans, ministère des Finances du Japon','kr':'KTB 10 ans, OCDE','au':'ACGB 10 ans, OCDE',
       'es':'Bonos 10 ans, BCE','gb':'Gilt 10 ans, OCDE','ch':'Confédération 10 ans, OCDE','nl':'DSL 10 ans, BCE','be':'OLO 10 ans, BCE'}
@@ -386,7 +387,7 @@ out['removed_notes']={'kr':"L'ETF KOSEF 10 ans (KRX:148070) n'est pas disponible
 out['method_seg_sent']="Indice composite APEX, non officiel, calculé sur les clôtures hebdomadaires confirmées de l'ETF de référence du segment, sans données futures : RSI 14, écart à la moyenne mobile 40 semaines, momentum 26 semaines, force relative sur 13 semaines (contre AGG pour les segments en dollars, contre l'ETF souverains euro EUNH pour les segments en euros), distance au plus haut 52 semaines, volatilité 13 semaines inversée. Poids égaux sur les composantes disponibles ; rangs sur 5 ans."
 out['method_seg_av']="Indice composite APEX, non officiel. Vagues d'Elliott selon ta règle 15 % (zones vertes d'entrée : fin de vague 2, fin de vague 4, vague C ; zones rouges (aucune entrée) : vagues 1, 3, 5, A et B), retracement de Fibonacci plus bas historique → plus haut historique 15 % (plus le cours est bas dans le retracement, plus la note pousse à l'achat ; négative près de l'ATH ; plafonnée sous la base), "+CH.TXT_CRIT+", RSI hebdo 6 %, MACD hebdo 6 % (plafond −50 dès 4 barres d'histogramme positives), CCI 20 facultatif 6 % en zone ±100, écart à la moyenne mobile 40 semaines 6 % (±5 % → ±100), distance au plus haut 52 semaines 4 % (règle « pas d'entrée au plus haut », bandes adaptées aux obligations), momentum 13 et 26 semaines 6 %, valorisation du segment 8 % (niveau de taux ou de spread classé sur son historique), sentiment du segment lu de façon contrarienne 4 %. Les autres poids gardent leurs proportions d'origine sur les 40 % restants. Score recalculé sur les composantes disponibles. Les vagues, le retracement et la Charte graphique sont lus automatiquement sur les corps des bougies hebdomadaires (clôture précédente → clôture, faute d'ouverture et de mèches dans les données enregistrées) : approximation qui peut différer de ton indicateur TradingView. Pour les ETF obligataires, les figures (tête-épaules, triangles, biseaux, drapeaux, etc.) sont lues sur le cours de l’ETF (relation inverse cours / rendement) et confirmées à la clôture hebdomadaire, selon le dossier ressources/figures_chartistes_obligations_weekly.txt."
 out['method_list']="Univers : ETF UCITS cotés sur Xetra ou Euronext trouvés par la recherche TradingView pour chaque segment (mots-clés affichés dans le script), une seule ligne par fonds (code ISIN, cotation la plus liquide retenue), à l'exclusion de l'ETF de référence. Données Yahoo Finance : frais courants, volume moyen sur 3 mois, cours, date de première cotation, rendement distribué sur 12 mois, répartition par notation. Score APEX 0-100 = rang des frais (40 %, plus bas = mieux) + rang de la liquidité (volume moyen × cours, 40 %) + rang de l'ancienneté (20 %). La duration et le rendement à l'échéance ne sont pas affichés : les valeurs fournies par Yahoo sont incohérentes (exemple : 3,6 ans de duration pour TLT, ETF d'obligations à plus de 20 ans) et aucune source gratuite fiable n'a été trouvée."
-json.dump(out,open('/workspace/invest/patrimoine-dashboard/data/obligations.json','w'),ensure_ascii=False)
+json.dump(out,open(_APEX_ROOT + '/data/obligations.json','w'),ensure_ascii=False)
 for s in out['segments']:
     print(f"\n{s['key']} {s['nom']} | réf {s['tv']} {s['pname']} | {s['date']} | sent {s['sent']['value']} {s['sent']['label']} | AV {s['av']['score']} {s['av']['label']} | ATH {s['ath']['dd']} 52s {s['dd52']} {s['warn']} | candidats {s['n_cand']} manque {s['av']['missing']}")
     for x in s['list']: print('   ',x['tv'],x['score'],'TER',x['ter'],'liq',x['liq'],x['ccy'],'ans',x['years'],'rdt',x['yield'],'≥A',x['rating_a'],'couv' if x['hedged'] else '',x['name'][:60])

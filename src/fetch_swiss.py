@@ -1,9 +1,11 @@
 """Collecte ciblée Suisse : fusionne dans data/pays/ sans retélécharger les autres pays."""
+import os as _os
+_APEX_ROOT = _os.path.abspath(_os.environ.get('APEX_ROOT') or _os.path.join(_os.path.dirname(__file__), '..'))
 import json, os, sys, time, math, urllib.request, urllib.parse, datetime as D
 from concurrent.futures import ThreadPoolExecutor
 import yfinance as yf
 
-R='/workspace/invest/patrimoine-dashboard/'
+R=_APEX_ROOT + '/'
 B=R+'data/pays/'
 UA={'User-Agent':'Mozilla/5.0'}
 CFG=json.load(open(R+'src/pays_config.json'))

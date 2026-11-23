@@ -1,9 +1,11 @@
 """Onglet MÉTAUX PRÉCIEUX -> data/metaux.json : indicateurs APEX par métal (contrats à terme continus Yahoo, référence DBC),
 carte composite de l'onglet, listes « ETC principal + 5 instruments », séries des graphiques (prix USD / EUR depuis 2000, ratios,
 or contre taux réel US, positions CFTC, records). Indices composites APEX, non officiels. Bougies hebdomadaires clôturées uniquement."""
+import os as _os
+_APEX_ROOT = _os.path.abspath(_os.environ.get('APEX_ROOT') or _os.path.join(_os.path.dirname(__file__), '..'))
 import json, os, csv, bisect, urllib.parse, datetime as D, sys
 from zoneinfo import ZoneInfo
-R='/workspace/invest/patrimoine-dashboard/'; sys.path.insert(0,R+'src'); import ind_core as K, revolut_rules as RV
+R=_APEX_ROOT + '/'; sys.path.insert(0,R+'src'); import ind_core as K, revolut_rules as RV
 B=R+'data/metaux/'; NOW=D.datetime.now(ZoneInfo('Europe/Paris'))
 def J(p):
     try: return json.load(open(p))

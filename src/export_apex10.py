@@ -1,4 +1,6 @@
 """Exporte notes_apex10_2026-11-23.csv et drapeaux_apex10_2026-11-23.txt."""
+import os as _os
+_APEX_ROOT = _os.path.abspath(_os.environ.get('APEX_ROOT') or _os.path.join(_os.path.dirname(__file__), '..'))
 import json, csv, re
 from pathlib import Path
 from collections import Counter
@@ -6,7 +8,7 @@ import sys
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import flags_couleur as FC
 
-B = Path('/workspace/invest/patrimoine-dashboard/data')
+B = Path(_APEX_ROOT + '/data')
 OUT_CSV = Path('/workspace/invest/notes_apex10_2026-11-23.csv')
 OUT_TXT = Path('/workspace/invest/drapeaux_apex10_2026-11-23.txt')
 WL_OLD = Path('/workspace/invest/apex_watchlist_live_apres_paniers10_2026-11-18.json')

@@ -1,7 +1,9 @@
 """Colonne INDICATEUR : jauge « Sentiment de marché, 1 an » par onglet -> data/indicateur.json
 Toutes les valeurs proviennent des fichiers bruts de data/. Rang percentile : 100*(nb<v + 0,5*nb==v)/n."""
+import os as _os
+_APEX_ROOT = _os.path.abspath(_os.environ.get('APEX_ROOT') or _os.path.join(_os.path.dirname(__file__), '..'))
 import json, csv, re, os, datetime as D, bisect
-B='/workspace/invest/patrimoine-dashboard/data/'
+B=_APEX_ROOT + '/data/'
 TODAY=D.date.today()
 def mtime(p): return D.datetime.fromtimestamp(os.path.getmtime(B+p)).strftime('%Y-%m-%d %H:%M')
 def prank(hist,v):

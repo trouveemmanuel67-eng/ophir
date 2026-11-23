@@ -1,7 +1,9 @@
 """Vérifie les accordéons (repliés par défaut, dépliage, graphiques non vides, mémorisation) à 1920 et 390 px."""
+import os as _os
+_APEX_ROOT = _os.path.abspath(_os.environ.get('APEX_ROOT') or _os.path.join(_os.path.dirname(__file__), '..'))
 import sys
 from playwright.sync_api import sync_playwright
-B='/workspace/invest/patrimoine-dashboard/'
+B=_APEX_ROOT + '/'
 URL=sys.argv[1] if len(sys.argv)>1 else 'file://'+B+'index.html'
 OUT=sys.argv[2] if len(sys.argv)>2 else B
 tabs=['immobilier','actions','obligations','crypto','liquidites']; ok=True

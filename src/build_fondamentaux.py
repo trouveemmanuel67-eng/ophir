@@ -2,11 +2,13 @@
 PANIER : taille actuelle 5, maximum prévu 10 (ne pas remplir au-delà de PANIER_ACTUEL tant que la liste n’est pas revue).
 Univers : 20 premières lignes de l'ETF SPDR (fichier officiel State Street). Données : Yahoo Finance (yfinance), consensus analystes.
 Rangs percentiles au sein de l'univers du secteur. Timing séparé (n'entre pas dans le score). -> data/fondamentaux.json"""
-import json, sys as _s; _s.path.insert(0,'/workspace/invest/patrimoine-dashboard/src'); import revolut_rules as RV, courtier_cash as CC; import json, os, datetime as D
+import os as _os
+_APEX_ROOT = _os.path.abspath(_os.environ.get('APEX_ROOT') or _os.path.join(_os.path.dirname(__file__), '..'))
+import json, sys as _s; _s.path.insert(0,_APEX_ROOT + '/src'); import revolut_rules as RV, courtier_cash as CC; import json, os, datetime as D
 from zoneinfo import ZoneInfo
 PANIER_MAX=10
 PANIER_ACTUEL=10
-B='/workspace/invest/patrimoine-dashboard/data/secteurs/'
+B=_APEX_ROOT + '/data/secteurs/'
 TODAY=D.datetime.now(ZoneInfo('Europe/Paris')).date()
 U=json.load(open(B+'holdings/universe.json'))
 DUP={'GOOG':'GOOGL','FOX':'FOXA','NWS':'NWSA'}           # même société, deux catégories d'actions : on garde une seule ligne
@@ -103,7 +105,7 @@ for etf,u in U.items():
     out['sectors'][etf]={'asof':u['asof'].replace('As of ',''),'profile':prof,'universe':len(rows),'eligible':len(el),
        'etf':(lambda u:{'sym':u['tv'].split(':')[1],'name':u['nom'],'tv':u['tv'],'ref_us':f"{te[0]['exchange']}:{etf}" if te else None,'revolut':u['revolut']})(RV.rep('AMEX:'+etf)),   # 17/11/2026 : équivalent UCITS Revolut
        'top':top,'panier':{'actuel':PANIER_ACTUEL,'max':PANIER_MAX},'excluded':[[r['ticker'],r['why_not']] for r in rows if not r['eligible']]}
-json.dump(out,open('/workspace/invest/patrimoine-dashboard/data/fondamentaux.json','w'),ensure_ascii=False)
+json.dump(out,open(_APEX_ROOT + '/data/fondamentaux.json','w'),ensure_ascii=False)
 for e,s in out['sectors'].items():
     print(f"\n{e} {s['etf']['tv']} « {s['etf']['name']} » univers {s['universe']} éligibles {s['eligible']} profil {s['profile']} exclus {s['excluded']}")
     for r in s['top']:

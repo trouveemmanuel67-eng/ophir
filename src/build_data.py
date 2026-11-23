@@ -1,5 +1,7 @@
+import os as _os
+_APEX_ROOT = _os.path.abspath(_os.environ.get('APEX_ROOT') or _os.path.join(_os.path.dirname(__file__), '..'))
 import re, csv, json, datetime
-D='/workspace/invest/patrimoine-dashboard/data/'
+D=_APEX_ROOT + '/data/'
 # 1. INSEE
 s=open(D+'insee_010567059_ipla_fm_cvs.xml').read()
 meta=re.search(r'<Series [^>]*LAST_UPDATE="([^"]+)"',s).group(1)

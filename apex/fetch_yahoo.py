@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from . import paths
-from .config import actifs
+from .config import actifs, actifs_a_suivre
 
 UA = {'User-Agent': 'Mozilla/5.0 (compatible; APEX/1.0)'}
 P1 = -2208988800  # 1900
@@ -127,9 +127,8 @@ def existing_paths_for(sym: str) -> list[Path]:
 
 def run(limit=None, sleep=0.15) -> dict:
     cache_dir().mkdir(parents=True, exist_ok=True)
-    items = [a for a in actifs() if a.get('yahoo') and not a.get('repere') or a.get('yahoo')]
-    # all with yahoo, including some reperes we still want
-    items = [a for a in actifs() if a.get('yahoo')]
+    # Univers réduit : pas les titres hors pays (sauf positions encore détenues).
+    items = [a for a in actifs_a_suivre() if a.get('yahoo')]
     if limit:
         items = items[: int(limit)]
     ok, absent, missing = [], [], []

@@ -1,9 +1,11 @@
 """Construit data/tabs_data.json (onglets Actions, Crypto, Liquidités) à partir des fichiers bruts de data/."""
+import os as _os
+_APEX_ROOT = _os.path.abspath(_os.environ.get('APEX_ROOT') or _os.path.join(_os.path.dirname(__file__), '..'))
 import json, csv, re, os, sys, datetime as D
 from zoneinfo import ZoneInfo
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import ind_core as K
-B='/workspace/invest/patrimoine-dashboard/data/'
+B=_APEX_ROOT + '/data/'
 NOW=D.datetime.now(D.timezone.utc)
 def mtime(p): return D.datetime.fromtimestamp(os.path.getmtime(B+p)).strftime('%Y-%m-%d %H:%M')
 
