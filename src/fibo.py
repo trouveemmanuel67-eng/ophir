@@ -64,7 +64,10 @@ def zone(r):
 MAXDIR=os.path.join(os.path.dirname(os.path.abspath(__file__)),'..','data','fibo_max')
 PREFIX_LOG={}
 
-HIST_JSON='/workspace/invest/fibo_historique_2026-11-23.json'
+_FIBO_ROOT=os.path.abspath(os.environ.get('APEX_ROOT') or os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
+HIST_JSON=os.path.join(_FIBO_ROOT, 'data', 'fibo_historique_2026-11-23.json')
+if not os.path.exists(HIST_JSON) and os.path.exists('/workspace/invest/fibo_historique_2026-11-23.json'):
+    HIST_JSON='/workspace/invest/fibo_historique_2026-11-23.json'
 _HIST_IDX=None
 LOOKBACK_MVT=52
 POIDS_HIST, POIDS_MVT=2.0, 1.0  # 2/3 historique, 1/3 dernier mouvement

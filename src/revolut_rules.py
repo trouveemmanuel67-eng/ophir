@@ -5,7 +5,13 @@ Revolut Invest France, sans CFD ; sinon un équivalent. Source : /workspace/inve
   indicateur -> « Repère de marché » : affiché sans note APEX, sans signal achat / vente, sans drapeau
   garder / a_verifier -> inchangé"""
 import csv
-CSV='/workspace/invest/revolut_proposition_finale_2026-11-17.csv'
+import os as _os
+_APEX_ROOT = _os.path.abspath(_os.environ.get('APEX_ROOT') or _os.path.join(_os.path.dirname(__file__), '..'))
+_CSV_CANDIDATES = [
+    _os.path.join(_APEX_ROOT, 'config', 'revolut_proposition_finale_2026-11-17.csv'),
+    '/workspace/invest/revolut_proposition_finale_2026-11-17.csv',
+]
+CSV = next((c for c in _CSV_CANDIDATES if _os.path.exists(c)), _CSV_CANDIDATES[0])
 ROWS=list(csv.DictReader(open(CSV,encoding='utf-8-sig'),delimiter=';'))
 ACT={r['symbole_tv']:r['action'] for r in ROWS}
 DEL={r['symbole_tv'] for r in ROWS if r['action']=='supprimer'}|{'AMEX:KOL'}   # KOL : ETF radié, retiré de l'onglet Énergie
