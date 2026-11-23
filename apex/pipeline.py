@@ -35,9 +35,9 @@ def _run(script: str):
 
 REBUILD = [
     'build_secteurs.py', 'build_pays.py', 'build_energie.py', 'build_metaux.py',
-    'build_obligations.py', 'build_crypto_fiches.py', 'build_fx_apex.py',
+    'build_obligations.py', 'build_crypto_fiches.py',
     'build_apex_bars.py', 'build_indicateur.py', 'build_achatvente.py',
-    'build_data_tabs.py', 'build_obpays.py', 'build_apex10.py', 'build.py',
+    'build_data_tabs.py', 'build_fx_apex.py', 'build_obpays.py', 'build_apex10.py', 'build.py',
 ]
 
 

@@ -23,7 +23,7 @@ def test_pltr_override_a():
     ell = {'key': 'a', 'manuel': True, 'override': True, 'zone': 'rouge'}
     r = compute(-12.4, 85.8, ell)
     assert r['note'] == 4.0
-    assert r['flag'] == 'red'
+    assert r['flag'] == 'orange'  # t328u : note 4,0 = jaune
     assert 'elliott' in r['cap']
 
 
@@ -31,7 +31,7 @@ def test_mfg_override_a():
     ell = {'key': 'a', 'manuel': True, 'override': True, 'zone': 'rouge'}
     r = compute(16.5, 61.5, ell)
     assert r['note'] == 4.0
-    assert r['flag'] == 'red'
+    assert r['flag'] == 'orange'  # t328u : note 4,0 = jaune
     assert 'elliott' in r['cap']
 
 
@@ -60,12 +60,14 @@ def test_regle_cyan_achat_fort_et_divergence():
 
 @pytest.mark.parametrize('note,site,tv', [
     (0, 'violet', 'purple'),
-    (2, 'violet', 'purple'),
-    (2.5, 'rouge', 'red'),
-    (5, 'rouge', 'red'),
+    (1.5, 'violet', 'purple'),
+    (2, 'rouge', 'red'),
+    (3.5, 'rouge', 'red'),
+    (4, 'jaune', 'orange'),
+    (5, 'jaune', 'orange'),
     (5.5, 'jaune', 'orange'),
-    (6.5, 'jaune', 'orange'),
-    (7, 'vert', 'green'),
+    (6, 'vert', 'green'),
+    (6.5, 'vert', 'green'),
     (7.5, 'vert', 'green'),
     (8, 'cyan', 'cyan'),
     (10, 'cyan', 'cyan'),

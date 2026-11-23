@@ -9551,13 +9551,13 @@ const ginv=v=>{const c=grgb(v);return `rgb(${255-c[0]},${255-c[1]},${255-c[2]})`
 const gsol=v=>{const c=grgb(v);return `rgb(${c[0]},${c[1]},${c[2]})`;};
 function gcol(v,a=1){v=Math.max(0,Math.min(100,v));for(let i=1;i<GRAD.length;i++){const [p1,c1]=GRAD[i-1],[p2,c2]=GRAD[i];if(v<=p2){const t=(v-p1)/(p2-p1);const c=c1.map((x,j)=>Math.round(x+(c2[j]-x)*t));return `rgba(${c[0]},${c[1]},${c[2]},${a})`;}}}
 
-/* Couleur de la note APEX /10 : uniquement la note affichée, échelle t315u. */
+/* Couleur de la note APEX /10 : uniquement la note affichée, 5 tranches égales (t328u). */
 function apexBand(note){
   const n=Number(note);
   if(!Number.isFinite(n)) return null;
-  if(n<=2) return 'violet';
-  if(n<=5) return 'rouge';
-  if(n<=6.5) return 'jaune';
+  if(n<=1.5) return 'violet';
+  if(n<=3.5) return 'rouge';
+  if(n<=5.5) return 'jaune';
   if(n<=7.5) return 'vert';
   return 'cyan';
 }
@@ -11275,7 +11275,7 @@ function homeValMark(text, title){
 }
 function homeFlagsHTML(t){
   if(!t||!t.n) return '<div class="home-flags" title="Aucune fiche notée dans cet onglet">—</div>';
-  const tip=`${t.cyan} cyan · ${t.vert} vert${t.vert>1?'s':''} · ${t.jaune} jaune${t.jaune>1?'s':''} · ${t.rouge} rouge${t.rouge>1?'s':''} · ${t.violet} violet${t.violet>1?'s':''} (échelle note APEX /10)`;
+  const tip=`${t.cyan} cyan · ${t.vert} vert${t.vert>1?'s':''} · ${t.jaune} jaune${t.jaune>1?'s':''} · ${t.rouge} rouge${t.rouge>1?'s':''} · ${t.violet} violet${t.violet>1?'s':''} (échelle /10 : 0–1,5 violet · 2–3,5 rouge · 4–5,5 jaune · 6–7,5 vert · 8–10 cyan)`;
   return `<div class="home-flags" title="${tip}"><span><i class="c"></i>${t.cyan}</span><span><i class="g"></i>${t.vert}</span><span><i class="y"></i>${t.jaune}</span><span><i class="r"></i>${t.rouge}</span><span><i class="vi"></i>${t.violet}</span></div>`;
 }
 function homeSigHTML(av,tabId){

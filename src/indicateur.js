@@ -8,13 +8,13 @@ const ginv=v=>{const c=grgb(v);return `rgb(${255-c[0]},${255-c[1]},${255-c[2]})`
 const gsol=v=>{const c=grgb(v);return `rgb(${c[0]},${c[1]},${c[2]})`;};
 function gcol(v,a=1){v=Math.max(0,Math.min(100,v));for(let i=1;i<GRAD.length;i++){const [p1,c1]=GRAD[i-1],[p2,c2]=GRAD[i];if(v<=p2){const t=(v-p1)/(p2-p1);const c=c1.map((x,j)=>Math.round(x+(c2[j]-x)*t));return `rgba(${c[0]},${c[1]},${c[2]},${a})`;}}}
 
-/* Couleur de la note APEX /10 : uniquement la note affichée, échelle t315u. */
+/* Couleur de la note APEX /10 : uniquement la note affichée, 5 tranches égales (t328u). */
 function apexBand(note){
   const n=Number(note);
   if(!Number.isFinite(n)) return null;
-  if(n<=2) return 'violet';
-  if(n<=5) return 'rouge';
-  if(n<=6.5) return 'jaune';
+  if(n<=1.5) return 'violet';
+  if(n<=3.5) return 'rouge';
+  if(n<=5.5) return 'jaune';
   if(n<=7.5) return 'vert';
   return 'cyan';
 }

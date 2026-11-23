@@ -205,6 +205,9 @@ _SRC={'de':'Bund 10 ans, Bundesbank','it':'BTP 10 ans, BCE','jp':'JGB 10 ans, mi
       'es':'Bonos 10 ans, BCE','gb':'Gilt 10 ans, OCDE','ch':'Confédération 10 ans, OCDE','nl':'DSL 10 ans, BCE','be':'OLO 10 ans, BCE'}
 for _k in ('de','it','jp','kr','au','es','gb','ch','nl','be'):
     if _k in OBP and OBP[_k].get('y',{}).get('10'): VAL[_k]=(f"Niveau du taux 10 ans ({_SRC[_k]}, rang depuis 2001)",_m(_k),'2001-01-01')
+for _k in list(SEG):
+    if _k not in VAL:
+        SEG.pop(_k, None)  # univers t322u : pas d'Italie, Japon, etc.
 RISK={'de':['Taux : moyen à élevé (toutes échéances de la dette fédérale).','Change : aucun (euro).','Crédit : très faible (République fédérale, notée AAA).'],
  'it':['Taux : moyen à élevé (toutes échéances).','Change : aucun (euro).','Crédit / spread : risque Italie (notation BBB) ; écart BTP − Bund de {spit} pt en {spitm}.'],
  'jp':['Taux : moyen à élevé (toutes échéances).','Change : exposition au yen non couverte (fonds coté en euros sur Xetra, actifs en JPY).','Crédit : faible (État japonais), dette publique très élevée.'],

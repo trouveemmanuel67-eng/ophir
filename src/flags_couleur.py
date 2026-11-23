@@ -1,18 +1,17 @@
-"""Couleur de la note APEX /10 et drapeau TradingView (règle du 23/11/2026, t315u/t316u).
+"""Couleur de la note APEX /10 et drapeau TradingView (règle du 23/11/2026, t328u : tranches égales).
 
 La couleur vient UNIQUEMENT de la note APEX /10 affichée sur le site
 (après overrides), copiée telle quelle. Pas de score AV, pas de milieux ±33.
 
-Échelle (notes arrondies au demi-point) :
+Échelle (notes arrondies au demi-point, 5 tranches égales, t328u) :
 
-  0 à 2     violet   — drapeau TV : purple
-  2,5 à 5   rouge    — drapeau TV : red
-  5,5 à 6,5 jaune    — drapeau TV : orange (pas de drapeau jaune sur TradingView)
-  7 à 7,5   vert     — drapeau TV : green
+  0 à 1,5   violet   — drapeau TV : purple
+  2 à 3,5   rouge    — drapeau TV : red
+  4 à 5,5   jaune    — drapeau TV : orange (pas de drapeau jaune sur TradingView)
+  6 à 7,5   vert     — drapeau TV : green
   8 à 10    cyan     — drapeau TV : cyan (pas bleu)
 
-Le dégradé des barres (AV et sentiment) suit les mêmes arrêts.
-Le curseur sentiment reste en miroir : couleur à la position (100 − p).
+Les barres Achat/Vente et sentiment (t327u) restent en 5 tranches égales de 20 points (0–100), indépendantes de cette échelle /10.
 Repères de marché et actifs sans note : pas de drapeau.
 """
 
@@ -24,10 +23,10 @@ VERT = (34, 197, 94)      # #22c55e
 CYAN = (0, 229, 255)      # #00e5ff
 
 GRAD = [
-    (0, VIOLET), (20, VIOLET),
-    (25, ROUGE), (50, ROUGE),
-    (55, JAUNE), (65, JAUNE),
-    (70, VERT), (75, VERT),
+    (0, VIOLET), (15, VIOLET),
+    (20, ROUGE), (35, ROUGE),
+    (40, JAUNE), (55, JAUNE),
+    (60, VERT), (75, VERT),
     (80, CYAN), (100, CYAN),
 ]
 
@@ -88,11 +87,11 @@ def bande_from_apex10(note):
         n = float(note)
     except (TypeError, ValueError):
         return None
-    if n <= 2:
+    if n <= 1.5:
         return 'violet'
-    if n <= 5:
+    if n <= 3.5:
         return 'rouge'
-    if n <= 6.5:
+    if n <= 5.5:
         return 'jaune'
     if n <= 7.5:
         return 'vert'

@@ -134,7 +134,7 @@ function homeValMark(text, title){
 }
 function homeFlagsHTML(t){
   if(!t||!t.n) return '<div class="home-flags" title="Aucune fiche notée dans cet onglet">—</div>';
-  const tip=`${t.cyan} cyan · ${t.vert} vert${t.vert>1?'s':''} · ${t.jaune} jaune${t.jaune>1?'s':''} · ${t.rouge} rouge${t.rouge>1?'s':''} · ${t.violet} violet${t.violet>1?'s':''} (échelle note APEX /10)`;
+  const tip=`${t.cyan} cyan · ${t.vert} vert${t.vert>1?'s':''} · ${t.jaune} jaune${t.jaune>1?'s':''} · ${t.rouge} rouge${t.rouge>1?'s':''} · ${t.violet} violet${t.violet>1?'s':''} (échelle /10 : 0–1,5 violet · 2–3,5 rouge · 4–5,5 jaune · 6–7,5 vert · 8–10 cyan)`;
   return `<div class="home-flags" title="${tip}"><span><i class="c"></i>${t.cyan}</span><span><i class="g"></i>${t.vert}</span><span><i class="y"></i>${t.jaune}</span><span><i class="r"></i>${t.rouge}</span><span><i class="vi"></i>${t.violet}</span></div>`;
 }
 function homeSigHTML(av,tabId){

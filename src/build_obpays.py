@@ -150,6 +150,8 @@ for cc,code,nom,sprnom,miss in (
     if EC.get('DE'): src.append(ecb_src('DE'))
     res['countries'][cc]=pack(cc,nom,{'2':None,'10':lt,'30':None},{'10':[lt[-1][0],lt[-1][1]]},short,src,[miss],spread(lt,de10b),sprnom)
 
+KEEP_CC={'us','fr','de','ca','ch'}  # univers t322u
+res['countries']={k:v for k,v in res['countries'].items() if k in KEEP_CC}
 json.dump(res,open(R+'data/obpays.json','w'),ensure_ascii=False)
 for cc,c in res['countries'].items():
     print(cc,c['nom'],'|',{k:(v[0][0],len(v)) for k,v in c['y'].items()},'| last',c['last'],'| 3m',c['short'],'|',c['slope']['nom'],c['slope']['last'],'| spread',c.get('spread',{}).get('last'),'| pct10',c['pct10'],'| missing',len(c['missing']))

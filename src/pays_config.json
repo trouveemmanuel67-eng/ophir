@@ -1,9 +1,419 @@
 {
-  "countries": [
-    "fr",
-    "de",
-    "ca",
-    "ch"
-  ],
+  "countries": {
+    "fr": {
+      "nom": "France",
+      "flag": "flag-fr.png",
+      "region": "fr",
+      "exchange": "PAR",
+      "suffix": ".PA",
+      "mincap": 1000000000.0,
+      "country": "France",
+      "bench": "^FCHI",
+      "bench_nom": "CAC 40",
+      "etf": "CAC.PA",
+      "tvx": "EURONEXT",
+      "rows": [
+        {
+          "key": "com",
+          "nom": "Communication",
+          "kind": "basket",
+          "ysec": [
+            "Communication Services"
+          ]
+        },
+        {
+          "key": "cd",
+          "nom": "Consommation discrétionnaire",
+          "kind": "basket",
+          "ysec": [
+            "Consumer Cyclical"
+          ]
+        },
+        {
+          "key": "cs",
+          "nom": "Consommation de base",
+          "kind": "basket",
+          "ysec": [
+            "Consumer Defensive"
+          ]
+        },
+        {
+          "key": "en",
+          "nom": "Énergie",
+          "kind": "basket",
+          "ysec": [
+            "Energy"
+          ]
+        },
+        {
+          "key": "fin",
+          "nom": "Finance",
+          "kind": "basket",
+          "ysec": [
+            "Financial Services"
+          ]
+        },
+        {
+          "key": "sante",
+          "nom": "Santé",
+          "kind": "basket",
+          "ysec": [
+            "Healthcare"
+          ]
+        },
+        {
+          "key": "ind",
+          "nom": "Industrie",
+          "kind": "basket",
+          "ysec": [
+            "Industrials"
+          ]
+        },
+        {
+          "key": "mat",
+          "nom": "Matériaux",
+          "kind": "basket",
+          "ysec": [
+            "Basic Materials"
+          ]
+        },
+        {
+          "key": "immo",
+          "nom": "Immobilier",
+          "kind": "basket",
+          "ysec": [
+            "Real Estate"
+          ]
+        },
+        {
+          "key": "tech",
+          "nom": "Technologie",
+          "kind": "basket",
+          "ysec": [
+            "Technology"
+          ]
+        },
+        {
+          "key": "util",
+          "nom": "Services aux collectivités",
+          "kind": "basket",
+          "ysec": [
+            "Utilities"
+          ]
+        }
+      ]
+    },
+    "de": {
+      "nom": "Allemagne",
+      "flag": "flag-de.png",
+      "region": "de",
+      "exchange": "GER",
+      "suffix": ".DE",
+      "mincap": 1000000000.0,
+      "pages": 3,
+      "country": "Germany",
+      "bench": "^GDAXI",
+      "bench_nom": "DAX",
+      "etf": "EXS1.DE",
+      "tvx": "XETR",
+      "rows": [
+        {
+          "key": "com",
+          "nom": "Communication",
+          "kind": "basket",
+          "ysec": [
+            "Communication Services"
+          ]
+        },
+        {
+          "key": "cd",
+          "nom": "Consommation discrétionnaire",
+          "kind": "basket",
+          "ysec": [
+            "Consumer Cyclical"
+          ]
+        },
+        {
+          "key": "cs",
+          "nom": "Consommation de base",
+          "kind": "basket",
+          "ysec": [
+            "Consumer Defensive"
+          ]
+        },
+        {
+          "key": "en",
+          "nom": "Énergie",
+          "kind": "basket",
+          "ysec": [
+            "Energy"
+          ]
+        },
+        {
+          "key": "fin",
+          "nom": "Finance",
+          "kind": "basket",
+          "ysec": [
+            "Financial Services"
+          ]
+        },
+        {
+          "key": "sante",
+          "nom": "Santé",
+          "kind": "basket",
+          "ysec": [
+            "Healthcare"
+          ]
+        },
+        {
+          "key": "ind",
+          "nom": "Industrie",
+          "kind": "basket",
+          "ysec": [
+            "Industrials"
+          ]
+        },
+        {
+          "key": "mat",
+          "nom": "Matériaux",
+          "kind": "basket",
+          "ysec": [
+            "Basic Materials"
+          ]
+        },
+        {
+          "key": "immo",
+          "nom": "Immobilier",
+          "kind": "basket",
+          "ysec": [
+            "Real Estate"
+          ]
+        },
+        {
+          "key": "tech",
+          "nom": "Technologie",
+          "kind": "basket",
+          "ysec": [
+            "Technology"
+          ]
+        },
+        {
+          "key": "util",
+          "nom": "Services aux collectivités",
+          "kind": "basket",
+          "ysec": [
+            "Utilities"
+          ]
+        }
+      ]
+    },
+    "ca": {
+      "nom": "Canada",
+      "flag": "flag-ca.png",
+      "region": "ca",
+      "exchange": "NYQ",
+      "suffix": "",
+      "mincap": 300000000.0,
+      "country": "Canada",
+      "bench": "^GSPTSE",
+      "bench_nom": "S&P/TSX Composite",
+      "etf": "SXR2.DE",
+      "tvx": "NYSE",
+      "rows": [
+        {
+          "key": "com",
+          "nom": "Communication",
+          "kind": "basket",
+          "ysec": [
+            "Communication Services"
+          ]
+        },
+        {
+          "key": "cd",
+          "nom": "Consommation discrétionnaire",
+          "kind": "basket",
+          "ysec": [
+            "Consumer Cyclical"
+          ]
+        },
+        {
+          "key": "cs",
+          "nom": "Consommation de base",
+          "kind": "basket",
+          "ysec": [
+            "Consumer Defensive"
+          ]
+        },
+        {
+          "key": "en",
+          "nom": "Énergie",
+          "kind": "basket",
+          "ysec": [
+            "Energy"
+          ]
+        },
+        {
+          "key": "fin",
+          "nom": "Finance",
+          "kind": "basket",
+          "ysec": [
+            "Financial Services"
+          ]
+        },
+        {
+          "key": "sante",
+          "nom": "Santé",
+          "kind": "basket",
+          "ysec": [
+            "Healthcare"
+          ]
+        },
+        {
+          "key": "ind",
+          "nom": "Industrie",
+          "kind": "basket",
+          "ysec": [
+            "Industrials"
+          ]
+        },
+        {
+          "key": "mat",
+          "nom": "Matériaux",
+          "kind": "basket",
+          "ysec": [
+            "Basic Materials"
+          ]
+        },
+        {
+          "key": "immo",
+          "nom": "Immobilier",
+          "kind": "basket",
+          "ysec": [
+            "Real Estate"
+          ]
+        },
+        {
+          "key": "tech",
+          "nom": "Technologie",
+          "kind": "basket",
+          "ysec": [
+            "Technology"
+          ]
+        },
+        {
+          "key": "util",
+          "nom": "Services aux collectivités",
+          "kind": "basket",
+          "ysec": [
+            "Utilities"
+          ]
+        }
+      ]
+    },
+    "ch": {
+      "nom": "Suisse",
+      "flag": "flag-ch.png",
+      "region": "ch",
+      "exchange": "EBS",
+      "suffix": ".SW",
+      "mincap": 500000000.0,
+      "country": "Switzerland",
+      "bench": "^SSMI",
+      "bench_nom": "SMI",
+      "etf": "XSMI.DE",
+      "tvx": "SIX",
+      "cash_only": true,
+      "rows": [
+        {
+          "key": "com",
+          "nom": "Communication",
+          "kind": "basket",
+          "ysec": [
+            "Communication Services"
+          ]
+        },
+        {
+          "key": "cd",
+          "nom": "Consommation discrétionnaire",
+          "kind": "basket",
+          "ysec": [
+            "Consumer Cyclical"
+          ]
+        },
+        {
+          "key": "cs",
+          "nom": "Consommation de base",
+          "kind": "basket",
+          "ysec": [
+            "Consumer Defensive"
+          ]
+        },
+        {
+          "key": "en",
+          "nom": "Énergie",
+          "kind": "basket",
+          "ysec": [
+            "Energy"
+          ]
+        },
+        {
+          "key": "fin",
+          "nom": "Finance",
+          "kind": "basket",
+          "ysec": [
+            "Financial Services"
+          ]
+        },
+        {
+          "key": "sante",
+          "nom": "Santé",
+          "kind": "basket",
+          "ysec": [
+            "Healthcare"
+          ]
+        },
+        {
+          "key": "ind",
+          "nom": "Industrie",
+          "kind": "basket",
+          "ysec": [
+            "Industrials"
+          ]
+        },
+        {
+          "key": "mat",
+          "nom": "Matériaux",
+          "kind": "basket",
+          "ysec": [
+            "Basic Materials"
+          ]
+        },
+        {
+          "key": "immo",
+          "nom": "Immobilier",
+          "kind": "basket",
+          "ysec": [
+            "Real Estate"
+          ]
+        },
+        {
+          "key": "tech",
+          "nom": "Technologie",
+          "kind": "basket",
+          "ysec": [
+            "Technology"
+          ]
+        },
+        {
+          "key": "util",
+          "nom": "Services aux collectivités",
+          "kind": "basket",
+          "ysec": [
+            "Utilities"
+          ]
+        }
+      ]
+    }
+  },
   "tvq": {}
 }

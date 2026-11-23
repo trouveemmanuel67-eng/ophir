@@ -48,8 +48,8 @@ Pour les cryptos, le fondamental est remplacé par le score de liquidité 0–10
 Données insuffisantes (pas d'AV) : note vide, affichage « – ».
 
 Couleur et drapeau : uniquement la note /10 affichée (t315u / t316u).
-  0 à 2 violet (TV purple) ; 2,5 à 5 rouge ; 5,5 à 6,5 jaune (TV orange) ;
-  7 à 7,5 vert ; 8 à 10 cyan (TV cyan, pas bleu).
+  0 à 1,5 violet (TV purple) ; 2 à 3,5 rouge ; 4 à 5,5 jaune (TV orange) ;
+  6 à 7,5 vert ; 8 à 10 cyan (TV cyan, pas bleu).
 """
 import sys, os
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))

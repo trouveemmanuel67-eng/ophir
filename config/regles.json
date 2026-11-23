@@ -1,6 +1,6 @@
 {
   "version": "2026-11-23",
-  "tache": "t320u",
+  "tache": "t328u",
   "timezone": "Europe/Paris",
   "note_apex": {
     "poids_timing": 0.6,
@@ -17,31 +17,31 @@
     "score_selection_etf_pas_fondamental": true
   },
   "couleurs": {
-    "regle": "Uniquement la note APEX /10 affichée (après overrides). Pas de score AV, pas de milieux ±33.",
+    "regle": "Uniquement la note APEX /10 affichée (après overrides). 5 tranches égales au pas de 0,5 : 0–1,5 violet, 2–3,5 rouge, 4–5,5 jaune (orange sur TradingView), 6–7,5 vert, 8–10 cyan.",
     "bandes": [
       {
         "min": 0.0,
-        "max": 2.0,
+        "max": 1.5,
         "site": "violet",
         "hex": "#9d54ff",
         "tv": "purple"
       },
       {
-        "min": 2.5,
-        "max": 5.0,
+        "min": 2.0,
+        "max": 3.5,
         "site": "rouge",
         "hex": "#ff2d2d",
         "tv": "red"
       },
       {
-        "min": 5.5,
-        "max": 6.5,
+        "min": 4.0,
+        "max": 5.5,
         "site": "jaune",
         "hex": "#ffd400",
         "tv": "orange"
       },
       {
-        "min": 7.0,
+        "min": 6.0,
         "max": 7.5,
         "site": "vert",
         "hex": "#22c55e",
