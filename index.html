@@ -246,7 +246,6 @@ main{max-width:1240px;margin:8px auto 0;padding:0 14px 20px}
 .apex-block-line .apex10 small{font-size:.85rem}
 .apex-block-line .apex-rest{min-width:0}
 .apex-block-line .pilot-brk{margin:2px 0 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.apex-block-line .db-srow{margin-top:2px}
 @media(max-width:800px){
   .fl.fl-pilot>li,.fl-row{grid-template-columns:2em minmax(0,1fr)}
   .fl-pilot .fl-apex{grid-column:1/-1}
@@ -834,18 +833,17 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
 .apex10-pilot{min-width:4.6em}
 .apex10-pilot small{font-size:11px;margin-left:2px;opacity:.85}
 .pilot-brk{margin:4px 0 0;font-size:11.5px;line-height:1.35;color:#c8c4bc;white-space:normal}
-.db-pilot .db-g-av,.db-pilot .db-g-s{position:relative;margin:0}
-.db-srow{display:flex;align-items:center;gap:10px 12px;margin-top:2px;min-width:0}
-.db-srow-bar{flex:1 1 auto;min-width:8em}
-.db-srow-meta{display:flex;align-items:center;gap:8px;flex:0 1 auto;min-width:0;font-size:11.5px;line-height:1.3;color:#c8c4bc;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.db-srange{position:absolute;top:3px;bottom:3px;border:1px solid rgba(255,255,255,.55);border-radius:4px;background:rgba(255,255,255,.08);pointer-events:none;z-index:1}
+.db-pilot .db-g{position:relative;margin:0}
+.db-pilot .pilot-leg{align-items:center;gap:6px 14px;margin-top:4px}
+.db-pilot .pilot-leg .pilot-spark{margin-left:auto}
 .pilot-spark{display:block;color:#8aa;opacity:.95;flex:0 0 auto}
 .fl-etf .fl-apex{margin-top:8px}
 .db-pilot .db-tk1{position:relative;height:14px;font-size:10px;color:#b0aaa2}
 .db-pilot .db-tk1 i{position:absolute;transform:translateX(-50%);white-space:nowrap;font-style:normal}
 .db-pilot .db-tk1 i.db-e0{left:0;transform:none}
 .db-pilot .db-tk1 i.db-e1{left:auto;right:0;transform:none}
-.db-pilot .db-sc,.db-pilot .db-leg{display:none}
+.db-pilot .db-bot{margin:0 2px 2px;font-size:10px;color:#b0aaa2;white-space:nowrap}
+.db-pilot .db-bot span{flex:0 1 auto}
 </style>
 </head>
 <body>
@@ -15693,7 +15691,6 @@ function dualBarPilot(rec, compact){
   const sv=Number(fg.value);
   const sp=Number.isFinite(sv)?Math.max(0,Math.min(100,sv)):null;
   const ticks=[-50,30,110,190,270];
-  const sTicks=[0,25,50,75,100];
   const pos=v=>((v-mn)/(mx-mn))*100;
   const hex=pilotHex(rec);
   const sl=fg.label||'–';
@@ -15704,34 +15701,18 @@ function dualBarPilot(rec, compact){
     const lab=v<0?('−'+Math.abs(v)):String(v);
     return `<i class="${edge.trim()}"${left}>${lab}</i>`;
   }).join('');
-  const sTickHTML=sTicks.map((v,i)=>{
-    const edge=i===0?' db-e0':(i===sTicks.length-1?' db-e1':'');
-    const left=i===sTicks.length-1?'':` style="left:${v}%"`;
-    return `<i class="${edge.trim()}"${left}>${v}</i>`;
-  }).join('');
-  let rng='';
-  if(fg.min&&fg.max&&Number.isFinite(fg.min[1])&&Number.isFinite(fg.max[1])){
-    const lo=Math.max(0,Math.min(100,fg.min[1])), hi=Math.max(0,Math.min(100,fg.max[1]));
-    const left=Math.min(lo,hi), width=Math.max(0.5,Math.abs(hi-lo));
-    const tip=`Plage 1 an : min ${fmt(fg.min[1],0)} (${dshort(fg.min[0])}) → max ${fmt(fg.max[1],0)} (${dshort(fg.max[0])})`;
-    rng=`<div class="db-srange" style="left:${left}%;width:${width}%" title="${tip}"></div>`;
-  }
-  /* Même dégradé et mêmes traits de repère que les sections non pilotes (.ind-bar + .av-tick à 20/40/60/80 %). */
+  /* Même dégradé et traits de repère que les sections non pilotes ; une seule barre, deux curseurs. */
   const bandTicks=[20,40,60,80].map(p=>`<i class="av-tick" style="left:${p}%"></i>`).join('');
-  const bar=`<div class="db db-pilot ${compact?'db-sm':''}" role="img" aria-label="Score APEX ${total==null?'n.d.':total} sur ${mn} à ${mx} ; Fear & Greed CNN ${Number.isFinite(sv)?fmt(sv,1):'–'} (${sl}) sur 0 à 100">
+  const totTxt=total==null?'–':String(total);
+  const fgTxt=Number.isFinite(sv)?fmt(sv,1):'–';
+  const bar=`<div class="db db-pilot ${compact?'db-sm':''}" role="img" aria-label="Score APEX ${totTxt} sur ${mn} à ${mx} ; Fear & Greed CNN ${fgTxt} (${sl}) sur 0 à 100">
    <div class="db-tk db-tk1">${tickHTML}</div>
-   <div class="db-g db-g-av"><div class="ind-bar"></div>${bandTicks}
-    ${total!=null?`<div class="db-cur db-a" style="left:${ap}%;color:${hex}" data-p="${ap.toFixed(1)}" title="Score APEX ${total} / ${mx}">AV</div>`:''}
+   <div class="db-g"><div class="ind-bar"></div>${bandTicks}
+    ${sp!=null?`<div class="db-cur db-s" style="left:${sp}%;color:${scol}" data-p="${sp}" title="S = CNN Fear & Greed Index ${fgTxt} · ${sl}">S</div>`:''}
+    ${total!=null?`<div class="db-cur db-a" style="left:${ap}%;color:${hex}" data-p="${ap.toFixed(1)}" title="AV = score APEX ${totTxt} / ${mx}">AV</div>`:''}
    </div>
-   <div class="db-srow">
-    <div class="db-srow-bar">
-     <div class="db-tk db-tk1 db-tk-s">${sTickHTML}</div>
-     <div class="db-g db-g-s"><div class="ind-bar"></div>${bandTicks}${rng}
-      ${sp!=null?`<div class="db-cur db-s" style="left:${sp}%;color:${scol}" data-p="${sp}" title="S = CNN Fear & Greed Index ${fmt(sv,1)} · ${sl}">S</div>`:''}
-     </div>
-    </div>
-    <div class="db-srow-meta">${pilotSpark(fg)}<span>Fear &amp; Greed ${Number.isFinite(sv)?fmt(sv,1):'–'} ${sl}</span></div>
-   </div>
+   <div class="db-sc db-bot"><span>0 · Peur extrême</span><span>Euphorie · 100</span></div>
+   <div class="db-leg pilot-leg"><span><i class="db-dot db-a" style="color:${hex}">AV</i>Total <b class="sc-t" style="color:${hex}">${totTxt}/${mx}</b></span><span><i class="db-dot db-s" style="color:${scol}">S</i>Fear &amp; Greed <b class="sc-t" style="color:${scol}">${fgTxt} ${sl}</b></span>${pilotSpark(fg)}</div>
   </div>`;
   return `<div class="apex-block apex-block-pilot${compact?' apex-block-line':''}">${pilotNoteHTML(rec)}<div class="apex-rest">${bar}${pilotBrk(rec)}</div></div>`;
 }

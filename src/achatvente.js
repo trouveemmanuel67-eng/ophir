@@ -331,7 +331,6 @@ function dualBarPilot(rec, compact){
   const sv=Number(fg.value);
   const sp=Number.isFinite(sv)?Math.max(0,Math.min(100,sv)):null;
   const ticks=[-50,30,110,190,270];
-  const sTicks=[0,25,50,75,100];
   const pos=v=>((v-mn)/(mx-mn))*100;
   const hex=pilotHex(rec);
   const sl=fg.label||'–';
@@ -342,34 +341,18 @@ function dualBarPilot(rec, compact){
     const lab=v<0?('−'+Math.abs(v)):String(v);
     return `<i class="${edge.trim()}"${left}>${lab}</i>`;
   }).join('');
-  const sTickHTML=sTicks.map((v,i)=>{
-    const edge=i===0?' db-e0':(i===sTicks.length-1?' db-e1':'');
-    const left=i===sTicks.length-1?'':` style="left:${v}%"`;
-    return `<i class="${edge.trim()}"${left}>${v}</i>`;
-  }).join('');
-  let rng='';
-  if(fg.min&&fg.max&&Number.isFinite(fg.min[1])&&Number.isFinite(fg.max[1])){
-    const lo=Math.max(0,Math.min(100,fg.min[1])), hi=Math.max(0,Math.min(100,fg.max[1]));
-    const left=Math.min(lo,hi), width=Math.max(0.5,Math.abs(hi-lo));
-    const tip=`Plage 1 an : min ${fmt(fg.min[1],0)} (${dshort(fg.min[0])}) → max ${fmt(fg.max[1],0)} (${dshort(fg.max[0])})`;
-    rng=`<div class="db-srange" style="left:${left}%;width:${width}%" title="${tip}"></div>`;
-  }
-  /* Même dégradé et mêmes traits de repère que les sections non pilotes (.ind-bar + .av-tick à 20/40/60/80 %). */
+  /* Même dégradé et traits de repère que les sections non pilotes ; une seule barre, deux curseurs. */
   const bandTicks=[20,40,60,80].map(p=>`<i class="av-tick" style="left:${p}%"></i>`).join('');
-  const bar=`<div class="db db-pilot ${compact?'db-sm':''}" role="img" aria-label="Score APEX ${total==null?'n.d.':total} sur ${mn} à ${mx} ; Fear & Greed CNN ${Number.isFinite(sv)?fmt(sv,1):'–'} (${sl}) sur 0 à 100">
+  const totTxt=total==null?'–':String(total);
+  const fgTxt=Number.isFinite(sv)?fmt(sv,1):'–';
+  const bar=`<div class="db db-pilot ${compact?'db-sm':''}" role="img" aria-label="Score APEX ${totTxt} sur ${mn} à ${mx} ; Fear & Greed CNN ${fgTxt} (${sl}) sur 0 à 100">
    <div class="db-tk db-tk1">${tickHTML}</div>
-   <div class="db-g db-g-av"><div class="ind-bar"></div>${bandTicks}
-    ${total!=null?`<div class="db-cur db-a" style="left:${ap}%;color:${hex}" data-p="${ap.toFixed(1)}" title="Score APEX ${total} / ${mx}">AV</div>`:''}
+   <div class="db-g"><div class="ind-bar"></div>${bandTicks}
+    ${sp!=null?`<div class="db-cur db-s" style="left:${sp}%;color:${scol}" data-p="${sp}" title="S = CNN Fear & Greed Index ${fgTxt} · ${sl}">S</div>`:''}
+    ${total!=null?`<div class="db-cur db-a" style="left:${ap}%;color:${hex}" data-p="${ap.toFixed(1)}" title="AV = score APEX ${totTxt} / ${mx}">AV</div>`:''}
    </div>
-   <div class="db-srow">
-    <div class="db-srow-bar">
-     <div class="db-tk db-tk1 db-tk-s">${sTickHTML}</div>
-     <div class="db-g db-g-s"><div class="ind-bar"></div>${bandTicks}${rng}
-      ${sp!=null?`<div class="db-cur db-s" style="left:${sp}%;color:${scol}" data-p="${sp}" title="S = CNN Fear & Greed Index ${fmt(sv,1)} · ${sl}">S</div>`:''}
-     </div>
-    </div>
-    <div class="db-srow-meta">${pilotSpark(fg)}<span>Fear &amp; Greed ${Number.isFinite(sv)?fmt(sv,1):'–'} ${sl}</span></div>
-   </div>
+   <div class="db-sc db-bot"><span>0 · Peur extrême</span><span>Euphorie · 100</span></div>
+   <div class="db-leg pilot-leg"><span><i class="db-dot db-a" style="color:${hex}">AV</i>Total <b class="sc-t" style="color:${hex}">${totTxt}/${mx}</b></span><span><i class="db-dot db-s" style="color:${scol}">S</i>Fear &amp; Greed <b class="sc-t" style="color:${scol}">${fgTxt} ${sl}</b></span>${pilotSpark(fg)}</div>
   </div>`;
   return `<div class="apex-block apex-block-pilot${compact?' apex-block-line':''}">${pilotNoteHTML(rec)}<div class="apex-rest">${bar}${pilotBrk(rec)}</div></div>`;
 }
