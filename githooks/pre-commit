@@ -1,0 +1,11 @@
+#!/bin/sh
+# Empêche un commit si le JavaScript est invalide ou si le site se rend vide.
+set -e
+ROOT=$(git rev-parse --show-toplevel)
+cd "$ROOT"
+if [ ! -f scripts/garde_fou_site.py ]; then
+  echo "Garde-fou site : scripts/garde_fou_site.py introuvable." >&2
+  exit 1
+fi
+echo "Garde-fou site APEX (syntaxe JS + chargement headless)…"
+python3 scripts/garde_fou_site.py --root "$ROOT"
