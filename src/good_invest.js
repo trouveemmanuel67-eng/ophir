@@ -1,4 +1,4 @@
-/* ===== GOOD INVEST : actifs APEX ≥ 7,5/10 absents du portefeuille ===== */
+/* ===== MEILLEURES ENTRÉES : actifs APEX ≥ 7,5/10 absents du portefeuille ===== */
 const GI_SEUIL=7.5;
 const GI_LIST_KEY='apex-gi-list';
 
@@ -209,13 +209,13 @@ function giSetListOpen(on,persist){
 }
 function giDispoTxt(tv){
   const d=typeof dispoOf==='function'?dispoOf(tv):null;
-  if(!d) return {lab:'Dispo à vérifier', cls:'gi-dispo is-na'};
+  if(!d) return {lab:'Dispo à vérifier', cls:'gi-broker is-na'};
   const r=d.revolut, x=d.xtb;
-  if(r===true&&x===true) return {lab:'Revolut et XTB', cls:'gi-dispo is-both'};
-  if(r===true) return {lab:'Revolut', cls:'gi-dispo is-rev'};
-  if(x===true) return {lab:'XTB', cls:'gi-dispo is-xtb'};
-  if(r===false&&x===false) return {lab:'Ni Revolut ni XTB', cls:'gi-dispo is-none'};
-  return {lab:'Dispo à vérifier', cls:'gi-dispo is-na'};
+  if(r===true&&x===true) return {lab:'Revolut · XTB', cls:'gi-broker is-both'};
+  if(r===true) return {lab:'Revolut', cls:'gi-broker is-rev'};
+  if(x===true) return {lab:'XTB', cls:'gi-broker is-xtb'};
+  if(r===false&&x===false) return {lab:'Ni Revolut ni XTB', cls:'gi-broker is-none'};
+  return {lab:'Dispo à vérifier', cls:'gi-broker is-na'};
 }
 function giRender(){
   const host=document.getElementById('mes-pos');
@@ -228,21 +228,23 @@ function giRender(){
     const amt=(typeof ttMontantTxt==='function')?ttMontantTxt(it.montant, (typeof TT!=='undefined'&&TT&&TT.unite)||'$'):(it.montant==null?'—':it.montant+' $');
     const d=giDispoTxt(it.tv);
     const go=it.tv
-      ? `<button type="button" class="pos-link gi-link" data-tab="${(it.tab||'').replace(/"/g,'')}" data-tv="${String(it.tv).replace(/"/g,'&quot;')}">${(it.nom||it.tv).replace(/</g,'')}</button>`
+      ? `<button type="button" class="gi-link" data-tab="${(it.tab||'').replace(/"/g,'')}" data-tv="${String(it.tv).replace(/"/g,'&quot;')}">${(it.nom||it.tv).replace(/</g,'')}</button>`
       : `<span class="pos-nm">${(it.nom||'').replace(/</g,'')}</span>`;
     const tip=[it.nom,it.tv,it.section,d.lab].filter(Boolean).join(' · ');
+    const tick=it.tv?`<span class="gi-tick">${String(it.tv).replace(/</g,'')}</span>`:'';
+    const sec=it.section?`<span class="gi-sec">${String(it.section).replace(/</g,'')}</span>`:'';
     return `<article class="gi-row${it.tv?' has-fiche':''}" title="${tip.replace(/"/g,'&quot;')}">
-      <span class="gi-id">${go}<span class="pos-tick">${(it.tv||'').replace(/</g,'')}</span></span>
-      <span class="gi-note" style="color:${col};text-shadow:0 0 12px ${col}80"><b>${note}</b><small>/10</small></span>
+      <div class="gi-id">${go}</div>
+      <span class="gi-note" style="color:${col}"><b>${note}</b><small>/10</small></span>
       <span class="gi-amt">${amt}</span>
-      <span class="gi-sec">${(it.section||'').replace(/</g,'')}</span>
+      <div class="gi-meta">${tick}${sec}</div>
       <span class="${d.cls}">${d.lab}</span>
     </article>`;
   }).join('');
   const html=`<div class="card no-group" id="goodInvestCard">
     <div class="pos-rail-h" role="button" tabindex="0" aria-expanded="false" aria-controls="giBody">
       <span class="pos-chev" aria-hidden="true">▸</span>
-      <h2>GOOD INVEST</h2>
+      <h2>Meilleures entrées</h2>
       <span class="pos-head-tot">${n}<small>titre${n>1?'s':''}</small></span>
     </div>
     <div class="pos-body gi-body" id="giBody">

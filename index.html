@@ -498,35 +498,39 @@ body{display:flex;flex-direction:column;min-height:100vh}
 
 
 
-/* ===== GOOD INVEST (sous Mes positions, même rail) ===== */
+/* ===== MEILLEURES ENTRÉES (sous Mes positions, même rail) ===== */
 #goodInvestCard{padding:10px 10px 8px;margin-top:10px}
 #goodInvestCard .pos-rail-h{cursor:pointer;user-select:none}
-#goodInvestCard .pos-chev{flex:none;width:14px;color:var(--gold,#e6c27a);font-size:12px;line-height:1;transition:transform .2s ease}
+#goodInvestCard .pos-chev{flex:none;width:14px;color:var(--mut,#bababa);font-size:12px;line-height:1;transition:transform .2s ease}
 #goodInvestCard:not(.pos-collapsed) .pos-chev{transform:rotate(90deg)}
 #goodInvestCard .pos-head-tot{margin-left:auto;display:flex;align-items:baseline;gap:8px;font-size:15px;font-weight:750;color:#fff;font-variant-numeric:tabular-nums;white-space:nowrap}
 #goodInvestCard .pos-head-tot small{font-size:11px;font-weight:650;letter-spacing:.06em;text-transform:uppercase;color:var(--mut,#b5b5b5);margin-left:4px}
 #goodInvestCard.pos-collapsed .gi-body{display:none}
 #goodInvestCard.pos-collapsed{padding:8px 10px}
-#goodInvestCard .pos-rail-h:focus-visible{outline:1px solid rgba(230,194,122,.7);outline-offset:2px;border-radius:8px}
-#goodInvestCard h2{text-transform:uppercase;letter-spacing:.08em;font-size:13px;font-weight:750;margin:0;color:#fff}
-.gi-list{display:flex;flex-direction:column;gap:2px;margin-top:4px}
-.gi-empty{color:var(--mut,#b5b5b5);font-size:12px;padding:8px 6px}
-.gi-row{display:grid;grid-template-columns:minmax(0,1.3fr) auto auto;grid-template-rows:auto auto;align-items:center;gap:1px 8px;padding:6px 8px;border-radius:8px}
-.gi-row:hover{background:rgba(230,194,122,.06)}
-.gi-id{grid-column:1;grid-row:1;min-width:0;display:flex;align-items:baseline;gap:6px;overflow:hidden}
-.gi-id .pos-link,.gi-id .pos-nm{font-weight:650;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0;background:none;border:0;padding:0;font:inherit;cursor:pointer;text-align:left}
-.gi-id .pos-tick{flex:none;font-size:11px;color:var(--mut,#b5b5b5)}
-.gi-note{grid-column:2;grid-row:1;font-weight:750;font-variant-numeric:tabular-nums;white-space:nowrap;justify-self:end}
-.gi-note small{font-size:10px;font-weight:650;margin-left:1px}
+#goodInvestCard .pos-rail-h:focus-visible{outline:1px solid rgba(255,255,255,.35);outline-offset:2px;border-radius:8px}
+#goodInvestCard h2{text-transform:uppercase;letter-spacing:.06em;font-size:12px;font-weight:750;margin:0;color:#fff;white-space:nowrap}
+.gi-list{display:flex;flex-direction:column;gap:0;margin-top:6px;border-top:1px solid rgba(255,255,255,.08)}
+.gi-empty{color:var(--mut,#b5b5b5);font-size:12px;padding:12px 4px}
+.gi-row{display:grid;grid-template-columns:minmax(0,1fr) auto auto;grid-template-rows:auto auto;align-items:center;column-gap:12px;row-gap:3px;padding:10px 4px;border-bottom:1px solid rgba(255,255,255,.08);border-radius:0;background:none}
+.gi-row:hover{background:rgba(255,255,255,.03)}
+.gi-row:last-child{border-bottom:0}
+.gi-id{grid-column:1;grid-row:1;min-width:0;overflow:hidden}
+.gi-id .gi-link,.gi-id .pos-nm{display:block;width:100%;font-weight:650;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;background:none;border:0;padding:0;font:inherit;cursor:pointer;text-align:left;text-decoration:none;box-shadow:none;appearance:none;-webkit-appearance:none}
+.gi-id .gi-link:hover,.gi-id .pos-nm{color:#fff;text-decoration:none}
+.gi-id .gi-link:focus-visible{outline:1px solid rgba(255,255,255,.35);outline-offset:2px;border-radius:3px}
+.gi-meta{grid-column:1;grid-row:2;min-width:0;display:flex;align-items:baseline;gap:8px;overflow:hidden}
+.gi-tick{flex:none;font-size:10.5px;color:#8d8d8d;font-weight:500;letter-spacing:.01em}
+.gi-sec{min-width:0;font-size:10.5px;color:#8d8d8d;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.gi-note{grid-column:2;grid-row:1;font-weight:750;font-variant-numeric:tabular-nums;white-space:nowrap;justify-self:end;text-shadow:none}
+.gi-note small{font-size:10px;font-weight:650;margin-left:1px;opacity:.8}
 .gi-amt{grid-column:3;grid-row:1;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap;justify-self:end;color:#fff}
-.gi-sec{grid-column:1;grid-row:2;font-size:10.5px;color:var(--mut,#b5b5b5);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.gi-dispo{grid-column:2 / span 2;grid-row:2;justify-self:end;font-size:10px;font-weight:650;letter-spacing:.02em;color:var(--mut,#b5b5b5);white-space:nowrap}
-.gi-dispo.is-both,.gi-dispo.is-rev,.gi-dispo.is-xtb{color:#e6c27a}
-.gi-dispo.is-none{color:#c47a6a}
+.gi-broker{grid-column:2 / span 2;grid-row:2;justify-self:end;display:inline-flex;align-items:center;padding:1px 7px;border-radius:999px;font-size:10px;font-weight:600;letter-spacing:.02em;color:#b0b0b0;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);white-space:nowrap}
+.gi-broker.is-none{color:#b9a3a3;background:rgba(255,255,255,.03);border-color:rgba(255,255,255,.10)}
+.gi-broker.is-na{color:#8d8d8d;background:transparent;border-color:rgba(255,255,255,.08)}
 @media(max-width:1099px){
   #mes-pos:not(.is-expanded){display:flex;flex-direction:column;gap:8px;align-items:flex-end}
   #mes-pos:not(.is-expanded) #goodInvestCard{margin-top:0}
-  #mes-pos:not(.is-expanded) #goodInvestCard.pos-collapsed{background:#141414;border:1px solid rgba(230,194,122,.35);border-radius:999px;padding:8px 14px;box-shadow:0 4px 16px rgba(0,0,0,.35)}
+  #mes-pos:not(.is-expanded) #goodInvestCard.pos-collapsed{background:#141414;border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:8px 14px;box-shadow:0 4px 16px rgba(0,0,0,.35)}
 }
 
 /* ===== TEMPLATE TRADE (haut à droite, hors menu) ===== */
@@ -684,7 +688,7 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
 </header>
 <div class="page">
 <div class="layout"><main id="tabs"></main><div class="side"><aside id="duo" aria-label="Sentiment de marché et Achat / Vente"></aside><aside id="ind" hidden></aside><aside id="av" hidden></aside></div></div>
-<aside id="mes-pos" class="pos-rail" aria-label="Mes positions et Good Invest"></aside>
+<aside id="mes-pos" class="pos-rail" aria-label="Mes positions et Meilleures entrées"></aside>
 </div>
 <div id="pos-overlay" hidden></div>
 <button type="button" id="posReopen" class="pos-reopen" aria-controls="mes-pos" aria-expanded="false">Mes positions →</button>
@@ -8593,8 +8597,8 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
 }
 </script>
 <script type="application/json" id="dataMaj">{
-  "at": "2026-11-23T17:53:26.982811+01:00",
-  "label": "23/11/2026 17:53 Europe/Paris",
+  "at": "2026-11-23T17:54:31.257687+01:00",
+  "label": "23/11/2026 17:54 Europe/Paris",
   "date": "2026-11-23",
   "timezone": "Europe/Paris"
 }
@@ -11539,7 +11543,7 @@ function ttInit(){
   });
 }
 
-/* ===== GOOD INVEST : actifs APEX ≥ 7,5/10 absents du portefeuille ===== */
+/* ===== MEILLEURES ENTRÉES : actifs APEX ≥ 7,5/10 absents du portefeuille ===== */
 const GI_SEUIL=7.5;
 const GI_LIST_KEY='apex-gi-list';
 
@@ -11750,13 +11754,13 @@ function giSetListOpen(on,persist){
 }
 function giDispoTxt(tv){
   const d=typeof dispoOf==='function'?dispoOf(tv):null;
-  if(!d) return {lab:'Dispo à vérifier', cls:'gi-dispo is-na'};
+  if(!d) return {lab:'Dispo à vérifier', cls:'gi-broker is-na'};
   const r=d.revolut, x=d.xtb;
-  if(r===true&&x===true) return {lab:'Revolut et XTB', cls:'gi-dispo is-both'};
-  if(r===true) return {lab:'Revolut', cls:'gi-dispo is-rev'};
-  if(x===true) return {lab:'XTB', cls:'gi-dispo is-xtb'};
-  if(r===false&&x===false) return {lab:'Ni Revolut ni XTB', cls:'gi-dispo is-none'};
-  return {lab:'Dispo à vérifier', cls:'gi-dispo is-na'};
+  if(r===true&&x===true) return {lab:'Revolut · XTB', cls:'gi-broker is-both'};
+  if(r===true) return {lab:'Revolut', cls:'gi-broker is-rev'};
+  if(x===true) return {lab:'XTB', cls:'gi-broker is-xtb'};
+  if(r===false&&x===false) return {lab:'Ni Revolut ni XTB', cls:'gi-broker is-none'};
+  return {lab:'Dispo à vérifier', cls:'gi-broker is-na'};
 }
 function giRender(){
   const host=document.getElementById('mes-pos');
@@ -11769,21 +11773,23 @@ function giRender(){
     const amt=(typeof ttMontantTxt==='function')?ttMontantTxt(it.montant, (typeof TT!=='undefined'&&TT&&TT.unite)||'$'):(it.montant==null?'—':it.montant+' $');
     const d=giDispoTxt(it.tv);
     const go=it.tv
-      ? `<button type="button" class="pos-link gi-link" data-tab="${(it.tab||'').replace(/"/g,'')}" data-tv="${String(it.tv).replace(/"/g,'&quot;')}">${(it.nom||it.tv).replace(/</g,'')}</button>`
+      ? `<button type="button" class="gi-link" data-tab="${(it.tab||'').replace(/"/g,'')}" data-tv="${String(it.tv).replace(/"/g,'&quot;')}">${(it.nom||it.tv).replace(/</g,'')}</button>`
       : `<span class="pos-nm">${(it.nom||'').replace(/</g,'')}</span>`;
     const tip=[it.nom,it.tv,it.section,d.lab].filter(Boolean).join(' · ');
+    const tick=it.tv?`<span class="gi-tick">${String(it.tv).replace(/</g,'')}</span>`:'';
+    const sec=it.section?`<span class="gi-sec">${String(it.section).replace(/</g,'')}</span>`:'';
     return `<article class="gi-row${it.tv?' has-fiche':''}" title="${tip.replace(/"/g,'&quot;')}">
-      <span class="gi-id">${go}<span class="pos-tick">${(it.tv||'').replace(/</g,'')}</span></span>
-      <span class="gi-note" style="color:${col};text-shadow:0 0 12px ${col}80"><b>${note}</b><small>/10</small></span>
+      <div class="gi-id">${go}</div>
+      <span class="gi-note" style="color:${col}"><b>${note}</b><small>/10</small></span>
       <span class="gi-amt">${amt}</span>
-      <span class="gi-sec">${(it.section||'').replace(/</g,'')}</span>
+      <div class="gi-meta">${tick}${sec}</div>
       <span class="${d.cls}">${d.lab}</span>
     </article>`;
   }).join('');
   const html=`<div class="card no-group" id="goodInvestCard">
     <div class="pos-rail-h" role="button" tabindex="0" aria-expanded="false" aria-controls="giBody">
       <span class="pos-chev" aria-hidden="true">▸</span>
-      <h2>GOOD INVEST</h2>
+      <h2>Meilleures entrées</h2>
       <span class="pos-head-tot">${n}<small>titre${n>1?'s':''}</small></span>
     </div>
     <div class="pos-body gi-body" id="giBody">
