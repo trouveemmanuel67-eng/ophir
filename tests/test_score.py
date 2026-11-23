@@ -1,4 +1,4 @@
-"""Cas connus APEX (t337u / t338u) : note /100, RSI/MACD contrariens, CCI par zones."""
+"""Cas connus APEX (t342u) : base 50, amplitude ×1,5, pas de plafond Elliott sur la note."""
 import sys
 from pathlib import Path
 
@@ -16,22 +16,28 @@ def _parts(**kw):
     return base
 
 
-def test_formule_50_50_decomp():
-    # Tous les scores techniques à 0 (neutre) + fond 100 → 50 + 25 = 75
+def test_formule_base50_amplitude_1_5():
+    # Tout neutre, fond 50 → reste sur 50
+    r0 = compute(0, 50, parts=_parts())
+    assert r0['note'] == 50
+    assert r0['flag'] == 'orange'
+    assert r0['decomp']['texte'].startswith('Base 50')
+    by0 = {x['id']: x for x in r0['decomp']['lignes']}
+    assert by0['fond']['pts'] == pytest.approx(0)
+    assert by0['elliott']['pts'] == pytest.approx(0)
+    # Fond 100 + technique neutre = 50 + 37,5 = 87,5 → 88, AV neutre → portail cyan 75
     r = compute(0, 100, parts=_parts())
+    assert r['brut'] == pytest.approx(87.5)
     assert r['note'] == 75
     assert r['flag'] == 'green'
-    assert r['display'] == '75'
-    assert r['pos'] == 75
+    assert 'cyan' in r['cap']
     assert r['decomp']['renormalise'] is False
     by = {x['id']: x for x in r['decomp']['lignes']}
-    assert by['fond']['poids'] == 50 and by['fond']['pts'] == 50
-    assert by['elliott']['poids'] == 10 and by['elliott']['pts'] == 5
-    assert by['fibonacci']['poids'] == 8 and by['fibonacci']['pts'] == 4
-    assert by['figure']['poids'] == 7
-    assert by['rsi']['poids'] == 5
-    assert 'Fond.' in r['decomp']['texte']
-    assert 'Elliott' in r['decomp']['texte']
+    assert by['fond']['poids'] == 50 and by['fond']['pts'] == pytest.approx(37.5)
+    assert by['elliott']['poids'] == 10 and by['elliott']['pts'] == pytest.approx(0)
+    assert by['fibonacci']['poids'] == 8
+    assert 'Fond. +37,5' in r['decomp']['texte'] or 'Fond. +37.5' in r['decomp']['texte']
+    assert 'Elliott 0' in r['decomp']['texte']
 
 
 def test_renormalise_sans_fondamental():
@@ -50,26 +56,34 @@ def test_renormalise_sans_fondamental():
 def test_crypto_libelle_liquidite():
     r = compute(0, 80, parts=_parts(), classe='crypto')
     assert r['decomp']['libelle_fond'] == 'Liq.'
-    assert r['decomp']['texte'].startswith('Liq.')
+    assert 'Liq.' in r['decomp']['texte']
+    assert r['decomp']['texte'].startswith('Base 50')
 
 
-def test_plafonds_elliott_et_bonus_manuel():
-    # Fond 100 + technique neutre = 75 ; vague A manuelle → plafond 40
+def test_pas_de_plafond_elliott_sur_la_note():
+    # Fond 100 + technique neutre = 87,5 → 88 ; vague A manuelle : PLUS de plafond 40,
+    # mais AV faible → portail cyan 75.
     ell = {'key': 'a', 'manuel': True, 'override': True, 'zone': 'rouge'}
     r = compute(-12.4, 100, ell, parts=_parts())
-    assert r['note'] == 40
-    assert r['flag'] == 'orange'
-    assert 'elliott' in r['cap']
-    # Même situation, vague 4 manuelle : pas de plafond, bonus +5 → 80 puis cyan (AV faible) → 75
+    assert r['note'] == 75
+    assert r['flag'] == 'green'
+    assert 'elliott' not in r['cap']
+    assert 'cyan' in r['cap']
+    # Vague 4 manuelle : pas de plafond, bonus +5 (87,5+5=92,5 → 93), AV faible → 75
     ell2 = {'key': 'fin_4', 'manuel': True, 'override': True, 'zone': 'verte'}
     r2 = compute(17.8, 100, ell2, parts=_parts())
     assert r2['note'] == 75
     assert 'bonus' in r2['cap']
     assert 'cyan' in r2['cap']
-    # Comptage automatique en zone verte : pas de bonus
+    # Comptage automatique en zone verte : pas de bonus, toujours portail cyan
     r3 = compute(17.8, 100, 'fin_4', parts=_parts())
     assert 'bonus' not in r3['cap']
     assert r3['note'] == 75
+    # Sans portail (AV fort + confirmation) et vague rouge : la note peut dépasser 40
+    hi = _parts(elliott=-60, structure=100, fibonacci=100, figure=100, rsi=100, macd=100, cci=100)
+    r4 = compute(65, 80, ell, divergence=100, parts=hi)
+    assert r4['note'] > 40
+    assert 'elliott' not in r4['cap']
 
 
 def test_regle_cyan_achat_fort_et_divergence():
@@ -88,18 +102,19 @@ def test_regle_cyan_achat_fort_et_divergence():
     assert r4['note'] == 100 and r4['flag'] == 'cyan'
 
 
-def test_points_techniques_lineaires():
+def test_points_techniques_signes():
     from apex.score import pts_from_score
-    assert pts_from_score(100, 0.10) == 10
-    assert pts_from_score(-100, 0.10) == 0
-    assert pts_from_score(0, 0.10) == 5
-    assert pts_from_score(None, 0.07) == pytest.approx(3.5)
-    # CCI neutre (0) = moitié des 5 points
-    assert pts_from_score(0, 0.05) == pytest.approx(2.5)
-    # CCI +80 (sous −100) sur 5 points : 5 * (80+100)/200 = 4.5
-    assert pts_from_score(80, 0.05) == pytest.approx(4.5)
-    assert pts_from_score(100, 0.05) == pytest.approx(5)
-    assert pts_from_score(-80, 0.05) == pytest.approx(0.5)
+    # Poids 0,10, amplitude 1,5 : amp = 0,10×50×1,5 = 7,5
+    assert pts_from_score(100, 0.10) == pytest.approx(7.5)
+    assert pts_from_score(-100, 0.10) == pytest.approx(-7.5)
+    assert pts_from_score(0, 0.10) == pytest.approx(0)
+    assert pts_from_score(None, 0.07) == pytest.approx(0)
+    # CCI neutre (0) = 0 point (plus la moitié des 5)
+    assert pts_from_score(0, 0.05) == pytest.approx(0)
+    # CCI +80, poids 0,05 : amp = 3,75 → +3
+    assert pts_from_score(80, 0.05) == pytest.approx(3.0)
+    assert pts_from_score(100, 0.05) == pytest.approx(3.75)
+    assert pts_from_score(-80, 0.05) == pytest.approx(-3.0)
 
 
 def test_rsi_macd_cci_apex():

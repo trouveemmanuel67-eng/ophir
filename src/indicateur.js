@@ -29,15 +29,30 @@ function fmtPts(x){
   if(Math.abs(r-Math.round(r))<1e-9) return String(Math.round(r));
   return String(r).replace('.',',');
 }
+function fmtPtsSigned(x){
+  if(x==null||!Number.isFinite(Number(x))) return '–';
+  const r=Math.round(Number(x)*10)/10;
+  if(Math.abs(r)<1e-9) return '0';
+  return (r<0?'−':'+')+fmtPts(Math.abs(r));
+}
 function apexDecomp(rec){
   const d=rec&&rec.decomp;
   if(!d||!d.lignes||!d.lignes.length) return '';
   const bar=d.lignes.map(l=>{
     const w=Math.max(0,Number(l.poids)||0);
-    const hex=l.hex||(typeof apexHexOf==='function'?apexHexOf(100*(l.pts||0)/Math.max(w,1)):'#8a8a8a');
+    let hex=l.hex;
+    if(!hex&&typeof apexHexOf==='function'){
+      if(l.score!=null&&Number.isFinite(Number(l.score))&&(l.id!=='fond'&&l.id!=='agregé'))
+        hex=apexHexOf((Number(l.score)+100)/2);
+      else if(l.id==='fond'&&l.score!=null)
+        hex=apexHexOf(Number(l.score));
+      else
+        hex=apexHexOf(50+50*(Number(l.pts)||0)/Math.max(w,1));
+    }
+    if(!hex) hex='#8a8a8a';
     return `<i style="flex:${w};background:${hex}"></i>`;
   }).join('');
-  const txt=d.texte||d.lignes.map(l=>`${l.label} ${fmtPts(l.pts)}/${l.poids}`).join(' · ');
+  const txt=d.texte||((d.base!=null?'Base '+fmtPts(d.base)+' · ':'')+d.lignes.map(l=>`${l.label} ${fmtPtsSigned(l.pts)}`).join(' · '));
   return `<div class="apex-dec"><span class="apex-dec-bar" aria-hidden="true">${bar}</span><span class="apex-dec-txt">${txt}</span></div>`;
 }
 let indChart=null;

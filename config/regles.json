@@ -1,6 +1,6 @@
 {
   "version": "2026-11-23",
-  "tache": "t337u/t338u",
+  "tache": "t342u",
   "timezone": "Europe/Paris",
   "note_apex": {
     "poids_timing": 0.5,
@@ -54,7 +54,7 @@
       "extension_barres": 4
     },
     "cci": {
-      "regle": "CCI 20 hebdomadaire (corps). Le CCI ajoute des points s’il passe en cyan sous sa barre de survente, et retire des points s’il est en violet au-dessus de sa barre de surachat. CCI ≤ −100 : +80 (+100 si ≤ −200). CCI ≥ +100 : −80 (−100 si ≥ +200). Entre −100 et +100 : neutre (score 0 = moitié des 5 points). Le critère compte toujours ; le dénominateur n’est pas redistribué.",
+      "regle": "CCI 20 hebdomadaire (corps). Le CCI ajoute des points s’il passe en cyan sous sa barre de survente, et retire des points s’il est en violet au-dessus de sa barre de surachat. CCI ≤ −100 : +80 (+100 si ≤ −200). CCI ≥ +100 : −80 (−100 si ≥ +200). Entre −100 et +100 : neutre (score 0 = aucun point ajouté ni retiré depuis la base 50). Le critère compte toujours ; le dénominateur n’est pas redistribué.",
       "periode": 20,
       "timeframe": "1wk",
       "sous_100": 80,
@@ -64,7 +64,10 @@
       "zone_neutre": 0,
       "toujours_compte": true,
       "continu_zone_neutre": false
-    }
+    },
+    "note_base": 50.0,
+    "amplitude_echelle": 1.5,
+    "amplitude_totale": 75.0
   },
   "couleurs": {
     "regle": "Uniquement la note APEX /100 affichée (après overrides). 5 tranches égales de 20 points : 0–<20 violet, 20–<40 rouge, 40–<60 jaune (orange sur TradingView), 60–<80 vert, 80–100 cyan.",
@@ -107,7 +110,7 @@
     ]
   },
   "elliott": {
-    "plafond_rouge": 40.0,
+    "plafond_rouge": null,
     "vagues_rouges": [
       "w1",
       "w3",
@@ -145,7 +148,9 @@
     "bonus_conf": 10.0,
     "bonus_seulement_manuel": true,
     "overrides_fichier": "data/elliott_overrides.json",
-    "overrides_primacy": true
+    "overrides_primacy": true,
+    "plafond_sur_note_entiere": false,
+    "commentaire": "Le plafond à 40 sur la note entière est retiré (t342u) : le score Elliott retire déjà des points en zone rouge. Les Meilleures entrées et le cyan restent interdits en zone rouge (portail cyan inchangé)."
   },
   "cyan": {
     "note_min": 80.0,
@@ -167,7 +172,8 @@
   "good_invest": {
     "seuil": 75.0,
     "hors_portefeuille": true,
-    "inclut_ventes_en_attente": true
+    "inclut_ventes_en_attente": true,
+    "exclure_zone_rouge": true
   },
   "template_trade": {
     "devise": "USD",
@@ -221,7 +227,7 @@
   "fiche_regles": {
     "titre_bouton": "Règles",
     "titre_panneau": "Règles de la note APEX",
-    "intro": "La note APEX /100 est la somme des points de chaque critère : 50 points de fondamental et 50 points de technique. Pour la crypto, la liquidité remplace le fondamental. Sans fondamental (obligations, ETF obligataires, et tout actif sans note fondamentale), le technique est renormalisé à 100 points — c’est signalé sur la fiche. RSI et MACD sont lus à contre-courant : plus l’indicateur est bas, plus il donne de points à l’achat. Le CCI n’ajoute ou ne retire des points que hors de sa zone neutre (sous −100 ou au-dessus de +100). Les poids techniques sont lus dans config/regles.json et restent modifiables.",
+    "intro": "La note APEX /100 part de 50. Chaque critère ajoute ou retire des points selon son score −100…+100 (neutre = 0 point), avec une amplitude totale de ±75 (poids actuels × 1,5) ; la note est ensuite ramenée dans 0–100. Le fondamental (ou la liquidité pour la crypto) pèse la moitié de cette amplitude. Sans fondamental (obligations, ETF obligataires, et tout actif sans note fondamentale), le technique est renormalisé à l’amplitude totale — c’est signalé sur la fiche. RSI et MACD sont lus à contre-courant : plus l’indicateur est bas, plus il donne de points à l’achat. Le CCI n’ajoute ou ne retire des points que hors de sa zone neutre (sous −100 ou au-dessus de +100) ; au milieu il compte pour 0. En zone Elliott rouge, le score Elliott retire des points, mais la note entière n’est plus plafonnée à 40. Le cyan (80–100) n’est accordé que si l’Achat/Vente est ≥ +60 et qu’une confirmation est présente (divergence haussière ou vague verte manuelle) ; sinon la note est plafonnée à 75.",
     "ordre_site": [
       "actions",
       "etf_actions",

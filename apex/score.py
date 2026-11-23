@@ -171,9 +171,22 @@ def _as_score(v):
         return 0.0
 
 
-def pts_from_score(score, weight):
-    """score −100…+100 → points dans la note (dénominateur = weight × 100 si weight est une fraction)."""
-    return float(weight) * 100.0 * (_as_score(score) + 100.0) / 200.0
+def amplitude_echelle(na=None):
+    na = na or _R()['note_apex']
+    return float(na.get('amplitude_echelle', 1.5))
+
+
+def pts_from_score(score, weight, scale=None):
+    """Écart signé autour de 50 : weight (fraction) × 50 × amplitude × score/100.
+
+    Neutre (score 0) → 0 point. score +100 → +amp, score −100 → −amp.
+    Par défaut amplitude 1,5 (±75 au total). L'ancienne lecture « moitié des
+    points au neutre » (weight×(score+100)/200) n'est plus utilisée.
+    """
+    if scale is None:
+        scale = amplitude_echelle()
+    amp = float(weight) * 50.0 * float(scale)
+    return amp * _as_score(score) / 100.0
 
 
 def _fmt_pts(x):
@@ -185,10 +198,28 @@ def _fmt_pts(x):
     return f'{r:.1f}'.replace('.', ',')
 
 
+def _fmt_signed(x):
+    if x is None:
+        return '–'
+    r = round(float(x) * 10) / 10
+    if abs(r) < 1e-9:
+        return '0'
+    sign = '−' if r < 0 else '+'
+    body = _fmt_pts(abs(r))
+    return sign + body
+
+
+def _hex_of_score(score):
+    """Couleur du critère d'après son score −100…+100 (0 → jaune)."""
+    return FC.hex_from_apex10((_as_score(score) + 100.0) / 2.0)
+
+
 def _hex_of_pts(pts, poids):
+    """Rétrocompat : interprète pts comme écart signé si |pts| ≤ |poids|*2."""
     if not poids:
         return '#8a8a8a'
-    return FC.hex_from_apex10(100.0 * float(pts) / float(poids))
+    # base 50 : un écart de 0 = jaune (50). On ramène à 0–100 via 50 + 50*pts/amp
+    return FC.hex_from_apex10(50.0 + 50.0 * float(pts) / float(poids))
 
 
 def collect_parts(obj):
@@ -202,12 +233,12 @@ def collect_parts(obj):
 
 
 def compute(av, fond=None, elliott=None, divergence=None, parts=None, classe=None):
-    """Calcule la note APEX /100 (t337u).
+    """Calcule la note APEX /100 (t342u).
 
-    parts : scores −100…+100 des composantes techniques. Si absent, la
-    note technique est l'AV normalisé (onglets au barème spécifique, ou
-    appels sans composantes). Sans fondamental, le technique est
-    renormalisé à 100 % (signalé dans decomp).
+    Part de 50. Chaque critère ajoute ou retire des points selon son
+    score −100…+100 (neutre = 0), amplitude ×1,5 (±75) puis clip 0–100.
+    Sans fondamental, le technique est renormalisé (signalé dans decomp).
+    Pas de plafond Elliott sur la note entière ; le portail cyan est conservé.
     """
     r = _R()
     na = r['note_apex']
@@ -230,20 +261,23 @@ def compute(av, fond=None, elliott=None, divergence=None, parts=None, classe=Non
     if classe == 'crypto':
         lib_fond = 'Liq.'
 
+    amp_scale = amplitude_echelle(na)
+    base = float(na.get('note_base', 50.0))
     lignes = []
     pts_total = 0.0
     if renormalise:
-        # Technique porté à 100 %
+        # Technique porté à 100 % (amplitude totale ±75)
         scale = 1.0 / sum_w if sum_w else 2.0
         cap.append('sans_fond')
     else:
         scale = tech_w / sum_w if sum_w else 1.0
         fond = float(fond)
-        pts_f = fond_w * 100.0 * fond / 100.0
+        score_f = max(-100.0, min(100.0, (fond - 50.0) * 2.0))
+        pts_f = pts_from_score(score_f, fond_w, amp_scale)
         lignes.append({
             'id': 'fond', 'label': lib_fond, 'pts': round(pts_f, 2),
             'poids': int(round(fond_w * 100)), 'score': round(fond, 1),
-            'hex': _hex_of_pts(pts_f, fond_w * 100),
+            'hex': _hex_of_score(score_f),
         })
         pts_total += pts_f
 
@@ -254,18 +288,19 @@ def compute(av, fond=None, elliott=None, divergence=None, parts=None, classe=Non
                 continue
             w_frac = weights[key] * scale
             score = parts.get(key)
-            pts = pts_from_score(score, w_frac)
+            pts = pts_from_score(score, w_frac, amp_scale)
             poids = int(round(w_frac * 100))
+            sc = None if score is None else round(_as_score(score), 1)
             lignes.append({
                 'id': key, 'label': label, 'pts': round(pts, 2),
-                'poids': poids, 'score': None if score is None else round(_as_score(score), 1),
-                'hex': _hex_of_pts(pts, poids),
-                'neutre': score is None and key == 'figure',
+                'poids': poids, 'score': sc,
+                'hex': _hex_of_score(0.0 if score is None else score),
+                'neutre': (score is None and key == 'figure') or (sc is not None and abs(sc) < 1e-9),
             })
             pts_total += pts
             tech_used = True
     if not tech_used:
-        # Barème agrégé (AV normalisé 0–100) en 100 % si pas de fond, sinon part technique.
+        # Barème agrégé (AV normalisé 0–100) : même base 50 + amplitude.
         if timing is None:
             return {
                 'note': None, 'display': '–', 'hex': None, 'flag': 'none',
@@ -275,17 +310,17 @@ def compute(av, fond=None, elliott=None, divergence=None, parts=None, classe=Non
                 'renormalise': renormalise,
             }
         w_frac = 1.0 if renormalise else tech_w
-        # timing is already 0–100
-        pts = w_frac * 100.0 * float(timing) / 100.0
+        score_t = max(-100.0, min(100.0, (float(timing) - 50.0) * 2.0))
+        pts = pts_from_score(score_t, w_frac, amp_scale)
         poids = int(round(w_frac * 100))
         lignes.append({
             'id': 'agregé', 'label': 'Tech.', 'pts': round(pts, 2),
             'poids': poids, 'score': round(float(timing), 1),
-            'hex': _hex_of_pts(pts, poids),
+            'hex': _hex_of_score(score_t),
         })
         pts_total += pts
 
-    brut = pts_total
+    brut = base + pts_total
     n = brut
     pen = fond_penalty(None if renormalise else fond)
     if pen:
@@ -293,10 +328,9 @@ def compute(av, fond=None, elliott=None, divergence=None, parts=None, classe=Non
         cap.append('fondamental')
     key = elliott_key_of(elliott)
     fiable = elliott_fiable(elliott)
-    rouges = set(ell_r['vagues_rouges'])
-    if key in rouges:
-        n = min(n, ell_r['plafond_rouge'])
-        cap.append('elliott')
+    # t342u : plus de plafond Elliott sur la note entière (le score du
+    # critère retire déjà des points en zone rouge). L'entrée / le cyan
+    # restent filtrés plus bas.
     if fiable and ell_r.get('bonus_seulement_manuel', True):
         if key in set(ell_r['bonus_05']):
             n = n + ell_r['bonus_entry']
@@ -320,18 +354,19 @@ def compute(av, fond=None, elliott=None, divergence=None, parts=None, classe=Non
             n = cy['plafond_sans_confirmation']
             cap.append('cyan')
     pos = n
-    prefix = ''
+    bits = [f"Base {_fmt_pts(base)}"]
     if renormalise:
-        prefix = 'sans fond. · '
-    texte = prefix + ' · '.join(
-        f"{ln['label']} {_fmt_pts(ln['pts'])}/{ln['poids']}" for ln in lignes
-    )
+        bits.append('sans fond.')
+    bits.extend(f"{ln['label']} {_fmt_signed(ln['pts'])}" for ln in lignes)
+    texte = ' · '.join(bits)
     decomp = {
         'renormalise': renormalise,
         'libelle_fond': None if renormalise else lib_fond,
         'lignes': lignes,
         'texte': texte,
         'pts': round(brut, 2),
+        'base': base,
+        'amplitude': amp_scale,
     }
     tech_moy = None
     if parts:

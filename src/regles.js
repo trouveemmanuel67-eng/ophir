@@ -130,7 +130,10 @@ function rgCommons(){
   return `<div class="rg-commons">
     <h4>Règles communes</h4>
     <ul class="rg-list rg-list-plain">
-      <li>Plafond Elliott : note limitée à ${rgEsc(String(el.plafond_rouge))} en vagues rouges (${rgEsc(rouges)}).</li>
+      <li>Note : part de ${rgEsc(String((RG.note_apex&&RG.note_apex.note_base)!=null?RG.note_apex.note_base:50))} ; chaque critère ajoute ou retire des points (neutre = 0), amplitude ×${rgEsc(String((RG.note_apex&&RG.note_apex.amplitude_echelle)!=null?String(RG.note_apex.amplitude_echelle).replace('.',','):'1,5'))} (±${rgEsc(String((RG.note_apex&&RG.note_apex.amplitude_totale)!=null?RG.note_apex.amplitude_totale:75))}), puis clip 0–100.</li>
+      <li>${el.plafond_sur_note_entiere===false
+        ? 'Pas de plafond Elliott sur la note entière en vagues rouges ('+rgEsc(rouges)+') : le score Elliott retire déjà des points. Les Meilleures entrées et le cyan restent interdits en zone rouge.'
+        : 'Plafond Elliott : note limitée à '+rgEsc(String(el.plafond_rouge))+' en vagues rouges ('+rgEsc(rouges)+').'}</li>
       <li>Bonus Elliott : ${el.bonus_seulement_manuel?'uniquement sur un comptage manuel (un décompte automatique ne donne pas de bonus)':''}${el.bonus_entry!=null?' ; +'+String(el.bonus_entry).replace('.',',')+' si zone verte':' '}${el.bonus_conf!=null?' ; +'+String(el.bonus_conf).replace('.',',')+' si confirmation':''}. Zones vertes : ${rgEsc(vertes)}.</li>
       <li>Règle cyan : une note ≥ ${rgEsc(String(cy.note_min))} exige un Achat / Vente ≥ +${rgEsc(String(cy.av_achat_fort))} et une confirmation (${rgEsc(conf)}). Sinon la note est plafonnée à ${rgEsc(String(cy.plafond_sans_confirmation))}.</li>
       <li>Échelle de couleurs (5 tranches) : <span class="rg-bands">${scale}</span></li>

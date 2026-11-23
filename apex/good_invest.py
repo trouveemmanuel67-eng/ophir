@@ -39,6 +39,28 @@ def _held():
     return held
 
 
+def _zone_rouge(ell, tv=None, bars=None):
+    """True si le titre est en vague rouge (aucune entrée)."""
+    cfg = (regles().get('elliott') or {})
+    if cfg.get('interdire_entree_zone_rouge', True) is False:
+        return False
+    if (regles().get('good_invest') or {}).get('exclure_zone_rouge', True) is False:
+        return False
+    rouges = set(cfg.get('vagues_rouges') or [])
+    key = zone = None
+    if isinstance(ell, dict):
+        key, zone = ell.get('key'), ell.get('zone')
+    elif isinstance(ell, str):
+        key = ell
+    if not key and tv and bars and tv in bars:
+        e = (bars.get(tv) or {}).get('elliott') or {}
+        if isinstance(e, dict):
+            key, zone = e.get('key'), e.get('zone')
+        elif isinstance(e, str):
+            key = e
+    return (key in rouges) or (zone == 'rouge')
+
+
 def _is_held(tv, yahoo, held):
     for s in (tv, yahoo):
         if not s:
@@ -58,12 +80,14 @@ def build() -> dict:
     held = _held()
     rows = []
     seen = set()
-    def consider(tv, note_rec, av=None, nom=None, section=None, yahoo=None):
+    def consider(tv, note_rec, av=None, nom=None, section=None, yahoo=None, ell=None):
         if not tv or not note_rec or note_rec.get('note') is None:
             return
         if float(note_rec['note']) < seuil:
             return
         if note_rec.get('cap') == 'moyenne':
+            return
+        if _zone_rouge(ell, tv, bars):
             return
         meta = actif(tv) or {}
         # t322u : hors univers (pays retirés) et titres seulement en positions
@@ -95,14 +119,14 @@ def build() -> dict:
     for tv, b in bars.items():
         a = (b or {}).get('apex10') or {}
         av = (b.get('av') or {}).get('score')
-        consider(tv, a, av)
+        consider(tv, a, av, ell=(b or {}).get('elliott'))
 
     def walk(obj):
         if isinstance(obj, dict):
             tv = obj.get('tv') or obj.get('sym') or obj.get('ticker')
             a = obj.get('apex10')
             av = (obj.get('av') or {}).get('score') if isinstance(obj.get('av'), dict) else None
-            consider(tv, a, av, obj.get('etf') or obj.get('name') or obj.get('nom'), None, obj.get('yahoo') or obj.get('ticker') or obj.get('sym'))
+            consider(tv, a, av, obj.get('etf') or obj.get('name') or obj.get('nom'), None, obj.get('yahoo') or obj.get('ticker') or obj.get('sym'), obj.get('elliott'))
             for v in obj.values():
                 walk(v)
         elif isinstance(obj, list):
