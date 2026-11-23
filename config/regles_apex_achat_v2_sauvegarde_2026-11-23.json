@@ -1,0 +1,295 @@
+{
+  "sauvegarde": "Réglage validé APEX ACHAT — actions hors banque",
+  "date": "23/11/2026",
+  "date_iso": "2026-11-23",
+  "source": "config/regles.json · apex_achat_v2",
+  "contenu": "CCI Stochastic Daveatt (CCI 28, stoch 28, lissages SMA 3 et 3, ligne D, +20 si sous 20, hebdo clôturé) et seuils fondamentaux validés (Dette nette/EBITDA < 2 ; Marge op. > 15 % ; Marge FCF > 10 % ; ROE > 15 % ; Liquidité courante > 1,2 ; BPA N et N+1 > 10 % ; CA N et N+1 > 5 % ; +10 si atteint, sinon 0).",
+  "apex_achat_v2": {
+    "titre": "APEX ACHAT — nouvelles règles (en construction)",
+    "intro": "L’indicateur APEX ACHAT se construit par accumulation de points, critère par critère. Ces règles sont en cours de définition : elles ne servent pas encore au calcul des notes.",
+    "utilise_par_le_calcul": false,
+    "reference_titre": "Règles actuelles de la note APEX (référence)",
+    "criteres": [
+      {
+        "id": "rsi_14_hebdo",
+        "label": "RSI 14 hebdo",
+        "max": 30,
+        "retrait": false,
+        "cumulables": true,
+        "precision": "Les deux conditions sont cumulables. Maximum 30 points sur le RSI. Aucun retrait.",
+        "conditions": [
+          {
+            "id": "rsi_sous_40",
+            "label": "RSI < 40",
+            "points": 10
+          },
+          {
+            "id": "divergence_rsi_haussiere_hebdo",
+            "label": "Divergence RSI haussière, hebdomadaire",
+            "points": 20
+          }
+        ],
+        "regle_courte": "RSI < 40 : +10 ; divergence haussière : +20 ; cumulables"
+      },
+      {
+        "id": "macd_12_26_9_hebdo",
+        "label": "MACD 12/26/9 hebdo",
+        "max": 30,
+        "retrait": false,
+        "cumulables": true,
+        "precision": "Les deux conditions sont cumulables. Maximum 30 points sur le MACD. Aucun retrait.",
+        "conditions": [
+          {
+            "id": "macd_sous_0",
+            "label": "MACD < 0",
+            "points": 10
+          },
+          {
+            "id": "histo_4_barres_rouges_sous_0",
+            "label": "Au moins 4 barres d’histogramme rouges consécutives sous 0",
+            "points": 20
+          }
+        ],
+        "regle_courte": "MACD < 0 : +10 ; ≥ 4 barres histo. rouges sous 0 : +20 ; cumulables"
+      },
+      {
+        "id": "fibonacci",
+        "label": "Fibonacci",
+        "max": 30,
+        "retrait": false,
+        "cumulables": false,
+        "preambule": "Retracement plus bas historique → plus haut historique (corps hebdomadaires).",
+        "precision": "Paliers non cumulables : le palier atteint dépend de l’endroit où se trouve le prix. Maximum 30 points. Aucun retrait.",
+        "conditions": [
+          {
+            "id": "sous_382",
+            "label": "Prix sous 38,2 %",
+            "points": 10
+          },
+          {
+            "id": "sous_618",
+            "label": "Prix sous 61,8 %",
+            "points": 20
+          },
+          {
+            "id": "sous_786",
+            "label": "Prix sous 78,6 %",
+            "points": 30
+          }
+        ],
+        "regle_courte": "Plus bas → plus haut (corps hebdo). Sous 38,2 % : +10 ; 61,8 % : +20 ; 78,6 % : +30. Non cumulables"
+      },
+      {
+        "id": "elliott",
+        "label": "Vagues d’Elliott",
+        "max": 20,
+        "retrait": false,
+        "cumulables": false,
+        "precision": "0 point sinon. Maximum 20 points.",
+        "conditions": [
+          {
+            "id": "zone_entree",
+            "label": "Fin de vague 2, fin de vague 4, vague C (et après une C tant qu’aucune nouvelle vague n’a démarré)",
+            "points": 20
+          }
+        ],
+        "regle_courte": "Fin de vague 2, fin de vague 4, vague C (et après une C tant qu’aucune nouvelle vague n’a démarré) : +20"
+      },
+      {
+        "id": "cci_20_hebdo",
+        "label": "CCI Stochastic 28 hebdo (Daveatt)",
+        "max": 20,
+        "retrait": false,
+        "cumulables": false,
+        "precision": "Maximum 20 points. Aucun retrait. Formule Daveatt (CCI 28, stoch 28, lissages 3 et 3, ligne D).",
+        "conditions": [
+          {
+            "id": "cci_sous_20",
+            "label": "CCI Stochastic sous 20",
+            "points": 20
+          }
+        ],
+        "regle_courte": "+20 si sous 20"
+      }
+    ],
+    "affichage_seulement": true,
+    "masquer_criteres": [
+      "structure",
+      "figure"
+    ],
+    "fondamental": {
+      "id": "fondamental",
+      "label": "Fondamental",
+      "max": 90,
+      "points_si_bon": 10,
+      "retrait": false,
+      "precision": "Chaque élément rapporte +10 points s’il est bon, sinon 0 (donnée manquante = 0). 9 éléments, maximum 90 points. Seuils validés.",
+      "groupes": [
+        {
+          "id": "sante",
+          "label": "Santé",
+          "elements": [
+            {
+              "id": "dette_nette_ebitda",
+              "label": "Dette nette / EBITDA",
+              "bon_si": "< 2",
+              "points": 10,
+              "seuil_a_valider": false
+            },
+            {
+              "id": "marge_operationnelle",
+              "label": "Marge opérationnelle",
+              "bon_si": "> 15 %",
+              "points": 10,
+              "seuil_a_valider": false
+            },
+            {
+              "id": "marge_fcf",
+              "label": "Marge de cash-flow libre",
+              "bon_si": "> 10 %",
+              "points": 10,
+              "seuil_a_valider": false
+            },
+            {
+              "id": "roe",
+              "label": "ROE",
+              "bon_si": "> 15 %",
+              "points": 10,
+              "seuil_a_valider": false
+            },
+            {
+              "id": "ratio_liquidite_courante",
+              "label": "Ratio de liquidité courante",
+              "bon_si": "> 1,2",
+              "points": 10,
+              "seuil_a_valider": false
+            }
+          ]
+        },
+        {
+          "id": "croissance",
+          "label": "Croissance (prévisions analystes)",
+          "elements": [
+            {
+              "id": "bpa_annee_prochaine",
+              "label": "BPA année prochaine",
+              "bon_si": "> 10 %",
+              "points": 10,
+              "seuil_a_valider": false
+            },
+            {
+              "id": "bpa_cette_annee",
+              "label": "BPA cette année",
+              "bon_si": "> 10 %",
+              "points": 10,
+              "seuil_a_valider": false
+            },
+            {
+              "id": "ca_annee_prochaine",
+              "label": "CA année prochaine",
+              "bon_si": "> 5 %",
+              "points": 10,
+              "seuil_a_valider": false
+            },
+            {
+              "id": "ca_cette_annee",
+              "label": "CA cette année",
+              "bon_si": "> 5 %",
+              "points": 10,
+              "seuil_a_valider": false
+            }
+          ]
+        }
+      ]
+    },
+    "sentiment": {
+      "id": "sentiment",
+      "label": "Sentiment",
+      "max": 50,
+      "max_affiche": "±50",
+      "utilise_par_le_calcul": false,
+      "affichage_seulement": true,
+      "criteres": [
+        {
+          "id": "fear_greed_index",
+          "label": "Fear & Greed Index",
+          "points_max": "±50",
+          "neutre": 50,
+          "tranche": 10,
+          "regle": "Milieu 50 = 0 point. Chaque tranche de 10 points d’écart : peur 40 → +10, 30 → +20, 20 → +30, 10 → +40, 0 → +50 ; avidité 60 → −10, 70 → −20, 80 → −30, 90 → −40, 100 → −50.",
+          "conditions": [
+            {
+              "id": "fg_50",
+              "valeur": 50,
+              "points": 0
+            },
+            {
+              "id": "fg_40",
+              "valeur": 40,
+              "points": 10
+            },
+            {
+              "id": "fg_30",
+              "valeur": 30,
+              "points": 20
+            },
+            {
+              "id": "fg_20",
+              "valeur": 20,
+              "points": 30
+            },
+            {
+              "id": "fg_10",
+              "valeur": 10,
+              "points": 40
+            },
+            {
+              "id": "fg_0",
+              "valeur": 0,
+              "points": 50
+            },
+            {
+              "id": "fg_60",
+              "valeur": 60,
+              "points": -10
+            },
+            {
+              "id": "fg_70",
+              "valeur": 70,
+              "points": -20
+            },
+            {
+              "id": "fg_80",
+              "valeur": 80,
+              "points": -30
+            },
+            {
+              "id": "fg_90",
+              "valeur": 90,
+              "points": -40
+            },
+            {
+              "id": "fg_100",
+              "valeur": 100,
+              "points": -50
+            }
+          ],
+          "regle_courte": "Milieu 50 = 0. Tranche de 10 : peur 40 → +10 … 0 → +50 ; avidité 60 → −10 … 100 → −50."
+        }
+      ]
+    },
+    "date_validation": "23/11/2026",
+    "reglage_valide": true,
+    "section_titre": "Actions (hors banque)",
+    "champ_application": "Ce règlement s’applique à toutes les actions hors banques (à terme).",
+    "validation": {
+      "date": "23/11/2026",
+      "date_iso": "2026-11-23",
+      "valide": true,
+      "objets": [
+        "CCI Stochastic de Daveatt (script TradingView XZyG5SOx) : CCI 28 sur la clôture, stochastique 28, lissages SMA 3 et 3, ligne D ; +20 si sous 20, hebdo clôturé.",
+        "Seuils fondamentaux validés : Dette nette/EBITDA < 2 ; Marge op. > 15 % ; Marge FCF > 10 % ; ROE > 15 % ; Ratio de liquidité courante > 1,2 ; BPA année prochaine et cette année > 10 % ; CA année prochaine et cette année > 5 %. +10 si atteint, sinon 0 (donnée manquante = 0)."
+      ]
+    }
+  }
+}

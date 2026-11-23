@@ -1588,6 +1588,262 @@
           "regle_courte": "Milieu 50 = 0. Tranche de 10 : peur 40 → +10 … 0 → +50 ; avidité 60 → −10 … 100 → −50."
         }
       ]
+    },
+    "date_validation": "23/11/2026",
+    "reglage_valide": true,
+    "section_titre": "Actions (hors banque)",
+    "champ_application": "Ce règlement s’applique à toutes les actions hors banques (à terme).",
+    "validation": {
+      "date": "23/11/2026",
+      "date_iso": "2026-11-23",
+      "valide": true,
+      "objets": [
+        "CCI Stochastic de Daveatt (script TradingView XZyG5SOx) : CCI 28 sur la clôture, stochastique 28, lissages SMA 3 et 3, ligne D ; +20 si sous 20, hebdo clôturé.",
+        "Seuils fondamentaux validés : Dette nette/EBITDA < 2 ; Marge op. > 15 % ; Marge FCF > 10 % ; ROE > 15 % ; Ratio de liquidité courante > 1,2 ; BPA année prochaine et cette année > 10 % ; CA année prochaine et cette année > 5 %. +10 si atteint, sinon 0 (donnée manquante = 0)."
+      ]
+    }
+  },
+  "apex_achat_v2_banques": {
+    "titre": "Actions bancaires",
+    "section_titre": "Actions bancaires",
+    "intro": "Même technique et même sentiment que les actions hors banque. Le fondamental bancaire est à personnaliser ; ces règles ne servent pas encore au calcul des notes des banques.",
+    "utilise_par_le_calcul": false,
+    "affichage_seulement": true,
+    "applique_au_calcul": false,
+    "criteres": [
+      {
+        "id": "rsi_14_hebdo",
+        "label": "RSI 14 hebdo",
+        "max": 30,
+        "retrait": false,
+        "cumulables": true,
+        "precision": "Les deux conditions sont cumulables. Maximum 30 points sur le RSI. Aucun retrait.",
+        "conditions": [
+          {
+            "id": "rsi_sous_40",
+            "label": "RSI < 40",
+            "points": 10
+          },
+          {
+            "id": "divergence_rsi_haussiere_hebdo",
+            "label": "Divergence RSI haussière, hebdomadaire",
+            "points": 20
+          }
+        ],
+        "regle_courte": "RSI < 40 : +10 ; divergence haussière : +20 ; cumulables"
+      },
+      {
+        "id": "macd_12_26_9_hebdo",
+        "label": "MACD 12/26/9 hebdo",
+        "max": 30,
+        "retrait": false,
+        "cumulables": true,
+        "precision": "Les deux conditions sont cumulables. Maximum 30 points sur le MACD. Aucun retrait.",
+        "conditions": [
+          {
+            "id": "macd_sous_0",
+            "label": "MACD < 0",
+            "points": 10
+          },
+          {
+            "id": "histo_4_barres_rouges_sous_0",
+            "label": "Au moins 4 barres d’histogramme rouges consécutives sous 0",
+            "points": 20
+          }
+        ],
+        "regle_courte": "MACD < 0 : +10 ; ≥ 4 barres histo. rouges sous 0 : +20 ; cumulables"
+      },
+      {
+        "id": "fibonacci",
+        "label": "Fibonacci",
+        "max": 30,
+        "retrait": false,
+        "cumulables": false,
+        "preambule": "Retracement plus bas historique → plus haut historique (corps hebdomadaires).",
+        "precision": "Paliers non cumulables : le palier atteint dépend de l’endroit où se trouve le prix. Maximum 30 points. Aucun retrait.",
+        "conditions": [
+          {
+            "id": "sous_382",
+            "label": "Prix sous 38,2 %",
+            "points": 10
+          },
+          {
+            "id": "sous_618",
+            "label": "Prix sous 61,8 %",
+            "points": 20
+          },
+          {
+            "id": "sous_786",
+            "label": "Prix sous 78,6 %",
+            "points": 30
+          }
+        ],
+        "regle_courte": "Plus bas → plus haut (corps hebdo). Sous 38,2 % : +10 ; 61,8 % : +20 ; 78,6 % : +30. Non cumulables"
+      },
+      {
+        "id": "elliott",
+        "label": "Vagues d’Elliott",
+        "max": 20,
+        "retrait": false,
+        "cumulables": false,
+        "precision": "0 point sinon. Maximum 20 points.",
+        "conditions": [
+          {
+            "id": "zone_entree",
+            "label": "Fin de vague 2, fin de vague 4, vague C (et après une C tant qu’aucune nouvelle vague n’a démarré)",
+            "points": 20
+          }
+        ],
+        "regle_courte": "Fin de vague 2, fin de vague 4, vague C (et après une C tant qu’aucune nouvelle vague n’a démarré) : +20"
+      },
+      {
+        "id": "cci_20_hebdo",
+        "label": "CCI Stochastic 28 hebdo (Daveatt)",
+        "max": 20,
+        "retrait": false,
+        "cumulables": false,
+        "precision": "Maximum 20 points. Aucun retrait. Formule Daveatt (CCI 28, stoch 28, lissages 3 et 3, ligne D).",
+        "conditions": [
+          {
+            "id": "cci_sous_20",
+            "label": "CCI Stochastic sous 20",
+            "points": 20
+          }
+        ],
+        "regle_courte": "+20 si sous 20"
+      }
+    ],
+    "sentiment": {
+      "id": "sentiment",
+      "label": "Sentiment",
+      "max": 50,
+      "max_affiche": "±50",
+      "utilise_par_le_calcul": false,
+      "affichage_seulement": true,
+      "criteres": [
+        {
+          "id": "fear_greed_index",
+          "label": "Fear & Greed Index",
+          "points_max": "±50",
+          "neutre": 50,
+          "tranche": 10,
+          "regle": "Milieu 50 = 0 point. Chaque tranche de 10 points d’écart : peur 40 → +10, 30 → +20, 20 → +30, 10 → +40, 0 → +50 ; avidité 60 → −10, 70 → −20, 80 → −30, 90 → −40, 100 → −50.",
+          "conditions": [
+            {
+              "id": "fg_50",
+              "valeur": 50,
+              "points": 0
+            },
+            {
+              "id": "fg_40",
+              "valeur": 40,
+              "points": 10
+            },
+            {
+              "id": "fg_30",
+              "valeur": 30,
+              "points": 20
+            },
+            {
+              "id": "fg_20",
+              "valeur": 20,
+              "points": 30
+            },
+            {
+              "id": "fg_10",
+              "valeur": 10,
+              "points": 40
+            },
+            {
+              "id": "fg_0",
+              "valeur": 0,
+              "points": 50
+            },
+            {
+              "id": "fg_60",
+              "valeur": 60,
+              "points": -10
+            },
+            {
+              "id": "fg_70",
+              "valeur": 70,
+              "points": -20
+            },
+            {
+              "id": "fg_80",
+              "valeur": 80,
+              "points": -30
+            },
+            {
+              "id": "fg_90",
+              "valeur": 90,
+              "points": -40
+            },
+            {
+              "id": "fg_100",
+              "valeur": 100,
+              "points": -50
+            }
+          ],
+          "regle_courte": "Milieu 50 = 0. Tranche de 10 : peur 40 → +10 … 0 → +50 ; avidité 60 → −10 … 100 → −50."
+        }
+      ]
+    },
+    "fondamental": {
+      "id": "fondamental_bancaire",
+      "label": "Fondamental bancaire",
+      "a_personnaliser": true,
+      "points_non_fixes": true,
+      "precision": "Éléments habituels proposés, sans points ni seuils fixés. À personnaliser. Rien n’est encore appliqué au calcul des banques.",
+      "groupes": [
+        {
+          "id": "sante_bancaire",
+          "label": "Santé bancaire",
+          "elements": [
+            {
+              "id": "roe",
+              "label": "ROE",
+              "a_personnaliser": true
+            },
+            {
+              "id": "roa",
+              "label": "ROA",
+              "a_personnaliser": true
+            },
+            {
+              "id": "ratio_cet1",
+              "label": "Ratio CET1",
+              "a_personnaliser": true
+            },
+            {
+              "id": "cout_du_risque",
+              "label": "Coût du risque",
+              "a_personnaliser": true
+            },
+            {
+              "id": "coefficient_exploitation",
+              "label": "Coefficient d'exploitation",
+              "a_personnaliser": true
+            }
+          ]
+        },
+        {
+          "id": "croissance_bancaire",
+          "label": "Croissance",
+          "elements": [
+            {
+              "id": "croissance_bpa",
+              "label": "Croissance BPA",
+              "a_personnaliser": true
+            },
+            {
+              "id": "croissance_pnb",
+              "label": "Croissance PNB",
+              "a_personnaliser": true
+            }
+          ]
+        }
+      ]
     }
   }
 }

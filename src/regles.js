@@ -441,15 +441,18 @@ function rgAchatV2RuleShort(c){
   else if(c.cumulables) bits.push('Cumulables.');
   return bits.join(' ').replace(/\s+/g,' ').trim();
 }
-function rgActionsGrid(){
-  const v=(RG&&RG.apex_achat_v2)||{};
+function rgActionsGrid(v, opts){
+  v=v||((RG&&RG.apex_achat_v2)||{});
+  opts=opts||{};
   const ordre=['rsi_14_hebdo','macd_12_26_9_hebdo','fibonacci','elliott','cci_20_hebdo'];
   const by={};
   (v.criteres||[]).forEach(c=>{if(c&&c.id) by[c.id]=c;});
   const tech=ordre.map(id=>by[id]).filter(Boolean);
   const techSum=tech.reduce((s,c)=>s+(Number(c.max)||0),0);
   const fond=v.fondamental||{};
-  const fondMax=fond.max!=null?Number(fond.max):90;
+  const fondPerso=fond.a_personnaliser===true||fond.points_non_fixes===true;
+  const fondMax=fondPerso?null:(fond.max!=null?Number(fond.max):90);
+  const boardId=opts.boardId||'rg-table-actions';
   const card=(id, label, ruleHtml, pts)=>`<article class="rg-card" data-id="${rgEsc(id||'')}">
       <span class="rg-card-pts">${rgEsc(pts)}</span>
       <h3 class="rg-card-name">${rgEsc(label)}</h3>
@@ -458,10 +461,13 @@ function rgActionsGrid(){
   const techCards=tech.map(c=>card(c.id, c.label||c.id, rgEsc(rgAchatV2RuleShort(c)), c.max!=null?rgNum(c.max):'—')).join('');
   const fondCols=(fond.groupes||[]).map(g=>{
     const cards=(g.elements||[]).map(el=>{
+      const perso=el.a_personnaliser===true||fondPerso;
       const bon=el.bon_si?rgEsc(el.bon_si):'';
       const av=el.seuil_a_valider===true?' <span class="rg-av">à valider</span>':'';
-      const rule=bon?`<span class="rg-seuil">${bon}</span>${av}`:'';
-      return card(el.id, el.label||el.id, rule, rgFmtPlus(el.points!=null?el.points:fond.points_si_bon));
+      const pers=perso?' <span class="rg-av">à personnaliser</span>':'';
+      const rule=(bon||av||pers)?`<span class="rg-seuil">${bon}</span>${av}${pers}`:'';
+      const pts=perso?'—':rgFmtPlus(el.points!=null?el.points:fond.points_si_bon);
+      return card(el.id, el.label||el.id, rule, pts);
     }).join('');
     return `<div class="rg-fond-col">
       <h3 class="rg-subh">${rgEsc(g.label||g.id||'')}</h3>
@@ -484,7 +490,11 @@ function rgActionsGrid(){
       <div class="rg-cards rg-cards-span">${sentCards}</div>
     </section>`
     :'';
-  return `<div class="rg-board" id="rg-table-actions">
+  const fondTitle=fond.label||'Fondamental';
+  const fondPts=fondPerso?'à personnaliser':rgNum(fondMax);
+  const note=opts.note||v.champ_application||'';
+  const noteHtml=note?`<p class="rg-p rg-app">${rgEsc(note)}</p>`:'';
+  return `${noteHtml}<div class="rg-board" id="${rgEsc(boardId)}">
     <section class="rg-block" data-group="technique">
       <header class="rg-block-h">
         <div class="rg-block-title">Technique <span class="rg-group-note">RSI 30 · MACD 30 · Fibonacci 30 · Elliott 20 · CCI 20</span></div>
@@ -494,8 +504,8 @@ function rgActionsGrid(){
     </section>
     <section class="rg-block" data-group="fondamental">
       <header class="rg-block-h">
-        <div class="rg-block-title">Fondamental</div>
-        <span class="rg-block-pts">${rgNum(fondMax)}</span>
+        <div class="rg-block-title">${rgEsc(fondTitle)}</div>
+        <span class="rg-block-pts">${rgEsc(fondPts)}</span>
       </header>
       <div class="rg-fond-cols">${fondCols}</div>
     </section>
@@ -508,8 +518,8 @@ function rgFmtScaleBound(n){
   if(x<0) return '−'+rgNum(Math.abs(x));
   return rgNum(x);
 }
-function rgActionsScale(){
-  const v=(RG&&RG.apex_achat_v2)||{};
+function rgActionsScale(v){
+  v=v||((RG&&RG.apex_achat_v2)||{});
   const ordre=['rsi_14_hebdo','macd_12_26_9_hebdo','fibonacci','elliott','cci_20_hebdo'];
   const by={};
   (v.criteres||[]).forEach(c=>{if(c&&c.id) by[c.id]=c;});
@@ -576,10 +586,13 @@ function rgPageHTML(){
   if(!RG) return '<p class="rg-p">Règles indisponibles.</p>';
   const fr=RG.fiche_regles||{};
   const titre=fr.page_titre||fr.titre_panneau||'Règles de la note APEX';
+  const vAct=(RG&&RG.apex_achat_v2)||{};
+  const vBan=(RG&&RG.apex_achat_v2_banques)||null;
   const sections=[
-    {id:'actions', title:'Actions', scale:rgActionsScale().label, body:rgActionsGrid(), open:true}
+    {id:'actions', title:vAct.section_titre||'Actions (hors banque)', scale:rgActionsScale(vAct).label, body:rgActionsGrid(vAct,{boardId:'rg-table-actions', note:vAct.champ_application}), open:true},
+    vBan?{id:'banques', title:vBan.section_titre||vBan.titre||'Actions bancaires', scale:'', body:rgActionsGrid(vBan,{boardId:'rg-table-banques', note:vBan.intro}), open:false}:null
     /* sections futures : {id:'crypto', title:'Crypto', scale:…, body:…, open:false}, etc. */
-  ];
+  ].filter(Boolean);
   return `<header class="rg-top">
       <button type="button" id="rgBack" class="rg-back">← Retour</button>
       <h1 id="rgPageTitle">${rgEsc(titre)}</h1>

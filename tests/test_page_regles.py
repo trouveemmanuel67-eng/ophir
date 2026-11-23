@@ -245,7 +245,7 @@ def test_echelle_actions_calculee_automatiquement(regles):
     assert 'rg-scale' in js
     # le libellé est calculé, pas un « 270 » en dur dans le titre
     page = js.split('function rgPageHTML')[1].split('function rgRender')[0]
-    assert 'rgActionsScale().label' in page
+    assert 'rgActionsScale(' in page and '.label' in page
     assert '270' not in page
     css = (ROOT / 'src' / 'template.html').read_text(encoding='utf-8')
     assert '.rg-scale' in css
@@ -294,3 +294,40 @@ def test_seuils_fondamentaux_valides(regles):
     assert by['bpa_cette_annee']['bon_si'] == '> 10 %'
     assert by['ca_annee_prochaine']['bon_si'] == '> 5 %'
     assert by['ca_cette_annee']['bon_si'] == '> 5 %'
+
+
+def test_actions_hors_banque_et_accordeon_bancaire(regles):
+    v = regles['apex_achat_v2']
+    assert v.get('date_validation') == '23/11/2026'
+    assert v.get('reglage_valide') is True
+    assert v.get('section_titre') == 'Actions (hors banque)'
+    assert 'hors banques' in (v.get('champ_application') or '')
+    # le réglage validé est bien celui du CCI Daveatt + seuils fond
+    cci = {c['id']: c for c in (v.get('criteres') or [])}['cci_20_hebdo']
+    assert 'Daveatt' in (cci.get('label') or '')
+    assert all(e.get('seuil_a_valider') is False for g in v['fondamental']['groupes'] for e in g['elements'])
+
+    b = regles['apex_achat_v2_banques']
+    assert b.get('utilise_par_le_calcul') is False
+    assert b.get('affichage_seulement') is True
+    assert b.get('applique_au_calcul') is False
+    assert [c['id'] for c in (b.get('criteres') or [])] == [c['id'] for c in (v.get('criteres') or [])]
+    assert (b.get('sentiment') or {}).get('id') == (v.get('sentiment') or {}).get('id')
+    fond = b['fondamental']
+    assert fond.get('a_personnaliser') is True
+    els = [e for g in fond['groupes'] for e in g['elements']]
+    assert [e['id'] for e in els] == [
+        'roe', 'roa', 'ratio_cet1', 'cout_du_risque', 'coefficient_exploitation',
+        'croissance_bpa', 'croissance_pnb',
+    ]
+    assert all(e.get('a_personnaliser') is True and e.get('points') is None for e in els)
+
+    js = (ROOT / 'src' / 'regles.js').read_text(encoding='utf-8')
+    assert 'Actions (hors banque)' in js
+    assert "id:'banques'" in js and 'open:false' in js
+    assert 'apex_achat_v2_banques' in js
+    assert 'à personnaliser' in js
+    assert 'rg-table-banques' in js
+    # le moteur de note officiel n'utilise pas encore ces règles
+    score = (ROOT / 'apex' / 'score.py').read_text(encoding='utf-8')
+    assert 'apex_achat_v2_banques' not in score
