@@ -140,3 +140,32 @@ def test_structure_masquee_affichage_seulement(regles):
     js = (ROOT / 'src' / 'regles.js').read_text(encoding='utf-8')
     assert 'masquer_criteres' in js
     assert 'masquer.indexOf(x.id)>=0' in js
+
+def test_fondamental_v2_neuf_elements(regles):
+    fond = regles['apex_achat_v2']['fondamental']
+    assert fond['max'] == 90
+    assert fond['points_si_bon'] == 10
+    els = [e for g in fond['groupes'] for e in g['elements']]
+    assert [e['id'] for e in els] == [
+        'dette_nette_ebitda', 'marge_operationnelle', 'marge_fcf', 'roe',
+        'ratio_liquidite_courante', 'bpa_annee_prochaine', 'bpa_cette_annee',
+        'ca_annee_prochaine', 'ca_cette_annee',
+    ]
+    assert all(e['points'] == 10 and e.get('seuil_a_valider') is True for e in els)
+    by = {e['id']: e for e in els}
+    assert by['dette_nette_ebitda']['bon_si'] == '< 2'
+    assert by['marge_operationnelle']['bon_si'] == '> 15 %'
+    assert by['marge_fcf']['bon_si'] == '> 10 %'
+    assert by['roe']['bon_si'] == '> 15 %'
+    assert by['ratio_liquidite_courante']['bon_si'] == '> 1,2'
+    assert by['bpa_annee_prochaine']['bon_si'] == '> 0 %'
+    assert by['ca_cette_annee']['bon_si'] == '> 0 %'
+    tech = sum(c['max'] for c in regles['apex_achat_v2']['criteres'])
+    assert tech == 130
+    assert tech + fond['max'] == 220
+    # calcul inchangé
+    assert regles['note_apex']['poids_fondamental'] == 0.5
+    js = (ROOT / 'src' / 'regles.js').read_text(encoding='utf-8')
+    assert 'function rgFondAchatV2HTML' in js
+    assert 'rg-fond-v2' in js
+    assert 'rg-table-fond-v2' in js

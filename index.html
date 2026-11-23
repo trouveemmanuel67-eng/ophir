@@ -598,6 +598,18 @@ body.rg-on #rg-page[hidden]{display:flex}
 .rg-row-base th,.rg-row-base td{background:rgba(230,194,122,.05)}
 .rg-table tfoot th,.rg-table tfoot td{border-top:1px solid rgba(230,194,122,.35);border-bottom:0;background:rgba(230,194,122,.07);font-weight:650}
 .rg-table tfoot .rg-rule{color:#d8d0c2;font-weight:500}
+.rg-fond-wrap>td{padding:12px 10px 16px;background:rgba(230,194,122,.04)}
+.rg-fond-v2{text-align:left}
+.rg-fond-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:0 0 8px}
+.rg-fond-head strong{font-size:15px;font-weight:700;letter-spacing:.03em;color:#e6c27a}
+.rg-fond-g{margin:14px 0 8px;font-size:13.5px;font-weight:700;color:#fff}
+.rg-fond-wrap-in{margin:0 0 6px}
+.rg-table-fond-v2{min-width:0;table-layout:auto}
+.rg-table-fond-v2 th,.rg-table-fond-v2 td{white-space:normal}
+.rg-bon{color:#d8d0c2}
+.rg-av{display:inline-block;margin-left:6px;padding:1px 7px;border-radius:999px;border:1px solid rgba(230,194,122,.45);color:#e6c27a;font-size:10.5px;font-weight:650;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}
+.rg-fond-note{margin-top:3px;font-size:11.5px;color:var(--mut,#b5b5b5)}
+
 
 .rg-table-sm{table-layout:auto;min-width:0}
 .rg-table-sm tbody th{width:auto;white-space:normal}
@@ -625,6 +637,9 @@ body.rg-on #rg-page[hidden]{display:flex}
   .rg-table thead th:last-child{display:none}
   .rg-table tbody th,.rg-table td{width:auto;border-bottom:0;padding:6px 10px}
   .rg-table tbody td.rg-rule{grid-column:1/-1;padding-top:0;padding-bottom:12px}
+  .rg-table tbody tr.rg-fond-wrap{display:block;grid-template-columns:none}
+  .rg-table tbody tr.rg-fond-wrap>td{display:block;grid-column:1/-1;width:100%;padding:10px 6px 14px}
+
   .rg-table tbody tr{border-bottom:1px solid rgba(255,255,255,.08)}
   .rg-table tbody tr:last-child{border-bottom:0}
   .rg-table-sm thead tr,.rg-table-sm tbody tr{grid-template-columns:minmax(0,1.4fr) auto auto}
@@ -8682,7 +8697,7 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
 </script>
 <script id="dataRegles" type="application/json">{
   "version": "2026-11-23",
-  "tache": "t362u",
+  "tache": "t364u",
   "timezone": "Europe/Paris",
   "note_apex": {
     "poids_timing": 0.5,
@@ -10188,13 +10203,100 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
     "affichage_seulement": true,
     "masquer_criteres": [
       "structure"
-    ]
+    ],
+    "fondamental": {
+      "id": "fondamental",
+      "label": "Fondamental",
+      "max": 90,
+      "points_si_bon": 10,
+      "retrait": false,
+      "precision": "Chaque élément rapporte +10 points s’il est bon, sinon 0. 9 éléments, maximum 90 points. Les seuils « bon si » sont proposés, à valider.",
+      "groupes": [
+        {
+          "id": "sante",
+          "label": "Santé",
+          "elements": [
+            {
+              "id": "dette_nette_ebitda",
+              "label": "Dette nette / EBITDA",
+              "bon_si": "< 2",
+              "points": 10,
+              "seuil_a_valider": true
+            },
+            {
+              "id": "marge_operationnelle",
+              "label": "Marge opérationnelle",
+              "bon_si": "> 15 %",
+              "points": 10,
+              "seuil_a_valider": true
+            },
+            {
+              "id": "marge_fcf",
+              "label": "Marge de cash-flow libre",
+              "bon_si": "> 10 %",
+              "points": 10,
+              "seuil_a_valider": true
+            },
+            {
+              "id": "roe",
+              "label": "ROE",
+              "bon_si": "> 15 %",
+              "points": 10,
+              "seuil_a_valider": true
+            },
+            {
+              "id": "ratio_liquidite_courante",
+              "label": "Ratio de liquidité courante",
+              "bon_si": "> 1,2",
+              "points": 10,
+              "seuil_a_valider": true
+            }
+          ]
+        },
+        {
+          "id": "croissance",
+          "label": "Croissance (prévisions analystes)",
+          "elements": [
+            {
+              "id": "bpa_annee_prochaine",
+              "label": "BPA année prochaine",
+              "bon_si": "> 0 %",
+              "points": 10,
+              "seuil_a_valider": true,
+              "precision": "idéalement > 10 %, seuil retenu > 0 %"
+            },
+            {
+              "id": "bpa_cette_annee",
+              "label": "BPA cette année",
+              "bon_si": "> 0 %",
+              "points": 10,
+              "seuil_a_valider": true,
+              "precision": "idéalement > 10 %, seuil retenu > 0 %"
+            },
+            {
+              "id": "ca_annee_prochaine",
+              "label": "CA année prochaine",
+              "bon_si": "> 0 %",
+              "points": 10,
+              "seuil_a_valider": true
+            },
+            {
+              "id": "ca_cette_annee",
+              "label": "CA cette année",
+              "bon_si": "> 0 %",
+              "points": 10,
+              "seuil_a_valider": true
+            }
+          ]
+        }
+      ]
+    }
   }
 }
 </script>
 <script type="application/json" id="dataMaj">{
-  "at": "2026-11-23T21:21:45.532669+01:00",
-  "label": "23/11/2026 21:21 Europe/Paris",
+  "at": "2026-11-23T21:28:02.072227+01:00",
+  "label": "23/11/2026 21:28 Europe/Paris",
   "date": "2026-11-23",
   "timezone": "Europe/Paris"
 }
@@ -13541,7 +13643,10 @@ function rgRowsActions(cls){
     id:'base', kind:'base', label:'Base', poids:null, pts:amp.base, ptsLabel:rgNum(amp.base),
     regle:'Point de départ de la note. Un critère neutre (score 0) n’ajoute ni ne retire aucun point.'
   });
-  if(fond&&Number.isFinite(Number(wFond))){
+  const fondV2=RG&&RG.apex_achat_v2&&RG.apex_achat_v2.fondamental;
+  if(fondV2){
+    rows.push({id:'fond', kind:'fond-v2', html:rgFondAchatV2HTML(fondV2)});
+  }else if(fond&&Number.isFinite(Number(wFond))){
     const sante=fond.part_sante, crois=fond.part_croissance;
     let regle=fond.formule||'Score fondamental 0–100.';
     if(sante!=null&&crois!=null){
@@ -13686,11 +13791,54 @@ function rgCommons(){
 function rgAchatV2Total(){
   const v=(RG&&RG.apex_achat_v2)||{};
   const all=(v.criteres||[]).filter(c=>c&&c.max!=null&&Number.isFinite(Number(c.max)));
-  const sum=all.reduce((s,c)=>s+Number(c.max),0);
-  return {sum, detail:all.map(c=>(c.label||c.id)+' '+rgNum(c.max)).join(' + '), n:all.length};
+  const tech=all.reduce((s,c)=>s+Number(c.max),0);
+  const fond=v.fondamental;
+  const fondMax=fond&&fond.max!=null&&Number.isFinite(Number(fond.max))?Number(fond.max):0;
+  const sum=tech+fondMax;
+  const techDetail=all.map(c=>(c.label||c.id)+' '+rgNum(c.max)).join(' + ');
+  let detail='';
+  if(tech) detail+='Technique '+rgNum(tech)+(techDetail?' ('+techDetail+')':'');
+  if(fondMax) detail+=(detail?' + ':'')+'Fondamental '+rgNum(fondMax);
+  if(detail) detail+=' = '+rgNum(sum);
+  return {sum, tech, fond:fondMax, detail, n:all.length+(fondMax?1:0)};
+}
+function rgFondAchatV2HTML(fond){
+  if(!fond) return '';
+  const groupes=(fond.groupes||[]).map(g=>{
+    const rows=(g.elements||[]).map(el=>{
+      const av=el.seuil_a_valider!==false;
+      const extra=el.precision?`<div class="rg-fond-note">${rgEsc(el.precision)}</div>`:'';
+      const bon=el.bon_si||'';
+      return `<tr>
+        <th scope="row">${rgEsc(el.label||el.id||'')}</th>
+        <td class="rg-bon">${rgEsc(bon)}${av?' <span class="rg-av">à valider</span>':''}${extra}</td>
+        <td class="rg-num">${rgFmtPlus(el.points!=null?el.points:fond.points_si_bon)}</td>
+      </tr>`;
+    }).join('');
+    return `<h3 class="rg-fond-g">${rgEsc(g.label||g.id||'')}</h3>
+      <div class="rg-table-wrap rg-fond-wrap-in">
+        <table class="rg-table rg-table-sm rg-table-fond-v2">
+          <thead><tr><th>Élément</th><th>Bon si</th><th>Points</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>`;
+  }).join('');
+  const intro=fond.precision?`<p class="rg-p">${rgEsc(fond.precision)}</p>`:'';
+  const max=fond.max!=null?rgNum(fond.max):'';
+  return `<div class="rg-fond-v2" id="rg-fond-v2">
+      <div class="rg-fond-head">
+        <strong>${rgEsc(fond.label||'Fondamental')}</strong>
+        <span class="rg-num">max ${max}</span>
+      </div>
+      ${intro}
+      ${groupes}
+    </div>`;
 }
 function rgTable(rows){
   const body=rows.map(r=>{
+    if(r.kind==='fond-v2'){
+      return `<tr class="rg-fond-wrap"><td colspan="4">${r.html||''}</td></tr>`;
+    }
     const poids=r.poids==null?'—':rgPct(r.poids);
     return `<tr class="rg-row-${rgEsc(r.kind||'')}">
       <th scope="row">${rgEsc(r.label)}</th>
@@ -13705,7 +13853,7 @@ function rgTable(rows){
         <th scope="row">Total max. provisoire</th>
         <td class="rg-num">—</td>
         <td class="rg-num">${rgNum(tot.sum)}</td>
-        <td class="rg-rule">Critères techniques saisis : ${rgEsc(tot.detail)} = ${rgNum(tot.sum)}.</td>
+        <td class="rg-rule">${rgEsc(tot.detail)}.</td>
       </tr>
     </tfoot>`:'';
   return `<div class="rg-table-wrap">
@@ -13770,7 +13918,7 @@ function rgPageHTML(){
           <h2 class="rg-h2">Actions</h2>
           ${rgTable(rows)}
         </section>
-        ${rgFondDetails(fond)}
+        ${(RG&&RG.apex_achat_v2&&RG.apex_achat_v2.fondamental)?'':rgFondDetails(fond)}
         ${rgCommons()}
       </div>
     </div>`;

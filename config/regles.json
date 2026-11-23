@@ -1,6 +1,6 @@
 {
   "version": "2026-11-23",
-  "tache": "t362u",
+  "tache": "t364u",
   "timezone": "Europe/Paris",
   "note_apex": {
     "poids_timing": 0.5,
@@ -1506,6 +1506,93 @@
     "affichage_seulement": true,
     "masquer_criteres": [
       "structure"
-    ]
+    ],
+    "fondamental": {
+      "id": "fondamental",
+      "label": "Fondamental",
+      "max": 90,
+      "points_si_bon": 10,
+      "retrait": false,
+      "precision": "Chaque élément rapporte +10 points s’il est bon, sinon 0. 9 éléments, maximum 90 points. Les seuils « bon si » sont proposés, à valider.",
+      "groupes": [
+        {
+          "id": "sante",
+          "label": "Santé",
+          "elements": [
+            {
+              "id": "dette_nette_ebitda",
+              "label": "Dette nette / EBITDA",
+              "bon_si": "< 2",
+              "points": 10,
+              "seuil_a_valider": true
+            },
+            {
+              "id": "marge_operationnelle",
+              "label": "Marge opérationnelle",
+              "bon_si": "> 15 %",
+              "points": 10,
+              "seuil_a_valider": true
+            },
+            {
+              "id": "marge_fcf",
+              "label": "Marge de cash-flow libre",
+              "bon_si": "> 10 %",
+              "points": 10,
+              "seuil_a_valider": true
+            },
+            {
+              "id": "roe",
+              "label": "ROE",
+              "bon_si": "> 15 %",
+              "points": 10,
+              "seuil_a_valider": true
+            },
+            {
+              "id": "ratio_liquidite_courante",
+              "label": "Ratio de liquidité courante",
+              "bon_si": "> 1,2",
+              "points": 10,
+              "seuil_a_valider": true
+            }
+          ]
+        },
+        {
+          "id": "croissance",
+          "label": "Croissance (prévisions analystes)",
+          "elements": [
+            {
+              "id": "bpa_annee_prochaine",
+              "label": "BPA année prochaine",
+              "bon_si": "> 0 %",
+              "points": 10,
+              "seuil_a_valider": true,
+              "precision": "idéalement > 10 %, seuil retenu > 0 %"
+            },
+            {
+              "id": "bpa_cette_annee",
+              "label": "BPA cette année",
+              "bon_si": "> 0 %",
+              "points": 10,
+              "seuil_a_valider": true,
+              "precision": "idéalement > 10 %, seuil retenu > 0 %"
+            },
+            {
+              "id": "ca_annee_prochaine",
+              "label": "CA année prochaine",
+              "bon_si": "> 0 %",
+              "points": 10,
+              "seuil_a_valider": true
+            },
+            {
+              "id": "ca_cette_annee",
+              "label": "CA cette année",
+              "bon_si": "> 0 %",
+              "points": 10,
+              "seuil_a_valider": true
+            }
+          ]
+        }
+      ]
+    }
   }
 }

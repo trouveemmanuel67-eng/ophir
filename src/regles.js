@@ -159,7 +159,10 @@ function rgRowsActions(cls){
     id:'base', kind:'base', label:'Base', poids:null, pts:amp.base, ptsLabel:rgNum(amp.base),
     regle:'Point de départ de la note. Un critère neutre (score 0) n’ajoute ni ne retire aucun point.'
   });
-  if(fond&&Number.isFinite(Number(wFond))){
+  const fondV2=RG&&RG.apex_achat_v2&&RG.apex_achat_v2.fondamental;
+  if(fondV2){
+    rows.push({id:'fond', kind:'fond-v2', html:rgFondAchatV2HTML(fondV2)});
+  }else if(fond&&Number.isFinite(Number(wFond))){
     const sante=fond.part_sante, crois=fond.part_croissance;
     let regle=fond.formule||'Score fondamental 0–100.';
     if(sante!=null&&crois!=null){
@@ -304,11 +307,54 @@ function rgCommons(){
 function rgAchatV2Total(){
   const v=(RG&&RG.apex_achat_v2)||{};
   const all=(v.criteres||[]).filter(c=>c&&c.max!=null&&Number.isFinite(Number(c.max)));
-  const sum=all.reduce((s,c)=>s+Number(c.max),0);
-  return {sum, detail:all.map(c=>(c.label||c.id)+' '+rgNum(c.max)).join(' + '), n:all.length};
+  const tech=all.reduce((s,c)=>s+Number(c.max),0);
+  const fond=v.fondamental;
+  const fondMax=fond&&fond.max!=null&&Number.isFinite(Number(fond.max))?Number(fond.max):0;
+  const sum=tech+fondMax;
+  const techDetail=all.map(c=>(c.label||c.id)+' '+rgNum(c.max)).join(' + ');
+  let detail='';
+  if(tech) detail+='Technique '+rgNum(tech)+(techDetail?' ('+techDetail+')':'');
+  if(fondMax) detail+=(detail?' + ':'')+'Fondamental '+rgNum(fondMax);
+  if(detail) detail+=' = '+rgNum(sum);
+  return {sum, tech, fond:fondMax, detail, n:all.length+(fondMax?1:0)};
+}
+function rgFondAchatV2HTML(fond){
+  if(!fond) return '';
+  const groupes=(fond.groupes||[]).map(g=>{
+    const rows=(g.elements||[]).map(el=>{
+      const av=el.seuil_a_valider!==false;
+      const extra=el.precision?`<div class="rg-fond-note">${rgEsc(el.precision)}</div>`:'';
+      const bon=el.bon_si||'';
+      return `<tr>
+        <th scope="row">${rgEsc(el.label||el.id||'')}</th>
+        <td class="rg-bon">${rgEsc(bon)}${av?' <span class="rg-av">à valider</span>':''}${extra}</td>
+        <td class="rg-num">${rgFmtPlus(el.points!=null?el.points:fond.points_si_bon)}</td>
+      </tr>`;
+    }).join('');
+    return `<h3 class="rg-fond-g">${rgEsc(g.label||g.id||'')}</h3>
+      <div class="rg-table-wrap rg-fond-wrap-in">
+        <table class="rg-table rg-table-sm rg-table-fond-v2">
+          <thead><tr><th>Élément</th><th>Bon si</th><th>Points</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>`;
+  }).join('');
+  const intro=fond.precision?`<p class="rg-p">${rgEsc(fond.precision)}</p>`:'';
+  const max=fond.max!=null?rgNum(fond.max):'';
+  return `<div class="rg-fond-v2" id="rg-fond-v2">
+      <div class="rg-fond-head">
+        <strong>${rgEsc(fond.label||'Fondamental')}</strong>
+        <span class="rg-num">max ${max}</span>
+      </div>
+      ${intro}
+      ${groupes}
+    </div>`;
 }
 function rgTable(rows){
   const body=rows.map(r=>{
+    if(r.kind==='fond-v2'){
+      return `<tr class="rg-fond-wrap"><td colspan="4">${r.html||''}</td></tr>`;
+    }
     const poids=r.poids==null?'—':rgPct(r.poids);
     return `<tr class="rg-row-${rgEsc(r.kind||'')}">
       <th scope="row">${rgEsc(r.label)}</th>
@@ -323,7 +369,7 @@ function rgTable(rows){
         <th scope="row">Total max. provisoire</th>
         <td class="rg-num">—</td>
         <td class="rg-num">${rgNum(tot.sum)}</td>
-        <td class="rg-rule">Critères techniques saisis : ${rgEsc(tot.detail)} = ${rgNum(tot.sum)}.</td>
+        <td class="rg-rule">${rgEsc(tot.detail)}.</td>
       </tr>
     </tfoot>`:'';
   return `<div class="rg-table-wrap">
@@ -388,7 +434,7 @@ function rgPageHTML(){
           <h2 class="rg-h2">Actions</h2>
           ${rgTable(rows)}
         </section>
-        ${rgFondDetails(fond)}
+        ${(RG&&RG.apex_achat_v2&&RG.apex_achat_v2.fondamental)?'':rgFondDetails(fond)}
         ${rgCommons()}
       </div>
     </div>`;

@@ -413,7 +413,10 @@ CHECK_REGLES_OPEN_JS = (
     "    ellOldGone: !(/±\\s*7[,.]5/.test(ellText) || /%/.test(ellPoids)),"
     "    cciNew: /sous 20/.test(cciText) && /\\+20/.test(cciText) && /\\b20\\b/.test(cciText),"
     "    cciOldGone: !(/±\\s*3[,.]75/.test(cciText) || /clip\\s*\\(/.test(cciText) || /%/.test(cciPoids)),"
-    "    tot130: /\\b130\\b/.test(totText),"
+    "    tot220: /\\b220\\b/.test(totText) && /\\b90\\b/.test(totText),"
+    "    hasFondV2: !!document.getElementById('rg-fond-v2'),"
+    "    fondText: ((document.getElementById('rg-fond-v2')||{}).innerText||'').replace(/\\s+/g,' '),"
+    "    fondOk: (function(){ const s=(((document.getElementById('rg-fond-v2')||{}).innerText||'')+'').toLowerCase(); return /\\+10/.test(s) && /\\b90\\b/.test(s) && /à valider/.test(s) && /dette nette/.test(s) && /marge opérationnelle/.test(s) && /cash-flow libre/.test(s) && /\\broe\\b/.test(s) && /liquidité courante/.test(s) && /bpa année prochaine/.test(s) && /bpa cette année/.test(s) && /ca année prochaine/.test(s) && /ca cette année/.test(s) && /<\\s*2/.test(s) && /15\\s*%/.test(s) && /10\\s*%/.test(s) && /1[,.]2/.test(s) && />\\s*0\\s*%/.test(s); })(),"
     "    noStructure: !table || !Array.from(table.rows).some(row => /^\\s*Structure\\b/i.test((row.querySelector('th,td')||{}).innerText||'')),"
     "    hash: location.hash"
     "  };"
@@ -621,10 +624,16 @@ def check_headless(root=ROOT):
                 f"({regles_open.get('cciText')!r})."
             )
             raise SystemExit(1)
-        if not regles_open.get('tot130'):
+        if not regles_open.get('tot220'):
             _fail(
-                "page RÈGLES : le total maximum provisoire 130 est manquant "
+                "page RÈGLES : le total maximum provisoire 220 (technique 130 + fondamental 90) est manquant "
                 f"({regles_open.get('totText')!r})."
+            )
+            raise SystemExit(1)
+        if not regles_open.get('hasFondV2') or not regles_open.get('fondOk'):
+            _fail(
+                "page RÈGLES : le sous-tableau Fondamental (9 éléments, +10, max 90, seuils à valider) est incomplet "
+                f"({regles_open.get('fondText')!r})."
             )
             raise SystemExit(1)
         if not regles_open.get('noStructure'):
