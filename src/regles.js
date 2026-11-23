@@ -587,10 +587,10 @@ function rgPageHTML(){
   const fr=RG.fiche_regles||{};
   const titre=fr.page_titre||fr.titre_panneau||'Règles de la note APEX';
   const vAct=(RG&&RG.apex_achat_v2)||{};
-  const vBan=(RG&&RG.apex_achat_v2_banques)||null;
+  const vBan=(RG&&RG.apex_achat_v2_banque)||null;
   const sections=[
     {id:'actions', title:vAct.section_titre||'Actions (hors banque)', scale:rgActionsScale(vAct).label, body:rgActionsGrid(vAct,{boardId:'rg-table-actions', note:vAct.champ_application}), open:true},
-    vBan?{id:'banques', title:vBan.section_titre||vBan.titre||'Actions bancaires', scale:'', body:rgActionsGrid(vBan,{boardId:'rg-table-banques', note:vBan.intro}), open:false}:null
+    vBan?{id:'banques', title:vBan.section_titre||vBan.titre||'Actions bancaires', scale:rgActionsScale(vBan).label, body:rgActionsGrid(vBan,{boardId:'rg-table-banques', note:vBan.champ_application||vBan.intro}), open:false}:null
     /* sections futures : {id:'crypto', title:'Crypto', scale:…, body:…, open:false}, etc. */
   ].filter(Boolean);
   return `<header class="rg-top">

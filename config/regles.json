@@ -1603,10 +1603,11 @@
       ]
     }
   },
-  "apex_achat_v2_banques": {
+  "apex_achat_v2_banque": {
     "titre": "Actions bancaires",
     "section_titre": "Actions bancaires",
-    "intro": "Même technique et même sentiment que les actions hors banque. Le fondamental bancaire est à personnaliser ; ces règles ne servent pas encore au calcul des notes des banques.",
+    "intro": "Même technique (130) et même Fear & Greed (±50) que les actions hors banque. Fondamental bancaire validé le 23/11/2026 : 90 points, 9 critères à +10 chacun (0 si le seuil n’est pas atteint ou si la donnée manque). Ces règles ne servent pas encore au calcul des notes des banques.",
+    "champ_application": "Ces règles ne servent pas encore au calcul des notes des banques.",
     "utilise_par_le_calcul": false,
     "affichage_seulement": true,
     "applique_au_calcul": false,
@@ -1791,10 +1792,13 @@
     },
     "fondamental": {
       "id": "fondamental_bancaire",
-      "label": "Fondamental bancaire",
-      "a_personnaliser": true,
-      "points_non_fixes": true,
-      "precision": "Éléments habituels proposés, sans points ni seuils fixés. À personnaliser. Rien n’est encore appliqué au calcul des banques.",
+      "label": "Fondamental",
+      "max": 90,
+      "points_si_bon": 10,
+      "retrait": false,
+      "a_personnaliser": false,
+      "points_non_fixes": false,
+      "precision": "Chaque élément rapporte +10 points s’il est bon, sinon 0 (donnée manquante = 0). 9 éléments, maximum 90 points. Ces règles ne sont pas encore appliquées au calcul. Seuils validés le 23/11/2026.",
       "groupes": [
         {
           "id": "sante_bancaire",
@@ -1803,27 +1807,37 @@
             {
               "id": "roe",
               "label": "ROE",
-              "a_personnaliser": true
+              "bon_si": "> 10 %",
+              "points": 10,
+              "seuil_a_valider": false
             },
             {
               "id": "roa",
               "label": "ROA",
-              "a_personnaliser": true
+              "bon_si": "> 1 %",
+              "points": 10,
+              "seuil_a_valider": false
             },
             {
               "id": "ratio_cet1",
               "label": "Ratio CET1",
-              "a_personnaliser": true
+              "bon_si": "> 12 %",
+              "points": 10,
+              "seuil_a_valider": false
             },
             {
               "id": "cout_du_risque",
               "label": "Coût du risque",
-              "a_personnaliser": true
+              "bon_si": "< 0,5 %",
+              "points": 10,
+              "seuil_a_valider": false
             },
             {
               "id": "coefficient_exploitation",
               "label": "Coefficient d'exploitation",
-              "a_personnaliser": true
+              "bon_si": "< 60 %",
+              "points": 10,
+              "seuil_a_valider": false
             }
           ]
         },
@@ -1832,17 +1846,47 @@
           "label": "Croissance",
           "elements": [
             {
-              "id": "croissance_bpa",
-              "label": "Croissance BPA",
-              "a_personnaliser": true
+              "id": "bpa_cette_annee",
+              "label": "Croissance BPA année en cours",
+              "bon_si": "> 10 %",
+              "points": 10,
+              "seuil_a_valider": false
             },
             {
-              "id": "croissance_pnb",
-              "label": "Croissance PNB",
-              "a_personnaliser": true
+              "id": "bpa_annee_prochaine",
+              "label": "Croissance BPA année prochaine",
+              "bon_si": "> 10 %",
+              "points": 10,
+              "seuil_a_valider": false
+            },
+            {
+              "id": "pnb_cette_annee",
+              "label": "Croissance PNB année en cours",
+              "bon_si": "> 5 %",
+              "points": 10,
+              "seuil_a_valider": false
+            },
+            {
+              "id": "pnb_annee_prochaine",
+              "label": "Croissance PNB année prochaine",
+              "bon_si": "> 5 %",
+              "points": 10,
+              "seuil_a_valider": false
             }
           ]
         }
+      ]
+    },
+    "date_validation": "23/11/2026",
+    "reglage_valide": true,
+    "validation": {
+      "date": "23/11/2026",
+      "date_iso": "2026-11-23",
+      "heure": "23:03",
+      "timezone": "Europe/Paris",
+      "valide": true,
+      "objets": [
+        "Neuf critères fondamentaux bancaires validés : ROE > 10 % ; ROA > 1 % ; ratio CET1 > 12 % ; coût du risque < 0,5 % ; coefficient d’exploitation < 60 % ; croissance BPA année en cours et année prochaine > 10 % ; croissance PNB année en cours et année prochaine > 5 %. +10 si atteint, sinon 0 (donnée manquante = 0). Maximum 90 points. Technique 130 et Fear & Greed ±50 identiques (échelle −50 à 270)."
       ]
     }
   }

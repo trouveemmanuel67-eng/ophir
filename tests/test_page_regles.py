@@ -307,27 +307,48 @@ def test_actions_hors_banque_et_accordeon_bancaire(regles):
     assert 'Daveatt' in (cci.get('label') or '')
     assert all(e.get('seuil_a_valider') is False for g in v['fondamental']['groupes'] for e in g['elements'])
 
-    b = regles['apex_achat_v2_banques']
+    b = regles['apex_achat_v2_banque']
+    assert 'apex_achat_v2_banques' not in regles
+    assert b.get('date_validation') == '23/11/2026'
+    assert b.get('reglage_valide') is True
     assert b.get('utilise_par_le_calcul') is False
     assert b.get('affichage_seulement') is True
     assert b.get('applique_au_calcul') is False
     assert [c['id'] for c in (b.get('criteres') or [])] == [c['id'] for c in (v.get('criteres') or [])]
     assert (b.get('sentiment') or {}).get('id') == (v.get('sentiment') or {}).get('id')
     fond = b['fondamental']
-    assert fond.get('a_personnaliser') is True
+    assert fond.get('max') == 90
+    assert fond.get('points_si_bon') == 10
+    assert fond.get('a_personnaliser') is False
     els = [e for g in fond['groupes'] for e in g['elements']]
     assert [e['id'] for e in els] == [
         'roe', 'roa', 'ratio_cet1', 'cout_du_risque', 'coefficient_exploitation',
-        'croissance_bpa', 'croissance_pnb',
+        'bpa_cette_annee', 'bpa_annee_prochaine', 'pnb_cette_annee', 'pnb_annee_prochaine',
     ]
-    assert all(e.get('a_personnaliser') is True and e.get('points') is None for e in els)
+    assert all(e['points'] == 10 and e.get('seuil_a_valider') is False for e in els)
+    by = {e['id']: e for e in els}
+    assert by['roe']['bon_si'] == '> 10 %'
+    assert by['roa']['bon_si'] == '> 1 %'
+    assert by['ratio_cet1']['bon_si'] == '> 12 %'
+    assert by['cout_du_risque']['bon_si'] == '< 0,5 %'
+    assert by['coefficient_exploitation']['bon_si'] == '< 60 %'
+    assert by['bpa_cette_annee']['bon_si'] == '> 10 %'
+    assert by['bpa_annee_prochaine']['bon_si'] == '> 10 %'
+    assert by['pnb_cette_annee']['bon_si'] == '> 5 %'
+    assert by['pnb_annee_prochaine']['bon_si'] == '> 5 %'
+    assert by['bpa_cette_annee']['label'] == 'Croissance BPA année en cours'
+    assert by['pnb_annee_prochaine']['label'] == 'Croissance PNB année prochaine'
+    tech = sum(c['max'] for c in b['criteres'])
+    assert tech == 130
+    assert b['sentiment']['max_affiche'] == '±50'
+    assert tech + fond['max'] + 50 == 270
 
     js = (ROOT / 'src' / 'regles.js').read_text(encoding='utf-8')
     assert 'Actions (hors banque)' in js
     assert "id:'banques'" in js and 'open:false' in js
-    assert 'apex_achat_v2_banques' in js
-    assert 'à personnaliser' in js
+    assert 'apex_achat_v2_banque' in js
+    assert 'rgActionsScale(vBan).label' in js
     assert 'rg-table-banques' in js
     # le moteur de note officiel n'utilise pas encore ces règles
     score = (ROOT / 'apex' / 'score.py').read_text(encoding='utf-8')
-    assert 'apex_achat_v2_banques' not in score
+    assert 'apex_achat_v2_banque' not in score
