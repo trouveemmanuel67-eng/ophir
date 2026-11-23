@@ -71,8 +71,9 @@ def test_garde_fou_ouvre_la_page():
 
 def test_apex_achat_v2_rsi_seulement(regles):
     v = regles['apex_achat_v2']
-    assert v.get('utilise_par_le_calcul') is False
-    assert v.get('affichage_seulement') is True
+    assert v.get('utilise_par_le_calcul') is True
+    assert v.get('affichage_seulement') is False
+    assert v.get('applique_au_calcul') is True
     assert 'accumulation' in (v.get('intro') or '').lower() or 'accumulation' in (v.get('titre') or '').lower()
     criteres = v.get('criteres') or []
     assert [c['id'] for c in criteres] == [
@@ -302,6 +303,9 @@ def test_actions_hors_banque_et_accordeon_bancaire(regles):
     assert v.get('reglage_valide') is True
     assert v.get('section_titre') == 'Actions (hors banque)'
     assert 'hors banques' in (v.get('champ_application') or '')
+    assert 'tous les pays' in (v.get('champ_application') or '')
+    assert 'pilote' not in (v.get('intro') or '').lower()
+    assert v.get('applique_au_calcul') is True
     # le réglage validé est bien celui du CCI Daveatt + seuils fond
     cci = {c['id']: c for c in (v.get('criteres') or [])}['cci_20_hebdo']
     assert 'Daveatt' in (cci.get('label') or '')
@@ -314,8 +318,9 @@ def test_actions_hors_banque_et_accordeon_bancaire(regles):
     assert b.get('utilise_par_le_calcul') is True
     assert b.get('affichage_seulement') is False
     assert b.get('applique_au_calcul') is True
-    assert 'pilote' in (b.get('champ_application') or '').lower()
-    assert 'Actions USA bancaire' in (b.get('champ_application') or '') + ' ' + (b.get('intro') or '')
+    assert 'pilote' not in (b.get('champ_application') or '').lower()
+    assert 'pilote' not in (b.get('intro') or '').lower()
+    assert 'tous les pays' in (b.get('champ_application') or '')
     assert [c['id'] for c in (b.get('criteres') or [])] == [c['id'] for c in (v.get('criteres') or [])]
     assert (b.get('sentiment') or {}).get('id') == (v.get('sentiment') or {}).get('id')
     fond = b['fondamental']

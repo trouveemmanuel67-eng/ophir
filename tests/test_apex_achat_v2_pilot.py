@@ -6,6 +6,10 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'src'))
 import build_apex_achat_v2_pilot as P
 
+def load_full():
+    p = ROOT / 'data' / 'apex_achat_v2_scores_full.json'
+    return json.loads(p.read_text())
+
 def test_fg_tranches():
     assert P.fg_points(50) == 0
     assert P.fg_points(40) == 10
@@ -39,15 +43,15 @@ def test_pilot_file_communication_only():
     assert d['etf']['ok'] is True
     tvs = {a['tv'] for a in d['actions']}
     assert tvs == {'NASDAQ:APP', 'NYSE:RDDT', 'NASDAQ:META', 'NASDAQ:NFLX', 'NASDAQ:GOOGL'}
-    # totaux cohérents
     for rec in [d['etf']] + d['actions']:
         pts = rec['points']
         expected = (pts['rsi'] + pts['macd'] + pts['fibonacci'] + pts['elliott']
                     + pts['cci'] + pts['fondamental'] + (pts['fear_greed'] or 0))
         assert rec['total'] == expected == pts['total']
         assert rec['total_min'] == -50 and rec['total_max'] == 270
-    # le fichier secteurs des autres lignes n'est pas le lieu du pilote
-    # (on ne greffe pas le score sur les 10 autres secteurs)
+    # déploiement mondial : toutes les sections Actions sont dans pilotes
+    assert 'XLF' in d['pilotes'] and 'fr_fin' in d['pilotes'] and 'ch_fin' in d['pilotes']
+    assert set(d['secteurs_pilotes']) >= {'XLC', 'XLF', 'fr_fin', 'de_fin', 'ca_fin'}
 
 
 def test_quatre_tranches_egales():
@@ -81,10 +85,10 @@ def test_elliott_apres_vague_c_app_uniquement():
     pts, det = P.elliott_points('bear_135')
     assert pts == 0
 
-    p = ROOT / 'data' / 'apex_achat_v2_pilot.json'
-    d = json.loads(p.read_text())
-    by = {a['tv']: a for a in d['actions']}
-    by['XETR:ZPDK'] = d['etf']
+    d = load_full()
+    xlc = d['pilotes']['XLC']
+    by = {a['tv']: a for a in xlc['actions']}
+    by['XETR:ZPDK'] = xlc['etf']
     # APP : C terminée vers 228,5 puis rebond, vague 1 non confirmée → +20 (était 0)
     app = by['NASDAQ:APP']
     assert app['points']['elliott'] == 20
@@ -100,7 +104,7 @@ def test_elliott_apres_vague_c_app_uniquement():
     assert by['NASDAQ:NFLX']['points']['elliott'] == 20 and by['NASDAQ:NFLX']['total'] == 190
     assert by['NASDAQ:GOOGL']['points']['elliott'] == 20 and by['NASDAQ:GOOGL']['total'] == 180
     # tri attendu après règle C : RDDT, NFLX, GOOGL, APP, META
-    order = sorted(d['actions'], key=lambda a: -a['total'])
+    order = sorted(xlc['actions'], key=lambda a: -a['total'])
     assert [a['tv'] for a in order] == [
         'NYSE:RDDT', 'NASDAQ:NFLX', 'NASDAQ:GOOGL', 'NASDAQ:APP', 'NASDAQ:META'
     ]
@@ -126,7 +130,8 @@ def test_cci_stochastic_formule_daveatt():
 
 
 def test_cci_stoch_et_fond_valides_sur_pilote():
-    d = json.loads((ROOT / 'data' / 'apex_achat_v2_pilot.json').read_text())
+    d = load_full()
+    d = d['pilotes']['XLC']
     expected = {
         'XETR:ZPDK':  {'cci_pts': 0,  'cci': 24.00, 'fond': 80, 'total': 140},
         'NASDAQ:APP': {'cci_pts': 0,  'cci': 54.29, 'fond': 90, 'total': 160},
@@ -189,32 +194,41 @@ def test_fond_points_banque_seuils_et_manquants():
     assert total0 == 0 and len(els0) == 9 and all(e['manquant'] and e['points'] == 0 for e in els0)
 
 
-def test_pilote_banque_xlf_dans_le_fichier():
-    d = json.loads((ROOT / 'data' / 'apex_achat_v2_pilot.json').read_text())
-    assert d['secteur_sym'] == 'XLC'
-    assert 'XLF' in (d.get('secteurs_pilotes') or [])
+def test_finance_usa_hors_banque_sur_le_top5():
+    # MA, SCHW, V, BLK, SPGI ne sont pas des banques → règles hors banque ; XLF recalculé
+    site = json.loads((ROOT / 'data' / 'apex_achat_v2_pilot.json').read_text())
+    d = load_full()
     xlf = d['pilotes']['XLF']
-    assert xlf['secteur_sym'] == 'XLF'
-    assert xlf['regles'] == 'apex_achat_v2_banque'
-    assert xlf['etf']['tv'] == 'XETR:ZPDF'
-    assert xlf['etf']['ok'] is True
-    assert len(xlf['actions']) == 5
     assert {a['tv'] for a in xlf['actions']} == {
         'NYSE:MA', 'NYSE:SCHW', 'NYSE:V', 'NYSE:BLK', 'NYSE:SPGI'
     }
-    for rec in [xlf['etf']] + xlf['actions']:
-        pts = rec['points']
-        expected = (pts['rsi'] + pts['macd'] + pts['fibonacci'] + pts['elliott']
-                    + pts['cci'] + pts['fondamental'] + (pts['fear_greed'] or 0))
-        assert rec['total'] == expected == pts['total']
-        assert rec['total_min'] == -50 and rec['total_max'] == 270
-        assert rec['detail']['cci'].get('cci_period') == 28
-    # Communication inchangée
-    assert d['etf']['tv'] == 'XETR:ZPDK' and d['etf']['total'] == 140
-    # les 3 ratios bancaires spécifiques manquent pour chaque action (jamais inventés)
-    miss_ids = {(m['tv'], m['critere']) for m in xlf['manquantes']}
-    for tv in ('NYSE:MA', 'NYSE:SCHW', 'NYSE:V', 'NYSE:BLK', 'NYSE:SPGI'):
-        for cid in ('ratio_cet1', 'cout_du_risque', 'coefficient_exploitation'):
-            assert (tv, cid) in miss_ids
-    # by_tv fusionné
-    assert 'XETR:ZPDF' in d['by_tv'] and 'XETR:ZPDK' in d['by_tv']
+    assert all(a.get('is_bank') is False for a in xlf['actions'])
+    assert all(a.get('regles') == 'apex_achat_v2' for a in xlf['actions'])
+    by = {a['tv']: a for a in xlf['actions']}
+    assert by['NYSE:MA']['total'] == 110
+    assert by['NYSE:V']['total'] == 110
+    assert by['NYSE:BLK']['total'] == 110
+    assert by['NYSE:SCHW']['total'] == 130
+    assert by['NYSE:SPGI']['total'] == 90
+    assert xlf['etf']['tv'] == 'XETR:ZPDF' and xlf['etf']['total'] == 102
+    assert site['by_tv']['XETR:ZPDF']['total'] == 102
+    # vraies banques présentes dans le fichier (autres pays)
+    banks = [a for p in d['pilotes'].values() for a in p['actions'] if a.get('is_bank')]
+    assert any(a['tv'] == 'EURONEXT:BNP' for a in banks)
+    assert all(a.get('regles') == 'apex_achat_v2_banque' for a in banks)
+    # CET1 et coût du risque jamais inventés
+    miss = {(m['tv'], m['critere']) for m in d['manquantes'] if m.get('regles') == 'apex_achat_v2_banque'}
+    for a in banks:
+        assert (a['tv'], 'ratio_cet1') in miss
+        assert (a['tv'], 'cout_du_risque') in miss
+
+
+def test_is_bank_classification():
+    from build_apex_achat_v2_world import is_bank
+    assert is_bank('Banks - Diversified') and is_bank('Banks - Regional') and is_bank('Banks')
+    assert is_bank('Savings Institutions')
+    assert not is_bank('Insurance - Diversified')
+    assert not is_bank('Credit Services')
+    assert not is_bank('Asset Management')
+    assert not is_bank('Capital Markets')
+    assert not is_bank('Financial Data & Stock Exchanges')

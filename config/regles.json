@@ -1317,8 +1317,8 @@
   },
   "apex_achat_v2": {
     "titre": "APEX ACHAT — nouvelles règles (en construction)",
-    "intro": "L’indicateur APEX ACHAT se construit par accumulation de points, critère par critère. Ces règles sont en cours de définition : elles ne servent pas encore au calcul des notes.",
-    "utilise_par_le_calcul": false,
+    "intro": "L’indicateur APEX ACHAT se construit par accumulation de points, critère par critère. Échelle −50 à 270 (technique 130 + fondamental 90 + Fear & Greed ±50). Ce règlement s’applique à toutes les actions hors banques, tous les pays d’APEX.",
+    "utilise_par_le_calcul": true,
     "reference_titre": "Règles actuelles de la note APEX (référence)",
     "criteres": [
       {
@@ -1423,7 +1423,7 @@
         "regle_courte": "+20 si sous 20"
       }
     ],
-    "affichage_seulement": true,
+    "affichage_seulement": false,
     "masquer_criteres": [
       "structure",
       "figure"
@@ -1592,7 +1592,7 @@
     "date_validation": "23/11/2026",
     "reglage_valide": true,
     "section_titre": "Actions (hors banque)",
-    "champ_application": "Ce règlement s’applique à toutes les actions hors banques (à terme).",
+    "champ_application": "Ce règlement s’applique à toutes les actions hors banques, tous les pays d’APEX (USA, France, Allemagne, Canada, Suisse), y compris les financières qui ne sont pas des banques (assurances, cartes, gestions d’actifs, bourses, capital markets).",
     "validation": {
       "date": "23/11/2026",
       "date_iso": "2026-11-23",
@@ -1601,13 +1601,14 @@
         "CCI Stochastic de Daveatt (script TradingView XZyG5SOx) : CCI 28 sur la clôture, stochastique 28, lissages SMA 3 et 3, ligne D ; +20 si sous 20, hebdo clôturé.",
         "Seuils fondamentaux validés : Dette nette/EBITDA < 2 ; Marge op. > 15 % ; Marge FCF > 10 % ; ROE > 15 % ; Ratio de liquidité courante > 1,2 ; BPA année prochaine et cette année > 10 % ; CA année prochaine et cette année > 5 %. +10 si atteint, sinon 0 (donnée manquante = 0)."
       ]
-    }
+    },
+    "applique_au_calcul": true
   },
   "apex_achat_v2_banque": {
     "titre": "Actions bancaires",
     "section_titre": "Actions bancaires",
-    "intro": "Même technique (130) et même Fear & Greed (±50) que les actions hors banque. Fondamental bancaire validé le 23/11/2026 : 90 points, 9 critères à +10 chacun (0 si le seuil n’est pas atteint ou si la donnée manque). Utilisé en pilote sur Actions USA bancaire (section Finance, ETF XETR:ZPDF / XLF).",
-    "champ_application": "Utilisé en pilote sur Actions USA bancaire (section Finance, ETF XETR:ZPDF / XLF).",
+    "intro": "Même technique (130) et même Fear & Greed (±50) que les actions hors banque. Fondamental bancaire validé le 23/11/2026 : 90 points, 9 critères à +10 chacun (0 si le seuil n’est pas atteint ou si la donnée manque). Ce règlement s’applique à toutes les banques de tous les pays d’APEX.",
+    "champ_application": "Ce règlement s’applique à toutes les banques (industries Yahoo Banks, Banks - Diversified, Banks - Regional, Savings Institutions) de tous les pays d’APEX. Les assurances et les autres financières relèvent des règles Actions (hors banque).",
     "utilise_par_le_calcul": true,
     "affichage_seulement": false,
     "applique_au_calcul": true,

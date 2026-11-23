@@ -266,7 +266,7 @@ function apexSortByNote(arr){
 }
 
 
-/* ===== Pilote APEX ACHAT (accumulation de points) : Communication + Finance/banques USA ===== */
+/* ===== Pilote APEX ACHAT (accumulation de points) : toutes les sections Actions (USA + pays APEX) ===== */
 const PILOT=(function(){
   const el=document.getElementById('dataPilot');
   if(!el||!el.textContent||el.textContent.trim()==='null') return null;

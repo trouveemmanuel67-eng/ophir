@@ -1,0 +1,561 @@
+{
+  "generated": "2026-11-23 23:30 Europe/Paris",
+  "tickers": {
+    "BNP.PA": {
+      "ratio_cet1": null,
+      "cout_du_risque": null,
+      "coefficient_exploitation": 71.22,
+      "sources": {
+        "ratio_cet1": {
+          "manquant": true,
+          "raison": "Aucune ligne CET1 / Common Equity Tier 1 dans les états et ratios Yahoo (T.info, income, balance, cashflow)."
+        },
+        "cout_du_risque": {
+          "manquant": true,
+          "raison": "Pas de ligne nominative « provision for credit losses » / « credit impairment » dans les états Yahoo. Ligne générique trouvée et écartée : Provisionand Write Offof Assets (cashflow, 2025-12-31, 4215000000.0) — pas spécifiquement le coût du risque crédit. Prêts disponibles : Net Loan=876365000000.0 (balance_sheet, 2025-12-31).",
+          "prets": {
+            "valeur": 876365000000.0,
+            "ligne": "Net Loan",
+            "periode": "2025-12-31",
+            "statement": "balance_sheet"
+          },
+          "ligne_generique_ecartee": {
+            "valeur": 4215000000.0,
+            "ligne": "Provisionand Write Offof Assets",
+            "periode": "2025-12-31",
+            "statement": "cashflow"
+          }
+        },
+        "coefficient_exploitation": {
+          "formule": "Operating Expense / Total Revenue × 100 (Yahoo, même ordre de priorité des états)",
+          "frais": {
+            "valeur": 49005000000.0,
+            "ligne": "Operating Expense",
+            "periode": "2025-12-31",
+            "statement": "income_stmt"
+          },
+          "revenus": {
+            "valeur": 68804000000.0,
+            "ligne": "Total Revenue",
+            "periode": "2025-12-31",
+            "statement": "income_stmt"
+          }
+        }
+      },
+      "lignes_vues": {},
+      "yahoo": "BNP.PA",
+      "retrieved": "2026-11-23 23:30 Europe/Paris",
+      "source": "Yahoo Finance (yfinance états financiers)",
+      "statements_ok": [
+        "income_stmt",
+        "quarterly_income_stmt",
+        "financials",
+        "quarterly_financials",
+        "balance_sheet",
+        "quarterly_balance_sheet",
+        "cashflow"
+      ]
+    },
+    "GLE.PA": {
+      "ratio_cet1": null,
+      "cout_du_risque": null,
+      "coefficient_exploitation": 79.99,
+      "sources": {
+        "ratio_cet1": {
+          "manquant": true,
+          "raison": "Aucune ligne CET1 / Common Equity Tier 1 dans les états et ratios Yahoo (T.info, income, balance, cashflow)."
+        },
+        "cout_du_risque": {
+          "manquant": true,
+          "raison": "Pas de ligne nominative « provision for credit losses » / « credit impairment » dans les états Yahoo. Ligne générique trouvée et écartée : Provisionand Write Offof Assets (cashflow, 2025-12-31, 201000000.0) — pas spécifiquement le coût du risque crédit. Prêts disponibles : Net Loan=492657000000.0 (balance_sheet, 2025-12-31).",
+          "prets": {
+            "valeur": 492657000000.0,
+            "ligne": "Net Loan",
+            "periode": "2025-12-31",
+            "statement": "balance_sheet"
+          },
+          "ligne_generique_ecartee": {
+            "valeur": 201000000.0,
+            "ligne": "Provisionand Write Offof Assets",
+            "periode": "2025-12-31",
+            "statement": "cashflow"
+          }
+        },
+        "coefficient_exploitation": {
+          "formule": "Operating Expense / Total Revenue × 100 (Yahoo, même ordre de priorité des états)",
+          "frais": {
+            "valeur": 42072000000.0,
+            "ligne": "Operating Expense",
+            "periode": "2025-12-31",
+            "statement": "income_stmt"
+          },
+          "revenus": {
+            "valeur": 52597000000.0,
+            "ligne": "Total Revenue",
+            "periode": "2025-12-31",
+            "statement": "income_stmt"
+          }
+        }
+      },
+      "lignes_vues": {},
+      "yahoo": "GLE.PA",
+      "retrieved": "2026-11-23 23:30 Europe/Paris",
+      "source": "Yahoo Finance (yfinance états financiers)",
+      "statements_ok": [
+        "income_stmt",
+        "quarterly_income_stmt",
+        "financials",
+        "quarterly_financials",
+        "balance_sheet",
+        "quarterly_balance_sheet",
+        "cashflow"
+      ]
+    },
+    "ACA.PA": {
+      "ratio_cet1": null,
+      "cout_du_risque": null,
+      "coefficient_exploitation": 59.42,
+      "sources": {
+        "ratio_cet1": {
+          "manquant": true,
+          "raison": "Aucune ligne CET1 / Common Equity Tier 1 dans les états et ratios Yahoo (T.info, income, balance, cashflow)."
+        },
+        "cout_du_risque": {
+          "manquant": true,
+          "raison": "Pas de ligne nominative « provision for credit losses » / « credit impairment » dans les états Yahoo. Ligne générique trouvée et écartée : Provisionand Write Offof Assets (cashflow, 2025-12-31, 29440000000.0) — pas spécifiquement le coût du risque crédit. Prêts disponibles : Net Loan=611143000000.0 (balance_sheet, 2025-12-31).",
+          "prets": {
+            "valeur": 611143000000.0,
+            "ligne": "Net Loan",
+            "periode": "2025-12-31",
+            "statement": "balance_sheet"
+          },
+          "ligne_generique_ecartee": {
+            "valeur": 29440000000.0,
+            "ligne": "Provisionand Write Offof Assets",
+            "periode": "2025-12-31",
+            "statement": "cashflow"
+          }
+        },
+        "coefficient_exploitation": {
+          "formule": "Operating Expense / Total Revenue × 100 (Yahoo, même ordre de priorité des états)",
+          "frais": {
+            "valeur": 15605000000.0,
+            "ligne": "Operating Expense",
+            "periode": "2025-12-31",
+            "statement": "income_stmt"
+          },
+          "revenus": {
+            "valeur": 26261000000.0,
+            "ligne": "Total Revenue",
+            "periode": "2025-12-31",
+            "statement": "income_stmt"
+          }
+        }
+      },
+      "lignes_vues": {},
+      "yahoo": "ACA.PA",
+      "retrieved": "2026-11-23 23:30 Europe/Paris",
+      "source": "Yahoo Finance (yfinance états financiers)",
+      "statements_ok": [
+        "income_stmt",
+        "quarterly_income_stmt",
+        "financials",
+        "quarterly_financials",
+        "balance_sheet",
+        "quarterly_balance_sheet",
+        "cashflow"
+      ]
+    },
+    "CBK.DE": {
+      "ratio_cet1": null,
+      "cout_du_risque": null,
+      "coefficient_exploitation": 56.68,
+      "sources": {
+        "ratio_cet1": {
+          "manquant": true,
+          "raison": "Aucune ligne CET1 / Common Equity Tier 1 dans les états et ratios Yahoo (T.info, income, balance, cashflow)."
+        },
+        "cout_du_risque": {
+          "manquant": true,
+          "raison": "Pas de ligne nominative « provision for credit losses » / « credit impairment » dans les états Yahoo. Ligne générique trouvée et écartée : Provisionand Write Offof Assets (cashflow, 2025-12-31, 4674000000.0) — pas spécifiquement le coût du risque crédit. Prêts disponibles : Net Loan=366636000000.0 (balance_sheet, 2025-12-31).",
+          "prets": {
+            "valeur": 366636000000.0,
+            "ligne": "Net Loan",
+            "periode": "2025-12-31",
+            "statement": "balance_sheet"
+          },
+          "ligne_generique_ecartee": {
+            "valeur": 4674000000.0,
+            "ligne": "Provisionand Write Offof Assets",
+            "periode": "2025-12-31",
+            "statement": "cashflow"
+          }
+        },
+        "coefficient_exploitation": {
+          "formule": "Operating Expense / Total Revenue × 100 (Yahoo, même ordre de priorité des états)",
+          "frais": {
+            "valeur": 7331000000.0,
+            "ligne": "Operating Expense",
+            "periode": "2025-12-31",
+            "statement": "income_stmt"
+          },
+          "revenus": {
+            "valeur": 12934000000.0,
+            "ligne": "Total Revenue",
+            "periode": "2025-12-31",
+            "statement": "income_stmt"
+          }
+        }
+      },
+      "lignes_vues": {},
+      "yahoo": "CBK.DE",
+      "retrieved": "2026-11-23 23:30 Europe/Paris",
+      "source": "Yahoo Finance (yfinance états financiers)",
+      "statements_ok": [
+        "income_stmt",
+        "quarterly_income_stmt",
+        "financials",
+        "quarterly_financials",
+        "balance_sheet",
+        "quarterly_balance_sheet",
+        "cashflow"
+      ]
+    },
+    "RY": {
+      "ratio_cet1": null,
+      "cout_du_risque": null,
+      "coefficient_exploitation": 52.24,
+      "sources": {
+        "ratio_cet1": {
+          "manquant": true,
+          "raison": "Aucune ligne CET1 / Common Equity Tier 1 dans les états et ratios Yahoo (T.info, income, balance, cashflow)."
+        },
+        "cout_du_risque": {
+          "manquant": true,
+          "raison": "Pas de ligne nominative « provision for credit losses » / « credit impairment » dans les états Yahoo. Prêts disponibles : Net Loan=1042422000000.0 (balance_sheet, 2025-10-31).",
+          "prets": {
+            "valeur": 1042422000000.0,
+            "ligne": "Net Loan",
+            "periode": "2025-10-31",
+            "statement": "balance_sheet"
+          },
+          "ligne_generique_ecartee": null
+        },
+        "coefficient_exploitation": {
+          "formule": "(Selling General And Administration + Occupancy And Equipment + Professional Expense And Contract Services Expense + Other Non Interest Expense) / Total Revenue × 100. Les sous-lignes Marketing / G&A / Salaries ne sont pas ajoutées (déjà dans le SG&A).",
+          "postes": {
+            "selling general and administration": {
+              "valeur": 23122000000.0,
+              "ligne": "Selling General And Administration",
+              "periode": "2025-10-31",
+              "statement": "income_stmt"
+            },
+            "occupancy and equipment": {
+              "valeur": 4469000000.0,
+              "ligne": "Occupancy And Equipment",
+              "periode": "2025-10-31",
+              "statement": "income_stmt"
+            },
+            "professional expense and contract services expense": {
+              "valeur": 2177000000.0,
+              "ligne": "Professional Expense And Contract Services Expense",
+              "periode": "2025-10-31",
+              "statement": "income_stmt"
+            },
+            "other non interest expense": {
+              "valeur": 4988000000.0,
+              "ligne": "Other Non Interest Expense",
+              "periode": "2025-10-31",
+              "statement": "income_stmt"
+            }
+          },
+          "revenus": {
+            "valeur": 66532000000.0,
+            "ligne": "Total Revenue",
+            "periode": "2025-10-31",
+            "statement": "income_stmt"
+          },
+          "somme_frais": 34756000000.0
+        }
+      },
+      "lignes_vues": {},
+      "yahoo": "RY",
+      "retrieved": "2026-11-23 23:30 Europe/Paris",
+      "source": "Yahoo Finance (yfinance états financiers)",
+      "statements_ok": [
+        "income_stmt",
+        "quarterly_income_stmt",
+        "financials",
+        "quarterly_financials",
+        "balance_sheet",
+        "quarterly_balance_sheet",
+        "cashflow",
+        "quarterly_cashflow"
+      ]
+    },
+    "CM": {
+      "ratio_cet1": null,
+      "cout_du_risque": null,
+      "coefficient_exploitation": 54.64,
+      "sources": {
+        "ratio_cet1": {
+          "manquant": true,
+          "raison": "Aucune ligne CET1 / Common Equity Tier 1 dans les états et ratios Yahoo (T.info, income, balance, cashflow)."
+        },
+        "cout_du_risque": {
+          "manquant": true,
+          "raison": "Pas de ligne nominative « provision for credit losses » / « credit impairment » dans les états Yahoo. Prêts disponibles : Net Loan=589494000000.0 (balance_sheet, 2025-10-31).",
+          "prets": {
+            "valeur": 589494000000.0,
+            "ligne": "Net Loan",
+            "periode": "2025-10-31",
+            "statement": "balance_sheet"
+          },
+          "ligne_generique_ecartee": null
+        },
+        "coefficient_exploitation": {
+          "formule": "(Selling General And Administration + Occupancy And Equipment + Professional Expense And Contract Services Expense + Other Non Interest Expense) / Total Revenue × 100. Les sous-lignes Marketing / G&A / Salaries ne sont pas ajoutées (déjà dans le SG&A).",
+          "postes": {
+            "selling general and administration": {
+              "valeur": 9664000000.0,
+              "ligne": "Selling General And Administration",
+              "periode": "2025-10-31",
+              "statement": "income_stmt"
+            },
+            "occupancy and equipment": {
+              "valeur": 3793000000.0,
+              "ligne": "Occupancy And Equipment",
+              "periode": "2025-10-31",
+              "statement": "income_stmt"
+            },
+            "professional expense and contract services expense": {
+              "valeur": 284000000.0,
+              "ligne": "Professional Expense And Contract Services Expense",
+              "periode": "2025-10-31",
+              "statement": "income_stmt"
+            },
+            "other non interest expense": {
+              "valeur": 2111000000.0,
+              "ligne": "Other Non Interest Expense",
+              "periode": "2025-10-31",
+              "statement": "income_stmt"
+            }
+          },
+          "revenus": {
+            "valeur": 29014000000.0,
+            "ligne": "Total Revenue",
+            "periode": "2025-10-31",
+            "statement": "income_stmt"
+          },
+          "somme_frais": 15852000000.0
+        }
+      },
+      "lignes_vues": {},
+      "yahoo": "CM",
+      "retrieved": "2026-11-23 23:30 Europe/Paris",
+      "source": "Yahoo Finance (yfinance états financiers)",
+      "statements_ok": [
+        "income_stmt",
+        "quarterly_income_stmt",
+        "financials",
+        "quarterly_financials",
+        "balance_sheet",
+        "quarterly_balance_sheet",
+        "cashflow",
+        "quarterly_cashflow"
+      ]
+    },
+    "TD": {
+      "ratio_cet1": null,
+      "cout_du_risque": null,
+      "coefficient_exploitation": 61.1,
+      "sources": {
+        "ratio_cet1": {
+          "manquant": true,
+          "raison": "Aucune ligne CET1 / Common Equity Tier 1 dans les états et ratios Yahoo (T.info, income, balance, cashflow)."
+        },
+        "cout_du_risque": {
+          "manquant": true,
+          "raison": "Pas de ligne nominative « provision for credit losses » / « credit impairment » dans les états Yahoo. Prêts disponibles : Net Loan=983388000000.0 (balance_sheet, 2025-10-31).",
+          "prets": {
+            "valeur": 983388000000.0,
+            "ligne": "Net Loan",
+            "periode": "2025-10-31",
+            "statement": "balance_sheet"
+          },
+          "ligne_generique_ecartee": null
+        },
+        "coefficient_exploitation": {
+          "formule": "(Selling General And Administration + Occupancy And Equipment + Professional Expense And Contract Services Expense + Other Non Interest Expense) / Total Revenue × 100. Les sous-lignes Marketing / G&A / Salaries ne sont pas ajoutées (déjà dans le SG&A).",
+          "postes": {
+            "selling general and administration": {
+              "valeur": 25959000000.0,
+              "ligne": "Selling General And Administration",
+              "periode": "2025-10-31",
+              "statement": "income_stmt"
+            },
+            "occupancy and equipment": {
+              "valeur": 4833000000.0,
+              "ligne": "Occupancy And Equipment",
+              "periode": "2025-10-31",
+              "statement": "income_stmt"
+            },
+            "professional expense and contract services expense": {
+              "valeur": 4288000000.0,
+              "ligne": "Professional Expense And Contract Services Expense",
+              "periode": "2025-10-31",
+              "statement": "income_stmt"
+            },
+            "other non interest expense": {
+              "valeur": 2363000000.0,
+              "ligne": "Other Non Interest Expense",
+              "periode": "2025-10-31",
+              "statement": "income_stmt"
+            }
+          },
+          "revenus": {
+            "valeur": 61281000000.0,
+            "ligne": "Total Revenue",
+            "periode": "2025-10-31",
+            "statement": "income_stmt"
+          },
+          "somme_frais": 37443000000.0
+        }
+      },
+      "lignes_vues": {},
+      "yahoo": "TD",
+      "retrieved": "2026-11-23 23:30 Europe/Paris",
+      "source": "Yahoo Finance (yfinance états financiers)",
+      "statements_ok": [
+        "income_stmt",
+        "quarterly_income_stmt",
+        "financials",
+        "quarterly_financials",
+        "balance_sheet",
+        "quarterly_balance_sheet",
+        "cashflow",
+        "quarterly_cashflow"
+      ]
+    },
+    "BNS": {
+      "ratio_cet1": null,
+      "cout_du_risque": null,
+      "coefficient_exploitation": 51.34,
+      "sources": {
+        "ratio_cet1": {
+          "manquant": true,
+          "raison": "Aucune ligne CET1 / Common Equity Tier 1 dans les états et ratios Yahoo (T.info, income, balance, cashflow)."
+        },
+        "cout_du_risque": {
+          "manquant": true,
+          "raison": "Pas de ligne nominative « provision for credit losses » / « credit impairment » dans les états Yahoo. Prêts disponibles : Net Loan=779532000000.0 (balance_sheet, 2025-10-31).",
+          "prets": {
+            "valeur": 779532000000.0,
+            "ligne": "Net Loan",
+            "periode": "2025-10-31",
+            "statement": "balance_sheet"
+          },
+          "ligne_generique_ecartee": null
+        },
+        "coefficient_exploitation": {
+          "formule": "(Selling General And Administration + Occupancy And Equipment + Professional Expense And Contract Services Expense + Other Non Interest Expense) / Total Revenue × 100. Les sous-lignes Marketing / G&A / Salaries ne sont pas ajoutées (déjà dans le SG&A).",
+          "postes": {
+            "selling general and administration": {
+              "valeur": 11496000000.0,
+              "ligne": "Selling General And Administration",
+              "periode": "2025-10-31",
+              "statement": "income_stmt"
+            },
+            "occupancy and equipment": {
+              "valeur": 3297000000.0,
+              "ligne": "Occupancy And Equipment",
+              "periode": "2025-10-31",
+              "statement": "income_stmt"
+            },
+            "professional expense and contract services expense": {
+              "valeur": 880000000.0,
+              "ligne": "Professional Expense And Contract Services Expense",
+              "periode": "2025-10-31",
+              "statement": "income_stmt"
+            },
+            "other non interest expense": {
+              "valeur": 3372000000.0,
+              "ligne": "Other Non Interest Expense",
+              "periode": "2025-10-31",
+              "statement": "income_stmt"
+            }
+          },
+          "revenus": {
+            "valeur": 37097000000.0,
+            "ligne": "Total Revenue",
+            "periode": "2025-10-31",
+            "statement": "income_stmt"
+          },
+          "somme_frais": 19045000000.0
+        }
+      },
+      "lignes_vues": {},
+      "yahoo": "BNS",
+      "retrieved": "2026-11-23 23:30 Europe/Paris",
+      "source": "Yahoo Finance (yfinance états financiers)",
+      "statements_ok": [
+        "income_stmt",
+        "quarterly_income_stmt",
+        "financials",
+        "quarterly_financials",
+        "balance_sheet",
+        "quarterly_balance_sheet",
+        "cashflow",
+        "quarterly_cashflow"
+      ]
+    },
+    "EFGN.SW": {
+      "ratio_cet1": null,
+      "cout_du_risque": null,
+      "coefficient_exploitation": 76.22,
+      "sources": {
+        "ratio_cet1": {
+          "manquant": true,
+          "raison": "Aucune ligne CET1 / Common Equity Tier 1 dans les états et ratios Yahoo (T.info, income, balance, cashflow)."
+        },
+        "cout_du_risque": {
+          "manquant": true,
+          "raison": "Pas de ligne nominative « provision for credit losses » / « credit impairment » dans les états Yahoo. Prêts disponibles : Net Loan=19408200000.0 (balance_sheet, 2025-12-31).",
+          "prets": {
+            "valeur": 19408200000.0,
+            "ligne": "Net Loan",
+            "periode": "2025-12-31",
+            "statement": "balance_sheet"
+          },
+          "ligne_generique_ecartee": null
+        },
+        "coefficient_exploitation": {
+          "formule": "Operating Expense / Total Revenue × 100 (Yahoo, même ordre de priorité des états)",
+          "frais": {
+            "valeur": 1230800000.0,
+            "ligne": "Operating Expense",
+            "periode": "2025-12-31",
+            "statement": "income_stmt"
+          },
+          "revenus": {
+            "valeur": 1614800000.0,
+            "ligne": "Total Revenue",
+            "periode": "2025-12-31",
+            "statement": "income_stmt"
+          }
+        }
+      },
+      "lignes_vues": {},
+      "yahoo": "EFGN.SW",
+      "retrieved": "2026-11-23 23:30 Europe/Paris",
+      "source": "Yahoo Finance (yfinance états financiers)",
+      "statements_ok": [
+        "income_stmt",
+        "financials",
+        "balance_sheet",
+        "quarterly_balance_sheet",
+        "cashflow"
+      ]
+    }
+  }
+}

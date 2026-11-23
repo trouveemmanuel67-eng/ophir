@@ -503,23 +503,33 @@ def compact_line(parts, total):
     return ' · '.join(bits) + f'  →  {total} / {SCALE_MAX}'
 
 
-def score_asset(asset, fg, elliott_key=None, fond_rules=None):
-    path, used = find_wk(yahoo_cands(asset['tv'], asset.get('yahoo'), asset.get('ticker')))
+def score_asset(asset, fg, elliott_key=None, fond_rules=None, closed_bars=None):
+    path, used = (None, None)
+    if not closed_bars:
+        path, used = find_wk(yahoo_cands(asset.get('tv'), asset.get('yahoo'), asset.get('ticker')))
     out = {
         'id': asset.get('id') or asset.get('ticker'),
         'ticker': asset.get('ticker'),
-        'tv': asset['tv'],
+        'tv': asset.get('tv'),
         'yahoo': asset.get('yahoo'),
         'nom': asset.get('nom') or asset.get('name'),
         'kind': asset.get('kind', 'action'),
-        'weekly_path': path,
-        'weekly_symbol_used': used,
+        'weekly_path': path if path else (asset.get('weekly_path') or ('panier-reconstruit' if closed_bars else None)),
+        'weekly_symbol_used': used or asset.get('weekly_symbol_used'),
+        'industry': asset.get('industry'),
+        'is_bank': bool(asset.get('is_bank')),
+        'regles': asset.get('regles'),
     }
-    if not path:
+    if closed_bars:
+        closed = [b for b in closed_bars if b.get('closed') and b.get('close') and b['close'] > 0]
+        meta = {}
+        all_bars = closed_bars
+    elif not path:
         out['ok'] = False
         out['erreur'] = 'série hebdomadaire introuvable'
         return out
-    closed, meta, all_bars = load_closed_weekly(path)
+    else:
+        closed, meta, all_bars = load_closed_weekly(path)
     if len(closed) < 52:
         out['ok'] = False
         out['erreur'] = f'historique insuffisant ({len(closed)} semaines clôturées)'

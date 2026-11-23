@@ -1,5 +1,8 @@
 /* ===== Onglet Actions · SECTEURS PAR PAYS (France, Allemagne, Canada, Suisse — plus USA via secteurs). Univers t322u. ===== */
 const PAYS=JSON.parse(document.getElementById('data8').textContent);
+function pPilotId(C,s){return (C&&C.cc&&s&&s.key)?(C.cc+'_'+s.key):null;}
+function pSecOf(C,s){const id=pPilotId(C,s);return (id&&typeof pilotOf==='function')?pilotOf(id):null;}
+
 const pCur=c=>({EUR:'€',JPY:'¥',KRW:'₩',AUD:'A$',GBp:'p',USD:'$',CAD:'C$',CHF:'CHF',SEK:'SEK'}[c]||c||'');
 const pNum=(v,c)=>fmt(v,c==='KRW'||c==='JPY'?0:2)+' '+pCur(c);
 function pComps(s){
@@ -10,26 +13,42 @@ function pComps(s){
 }
 function pList(C,s){
   const f=s.fond;if(!f)return '';
-  const rows=apexSortByNote(f.top).map((r,k)=>`<li${r.tv?` data-pos-tv="${r.tv}"`:''}><div class="fl-h"><b>${k+1}. ${r.name}</b></div>
-     ${tvTag(r.tv)}${typeof posBadges==='function'?posBadges(r.tv):''}${typeof dispoBadge==='function'?dispoBadge(r.tv):''}${listApexBar(r)}${r.note_revolut?`<div class="fl-sub">${r.note_revolut}</div>`:''}</li>`).join('');
+  const pSec=pSecOf(C,s);
+  const top=pSec? (f.top||[]).slice(0,5) : (f.top||[]);
+  const ordered=pSec? top.slice().sort((a,b)=>{
+    const pa=typeof pilotRec==='function'?pilotRec(a.tv):null;
+    const pb=typeof pilotRec==='function'?pilotRec(b.tv):null;
+    const ta=(pa&&pa.total!=null)?pa.total:-Infinity;
+    const tb=(pb&&pb.total!=null)?pb.total:-Infinity;
+    if(tb!==ta) return tb-ta;
+    return 0;
+  }) : apexSortByNote(top);
+  const rows=ordered.map((r,k)=>pSec
+    ? `<li class="fl-row"${r.tv?` data-pos-tv="${r.tv}"`:''}><span class="fl-rk">${k+1}</span><div class="fl-id"><b>${r.name}</b>${tvTag(r.tv)}${typeof posBadges==='function'?posBadges(r.tv):''}${typeof dispoBadge==='function'?dispoBadge(r.tv):''}</div>${listApexBar(r)}${r.note_revolut?`<div class="fl-sub">${r.note_revolut}</div>`:''}</li>`
+    : `<li${r.tv?` data-pos-tv="${r.tv}"`:''}><div class="fl-h"><b>${k+1}. ${r.name}</b></div>
+     ${tvTag(r.tv)}${typeof posBadges==='function'?posBadges(r.tv):''}${typeof dispoBadge==='function'?dispoBadge(r.tv):''}${listApexBar(r)}${r.note_revolut?`<div class="fl-sub">${r.note_revolut}</div>`:''}</li>`
+  ).join('');
+  const etfBar=pSec&&pSec.etf?listApexBar({tv:pSec.etf.tv, name:pSec.etf.nom}):'';
   const head=s.kind==='basket'
-    ?`<div class="fl-etf"><span class="fl-k">Instrument</span><b>Panier APEX (non négociable)</b><span class="sec-d" style="text-align:left">${s.ex_ref?`${s.ex_ref} (${C.nom}) n'est pas disponible chez Revolut : lecture du secteur via ce panier`:`Aucun ETF sectoriel ${C.nom} coté n'a été retenu`} ; composition : ${s.basket.map(b=>`${b.name} ${fmt(b.w,1)} %`).join(' · ')}.</span></div>`
-    :`<div class="fl-etf"><span class="fl-k">${s.kind==='index'?'Indice sectoriel':'ETF principal'}</span><b>${s.etf}</b>${tvTag(s.tv)}</div>`;
+    ?`<div class="fl-etf"><span class="fl-k">Instrument</span><b>Panier APEX (non négociable)</b>${etfBar}<span class="sec-d" style="text-align:left">${s.ex_ref?`${s.ex_ref} (${C.nom}) n'est pas disponible chez Revolut : lecture du secteur via ce panier`:`Aucun ETF sectoriel ${C.nom} coté n'a été retenu`} ; composition : ${s.basket.map(b=>`${b.name} ${fmt(b.w,1)} %`).join(' · ')}.</span></div>`
+    :`<div class="fl-etf"><span class="fl-k">${s.kind==='index'?'Indice sectoriel':'ETF principal'}</span><b>${s.etf}</b>${tvTag(s.tv)}${etfBar}</div>`;
   const rv=f.top.length<Math.min(5,f.eligible)?`<div class="note">${Math.min(5,f.eligible)-f.top.length} titre(s) de la sélection retiré(s) : non disponible(s) chez Revolut (règle APEX du 17/11/2026, sans les remplacer par d'autres titres non vérifiés).</div>`:'';
-  const few=f.eligible<5?`<div class="note">${f.eligible} titre(s) éligible(s) sur ${f.universe} analysés : données Yahoo (ratios, consensus d'au moins 3 analystes) insuffisantes pour les autres${f.excluded.length?' ('+f.excluded.map(e=>e[0]).join(', ')+')':''}.</div>`:'';
-  return `<details class="ind-meth sec-list"><summary>${s.kind==='basket'?'Panier':s.kind==='index'?'Indice':'ETF'} + 5 actions qualité / croissance</summary>
-   ${head}${f.covered===false?`<div class="sr-ncm" style="margin:8px 0">Liste non couverte : ${f.eligible} titre(s) seulement passent les critères (données Yahoo complètes, consensus d'au moins 3 analystes, symbole TradingView vérifié) parmi les ${f.universe} plus grandes capitalisations ${C.nom} du secteur ; minimum 3 pour publier une liste.${f.excluded.length?' Titres écartés : '+f.excluded.map(e=>e[0]+' ('+e[1]+')').join(' · ')+'.':''}</div>`:`<ol class="fl">${rows}</ol>${rv}${few}`}
-   <div class="sec-d" style="text-align:left">Score de qualité fondamentale 0-100 = 50 % santé financière + 50 % croissance prévue, en rang parmi les ${f.eligible} titres éligibles des ${f.universe} plus grandes capitalisations ${C.nom} du secteur (classement Yahoo Finance${C.cc==='jp'?', regroupé selon les catégories TOPIX-17 par correspondance APEX des industries':''}).${f.profile==='fin'?' Profil financier : ROE, ROA, marges.':f.profile==='reit'?' Profil immobilier : dette nette / EBITDA, marges, ROA.':''} Devise de cotation locale.</div>
+  const few=f.eligible<5?`<div class="note">${f.eligible} titre(s) éligibles sur ${f.universe} analysés : données Yahoo (ratios, consensus d'au moins 3 analystes) insuffisantes pour les autres${f.excluded.length?' ('+f.excluded.map(e=>e[0]).join(', ')+')':''}.</div>`:'';
+  return `<details class="ind-meth sec-list"${pSec?` data-pilot="${pPilotId(C,s)}"`:''}><summary>${s.kind==='basket'?'Panier':s.kind==='index'?'Indice':'ETF'} + 5 actions qualité / croissance</summary>
+   ${head}${f.covered===false?`<div class="sr-ncm" style="margin:8px 0">Liste non couverte : ${f.eligible} titre(s) seulement passent les critères (données Yahoo complètes, consensus d'au moins 3 analystes, symbole TradingView vérifié) parmi les ${f.universe} plus grandes capitalisations ${C.nom} du secteur ; minimum 3 pour publier une liste.${f.excluded.length?' Titres écartés : '+f.excluded.map(e=>e[0]+' ('+e[1]+')').join(' · ')+'.':''}</div>`:`<ol class="fl${pSec?' fl-pilot':''}">${rows}</ol>${rv}${few}`}
+   <div class="sec-d" style="text-align:left">Score de qualité fondamentale 0-100 = 50 % santé financière + 50 % croissance prévue, en rang parmi les ${f.eligible} titres éligibles des ${f.universe} plus grandes capitalisations ${C.nom} du secteur (classement Yahoo Finance${C.cc==='jp'?', regroupé selon les catégories TOPIX-17 par correspondance APEX des industries':''}).${f.profile==='fin'?' Profil financier : ROE, ROA, marges. Les banques (industries Banks / Savings Institutions) sont notées avec le fondamental bancaire APEX ; assurances et autres financières avec les règles actions hors banque.':f.profile==='reit'?' Profil immobilier : dette nette / EBITDA, marges, ROA.':''} Devise de cotation locale.</div>
   </details>`;
 }
+
+
 function pTile(C,s,i){
   const id=C.cc+'_'+i;
   if(!s.covered) return `<div class="sec sec-nc"><div class="sr"><div class="sr-c sec-h sr-n"><b>${s.nom}</b><span>non couvert</span></div><div class="sr-c sr-d"><div class="sr-ncm">${s.why}</div></div><div class="sr-c sr-b"></div></div></div>`;
   const [sc,ac]=pComps(s);
   return `<div class="sec${s.head?' sec-head':''}">
    <div class="sr">
-    <div class="sr-c sec-h sr-n"><b>${s.nom}</b><span>${s.kind==='basket'?'Panier APEX · '+s.basket.length+' grandes capitalisations, pondérées (plafond 25 %)':(s.sym.startsWith('^')?s.sym+' · ':s.sym.split('.')[0]+' · ')+s.etf}</span>${srWarn(s)}</div>
-    ${srCells(s)}
+    <div class="sr-c sec-h sr-n"><b>${s.nom}</b>${pSecOf(C,s)?`<span class="pilot-badge">APEX ACHAT −50 à 270</span>`:''}<span>${s.kind==='basket'?'Panier APEX · '+s.basket.length+' grandes capitalisations, pondérées (plafond 25 %)':(s.sym.startsWith('^')?s.sym+' · ':s.sym.split('.')[0]+' · ')+s.etf}</span>${srWarn(s)}</div>
+    ${(()=>{const p=pSecOf(C,s);return (p&&p.etf&&p.etf.ok)?`<div class="sr-c sr-d">${dualBarPilot(p.etf, true)}</div>`:srCells(s);})()}
     <div class="sr-c sr-b"></div>
    </div>
    ${s.head?'':(s.mlist?mList(C,s):pList(C,s))}
