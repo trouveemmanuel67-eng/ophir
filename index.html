@@ -8896,7 +8896,7 @@ function cxFichesHTML(){
   return `<div class="card no-group no-acc" id="cxFiches"><h2>BTC, ETH, XRP, SOL et MSTR · notes APEX</h2>
    <div class="desc acc-sum">Bitcoin, Ether, XRP, Solana et Strategy (action NASDAQ, proxy bitcoin) · ${d?('clôtures hebdomadaires au '+dshort(d)):'dates indisponibles'} · <i>Achat</i> <b>${cnt('Achat')}</b> · <i>Neutre</i> <b>${cnt('Neutre')}</b> · <i>Vente</i> <b>${cnt('Vente')}</b></div>
    <div class="sr-mention"><span class="sr-date">Bougies hebdomadaires clôturées uniquement${d?' · au '+dshort(d):(dSpan?' · du '+dSpan+' selon la fiche':'')}</span></div>
-   <div class="sec-grid">${typeof srHead==='function'?srHead('Actif'):''}${S.map(cxTile).join('')}</div>
+   <div class="sec-grid">${typeof srHead==='function'?srHead('Actif'):''}${apexSortByNote(S).map(s=>cxTile(s,S.indexOf(s))).join('')}</div>
    <details class="ind-meth"><summary>Méthode et pondérations</summary>
      <p><b>Sentiment Peur / Euphorie (0-100).</b> ${apexPlain(F.method_sent)}</p>
      <p><b>Achat / Vente (−100 à +100).</b> ${apexPlain(F.method_av)}</p>
@@ -8986,19 +8986,12 @@ function enFichesHTML(){
   const groupes=F.groupes||[...new Set(S.map(s=>s.groupe).filter(Boolean))];
   let grid='';
   groupes.forEach(g=>{
-    const items=S.map((s,i)=>({s,i})).filter(x=>x.s.groupe===g).sort((a,b)=>{
-      const ra=a.s.repere?0:1, rb=b.s.repere?0:1; if(ra!==rb) return ra-rb;
-      const oa=a.s.ok&&a.s.av&&Number.isFinite(Number(a.s.av.score))?0:(a.s.ok?1:2);
-      const ob=b.s.ok&&b.s.av&&Number.isFinite(Number(b.s.av.score))?0:(b.s.ok?1:2);
-      if(oa!==ob) return oa-ob;
-      if(oa===0) return Number(b.s.av.score)-Number(a.s.av.score);
-      return a.i-b.i;
-    });
+    const items=apexSortByNote(S.filter(s=>s.groupe===g)).map(s=>({s,i:S.indexOf(s)}));
     if(!items.length) return;
     grid+=`<div class="en-gh">${g}</div>`+items.map(x=>enTile(x.s,x.i)).join('');
   });
-  const orphelins=S.map((s,i)=>({s,i})).filter(x=>!groupes.includes(x.s.groupe));
-  if(orphelins.length) grid+=orphelins.map(x=>enTile(x.s,x.i)).join('');
+  const orphelins=apexSortByNote(S.filter(s=>!groupes.includes(s.groupe)));
+  if(orphelins.length) grid+=orphelins.map(s=>enTile(s,S.indexOf(s))).join('');
   const ret=F.retrieved||{};
   const retD=ret['CL=F']||ret['XDW0.DE']||F.generated||'';
   return `<div class="card no-group no-acc" id="enFiches"><h2>Énergie · notes APEX</h2>
@@ -9040,14 +9033,7 @@ function fxPx(s){
 }
 function fxF(x,dec){return fmt(x,dec!=null?dec:(x>=1?4:x>=0.01?5:6));}
 function fxSort(assets){
-  return [...(assets||[])].sort((a,b)=>{
-    const sa=a&&a.av&&Number.isFinite(Number(a.av.score))?Number(a.av.score):null;
-    const sb=b&&b.av&&Number.isFinite(Number(b.av.score))?Number(b.av.score):null;
-    if(sa==null&&sb==null) return 0;
-    if(sa==null) return 1;
-    if(sb==null) return -1;
-    return sb-sa;
-  });
+  return (typeof apexSortByNote==='function')?apexSortByNote(assets):[...(assets||[])];
 }
 function fxSigHTML(av,apex){
   const a=apex||(av&&av.apex10)||((av&&typeof apex10Compute==='function')?apex10Compute(av.score):null);
@@ -9423,6 +9409,48 @@ function countryApexAvg(C){
   };
 }
 
+/* Tri durable d'une liste d'actifs : note /10 décroissante, à égalité AV décroissant, sans note en bas, ordre actuel sinon. */
+function apexNoteOf(o){
+  if(!o) return null;
+  const a=o.apex10;
+  if(a&&a.note!=null&&a.display!=='–') return Number(a.note);
+  if(typeof APEX_BARS!=='undefined'&&APEX_BARS.bars){
+    const key=o.tv||o.yahoo||o.ticker||o.sym;
+    const b=key&&APEX_BARS.bars[key];
+    if(b&&b.apex10&&b.apex10.note!=null&&b.apex10.display!=='–') return Number(b.apex10.note);
+  }
+  if(o.av&&o.av.score!=null&&o.av.apex10&&o.av.apex10.note!=null) return Number(o.av.apex10.note);
+  if(o.av&&o.av.score!=null&&typeof apex10Compute==='function'){
+    const r=apex10Compute(o.av.score);
+    if(r&&r.note!=null) return Number(r.note);
+  }
+  return null;
+}
+function apexAvOf(o){
+  if(!o) return null;
+  if(o.av&&o.av.score!=null&&o.av.score!=='') return Number(o.av.score);
+  if(typeof APEX_BARS!=='undefined'&&APEX_BARS.bars){
+    const key=o.tv||o.yahoo||o.ticker||o.sym;
+    const b=key&&APEX_BARS.bars[key];
+    if(b&&b.av&&b.av.score!=null) return Number(b.av.score);
+  }
+  return null;
+}
+function apexSortByNote(arr){
+  const src=arr||[];
+  return src.map((item,i)=>({item,i,note:apexNoteOf(item),av:apexAvOf(item)}))
+    .sort((a,b)=>{
+      const an=a.note!=null&&Number.isFinite(a.note), bn=b.note!=null&&Number.isFinite(b.note);
+      if(an!==bn) return an?-1:1;
+      if(an&&bn&&a.note!==b.note) return b.note-a.note;
+      const aa=a.av!=null&&Number.isFinite(a.av), ba=b.av!=null&&Number.isFinite(b.av);
+      if(aa!==ba) return aa?-1:1;
+      if(aa&&ba&&a.av!==b.av) return b.av-a.av;
+      return a.i-b.i;
+    })
+    .map(x=>x.item);
+}
+
 /* ===== Secteurs : ETF principal + 5 actions (sélection quantitative APEX) + bouton copier le symbole TradingView ===== */
 const FOND=JSON.parse(document.getElementById('data6').textContent);
 const APEX_BARS=(function(){
@@ -9477,7 +9505,7 @@ function fondTiming(t){
 }
 function fondList(sym){
   const s=FOND.sectors[sym];if(!s)return '';
-  const rows=s.top.map((r,k)=>`<li${r.tv?` data-pos-tv="${r.tv}"`:''}><div class="fl-h"><b>${k+1}. ${r.name}</b>${fondQualite(r)}</div>
+  const rows=apexSortByNote(s.top).map((r,k)=>`<li${r.tv?` data-pos-tv="${r.tv}"`:''}><div class="fl-h"><b>${k+1}. ${r.name}</b>${fondQualite(r)}</div>
      ${tvTag(r.tv)}${typeof posBadges==='function'?posBadges(r.tv):''}${typeof dispoBadge==='function'?dispoBadge(r.tv):''}${listApexBar(r)}<div class="fl-m">${fondChips(r,s.profile)}</div>
      <div class="fl-sub">santé ${fmt(r.health,0)} · croissance ${fmt(r.growth,0)} · ${r.analysts} analystes · ${r.industry||''}</div>
      <div class="fl-t">${fondTiming(r.timing)}</div></li>`).join('');
@@ -9586,7 +9614,7 @@ function pComps(s){
 }
 function pList(C,s){
   const f=s.fond;if(!f)return '';
-  const rows=f.top.map((r,k)=>`<li${r.tv?` data-pos-tv="${r.tv}"`:''}><div class="fl-h"><b>${k+1}. ${r.name}</b>${fondQualite(r)}</div>
+  const rows=apexSortByNote(f.top).map((r,k)=>`<li${r.tv?` data-pos-tv="${r.tv}"`:''}><div class="fl-h"><b>${k+1}. ${r.name}</b>${fondQualite(r)}</div>
      ${tvTag(r.tv)}${typeof posBadges==='function'?posBadges(r.tv):''}${typeof dispoBadge==='function'?dispoBadge(r.tv):''}${listApexBar(r)}<div class="fl-m">${fondChips(r,f.profile)}</div>
      <div class="fl-sub">santé ${fmt(r.health,0)} · croissance ${fmt(r.growth,0)} · ${r.analysts} analystes · ${r.industry||''} · données au ${dshort(r.retrieved.slice(0,10))}</div>
      <div class="fl-t">${fondTiming(r.timing)}</div>${r.note_revolut?`<div class="fl-sub">${r.note_revolut}</div>`:''}</li>`).join('');
@@ -9682,7 +9710,7 @@ function mList(C,s){
    ${s.note_revolut?`<div class="note">${s.note_revolut}</div>`:''}
    ${s.apex10&&s.apex10.cap==='moyenne'?`<div class="note">Note APEX /10 de la ligne : moyenne de ${s.apex10.n_moy} instrument${s.apex10.n_moy>1?'s':''} noté${s.apex10.n_moy>1?'s':''} = ${s.apex10.display}/10. Note du contrat à terme seul : ${(s.apex10_futur&&s.apex10_futur.display)||'—'} /10 (les barres Achat/Vente et Sentiment restent celles du contrat).</div>`:''}
    ${h?`<div class="fl-etf"><span class="fl-k">ETC principal</span><b>${h.name}</b>${tvTag(h.tv)}${typeof dispoBadge==='function'?dispoBadge(h.tv):''}<span class="sec-d" style="text-align:left">${h.kind_nom}${h.hedged?' (couvert en euros)':''}${h.isin?' · ISIN '+h.isin:''}${h.ter_note?' · '+h.ter_note:(h.ter!=null?' · TER '+String(h.ter).replace('.',',')+' %':'')} · cotation ${h.currency} · clôture hebdo ${pNum(h.timing.close,h.currency)} au ${dshort(h.timing.date)} · ${sign(h.timing.ddath,1)} % vs record (${dshort(h.timing.ath_date)})</span>${listApexBar(h)}</div>`:'<div class="sr-ncm">ETC principal : aucun ETC de ce métal disponible chez Revolut (vérification du 17/11/2026)</div>'}
-   <ol class="fl">${L.items.map(li).join('')}</ol>
+   <ol class="fl">${apexSortByNote(L.items).map(li).join('')}</ol>
    ${L.list_note?`<div class="note">${L.list_note}</div>`:(L.items.length<5?`<div class="note">Seulement ${L.items.length} instrument${L.items.length>1?'s':''} retenu${L.items.length>1?'s':''} : les instruments non disponibles chez Revolut ont été retirés (règle APEX du 17/11/2026) ; les autres candidats n'avaient pas d'historique Yahoo exploitable ou de symbole TradingView vérifié.</div>`:'')}
    <div class="sec-d" style="text-align:left">Ordre de la liste : métal au comptant (s'il est listé), autres ETC physiques, puis jusqu'à deux minières. ${L.miner_note} Score minières = 50 % santé financière + 50 % croissance prévue (mêmes critères que les secteurs actions). Les ETC sont des titres de créance émis par une société dédiée et adossés à du métal stocké en coffre : ce ne sont pas des fonds UCITS. ETC, ETF de minières et minières étrangères ne sont pas éligibles au PEA (compte-titres). Risques : prix du métal en dollars, change EUR/USD (sauf part couverte), émetteur de l'ETC ; pour les minières, risques d'exploitation et de pays.</div>
   </details>`;
@@ -9747,12 +9775,12 @@ function renderMetaux(el){
   const cm=merge(K.map(k=>C.cot[k]));
   lineChart('cMtC',cm.labels.map(dshort),K.map((k,j)=>({label:NM[k],data:cm.data[j],borderColor:MCOL[k],borderWidth:1.3})),{unit:' %',dec:1,ticks:8});
   // section Métaux (lignes AV / S)
-  const S=MT.rows,cnt=z=>S.filter(s=>s.av.label.includes(z)).length,d=S[0].date;
+  const S=apexSortByNote(MT.rows),cnt=z=>S.filter(s=>s.av.label.includes(z)).length,d=S[0].date;
   const c=document.createElement('div');c.className='card no-group met-card';
   c.innerHTML=`<h2>Métaux · sentiment et achat / vente</h2>
    <div class="desc acc-sum">4 métaux · au ${dshort(d)} · ${S.map(s=>`<i>${s.nom}</i> <b>${s.av.label} ${sign(s.av.score,0)} · S ${fmt(s.sent.value,0)}</b>`).join(' · ')}</div>
    <div class="sr-mention"><span class="sr-date">Clôtures hebdomadaires au ${dshort(d)} (bougies clôturées uniquement), en dollars</span></div>
-   <div class="sec-grid">${srHead('Métal · contrat de référence')}${S.map((s,i)=>pTile(MET_C,s,i)).join('')}</div>
+   <div class="sec-grid">${srHead('Métal · contrat de référence')}${S.map(s=>pTile(MET_C,s,MT.rows.indexOf(s))).join('')}</div>
    <details class="ind-meth"><summary>Méthode et pondérations</summary>
     <p><b>Sentiment Peur / Euphorie (0-100).</b> ${apexPlain(SEC.method_sent.replace(/S&P 500/g,'DBC'))}</p>
     <p><b>Achat / Vente (−100 à +100).</b> ${apexPlain(SEC.method_av.replace(/S&P 500/g,'DBC'))}</p>
@@ -9851,7 +9879,7 @@ function obDispoHTML(s){
 }
 const eurAmt=(v,c)=>(v>=1e6?fmt(v/1e6,1)+' M':v>=1e3?fmt(v/1e3,0)+' k':fmt(v,0))+' '+(c==='EUR'?'€':c||'');
 function obList(s){
-  const rows=s.list.map((r,k)=>`<li${r.tv?` data-pos-tv="${r.tv}"`:''}><div class="fl-h"><b>${k+1}. ${r.name}</b>${r.score==null?'<span class="fl-sc" style="color:#888;font-size:12px">non classé</span>':`<span class="fl-sc" style="color:${gcol(r.score)}"><i>Sélection</i>${fmt(r.score,0)}<small>/100</small></span>`}</div>
+  const rows=apexSortByNote(s.list).map((r,k)=>`<li${r.tv?` data-pos-tv="${r.tv}"`:''}><div class="fl-h"><b>${k+1}. ${r.name}</b>${r.score==null?'<span class="fl-sc" style="color:#888;font-size:12px">non classé</span>':`<span class="fl-sc" style="color:${gcol(r.score)}"><i>Sélection</i>${fmt(r.score,0)}<small>/100</small></span>`}</div>
     ${tvTag(r.tv)}${typeof dispoBadge==='function'?dispoBadge(r.tv):''}${listApexBar(r)}<div class="fl-m"><span><i>Frais</i> ${r.ter==null?'n.d.':fmt(r.ter,2)+' %'}</span><span><i>Liquidité</i> ${r.liq==null?'n.d.':eurAmt(r.liq,r.ccy)+'/j'}</span><span><i>Cotation Yahoo depuis</i> ${r.years==null?'n.d.':(r.years<1?'moins d’1 an':fmt(r.years,0)+' ans')}</span>
     <span><i>Rdt distribué 12 m</i> ${r.yield==null?'n.d. (capitalisant ?)':fmt(r.yield,2)+' %'}</span>${r.rating_a!=null?`<span><i>Noté ≥ A</i> ${r.rating_a} %</span>`:''}</div>
     <div class="fl-t">${r.fx==='couvert'?'<b class="fl-ok">change couvert</b>':r.fx==='USD'?'<b class="fl-warn">exposé au dollar</b>':r.fx==='local'?'<b class="fl-warn">devises émergentes</b>':r.fx==='EUR'?'<b class="fl-ok">en euro</b>':''}<span>${r.isin?'ISIN '+r.isin+' · ':''}cotation en ${r.ccy}</span></div>${r.note_revolut?`<div class="fl-sub">${r.note_revolut}</div>`:''}</li>`).join('');
