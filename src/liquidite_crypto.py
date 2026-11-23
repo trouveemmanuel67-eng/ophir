@@ -169,7 +169,7 @@ def for_asset(asset, db=None):
     if key in NO_MAP:
         base['comment'] = (
             "Strategy (MSTR) est une action, pas un contrat à terme perpétuel : "
-            "pas de carte de liquidités accumulées. La note /10 reste sur le timing seul."
+            "pas de carte de liquidités accumulées. La note /100 reste sur le timing seul."
         )
         return base
     db = db if db is not None else load()
@@ -180,7 +180,7 @@ def for_asset(asset, db=None):
     rec = (db.get('assets') or {}).get(key)
     if not rec:
         base['comment'] = (
-            "Pas de saisie CoinAnk pour cet actif : la note /10 reste sur le timing seul, "
+            "Pas de saisie CoinAnk pour cet actif : la note /100 reste sur le timing seul, "
             "sans score de liquidité (en attente d'une carte 1 an ou 1 mois)."
         )
         return base

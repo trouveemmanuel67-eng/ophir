@@ -9,8 +9,8 @@ const APEX10_BONUS05={fin_2:1,fin_4:1,fin_c:1,c:1,c_mid:1};
 const APEX10_BONUS10={fin_2_conf:1,fin_4_conf:1,fin_c_conf:1};
 function fmtApex10(n){
   if(n==null||n==='') return '–';
-  const x=Math.round(Number(n)*2)/2;
-  return Number.isInteger(x)?String(x):String(x).replace('.',',');
+  const x=Math.round(Number(n));
+  return String(x);
 }
 function apex10EllKey(ell){
   if(!ell) return null;
@@ -20,34 +20,36 @@ function apex10EllFiable(ell){
   return !!(ell && typeof ell==='object' && (ell.manuel||ell.override||ell.source==='manuel'));
 }
 function apex10Compute(av,fond,ell,divergence){
+  /* t320u / t337u : la note APEX /100 vient du JSON, pas d'un recalcul JS.
+     Conservé uniquement comme filet de sécurité, déjà converti sur 100. */
   if(av==null||av==='') return {note:null,display:'–',hex:null,pos:null,cap:'',flag:null};
   const lo=-60,hi=60,x=Math.max(lo,Math.min(hi,Number(av)));
   const timing=(x-lo)/(hi-lo)*100;
   let brut=timing;
-  if(fond!=null&&fond!=='') brut=0.6*timing+0.4*Number(fond);
-  let n=brut/10; const cap=[];
-  if(fond!=null&&fond!==''&&Number(fond)<40){n=n-2*(40-Number(fond))/40;cap.push('fondamental');}
+  if(fond!=null&&fond!=='') brut=0.5*timing+0.5*Number(fond);
+  let n=brut; const cap=[];
+  if(fond!=null&&fond!==''&&Number(fond)<40){n=n-20*(40-Number(fond))/40;cap.push('fondamental');}
   const key=apex10EllKey(ell);
   const fiable=apex10EllFiable(ell);
-  if(key&&APEX10_ROUGE[key]){n=Math.min(n,4);cap.push('elliott');}
+  if(key&&APEX10_ROUGE[key]){n=Math.min(n,40);cap.push('elliott');}
   if(fiable){
-    if(key&&APEX10_BONUS05[key]){n=n+0.5;cap.push('bonus');}
-    else if(key&&APEX10_BONUS10[key]){n=n+1;cap.push('bonus');}
+    if(key&&APEX10_BONUS05[key]){n=n+5;cap.push('bonus');}
+    else if(key&&APEX10_BONUS10[key]){n=n+10;cap.push('bonus');}
   }
-  n=Math.max(1,Math.min(10,Math.round(n*2)/2));
-  if(n>=8){
+  n=Math.max(0,Math.min(100,Math.round(n)));
+  if(n>=80){
     const avFort=Number(av)>=60;
     const divOk=divergence!=null&&Number(divergence)>0;
     const ellOk=fiable&&key&&APEX10_VERTE[key];
-    if(!(avFort&&(divOk||ellOk))){n=7.5;cap.push('cyan');}
+    if(!(avFort&&(divOk||ellOk))){n=75;cap.push('cyan');}
   }
-  return {note:n,display:fmtApex10(n),pos:n*10,hex:(typeof apexHexOf==='function')?apexHexOf(n):null,flag:(typeof apexFlagTV==='function')?apexFlagTV(n):null,cap:cap.join('+')};
+  return {note:n,display:fmtApex10(n),pos:n,hex:(typeof apexHexOf==='function')?apexHexOf(n):null,flag:(typeof apexFlagTV==='function')?apexFlagTV(n):null,cap:cap.join('+')};
 }
 function apex10Col(a){
   if(!a||a.note==null) return '#8a8a8a';
   if(typeof apexHexOf==='function') return apexHexOf(a.note);
   if(a.hex) return a.hex;
-  return (typeof gcol==='function')?gcol(a.note*10):'#e6c27a';
+  return (typeof gcol==='function')?gcol(a.pos!=null?a.pos:a.note):'#e6c27a';
 }
 function apexNoteHTML(a){
   if(!a||a.note==null||a.display==='–') return `<div class="apex10 apex10-na"><b>–</b></div>`;
@@ -122,10 +124,12 @@ function labS(v){
 function apex10FromAvg(notes){
   const xs=(notes||[]).map(Number).filter(Number.isFinite);
   if(!xs.length) return null;
-  const n=Math.max(1,Math.min(10,Math.round(xs.reduce((a,b)=>a+b,0)/xs.length*2)/2));
-  const pos=n*10;
+  const n=Math.max(0,Math.min(100,Math.round(xs.reduce((a,b)=>a+b,0)/xs.length)));
+  const pos=n;
   return {
-    note:n, display:fmtApex10(n), pos, hex:(typeof gcol==='function')?gcol(pos):null,
+    note:n, display:fmtApex10(n), pos,
+    hex:(typeof apexHexOf==='function')?apexHexOf(n):((typeof gcol==='function')?gcol(pos):null),
+    flag:(typeof apexFlagTV==='function')?apexFlagTV(n):null,
     cap:'moyenne', n_moy:xs.length,
     detail:'Moyenne des notes /100 affichées des actifs de la section, arrondie au point.'
   };
@@ -172,17 +176,36 @@ function sectionApexItems(tabId){
   }
   return out;
 }
+function bakedSectionApex(tabId){
+  if(tabId==='actions'&&typeof SEC!=='undefined'&&SEC.apex10&&SEC.apex10.note!=null) return SEC.apex10;
+  if(tabId==='obligations'&&typeof OB!=='undefined'&&OB.apex10&&OB.apex10.note!=null) return OB.apex10;
+  if(tabId==='metaux'&&typeof MT!=='undefined'&&MT.apex10&&MT.apex10.note!=null) return MT.apex10;
+  if(tabId==='energie'&&typeof T2!=='undefined'&&T2.energie&&T2.energie.apex10&&T2.energie.apex10.note!=null) return T2.energie.apex10;
+  if(tabId==='crypto'&&typeof T2!=='undefined'){
+    const F=T2.crypto&&T2.crypto.fiches;
+    if(F&&F.apex10&&F.apex10.note!=null) return F.apex10;
+  }
+  if(tabId==='liquidites'){
+    const L=(typeof T2!=='undefined'&&T2.liquidites)||{};
+    if(L.fx&&L.fx.apex10&&L.fx.apex10.note!=null) return L.fx.apex10;
+    if(typeof AV!=='undefined'&&AV.liquidites&&AV.liquidites.apex10&&AV.liquidites.apex10.note!=null) return AV.liquidites.apex10;
+  }
+  if(tabId==='immobilier'&&typeof AV!=='undefined'&&AV.immobilier&&AV.immobilier.apex10&&AV.immobilier.apex10.note!=null) return AV.immobilier.apex10;
+  return null;
+}
 function sectionApexAvg(tabId){
   const items=sectionApexItems(tabId);
   const notes=items.map(x=>x.note).filter(n=>n!=null&&Number.isFinite(n));
-  if(!notes.length) return null;
   const av=meanNum(items.map(x=>x.av));
   const se=meanNum(items.map(x=>x.sent));
+  const baked=bakedSectionApex(tabId);
+  const apex=baked||apex10FromAvg(notes);
+  if(!apex) return null;
   return {
-    apex10:apex10FromAvg(notes),
+    apex10:apex,
     av:av==null?null:{score:av,label:labAv(av)},
     sent:se==null?null:{value:se,label:labS(se)},
-    n:notes.length
+    n:baked&&baked.n_moy!=null?baked.n_moy:notes.length
   };
 }
 function countryApexAvg(C){
@@ -200,7 +223,7 @@ function countryApexAvg(C){
   };
 }
 
-/* Tri durable d'une liste d'actifs : note /10 décroissante, à égalité AV décroissant, sans note en bas, ordre actuel sinon. */
+/* Tri durable d'une liste d'actifs : note /100 décroissante, à égalité AV décroissant, sans note en bas, ordre actuel sinon. */
 function apexNoteOf(o){
   if(!o) return null;
   const a=o.apex10;

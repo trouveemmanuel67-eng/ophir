@@ -39,3 +39,15 @@ def test_detecte_if_sans_accolades_suivi_d_un_const(tmp_path):
     )
     assert r.returncode != 0
     assert 'const' in (r.stdout + r.stderr)
+
+
+def test_moyenne_section_pas_plafonnee_a_10():
+    """t339u : apex10FromAvg ne doit plus plafonner la moyenne à 10."""
+    src = (ROOT / 'src' / 'achatvente.js').read_text(encoding='utf-8')
+    start = src.find('function apex10FromAvg')
+    assert start != -1
+    end = src.find('\nfunction ', start + 1)
+    fn = src[start:end]
+    assert 'Math.min(10,' not in fn and 'Math.min(10)' not in fn
+    assert 'Math.min(100' in fn
+    assert 'n*10' not in fn

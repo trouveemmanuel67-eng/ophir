@@ -127,7 +127,7 @@
       "date": "23 nov. 2026",
       "key": "a",
       "zone": "rouge",
-      "texte": "Vague 5 terminée à 209,05, vague (a) à 0,663 = 142,28 (cours 159,11). Vague (b) visée en 0,382 / 0,5 / 0,618 = 169,27 / 177,61 / 185,95. Zone rouge (vague A, puis B) : aucune entrée, note plafonnée à 4. Comptage manuel d'Emmanuel, 23/11/2026.",
+      "texte": "Vague 5 terminée à 209,05, vague (a) à 0,663 = 142,28 (cours 159,11). Vague (b) visée en 0,382 / 0,5 / 0,618 = 169,27 / 177,61 / 185,95. Zone rouge (vague A, puis B) : aucune entrée, note plafonnée à 40. Comptage manuel d'Emmanuel, 23/11/2026.",
       "vague5_sommet": 209.05,
       "A": {
         "ratio": "0,663",

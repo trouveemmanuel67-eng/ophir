@@ -3,10 +3,10 @@
 ZONES VERTES (entrée) : fin de vague 2, fin de vague 4, vague C.
 ZONES ROUGES (aucune entrée) : vague 1, vague 3, vague 5, vague A, vague B.
 
-Le /10 n'est plus plafonné à 5 ou 6,5. En zone rouge, plafond unique 4/10,
+Le /100 n'est plus plafonné à 50 ou 65. En zone rouge, plafond unique 40/100,
 et le signal Achat/Vente affiché ne peut pas porter le label Achat (au mieux
-Neutre). En zone verte, pas de plafond ; bonus +0,5 si la zone est détectée,
-+1 si une bougie hebdomadaire clôturée confirme le retournement.
+Neutre). En zone verte, pas de plafond ; bonus +5 si la zone est détectée,
++10 si une bougie hebdomadaire clôturée confirme le retournement.
 c_mid est vert mais sans bonus de confirmation.
 Les états w2 / w4 en cours (pas encore la fin), bear_24 et indet sont hors
 zone : ni plafond, ni bonus.
@@ -137,7 +137,7 @@ def commentaire(e):
     elif entry:
         suite = "Zone verte d'entrée (fin de vague 2, fin de vague 4 ou vague C)."
     elif z == 'rouge':
-        suite = "Zone rouge : aucune entrée (vague 1, 3, 5, A ou B). Le signal Achat/Vente affiché est au mieux Neutre, la note /10 est plafonnée à 4."
+        suite = "Zone rouge : aucune entrée (vague 1, 3, 5, A ou B). Le signal Achat/Vente affiché est au mieux Neutre, la note /100 est plafonnée à 40."
     else:
         suite = "Hors zone d'entrée (entrée seulement en fin de vague 2, fin de vague 4 ou vague C)."
     return {'entry': entry, 'zone': z, 'texte': f"{base}{conf_s}. {suite}"}
@@ -146,7 +146,7 @@ def commentaire(e):
 def appliquer_av(av, ell):
     """Plafond du signal Achat/Vente *affiché* en zone rouge : pas de label Achat, au mieux Neutre.
 
-    Le score brut (timing du /10) est conservé dans score / score_raw.
+    Le score brut (timing technique) est conservé dans score / score_raw.
     """
     if not av or av.get('score') is None:
         return av

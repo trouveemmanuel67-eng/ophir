@@ -338,13 +338,24 @@ EVAL_JS = (
     "  const notes = document.querySelectorAll('.apex10, .fl-apex, .apex-dec').length;"
     "  const tabs = !!(document.getElementById('tactions') && document.getElementById('taccueil'));"
     "  const text = (document.body && document.body.innerText) || '';"
+    "  const sigs = Array.from(document.querySelectorAll('.home-card .home-sig')).map(el => {"
+    "    const t = ((el.innerText || '') + '').replace(/\\s+/g, ' ').trim();"
+    "    const m = t.match(/(\\d+)\\s*\\/\\s*100/);"
+    "    return {t, n: m ? Number(m[1]) : null};"
+    "  });"
+    "  const tens = sigs.filter(s => s.n === 10).length;"
+    "  const nums = sigs.map(s => s.n).filter(n => n != null);"
     "  return {"
     "    notes, tabs,"
     "    n_lis: document.querySelectorAll('li').length,"
     "    buttons: document.querySelectorAll('button').length,"
     "    has_actions: /Actions/.test(text),"
     "    text_len: text.trim().length,"
-    "    text_head: text.replace(/\\s+/g, ' ').trim().slice(0, 280)"
+    "    text_head: text.replace(/\\s+/g, ' ').trim().slice(0, 280),"
+    "    home_sigs: sigs,"
+    "    home_sig_tens: tens,"
+    "    home_sig_max: nums.length ? Math.max.apply(null, nums) : null,"
+    "    home_sig_n: sigs.length"
     "  };"
     "})()"
 )
@@ -468,6 +479,16 @@ def check_headless(root=ROOT):
                 f"(minimum {MIN_NOTES_ACCUEIL}). texte : {accueil.get('text_head')!r}"
             )
             raise SystemExit(1)
+        # t339u : un plafond /10 mal converti affichait 10/100 (violet) sur presque toutes les classes.
+        if (accueil.get('home_sig_n') or 0) >= 3:
+            tens = accueil.get('home_sig_tens') or 0
+            mx = accueil.get('home_sig_max')
+            if tens >= 3 or (mx is not None and mx <= 10):
+                _fail(
+                    "Accueil : signaux de classes encore plafonnés à 10/100 "
+                    f"(tens={tens}, max={mx}, sigs={accueil.get('home_sigs')!r})."
+                )
+                raise SystemExit(1)
         n_fiches = max(actions.get('notes') or 0, actions.get('n_lis') or 0)
         if n_fiches < MIN_FICHES_ACTIONS:
             _fail(
@@ -476,7 +497,7 @@ def check_headless(root=ROOT):
             )
             raise SystemExit(1)
         _ok(
-            f'aucune exception, Accueil {accueil.get("notes")} notes, '
+            f'aucune exception, Accueil {accueil.get("notes")} notes, signaux classes max {accueil.get("home_sig_max")}, '
             f'onglet Actions {n_fiches} fiches (Chrome {Path(chrome).name})'
         )
         return 0
