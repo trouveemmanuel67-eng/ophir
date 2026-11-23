@@ -732,6 +732,35 @@ ASSETS = [
 ]
 
 
+def _actifs_univers():
+    """Carte tv → univers (oui / hors / positions_seulement)."""
+    path = os.path.join(_APEX_ROOT, 'config', 'actifs.json')
+    try:
+        data = json.load(open(path, encoding='utf-8'))
+    except Exception:
+        return {}
+    out = {}
+    for a in data.get('actifs') or []:
+        tv = a.get('tv')
+        if tv:
+            out[str(tv)] = a.get('univers') or 'oui'
+    return out
+
+_UNIV = _actifs_univers()
+
+def _dans_univers(cfg):
+    """t322u : actions/obligations hors USA/FR/DE/CA/CH retirées des listes (sauf positions détenues)."""
+    if cfg.get('repere'):
+        return True
+    tv = cfg.get('tv')
+    u = _UNIV.get(tv)
+    if u == 'hors' or u == 'positions_seulement':
+        return False
+    return True
+
+ASSETS = [c for c in ASSETS if _dans_univers(c)]
+
+
 def unavailable(cfg, raison):
     return {
         'ok': False,
