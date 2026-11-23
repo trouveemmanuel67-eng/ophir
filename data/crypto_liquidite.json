@@ -1,0 +1,164 @@
+{
+  "generated": "2026-11-23",
+  "source": "Saisie manuelle des cartes CoinAnk (Liquidation Heatmap) d'Emmanuel, lectures de référence transmises le 23/11/2026.",
+  "source_note": "Les API CoinAnk (getLiqHeatMap, Plan 4, à partir de 588 $/mois) et CoinGlass (heatmap, plan Professional) qui livrent la liquidité accumulée non encore liquidée sont payantes (testé le 23/11/2026 : open-api.coinank.com répond 402 sans clé). Les API gratuites trouvées (SmartMoneyAPI, etc.) ne donnent que des liquidations déjà exécutées, ce qui n'est pas le même indicateur. En attendant une source automatisable, les cartes sont saisies à la main. Les montants non chiffrés sur la capture sont estimés avec les coefficients de liquidite_crypto.py (pic de la même carte × 0,20 / 0,40 / 0,10 / 0,05 selon le libellé) et marqués est.",
+  "price_rule": "Prix de référence APEX = clôture hebdomadaire close (ici 20/11/2026). La bande qui contient ce prix, ou déjà traversée (« en cours de liquidation », « traversée par la baisse »), est exclue du solde dessus/dessous mais reste affichée. Une carte dont le prix de capture s'écarte de plus de 8 % de ce prix n'entre pas dans le score (fenêtre non comparable), elle est seulement affichée.",
+  "weights": {
+    "1y": 0.7,
+    "1m": 0.3
+  },
+  "assets": {
+    "btc": {
+      "horizons": {
+        "1y": {
+          "capture_price": 61500,
+          "capture_price_note": "Bande de 1,15 Md$ vers 61–62 k$ en cours de liquidation, cohérent avec la clôture hebdo APEX 61 271 $ du 20/11/2026 (cours live ~61,7 k$).",
+          "bands": [
+            {
+              "lo": 61000,
+              "hi": 62000,
+              "usd": 1150000000,
+              "role": "atm",
+              "label": "61–62 k$, 1,15 Md$, en cours de liquidation"
+            },
+            {
+              "lo": 56500,
+              "hi": 57500,
+              "kind": "visible",
+              "label": "~57 k$ en dessous"
+            },
+            {
+              "lo": 74000,
+              "hi": 75000,
+              "kind": "plus_faibles",
+              "label": "74–75 k$"
+            },
+            {
+              "lo": 82000,
+              "hi": 88000,
+              "kind": "plus_faibles",
+              "label": "82–88 k$"
+            },
+            {
+              "lo": 90000,
+              "hi": 110000,
+              "kind": "plus_faibles",
+              "label": "90 k$ et au-dessus"
+            }
+          ]
+        },
+        "1m": {
+          "capture_price": 72000,
+          "capture_price_note": "Carte 1 mois saisie avec un prix d'environ 72 k$, nettement au-dessus du prix APEX actuel (~61,3 k$). Non retenue dans le score.",
+          "bands": [
+            {
+              "lo": 75000,
+              "hi": 76000,
+              "kind": "visible",
+              "label": "75–76 k$"
+            },
+            {
+              "lo": 85500,
+              "hi": 86500,
+              "kind": "visible",
+              "label": "86 k$"
+            },
+            {
+              "lo": 91500,
+              "hi": 92500,
+              "kind": "visible",
+              "label": "92 k$"
+            },
+            {
+              "lo": 99000,
+              "hi": 100000,
+              "kind": "visible",
+              "label": "99–100 k$"
+            },
+            {
+              "lo": 104000,
+              "hi": 105000,
+              "usd": 130000000,
+              "label": "104–105 k$, jusqu'à ~130 M$"
+            },
+            {
+              "lo": 67000,
+              "hi": 68000,
+              "kind": "bande_fine",
+              "label": "bande fine vers 67–68 k$"
+            }
+          ]
+        }
+      }
+    },
+    "eth": {
+      "horizons": {
+        "1y": {
+          "capture_price": 1720,
+          "capture_price_note": "Prix d'environ 1 720 $ sur la carte, cohérent avec la clôture hebdo APEX 1 724,33 $ du 20/11/2026.",
+          "bands": [
+            {
+              "lo": 1780,
+              "hi": 1800,
+              "usd": 1180000000,
+              "role": "consumed",
+              "label": "1 780–1 800 $, ~1,18 Md$, bande jaune traversée par la baisse (exclue du solde)"
+            },
+            {
+              "lo": 2000,
+              "hi": 3500,
+              "kind": "zone_large",
+              "label": "au-dessus, de 2 000 à 3 500 $"
+            },
+            {
+              "lo": 1400,
+              "hi": 1450,
+              "kind": "faible",
+              "label": "en dessous, faible jusqu'à 1 450 $"
+            }
+          ]
+        }
+      }
+    },
+    "xrp": {
+      "horizons": {
+        "1m": {
+          "capture_price": 0.94,
+          "capture_price_note": "Prix d'environ 0,94 $ sur la carte, cohérent avec la clôture hebdo APEX 0,9274 $ du 20/11/2026 (cours live ~0,94 $).",
+          "bands": [
+            {
+              "lo": 0.98,
+              "hi": 1.0,
+              "kind": "visible",
+              "label": "0,98–1,00 $"
+            },
+            {
+              "lo": 1.07,
+              "hi": 1.1,
+              "kind": "visible",
+              "label": "1,07–1,10 $"
+            },
+            {
+              "lo": 1.15,
+              "hi": 1.25,
+              "kind": "visible",
+              "label": "1,15–1,25 $"
+            },
+            {
+              "lo": 1.33,
+              "hi": 1.37,
+              "usd": 126000000,
+              "label": "1,35 $, jusqu'à ~126 M$"
+            },
+            {
+              "lo": 0.7,
+              "hi": 0.85,
+              "kind": "presque_rien",
+              "label": "en dessous, presque rien"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

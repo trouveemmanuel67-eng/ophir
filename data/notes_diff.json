@@ -1,0 +1,15 @@
+{
+  "n_avant": 347,
+  "n_apres": 347,
+  "n_identiques": 347,
+  "n_changements": 0,
+  "n_delta_ge_0_5": 0,
+  "n_delta_ge_1_5": 0,
+  "n_apparus": 0,
+  "n_disparus": 0,
+  "blocking": false,
+  "seuil_abs": 1.5,
+  "changements": [],
+  "apparus": [],
+  "disparus": []
+}
