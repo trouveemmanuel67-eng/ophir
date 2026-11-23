@@ -1340,7 +1340,7 @@
             "points": 20
           }
         ],
-        "regle_courte": "RSI < 40 : +10 ; divergence haussière hebdo : +20. Cumulables."
+        "regle_courte": "RSI < 40 : +10 ; divergence haussière : +20 ; cumulables"
       },
       {
         "id": "macd_12_26_9_hebdo",
@@ -1361,7 +1361,7 @@
             "points": 20
           }
         ],
-        "regle_courte": "MACD < 0 : +10 ; au moins 4 barres d’histogramme rouges consécutives sous 0 : +20. Cumulables."
+        "regle_courte": "MACD < 0 : +10 ; ≥ 4 barres histo. rouges sous 0 : +20 ; cumulables"
       },
       {
         "id": "fibonacci",
@@ -1388,7 +1388,7 @@
             "points": 30
           }
         ],
-        "regle_courte": "Plus bas → plus haut (corps hebdo). Sous 38,2 % : +10 ; 61,8 % : +20 ; 78,6 % : +30. Paliers non cumulables."
+        "regle_courte": "Plus bas → plus haut (corps hebdo). Sous 38,2 % : +10 ; 61,8 % : +20 ; 78,6 % : +30. Non cumulables"
       },
       {
         "id": "elliott",
@@ -1404,7 +1404,7 @@
             "points": 20
           }
         ],
-        "regle_courte": "+20 si le prix est en zone d’entrée (fin de vague 2, fin de vague 4, vague C)."
+        "regle_courte": "+20 si zone d’entrée (fin vague 2, fin vague 4, vague C)"
       },
       {
         "id": "cci_20_hebdo",
@@ -1420,7 +1420,7 @@
             "points": 20
           }
         ],
-        "regle_courte": "+20 si CCI sous 20."
+        "regle_courte": "+20 si CCI sous 20"
       }
     ],
     "affichage_seulement": true,
@@ -1584,10 +1584,10 @@
               "valeur": 100,
               "points": -50
             }
-          ]
+          ],
+          "regle_courte": "Milieu 50 = 0. Tranche de 10 : peur 40 → +10 … 0 → +50 ; avidité 60 → −10 … 100 → −50."
         }
       ]
-    },
-    "accroche": "La note part de 0 : chaque critère ajoute ses points."
+    }
   }
 }

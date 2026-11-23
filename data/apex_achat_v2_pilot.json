@@ -1,0 +1,3354 @@
+{
+  "generated": "2026-11-23 22:01 Europe/Paris",
+  "pilot": true,
+  "section": "Actions USA – Communication",
+  "secteur_sym": "XLC",
+  "etf_tv": "XETR:ZPDK",
+  "scale": {
+    "min": -50,
+    "max": 270,
+    "tech_max": 130,
+    "fond_max": 90,
+    "fg_abs": 50,
+    "bandes": [
+      {
+        "id": "violet",
+        "de": -50,
+        "a": 14,
+        "hex": "#9d54ff"
+      },
+      {
+        "id": "rouge",
+        "de": 14,
+        "a": 78,
+        "hex": "#ff2d2d"
+      },
+      {
+        "id": "jaune",
+        "de": 78,
+        "a": 142,
+        "hex": "#ffd400"
+      },
+      {
+        "id": "vert",
+        "de": 142,
+        "a": 206,
+        "hex": "#22c55e"
+      },
+      {
+        "id": "cyan",
+        "de": 206,
+        "a": 270,
+        "hex": "#00e5ff"
+      }
+    ]
+  },
+  "fear_greed": {
+    "ok": true,
+    "value": 17.7,
+    "value_raw": 17.7443413729128,
+    "label": "Peur extrême",
+    "rating_cnn": "extreme fear",
+    "points": 30,
+    "date_valeur": "2026-11-23 21:59 Europe/Paris",
+    "date_serie": "2026-11-23",
+    "timestamp_cnn": "2026-11-23T20:59:10+00:00",
+    "retrieved": "2026-11-23 22:01 Europe/Paris",
+    "source": {
+      "name": "CNN Business",
+      "url": "https://edition.cnn.com/markets/fear-and-greed",
+      "api": "https://production.dataviz.cnn.io/index/fearandgreed/graphdata/2025-10-01"
+    },
+    "avg": 41.5,
+    "min": [
+      "2026-03-30",
+      5.8
+    ],
+    "max": [
+      "2026-05-01",
+      71.2
+    ],
+    "n": 251,
+    "series": [
+      [
+        "2025-11-24",
+        13.7
+      ],
+      [
+        "2025-11-25",
+        15.0
+      ],
+      [
+        "2025-11-26",
+        17.7
+      ],
+      [
+        "2025-11-28",
+        21.8
+      ],
+      [
+        "2025-12-01",
+        22.1
+      ],
+      [
+        "2025-12-02",
+        23.3
+      ],
+      [
+        "2025-12-03",
+        24.8
+      ],
+      [
+        "2025-12-04",
+        36.0
+      ],
+      [
+        "2025-12-05",
+        38.1
+      ],
+      [
+        "2025-12-08",
+        40.8
+      ],
+      [
+        "2025-12-09",
+        40.9
+      ],
+      [
+        "2025-12-10",
+        36.4
+      ],
+      [
+        "2025-12-11",
+        43.7
+      ],
+      [
+        "2025-12-12",
+        39.3
+      ],
+      [
+        "2025-12-15",
+        49.3
+      ],
+      [
+        "2025-12-16",
+        46.4
+      ],
+      [
+        "2025-12-17",
+        37.7
+      ],
+      [
+        "2025-12-18",
+        42.4
+      ],
+      [
+        "2025-12-19",
+        44.2
+      ],
+      [
+        "2025-12-22",
+        54.9
+      ],
+      [
+        "2025-12-23",
+        58.6
+      ],
+      [
+        "2025-12-24",
+        58.0
+      ],
+      [
+        "2025-12-26",
+        54.9
+      ],
+      [
+        "2025-12-29",
+        47.9
+      ],
+      [
+        "2025-12-30",
+        46.1
+      ],
+      [
+        "2025-12-31",
+        43.3
+      ],
+      [
+        "2026-01-02",
+        45.2
+      ],
+      [
+        "2026-01-05",
+        47.6
+      ],
+      [
+        "2026-01-06",
+        52.9
+      ],
+      [
+        "2026-01-07",
+        48.6
+      ],
+      [
+        "2026-01-08",
+        48.4
+      ],
+      [
+        "2026-01-09",
+        54.1
+      ],
+      [
+        "2026-01-12",
+        58.0
+      ],
+      [
+        "2026-01-13",
+        59.1
+      ],
+      [
+        "2026-01-14",
+        58.6
+      ],
+      [
+        "2026-01-15",
+        63.7
+      ],
+      [
+        "2026-01-16",
+        63.8
+      ],
+      [
+        "2026-01-20",
+        50.9
+      ],
+      [
+        "2026-01-21",
+        53.9
+      ],
+      [
+        "2026-01-22",
+        54.8
+      ],
+      [
+        "2026-01-23",
+        54.9
+      ],
+      [
+        "2026-01-26",
+        57.7
+      ],
+      [
+        "2026-01-27",
+        65.0
+      ],
+      [
+        "2026-01-28",
+        65.5
+      ],
+      [
+        "2026-01-29",
+        63.8
+      ],
+      [
+        "2026-01-30",
+        58.6
+      ],
+      [
+        "2026-02-02",
+        63.4
+      ],
+      [
+        "2026-02-03",
+        43.3
+      ],
+      [
+        "2026-02-04",
+        47.2
+      ],
+      [
+        "2026-02-05",
+        34.9
+      ],
+      [
+        "2026-02-06",
+        45.4
+      ],
+      [
+        "2026-02-09",
+        48.5
+      ],
+      [
+        "2026-02-10",
+        47.2
+      ],
+      [
+        "2026-02-11",
+        49.9
+      ],
+      [
+        "2026-02-12",
+        36.4
+      ],
+      [
+        "2026-02-13",
+        33.8
+      ],
+      [
+        "2026-02-17",
+        33.3
+      ],
+      [
+        "2026-02-18",
+        34.2
+      ],
+      [
+        "2026-02-19",
+        34.4
+      ],
+      [
+        "2026-02-20",
+        42.3
+      ],
+      [
+        "2026-02-23",
+        32.5
+      ],
+      [
+        "2026-02-24",
+        40.3
+      ],
+      [
+        "2026-02-25",
+        43.1
+      ],
+      [
+        "2026-02-26",
+        42.9
+      ],
+      [
+        "2026-02-27",
+        41.2
+      ],
+      [
+        "2026-03-02",
+        34.3
+      ],
+      [
+        "2026-03-03",
+        31.6
+      ],
+      [
+        "2026-03-04",
+        33.1
+      ],
+      [
+        "2026-03-05",
+        31.6
+      ],
+      [
+        "2026-03-06",
+        25.3
+      ],
+      [
+        "2026-03-09",
+        22.2
+      ],
+      [
+        "2026-03-10",
+        20.3
+      ],
+      [
+        "2026-03-11",
+        18.3
+      ],
+      [
+        "2026-03-13",
+        16.7
+      ],
+      [
+        "2026-03-16",
+        23.9
+      ],
+      [
+        "2026-03-17",
+        22.9
+      ],
+      [
+        "2026-03-18",
+        13.6
+      ],
+      [
+        "2026-03-19",
+        18.3
+      ],
+      [
+        "2026-03-20",
+        8.4
+      ],
+      [
+        "2026-03-23",
+        11.6
+      ],
+      [
+        "2026-03-24",
+        10.4
+      ],
+      [
+        "2026-03-25",
+        16.5
+      ],
+      [
+        "2026-03-26",
+        10.3
+      ],
+      [
+        "2026-03-27",
+        8.2
+      ],
+      [
+        "2026-03-30",
+        5.8
+      ],
+      [
+        "2026-03-31",
+        14.9
+      ],
+      [
+        "2026-04-01",
+        15.9
+      ],
+      [
+        "2026-04-02",
+        18.3
+      ],
+      [
+        "2026-04-06",
+        21.9
+      ],
+      [
+        "2026-04-07",
+        21.6
+      ],
+      [
+        "2026-04-08",
+        29.2
+      ],
+      [
+        "2026-04-09",
+        33.8
+      ],
+      [
+        "2026-04-10",
+        38.1
+      ],
+      [
+        "2026-04-13",
+        41.0
+      ],
+      [
+        "2026-04-14",
+        47.3
+      ],
+      [
+        "2026-04-15",
+        56.2
+      ],
+      [
+        "2026-04-16",
+        61.5
+      ],
+      [
+        "2026-04-17",
+        68.6
+      ],
+      [
+        "2026-04-20",
+        70.0
+      ],
+      [
+        "2026-04-21",
+        67.6
+      ],
+      [
+        "2026-04-22",
+        68.5
+      ],
+      [
+        "2026-04-23",
+        66.2
+      ],
+      [
+        "2026-04-24",
+        65.4
+      ],
+      [
+        "2026-04-27",
+        66.3
+      ],
+      [
+        "2026-04-28",
+        67.4
+      ],
+      [
+        "2026-04-29",
+        66.2
+      ],
+      [
+        "2026-04-30",
+        69.5
+      ],
+      [
+        "2026-05-01",
+        71.2
+      ],
+      [
+        "2026-05-04",
+        66.9
+      ],
+      [
+        "2026-05-05",
+        67.3
+      ],
+      [
+        "2026-05-06",
+        68.7
+      ],
+      [
+        "2026-05-07",
+        67.3
+      ],
+      [
+        "2026-05-08",
+        67.3
+      ],
+      [
+        "2026-05-11",
+        66.6
+      ],
+      [
+        "2026-05-12",
+        65.7
+      ],
+      [
+        "2026-05-13",
+        65.0
+      ],
+      [
+        "2026-05-14",
+        65.9
+      ],
+      [
+        "2026-05-15",
+        63.2
+      ],
+      [
+        "2026-05-18",
+        62.1
+      ],
+      [
+        "2026-05-19",
+        59.3
+      ],
+      [
+        "2026-05-20",
+        60.5
+      ],
+      [
+        "2026-05-21",
+        57.5
+      ],
+      [
+        "2026-05-22",
+        58.2
+      ],
+      [
+        "2026-05-26",
+        59.8
+      ],
+      [
+        "2026-05-27",
+        60.6
+      ],
+      [
+        "2026-05-28",
+        60.7
+      ],
+      [
+        "2026-05-29",
+        60.5
+      ],
+      [
+        "2026-06-01",
+        59.5
+      ],
+      [
+        "2026-06-02",
+        57.0
+      ],
+      [
+        "2026-06-03",
+        54.6
+      ],
+      [
+        "2026-06-04",
+        54.6
+      ],
+      [
+        "2026-06-05",
+        41.9
+      ],
+      [
+        "2026-06-08",
+        39.4
+      ],
+      [
+        "2026-06-09",
+        33.8
+      ],
+      [
+        "2026-06-10",
+        27.3
+      ],
+      [
+        "2026-06-11",
+        29.7
+      ],
+      [
+        "2026-06-12",
+        33.5
+      ],
+      [
+        "2026-06-15",
+        40.1
+      ],
+      [
+        "2026-06-16",
+        39.5
+      ],
+      [
+        "2026-06-17",
+        32.9
+      ],
+      [
+        "2026-06-18",
+        37.3
+      ],
+      [
+        "2026-06-22",
+        33.9
+      ],
+      [
+        "2026-06-23",
+        28.5
+      ],
+      [
+        "2026-06-24",
+        26.5
+      ],
+      [
+        "2026-06-25",
+        25.4
+      ],
+      [
+        "2026-06-26",
+        24.7
+      ],
+      [
+        "2026-06-29",
+        26.9
+      ],
+      [
+        "2026-06-30",
+        30.0
+      ],
+      [
+        "2026-07-01",
+        31.6
+      ],
+      [
+        "2026-07-02",
+        32.5
+      ],
+      [
+        "2026-07-06",
+        41.7
+      ],
+      [
+        "2026-07-07",
+        39.8
+      ],
+      [
+        "2026-07-08",
+        38.6
+      ],
+      [
+        "2026-07-09",
+        44.7
+      ],
+      [
+        "2026-07-10",
+        46.8
+      ],
+      [
+        "2026-07-13",
+        40.9
+      ],
+      [
+        "2026-07-14",
+        41.1
+      ],
+      [
+        "2026-07-15",
+        44.4
+      ],
+      [
+        "2026-07-16",
+        41.9
+      ],
+      [
+        "2026-07-17",
+        37.0
+      ],
+      [
+        "2026-07-20",
+        36.0
+      ],
+      [
+        "2026-07-21",
+        42.8
+      ],
+      [
+        "2026-07-22",
+        44.4
+      ],
+      [
+        "2026-07-23",
+        40.9
+      ],
+      [
+        "2026-07-24",
+        40.8
+      ],
+      [
+        "2026-07-27",
+        38.2
+      ],
+      [
+        "2026-07-28",
+        37.1
+      ],
+      [
+        "2026-07-29",
+        25.6
+      ],
+      [
+        "2026-07-30",
+        38.1
+      ],
+      [
+        "2026-07-31",
+        39.6
+      ],
+      [
+        "2026-08-03",
+        46.1
+      ],
+      [
+        "2026-08-04",
+        59.0
+      ],
+      [
+        "2026-08-05",
+        60.2
+      ],
+      [
+        "2026-08-06",
+        59.7
+      ],
+      [
+        "2026-08-07",
+        65.1
+      ],
+      [
+        "2026-08-10",
+        64.4
+      ],
+      [
+        "2026-08-11",
+        60.1
+      ],
+      [
+        "2026-08-12",
+        61.7
+      ],
+      [
+        "2026-08-13",
+        66.1
+      ],
+      [
+        "2026-08-14",
+        64.3
+      ],
+      [
+        "2026-08-17",
+        59.1
+      ],
+      [
+        "2026-08-18",
+        54.6
+      ],
+      [
+        "2026-08-19",
+        56.6
+      ],
+      [
+        "2026-08-20",
+        51.4
+      ],
+      [
+        "2026-08-21",
+        54.7
+      ],
+      [
+        "2026-08-24",
+        55.0
+      ],
+      [
+        "2026-08-25",
+        59.6
+      ],
+      [
+        "2026-08-26",
+        53.9
+      ],
+      [
+        "2026-08-27",
+        57.3
+      ],
+      [
+        "2026-08-28",
+        53.7
+      ],
+      [
+        "2026-08-31",
+        49.2
+      ],
+      [
+        "2026-09-01",
+        44.9
+      ],
+      [
+        "2026-09-02",
+        46.1
+      ],
+      [
+        "2026-09-03",
+        47.5
+      ],
+      [
+        "2026-09-04",
+        45.2
+      ],
+      [
+        "2026-09-08",
+        39.1
+      ],
+      [
+        "2026-09-09",
+        38.2
+      ],
+      [
+        "2026-09-10",
+        31.9
+      ],
+      [
+        "2026-09-11",
+        33.1
+      ],
+      [
+        "2026-09-14",
+        32.1
+      ],
+      [
+        "2026-09-15",
+        29.3
+      ],
+      [
+        "2026-09-16",
+        27.0
+      ],
+      [
+        "2026-09-17",
+        29.5
+      ],
+      [
+        "2026-09-18",
+        28.5
+      ],
+      [
+        "2026-09-21",
+        33.9
+      ],
+      [
+        "2026-09-22",
+        35.2
+      ],
+      [
+        "2026-09-23",
+        33.7
+      ],
+      [
+        "2026-09-24",
+        34.5
+      ],
+      [
+        "2026-09-25",
+        36.9
+      ],
+      [
+        "2026-09-28",
+        32.4
+      ],
+      [
+        "2026-09-29",
+        31.1
+      ],
+      [
+        "2026-09-30",
+        30.3
+      ],
+      [
+        "2026-10-01",
+        29.2
+      ],
+      [
+        "2026-10-02",
+        38.2
+      ],
+      [
+        "2026-10-05",
+        43.1
+      ],
+      [
+        "2026-10-06",
+        47.0
+      ],
+      [
+        "2026-10-07",
+        44.7
+      ],
+      [
+        "2026-10-08",
+        39.2
+      ],
+      [
+        "2026-10-09",
+        43.5
+      ],
+      [
+        "2026-10-12",
+        45.2
+      ],
+      [
+        "2026-10-13",
+        45.6
+      ],
+      [
+        "2026-10-14",
+        28.8
+      ],
+      [
+        "2026-10-15",
+        32.0
+      ],
+      [
+        "2026-10-16",
+        18.2
+      ],
+      [
+        "2026-10-19",
+        19.5
+      ],
+      [
+        "2026-10-20",
+        28.7
+      ],
+      [
+        "2026-10-21",
+        30.3
+      ],
+      [
+        "2026-10-22",
+        20.0
+      ],
+      [
+        "2026-10-23",
+        16.7
+      ],
+      [
+        "2026-10-26",
+        29.8
+      ],
+      [
+        "2026-10-27",
+        32.9
+      ],
+      [
+        "2026-10-28",
+        34.4
+      ],
+      [
+        "2026-10-29",
+        30.8
+      ],
+      [
+        "2026-10-30",
+        26.3
+      ],
+      [
+        "2026-11-02",
+        19.4
+      ],
+      [
+        "2026-11-03",
+        23.5
+      ],
+      [
+        "2026-11-04",
+        34.2
+      ],
+      [
+        "2026-11-05",
+        20.0
+      ],
+      [
+        "2026-11-06",
+        24.4
+      ],
+      [
+        "2026-11-09",
+        31.5
+      ],
+      [
+        "2026-11-10",
+        37.4
+      ],
+      [
+        "2026-11-11",
+        35.9
+      ],
+      [
+        "2026-11-12",
+        40.3
+      ],
+      [
+        "2026-11-13",
+        37.4
+      ],
+      [
+        "2026-11-16",
+        31.1
+      ],
+      [
+        "2026-11-17",
+        26.0
+      ],
+      [
+        "2026-11-18",
+        29.9
+      ],
+      [
+        "2026-11-19",
+        15.9
+      ],
+      [
+        "2026-11-20",
+        18.6
+      ],
+      [
+        "2026-11-23",
+        17.7
+      ],
+      [
+        "2026-11-23",
+        17.7
+      ]
+    ],
+    "interpretation": "Milieu 50 = 0. Tranches entières de 10 points d'écart (floor(|50 − valeur| / 10) × 10, signé, max ±50)."
+  },
+  "etf": {
+    "id": "etf",
+    "ticker": "ZPDK",
+    "tv": "XETR:ZPDK",
+    "yahoo": "ZPDK.DE",
+    "nom": "SPDR S&P U.S. Communication Services Select Sector UCITS ETF",
+    "kind": "etf",
+    "weekly_path": "/workspace/invest/patrimoine-dashboard/data/fibo_max/ZPDK.DE.json",
+    "weekly_symbol_used": "ZPDK.DE",
+    "ok": true,
+    "date_cloture": "2026-11-20",
+    "close": 43.650001525878906,
+    "n_closed": 432,
+    "currency": "EUR",
+    "points": {
+      "rsi": 0,
+      "macd": 30,
+      "fibonacci": 0,
+      "elliott": 0,
+      "cci": 20,
+      "fondamental": 82,
+      "fear_greed": 30,
+      "total": 162
+    },
+    "detail": {
+      "rsi": {
+        "valeur": 42.6,
+        "points": 0,
+        "conditions": [
+          {
+            "id": "rsi_sous_40",
+            "ok": false,
+            "points": 0,
+            "valeur": 42.6
+          },
+          {
+            "id": "divergence_rsi_haussiere_hebdo",
+            "ok": false,
+            "points": 0,
+            "texte": null
+          }
+        ]
+      },
+      "macd": {
+        "ligne": -0.3163,
+        "signal": -0.0077,
+        "hist": -0.3087,
+        "points": 30,
+        "conditions": [
+          {
+            "id": "macd_sous_0",
+            "ok": true,
+            "points": 10,
+            "valeur": -0.3163
+          },
+          {
+            "id": "histo_4_barres_rouges_sous_0",
+            "ok": true,
+            "points": 20,
+            "streak": 4
+          }
+        ]
+      },
+      "fibonacci": {
+        "ok": true,
+        "r": 0.1458,
+        "r_pct": 14.6,
+        "points": 0,
+        "palier": null,
+        "base": 14.592,
+        "base_date": "2018-12-24",
+        "ath": 48.610001,
+        "ath_date": "2026-05-11",
+        "cours": 43.650001525878906,
+        "source": "fibo_historique_json",
+        "interpretation": "Retracement r = (plus haut historique − cours) / (plus haut − plus bas historique), mesuré sur les corps hebdomadaires clôturés. « Sous X % » = r ≥ X % (le cours a retracé au-delà du niveau X % depuis le haut)."
+      },
+      "elliott": {
+        "key": "a",
+        "entry": false,
+        "zone": "rouge"
+      },
+      "cci": {
+        "ok": true,
+        "valeur": -106.4,
+        "points": 20,
+        "seuil": 20,
+        "precision": "seuil littéral d’Emmanuel, en attente de confirmation"
+      },
+      "fondamental": {
+        "points": 82,
+        "max": 90,
+        "elements": [
+          {
+            "id": "dette_nette_ebitda",
+            "label": "Dette nette / EBITDA",
+            "seuil": "< 2",
+            "points": 10.0,
+            "ok": null,
+            "moyenne_5": true,
+            "n_bons": 5,
+            "n": 5
+          },
+          {
+            "id": "marge_operationnelle",
+            "label": "Marge opérationnelle",
+            "seuil": "> 15 %",
+            "points": 10.0,
+            "ok": null,
+            "moyenne_5": true,
+            "n_bons": 5,
+            "n": 5
+          },
+          {
+            "id": "marge_fcf",
+            "label": "Marge de cash-flow libre",
+            "seuil": "> 10 %",
+            "points": 6.0,
+            "ok": null,
+            "moyenne_5": true,
+            "n_bons": 3,
+            "n": 5
+          },
+          {
+            "id": "roe",
+            "label": "ROE",
+            "seuil": "> 15 %",
+            "points": 10.0,
+            "ok": null,
+            "moyenne_5": true,
+            "n_bons": 5,
+            "n": 5
+          },
+          {
+            "id": "ratio_liquidite_courante",
+            "label": "Ratio de liquidité courante",
+            "seuil": "> 1,2",
+            "points": 8.0,
+            "ok": null,
+            "moyenne_5": true,
+            "n_bons": 4,
+            "n": 5
+          },
+          {
+            "id": "bpa_annee_prochaine",
+            "label": "BPA année prochaine",
+            "seuil": "> 0 %",
+            "points": 8.0,
+            "ok": null,
+            "moyenne_5": true,
+            "n_bons": 4,
+            "n": 5
+          },
+          {
+            "id": "bpa_cette_annee",
+            "label": "BPA cette année",
+            "seuil": "> 0 %",
+            "points": 10.0,
+            "ok": null,
+            "moyenne_5": true,
+            "n_bons": 5,
+            "n": 5
+          },
+          {
+            "id": "ca_annee_prochaine",
+            "label": "CA année prochaine",
+            "seuil": "> 0 %",
+            "points": 10.0,
+            "ok": null,
+            "moyenne_5": true,
+            "n_bons": 5,
+            "n": 5
+          },
+          {
+            "id": "ca_cette_annee",
+            "label": "CA cette année",
+            "seuil": "> 0 %",
+            "points": 10.0,
+            "ok": null,
+            "moyenne_5": true,
+            "n_bons": 5,
+            "n": 5
+          }
+        ],
+        "mode": "Moyenne des 5 actions « qualité / croissance » affichées dans le détail (APP, RDDT, META, NFLX, GOOGL). L'ETF n'a pas de Dette nette/EBITDA, marges, ROE, ratio de liquidité ou consensus BPA/CA d'émetteur comparables ; on n'invente pas ces ratios."
+      }
+    },
+    "ligne": "RSI 0 · MACD +30 · Fibo 0 · Elliott 0 · CCI +20 · Fond +82 · F&G +30  →  162 / 270",
+    "total": 162,
+    "total_max": 270,
+    "total_min": -50,
+    "display": "162 / 270",
+    "band": "vert",
+    "hex": "#22c55e",
+    "av_label": "Favorable"
+  },
+  "actions": [
+    {
+      "id": "APP",
+      "ticker": "APP",
+      "tv": "NASDAQ:APP",
+      "yahoo": "APP",
+      "nom": "AppLovin Corporation",
+      "kind": "action",
+      "weekly_path": "/workspace/invest/patrimoine-dashboard/data/fibo_max/APP.json",
+      "weekly_symbol_used": "APP",
+      "ok": true,
+      "date_cloture": "2026-11-20",
+      "close": 348.2900085449219,
+      "n_closed": 293,
+      "currency": "USD",
+      "points": {
+        "rsi": 0,
+        "macd": 10,
+        "fibonacci": 10,
+        "elliott": 0,
+        "cci": 0,
+        "fondamental": 90,
+        "fear_greed": 30,
+        "total": 140
+      },
+      "detail": {
+        "rsi": {
+          "valeur": 48.2,
+          "points": 0,
+          "conditions": [
+            {
+              "id": "rsi_sous_40",
+              "ok": false,
+              "points": 0,
+              "valeur": 48.2
+            },
+            {
+              "id": "divergence_rsi_haussiere_hebdo",
+              "ok": false,
+              "points": 0,
+              "texte": null
+            }
+          ]
+        },
+        "macd": {
+          "ligne": -31.2434,
+          "signal": -43.5017,
+          "hist": 12.2583,
+          "points": 10,
+          "conditions": [
+            {
+              "id": "macd_sous_0",
+              "ok": true,
+              "points": 10,
+              "valeur": -31.2434
+            },
+            {
+              "id": "histo_4_barres_rouges_sous_0",
+              "ok": false,
+              "points": 0,
+              "streak": 0
+            }
+          ]
+        },
+        "fibonacci": {
+          "ok": true,
+          "r": 0.5312,
+          "r_pct": 53.1,
+          "points": 10,
+          "palier": "38,2 %",
+          "base": 9.72,
+          "base_date": "2023-01-03",
+          "ath": 731.97,
+          "ath_date": "2025-12-22",
+          "cours": 348.2900085449219,
+          "source": "fibo_historique_json",
+          "interpretation": "Retracement r = (plus haut historique − cours) / (plus haut − plus bas historique), mesuré sur les corps hebdomadaires clôturés. « Sous X % » = r ≥ X % (le cours a retracé au-delà du niveau X % depuis le haut)."
+        },
+        "elliott": {
+          "key": "b",
+          "entry": false,
+          "zone": "rouge"
+        },
+        "cci": {
+          "ok": false,
+          "valeur": 39.2,
+          "points": 0,
+          "seuil": 20,
+          "precision": "seuil littéral d’Emmanuel, en attente de confirmation"
+        },
+        "fondamental": {
+          "points": 90,
+          "max": 90,
+          "elements": [
+            {
+              "id": "dette_nette_ebitda",
+              "label": "Dette nette / EBITDA",
+              "cle": "nd_ebitda",
+              "valeur": 0.06,
+              "seuil": "< 2",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "marge_operationnelle",
+              "label": "Marge opérationnelle",
+              "cle": "op_margin",
+              "valeur": 77.78,
+              "seuil": "> 15 %",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "marge_fcf",
+              "label": "Marge de cash-flow libre",
+              "cle": "fcf_margin",
+              "valeur": 48.87,
+              "seuil": "> 10 %",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "roe",
+              "label": "ROE",
+              "cle": "roe",
+              "valeur": 210.09,
+              "seuil": "> 15 %",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "ratio_liquidite_courante",
+              "label": "Ratio de liquidité courante",
+              "cle": "current",
+              "valeur": 3.81,
+              "seuil": "> 1,2",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "bpa_annee_prochaine",
+              "label": "BPA année prochaine",
+              "cle": "eps_1y",
+              "valeur": 27.44,
+              "seuil": "> 0 %",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "bpa_cette_annee",
+              "label": "BPA cette année",
+              "cle": "eps_0y",
+              "valeur": 66.79,
+              "seuil": "> 0 %",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "ca_annee_prochaine",
+              "label": "CA année prochaine",
+              "cle": "rev_1y",
+              "valeur": 25.37,
+              "seuil": "> 0 %",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "ca_cette_annee",
+              "label": "CA cette année",
+              "cle": "rev_0y",
+              "valeur": 52.14,
+              "seuil": "> 0 %",
+              "ok": true,
+              "points": 10
+            }
+          ],
+          "mode": "ratios de l’émetteur (Yahoo Finance, fondamentaux déjà en base)"
+        }
+      },
+      "ligne": "RSI 0 · MACD +10 · Fibo +10 · Elliott 0 · CCI 0 · Fond +90 · F&G +30  →  140 / 270",
+      "total": 140,
+      "total_max": 270,
+      "total_min": -50,
+      "display": "140 / 270",
+      "band": "jaune",
+      "hex": "#ffd400",
+      "av_label": "Neutre"
+    },
+    {
+      "id": "RDDT",
+      "ticker": "RDDT",
+      "tv": "NYSE:RDDT",
+      "yahoo": "RDDT",
+      "nom": "Reddit, Inc.",
+      "kind": "action",
+      "weekly_path": "/workspace/invest/patrimoine-dashboard/data/fibo_max/RDDT.json",
+      "weekly_symbol_used": "RDDT",
+      "ok": true,
+      "date_cloture": "2026-11-20",
+      "close": 85.33000183105469,
+      "n_closed": 140,
+      "currency": "USD",
+      "points": {
+        "rsi": 10,
+        "macd": 30,
+        "fibonacci": 30,
+        "elliott": 0,
+        "cci": 20,
+        "fondamental": 90,
+        "fear_greed": 30,
+        "total": 210
+      },
+      "detail": {
+        "rsi": {
+          "valeur": 31.7,
+          "points": 10,
+          "conditions": [
+            {
+              "id": "rsi_sous_40",
+              "ok": true,
+              "points": 10,
+              "valeur": 31.7
+            },
+            {
+              "id": "divergence_rsi_haussiere_hebdo",
+              "ok": false,
+              "points": 0,
+              "texte": null
+            }
+          ]
+        },
+        "macd": {
+          "ligne": -17.7426,
+          "signal": -10.3008,
+          "hist": -7.4419,
+          "points": 30,
+          "conditions": [
+            {
+              "id": "macd_sous_0",
+              "ok": true,
+              "points": 10,
+              "valeur": -17.7426
+            },
+            {
+              "id": "histo_4_barres_rouges_sous_0",
+              "ok": true,
+              "points": 20,
+              "streak": 14
+            }
+          ]
+        },
+        "fibonacci": {
+          "ok": true,
+          "r": 0.8012,
+          "r_pct": 80.1,
+          "points": 30,
+          "palier": "78,6 %",
+          "base": 40.88,
+          "base_date": "2024-04-15",
+          "ath": 264.48,
+          "ath_date": "2025-09-15",
+          "cours": 85.33000183105469,
+          "source": "fibo_historique_json",
+          "interpretation": "Retracement r = (plus haut historique − cours) / (plus haut − plus bas historique), mesuré sur les corps hebdomadaires clôturés. « Sous X % » = r ≥ X % (le cours a retracé au-delà du niveau X % depuis le haut)."
+        },
+        "elliott": {
+          "key": "bear_135",
+          "entry": false,
+          "zone": "rouge"
+        },
+        "cci": {
+          "ok": true,
+          "valeur": -194.9,
+          "points": 20,
+          "seuil": 20,
+          "precision": "seuil littéral d’Emmanuel, en attente de confirmation"
+        },
+        "fondamental": {
+          "points": 90,
+          "max": 90,
+          "elements": [
+            {
+              "id": "dette_nette_ebitda",
+              "label": "Dette nette / EBITDA",
+              "cle": "nd_ebitda",
+              "valeur": -3.25,
+              "seuil": "< 2",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "marge_operationnelle",
+              "label": "Marge opérationnelle",
+              "cle": "op_margin",
+              "valeur": 29.4,
+              "seuil": "> 15 %",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "marge_fcf",
+              "label": "Marge de cash-flow libre",
+              "cle": "fcf_margin",
+              "valeur": 26.28,
+              "seuil": "> 10 %",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "roe",
+              "label": "ROE",
+              "cle": "roe",
+              "valeur": 32.03,
+              "seuil": "> 15 %",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "ratio_liquidite_courante",
+              "label": "Ratio de liquidité courante",
+              "cle": "current",
+              "valeur": 10.8,
+              "seuil": "> 1,2",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "bpa_annee_prochaine",
+              "label": "BPA année prochaine",
+              "cle": "eps_1y",
+              "valeur": 24.17,
+              "seuil": "> 0 %",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "bpa_cette_annee",
+              "label": "BPA cette année",
+              "cle": "eps_0y",
+              "valeur": 109.77,
+              "seuil": "> 0 %",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "ca_annee_prochaine",
+              "label": "CA année prochaine",
+              "cle": "rev_1y",
+              "valeur": 28.43,
+              "seuil": "> 0 %",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "ca_cette_annee",
+              "label": "CA cette année",
+              "cle": "rev_0y",
+              "valeur": 53.72,
+              "seuil": "> 0 %",
+              "ok": true,
+              "points": 10
+            }
+          ],
+          "mode": "ratios de l’émetteur (Yahoo Finance, fondamentaux déjà en base)"
+        }
+      },
+      "ligne": "RSI +10 · MACD +30 · Fibo +30 · Elliott 0 · CCI +20 · Fond +90 · F&G +30  →  210 / 270",
+      "total": 210,
+      "total_max": 270,
+      "total_min": -50,
+      "display": "210 / 270",
+      "band": "cyan",
+      "hex": "#00e5ff",
+      "av_label": "Très favorable"
+    },
+    {
+      "id": "META",
+      "ticker": "META",
+      "tv": "NASDAQ:META",
+      "yahoo": "META",
+      "nom": "Meta Platforms, Inc.",
+      "kind": "action",
+      "weekly_path": "/workspace/invest/patrimoine-dashboard/data/fibo_max/META.json",
+      "weekly_symbol_used": "META",
+      "ok": true,
+      "date_cloture": "2026-11-20",
+      "close": 560.8400268554688,
+      "n_closed": 758,
+      "currency": "USD",
+      "points": {
+        "rsi": 0,
+        "macd": 0,
+        "fibonacci": 0,
+        "elliott": 0,
+        "cci": 20,
+        "fondamental": 80,
+        "fear_greed": 30,
+        "total": 130
+      },
+      "detail": {
+        "rsi": {
+          "valeur": 41.9,
+          "points": 0,
+          "conditions": [
+            {
+              "id": "rsi_sous_40",
+              "ok": false,
+              "points": 0,
+              "valeur": 41.9
+            },
+            {
+              "id": "divergence_rsi_haussiere_hebdo",
+              "ok": false,
+              "points": 0,
+              "texte": null
+            }
+          ]
+        },
+        "macd": {
+          "ligne": 1.0221,
+          "signal": 8.2084,
+          "hist": -7.1863,
+          "points": 0,
+          "conditions": [
+            {
+              "id": "macd_sous_0",
+              "ok": false,
+              "points": 0,
+              "valeur": 1.0221
+            },
+            {
+              "id": "histo_4_barres_rouges_sous_0",
+              "ok": false,
+              "points": 0,
+              "streak": 3
+            }
+          ]
+        },
+        "fibonacci": {
+          "ok": true,
+          "r": 0.2925,
+          "r_pct": 29.2,
+          "points": 0,
+          "palier": null,
+          "base": 18.058,
+          "base_date": "2012-08-27",
+          "ath": 785.23,
+          "ath_date": "2025-08-11",
+          "cours": 560.8400268554688,
+          "source": "fibo_historique_json",
+          "interpretation": "Retracement r = (plus haut historique − cours) / (plus haut − plus bas historique), mesuré sur les corps hebdomadaires clôturés. « Sous X % » = r ≥ X % (le cours a retracé au-delà du niveau X % depuis le haut)."
+        },
+        "elliott": {
+          "key": "b",
+          "entry": false,
+          "zone": "rouge"
+        },
+        "cci": {
+          "ok": true,
+          "valeur": -73.6,
+          "points": 20,
+          "seuil": 20,
+          "precision": "seuil littéral d’Emmanuel, en attente de confirmation"
+        },
+        "fondamental": {
+          "points": 80,
+          "max": 90,
+          "elements": [
+            {
+              "id": "dette_nette_ebitda",
+              "label": "Dette nette / EBITDA",
+              "cle": "nd_ebitda",
+              "valeur": 0.28,
+              "seuil": "< 2",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "marge_operationnelle",
+              "label": "Marge opérationnelle",
+              "cle": "op_margin",
+              "valeur": 37.78,
+              "seuil": "> 15 %",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "marge_fcf",
+              "label": "Marge de cash-flow libre",
+              "cle": "fcf_margin",
+              "valeur": 6.97,
+              "seuil": "> 10 %",
+              "ok": false,
+              "points": 0
+            },
+            {
+              "id": "roe",
+              "label": "ROE",
+              "cle": "roe",
+              "valeur": 32.26,
+              "seuil": "> 15 %",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "ratio_liquidite_courante",
+              "label": "Ratio de liquidité courante",
+              "cle": "current",
+              "valeur": 1.9,
+              "seuil": "> 1,2",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "bpa_annee_prochaine",
+              "label": "BPA année prochaine",
+              "cle": "eps_1y",
+              "valeur": 16.81,
+              "seuil": "> 0 %",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "bpa_cette_annee",
+              "label": "BPA cette année",
+              "cle": "eps_0y",
+              "valeur": 23.72,
+              "seuil": "> 0 %",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "ca_annee_prochaine",
+              "label": "CA année prochaine",
+              "cle": "rev_1y",
+              "valeur": 21.73,
+              "seuil": "> 0 %",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "ca_cette_annee",
+              "label": "CA cette année",
+              "cle": "rev_0y",
+              "valeur": 27.82,
+              "seuil": "> 0 %",
+              "ok": true,
+              "points": 10
+            }
+          ],
+          "mode": "ratios de l’émetteur (Yahoo Finance, fondamentaux déjà en base)"
+        }
+      },
+      "ligne": "RSI 0 · MACD 0 · Fibo 0 · Elliott 0 · CCI +20 · Fond +80 · F&G +30  →  130 / 270",
+      "total": 130,
+      "total_max": 270,
+      "total_min": -50,
+      "display": "130 / 270",
+      "band": "jaune",
+      "hex": "#ffd400",
+      "av_label": "Neutre"
+    },
+    {
+      "id": "NFLX",
+      "ticker": "NFLX",
+      "tv": "NASDAQ:NFLX",
+      "yahoo": "NFLX",
+      "nom": "Netflix, Inc.",
+      "kind": "action",
+      "weekly_path": "/workspace/invest/patrimoine-dashboard/data/fibo_max/NFLX.json",
+      "weekly_symbol_used": "NFLX",
+      "ok": true,
+      "date_cloture": "2026-11-20",
+      "close": 56.72999954223633,
+      "n_closed": 1279,
+      "currency": "USD",
+      "points": {
+        "rsi": 10,
+        "macd": 30,
+        "fibonacci": 10,
+        "elliott": 20,
+        "cci": 20,
+        "fondamental": 80,
+        "fear_greed": 30,
+        "total": 200
+      },
+      "detail": {
+        "rsi": {
+          "valeur": 28.5,
+          "points": 10,
+          "conditions": [
+            {
+              "id": "rsi_sous_40",
+              "ok": true,
+              "points": 10,
+              "valeur": 28.5
+            },
+            {
+              "id": "divergence_rsi_haussiere_hebdo",
+              "ok": false,
+              "points": 0,
+              "texte": null
+            }
+          ]
+        },
+        "macd": {
+          "ligne": -6.287,
+          "signal": -5.4139,
+          "hist": -0.8731,
+          "points": 30,
+          "conditions": [
+            {
+              "id": "macd_sous_0",
+              "ok": true,
+              "points": 10,
+              "valeur": -6.287
+            },
+            {
+              "id": "histo_4_barres_rouges_sous_0",
+              "ok": true,
+              "points": 20,
+              "streak": 5
+            }
+          ]
+        },
+        "fibonacci": {
+          "ok": true,
+          "r": 0.574,
+          "r_pct": 57.4,
+          "points": 10,
+          "palier": "38,2 %",
+          "base": 0.045,
+          "base_date": "2002-10-07",
+          "ath": 133.1,
+          "ath_date": "2025-06-30",
+          "cours": 56.72999954223633,
+          "source": "fibo_historique_json",
+          "interpretation": "Retracement r = (plus haut historique − cours) / (plus haut − plus bas historique), mesuré sur les corps hebdomadaires clôturés. « Sous X % » = r ≥ X % (le cours a retracé au-delà du niveau X % depuis le haut)."
+        },
+        "elliott": {
+          "key": "fin_c",
+          "entry": true,
+          "zone": "verte"
+        },
+        "cci": {
+          "ok": true,
+          "valeur": -172.1,
+          "points": 20,
+          "seuil": 20,
+          "precision": "seuil littéral d’Emmanuel, en attente de confirmation"
+        },
+        "fondamental": {
+          "points": 80,
+          "max": 90,
+          "elements": [
+            {
+              "id": "dette_nette_ebitda",
+              "label": "Dette nette / EBITDA",
+              "cle": "nd_ebitda",
+              "valeur": 0.58,
+              "seuil": "< 2",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "marge_operationnelle",
+              "label": "Marge opérationnelle",
+              "cle": "op_margin",
+              "valeur": 31.3,
+              "seuil": "> 15 %",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "marge_fcf",
+              "label": "Marge de cash-flow libre",
+              "cle": "fcf_margin",
+              "valeur": 51.22,
+              "seuil": "> 10 %",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "roe",
+              "label": "ROE",
+              "cle": "roe",
+              "valeur": 53.46,
+              "seuil": "> 15 %",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "ratio_liquidite_courante",
+              "label": "Ratio de liquidité courante",
+              "cle": "current",
+              "valeur": 1.07,
+              "seuil": "> 1,2",
+              "ok": false,
+              "points": 0
+            },
+            {
+              "id": "bpa_annee_prochaine",
+              "label": "BPA année prochaine",
+              "cle": "eps_1y",
+              "valeur": 5.1,
+              "seuil": "> 0 %",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "bpa_cette_annee",
+              "label": "BPA cette année",
+              "cle": "eps_0y",
+              "valeur": 41.65,
+              "seuil": "> 0 %",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "ca_annee_prochaine",
+              "label": "CA année prochaine",
+              "cle": "rev_1y",
+              "valeur": 10.71,
+              "seuil": "> 0 %",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "ca_cette_annee",
+              "label": "CA cette année",
+              "cle": "rev_0y",
+              "valeur": 13.15,
+              "seuil": "> 0 %",
+              "ok": true,
+              "points": 10
+            }
+          ],
+          "mode": "ratios de l’émetteur (Yahoo Finance, fondamentaux déjà en base)"
+        }
+      },
+      "ligne": "RSI +10 · MACD +30 · Fibo +10 · Elliott +20 · CCI +20 · Fond +80 · F&G +30  →  200 / 270",
+      "total": 200,
+      "total_max": 270,
+      "total_min": -50,
+      "display": "200 / 270",
+      "band": "vert",
+      "hex": "#22c55e",
+      "av_label": "Favorable"
+    },
+    {
+      "id": "GOOGL",
+      "ticker": "GOOGL",
+      "tv": "NASDAQ:GOOGL",
+      "yahoo": "GOOGL",
+      "nom": "Alphabet Inc.",
+      "kind": "action",
+      "weekly_path": "/workspace/invest/patrimoine-dashboard/data/fibo_max/GOOGL.json",
+      "weekly_symbol_used": "GOOGL",
+      "ok": true,
+      "date_cloture": "2026-11-20",
+      "close": 265.2900085449219,
+      "n_closed": 1162,
+      "currency": "USD",
+      "points": {
+        "rsi": 10,
+        "macd": 30,
+        "fibonacci": 0,
+        "elliott": 20,
+        "cci": 20,
+        "fondamental": 70,
+        "fear_greed": 30,
+        "total": 180
+      },
+      "detail": {
+        "rsi": {
+          "valeur": 32.9,
+          "points": 10,
+          "conditions": [
+            {
+              "id": "rsi_sous_40",
+              "ok": true,
+              "points": 10,
+              "valeur": 32.9
+            },
+            {
+              "id": "divergence_rsi_haussiere_hebdo",
+              "ok": false,
+              "points": 0,
+              "texte": null
+            }
+          ]
+        },
+        "macd": {
+          "ligne": -13.1427,
+          "signal": -3.6097,
+          "hist": -9.533,
+          "points": 30,
+          "conditions": [
+            {
+              "id": "macd_sous_0",
+              "ok": true,
+              "points": 10,
+              "valeur": -13.1427
+            },
+            {
+              "id": "histo_4_barres_rouges_sous_0",
+              "ok": true,
+              "points": 20,
+              "streak": 23
+            }
+          ]
+        },
+        "fibonacci": {
+          "ok": true,
+          "r": 0.3402,
+          "r_pct": 34.0,
+          "points": 0,
+          "palier": null,
+          "base": 2.502675,
+          "base_date": "2004-08-16",
+          "ath": 400.8,
+          "ath_date": "2026-05-04",
+          "cours": 265.2900085449219,
+          "source": "fibo_historique_json",
+          "interpretation": "Retracement r = (plus haut historique − cours) / (plus haut − plus bas historique), mesuré sur les corps hebdomadaires clôturés. « Sous X % » = r ≥ X % (le cours a retracé au-delà du niveau X % depuis le haut)."
+        },
+        "elliott": {
+          "key": "fin_c",
+          "entry": true,
+          "zone": "verte"
+        },
+        "cci": {
+          "ok": true,
+          "valeur": -200.5,
+          "points": 20,
+          "seuil": 20,
+          "precision": "seuil littéral d’Emmanuel, en attente de confirmation"
+        },
+        "fondamental": {
+          "points": 70,
+          "max": 90,
+          "elements": [
+            {
+              "id": "dette_nette_ebitda",
+              "label": "Dette nette / EBITDA",
+              "cle": "nd_ebitda",
+              "valeur": -0.62,
+              "seuil": "< 2",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "marge_operationnelle",
+              "label": "Marge opérationnelle",
+              "cle": "op_margin",
+              "valeur": 33.32,
+              "seuil": "> 15 %",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "marge_fcf",
+              "label": "Marge de cash-flow libre",
+              "cle": "fcf_margin",
+              "valeur": -0.25,
+              "seuil": "> 10 %",
+              "ok": false,
+              "points": 0
+            },
+            {
+              "id": "roe",
+              "label": "ROE",
+              "cle": "roe",
+              "valeur": 44.29,
+              "seuil": "> 15 %",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "ratio_liquidite_courante",
+              "label": "Ratio de liquidité courante",
+              "cle": "current",
+              "valeur": 2.79,
+              "seuil": "> 1,2",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "bpa_annee_prochaine",
+              "label": "BPA année prochaine",
+              "cle": "eps_1y",
+              "valeur": -23.47,
+              "seuil": "> 0 %",
+              "ok": false,
+              "points": 0
+            },
+            {
+              "id": "bpa_cette_annee",
+              "label": "BPA cette année",
+              "cle": "eps_0y",
+              "valeur": 80.95,
+              "seuil": "> 0 %",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "ca_annee_prochaine",
+              "label": "CA année prochaine",
+              "cle": "rev_1y",
+              "valeur": 27.59,
+              "seuil": "> 0 %",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "ca_cette_annee",
+              "label": "CA cette année",
+              "cle": "rev_0y",
+              "valeur": 24.04,
+              "seuil": "> 0 %",
+              "ok": true,
+              "points": 10
+            }
+          ],
+          "mode": "ratios de l’émetteur (Yahoo Finance, fondamentaux déjà en base)"
+        }
+      },
+      "ligne": "RSI +10 · MACD +30 · Fibo 0 · Elliott +20 · CCI +20 · Fond +70 · F&G +30  →  180 / 270",
+      "total": 180,
+      "total_max": 270,
+      "total_min": -50,
+      "display": "180 / 270",
+      "band": "vert",
+      "hex": "#22c55e",
+      "av_label": "Favorable"
+    }
+  ],
+  "by_tv": {
+    "XETR:ZPDK": {
+      "id": "etf",
+      "ticker": "ZPDK",
+      "tv": "XETR:ZPDK",
+      "yahoo": "ZPDK.DE",
+      "nom": "SPDR S&P U.S. Communication Services Select Sector UCITS ETF",
+      "kind": "etf",
+      "weekly_path": "/workspace/invest/patrimoine-dashboard/data/fibo_max/ZPDK.DE.json",
+      "weekly_symbol_used": "ZPDK.DE",
+      "ok": true,
+      "date_cloture": "2026-11-20",
+      "close": 43.650001525878906,
+      "n_closed": 432,
+      "currency": "EUR",
+      "points": {
+        "rsi": 0,
+        "macd": 30,
+        "fibonacci": 0,
+        "elliott": 0,
+        "cci": 20,
+        "fondamental": 82,
+        "fear_greed": 30,
+        "total": 162
+      },
+      "detail": {
+        "rsi": {
+          "valeur": 42.6,
+          "points": 0,
+          "conditions": [
+            {
+              "id": "rsi_sous_40",
+              "ok": false,
+              "points": 0,
+              "valeur": 42.6
+            },
+            {
+              "id": "divergence_rsi_haussiere_hebdo",
+              "ok": false,
+              "points": 0,
+              "texte": null
+            }
+          ]
+        },
+        "macd": {
+          "ligne": -0.3163,
+          "signal": -0.0077,
+          "hist": -0.3087,
+          "points": 30,
+          "conditions": [
+            {
+              "id": "macd_sous_0",
+              "ok": true,
+              "points": 10,
+              "valeur": -0.3163
+            },
+            {
+              "id": "histo_4_barres_rouges_sous_0",
+              "ok": true,
+              "points": 20,
+              "streak": 4
+            }
+          ]
+        },
+        "fibonacci": {
+          "ok": true,
+          "r": 0.1458,
+          "r_pct": 14.6,
+          "points": 0,
+          "palier": null,
+          "base": 14.592,
+          "base_date": "2018-12-24",
+          "ath": 48.610001,
+          "ath_date": "2026-05-11",
+          "cours": 43.650001525878906,
+          "source": "fibo_historique_json",
+          "interpretation": "Retracement r = (plus haut historique − cours) / (plus haut − plus bas historique), mesuré sur les corps hebdomadaires clôturés. « Sous X % » = r ≥ X % (le cours a retracé au-delà du niveau X % depuis le haut)."
+        },
+        "elliott": {
+          "key": "a",
+          "entry": false,
+          "zone": "rouge"
+        },
+        "cci": {
+          "ok": true,
+          "valeur": -106.4,
+          "points": 20,
+          "seuil": 20,
+          "precision": "seuil littéral d’Emmanuel, en attente de confirmation"
+        },
+        "fondamental": {
+          "points": 82,
+          "max": 90,
+          "elements": [
+            {
+              "id": "dette_nette_ebitda",
+              "label": "Dette nette / EBITDA",
+              "seuil": "< 2",
+              "points": 10.0,
+              "ok": null,
+              "moyenne_5": true,
+              "n_bons": 5,
+              "n": 5
+            },
+            {
+              "id": "marge_operationnelle",
+              "label": "Marge opérationnelle",
+              "seuil": "> 15 %",
+              "points": 10.0,
+              "ok": null,
+              "moyenne_5": true,
+              "n_bons": 5,
+              "n": 5
+            },
+            {
+              "id": "marge_fcf",
+              "label": "Marge de cash-flow libre",
+              "seuil": "> 10 %",
+              "points": 6.0,
+              "ok": null,
+              "moyenne_5": true,
+              "n_bons": 3,
+              "n": 5
+            },
+            {
+              "id": "roe",
+              "label": "ROE",
+              "seuil": "> 15 %",
+              "points": 10.0,
+              "ok": null,
+              "moyenne_5": true,
+              "n_bons": 5,
+              "n": 5
+            },
+            {
+              "id": "ratio_liquidite_courante",
+              "label": "Ratio de liquidité courante",
+              "seuil": "> 1,2",
+              "points": 8.0,
+              "ok": null,
+              "moyenne_5": true,
+              "n_bons": 4,
+              "n": 5
+            },
+            {
+              "id": "bpa_annee_prochaine",
+              "label": "BPA année prochaine",
+              "seuil": "> 0 %",
+              "points": 8.0,
+              "ok": null,
+              "moyenne_5": true,
+              "n_bons": 4,
+              "n": 5
+            },
+            {
+              "id": "bpa_cette_annee",
+              "label": "BPA cette année",
+              "seuil": "> 0 %",
+              "points": 10.0,
+              "ok": null,
+              "moyenne_5": true,
+              "n_bons": 5,
+              "n": 5
+            },
+            {
+              "id": "ca_annee_prochaine",
+              "label": "CA année prochaine",
+              "seuil": "> 0 %",
+              "points": 10.0,
+              "ok": null,
+              "moyenne_5": true,
+              "n_bons": 5,
+              "n": 5
+            },
+            {
+              "id": "ca_cette_annee",
+              "label": "CA cette année",
+              "seuil": "> 0 %",
+              "points": 10.0,
+              "ok": null,
+              "moyenne_5": true,
+              "n_bons": 5,
+              "n": 5
+            }
+          ],
+          "mode": "Moyenne des 5 actions « qualité / croissance » affichées dans le détail (APP, RDDT, META, NFLX, GOOGL). L'ETF n'a pas de Dette nette/EBITDA, marges, ROE, ratio de liquidité ou consensus BPA/CA d'émetteur comparables ; on n'invente pas ces ratios."
+        }
+      },
+      "ligne": "RSI 0 · MACD +30 · Fibo 0 · Elliott 0 · CCI +20 · Fond +82 · F&G +30  →  162 / 270",
+      "total": 162,
+      "total_max": 270,
+      "total_min": -50,
+      "display": "162 / 270",
+      "band": "vert",
+      "hex": "#22c55e",
+      "av_label": "Favorable"
+    },
+    "NASDAQ:APP": {
+      "id": "APP",
+      "ticker": "APP",
+      "tv": "NASDAQ:APP",
+      "yahoo": "APP",
+      "nom": "AppLovin Corporation",
+      "kind": "action",
+      "weekly_path": "/workspace/invest/patrimoine-dashboard/data/fibo_max/APP.json",
+      "weekly_symbol_used": "APP",
+      "ok": true,
+      "date_cloture": "2026-11-20",
+      "close": 348.2900085449219,
+      "n_closed": 293,
+      "currency": "USD",
+      "points": {
+        "rsi": 0,
+        "macd": 10,
+        "fibonacci": 10,
+        "elliott": 0,
+        "cci": 0,
+        "fondamental": 90,
+        "fear_greed": 30,
+        "total": 140
+      },
+      "detail": {
+        "rsi": {
+          "valeur": 48.2,
+          "points": 0,
+          "conditions": [
+            {
+              "id": "rsi_sous_40",
+              "ok": false,
+              "points": 0,
+              "valeur": 48.2
+            },
+            {
+              "id": "divergence_rsi_haussiere_hebdo",
+              "ok": false,
+              "points": 0,
+              "texte": null
+            }
+          ]
+        },
+        "macd": {
+          "ligne": -31.2434,
+          "signal": -43.5017,
+          "hist": 12.2583,
+          "points": 10,
+          "conditions": [
+            {
+              "id": "macd_sous_0",
+              "ok": true,
+              "points": 10,
+              "valeur": -31.2434
+            },
+            {
+              "id": "histo_4_barres_rouges_sous_0",
+              "ok": false,
+              "points": 0,
+              "streak": 0
+            }
+          ]
+        },
+        "fibonacci": {
+          "ok": true,
+          "r": 0.5312,
+          "r_pct": 53.1,
+          "points": 10,
+          "palier": "38,2 %",
+          "base": 9.72,
+          "base_date": "2023-01-03",
+          "ath": 731.97,
+          "ath_date": "2025-12-22",
+          "cours": 348.2900085449219,
+          "source": "fibo_historique_json",
+          "interpretation": "Retracement r = (plus haut historique − cours) / (plus haut − plus bas historique), mesuré sur les corps hebdomadaires clôturés. « Sous X % » = r ≥ X % (le cours a retracé au-delà du niveau X % depuis le haut)."
+        },
+        "elliott": {
+          "key": "b",
+          "entry": false,
+          "zone": "rouge"
+        },
+        "cci": {
+          "ok": false,
+          "valeur": 39.2,
+          "points": 0,
+          "seuil": 20,
+          "precision": "seuil littéral d’Emmanuel, en attente de confirmation"
+        },
+        "fondamental": {
+          "points": 90,
+          "max": 90,
+          "elements": [
+            {
+              "id": "dette_nette_ebitda",
+              "label": "Dette nette / EBITDA",
+              "cle": "nd_ebitda",
+              "valeur": 0.06,
+              "seuil": "< 2",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "marge_operationnelle",
+              "label": "Marge opérationnelle",
+              "cle": "op_margin",
+              "valeur": 77.78,
+              "seuil": "> 15 %",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "marge_fcf",
+              "label": "Marge de cash-flow libre",
+              "cle": "fcf_margin",
+              "valeur": 48.87,
+              "seuil": "> 10 %",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "roe",
+              "label": "ROE",
+              "cle": "roe",
+              "valeur": 210.09,
+              "seuil": "> 15 %",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "ratio_liquidite_courante",
+              "label": "Ratio de liquidité courante",
+              "cle": "current",
+              "valeur": 3.81,
+              "seuil": "> 1,2",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "bpa_annee_prochaine",
+              "label": "BPA année prochaine",
+              "cle": "eps_1y",
+              "valeur": 27.44,
+              "seuil": "> 0 %",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "bpa_cette_annee",
+              "label": "BPA cette année",
+              "cle": "eps_0y",
+              "valeur": 66.79,
+              "seuil": "> 0 %",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "ca_annee_prochaine",
+              "label": "CA année prochaine",
+              "cle": "rev_1y",
+              "valeur": 25.37,
+              "seuil": "> 0 %",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "ca_cette_annee",
+              "label": "CA cette année",
+              "cle": "rev_0y",
+              "valeur": 52.14,
+              "seuil": "> 0 %",
+              "ok": true,
+              "points": 10
+            }
+          ],
+          "mode": "ratios de l’émetteur (Yahoo Finance, fondamentaux déjà en base)"
+        }
+      },
+      "ligne": "RSI 0 · MACD +10 · Fibo +10 · Elliott 0 · CCI 0 · Fond +90 · F&G +30  →  140 / 270",
+      "total": 140,
+      "total_max": 270,
+      "total_min": -50,
+      "display": "140 / 270",
+      "band": "jaune",
+      "hex": "#ffd400",
+      "av_label": "Neutre"
+    },
+    "NYSE:RDDT": {
+      "id": "RDDT",
+      "ticker": "RDDT",
+      "tv": "NYSE:RDDT",
+      "yahoo": "RDDT",
+      "nom": "Reddit, Inc.",
+      "kind": "action",
+      "weekly_path": "/workspace/invest/patrimoine-dashboard/data/fibo_max/RDDT.json",
+      "weekly_symbol_used": "RDDT",
+      "ok": true,
+      "date_cloture": "2026-11-20",
+      "close": 85.33000183105469,
+      "n_closed": 140,
+      "currency": "USD",
+      "points": {
+        "rsi": 10,
+        "macd": 30,
+        "fibonacci": 30,
+        "elliott": 0,
+        "cci": 20,
+        "fondamental": 90,
+        "fear_greed": 30,
+        "total": 210
+      },
+      "detail": {
+        "rsi": {
+          "valeur": 31.7,
+          "points": 10,
+          "conditions": [
+            {
+              "id": "rsi_sous_40",
+              "ok": true,
+              "points": 10,
+              "valeur": 31.7
+            },
+            {
+              "id": "divergence_rsi_haussiere_hebdo",
+              "ok": false,
+              "points": 0,
+              "texte": null
+            }
+          ]
+        },
+        "macd": {
+          "ligne": -17.7426,
+          "signal": -10.3008,
+          "hist": -7.4419,
+          "points": 30,
+          "conditions": [
+            {
+              "id": "macd_sous_0",
+              "ok": true,
+              "points": 10,
+              "valeur": -17.7426
+            },
+            {
+              "id": "histo_4_barres_rouges_sous_0",
+              "ok": true,
+              "points": 20,
+              "streak": 14
+            }
+          ]
+        },
+        "fibonacci": {
+          "ok": true,
+          "r": 0.8012,
+          "r_pct": 80.1,
+          "points": 30,
+          "palier": "78,6 %",
+          "base": 40.88,
+          "base_date": "2024-04-15",
+          "ath": 264.48,
+          "ath_date": "2025-09-15",
+          "cours": 85.33000183105469,
+          "source": "fibo_historique_json",
+          "interpretation": "Retracement r = (plus haut historique − cours) / (plus haut − plus bas historique), mesuré sur les corps hebdomadaires clôturés. « Sous X % » = r ≥ X % (le cours a retracé au-delà du niveau X % depuis le haut)."
+        },
+        "elliott": {
+          "key": "bear_135",
+          "entry": false,
+          "zone": "rouge"
+        },
+        "cci": {
+          "ok": true,
+          "valeur": -194.9,
+          "points": 20,
+          "seuil": 20,
+          "precision": "seuil littéral d’Emmanuel, en attente de confirmation"
+        },
+        "fondamental": {
+          "points": 90,
+          "max": 90,
+          "elements": [
+            {
+              "id": "dette_nette_ebitda",
+              "label": "Dette nette / EBITDA",
+              "cle": "nd_ebitda",
+              "valeur": -3.25,
+              "seuil": "< 2",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "marge_operationnelle",
+              "label": "Marge opérationnelle",
+              "cle": "op_margin",
+              "valeur": 29.4,
+              "seuil": "> 15 %",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "marge_fcf",
+              "label": "Marge de cash-flow libre",
+              "cle": "fcf_margin",
+              "valeur": 26.28,
+              "seuil": "> 10 %",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "roe",
+              "label": "ROE",
+              "cle": "roe",
+              "valeur": 32.03,
+              "seuil": "> 15 %",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "ratio_liquidite_courante",
+              "label": "Ratio de liquidité courante",
+              "cle": "current",
+              "valeur": 10.8,
+              "seuil": "> 1,2",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "bpa_annee_prochaine",
+              "label": "BPA année prochaine",
+              "cle": "eps_1y",
+              "valeur": 24.17,
+              "seuil": "> 0 %",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "bpa_cette_annee",
+              "label": "BPA cette année",
+              "cle": "eps_0y",
+              "valeur": 109.77,
+              "seuil": "> 0 %",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "ca_annee_prochaine",
+              "label": "CA année prochaine",
+              "cle": "rev_1y",
+              "valeur": 28.43,
+              "seuil": "> 0 %",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "ca_cette_annee",
+              "label": "CA cette année",
+              "cle": "rev_0y",
+              "valeur": 53.72,
+              "seuil": "> 0 %",
+              "ok": true,
+              "points": 10
+            }
+          ],
+          "mode": "ratios de l’émetteur (Yahoo Finance, fondamentaux déjà en base)"
+        }
+      },
+      "ligne": "RSI +10 · MACD +30 · Fibo +30 · Elliott 0 · CCI +20 · Fond +90 · F&G +30  →  210 / 270",
+      "total": 210,
+      "total_max": 270,
+      "total_min": -50,
+      "display": "210 / 270",
+      "band": "cyan",
+      "hex": "#00e5ff",
+      "av_label": "Très favorable"
+    },
+    "NASDAQ:META": {
+      "id": "META",
+      "ticker": "META",
+      "tv": "NASDAQ:META",
+      "yahoo": "META",
+      "nom": "Meta Platforms, Inc.",
+      "kind": "action",
+      "weekly_path": "/workspace/invest/patrimoine-dashboard/data/fibo_max/META.json",
+      "weekly_symbol_used": "META",
+      "ok": true,
+      "date_cloture": "2026-11-20",
+      "close": 560.8400268554688,
+      "n_closed": 758,
+      "currency": "USD",
+      "points": {
+        "rsi": 0,
+        "macd": 0,
+        "fibonacci": 0,
+        "elliott": 0,
+        "cci": 20,
+        "fondamental": 80,
+        "fear_greed": 30,
+        "total": 130
+      },
+      "detail": {
+        "rsi": {
+          "valeur": 41.9,
+          "points": 0,
+          "conditions": [
+            {
+              "id": "rsi_sous_40",
+              "ok": false,
+              "points": 0,
+              "valeur": 41.9
+            },
+            {
+              "id": "divergence_rsi_haussiere_hebdo",
+              "ok": false,
+              "points": 0,
+              "texte": null
+            }
+          ]
+        },
+        "macd": {
+          "ligne": 1.0221,
+          "signal": 8.2084,
+          "hist": -7.1863,
+          "points": 0,
+          "conditions": [
+            {
+              "id": "macd_sous_0",
+              "ok": false,
+              "points": 0,
+              "valeur": 1.0221
+            },
+            {
+              "id": "histo_4_barres_rouges_sous_0",
+              "ok": false,
+              "points": 0,
+              "streak": 3
+            }
+          ]
+        },
+        "fibonacci": {
+          "ok": true,
+          "r": 0.2925,
+          "r_pct": 29.2,
+          "points": 0,
+          "palier": null,
+          "base": 18.058,
+          "base_date": "2012-08-27",
+          "ath": 785.23,
+          "ath_date": "2025-08-11",
+          "cours": 560.8400268554688,
+          "source": "fibo_historique_json",
+          "interpretation": "Retracement r = (plus haut historique − cours) / (plus haut − plus bas historique), mesuré sur les corps hebdomadaires clôturés. « Sous X % » = r ≥ X % (le cours a retracé au-delà du niveau X % depuis le haut)."
+        },
+        "elliott": {
+          "key": "b",
+          "entry": false,
+          "zone": "rouge"
+        },
+        "cci": {
+          "ok": true,
+          "valeur": -73.6,
+          "points": 20,
+          "seuil": 20,
+          "precision": "seuil littéral d’Emmanuel, en attente de confirmation"
+        },
+        "fondamental": {
+          "points": 80,
+          "max": 90,
+          "elements": [
+            {
+              "id": "dette_nette_ebitda",
+              "label": "Dette nette / EBITDA",
+              "cle": "nd_ebitda",
+              "valeur": 0.28,
+              "seuil": "< 2",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "marge_operationnelle",
+              "label": "Marge opérationnelle",
+              "cle": "op_margin",
+              "valeur": 37.78,
+              "seuil": "> 15 %",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "marge_fcf",
+              "label": "Marge de cash-flow libre",
+              "cle": "fcf_margin",
+              "valeur": 6.97,
+              "seuil": "> 10 %",
+              "ok": false,
+              "points": 0
+            },
+            {
+              "id": "roe",
+              "label": "ROE",
+              "cle": "roe",
+              "valeur": 32.26,
+              "seuil": "> 15 %",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "ratio_liquidite_courante",
+              "label": "Ratio de liquidité courante",
+              "cle": "current",
+              "valeur": 1.9,
+              "seuil": "> 1,2",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "bpa_annee_prochaine",
+              "label": "BPA année prochaine",
+              "cle": "eps_1y",
+              "valeur": 16.81,
+              "seuil": "> 0 %",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "bpa_cette_annee",
+              "label": "BPA cette année",
+              "cle": "eps_0y",
+              "valeur": 23.72,
+              "seuil": "> 0 %",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "ca_annee_prochaine",
+              "label": "CA année prochaine",
+              "cle": "rev_1y",
+              "valeur": 21.73,
+              "seuil": "> 0 %",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "ca_cette_annee",
+              "label": "CA cette année",
+              "cle": "rev_0y",
+              "valeur": 27.82,
+              "seuil": "> 0 %",
+              "ok": true,
+              "points": 10
+            }
+          ],
+          "mode": "ratios de l’émetteur (Yahoo Finance, fondamentaux déjà en base)"
+        }
+      },
+      "ligne": "RSI 0 · MACD 0 · Fibo 0 · Elliott 0 · CCI +20 · Fond +80 · F&G +30  →  130 / 270",
+      "total": 130,
+      "total_max": 270,
+      "total_min": -50,
+      "display": "130 / 270",
+      "band": "jaune",
+      "hex": "#ffd400",
+      "av_label": "Neutre"
+    },
+    "NASDAQ:NFLX": {
+      "id": "NFLX",
+      "ticker": "NFLX",
+      "tv": "NASDAQ:NFLX",
+      "yahoo": "NFLX",
+      "nom": "Netflix, Inc.",
+      "kind": "action",
+      "weekly_path": "/workspace/invest/patrimoine-dashboard/data/fibo_max/NFLX.json",
+      "weekly_symbol_used": "NFLX",
+      "ok": true,
+      "date_cloture": "2026-11-20",
+      "close": 56.72999954223633,
+      "n_closed": 1279,
+      "currency": "USD",
+      "points": {
+        "rsi": 10,
+        "macd": 30,
+        "fibonacci": 10,
+        "elliott": 20,
+        "cci": 20,
+        "fondamental": 80,
+        "fear_greed": 30,
+        "total": 200
+      },
+      "detail": {
+        "rsi": {
+          "valeur": 28.5,
+          "points": 10,
+          "conditions": [
+            {
+              "id": "rsi_sous_40",
+              "ok": true,
+              "points": 10,
+              "valeur": 28.5
+            },
+            {
+              "id": "divergence_rsi_haussiere_hebdo",
+              "ok": false,
+              "points": 0,
+              "texte": null
+            }
+          ]
+        },
+        "macd": {
+          "ligne": -6.287,
+          "signal": -5.4139,
+          "hist": -0.8731,
+          "points": 30,
+          "conditions": [
+            {
+              "id": "macd_sous_0",
+              "ok": true,
+              "points": 10,
+              "valeur": -6.287
+            },
+            {
+              "id": "histo_4_barres_rouges_sous_0",
+              "ok": true,
+              "points": 20,
+              "streak": 5
+            }
+          ]
+        },
+        "fibonacci": {
+          "ok": true,
+          "r": 0.574,
+          "r_pct": 57.4,
+          "points": 10,
+          "palier": "38,2 %",
+          "base": 0.045,
+          "base_date": "2002-10-07",
+          "ath": 133.1,
+          "ath_date": "2025-06-30",
+          "cours": 56.72999954223633,
+          "source": "fibo_historique_json",
+          "interpretation": "Retracement r = (plus haut historique − cours) / (plus haut − plus bas historique), mesuré sur les corps hebdomadaires clôturés. « Sous X % » = r ≥ X % (le cours a retracé au-delà du niveau X % depuis le haut)."
+        },
+        "elliott": {
+          "key": "fin_c",
+          "entry": true,
+          "zone": "verte"
+        },
+        "cci": {
+          "ok": true,
+          "valeur": -172.1,
+          "points": 20,
+          "seuil": 20,
+          "precision": "seuil littéral d’Emmanuel, en attente de confirmation"
+        },
+        "fondamental": {
+          "points": 80,
+          "max": 90,
+          "elements": [
+            {
+              "id": "dette_nette_ebitda",
+              "label": "Dette nette / EBITDA",
+              "cle": "nd_ebitda",
+              "valeur": 0.58,
+              "seuil": "< 2",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "marge_operationnelle",
+              "label": "Marge opérationnelle",
+              "cle": "op_margin",
+              "valeur": 31.3,
+              "seuil": "> 15 %",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "marge_fcf",
+              "label": "Marge de cash-flow libre",
+              "cle": "fcf_margin",
+              "valeur": 51.22,
+              "seuil": "> 10 %",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "roe",
+              "label": "ROE",
+              "cle": "roe",
+              "valeur": 53.46,
+              "seuil": "> 15 %",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "ratio_liquidite_courante",
+              "label": "Ratio de liquidité courante",
+              "cle": "current",
+              "valeur": 1.07,
+              "seuil": "> 1,2",
+              "ok": false,
+              "points": 0
+            },
+            {
+              "id": "bpa_annee_prochaine",
+              "label": "BPA année prochaine",
+              "cle": "eps_1y",
+              "valeur": 5.1,
+              "seuil": "> 0 %",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "bpa_cette_annee",
+              "label": "BPA cette année",
+              "cle": "eps_0y",
+              "valeur": 41.65,
+              "seuil": "> 0 %",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "ca_annee_prochaine",
+              "label": "CA année prochaine",
+              "cle": "rev_1y",
+              "valeur": 10.71,
+              "seuil": "> 0 %",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "ca_cette_annee",
+              "label": "CA cette année",
+              "cle": "rev_0y",
+              "valeur": 13.15,
+              "seuil": "> 0 %",
+              "ok": true,
+              "points": 10
+            }
+          ],
+          "mode": "ratios de l’émetteur (Yahoo Finance, fondamentaux déjà en base)"
+        }
+      },
+      "ligne": "RSI +10 · MACD +30 · Fibo +10 · Elliott +20 · CCI +20 · Fond +80 · F&G +30  →  200 / 270",
+      "total": 200,
+      "total_max": 270,
+      "total_min": -50,
+      "display": "200 / 270",
+      "band": "vert",
+      "hex": "#22c55e",
+      "av_label": "Favorable"
+    },
+    "NASDAQ:GOOGL": {
+      "id": "GOOGL",
+      "ticker": "GOOGL",
+      "tv": "NASDAQ:GOOGL",
+      "yahoo": "GOOGL",
+      "nom": "Alphabet Inc.",
+      "kind": "action",
+      "weekly_path": "/workspace/invest/patrimoine-dashboard/data/fibo_max/GOOGL.json",
+      "weekly_symbol_used": "GOOGL",
+      "ok": true,
+      "date_cloture": "2026-11-20",
+      "close": 265.2900085449219,
+      "n_closed": 1162,
+      "currency": "USD",
+      "points": {
+        "rsi": 10,
+        "macd": 30,
+        "fibonacci": 0,
+        "elliott": 20,
+        "cci": 20,
+        "fondamental": 70,
+        "fear_greed": 30,
+        "total": 180
+      },
+      "detail": {
+        "rsi": {
+          "valeur": 32.9,
+          "points": 10,
+          "conditions": [
+            {
+              "id": "rsi_sous_40",
+              "ok": true,
+              "points": 10,
+              "valeur": 32.9
+            },
+            {
+              "id": "divergence_rsi_haussiere_hebdo",
+              "ok": false,
+              "points": 0,
+              "texte": null
+            }
+          ]
+        },
+        "macd": {
+          "ligne": -13.1427,
+          "signal": -3.6097,
+          "hist": -9.533,
+          "points": 30,
+          "conditions": [
+            {
+              "id": "macd_sous_0",
+              "ok": true,
+              "points": 10,
+              "valeur": -13.1427
+            },
+            {
+              "id": "histo_4_barres_rouges_sous_0",
+              "ok": true,
+              "points": 20,
+              "streak": 23
+            }
+          ]
+        },
+        "fibonacci": {
+          "ok": true,
+          "r": 0.3402,
+          "r_pct": 34.0,
+          "points": 0,
+          "palier": null,
+          "base": 2.502675,
+          "base_date": "2004-08-16",
+          "ath": 400.8,
+          "ath_date": "2026-05-04",
+          "cours": 265.2900085449219,
+          "source": "fibo_historique_json",
+          "interpretation": "Retracement r = (plus haut historique − cours) / (plus haut − plus bas historique), mesuré sur les corps hebdomadaires clôturés. « Sous X % » = r ≥ X % (le cours a retracé au-delà du niveau X % depuis le haut)."
+        },
+        "elliott": {
+          "key": "fin_c",
+          "entry": true,
+          "zone": "verte"
+        },
+        "cci": {
+          "ok": true,
+          "valeur": -200.5,
+          "points": 20,
+          "seuil": 20,
+          "precision": "seuil littéral d’Emmanuel, en attente de confirmation"
+        },
+        "fondamental": {
+          "points": 70,
+          "max": 90,
+          "elements": [
+            {
+              "id": "dette_nette_ebitda",
+              "label": "Dette nette / EBITDA",
+              "cle": "nd_ebitda",
+              "valeur": -0.62,
+              "seuil": "< 2",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "marge_operationnelle",
+              "label": "Marge opérationnelle",
+              "cle": "op_margin",
+              "valeur": 33.32,
+              "seuil": "> 15 %",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "marge_fcf",
+              "label": "Marge de cash-flow libre",
+              "cle": "fcf_margin",
+              "valeur": -0.25,
+              "seuil": "> 10 %",
+              "ok": false,
+              "points": 0
+            },
+            {
+              "id": "roe",
+              "label": "ROE",
+              "cle": "roe",
+              "valeur": 44.29,
+              "seuil": "> 15 %",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "ratio_liquidite_courante",
+              "label": "Ratio de liquidité courante",
+              "cle": "current",
+              "valeur": 2.79,
+              "seuil": "> 1,2",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "bpa_annee_prochaine",
+              "label": "BPA année prochaine",
+              "cle": "eps_1y",
+              "valeur": -23.47,
+              "seuil": "> 0 %",
+              "ok": false,
+              "points": 0
+            },
+            {
+              "id": "bpa_cette_annee",
+              "label": "BPA cette année",
+              "cle": "eps_0y",
+              "valeur": 80.95,
+              "seuil": "> 0 %",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "ca_annee_prochaine",
+              "label": "CA année prochaine",
+              "cle": "rev_1y",
+              "valeur": 27.59,
+              "seuil": "> 0 %",
+              "ok": true,
+              "points": 10
+            },
+            {
+              "id": "ca_cette_annee",
+              "label": "CA cette année",
+              "cle": "rev_0y",
+              "valeur": 24.04,
+              "seuil": "> 0 %",
+              "ok": true,
+              "points": 10
+            }
+          ],
+          "mode": "ratios de l’émetteur (Yahoo Finance, fondamentaux déjà en base)"
+        }
+      },
+      "ligne": "RSI +10 · MACD +30 · Fibo 0 · Elliott +20 · CCI +20 · Fond +70 · F&G +30  →  180 / 270",
+      "total": 180,
+      "total_max": 270,
+      "total_min": -50,
+      "display": "180 / 270",
+      "band": "vert",
+      "hex": "#22c55e",
+      "av_label": "Favorable"
+    }
+  },
+  "interpretations": {
+    "fibo": "« Sous X % » = retracement depuis le plus haut historique r ≥ X %, corps hebdo clôturés (plus bas historique → plus haut historique).",
+    "cci": "CCI 20 hebdo < 20 (seuil littéral d'Emmanuel, en attente de confirmation) ; ce n'est pas ±100.",
+    "fg": "Tranches entières : floor(|50 − valeur| / 10) × 10, signé, max ±50. Même valeur CNN pour tous les titres du pilote.",
+    "fond_etf": "Moyenne des 5 actions « qualité / croissance » affichées dans le détail (APP, RDDT, META, NFLX, GOOGL). L'ETF n'a pas de Dette nette/EBITDA, marges, ROE, ratio de liquidité ou consensus BPA/CA d'émetteur comparables ; on n'invente pas ces ratios.",
+    "ligne_secteur": "La ligne secteur affiche le total de l'ETF ZPDK (représentant du secteur), pas une moyenne des 5 actions.",
+    "bougies": "Uniquement les semaines dont le vendredi est passé (yahoo_week.friday_closed). La barre de la semaine en cours est ignorée."
+  }
+}

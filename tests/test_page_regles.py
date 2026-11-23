@@ -214,17 +214,35 @@ def test_sentiment_fear_greed_affichage_seulement(regles):
     assert 'Fear' in js or 'sentiment' in js
 
 
-def test_accroche_part_de_zero_affichage_seulement(regles):
-    # le calcul part toujours de 50 ; seule la page RÈGLES affiche « part de 0 »
+def test_pas_d_intro_ni_base_affichage(regles):
+    # le calcul part toujours de 50 ; la page RÈGLES n'affiche plus d'intro
     assert regles['note_apex']['note_base'] == 50
-    v = regles['apex_achat_v2']
-    assert v.get('accroche') == 'La note part de 0 : chaque critère ajoute ses points.'
+    assert 'accroche' not in (regles.get('apex_achat_v2') or {})
     js = (ROOT / 'src' / 'regles.js').read_text(encoding='utf-8')
     page = js.split('function rgPageHTML')[1].split('function rgRender')[0]
-    assert 'rg-lead' in page
-    assert 'accroche' in page
+    assert 'rg-lead' not in page
+    assert 'accroche' not in page
+    assert 'La note part de 0' not in page
     assert 'clip dans 0–100' not in page
     assert 'Actions cotées' not in page
     grid = js.split('function rgActionsGrid')[1].split('function rgPageHTML')[0]
     assert "label:'Base'" not in grid
-    assert 'id:\'base\'' not in grid and 'id:"base"' not in grid
+    assert "id:'base'" not in grid and 'id:"base"' not in grid
+
+
+def test_echelle_actions_calculee_automatiquement(regles):
+    v = regles['apex_achat_v2']
+    tech = sum(c['max'] for c in v['criteres'])
+    fond = v['fondamental']['max']
+    # Fear & Greed ±50
+    assert v['sentiment']['max_affiche'] == '±50'
+    assert tech == 130 and fond == 90
+    js = (ROOT / 'src' / 'regles.js').read_text(encoding='utf-8')
+    assert 'function rgActionsScale' in js
+    assert 'rg-scale' in js
+    # le libellé est calculé, pas un « 270 » en dur dans le titre
+    page = js.split('function rgPageHTML')[1].split('function rgRender')[0]
+    assert 'rgActionsScale().label' in page
+    assert '270' not in page
+    css = (ROOT / 'src' / 'template.html').read_text(encoding='utf-8')
+    assert '.rg-scale' in css

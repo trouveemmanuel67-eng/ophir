@@ -394,11 +394,15 @@ CHECK_REGLES_OPEN_JS = r"""
     rows: cards.length,
     hasBack: !!document.getElementById('rgBack'),
     hasClose: !!document.getElementById('rgClose'),
-    hasBase: /La note part de 0/.test(text) && /chaque critère ajoute ses points/.test(text),
+    hasBase: true,
+    noIntro: !/La note part de 0/.test(text) && !/part de 50/.test(text) && !document.querySelector('.rg-lead'),
+    hasScale: /−\s*50\s*à\s*270/.test(text) && !!document.querySelector('.rg-scale'),
+    ptsLeft: (function(){ const c=root&&root.querySelector('.rg-card'); if(!c) return false; const pts=c.querySelector('.rg-card-pts'), name=c.querySelector('.rg-card-name'); return !!(pts&&name&&pts.getBoundingClientRect().left < name.getBoundingClientRect().left - 2); })(),
+    oneLine: !root || Array.from(root.querySelectorAll('.rg-card')).every(c => { const name=c.querySelector('.rg-card-name'); return name && c.scrollHeight <= name.offsetHeight + 24 && c.scrollWidth <= c.clientWidth + 1; }),
     noOldIntro: !/part de 50/.test(text) && !/clip dans/.test(text) && !/Actions cotées/i.test(text),
     noBaseRow: !names.some(n => /^Base\b/i.test(n)),
-    hasActions: h2.some(s => /^Actions$/.test(s)),
-    otherH2: h2.filter(s => !/^Actions$/.test(s) && !/Fondamental|Règles communes/.test(s)),
+    hasActions: h2.some(s => /^Actions\b/.test((s||'').replace(/\s+/g,' ').trim())),
+    otherH2: h2.filter(s => !/^Actions\b/.test((s||'').replace(/\s+/g,' ').trim()) && !/Fondamental|Règles communes/.test(s)),
     noAchatTable: !document.getElementById('rg-table-achat'),
     noRefFold: !document.getElementById('rg-ref'),
     rsiText,
@@ -595,9 +599,21 @@ def check_headless(root=ROOT):
                 f"({regles_open!r})."
             )
             raise SystemExit(1)
-        if not regles_open.get('hasActions') or not regles_open.get('hasBase'):
+        if not regles_open.get('hasActions'):
             _fail(
-                "page RÈGLES : le tableau Actions ou la phrase « La note part de 0 : chaque critère ajoute ses points. » est manquant "
+                "page RÈGLES : le tableau Actions est manquant "
+                f"({regles_open!r})."
+            )
+            raise SystemExit(1)
+        if not regles_open.get('hasScale'):
+            _fail(
+                "page RÈGLES : l'échelle calculée « −50 à 270 » manque à côté du titre Actions "
+                f"({regles_open!r})."
+            )
+            raise SystemExit(1)
+        if not regles_open.get('noIntro') or not regles_open.get('noOldIntro'):
+            _fail(
+                "page RÈGLES : un texte d'intro est encore visible "
                 f"({regles_open!r})."
             )
             raise SystemExit(1)
@@ -642,9 +658,15 @@ def check_headless(root=ROOT):
                 f"({regles_open.get('cciText')!r})."
             )
             raise SystemExit(1)
-        if not regles_open.get('twoCols') or not regles_open.get('fondSideBySide') or not regles_open.get('noPoids'):
+        if not regles_open.get('noPoids'):
             _fail(
-                "page RÈGLES : la grille doit être en deux colonnes (Santé/Croissance côte à côte), sans Poids "
+                "page RÈGLES : la colonne Poids ne doit plus apparaître "
+                f"({regles_open!r})."
+            )
+            raise SystemExit(1)
+        if not regles_open.get('ptsLeft') or not regles_open.get('oneLine'):
+            _fail(
+                "page RÈGLES : chaque critère doit tenir sur une ligne (points à gauche, titre, calcul), sans retour à la ligne "
                 f"({regles_open!r})."
             )
             raise SystemExit(1)

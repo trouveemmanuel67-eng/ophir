@@ -75,6 +75,26 @@ function rgSetHash(on){
   }
   rgHashLock=false;
 }
+function rgFitRows(){
+  const root=document.getElementById('rg-table-actions');
+  if(!root||root.closest('[hidden]')||!root.getClientRects().length) return;
+  const overflows=box=>{
+    if(!box) return false;
+    return Array.from(box.querySelectorAll('.rg-card')).some(c=>c.scrollWidth>c.clientWidth+1);
+  };
+  const tech=root.querySelector('[data-group="technique"] .rg-cards');
+  if(tech){
+    tech.classList.remove('rg-cards-span');
+    void tech.offsetWidth;
+    if(overflows(tech)) tech.classList.add('rg-cards-span');
+  }
+  const fond=root.querySelector('.rg-fond-cols');
+  if(fond){
+    fond.classList.remove('rg-fond-one');
+    void fond.offsetWidth;
+    if(overflows(fond)) fond.classList.add('rg-fond-one');
+  }
+}
 function rgSetOpen(on, opts){
   const fromHash=opts&&opts.fromHash;
   const page=document.getElementById('rg-page');
@@ -89,6 +109,8 @@ function rgSetOpen(on, opts){
     if(!fromHash) rgSetHash(true);
     const back=document.getElementById('rgBack');
     if(back) try{back.focus();}catch(e){}
+    rgFitRows();
+    requestAnimationFrame(()=>requestAnimationFrame(rgFitRows));
   }else{
     page.setAttribute('hidden','');
     page.setAttribute('aria-hidden','true');
@@ -429,10 +451,8 @@ function rgActionsGrid(){
   const fond=v.fondamental||{};
   const fondMax=fond.max!=null?Number(fond.max):90;
   const card=(id, label, ruleHtml, pts)=>`<article class="rg-card" data-id="${rgEsc(id||'')}">
-      <div class="rg-card-top">
-        <h3 class="rg-card-name">${rgEsc(label)}</h3>
-        <span class="rg-card-pts">${rgEsc(pts)}</span>
-      </div>
+      <span class="rg-card-pts">${rgEsc(pts)}</span>
+      <h3 class="rg-card-name">${rgEsc(label)}</h3>
       <p class="rg-card-rule">${ruleHtml}</p>
     </article>`;
   const techCards=tech.map(c=>card(c.id, c.label||c.id, rgEsc(rgAchatV2RuleShort(c)), c.max!=null?rgNum(c.max):'—')).join('');
@@ -470,7 +490,7 @@ function rgActionsGrid(){
         <div class="rg-block-title">Technique <span class="rg-group-note">RSI 30 · MACD 30 · Fibonacci 30 · Elliott 20 · CCI 20</span></div>
         <span class="rg-block-pts">${rgNum(techSum)}</span>
       </header>
-      <div class="rg-cards">${techCards}</div>
+      <div class="rg-cards rg-cards-span">${techCards}</div>
     </section>
     <section class="rg-block" data-group="fondamental">
       <header class="rg-block-h">
@@ -482,12 +502,40 @@ function rgActionsGrid(){
     ${sentBlock}
   </div>`;
 }
+function rgFmtScaleBound(n){
+  if(!Number.isFinite(Number(n))) return '—';
+  const x=Number(n);
+  if(x<0) return '−'+rgNum(Math.abs(x));
+  return rgNum(x);
+}
+function rgActionsScale(){
+  const v=(RG&&RG.apex_achat_v2)||{};
+  const ordre=['rsi_14_hebdo','macd_12_26_9_hebdo','fibonacci','elliott','cci_20_hebdo'];
+  const by={};
+  (v.criteres||[]).forEach(c=>{if(c&&c.id) by[c.id]=c;});
+  const techMax=ordre.map(id=>by[id]).filter(Boolean).reduce((s,c)=>s+(Number(c.max)||0),0);
+  const fondN=Number((v.fondamental||{}).max);
+  const fond=Number.isFinite(fondN)?fondN:0;
+  const sent=v.sentiment||{};
+  const first=(sent.criteres||sent.elements||[])[0]||{};
+  const aff=String(first.points_max||sent.max_affiche||'');
+  let sMin=0, sMax=0;
+  if(/±/.test(aff) || /±/.test(String(sent.max_affiche||''))){
+    const raw=aff||String(sent.max_affiche||'');
+    const n=Number(String(raw).replace(/[^\d.,]/g,'').replace(',','.'));
+    if(Number.isFinite(n)){ sMin=-n; sMax=n; }
+  } else if(sent.max!=null){
+    sMax=Number(sent.max)||0;
+    sMin=sent.min!=null?Number(sent.min):-Math.abs(sMax);
+  }
+  const min=sMin;
+  const max=techMax+fond+sMax;
+  return {min, max, techMax, fond, sMin, sMax, label: rgFmtScaleBound(min)+' à '+rgFmtScaleBound(max)};
+}
 function rgPageHTML(){
   if(!RG) return '<p class="rg-p">Règles indisponibles.</p>';
   const fr=RG.fiche_regles||{};
-  const v=(RG&&RG.apex_achat_v2)||{};
   const titre=fr.page_titre||fr.titre_panneau||'Règles de la note APEX';
-  const accroche=v.accroche||'La note part de 0 : chaque critère ajoute ses points.';
   return `<header class="rg-top">
       <button type="button" id="rgBack" class="rg-back">← Retour</button>
       <h1 id="rgPageTitle">${rgEsc(titre)}</h1>
@@ -496,8 +544,7 @@ function rgPageHTML(){
     <div class="rg-page-body">
       <div class="rg-page-main">
         <section class="rg-sec" id="rg-sec-actions">
-          <h2 class="rg-h2">Actions</h2>
-          <p class="rg-lead">${rgEsc(accroche)}</p>
+          <h2 class="rg-h2">Actions <span class="rg-scale">${rgEsc(rgActionsScale().label)}</span></h2>
           ${rgActionsGrid()}
         </section>
         ${rgCommons()}

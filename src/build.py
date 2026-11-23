@@ -23,6 +23,10 @@ _gp=_P(B+'data/good_invest.json')
 if _gp.exists():
     gi=_gp.read_text()
 t=t.replace('__GI__', esc(gi) if gi else 'null')
+_pp=_P(B+'data/apex_achat_v2_pilot.json')
+pilot=_pp.read_text() if _pp.exists() else ''
+t=t.replace('__DATA_PILOT__', esc(pilot) if pilot else 'null')
+
 open(B+'index.html','w').write(t)
 print('ok',len(t))
 # copie vers le site publié si distinct

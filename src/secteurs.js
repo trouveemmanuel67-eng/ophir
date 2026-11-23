@@ -3,6 +3,9 @@ const MENTION_AV="";
 const srPos=x=>`${Math.max(0,Math.min(100,x))}%`;
 function srWarn(s){return s.warn.length?`<span class="sec-warn" title="${s.warn.join(' ')}">⚠ ${s.ath.dd>=-2?'Proche du plus haut historique':'Proche du plus haut 52 semaines'}</span>`:'';}
 function srCells(s){
+  if(typeof isPilotSector==='function' && isPilotSector(s.sym) && PILOT && PILOT.etf && PILOT.etf.ok){
+    return `<div class="sr-c sr-d">${dualBarPilot(PILOT.etf, true)}</div>`;
+  }
   const avObj=s.av||{};
   const av=(avObj.score_affiche!=null)?avObj.score_affiche:avObj.score;
   const sent=s.sent||{};
@@ -27,7 +30,7 @@ function secTile(s,i){
   const ac=(avSrc.components||[]).map(c=>{const n=c.note;return `<div class="av-c"><div class="av-cl"><span>${c.nom}</span><b style="color:${n==null?'#888':avCol(n)}">${n==null?(c.facultatif?'non comptée':'n.d.'):sign(n,0)}</b></div><div class="av-cb"><div class="av-mid"></div>${n==null?'':`<i style="${n>=0?'left:50%':'right:50%'};width:${Math.abs(n)/2}%;background:${avCol(n)}"></i>`}</div><div class="av-cd">valeur ${c.valeur} · poids ${pw(c.poids)} % · contribution <b>${c.contrib==null?(c.facultatif?'non comptée':'retirée'):sign(c.contrib,1)}</b> · règle : ${c.regle}</div></div>`;}).join('');
   return `<div class="sec">
    <div class="sr">
-    <div class="sr-c sec-h sr-n"><b>${s.nom}</b><span>${s.tick||s.sym} · ${s.etf}</span>${srWarn(s)}</div>
+    <div class="sr-c sec-h sr-n"><b>${s.nom}</b>${(typeof isPilotSector==='function'&&isPilotSector(s.sym))?`<span class="pilot-badge">pilote APEX ACHAT −50 à 270</span>`:''}<span>${s.tick||s.sym} · ${s.etf}</span>${srWarn(s)}</div>
     ${srCells(s)}
     <div class="sr-c sr-b"></div>
    </div>

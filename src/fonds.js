@@ -6,6 +6,10 @@ const APEX_BARS=(function(){
   try{return JSON.parse(el.textContent)||{bars:{}};}catch(e){return {bars:{}};}
 })();
 function listApexBar(r){
+  const prec=(typeof pilotRec==='function')?pilotRec(r&&r.tv):null;
+  if(prec&&prec.ok){
+    return `<div class="fl-apex fl-apex-pilot">${dualBarPilot(prec, true)}</div>`;
+  }
   const key=r&&(r.tv||r.yahoo||r.ticker);
   const b=key&&APEX_BARS.bars?APEX_BARS.bars[key]:null;
   // 23/11/2026 : préférer la note déjà posée sur l'instrument (ETC / métal au
@@ -56,11 +60,14 @@ function fondTiming(t){
 }
 function fondList(sym){
   const s=FOND.sectors[sym];if(!s)return '';
-  const rows=apexSortByNote(s.top).map((r,k)=>`<li${r.tv?` data-pos-tv="${r.tv}"`:''}><div class="fl-h"><b>${k+1}. ${r.name}</b></div>
+  const pilot=typeof isPilotSector==='function'&&isPilotSector(sym)&&PILOT;
+  const top=pilot? (s.top||[]).slice(0,5) : (s.top||[]);
+  const rows=(pilot?top:apexSortByNote(top)).map((r,k)=>`<li${r.tv?` data-pos-tv="${r.tv}"`:''}><div class="fl-h"><b>${k+1}. ${r.name}</b></div>
      ${tvTag(r.tv)}${typeof posBadges==='function'?posBadges(r.tv):''}${typeof dispoBadge==='function'?dispoBadge(r.tv):''}${listApexBar(r)}</li>`).join('');
   const d=s.top[0];
-  return `<details class="ind-meth sec-list"><summary>ETF + 5 actions qualité / croissance</summary>
-   <div class="fl-etf"><span class="fl-k">ETF principal</span><b>${s.etf.name}</b>${tvTag(s.etf.tv)}</div>
+  const etfBar=pilot&&PILOT.etf?listApexBar({tv:PILOT.etf.tv, name:PILOT.etf.nom}):'';
+  return `<details class="ind-meth sec-list"${pilot?' data-pilot="xlc"':''}><summary>ETF + 5 actions qualité / croissance</summary>
+   <div class="fl-etf"><span class="fl-k">ETF principal</span><b>${s.etf.name}</b>${tvTag(s.etf.tv)}${etfBar}</div>
    <ol class="fl">${rows}</ol>
    <div class="sec-d" style="text-align:left">Score de qualité fondamentale 0-100 = 50 % santé financière + 50 % croissance prévue, en rang parmi les ${s.eligible} titres éligibles des 20 premières lignes de ${sym} (composition State Street au ${s.asof}).${s.profile==='fin'?' Profil financier : ROE, ROA, marges (ratios bancaires CET1 / créances douteuses non disponibles).':s.profile==='reit'?' Profil immobilier : dette nette / EBITDA, marges, ROA (FFO non disponible : la croissance repose sur le BPA estimé).':''} Timing (plus haut, RSI) affiché à part, hors score. Données ${lnk('https://finance.yahoo.com/quote/'+(d?d.yahoo:sym)+'/key-statistics/','Yahoo Finance')} récupérées le ${d?d.retrieved.replace(' ',' à '):'?'} ; clôtures hebdo au ${d?dshort(d.timing.date):'?'}.</div>
   </details>`;

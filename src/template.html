@@ -582,7 +582,8 @@ body.rg-on #rg-page[hidden]{display:flex}
 .rg-page-main{max-width:1080px;margin:0 auto;padding:22px 20px 64px}
 .rg-intro{font-size:15px;line-height:1.55;color:#d8d0c2;margin:0 0 10px}
 .rg-p{font-size:13.5px;line-height:1.5;color:#c8c4bc;margin:0 0 12px}
-.rg-h2{margin:28px 0 12px;font-size:18px;font-weight:700;letter-spacing:.04em;color:#e6c27a;border-bottom:1px solid rgba(230,194,122,.22);padding-bottom:8px}
+.rg-h2{display:flex;align-items:baseline;flex-wrap:wrap;gap:8px 14px;margin:28px 0 12px;font-size:18px;font-weight:700;letter-spacing:.04em;color:#e6c27a;border-bottom:1px solid rgba(230,194,122,.22);padding-bottom:8px}
+.rg-scale{color:#d8d0c2;font-weight:650;letter-spacing:0;font-size:15px;font-variant-numeric:tabular-nums;white-space:nowrap}
 .rg-sec{margin:0 0 8px}
 .rg-table-wrap{overflow-x:auto;margin:0 0 18px;border:1px solid rgba(255,255,255,.10);border-radius:12px;background:rgba(255,255,255,.03)}
 .rg-table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;table-layout:fixed}
@@ -627,27 +628,27 @@ body.rg-on #rg-page[hidden]{display:flex}
 .rg-tv{color:var(--mut);font-size:12px}
 
 .rg-lead{margin:0 0 12px;color:#d8d0c2;font-size:14.5px;line-height:1.4;max-width:52rem}
-.rg-board{margin:0 0 22px;display:flex;flex-direction:column;gap:14px}
-.rg-block-h{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:0 0 8px;padding:0 2px 6px;border-bottom:1px solid rgba(230,194,122,.28)}
+.rg-board{margin:0 0 22px;display:flex;flex-direction:column;gap:12px;overflow-x:auto}
+.rg-block-h{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:0 0 6px;padding:0 2px 5px;border-bottom:1px solid rgba(230,194,122,.28)}
 .rg-block-title{color:#e6c27a;font-weight:700;letter-spacing:.04em;text-transform:uppercase;font-size:12.5px}
 .rg-block-pts{color:#e6c27a;font-weight:700;font-size:14px;font-variant-numeric:tabular-nums;white-space:nowrap}
 .rg-group-note{display:inline;margin-left:8px;font-weight:500;letter-spacing:0;text-transform:none;color:#c8c4bc;font-size:11.5px}
-.rg-subh{margin:0 0 6px;color:#fff;font-weight:700;font-size:13px;letter-spacing:.02em}
-.rg-cards{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.rg-subh{margin:0 0 4px;color:#fff;font-weight:700;font-size:13px;letter-spacing:.02em;white-space:nowrap}
+.rg-cards{display:grid;grid-template-columns:1fr 1fr;gap:4px 8px}
 .rg-cards-stack,.rg-cards-span{grid-template-columns:1fr}
-.rg-fond-cols{display:grid;grid-template-columns:1fr 1fr;gap:8px 12px;align-items:start}
-.rg-card{margin:0;padding:8px 10px;border:1px solid rgba(255,255,255,.10);border-radius:8px;background:rgba(255,255,255,.03);min-width:0}
-.rg-card-top{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
-.rg-card-name{margin:0;color:#fff;font-weight:650;font-size:13px;line-height:1.25;min-width:0}
-.rg-card-pts{color:#e6c27a;font-weight:700;font-size:13.5px;font-variant-numeric:tabular-nums;white-space:nowrap;flex:0 0 auto}
-.rg-card-rule{margin:4px 0 0;color:#b8b4ac;font-size:12.5px;line-height:1.35}
+.rg-fond-cols{display:grid;grid-template-columns:1fr 1fr;gap:8px 14px;align-items:start}
+.rg-fond-cols.rg-fond-one{grid-template-columns:1fr}
+.rg-card{display:grid;grid-template-columns:3.4em auto minmax(0,1fr);column-gap:8px;align-items:baseline;margin:0;padding:4px 8px;border:1px solid rgba(255,255,255,.10);border-radius:7px;background:rgba(255,255,255,.03);min-width:0;white-space:nowrap}
+.rg-card-pts{grid-column:1;color:#e6c27a;font-weight:700;font-size:13px;font-variant-numeric:tabular-nums;white-space:nowrap;text-align:right;margin:0}
+.rg-card-name{grid-column:2;margin:0;color:#fff;font-weight:650;font-size:13px;line-height:1.3;white-space:nowrap}
+.rg-card-rule{grid-column:3;margin:0;color:#b8b4ac;font-size:12.5px;line-height:1.3;white-space:nowrap}
 .rg-seuil{color:#b8b4ac}
 .rg-av{display:inline;margin-left:6px;padding:0;border:0;background:none;color:#8a8680;font-size:10.5px;font-weight:500;letter-spacing:.02em;text-transform:none;white-space:nowrap;opacity:.85}
 @media(max-width:800px){
-  .rg-cards,.rg-fond-cols{grid-template-columns:1fr;gap:6px}
-  .rg-group-note{display:block;margin:3px 0 0;margin-left:0;font-size:11px}
-  .rg-card{padding:8px 9px}
-  .rg-block-h{margin-bottom:6px}
+  .rg-cards,.rg-fond-cols,.rg-fond-cols.rg-fond-one{grid-template-columns:1fr;gap:4px}
+  .rg-group-note{display:inline;margin-left:8px;font-size:11px}
+  .rg-card{padding:4px 7px}
+  .rg-block-h{margin-bottom:5px}
 }
 
 
@@ -795,6 +796,19 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
   .home-bw{font-size:12px}
 }
 
+
+.pilot-badge{display:inline-block;margin:0 8px 0 0;padding:1px 7px;border-radius:999px;border:1px solid rgba(230,194,122,.4);color:#e6c27a;font-size:10.5px;font-weight:650;letter-spacing:.02em;white-space:nowrap;vertical-align:middle}
+.apex10-pilot{min-width:4.6em}
+.apex10-pilot small{font-size:11px;margin-left:2px;opacity:.85}
+.pilot-brk{margin:4px 0 0;font-size:11.5px;line-height:1.35;color:#c8c4bc;white-space:normal}
+.db-pilot .db-g-av,.db-pilot .db-g-s{position:relative;height:14px;margin:2px 0 4px}
+.db-pilot .db-g-s{margin-bottom:2px}
+.db-srange{position:absolute;top:3px;bottom:3px;background:rgba(255,255,255,.16);border-radius:2px;pointer-events:none}
+.pilot-smeta{display:flex;align-items:center;gap:8px;margin-top:2px;font-size:11px;color:#9a968e;flex-wrap:wrap}
+.pilot-spark{display:block;color:#7a9;opacity:.9;flex:0 0 auto}
+.fl-etf .fl-apex{margin-top:8px}
+.db-pilot .db-tk1{position:relative;height:14px;font-size:10px;color:#9a968e}
+.db-pilot .db-tk1 i{position:absolute;transform:translateX(-50%);white-space:nowrap}
 </style>
 </head>
 <body>
@@ -840,6 +854,7 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
 <script id="dataRegles" type="application/json">__DATA19__</script>
 <script type="application/json" id="dataMaj">__MAJ__</script>
 <script type="application/json" id="dataGi">__GI__</script>
+<script type="application/json" id="dataPilot">__DATA_PILOT__</script>
 <script>
 "use strict";
 const DATA = JSON.parse(document.getElementById('data').textContent);
