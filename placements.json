@@ -1,0 +1,32 @@
+{
+  "generated": "2026-11-23 15:46",
+  "fuseau": "Europe/Paris",
+  "releve": "2026-11-23T15:46:00+01:00",
+  "releve_libelle": "23/11/2026 à 15 h 46 (Europe/Paris)",
+  "source": "Captures Revolut du 23/11/2026 à 15 h 46 (Europe/Paris).",
+  "lignes": [
+    {
+      "id": "revolut-epargne-eur",
+      "etablissement": "Revolut",
+      "nom": "Compte d'épargne",
+      "type": "epargne",
+      "solde": 0.48,
+      "devise": "EUR",
+      "taux": 2.75,
+      "taux_type": "brut",
+      "taux_libelle": "2,75 % brut"
+    },
+    {
+      "id": "revolut-mmf-usd",
+      "etablissement": "Revolut",
+      "nom": "Fonds monétaires flexibles",
+      "complement": "USD",
+      "type": "monetaire",
+      "solde": 0,
+      "devise": "USD",
+      "taux": 4.01,
+      "taux_type": "apy",
+      "taux_libelle": "4,01 % d'APY"
+    }
+  ]
+}
