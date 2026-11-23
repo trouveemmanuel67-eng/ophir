@@ -89,7 +89,8 @@ def cache_dir() -> Path:
 
 
 def existing_paths_for(sym: str) -> list[Path]:
-    """Chemins déjà utilisés par le moteur (pour y écrire le même fichier)."""
+    """Chemins où le moteur lit les séries hebdo. On les crée s'ils n'existent pas encore
+    (sur GitHub Actions le dépôt n'embarque pas les ~200 Mo de caches)."""
     data = paths.data_dir()
     enc = urllib.parse.quote(sym, safe='')
     raw = sym
@@ -107,13 +108,12 @@ def existing_paths_for(sym: str) -> list[Path]:
         (data / 'liquidites', 'yahoo_1wk_'),
         (data / 'fx', 'yahoo_1wk_'),
     ):
-        if not folder.exists():
-            continue
-        for name in (f'{prefix}{raw}.json', f'{prefix}{enc}.json', f'{raw}.json', f'{enc}.json'):
-            p = folder / name
-            if p.exists():
-                cands.append(p)
-    # cache canonique
+        folder.mkdir(parents=True, exist_ok=True)
+        names = [f'{prefix}{raw}.json']
+        if enc != raw:
+            names.append(f'{prefix}{enc}.json')
+        for name in names:
+            cands.append(folder / name)
     cands.append(cache_dir() / f'{enc}.json')
     # unique
     seen, out = set(), []
