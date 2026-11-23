@@ -346,5 +346,5 @@ function dualBarPilot(rec, compact){
    </div>
    <div class="pilot-fg">${pilotSpark(fg)}<span>Fear &amp; Greed ${Number.isFinite(sv)?fmt(sv,1):'–'} ${sl}</span></div>
   </div>`;
-  return `<div class="apex-block apex-block-pilot">${pilotNoteHTML(rec)}<div class="apex-rest">${bar}${pilotBrk(rec)}</div></div>`;
+  return `<div class="apex-block apex-block-pilot${compact?' apex-block-line':''}">${pilotNoteHTML(rec)}<div class="apex-rest">${bar}${pilotBrk(rec)}</div></div>`;
 }

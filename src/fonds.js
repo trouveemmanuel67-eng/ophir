@@ -62,13 +62,24 @@ function fondList(sym){
   const s=FOND.sectors[sym];if(!s)return '';
   const pilot=typeof isPilotSector==='function'&&isPilotSector(sym)&&PILOT;
   const top=pilot? (s.top||[]).slice(0,5) : (s.top||[]);
-  const rows=(pilot?top:apexSortByNote(top)).map((r,k)=>`<li${r.tv?` data-pos-tv="${r.tv}"`:''}><div class="fl-h"><b>${k+1}. ${r.name}</b></div>
-     ${tvTag(r.tv)}${typeof posBadges==='function'?posBadges(r.tv):''}${typeof dispoBadge==='function'?dispoBadge(r.tv):''}${listApexBar(r)}</li>`).join('');
+  const ordered=pilot? top.slice().sort((a,b)=>{
+    const pa=typeof pilotRec==='function'?pilotRec(a.tv):null;
+    const pb=typeof pilotRec==='function'?pilotRec(b.tv):null;
+    const ta=(pa&&pa.total!=null)?pa.total:-Infinity;
+    const tb=(pb&&pb.total!=null)?pb.total:-Infinity;
+    if(tb!==ta) return tb-ta;
+    return 0;
+  }) : apexSortByNote(top);
+  const rows=ordered.map((r,k)=>pilot
+    ? `<li class="fl-row"${r.tv?` data-pos-tv="${r.tv}"`:''}><span class="fl-rk">${k+1}</span><div class="fl-id"><b>${r.name}</b>${tvTag(r.tv)}${typeof posBadges==='function'?posBadges(r.tv):''}${typeof dispoBadge==='function'?dispoBadge(r.tv):''}</div>${listApexBar(r)}</li>`
+    : `<li${r.tv?` data-pos-tv="${r.tv}"`:''}><div class="fl-h"><b>${k+1}. ${r.name}</b></div>
+     ${tvTag(r.tv)}${typeof posBadges==='function'?posBadges(r.tv):''}${typeof dispoBadge==='function'?dispoBadge(r.tv):''}${listApexBar(r)}</li>`
+  ).join('');
   const d=s.top[0];
   const etfBar=pilot&&PILOT.etf?listApexBar({tv:PILOT.etf.tv, name:PILOT.etf.nom}):'';
   return `<details class="ind-meth sec-list"${pilot?' data-pilot="xlc"':''}><summary>ETF + 5 actions qualité / croissance</summary>
    <div class="fl-etf"><span class="fl-k">ETF principal</span><b>${s.etf.name}</b>${tvTag(s.etf.tv)}${etfBar}</div>
-   <ol class="fl">${rows}</ol>
+   <ol class="fl${pilot?' fl-pilot':''}">${rows}</ol>
    <div class="sec-d" style="text-align:left">Score de qualité fondamentale 0-100 = 50 % santé financière + 50 % croissance prévue, en rang parmi les ${s.eligible} titres éligibles des 20 premières lignes de ${sym} (composition State Street au ${s.asof}).${s.profile==='fin'?' Profil financier : ROE, ROA, marges (ratios bancaires CET1 / créances douteuses non disponibles).':s.profile==='reit'?' Profil immobilier : dette nette / EBITDA, marges, ROA (FFO non disponible : la croissance repose sur le BPA estimé).':''} Timing (plus haut, RSI) affiché à part, hors score. Données ${lnk('https://finance.yahoo.com/quote/'+(d?d.yahoo:sym)+'/key-statistics/','Yahoo Finance')} récupérées le ${d?d.retrieved.replace(' ',' à '):'?'} ; clôtures hebdo au ${d?dshort(d.timing.date):'?'}.</div>
   </details>`;
 }

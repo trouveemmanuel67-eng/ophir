@@ -364,6 +364,7 @@ CHECK_REGLES_OPEN_JS = r"""
 (() => {
   const btn = document.getElementById('rgBtn');
   if (btn) btn.click();
+  document.querySelectorAll('#rg-page .rg-acc-btn[aria-expanded="false"]').forEach(b=>{ if(typeof rgAccToggle==='function') rgAccToggle(b,true); else b.click(); });
   const page = document.getElementById('rg-page');
   const r = page ? page.getBoundingClientRect() : null;
   const root = document.getElementById('rg-table-actions');
@@ -401,7 +402,13 @@ CHECK_REGLES_OPEN_JS = r"""
     oneLine: !root || Array.from(root.querySelectorAll('.rg-card')).every(c => { const name=c.querySelector('.rg-card-name'); return name && c.scrollHeight <= name.offsetHeight + 24 && c.scrollWidth <= c.clientWidth + 1; }),
     noOldIntro: !/part de 50/.test(text) && !/clip dans/.test(text) && !/Actions cotées/i.test(text),
     noBaseRow: !names.some(n => /^Base\b/i.test(n)),
-    hasActions: h2.some(s => /^Actions\b/.test((s||'').replace(/\s+/g,' ').trim())),
+    hasActions: (function(){
+      const acc=(document.querySelector('#rg-sec-actions .rg-acc-btn, #rg-sec-actions h2')||{});
+      const label=((acc.innerText||'')+'').replace(/\s+/g,' ').trim();
+      return /^Actions\b/.test(label) || h2.some(s => /^Actions\b/.test((s||'').replace(/\s+/g,' ').trim()));
+    })(),
+    accOpen: (document.querySelector('#rg-sec-actions .rg-acc-btn')||{}).getAttribute?.('aria-expanded')==='true',
+    accBtn: !!document.querySelector('#rg-sec-actions .rg-acc-btn'),
     otherH2: h2.filter(s => !/^Actions\b/.test((s||'').replace(/\s+/g,' ').trim()) && !/Fondamental|Règles communes/.test(s)),
     noAchatTable: !document.getElementById('rg-table-achat'),
     noRefFold: !document.getElementById('rg-ref'),
@@ -602,6 +609,12 @@ def check_headless(root=ROOT):
         if not regles_open.get('hasActions'):
             _fail(
                 "page RÈGLES : le tableau Actions est manquant "
+                f"({regles_open!r})."
+            )
+            raise SystemExit(1)
+        if not regles_open.get('accBtn'):
+            _fail(
+                "page RÈGLES : le titre Actions n'est pas un bouton accordéon "
                 f"({regles_open!r})."
             )
             raise SystemExit(1)

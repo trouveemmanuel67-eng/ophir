@@ -66,3 +66,41 @@ def test_quatre_tranches_egales():
     assert P.band_of(180) == 'vert'   # GOOGL
     assert P.band_of(200) == 'cyan'   # NFLX
     assert P.band_of(210) == 'cyan'   # RDDT
+
+
+def test_elliott_apres_vague_c_app_uniquement():
+    # new1 (après C, vague 1 non confirmée) compte comme zone d'entrée
+    pts, det = P.elliott_points('new1')
+    assert pts == 20 and det['entry'] is True
+    pts, det = P.elliott_points('fin_c')
+    assert pts == 20
+    pts, det = P.elliott_points('a')
+    assert pts == 0
+    pts, det = P.elliott_points('b')
+    assert pts == 0
+    pts, det = P.elliott_points('bear_135')
+    assert pts == 0
+
+    p = ROOT / 'data' / 'apex_achat_v2_pilot.json'
+    d = json.loads(p.read_text())
+    by = {a['tv']: a for a in d['actions']}
+    by['XETR:ZPDK'] = d['etf']
+    # APP : C terminée vers 228,5 puis rebond, vague 1 non confirmée → +20 (était 0)
+    app = by['NASDAQ:APP']
+    assert app['points']['elliott'] == 20
+    assert app['total'] == 160
+    ell = app['detail']['elliott']
+    assert ell.get('key') == 'new1'
+    assert ell.get('key_officielle') == 'b'
+    assert ell.get('c_fin') and abs(ell['c_fin']['prix'] - 228.5) < 1
+    # inchangés
+    assert by['XETR:ZPDK']['points']['elliott'] == 0 and by['XETR:ZPDK']['total'] == 162
+    assert by['NYSE:RDDT']['points']['elliott'] == 0 and by['NYSE:RDDT']['total'] == 210
+    assert by['NASDAQ:META']['points']['elliott'] == 0 and by['NASDAQ:META']['total'] == 130
+    assert by['NASDAQ:NFLX']['points']['elliott'] == 20 and by['NASDAQ:NFLX']['total'] == 200
+    assert by['NASDAQ:GOOGL']['points']['elliott'] == 20 and by['NASDAQ:GOOGL']['total'] == 180
+    # tri attendu après règle C : RDDT, NFLX, GOOGL, APP, META
+    order = sorted(d['actions'], key=lambda a: -a['total'])
+    assert [a['tv'] for a in order] == [
+        'NYSE:RDDT', 'NASDAQ:NFLX', 'NASDAQ:GOOGL', 'NASDAQ:APP', 'NASDAQ:META'
+    ]

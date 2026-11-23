@@ -232,6 +232,26 @@ main{max-width:1240px;margin:8px auto 0;padding:0 14px 20px}
 .fl-etf b{color:#fff;font-size:12.5px}.fl-k{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#00e5ff}
 .fl{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:8px}
 .fl li{border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:6px 8px;background:rgba(255,255,255,.03);min-width:0}
+
+.fl.fl-pilot{display:flex;flex-direction:column;gap:6px}
+.fl.fl-pilot>li,.fl-row{display:grid;grid-template-columns:2.2em minmax(13em,18em) minmax(0,1fr);align-items:center;gap:8px 14px;padding:8px 12px}
+.fl-rk{font-variant-numeric:tabular-nums;font-weight:750;color:#e6c27a;font-size:14px;text-align:right}
+.fl-id{min-width:0}
+.fl-id b{display:block;color:#fff;font-size:13.5px;font-weight:700;line-height:1.25;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fl-id .tvs{margin:2px 0 0}
+.fl-pilot .fl-apex{margin:0;min-width:0}
+.apex-block-line{display:grid;grid-template-columns:5.6em minmax(14em,1fr);align-items:center;gap:4px 16px}
+.apex-block-line .apex10{margin:0}
+.apex-block-line .apex10 b{font-size:1.65rem}
+.apex-block-line .apex10 small{font-size:.85rem}
+.apex-block-line .apex-rest{min-width:0}
+.apex-block-line .pilot-brk{margin:2px 0 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.apex-block-line .pilot-fg{margin-top:2px}
+@media(max-width:800px){
+  .fl.fl-pilot>li,.fl-row{grid-template-columns:2em minmax(0,1fr)}
+  .fl-pilot .fl-apex{grid-column:1/-1}
+  .apex-block-line{grid-template-columns:auto minmax(0,1fr)}
+}
 .fl-h{display:flex;justify-content:space-between;gap:6px;align-items:baseline}.fl-h b{color:#fff;font-size:12.5px;min-width:0;overflow-wrap:anywhere}
 .fl-sc{font-size:16px;font-weight:800;color:#22c55e;white-space:nowrap;text-align:right;line-height:1.05}.fl-sc i{display:block;font-style:normal;font-size:8.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--mut);font-weight:600}.fl-sc small{font-size:10px;color:var(--mut);font-weight:500}
 .fl-apex{margin:5px 0 4px;min-width:0}.fl-apex .db-sm{margin:0}.fl-apex-na{font-size:11px;color:var(--mut);margin:4px 0}
@@ -585,6 +605,19 @@ body.rg-on #rg-page[hidden]{display:flex}
 .rg-h2{display:flex;align-items:baseline;flex-wrap:wrap;gap:8px 14px;margin:28px 0 12px;font-size:18px;font-weight:700;letter-spacing:.04em;color:#e6c27a;border-bottom:1px solid rgba(230,194,122,.22);padding-bottom:8px}
 .rg-scale{color:#d8d0c2;font-weight:650;letter-spacing:0;font-size:15px;font-variant-numeric:tabular-nums;white-space:nowrap}
 .rg-sec{margin:0 0 8px}
+.rg-acc{margin:0 0 10px}
+.rg-acc-btn{display:flex;align-items:center;flex-wrap:wrap;gap:8px 14px;width:100%;margin:20px 0 0;padding:10px 2px 10px 0;border:0;border-bottom:1px solid rgba(230,194,122,.22);background:transparent;color:#e6c27a;font:inherit;font-size:18px;font-weight:700;letter-spacing:.04em;text-align:left;cursor:pointer}
+.rg-acc-btn:hover{color:#f3d7a0}
+.rg-acc-btn:focus-visible{outline:1px solid rgba(230,194,122,.8);outline-offset:3px}
+.rg-acc-chev{display:inline-block;width:.55em;height:.55em;margin:0 2px 0 2px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(-45deg);transition:transform .28s ease;flex:none}
+.rg-acc-btn[aria-expanded="true"] .rg-acc-chev{transform:rotate(45deg)}
+.rg-acc-title{line-height:1}
+.rg-acc-btn .rg-scale{font-size:15px}
+.rg-acc-panel{display:grid;grid-template-rows:0fr;transition:grid-template-rows .38s ease}
+.rg-acc-btn[aria-expanded="true"]+.rg-acc-panel{grid-template-rows:1fr}
+.rg-acc-inner{overflow:hidden;min-height:0}
+.rg-acc-btn[aria-expanded="true"]+.rg-acc-panel .rg-acc-inner{padding-top:12px;padding-bottom:4px}
+@media(max-width:700px){.rg-acc-btn{font-size:16px}}
 .rg-table-wrap{overflow-x:auto;margin:0 0 18px;border:1px solid rgba(255,255,255,.10);border-radius:12px;background:rgba(255,255,255,.03)}
 .rg-table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;table-layout:fixed}
 .rg-table th,.rg-table td{padding:10px 12px;text-align:left;vertical-align:top;border-bottom:1px solid rgba(255,255,255,.08);font-size:13px;line-height:1.45;white-space:normal}
@@ -10139,11 +10172,11 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
         "conditions": [
           {
             "id": "zone_entree",
-            "label": "Prix dans une zone d’entrée (fin de vague 2, fin de vague 4, vague C)",
+            "label": "Fin de vague 2, fin de vague 4, vague C (et après une C tant qu’aucune nouvelle vague n’a démarré)",
             "points": 20
           }
         ],
-        "regle_courte": "+20 si zone d’entrée (fin vague 2, fin vague 4, vague C)"
+        "regle_courte": "Fin de vague 2, fin de vague 4, vague C (et après une C tant qu’aucune nouvelle vague n’a démarré) : +20"
       },
       {
         "id": "cci_20_hebdo",
@@ -10788,7 +10821,7 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
 }
 </script>
 <script type="application/json" id="dataPilot">{
-  "generated": "2026-11-23 22:01 Europe/Paris",
+  "generated": "2026-11-23 22:23 Europe/Paris",
   "pilot": true,
   "section": "Actions USA – Communication",
   "secteur_sym": "XLC",
@@ -10824,9 +10857,7 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
         "a": 270,
         "hex": "#00e5ff"
       }
-    ],
-    "tranches": 4,
-    "largeur_tranche": 80
+    ]
   },
   "fear_greed": {
     "ok": true,
@@ -10838,7 +10869,7 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
     "date_valeur": "2026-11-23 21:59 Europe/Paris",
     "date_serie": "2026-11-23",
     "timestamp_cnn": "2026-11-23T20:59:10+00:00",
-    "retrieved": "2026-11-23 22:01 Europe/Paris",
+    "retrieved": "2026-11-23 22:23 Europe/Paris",
     "source": {
       "name": "CNN Business",
       "url": "https://edition.cnn.com/markets/fear-and-greed",
@@ -11941,8 +11972,31 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
       },
       "elliott": {
         "key": "a",
+        "key_officielle": "a",
+        "conf": 1.0,
+        "texte": "Vague A de correction en cours après la 5 : zone rouge, aucune entrée",
+        "points_officiels": [
+          15.11,
+          30.23,
+          19.404,
+          42.915,
+          32.36,
+          48.61,
+          42.47
+        ],
+        "dates_officielles": [
+          "2020-03-27",
+          "2021-09-10",
+          "2022-12-30",
+          "2025-02-21",
+          "2025-04-11",
+          "2026-05-15",
+          "2026-11-06"
+        ],
+        "motif": null,
         "entry": false,
-        "zone": "rouge"
+        "zone": "rouge",
+        "points": 0
       },
       "cci": {
         "ok": true,
@@ -12056,8 +12110,7 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
     "display": "162 / 270",
     "band": "vert",
     "hex": "#22c55e",
-    "av_label": "Favorable",
-    "bande": "vert"
+    "av_label": "Favorable"
   },
   "actions": [
     {
@@ -12078,11 +12131,11 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
         "rsi": 0,
         "macd": 10,
         "fibonacci": 10,
-        "elliott": 0,
+        "elliott": 20,
         "cci": 0,
         "fondamental": 90,
         "fear_greed": 30,
-        "total": 140
+        "total": 160
       },
       "detail": {
         "rsi": {
@@ -12138,9 +12191,58 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
           "interpretation": "Retracement r = (plus haut historique − cours) / (plus haut − plus bas historique), mesuré sur les corps hebdomadaires clôturés. « Sous X % » = r ≥ X % (le cours a retracé au-delà du niveau X % depuis le haut)."
         },
         "elliott": {
-          "key": "b",
-          "entry": false,
-          "zone": "rouge"
+          "key": "new1",
+          "key_officielle": "b",
+          "conf": 0.53,
+          "texte": "Vague B de correction en cours : zone rouge, aucune entrée",
+          "points_officiels": [
+            9.72,
+            87.32,
+            62.09,
+            514.1,
+            203.78,
+            731.97,
+            228.5,
+            414.6
+          ],
+          "dates_officielles": [
+            "2023-01-06",
+            "2024-07-12",
+            "2024-08-09",
+            "2025-02-21",
+            "2025-04-11",
+            "2025-12-26",
+            "2026-10-30",
+            "2026-11-20"
+          ],
+          "motif": "après une vague C terminée, aucune nouvelle vague 1 confirmée",
+          "lecture": "alternative (le décompte officiel n’est pas une zone d’entrée)",
+          "key_alternative": "new1",
+          "conf_alternative": 0.48333837088905734,
+          "rise": 0.37,
+          "c_fin": {
+            "date": "2026-10-30",
+            "prix": 228.5
+          },
+          "rebond": {
+            "date": "2026-11-20",
+            "prix": 414.6
+          },
+          "points_alternatifs": [
+            9.72,
+            87.32,
+            62.09,
+            514.1,
+            203.78,
+            731.97,
+            384.0,
+            615.2,
+            228.5,
+            414.6
+          ],
+          "entry": true,
+          "zone": "verte",
+          "points": 20
         },
         "cci": {
           "ok": false,
@@ -12238,15 +12340,14 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
           "mode": "ratios de l’émetteur (Yahoo Finance, fondamentaux déjà en base)"
         }
       },
-      "ligne": "RSI 0 · MACD +10 · Fibo +10 · Elliott 0 · CCI 0 · Fond +90 · F&G +30  →  140 / 270",
-      "total": 140,
+      "ligne": "RSI 0 · MACD +10 · Fibo +10 · Elliott +20 · CCI 0 · Fond +90 · F&G +30  →  160 / 270",
+      "total": 160,
       "total_max": 270,
       "total_min": -50,
-      "display": "140 / 270",
-      "band": "jaune",
+      "display": "160 / 270",
+      "band": "vert",
       "hex": "#22c55e",
-      "av_label": "Favorable",
-      "bande": "vert"
+      "av_label": "Favorable"
     },
     {
       "id": "RDDT",
@@ -12327,8 +12428,25 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
         },
         "elliott": {
           "key": "bear_135",
+          "key_officielle": "bear_135",
+          "conf": 0.67,
+          "texte": "Impulsion baissière en cours (vague 1, 3 ou 5 vers le bas) : zone rouge, aucune entrée",
+          "points_officiels": [
+            264.48,
+            183.48,
+            248.84,
+            85.33
+          ],
+          "dates_officielles": [
+            "2025-09-19",
+            "2025-11-21",
+            "2026-01-09",
+            "2026-11-20"
+          ],
+          "motif": null,
           "entry": false,
-          "zone": "rouge"
+          "zone": "rouge",
+          "points": 0
         },
         "cci": {
           "ok": true,
@@ -12433,8 +12551,7 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
       "display": "210 / 270",
       "band": "cyan",
       "hex": "#00e5ff",
-      "av_label": "Très favorable",
-      "bande": "cyan"
+      "av_label": "Très favorable"
     },
     {
       "id": "META",
@@ -12515,8 +12632,33 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
         },
         "elliott": {
           "key": "b",
+          "key_officielle": "b",
+          "conf": 0.99,
+          "texte": "Vague B de correction en cours : zone rouge, aucune entrée",
+          "points_officiels": [
+            18.06,
+            381.68,
+            90.79,
+            736.67,
+            485.1,
+            785.23,
+            525.72,
+            751.66
+          ],
+          "dates_officielles": [
+            "2012-08-31",
+            "2021-09-17",
+            "2022-11-04",
+            "2025-02-14",
+            "2025-04-11",
+            "2025-08-15",
+            "2026-03-27",
+            "2026-09-25"
+          ],
+          "motif": null,
           "entry": false,
-          "zone": "rouge"
+          "zone": "rouge",
+          "points": 0
         },
         "cci": {
           "ok": true,
@@ -12619,10 +12761,9 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
       "total_max": 270,
       "total_min": -50,
       "display": "130 / 270",
-      "band": "jaune",
+      "band": "vert",
       "hex": "#22c55e",
-      "av_label": "Favorable",
-      "bande": "vert"
+      "av_label": "Favorable"
     },
     {
       "id": "NFLX",
@@ -12703,8 +12844,35 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
         },
         "elliott": {
           "key": "fin_c",
+          "key_officielle": "fin_c",
+          "conf": 0.95,
+          "texte": "Vague C proche de sa fin (C ≥ 100 % de A ou dans la zone de la 4) : zone verte d'entrée",
+          "points_officiels": [
+            17.551,
+            44.557,
+            35.568,
+            106.0,
+            82.785,
+            133.1,
+            76.87,
+            103.03,
+            56.73
+          ],
+          "dates_officielles": [
+            "2022-06-17",
+            "2023-07-21",
+            "2023-10-13",
+            "2025-02-21",
+            "2025-04-11",
+            "2025-07-04",
+            "2026-02-13",
+            "2026-04-17",
+            "2026-11-20"
+          ],
+          "motif": "zone d’entrée (fin de vague 2, fin de vague 4, vague C)",
           "entry": true,
-          "zone": "verte"
+          "zone": "verte",
+          "points": 20
         },
         "cci": {
           "ok": true,
@@ -12807,10 +12975,9 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
       "total_max": 270,
       "total_min": -50,
       "display": "200 / 270",
-      "band": "vert",
+      "band": "cyan",
       "hex": "#00e5ff",
-      "av_label": "Très favorable",
-      "bande": "cyan"
+      "av_label": "Très favorable"
     },
     {
       "id": "GOOGL",
@@ -12891,8 +13058,35 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
         },
         "elliott": {
           "key": "fin_c",
+          "key_officielle": "fin_c",
+          "conf": 1.0,
+          "texte": "Vague C proche de sa fin (C ≥ 100 % de A ou dans la zone de la 4) : zone verte d'entrée",
+          "points_officiels": [
+            89.13,
+            204.02,
+            141.55,
+            338.0,
+            274.34,
+            400.8,
+            319.74,
+            365.45,
+            265.29
+          ],
+          "dates_officielles": [
+            "2023-02-24",
+            "2025-01-31",
+            "2025-04-11",
+            "2026-01-30",
+            "2026-03-27",
+            "2026-05-08",
+            "2026-07-24",
+            "2026-08-07",
+            "2026-11-20"
+          ],
+          "motif": "zone d’entrée (fin de vague 2, fin de vague 4, vague C)",
           "entry": true,
-          "zone": "verte"
+          "zone": "verte",
+          "points": 20
         },
         "cci": {
           "ok": true,
@@ -12997,8 +13191,7 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
       "display": "180 / 270",
       "band": "vert",
       "hex": "#22c55e",
-      "av_label": "Favorable",
-      "bande": "vert"
+      "av_label": "Favorable"
     }
   ],
   "by_tv": {
@@ -13081,8 +13274,31 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
         },
         "elliott": {
           "key": "a",
+          "key_officielle": "a",
+          "conf": 1.0,
+          "texte": "Vague A de correction en cours après la 5 : zone rouge, aucune entrée",
+          "points_officiels": [
+            15.11,
+            30.23,
+            19.404,
+            42.915,
+            32.36,
+            48.61,
+            42.47
+          ],
+          "dates_officielles": [
+            "2020-03-27",
+            "2021-09-10",
+            "2022-12-30",
+            "2025-02-21",
+            "2025-04-11",
+            "2026-05-15",
+            "2026-11-06"
+          ],
+          "motif": null,
           "entry": false,
-          "zone": "rouge"
+          "zone": "rouge",
+          "points": 0
         },
         "cci": {
           "ok": true,
@@ -13196,8 +13412,7 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
       "display": "162 / 270",
       "band": "vert",
       "hex": "#22c55e",
-      "av_label": "Favorable",
-      "bande": "vert"
+      "av_label": "Favorable"
     },
     "NASDAQ:APP": {
       "id": "APP",
@@ -13217,11 +13432,11 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
         "rsi": 0,
         "macd": 10,
         "fibonacci": 10,
-        "elliott": 0,
+        "elliott": 20,
         "cci": 0,
         "fondamental": 90,
         "fear_greed": 30,
-        "total": 140
+        "total": 160
       },
       "detail": {
         "rsi": {
@@ -13277,9 +13492,58 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
           "interpretation": "Retracement r = (plus haut historique − cours) / (plus haut − plus bas historique), mesuré sur les corps hebdomadaires clôturés. « Sous X % » = r ≥ X % (le cours a retracé au-delà du niveau X % depuis le haut)."
         },
         "elliott": {
-          "key": "b",
-          "entry": false,
-          "zone": "rouge"
+          "key": "new1",
+          "key_officielle": "b",
+          "conf": 0.53,
+          "texte": "Vague B de correction en cours : zone rouge, aucune entrée",
+          "points_officiels": [
+            9.72,
+            87.32,
+            62.09,
+            514.1,
+            203.78,
+            731.97,
+            228.5,
+            414.6
+          ],
+          "dates_officielles": [
+            "2023-01-06",
+            "2024-07-12",
+            "2024-08-09",
+            "2025-02-21",
+            "2025-04-11",
+            "2025-12-26",
+            "2026-10-30",
+            "2026-11-20"
+          ],
+          "motif": "après une vague C terminée, aucune nouvelle vague 1 confirmée",
+          "lecture": "alternative (le décompte officiel n’est pas une zone d’entrée)",
+          "key_alternative": "new1",
+          "conf_alternative": 0.48333837088905734,
+          "rise": 0.37,
+          "c_fin": {
+            "date": "2026-10-30",
+            "prix": 228.5
+          },
+          "rebond": {
+            "date": "2026-11-20",
+            "prix": 414.6
+          },
+          "points_alternatifs": [
+            9.72,
+            87.32,
+            62.09,
+            514.1,
+            203.78,
+            731.97,
+            384.0,
+            615.2,
+            228.5,
+            414.6
+          ],
+          "entry": true,
+          "zone": "verte",
+          "points": 20
         },
         "cci": {
           "ok": false,
@@ -13377,15 +13641,14 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
           "mode": "ratios de l’émetteur (Yahoo Finance, fondamentaux déjà en base)"
         }
       },
-      "ligne": "RSI 0 · MACD +10 · Fibo +10 · Elliott 0 · CCI 0 · Fond +90 · F&G +30  →  140 / 270",
-      "total": 140,
+      "ligne": "RSI 0 · MACD +10 · Fibo +10 · Elliott +20 · CCI 0 · Fond +90 · F&G +30  →  160 / 270",
+      "total": 160,
       "total_max": 270,
       "total_min": -50,
-      "display": "140 / 270",
-      "band": "jaune",
+      "display": "160 / 270",
+      "band": "vert",
       "hex": "#22c55e",
-      "av_label": "Favorable",
-      "bande": "vert"
+      "av_label": "Favorable"
     },
     "NYSE:RDDT": {
       "id": "RDDT",
@@ -13466,8 +13729,25 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
         },
         "elliott": {
           "key": "bear_135",
+          "key_officielle": "bear_135",
+          "conf": 0.67,
+          "texte": "Impulsion baissière en cours (vague 1, 3 ou 5 vers le bas) : zone rouge, aucune entrée",
+          "points_officiels": [
+            264.48,
+            183.48,
+            248.84,
+            85.33
+          ],
+          "dates_officielles": [
+            "2025-09-19",
+            "2025-11-21",
+            "2026-01-09",
+            "2026-11-20"
+          ],
+          "motif": null,
           "entry": false,
-          "zone": "rouge"
+          "zone": "rouge",
+          "points": 0
         },
         "cci": {
           "ok": true,
@@ -13572,8 +13852,7 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
       "display": "210 / 270",
       "band": "cyan",
       "hex": "#00e5ff",
-      "av_label": "Très favorable",
-      "bande": "cyan"
+      "av_label": "Très favorable"
     },
     "NASDAQ:META": {
       "id": "META",
@@ -13654,8 +13933,33 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
         },
         "elliott": {
           "key": "b",
+          "key_officielle": "b",
+          "conf": 0.99,
+          "texte": "Vague B de correction en cours : zone rouge, aucune entrée",
+          "points_officiels": [
+            18.06,
+            381.68,
+            90.79,
+            736.67,
+            485.1,
+            785.23,
+            525.72,
+            751.66
+          ],
+          "dates_officielles": [
+            "2012-08-31",
+            "2021-09-17",
+            "2022-11-04",
+            "2025-02-14",
+            "2025-04-11",
+            "2025-08-15",
+            "2026-03-27",
+            "2026-09-25"
+          ],
+          "motif": null,
           "entry": false,
-          "zone": "rouge"
+          "zone": "rouge",
+          "points": 0
         },
         "cci": {
           "ok": true,
@@ -13758,10 +14062,9 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
       "total_max": 270,
       "total_min": -50,
       "display": "130 / 270",
-      "band": "jaune",
+      "band": "vert",
       "hex": "#22c55e",
-      "av_label": "Favorable",
-      "bande": "vert"
+      "av_label": "Favorable"
     },
     "NASDAQ:NFLX": {
       "id": "NFLX",
@@ -13842,8 +14145,35 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
         },
         "elliott": {
           "key": "fin_c",
+          "key_officielle": "fin_c",
+          "conf": 0.95,
+          "texte": "Vague C proche de sa fin (C ≥ 100 % de A ou dans la zone de la 4) : zone verte d'entrée",
+          "points_officiels": [
+            17.551,
+            44.557,
+            35.568,
+            106.0,
+            82.785,
+            133.1,
+            76.87,
+            103.03,
+            56.73
+          ],
+          "dates_officielles": [
+            "2022-06-17",
+            "2023-07-21",
+            "2023-10-13",
+            "2025-02-21",
+            "2025-04-11",
+            "2025-07-04",
+            "2026-02-13",
+            "2026-04-17",
+            "2026-11-20"
+          ],
+          "motif": "zone d’entrée (fin de vague 2, fin de vague 4, vague C)",
           "entry": true,
-          "zone": "verte"
+          "zone": "verte",
+          "points": 20
         },
         "cci": {
           "ok": true,
@@ -13946,10 +14276,9 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
       "total_max": 270,
       "total_min": -50,
       "display": "200 / 270",
-      "band": "vert",
+      "band": "cyan",
       "hex": "#00e5ff",
-      "av_label": "Très favorable",
-      "bande": "cyan"
+      "av_label": "Très favorable"
     },
     "NASDAQ:GOOGL": {
       "id": "GOOGL",
@@ -14030,8 +14359,35 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
         },
         "elliott": {
           "key": "fin_c",
+          "key_officielle": "fin_c",
+          "conf": 1.0,
+          "texte": "Vague C proche de sa fin (C ≥ 100 % de A ou dans la zone de la 4) : zone verte d'entrée",
+          "points_officiels": [
+            89.13,
+            204.02,
+            141.55,
+            338.0,
+            274.34,
+            400.8,
+            319.74,
+            365.45,
+            265.29
+          ],
+          "dates_officielles": [
+            "2023-02-24",
+            "2025-01-31",
+            "2025-04-11",
+            "2026-01-30",
+            "2026-03-27",
+            "2026-05-08",
+            "2026-07-24",
+            "2026-08-07",
+            "2026-11-20"
+          ],
+          "motif": "zone d’entrée (fin de vague 2, fin de vague 4, vague C)",
           "entry": true,
-          "zone": "verte"
+          "zone": "verte",
+          "points": 20
         },
         "cci": {
           "ok": true,
@@ -14136,12 +14492,12 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
       "display": "180 / 270",
       "band": "vert",
       "hex": "#22c55e",
-      "av_label": "Favorable",
-      "bande": "vert"
+      "av_label": "Favorable"
     }
   },
   "interpretations": {
     "fibo": "« Sous X % » = retracement depuis le plus haut historique r ≥ X %, corps hebdo clôturés (plus bas historique → plus haut historique).",
+    "elliott": "Zone d’entrée +20 : fin de vague 2, fin de vague 4, vague C ; et après une C terminée, tant qu’aucune nouvelle vague 1 n’est confirmée (clé new1, officielle ou lecture alternative sur le même ZigZag).",
     "cci": "CCI 20 hebdo < 20 (seuil littéral d'Emmanuel, en attente de confirmation) ; ce n'est pas ±100.",
     "fg": "Tranches entières : floor(|50 − valeur| / 10) × 10, signé, max ±50. Même valeur CNN pour tous les titres du pilote.",
     "fond_etf": "Moyenne des 5 actions « qualité / croissance » affichées dans le détail (APP, RDDT, META, NFLX, GOOGL). L'ETF n'a pas de Dette nette/EBITDA, marges, ROE, ratio de liquidité ou consensus BPA/CA d'émetteur comparables ; on n'invente pas ces ratios.",
@@ -15350,7 +15706,7 @@ function dualBarPilot(rec, compact){
    </div>
    <div class="pilot-fg">${pilotSpark(fg)}<span>Fear &amp; Greed ${Number.isFinite(sv)?fmt(sv,1):'–'} ${sl}</span></div>
   </div>`;
-  return `<div class="apex-block apex-block-pilot">${pilotNoteHTML(rec)}<div class="apex-rest">${bar}${pilotBrk(rec)}</div></div>`;
+  return `<div class="apex-block apex-block-pilot${compact?' apex-block-line':''}">${pilotNoteHTML(rec)}<div class="apex-rest">${bar}${pilotBrk(rec)}</div></div>`;
 }
 
 /* ===== Secteurs : ETF principal + 5 actions (sélection quantitative APEX) + bouton copier le symbole TradingView ===== */
@@ -15417,13 +15773,24 @@ function fondList(sym){
   const s=FOND.sectors[sym];if(!s)return '';
   const pilot=typeof isPilotSector==='function'&&isPilotSector(sym)&&PILOT;
   const top=pilot? (s.top||[]).slice(0,5) : (s.top||[]);
-  const rows=(pilot?top:apexSortByNote(top)).map((r,k)=>`<li${r.tv?` data-pos-tv="${r.tv}"`:''}><div class="fl-h"><b>${k+1}. ${r.name}</b></div>
-     ${tvTag(r.tv)}${typeof posBadges==='function'?posBadges(r.tv):''}${typeof dispoBadge==='function'?dispoBadge(r.tv):''}${listApexBar(r)}</li>`).join('');
+  const ordered=pilot? top.slice().sort((a,b)=>{
+    const pa=typeof pilotRec==='function'?pilotRec(a.tv):null;
+    const pb=typeof pilotRec==='function'?pilotRec(b.tv):null;
+    const ta=(pa&&pa.total!=null)?pa.total:-Infinity;
+    const tb=(pb&&pb.total!=null)?pb.total:-Infinity;
+    if(tb!==ta) return tb-ta;
+    return 0;
+  }) : apexSortByNote(top);
+  const rows=ordered.map((r,k)=>pilot
+    ? `<li class="fl-row"${r.tv?` data-pos-tv="${r.tv}"`:''}><span class="fl-rk">${k+1}</span><div class="fl-id"><b>${r.name}</b>${tvTag(r.tv)}${typeof posBadges==='function'?posBadges(r.tv):''}${typeof dispoBadge==='function'?dispoBadge(r.tv):''}</div>${listApexBar(r)}</li>`
+    : `<li${r.tv?` data-pos-tv="${r.tv}"`:''}><div class="fl-h"><b>${k+1}. ${r.name}</b></div>
+     ${tvTag(r.tv)}${typeof posBadges==='function'?posBadges(r.tv):''}${typeof dispoBadge==='function'?dispoBadge(r.tv):''}${listApexBar(r)}</li>`
+  ).join('');
   const d=s.top[0];
   const etfBar=pilot&&PILOT.etf?listApexBar({tv:PILOT.etf.tv, name:PILOT.etf.nom}):'';
   return `<details class="ind-meth sec-list"${pilot?' data-pilot="xlc"':''}><summary>ETF + 5 actions qualité / croissance</summary>
    <div class="fl-etf"><span class="fl-k">ETF principal</span><b>${s.etf.name}</b>${tvTag(s.etf.tv)}${etfBar}</div>
-   <ol class="fl">${rows}</ol>
+   <ol class="fl${pilot?' fl-pilot':''}">${rows}</ol>
    <div class="sec-d" style="text-align:left">Score de qualité fondamentale 0-100 = 50 % santé financière + 50 % croissance prévue, en rang parmi les ${s.eligible} titres éligibles des 20 premières lignes de ${sym} (composition State Street au ${s.asof}).${s.profile==='fin'?' Profil financier : ROE, ROA, marges (ratios bancaires CET1 / créances douteuses non disponibles).':s.profile==='reit'?' Profil immobilier : dette nette / EBITDA, marges, ROA (FFO non disponible : la croissance repose sur le BPA estimé).':''} Timing (plus haut, RSI) affiché à part, hors score. Données ${lnk('https://finance.yahoo.com/quote/'+(d?d.yahoo:sym)+'/key-statistics/','Yahoo Finance')} récupérées le ${d?d.retrieved.replace(' ',' à '):'?'} ; clôtures hebdo au ${d?dshort(d.timing.date):'?'}.</div>
   </details>`;
 }
@@ -17629,10 +17996,54 @@ function rgActionsScale(){
   const max=techMax+fond+sMax;
   return {min, max, techMax, fond, sMin, sMax, label: rgFmtScaleBound(min)+' à '+rgFmtScaleBound(max)};
 }
+function rgSectionAccordion(sec){
+  /* Structure générique : un bouton + panneau coulissant par section (Actions aujourd'hui, Crypto / Métaux / ETF plus tard). */
+  const id=sec.id||'sec';
+  const open=!!sec.open;
+  const panel='rg-acc-'+id;
+  const scale=sec.scale?`<span class="rg-scale">${rgEsc(sec.scale)}</span>`:'';
+  return `<section class="rg-sec rg-acc" id="rg-sec-${rgEsc(id)}" data-rg-section="${rgEsc(id)}">
+          <button type="button" class="rg-acc-btn" aria-expanded="${open?'true':'false'}" aria-controls="${panel}" data-rg-acc="${rgEsc(id)}">
+            <i class="rg-acc-chev" aria-hidden="true"></i>
+            <span class="rg-acc-title">${rgEsc(sec.title||id)}</span>
+            ${scale}
+          </button>
+          <div class="rg-acc-panel" id="${panel}"${open?'':' hidden'}>
+            <div class="rg-acc-inner">${sec.body||''}</div>
+          </div>
+        </section>`;
+}
+function rgAccToggle(btn, force){
+  if(!btn) return;
+  const open=(force==null)?(btn.getAttribute('aria-expanded')!=='true'):!!force;
+  const panel=document.getElementById(btn.getAttribute('aria-controls')||'');
+  if(!panel){btn.setAttribute('aria-expanded', open?'true':'false');return;}
+  if(open){
+    panel.removeAttribute('hidden');
+    btn.setAttribute('aria-expanded','false');
+    requestAnimationFrame(()=>{btn.setAttribute('aria-expanded','true');});
+  }else{
+    btn.setAttribute('aria-expanded','false');
+    const done=()=>{if(btn.getAttribute('aria-expanded')!=='true') panel.setAttribute('hidden',''); panel.removeEventListener('transitionend', done);};
+    panel.addEventListener('transitionend', done);
+    setTimeout(done, 450);
+  }
+}
+function rgBindAccordions(root){
+  (root||document).querySelectorAll('.rg-acc-btn').forEach(btn=>{
+    if(btn._rgAcc) return;
+    btn._rgAcc=true;
+    btn.addEventListener('click',()=>rgAccToggle(btn));
+  });
+}
 function rgPageHTML(){
   if(!RG) return '<p class="rg-p">Règles indisponibles.</p>';
   const fr=RG.fiche_regles||{};
   const titre=fr.page_titre||fr.titre_panneau||'Règles de la note APEX';
+  const sections=[
+    {id:'actions', title:'Actions', scale:rgActionsScale().label, body:rgActionsGrid(), open:true}
+    /* sections futures : {id:'crypto', title:'Crypto', scale:…, body:…, open:false}, etc. */
+  ];
   return `<header class="rg-top">
       <button type="button" id="rgBack" class="rg-back">← Retour</button>
       <h1 id="rgPageTitle">${rgEsc(titre)}</h1>
@@ -17640,10 +18051,7 @@ function rgPageHTML(){
     </header>
     <div class="rg-page-body">
       <div class="rg-page-main">
-        <section class="rg-sec" id="rg-sec-actions">
-          <h2 class="rg-h2">Actions <span class="rg-scale">${rgEsc(rgActionsScale().label)}</span></h2>
-          ${rgActionsGrid()}
-        </section>
+        ${sections.map(rgSectionAccordion).join('')}
         ${rgCommons()}
       </div>
     </div>`;
@@ -17666,6 +18074,7 @@ function rgRender(){
     document.body.appendChild(page);
   }
   page.innerHTML=rgPageHTML();
+  rgBindAccordions(page);
   const btn=document.getElementById('rgBtn');
   if(btn) btn.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();rgSetOpen(!rgIsOpen());});
   const close=()=>{rgSetOpen(false);};

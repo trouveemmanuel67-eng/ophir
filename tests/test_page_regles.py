@@ -246,3 +246,22 @@ def test_echelle_actions_calculee_automatiquement(regles):
     assert '270' not in page
     css = (ROOT / 'src' / 'template.html').read_text(encoding='utf-8')
     assert '.rg-scale' in css
+
+
+def test_accordeon_actions_generique():
+    js = (ROOT / 'src' / 'regles.js').read_text(encoding='utf-8')
+    css = (ROOT / 'src' / 'template.html').read_text(encoding='utf-8')
+    assert 'function rgSectionAccordion' in js
+    assert "id:'actions'" in js and 'open:true' in js
+    assert 'rg-acc-btn' in js and 'rg-acc-panel' in js
+    assert 'rg-acc-btn' in css and 'grid-template-rows' in css
+    assert '.rg-acc-chev' in css
+
+
+def test_elliott_regle_courte_apres_vague_c(regles):
+    ell = {c['id']: c for c in (regles['apex_achat_v2']['criteres'] or [])}['elliott']
+    assert ell['max'] == 20
+    txt = (ell.get('regle_courte') or '') + ' ' + ((ell.get('conditions') or [{}])[0].get('label') or '')
+    assert 'vague C' in txt or 'vague C' in txt.replace('’', "'")
+    assert 'nouvelle vague' in txt or 'nouvelle vague' in txt.replace('’', "'")
+    assert '+20' in (ell.get('regle_courte') or '')

@@ -532,10 +532,54 @@ function rgActionsScale(){
   const max=techMax+fond+sMax;
   return {min, max, techMax, fond, sMin, sMax, label: rgFmtScaleBound(min)+' à '+rgFmtScaleBound(max)};
 }
+function rgSectionAccordion(sec){
+  /* Structure générique : un bouton + panneau coulissant par section (Actions aujourd'hui, Crypto / Métaux / ETF plus tard). */
+  const id=sec.id||'sec';
+  const open=!!sec.open;
+  const panel='rg-acc-'+id;
+  const scale=sec.scale?`<span class="rg-scale">${rgEsc(sec.scale)}</span>`:'';
+  return `<section class="rg-sec rg-acc" id="rg-sec-${rgEsc(id)}" data-rg-section="${rgEsc(id)}">
+          <button type="button" class="rg-acc-btn" aria-expanded="${open?'true':'false'}" aria-controls="${panel}" data-rg-acc="${rgEsc(id)}">
+            <i class="rg-acc-chev" aria-hidden="true"></i>
+            <span class="rg-acc-title">${rgEsc(sec.title||id)}</span>
+            ${scale}
+          </button>
+          <div class="rg-acc-panel" id="${panel}"${open?'':' hidden'}>
+            <div class="rg-acc-inner">${sec.body||''}</div>
+          </div>
+        </section>`;
+}
+function rgAccToggle(btn, force){
+  if(!btn) return;
+  const open=(force==null)?(btn.getAttribute('aria-expanded')!=='true'):!!force;
+  const panel=document.getElementById(btn.getAttribute('aria-controls')||'');
+  if(!panel){btn.setAttribute('aria-expanded', open?'true':'false');return;}
+  if(open){
+    panel.removeAttribute('hidden');
+    btn.setAttribute('aria-expanded','false');
+    requestAnimationFrame(()=>{btn.setAttribute('aria-expanded','true');});
+  }else{
+    btn.setAttribute('aria-expanded','false');
+    const done=()=>{if(btn.getAttribute('aria-expanded')!=='true') panel.setAttribute('hidden',''); panel.removeEventListener('transitionend', done);};
+    panel.addEventListener('transitionend', done);
+    setTimeout(done, 450);
+  }
+}
+function rgBindAccordions(root){
+  (root||document).querySelectorAll('.rg-acc-btn').forEach(btn=>{
+    if(btn._rgAcc) return;
+    btn._rgAcc=true;
+    btn.addEventListener('click',()=>rgAccToggle(btn));
+  });
+}
 function rgPageHTML(){
   if(!RG) return '<p class="rg-p">Règles indisponibles.</p>';
   const fr=RG.fiche_regles||{};
   const titre=fr.page_titre||fr.titre_panneau||'Règles de la note APEX';
+  const sections=[
+    {id:'actions', title:'Actions', scale:rgActionsScale().label, body:rgActionsGrid(), open:true}
+    /* sections futures : {id:'crypto', title:'Crypto', scale:…, body:…, open:false}, etc. */
+  ];
   return `<header class="rg-top">
       <button type="button" id="rgBack" class="rg-back">← Retour</button>
       <h1 id="rgPageTitle">${rgEsc(titre)}</h1>
@@ -543,10 +587,7 @@ function rgPageHTML(){
     </header>
     <div class="rg-page-body">
       <div class="rg-page-main">
-        <section class="rg-sec" id="rg-sec-actions">
-          <h2 class="rg-h2">Actions <span class="rg-scale">${rgEsc(rgActionsScale().label)}</span></h2>
-          ${rgActionsGrid()}
-        </section>
+        ${sections.map(rgSectionAccordion).join('')}
         ${rgCommons()}
       </div>
     </div>`;
@@ -569,6 +610,7 @@ function rgRender(){
     document.body.appendChild(page);
   }
   page.innerHTML=rgPageHTML();
+  rgBindAccordions(page);
   const btn=document.getElementById('rgBtn');
   if(btn) btn.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();rgSetOpen(!rgIsOpen());});
   const close=()=>{rgSetOpen(false);};

@@ -232,6 +232,26 @@ main{max-width:1240px;margin:8px auto 0;padding:0 14px 20px}
 .fl-etf b{color:#fff;font-size:12.5px}.fl-k{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#00e5ff}
 .fl{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:8px}
 .fl li{border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:6px 8px;background:rgba(255,255,255,.03);min-width:0}
+
+.fl.fl-pilot{display:flex;flex-direction:column;gap:6px}
+.fl.fl-pilot>li,.fl-row{display:grid;grid-template-columns:2.2em minmax(13em,18em) minmax(0,1fr);align-items:center;gap:8px 14px;padding:8px 12px}
+.fl-rk{font-variant-numeric:tabular-nums;font-weight:750;color:#e6c27a;font-size:14px;text-align:right}
+.fl-id{min-width:0}
+.fl-id b{display:block;color:#fff;font-size:13.5px;font-weight:700;line-height:1.25;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fl-id .tvs{margin:2px 0 0}
+.fl-pilot .fl-apex{margin:0;min-width:0}
+.apex-block-line{display:grid;grid-template-columns:5.6em minmax(14em,1fr);align-items:center;gap:4px 16px}
+.apex-block-line .apex10{margin:0}
+.apex-block-line .apex10 b{font-size:1.65rem}
+.apex-block-line .apex10 small{font-size:.85rem}
+.apex-block-line .apex-rest{min-width:0}
+.apex-block-line .pilot-brk{margin:2px 0 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.apex-block-line .pilot-fg{margin-top:2px}
+@media(max-width:800px){
+  .fl.fl-pilot>li,.fl-row{grid-template-columns:2em minmax(0,1fr)}
+  .fl-pilot .fl-apex{grid-column:1/-1}
+  .apex-block-line{grid-template-columns:auto minmax(0,1fr)}
+}
 .fl-h{display:flex;justify-content:space-between;gap:6px;align-items:baseline}.fl-h b{color:#fff;font-size:12.5px;min-width:0;overflow-wrap:anywhere}
 .fl-sc{font-size:16px;font-weight:800;color:#22c55e;white-space:nowrap;text-align:right;line-height:1.05}.fl-sc i{display:block;font-style:normal;font-size:8.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--mut);font-weight:600}.fl-sc small{font-size:10px;color:var(--mut);font-weight:500}
 .fl-apex{margin:5px 0 4px;min-width:0}.fl-apex .db-sm{margin:0}.fl-apex-na{font-size:11px;color:var(--mut);margin:4px 0}
@@ -585,6 +605,19 @@ body.rg-on #rg-page[hidden]{display:flex}
 .rg-h2{display:flex;align-items:baseline;flex-wrap:wrap;gap:8px 14px;margin:28px 0 12px;font-size:18px;font-weight:700;letter-spacing:.04em;color:#e6c27a;border-bottom:1px solid rgba(230,194,122,.22);padding-bottom:8px}
 .rg-scale{color:#d8d0c2;font-weight:650;letter-spacing:0;font-size:15px;font-variant-numeric:tabular-nums;white-space:nowrap}
 .rg-sec{margin:0 0 8px}
+.rg-acc{margin:0 0 10px}
+.rg-acc-btn{display:flex;align-items:center;flex-wrap:wrap;gap:8px 14px;width:100%;margin:20px 0 0;padding:10px 2px 10px 0;border:0;border-bottom:1px solid rgba(230,194,122,.22);background:transparent;color:#e6c27a;font:inherit;font-size:18px;font-weight:700;letter-spacing:.04em;text-align:left;cursor:pointer}
+.rg-acc-btn:hover{color:#f3d7a0}
+.rg-acc-btn:focus-visible{outline:1px solid rgba(230,194,122,.8);outline-offset:3px}
+.rg-acc-chev{display:inline-block;width:.55em;height:.55em;margin:0 2px 0 2px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(-45deg);transition:transform .28s ease;flex:none}
+.rg-acc-btn[aria-expanded="true"] .rg-acc-chev{transform:rotate(45deg)}
+.rg-acc-title{line-height:1}
+.rg-acc-btn .rg-scale{font-size:15px}
+.rg-acc-panel{display:grid;grid-template-rows:0fr;transition:grid-template-rows .38s ease}
+.rg-acc-btn[aria-expanded="true"]+.rg-acc-panel{grid-template-rows:1fr}
+.rg-acc-inner{overflow:hidden;min-height:0}
+.rg-acc-btn[aria-expanded="true"]+.rg-acc-panel .rg-acc-inner{padding-top:12px;padding-bottom:4px}
+@media(max-width:700px){.rg-acc-btn{font-size:16px}}
 .rg-table-wrap{overflow-x:auto;margin:0 0 18px;border:1px solid rgba(255,255,255,.10);border-radius:12px;background:rgba(255,255,255,.03)}
 .rg-table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;table-layout:fixed}
 .rg-table th,.rg-table td{padding:10px 12px;text-align:left;vertical-align:top;border-bottom:1px solid rgba(255,255,255,.08);font-size:13px;line-height:1.45;white-space:normal}

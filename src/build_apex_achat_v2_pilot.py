@@ -20,6 +20,7 @@ import fibo as FB
 import yahoo_week as YW
 import charte as CH
 import elliott_zones as EZ
+import elliott as E
 from note_apex import divergence_haussiere
 
 PARIS = ZoneInfo('Europe/Paris')
@@ -113,9 +114,17 @@ def fg_label(v):
     return 'Peur extrême' if v < 25 else 'Peur' if v < 45 else 'Neutre' if v <= 55 else 'Avidité' if v <= 75 else 'Euphorie'
 
 
-def fetch_cnn_fng():
+def fetch_cnn_fng(reuse_file=True):
     """Télécharge l'indice CNN officiel. Pas de valeur inventée : en cas d'échec, on le signale."""
     dest = ROOT / 'data' / 'apex_achat_v2_cnn_fng.json'
+    raw = None
+    if reuse_file and dest.exists():
+        try:
+            cand = json.loads(dest.read_text(encoding='utf-8'))
+            if (cand.get('fear_and_greed') or {}).get('score') is not None:
+                raw = cand
+        except Exception:
+            raw = None
     cmd = [
         'curl', '-sS', '-L', '--max-time', '25',
         '-A', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
@@ -127,13 +136,14 @@ def fetch_cnn_fng():
         '-w', '%{http_code}',
         CNN_URL,
     ]
-    try:
-        code = subprocess.check_output(cmd, text=True).strip()
-        if code != '200':
-            return {'ok': False, 'erreur': f'HTTP {code}', 'url': CNN_URL}
-        raw = json.loads(dest.read_text(encoding='utf-8'))
-    except Exception as e:
-        return {'ok': False, 'erreur': f'{type(e).__name__}: {e}', 'url': CNN_URL}
+    if raw is None:
+        try:
+            code = subprocess.check_output(cmd, text=True).strip()
+            if code != '200':
+                return {'ok': False, 'erreur': f'HTTP {code}', 'url': CNN_URL}
+            raw = json.loads(dest.read_text(encoding='utf-8'))
+        except Exception as e:
+            return {'ok': False, 'erreur': f'{type(e).__name__}: {e}', 'url': CNN_URL}
 
     fg = raw.get('fear_and_greed') or {}
     hist = (raw.get('fear_and_greed_historical') or {}).get('data') or []
@@ -259,8 +269,118 @@ def fibo_points(r):
 
 
 def elliott_points(key):
-    entry = bool(key) and key in EZ.ZONE_VERTE
-    return (20 if entry else 0), {'key': key, 'entry': entry, 'zone': 'verte' if entry else ('rouge' if key in EZ.ZONE_ROUGE else 'hors zone')}
+    """Ancienne lecture sur la seule clé officielle (conservée pour les tests unitaires)."""
+    entry = bool(key) and (key in EZ.ZONE_VERTE or key == 'new1')
+    motif = None
+    if key in EZ.ZONE_VERTE:
+        motif = 'zone d’entrée (fin de vague 2, fin de vague 4, vague C)'
+    elif key == 'new1':
+        motif = 'après une vague C terminée, nouvelle vague 1 non confirmée'
+    return (20 if entry else 0), {
+        'key': key, 'entry': entry,
+        'zone': 'verte' if entry else ('rouge' if key in EZ.ZONE_ROUGE else 'hors zone'),
+        'motif': motif,
+    }
+
+
+def _elliott_all_candidates(opens, closes):
+    """Tous les décomptes valides, le meilleur en tête (même barème que elliott.analyse)."""
+    import math, statistics as st
+    n = len(closes)
+    if n < 60:
+        return []
+    hi, lo = E.bodies(opens, closes)
+    r = [abs(math.log(closes[i] / closes[i - 1])) for i in range(max(1, n - 260), n) if closes[i] and closes[i - 1]]
+    sig = st.median(r) if r else .02
+    thrs = sorted(set(round(min(.60, max(.04, sig * k)), 3) for k in (4, 5, 6, 8, 10, 13, 16)))
+    cands = []
+    last = closes[-1]
+
+    def cand(key, conf, npts, thr, pts, extra, idx):
+        cands.append({
+            'key': key, 'conf': float(conf), 'npts': npts, 'thr': thr,
+            'points': [round(x, 4) for x in pts], 'idx': list(idx),
+            'extra': {a: (round(b, 3) if isinstance(b, float) else b) for a, b in (extra or {}).items()},
+        })
+
+    for thr in thrs:
+        pv = E.zigzag(hi, lo, thr)[-E.NPIV:]
+        if len(pv) < 2:
+            continue
+        run = pv[-1]
+        up = run[2] == 'H'
+        turn = (last / run[1] - 1) if not up else (1 - last / run[1])
+        turned = turn >= 0.3 * thr
+        for k, idz in E.subseqs(pv):
+            pts = [pv[i][1] for i in idz]
+            first = pv[idz[0]][2]
+            idx = [pv[i][0] for i in idz]
+            if first == 'L':
+                E._bull(pts, k, thr, turned, last, lambda *a: cand(*a, idx))
+            elif k >= 4:
+                E._bear(pts, k, thr, lambda *a: cand(*a, idx))
+    cands.sort(key=lambda x: (x['conf'], x['npts'], -(x['thr'] or 0)), reverse=True)
+    return cands
+
+
+def elliott_entry(opens, closes, dates, stored_key=None):
+    """+20 si zone d'entrée (fin 2, fin 4, vague C) OU après une C terminée
+    tant qu'aucune nouvelle vague 1 n'est confirmée (clé new1, officielle ou lecture alternative).
+    """
+    official = E.analyse(opens, closes) if opens is not None and closes and len(closes) >= 60 else {}
+    key = official.get('key') or stored_key
+    base = {
+        'key': key,
+        'key_officielle': official.get('key') or stored_key,
+        'conf': official.get('conf'),
+        'texte': official.get('texte'),
+        'points_officiels': official.get('points'),
+        'dates_officielles': ([dates[i] for i in official.get('idx', [])] if dates and official.get('idx') else None),
+    }
+
+    def pack(pts, det):
+        merged = dict(base)
+        merged.update(det)  # la lecture retenue (ex. new1) prime sur la clé officielle
+        merged['entry'] = pts == 20
+        merged['zone'] = 'verte' if merged['entry'] else ('rouge' if key in EZ.ZONE_ROUGE else 'hors zone')
+        merged['points'] = pts
+        return pts, merged
+
+    if key in EZ.ZONE_VERTE:
+        return pack(20, {'motif': 'zone d’entrée (fin de vague 2, fin de vague 4, vague C)'})
+    if key == 'new1':
+        extra = official.get('extra') or {}
+        return pack(20, {
+            'motif': 'après une vague C terminée, nouvelle vague 1 non confirmée',
+            'rise': extra.get('rise'),
+        })
+
+    # Lecture alternative : vague C terminée puis rebond, vague 1 non confirmée (rise < 38,2 %)
+    for cand in _elliott_all_candidates(opens, closes):
+        if cand['key'] != 'new1':
+            continue
+        idx, pts = cand.get('idx') or [], cand.get('points') or []
+        # P[8] = fin de C, P[9] = rebond (convention elliott._bull, k==10)
+        c_fin = None
+        rebond = None
+        if len(idx) >= 10 and dates:
+            i_c, i_r = idx[8], idx[9]
+            if 0 <= i_c < len(dates):
+                c_fin = {'date': dates[i_c], 'prix': pts[8] if len(pts) > 8 else None}
+            if 0 <= i_r < len(dates):
+                rebond = {'date': dates[i_r], 'prix': pts[9] if len(pts) > 9 else None}
+        return pack(20, {
+            'motif': 'après une vague C terminée, aucune nouvelle vague 1 confirmée',
+            'lecture': 'alternative (le décompte officiel n’est pas une zone d’entrée)',
+            'key': 'new1',
+            'key_alternative': 'new1',
+            'conf_alternative': cand['conf'],
+            'rise': (cand.get('extra') or {}).get('rise'),
+            'c_fin': c_fin,
+            'rebond': rebond,
+            'points_alternatifs': pts,
+        })
+    return pack(0, {'motif': None})
 
 
 def cci_points(cci_val):
@@ -376,7 +496,7 @@ def score_asset(asset, fg, elliott_key=None):
             'cours': fib.get('cours') or last['close'],
             'source': fib.get('source_historique'),
         })
-    ell_pts, ell_det = elliott_points(elliott_key)
+    ell_pts, ell_det = elliott_entry(o, c, ds, stored_key=elliott_key)
     cci_series = K.cci20(o, c)
     cci_val = cci_series[-1] if cci_series else None
     cci_pts, cci_det = cci_points(cci_val)
@@ -530,6 +650,7 @@ def main():
         'by_tv': {},
         'interpretations': {
             'fibo': "« Sous X % » = retracement depuis le plus haut historique r ≥ X %, corps hebdo clôturés (plus bas historique → plus haut historique).",
+            'elliott': "Zone d’entrée +20 : fin de vague 2, fin de vague 4, vague C ; et après une C terminée, tant qu’aucune nouvelle vague 1 n’est confirmée (clé new1, officielle ou lecture alternative sur le même ZigZag).",
             'cci': "CCI 20 hebdo < 20 (seuil littéral d'Emmanuel, en attente de confirmation) ; ce n'est pas ±100.",
             'fg': "Tranches entières : floor(|50 − valeur| / 10) × 10, signé, max ±50. Même valeur CNN pour tous les titres du pilote.",
             'fond_etf': etf_asset['fond_mode'],

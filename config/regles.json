@@ -1400,11 +1400,11 @@
         "conditions": [
           {
             "id": "zone_entree",
-            "label": "Prix dans une zone d’entrée (fin de vague 2, fin de vague 4, vague C)",
+            "label": "Fin de vague 2, fin de vague 4, vague C (et après une C tant qu’aucune nouvelle vague n’a démarré)",
             "points": 20
           }
         ],
-        "regle_courte": "+20 si zone d’entrée (fin vague 2, fin vague 4, vague C)"
+        "regle_courte": "Fin de vague 2, fin de vague 4, vague C (et après une C tant qu’aucune nouvelle vague n’a démarré) : +20"
       },
       {
         "id": "cci_20_hebdo",
