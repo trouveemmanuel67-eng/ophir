@@ -185,7 +185,17 @@ function obAvSort(a,b){
   if(sb==null) return -1;
   return sb-sa;
 }
+function obEnsureRefNote(s){
+  /* t344u : si la liste d'alternatives est vide, montrer la note de l'ETF de référence. */
+  if(!s) return s;
+  if((!s.apex10||s.apex10.note==null||s.apex10.display==='–')&&s.apex10_panier&&s.apex10_panier.note!=null){
+    s.apex10=Object.assign({},s.apex10_panier,{detail:"Note de l'ETF de référence (aucune alternative UCITS dans la liste)."});
+  }
+  if((!s.av||s.av.score==null)&&s.av_panier&&s.av_panier.score!=null) s.av=s.av_panier;
+  return s;
+}
 function renderSegments(el){
+  (OB.segments||[]).forEach(obEnsureRefNote);
   const byKey=Object.fromEntries(OB.segments.map((s,i)=>[s.key,[s,i]]));
   const blocks=[];
   Object.entries(OB_GROUPS).forEach(([g,keys])=>{

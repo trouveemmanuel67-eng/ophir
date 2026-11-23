@@ -148,11 +148,45 @@ function posOpenFiche(tab,tv){
     setTimeout(go,350); setTimeout(go,900);
   } else go();
 }
+function apex10FromKnown(tv){
+  /* t344u : relire une note déjà calculée (onglets), sans recalcul. */
+  if(!tv||tv==='pas de note') return null;
+  const ok=a=>a&&a.note!=null&&a.display!=='–'?a:null;
+  const bars=(typeof APEX_BARS!=='undefined'&&APEX_BARS.bars)?APEX_BARS.bars:{};
+  if(ok((bars[tv]||{}).apex10)) return bars[tv].apex10;
+  const scan=(arr,getTv,getA)=>{
+    if(!arr) return null;
+    for(const x of arr){ if(getTv(x)===tv){ const r=ok(getA(x)); if(r) return r; } }
+    return null;
+  };
+  if(typeof T2!=='undefined'){
+    let r=scan((T2.energie&&T2.energie.assets)||[],a=>a.tv||a.sym,a=>a.apex10); if(r) return r;
+    const F=T2.crypto&&T2.crypto.fiches;
+    r=scan((F&&F.assets)||[],a=>a.tv||a.sym||a.key,a=>a.apex10); if(r) return r;
+    r=scan((T2.liquidites&&T2.liquidites.fx&&T2.liquidites.fx.assets)||[],a=>a.tv||a.sym||a.pair,a=>a.apex10); if(r) return r;
+  }
+  if(typeof OB!=='undefined'){
+    for(const s of (OB.segments||[])){
+      if(s.tv===tv){ const r=ok(s.apex10_panier)||(s.apex10&&s.apex10.cap!=='moyenne'?ok(s.apex10):null); if(r) return r; }
+      const r=scan(s.list||[],x=>x.tv,x=>x.apex10); if(r) return r;
+    }
+  }
+  if(typeof MT!=='undefined'){
+    for(const row of (MT.rows||[])){
+      const ml=row.mlist||{};
+      const r=scan([ml.head].concat(ml.items||[]).filter(Boolean),it=>it.tv||it.ticker,it=>it.apex10);
+      if(r) return r;
+    }
+  }
+  return null;
+}
 function posApex10Of(p){
   if(p&&p.apex10&&p.apex10.note!=null) return p.apex10;
-  const key=p&&(p.fiche_tv||p.tv_note||p.tv||p.ticker);
-  const b=(typeof APEX_BARS!=='undefined'&&APEX_BARS.bars&&key)?(APEX_BARS.bars[key]||null):null;
-  if(b&&b.apex10&&b.apex10.note!=null) return b.apex10;
+  const keys=[p&&p.fiche_tv,p&&p.tv_note,p&&p.tv,p&&p.ticker].filter(k=>k&&k!=='pas de note');
+  for(const key of keys){
+    const rec=apex10FromKnown(key);
+    if(rec) return rec;
+  }
   if(false&&p&&p.apex_score!=null) return null; /* t320u : pas de recalcul JS */
   return null;
 }

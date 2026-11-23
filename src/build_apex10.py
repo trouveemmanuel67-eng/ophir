@@ -373,11 +373,25 @@ def main():
                 if av is not None:
                     avs.append(float(av))
             s['apex10'] = moyenne_apex(notes, DETAIL_SECTION)
-            count(s['apex10'])
             if notes:
                 s['av'] = moyenne_av(avs)
             else:
-                s['av'] = {'score': None, 'label': '–', 'n': 0, 'source': 'actifs_affiches'}
+                # t344u : liste vide (aucune alternative UCITS) — afficher la note
+                # déjà calculée de l'ETF de référence, sans recalcul ni règle nouvelle.
+                pan = s.get('apex10_panier') or {}
+                if pan.get('note') is not None:
+                    rec = dict(pan)
+                    rec['detail'] = "Note de l'ETF de référence (aucune alternative UCITS dans la liste)."
+                    rec['cap'] = rec.get('cap') or 'sans_fond'
+                    s['apex10'] = rec
+                    av_keep = s.get('av') if (s.get('av') or {}).get('score') is not None else (s.get('av_panier') or {})
+                    if av_keep.get('score') is not None:
+                        s['av'] = av_keep
+                    else:
+                        s['av'] = {'score': None, 'label': '–', 'n': 0, 'source': 'actifs_affiches'}
+                else:
+                    s['av'] = {'score': None, 'label': '–', 'n': 0, 'source': 'actifs_affiches'}
+            count(s['apex10'])
         save('obligations.json', OB)
 
     # --- métaux ---
