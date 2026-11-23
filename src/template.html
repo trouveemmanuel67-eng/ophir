@@ -586,11 +586,14 @@ body.rg-on #rg-page[hidden]{display:flex}
 .rg-sec{margin:0 0 8px}
 .rg-table-wrap{overflow-x:auto;margin:0 0 18px;border:1px solid rgba(255,255,255,.10);border-radius:12px;background:rgba(255,255,255,.03)}
 .rg-table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;table-layout:fixed}
-.rg-table th,.rg-table td{padding:10px 12px;text-align:left;vertical-align:top;border-bottom:1px solid rgba(255,255,255,.08);font-size:13px;line-height:1.45}
+.rg-table th,.rg-table td{padding:10px 12px;text-align:left;vertical-align:top;border-bottom:1px solid rgba(255,255,255,.08);font-size:13px;line-height:1.45;white-space:normal}
 .rg-table thead th{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);font-weight:700;background:rgba(230,194,122,.08)}
+.rg-table thead th:nth-child(1){width:20%}
+.rg-table thead th:nth-child(2),.rg-table thead th:nth-child(3){width:7.2em}
+.rg-table thead th:nth-child(4){width:auto}
 .rg-table tbody th{font-weight:650;color:#fff;width:22%;padding-right:16px}
 .rg-table .rg-num{white-space:nowrap;color:#e6c27a;font-weight:650;width:6.8em}
-.rg-table .rg-rule{color:#d8d0c2;font-weight:400;overflow-wrap:break-word;word-break:break-word}
+.rg-table .rg-rule{color:#d8d0c2;font-weight:400;white-space:normal;overflow-wrap:break-word;word-break:break-word}
 .rg-table tbody tr:last-child th,.rg-table tbody tr:last-child td{border-bottom:0}
 .rg-row-base th,.rg-row-base td{background:rgba(230,194,122,.05)}
 .rg-table-sm{table-layout:auto;min-width:0}
