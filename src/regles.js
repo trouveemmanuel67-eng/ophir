@@ -301,6 +301,12 @@ function rgCommons(){
     </div>
   </section>`;
 }
+function rgAchatV2Total(){
+  const v=(RG&&RG.apex_achat_v2)||{};
+  const all=(v.criteres||[]).filter(c=>c&&c.max!=null&&Number.isFinite(Number(c.max)));
+  const sum=all.reduce((s,c)=>s+Number(c.max),0);
+  return {sum, detail:all.map(c=>(c.label||c.id)+' '+rgNum(c.max)).join(' + '), n:all.length};
+}
 function rgTable(rows){
   const body=rows.map(r=>{
     const poids=r.poids==null?'—':rgPct(r.poids);
@@ -311,12 +317,22 @@ function rgTable(rows){
       <td class="rg-rule">${rgEsc(r.regle)}</td>
     </tr>`;
   }).join('');
+  const tot=rgAchatV2Total();
+  const foot=tot.n?`<tfoot>
+      <tr class="rg-row-total">
+        <th scope="row">Total max. provisoire</th>
+        <td class="rg-num">—</td>
+        <td class="rg-num">${rgNum(tot.sum)}</td>
+        <td class="rg-rule">Critères techniques saisis : ${rgEsc(tot.detail)} = ${rgNum(tot.sum)}.</td>
+      </tr>
+    </tfoot>`:'';
   return `<div class="rg-table-wrap">
     <table class="rg-table" id="rg-table-actions">
       <thead>
         <tr><th>Critère</th><th>Poids</th><th>Points max</th><th>Règle</th></tr>
       </thead>
       <tbody>${body}</tbody>
+      ${foot}
     </table>
   </div>`;
 }
@@ -330,7 +346,7 @@ function rgFmtPlus(x){
 function rgAchatV2Critere(id){
   const v=(RG&&RG.apex_achat_v2)||{};
   const all=Array.isArray(v.criteres)?v.criteres:[];
-  const aliases={rsi:['rsi','rsi_14_hebdo'],macd:['macd','macd_12_26_9','macd_12_26_9_hebdo']};
+  const aliases={rsi:['rsi','rsi_14_hebdo'],macd:['macd','macd_12_26_9','macd_12_26_9_hebdo'],cci:['cci','cci_20_hebdo'],fibonacci:['fibonacci'],elliott:['elliott']};
   const want=aliases[id]||[id];
   return all.find(c=>c&&want.includes(c.id))||null;
 }
@@ -338,10 +354,12 @@ function rgAchatV2Rule(c){
   if(!c) return '';
   const conds=(c.conditions||[]).map(x=>(x.label||x.id||'')+' : '+rgFmtPlus(x.points)+' points');
   const bits=[];
+  if(c.preambule) bits.push(String(c.preambule).trim());
   if(conds.length) bits.push(conds.join(' ; ')+'.');
   if(c.precision) bits.push(String(c.precision).trim());
   else{
-    if(c.cumulables) bits.push('Conditions cumulables.');
+    if(c.cumulables===false) bits.push('Paliers non cumulables.');
+    else if(c.cumulables) bits.push('Conditions cumulables.');
     if(c.max!=null) bits.push('Maximum '+rgNum(c.max)+' points.');
     if(c.retrait===false) bits.push('Aucun retrait.');
   }

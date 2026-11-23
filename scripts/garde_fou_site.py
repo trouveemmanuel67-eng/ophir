@@ -371,10 +371,22 @@ CHECK_REGLES_OPEN_JS = (
     "  const vis = !!(page && document.body.classList.contains('rg-on') && !page.hasAttribute('hidden'));"
     "  const covers = !!(r && r.width >= window.innerWidth * 0.95 && r.height >= window.innerHeight * 0.95);"
     "  const h2 = Array.from((page||document).querySelectorAll('h2')).map(el => (el.innerText||'').trim());"
-    "  const rsiRow = table && Array.from(table.rows).find(row => /RSI/.test(row.innerText||''));"
-    "  const macdRow = table && Array.from(table.rows).find(row => /MACD/.test(row.innerText||''));"
+    "  const rowHead = row => { const el=row && row.querySelector && row.querySelector('th'); return ((el && (el.textContent||el.innerText))||'').trim(); };"
+    "  const findRow = re => table && Array.from(table.querySelectorAll('tbody tr')).find(row => re.test(rowHead(row)));"
+    "  const rsiRow = findRow(/^RSI\\b/i);"
+    "  const macdRow = findRow(/^MACD\\b/i);"
+    "  const fiboRow = findRow(/^Fibonacci\\b/i);"
+    "  const ellRow = findRow(/Elliott/i);"
+    "  const cciRow = findRow(/^CCI\\b/i);"
+    "  const totRow = table && (table.tFoot && table.tFoot.rows[0]);"
     "  const rsiText = rsiRow ? ((rsiRow.innerText||'')+'').replace(/\\s+/g,' ') : '';"
     "  const macdText = macdRow ? ((macdRow.innerText||'')+'').replace(/\\s+/g,' ') : '';"
+    "  const fiboText = fiboRow ? ((fiboRow.innerText||'')+'').replace(/\\s+/g,' ') : '';"
+    "  const ellText = ellRow ? ((ellRow.innerText||'')+'').replace(/\\s+/g,' ') : '';"
+    "  const cciText = cciRow ? ((cciRow.innerText||'')+'').replace(/\\s+/g,' ') : '';"
+    "  const totText = totRow ? ((totRow.innerText||'')+'').replace(/\\s+/g,' ') : '';"
+    "  const poidsOf = row => row && row.querySelector ? ((row.querySelector('td')||{}).innerText||'').replace(/\\s+/g,' ').trim() : '';"
+    "  const fiboPoids = poidsOf(fiboRow), ellPoids = poidsOf(ellRow), cciPoids = poidsOf(cciRow);"
     "  return {"
     "    vis, covers,"
     "    w: r && Math.round(r.width), h: r && Math.round(r.height),"
@@ -394,6 +406,14 @@ CHECK_REGLES_OPEN_JS = (
     "    macdText,"
     "    rsiOldGone: !(/±\\s*3[,.]75/.test(rsiText) || /clip\\s*\\(/.test(rsiText) || /5\\s*%/.test(rsiText)),"
     "    macdOldGone: !(/±\\s*3[,.]75/.test(macdText) || /clip\\s*\\(/.test(macdText) || /5\\s*%/.test(macdText)),"
+    "    fiboText, ellText, cciText, totText,"
+    "    fiboNew: /38[,.]2/.test(fiboText) && /61[,.]8/.test(fiboText) && /78[,.]6/.test(fiboText) && /\\b30\\b/.test(fiboText),"
+    "    fiboOldGone: !(/±\\s*6\\b/.test(fiboText) || /%/.test(fiboPoids)),"
+    "    ellNew: /\\+20/.test(ellText) && /zone d.entrée|vague C/.test(ellText),"
+    "    ellOldGone: !(/±\\s*7[,.]5/.test(ellText) || /%/.test(ellPoids)),"
+    "    cciNew: /sous 20/.test(cciText) && /\\+20/.test(cciText) && /\\b20\\b/.test(cciText),"
+    "    cciOldGone: !(/±\\s*3[,.]75/.test(cciText) || /clip\\s*\\(/.test(cciText) || /%/.test(cciPoids)),"
+    "    tot130: /\\b130\\b/.test(totText),"
     "    noStructure: !table || !Array.from(table.rows).some(row => /^\\s*Structure\\b/i.test((row.querySelector('th,td')||{}).innerText||'')),"
     "    hash: location.hash"
     "  };"
@@ -578,6 +598,33 @@ def check_headless(root=ROOT):
                 "page RÈGLES : la ligne MACD doit afficher +10 / +20 / max 30, "
                 "sans poids 5 %, ±3,75 ni formule clip "
                 f"({regles_open.get('macdText')!r})."
+            )
+            raise SystemExit(1)
+        if not regles_open.get('fiboNew') or not regles_open.get('fiboOldGone'):
+            _fail(
+                "page RÈGLES : la ligne Fibonacci doit afficher les paliers 38,2 / 61,8 / 78,6, max 30, "
+                "sans poids 8 % ni ±6 "
+                f"({regles_open.get('fiboText')!r})."
+            )
+            raise SystemExit(1)
+        if not regles_open.get('ellNew') or not regles_open.get('ellOldGone'):
+            _fail(
+                "page RÈGLES : la ligne Elliott doit afficher +20 en zone d'entrée, max 20, "
+                "sans poids 10 % ni ±7,5 "
+                f"({regles_open.get('ellText')!r})."
+            )
+            raise SystemExit(1)
+        if not regles_open.get('cciNew') or not regles_open.get('cciOldGone'):
+            _fail(
+                "page RÈGLES : la ligne CCI doit afficher +20 si CCI sous 20, max 20, "
+                "sans poids 5 %, ±3,75 ni formule clip "
+                f"({regles_open.get('cciText')!r})."
+            )
+            raise SystemExit(1)
+        if not regles_open.get('tot130'):
+            _fail(
+                "page RÈGLES : le total maximum provisoire 130 est manquant "
+                f"({regles_open.get('totText')!r})."
             )
             raise SystemExit(1)
         if not regles_open.get('noStructure'):

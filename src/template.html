@@ -596,6 +596,9 @@ body.rg-on #rg-page[hidden]{display:flex}
 .rg-table .rg-rule{color:#d8d0c2;font-weight:400;white-space:normal;overflow-wrap:break-word;word-break:break-word}
 .rg-table tbody tr:last-child th,.rg-table tbody tr:last-child td{border-bottom:0}
 .rg-row-base th,.rg-row-base td{background:rgba(230,194,122,.05)}
+.rg-table tfoot th,.rg-table tfoot td{border-top:1px solid rgba(230,194,122,.35);border-bottom:0;background:rgba(230,194,122,.07);font-weight:650}
+.rg-table tfoot .rg-rule{color:#d8d0c2;font-weight:500}
+
 .rg-table-sm{table-layout:auto;min-width:0}
 .rg-table-sm tbody th{width:auto;white-space:normal}
 .rg-table-sm th,.rg-table-sm td{font-size:12.5px;padding:8px 10px;white-space:normal}
@@ -617,8 +620,8 @@ body.rg-on #rg-page[hidden]{display:flex}
   .rg-top h1{font-size:13.5px;letter-spacing:.03em}
   .rg-back,.rg-close{padding:7px 10px;font-size:12px}
   .rg-table-wrap{overflow-x:visible}
-  .rg-table,.rg-table thead,.rg-table tbody{display:block;width:100%;table-layout:auto}
-  .rg-table thead tr,.rg-table tbody tr{display:grid;grid-template-columns:minmax(0,1.5fr) auto auto;align-items:start}
+  .rg-table,.rg-table thead,.rg-table tbody,.rg-table tfoot{display:block;width:100%;table-layout:auto}
+  .rg-table thead tr,.rg-table tbody tr,.rg-table tfoot tr{display:grid;grid-template-columns:minmax(0,1.5fr) auto auto;align-items:start}
   .rg-table thead th:last-child{display:none}
   .rg-table tbody th,.rg-table td{width:auto;border-bottom:0;padding:6px 10px}
   .rg-table tbody td.rg-rule{grid-column:1/-1;padding-top:0;padding-bottom:12px}

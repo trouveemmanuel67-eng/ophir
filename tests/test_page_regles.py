@@ -74,7 +74,9 @@ def test_apex_achat_v2_rsi_seulement(regles):
     assert v.get('affichage_seulement') is True
     assert 'accumulation' in (v.get('intro') or '').lower() or 'accumulation' in (v.get('titre') or '').lower()
     criteres = v.get('criteres') or []
-    assert [c['id'] for c in criteres] == ['rsi_14_hebdo', 'macd_12_26_9_hebdo']
+    assert [c['id'] for c in criteres] == [
+        'rsi_14_hebdo', 'macd_12_26_9_hebdo', 'fibonacci', 'elliott', 'cci_20_hebdo'
+    ]
     by = {c['id']: c for c in criteres}
     rsi, macd = by['rsi_14_hebdo'], by['macd_12_26_9_hebdo']
     for c in (rsi, macd):
@@ -87,8 +89,24 @@ def test_apex_achat_v2_rsi_seulement(regles):
     pts = {c['id']: c['points'] for c in macd['conditions']}
     assert pts['macd_sous_0'] == 10
     assert pts['histo_4_barres_rouges_sous_0'] == 20
+    fibo = by['fibonacci']
+    assert fibo['max'] == 30 and fibo.get('cumulables') is False and fibo.get('retrait') is False
+    fp = {c['id']: c['points'] for c in fibo['conditions']}
+    assert fp == {'sous_382': 10, 'sous_618': 20, 'sous_786': 30}
+    elliott = by['elliott']
+    assert elliott['max'] == 20
+    assert elliott['conditions'][0]['points'] == 20
+    cci = by['cci_20_hebdo']
+    assert cci['max'] == 20
+    assert cci['conditions'][0]['label'] == 'CCI sous 20'
+    assert 'sous 20' in cci['conditions'][0]['label']
+    assert cci['conditions'][0]['points'] == 20
+    assert sum(c['max'] for c in criteres) == 130
     # les règles de calcul de la note actuelle restent inchangées
     assert regles['note_apex']['technique']['rsi'] == 0.05
+    assert regles['note_apex']['technique']['fibonacci'] == 0.08
+    assert regles['note_apex']['technique']['elliott'] == 0.10
+    assert regles['note_apex']['technique']['cci'] == 0.05
     assert regles['note_apex']['note_base'] == 50
 
 
@@ -112,6 +130,8 @@ def test_js_rsi_affiche_regles_achat_dans_le_tableau():
     # la ligne RSI du tableau principal est remplacée par les règles d'affichage
     assert 'rgAchatV2Critere(x.id)' in js
     assert 'rgAchatV2Rule(v2)' in js
+    assert 'function rgAchatV2Total' in js
+    assert 'rg-row-total' in js
 
 def test_structure_masquee_affichage_seulement(regles):
     assert 'structure' in (regles['apex_achat_v2'].get('masquer_criteres') or [])

@@ -1,6 +1,6 @@
 {
   "version": "2026-11-23",
-  "tache": "t359u",
+  "tache": "t362u",
   "timezone": "Europe/Paris",
   "note_apex": {
     "poids_timing": 0.5,
@@ -1442,6 +1442,62 @@
           {
             "id": "histo_4_barres_rouges_sous_0",
             "label": "Au moins 4 barres d’histogramme rouges consécutives sous 0",
+            "points": 20
+          }
+        ]
+      },
+      {
+        "id": "fibonacci",
+        "label": "Fibonacci",
+        "max": 30,
+        "retrait": false,
+        "cumulables": false,
+        "preambule": "Retracement plus bas historique → plus haut historique (corps hebdomadaires).",
+        "precision": "Paliers non cumulables : le palier atteint dépend de l’endroit où se trouve le prix. Maximum 30 points. Aucun retrait.",
+        "conditions": [
+          {
+            "id": "sous_382",
+            "label": "Prix sous 38,2 %",
+            "points": 10
+          },
+          {
+            "id": "sous_618",
+            "label": "Prix sous 61,8 %",
+            "points": 20
+          },
+          {
+            "id": "sous_786",
+            "label": "Prix sous 78,6 %",
+            "points": 30
+          }
+        ]
+      },
+      {
+        "id": "elliott",
+        "label": "Vagues d’Elliott",
+        "max": 20,
+        "retrait": false,
+        "cumulables": false,
+        "precision": "0 point sinon. Maximum 20 points.",
+        "conditions": [
+          {
+            "id": "zone_entree",
+            "label": "Prix dans une zone d’entrée (fin de vague 2, fin de vague 4, vague C)",
+            "points": 20
+          }
+        ]
+      },
+      {
+        "id": "cci_20_hebdo",
+        "label": "CCI 20 hebdo",
+        "max": 20,
+        "retrait": false,
+        "cumulables": false,
+        "precision": "Maximum 20 points. Aucun retrait.",
+        "conditions": [
+          {
+            "id": "cci_sous_20",
+            "label": "CCI sous 20",
             "points": 20
           }
         ]
