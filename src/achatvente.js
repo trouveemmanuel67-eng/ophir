@@ -274,17 +274,35 @@ const PILOT=(function(){
 })();
 function isPilotSector(sym){return !!(PILOT&&PILOT.secteur_sym&&sym===PILOT.secteur_sym);}
 function pilotRec(tv){return (PILOT&&PILOT.by_tv&&tv)?PILOT.by_tv[tv]:null;}
-function pilotPos(total){
+function pilotScale(){
   const mn=(PILOT&&PILOT.scale&&PILOT.scale.min!=null)?PILOT.scale.min:-50;
   const mx=(PILOT&&PILOT.scale&&PILOT.scale.max!=null)?PILOT.scale.max:270;
+  return {min:mn,max:mx};
+}
+/* 4 tranches égales de 80 pts sur [-50, 270] ; borne inférieure incluse, 270 inclus dans le cyan */
+const PILOT_BANDS=[
+  {id:'rouge',de:-50,a:30,hex:'#ff2d2d'},
+  {id:'jaune',de:30,a:110,hex:'#ffd400'},
+  {id:'vert',de:110,a:190,hex:'#22c55e'},
+  {id:'cyan',de:190,a:270,hex:'#00e5ff'}
+];
+function pilotBand(total){
+  const t=Number(total);
+  if(!Number.isFinite(t)) return {id:'',hex:'#8a8a8a'};
+  if(t>=270) return PILOT_BANDS[3];
+  if(t<-50) return PILOT_BANDS[0];
+  return PILOT_BANDS.find(b=>t>=b.de&&t<b.a)||PILOT_BANDS[3];
+}
+function pilotPos(total){
+  const {min:mn,max:mx}=pilotScale();
   const t=Number(total);
   if(!Number.isFinite(t)) return 50;
   return Math.max(0,Math.min(100,(t-mn)/(mx-mn)*100));
 }
-function pilotHex(rec){return (rec&&rec.hex)||'#8a8a8a';}
+function pilotHex(rec){return pilotBand(rec&&rec.total).hex;}
 function pilotNoteHTML(rec){
   if(!rec||rec.total==null) return '';
-  const mx=rec.total_max!=null?rec.total_max:((PILOT&&PILOT.scale&&PILOT.scale.max)||270);
+  const mx=rec.total_max!=null?rec.total_max:pilotScale().max;
   return `<div class="apex10 apex10-pilot" style="color:${pilotHex(rec)}"><b>${rec.total}</b><small>/ ${mx}</small></div>`;
 }
 function pilotBrk(rec){
@@ -308,29 +326,25 @@ function pilotSpark(fg){
 function dualBarPilot(rec, compact){
   const fg=(PILOT&&PILOT.fear_greed)||{};
   const total=rec&&rec.total!=null?rec.total:null;
-  const mx=(rec&&rec.total_max!=null)?rec.total_max:((PILOT&&PILOT.scale&&PILOT.scale.max)||270);
-  const mn=(rec&&rec.total_min!=null)?rec.total_min:((PILOT&&PILOT.scale&&PILOT.scale.min)!=null?PILOT.scale.min:-50);
+  const {min:mn,max:mx}=pilotScale();
   const ap=pilotPos(total);
   const sv=Number(fg.value);
-  const sp=Number.isFinite(sv)?Math.max(0,Math.min(100,sv)):null;
-  const ticks=[-50,0,90,180,270];
-  const pos=v=>`${((v-mn)/(mx-mn))*100}%`;
+  const ticks=[-50,30,110,190,270];
+  const pos=v=>((v-mn)/(mx-mn))*100;
   const hex=pilotHex(rec);
-  const scol=sp!=null?gmir(sp):'#888';
   const sl=fg.label||'–';
-  const al=(rec&&rec.av_label)||'–';
-  const rng=(fg.min&&fg.max)?`<div class="db-srange" style="left:${fg.min[1]}%;width:${Math.max(0.5,fg.max[1]-fg.min[1])}%" title="Fear & Greed, plage 1 an : ${fmt(fg.min[1],0)} (${dshort(fg.min[0])}) → ${fmt(fg.max[1],0)} (${dshort(fg.max[0])})"></div>`:'';
-  const bar=`<div class="db db-pilot ${compact?'db-sm':''}" role="img" aria-label="Total ${total} sur ${mn} à ${mx} ; Fear & Greed CNN ${Number.isFinite(sv)?fmt(sv,1):'–'} (${sl})">
-   <div class="db-tk db-tk1">${ticks.map(v=>`<i style="left:${pos(v)}%">${v<0?'−'+Math.abs(v):String(v)}</i>`).join('')}</div>
-   <div class="db-g db-g-av"><div class="ind-bar"></div>
-    ${total!=null?`<div class="db-cur db-a" style="left:${ap}%;color:${hex}" data-p="${ap.toFixed(1)}" title="AV = total des points ${total} / ${mx} · ${al}">AV</div>`:''}
+  const tickHTML=ticks.map((v,i)=>{
+    const edge=i===0?' db-e0':(i===ticks.length-1?' db-e1':'');
+    const left=i===ticks.length-1?'':` style="left:${pos(v)}%"`;
+    const lab=v<0?('−'+Math.abs(v)):String(v);
+    return `<i class="${edge.trim()}"${left}>${lab}</i>`;
+  }).join('');
+  const bar=`<div class="db db-pilot ${compact?'db-sm':''}" role="img" aria-label="Score APEX ${total==null?'n.d.':total} sur ${mn} à ${mx}">
+   <div class="db-tk db-tk1">${tickHTML}</div>
+   <div class="db-g db-g-av"><div class="ind-bar db-pilot-bar"></div>
+    ${total!=null?`<div class="db-cur db-a" style="left:${ap}%;color:${hex}" data-p="${ap.toFixed(1)}" title="Score APEX ${total} / ${mx}">AV</div>`:''}
    </div>
-   <div class="db-g db-g-s"><div class="ind-bar"></div>${rng}
-    ${sp!=null?`<div class="db-cur db-s" style="left:${sp}%;color:${scol}" data-p="${sp}" title="S = CNN Fear & Greed Index ${fmt(sv,1)} · ${sl} (${(fg.date_valeur||fg.date_serie)||''})">S</div>`:''}
-   </div>
-   <div class="db-sc db-bot"><span>0 · Peur extrême</span><span>CNN Fear & Greed</span><span>Euphorie · 100</span></div>
-   ${compact?`<div class="db-leg"><span><i class="db-dot db-a" style="color:${hex}">AV</i>Total <b class="sc-t" style="color:${hex}">${total} / ${mx} ${al}</b></span><span><i class="db-dot db-s" style="color:${scol}">S</i>Fear &amp; Greed <b class="sc-t" style="color:${scol}">${Number.isFinite(sv)?fmt(sv,1):'–'} ${sl}</b></span></div>`:''}
-   <div class="pilot-smeta">${pilotSpark(fg)}${fg.min&&fg.max?`<span>1 an : min ${fmt(fg.min[1],0)} (${dshort(fg.min[0])}) · max ${fmt(fg.max[1],0)} (${dshort(fg.max[0])})${fg.date_valeur?` · au ${fg.date_valeur}`:''}</span>`:''}</div>
+   <div class="pilot-fg">${pilotSpark(fg)}<span>Fear &amp; Greed ${Number.isFinite(sv)?fmt(sv,1):'–'} ${sl}</span></div>
   </div>`;
   return `<div class="apex-block apex-block-pilot">${pilotNoteHTML(rec)}<div class="apex-rest">${bar}${pilotBrk(rec)}</div></div>`;
 }

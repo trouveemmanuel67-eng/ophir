@@ -48,3 +48,21 @@ def test_pilot_file_communication_only():
         assert rec['total_min'] == -50 and rec['total_max'] == 270
     # le fichier secteurs des autres lignes n'est pas le lieu du pilote
     # (on ne greffe pas le score sur les 10 autres secteurs)
+
+
+def test_quatre_tranches_egales():
+    assert P.band_of(-50) == 'rouge'
+    assert P.band_of(29.9) == 'rouge'
+    assert P.band_of(30) == 'jaune'
+    assert P.band_of(109.9) == 'jaune'
+    assert P.band_of(110) == 'vert'
+    assert P.band_of(189.9) == 'vert'
+    assert P.band_of(190) == 'cyan'
+    assert P.band_of(270) == 'cyan'
+    # totaux publiés du pilote Communication
+    assert P.band_of(130) == 'vert'   # META
+    assert P.band_of(140) == 'vert'   # APP
+    assert P.band_of(162) == 'vert'   # ZPDK
+    assert P.band_of(180) == 'vert'   # GOOGL
+    assert P.band_of(200) == 'cyan'   # NFLX
+    assert P.band_of(210) == 'cyan'   # RDDT

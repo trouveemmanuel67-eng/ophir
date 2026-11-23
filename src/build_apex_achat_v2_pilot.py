@@ -298,23 +298,28 @@ def fond_points(m):
     return total, elems
 
 
+# 4 tranches égales de 80 points sur [-50, 270] : [-50,30) rouge, [30,110) jaune, [110,190) vert, [190,270] cyan
+PILOT_BANDS = [
+    ('rouge', -50, 30, '#ff2d2d'),
+    ('jaune', 30, 110, '#ffd400'),
+    ('vert', 110, 190, '#22c55e'),
+    ('cyan', 190, 270, '#00e5ff'),
+]
+
+
 def band_of(total):
-    # 5 tranches égales sur [-50, 270] (largeur 64)
     t = float(total)
-    span = SCALE_MAX - SCALE_MIN
-    w = span / 5.0
-    if t < SCALE_MIN + w:
-        return 'violet'
-    if t < SCALE_MIN + 2 * w:
+    if t >= SCALE_MAX:
+        return 'cyan'
+    if t < SCALE_MIN:
         return 'rouge'
-    if t < SCALE_MIN + 3 * w:
-        return 'jaune'
-    if t < SCALE_MIN + 4 * w:
-        return 'vert'
+    for name, lo, hi, _hex in PILOT_BANDS:
+        if lo <= t < hi or (name == 'cyan' and t == hi):
+            return name
     return 'cyan'
 
 
-HEX = {'violet': '#9d54ff', 'rouge': '#ff2d2d', 'jaune': '#ffd400', 'vert': '#22c55e', 'cyan': '#00e5ff'}
+HEX = {name: hx for name, _lo, _hi, hx in PILOT_BANDS}
 
 
 def compact_line(parts, total):
@@ -436,7 +441,7 @@ def score_asset(asset, fg, elliott_key=None):
 
 def band_label(total):
     b = band_of(total)
-    return {'violet': 'Très faible', 'rouge': 'Faible', 'jaune': 'Neutre', 'vert': 'Favorable', 'cyan': 'Très favorable'}[b]
+    return {'rouge': 'Faible', 'jaune': 'Neutre', 'vert': 'Favorable', 'cyan': 'Très favorable'}[b]
 
 
 def load_elliott_key(tv, sector_obj=None):
@@ -516,11 +521,8 @@ def main():
         'etf_tv': ETF['tv'],
         'scale': {'min': SCALE_MIN, 'max': SCALE_MAX, 'tech_max': TECH_MAX, 'fond_max': FOND_MAX, 'fg_abs': FG_ABS,
                   'bandes': [
-                      {'id': 'violet', 'de': -50, 'a': 14, 'hex': HEX['violet']},
-                      {'id': 'rouge', 'de': 14, 'a': 78, 'hex': HEX['rouge']},
-                      {'id': 'jaune', 'de': 78, 'a': 142, 'hex': HEX['jaune']},
-                      {'id': 'vert', 'de': 142, 'a': 206, 'hex': HEX['vert']},
-                      {'id': 'cyan', 'de': 206, 'a': 270, 'hex': HEX['cyan']},
+                      {'id': name, 'de': lo, 'a': hi, 'hex': hx}
+                      for name, lo, hi, hx in PILOT_BANDS
                   ]},
         'fear_greed': fg,
         'etf': etf_score,
