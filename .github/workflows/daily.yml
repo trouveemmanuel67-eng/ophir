@@ -61,9 +61,8 @@ jobs:
         uses: actions/cache@v4
         with:
           path: data/yahoo_cache
-          key: yahoo-cache-v1-${{ github.run_id }}
+          key: yahoo-cache-${{ github.run_id }}
           restore-keys: |
-            yahoo-cache-v1-
             yahoo-cache-
 
       - name: Tests
@@ -89,7 +88,14 @@ jobs:
           fi
           echo "fetch=$FETCH"
           if [ "$FETCH" = "true" ]; then
-            if ! python -m apex.pipeline --fetch; then
+            set +e
+            python -m apex.pipeline --fetch
+            rc=$?
+            set -e
+            if [ "$rc" -eq 2 ]; then
+              echo "Gros écarts de notes APEX /10 — publication annulée."
+              exit 1
+            elif [ "$rc" -ne 0 ]; then
               echo "Le recalcul complet a échoué (Yahoo ?). Publication à partir des JSON déjà présents."
               python -m apex.pipeline --no-rebuild
             fi

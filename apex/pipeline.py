@@ -6,7 +6,7 @@ from zoneinfo import ZoneInfo
 from pathlib import Path
 
 from . import paths
-from . import changements, good_invest
+from . import changements, good_invest, raw_inputs, note_diff
 
 TZ = ZoneInfo('Europe/Paris')
 
@@ -63,9 +63,14 @@ def main(argv=None):
     ap.add_argument('--fetch', action='store_true', help='Télécharger les cours hebdo avant de recalculer')
     ap.add_argument('--no-rebuild', action='store_true', help='Ne pas relancer les scripts de build')
     ap.add_argument('--fetch-limit', type=int, default=None)
+    ap.add_argument('--force-publish', action='store_true', help='Publier même si le diff de notes est important')
     args = ap.parse_args(argv)
 
     print('APEX_ROOT', paths.root(), flush=True)
+    raw_inputs.extract()
+    before = note_diff.collect()
+    bak = paths.data_dir() / '_note_backup'
+    note_diff.backup_files(bak)
     if args.fetch:
         from . import fetch_yahoo
         fetch_yahoo.run(limit=args.fetch_limit)
@@ -75,11 +80,19 @@ def main(argv=None):
             rebuild()
         except subprocess.CalledProcessError as e:
             print('rebuild failed', e, file=sys.stderr)
+            note_diff.restore_files(bak)
             raise
+    after = note_diff.collect()
+    report = note_diff.compare(before, after)
+    note_diff.write(report)
+    if report['blocking'] and not args.no_rebuild and not args.force_publish:
+        print('GROS ÉCARTS de notes APEX /10 — publication annulée, JSON restaurés.', flush=True)
+        note_diff.restore_files(bak)
+        note_diff.write(report)
+        return 2
     maj = stamp_maj()
     gi = good_invest.build()
     ch = changements.build()
-    # rebuild once more if maj was injected after build.py? stamp before last build if we rebuild
     # build.py est rapide et injecte data/maj.json dans index.html
     try:
         _run('build.py')

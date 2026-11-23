@@ -33,6 +33,7 @@
 :root{--card:#1a1a1a;--line:rgba(255,255,255,.25);--soft:rgba(255,255,255,.10);--mut:#bababa;--txt:#fff;--up:#7fd1a8;--down:#e88f8f;--acc:#a9cdf5;--acc2:#e6c27a;--scroll-thumb:#3d4a5c;--scroll-thumb-hover:#5b6b82;--scroll-thumb-active:#00e5ff}
 html{color-scheme:dark}
 #apex-maj{font-size:11px;color:var(--mut);letter-spacing:.02em;margin:2px 0 0;font-weight:500}
+.fiche-maj{margin-top:4px;font-size:10.5px;color:var(--mut);letter-spacing:.02em;font-weight:500}
 body{color:var(--txt);font-family:Inter,"Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;background:#000;min-height:100vh}
 /* Barres de défilement (t318u) : 8 px, piste du fond sombre, poignée arrondie, sans flèches */
 *{scrollbar-width:thin;scrollbar-color:var(--scroll-thumb) transparent}
@@ -11845,10 +11846,38 @@ function apexShowMaj(){
     }
     n.textContent='Mise à jour : '+j.label;
     n.setAttribute('title','Dernière mise à jour des notes APEX (heure de Paris)');
-    document.querySelectorAll('.fiche-maj').forEach(function(x){ x.textContent=j.label; });
+    window.__APEX_MAJ_LABEL=j.label;
+    apexStampFiches(document);
   }catch(e){}
 }
-document.addEventListener('DOMContentLoaded', apexShowMaj);
+function apexStampFiches(root){
+  var lab=window.__APEX_MAJ_LABEL;
+  if(!lab) return;
+  (root||document).querySelectorAll('.src').forEach(function(s){
+    var n=s.querySelector('.fiche-maj');
+    if(!n){
+      n=document.createElement('div');
+      n.className='fiche-maj';
+      s.appendChild(n);
+    }
+    n.textContent='Mise à jour : '+lab;
+  });
+}
+if(!window.__APEX_MAJ_OBS){
+  window.__APEX_MAJ_OBS=true;
+  document.addEventListener('DOMContentLoaded', function(){
+    apexShowMaj();
+    try{
+      new MutationObserver(function(muts){
+        muts.forEach(function(m){
+          m.addedNodes&&m.addedNodes.forEach(function(n){
+            if(n.nodeType===1) apexStampFiches(n);
+          });
+        });
+      }).observe(document.body,{childList:true,subtree:true});
+    }catch(e){}
+  });
+}
 </script>
 
 </body>
