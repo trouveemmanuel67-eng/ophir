@@ -1,36 +1,10 @@
 {
   "date": "2026-11-23",
-  "maj": "2026-11-23T17:37:31+0100",
-  "maj_label": "23/11/2026 17:37 Europe/Paris",
+  "maj": "2026-11-23T17:45:17+0100",
+  "maj_label": "23/11/2026 17:45 Europe/Paris",
   "n_notes": 543,
   "n_changements_couleur": 0,
-  "n_anomalies": 5,
+  "n_anomalies": 0,
   "changements_couleur": [],
-  "anomalies": [
-    {
-      "tv": "CRYPTO:MSTRUSD",
-      "yahoo": "MSTR-USD",
-      "type": "yahoo_introuvable"
-    },
-    {
-      "tv": "OANDA:XAGUSD",
-      "yahoo": "XAGUSD=X",
-      "type": "yahoo_introuvable"
-    },
-    {
-      "tv": "OANDA:XPDUSD",
-      "yahoo": "XPDUSD=X",
-      "type": "yahoo_introuvable"
-    },
-    {
-      "tv": "OANDA:XPTUSD",
-      "yahoo": "XPTUSD=X",
-      "type": "yahoo_introuvable"
-    },
-    {
-      "tv": "EURONEXT:PHPT",
-      "yahoo": "PHPT.PA",
-      "type": "yahoo_introuvable"
-    }
-  ]
+  "anomalies": []
 }
