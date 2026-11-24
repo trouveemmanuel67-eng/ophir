@@ -45,65 +45,51 @@ def test_pilot_file_communication_only():
     assert tvs == {'NASDAQ:APP', 'NYSE:RDDT', 'NASDAQ:META', 'NASDAQ:NFLX', 'NASDAQ:GOOGL'}
     for rec in [d['etf']] + d['actions']:
         pts = rec['points']
-        expected = (pts['rsi'] + pts['macd'] + pts['fibonacci'] + pts['elliott']
+        expected = (pts['rsi'] + pts['macd'] + pts['fibonacci']
                     + pts['cci'] + pts['fondamental'] + (pts['fear_greed'] or 0))
         assert rec['total'] == expected == pts['total']
-        assert rec['total_min'] == -50 and rec['total_max'] == 270
+        assert rec['total_min'] == -50 and rec['total_max'] == 250
+        assert 'elliott' not in pts
+        assert 'Elliott' not in (rec.get('ligne') or '')
     # déploiement mondial : toutes les sections Actions sont dans pilotes
     assert 'XLF' in d['pilotes'] and 'fr_fin' in d['pilotes'] and 'ch_fin' in d['pilotes']
     assert set(d['secteurs_pilotes']) >= {'XLC', 'XLF', 'fr_fin', 'de_fin', 'ca_fin'}
 
 
-def test_quatre_tranches_egales():
-    assert P.band_of(-50) == 'rouge'
-    assert P.band_of(29.9) == 'rouge'
-    assert P.band_of(30) == 'jaune'
-    assert P.band_of(109.9) == 'jaune'
-    assert P.band_of(110) == 'vert'
+def test_cinq_tranches_egales():
+    assert P.SCALE_MAX == 250 and P.TECH_MAX == 110
+    assert P.band_of(-50) == 'violet'
+    assert P.band_of(9.9) == 'violet'
+    assert P.band_of(10) == 'rouge'
+    assert P.band_of(69.9) == 'rouge'
+    assert P.band_of(70) == 'orange'
+    assert P.band_of(129.9) == 'orange'
+    assert P.band_of(130) == 'vert'
     assert P.band_of(189.9) == 'vert'
     assert P.band_of(190) == 'cyan'
-    assert P.band_of(270) == 'cyan'
-    # totaux publiés du pilote Communication
-    assert P.band_of(110) == 'vert'   # META (borne de la tranche verte)
-    assert P.band_of(140) == 'vert'   # ZPDK
-    assert P.band_of(160) == 'vert'   # APP
-    assert P.band_of(180) == 'vert'   # GOOGL
-    assert P.band_of(190) == 'cyan'   # NFLX
-    assert P.band_of(210) == 'cyan'   # RDDT
+    assert P.band_of(250) == 'cyan'
+    # totaux publiés du pilote Communication (sans Elliott)
+    assert P.band_of(110) == 'orange'  # META
+    assert P.band_of(140) == 'vert'    # ZPDK, APP
+    assert P.band_of(160) == 'vert'    # GOOGL
+    assert P.band_of(170) == 'vert'    # NFLX
+    assert P.band_of(210) == 'cyan'    # RDDT
 
 
-def test_elliott_apres_vague_c_app_uniquement():
-    # new1 (après C, vague 1 non confirmée) compte comme zone d'entrée
-    pts, det = P.elliott_points('new1')
-    assert pts == 20 and det['entry'] is True
-    pts, det = P.elliott_points('fin_c')
-    assert pts == 20
-    pts, det = P.elliott_points('a')
-    assert pts == 0
-    pts, det = P.elliott_points('b')
-    assert pts == 0
-    pts, det = P.elliott_points('bear_135')
-    assert pts == 0
-
+def test_note_sans_elliott_sur_le_pilote_communication():
     d = load_full()
     xlc = d['pilotes']['XLC']
     by = {a['tv']: a for a in xlc['actions']}
     by['XETR:ZPDK'] = xlc['etf']
-    # APP : C terminée vers 228,5 puis rebond, vague 1 non confirmée → +20 (était 0)
-    app = by['NASDAQ:APP']
-    assert app['points']['elliott'] == 20
-    assert app['total'] == 160
-    ell = app['detail']['elliott']
-    assert ell.get('key') == 'new1'
-    assert ell.get('key_officielle') == 'b'
-    assert ell.get('c_fin') and abs(ell['c_fin']['prix'] - 228.5) < 1
-    # inchangés
-    assert by['XETR:ZPDK']['points']['elliott'] == 0 and by['XETR:ZPDK']['total'] == 140
-    assert by['NYSE:RDDT']['points']['elliott'] == 0 and by['NYSE:RDDT']['total'] == 210
-    assert by['NASDAQ:META']['points']['elliott'] == 0 and by['NASDAQ:META']['total'] == 110
-    assert by['NASDAQ:NFLX']['points']['elliott'] == 20 and by['NASDAQ:NFLX']['total'] == 190
-    assert by['NASDAQ:GOOGL']['points']['elliott'] == 20 and by['NASDAQ:GOOGL']['total'] == 180
-    # tri attendu après règle C : RDDT, NFLX, GOOGL, APP, META
+    # Elliott retiré de la note (pas de redistribution) : APP 160−20=140, NFLX 190−20=170, GOOGL 180−20=160
+    for tv, total in {
+        'NASDAQ:APP': 140, 'XETR:ZPDK': 140, 'NYSE:RDDT': 210,
+        'NASDAQ:META': 110, 'NASDAQ:NFLX': 170, 'NASDAQ:GOOGL': 160,
+    }.items():
+        assert 'elliott' not in by[tv]['points']
+        assert by[tv]['total'] == total
+        assert by[tv]['total_max'] == 250
+        assert 'Elliott' not in (by[tv].get('ligne') or '')
     order = sorted(xlc['actions'], key=lambda a: -a['total'])
     assert [a['tv'] for a in order] == [
         'NYSE:RDDT', 'NASDAQ:NFLX', 'NASDAQ:GOOGL', 'NASDAQ:APP', 'NASDAQ:META'
@@ -134,11 +120,11 @@ def test_cci_stoch_et_fond_valides_sur_pilote():
     d = d['pilotes']['XLC']
     expected = {
         'XETR:ZPDK':  {'cci_pts': 0,  'cci': 24.00, 'fond': 80, 'total': 140},
-        'NASDAQ:APP': {'cci_pts': 0,  'cci': 54.29, 'fond': 90, 'total': 160},
+        'NASDAQ:APP': {'cci_pts': 0,  'cci': 54.29, 'fond': 90, 'total': 140},
         'NYSE:RDDT':  {'cci_pts': 20, 'cci': 14.87, 'fond': 90, 'total': 210},
         'NASDAQ:META':{'cci_pts': 0,  'cci': 33.95, 'fond': 80, 'total': 110},
-        'NASDAQ:NFLX':{'cci_pts': 20, 'cci': 17.60, 'fond': 70, 'total': 190},
-        'NASDAQ:GOOGL':{'cci_pts': 20,'cci': 8.12,  'fond': 70, 'total': 180},
+        'NASDAQ:NFLX':{'cci_pts': 20, 'cci': 17.60, 'fond': 70, 'total': 170},
+        'NASDAQ:GOOGL':{'cci_pts': 20,'cci': 8.12,  'fond': 70, 'total': 160},
     }
     recs = [d['etf']] + d['actions']
     for rec in recs:

@@ -180,6 +180,21 @@ function apex10FromKnown(tv){
   }
   return null;
 }
+function posIsEquity(p){
+  if(!p) return false;
+  if(p.type==='equity') return true;
+  if(p.tab==='actions'||p.tab==='pays') return true;
+  return false;
+}
+function posPilotRec(p){
+  if(!p||typeof pilotRec!=='function') return null;
+  const keys=[p.fiche_tv,p.tv_note,p.tv,p.ticker].filter(k=>k&&k!=='pas de note');
+  for(const k of keys){
+    const r=pilotRec(k);
+    if(r&&r.total!=null) return r;
+  }
+  return null;
+}
 function posApex10Of(p){
   if(p&&p.apex10&&p.apex10.note!=null) return p.apex10;
   const keys=[p&&p.fiche_tv,p&&p.tv_note,p&&p.tv,p&&p.ticker].filter(k=>k&&k!=='pas de note');
@@ -191,6 +206,13 @@ function posApex10Of(p){
   return null;
 }
 function posFlagHTML(p){
+  const rec=posPilotRec(p);
+  if(rec&&rec.total!=null){
+    const b=(typeof pilotBand==='function')?pilotBand(rec.total):{id:rec.band||'',hex:rec.hex||'#888'};
+    const code=b.id||rec.band||'none';
+    if(!code||code==='none') return '–';
+    return `<span class="pos-flag pos-${code}"><i style="background:${b.hex||rec.hex}"></i></span>`;
+  }
   const a=posApex10Of(p);
   const code=(a&&a.flag)||p.drapeau_code;
   if(!code||code==='none') return '–';
@@ -198,6 +220,13 @@ function posFlagHTML(p){
   return `<span class="pos-flag pos-${code}"><i style="background:${col}"></i></span>`;
 }
 function posNoteHTML(p){
+  const rec=posPilotRec(p);
+  if(rec&&rec.total!=null){
+    const col=(typeof pilotHex==='function')?pilotHex(rec):(rec.hex||'#e6c27a');
+    const mx=rec.total_max!=null?rec.total_max:250;
+    return `<span class="apex10 apex10-pilot" style="color:${col}"><b>${rec.total}</b><small>/ ${mx}</small></span>`;
+  }
+  if(posIsEquity(p)) return '–';
   const a=posApex10Of(p);
   if(a&&a.note!=null){
     const col=(typeof apex10Col==='function')?apex10Col(a):(a.hex||'#e6c27a');
@@ -291,6 +320,13 @@ function posShortName(p){
   return n;
 }
 function posApexChip(p){
+  const rec=posPilotRec(p);
+  if(rec&&rec.total!=null){
+    const col=(typeof pilotHex==='function')?pilotHex(rec):(rec.hex||'#e6c27a');
+    const mx=rec.total_max!=null?rec.total_max:250;
+    return `<span class="pos-chip apex10 apex10-pilot" style="color:${col};border-color:${col}" title="Note APEX ${rec.total}/${mx}">${rec.total}<small>/${mx}</small></span>`;
+  }
+  if(posIsEquity(p)) return '';
   const a=posApex10Of(p);
   if(a&&a.note!=null){
     const col=(typeof apex10Col==='function')?apex10Col(a):(a.hex||'#e6c27a');

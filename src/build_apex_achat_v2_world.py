@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""APEX ACHAT −50 à 270 sur toutes les sections Actions du site
+"""APEX ACHAT −50 à 250 sur toutes les sections Actions du site
 (USA 11 secteurs + France, Allemagne, Canada, Suisse).
 
 Hors banque : apex_achat_v2.

@@ -42,8 +42,8 @@ ETF = {
 # sont lues dynamiquement depuis fondamentaux.json.
 
 SCALE_MIN = -50
-SCALE_MAX = 270  # sera aussi recalculé depuis les max des critères
-TECH_MAX = 130
+SCALE_MAX = 250  # technique 110 + fondamental 90 + F&G ±50
+TECH_MAX = 110
 FOND_MAX = 90
 FG_ABS = 50
 
@@ -468,23 +468,24 @@ def fond_points(m, rules=None):
     return total, elems
 
 
-# 4 tranches égales de 80 points sur [-50, 270] : [-50,30) rouge, [30,110) jaune, [110,190) vert, [190,270] cyan
+# 5 tranches égales de 60 points sur [-50, 250] : violet <10, rouge 10–70, orange 70–130, vert 130–190, cyan ≥190
 PILOT_BANDS = [
-    ('rouge', -50, 30, '#ff2d2d'),
-    ('jaune', 30, 110, '#ffd400'),
-    ('vert', 110, 190, '#22c55e'),
-    ('cyan', 190, 270, '#00e5ff'),
+    ('violet', -50, 10, '#9d54ff'),
+    ('rouge', 10, 70, '#ff2d2d'),
+    ('orange', 70, 130, '#ff8c1a'),
+    ('vert', 130, 190, '#22c55e'),
+    ('cyan', 190, 251, '#00e5ff'),
 ]
 
 
 def band_of(total):
     t = float(total)
-    if t >= SCALE_MAX:
+    if t >= 190:
         return 'cyan'
     if t < SCALE_MIN:
-        return 'rouge'
+        return 'violet'
     for name, lo, hi, _hex in PILOT_BANDS:
-        if lo <= t < hi or (name == 'cyan' and t == hi):
+        if lo <= t < hi:
             return name
     return 'cyan'
 
@@ -556,7 +557,7 @@ def score_asset(asset, fg, elliott_key=None, fond_rules=None, closed_bars=None):
             'cours': fib.get('cours') or last['close'],
             'source': fib.get('source_historique'),
         })
-    ell_pts, ell_det = elliott_entry(o, c, ds, stored_key=elliott_key)
+    # Elliott retiré de la note APEX ACHAT (échelle −50 à 250, technique 110).
     # CCI Stochastic de Daveatt (pilotes Communication et banques USA), clôtures hebdo fermées.
     k_s, d_s, cci_raw = K.cci_stochastic_kd(c)
     cci_val = d_s[-1] if d_s else None
@@ -585,11 +586,11 @@ def score_asset(asset, fg, elliott_key=None, fond_rules=None, closed_bars=None):
         fond_mode = 'ratios de l’émetteur (Yahoo Finance, fondamentaux déjà en base)'
 
     fg_pts = fg['points'] if fg.get('ok') else 0
-    total = rsi_pts + macd_pts + fibo_pts + ell_pts + cci_pts + int(round(fond_total or 0)) + (fg_pts or 0)
+    total = rsi_pts + macd_pts + fibo_pts + cci_pts + int(round(fond_total or 0)) + (fg_pts or 0)
     band = band_of(total)
     parts = [
         ('RSI', rsi_pts), ('MACD', macd_pts), ('Fibo', fibo_pts),
-        ('Elliott', ell_pts), ('CCI', cci_pts),
+        ('CCI', cci_pts),
         ('Fond', int(round(fond_total or 0))),
         ('F&G', fg_pts if fg.get('ok') else None),
     ]
@@ -601,7 +602,7 @@ def score_asset(asset, fg, elliott_key=None, fond_rules=None, closed_bars=None):
         'currency': (meta or {}).get('currency'),
         'points': {
             'rsi': rsi_pts, 'macd': macd_pts, 'fibonacci': fibo_pts,
-            'elliott': ell_pts, 'cci': cci_pts,
+            'cci': cci_pts,
             'fondamental': int(round(fond_total or 0)),
             'fear_greed': fg_pts if fg.get('ok') else None,
             'total': total,
@@ -617,7 +618,6 @@ def score_asset(asset, fg, elliott_key=None, fond_rules=None, closed_bars=None):
                 "mesuré sur les corps hebdomadaires clôturés. « Sous X % » = r ≥ X % "
                 "(le cours a retracé au-delà du niveau X % depuis le haut)."
             )},
-            'elliott': ell_det,
             'cci': {**cci_det, 'seuil': 20, 'precision': 'CCI Stochastic Daveatt (CCI 28, stoch 28, lissages SMA 3 et 3, ligne D) ; +20 si < 20'},
             'fondamental': {'points': int(round(fond_total or 0)), 'max': 90, 'elements': fond_elems, 'mode': fond_mode},
         },
@@ -635,7 +635,7 @@ def score_asset(asset, fg, elliott_key=None, fond_rules=None, closed_bars=None):
 
 def band_label(total):
     b = band_of(total)
-    return {'rouge': 'Faible', 'jaune': 'Neutre', 'vert': 'Favorable', 'cyan': 'Très favorable'}[b]
+    return {'violet': 'Très faible', 'rouge': 'Faible', 'orange': 'Neutre', 'jaune': 'Neutre', 'vert': 'Favorable', 'cyan': 'Très favorable'}[b]
 
 
 def load_elliott_key(tv, sector_obj=None):
@@ -737,7 +737,6 @@ def _pack_sector(sector_sym, etf_meta, fond_rules, section, fg, fond_all, secteu
         'manquantes': manquantes,
         'interpretations': {
             'fibo': "« Sous X % » = retracement depuis le plus haut historique r ≥ X %, corps hebdo clôturés (plus bas historique → plus haut historique).",
-            'elliott': "Zone d’entrée +20 : fin de vague 2, fin de vague 4, vague C ; et après une C terminée, tant qu’aucune nouvelle vague 1 n’est confirmée (clé new1, officielle ou lecture alternative sur le même ZigZag).",
             'cci': "CCI Stochastic hebdo de Daveatt (script TradingView XZyG5SOx) : CCI 28 sur la clôture, stochastique 28 du CCI, lissages SMA 3 et 3, ligne D (0–100). +20 si sous 20.",
             'fg': "Tranches entières : floor(|50 − valeur| / 10) × 10, signé, max ±50. Même valeur CNN pour tous les titres du pilote.",
             'fond_etf': etf_asset['fond_mode'],

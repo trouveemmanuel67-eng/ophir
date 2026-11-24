@@ -1,6 +1,6 @@
 {
-  "version": "2026-11-23",
-  "tache": "t369u",
+  "version": "2026-11-24",
+  "tache": "t392u+t411u",
   "timezone": "Europe/Paris",
   "note_apex": {
     "poids_timing": 0.5,
@@ -220,8 +220,13 @@
       "energie_macro"
     ],
     "positions_hors_univers_visibles": true,
-    "date": "2026-11-23",
-    "tache": "t322u"
+    "date": "2026-11-24",
+    "tache": "t411u",
+    "pays_actions": [
+      "USA",
+      "France"
+    ],
+    "note": "Actions : uniquement USA et France. Les sections/paniers actions d’Allemagne, du Canada et de la Suisse sont retirés du site ; l’ETF de marché de chaque pays est conservé. Les positions détenues hors univers restent visibles. Obligations, ETF, crypto, métaux, indices, placements et liquidités inchangés."
   },
   "fiche_regles": {
     "titre_bouton": "Règles",
@@ -1317,7 +1322,7 @@
   },
   "apex_achat_v2": {
     "titre": "APEX ACHAT — nouvelles règles (en construction)",
-    "intro": "L’indicateur APEX ACHAT se construit par accumulation de points, critère par critère. Échelle −50 à 270 (technique 130 + fondamental 90 + Fear & Greed ±50). Ce règlement s’applique à toutes les actions hors banques, tous les pays d’APEX.",
+    "intro": "L’indicateur APEX ACHAT se construit par accumulation de points, critère par critère. Échelle −50 à 250 (technique 110 : RSI 30, MACD 30, Fibo 30, CCI 20 ; fondamental 90 ; Fear & Greed ±50). Ce règlement s’applique aux actions hors banques des USA et de la France. Les vagues d’Elliott ne font plus partie de la note.",
     "utilise_par_le_calcul": true,
     "reference_titre": "Règles actuelles de la note APEX (référence)",
     "criteres": [
@@ -1389,22 +1394,6 @@
           }
         ],
         "regle_courte": "Plus bas → plus haut (corps hebdo). Sous 38,2 % : +10 ; 61,8 % : +20 ; 78,6 % : +30. Non cumulables"
-      },
-      {
-        "id": "elliott",
-        "label": "Vagues d’Elliott",
-        "max": 20,
-        "retrait": false,
-        "cumulables": false,
-        "precision": "0 point sinon. Maximum 20 points.",
-        "conditions": [
-          {
-            "id": "zone_entree",
-            "label": "Fin de vague 2, fin de vague 4, vague C (et après une C tant qu’aucune nouvelle vague n’a démarré)",
-            "points": 20
-          }
-        ],
-        "regle_courte": "Fin de vague 2, fin de vague 4, vague C (et après une C tant qu’aucune nouvelle vague n’a démarré) : +20"
       },
       {
         "id": "cci_20_hebdo",
@@ -1592,7 +1581,7 @@
     "date_validation": "23/11/2026",
     "reglage_valide": true,
     "section_titre": "Actions (hors banque)",
-    "champ_application": "Ce règlement s’applique à toutes les actions hors banques, tous les pays d’APEX (USA, France, Allemagne, Canada, Suisse), y compris les financières qui ne sont pas des banques (assurances, cartes, gestions d’actifs, bourses, capital markets).",
+    "champ_application": "Ce règlement s’applique aux actions hors banques des USA et de la France, y compris les financières qui ne sont pas des banques (assurances, cartes, gestions d’actifs, bourses, capital markets). Les positions détenues hors de cet univers restent visibles dans Mes positions.",
     "validation": {
       "date": "23/11/2026",
       "date_iso": "2026-11-23",
@@ -1607,8 +1596,8 @@
   "apex_achat_v2_banque": {
     "titre": "Actions bancaires",
     "section_titre": "Actions bancaires",
-    "intro": "Même technique (130) et même Fear & Greed (±50) que les actions hors banque. Fondamental bancaire validé le 23/11/2026 : 90 points, 9 critères à +10 chacun (0 si le seuil n’est pas atteint ou si la donnée manque). Ce règlement s’applique à toutes les banques de tous les pays d’APEX.",
-    "champ_application": "Ce règlement s’applique à toutes les banques (industries Yahoo Banks, Banks - Diversified, Banks - Regional, Savings Institutions) de tous les pays d’APEX. Les assurances et les autres financières relèvent des règles Actions (hors banque).",
+    "intro": "Même technique (110 : RSI 30, MACD 30, Fibo 30, CCI 20) et même Fear & Greed (±50) que les actions hors banque. Fondamental bancaire validé le 23/11/2026 : 90 points, 9 critères à +10 chacun (0 si le seuil n’est pas atteint ou si la donnée manque). Échelle −50 à 250. Les vagues d’Elliott ne font plus partie de la note. Ce règlement s’applique aux banques des USA et de la France.",
+    "champ_application": "Ce règlement s’applique aux banques (industries Yahoo Banks, Banks - Diversified, Banks - Regional, Savings Institutions) des USA et de la France. Les assurances et les autres financières relèvent des règles Actions (hors banque). Les positions détenues hors de cet univers restent visibles dans Mes positions.",
     "utilise_par_le_calcul": true,
     "affichage_seulement": false,
     "applique_au_calcul": true,
@@ -1681,22 +1670,6 @@
           }
         ],
         "regle_courte": "Plus bas → plus haut (corps hebdo). Sous 38,2 % : +10 ; 61,8 % : +20 ; 78,6 % : +30. Non cumulables"
-      },
-      {
-        "id": "elliott",
-        "label": "Vagues d’Elliott",
-        "max": 20,
-        "retrait": false,
-        "cumulables": false,
-        "precision": "0 point sinon. Maximum 20 points.",
-        "conditions": [
-          {
-            "id": "zone_entree",
-            "label": "Fin de vague 2, fin de vague 4, vague C (et après une C tant qu’aucune nouvelle vague n’a démarré)",
-            "points": 20
-          }
-        ],
-        "regle_courte": "Fin de vague 2, fin de vague 4, vague C (et après une C tant qu’aucune nouvelle vague n’a démarré) : +20"
       },
       {
         "id": "cci_20_hebdo",
@@ -1887,7 +1860,7 @@
       "timezone": "Europe/Paris",
       "valide": true,
       "objets": [
-        "Neuf critères fondamentaux bancaires validés : ROE > 10 % ; ROA > 1 % ; ratio CET1 > 12 % ; coût du risque < 0,5 % ; coefficient d’exploitation < 60 % ; croissance BPA année en cours et année prochaine > 10 % ; croissance PNB année en cours et année prochaine > 5 %. +10 si atteint, sinon 0 (donnée manquante = 0). Maximum 90 points. Technique 130 et Fear & Greed ±50 identiques (échelle −50 à 270)."
+        "Neuf critères fondamentaux bancaires validés : ROE > 10 % ; ROA > 1 % ; ratio CET1 > 12 % ; coût du risque < 0,5 % ; coefficient d’exploitation < 60 % ; croissance BPA année en cours et année prochaine > 10 % ; croissance PNB année en cours et année prochaine > 5 %. +10 si atteint, sinon 0 (donnée manquante = 0). Maximum 90 points. Technique 110 (RSI, MACD, Fibo, CCI ; sans Elliott) et Fear & Greed ±50 identiques (échelle −50 à 250)."
       ]
     }
   }

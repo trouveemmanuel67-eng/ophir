@@ -23,8 +23,103 @@ _gp=_P(B+'data/good_invest.json')
 if _gp.exists():
     gi=_gp.read_text()
 t=t.replace('__GI__', esc(gi) if gi else 'null')
+
+def _slim_pilot(raw):
+    import json as _json
+    d=_json.loads(raw)
+    keep=('tv','ticker','nom','kind','ok','erreur','total','total_max','total_min',
+          'display','band','hex','ligne','points','is_bank','regles','watchlist_tv')
+    def v2_band(total):
+        try:
+            n=float(total)
+        except (TypeError,ValueError):
+            return None,None
+        if n>=190: return 'cyan','#00e5ff'
+        if n>=130: return 'vert','#22c55e'
+        if n>=70: return 'orange','#ff8c1a'
+        if n>=10: return 'rouge','#ff2d2d'
+        return 'violet','#9d54ff'
+    def rec(r):
+        if not r: return r
+        out={k:r[k] for k in keep if k in r}
+        if out.get('total') is not None:
+            b,h=v2_band(out['total'])
+            if b:
+                out['band']=b
+                out['hex']=h
+        return out
+    KEEP_PAYS={'USA','France'}
+    pil_all=d.get('pilotes') or {}
+    keep_ids={sid for sid,pl in pil_all.items() if (pl or {}).get('pays') in KEEP_PAYS}
+    keep_tv=set()
+    for sid in keep_ids:
+        pl=pil_all[sid]
+        if (pl.get('etf') or {}).get('tv'): keep_tv.add(pl['etf']['tv'])
+        for a in pl.get('actions') or []:
+            if a.get('tv'): keep_tv.add(a['tv'])
+    # positions détenues hors univers (ex. MBG) : conserver la note
+    try:
+        pos=_json.loads(_P(B+'data/positions.json').read_text())
+        for item in (pos.get('positions') or []):
+            if item.get('type') not in ('equity',):
+                continue
+            for k in (item.get('fiche_tv'), item.get('tv_note'), item.get('tv')):
+                if k and k!='pas de note':
+                    keep_tv.add(k)
+    except Exception:
+        pass
+    by={tv:rec(r) for tv,r in (d.get('by_tv') or {}).items() if tv in keep_tv}
+    # alias TradingView des positions (fiche_tv vs tv_note) vers la même note
+    try:
+        pos=_json.loads(_P(B+'data/positions.json').read_text())
+        for item in (pos.get('positions') or []):
+            if item.get('type') not in ('equity',):
+                continue
+            keys=[k for k in (item.get('fiche_tv'), item.get('tv_note'), item.get('tv')) if k and k!='pas de note']
+            hit=next((by[k] for k in keys if k in by), None)
+            if hit:
+                for k in keys:
+                    if k not in by:
+                        by[k]=hit
+    except Exception:
+        pass
+    pilotes={}
+    for sid,pl in pil_all.items():
+        if sid not in keep_ids:
+            continue
+        pilotes[sid]={
+            'section':pl.get('section'),
+            'secteur_sym':pl.get('secteur_sym') or sid,
+            'pays':pl.get('pays'),
+            'etf':rec(pl.get('etf') or {}),
+            'actions':[rec(a) for a in (pl.get('actions') or [])],
+            'n_banques':pl.get('n_banques'),
+            'n_hors_banque':pl.get('n_hors_banque'),
+        }
+    fg=d.get('fear_greed') or {}
+    series=list(fg.get('series') or [])
+    if len(series)>52: series=series[-52:]
+    out={
+        'generated':d.get('generated'),
+        'pilot':True,
+        'scale':d.get('scale') or {'min':-50,'max':250},
+        'fear_greed':{k:fg[k] for k in ('value','label','date','points','source') if k in fg},
+        'pilotes':pilotes,
+        'secteurs_pilotes':[s for s in (d.get('secteurs_pilotes') or list(pilotes)) if s in keep_ids],
+        'by_tv':by,
+        'stats':d.get('stats'),
+    }
+    if series:
+        out['fear_greed']['series']=series
+    return _json.dumps(out, ensure_ascii=False, separators=(',',':'))
+
 _pp=_P(B+'data/apex_achat_v2_pilot.json')
-pilot=_pp.read_text() if _pp.exists() else ''
+pilot=''
+if _pp.exists():
+    pilot=_slim_pilot(_pp.read_text())
+    _spj=_P(B+'data/apex_achat_v2_site.json')
+    _spj.write_text(pilot)
+    print('pilot slim', len(pilot), 'from', _pp.stat().st_size)
 t=t.replace('__DATA_PILOT__', esc(pilot) if pilot else 'null')
 
 
@@ -50,5 +145,11 @@ try:
         dest=_P(_SITE)/'index.html'
         dest.write_text(t)
         print('site', dest, 'bytes', dest.stat().st_size)
+        _spj=_P(B+'data/apex_achat_v2_site.json')
+        if _spj.exists():
+            sdest=_P(_SITE)/'data'/'apex_achat_v2_site.json'
+            sdest.parent.mkdir(parents=True, exist_ok=True)
+            sdest.write_text(_spj.read_text())
+            print('site pilot json', sdest, 'bytes', sdest.stat().st_size)
 except Exception as e:
     print('site copy skipped', e)

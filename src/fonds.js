@@ -7,8 +7,11 @@ const APEX_BARS=(function(){
 })();
 function listApexBar(r){
   const prec=(typeof pilotRec==='function')?pilotRec(r&&r.tv):null;
-  if(prec&&prec.ok){
+  if(prec&&prec.ok!==false&&prec.total!=null){
     return `<div class="fl-apex fl-apex-pilot">${dualBarPilot(prec, true)}</div>`;
+  }
+  if((typeof isApexV2Tv==='function'&&isApexV2Tv(r&&r.tv))||(r&&r.forceV2)){
+    return `<div class="fl-apex fl-apex-pilot">${typeof v2Placeholder==='function'?v2Placeholder():'<div class="apex10 apex10-na"><b>–</b><small>/ 250</small></div>'}</div>`;
   }
   const key=r&&(r.tv||r.yahoo||r.ticker);
   const b=key&&APEX_BARS.bars?APEX_BARS.bars[key]:null;
@@ -60,24 +63,23 @@ function fondTiming(t){
 }
 function fondList(sym){
   const s=FOND.sectors[sym];if(!s)return '';
-  const pSec=(typeof pilotOf==='function')?pilotOf(sym):(typeof isPilotSector==='function'&&isPilotSector(sym)&&PILOT)||null;
-  const pilot=!!pSec;
-  const top=pilot? (s.top||[]).slice(0,5) : (s.top||[]);
-  const ordered=pilot? top.slice().sort((a,b)=>{
+  const pSec=(typeof pilotOf==='function')?pilotOf(sym):null;
+  const pilot=true;
+  const top=(s.top||[]).slice(0,5);
+  const ordered=top.slice().sort((a,b)=>{
     const pa=typeof pilotRec==='function'?pilotRec(a.tv):null;
     const pb=typeof pilotRec==='function'?pilotRec(b.tv):null;
     const ta=(pa&&pa.total!=null)?pa.total:-Infinity;
     const tb=(pb&&pb.total!=null)?pb.total:-Infinity;
     if(tb!==ta) return tb-ta;
     return 0;
-  }) : apexSortByNote(top);
-  const rows=ordered.map((r,k)=>pilot
-    ? `<li class="fl-row"${r.tv?` data-pos-tv="${r.tv}"`:''}><span class="fl-rk">${k+1}</span><div class="fl-id"><b>${r.name}</b>${tvTag(r.tv)}${typeof posBadges==='function'?posBadges(r.tv):''}${typeof dispoBadge==='function'?dispoBadge(r.tv):''}</div>${listApexBar(r)}</li>`
-    : `<li${r.tv?` data-pos-tv="${r.tv}"`:''}><div class="fl-h"><b>${k+1}. ${r.name}</b></div>
-     ${tvTag(r.tv)}${typeof posBadges==='function'?posBadges(r.tv):''}${typeof dispoBadge==='function'?dispoBadge(r.tv):''}${listApexBar(r)}</li>`
+  });
+  const rows=ordered.map((r,k)=>
+    `<li class="fl-row"${r.tv?` data-pos-tv="${r.tv}"`:''}><span class="fl-rk">${k+1}</span><div class="fl-id"><b>${r.name}</b>${tvTag(r.tv)}${typeof posBadges==='function'?posBadges(r.tv):''}${typeof dispoBadge==='function'?dispoBadge(r.tv):''}</div>${listApexBar(r)}</li>`
   ).join('');
   const d=s.top[0];
-  const etfBar=pilot&&pSec&&pSec.etf?listApexBar({tv:pSec.etf.tv, name:pSec.etf.nom}):'';
+  const etfTv=(pSec&&pSec.etf&&pSec.etf.tv)||(s.etf&&s.etf.tv)||null;
+  const etfBar=etfTv?listApexBar({tv:etfTv, name:(pSec&&pSec.etf&&pSec.etf.nom)||(s.etf&&s.etf.nom)||'', forceV2:true}):'';
   return `<details class="ind-meth sec-list"${pilot?` data-pilot="${String(sym).toLowerCase()}"`:''}><summary>ETF + 5 actions qualité / croissance</summary>
    <div class="fl-etf"><span class="fl-k">ETF principal</span><b>${s.etf.name}</b>${tvTag(s.etf.tv)}${etfBar}</div>
    <ol class="fl${pilot?' fl-pilot':''}">${rows}</ol>

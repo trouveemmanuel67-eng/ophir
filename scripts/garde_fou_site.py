@@ -391,13 +391,13 @@ CHECK_REGLES_OPEN_JS = r"""
     vis, covers,
     w: r && Math.round(r.width), h: r && Math.round(r.height),
     vw: window.innerWidth, vh: window.innerHeight,
-    hasTable: cards.length >= 14,
+    hasTable: cards.length >= 13,
     rows: cards.length,
     hasBack: !!document.getElementById('rgBack'),
     hasClose: !!document.getElementById('rgClose'),
     hasBase: true,
     noIntro: !/La note part de 0/.test(text) && !/part de 50/.test(text) && !document.querySelector('.rg-lead'),
-    hasScale: /−\s*50\s*à\s*270/.test(text) && !!document.querySelector('.rg-scale'),
+    hasScale: /−\s*50\s*à\s*250/.test(text) && !!document.querySelector('.rg-scale'),
     ptsLeft: (function(){ const c=root&&root.querySelector('.rg-card'); if(!c) return false; const pts=c.querySelector('.rg-card-pts'), name=c.querySelector('.rg-card-name'); return !!(pts&&name&&pts.getBoundingClientRect().left < name.getBoundingClientRect().left - 2); })(),
     oneLine: !root || Array.from(root.querySelectorAll('.rg-card')).every(c => { const name=c.querySelector('.rg-card-name'); return name && c.scrollHeight <= name.offsetHeight + 24 && c.scrollWidth <= c.clientWidth + 1; }),
     noOldIntro: !/part de 50/.test(text) && !/clip dans/.test(text) && !/Actions cotées/i.test(text),
@@ -421,12 +421,12 @@ CHECK_REGLES_OPEN_JS = r"""
     fiboText, ellText, cciText, totText,
     fiboNew: /38[,.]2/.test(fiboText) && /61[,.]8/.test(fiboText) && /78[,.]6/.test(fiboText) && /\b30\b/.test(fiboText),
     fiboOldGone: !/±\s*6\b/.test(fiboText),
-    ellNew: /\+20/.test(ellText) && /zone d.entrée|vague C/.test(ellText),
-    ellOldGone: !/±\s*7[,.]5/.test(ellText),
+    ellGone: !ellText,
+    ellOldGone: true,
     cciNew: /sous 20/.test(cciText) && /\+20/.test(cciText) && /\b20\b/.test(cciText),
     cciOldGone: !(/±\s*3[,.]75/.test(cciText) || /clip\s*\(/.test(cciText)),
     noTotal220: !/\b220\b/.test(text),
-    has130: /\b130\b/.test(text),
+    has110: /\b110\b/.test(text),
     has90: /\b90\b/.test(text),
     hasFondV2: /dette nette/i.test(text) && /Santé/i.test(text),
     fondText: text.replace(/\s+/g,' '),
@@ -620,7 +620,7 @@ def check_headless(root=ROOT):
             raise SystemExit(1)
         if not regles_open.get('hasScale'):
             _fail(
-                "page RÈGLES : l'échelle calculée « −50 à 270 » manque à côté du titre Actions "
+                "page RÈGLES : l'échelle calculée « −50 à 250 » manque à côté du titre Actions "
                 f"({regles_open!r})."
             )
             raise SystemExit(1)
@@ -657,10 +657,9 @@ def check_headless(root=ROOT):
                 f"({regles_open.get('fiboText')!r})."
             )
             raise SystemExit(1)
-        if not regles_open.get('ellNew') or not regles_open.get('ellOldGone'):
+        if not regles_open.get('ellGone'):
             _fail(
-                "page RÈGLES : la ligne Elliott doit afficher +20 en zone d'entrée, max 20, "
-                "sans poids 10 % ni ±7,5 "
+                "page RÈGLES : Elliott ne doit plus figurer dans le tableau Actions "
                 f"({regles_open.get('ellText')!r})."
             )
             raise SystemExit(1)
@@ -689,7 +688,7 @@ def check_headless(root=ROOT):
                 f"({regles_open!r})."
             )
             raise SystemExit(1)
-        if not regles_open.get('hasTechGroup') or not regles_open.get('has130') or not regles_open.get('has90'):
+        if not regles_open.get('hasTechGroup') or not regles_open.get('has110') or not regles_open.get('has90'):
             _fail(
                 "page RÈGLES : groupes Technique / Fondamental ou sous-totaux 130 / 90 manquants "
                 f"({regles_open!r})."

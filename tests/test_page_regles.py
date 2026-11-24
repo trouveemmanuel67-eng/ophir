@@ -77,7 +77,7 @@ def test_apex_achat_v2_rsi_seulement(regles):
     assert 'accumulation' in (v.get('intro') or '').lower() or 'accumulation' in (v.get('titre') or '').lower()
     criteres = v.get('criteres') or []
     assert [c['id'] for c in criteres] == [
-        'rsi_14_hebdo', 'macd_12_26_9_hebdo', 'fibonacci', 'elliott', 'cci_20_hebdo'
+        'rsi_14_hebdo', 'macd_12_26_9_hebdo', 'fibonacci', 'cci_20_hebdo'
     ]
     by = {c['id']: c for c in criteres}
     rsi, macd = by['rsi_14_hebdo'], by['macd_12_26_9_hebdo']
@@ -95,16 +95,14 @@ def test_apex_achat_v2_rsi_seulement(regles):
     assert fibo['max'] == 30 and fibo.get('cumulables') is False and fibo.get('retrait') is False
     fp = {c['id']: c['points'] for c in fibo['conditions']}
     assert fp == {'sous_382': 10, 'sous_618': 20, 'sous_786': 30}
-    elliott = by['elliott']
-    assert elliott['max'] == 20
-    assert elliott['conditions'][0]['points'] == 20
+    assert 'elliott' not in by
     cci = by['cci_20_hebdo']
     assert cci['max'] == 20
     assert 'sous 20' in (cci['conditions'][0]['label'] + ' ' + (cci.get('regle_courte') or ''))
     assert 'Daveatt' in (cci.get('label') or '')
     assert 'sous 20' in cci['conditions'][0]['label']
     assert cci['conditions'][0]['points'] == 20
-    assert sum(c['max'] for c in criteres) == 130
+    assert sum(c['max'] for c in criteres) == 110
     # les règles de calcul de la note actuelle restent inchangées
     assert 'figure' not in regles['note_apex']['technique']
     assert abs(sum(regles['note_apex']['technique'].values()) - 0.5) < 1e-9
@@ -165,8 +163,8 @@ def test_fondamental_v2_neuf_elements(regles):
     assert by['ca_annee_prochaine']['bon_si'] == '> 5 %'
     assert by['ca_cette_annee']['bon_si'] == '> 5 %'
     tech = sum(c['max'] for c in regles['apex_achat_v2']['criteres'])
-    assert tech == 130
-    assert tech + fond['max'] == 220
+    assert tech == 110
+    assert tech + fond['max'] == 200
     # calcul inchangé
     assert regles['note_apex']['poids_fondamental'] == 0.5
     js = (ROOT / 'src' / 'regles.js').read_text(encoding='utf-8')
@@ -240,7 +238,7 @@ def test_echelle_actions_calculee_automatiquement(regles):
     fond = v['fondamental']['max']
     # Fear & Greed ±50
     assert v['sentiment']['max_affiche'] == '±50'
-    assert tech == 130 and fond == 90
+    assert tech == 110 and fond == 90
     js = (ROOT / 'src' / 'regles.js').read_text(encoding='utf-8')
     assert 'function rgActionsScale' in js
     assert 'rg-scale' in js
@@ -262,13 +260,12 @@ def test_accordeon_actions_generique():
     assert '.rg-acc-chev' in css
 
 
-def test_elliott_regle_courte_apres_vague_c(regles):
-    ell = {c['id']: c for c in (regles['apex_achat_v2']['criteres'] or [])}['elliott']
-    assert ell['max'] == 20
-    txt = (ell.get('regle_courte') or '') + ' ' + ((ell.get('conditions') or [{}])[0].get('label') or '')
-    assert 'vague C' in txt or 'vague C' in txt.replace('’', "'")
-    assert 'nouvelle vague' in txt or 'nouvelle vague' in txt.replace('’', "'")
-    assert '+20' in (ell.get('regle_courte') or '')
+def test_elliott_retire_de_apex_achat_v2(regles):
+    for key in ('apex_achat_v2', 'apex_achat_v2_banque'):
+        ids = [c['id'] for c in (regles[key].get('criteres') or [])]
+        assert 'elliott' not in ids
+        intro = (regles[key].get('intro') or '')
+        assert '250' in intro and 'Elliott' in intro
 
 
 def test_cci_stochastic_daveatt_regle(regles):
@@ -303,7 +300,8 @@ def test_actions_hors_banque_et_accordeon_bancaire(regles):
     assert v.get('reglage_valide') is True
     assert v.get('section_titre') == 'Actions (hors banque)'
     assert 'hors banques' in (v.get('champ_application') or '')
-    assert 'tous les pays' in (v.get('champ_application') or '')
+    assert 'USA' in (v.get('champ_application') or '') and 'France' in (v.get('champ_application') or '')
+    assert 'Allemagne' not in (v.get('champ_application') or '')
     assert 'pilote' not in (v.get('intro') or '').lower()
     assert v.get('applique_au_calcul') is True
     # le réglage validé est bien celui du CCI Daveatt + seuils fond
@@ -320,7 +318,8 @@ def test_actions_hors_banque_et_accordeon_bancaire(regles):
     assert b.get('applique_au_calcul') is True
     assert 'pilote' not in (b.get('champ_application') or '').lower()
     assert 'pilote' not in (b.get('intro') or '').lower()
-    assert 'tous les pays' in (b.get('champ_application') or '')
+    assert 'USA' in (b.get('champ_application') or '') and 'France' in (b.get('champ_application') or '')
+    assert 'Allemagne' not in (b.get('champ_application') or '')
     assert [c['id'] for c in (b.get('criteres') or [])] == [c['id'] for c in (v.get('criteres') or [])]
     assert (b.get('sentiment') or {}).get('id') == (v.get('sentiment') or {}).get('id')
     fond = b['fondamental']
@@ -346,9 +345,9 @@ def test_actions_hors_banque_et_accordeon_bancaire(regles):
     assert by['bpa_cette_annee']['label'] == 'Croissance BPA année en cours'
     assert by['pnb_annee_prochaine']['label'] == 'Croissance PNB année prochaine'
     tech = sum(c['max'] for c in b['criteres'])
-    assert tech == 130
+    assert tech == 110
     assert b['sentiment']['max_affiche'] == '±50'
-    assert tech + fond['max'] + 50 == 270
+    assert tech + fond['max'] + 50 == 250
 
     js = (ROOT / 'src' / 'regles.js').read_text(encoding='utf-8')
     assert 'Actions (hors banque)' in js

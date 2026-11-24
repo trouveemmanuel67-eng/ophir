@@ -1,4 +1,4 @@
-/* ===== Onglet Actions · SECTEURS PAR PAYS (France, Allemagne, Canada, Suisse — plus USA via secteurs). Univers t322u. ===== */
+/* ===== Onglet Actions · SECTEURS PAR PAYS (France, plus USA via secteurs). Allemagne, Canada, Suisse : ETF de marché seulement (t411u). ===== */
 const PAYS=JSON.parse(document.getElementById('data8').textContent);
 function pPilotId(C,s){return (C&&C.cc&&s&&s.key)?(C.cc+'_'+s.key):null;}
 function pSecOf(C,s){const id=pPilotId(C,s);return (id&&typeof pilotOf==='function')?pilotOf(id):null;}
@@ -14,21 +14,20 @@ function pComps(s){
 function pList(C,s){
   const f=s.fond;if(!f)return '';
   const pSec=pSecOf(C,s);
-  const top=pSec? (f.top||[]).slice(0,5) : (f.top||[]);
-  const ordered=pSec? top.slice().sort((a,b)=>{
+  const top=(f.top||[]).slice(0,5);
+  const ordered=top.slice().sort((a,b)=>{
     const pa=typeof pilotRec==='function'?pilotRec(a.tv):null;
     const pb=typeof pilotRec==='function'?pilotRec(b.tv):null;
     const ta=(pa&&pa.total!=null)?pa.total:-Infinity;
     const tb=(pb&&pb.total!=null)?pb.total:-Infinity;
     if(tb!==ta) return tb-ta;
     return 0;
-  }) : apexSortByNote(top);
-  const rows=ordered.map((r,k)=>pSec
-    ? `<li class="fl-row"${r.tv?` data-pos-tv="${r.tv}"`:''}><span class="fl-rk">${k+1}</span><div class="fl-id"><b>${r.name}</b>${tvTag(r.tv)}${typeof posBadges==='function'?posBadges(r.tv):''}${typeof dispoBadge==='function'?dispoBadge(r.tv):''}</div>${listApexBar(r)}${r.note_revolut?`<div class="fl-sub">${r.note_revolut}</div>`:''}</li>`
-    : `<li${r.tv?` data-pos-tv="${r.tv}"`:''}><div class="fl-h"><b>${k+1}. ${r.name}</b></div>
-     ${tvTag(r.tv)}${typeof posBadges==='function'?posBadges(r.tv):''}${typeof dispoBadge==='function'?dispoBadge(r.tv):''}${listApexBar(r)}${r.note_revolut?`<div class="fl-sub">${r.note_revolut}</div>`:''}</li>`
+  });
+  const rows=ordered.map((r,k)=>
+    `<li class="fl-row"${r.tv?` data-pos-tv="${r.tv}"`:''}><span class="fl-rk">${k+1}</span><div class="fl-id"><b>${r.name}</b>${tvTag(r.tv)}${typeof posBadges==='function'?posBadges(r.tv):''}${typeof dispoBadge==='function'?dispoBadge(r.tv):''}</div>${listApexBar(Object.assign({},r,{forceV2:true}))}${r.note_revolut?`<div class="fl-sub">${r.note_revolut}</div>`:''}</li>`
   ).join('');
-  const etfBar=pSec&&pSec.etf?listApexBar({tv:pSec.etf.tv, name:pSec.etf.nom}):'';
+  const etfTv=(pSec&&pSec.etf&&pSec.etf.tv)||s.tv||null;
+  const etfBar=etfTv?listApexBar({tv:etfTv, name:(pSec&&pSec.etf&&pSec.etf.nom)||s.etf||'', forceV2:true}):'';
   const head=s.kind==='basket'
     ?`<div class="fl-etf"><span class="fl-k">Instrument</span><b>Panier APEX (non négociable)</b>${etfBar}<span class="sec-d" style="text-align:left">${s.ex_ref?`${s.ex_ref} (${C.nom}) n'est pas disponible chez Revolut : lecture du secteur via ce panier`:`Aucun ETF sectoriel ${C.nom} coté n'a été retenu`} ; composition : ${s.basket.map(b=>`${b.name} ${fmt(b.w,1)} %`).join(' · ')}.</span></div>`
     :`<div class="fl-etf"><span class="fl-k">${s.kind==='index'?'Indice sectoriel':'ETF principal'}</span><b>${s.etf}</b>${tvTag(s.tv)}${etfBar}</div>`;
@@ -47,8 +46,8 @@ function pTile(C,s,i){
   const [sc,ac]=pComps(s);
   return `<div class="sec${s.head?' sec-head':''}">
    <div class="sr">
-    <div class="sr-c sec-h sr-n"><b>${s.nom}</b>${pSecOf(C,s)?`<span class="pilot-badge">APEX ACHAT −50 à 270</span>`:''}<span>${s.kind==='basket'?'Panier APEX · '+s.basket.length+' grandes capitalisations, pondérées (plafond 25 %)':(s.sym.startsWith('^')?s.sym+' · ':s.sym.split('.')[0]+' · ')+s.etf}</span>${srWarn(s)}</div>
-    ${(()=>{const p=pSecOf(C,s);return (p&&p.etf&&p.etf.ok)?`<div class="sr-c sr-d">${dualBarPilot(p.etf, true)}</div>`:srCells(s);})()}
+    <div class="sr-c sec-h sr-n"><b>${s.nom}</b>${s.head?'':`<span class="pilot-badge">APEX ACHAT −50 à 250</span>`}<span>${s.kind==='basket'?'Panier APEX · '+s.basket.length+' grandes capitalisations, pondérées (plafond 25 %)':(s.sym.startsWith('^')?s.sym+' · ':s.sym.split('.')[0]+' · ')+s.etf}</span>${srWarn(s)}</div>
+    ${(()=>{const p=pSecOf(C,s); if(p&&p.etf&&p.etf.total!=null) return `<div class="sr-c sr-d">${dualBarPilot(p.etf, true)}</div>`; if(!s.head) return `<div class="sr-c sr-d">${typeof v2Placeholder==='function'?v2Placeholder():''}</div>`; return srCells(s);})()}
     <div class="sr-c sr-b"></div>
    </div>
    ${s.head?'':(s.mlist?mList(C,s):pList(C,s))}
@@ -80,21 +79,29 @@ function pCharts(det){
 }
 function renderPays(el){
   PAYS.countries.forEach(C=>{
-    const S=C.rows.filter(s=>s.covered),nc=C.rows.filter(s=>!s.covered),d=C.head.date,cnt=z=>S.filter(s=>s.av&&s.av.label&&s.av.label.includes(z)).length;
-    const hi=S.reduce((a,b)=>b.sent.value>a.sent.value?b:a),lo=S.reduce((a,b)=>b.sent.value<a.sent.value?b:a),nAth=S.filter(s=>s.warn.length).length;
+    const S=(C.rows||[]).filter(s=>s.covered),nc=(C.rows||[]).filter(s=>!s.covered),d=C.head.date,cnt=z=>S.filter(s=>s.av&&s.av.label&&s.av.label.includes(z)).length;
+    const hi=S.length?S.reduce((a,b)=>b.sent.value>a.sent.value?b:a):null;
+    const lo=S.length?S.reduce((a,b)=>b.sent.value<a.sent.value?b:a):null;
+    const nAth=S.filter(s=>s.warn.length).length;
     const kinds=[...new Set(S.map(s=>s.kind))];
     const c=document.createElement('div');c.className='card no-group pays-card';c.dataset.cc=C.cc;
     const head=Object.assign({},C.head,{head:true,covered:true});
     const st=(typeof countryApexAvg==='function')?countryApexAvg(C):null;
     const a10=(st&&st.apex10)||C.apex10||(C.head&&C.head.apex10)||null;
     const mktAv=(st&&st.av)||(C.av_pays)||(C.head&&C.head.av)||null;
-    const apexTag=a10&&a10.display?`<span class="js-apex10" hidden data-display="${a10.display}" data-hex="${a10.hex||''}" data-note="${a10.note}"></span>`:'';
+    const scale=a10&&(a10.v2||a10.total_max===250||a10.scale===250||a10.total_max===270||a10.scale===270)?'250':'100';
+    const disp=a10?(a10.total!=null?String(a10.total):a10.display):'';
+    const apexTag=a10&&(a10.display||a10.total!=null)?`<span class="js-apex10" hidden data-display="${disp}" data-hex="${a10.hex||''}" data-note="${a10.total!=null?a10.total:a10.note}" data-scale="${scale}"></span>`:'';
     const mktTxt=mktAv&&mktAv.score!=null?` · <i>Marché</i> <b>${mktAv.label||''} ${sign(mktAv.score,0)}</b>`:'';
-    c.innerHTML=`<h2><img class="flag-us" src="${C.flag}" width="28" height="15" alt="Drapeau : ${C.nom}">Secteurs ${C.nom} · sentiment et achat / vente</h2>
-     <div class="desc acc-sum">${apexTag}${S.length} secteurs${nc.length?` (+${nc.length} non couvert${nc.length>1?'s':''})`:''} · au ${dshort(d)}${mktTxt} · <i>Achat</i> <b>${cnt('Achat')}</b> · <i>Neutre</i> <b>${cnt('Neutre')}</b> · <i>Vente</i> <b>${cnt('Vente')}</b> · <i>sentiment max</i> <b>${hi.nom} ${fmt(hi.sent.value,0)}</b> · <i>min</i> <b>${lo.nom} ${fmt(lo.sent.value,0)}</b>${nAth?` · <i>⚠ près du record</i> <b>${nAth}</b>`:''}</div>
+    const sumStocks=S.length
+      ? `${S.length} secteurs${nc.length?` (+${nc.length} non couvert${nc.length>1?'s':''})`:''} · au ${dshort(d)}${mktTxt} · <i>Achat</i> <b>${cnt('Achat')}</b> · <i>Neutre</i> <b>${cnt('Neutre')}</b> · <i>Vente</i> <b>${cnt('Vente')}</b> · <i>sentiment max</i> <b>${hi.nom} ${fmt(hi.sent.value,0)}</b> · <i>min</i> <b>${lo.nom} ${fmt(lo.sent.value,0)}</b>${nAth?` · <i>⚠ près du record</i> <b>${nAth}</b>`:''}`
+      : `Actions limitées à USA et France : seule la ligne Marché (ETF pays) est affichée · au ${dshort(d)}${mktTxt}`;
+    const titre=S.length?`Secteurs ${C.nom} · sentiment et achat / vente`:`Marché ${C.nom}`;
+    c.innerHTML=`<h2><img class="flag-us" src="${C.flag}" width="28" height="15" alt="Drapeau : ${C.nom}">${titre}</h2>
+     <div class="desc acc-sum">${apexTag}${sumStocks}</div>
      ${kinds.includes('basket')?'<div class="ind-badge" style="margin-top:4px">« panier APEX » = panier calculé par APEX</div>':''}
      <div class="sr-mention"><span class="sr-date">Clôtures hebdomadaires au ${dshort(d)} (bougies clôturées uniquement), devise locale</span></div>
-     <div class="sec-grid">${srHead('Secteur · instrument')}${pTile(C,head,-1)}${C.rows.map((s,i)=>pTile(C,s,i)).join('')}</div>
+     <div class="sec-grid">${srHead('Secteur · instrument', true)}${pTile(C,head,-1)}${C.rows.map((s,i)=>pTile(C,s,i)).join('')}</div>
      <details class="ind-meth"><summary>Méthode et pondérations</summary>
        <p><b>Sentiment Peur / Euphorie (0-100).</b> ${SEC.method_sent.replace(/S&P 500/g,C.bench_nom.split(' (')[0])}</p>
        <p><b>Achat / Vente (−100 à +100).</b> ${SEC.method_av.replace(/S&P 500/g,C.bench_nom.split(' (')[0])}</p>

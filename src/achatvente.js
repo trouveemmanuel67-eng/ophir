@@ -52,6 +52,11 @@ function apex10Col(a){
   return (typeof gcol==='function')?gcol(a.pos!=null?a.pos:a.note):'#e6c27a';
 }
 function apexNoteHTML(a){
+  if(a&&(a.v2||a.total_max===250||a.scale===250||a.total_max===270||a.scale===270)&&a.total!=null){
+    const col=(typeof pilotHex==='function')?pilotHex(a):(a.hex||'#e6c27a');
+    const mx=a.total_max!=null?a.total_max:250;
+    return `<div class="apex10 apex10-pilot" style="color:${col}"><b>${a.total}</b><small>/ ${mx}</small></div>`;
+  }
   if(!a||a.note==null||a.display==='–') return `<div class="apex10 apex10-na"><b>–</b></div>`;
   const col=apex10Col(a);
   return `<div class="apex10"><b style="color:${col};text-shadow:0 0 16px ${col}80">${a.display}</b><small style="color:${col}">/100</small></div>`;
@@ -193,7 +198,35 @@ function bakedSectionApex(tabId){
   if(tabId==='immobilier'&&typeof AV!=='undefined'&&AV.immobilier&&AV.immobilier.apex10&&AV.immobilier.apex10.note!=null) return AV.immobilier.apex10;
   return null;
 }
+function apexV2FromAvg(totals){
+  const xs=(totals||[]).map(Number).filter(Number.isFinite);
+  if(!xs.length) return null;
+  const n=Math.round(xs.reduce((a,b)=>a+b,0)/xs.length);
+  const b=(typeof pilotBand==='function')?pilotBand(n):{hex:'#e6c27a',id:''};
+  return {
+    v2:true, total:n, total_min:-50, total_max:250, scale:250,
+    display:n+' / 250', hex:b.hex, band:b.id, n_moy:xs.length,
+    ok:true
+  };
+}
 function sectionApexAvg(tabId){
+  if(tabId==='actions'&&typeof PILOT!=='undefined'&&PILOT&&PILOT.pilotes){
+    const recs=[];
+    if(typeof SEC!=='undefined') (SEC.sectors||[]).forEach(s=>{
+      const p=(typeof pilotOf==='function')?pilotOf(s.sym):null;
+      if(p&&p.etf&&p.etf.total!=null) recs.push(p.etf.total);
+    });
+    const apex=apexV2FromAvg(recs);
+    const items=sectionApexItems(tabId);
+    const av=meanNum(items.map(x=>x.av));
+    const se=meanNum(items.map(x=>x.sent));
+    if(apex) return {
+      apexV2:apex, apex10:apex,
+      av:av==null?null:{score:av,label:labAv(av)},
+      sent:se==null?null:{value:se,label:labS(se)},
+      n:apex.n_moy
+    };
+  }
   const items=sectionApexItems(tabId);
   const notes=items.map(x=>x.note).filter(n=>n!=null&&Number.isFinite(n));
   const av=meanNum(items.map(x=>x.av));
@@ -210,11 +243,24 @@ function sectionApexAvg(tabId){
 }
 function countryApexAvg(C){
   if(!C) return null;
-  const S=(C.rows||[]).filter(s=>s&&s.covered&&s.apex10&&s.apex10.note!=null&&s.apex10.display!=='–');
-  const notes=S.map(s=>Number(s.apex10.note)).filter(Number.isFinite);
-  if(!notes.length) return null;
+  const recs=[];
+  (C.rows||[]).filter(s=>s&&s.covered).forEach(s=>{
+    const p=(typeof pSecOf==='function')?pSecOf(C,s):((typeof pilotOf==='function')?pilotOf((C.cc+'_'+(s.key||''))):null);
+    if(p&&p.etf&&p.etf.total!=null) recs.push(p.etf.total);
+  });
+  const apex=apexV2FromAvg(recs);
+  const S=(C.rows||[]).filter(s=>s&&s.covered);
   const av=meanNum(S.map(s=>s.av&&s.av.score));
   const se=meanNum(S.map(s=>s.sent&&s.sent.value));
+  if(apex) return {
+    apexV2:apex, apex10:apex,
+    av:av==null?null:{score:av,label:labAv(av)},
+    sent:se==null?null:{value:se,label:labS(se)},
+    n:apex.n_moy
+  };
+  const S0=S.filter(s=>s.apex10&&s.apex10.note!=null&&s.apex10.display!=='–');
+  const notes=S0.map(s=>Number(s.apex10.note)).filter(Number.isFinite);
+  if(!notes.length) return null;
   return {
     apex10:apex10FromAvg(notes),
     av:av==null?null:{score:av,label:labAv(av)},
@@ -267,11 +313,41 @@ function apexSortByNote(arr){
 
 
 /* ===== Pilote APEX ACHAT (accumulation de points) : toutes les sections Actions (USA + pays APEX) ===== */
-const PILOT=(function(){
+var PILOT=(function(){
   const el=document.getElementById('dataPilot');
   if(!el||!el.textContent||el.textContent.trim()==='null') return null;
-  try{const d=JSON.parse(el.textContent);return (d&&d.pilot)?d:null;}catch(e){return null;}
+  try{const d=JSON.parse(el.textContent);return (d&&(d.pilot||d.by_tv))?d:null;}catch(e){return null;}
 })();
+function isApexV2Tv(tv){
+  if(!tv) return false;
+  if(PILOT&&PILOT.by_tv&&PILOT.by_tv[tv]) return true;
+  if(typeof FOND!=='undefined'&&FOND&&FOND.sectors){
+    for(const k of Object.keys(FOND.sectors)){
+      const s=FOND.sectors[k]||{};
+      if((s.etf&&s.etf.tv)===tv) return true;
+      if((s.top||[]).some(r=>r&&r.tv===tv)) return true;
+    }
+  }
+  if(typeof PAYS!=='undefined'&&PAYS&&PAYS.countries){
+    for(const C of PAYS.countries){
+      for(const s of (C.rows||[])){
+        if(s&&s.tv===tv) return true;
+        const top=((s.fond||{}).top)||[];
+        if(top.some(r=>r&&r.tv===tv)) return true;
+      }
+    }
+  }
+  return false;
+}
+function isActionSector(sym){
+  if(!sym) return false;
+  if(typeof isPilotSector==='function'&&isPilotSector(sym)) return true;
+  if(typeof FOND!=='undefined'&&FOND&&FOND.sectors&&FOND.sectors[sym]) return true;
+  return false;
+}
+function v2Placeholder(){
+  return `<div class="apex-block apex-block-pilot apex-block-line"><div class="apex10 apex10-pilot apex10-na"><b>–</b><small>/ 250</small></div></div>`;
+}
 function isPilotSector(sym){
   if(!PILOT||!sym) return false;
   if(PILOT.secteur_sym===sym) return true;
@@ -297,22 +373,23 @@ function pilotRec(tv){
 }
 function pilotScale(){
   const mn=(PILOT&&PILOT.scale&&PILOT.scale.min!=null)?PILOT.scale.min:-50;
-  const mx=(PILOT&&PILOT.scale&&PILOT.scale.max!=null)?PILOT.scale.max:270;
+  const mx=(PILOT&&PILOT.scale&&PILOT.scale.max!=null)?PILOT.scale.max:250;
   return {min:mn,max:mx};
 }
-/* 4 tranches égales de 80 pts sur [-50, 270] ; borne inférieure incluse, 270 inclus dans le cyan */
+/* 5 tranches égales de 60 pts sur [-50, 250] : violet <10, rouge 10–70, orange 70–130, vert 130–190, cyan ≥190 */
 const PILOT_BANDS=[
-  {id:'rouge',de:-50,a:30,hex:'#ff2d2d'},
-  {id:'jaune',de:30,a:110,hex:'#ffd400'},
-  {id:'vert',de:110,a:190,hex:'#22c55e'},
-  {id:'cyan',de:190,a:270,hex:'#00e5ff'}
+  {id:'violet',de:-50,a:10,hex:'#9d54ff'},
+  {id:'rouge',de:10,a:70,hex:'#ff2d2d'},
+  {id:'orange',de:70,a:130,hex:'#ff8c1a'},
+  {id:'vert',de:130,a:190,hex:'#22c55e'},
+  {id:'cyan',de:190,a:251,hex:'#00e5ff'}
 ];
 function pilotBand(total){
   const t=Number(total);
   if(!Number.isFinite(t)) return {id:'',hex:'#8a8a8a'};
-  if(t>=270) return PILOT_BANDS[3];
+  if(t>=190) return PILOT_BANDS[4];
   if(t<-50) return PILOT_BANDS[0];
-  return PILOT_BANDS.find(b=>t>=b.de&&t<b.a)||PILOT_BANDS[3];
+  return PILOT_BANDS.find(b=>t>=b.de&&t<b.a)||PILOT_BANDS[4];
 }
 function pilotPos(total){
   const {min:mn,max:mx}=pilotScale();
@@ -351,7 +428,7 @@ function dualBarPilot(rec, compact){
   const ap=pilotPos(total);
   const sv=Number(fg.value);
   const sp=Number.isFinite(sv)?Math.max(0,Math.min(100,sv)):null;
-  const ticks=[-50,30,110,190,270];
+  const ticks=[-50,10,70,130,190,250];
   const pos=v=>((v-mn)/(mx-mn))*100;
   const hex=pilotHex(rec);
   const sl=fg.label||'–';

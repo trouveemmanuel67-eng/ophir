@@ -10,6 +10,14 @@ function homeTabOf(p){
   return null;
 }
 function homeColor(note){
+  if(note&&typeof note==='object'){
+    if(note.v2||note.scale===250||note.scale===270){
+      const id=note.band||((typeof pilotBand==='function')?pilotBand(note.note).id:null);
+      if(id==='orange') return 'jaune';
+      return id||null;
+    }
+    if(note.note!=null) return homeColor(note.note);
+  }
   const b=(typeof apexBand==='function')?apexBand(note):null;
   return b||null;
 }
@@ -90,6 +98,20 @@ function homeHeldMap(act){
 }
 function homeActionScores(){
   const scores=[];
+  if(typeof PILOT!=='undefined'&&PILOT&&PILOT.pilotes){
+    const seen=new Set();
+    Object.keys(PILOT.pilotes).forEach(k=>{
+      const p=PILOT.pilotes[k];
+      const add=r=>{
+        if(!r||r.total==null||seen.has(r.tv||r.ticker)) return;
+        seen.add(r.tv||r.ticker||(k+':'+r.total));
+        scores.push({v2:true, scale:250, note:r.total, band:r.band});
+      };
+      if(p&&p.etf) add(p.etf);
+      (p&&p.actions||[]).forEach(add);
+    });
+    if(scores.length) return scores;
+  }
   if(typeof SEC!=='undefined') homeScoresOf(SEC.sectors||SEC.secteurs).forEach(s=>scores.push(s));
   if(typeof PAYS!=='undefined') (PAYS.countries||PAYS.pays||[]).forEach(c=>{
     if(c.head) homeScoresOf([c.head]).forEach(s=>scores.push(s));
@@ -134,13 +156,25 @@ function homeValMark(text, title){
 }
 function homeFlagsHTML(t){
   if(!t||!t.n) return '<div class="home-flags" title="Aucune fiche notée dans cet onglet">—</div>';
-  const tip=`${t.cyan} cyan · ${t.vert} vert${t.vert>1?'s':''} · ${t.jaune} jaune${t.jaune>1?'s':''} · ${t.rouge} rouge${t.rouge>1?'s':''} · ${t.violet} violet${t.violet>1?'s':''} (échelle /100 : 0–<20 violet · 20–<40 rouge · 40–<60 jaune · 60–<80 vert · 80–100 cyan)`;
+  const v2=t&&t.v2;
+  const tip=v2
+    ? `${t.cyan} cyan · ${t.vert} vert${t.vert>1?'s':''} · ${t.jaune} orange${t.jaune>1?'s':''} · ${t.rouge} rouge${t.rouge>1?'s':''} · ${t.violet} violet${t.violet>1?'s':''} (échelle −50 à 250 : <10 violet · 10–70 rouge · 70–130 orange · 130–190 vert · ≥190 cyan)`
+    : `${t.cyan} cyan · ${t.vert} vert${t.vert>1?'s':''} · ${t.jaune} jaune${t.jaune>1?'s':''} · ${t.rouge} rouge${t.rouge>1?'s':''} · ${t.violet} violet${t.violet>1?'s':''} (échelle /100 : 0–<20 violet · 20–<40 rouge · 40–<60 jaune · 60–<80 vert · 80–100 cyan)`;
   return `<div class="home-flags" title="${tip}"><span><i class="c"></i>${t.cyan}</span><span><i class="g"></i>${t.vert}</span><span><i class="y"></i>${t.jaune}</span><span><i class="r"></i>${t.rouge}</span><span><i class="vi"></i>${t.violet}</span></div>`;
 }
 function homeSigHTML(av,tabId){
   const st=(tabId&&typeof sectionApexAvg==='function')?sectionApexAvg(tabId):null;
+  const v2=st&&st.apexV2;
+  if(v2&&v2.total!=null){
+    const col=(typeof pilotHex==='function')?pilotHex(v2):(v2.hex||'#e6c27a');
+    return `<div class="home-sig apex10 apex10-pilot" style="color:${col}"><b>${v2.total}</b><small>/ 250</small></div>`;
+  }
   const a=(st&&st.apex10)||(av&&av.apex10)||null; /* t320u : pas de recalcul JS */
-  if(a&&a.note!=null){
+  if(a&&a.v2&&a.total!=null){
+    const col=(typeof pilotHex==='function')?pilotHex(a):(a.hex||'#e6c27a');
+    return `<div class="home-sig apex10 apex10-pilot" style="color:${col}"><b>${a.total}</b><small>/ 250</small></div>`;
+  }
+  if(a&&a.note!=null&&!(a.v2||a.scale===250||a.scale===270)){
     const col=(typeof apex10Col==='function')?apex10Col(a):((typeof gcol==='function')?gcol(a.pos):'#e6c27a');
     return `<div class="home-sig apex10"><b style="color:${col}">${a.display}</b><small style="color:${col}">/100</small></div>`;
   }
@@ -246,7 +280,7 @@ function renderAccueil(el){
   }
 
   const cards=[
-    {id:'actions',label:'Actions',short:'Actions',counts:homeCount(homeActionScores()),held,marks:marks.actions},
+    {id:'actions',label:'Actions',short:'Actions',counts:(()=>{const c=homeCount(homeActionScores());c.v2=true;return c;})(),held,marks:marks.actions},
     {id:'obligations',label:'Obligations',short:'Oblig.',counts:homeCount(homeScoresOf((typeof OB!=='undefined'&&OB.segments)||[])),held,marks:marks.obligations},
     {id:'metaux',label:'Métaux précieux',short:'Métaux',counts:homeCount(homeScoresOf((typeof MT!=='undefined'&&MT.rows)||[])),held,marks:marks.metaux},
     {id:'energie',label:'Énergie',short:'Énergie',counts:homeCount(homeScoresOf((typeof T2!=='undefined'&&T2.energie&&T2.energie.assets)||[])),held,marks:marks.energie},

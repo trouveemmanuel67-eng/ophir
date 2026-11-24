@@ -1,5 +1,6 @@
-/* ===== MEILLEURES ENTRÉES : actifs APEX ≥ 75/100 absents du portefeuille ===== */
+/* ===== MEILLEURES ENTRÉES : actions APEX v2 ≥ 130/250 ; autres actifs ≥ 75/100 ===== */
 const GI_SEUIL=75;
+const GI_SEUIL_V2=130;
 const GI_LIST_KEY='apex-gi-list';
 
 function giHeldSet(){
@@ -80,9 +81,34 @@ function giPrecomputed(){
       .sort((a,b)=> (b.note-a.note) || ((b.av||0)-(a.av||0)) || String(a.tv).localeCompare(String(b.tv)));
   }catch(e){ return null; }
 }
+function giStockRecs(){
+  const out=[];
+  if(!(typeof PILOT!=='undefined'&&PILOT&&PILOT.by_tv)) return out;
+  const held=giHeldSet();
+  const seen=new Set();
+  Object.keys(PILOT.by_tv).forEach(tv=>{
+    const r=PILOT.by_tv[tv];
+    if(!r||r.total==null||r.ok===false) return;
+    if(r.kind&&r.kind!=='action'&&r.kind!=='etf'&&r.kind!=='panier') return;
+    if(r.total<GI_SEUIL_V2) return;
+    const it={tv, nom:r.nom||tv, section:r.kind==='panier'?'Panier APEX':(r.kind==='etf'?'ETF sectoriel':'Action'),
+      note:r.total, display:String(r.total), hex:r.hex, flag:r.band, scale:250, tab:'actions',
+      ticker:r.ticker||'', yahoo:r.yahoo||'', montant:null};
+    if(giIsHeld(it,held)) return;
+    const k=r.tv||tv;
+    if(seen.has(k)) return;
+    seen.add(k);
+    out.push(it);
+  });
+  return out.sort((a,b)=> (b.note-a.note) || String(a.tv).localeCompare(String(b.tv)));
+}
 function giCollect(){
+  const stocks=giStockRecs();
   const pre=giPrecomputed();
-  if(pre) return pre;
+  if(pre){
+    const rest=pre.filter(it=>!(typeof isApexV2Tv==='function'&&isApexV2Tv(it.tv)) && !(typeof pilotRec==='function'&&pilotRec(it.tv)));
+    return stocks.concat(rest).sort((a,b)=> (b.note-a.note) || String(a.tv).localeCompare(String(b.tv)));
+  }
   const out=new Map();
   const bars=(typeof APEX_BARS!=='undefined'&&APEX_BARS&&APEX_BARS.bars)?APEX_BARS.bars:{};
   const take=(tv, nom, section, rec, av, tab, yahoo, ticker)=>{
@@ -223,7 +249,7 @@ function giRender(){
   const list=giCollect();
   const n=list.length;
   const rows=list.map(it=>{
-    const col=(typeof ttColor==='function')?ttColor(it.note):(it.hex||'#e6c27a');
+    const col=it.scale===250||it.scale===270?(it.hex||((typeof pilotHex==='function')?pilotHex({total:it.note}):'#e6c27a')):((typeof ttColor==='function')?ttColor(it.note):(it.hex||'#e6c27a'));
     const note=it.display||String(it.note).replace('.',',');
     const amt=(typeof ttMontantTxt==='function')?ttMontantTxt(it.montant, (typeof TT!=='undefined'&&TT&&TT.unite)||'$'):(it.montant==null?'—':it.montant+' $');
     const d=giDispoTxt(it.tv);
@@ -235,7 +261,7 @@ function giRender(){
     const sec=it.section?`<span class="gi-sec">${String(it.section).replace(/</g,'')}</span>`:'';
     return `<article class="gi-row${it.tv?' has-fiche':''}" title="${tip.replace(/"/g,'&quot;')}">
       <div class="gi-id">${go}</div>
-      <span class="gi-note" style="color:${col}"><b>${note}</b><small>/100</small></span>
+      <span class="gi-note" style="color:${col}"><b>${note}</b><small>/${(it.scale===250||it.scale===270)?250:100}</small></span>
       <span class="gi-amt">${amt}</span>
       <div class="gi-meta">${tick}${sec}</div>
       <span class="${d.cls}">${d.lab}</span>
@@ -248,7 +274,7 @@ function giRender(){
       <span class="pos-head-tot">${n}<small>titre${n>1?'s':''}</small></span>
     </div>
     <div class="pos-body gi-body" id="giBody">
-      <div class="gi-list">${rows||'<div class="gi-empty">Aucun titre à 75/100 ou plus hors portefeuille.</div>'}</div>
+      <div class="gi-list">${rows||'<div class="gi-empty">Aucun titre au seuil (actions ≥ 130/250, autres ≥ 75/100) hors portefeuille.</div>'}</div>
     </div>
   </div>`;
   const wasOpen=giListIsOpen();

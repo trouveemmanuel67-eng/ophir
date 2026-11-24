@@ -444,7 +444,7 @@ function rgAchatV2RuleShort(c){
 function rgActionsGrid(v, opts){
   v=v||((RG&&RG.apex_achat_v2)||{});
   opts=opts||{};
-  const ordre=['rsi_14_hebdo','macd_12_26_9_hebdo','fibonacci','elliott','cci_20_hebdo'];
+  const ordre=['rsi_14_hebdo','macd_12_26_9_hebdo','fibonacci','cci_20_hebdo'];
   const by={};
   (v.criteres||[]).forEach(c=>{if(c&&c.id) by[c.id]=c;});
   const tech=ordre.map(id=>by[id]).filter(Boolean);
@@ -520,7 +520,7 @@ function rgFmtScaleBound(n){
 }
 function rgActionsScale(v){
   v=v||((RG&&RG.apex_achat_v2)||{});
-  const ordre=['rsi_14_hebdo','macd_12_26_9_hebdo','fibonacci','elliott','cci_20_hebdo'];
+  const ordre=['rsi_14_hebdo','macd_12_26_9_hebdo','fibonacci','cci_20_hebdo'];
   const by={};
   (v.criteres||[]).forEach(c=>{if(c&&c.id) by[c.id]=c;});
   const techMax=ordre.map(id=>by[id]).filter(Boolean).reduce((s,c)=>s+(Number(c.max)||0),0);
