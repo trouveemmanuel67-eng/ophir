@@ -499,7 +499,7 @@ function rgActionsGrid(v, opts){
       <div class="rg-cards rg-cards-span">${sentCards}</div>
     </section>`
     :'';
-  /* H : hype / attention, à contre-courant (0 à 20, APE-25) */
+  /* H : hype / attention, à contre-courant (±27, APE-25 validé le 24/11) */
   const hy=v.hype||null;
   const hyMax=hy?(hy.max_affiche||('±'+rgNum(hy.max||30))):'';
   const hyCards=hy?(hy.criteres||[]).map(el=>card(el.id, el.label||el.id, rgEsc(el.regle_courte||el.regle||''), el.points_max||hyMax)).join(''):'';
@@ -574,8 +574,10 @@ function rgActionsScale(v){
   const hAbs=hy&&Number.isFinite(Number(hy.max))?Math.abs(Number(hy.max)):0;
   /* APE-25 : H va de hy.min (0) à hy.max (20) ; ancien H symétrique ±max si min absent */
   const hMin=hy&&hy.min!=null&&Number.isFinite(Number(hy.min))?Number(hy.min):-hAbs;
-  const min=sMin+hMin;
-  const max=techMax+fond+sMax+hAbs;
+  /* total borné à l’échelle de la note (−50..250) */
+  const lo=v.note_min!=null?Number(v.note_min):-Infinity, hi=v.note_max!=null?Number(v.note_max):Infinity;
+  const min=Math.max(lo,sMin+hMin);
+  const max=Math.min(hi,techMax+fond+sMax+hAbs);
   return {min, max, techMax, fond, sMin, sMax, hAbs, label: rgFmtScaleBound(min)+' à '+rgFmtScaleBound(max)};
 }
 function rgSectionAccordion(sec){

@@ -352,7 +352,9 @@ def test_actions_hors_banque_et_accordeon_bancaire(regles):
     assert tech == 99
     assert b['sentiment']['max_affiche'] == '±50'
     assert tech + fond['max'] + 50 == 230
-    assert b['hype']['max'] == 20 and tech + fond['max'] + 50 + b['hype']['max'] == 250  # APE-25
+    # H validé le 24/11 : ±27 = round((50 − attention) × 0,54) ; total borné −50..250
+    assert b['hype']['max'] == 27 and b['hype']['min'] == -27 and b['hype']['max_affiche'] == '±27'
+    assert b.get('note_min') == -50 and b.get('note_max') == 250
 
     js = (ROOT / 'src' / 'regles.js').read_text(encoding='utf-8')
     assert 'Actions (hors banque)' in js

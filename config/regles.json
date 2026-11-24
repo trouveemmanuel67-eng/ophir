@@ -414,7 +414,7 @@
             "texte": "Si le fondamental est inférieur au seuil, une pénalité proportionnelle est retranchée de la note, plafonnée au maximum indiqué."
           }
         },
-        "precision": "Actions USA et France : note −50 à 250, points entiers qui s’additionnent. Technique 99 : RSI 27, MACD 27, Fibo 27, CCI 18 + Fondamental 81 (9 × 9 ; règle banque pour les banques) + F&G CNN ±50 + H 0 à 20 (attention à contre-courant : 20 − 2 × tranche de 10). Sans Elliott. Le bandeau Achat / Vente reste calculé à part, sur sa propre grille.",
+        "precision": "Actions USA et France : note −50 à 250, points entiers qui s’additionnent. Technique 99 : RSI 27, MACD 27, Fibo 27, CCI 18 + Fondamental 81 (9 × 9 ; règle banque pour les banques) + F&G CNN ±50 + H ±27 (attention à contre-courant : round((50 − attention) × 0,54)). Sans Elliott. Le bandeau Achat / Vente reste calculé à part, sur sa propre grille.",
         "technique": {
           "source": "config/regles.json · apex/score.py · src/technique_apex.py",
           "fixes": [
@@ -1314,7 +1314,7 @@
   },
   "apex_achat_v2": {
     "titre": "APEX ACHAT — nouvelles règles (en construction)",
-    "intro": "L’indicateur APEX ACHAT se construit par accumulation de points, critère par critère. Échelle −50 à 250 (APE-25, 24/11/2026 : chaque indicateur compressé de 10 %, × 0,9 — Technique 99 : RSI 27, MACD 27, Fibo 27, CCI 18 ; fondamental 81, 9 × 9 ; Fear & Greed ±50 ; H hype / attention 0 à 20, à contre-courant). Ce règlement s’applique aux actions hors banques des USA et de la France. Les vagues d’Elliott ne font plus partie de la note.",
+    "intro": "L’indicateur APEX ACHAT se construit par accumulation de points, critère par critère. Échelle −50 à 250 (APE-25, 24/11/2026 : technique et fondamental compressés de 10 %, × 0,9 — Technique 99 : RSI 27, MACD 27, Fibo 27, CCI 18 ; fondamental 81, 9 × 9 ; Fear & Greed ±50 ; H hype / attention ±27, à contre-courant ; total borné à −50…250). Ce règlement s’applique aux actions hors banques des USA et de la France. Les vagues d’Elliott ne font plus partie de la note.",
     "utilise_par_le_calcul": true,
     "reference_titre": "Règles actuelles de la note APEX (référence)",
     "criteres": [
@@ -1587,22 +1587,22 @@
     "hype": {
       "id": "hype",
       "label": "Hype / attention (H)",
-      "max": 20,
-      "max_affiche": "0 à 20",
-      "min": 0,
+      "max": 27,
+      "max_affiche": "±27",
+      "min": -27,
       "utilise_par_le_calcul": true,
       "a_contre_courant": true,
       "date_validation": "24/11/2026",
       "tache": "t417u–t421u",
-      "precision": "Indicateur d’Attention Long Swing : note 0–100, horizon semaines / mois, calcul hebdomadaire (week-end). Ce n’est ni un indicateur technique, ni le Fear & Greed, ni un signal d’achat ou de vente : plus un titre est à la mode, plus il perd de points (attention 0–9 → +20, −2 par tranche de 10, 100 → 0). Google Trends : USA « <nom> stock » (monde), France nom de la société (France). Mentions : Reddit via ApeWisdom (wallstreetbets, stocks, investing…) ; X et StockTwits non accessibles ; actions françaises sans ADR US : « – ». Pondération recalculée sur les sources disponibles. ETF / panier de section : moyenne des H des actions affichées.",
+      "precision": "Indicateur d’Attention Long Swing : note 0–100, horizon semaines / mois, calcul hebdomadaire (week-end). Ce n’est ni un indicateur technique, ni le Fear & Greed, ni un signal d’achat ou de vente : plus un titre est à la mode, plus il perd de points (attention 0 → +27, 50 → 0, 100 → −27 : H = round((50 − attention) × 0,54)). Google Trends : USA « <nom> stock » (monde), France nom de la société (France). Mentions : Reddit via ApeWisdom (wallstreetbets, stocks, investing…) ; X et StockTwits non accessibles ; actions françaises sans ADR US : « – ». Pondération recalculée sur les sources disponibles. ETF / panier de section : moyenne des H des actions affichées.",
       "criteres": [
         {
           "id": "hype_formule",
           "label": "Apport H (à contre-courant)",
-          "points_max": "0 à 20",
-          "regle": "H = 20 − 2 × tranche d’attention (tranche = attention ÷ 10, arrondi par défaut). Attention 0–9 → +20 ; 50 → +10 ; 100 → 0. Donnée d’attention absente : H = 0, affiché « – », jamais inventée.",
-          "regle_courte": "H = 20 − 2 × tranche ; absente : 0, affiché « – »",
-          "detail": "H = 20 − 2 × tranche d’attention (tranche = attention ÷ 10, arrondi par défaut). Attention 0–9 → +20 ; 50 → +10 ; 100 → 0. Donnée d’attention absente : H = 0, affiché « – », jamais inventée."
+          "points_max": "±27",
+          "regle": "H = round((50 − attention) × 0,54), arrondi au plus proche. Attention 0 → +27 ; 50 → 0 ; 100 → −27. Donnée d’attention absente : H = 0, affiché « – », jamais inventée.",
+          "regle_courte": "H = round((50 − attention) × 0,54) ; absente : 0, affiché « – »",
+          "detail": "H = round((50 − attention) × 0,54), arrondi au plus proche. Attention 0 → +27 ; 50 → 0 ; 100 → −27. Donnée d’attention absente : H = 0, affiché « – », jamais inventée."
         },
         {
           "id": "hype_trends",
@@ -1635,7 +1635,7 @@
       ]
     },
     "couleurs_echelle": {
-      "regle": "APE-25 (24/11/2026) : échelle unique −50 à 250 pour toutes les classes. Technique 99 (RSI 27, MACD 27, Fibonacci 27, CCI 18) + Fondamental 81 (9 × 9) + H 0 à 20 + F&G ±50 : chaque indicateur est compressé de 10 % (× 0,9) pour ramener le maximum de 280 à 250. Meilleures entrées : note ≥ 130 (début du vert).",
+      "regle": "APE-25 (24/11/2026) : échelle unique −50 à 250 pour toutes les classes. Technique 99 (RSI 27, MACD 27, Fibonacci 27, CCI 18) + Fondamental 81 (9 × 9) + H ±27 (validé le 24/11) + F&G ±50 : technique et fondamental compressés de 10 % (× 0,9) ; total borné à −50…250. Meilleures entrées : note ≥ 130 (début du vert).",
       "bandes": [
         {
           "id": "violet",
@@ -1675,12 +1675,14 @@
       ],
       "seuil_meilleures_entrees": 130
     },
-    "echelle": "−50 à 250"
+    "echelle": "−50 à 250",
+    "note_min": -50,
+    "note_max": 250
   },
   "apex_achat_v2_banque": {
     "titre": "Actions bancaires",
     "section_titre": "Actions bancaires",
-    "intro": "Même technique (Technique 99 : RSI 27, MACD 27, Fibo 27, CCI 18) et même Fear & Greed (±50) que les actions hors banque. Fondamental bancaire validé le 23/11/2026, compressé le 24/11 (APE-25) : 81 points, 9 critères à +9 chacun (0 si le seuil n’est pas atteint ou si la donnée manque). Échelle −50 à 250 (H hype / attention 0 à 20, à contre-courant, en plus). Les vagues d’Elliott ne font plus partie de la note. Ce règlement s’applique aux banques des USA et de la France.",
+    "intro": "Même technique (Technique 99 : RSI 27, MACD 27, Fibo 27, CCI 18) et même Fear & Greed (±50) que les actions hors banque. Fondamental bancaire validé le 23/11/2026, compressé le 24/11 (APE-25) : 81 points, 9 critères à +9 chacun (0 si le seuil n’est pas atteint ou si la donnée manque). Échelle −50 à 250 (H hype / attention ±27, à contre-courant, en plus). Les vagues d’Elliott ne font plus partie de la note. Ce règlement s’applique aux banques des USA et de la France.",
     "champ_application": "Ce règlement s’applique aux banques (industries Yahoo Banks, Banks - Diversified, Banks - Regional, Savings Institutions) des USA et de la France. Les assurances et les autres financières relèvent des règles Actions (hors banque). Les positions détenues hors de cet univers restent visibles dans Mes positions.",
     "utilise_par_le_calcul": true,
     "affichage_seulement": false,
@@ -1950,22 +1952,22 @@
     "hype": {
       "id": "hype",
       "label": "Hype / attention (H)",
-      "max": 20,
-      "max_affiche": "0 à 20",
-      "min": 0,
+      "max": 27,
+      "max_affiche": "±27",
+      "min": -27,
       "utilise_par_le_calcul": true,
       "a_contre_courant": true,
       "date_validation": "24/11/2026",
       "tache": "t417u–t421u",
-      "precision": "Indicateur d’Attention Long Swing : note 0–100, horizon semaines / mois, calcul hebdomadaire (week-end). Ce n’est ni un indicateur technique, ni le Fear & Greed, ni un signal d’achat ou de vente : plus un titre est à la mode, plus il perd de points (attention 0–9 → +20, −2 par tranche de 10, 100 → 0). Google Trends : USA « <nom> stock » (monde), France nom de la société (France). Mentions : Reddit via ApeWisdom (wallstreetbets, stocks, investing…) ; X et StockTwits non accessibles ; actions françaises sans ADR US : « – ». Pondération recalculée sur les sources disponibles. ETF / panier de section : moyenne des H des actions affichées.",
+      "precision": "Indicateur d’Attention Long Swing : note 0–100, horizon semaines / mois, calcul hebdomadaire (week-end). Ce n’est ni un indicateur technique, ni le Fear & Greed, ni un signal d’achat ou de vente : plus un titre est à la mode, plus il perd de points (attention 0 → +27, 50 → 0, 100 → −27 : H = round((50 − attention) × 0,54)). Google Trends : USA « <nom> stock » (monde), France nom de la société (France). Mentions : Reddit via ApeWisdom (wallstreetbets, stocks, investing…) ; X et StockTwits non accessibles ; actions françaises sans ADR US : « – ». Pondération recalculée sur les sources disponibles. ETF / panier de section : moyenne des H des actions affichées.",
       "criteres": [
         {
           "id": "hype_formule",
           "label": "Apport H (à contre-courant)",
-          "points_max": "0 à 20",
-          "regle": "H = 20 − 2 × tranche d’attention (tranche = attention ÷ 10, arrondi par défaut). Attention 0–9 → +20 ; 50 → +10 ; 100 → 0. Donnée d’attention absente : H = 0, affiché « – », jamais inventée.",
-          "regle_courte": "H = 20 − 2 × tranche ; absente : 0, affiché « – »",
-          "detail": "H = 20 − 2 × tranche d’attention (tranche = attention ÷ 10, arrondi par défaut). Attention 0–9 → +20 ; 50 → +10 ; 100 → 0. Donnée d’attention absente : H = 0, affiché « – », jamais inventée."
+          "points_max": "±27",
+          "regle": "H = round((50 − attention) × 0,54), arrondi au plus proche. Attention 0 → +27 ; 50 → 0 ; 100 → −27. Donnée d’attention absente : H = 0, affiché « – », jamais inventée.",
+          "regle_courte": "H = round((50 − attention) × 0,54) ; absente : 0, affiché « – »",
+          "detail": "H = round((50 − attention) × 0,54), arrondi au plus proche. Attention 0 → +27 ; 50 → 0 ; 100 → −27. Donnée d’attention absente : H = 0, affiché « – », jamais inventée."
         },
         {
           "id": "hype_trends",
@@ -1998,7 +2000,7 @@
       ]
     },
     "couleurs_echelle": {
-      "regle": "APE-25 (24/11/2026) : échelle unique −50 à 250 pour toutes les classes. Technique 99 (RSI 27, MACD 27, Fibonacci 27, CCI 18) + Fondamental 81 (9 × 9) + H 0 à 20 + F&G ±50 : chaque indicateur est compressé de 10 % (× 0,9) pour ramener le maximum de 280 à 250. Meilleures entrées : note ≥ 130 (début du vert).",
+      "regle": "APE-25 (24/11/2026) : échelle unique −50 à 250 pour toutes les classes. Technique 99 (RSI 27, MACD 27, Fibonacci 27, CCI 18) + Fondamental 81 (9 × 9) + H ±27 (validé le 24/11) + F&G ±50 : technique et fondamental compressés de 10 % (× 0,9) ; total borné à −50…250. Meilleures entrées : note ≥ 130 (début du vert).",
       "bandes": [
         {
           "id": "violet",
@@ -2038,7 +2040,9 @@
       ],
       "seuil_meilleures_entrees": 130
     },
-    "echelle": "−50 à 250"
+    "echelle": "−50 à 250",
+    "note_min": -50,
+    "note_max": 250
   },
   "apex_metaux": {
     "section_titre": "Métaux précieux",

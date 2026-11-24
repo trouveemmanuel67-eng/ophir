@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
 """Applique l'apport H (attention / hype, à contre-courant) aux notes APEX actions.
 
-Note APEX actions (APE-25) = RSI 27 + MACD 27 + Fibo 27 + CCI 18 (99) + Fondamental 81 + F&G (±50) + H (0..20)
-=> échelle −50 à 250.  H = 20 − 2 × tranche d'attention (0–9 → 20, 100 → 0) ; attention absente => « – ».
+Note APEX actions (APE-25) = RSI 27 + MACD 27 + Fibo 27 + CCI 18 (99) + Fondamental 81 + F&G (±50) + H (±27), total borné −50..250
+=> échelle −50 à 250.  H = round((50 − attention) × 0,54) : 0 → +27, 50 → 0, 100 → −27 ; attention absente => « – ».
 Actions USA et France uniquement. ETF / panier de section = moyenne arrondie des H disponibles
 des actions affichées (même logique que le fondamental). Hors USA / France : H « – ».
 Idempotent : le total est recalculé à partir des composantes, jamais cumulé.
 Ne touche à aucune autre section (Métaux, Oblig., Liq., Immo, Crypto, Énergie, ETF Marché).
 """
 from __future__ import annotations
-import json, sys
+import json, math, sys
 from pathlib import Path
 import os
 
@@ -17,9 +17,9 @@ ROOT = Path(os.environ.get('APEX_ROOT') or Path(__file__).resolve().parent.paren
 DATA = ROOT / 'data'
 
 SCALE_MIN, SCALE_MAX = -50, 250
-HYPE_ABS = 20
+HYPE_ABS = 27  # APE-25 validé le 24/11 : H = round((50 − attention) × 0,54), −27..+27
 # APE-25 (t503u) : échelle unique −50..250. Composantes compressées équitablement (× 0,9) :
-# RSI 27, MACD 27, Fibo 27, CCI 18 (technique 99) + Fondamental 81 (9 × 9) + H 0..20 + F&G ±50.
+# RSI 27, MACD 27, Fibo 27, CCI 18 (technique 99) + Fondamental 81 (9 × 9) + H ±27 + F&G ±50 (borné −50..250).
 FACTEUR = 0.9
 BANDS = [
     ('violet', -50, 10, '#9d54ff'),
@@ -44,19 +44,24 @@ def band_of(t):
     return 'violet'
 
 
+def _rnd(x):
+    """Arrondi au plus proche, demi éloigné de zéro (pas d'arrondi bancaire)."""
+    return int(math.copysign(math.floor(abs(x) + 0.5), x))
+
+
 def h_points(attention):
-    """H à contre-courant 0..20 : attention 0–9 → +20, −2 par tranche de 10, 100 → 0."""
+    """H à contre-courant −27..+27 : H = round((50 − attention) × 0,54) ; 0 → +27, 50 → 0, 100 → −27."""
     if attention is None:
         return None
-    v = max(0, min(100, int(attention)))
-    return max(0, 20 - 2 * (v // 10))
+    v = max(0.0, min(100.0, float(attention)))
+    return max(-HYPE_ABS, min(HYPE_ABS, _rnd((50 - v) * 0.54)))
 
 
 def scale_obj(old=None):
     s = dict(old or {})
     s.update({'min': SCALE_MIN, 'max': SCALE_MAX, 'tech_max': 99, 'fond_max': 81, 'fg_abs': 50, 'hype_abs': HYPE_ABS,
-              'hype_min': 0,
-              'composantes': {'rsi': 27, 'macd': 27, 'fibonacci': 27, 'cci': 18, 'fondamental': 81, 'hype': 20, 'fear_greed': 50},
+              'hype_min': -HYPE_ABS,
+              'composantes': {'rsi': 27, 'macd': 27, 'fibonacci': 27, 'cci': 18, 'fondamental': 81, 'hype': 27, 'fear_greed': 50},
               'seuil_meilleures_entrees': SEUIL_MEILLEURES,
               'regle_bandes': 'Échelle unique −50 à 250 : violet < 10, rouge 10–69, orange 70–129, vert 130–189, cyan ≥ 190',
               'bandes': [{'id': n, 'de': lo, 'a': (hi if hi < 251 else 250), 'hex': hx} for n, lo, hi, hx in BANDS],
@@ -155,7 +160,7 @@ def att_compact(a):
     c = a.get('composantes') or {}
     return {'valeur': a['attention'], 'H': h_points(a['attention']), 'trends': c.get('trends'), 'mentions': c.get('mentions'),
             'volume': c.get('volume'), 'persistance': c.get('persist'), 'poids_dispo': a.get('poids_dispo'),
-            'grille': '0–9 → +20, −2 par tranche de 10, 100 → 0',
+            'grille': 'H = round((50 − attention) × 0,54) : 0 → +27, 50 → 0, 100 → −27',
             'manquants': [m for m in (a.get('manquants') or []) if m not in ('X', 'StockTwits')]}
 
 
@@ -191,7 +196,7 @@ def _etf_fond(etf, actions):
 
 
 def apply_doc(doc, att_by, att_meta=None):
-    """Applique H (0..20) et l'échelle 250 à un document pilote (apex_achat_v2_pilot.json ou scores_full)."""
+    """Applique H (−27..+27) et l'échelle 250 à un document pilote (apex_achat_v2_pilot.json ou scores_full)."""
     pil = doc.get('pilotes') or {}
     res = {}  # tv -> (h, att, fond_override)
     for sid, p in pil.items():
@@ -209,7 +214,7 @@ def apply_doc(doc, att_by, att_meta=None):
                 hs.append(h); names.append(a.get('ticker') or tv)
         etf = p.get('etf') or {}
         if pays in KEEP_PAYS and hs:
-            h = int(round(sum(hs) / len(hs)))
+            h = _rnd(sum(hs) / len(hs))
             att = {'valeur': None, 'H': h, 'moyenne_de': names, 'n': len(hs), 'n_affichees': len(acts),
                    'precision': f'Moyenne arrondie des H des {len(hs)} action(s) affichée(s) sur {len(acts)} (mêmes titres que le fondamental)'}
         else:

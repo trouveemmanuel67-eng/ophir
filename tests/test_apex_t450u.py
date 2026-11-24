@@ -25,16 +25,16 @@ def test_cat_et_top_manquants_notes():
     bt = full["by_tv"]
     cat = bt["NYSE:CAT"]
     assert cat["ok"] is True
-    # APE-25 : × 0,9 par indicateur, H 0..20
-    assert cat["total"] == 166
+    # APE-25 : × 0,9 (technique, fondamental), H ±27
+    assert cat["total"] == 155
     assert cat["total_max"] == 250 and cat["total_min"] == -50
     assert cat["points"] == {
         "rsi": 9, "macd": 27, "fibonacci": 9, "cci": 18,
-        "fondamental": 63, "fear_greed": 30, "total": 166, "hype": 10,
+        "fondamental": 63, "fear_greed": 30, "total": 155, "hype": -1,
     }
-    assert bt["XETR:ZPDF"]["total"] == 102
-    assert bt["XETR:ZPDK"]["total"] == 127
-    assert bt["NYSE:MA"]["total"] == 116
+    assert bt["XETR:ZPDF"]["total"] == 97
+    assert bt["XETR:ZPDK"]["total"] == 118
+    assert bt["NYSE:MA"]["total"] == 108
     xli = full["pilotes"]["XLI"]["actions"]
     assert len(xli) == 10
     assert {a["tv"] for a in xli} >= {

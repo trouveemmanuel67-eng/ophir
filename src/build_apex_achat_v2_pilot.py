@@ -42,8 +42,8 @@ ETF = {
 # sont lues dynamiquement depuis fondamentaux.json.
 
 SCALE_MIN = -50
-SCALE_MAX = 250  # APE-25 : technique 99 + fondamental 81 + H 0..20 + F&G ±50 (compression ×0,9 dans apply_attention)
-HYPE_ABS = 20
+SCALE_MAX = 250  # APE-25 : technique 99 + fondamental 81 + H ±27 + F&G ±50 (borné −50..250) (compression ×0,9 dans apply_attention)
+HYPE_ABS = 27
 TECH_MAX = 110
 FOND_MAX = 90
 FG_ABS = 50

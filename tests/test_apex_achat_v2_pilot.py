@@ -56,7 +56,7 @@ def test_pilot_file_communication_only():
                     + (pts.get('hype') or 0))
         assert rec['total'] == expected == pts['total']
         assert rec['total_min'] == -50 and rec['total_max'] == 250  # APE-25
-        assert 'hype' in pts and (pts['hype'] is None or 0 <= pts['hype'] <= 20)
+        assert 'hype' in pts and (pts['hype'] is None or -27 <= pts['hype'] <= 27)
         assert 'elliott' not in pts
         assert 'Elliott' not in (rec.get('ligne') or '')
     # déploiement mondial : toutes les sections Actions sont dans pilotes
@@ -66,7 +66,7 @@ def test_pilot_file_communication_only():
 
 def test_cinq_tranches_egales():
     # APE-25 : −50 à 250, 5 tranches égales de 60 points
-    assert P.SCALE_MIN == -50 and P.SCALE_MAX == 250 and P.HYPE_ABS == 20
+    assert P.SCALE_MIN == -50 and P.SCALE_MAX == 250 and P.HYPE_ABS == 27
     assert P.band_of(-50) == 'violet'
     assert P.band_of(9.9) == 'violet'
     assert P.band_of(10) == 'rouge'
