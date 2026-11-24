@@ -322,8 +322,46 @@ def textes():
             LOG.append((fn, 'textes /100 de la liquidité crypto reformulés'))
 
 
+def retraits():
+    """t509 (24/11/2026) : produits introuvables chez Revolut et XTB retirés de tout le site (config/retraits_site.json)."""
+    cfgp = ROOT / 'config' / 'retraits_site.json'
+    if not cfgp.exists():
+        return
+    cfg = json.loads(cfgp.read_text(encoding='utf-8'))
+    R = cfg.get('retires') or {}
+    # Obligations : segment dont l'ETF de référence est retiré -> carte « taux, repère de marché » (renderSegments)
+    O = load('obligations.json')
+    keep = []
+    for s in O.get('segments') or []:
+        if s.get('tv') in R:
+            O.setdefault('removed_notes', {})[s.get('pays') or s.get('key')] = (cfg.get('removed_notes') or {}).get(s.get('pays') or s.get('key')) or R[s['tv']]
+            LOG.append(('obligations', f"segment {s.get('key')} retiré ({s['tv']}, introuvable Revolut/XTB)"))
+            continue
+        s['list'] = [x for x in (s.get('list') or []) if x.get('tv') not in R]
+        keep.append(s)
+    O['segments'] = keep
+    save('obligations.json', O)
+    # ETF par devise (Liquidités) : ETF local retiré
+    T = load('tabs_data.json')
+    for a in ((T.get('liquidites') or {}).get('fx') or {}).get('assets') or []:
+        e = a.get('etf_local') or {}
+        if e.get('tv') in R:
+            a['etf_local'] = {'ccy': e.get('ccy'), 'ok': False, 'nom': None, 'tv': None, 'indispo': True,
+                              'raison': f"Le meilleur ETF 3 ans en {a.get('sym')} n'est disponible ni chez Revolut ni chez XTB : retiré d'APEX le 24/11/2026."}
+            LOG.append(('tabs_data', f"ETF par devise {a.get('sym')} : {e['tv']} retiré (introuvable Revolut/XTB)"))
+    save('tabs_data.json', T)
+    # Barres individuelles
+    B = load('apex_bars.json')
+    for tv in list((B.get('bars') or {}).keys()):
+        if tv in R:
+            B['bars'].pop(tv)
+            LOG.append(('apex_bars', f"{tv} retiré (introuvable Revolut/XTB)"))
+    save('apex_bars.json', B)
+
+
 def main():
     pil = inject_special()
+    retraits()
     harmonise(pil)
     textes()
     (D / 'fond250').mkdir(exist_ok=True)

@@ -1,0 +1,24 @@
+{
+  "_comment": "t509 (24/11/2026, validé par Emmanuel) : produits introuvables chez Revolut et chez XTB (config/dispo_etf_etc_2026-11-24.csv), retirés de tout le site APEX. Appliqué par src/harmonise250.py, src/build_long250.py (ETC métaux) et src/build.py (données embarquées).",
+  "retires": {
+    "TSE:1631": "NEXT FUNDS Banks (TOPIX-17), ETF par devise JPY : ni Revolut ni XTB",
+    "NASDAQ:RING": "iShares MSCI Global Gold Miners ETF (droit US, PRIIPs), ETF par devise USD : ni Revolut ni XTB",
+    "EURONEXT:IFRB": "iShares France Govt Bond, référence du segment OAT : ni Revolut ni XTB",
+    "XETR:8PSA": "Invesco Physical Platinum : ni Revolut ni XTB",
+    "XETR:8PSC": "Invesco Physical Palladium : ni Revolut ni XTB",
+    "LSE:PHAG": "WisdomTree Physical Silver : ni Revolut ni XTB",
+    "EURONEXT:PHPT": "WisdomTree Physical Platinum : ni Revolut ni XTB",
+    "XETR:XAD3": "Xtrackers Physical Platinum EUR Hedged : ni Revolut ni XTB",
+    "XETR:XPPT": "Xtrackers IE Physical Platinum : ni Revolut ni XTB",
+    "AMEX:SPY": "SPDR S&P 500 ETF Trust (ETF de référence de l'accueil, droit US, PRIIPs) : ni Revolut ni XTB ; remplacé dans config/etf_reference.json",
+    "AMEX:AGG": "iShares Core US Aggregate Bond ETF (ETF de référence de l'accueil, droit US, PRIIPs) : ni Revolut ni XTB ; remplacé dans config/etf_reference.json",
+    "AMEX:GLD": "SPDR Gold Shares (ETF de référence de l'accueil, droit US, PRIIPs) : ni Revolut ni XTB ; remplacé dans config/etf_reference.json",
+    "AMEX:XLE": "Energy Select Sector SPDR Fund (ETF de référence de l'accueil, droit US, PRIIPs) : ni Revolut ni XTB ; remplacé dans config/etf_reference.json",
+    "AMEX:BIL": "SPDR Bloomberg 1-3 Month T-Bill ETF (ETF de référence de l'accueil, droit US, PRIIPs) : ni Revolut ni XTB ; remplacé dans config/etf_reference.json",
+    "AMEX:VNQ": "Vanguard Real Estate ETF (ETF de référence de l'accueil, droit US, PRIIPs) : ni Revolut ni XTB ; remplacé dans config/etf_reference.json",
+    "NASDAQ:IBIT": "iShares Bitcoin Trust ETF (ETF de référence de l'accueil, droit US, PRIIPs) : ni Revolut ni XTB ; remplacé dans config/etf_reference.json"
+  },
+  "removed_notes": {
+    "fr": "L'ETF iShares de dette d'État française n'est disponible ni chez Revolut ni chez XTB : segment retiré d'APEX le 24/11/2026 (pas de note achat / vente). Alternative : les OAT en direct, cotées sur Euronext Paris. Les taux restent affichés comme repère de marché."
+  }
+}

@@ -508,7 +508,7 @@ function fxEtfRow(s){
   if(!e) return '';
   if(!e.ok){
     const why=(e.raison||'Données insuffisantes pour désigner un ETF/ETC liquide, sans inventer.').replace(/"/g,'&quot;');
-    return `<div class="fx-etf fx-etf-na" title="${why}"><span class="fx-etf-k">ETF local</span><span class="fx-etf-na-t">Pas d’ETF/ETC retenu en ${s.sym} : données 3 ans annualisées insuffisantes (voir Détail / rapport), sans invention.</span></div>`;
+    return `<div class="fx-etf fx-etf-na" title="${why}"><span class="fx-etf-k">ETF local</span><span class="fx-etf-na-t">${e.indispo?`Pas d’ETF/ETC retenu en ${s.sym} : le meilleur ETF 3 ans n’est disponible ni chez Revolut ni chez XTB (retiré le 24/11/2026).`:`Pas d’ETF/ETC retenu en ${s.sym} : données 3 ans annualisées insuffisantes (voir Détail / rapport), sans invention.`}</span></div>`;
   }
   const tv=e.tv||'';
   const cp=(tv&&typeof ophirCopyBtn==='function')?ophirCopyBtn(tv):'';

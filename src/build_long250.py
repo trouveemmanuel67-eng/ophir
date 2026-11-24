@@ -108,6 +108,22 @@ def _held_tvs():
     return out
 
 
+def _dispo():
+    """tv → (Revolut, XTB) d'après config/dispo_etf_etc_2026-11-24.csv (analyse du 24/11/2026, XTB corrigé par ISIN)."""
+    import csv
+    out = {}
+    p = ROOT / 'config' / 'dispo_etf_etc_2026-11-24.csv'
+    if p.exists():
+        for r in csv.DictReader(p.open(encoding='utf-8')):
+            out[r['symbole_tv']] = (r.get('revolut') == 'oui', r.get('xtb') == 'oui')
+    return out
+
+
+def _retraits():
+    p = ROOT / 'config' / 'retraits_site.json'
+    return set((json.loads(p.read_text(encoding='utf-8')).get('retires') or {}).keys()) if p.exists() else set()
+
+
 def _qual(it):
     q = ((it.get('apex10') or {}).get('decomp') or {}).get('qualite_etc') or {}
     return q.get('points')
@@ -123,9 +139,19 @@ def _enc(it):
 def un_seul_etc(r, metal, notes):
     ml = r.get('mlist') or {}
     allit = [x for x in [ml.get('head')] + list(ml.get('items') or []) if x]
-    etcs = [x for x in allit if x.get('kind') == 'etc' and (x.get('apex10') or {}).get('note') is not None]
-    if len(etcs) <= 1:
-        return notes
+    etcs_all = [x for x in allit if x.get('kind') == 'etc' and (x.get('apex10') or {}).get('note') is not None]
+    dispo = _dispo()
+    retires_site = _retraits()
+    # t508u : seuls les ETC achetables chez Revolut ou XTB sont candidats ; t509 : les introuvables disparaissent du site.
+    etcs = [x for x in etcs_all if dispo.get(x.get('tv'), (False, False)) != (False, False) and x.get('tv') not in retires_site]
+    absents = [x for x in etcs_all if x not in etcs]
+    if absents:
+        ml['items'] = [x for x in (ml.get('items') or []) if x not in absents]
+        if ml.get('head') in absents:
+            ml['head'] = None
+        allit = [x for x in allit if x not in absents]
+    if not etcs:
+        return [float(x['apex10']['note']) for x in allit if (x.get('apex10') or {}).get('note') is not None] if absents else notes
     eur = lambda x: 1 if (x.get('currency') or '').upper() == 'EUR' else 0
     ter = lambda x: x.get('ter') if x.get('ter') is not None else 9.9
     best = sorted(etcs, key=lambda x: (-(_qual(x) or 0), -eur(x), ter(x), -_enc(x), -(x['apex10']['note'])))[0]
@@ -134,8 +160,9 @@ def un_seul_etc(r, metal, notes):
     for x in etcs:
         if x is best:
             continue
+        rv, xt = dispo.get(x.get('tv'), (False, False))
         info = {'tv': x.get('tv'), 'isin': x.get('isin'), 'note': x['apex10'].get('note'), 'qualite_etc': _qual(x),
-                'ter': x.get('ter'), 'devise': x.get('currency')}
+                'ter': x.get('ter'), 'devise': x.get('currency'), 'courtiers': ' et '.join(c for c, ok in (('Revolut', rv), ('XTB', xt)) if ok)}
         if x.get('tv') in held:
             x['masque_onglet'] = True
             masques.append(x)
@@ -148,19 +175,22 @@ def un_seul_etc(r, metal, notes):
     ml['etc_retires'] = retires
     if masques:
         ml['etc_detenus_masques'] = masques
+    brv, bxt = dispo.get(best.get('tv'), (False, False))
+    court = ' et '.join(c for c, ok in (('Revolut', brv), ('XTB', bxt)) if ok)
     q = _qual(best)
     noms = ', '.join(i['tv'].split(':')[-1] for i in retires if i.get('tv'))
     ml['list_note'] = (f"Un seul ETC physique par métal (règle du 24/11/2026) : {best.get('tv')} (ISIN {best.get('isin')}), "
-                       f"meilleure Qualité ETC ({q} / 45), puis cotation en euro et frais les plus bas"
+                       f"meilleure Qualité ETC ({q} / 45) parmi les ETC achetables chez Revolut ou XTB (ici : {court}), puis cotation en euro et frais les plus bas"
                        f"{' ' + str(best.get('ter')).replace('.', ',') + ' %' if best.get('ter') is not None else ''}. "
-                       f"Retirés de l'onglet, des Meilleures entrées et des Meilleurs SHORT : {noms}."
-                       + (" Un ETC retiré mais détenu reste noté dans Mes positions." if masques else ''))
+                       + (f"Retirés de l'onglet, des Meilleures entrées et des Meilleurs SHORT : {noms}." if noms else '')
+                       + (" Les autres ETC de ce métal, introuvables chez Revolut et chez XTB, ne sont plus affichés." if absents else '')
+                       + (" Un ETC retiré mais détenu reste noté dans Mes positions." if masques else '')).replace('.  ', '. ')
     r['etc_retenu'] = {'tv': best.get('tv'), 'isin': best.get('isin'), 'note': best['apex10'].get('note'), 'qualite_etc': q,
-                       'ter': best.get('ter'), 'devise': best.get('currency')}
+                       'ter': best.get('ter'), 'devise': best.get('currency'), 'courtiers': court}
     add = f" ETC retenu pour ce métal : {best.get('tv')} (un seul ETC affiché depuis le 24/11/2026)."
     if r.get('note_revolut') and add not in r['note_revolut']:
         r['note_revolut'] = r['note_revolut'] + add
-    log('metaux_un_etc', metal or r.get('nom'), None, best['apex10'].get('note'), [f"retenu {best.get('tv')}", f"retirés {noms}"])
+    log('metaux_un_etc', metal or r.get('nom'), None, best['apex10'].get('note'), [f"retenu {best.get('tv')} ({court})", f"retirés {noms or 'aucun'}", f"introuvables Revolut/XTB : {len(absents)}"])
     return [float(x['apex10']['note']) for x in [best] + others if (x.get('apex10') or {}).get('note') is not None]
 
 

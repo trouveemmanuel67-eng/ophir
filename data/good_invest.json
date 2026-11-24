@@ -1,22 +1,22 @@
 {
   "seuil": 75.0,
-  "n": 58,
+  "n": 56,
   "liste": [
     {
-      "tv": "XETR:8PSC",
-      "yahoo": "8PSC.DE",
-      "nom": "Invesco Physical Palladium ETC",
+      "tv": "LSE:IPDM",
+      "yahoo": "IPDM.L",
+      "nom": "iShares Physical Palladium ETC",
       "note": 192.0,
       "display": "192",
       "hex": "#00e5ff",
       "flag": "cyan",
       "bande": "cyan",
-      "av": -6.4,
+      "av": -7.5,
       "section": "Métaux – Palladium",
       "montant": 700,
       "brokers": {
         "revolut": false,
-        "xtb": false
+        "xtb": true
       },
       "scale": 250,
       "tab": "metaux"
@@ -153,22 +153,6 @@
       },
       "scale": 250,
       "tab": "metaux"
-    },
-    {
-      "tv": "EURONEXT:IFRB",
-      "yahoo": "IFRB.AS",
-      "nom": "OAT / dette française",
-      "note": 170.0,
-      "display": "170",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": 12.5,
-      "section": null,
-      "montant": 600,
-      "brokers": {},
-      "scale": 250,
-      "tab": "obligations"
     },
     {
       "tv": "NYSE:TT",
@@ -415,20 +399,20 @@
       "tab": "autres"
     },
     {
-      "tv": "XETR:8PSA",
-      "yahoo": "8PSA.DE",
-      "nom": "Invesco Physical Platinum ETC",
+      "tv": "LSE:IPLT",
+      "yahoo": "IPLT.L",
+      "nom": "iShares Physical Platinum ETC",
       "note": 146.0,
       "display": "146",
       "hex": "#22c55e",
       "flag": "green",
       "bande": "vert",
-      "av": 15.8,
+      "av": 32.0,
       "section": "Métaux – Platine",
       "montant": 500,
       "brokers": {
         "revolut": false,
-        "xtb": false
+        "xtb": true
       },
       "scale": 250,
       "tab": "metaux"
@@ -559,22 +543,6 @@
       },
       "scale": 250,
       "tab": "autres"
-    },
-    {
-      "tv": "NASDAQ:RING",
-      "yahoo": "RING",
-      "nom": "iShares MSCI Global Gold Miners ETF",
-      "note": 140.0,
-      "display": "140",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": null,
-      "section": "Liquidités – ETF par devise",
-      "montant": 500,
-      "brokers": {},
-      "scale": 250,
-      "tab": "liquidites"
     },
     {
       "tv": "XETR:U3O8",

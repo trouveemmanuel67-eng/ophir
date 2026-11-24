@@ -301,12 +301,12 @@ function homeAgeHTML(stats){
 function homeEtfHTML(id){
   const ref=(typeof ETF_REF!=='undefined'&&ETF_REF)?ETF_REF[id]:null;
   const tv=ref&&(ref.tv||ref.ticker);
-  if(!tv) return homeEmpty('home-etf','Aucun ETF de référence configuré');
+  if(!tv) return homeEmpty('home-etf',(ref&&ref.pourquoi)?'Aucun ETF de référence disponible chez Revolut ou XTB':'Aucun ETF de référence configuré');
   const nom=ref.nom||'';
   const full=String(tv);
   const sym=full.indexOf(':')>=0?full.slice(full.indexOf(':')+1):full;
   const svg=(typeof CPSVG!=='undefined')?CPSVG:'<svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><rect x="5" y="1.5" width="8" height="10" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.3"/><rect x="2.5" y="4.5" width="8" height="10" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>';
-  /* Affiche le symbole (compact) ; le bouton copie le ticker TradingView complet (ex. AMEX:SPY). */
+  /* Affiche le symbole (compact) ; le bouton copie le ticker TradingView complet (ex. XETR:VUAA). */
   return `<div class="home-etf" title="${homeEsc((nom?nom+' · ':'')+full)}"><span class="tvs"><code>${homeEsc(sym)}</code><button type="button" class="cp" data-c="${homeEsc(full)}" aria-label="Copier ${homeEsc(full)}" title="Copier ${homeEsc(full)}">${svg}</button></span></div>`;
 }
 function homeSentHTML(id){

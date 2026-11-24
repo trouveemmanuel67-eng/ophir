@@ -46,7 +46,7 @@ def test_plus_de_barre_100_dans_le_js():
 
 def test_un_seul_etc_par_metal():
     mt = json.loads((ROOT / 'data' / 'metaux.json').read_text(encoding='utf-8'))
-    attendu = {'Or': 'XETR:8PSG', 'Argent': 'LSE:ISLN', 'Platine': 'XETR:8PSA', 'Palladium': 'XETR:8PSC'}
+    attendu = {'Or': 'XETR:8PSG', 'Argent': 'LSE:ISLN', 'Platine': 'LSE:IPLT', 'Palladium': 'LSE:IPDM'}  # t508u : Revolut ou XTB seulement
     for r in mt['rows']:
         ml = r['mlist']
         etcs = [it for it in [ml['head']] + ml['items'] if it and it.get('kind') == 'etc']
@@ -60,3 +60,17 @@ def test_contrats_energie_notes_250():
     for a in t['energie']['assets']:
         assert (a.get('apex10') or {}).get('scale') == 250, a.get('tv')
     assert t['energie']['apex10']['scale'] == 250
+
+
+def test_t509_produits_introuvables_absents_du_site():
+    """t509 : produits introuvables chez Revolut et XTB retirés ; PHAG, PHPT, XAD3, XPPT nulle part."""
+    html = (ROOT / 'index.html').read_text(encoding='utf-8')
+    for code in ('PHAG', 'PHPT', 'XAD3', 'XPPT', '8PSA', '8PSC', 'IFRB', 'TSE:1631', 'NASDAQ:RING'):
+        assert code not in html, code
+    etf = json.loads((ROOT / 'config' / 'etf_reference.json').read_text(encoding='utf-8'))
+    for k, v in etf.items():
+        if isinstance(v, dict) and v.get('tv'):
+            assert not v['tv'].startswith(('AMEX:', 'NASDAQ:', 'NYSE:')), k
+    ob = json.loads((ROOT / 'data' / 'obligations.json').read_text(encoding='utf-8'))
+    assert all(s.get('tv') != 'EURONEXT:IFRB' for s in ob['segments'])
+    assert 'fr' in (ob.get('removed_notes') or {})

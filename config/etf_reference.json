@@ -1,38 +1,38 @@
 {
-  "_comment": "ETF de référence par secteur du tableau d'accueil (t444u). Champ tv = ticker TradingView complet, copié par le bouton. Modifier ici, puis régénérer index.html (python3 src/build.py).",
+  "_comment": "ETF de référence par secteur du tableau d'accueil (t444u). Champ tv = ticker TradingView complet, copié par le bouton. Modifier ici, puis régénérer index.html (python3 src/build.py). t509 (24/11/2026) : les 7 ETF US (SPY, AGG, GLD, XLE, BIL, VNQ, IBIT), introuvables chez Revolut et XTB (PRIIPs), sont remplacés par des équivalents UCITS disponibles chez les deux courtiers d'après config/dispo_etf_etc_2026-11-24.csv ; crypto sans ETF de référence (aucun ETP bitcoin vérifié chez Revolut/XTB).",
   "actions": {
-    "tv": "AMEX:SPY",
-    "nom": "SPDR S&P 500 ETF Trust",
-    "pourquoi": "ETF actions le plus liquide, référence S&P 500 déjà suivie sur APEX. Alternative envisagée : AMEX:URTH (MSCI World), moins liquide."
+    "tv": "XETR:VUAA",
+    "nom": "Vanguard S&P 500 UCITS ETF (Acc)",
+    "pourquoi": "Équivalent UCITS du S&P 500 (remplace AMEX:SPY, introuvable chez Revolut et XTB). Disponible chez Revolut et XTB (analyse du 24/11/2026)."
   },
   "obligations": {
-    "tv": "AMEX:AGG",
-    "nom": "iShares Core US Aggregate Bond ETF",
-    "pourquoi": "Panier obligataire large (Trésor, agences, crédit IG). Alternative : NASDAQ:TLT (Treasuries 20+ ans), déjà dans la méthode, trop typé duration longue pour tout le secteur."
+    "tv": "XETR:EUNH",
+    "nom": "iShares Core € Govt Bond UCITS ETF EUR (Dist)",
+    "pourquoi": "Panier obligataire large en euro, référence des souverains zone euro sur APEX (remplace AMEX:AGG, introuvable chez Revolut et XTB ; aucun agrégat US UCITS dans la liste vérifiée). Disponible chez Revolut et XTB."
   },
   "metaux": {
-    "tv": "AMEX:GLD",
-    "nom": "SPDR Gold Shares",
-    "pourquoi": "ETF or physique le plus liquide. Alternative : AMEX:IAU."
+    "tv": "XETR:8PSG",
+    "nom": "Invesco Physical Gold ETC",
+    "pourquoi": "ETC or physique retenu sur APEX (un seul ETC par métal), remplace AMEX:GLD. Disponible chez Revolut (et chez XTB sous SGLD, même ISIN)."
   },
   "energie": {
-    "tv": "AMEX:XLE",
-    "nom": "Energy Select Sector SPDR Fund",
-    "pourquoi": "Référence sectorielle énergie US la plus liquide (pas un proxy uranium type URNU)."
+    "tv": "XETR:XDW0",
+    "nom": "Xtrackers MSCI World Energy UCITS ETF",
+    "pourquoi": "ETF énergie mondiale UCITS (remplace AMEX:XLE, introuvable chez Revolut et XTB). Disponible chez Revolut et XTB."
   },
   "crypto": {
-    "tv": "NASDAQ:IBIT",
-    "nom": "iShares Bitcoin Trust ETF",
-    "pourquoi": "ETF Bitcoin spot le plus liquide."
+    "tv": null,
+    "nom": null,
+    "pourquoi": "AMEX/NASDAQ:IBIT retiré (ETF US introuvable chez Revolut et XTB) ; aucun ETP bitcoin n'est vérifié chez Revolut ou XTB dans l'analyse du 24/11/2026 : pas d'ETF de référence."
   },
   "liquidites": {
-    "tv": "AMEX:BIL",
-    "nom": "SPDR Bloomberg 1-3 Month T-Bill ETF",
-    "pourquoi": "Proxy liquidités / T-bills court terme, très liquide. Alternative : AMEX:SHV."
+    "tv": "XETR:IUSU",
+    "nom": "iShares $ Treasury Bond 1-3yr UCITS ETF USD (Dist)",
+    "pourquoi": "Trésor US court terme en UCITS (remplace AMEX:BIL, introuvable chez Revolut et XTB ; aucun ETF monétaire dans la liste vérifiée). Disponible chez Revolut et XTB."
   },
   "immobilier": {
-    "tv": "AMEX:VNQ",
-    "nom": "Vanguard Real Estate ETF",
-    "pourquoi": "ETF immobilier (REIT) US de référence, très liquide."
+    "tv": "XETR:IQQ7",
+    "nom": "iShares US Property Yield UCITS ETF USD (Dist)",
+    "pourquoi": "Immobilier coté (REIT) US en UCITS (remplace AMEX:VNQ, introuvable chez Revolut et XTB). Disponible chez Revolut et XTB."
   }
 }

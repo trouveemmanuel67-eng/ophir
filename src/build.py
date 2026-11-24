@@ -22,7 +22,32 @@ def _slim_pays(raw):
     return _json.dumps(d, ensure_ascii=False, separators=(',',':'))
 
 t=open(B+'src/template.html').read()
-t=t.replace('__DATA__',esc(open(B+'data/dashboard_data.json').read())).replace('__DATA2__',esc(open(B+'data/tabs_data.json').read())).replace('__DATA3__',esc(open(B+'data/indicateur.json').read())).replace('/*__TABSJS__*/',open(B+'src/tabs.js').read()).replace('/*__INDJS__*/',open(B+'src/indicateur.js').read()).replace('__DATA4__',esc(open(B+'data/achatvente.json').read())).replace('/*__AVJS__*/',open(B+'src/achatvente.js').read()).replace('__DATA5__',esc(open(B+'data/secteurs.json').read())).replace('__DATA6__',esc(open(B+'data/fondamentaux.json').read())).replace('/*__FONDJS__*/',open(B+'src/fonds.js').read()).replace('/*__SECJS__*/',open(B+'src/secteurs.js').read()).replace('__DATA7__',esc(open(B+'data/obligations.json').read())).replace('/*__OBJS__*/',open(B+'src/obligations.js').read()).replace('__DATA8__',esc(_slim_pays(open(B+'data/pays.json').read()))).replace('__DATA9__',esc(open(B+'data/obpays.json').read())).replace('__DATA10__',esc(open(B+'data/metaux.json').read())).replace('/*__METJS__*/',open(B+'src/metaux.js').read()).replace('/*__PAYSJS__*/',open(B+'src/pays.js').read()).replace('__DATA11__',esc(open(B+'data/positions.json').read())).replace('__DATA12__',esc(open(B+'data/disponibilites.json').read())).replace('__DATA13__',esc(open(B+'data/positions_revolutx.json').read())).replace('__DATA14__',esc(open(B+'data/positions_revolut.json').read())).replace('__DATA15__',esc(open(B+'data/obligations_dispo.json').read())).replace('__DATA16__',esc(open(B+'data/apex_bars.json').read())).replace('__DATA17__',esc(open(B+'data/placements.json').read())).replace('__DATA18__',esc(open(B+'data/template_trade.json').read())).replace('/*__POSJS__*/',open(B+'src/positions.js').read()).replace('/*__DISPOJS__*/',open(B+'src/dispo.js').read()).replace('/*__ACCJS__*/',open(B+'src/acc.js').read()).replace('/*__ACCUEILJS__*/',open(B+'src/accueil.js').read()).replace('/*__PLCJS__*/',open(B+'src/placements.js').read()).replace('__DATA19__',esc(open(B+'config/regles.json').read())).replace('/*__TTJS__*/',open(B+'src/template_trade.js').read()).replace('/*__RGJS__*/',open(B+'src/regles.js').read()).replace('/*__GIJS__*/',open(B+'src/good_invest.js').read()).replace('/*__GSJS__*/',open(B+'src/best_short.js').read()).replace('__DATA_ETF__',esc(open(B+'config/etf_reference.json').read())).replace('/*__SEARCHJS__*/',open(B+'src/recherche.js').read())
+def _dispo_slim(raw):
+    """t509 : les produits retirés du site (config/retraits_site.json) ne sont pas embarqués non plus."""
+    try:
+        R=set((json.load(open(B+'config/retraits_site.json',encoding='utf-8')).get('retires') or {}).keys())
+    except Exception:
+        return raw
+    d=json.loads(raw)
+    import re as _re
+    codes=sorted({k.split(':')[-1] for k in R},key=len,reverse=True)
+    rx=_re.compile(r'(?<![A-Za-z0-9])('+'|'.join(map(_re.escape,codes))+r')(?![A-Za-z0-9])')
+    def scrub(t):
+        if not rx.search(t): return t
+        parts=_re.split(r'(?<=[.;])\s+',t)
+        return ' '.join(x for x in parts if not rx.search(x))
+    def walk(o):
+        if isinstance(o,dict):
+            for k in [k for k in o if k in R or (isinstance(o[k],dict) and o[k].get('tv') in R)]: o.pop(k)
+            for k,v in list(o.items()):
+                if isinstance(v,str): o[k]=scrub(v)
+                else: walk(v)
+        elif isinstance(o,list):
+            o[:]=[v for v in o if not (isinstance(v,dict) and v.get('tv') in R) and v not in R]
+            for v in o: walk(v)
+    walk(d)
+    return json.dumps(d,ensure_ascii=False)
+t=t.replace('__DATA__',esc(open(B+'data/dashboard_data.json').read())).replace('__DATA2__',esc(open(B+'data/tabs_data.json').read())).replace('__DATA3__',esc(open(B+'data/indicateur.json').read())).replace('/*__TABSJS__*/',open(B+'src/tabs.js').read()).replace('/*__INDJS__*/',open(B+'src/indicateur.js').read()).replace('__DATA4__',esc(open(B+'data/achatvente.json').read())).replace('/*__AVJS__*/',open(B+'src/achatvente.js').read()).replace('__DATA5__',esc(open(B+'data/secteurs.json').read())).replace('__DATA6__',esc(open(B+'data/fondamentaux.json').read())).replace('/*__FONDJS__*/',open(B+'src/fonds.js').read()).replace('/*__SECJS__*/',open(B+'src/secteurs.js').read()).replace('__DATA7__',esc(open(B+'data/obligations.json').read())).replace('/*__OBJS__*/',open(B+'src/obligations.js').read()).replace('__DATA8__',esc(_slim_pays(open(B+'data/pays.json').read()))).replace('__DATA9__',esc(open(B+'data/obpays.json').read())).replace('__DATA10__',esc(open(B+'data/metaux.json').read())).replace('/*__METJS__*/',open(B+'src/metaux.js').read()).replace('/*__PAYSJS__*/',open(B+'src/pays.js').read()).replace('__DATA11__',esc(open(B+'data/positions.json').read())).replace('__DATA12__',esc(_dispo_slim(open(B+'data/disponibilites.json').read()))).replace('__DATA13__',esc(open(B+'data/positions_revolutx.json').read())).replace('__DATA14__',esc(open(B+'data/positions_revolut.json').read())).replace('__DATA15__',esc(open(B+'data/obligations_dispo.json').read())).replace('__DATA16__',esc(open(B+'data/apex_bars.json').read())).replace('__DATA17__',esc(open(B+'data/placements.json').read())).replace('__DATA18__',esc(open(B+'data/template_trade.json').read())).replace('/*__POSJS__*/',open(B+'src/positions.js').read()).replace('/*__DISPOJS__*/',open(B+'src/dispo.js').read()).replace('/*__ACCJS__*/',open(B+'src/acc.js').read()).replace('/*__ACCUEILJS__*/',open(B+'src/accueil.js').read()).replace('/*__PLCJS__*/',open(B+'src/placements.js').read()).replace('__DATA19__',esc(open(B+'config/regles.json').read())).replace('/*__TTJS__*/',open(B+'src/template_trade.js').read()).replace('/*__RGJS__*/',open(B+'src/regles.js').read()).replace('/*__GIJS__*/',open(B+'src/good_invest.js').read()).replace('/*__GSJS__*/',open(B+'src/best_short.js').read()).replace('__DATA_ETF__',esc(open(B+'config/etf_reference.json').read())).replace('/*__SEARCHJS__*/',open(B+'src/recherche.js').read())
 maj=''
 _mp=_P(B+'data/maj.json')
 if _mp.exists():

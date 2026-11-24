@@ -2,7 +2,7 @@
  "avant_apres": {
   "metaux": {
    "XETR:GLDA": [
-    80,
+    145,
     145
    ],
    "OANDA:XAUUSD": [
@@ -10,23 +10,23 @@
     106
    ],
    "XETR:XAD5": [
-    70,
+    126,
     126
    ],
    "XETR:8PSG": [
-    70,
+    135,
     135
    ],
    "XETR:4GLD": [
-    70,
+    135,
     135
    ],
    "LSE:IGLN": [
-    80,
+    145,
     145
    ],
    "LSE:PHGP": [
-    80,
+    127,
     127
    ],
    "NASDAQ:RGLD": [
@@ -38,7 +38,7 @@
     110
    ],
    "XETR:XAD6": [
-    110,
+    157,
     157
    ],
    "OANDA:XAGUSD": [
@@ -46,15 +46,15 @@
     164
    ],
    "XETR:8PSB": [
-    110,
+    166,
     166
    ],
    "LSE:PHAG": [
-    110,
+    166,
     166
    ],
    "LSE:ISLN": [
-    110,
+    175,
     175
    ],
    "NYSE:AG": [
@@ -62,11 +62,11 @@
     170
    ],
    "NYSE:PAAS": [
-    175,
+    190,
     190
    ],
    "LSE:IPLT": [
-    90,
+    146,
     146
    ],
    "OANDA:XPTUSD": [
@@ -74,15 +74,19 @@
     144
    ],
    "XETR:8PSA": [
-    90,
+    146,
     146
    ],
    "XETR:XPPT": [
-    90,
+    137,
     137
    ],
    "XETR:XAD3": [
-    90,
+    137,
+    137
+   ],
+   "EURONEXT:PHPT": [
+    null,
     137
    ],
    "NYSE:SBSW": [
@@ -90,435 +94,465 @@
     170
    ],
    "LSE:IPDM": [
-    120,
+    192,
     192
    ],
    "OANDA:XPDUSD": [
-    175,
+    200,
     200
    ],
    "XETR:8PSC": [
-    120,
+    192,
     192
    ],
    "EURONEXT:PHPD": [
-    110,
+    173,
     173
+   ]
+  },
+  "metaux_un_etc": {
+   "Or": [
+    null,
+    135
+   ],
+   "Argent": [
+    null,
+    175
+   ],
+   "Platine": [
+    null,
+    146
+   ],
+   "Palladium": [
+    null,
+    192
    ]
   },
   "obligations": {
    "XETR:IUSU": [
-    34.0,
+    110,
     110
    ],
    "XETR:2B7S": [
-    27.0,
+    120,
     120
    ],
    "XETR:TRD3": [
-    30.0,
+    120,
     120
    ],
    "XETR:JA13": [
-    9.0,
+    100,
     100
    ],
    "XETR:IS04": [
-    46.0,
+    160,
     160
    ],
    "XETR:SPPX": [
-    52.0,
+    140,
     140
    ],
    "XETR:DJAD": [
-    37.0,
+    120,
     120
    ],
    "XETR:XUTL": [
-    57.0,
+    130,
     130
    ],
    "XETR:EUNH": [
-    66.0,
+    130,
     130
    ],
    "XETR:XGLE": [
-    48.0,
+    110,
     110
    ],
    "XETR:PRAR": [
-    78.0,
+    130,
     130
    ],
    "XETR:SECA": [
-    78.0,
+    130,
     130
    ],
    "EURONEXT:IFRB": [
-    49.0,
+    170,
     170
    ],
    "XETR:IBCD": [
-    42.0,
+    110,
     110
    ],
    "XETR:PRAP": [
-    19.0,
+    90,
     90
    ],
    "XETR:XDGU": [
-    39.0,
+    150,
     150
    ],
    "XETR:GCRE": [
-    33.0,
+    90,
     90
    ],
    "XETR:SYBN": [
-    54.0,
+    140,
     140
    ],
    "XETR:EUN5": [
-    55.0,
+    110,
     110
    ],
    "XETR:D5BG": [
-    41.0,
+    90,
     90
    ],
    "XETR:PR1C": [
-    77.0,
+    100,
     100
    ],
    "XETR:JEBE": [
-    60.0,
+    80,
     80
    ],
    "XETR:SYBC": [
-    76.0,
+    110,
     110
    ],
    "XETR:XUHY": [
-    47.0,
+    100,
     100
    ],
    "XETR:XHYG": [
-    75.0,
+    150,
     150
    ],
    "XETR:EH1Y": [
-    75.0,
+    130,
     130
    ],
    "XETR:CBU1": [
-    58.0,
+    110,
     110
    ],
    "XETR:AEHY": [
-    55.0,
+    120,
     120
    ],
    "XETR:TIUP": [
-    38.0,
+    90,
     90
    ],
    "EURONEXT:IBCI": [
-    50.0,
+    150,
     150
    ],
    "XETR:LYQ7": [
-    57.0,
+    150,
     150
    ],
    "XETR:IBC5": [
-    78.0,
+    150,
     150
    ],
    "XETR:XEIN": [
-    56.0,
+    150,
     150
    ],
    "XETR:IUS7": [
-    48.0,
+    110,
     110
    ],
    "XETR:XUEM": [
-    57.0,
+    120,
     120
    ],
    "XETR:XEMB": [
-    54.0,
+    120,
     120
    ],
    "XETR:ENDH": [
-    67.0,
+    150,
     150
    ],
    "EURONEXT:EMBH": [
-    44.0,
+    110,
     110
    ],
    "XETR:PEML": [
-    40.0,
+    70,
     70
    ],
    "XETR:IS0L": [
-    46.0,
+    110,
     110
    ],
    "XETR:X03G": [
-    76.0,
+    130,
     130
    ],
    "XETR:EXHD": [
-    53.0,
+    110,
     110
    ],
    "XETR:EXHC": [
-    75.0,
+    120,
     120
    ],
    "XETR:EXHA": [
-    56.0,
+    110,
     110
    ],
    "XETR:EXX6": [
-    48.0,
+    110,
     110
    ]
   },
   "energie": {
+   "NYMEX:CL1!": [
+    40,
+    40
+   ],
+   "TVC:UKOIL": [
+    40,
+    40
+   ],
+   "NYMEX:HO1!": [
+    30,
+    30
+   ],
+   "NYMEX:RB1!": [
+    100,
+    100
+   ],
    "EURONEXT:TTE": [
-    49.0,
+    100,
     100
    ],
    "NYSE:XOM": [
-    48.0,
+    60,
     60
    ],
    "NYSE:CVX": [
-    47.0,
+    90,
     90
    ],
    "NYSE:COP": [
-    51.0,
+    90,
     90
    ],
    "NYSE:EOG": [
-    54.0,
+    110,
     110
    ],
    "NYSE:OXY": [
-    51.0,
+    110,
     110
    ],
    "NYSE:VLO": [
-    52.0,
+    110,
     110
    ],
    "NYSE:DVN": [
-    53.0,
+    120,
     120
    ],
    "NASDAQ:FANG": [
-    42.0,
+    70,
     70
    ],
    "AMEX:IMO": [
-    55.0,
+    80,
     80
    ],
    "NYSE:SOBO": [
-    68.0,
+    110,
     110
    ],
+   "XETR:BNQ9": [
+    90,
+    90
+   ],
    "NYSE:WMB": [
-    52.0,
+    90,
     90
    ],
    "NYSE:KMI": [
-    43.0,
+    70,
     70
    ],
    "NYSE:OKE": [
-    51.0,
+    60,
     60
    ],
    "NYSE:TRGP": [
-    47.0,
+    60,
     60
    ],
    "NYSE:ENB": [
-    45.0,
+    80,
     80
    ],
    "NYSE:TRP": [
-    42.0,
+    70,
     70
    ],
    "NYSE:PBA": [
-    36.0,
+    70,
     70
    ],
    "EURONEXT:GTT": [
-    69.0,
+    140,
     140
    ],
    "NYSE:NEE": [
-    49.0,
+    70,
     70
    ],
    "NYSE:VST": [
-    75.0,
+    130,
     130
    ],
    "NYSE:ETR": [
-    54.0,
+    50,
     50
    ],
    "NYSE:AWK": [
-    49.0,
+    50,
     50
    ],
    "NYSE:SO": [
-    45.0,
+    70,
     70
    ],
    "NYSE:DUK": [
-    11.0,
+    60,
     60
    ],
    "NASDAQ:XEL": [
-    34.0,
+    50,
     50
    ],
    "NASDAQ:AEP": [
-    34.0,
+    70,
     70
    ],
    "XETR:EOAN": [
-    41.0,
+    90,
     90
    ],
    "XETR:RWE": [
-    33.0,
+    40,
     40
    ],
    "EURONEXT:ENGI": [
-    37.0,
+    70,
     70
    ],
    "NYSE:FTS": [
-    31.0,
+    50,
     50
    ],
    "NYSE:AQN": [
-    17.0,
+    90,
     90
    ],
    "NYSE:BEPC": [
-    60.0,
+    100,
     100
    ],
    "NASDAQ:ENPH": [
-    61.0,
+    140,
     140
    ],
    "NASDAQ:CSIQ": [
-    63.0,
+    100,
     100
    ],
    "XETR:ENR": [
-    72.0,
+    140,
     140
    ],
    "XETR:URNU": [
-    75.0,
+    140,
     140
    ],
    "XETR:U3O8": [
-    58.0,
+    140,
     140
    ],
    "NYSE:CCJ": [
-    53.0,
+    120,
     120
    ],
    "NASDAQ:CEG": [
-    65.0,
+    80,
     80
    ],
    "NASDAQ:BLDP": [
-    63.0,
+    120,
     120
    ],
    "NYSE:BTU": [
-    65.0,
+    130,
     130
    ],
    "XETR:XDW0": [
-    26.0,
+    100,
     100
    ],
    "XETR:ZPDU": [
-    29.0,
+    90,
     90
    ]
   },
   "devises": {
    "USD": [
-    44.0,
+    60,
     60
    ],
    "JPY": [
-    32.0,
+    70,
     70
    ],
    "GBP": [
-    43.0,
+    60,
     60
    ],
    "CHF": [
-    12.0,
+    70,
     70
    ],
    "AUD": [
-    63.0,
+    100,
     100
    ],
    "CAD": [
-    43.0,
+    100,
     100
    ],
    "KRW": [
-    37.0,
+    100,
     100
    ]
   },
   "etf_devise": {
-   "NASDAQ:RING": [
-    113,
-    140
-   ],
-   "TSE:1631": [
-    83,
-    106
-   ],
    "LSE:AUCP": [
-    102,
+    119,
     119
    ],
    "SIX:AUCO": [
-    97,
+    126,
     126
    ],
    "ASX:SEMI": [
-    117,
+    144,
     144
    ],
    "TSX:XCHP": [
-    112,
+    125,
     125
    ]
   },
@@ -548,6 +582,28 @@
   }
  },
  "nc": {
+  "metaux_un_etc": {
+   "Or": [
+    "retenu XETR:8PSG (Revolut et XTB)",
+    "retirés GLDA, XAD5, 4GLD, IGLN, PHGP",
+    "introuvables Revolut/XTB : 0"
+   ],
+   "Argent": [
+    "retenu LSE:ISLN (XTB)",
+    "retirés XAD6, 8PSB",
+    "introuvables Revolut/XTB : 1"
+   ],
+   "Platine": [
+    "retenu LSE:IPLT (XTB)",
+    "retirés aucun",
+    "introuvables Revolut/XTB : 4"
+   ],
+   "Palladium": [
+    "retenu LSE:IPDM (XTB)",
+    "retirés PHPD",
+    "introuvables Revolut/XTB : 1"
+   ]
+  },
   "obligations": {
    "XETR:SPPX": [
     "Qualité : ≥ 50 % des titres notés A ou mieux"
@@ -609,6 +665,9 @@
    ]
   },
   "energie": {
+   "XETR:BNQ9": [
+    "Au moins 30 lignes"
+   ],
    "NYSE:BEPC": [
     "PER < 12"
    ],
@@ -908,6 +967,109 @@
      }
     ]
    }
+  },
+  "remplace_par": "t508u (24/11/2026) : choix limité aux ETC achetables chez Revolut ou XTB"
+ },
+ "t508u": {
+  "date": "2026-11-24",
+  "objet": "Un seul ETC par métal, choisi parmi les ETC achetables chez Revolut ou XTB (config/dispo_etf_etc_2026-11-24.csv)",
+  "retenus": {
+   "Or": {
+    "tv": "XETR:8PSG",
+    "isin": "IE00B579F325",
+    "note": 135,
+    "qualite_etc": 45,
+    "ter": 0.12,
+    "devise": "EUR",
+    "courtiers": "Revolut et XTB"
+   },
+   "Argent": {
+    "tv": "LSE:ISLN",
+    "isin": "IE00B4NCWG09",
+    "note": 175,
+    "qualite_etc": 36,
+    "ter": 0.2,
+    "devise": "USD",
+    "courtiers": "XTB"
+   },
+   "Platine": {
+    "tv": "LSE:IPLT",
+    "isin": "IE00B4LHWP62",
+    "note": 146,
+    "qualite_etc": 27,
+    "ter": 0.2,
+    "devise": "USD",
+    "courtiers": "XTB"
+   },
+   "Palladium": {
+    "tv": "LSE:IPDM",
+    "isin": "IE00B4556L06",
+    "note": 192,
+    "qualite_etc": 27,
+    "ter": 0.2,
+    "devise": "USD",
+    "courtiers": "XTB"
+   }
+  },
+  "retires_disponibles": {
+   "Or": [
+    "XETR:GLDA",
+    "XETR:XAD5",
+    "XETR:4GLD",
+    "LSE:IGLN",
+    "LSE:PHGP"
+   ],
+   "Argent": [
+    "XETR:XAD6",
+    "XETR:8PSB"
+   ],
+   "Platine": [],
+   "Palladium": [
+    "EURONEXT:PHPD"
+   ]
   }
+ },
+ "t509": {
+  "date": "2026-11-24",
+  "objet": "Produits introuvables chez Revolut et XTB retirés du site (validé par Emmanuel)",
+  "retires": {
+   "TSE:1631": "NEXT FUNDS Banks (TOPIX-17), ETF par devise JPY : ni Revolut ni XTB",
+   "NASDAQ:RING": "iShares MSCI Global Gold Miners ETF (droit US, PRIIPs), ETF par devise USD : ni Revolut ni XTB",
+   "EURONEXT:IFRB": "iShares France Govt Bond, référence du segment OAT : ni Revolut ni XTB",
+   "XETR:8PSA": "Invesco Physical Platinum : ni Revolut ni XTB",
+   "XETR:8PSC": "Invesco Physical Palladium : ni Revolut ni XTB",
+   "LSE:PHAG": "WisdomTree Physical Silver : ni Revolut ni XTB",
+   "EURONEXT:PHPT": "WisdomTree Physical Platinum : ni Revolut ni XTB",
+   "XETR:XAD3": "Xtrackers Physical Platinum EUR Hedged : ni Revolut ni XTB",
+   "XETR:XPPT": "Xtrackers IE Physical Platinum : ni Revolut ni XTB",
+   "AMEX:SPY": "SPDR S&P 500 ETF Trust (ETF de référence de l'accueil, droit US, PRIIPs) : ni Revolut ni XTB ; remplacé dans config/etf_reference.json",
+   "AMEX:AGG": "iShares Core US Aggregate Bond ETF (ETF de référence de l'accueil, droit US, PRIIPs) : ni Revolut ni XTB ; remplacé dans config/etf_reference.json",
+   "AMEX:GLD": "SPDR Gold Shares (ETF de référence de l'accueil, droit US, PRIIPs) : ni Revolut ni XTB ; remplacé dans config/etf_reference.json",
+   "AMEX:XLE": "Energy Select Sector SPDR Fund (ETF de référence de l'accueil, droit US, PRIIPs) : ni Revolut ni XTB ; remplacé dans config/etf_reference.json",
+   "AMEX:BIL": "SPDR Bloomberg 1-3 Month T-Bill ETF (ETF de référence de l'accueil, droit US, PRIIPs) : ni Revolut ni XTB ; remplacé dans config/etf_reference.json",
+   "AMEX:VNQ": "Vanguard Real Estate ETF (ETF de référence de l'accueil, droit US, PRIIPs) : ni Revolut ni XTB ; remplacé dans config/etf_reference.json",
+   "NASDAQ:IBIT": "iShares Bitcoin Trust ETF (ETF de référence de l'accueil, droit US, PRIIPs) : ni Revolut ni XTB ; remplacé dans config/etf_reference.json"
+  },
+  "accueil_etf_reference": {
+   "actions": "XETR:VUAA",
+   "obligations": "XETR:EUNH",
+   "metaux": "XETR:8PSG",
+   "energie": "XETR:XDW0",
+   "crypto": null,
+   "liquidites": "XETR:IUSU",
+   "immobilier": "XETR:IQQ7"
+  },
+  "journal": [
+   "segment france retiré (EURONEXT:IFRB, introuvable Revolut/XTB)",
+   "LSE:PHAG retiré (introuvable Revolut/XTB)",
+   "XETR:8PSA retiré (introuvable Revolut/XTB)",
+   "XETR:XPPT retiré (introuvable Revolut/XTB)",
+   "XETR:XAD3 retiré (introuvable Revolut/XTB)",
+   "EURONEXT:PHPT retiré (introuvable Revolut/XTB)",
+   "XETR:8PSC retiré (introuvable Revolut/XTB)",
+   "ETF par devise USD : NASDAQ:RING retiré (introuvable Revolut/XTB)",
+   "ETF par devise JPY : TSE:1631 retiré (introuvable Revolut/XTB)",
+   "accueil : AMEX:SPY→XETR:VUAA, AMEX:AGG→XETR:EUNH, AMEX:GLD→XETR:8PSG, AMEX:XLE→XETR:XDW0, AMEX:BIL→XETR:IUSU, AMEX:VNQ→XETR:IQQ7, NASDAQ:IBIT retiré (pas d'ETP bitcoin vérifié chez Revolut/XTB)"
+  ]
  }
 }

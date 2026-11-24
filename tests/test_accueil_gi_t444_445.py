@@ -14,19 +14,20 @@ ETF = json.loads((ROOT / "config" / "etf_reference.json").read_text(encoding="ut
 
 
 def test_etf_reference_config_complete():
+    # t509 (24/11/2026) : ETF US introuvables chez Revolut et XTB -> équivalents UCITS ; crypto sans référence
     attendus = {
-        "actions": "AMEX:SPY",
-        "obligations": "AMEX:AGG",
-        "metaux": "AMEX:GLD",
-        "energie": "AMEX:XLE",
-        "crypto": "NASDAQ:IBIT",
-        "liquidites": "AMEX:BIL",
-        "immobilier": "AMEX:VNQ",
+        "actions": "XETR:VUAA",
+        "obligations": "XETR:EUNH",
+        "metaux": "XETR:8PSG",
+        "energie": "XETR:XDW0",
+        "liquidites": "XETR:IUSU",
+        "immobilier": "XETR:IQQ7",
     }
     for sid, tv in attendus.items():
         assert sid in ETF, sid
         assert ETF[sid]["tv"] == tv
         assert ETF[sid].get("nom")
+    assert "crypto" in ETF and not ETF["crypto"].get("tv")
     assert "__DATA_ETF__" in BUILD
     assert "dataEtfRef" in CSS
     assert "id=\"dataEtfRef\"" in CSS or "id='dataEtfRef'" in CSS

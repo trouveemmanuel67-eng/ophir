@@ -8,15 +8,67 @@
   "RSI +9 · MACD +27 · Fibo +9 · CCI +18 · Fond +63 · F&G +30 · H –  →  156 / 250"
  ],
  [
+  "obligations",
+  "segment france retiré (EURONEXT:IFRB, introuvable Revolut/XTB)"
+ ],
+ [
   "apex_bars",
-  "0 barres alignées sur la note −50 à 250, 0 anciennes notes /100 retirées (hors univers)"
+  "LSE:PHAG retiré (introuvable Revolut/XTB)"
  ],
  [
-  "tabs_data.json",
-  "textes /100 de la liquidité crypto reformulés"
+  "apex_bars",
+  "XETR:8PSA retiré (introuvable Revolut/XTB)"
  ],
  [
-  "crypto_fiches.json",
-  "textes /100 de la liquidité crypto reformulés"
+  "apex_bars",
+  "XETR:XPPT retiré (introuvable Revolut/XTB)"
+ ],
+ [
+  "apex_bars",
+  "XETR:XAD3 retiré (introuvable Revolut/XTB)"
+ ],
+ [
+  "apex_bars",
+  "EURONEXT:PHPT retiré (introuvable Revolut/XTB)"
+ ],
+ [
+  "apex_bars",
+  "XETR:8PSC retiré (introuvable Revolut/XTB)"
+ ],
+ [
+  "apex_bars",
+  "ETC retiré XETR:GLDA (un seul ETC par métal)"
+ ],
+ [
+  "apex_bars",
+  "ETC retiré XETR:XAD5 (un seul ETC par métal)"
+ ],
+ [
+  "apex_bars",
+  "ETC retiré XETR:4GLD (un seul ETC par métal)"
+ ],
+ [
+  "apex_bars",
+  "ETC retiré LSE:IGLN (un seul ETC par métal)"
+ ],
+ [
+  "apex_bars",
+  "ETC retiré LSE:PHGP (un seul ETC par métal)"
+ ],
+ [
+  "apex_bars",
+  "ETC retiré XETR:XAD6 (un seul ETC par métal)"
+ ],
+ [
+  "apex_bars",
+  "ETC retiré XETR:8PSB (un seul ETC par métal)"
+ ],
+ [
+  "apex_bars",
+  "ETC retiré EURONEXT:PHPD (un seul ETC par métal)"
+ ],
+ [
+  "apex_bars",
+  "180 barres alignées sur la note −50 à 250, 148 anciennes notes /100 retirées (hors univers)"
  ]
 ]
