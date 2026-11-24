@@ -39,7 +39,8 @@ function fondQualite(r){
   return `<span class="fl-sc" style="color:${gcol(r.score)}"${tip?` title="${tip}"`:''}><i>Qualité fondamentale</i>${fmt(r.score,0)}<small>/100</small></span>`;
 }
 const CPSVG='<svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" fill="none" stroke="currentColor" stroke-width="2"/></svg>';
-const tvTag=s=>s?`<span class="tvs"><code>${s}</code><button type="button" class="cp" data-c="${s}" aria-label="Copier ${s}" title="Copier ${s}">${CPSVG}</button></span>`:'<span class="tvs"><code>non vérifié</code></span>';
+const tvTag=s=>s?`<span class="tvs"><code>${s}</code>${ophirCopyBtn(s)}</span>`:'<span class="tvs"><code>non vérifié</code></span>';
+const ophirCopyBtn=s=>s?`<button type="button" class="cp" data-c="${String(s).replace(/"/g,'&quot;')}" aria-label="Copier ${String(s).replace(/"/g,'&quot;')}" title="Copier ${String(s).replace(/"/g,'&quot;')}">${CPSVG}</button>`:'';
 function ophirCopy(btn){
   const t=btn.dataset.c;
   const done=ok=>{btn.classList.remove('ok','ko');void btn.offsetWidth;btn.classList.add(ok?'ok':'ko');btn.dataset.tip=ok?'Copié':'Échec';clearTimeout(btn._t);btn._t=setTimeout(()=>btn.classList.remove('ok','ko'),1600);};

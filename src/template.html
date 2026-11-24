@@ -215,7 +215,7 @@ main{max-width:1240px;margin:8px auto 0;padding:0 14px 20px}
 .sec{border-top:1px solid rgba(255,255,255,.1);min-width:0}.sec:nth-child(odd){background:rgba(255,255,255,.022)}.sec:hover{background:rgba(255,255,255,.05)}
 .sec.sec-open{background:rgba(0,229,255,.04)}
 .sr-c{min-width:0}.sr-l{display:none}
-.sr-n{display:flex;flex-direction:column;gap:2px;align-items:flex-start}.sr-n b{font-size:13px;color:#fff}.sr-n span{font-size:11px;color:var(--mut);font-weight:600}
+.sr-n{display:flex;flex-direction:column;gap:2px;align-items:flex-start}.sr-n-titre{flex-direction:row;flex-wrap:wrap;align-items:center;gap:4px 8px}.sr-titre{display:inline-flex;align-items:center;gap:6px;min-width:0}.sr-titre .cp{width:22px;height:22px;flex:none}.sr-n b{font-size:13px;color:#fff}.sr-n span{font-size:11px;color:var(--mut);font-weight:600}
 .sec-warn{display:inline-block;margin-top:2px;font-size:10.5px;color:#ffb347;border:1px solid rgba(255,179,71,.5);border-radius:999px;padding:1px 8px}
 .sr-v{display:flex;align-items:baseline;gap:6px}.sr-v b{font-size:17px;font-weight:700;line-height:1}.sr-v em{font-style:normal;font-size:12px;font-weight:600}
 .sec-gauge{position:relative;height:22px;margin:2px 2px 0}.sec-gauge .ind-bar{top:7px;height:8px}.sec-gauge .ind-cur{top:3px;width:10px;height:16px;margin-left:-5px}.sec-gauge .ind-range{top:3px;height:16px}
@@ -553,10 +553,10 @@ body{display:flex;flex-direction:column;min-height:100vh}
 #goodInvestCard h2{text-transform:uppercase;letter-spacing:.06em;font-size:12px;font-weight:750;margin:0;color:#fff;white-space:nowrap}
 .gi-list{display:flex;flex-direction:column;gap:0;margin-top:6px;border-top:1px solid rgba(255,255,255,.08)}
 .gi-empty{color:var(--mut,#b5b5b5);font-size:12px;padding:12px 4px}
-.gi-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;grid-template-rows:auto auto;align-items:center;column-gap:10px;row-gap:3px;padding:10px 4px;border-bottom:1px solid rgba(255,255,255,.08);border-radius:0;background:none}
+.gi-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;grid-template-rows:auto;align-items:center;column-gap:8px;row-gap:0;padding:6px 4px;border-bottom:1px solid rgba(255,255,255,.08);border-radius:0;background:none}
 .gi-row:hover{background:rgba(255,255,255,.03)}
 .gi-row:last-child{border-bottom:0}
-.gi-acts{grid-column:1;grid-row:1 / span 2;display:flex;flex-direction:row;align-items:center;gap:0}
+.gi-acts{grid-column:1;grid-row:1;display:flex;flex-direction:row;align-items:center;gap:0}
 .gi-elliott{appearance:none;-webkit-appearance:none;display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;width:44px;height:44px;min-width:44px;min-height:44px;margin:0;padding:0;border:0;border-radius:10px;background:transparent;color:#ff2d2d;font:inherit;font-size:16px;font-weight:800;line-height:1;letter-spacing:0;cursor:pointer;-webkit-tap-highlight-color:rgba(255,45,45,.28)}
 .gi-elliott:hover{background:rgba(255,45,45,.12);color:#ff4d4d}
 .gi-elliott:active{background:rgba(255,45,45,.22);color:#ff6b6b;transform:scale(.96)}
@@ -565,8 +565,9 @@ body{display:flex;flex-direction:column;min-height:100vh}
 .gi-pattern:hover{background:rgba(255,45,45,.12);color:#ff4d4d}
 .gi-pattern:active{background:rgba(255,45,45,.22);color:#ff6b6b;transform:scale(.96)}
 .gi-pattern:focus-visible{outline:1px solid rgba(255,45,45,.8);outline-offset:2px}
-.gi-id{grid-column:2;grid-row:1;min-width:0;overflow:hidden}
-.gi-id .gi-link,.gi-id .pos-nm{display:block;width:100%;font-weight:650;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;background:none;border:0;padding:0;font:inherit;cursor:pointer;text-align:left;text-decoration:none;box-shadow:none;appearance:none;-webkit-appearance:none}
+.gi-id{grid-column:2;grid-row:1;min-width:0;overflow:hidden;display:flex;align-items:center;gap:6px}
+.gi-id .gi-link,.gi-id .pos-nm{display:block;flex:1 1 auto;min-width:0;width:auto;font-weight:650;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;background:none;border:0;padding:0;font:inherit;cursor:pointer;text-align:left;text-decoration:none;box-shadow:none;appearance:none;-webkit-appearance:none}
+.gi-id .cp{flex:none;width:22px;height:22px}
 .gi-id .gi-link:hover,.gi-id .pos-nm{color:#fff;text-decoration:none}
 .gi-id .gi-link:focus-visible{outline:1px solid rgba(255,255,255,.35);outline-offset:2px;border-radius:3px}
 .gi-meta{grid-column:2;grid-row:2;min-width:0;display:flex;align-items:center;gap:8px;overflow:hidden}

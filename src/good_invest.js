@@ -328,16 +328,6 @@ function giSetListOpen(on,persist){
   if(persist!==false){ try{ localStorage.setItem(GI_LIST_KEY, on?'1':'0'); }catch(e){} }
   if(typeof posSyncListChrome==='function') posSyncListChrome(typeof posListIsOpen==='function'&&posListIsOpen());
 }
-function giDispoTxt(tv){
-  const d=typeof dispoOf==='function'?dispoOf(tv):null;
-  if(!d) return {lab:'Dispo à vérifier', cls:'gi-broker is-na'};
-  const r=d.revolut, x=d.xtb;
-  if(r===true&&x===true) return {lab:'Revolut · XTB', cls:'gi-broker is-both'};
-  if(r===true) return {lab:'Revolut', cls:'gi-broker is-rev'};
-  if(x===true) return {lab:'XTB', cls:'gi-broker is-xtb'};
-  if(r===false&&x===false) return {lab:'Ni Revolut ni XTB', cls:'gi-broker is-none'};
-  return {lab:'Dispo à vérifier', cls:'gi-broker is-na'};
-}
 function giRender(){
   const host=document.getElementById('mes-pos');
   if(!host) return;
@@ -349,23 +339,19 @@ function giRender(){
     const col=it.scale===250||it.scale===270?(it.hex||((typeof pilotHex==='function')?pilotHex({total:it.note}):'#e6c27a')):((typeof ttColor==='function')?ttColor(it.note):(it.hex||'#e6c27a'));
     const note=it.display||String(it.note).replace('.',',');
     const amt=(typeof ttMontantTxt==='function')?ttMontantTxt(it.montant, (typeof TT!=='undefined'&&TT&&TT.unite)||'$'):(it.montant==null?'—':it.montant+' $');
-    const d=giDispoTxt(it.tv);
     const go=it.tv
       ? `<button type="button" class="gi-link" data-tab="${(it.tab||'').replace(/"/g,'')}" data-tv="${String(it.tv).replace(/"/g,'&quot;')}">${(it.nom||it.tv).replace(/</g,'')}</button>`
       : `<span class="pos-nm">${(it.nom||'').replace(/</g,'')}</span>`;
-    const tip=[it.nom,it.tv,it.section,d.lab].filter(Boolean).join(' · ');
-    const tick=it.tv?((typeof tvTag==='function')?tvTag(it.tv):`<span class="gi-tick">${String(it.tv).replace(/</g,'')}</span>`):'';
-    const sec=it.section?`<span class="gi-sec">${String(it.section).replace(/</g,'')}</span>`:'';
+    const tip=[it.nom,it.tv].filter(Boolean).join(' · ');
+    const cp=it.tv?((typeof ophirCopyBtn==='function')?ophirCopyBtn(it.tv):`<button type="button" class="cp" data-c="${String(it.tv).replace(/"/g,'&quot;')}" aria-label="Copier ${String(it.tv).replace(/"/g,'&quot;')}" title="Copier ${String(it.tv).replace(/"/g,'&quot;')}">⎘</button>`):'';
     const ev=it.tv
       ? `<div class="gi-acts"><button type="button" class="gi-elliott" data-tv="${String(it.tv).replace(/"/g,'&quot;')}" title="Retirer : vague Elliott non propice" aria-label="Retirer : vague Elliott non propice">E</button><button type="button" class="gi-pattern" data-tv="${String(it.tv).replace(/"/g,'&quot;')}" title="Pattern baissier : retirer jusqu'au 1er du mois" aria-label="Pattern baissier : retirer jusqu'au 1er du mois">P</button></div>`
       : '';
     return `<article class="gi-row${it.tv?' has-fiche':''}" title="${tip.replace(/"/g,'&quot;')}">
       ${ev}
-      <div class="gi-id">${go}</div>
+      <div class="gi-id">${go}${cp}</div>
       <span class="gi-note" style="color:${col}"><b>${note}</b><small>/${(it.scale===250||it.scale===270)?250:100}</small></span>
       <span class="gi-amt">${amt}</span>
-      <div class="gi-meta">${tick}${sec}</div>
-      <span class="${d.cls}">${d.lab}</span>
     </article>`;
   }).join('');
   const html=`<div class="card no-group" id="goodInvestCard">

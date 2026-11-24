@@ -217,7 +217,7 @@ function cxTile(s,i,pack){
   const chS=chC?((chC.charte&&chC.charte.source==='manuel')?'lecture manuelle · ':'')+'poids '+pw(chC.poids)+' % de la note APEX':'indisponible';
   return `<div class="sec" ${s.tv?`data-pos-tv="${s.tv||s.sym}"`:''}>
    <div class="sr">
-    <div class="sr-c sec-h sr-n"><b>${s.nom}</b><span>${s.sym} · ${s.sous}</span>${(s.tv&&typeof tvTag==='function')?tvTag(s.tv):''}${typeof posBadges==='function'?posBadges(s.tv||s.sym):''}${typeof dispoBadge==='function'?dispoBadge(s.tv):''}</div>
+    <div class="sr-c sec-h sr-n sr-n-titre"><span class="sr-titre"><b>${s.nom}</b>${(s.tv&&typeof ophirCopyBtn==='function')?ophirCopyBtn(s.tv):''}</span>${typeof posBadges==='function'?posBadges(s.tv||s.sym):''}${typeof dispoBadge==='function'?dispoBadge(s.tv):''}</div>
     ${typeof srCells==='function'?srCells(s):''}
     <div class="sr-c sr-b"></div>
    </div>

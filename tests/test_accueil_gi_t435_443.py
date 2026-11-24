@@ -20,7 +20,7 @@ def _js_sources():
 
 
 def test_gi_copy_button_uses_tvtag_and_stop_propagation():
-    assert 'typeof tvTag===\'function\'?tvTag(it.tv)' in GI or 'typeof tvTag==="function"?tvTag(it.tv)' in GI or "typeof tvTag==='function')?tvTag(it.tv)" in GI
+    assert 'ophirCopyBtn(it.tv)' in GI or 'class="cp"' in GI
     assert "data-c=" in FONDS and 'ophirCopy' in FONDS
     assert 'e.stopPropagation()' in FONDS
     assert 'navigator.clipboard' in FONDS
