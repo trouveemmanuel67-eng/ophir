@@ -7,6 +7,7 @@ function ttNoteTxt(n){
   return x.toLocaleString('fr-FR',{minimumFractionDigits:d,maximumFractionDigits:1});
 }
 function ttMontantTxt(v, unite){
+  if(v==null||v==='') return '—';
   const n=Number(v);
   if(!Number.isFinite(n)) return '—';
   const s=Math.round(n).toLocaleString('fr-FR');

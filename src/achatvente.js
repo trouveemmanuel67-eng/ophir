@@ -407,19 +407,13 @@ function pilotBrk(rec){
   if(!rec||!rec.ligne) return '';
   return `<div class="pilot-brk">${rec.ligne}</div>`;
 }
-function pilotSpark(fg){
-  const s=(fg&&fg.series)||[];
-  if(s.length<2) return '';
-  const vals=s.map(x=>x[1]).filter(Number.isFinite);
-  if(!vals.length) return '';
-  const lo=Math.min(0,...vals), hi=Math.max(100,...vals);
-  const w=120,h=22,p=1;
-  const pts=vals.map((v,i)=>{
-    const x=p+i*(w-2*p)/Math.max(1,vals.length-1);
-    const y=h-p-((v-lo)/Math.max(1e-6,hi-lo))*(h-2*p);
-    return x.toFixed(1)+','+y.toFixed(1);
-  }).join(' ');
-  return `<svg class="pilot-spark" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="1.2" points="${pts}"/></svg>`;
+function pilotLegJoin(parts){
+  const xs=(parts||[]).filter(Boolean);
+  return xs.map((html,i)=>{
+    if(!i) return html;
+    // le séparateur · reste collé à l'élément suivant (pas de point orphelin au retour à la ligne)
+    return html.replace(/^<span /,'<span data-psep="1" ');
+  }).join('');
 }
 function dualBarPilot(rec, compact){
   const fg=(PILOT&&PILOT.fear_greed)||{};
@@ -443,14 +437,18 @@ function dualBarPilot(rec, compact){
   const bandTicks=[20,40,60,80].map(p=>`<i class="av-tick" style="left:${p}%"></i>`).join('');
   const totTxt=total==null?'–':String(total);
   const fgTxt=Number.isFinite(sv)?fmt(sv,1):'–';
+  const avPart=`<span class="pilot-av"><i class="db-dot db-a" style="color:${hex}">AV</i>Total <b class="sc-t" style="color:${hex}">${totTxt}/${mx}</b></span>`;
+  const sPart=`<span class="pilot-s"><i class="db-dot db-s" style="color:${scol}">S</i>Fear &amp; Greed <b class="sc-t" style="color:${scol}">${fgTxt} ${sl}</b></span>`;
+  /* Place pour un indicateur additionnel (lettre H) : l'ajouter dans legParts, entre S et le détail. */
+  const brkPart=(rec&&rec.ligne)?`<span class="pilot-brk">${rec.ligne}</span>`:'';
+  const legParts=[avPart,sPart,brkPart];
   const bar=`<div class="db db-pilot ${compact?'db-sm':''}" role="img" aria-label="Score APEX ${totTxt} sur ${mn} à ${mx} ; Fear & Greed CNN ${fgTxt} (${sl}) sur 0 à 100">
    <div class="db-tk db-tk1">${tickHTML}</div>
    <div class="db-g"><div class="ind-bar"></div>${bandTicks}
     ${sp!=null?`<div class="db-cur db-s" style="left:${sp}%;color:${scol}" data-p="${sp}" title="S = CNN Fear & Greed Index ${fgTxt} · ${sl}">S</div>`:''}
     ${total!=null?`<div class="db-cur db-a" style="left:${ap}%;color:${hex}" data-p="${ap.toFixed(1)}" title="AV = score APEX ${totTxt} / ${mx}">AV</div>`:''}
    </div>
-   <div class="db-sc db-bot"><span>0 · Peur extrême</span><span>Euphorie · 100</span></div>
-   <div class="db-leg pilot-leg"><span><i class="db-dot db-a" style="color:${hex}">AV</i>Total <b class="sc-t" style="color:${hex}">${totTxt}/${mx}</b></span><span><i class="db-dot db-s" style="color:${scol}">S</i>Fear &amp; Greed <b class="sc-t" style="color:${scol}">${fgTxt} ${sl}</b></span>${pilotSpark(fg)}</div>
+   <div class="db-leg pilot-leg">${pilotLegJoin(legParts)}</div>
   </div>`;
-  return `<div class="apex-block apex-block-pilot${compact?' apex-block-line':''}">${pilotNoteHTML(rec)}<div class="apex-rest">${bar}${pilotBrk(rec)}</div></div>`;
+  return `<div class="apex-block apex-block-pilot apex-block-line${compact?' is-compact':''}">${pilotNoteHTML(rec)}<div class="apex-rest">${bar}</div></div>`;
 }

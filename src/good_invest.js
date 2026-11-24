@@ -82,9 +82,28 @@ function giIsHeld(it, held){
     return false;
   });
 }
-function giMontant(note){
-  const lignes=(typeof TT!=='undefined'&&TT&&Array.isArray(TT.lignes))?TT.lignes:[];
+function giMontant(note, scale){
   const n=Number(note);
+  if(!Number.isFinite(n)) return null;
+  const src=(typeof TT!=='undefined'&&TT&&Array.isArray(TT.lignes))
+    ?TT.lignes.slice().filter(l=>l&&Number.isFinite(Number(l.note))).sort((a,b)=>Number(a.note)-Number(b.note))
+    :[];
+  const sc=Number(scale);
+  const isV2=Number.isFinite(sc)&&sc!==100&&sc>=200;
+  let lignes=src;
+  if(isV2){
+    const baseNote=Number(GI_SEUIL_V2)||130;
+    if(src.length>=2){
+      const minOld=Number(src[0].note), maxOld=Number(src[src.length-1].note);
+      const spanOld=maxOld-minOld;
+      if(spanOld>0){
+        lignes=src.map(l=>({note:baseNote+((Number(l.note)-minOld)/spanOld)*(sc-baseNote), montant:l.montant}));
+      }
+    }else{
+      lignes=[];
+      for(let i=0;i<=5;i++) lignes.push({note:baseNote+i*(sc-baseNote)/5, montant:500+i*100});
+    }
+  }
   let best=null;
   for(const l of lignes){
     if(l&&Number(l.note)===n) return l.montant;
@@ -125,7 +144,7 @@ function giPrecomputed(){
     const held=giHeldSet();
     return j.liste
       .filter(it=>it&&it.tv&&it.note!=null&&Number(it.note)>=GI_SEUIL&&!giIsHeld(it,held)&&!giEstActionHorsUnivers(it))
-      .map(it=>Object.assign({},it,{montant:it.montant!=null?it.montant:giMontant(it.note)}))
+      .map(it=>Object.assign({},it,{montant:it.montant!=null?it.montant:giMontant(it.note,it.scale)}))
       .sort((a,b)=> (b.note-a.note) || ((b.av||0)-(a.av||0)) || String(a.tv).localeCompare(String(b.tv)));
   }catch(e){ return null; }
 }
@@ -139,9 +158,10 @@ function giStockRecs(){
     if(!r||r.total==null||r.ok===false) return;
     if(r.kind&&r.kind!=='action'&&r.kind!=='etf'&&r.kind!=='panier') return;
     if(r.total<GI_SEUIL_V2) return;
+    const sc=(typeof PILOT!=='undefined'&&PILOT&&PILOT.scale&&PILOT.scale.max!=null)?Number(PILOT.scale.max):250;
     const it={tv, nom:r.nom||tv, section:r.kind==='panier'?'Panier APEX':(r.kind==='etf'?'ETF sectoriel':'Action'),
-      note:r.total, display:String(r.total), hex:r.hex, flag:r.band, scale:250, tab:'actions',
-      ticker:r.ticker||'', yahoo:r.yahoo||'', montant:null};
+      note:r.total, display:String(r.total), hex:r.hex, flag:r.band, scale:sc, tab:'actions',
+      ticker:r.ticker||'', yahoo:r.yahoo||'', montant:giMontant(r.total, sc)};
     if(giIsHeld(it,held)) return;
     const k=r.tv||tv;
     if(seen.has(k)) return;
@@ -265,7 +285,7 @@ function giCollect(){
   const held=giHeldSet();
   return [...out.values()]
     .filter(it=>!giIsHeld(it, held))
-    .map(it=>Object.assign(it,{montant:giMontant(it.note)}))
+    .map(it=>Object.assign(it,{montant:giMontant(it.note,it.scale)}))
     .sort((a,b)=> (b.note-a.note) || ((b.av||0)-(a.av||0)) || String(a.tv).localeCompare(String(b.tv)));
 }
 function giListIsOpen(){

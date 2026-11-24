@@ -75,7 +75,7 @@ function fondList(sym){
     return 0;
   });
   const rows=ordered.map((r,k)=>
-    `<li class="fl-row"${r.tv?` data-pos-tv="${r.tv}"`:''}><span class="fl-rk">${k+1}</span><div class="fl-id"><b>${r.name}</b>${tvTag(r.tv)}${typeof posBadges==='function'?posBadges(r.tv):''}${typeof dispoBadge==='function'?dispoBadge(r.tv):''}</div>${listApexBar(r)}</li>`
+    `<li class="fl-row"${r.tv?` data-pos-tv="${r.tv}"`:''}><div class="fl-id"><span class="fl-rk">${k+1}</span><b>${r.name}</b>${tvTag(r.tv)}${typeof posBadges==='function'?posBadges(r.tv):''}${typeof dispoBadge==='function'?dispoBadge(r.tv):''}</div>${listApexBar(r)}</li>`
   ).join('');
   const d=s.top[0];
   const etfTv=(pSec&&pSec.etf&&pSec.etf.tv)||(s.etf&&s.etf.tv)||null;

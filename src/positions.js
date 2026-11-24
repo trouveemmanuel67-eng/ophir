@@ -114,17 +114,58 @@ function posOfTv(tv){
   if(!tv||!POS.positions) return [];
   return POS.positions.filter(p=>p.fiche_tv===tv || p.tv_note===tv);
 }
+function posCourtLabel(p){
+  const raw=(posCourtNom[p&&p.courtier]||(p&&p.courtier)||'Revolut');
+  return String(raw).toUpperCase();
+}
+function posActifCarre(list){
+  if(!list||!list.length) return '';
+  const seen=new Set(), courts=[];
+  list.forEach(p=>{
+    const c=posCourtLabel(p);
+    if(c&&!seen.has(c)){ seen.add(c); courts.push(c); }
+  });
+  const court=courts.join(' · ')||'REVOLUT';
+  const devises=[...new Set(list.map(p=>p.devise||'USD'))];
+  let amt;
+  if(devises.length===1){
+    const sum=list.reduce((s,p)=>s+(Number(p.valeur)||0),0);
+    amt=posAmt(sum, devises[0]);
+  }else{
+    amt=list.map(p=>posAmt(p.valeur,p.devise)).join(' · ');
+  }
+  let pnl=null, hasPnl=false;
+  const withInv=list.filter(p=>p.pnl_valeur!=null&&p.investi!=null&&Number(p.investi));
+  if(withInv.length===list.length&&list.length){
+    const inv=withInv.reduce((s,p)=>s+Number(p.investi),0);
+    const pv=withInv.reduce((s,p)=>s+Number(p.pnl_valeur),0);
+    if(inv){ pnl=100*pv/inv; hasPnl=true; }
+  }else if(list.every(p=>p.pnl_pct!=null&&p.pnl_pct!=='')){
+    if(list.length===1){ pnl=Number(list[0].pnl_pct); hasPnl=true; }
+    else{
+      const w=list.reduce((s,p)=>s+(Number(p.valeur)||0),0);
+      if(w){ pnl=list.reduce((s,p)=>s+Number(p.pnl_pct)*(Number(p.valeur)||0),0)/w; hasPnl=true; }
+    }
+  }
+  const cls='pos-carre'+(hasPnl?(pnl>=0?' is-gain':' is-loss'):' is-na');
+  const pct=hasPnl?posPct(pnl):'–';
+  const tip=[amt,court,hasPnl?posPct(pnl):'',...list.map(p=>[p.fiche_note,p.fiche_proxy?'Ce n’est pas le titre exact détenu.':''].filter(Boolean).join(' '))].filter(Boolean).join(' · ').replace(/"/g,'&quot;');
+  return `<span class="${cls}" title="${tip}"><b>${amt}</b><span class="pos-carre-c">${court}</span><span class="pos-carre-p">${pct}</span></span>`;
+}
 function posBadgeHTML(p){
   const court=posCourtNom[p.courtier]||p.courtier||'Revolut';
   if(p.statut==='en_attente')
     return `<span class="pos-badge pos-pend" title="${(p.fiche_note||'Ordre d’achat au marché chez '+court)+' · expiration le 19/11/2026 à 21 h (Europe/Paris)'}">Ordre en attente · ${posAmt(p.valeur,p.devise)}</span>`;
-  const pnl=p.pnl_pct==null?'':` · ${posPct(p.pnl_pct)}`;
-  const tip=[p.fiche_note,p.fiche_proxy?'Ce n’est pas le titre exact détenu.':''].filter(Boolean).join(' ');
-  return `<span class="pos-badge pos-act"${tip?` title="${tip.replace(/"/g,'&quot;')}"`:''}>Position active · ${posAmt(p.valeur,p.devise)} · ${court}${pnl}</span>`;
+  return posActifCarre([p]);
 }
 function posBadges(tv){
   const L=posOfTv(tv); if(!L.length) return '';
-  return `<span class="pos-badges">${L.map(posBadgeHTML).join('')}</span>`;
+  const pending=L.filter(p=>p.statut==='en_attente');
+  const active=L.filter(p=>p.statut!=='en_attente');
+  const parts=[];
+  if(active.length) parts.push(posActifCarre(active));
+  pending.forEach(p=>parts.push(posBadgeHTML(p)));
+  return `<span class="pos-badges">${parts.join('')}</span>`;
 }
 function posOpenFiche(tab,tv){
   const go=()=>{

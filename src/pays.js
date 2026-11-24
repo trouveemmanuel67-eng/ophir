@@ -24,7 +24,7 @@ function pList(C,s){
     return 0;
   });
   const rows=ordered.map((r,k)=>
-    `<li class="fl-row"${r.tv?` data-pos-tv="${r.tv}"`:''}><span class="fl-rk">${k+1}</span><div class="fl-id"><b>${r.name}</b>${tvTag(r.tv)}${typeof posBadges==='function'?posBadges(r.tv):''}${typeof dispoBadge==='function'?dispoBadge(r.tv):''}</div>${listApexBar(Object.assign({},r,{forceV2:true}))}${r.note_revolut?`<div class="fl-sub">${r.note_revolut}</div>`:''}</li>`
+    `<li class="fl-row"${r.tv?` data-pos-tv="${r.tv}"`:''}><div class="fl-id"><span class="fl-rk">${k+1}</span><b>${r.name}</b>${tvTag(r.tv)}${typeof posBadges==='function'?posBadges(r.tv):''}${typeof dispoBadge==='function'?dispoBadge(r.tv):''}</div>${listApexBar(Object.assign({},r,{forceV2:true}))}${r.note_revolut?`<div class="fl-sub">${r.note_revolut}</div>`:''}</li>`
   ).join('');
   const etfTv=(pSec&&pSec.etf&&pSec.etf.tv)||s.tv||null;
   const etfBar=etfTv?listApexBar({tv:etfTv, name:(pSec&&pSec.etf&&pSec.etf.nom)||s.etf||'', forceV2:true}):'';
