@@ -6,18 +6,18 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<meta name="ophir-build" content="e952e2a-20261124-112449">
+<meta name="ophir-build" content="2bc66a1-20261124-113239">
 <title>APEX INDICATOR INVESTMENT</title>
 <meta name="description" content="APEX Indicator Investment — notes et indicateurs de marché.">
 <meta name="theme-color" content="#0a1128">
 <meta name="apple-mobile-web-app-title" content="APEX">
 <meta name="application-name" content="APEX">
-<link rel="icon" href="favicon.ico?v=e952e2a-20261124-112449" sizes="any">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=e952e2a-20261124-112449">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=e952e2a-20261124-112449">
-<link rel="icon" type="image/png" sizes="64x64" href="favicon.png?v=e952e2a-20261124-112449">
-<link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png?v=e952e2a-20261124-112449">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=e952e2a-20261124-112449">
+<link rel="icon" href="favicon.ico?v=2bc66a1-20261124-113239" sizes="any">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=2bc66a1-20261124-113239">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=2bc66a1-20261124-113239">
+<link rel="icon" type="image/png" sizes="64x64" href="favicon.png?v=2bc66a1-20261124-113239">
+<link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png?v=2bc66a1-20261124-113239">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=2bc66a1-20261124-113239">
 <meta property="og:type" content="website">
 <meta property="og:title" content="APEX INDICATOR INVESTMENT">
 <meta property="og:description" content="APEX Indicator Investment — notes et indicateurs de marché.">
@@ -564,8 +564,10 @@ body{display:flex;flex-direction:column;min-height:100vh}
 .gi-id .gi-link,.gi-id .pos-nm{display:block;width:100%;font-weight:650;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;background:none;border:0;padding:0;font:inherit;cursor:pointer;text-align:left;text-decoration:none;box-shadow:none;appearance:none;-webkit-appearance:none}
 .gi-id .gi-link:hover,.gi-id .pos-nm{color:#fff;text-decoration:none}
 .gi-id .gi-link:focus-visible{outline:1px solid rgba(255,255,255,.35);outline-offset:2px;border-radius:3px}
-.gi-meta{grid-column:2;grid-row:2;min-width:0;display:flex;align-items:baseline;gap:8px;overflow:hidden}
+.gi-meta{grid-column:2;grid-row:2;min-width:0;display:flex;align-items:center;gap:8px;overflow:hidden}
 .gi-tick{flex:none;font-size:10.5px;color:#8d8d8d;font-weight:500;letter-spacing:.01em}
+.gi-meta .tvs{margin:0;flex:none}.gi-meta .tvs code{font-size:10.5px;color:#8d8d8d;background:transparent;padding:0}
+.gi-meta .cp{width:22px;height:22px;flex:none}
 .gi-sec{min-width:0;font-size:10.5px;color:#8d8d8d;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .gi-note{grid-column:3;grid-row:1;font-weight:750;font-variant-numeric:tabular-nums;white-space:nowrap;justify-self:end;text-shadow:none}
 .gi-note small{font-size:10px;font-weight:650;margin-left:1px;opacity:.8}
@@ -812,9 +814,9 @@ body.home-on.pos-open #mes-pos{margin-top:8px}
 .home-table{display:flex;flex-direction:column;gap:3px}
 .home-table-h,a.home-card{
   display:grid;
-  grid-template-columns:6.6rem 5.6rem minmax(9rem,1.05fr) 7.2rem minmax(6.2rem,0.9fr) minmax(7.2rem,1.15fr) 1.2rem;
+  grid-template-columns:minmax(9.2rem,0.95fr) 6.6rem minmax(8rem,1.05fr) 6.4rem minmax(5.6rem,0.9fr) minmax(6.4rem,1.1fr) 1.2rem;
   align-items:center;
-  gap:0 12px;
+  gap:0 10px;
   min-width:0;
 }
 .home-table-h > *,a.home-card > *{min-width:0;}
@@ -822,7 +824,7 @@ body.home-on.pos-open #mes-pos{margin-top:8px}
 a.home-card.card{margin-bottom:0;padding:7px 12px;min-height:0;border-radius:8px;color:inherit;text-decoration:none;transition:border-color .15s,background-color .15s,transform .15s,box-shadow .15s}
 a.home-card:hover{border-color:rgba(230,194,122,.6);background:rgba(230,194,122,.07);transform:translateX(2px);box-shadow:0 0 0 1px rgba(230,194,122,.15)}
 a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
-.home-card h2{margin:0;font-size:12px;letter-spacing:.08em;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.home-card h2{margin:0;font-size:12.5px;letter-spacing:.04em;color:#fff;white-space:normal;overflow:visible;line-height:1.2;hyphens:manual}
 .home-sig{display:flex;align-items:baseline;gap:4px;text-align:left;line-height:1.15;font-variant-numeric:tabular-nums;white-space:nowrap;min-width:0;overflow:hidden}
 .home-sig b{font-size:15px;font-weight:800}.home-card .home-sig.apex10 b{font-size:15px;letter-spacing:0}.home-card .home-sig.apex10 small{font-size:11px;font-weight:650}
 .home-sig em{font-style:normal;font-size:11px;letter-spacing:.04em;text-transform:uppercase;font-weight:650}
@@ -833,14 +835,33 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
 .home-mark{font-size:12px;color:#d8d0c2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
 .home-mark.is-empty{color:var(--mut)}
 .home-go{font-size:14px;color:#e6c27a;font-weight:700;text-align:right;letter-spacing:0;text-transform:none}
+.home-meta{display:contents}
 @media(max-width:900px){
   .home-tot .home-big{font-size:22px}
   .home-tot .home-sub{font-size:15px}
   .home-hero-top .home-openpos{margin-left:0}
 }
 @media(max-width:800px){
-  .home-table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -14px;padding:0 14px}
-  .home-table{min-width:720px}
+  .home-table-scroll{overflow-x:visible;margin:0;padding:0}
+  .home-table{min-width:0}
+  .home-table-h{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:0 10px}
+  .home-table-h span{display:none}
+  .home-table-h span:nth-child(1),.home-table-h span:nth-child(2){display:block}
+  a.home-card{
+    grid-template-columns:minmax(0,1fr) auto;
+    gap:4px 10px;
+    padding:8px 10px;
+  }
+  a.home-card h2{font-size:13px;letter-spacing:.03em}
+  a.home-card .home-sig{justify-self:end}
+  a.home-card .home-meta{
+    display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;
+    grid-column:1/-1;min-width:0;
+  }
+  a.home-card .home-flags,a.home-card .home-held,a.home-card .home-mark{
+    display:inline-flex;align-items:center;flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;
+  }
+  a.home-card .home-go{margin-left:auto;flex:0 0 auto}
 }
 @media(max-width:600px){
   .home-hero{padding:12px 12px 10px}
@@ -10657,8 +10678,8 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
   }
 }
 </script>
-<script type="application/json" id="dataBuild">{"version":"e952e2a-20261124-112449"}</script>
-<link rel="preload" href="config/regles.json?v=e952e2a-20261124-112449" as="fetch" crossorigin>
+<script type="application/json" id="dataBuild">{"version":"2bc66a1-20261124-113239"}</script>
+<link rel="preload" href="config/regles.json?v=2bc66a1-20261124-113239" as="fetch" crossorigin>
 
 <script type="application/json" id="dataMaj">{
   "at": "2026-11-23T21:45:22.168885+01:00",
@@ -11529,7 +11550,7 @@ function cxTile(s,i,pack){
   const chS=chC?((chC.charte&&chC.charte.source==='manuel')?'lecture manuelle · ':'')+'poids '+pw(chC.poids)+' % de la note APEX':'indisponible';
   return `<div class="sec" ${s.tv?`data-pos-tv="${s.tv||s.sym}"`:''}>
    <div class="sr">
-    <div class="sr-c sec-h sr-n"><b>${s.nom}</b><span>${s.sym} · ${s.sous}</span>${typeof posBadges==='function'?posBadges(s.tv||s.sym):''}${typeof dispoBadge==='function'?dispoBadge(s.tv):''}</div>
+    <div class="sr-c sec-h sr-n"><b>${s.nom}</b><span>${s.sym} · ${s.sous}</span>${(s.tv&&typeof tvTag==='function')?tvTag(s.tv):''}${typeof posBadges==='function'?posBadges(s.tv||s.sym):''}${typeof dispoBadge==='function'?dispoBadge(s.tv):''}</div>
     ${typeof srCells==='function'?srCells(s):''}
     <div class="sr-c sr-b"></div>
    </div>
@@ -11589,7 +11610,6 @@ function cxFichesHTML(){
   const cnt=z=>ok.filter(s=>s.av&&s.av.label&&s.av.label.includes(z)).length;
   return `<div class="card no-group no-acc" id="cxFiches"><h2>BTC, ETH, XRP, SOL et MSTR · notes APEX</h2>
    <div class="desc acc-sum">Bitcoin, Ether, XRP, Solana et Strategy (action NASDAQ, proxy bitcoin) · ${d?('clôtures hebdomadaires au '+dshort(d)):'dates indisponibles'} · <i>Achat</i> <b>${cnt('Achat')}</b> · <i>Neutre</i> <b>${cnt('Neutre')}</b> · <i>Vente</i> <b>${cnt('Vente')}</b></div>
-   <div class="sr-mention"><span class="sr-date">Bougies hebdomadaires clôturées uniquement${d?' · au '+dshort(d):(dSpan?' · du '+dSpan+' selon la fiche':'')}</span></div>
    <div class="sec-grid">${typeof srHead==='function'?srHead('Actif'):''}${apexSortByNote(S).map(s=>cxTile(s,S.indexOf(s))).join('')}</div>
    <details class="ind-meth"><summary>Méthode et pondérations</summary>
      <p><b>Sentiment Peur / Euphorie (0-100).</b> ${apexPlain(F.method_sent)}</p>
@@ -11693,7 +11713,6 @@ function enFichesHTML(){
   const apexVis=a10&&a10.display?` · moyenne <b>${a10.display}/100</b>`:'';
   return `<div class="card no-group no-acc" id="enFiches">${apexTag}<h2>Énergie · notes APEX</h2>
    <div class="desc acc-sum">${groupes.length} sous-sections${apexVis} · ${d?('clôtures hebdomadaires au '+dshort(d)):(dSpan?('clôtures hebdomadaires du '+dSpan+' selon la fiche'):'dates selon la fiche')} · <i>Achat</i> <b>${cnt('Achat')}</b> · <i>Neutre</i> <b>${cnt('Neutre')}</b> · <i>Vente</i> <b>${cnt('Vente')}</b>${nAth?` · <i>⚠ près du record</i> <b>${nAth}</b>`:''}${nNa?` · <i>indisponible</i> <b>${nNa}</b>`:''}${nRep?` · <i>repères de marché</i> <b>${nRep}</b>`:''}${F.av&&F.av.score!=null?` · signal XDW0 <b>${sign(F.av.score,0)} ${F.av.label||''}</b>`:''}</div>
-   <div class="sr-mention"><span class="sr-date">Bougies hebdomadaires clôturées uniquement${d?' · au '+dshort(d):''}</span></div>
    <div class="sec-grid">${typeof srHead==='function'?srHead('Actif'):''}${grid}</div>
    <details class="ind-meth"><summary>Méthode et pondérations</summary>
      <p><b>Sentiment Peur / Euphorie (0-100).</b> ${apexPlain(F.method_sent)}</p>
@@ -12607,7 +12626,6 @@ function renderSecteurs(el){
   const mkt=avP&&avP.score!=null?` · <i>Marché</i> <b>${avP.label||''} ${sign(avP.score,0)}</b>`:'';
   c.innerHTML=`<h2><img class="flag-us" src="flag-us.png" width="28" height="15" alt="Drapeau des États-Unis">Secteurs USA · sentiment et achat / vente</h2>
    <div class="desc acc-sum">${apexTag}11 secteurs GICS · au ${dshort(d)}${mkt} · <i>Achat</i> <b>${cnt('Achat')}</b> · <i>Neutre</i> <b>${cnt('Neutre')}</b> · <i>Vente</i> <b>${cnt('Vente')}</b> · <i>sentiment max</i> <b>${hi.nom} ${fmt(hi.sent.value,0)}</b> · <i>min</i> <b>${lo.nom} ${fmt(lo.sent.value,0)}</b>${nAth?` · <i>⚠ près du record</i> <b>${nAth}</b>`:''}</div>
-   <div class="sr-mention"><span class="sr-date">Clôtures hebdomadaires au ${dshort(d)} (bougies clôturées uniquement)</span></div>
    <div class="sec-grid">${srHead('Secteur · ETF principal', true)}${S.map(secTile).join('')}</div>
    <details class="ind-meth"><summary>Méthode et pondérations</summary>
      <p><b>Sentiment Peur / Euphorie (0-100).</b> ${SEC.method_sent}</p>
@@ -12720,7 +12738,6 @@ function renderPays(el){
     c.innerHTML=`<h2><img class="flag-us" src="${C.flag}" width="28" height="15" alt="Drapeau : ${C.nom}">${titre}</h2>
      <div class="desc acc-sum">${apexTag}${sumStocks}</div>
      ${kinds.includes('basket')?'<div class="ind-badge" style="margin-top:4px">« panier APEX » = panier calculé par APEX</div>':''}
-     <div class="sr-mention"><span class="sr-date">Clôtures hebdomadaires au ${dshort(d)} (bougies clôturées uniquement), devise locale</span></div>
      <div class="sec-grid">${srHead('Secteur · instrument', true)}${pTile(C,head,-1)}${C.rows.map((s,i)=>pTile(C,s,i)).join('')}</div>
      <details class="ind-meth"><summary>Méthode et pondérations</summary>
        <p><b>Sentiment Peur / Euphorie (0-100).</b> ${SEC.method_sent.replace(/S&P 500/g,C.bench_nom.split(' (')[0])}</p>
@@ -12758,7 +12775,6 @@ function renderMetaux(el){
   const yl=lnk('https://finance.yahoo.com/quote/GC%3DF/history/','Yahoo Finance (GC=F, SI=F, PL=F, PA=F)'),fl=(id,t)=>lnk('https://fred.stlouisfed.org/series/'+id,t||id);
   el.innerHTML=`
   <div class="card"><h2>Cours des métaux précieux · USD et EUR depuis 2000</h2>
-   <div class="desc">Clôtures hebdomadaires des contrats à terme continus (once troy), en dollars et convertis en euros, échelle logarithmique.</div>
    <div class="kpis">${K.map(k=>kpi(NM[k],mUsd(P[k].last_usd[1])+' · '+mEur(P[k].last_eur[1]),'clôture hebdo du '+dshort(P[k].last_usd[0]))).join('')}</div>
    <div class="mt-grid">${K.map(k=>`<div><div class="ind-subt">${NM[k]} · depuis ${dshort(P[k].first)}</div><div class="chart" style="height:220px"><canvas id="cMtP${k}"></canvas></div></div>`).join('')}</div>
    <div class="note">Contrats à terme continus Yahoo : les changements d'échéance ne sont pas ajustés, d'où de petits sauts possibles. Conversion en euros : EUR/USD hebdomadaire Yahoo (EURUSD=X) depuis 2003, taux de référence FRED DEXUSEU avant.</div>
@@ -12817,7 +12833,6 @@ function renderMetaux(el){
   const c=document.createElement('div');c.className='card no-group met-card';
   c.innerHTML=`<h2>Métaux · sentiment et achat / vente</h2>
    <div class="desc acc-sum">4 métaux · au ${dshort(d)} · ${S.map(s=>`<i>${s.nom}</i> <b>${s.av.label} ${sign(s.av.score,0)} · S ${fmt(s.sent.value,0)}</b>`).join(' · ')}</div>
-   <div class="sr-mention"><span class="sr-date">Clôtures hebdomadaires au ${dshort(d)} (bougies clôturées uniquement), en dollars</span></div>
    <div class="sec-grid">${srHead('Métal · contrat de référence')}${S.map(s=>pTile(MET_C,s,MT.rows.indexOf(s))).join('')}</div>
    <details class="ind-meth"><summary>Méthode et pondérations</summary>
     <p><b>Sentiment Peur / Euphorie (0-100).</b> ${apexPlain(SEC.method_sent.replace(/S&P 500/g,'DBC'))}</p>
@@ -13061,7 +13076,6 @@ function renderSegments(el){
       +(one?`<i>Achat / Vente</i> <b>${one.av.label} ${sign(one.av.score,0)}</b> · <i>Sentiment</i> <b>${one.sent.label} ${fmt(one.sent.value,0)}</b>`:`${S.length} segments · <i>Achat</i> <b>${cnt('Achat')}</b> · <i>Neutre</i> <b>${cnt('Neutre')}</b> · <i>Vente</i> <b>${cnt('Vente')}</b>`)+` · au ${dshort(S[0].date)}`;
     c.innerHTML=`<h2>${F?`<img class="flag-us" src="${F[0]}" width="28" height="15" alt="Drapeau : ${F[1]}">`:''}${titre} · ${P&&g!=='us'?'taux, ':''}sentiment et achat / vente</h2>
      <div class="desc acc-sum">${sum}</div>
-     <div class="sr-mention"><span class="sr-date">Clôtures hebdomadaires au ${dshort(S[0].date)} (bougies clôturées uniquement)</span></div>
      <div class="sec-grid">${srHead('Segment · ETF de référence')}${L.map(([s,i])=>segTile(s,i)).join('')}</div>
      ${P?obRates(g):''}
      <div class="note ob-pea">Risques à surveiller : duration (sensibilité aux taux), devise${g==='kr'||g==='jp'||g==='au'||g==='us'||g==='gb'||g==='ch'?' (exposition non couverte sauf parts « couvertes »)':''} et crédit de l'émetteur ; détail par segment dans « ETF de référence + … ». Les ETF obligataires et les obligations ne sont pas éligibles au PEA : compte-titres uniquement.</div>
@@ -14087,6 +14101,29 @@ function homeSigHTML(av,tabId){
   const lab=av.label||'';
   return `<div class="home-sig"><b style="color:${col}">${sign(av.score,0)}</b><em style="color:${col}">${lab}</em></div>`;
 }
+function homeApexNorm(id){
+  /* (note − min)/(max − min) : actions sur l'échelle publiée (−50…250, ou PILOT.scale), autres 0…100. */
+  const st=(typeof sectionApexAvg==='function')?sectionApexAvg(id):null;
+  const v2=st&&st.apexV2;
+  const sc=(typeof PILOT!=='undefined'&&PILOT&&PILOT.scale)?PILOT.scale:null;
+  const v2min=(sc&&sc.min!=null)?Number(sc.min):-50;
+  const v2max=(sc&&sc.max!=null)?Number(sc.max):250;
+  if(v2&&v2.total!=null&&Number.isFinite(Number(v2.total))){
+    const mn=v2.total_min!=null?Number(v2.total_min):v2min;
+    const mx=v2.total_max!=null?Number(v2.total_max):v2max;
+    const span=mx-mn;
+    return span>0?(Number(v2.total)-mn)/span:null;
+  }
+  const a=(st&&st.apex10)||null;
+  if(a&&(a.v2||a.scale===250||a.scale===270||a.scale===280||a.total_max===250||a.total_max===270||a.total_max===280)&&a.total!=null&&Number.isFinite(Number(a.total))){
+    const mn=a.total_min!=null?Number(a.total_min):v2min;
+    const mx=a.total_max!=null?Number(a.total_max):(a.total_max!=null?Number(a.total_max):v2max);
+    const span=mx-mn;
+    return span>0?(Number(a.total)-mn)/span:null;
+  }
+  if(a&&a.note!=null&&Number.isFinite(Number(a.note))) return Number(a.note)/100;
+  return null;
+}
 function homeHeldHTML(map,id){
   const v=map[id];
   if(v==null||!(v>0)) return `<div class="home-held" title="Détenu">—</div>`;
@@ -14102,13 +14139,15 @@ function homeCard({id,label,short,counts,held,marks}){
   const pair=[(marks&&marks[0])||{text:'—'},(marks&&marks[1])||{text:'—'}];
   const full=label||short;
   return `<a class="card home-card no-acc no-group" href="#${id}" title="${homeEsc('Ouvrir l’onglet '+full)}">
-    <h2 title="${homeEsc(full)}">${homeEsc(short||label)}</h2>
+    <h2 title="${homeEsc(full)}">${homeEsc(label||short)}</h2>
     ${homeSigHTML(av,id)}
+    <div class="home-meta">
     ${homeFlagsHTML(counts)}
     ${homeHeldHTML(held,id)}
     ${homeMarkHTML(pair[0])}
     ${homeMarkHTML(pair[1])}
     <div class="home-go" aria-hidden="true">→</div>
+    </div>
   </a>`;
 }
 function homeBook(list){
@@ -14192,25 +14231,20 @@ function renderAccueil(el){
     {id:'liquidites',label:'Liquidités',short:'Liq.',counts:homeCount(homeScoresOf((typeof T2!=='undefined'&&T2.liquidites&&T2.liquidites.fx&&(T2.liquidites.fx.assets||T2.liquidites.fx.pairs))||[])),held,marks:marks.liquidites},
     {id:'immobilier',label:'Immobilier',short:'Immo',counts:{n:0,violet:0,rouge:0,jaune:0,vert:0,cyan:0},held,marks:marks.immobilier}
   ];
-  const sigScore=id=>{
-    const av=homeAvOf(id);
-    if(!av||av.score==null||av.score==='') return null;
-    const n=Number(av.score);
-    return Number.isFinite(n)?n:null;
-  };
   cards.sort((a,b)=>{
-    const sa=sigScore(a.id),sb=sigScore(b.id);
-    if(sa==null&&sb==null) return 0;
+    const sa=homeApexNorm(a.id),sb=homeApexNorm(b.id);
+    if(sa==null&&sb==null) return String(a.label||'').localeCompare(String(b.label||''),'fr');
     if(sa==null) return 1;
     if(sb==null) return -1;
-    return sb-sa;
+    if(sb!==sa) return sb-sa;
+    return String(a.label||'').localeCompare(String(b.label||''),'fr');
   });
 
   el.innerHTML=`
     <div class="home-table-scroll">
       <div class="home-table">
         <div class="home-table-h" aria-hidden="true">
-          <span>Secteur</span><span>Signal</span><span>Drapeaux</span><span>Détenu</span><span>Sentiment</span><span>Repère</span><span></span>
+          <span>Secteur</span><span>Note APEX</span><span>Drapeaux</span><span>Détenu</span><span>Sentiment</span><span>Repère</span><span></span>
         </div>
         ${cards.map(homeCard).join('')}
       </div>
@@ -15332,7 +15366,7 @@ function giRender(){
       ? `<button type="button" class="gi-link" data-tab="${(it.tab||'').replace(/"/g,'')}" data-tv="${String(it.tv).replace(/"/g,'&quot;')}">${(it.nom||it.tv).replace(/</g,'')}</button>`
       : `<span class="pos-nm">${(it.nom||'').replace(/</g,'')}</span>`;
     const tip=[it.nom,it.tv,it.section,d.lab].filter(Boolean).join(' · ');
-    const tick=it.tv?`<span class="gi-tick">${String(it.tv).replace(/</g,'')}</span>`:'';
+    const tick=it.tv?((typeof tvTag==='function')?tvTag(it.tv):`<span class="gi-tick">${String(it.tv).replace(/</g,'')}</span>`):'';
     const sec=it.section?`<span class="gi-sec">${String(it.section).replace(/</g,'')}</span>`:'';
     const ev=it.tv
       ? `<button type="button" class="gi-elliott" data-tv="${String(it.tv).replace(/"/g,'&quot;')}" title="Retirer : vague Elliott non propice" aria-label="Retirer : vague Elliott non propice">E</button>`

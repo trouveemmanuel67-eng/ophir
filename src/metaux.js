@@ -22,7 +22,6 @@ function renderMetaux(el){
   const yl=lnk('https://finance.yahoo.com/quote/GC%3DF/history/','Yahoo Finance (GC=F, SI=F, PL=F, PA=F)'),fl=(id,t)=>lnk('https://fred.stlouisfed.org/series/'+id,t||id);
   el.innerHTML=`
   <div class="card"><h2>Cours des métaux précieux · USD et EUR depuis 2000</h2>
-   <div class="desc">Clôtures hebdomadaires des contrats à terme continus (once troy), en dollars et convertis en euros, échelle logarithmique.</div>
    <div class="kpis">${K.map(k=>kpi(NM[k],mUsd(P[k].last_usd[1])+' · '+mEur(P[k].last_eur[1]),'clôture hebdo du '+dshort(P[k].last_usd[0]))).join('')}</div>
    <div class="mt-grid">${K.map(k=>`<div><div class="ind-subt">${NM[k]} · depuis ${dshort(P[k].first)}</div><div class="chart" style="height:220px"><canvas id="cMtP${k}"></canvas></div></div>`).join('')}</div>
    <div class="note">Contrats à terme continus Yahoo : les changements d'échéance ne sont pas ajustés, d'où de petits sauts possibles. Conversion en euros : EUR/USD hebdomadaire Yahoo (EURUSD=X) depuis 2003, taux de référence FRED DEXUSEU avant.</div>
@@ -81,7 +80,6 @@ function renderMetaux(el){
   const c=document.createElement('div');c.className='card no-group met-card';
   c.innerHTML=`<h2>Métaux · sentiment et achat / vente</h2>
    <div class="desc acc-sum">4 métaux · au ${dshort(d)} · ${S.map(s=>`<i>${s.nom}</i> <b>${s.av.label} ${sign(s.av.score,0)} · S ${fmt(s.sent.value,0)}</b>`).join(' · ')}</div>
-   <div class="sr-mention"><span class="sr-date">Clôtures hebdomadaires au ${dshort(d)} (bougies clôturées uniquement), en dollars</span></div>
    <div class="sec-grid">${srHead('Métal · contrat de référence')}${S.map(s=>pTile(MET_C,s,MT.rows.indexOf(s))).join('')}</div>
    <details class="ind-meth"><summary>Méthode et pondérations</summary>
     <p><b>Sentiment Peur / Euphorie (0-100).</b> ${apexPlain(SEC.method_sent.replace(/S&P 500/g,'DBC'))}</p>

@@ -326,7 +326,7 @@ function giRender(){
       ? `<button type="button" class="gi-link" data-tab="${(it.tab||'').replace(/"/g,'')}" data-tv="${String(it.tv).replace(/"/g,'&quot;')}">${(it.nom||it.tv).replace(/</g,'')}</button>`
       : `<span class="pos-nm">${(it.nom||'').replace(/</g,'')}</span>`;
     const tip=[it.nom,it.tv,it.section,d.lab].filter(Boolean).join(' · ');
-    const tick=it.tv?`<span class="gi-tick">${String(it.tv).replace(/</g,'')}</span>`:'';
+    const tick=it.tv?((typeof tvTag==='function')?tvTag(it.tv):`<span class="gi-tick">${String(it.tv).replace(/</g,'')}</span>`):'';
     const sec=it.section?`<span class="gi-sec">${String(it.section).replace(/</g,'')}</span>`:'';
     const ev=it.tv
       ? `<button type="button" class="gi-elliott" data-tv="${String(it.tv).replace(/"/g,'&quot;')}" title="Retirer : vague Elliott non propice" aria-label="Retirer : vague Elliott non propice">E</button>`

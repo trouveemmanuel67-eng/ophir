@@ -84,7 +84,6 @@ function renderSecteurs(el){
   const mkt=avP&&avP.score!=null?` · <i>Marché</i> <b>${avP.label||''} ${sign(avP.score,0)}</b>`:'';
   c.innerHTML=`<h2><img class="flag-us" src="flag-us.png" width="28" height="15" alt="Drapeau des États-Unis">Secteurs USA · sentiment et achat / vente</h2>
    <div class="desc acc-sum">${apexTag}11 secteurs GICS · au ${dshort(d)}${mkt} · <i>Achat</i> <b>${cnt('Achat')}</b> · <i>Neutre</i> <b>${cnt('Neutre')}</b> · <i>Vente</i> <b>${cnt('Vente')}</b> · <i>sentiment max</i> <b>${hi.nom} ${fmt(hi.sent.value,0)}</b> · <i>min</i> <b>${lo.nom} ${fmt(lo.sent.value,0)}</b>${nAth?` · <i>⚠ près du record</i> <b>${nAth}</b>`:''}</div>
-   <div class="sr-mention"><span class="sr-date">Clôtures hebdomadaires au ${dshort(d)} (bougies clôturées uniquement)</span></div>
    <div class="sec-grid">${srHead('Secteur · ETF principal', true)}${S.map(secTile).join('')}</div>
    <details class="ind-meth"><summary>Méthode et pondérations</summary>
      <p><b>Sentiment Peur / Euphorie (0-100).</b> ${SEC.method_sent}</p>

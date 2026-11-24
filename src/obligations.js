@@ -231,7 +231,6 @@ function renderSegments(el){
       +(one?`<i>Achat / Vente</i> <b>${one.av.label} ${sign(one.av.score,0)}</b> · <i>Sentiment</i> <b>${one.sent.label} ${fmt(one.sent.value,0)}</b>`:`${S.length} segments · <i>Achat</i> <b>${cnt('Achat')}</b> · <i>Neutre</i> <b>${cnt('Neutre')}</b> · <i>Vente</i> <b>${cnt('Vente')}</b>`)+` · au ${dshort(S[0].date)}`;
     c.innerHTML=`<h2>${F?`<img class="flag-us" src="${F[0]}" width="28" height="15" alt="Drapeau : ${F[1]}">`:''}${titre} · ${P&&g!=='us'?'taux, ':''}sentiment et achat / vente</h2>
      <div class="desc acc-sum">${sum}</div>
-     <div class="sr-mention"><span class="sr-date">Clôtures hebdomadaires au ${dshort(S[0].date)} (bougies clôturées uniquement)</span></div>
      <div class="sec-grid">${srHead('Segment · ETF de référence')}${L.map(([s,i])=>segTile(s,i)).join('')}</div>
      ${P?obRates(g):''}
      <div class="note ob-pea">Risques à surveiller : duration (sensibilité aux taux), devise${g==='kr'||g==='jp'||g==='au'||g==='us'||g==='gb'||g==='ch'?' (exposition non couverte sauf parts « couvertes »)':''} et crédit de l'émetteur ; détail par segment dans « ETF de référence + … ». Les ETF obligataires et les obligations ne sont pas éligibles au PEA : compte-titres uniquement.</div>

@@ -217,7 +217,7 @@ function cxTile(s,i,pack){
   const chS=chC?((chC.charte&&chC.charte.source==='manuel')?'lecture manuelle · ':'')+'poids '+pw(chC.poids)+' % de la note APEX':'indisponible';
   return `<div class="sec" ${s.tv?`data-pos-tv="${s.tv||s.sym}"`:''}>
    <div class="sr">
-    <div class="sr-c sec-h sr-n"><b>${s.nom}</b><span>${s.sym} · ${s.sous}</span>${typeof posBadges==='function'?posBadges(s.tv||s.sym):''}${typeof dispoBadge==='function'?dispoBadge(s.tv):''}</div>
+    <div class="sr-c sec-h sr-n"><b>${s.nom}</b><span>${s.sym} · ${s.sous}</span>${(s.tv&&typeof tvTag==='function')?tvTag(s.tv):''}${typeof posBadges==='function'?posBadges(s.tv||s.sym):''}${typeof dispoBadge==='function'?dispoBadge(s.tv):''}</div>
     ${typeof srCells==='function'?srCells(s):''}
     <div class="sr-c sr-b"></div>
    </div>
@@ -277,7 +277,6 @@ function cxFichesHTML(){
   const cnt=z=>ok.filter(s=>s.av&&s.av.label&&s.av.label.includes(z)).length;
   return `<div class="card no-group no-acc" id="cxFiches"><h2>BTC, ETH, XRP, SOL et MSTR · notes APEX</h2>
    <div class="desc acc-sum">Bitcoin, Ether, XRP, Solana et Strategy (action NASDAQ, proxy bitcoin) · ${d?('clôtures hebdomadaires au '+dshort(d)):'dates indisponibles'} · <i>Achat</i> <b>${cnt('Achat')}</b> · <i>Neutre</i> <b>${cnt('Neutre')}</b> · <i>Vente</i> <b>${cnt('Vente')}</b></div>
-   <div class="sr-mention"><span class="sr-date">Bougies hebdomadaires clôturées uniquement${d?' · au '+dshort(d):(dSpan?' · du '+dSpan+' selon la fiche':'')}</span></div>
    <div class="sec-grid">${typeof srHead==='function'?srHead('Actif'):''}${apexSortByNote(S).map(s=>cxTile(s,S.indexOf(s))).join('')}</div>
    <details class="ind-meth"><summary>Méthode et pondérations</summary>
      <p><b>Sentiment Peur / Euphorie (0-100).</b> ${apexPlain(F.method_sent)}</p>
@@ -381,7 +380,6 @@ function enFichesHTML(){
   const apexVis=a10&&a10.display?` · moyenne <b>${a10.display}/100</b>`:'';
   return `<div class="card no-group no-acc" id="enFiches">${apexTag}<h2>Énergie · notes APEX</h2>
    <div class="desc acc-sum">${groupes.length} sous-sections${apexVis} · ${d?('clôtures hebdomadaires au '+dshort(d)):(dSpan?('clôtures hebdomadaires du '+dSpan+' selon la fiche'):'dates selon la fiche')} · <i>Achat</i> <b>${cnt('Achat')}</b> · <i>Neutre</i> <b>${cnt('Neutre')}</b> · <i>Vente</i> <b>${cnt('Vente')}</b>${nAth?` · <i>⚠ près du record</i> <b>${nAth}</b>`:''}${nNa?` · <i>indisponible</i> <b>${nNa}</b>`:''}${nRep?` · <i>repères de marché</i> <b>${nRep}</b>`:''}${F.av&&F.av.score!=null?` · signal XDW0 <b>${sign(F.av.score,0)} ${F.av.label||''}</b>`:''}</div>
-   <div class="sr-mention"><span class="sr-date">Bougies hebdomadaires clôturées uniquement${d?' · au '+dshort(d):''}</span></div>
    <div class="sec-grid">${typeof srHead==='function'?srHead('Actif'):''}${grid}</div>
    <details class="ind-meth"><summary>Méthode et pondérations</summary>
      <p><b>Sentiment Peur / Euphorie (0-100).</b> ${apexPlain(F.method_sent)}</p>

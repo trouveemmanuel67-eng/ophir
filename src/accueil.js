@@ -183,6 +183,29 @@ function homeSigHTML(av,tabId){
   const lab=av.label||'';
   return `<div class="home-sig"><b style="color:${col}">${sign(av.score,0)}</b><em style="color:${col}">${lab}</em></div>`;
 }
+function homeApexNorm(id){
+  /* (note − min)/(max − min) : actions sur l'échelle publiée (−50…250, ou PILOT.scale), autres 0…100. */
+  const st=(typeof sectionApexAvg==='function')?sectionApexAvg(id):null;
+  const v2=st&&st.apexV2;
+  const sc=(typeof PILOT!=='undefined'&&PILOT&&PILOT.scale)?PILOT.scale:null;
+  const v2min=(sc&&sc.min!=null)?Number(sc.min):-50;
+  const v2max=(sc&&sc.max!=null)?Number(sc.max):250;
+  if(v2&&v2.total!=null&&Number.isFinite(Number(v2.total))){
+    const mn=v2.total_min!=null?Number(v2.total_min):v2min;
+    const mx=v2.total_max!=null?Number(v2.total_max):v2max;
+    const span=mx-mn;
+    return span>0?(Number(v2.total)-mn)/span:null;
+  }
+  const a=(st&&st.apex10)||null;
+  if(a&&(a.v2||a.scale===250||a.scale===270||a.scale===280||a.total_max===250||a.total_max===270||a.total_max===280)&&a.total!=null&&Number.isFinite(Number(a.total))){
+    const mn=a.total_min!=null?Number(a.total_min):v2min;
+    const mx=a.total_max!=null?Number(a.total_max):(a.total_max!=null?Number(a.total_max):v2max);
+    const span=mx-mn;
+    return span>0?(Number(a.total)-mn)/span:null;
+  }
+  if(a&&a.note!=null&&Number.isFinite(Number(a.note))) return Number(a.note)/100;
+  return null;
+}
 function homeHeldHTML(map,id){
   const v=map[id];
   if(v==null||!(v>0)) return `<div class="home-held" title="Détenu">—</div>`;
@@ -198,13 +221,15 @@ function homeCard({id,label,short,counts,held,marks}){
   const pair=[(marks&&marks[0])||{text:'—'},(marks&&marks[1])||{text:'—'}];
   const full=label||short;
   return `<a class="card home-card no-acc no-group" href="#${id}" title="${homeEsc('Ouvrir l’onglet '+full)}">
-    <h2 title="${homeEsc(full)}">${homeEsc(short||label)}</h2>
+    <h2 title="${homeEsc(full)}">${homeEsc(label||short)}</h2>
     ${homeSigHTML(av,id)}
+    <div class="home-meta">
     ${homeFlagsHTML(counts)}
     ${homeHeldHTML(held,id)}
     ${homeMarkHTML(pair[0])}
     ${homeMarkHTML(pair[1])}
     <div class="home-go" aria-hidden="true">→</div>
+    </div>
   </a>`;
 }
 function homeBook(list){
@@ -288,25 +313,20 @@ function renderAccueil(el){
     {id:'liquidites',label:'Liquidités',short:'Liq.',counts:homeCount(homeScoresOf((typeof T2!=='undefined'&&T2.liquidites&&T2.liquidites.fx&&(T2.liquidites.fx.assets||T2.liquidites.fx.pairs))||[])),held,marks:marks.liquidites},
     {id:'immobilier',label:'Immobilier',short:'Immo',counts:{n:0,violet:0,rouge:0,jaune:0,vert:0,cyan:0},held,marks:marks.immobilier}
   ];
-  const sigScore=id=>{
-    const av=homeAvOf(id);
-    if(!av||av.score==null||av.score==='') return null;
-    const n=Number(av.score);
-    return Number.isFinite(n)?n:null;
-  };
   cards.sort((a,b)=>{
-    const sa=sigScore(a.id),sb=sigScore(b.id);
-    if(sa==null&&sb==null) return 0;
+    const sa=homeApexNorm(a.id),sb=homeApexNorm(b.id);
+    if(sa==null&&sb==null) return String(a.label||'').localeCompare(String(b.label||''),'fr');
     if(sa==null) return 1;
     if(sb==null) return -1;
-    return sb-sa;
+    if(sb!==sa) return sb-sa;
+    return String(a.label||'').localeCompare(String(b.label||''),'fr');
   });
 
   el.innerHTML=`
     <div class="home-table-scroll">
       <div class="home-table">
         <div class="home-table-h" aria-hidden="true">
-          <span>Secteur</span><span>Signal</span><span>Drapeaux</span><span>Détenu</span><span>Sentiment</span><span>Repère</span><span></span>
+          <span>Secteur</span><span>Note APEX</span><span>Drapeaux</span><span>Détenu</span><span>Sentiment</span><span>Repère</span><span></span>
         </div>
         ${cards.map(homeCard).join('')}
       </div>

@@ -100,7 +100,6 @@ function renderPays(el){
     c.innerHTML=`<h2><img class="flag-us" src="${C.flag}" width="28" height="15" alt="Drapeau : ${C.nom}">${titre}</h2>
      <div class="desc acc-sum">${apexTag}${sumStocks}</div>
      ${kinds.includes('basket')?'<div class="ind-badge" style="margin-top:4px">« panier APEX » = panier calculé par APEX</div>':''}
-     <div class="sr-mention"><span class="sr-date">Clôtures hebdomadaires au ${dshort(d)} (bougies clôturées uniquement), devise locale</span></div>
      <div class="sec-grid">${srHead('Secteur · instrument', true)}${pTile(C,head,-1)}${C.rows.map((s,i)=>pTile(C,s,i)).join('')}</div>
      <details class="ind-meth"><summary>Méthode et pondérations</summary>
        <p><b>Sentiment Peur / Euphorie (0-100).</b> ${SEC.method_sent.replace(/S&P 500/g,C.bench_nom.split(' (')[0])}</p>
