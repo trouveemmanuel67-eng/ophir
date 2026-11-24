@@ -17,30 +17,18 @@ const GS_PATTERN_KEY='apex-short-pattern-hide';
 let gsShowValides=false;
 
 function gsScaleOf(rec){
-  const sc=Number((rec&& (rec.scale!=null?rec.scale:rec.total_max)));
-  if(sc===280||sc===270) return 280;
-  return 250;
+  return 250; /* APE-25 : échelle unique −50..250 */
 }
 function gsIsRouge(note, scale){
   const n=Number(note);
   if(!Number.isFinite(n)) return false;
-  const sc=(scale===280||scale===270)?280:250;
-  if(typeof pilotBand==='function'){
-    return pilotBand(n, {total:n, scale:sc, total_max:sc}).id==='rouge';
-  }
-  if(sc===280) return n>=-8 && n<64;
   return n>=GS_ROUGE_DE && n<GS_ROUGE_A;
 }
 function gsMontant(note, scale){
-  /* 250 : 100 $ à 69, +20 / 24 pts. 280 : 100 $ à 63 (dernière note rouge, −8 ≤ n < 64). */
+  /* 100 $ à 69, +20 $ par palier entier de 24 points sous 69, 200 $ max (−50). Exposition = mise × 5. */
   const n=Number(note);
-  const sc=(scale===280||scale===270)?280:250;
-  if(!Number.isFinite(n)||!gsIsRouge(n, sc)) return null;
-  const seuil=sc===280?63:GS_SEUIL;
-  const floor=sc===280?-80:-50;
-  /* Paliers entiers (APE-24) : 120 $ dès 24 points sous le seuil (45/250), 140 $ à 21, 160 $ à −3, 180 $ à −27, 200 $ au plancher. */
-  if(n<=floor) return 200;
-  const steps=Math.floor((seuil-n)/24);
+  if(!Number.isFinite(n)||!gsIsRouge(n, 250)) return null;
+  const steps=Math.floor((GS_SEUIL-n)/24);
   return Math.min(100+steps*20, 200);
 }
 function gsExpo(mise){
@@ -171,7 +159,18 @@ function gsCollect(){
     take(a.tv||a.sym, a.nom||a.name, 'Crypto', a.apex10, 'crypto', a.yahoo, a.ticker||a.sym);
   });
 
-  /* ETF par devise uniquement (pas la note /100 de la devise) */
+  /* APE-25 : obligations (ETF UCITS) et énergie (actions, proxies, ETF) sur la même échelle −50..250 */
+  if(typeof OB!=='undefined'&&OB&&OB.segments){
+    OB.segments.forEach(s=>{
+      if(s.apex10_panier&&s.apex10_panier.scale===250) take(s.tv, s.pname||s.nom, 'Obligations – '+(s.nom||''), s.apex10_panier, 'obligations', s.sym, (s.tv||'').split(':')[1]||'');
+      (s.list||[]).forEach(e=>{ if(e&&e.apex10&&e.apex10.scale===250) take(e.tv, e.name||e.tv, 'Obligations – '+(s.nom||''), e.apex10, 'obligations', e.yahoo, (e.tv||'').split(':')[1]||''); });
+    });
+  }
+  ((((typeof T2!=='undefined'&&T2&&T2.energie)||{}).assets)||[]).forEach(a=>{
+    if(a&&a.apex10&&a.apex10.scale===250) take(a.tv, a.nom||a.tv, 'Énergie – '+(a.groupe||''), a.apex10, 'energie', a.yahoo, (a.tv||'').split(':')[1]||'');
+  });
+
+  /* ETF par devise uniquement (pas la note de la devise) */
   const fx=(((typeof T2!=='undefined'&&T2&&T2.liquidites)||{}).fx)||{};
   (fx.assets||[]).forEach(a=>{
     const e=a.etf_local;
@@ -247,7 +246,7 @@ function gsRender(){
     <div class="pos-body gi-body" id="gsBody">
       <p class="gs-warn">Le short peut faire perdre plus que la mise. Il faut un compte qui l’autorise (CFD chez XTB, par exemple). Levier ×5, marge commune Revolut : les shorts se soutiennent entre eux, mais une hausse générale du marché touche toutes les positions en même temps et peut déclencher un appel de marge sur l’ensemble.</p>
       <p class="gs-legende">Montants : mise (levier ×5). En petit : exposition équivalente.</p>
-      <div class="gi-list">${rows||'<div class="gi-empty">Aucun titre au seuil (note APEX rouge sur son échelle : 10 ≤ n < 70/250, ou −8 ≤ n < 64/280).</div>'}</div>
+      <div class="gi-list">${rows||'<div class="gi-empty">Aucun titre au seuil (note APEX rouge : 10 ≤ n < 70/250).</div>'}</div>
       ${(nVal||gsShowValides)?`<div class="gi-valides">
         <button type="button" class="gi-valides-link gs-valides-link" aria-expanded="${gsShowValides?'true':'false'}">Validés (${nVal})</button>
         ${gsShowValides?(rowsVal||'<div class="gi-empty">Aucun titre validé en short.</div>'):''}

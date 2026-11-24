@@ -645,12 +645,7 @@ def compute_metaux(av, fond=None, elliott=None, divergence=None, parts=None):
 
     brut = pts_total + fg_pts - pen
     n = max(cfg['min'], min(cfg['max'], round_half(brut, cfg['arrondi'])))
-    if n >= cfg['cyan_min']:
-        av_fort = (av is not None) and (float(av) >= cy_av)
-        conf = divergence_haussiere(divergence)
-        if not (av_fort and conf):
-            n = cfg['cyan_plafond']
-            cap.append('cyan')
+    # APE-25 (t503u) : plus de plafond cyan, la note peut atteindre 250.
     band = metaux_band(n)
     bits = []
     if renormalise:

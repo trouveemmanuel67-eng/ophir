@@ -50,7 +50,7 @@ def test_seuil_tri_montant_et_stockage():
     assert _montant(45) == 120
     assert _montant(21) == 140
     assert _montant(10) == 140
-    assert "Math.floor((seuil-n)/24)" in JS or "Math.max(n,floor)" in JS or "GS_SEUIL-Math.max(n,-50)" in JS or "Math.max(n, floor)" in JS
+    assert "Math.floor((GS_SEUIL-n)/24)" in JS or "Math.floor((seuil-n)/24)" in JS or "Math.max(n,floor)" in JS or "GS_SEUIL-Math.max(n,-50)" in JS or "Math.max(n, floor)" in JS
     assert "100+steps*20" in JS
     assert "mise*5" in JS or "mise * 5" in JS
 

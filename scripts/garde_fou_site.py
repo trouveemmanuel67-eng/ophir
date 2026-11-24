@@ -397,7 +397,7 @@ CHECK_REGLES_OPEN_JS = r"""
     hasClose: !!document.getElementById('rgClose'),
     hasBase: true,
     noIntro: !/La note part de 0/.test(text) && !/part de 50/.test(text) && !document.querySelector('.rg-lead'),
-    hasScale: /−\s*80\s*à\s*280/.test(text) && !!document.querySelector('.rg-scale'),
+    hasScale: /−\s*50\s*à\s*250/.test(text) && !!document.querySelector('.rg-scale'),
     ptsLeft: (function(){ const c=root&&root.querySelector('.rg-card'); if(!c) return false; const pts=c.querySelector('.rg-card-pts'), name=c.querySelector('.rg-card-name'); return !!(pts&&name&&pts.getBoundingClientRect().left < name.getBoundingClientRect().left - 2); })(),
     oneLine: !root || Array.from(root.querySelectorAll('.rg-card')).every(c => { const name=c.querySelector('.rg-card-name'); return name && c.scrollHeight <= name.offsetHeight + 24 && c.scrollWidth <= c.clientWidth + 1; }),
     noOldIntro: !/part de 50/.test(text) && !/clip dans/.test(text) && !/Actions cotées/i.test(text),
@@ -413,21 +413,21 @@ CHECK_REGLES_OPEN_JS = r"""
     noAchatTable: !document.getElementById('rg-table-achat'),
     noRefFold: !document.getElementById('rg-ref'),
     rsiText,
-    rsiNew: /\+10/.test(rsiText) && /\+20/.test(rsiText) && /\b30\b/.test(rsiText),
-    macdNew: /\+10/.test(macdText) && /\+20/.test(macdText) && /\b30\b/.test(macdText),
+    rsiNew: /\+9\b/.test(rsiText) && /\+18/.test(rsiText) && /\b27\b/.test(rsiText),  /* APE-25 : × 0,9 */
+    macdNew: /\+9\b/.test(macdText) && /\+18/.test(macdText) && /\b27\b/.test(macdText),
     macdText,
     rsiOldGone: !(/±\s*3[,.]75/.test(rsiText) || /clip\s*\(/.test(rsiText) || /5\s*%/.test(rsiText)),
     macdOldGone: !(/±\s*3[,.]75/.test(macdText) || /clip\s*\(/.test(macdText) || /5\s*%/.test(macdText)),
     fiboText, ellText, cciText, totText,
-    fiboNew: /38[,.]2/.test(fiboText) && /61[,.]8/.test(fiboText) && /78[,.]6/.test(fiboText) && /\b30\b/.test(fiboText),
+    fiboNew: /38[,.]2/.test(fiboText) && /61[,.]8/.test(fiboText) && /78[,.]6/.test(fiboText) && /\b27\b/.test(fiboText),
     fiboOldGone: !/±\s*6\b/.test(fiboText),
     ellGone: !ellText,
     ellOldGone: true,
-    cciNew: /sous 20/.test(cciText) && /\+20/.test(cciText) && /\b20\b/.test(cciText),
+    cciNew: /sous 20/.test(cciText) && /\+18/.test(cciText) && /\b18\b/.test(cciText),
     cciOldGone: !(/±\s*3[,.]75/.test(cciText) || /clip\s*\(/.test(cciText)),
     noTotal220: !/\b220\b/.test(text),
-    has110: /\b110\b/.test(text),
-    has90: /\b90\b/.test(text),
+    has110: /\b99\b/.test(text),  /* APE-25 : technique 99 */
+    has90: /\b81\b/.test(text),  /* APE-25 : fondamental 81 */
     hasFondV2: /dette nette/i.test(text) && /Santé/i.test(text),
     fondText: text.replace(/\s+/g,' '),
     fondOk: (function(){ const s=(text||'').toLowerCase(); return /\+10/.test(s) && /\b90\b/.test(s) && !/à valider/.test(s) && /dette nette/.test(s) && /marge opérationnelle/.test(s) && /cash-flow libre/.test(s) && /\broe\b/.test(s) && /liquidité courante/.test(s) && /bpa année prochaine/.test(s) && /bpa cette année/.test(s) && /ca année prochaine/.test(s) && /ca cette année/.test(s) && /<\s*2/.test(s) && /15\s*%/.test(s) && />\s*10\s*%/.test(s) && />\s*5\s*%/.test(s) && /1[,.]2/.test(s); })(),
@@ -620,7 +620,7 @@ def check_headless(root=ROOT):
             raise SystemExit(1)
         if not regles_open.get('hasScale'):
             _fail(
-                "page RÈGLES : l'échelle calculée « −80 à 280 » manque à côté du titre Actions "
+                "page RÈGLES : l'échelle calculée « −50 à 250 » manque à côté du titre Actions "
                 f"({regles_open!r})."
             )
             raise SystemExit(1)
@@ -638,21 +638,21 @@ def check_headless(root=ROOT):
             raise SystemExit(1)
         if not regles_open.get('rsiNew') or not regles_open.get('rsiOldGone'):
             _fail(
-                "page RÈGLES : la ligne RSI doit afficher +10 / +20 / max 30, "
+                "page RÈGLES : la ligne RSI doit afficher +9 / +18 / max 27 (APE-25), "
                 "sans poids 5 %, ±3,75 ni formule clip "
                 f"({regles_open.get('rsiText')!r})."
             )
             raise SystemExit(1)
         if not regles_open.get('macdNew') or not regles_open.get('macdOldGone'):
             _fail(
-                "page RÈGLES : la ligne MACD doit afficher +10 / +20 / max 30, "
+                "page RÈGLES : la ligne MACD doit afficher +9 / +18 / max 27 (APE-25), "
                 "sans poids 5 %, ±3,75 ni formule clip "
                 f"({regles_open.get('macdText')!r})."
             )
             raise SystemExit(1)
         if not regles_open.get('fiboNew') or not regles_open.get('fiboOldGone'):
             _fail(
-                "page RÈGLES : la ligne Fibonacci doit afficher les paliers 38,2 / 61,8 / 78,6, max 30, "
+                "page RÈGLES : la ligne Fibonacci doit afficher les paliers 38,2 / 61,8 / 78,6, max 27, "
                 "sans poids 8 % ni ±6 "
                 f"({regles_open.get('fiboText')!r})."
             )
@@ -690,7 +690,7 @@ def check_headless(root=ROOT):
             raise SystemExit(1)
         if not regles_open.get('hasTechGroup') or not regles_open.get('has110') or not regles_open.get('has90'):
             _fail(
-                "page RÈGLES : groupes Technique / Fondamental ou sous-totaux 130 / 90 manquants "
+                "page RÈGLES : groupes Technique / Fondamental ou sous-totaux 99 / 81 manquants "
                 f"({regles_open!r})."
             )
             raise SystemExit(1)

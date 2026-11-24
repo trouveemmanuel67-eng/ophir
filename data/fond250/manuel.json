@@ -1,0 +1,5 @@
+{
+ "1631.T": {"ter": 0.352, "source": "NEXT FUNDS (Nomura AM), fiche 1631 : 信託報酬率 0,352 % TTC ; 純資産総額 230,6 億円", "url": "https://nextfunds.jp/lineup/1631/", "date": "2026-11-24"},
+ "SEMI.AX": {"ter": 0.45, "source": "Global X Australia, fiche SEMI : Management Fee 0,45 % p.a.", "url": "https://www.globalxetfs.com.au/funds/semi/", "date": "2026-11-23"},
+ "PFU": {"taux": 31.4, "source": "Service Public Entreprendre, « Évolution du taux du PFU » (10/02/2026) : 12,8 % IR + 18,6 % prélèvements sociaux", "url": "https://entreprendre.service-public.gouv.fr/actualites/A18796", "date": "2026-02-10"}
+}

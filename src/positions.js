@@ -281,7 +281,7 @@ function posNoteHTML(p){
   const rec=posPilotRec(p);
   if(rec&&rec.total!=null){
     const col=(typeof pilotHex==='function')?pilotHex(rec):(rec.hex||'#e6c27a');
-    const mx=rec.total_max!=null?rec.total_max:280;
+    const mx=rec.total_max!=null?rec.total_max:250;
     return `<span class="apex10 apex10-pilot" style="color:${col}"><b>${rec.total}</b><small>/ ${mx}</small></span>`;
   }
   if(posIsEquity(p)) return '–';
@@ -404,7 +404,7 @@ function posApexChip(p){
   const rec=posPilotRec(p);
   if(rec&&rec.total!=null){
     const col=(typeof pilotHex==='function')?pilotHex(rec):(rec.hex||'#e6c27a');
-    const mx=rec.total_max!=null?rec.total_max:280;
+    const mx=rec.total_max!=null?rec.total_max:250;
     return `<span class="pos-chip apex10 apex10-pilot" style="color:${col};border-color:${col}" title="Note APEX ${rec.total}/${mx}">${rec.total}<small>/${mx}</small></span>`;
   }
   if(posIsEquity(p)) return '';

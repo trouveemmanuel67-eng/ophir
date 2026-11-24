@@ -53,11 +53,11 @@ def test_panier_france_communication_dans_les_json():
         d = json.loads((root / name).read_text())
         p = d['pilotes']['fr_com']
         etf = p['etf']
-        acts = [a for a in p['actions'] if a.get('ok')][:5]
+        acts = [a for a in p['actions'] if a.get('ok')][:10]  # APE-25 : titres affichés
         moy = round(sum((a.get('points') or {}).get('fondamental') or 0 for a in acts) / len(acts))
         assert etf['kind'] == 'panier'
         assert etf['points']['fondamental'] == moy
-        assert moy == 38
+        assert moy == 28
         # APE-24 : valeurs figées retirées (H W48 et MACD +20 changent les totaux) ; on vérifie la somme des blocs.
         P = etf['points']
         assert etf['total'] == P['total'] == sum(P.get(k) or 0 for k in ('rsi', 'macd', 'fibonacci', 'cci', 'fondamental', 'fear_greed', 'hype'))
@@ -70,4 +70,4 @@ def test_etf_usa_communication_inchange():
     etf = d['pilotes']['XLC']['etf']
     assert etf['kind'] == 'etf'
     assert etf['total'] == etf['points']['total']
-    assert etf['points']['fondamental'] == 80
+    assert etf['points']['fondamental'] == 58  # APE-25 : moyenne des 10 titres, 9 points par critère

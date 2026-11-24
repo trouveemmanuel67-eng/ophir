@@ -1,22 +1,98 @@
 {
   "seuil": 75.0,
-  "n": 21,
+  "n": 48,
   "liste": [
+    {
+      "tv": "XETR:8PSC",
+      "yahoo": "8PSC.DE",
+      "nom": "Invesco Physical Palladium ETC",
+      "note": 192.0,
+      "display": "192",
+      "hex": "#00e5ff",
+      "flag": "cyan",
+      "bande": "cyan",
+      "av": -6.4,
+      "section": "Métaux – Palladium",
+      "montant": 700,
+      "brokers": {
+        "revolut": false,
+        "xtb": false
+      },
+      "scale": 250,
+      "tab": "metaux"
+    },
+    {
+      "tv": "LSE:IPDM",
+      "yahoo": "IPDM.L",
+      "nom": "iShares Physical Palladium ETC",
+      "note": 192.0,
+      "display": "192",
+      "hex": "#00e5ff",
+      "flag": "cyan",
+      "bande": "cyan",
+      "av": -7.5,
+      "section": "Métaux – Palladium",
+      "montant": 700,
+      "brokers": {
+        "revolut": false,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "metaux"
+    },
     {
       "tv": "NYSE:PAAS",
       "yahoo": "PAAS",
       "nom": "Pan American Silver Corp.",
+      "note": 190.0,
+      "display": "190",
+      "hex": "#00e5ff",
+      "flag": "cyan",
+      "bande": "cyan",
+      "av": 14.5,
+      "section": "Canada – Matériaux",
+      "montant": 700,
+      "brokers": {
+        "revolut": true,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "metaux"
+    },
+    {
+      "tv": "LSE:ISLN",
+      "yahoo": "ISLN.L",
+      "nom": "iShares Physical Silver ETC",
       "note": 175.0,
       "display": "175",
       "hex": "#22c55e",
       "flag": "green",
       "bande": "vert",
-      "av": 14.5,
-      "section": "Canada – Matériaux",
+      "av": 17.7,
+      "section": "Métaux – Argent",
       "montant": 600,
       "brokers": {
-        "revolut": true,
+        "revolut": false,
         "xtb": true
+      },
+      "scale": 250,
+      "tab": "metaux"
+    },
+    {
+      "tv": "EURONEXT:PHPD",
+      "yahoo": "PHPD.AS",
+      "nom": "WisdomTree Physical Palladium",
+      "note": 173.0,
+      "display": "173",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": 12.8,
+      "section": "Métaux – Palladium",
+      "montant": 600,
+      "brokers": {
+        "revolut": false,
+        "xtb": false
       },
       "scale": 250,
       "tab": "metaux"
@@ -60,6 +136,79 @@
       "tab": "metaux"
     },
     {
+      "tv": "EURONEXT:IFRB",
+      "yahoo": "IFRB.AS",
+      "nom": "OAT / dette française",
+      "note": 170.0,
+      "display": "170",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": 12.5,
+      "section": null,
+      "montant": 600,
+      "brokers": {},
+      "scale": 250,
+      "tab": "obligations"
+    },
+    {
+      "tv": "XETR:8PSB",
+      "yahoo": "8PSB.DE",
+      "nom": "Invesco Physical Silver ETC",
+      "note": 166.0,
+      "display": "166",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": 33.6,
+      "section": "Métaux – Argent",
+      "montant": 600,
+      "brokers": {
+        "revolut": true,
+        "xtb": false
+      },
+      "scale": 250,
+      "tab": "metaux"
+    },
+    {
+      "tv": "LSE:PHAG",
+      "yahoo": "PHAG.L",
+      "nom": "WisdomTree Physical Silver",
+      "note": 166.0,
+      "display": "166",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": 17.4,
+      "section": "Métaux – Argent",
+      "montant": 600,
+      "brokers": {
+        "revolut": false,
+        "xtb": false
+      },
+      "scale": 250,
+      "tab": "metaux"
+    },
+    {
+      "tv": "XETR:XAD6",
+      "yahoo": "XAD6.DE",
+      "nom": "Xtrackers Physical Silver ETC (EUR)",
+      "note": 157.0,
+      "display": "157",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": 32.8,
+      "section": "Métaux – Argent",
+      "montant": 600,
+      "brokers": {
+        "revolut": true,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "metaux"
+    },
+    {
       "tv": "BTC",
       "yahoo": "BTC",
       "nom": "Bitcoin",
@@ -76,6 +225,212 @@
       "tab": "crypto"
     },
     {
+      "tv": "XETR:IBC5",
+      "yahoo": "IBC5.DE",
+      "nom": "iShares $ TIPS UCITS ETF EUR Hedged (Acc)",
+      "note": 150.0,
+      "display": "150",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": 42.4,
+      "section": "Obligations – Obligations indexées sur l'inflation",
+      "montant": 500,
+      "brokers": {
+        "revolut": true,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "obligations"
+    },
+    {
+      "tv": "XETR:XDGU",
+      "yahoo": "XDGU.DE",
+      "nom": "Xtrackers USD Corporate Bond UCITS ETF 1D",
+      "note": 150.0,
+      "display": "150",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": 14.1,
+      "section": "Obligations – Investment grade USD",
+      "montant": 500,
+      "brokers": {
+        "revolut": true,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "obligations"
+    },
+    {
+      "tv": "XETR:ENDH",
+      "yahoo": "ENDH.DE",
+      "nom": "L&G Emerging Markets Government Bond (USD) 0-5 Year Screened UCITS ETF EUR Hedged Accumulation",
+      "note": 150.0,
+      "display": "150",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": -9.4,
+      "section": "Obligations – Dette émergente",
+      "montant": 500,
+      "brokers": {
+        "revolut": true,
+        "xtb": false
+      },
+      "scale": 250,
+      "tab": "obligations"
+    },
+    {
+      "tv": "XETR:LYQ7",
+      "yahoo": "LYQ7.DE",
+      "nom": "Amundi Euro Government Inflation-Linked Bond UCITS ETF Acc",
+      "note": 150.0,
+      "display": "150",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": -18.6,
+      "section": "Obligations – Obligations indexées sur l'inflation",
+      "montant": 500,
+      "brokers": {
+        "revolut": true,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "obligations"
+    },
+    {
+      "tv": "XETR:XEIN",
+      "yahoo": "XEIN.DE",
+      "nom": "Xtrackers II Eurozone Inflation-Linked Bond UCITS ETF 1C",
+      "note": 150.0,
+      "display": "150",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": -22.1,
+      "section": "Obligations – Obligations indexées sur l'inflation",
+      "montant": 500,
+      "brokers": {
+        "revolut": true,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "obligations"
+    },
+    {
+      "tv": "EURONEXT:IBCI",
+      "yahoo": "IBCI.AS",
+      "nom": "iShares € Inflation Linked Govt Bond UCITS ETF EUR (Acc)",
+      "note": 150.0,
+      "display": "150",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": -25.0,
+      "section": "Obligations – Obligations indexées sur l'inflation",
+      "montant": 500,
+      "brokers": {
+        "revolut": true,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "obligations"
+    },
+    {
+      "tv": "LSE:IPLT",
+      "yahoo": "IPLT.L",
+      "nom": "iShares Physical Platinum ETC",
+      "note": 146.0,
+      "display": "146",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": 32.0,
+      "section": "Métaux – Platine",
+      "montant": 500,
+      "brokers": {
+        "revolut": false,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "metaux"
+    },
+    {
+      "tv": "XETR:8PSA",
+      "yahoo": "8PSA.DE",
+      "nom": "Invesco Physical Platinum ETC",
+      "note": 146.0,
+      "display": "146",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": 15.8,
+      "section": "Métaux – Platine",
+      "montant": 500,
+      "brokers": {
+        "revolut": false,
+        "xtb": false
+      },
+      "scale": 250,
+      "tab": "metaux"
+    },
+    {
+      "tv": "LSE:IGLN",
+      "yahoo": "IGLN.L",
+      "nom": "iShares Physical Gold ETC",
+      "note": 145.0,
+      "display": "145",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": 25.8,
+      "section": "Métaux – Or",
+      "montant": 500,
+      "brokers": {
+        "revolut": false,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "metaux"
+    },
+    {
+      "tv": "XETR:GLDA",
+      "yahoo": "GLDA.DE",
+      "nom": "Amundi Physical Gold ETC C",
+      "note": 145.0,
+      "display": "145",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": 23.6,
+      "section": "Métaux – Or",
+      "montant": 500,
+      "brokers": {
+        "revolut": true,
+        "xtb": false
+      },
+      "scale": 250,
+      "tab": "metaux"
+    },
+    {
+      "tv": "ASX:SEMI",
+      "yahoo": "SEMI.AX",
+      "nom": "Global X Semiconductor ETF",
+      "note": 144.0,
+      "display": "144",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": null,
+      "section": "Liquidités – ETF par devise",
+      "montant": 500,
+      "brokers": {},
+      "scale": 250,
+      "tab": "liquidites"
+    },
+    {
       "tv": "MSTR",
       "yahoo": "MSTR",
       "nom": "Strategy (ex-MicroStrategy)",
@@ -90,6 +445,174 @@
       "brokers": {},
       "scale": 250,
       "tab": "crypto"
+    },
+    {
+      "tv": "XETR:SPPX",
+      "yahoo": "SPPX.DE",
+      "nom": "State Street SPDR Bloomberg 10+ Year U.S. Treasury Bond UCITS ETF (Dist)",
+      "note": 140.0,
+      "display": "140",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": 31.5,
+      "section": "Obligations – Treasuries US longs (20 ans et +)",
+      "montant": 500,
+      "brokers": {
+        "revolut": true,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "obligations"
+    },
+    {
+      "tv": "XETR:SYBN",
+      "yahoo": "SYBN.DE",
+      "nom": "State Street SPDR Bloomberg 10+ Year U.S. Corporate Bond UCITS ETF",
+      "note": 140.0,
+      "display": "140",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": 17.3,
+      "section": "Obligations – Investment grade USD",
+      "montant": 500,
+      "brokers": {
+        "revolut": true,
+        "xtb": false
+      },
+      "scale": 250,
+      "tab": "obligations"
+    },
+    {
+      "tv": "NASDAQ:RING",
+      "yahoo": "RING",
+      "nom": "iShares MSCI Global Gold Miners ETF",
+      "note": 140.0,
+      "display": "140",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": null,
+      "section": "Liquidités – ETF par devise",
+      "montant": 500,
+      "brokers": {},
+      "scale": 250,
+      "tab": "liquidites"
+    },
+    {
+      "tv": "XETR:U3O8",
+      "yahoo": "U3O8.DE",
+      "nom": "ETF minières uranium U3O8 (UCITS)",
+      "note": 140.0,
+      "display": "140",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": -4.8,
+      "section": "Énergie – Nucléaire et uranium",
+      "montant": 500,
+      "brokers": {
+        "revolut": true,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "energie"
+    },
+    {
+      "tv": "NASDAQ:ENPH",
+      "yahoo": "ENPH",
+      "nom": "Enphase Energy",
+      "note": 140.0,
+      "display": "140",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": -26.4,
+      "section": "Énergie – Solaire",
+      "montant": 500,
+      "brokers": {
+        "revolut": null,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "energie"
+    },
+    {
+      "tv": "XETR:ENR",
+      "yahoo": "ENR.DE",
+      "nom": "Siemens Energy AG",
+      "note": 140.0,
+      "display": "140",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": -29.4,
+      "section": "Allemagne – Industrie",
+      "montant": 500,
+      "brokers": {
+        "revolut": true,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "energie"
+    },
+    {
+      "tv": "EURONEXT:GTT",
+      "yahoo": "GTT.PA",
+      "nom": "Gaztransport & Technigaz SA",
+      "note": 140.0,
+      "display": "140",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": -40.7,
+      "section": "France – Énergie",
+      "montant": 500,
+      "brokers": {
+        "revolut": true,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "energie"
+    },
+    {
+      "tv": "XETR:XAD3",
+      "yahoo": "XAD3.DE",
+      "nom": "Xtrackers Physical Platinum EUR Hedged ETC",
+      "note": 137.0,
+      "display": "137",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": 17.0,
+      "section": "Métaux – Platine",
+      "montant": 500,
+      "brokers": {
+        "revolut": false,
+        "xtb": false
+      },
+      "scale": 250,
+      "tab": "metaux"
+    },
+    {
+      "tv": "XETR:XPPT",
+      "yahoo": "XPPT.DE",
+      "nom": "Xtrackers ETC plc - Xtrackers IE Physical Platinum ETC 1",
+      "note": 137.0,
+      "display": "137",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": 16.5,
+      "section": "Métaux – Platine",
+      "montant": 500,
+      "brokers": {
+        "revolut": false,
+        "xtb": false
+      },
+      "scale": 250,
+      "tab": "metaux"
     },
     {
       "tv": "CRYPTO:SOLUSD",
@@ -111,11 +634,49 @@
       "tab": "crypto"
     },
     {
+      "tv": "XETR:8PSG",
+      "yahoo": "8PSG.DE",
+      "nom": "Invesco Physical Gold ETC",
+      "note": 135.0,
+      "display": "135",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": 10.0,
+      "section": "Métaux – Or",
+      "montant": 500,
+      "brokers": {
+        "revolut": true,
+        "xtb": false
+      },
+      "scale": 250,
+      "tab": "metaux"
+    },
+    {
+      "tv": "XETR:4GLD",
+      "yahoo": "4GLD.DE",
+      "nom": "Xetra-Gold",
+      "note": 135.0,
+      "display": "135",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": -13.6,
+      "section": "Métaux – Or",
+      "montant": 500,
+      "brokers": {
+        "revolut": false,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "metaux"
+    },
+    {
       "tv": "XETR:PRAR",
       "yahoo": "PRAR.DE",
       "nom": "Amundi Index Solutions - Amundi Prime Euro Government Bond UCITS ETF Acc",
-      "note": 78.0,
-      "display": "78",
+      "note": 130.0,
+      "display": "130",
       "hex": "#22c55e",
       "flag": "green",
       "bande": "vert",
@@ -126,15 +687,15 @@
         "revolut": true,
         "xtb": true
       },
-      "scale": 100,
-      "tab": null
+      "scale": 250,
+      "tab": "obligations"
     },
     {
       "tv": "XETR:SECA",
       "yahoo": "SECA.DE",
       "nom": "iShares € Govt Bond Climate UCITS ETF EUR (Acc)",
-      "note": 78.0,
-      "display": "78",
+      "note": 130.0,
+      "display": "130",
       "hex": "#22c55e",
       "flag": "green",
       "bande": "vert",
@@ -145,72 +706,34 @@
         "revolut": true,
         "xtb": false
       },
-      "scale": 100,
-      "tab": null
+      "scale": 250,
+      "tab": "obligations"
     },
     {
-      "tv": "XETR:IBC5",
-      "yahoo": "IBC5.DE",
-      "nom": "iShares $ TIPS UCITS ETF EUR Hedged (Acc)",
-      "note": 78.0,
-      "display": "78",
+      "tv": "XETR:EH1Y",
+      "yahoo": "EH1Y.DE",
+      "nom": "iShares Broad € High Yield Corp Bond UCITS ETF EUR (Dist)",
+      "note": 130.0,
+      "display": "130",
       "hex": "#22c55e",
       "flag": "green",
       "bande": "vert",
-      "av": 42.4,
-      "section": "Obligations – Obligations indexées sur l'inflation",
+      "av": 16.4,
+      "section": "Obligations – High yield (haut rendement)",
       "montant": 500,
       "brokers": {
         "revolut": true,
         "xtb": true
       },
-      "scale": 100,
-      "tab": null
-    },
-    {
-      "tv": "XETR:PR1C",
-      "yahoo": "PR1C.DE",
-      "nom": "Amundi Core EUR Corporate Bond UCITS ETF Dist",
-      "note": 77.0,
-      "display": "77",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": 8.6,
-      "section": "Obligations – Investment grade EUR",
-      "montant": 500,
-      "brokers": {
-        "revolut": true,
-        "xtb": true
-      },
-      "scale": 100,
-      "tab": null
-    },
-    {
-      "tv": "XETR:SYBC",
-      "yahoo": "SYBC.DE",
-      "nom": "State Street SPDR Bloomberg Euro Corporate Bond UCITS ETF",
-      "note": 76.0,
-      "display": "76",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": 39.6,
-      "section": "Obligations – Investment grade EUR",
-      "montant": 500,
-      "brokers": {
-        "revolut": true,
-        "xtb": true
-      },
-      "scale": 100,
-      "tab": null
+      "scale": 250,
+      "tab": "obligations"
     },
     {
       "tv": "XETR:X03G",
       "yahoo": "X03G.DE",
       "nom": "Xtrackers II Germany Government Bond UCITS ETF 1C",
-      "note": 76.0,
-      "display": "76",
+      "note": 130.0,
+      "display": "130",
       "hex": "#22c55e",
       "flag": "green",
       "bande": "vert",
@@ -221,8 +744,46 @@
         "revolut": true,
         "xtb": true
       },
-      "scale": 100,
-      "tab": null
+      "scale": 250,
+      "tab": "obligations"
+    },
+    {
+      "tv": "NYSE:BTU",
+      "yahoo": "BTU",
+      "nom": "Charbon · proxy Peabody Energy",
+      "note": 130.0,
+      "display": "130",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": 7.9,
+      "section": "Énergie – Charbon",
+      "montant": 500,
+      "brokers": {
+        "revolut": true,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "energie"
+    },
+    {
+      "tv": "NYSE:VST",
+      "yahoo": "VST",
+      "nom": "Vistra Corp.",
+      "note": 130.0,
+      "display": "130",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": -5.2,
+      "section": "USA – XLU",
+      "montant": 500,
+      "brokers": {
+        "revolut": true,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "energie"
     },
     {
       "tv": "SIX:CFR",
@@ -238,44 +799,6 @@
       "montant": 500,
       "brokers": {
         "revolut": false,
-        "xtb": true
-      },
-      "scale": 100,
-      "tab": null
-    },
-    {
-      "tv": "XETR:EXHC",
-      "yahoo": "EXHC.DE",
-      "nom": "iShares eb.rexx Government Germany 2.5-5.5yr UCITS ETF (DE)",
-      "note": 75.0,
-      "display": "75",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": 31.4,
-      "section": "Obligations – Bund / dette allemande",
-      "montant": 500,
-      "brokers": {
-        "revolut": true,
-        "xtb": true
-      },
-      "scale": 100,
-      "tab": null
-    },
-    {
-      "tv": "XETR:EH1Y",
-      "yahoo": "EH1Y.DE",
-      "nom": "iShares Broad € High Yield Corp Bond UCITS ETF EUR (Dist)",
-      "note": 75.0,
-      "display": "75",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": 16.4,
-      "section": "Obligations – High yield (haut rendement)",
-      "montant": 500,
-      "brokers": {
-        "revolut": true,
         "xtb": true
       },
       "scale": 100,
@@ -333,25 +856,6 @@
       "montant": 500,
       "brokers": {
         "revolut": null,
-        "xtb": true
-      },
-      "scale": 100,
-      "tab": null
-    },
-    {
-      "tv": "NYSE:VST",
-      "yahoo": "VST",
-      "nom": "Vistra Corp.",
-      "note": 75.0,
-      "display": "75",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": -5.2,
-      "section": "USA – XLU",
-      "montant": 500,
-      "brokers": {
-        "revolut": true,
         "xtb": true
       },
       "scale": 100,

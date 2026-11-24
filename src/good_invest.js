@@ -1,10 +1,10 @@
-/* ===== MEILLEURES ENTRÉES : actions APEX v2 ≥ 136/280 (début du vert) ; métaux ≥ 130/250 ; autres ≥ 75/100 ===== */
+/* ===== MEILLEURES ENTRÉES (APE-25) : toute note APEX −50..250 ≥ 130 (début du vert) ; notes /100 restantes ≥ 75 ===== */
 const GI_SEUIL=75;
-const GI_SEUIL_V2=(typeof PILOT!=='undefined'&&PILOT&&PILOT.scale&&PILOT.scale.seuil_meilleures_entrees!=null)?Number(PILOT.scale.seuil_meilleures_entrees):136;
+const GI_SEUIL_V2=(typeof PILOT!=='undefined'&&PILOT&&PILOT.scale&&PILOT.scale.seuil_meilleures_entrees!=null)?Number(PILOT.scale.seuil_meilleures_entrees):130;
 const GI_SEUIL_METAUX=130;
 function giSeuilOf(it){
   if(it&&it.tab==='actions') return GI_SEUIL_V2;
-  if(it&&(it.tab==='metaux'||it.tab==='crypto'||(it.tab==='liquidites'&&Number(it.scale)===250))) return GI_SEUIL_METAUX;
+  if(it&&(it.tab==='metaux'||it.tab==='crypto'||Number(it.scale)===250)) return GI_SEUIL_METAUX;
   return GI_SEUIL;
 }
 const GI_LIST_KEY='apex-gi-list';
@@ -145,9 +145,9 @@ function giMontant(note, scale, tab){
   const n=Number(note);
   if(!Number.isFinite(n)) return null;
   const sc=Number(scale);
-  const isMetaux=tab==='metaux'||tab==='crypto'||(tab==='liquidites'&&sc===250)||(sc===250&&(tab==='metaux'||tab==='crypto'||tab==='liquidites'));
+  const isMetaux=tab==='metaux'||tab==='crypto'||sc===250; /* APE-25 : même barème de mise pour toute note −50..250 */
   if(isMetaux){
-    const base=Number(GI_SEUIL_METAUX)||130, pas=24;
+    const base=Number(typeof GI_SEUIL_METAUX!=='undefined'?GI_SEUIL_METAUX:130)||130, pas=24;
     if(n<base) return null;
     const steps=Math.floor((Math.min(n,250)-base)/pas); /* paliers entiers : 154 → 600 $, 250 → 1 000 $ (APE-24) */
     return Math.min(500+steps*100, 1000);
@@ -403,7 +403,7 @@ function giRender(){
     return `<article class="gi-row${it.tv?' has-fiche':''}" title="${tip.replace(/"/g,'&quot;')}">
       <div class="gi-id">${go}</div>
       ${ev}
-      <span class="gi-note" style="color:${col}"><b>${note}</b><small>/${(it.scale===280||it.scale===270)?280:(it.scale===250?250:100)}</small></span>
+      <span class="gi-note" style="color:${col}"><b>${note}</b><small>/${(it.scale===250||it.scale===280||it.scale===270)?250:100}</small></span>
       <span class="gi-amt">${amt}</span>
     </article>`;
   };
@@ -416,7 +416,7 @@ function giRender(){
       <span class="pos-head-tot">${n}<small>titre${n>1?'s':''}</small></span>
     </div>
     <div class="pos-body gi-body" id="giBody">
-      <div class="gi-list">${rows||'<div class="gi-empty">Aucun titre au seuil (actions ≥ '+GI_SEUIL_V2+'/280, métaux ≥ '+GI_SEUIL_METAUX+'/250, autres ≥ 75/100) hors portefeuille.</div>'}</div>
+      <div class="gi-list">${rows||'<div class="gi-empty">Aucun titre au seuil (note APEX ≥ '+GI_SEUIL_METAUX+'/250, notes /100 restantes ≥ 75) hors portefeuille.</div>'}</div>
       ${(nVal||giShowValides)?`<div class="gi-valides">
         <button type="button" class="gi-valides-link" aria-expanded="${giShowValides?'true':'false'}">Validés (${nVal})</button>
         ${giShowValides?(rowsVal||'<div class="gi-empty">Aucun titre validé hors portefeuille.</div>'):''}

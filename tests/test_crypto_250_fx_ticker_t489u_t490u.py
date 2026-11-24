@@ -48,8 +48,8 @@ def test_fx_ticker_et_barre_100():
     assert "fxTickerHTML" in card and "fxBarHTML" in card
     assert "ophirCopyBtn(tv)" in js.split("function fxTickerHTML")[1].split("function fxBarHTML")[0]
     bar = js.split("function fxBarHTML")[1].split("function fxEtfRow")[0]
-    assert "forceApex100" in bar
-    assert "forceApex250" not in bar
+    # APE-25 : la note devise passe sur −50..250
+    assert "forceApex250" in bar and "fx250" in bar
     tabs = json.loads((ROOT / "data" / "tabs_data.json").read_text(encoding="utf-8"))
     assets = (tabs.get("liquidites") or {}).get("fx") or {}
     got = {a["sym"]: a.get("tv") for a in assets.get("assets") or []}
@@ -60,8 +60,7 @@ def test_fx_ticker_et_barre_100():
     assert got == expect
     for a in assets.get("assets") or []:
         rec = a.get("apex10") or {}
-        assert rec.get("scale") in (None, 100) or rec.get("total_max") in (None, 100)
-        assert rec.get("scale") != 250
+        assert rec.get("scale") == 250 and -50 <= rec.get("note") <= 250
 
 
 def test_etf_par_devise_t492u():

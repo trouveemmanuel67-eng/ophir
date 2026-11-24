@@ -487,19 +487,23 @@ body{display:flex;flex-direction:column;min-height:100vh}
 
 
 /* ===== Onglet Placements ===== */
-.plc-colh{display:grid;grid-template-columns:minmax(110px,.8fr) minmax(0,1.6fr) auto auto;gap:8px 16px;padding:0 12px 8px;font-size:11px;color:var(--mut);letter-spacing:.06em;text-transform:uppercase}
+.plc-colh{display:grid;grid-template-columns:minmax(110px,.8fr) minmax(0,1.6fr) auto auto 86px;gap:8px 16px;padding:0 12px 8px;font-size:11px;color:var(--mut);letter-spacing:.06em;text-transform:uppercase}
 .plc-list{display:flex;flex-direction:column;gap:6px}
-.plc-row{display:grid;grid-template-columns:minmax(110px,.8fr) minmax(0,1.6fr) auto auto;gap:8px 16px;align-items:baseline;padding:10px 12px;border:1px solid rgba(255,255,255,.14);border-radius:10px;background:rgba(255,255,255,.03);font-variant-numeric:tabular-nums}
+.plc-row{display:grid;grid-template-columns:minmax(110px,.8fr) minmax(0,1.6fr) auto auto 86px;gap:8px 16px;align-items:baseline;padding:10px 12px;border:1px solid rgba(255,255,255,.14);border-radius:10px;background:rgba(255,255,255,.03);font-variant-numeric:tabular-nums}
 .plc-et{color:var(--mut);font-size:13px}
 .plc-nm{font-weight:650;min-width:0}
 .plc-solde{justify-self:end;font-size:16px;font-weight:700;white-space:nowrap}
 .plc-taux{justify-self:end;color:var(--acc2);white-space:nowrap;font-size:13px}
+.plc-apex{justify-self:end}.plc-apex .apex10{font-size:15px}
+.plc-dec{grid-column:1/-1;font-size:11px;color:var(--mut)}
+.ep-apex td.ep-n .apex10{font-size:15px}.ep-apex td.ep-d{font-size:11px;color:var(--mut);text-align:left}
 .plc-tot{display:flex;justify-content:space-between;align-items:baseline;margin-top:12px;padding:8px 12px 0;border-top:1px solid var(--soft);font-variant-numeric:tabular-nums}
 .plc-tot span{color:var(--mut);font-size:11px;letter-spacing:.06em;text-transform:uppercase}
 .plc-tot b{font-size:16px}
 @media(max-width:640px){
   .plc-colh{display:none}
-  .plc-row{grid-template-columns:1fr auto;grid-template-areas:"et taux" "nm solde";gap:2px 12px;padding:10px 12px}
+  .plc-row{grid-template-columns:1fr auto;grid-template-areas:"et taux" "nm solde" "dec apex";gap:2px 12px;padding:10px 12px}
+  .plc-apex{grid-area:apex}.plc-dec{grid-area:dec}
   .plc-et{grid-area:et;font-size:12px}
   .plc-nm{grid-area:nm}
   .plc-solde{grid-area:solde}

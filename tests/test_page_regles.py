@@ -82,33 +82,33 @@ def test_apex_achat_v2_rsi_seulement(regles):
     by = {c['id']: c for c in criteres}
     rsi, macd = by['rsi_14_hebdo'], by['macd_12_26_9_hebdo']
     for c in (rsi, macd):
-        assert c['max'] == 30
+        assert c['max'] == 27  # APE-25 : × 0,9
         assert c.get('retrait') is False
         assert c.get('cumulables') is True
     pts = {c['id']: c['points'] for c in rsi['conditions']}
-    assert pts['rsi_sous_40'] == 10
-    assert pts['divergence_rsi_haussiere_hebdo'] == 20
+    assert pts['rsi_sous_40'] == 9
+    assert pts['divergence_rsi_haussiere_hebdo'] == 18
     pts = {c['id']: c['points'] for c in macd['conditions']}
-    assert pts['macd_sous_0'] == 10
-    assert pts['histo_4_barres_rouges_sous_0'] == 20
+    assert pts['macd_sous_0'] == 9
+    assert pts['histo_4_barres_rouges_sous_0'] == 18
     assert "4 barres rouges" in (macd.get('regle_courte') or '')
-    assert "plafond 30" in (macd.get('regle_courte') or '')
+    assert "max 27" in (macd.get('regle_courte') or '')
     banque = regles['apex_achat_v2_banque']
     macd_b = {c['id']: c for c in banque['criteres']}['macd_12_26_9_hebdo']
     assert "4 barres rouges" in (macd_b.get('regle_courte') or '')
 
     fibo = by['fibonacci']
-    assert fibo['max'] == 30 and fibo.get('cumulables') is False and fibo.get('retrait') is False
+    assert fibo['max'] == 27 and fibo.get('cumulables') is False and fibo.get('retrait') is False
     fp = {c['id']: c['points'] for c in fibo['conditions']}
-    assert fp == {'sous_382': 10, 'sous_618': 20, 'sous_786': 30}
+    assert fp == {'sous_382': 9, 'sous_618': 18, 'sous_786': 27}
     assert 'elliott' not in by
     cci = by['cci_20_hebdo']
-    assert cci['max'] == 20
+    assert cci['max'] == 18
     assert 'sous 20' in (cci['conditions'][0]['label'] + ' ' + (cci.get('regle_courte') or ''))
     assert 'Daveatt' in (cci.get('label') or '')
     assert 'sous 20' in cci['conditions'][0]['label']
-    assert cci['conditions'][0]['points'] == 20
-    assert sum(c['max'] for c in criteres) == 110
+    assert cci['conditions'][0]['points'] == 18
+    assert sum(c['max'] for c in criteres) == 99
     # les règles de calcul de la note actuelle restent inchangées
     assert 'figure' not in regles['note_apex']['technique']
     assert abs(sum(regles['note_apex']['technique'].values()) - 0.5) < 1e-9
@@ -149,15 +149,15 @@ def test_structure_masquee_affichage_seulement(regles):
 
 def test_fondamental_v2_neuf_elements(regles):
     fond = regles['apex_achat_v2']['fondamental']
-    assert fond['max'] == 90
-    assert fond['points_si_bon'] == 10
+    assert fond['max'] == 81
+    assert fond['points_si_bon'] == 9
     els = [e for g in fond['groupes'] for e in g['elements']]
     assert [e['id'] for e in els] == [
         'dette_nette_ebitda', 'marge_operationnelle', 'marge_fcf', 'roe',
         'ratio_liquidite_courante', 'bpa_annee_prochaine', 'bpa_cette_annee',
         'ca_annee_prochaine', 'ca_cette_annee',
     ]
-    assert all(e['points'] == 10 and e.get('seuil_a_valider') is False for e in els)
+    assert all(e['points'] == 9 and e.get('seuil_a_valider') is False for e in els)
     by = {e['id']: e for e in els}
     assert by['dette_nette_ebitda']['bon_si'] == '< 2'
     assert by['marge_operationnelle']['bon_si'] == '> 15 %'
@@ -169,8 +169,8 @@ def test_fondamental_v2_neuf_elements(regles):
     assert by['ca_annee_prochaine']['bon_si'] == '> 5 %'
     assert by['ca_cette_annee']['bon_si'] == '> 5 %'
     tech = sum(c['max'] for c in regles['apex_achat_v2']['criteres'])
-    assert tech == 110
-    assert tech + fond['max'] == 200
+    assert tech == 99
+    assert tech + fond['max'] == 180
     # calcul inchangé
     assert regles['note_apex']['poids_fondamental'] == 0.5
     js = (ROOT / 'src' / 'regles.js').read_text(encoding='utf-8')
@@ -242,7 +242,7 @@ def test_echelle_actions_calculee_automatiquement(regles):
     fond = v['fondamental']['max']
     # Fear & Greed ±50
     assert v['sentiment']['max_affiche'] == '±50'
-    assert tech == 110 and fond == 90
+    assert tech == 99 and fond == 81  # APE-25
     js = (ROOT / 'src' / 'regles.js').read_text(encoding='utf-8')
     assert 'function rgActionsScale' in js
     assert 'rg-scale' in js
@@ -269,16 +269,16 @@ def test_elliott_retire_de_apex_achat_v2(regles):
         ids = [c['id'] for c in (regles[key].get('criteres') or [])]
         assert 'elliott' not in ids
         intro = (regles[key].get('intro') or '')
-        assert '280' in intro and 'Elliott' in intro
+        assert '250' in intro and '280' not in intro and 'Elliott' in intro
 
 
 def test_cci_stochastic_daveatt_regle(regles):
     cci = {c['id']: c for c in (regles['apex_achat_v2']['criteres'] or [])}['cci_20_hebdo']
-    assert cci['max'] == 20
+    assert cci['max'] == 18
     assert 'CCI Stochastic' in (cci.get('label') or '')
     assert 'Daveatt' in (cci.get('label') or '')
     assert '28' in (cci.get('label') or '')
-    assert '+20 si sous 20' in (cci.get('regle_courte') or '')
+    assert '+18 si sous 20' in (cci.get('regle_courte') or '')
 
 
 def test_seuils_fondamentaux_valides(regles):
@@ -327,15 +327,15 @@ def test_actions_hors_banque_et_accordeon_bancaire(regles):
     assert [c['id'] for c in (b.get('criteres') or [])] == [c['id'] for c in (v.get('criteres') or [])]
     assert (b.get('sentiment') or {}).get('id') == (v.get('sentiment') or {}).get('id')
     fond = b['fondamental']
-    assert fond.get('max') == 90
-    assert fond.get('points_si_bon') == 10
+    assert fond.get('max') == 81
+    assert fond.get('points_si_bon') == 9
     assert fond.get('a_personnaliser') is False
     els = [e for g in fond['groupes'] for e in g['elements']]
     assert [e['id'] for e in els] == [
         'roe', 'roa', 'ratio_cet1', 'cout_du_risque', 'coefficient_exploitation',
         'bpa_cette_annee', 'bpa_annee_prochaine', 'pnb_cette_annee', 'pnb_annee_prochaine',
     ]
-    assert all(e['points'] == 10 and e.get('seuil_a_valider') is False for e in els)
+    assert all(e['points'] == 9 and e.get('seuil_a_valider') is False for e in els)
     by = {e['id']: e for e in els}
     assert by['roe']['bon_si'] == '> 10 %'
     assert by['roa']['bon_si'] == '> 1 %'
@@ -349,10 +349,10 @@ def test_actions_hors_banque_et_accordeon_bancaire(regles):
     assert by['bpa_cette_annee']['label'] == 'Croissance BPA année en cours'
     assert by['pnb_annee_prochaine']['label'] == 'Croissance PNB année prochaine'
     tech = sum(c['max'] for c in b['criteres'])
-    assert tech == 110
+    assert tech == 99
     assert b['sentiment']['max_affiche'] == '±50'
-    assert tech + fond['max'] + 50 == 250
-    assert b['hype']['max'] == 30 and tech + fond['max'] + 50 + b['hype']['max'] == 280
+    assert tech + fond['max'] + 50 == 230
+    assert b['hype']['max'] == 20 and tech + fond['max'] + 50 + b['hype']['max'] == 250  # APE-25
 
     js = (ROOT / 'src' / 'regles.js').read_text(encoding='utf-8')
     assert 'Actions (hors banque)' in js

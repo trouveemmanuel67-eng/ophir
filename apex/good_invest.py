@@ -82,9 +82,25 @@ def build() -> dict:
     seen = set()
     mx_cfg = metaux_cfg()
     seuil_metaux = float((regles().get('apex_metaux') or {}).get('gi_seuil', mx_cfg.get('gi_seuil', 175)))
+    # APE-25 : onglet d'origine de chaque tv (les barres individuelles n'ont pas de classe)
+    TAB = {}
+    def _tabs(obj, cl):
+        if isinstance(obj, dict):
+            if obj.get('tv') and isinstance(obj.get('apex10'), dict):
+                TAB.setdefault(obj['tv'], cl)
+            for v in obj.values():
+                _tabs(v, cl)
+        elif isinstance(obj, list):
+            for v in obj:
+                _tabs(v, cl)
+    for fn, cl in (('metaux.json', 'metaux'), ('obligations.json', 'obligations'), ('energie.json', 'energie')):
+        if (data / fn).exists():
+            _tabs(json.loads((data / fn).read_text(encoding='utf-8')), cl)
     def consider(tv, note_rec, av=None, nom=None, section=None, yahoo=None, ell=None, classe=None):
         if not tv or not note_rec or note_rec.get('note') is None:
             return
+        if classe is None:
+            classe = TAB.get(tv)
         if note_rec.get('cap') == 'moyenne':
             return
         meta = actif(tv) or {}
@@ -109,10 +125,12 @@ def build() -> dict:
             return
         if is_crypto and note_rec.get('scale') != 250:
             return
-        cut = seuil_metaux if (is_metaux or is_crypto or is_etf_devise) else seuil
+        # APE-25 : toute note −50..250 (obligations, énergie, devises, épargne…) suit le seuil 130 et la mise 250.
+        is250 = note_rec.get('scale') == 250 or note_rec.get('total_max') == 250
+        cut = seuil_metaux if (is_metaux or is_crypto or is_etf_devise or is250) else seuil
         if float(note_rec['note']) < cut:
             return
-        if not is_metaux and not is_crypto and not is_etf_devise and _zone_rouge(ell, tv, bars):
+        if not is_metaux and not is_crypto and not is_etf_devise and not is250 and _zone_rouge(ell, tv, bars):
             return
         # t322u : hors univers (pays retirés) et titres seulement en positions
         if meta.get('univers') in ('hors', 'positions_seulement') or meta.get('visible') is False or meta.get('visible')=='positions':
@@ -124,11 +142,11 @@ def build() -> dict:
         seen.add(tv)
         note = float(note_rec['note'])
         br = meta.get('brokers') or {}
-        if is_metaux or is_crypto or is_etf_devise:
+        if is_metaux or is_crypto or is_etf_devise or is250:
             band = metaux_band(note)
             montant = montant_template_metaux(note)
             scale = 250
-            tab = 'metaux' if is_metaux else ('crypto' if is_crypto else 'liquidites')
+            tab = 'metaux' if is_metaux else ('crypto' if is_crypto else ('liquidites' if is_etf_devise else (classe or 'autres')))
             bande = note_rec.get('band') or band['id']
             hx = note_rec.get('hex') or band['hex']
             fl = note_rec.get('flag') or band['flag']
@@ -177,10 +195,17 @@ def build() -> dict:
             for v in obj:
                 walk(v, classe)
 
+    CL = {'metaux.json': 'metaux', 'crypto_fiches.json': 'crypto', 'obligations.json': 'obligations', 'energie.json': 'energie'}
     for fn in ('pays.json', 'metaux.json', 'energie.json', 'obligations.json', 'crypto_fiches.json', 'tabs_data.json'):
         fp = data / fn
         if fp.exists():
-            walk(json.loads(fp.read_text(encoding='utf-8')), classe='metaux' if fn == 'metaux.json' else ('crypto' if fn == 'crypto_fiches.json' else None))
+            doc = json.loads(fp.read_text(encoding='utf-8'))
+            if fn == 'tabs_data.json':
+                for k, v in doc.items():
+                    if k != 'actions':
+                        walk(v, classe=k if k in ('energie', 'liquidites', 'crypto') else None)
+            else:
+                walk(doc, classe=CL.get(fn))
 
     rows.sort(key=lambda r: (-r['note'], -(r.get('av') or 0), r['tv']))
     out = {

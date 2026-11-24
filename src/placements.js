@@ -38,14 +38,17 @@ function renderPlacements(el){
       <span class="plc-nm">${plcNom(l).replace(/</g,'')}</span>
       <b class="plc-solde">${plcAmt(l.solde,l.devise)}</b>
       <span class="plc-taux">${plcTaux(l)}</span>
+      <span class="plc-apex" title="${l.apex10&&l.apex10.decomp?String(l.apex10.decomp.texte).replace(/"/g,''):'Note APEX non calculée'}">${typeof apexNoteHTML==='function'?apexNoteHTML(l.apex10):''}</span>
+      ${l.apex10&&l.apex10.decomp?`<span class="plc-dec">Note APEX : ${String(l.apex10.decomp.texte).replace(/</g,'')}</span>`:''}
     </article>`).join('')||'<div class="note">Aucun placement enregistré.</div>';
   const tot=plcTotaux(L);
   el.innerHTML=`<div class="card no-group no-acc" id="plcCard">
     <h2>Placements</h2>
     <div class="desc">Relevé du ${date||'—'}.${L.length?` ${L.length} ligne${L.length>1?'s':''}.`:''}</div>
-    <div class="plc-colh" aria-hidden="true"><span>Établissement</span><span>Placement</span><span>Solde</span><span>Taux</span></div>
+    <div class="plc-colh" aria-hidden="true"><span>Établissement</span><span>Placement</span><span>Solde</span><span>Taux</span><span>Note APEX</span></div>
     <div class="plc-list">${rows}</div>
     ${tot?`<div class="plc-tot"><span>Total</span><b>${tot}</b></div>`:''}
+    <div class="note">Note APEX épargne (−50 à 250) : contexte de taux 110 + fondamental épargne 90 (taux réel net d'impôt, garantie, disponibilité, change, frais) + CNN Fear &amp; Greed inversé ±50. Détail dans l'onglet Liquidités et la page Règles.</div>
     <div class="src">Source : ${PLC.source||('relevé du '+date)}</div>
   </div>`;
 }

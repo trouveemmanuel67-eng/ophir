@@ -135,8 +135,8 @@ def reconstruct_basket_bars(row):
 
 def pack(section_id, section, etf_asset, actions, fg, sector_obj=None,
          closed_bars_etf=None, fond_etf_intro=''):
-    # Moyenne ETF / panier : uniquement les 5 premières (règle inchangée).
-    ETF_FOND_N = 5
+    # Moyenne ETF / panier : les 10 actions affichées (APE-25, mêmes titres que H).
+    ETF_FOND_N = 10  # APE-25 : fondamental et H sur les 10 actions affichées
     for a in actions:
         a['is_bank'] = is_bank(a.get('industry'))
         a['regles'] = regles_id(a.get('industry'))

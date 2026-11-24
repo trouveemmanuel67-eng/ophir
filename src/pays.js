@@ -52,7 +52,7 @@ function pTile(C,s,i){
   })():'';
   return `<div class="sec${s.head?' sec-head':''}">
    <div class="sr">
-    <div class="sr-c sec-h sr-n"${metTip?` title="${metTip}"`:''}><b>${s.nom}</b>${s.head?'':`<span class="pilot-badge">${C.cc==='met'?'APEX ACHAT −50 à 250':'APEX ACHAT −80 à 280'}</span>`}<span>${s.kind==='basket'?'Panier APEX · '+s.basket.length+' grandes capitalisations, pondérées (plafond 25 %)':(s.sym.startsWith('^')?s.sym+' · ':s.sym.split('.')[0]+' · ')+s.etf}</span>${srWarn(s)}</div>
+    <div class="sr-c sec-h sr-n"${metTip?` title="${metTip}"`:''}><b>${s.nom}</b>${s.head?'':`<span class="pilot-badge">${'APEX ACHAT −50 à 250'}</span>`}<span>${s.kind==='basket'?'Panier APEX · '+s.basket.length+' grandes capitalisations, pondérées (plafond 25 %)':(s.sym.startsWith('^')?s.sym+' · ':s.sym.split('.')[0]+' · ')+s.etf}</span>${srWarn(s)}</div>
     ${(()=>{if(C.cc==='met'){ const rec=(typeof apex250Rec==='function')?apex250Rec(s.apex10):null; return `<div class="sr-c sr-d">${(rec&&typeof dualBarPilot==='function')?dualBarPilot(rec,true):((typeof dualBarApex100==='function')?dualBarApex100(s.apex10,s.sent,s.av,true):'')}</div>`; } const p=pSecOf(C,s); if(p&&p.etf&&p.etf.total!=null) return `<div class="sr-c sr-d">${dualBarPilot(p.etf, true)}</div>`; if(!s.head) return `<div class="sr-c sr-d">${typeof v2Placeholder==='function'?v2Placeholder():''}</div>`; return srCells(s);})()}
     <div class="sr-c sr-b"></div>
    </div>
@@ -110,7 +110,7 @@ function renderPays(el){
     const st=(typeof countryApexAvg==='function')?countryApexAvg(C):null;
     const a10=(st&&st.apex10)||C.apex10||(C.head&&C.head.apex10)||null;
     const mktAv=(st&&st.av)||(C.av_pays)||(C.head&&C.head.av)||null;
-    const scale=a10&&(a10.v2||a10.total_max===280||a10.scale===280||a10.total_max===250||a10.scale===250||a10.total_max===270||a10.scale===270)?'280':'100';
+    const scale=a10&&(a10.v2||a10.total_max===280||a10.scale===280||a10.total_max===250||a10.scale===250||a10.total_max===270||a10.scale===270)?'250':'100';
     const disp=a10?(a10.total!=null?String(a10.total):a10.display):'';
     const apexTag=a10&&(a10.display||a10.total!=null)?`<span class="js-apex10" hidden data-display="${disp}" data-hex="${a10.hex||''}" data-note="${a10.total!=null?a10.total:a10.note}" data-scale="${scale}"></span>`:'';
     const mktTxt=mktAv&&mktAv.score!=null?` · <i>Marché</i> <b>${mktAv.label||''} ${sign(mktAv.score,0)}</b>`:'';

@@ -66,10 +66,11 @@ def test_regles_grid_points_entiers():
 def test_notes_lignes_metaux_json():
     mt = json.loads((ROOT / "data" / "metaux.json").read_text(encoding="utf-8"))
     got = {r["nom"]: r["apex10"]["note"] for r in mt["rows"]}
-    assert got["Or"] == 87
-    assert got["Argent"] == 136
-    assert got["Platine"] == 112
-    assert got["Palladium"] == 139
+    # APE-25 : portail cyan retiré, ETC Hype 45 + Qualité 45
+    assert got["Or"] == 128
+    assert got["Argent"] == 170
+    assert got["Platine"] == 147
+    assert got["Palladium"] == 185
     for r in mt["rows"]:
         a = r["apex10"]
         assert a["scale"] == 250
@@ -88,8 +89,9 @@ def test_notes_lignes_metaux_json():
             assert "Struct." not in ligne
             if it.get("kind") == "spot":
                 assert "Hype" in ligne or "HYPE" in ligne
-            else:
+            elif it.get("kind") == "min":
                 assert "Hype" not in ligne and "HYPE" not in ligne
+            # APE-25 : les ETC ont Hype 45 + Qualité ETC 45
             decomp = (it["apex10"].get("decomp") or {}).get("points") or {}
             if it.get("kind") == "min" and it["apex10"].get("fond") is not None:
                 assert "Fond." in ligne

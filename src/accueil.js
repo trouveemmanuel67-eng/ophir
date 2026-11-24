@@ -111,7 +111,7 @@ function homeActionScores(){
       const add=r=>{
         if(!r||r.total==null||seen.has(r.tv||r.ticker)) return;
         seen.add(r.tv||r.ticker||(k+':'+r.total));
-        scores.push({v2:true, scale:280, note:r.total, band:r.band});
+        scores.push({v2:true, scale:250, note:r.total, band:r.band});
       };
       if(p&&p.etf) add(p.etf);
       (p&&p.actions||[]).forEach(add);
@@ -166,7 +166,7 @@ function homeFlagsHTML(t){
   const tip=(v2&&t.scale===250)
     ? `${t.cyan} cyan · ${t.vert} vert${t.vert>1?'s':''} · ${t.jaune} orange${t.jaune>1?'s':''} · ${t.rouge} rouge${t.rouge>1?'s':''} · ${t.violet} violet${t.violet>1?'s':''} (échelle −50 à 250 : <10 violet · 10–70 rouge · 70–130 orange · 130–190 vert · ≥190 cyan)`
     : v2
-    ? `${t.cyan} cyan · ${t.vert} vert${t.vert>1?'s':''} · ${t.jaune} orange${t.jaune>1?'s':''} · ${t.rouge} rouge${t.rouge>1?'s':''} · ${t.violet} violet${t.violet>1?'s':''} (échelle −80 à 280 : <−8 violet · −8–64 rouge · 64–136 orange · 136–208 vert · ≥208 cyan)`
+    ? `${t.cyan} cyan · ${t.vert} vert${t.vert>1?'s':''} · ${t.jaune} orange${t.jaune>1?'s':''} · ${t.rouge} rouge${t.rouge>1?'s':''} · ${t.violet} violet${t.violet>1?'s':''} (échelle −50 à 250 : <10 violet · 10–69 rouge · 70–129 orange · 130–189 vert · ≥190 cyan)`
     : `${t.cyan} cyan · ${t.vert} vert${t.vert>1?'s':''} · ${t.jaune} jaune${t.jaune>1?'s':''} · ${t.rouge} rouge${t.rouge>1?'s':''} · ${t.violet} violet${t.violet>1?'s':''} (échelle /100 : 0–<20 violet · 20–<40 rouge · 40–<60 jaune · 60–<80 vert · 80–100 cyan)`;
   return `<div class="home-flags" title="${tip}"><span><i class="c"></i>${t.cyan}</span><span><i class="g"></i>${t.vert}</span><span><i class="y"></i>${t.jaune}</span><span><i class="r"></i>${t.rouge}</span><span><i class="vi"></i>${t.violet}</span></div>`;
 }
@@ -175,13 +175,13 @@ function homeSigHTML(av,tabId){
   const v2=st&&st.apexV2;
   if(v2&&v2.total!=null){
     const col=(typeof pilotHex==='function')?pilotHex(v2):(v2.hex||'#e6c27a');
-    const mx=v2.total_max!=null?v2.total_max:(v2.scale===250?250:280);
+    const mx=v2.total_max!=null?v2.total_max:250;
     return `<div class="home-sig apex10 apex10-pilot" style="color:${col}"><b>${v2.total}</b><small>/ ${mx}</small></div>`;
   }
   const a=(st&&st.apex10)||(av&&av.apex10)||null; /* t320u : pas de recalcul JS */
   if(a&&a.v2&&a.total!=null){
     const col=(typeof pilotHex==='function')?pilotHex(a):(a.hex||'#e6c27a');
-    const mx=a.total_max!=null?a.total_max:(a.scale===250?250:280);
+    const mx=a.total_max!=null?a.total_max:250;
     return `<div class="home-sig apex10 apex10-pilot" style="color:${col}"><b>${a.total}</b><small>/ ${mx}</small></div>`;
   }
   if(a&&a.note!=null&&!(a.v2||a.scale===280||a.scale===250||a.scale===270)){

@@ -1,0 +1,671 @@
+{
+ "avant_apres": {
+  "metaux": {
+   "XETR:GLDA": [
+    80,
+    145
+   ],
+   "OANDA:XAUUSD": [
+    106,
+    106
+   ],
+   "XETR:XAD5": [
+    70,
+    126
+   ],
+   "XETR:8PSG": [
+    70,
+    135
+   ],
+   "XETR:4GLD": [
+    70,
+    135
+   ],
+   "LSE:IGLN": [
+    80,
+    145
+   ],
+   "LSE:PHGP": [
+    80,
+    127
+   ],
+   "NASDAQ:RGLD": [
+    120,
+    120
+   ],
+   "NYSE:FNV": [
+    110,
+    110
+   ],
+   "XETR:XAD6": [
+    110,
+    157
+   ],
+   "OANDA:XAGUSD": [
+    164,
+    164
+   ],
+   "XETR:8PSB": [
+    110,
+    166
+   ],
+   "LSE:PHAG": [
+    110,
+    166
+   ],
+   "LSE:ISLN": [
+    110,
+    175
+   ],
+   "NYSE:AG": [
+    170,
+    170
+   ],
+   "NYSE:PAAS": [
+    175,
+    190
+   ],
+   "LSE:IPLT": [
+    90,
+    146
+   ],
+   "OANDA:XPTUSD": [
+    144,
+    144
+   ],
+   "XETR:8PSA": [
+    90,
+    146
+   ],
+   "XETR:XPPT": [
+    90,
+    137
+   ],
+   "XETR:XAD3": [
+    90,
+    137
+   ],
+   "NYSE:SBSW": [
+    170,
+    170
+   ],
+   "LSE:IPDM": [
+    120,
+    192
+   ],
+   "OANDA:XPDUSD": [
+    175,
+    200
+   ],
+   "XETR:8PSC": [
+    120,
+    192
+   ],
+   "EURONEXT:PHPD": [
+    110,
+    173
+   ]
+  },
+  "obligations": {
+   "XETR:IUSU": [
+    34.0,
+    110
+   ],
+   "XETR:2B7S": [
+    27.0,
+    120
+   ],
+   "XETR:TRD3": [
+    30.0,
+    120
+   ],
+   "XETR:JA13": [
+    9.0,
+    100
+   ],
+   "XETR:IS04": [
+    46.0,
+    160
+   ],
+   "XETR:SPPX": [
+    52.0,
+    140
+   ],
+   "XETR:DJAD": [
+    37.0,
+    120
+   ],
+   "XETR:XUTL": [
+    57.0,
+    130
+   ],
+   "XETR:EUNH": [
+    66.0,
+    130
+   ],
+   "XETR:XGLE": [
+    48.0,
+    110
+   ],
+   "XETR:PRAR": [
+    78.0,
+    130
+   ],
+   "XETR:SECA": [
+    78.0,
+    130
+   ],
+   "EURONEXT:IFRB": [
+    49.0,
+    170
+   ],
+   "XETR:IBCD": [
+    42.0,
+    110
+   ],
+   "XETR:PRAP": [
+    19.0,
+    90
+   ],
+   "XETR:XDGU": [
+    39.0,
+    150
+   ],
+   "XETR:GCRE": [
+    33.0,
+    90
+   ],
+   "XETR:SYBN": [
+    54.0,
+    140
+   ],
+   "XETR:EUN5": [
+    55.0,
+    110
+   ],
+   "XETR:D5BG": [
+    41.0,
+    90
+   ],
+   "XETR:PR1C": [
+    77.0,
+    100
+   ],
+   "XETR:JEBE": [
+    60.0,
+    80
+   ],
+   "XETR:SYBC": [
+    76.0,
+    110
+   ],
+   "XETR:XUHY": [
+    47.0,
+    100
+   ],
+   "XETR:XHYG": [
+    75.0,
+    150
+   ],
+   "XETR:EH1Y": [
+    75.0,
+    130
+   ],
+   "XETR:CBU1": [
+    58.0,
+    110
+   ],
+   "XETR:AEHY": [
+    55.0,
+    120
+   ],
+   "XETR:TIUP": [
+    38.0,
+    90
+   ],
+   "EURONEXT:IBCI": [
+    50.0,
+    150
+   ],
+   "XETR:LYQ7": [
+    57.0,
+    150
+   ],
+   "XETR:IBC5": [
+    78.0,
+    150
+   ],
+   "XETR:XEIN": [
+    56.0,
+    150
+   ],
+   "XETR:IUS7": [
+    48.0,
+    110
+   ],
+   "XETR:XUEM": [
+    57.0,
+    120
+   ],
+   "XETR:XEMB": [
+    54.0,
+    120
+   ],
+   "XETR:ENDH": [
+    67.0,
+    150
+   ],
+   "EURONEXT:EMBH": [
+    44.0,
+    110
+   ],
+   "XETR:PEML": [
+    40.0,
+    70
+   ],
+   "XETR:IS0L": [
+    46.0,
+    110
+   ],
+   "XETR:X03G": [
+    76.0,
+    130
+   ],
+   "XETR:EXHD": [
+    53.0,
+    110
+   ],
+   "XETR:EXHC": [
+    75.0,
+    120
+   ],
+   "XETR:EXHA": [
+    56.0,
+    110
+   ],
+   "XETR:EXX6": [
+    48.0,
+    110
+   ]
+  },
+  "energie": {
+   "EURONEXT:TTE": [
+    49.0,
+    100
+   ],
+   "NYSE:XOM": [
+    48.0,
+    60
+   ],
+   "NYSE:CVX": [
+    47.0,
+    90
+   ],
+   "NYSE:COP": [
+    51.0,
+    90
+   ],
+   "NYSE:EOG": [
+    54.0,
+    110
+   ],
+   "NYSE:OXY": [
+    51.0,
+    110
+   ],
+   "NYSE:VLO": [
+    52.0,
+    110
+   ],
+   "NYSE:DVN": [
+    53.0,
+    120
+   ],
+   "NASDAQ:FANG": [
+    42.0,
+    70
+   ],
+   "AMEX:IMO": [
+    55.0,
+    80
+   ],
+   "NYSE:SOBO": [
+    68.0,
+    110
+   ],
+   "NYSE:WMB": [
+    52.0,
+    90
+   ],
+   "NYSE:KMI": [
+    43.0,
+    70
+   ],
+   "NYSE:OKE": [
+    51.0,
+    60
+   ],
+   "NYSE:TRGP": [
+    47.0,
+    60
+   ],
+   "NYSE:ENB": [
+    45.0,
+    80
+   ],
+   "NYSE:TRP": [
+    42.0,
+    70
+   ],
+   "NYSE:PBA": [
+    36.0,
+    70
+   ],
+   "EURONEXT:GTT": [
+    69.0,
+    140
+   ],
+   "NYSE:NEE": [
+    49.0,
+    70
+   ],
+   "NYSE:VST": [
+    75.0,
+    130
+   ],
+   "NYSE:ETR": [
+    54.0,
+    50
+   ],
+   "NYSE:AWK": [
+    49.0,
+    50
+   ],
+   "NYSE:SO": [
+    45.0,
+    70
+   ],
+   "NYSE:DUK": [
+    11.0,
+    60
+   ],
+   "NASDAQ:XEL": [
+    34.0,
+    50
+   ],
+   "NASDAQ:AEP": [
+    34.0,
+    70
+   ],
+   "XETR:EOAN": [
+    41.0,
+    90
+   ],
+   "XETR:RWE": [
+    33.0,
+    40
+   ],
+   "EURONEXT:ENGI": [
+    37.0,
+    70
+   ],
+   "NYSE:FTS": [
+    31.0,
+    50
+   ],
+   "NYSE:AQN": [
+    17.0,
+    90
+   ],
+   "NYSE:BEPC": [
+    60.0,
+    100
+   ],
+   "NASDAQ:ENPH": [
+    61.0,
+    140
+   ],
+   "NASDAQ:CSIQ": [
+    63.0,
+    100
+   ],
+   "XETR:ENR": [
+    72.0,
+    140
+   ],
+   "XETR:URNU": [
+    75.0,
+    140
+   ],
+   "XETR:U3O8": [
+    58.0,
+    140
+   ],
+   "NYSE:CCJ": [
+    53.0,
+    120
+   ],
+   "NASDAQ:CEG": [
+    65.0,
+    80
+   ],
+   "NASDAQ:BLDP": [
+    63.0,
+    120
+   ],
+   "NYSE:BTU": [
+    65.0,
+    130
+   ],
+   "XETR:XDW0": [
+    26.0,
+    100
+   ],
+   "XETR:ZPDU": [
+    29.0,
+    90
+   ]
+  },
+  "devises": {
+   "USD": [
+    44.0,
+    60
+   ],
+   "JPY": [
+    32.0,
+    70
+   ],
+   "GBP": [
+    43.0,
+    60
+   ],
+   "CHF": [
+    12.0,
+    70
+   ],
+   "AUD": [
+    63.0,
+    100
+   ],
+   "CAD": [
+    43.0,
+    100
+   ],
+   "KRW": [
+    37.0,
+    100
+   ]
+  },
+  "etf_devise": {
+   "NASDAQ:RING": [
+    113,
+    140
+   ],
+   "TSE:1631": [
+    83,
+    106
+   ],
+   "LSE:AUCP": [
+    102,
+    119
+   ],
+   "SIX:AUCO": [
+    97,
+    126
+   ],
+   "ASX:SEMI": [
+    117,
+    144
+   ],
+   "TSX:XCHP": [
+    112,
+    125
+   ]
+  },
+  "epargne": {
+   "livret_a": [
+    null,
+    60
+   ],
+   "lep": [
+    null,
+    90
+   ],
+   "revolut-epargne-eur": [
+    null,
+    90
+   ],
+   "revolut-mmf-usd": [
+    null,
+    30
+   ]
+  },
+  "immobilier": {
+   "marche_residentiel_france": [
+    null,
+    80
+   ]
+  }
+ },
+ "nc": {
+  "obligations": {
+   "XETR:SPPX": [
+    "Qualité : ≥ 50 % des titres notés A ou mieux"
+   ],
+   "XETR:GCRE": [
+    "Qualité : ≥ 50 % des titres notés A ou mieux",
+    "Frais courants ≤ 0,15 %",
+    "Encours ≥ 500 M€",
+    "Ancienneté ≥ 5 ans"
+   ],
+   "XETR:SYBN": [
+    "Qualité : ≥ 50 % des titres notés A ou mieux"
+   ],
+   "XETR:EUN5": [
+    "Rendement réel > 0",
+    "Rendement réel > 1,5 %",
+    "Prime de crédit : spread OAS ≥ sa médiane 10 ans"
+   ],
+   "XETR:D5BG": [
+    "Rendement réel > 0",
+    "Rendement réel > 1,5 %",
+    "Prime de crédit : spread OAS ≥ sa médiane 10 ans"
+   ],
+   "XETR:PR1C": [
+    "Rendement réel > 0",
+    "Rendement réel > 1,5 %",
+    "Prime de crédit : spread OAS ≥ sa médiane 10 ans"
+   ],
+   "XETR:JEBE": [
+    "Rendement réel > 0",
+    "Rendement réel > 1,5 %",
+    "Prime de crédit : spread OAS ≥ sa médiane 10 ans"
+   ],
+   "XETR:SYBC": [
+    "Rendement réel > 0",
+    "Rendement réel > 1,5 %",
+    "Prime de crédit : spread OAS ≥ sa médiane 10 ans"
+   ],
+   "XETR:XHYG": [
+    "Qualité : ≥ 50 % des titres notés A ou mieux"
+   ],
+   "XETR:EH1Y": [
+    "Qualité : ≥ 50 % des titres notés A ou mieux"
+   ],
+   "XETR:CBU1": [
+    "Qualité : ≥ 50 % des titres notés A ou mieux"
+   ],
+   "XETR:AEHY": [
+    "Qualité : ≥ 50 % des titres notés A ou mieux"
+   ],
+   "XETR:IUS7": [
+    "Qualité : ≥ 50 % des titres notés A ou mieux"
+   ],
+   "EURONEXT:EMBH": [
+    "Qualité : ≥ 50 % des titres notés A ou mieux",
+    "Frais courants ≤ 0,15 %",
+    "Encours ≥ 500 M€",
+    "Ancienneté ≥ 5 ans"
+   ]
+  },
+  "energie": {
+   "NYSE:BEPC": [
+    "PER < 12"
+   ],
+   "NASDAQ:CSIQ": [
+    "PER < 12"
+   ],
+   "XETR:URNU": [
+    "Au moins 30 lignes",
+    "Cycle uranium : prix spot sous sa moyenne 5 ans"
+   ],
+   "XETR:U3O8": [
+    "Cycle uranium : prix spot sous sa moyenne 5 ans"
+   ],
+   "NYSE:CCJ": [
+    "Cycle uranium : prix spot sous sa moyenne 5 ans"
+   ],
+   "NASDAQ:BLDP": [
+    "PER < 12",
+    "Dette nette / EBITDA < 2"
+   ],
+   "NYSE:BTU": [
+    "PER < 12"
+   ]
+  },
+  "devises": {
+   "USD": [
+    "Sous-évaluée selon la PPA"
+   ],
+   "JPY": [
+    "Dette publique < 90 % du PIB",
+    "Solde public > −3 % du PIB",
+    "Sous-évaluée selon la PPA"
+   ],
+   "GBP": [
+    "Sous-évaluée selon la PPA"
+   ],
+   "CHF": [
+    "Sous-évaluée selon la PPA"
+   ],
+   "AUD": [
+    "Sous-évaluée selon la PPA"
+   ],
+   "CAD": [
+    "Sous-évaluée selon la PPA"
+   ],
+   "KRW": [
+    "Sous-évaluée selon la PPA"
+   ]
+  },
+  "immobilier": {
+   "marche_residentiel_france": [
+    "Rendement locatif brut − OAT 10 ans > 2 pts",
+    "Ratio prix / revenu sous sa moyenne longue",
+    "Production de crédits à l’habitat en hausse sur 1 an",
+    "Nombre de transactions en hausse sur 1 an",
+    "Taux de logements vacants < 8 %"
+   ]
+  }
+ }
+}

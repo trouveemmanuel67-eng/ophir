@@ -54,7 +54,7 @@ function apex10Col(a){
 function apexNoteHTML(a){
   if(a&&(a.v2||a.total_max===280||a.scale===280||a.total_max===250||a.scale===250||a.total_max===270||a.scale===270)&&a.total!=null){
     const col=(typeof pilotHex==='function')?pilotHex(a):(a.hex||'#e6c27a');
-    const mx=a.total_max!=null?a.total_max:280;
+    const mx=a.total_max!=null?a.total_max:250;
     return `<div class="apex10 apex10-pilot" style="color:${col}"><b>${a.total}</b><small>/ ${mx}</small></div>`;
   }
   if(!a||a.note==null||a.display==='–') return `<div class="apex10 apex10-na"><b>–</b></div>`;
@@ -164,7 +164,8 @@ function sectionApexItems(tabId){
       if(r&&r.note!=null) note=r.note;
     }
     if(note==null) return;
-    out.push({note,av,sent:se,name:o.nom||o.name||o.code||''});
+    const a10=o.apex10||{};
+    out.push({note,av,sent:se,name:o.nom||o.name||o.code||'',scale:Number(a10.scale!=null?a10.scale:a10.total_max)});
   };
   if(tabId==='actions'&&typeof SEC!=='undefined') (SEC.sectors||[]).forEach(s=>push(s));
   else if(tabId==='obligations'&&typeof OB!=='undefined') (OB.segments||[]).forEach(s=>push(s));
@@ -208,8 +209,8 @@ function apexV2FromAvg(totals,hypes){
   const hs=(hypes||[]).filter(x=>x!=null&&Number.isFinite(Number(x))).map(Number);
   const h=hs.length?Math.round(hs.reduce((a,c)=>a+c,0)/hs.length):null;
   return {
-    v2:true, total:n, total_min:-80, total_max:280, scale:280,
-    display:n+' / 280', hex:b.hex, band:b.id, n_moy:xs.length,
+    v2:true, total:n, total_min:-50, total_max:250, scale:250,
+    display:n+' / 250', hex:b.hex, band:b.id, n_moy:xs.length,
     points:{hype:h}, attention:h==null?null:{valeur:null,H:h,n:hs.length},
     ok:true
   };
@@ -236,7 +237,9 @@ function sectionApexAvg(tabId){
   const notes=items.map(x=>x.note).filter(n=>n!=null&&Number.isFinite(n));
   const av=meanNum(items.map(x=>x.av));
   const se=meanNum(items.map(x=>x.sent));
-  if((tabId==='metaux'||tabId==='crypto')&&notes.length){
+  /* APE-25 : toute section dont les notes sont sur −50..250 affiche une moyenne /250 */
+  const all250=items.length>0&&items.every(x=>x.scale===250);
+  if((tabId==='metaux'||tabId==='crypto'||all250)&&notes.length){
     const n=Math.round(notes.reduce((a,b)=>a+b,0)/notes.length);
     const metaSc={scale:250,total_max:250,total_min:-50};
     const b=(typeof pilotBand==='function')?pilotBand(n, metaSc):{hex:'#e6c27a',id:''};
@@ -363,7 +366,7 @@ function isActionSector(sym){
   return false;
 }
 function v2Placeholder(){
-  return `<div class="apex-block apex-block-pilot apex-block-line"><div class="apex10 apex10-pilot apex10-na"><b>–</b><small>/ 280</small></div></div>`;
+  return `<div class="apex-block apex-block-pilot apex-block-line"><div class="apex10 apex10-pilot apex10-na"><b>–</b><small>/ 250</small></div></div>`;
 }
 function isPilotSector(sym){
   if(!PILOT||!sym) return false;
@@ -389,19 +392,19 @@ function pilotRec(tv){
   return null;
 }
 function pilotScale(){
-  const mn=(PILOT&&PILOT.scale&&PILOT.scale.min!=null)?PILOT.scale.min:-80;
-  const mx=(PILOT&&PILOT.scale&&PILOT.scale.max!=null)?PILOT.scale.max:280;
+  const mn=(PILOT&&PILOT.scale&&PILOT.scale.min!=null)?PILOT.scale.min:-50;
+  const mx=(PILOT&&PILOT.scale&&PILOT.scale.max!=null)?PILOT.scale.max:250;
   return {min:mn,max:mx};
 }
-/* 5 tranches égales de 72 pts sur [-80, 280] : violet <−8, rouge −8–64, orange 64–136, vert 136–208, cyan ≥208 */
+/* APE-25 : échelle unique −50..250 : violet <10, rouge 10–69, orange 70–129, vert 130–189, cyan ≥190 */
 const PILOT_BANDS=[
-  {id:'violet',de:-80,a:-8,hex:'#9d54ff'},
-  {id:'rouge',de:-8,a:64,hex:'#ff2d2d'},
-  {id:'orange',de:64,a:136,hex:'#ff8c1a'},
-  {id:'vert',de:136,a:208,hex:'#22c55e'},
-  {id:'cyan',de:208,a:281,hex:'#00e5ff'}
+  {id:'violet',de:-50,a:10,hex:'#9d54ff'},
+  {id:'rouge',de:10,a:70,hex:'#ff2d2d'},
+  {id:'orange',de:70,a:130,hex:'#ff8c1a'},
+  {id:'vert',de:130,a:190,hex:'#22c55e'},
+  {id:'cyan',de:190,a:251,hex:'#00e5ff'}
 ];
-/* Métaux restent sur −50 à 250 (5 tranches de 60) même quand les actions sont en −80 à 280. */
+/* Même échelle −50 à 250 pour toutes les classes (APE-25). */
 const PILOT_BANDS_250=[
   {id:'violet',de:-50,a:10,hex:'#9d54ff'},
   {id:'rouge',de:10,a:70,hex:'#ff2d2d'},
@@ -417,7 +420,7 @@ function recIsScale250(rec){
 function recScale(rec){
   if(recIsScale250(rec)) return {min:-50,max:250,bands:PILOT_BANDS_250,ticks:[-50,10,70,130,190,250]};
   const {min:mn,max:mx}=pilotScale();
-  return {min:mn,max:mx,bands:PILOT_BANDS,ticks:[-80,-8,64,136,208,280]};
+  return {min:mn,max:mx,bands:PILOT_BANDS,ticks:[-50,10,70,130,190,250]};
 }
 function pilotBand(total, rec){
   const t=Number(total);

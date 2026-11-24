@@ -490,9 +490,10 @@ function fxTickerHTML(s){
   return `<span class="fx-tv tvs"><code>${tv}</code>${cp}</span>`;
 }
 function fxBarHTML(s){
-  /* t490u : barre d'indice de LA devise, échelle /100 (les règles −50..250 des devises ne sont pas encore calculées). */
+  /* APE-25 : note de LA devise sur −50..250 (technique EURxxx inversée + fondamental devise 90 + F&G) ; /100 seulement si une ancienne note subsiste. */
+  const fx250=!!(s&&s.apex10&&(s.apex10.scale===250||s.apex10.total_max===250));
   if(s&&s.ok&&s.apex10&&typeof listApexBar==='function')
-    return `<div class="fx-apex">${listApexBar(Object.assign({},s,{forceApex100:true}))}</div>`;
+    return `<div class="fx-apex">${listApexBar(Object.assign({},s,fx250?{forceApex250:true}:{forceApex100:true}))}</div>`;
   if(s&&s.ok&&s.apex10&&typeof dualBarApex100==='function')
     return `<div class="fx-apex">${dualBarApex100(s.apex10,s.sent,s.av,true)}</div>`;
   return `<div class="fx-apex">${fxSigHTML(s&&s.av,s&&s.apex10)}</div>`;
@@ -589,6 +590,7 @@ function renderLiquidites(el){
    <div class="kpis">${kpi('Livret A',fmt(Lv.last[1],2)+' %','en vigueur depuis le 1er août 2026')+kpi('LEP',fmt(Lv.last[2],2)+' %','en vigueur depuis le 1er février 2026, maintenu en août')+kpi('Inflation France (IPC, 1 an)',fmt(I.last[1],1)+' %',mfr(I.last[0])+' · INSEE')+kpi('Rendement réel Livret A',`<span class="${cls(rl[1])}">${sign(rl[1],1)} pt</span>`,'taux − inflation, '+mfr(rl[0]))+kpi('Rendement réel LEP',`<span class="${cls(rl[2])}">${sign(rl[2],1)} pt</span>`,'taux − inflation, '+mfr(rl[0]))}</div>
    <div class="chart" style="height:300px"><canvas id="cLiv"></canvas></div>
    <div class="chart" style="height:200px;margin-top:10px"><canvas id="cReal"></canvas></div>
+   ${liqEpargneApex(Q)}
    <table style="margin-top:12px"><thead><tr><th>Derniers changements</th><th>Livret A</th><th>LEP</th><th style="text-align:left">Texte officiel</th></tr></thead><tbody>${chg}</tbody></table>
    <div class="note">Pour janv. 2000 → août 2020, la source est la table mensuelle d'archive de la Banque de France. Ensuite, chaque changement de taux est repris des rapports et communiqués officiels de la Banque de France (citations dans data/liquidites). La série a été vérifiée mois par mois contre l'open data de la Caisse des Dépôts (janv. 2024 → juin 2026) : aucun écart. Le rendement réel est un écart simple (taux − inflation), avant fiscalité : Livret A et LEP sont exonérés d'impôt. Le plafond et les conditions de revenus du LEP ne sont pas pris en compte.</div>
    <div class="src">Sources : ${lnk('https://webstat.banque-france.fr/fr/catalogue/mir1/MIR1.M.FR.B.L23FRLA.D.R.A.2230U6.EUR.O','Banque de France / Webstat')} (taux des livrets réglementés), ${lnk('https://www.banque-france.fr/fr/publications-et-statistiques/publications/rapport-sur-lepargne-reglementee-2025','Rapport sur l\'épargne réglementée 2025')}, ${lnk('https://opendata.caissedesdepots.fr/explore/dataset/flux-et-taux-la-ldds-lep/','Caisse des Dépôts open data')} ; inflation : ${lnk('https://www.insee.fr/fr/statistiques/serie/'+I.idbank,'INSEE, IPC base 2025, glissement annuel, idbank '+I.idbank)} (mise à jour INSEE ${dfr(I.last_update)}). Récupéré le ${dfr(R.insee.slice(0,10))}.</div></div>
@@ -622,3 +624,14 @@ function renderLiquidites(el){
   }
 }
 
+
+/* APE-25 : notes APEX épargne / monétaire (−50 à 250) — Livret A, LEP, placements Revolut */
+function liqEpargneApex(Q){
+  const E=Q&&Q.apex_epargne; if(!E||!Array.isArray(E.produits)||!E.produits.length) return '';
+  const esc=x=>String(x==null?'':x).replace(/</g,'&lt;');
+  const rows=E.produits.map(p=>{const a=p.apex10||{},d=a.decomp||{};
+    const nc=[].concat((d.contexte&&d.contexte.nc)||[],(d.fondamental&&d.fondamental.nc)||[]);
+    return `<tr><td style="text-align:left">${esc(p.nom)}</td><td>${fmt(p.taux,2)} %${p.devise&&p.devise!=='EUR'?' '+esc(p.devise):''}</td><td class="ep-n">${typeof apexNoteHTML==='function'?apexNoteHTML(a):esc(a.display)}</td><td class="ep-d">${esc(d.texte)}${nc.length?' · n.c. : '+esc(nc.join(', ')):''}</td></tr>`;}).join('');
+  return `<table class="ep-apex" style="margin-top:12px"><thead><tr><th style="text-align:left">Note APEX épargne</th><th>Taux</th><th>Note</th><th style="text-align:left">Détail</th></tr></thead><tbody>${rows}</tbody></table>
+   <div class="note">${esc(E.grille)}. Contexte : taux ≥ taux directeur − 0,25 pt (+30), taux directeur stable ou en hausse sur 6 mois (+30), inflation en baisse sur 6 mois (+30), courbe plate (+20). Fondamental : taux net d'impôt − inflation > 0 (+20) et > 1 pt (+10), capital garanti (+20), disponible à tout moment (+20), sans risque de change (+10), sans frais (+10). PFU 31,4 % sur les produits imposables.</div>`;
+}

@@ -9,7 +9,7 @@ function srCells(s){
     return `<div class="sr-c sr-d">${dualBarPilot(rec, true)}</div>`;
   }
   if((typeof isActionSector==='function'&&isActionSector(s.sym))||(typeof isApexV2Tv==='function'&&isApexV2Tv(s.tv))){
-    return `<div class="sr-c sr-d">${typeof v2Placeholder==='function'?v2Placeholder():'<div class="apex10 apex10-na"><b>–</b><small>/ 280</small></div>'}</div>`;
+    return `<div class="sr-c sr-d">${typeof v2Placeholder==='function'?v2Placeholder():'<div class="apex10 apex10-na"><b>–</b><small>/ 250</small></div>'}</div>`;
   }
   const avObj=s.av||{};
   const av=(avObj.score_affiche!=null)?avObj.score_affiche:avObj.score;
@@ -23,7 +23,7 @@ function srHead(first,v2){
     : v2===250||v2==='250'||v2==='metaux'
     ? `<i class="db-dot db-a">AV</i>Score APEX (−50 à 250, échelle du haut) · <i class="db-dot db-s">S</i>Fear &amp; Greed (0 à 100, échelle du bas)`
     : v2
-    ? `<i class="db-dot db-a">AV</i>Score APEX (−80 à 280, échelle du haut) · <i class="db-dot db-s">S</i>Fear &amp; Greed et <i class="db-dot db-h">H</i>Hype / attention (0 à 100, échelle du bas ; H à contre-courant, ±30)`
+    ? `<i class="db-dot db-a">AV</i>Score APEX (−50 à 250, échelle du haut) · <i class="db-dot db-s">S</i>Fear &amp; Greed et <i class="db-dot db-h">H</i>Hype / attention (0 à 100, échelle du bas ; H à contre-courant, 0 à 20)`
     : `<i class="db-dot db-a">AV</i>Achat / Vente (−100 à +100, échelle du haut) · <i class="db-dot db-s">S</i>Sentiment (0 à 100, échelle du bas)`;
   return `<div class="sr sr-hd" aria-hidden="true"><div>${first}</div><div>${mid}</div><div>Détails</div></div>`;
 }
@@ -44,7 +44,7 @@ function secTile(s,i){
   const ac=(avSrc.components||[]).map(c=>{const n=c.note;return `<div class="av-c"><div class="av-cl"><span>${c.nom}</span><b style="color:${n==null?'#888':avCol(n)}">${n==null?(c.facultatif?'non comptée':'n.d.'):sign(n,0)}</b></div><div class="av-cb"><div class="av-mid"></div>${n==null?'':`<i style="${n>=0?'left:50%':'right:50%'};width:${Math.abs(n)/2}%;background:${avCol(n)}"></i>`}</div><div class="av-cd">valeur ${c.valeur} · poids ${pw(c.poids)} % · contribution <b>${c.contrib==null?(c.facultatif?'non comptée':'retirée'):sign(c.contrib,1)}</b> · règle : ${c.regle}</div></div>`;}).join('');
   return `<div class="sec">
    <div class="sr">
-    <div class="sr-c sec-h sr-n"><b>${s.nom}</b><span class="pilot-badge">APEX ACHAT −80 à 280</span><span>${s.tick||s.sym} · ${s.etf}</span>${srWarn(s)}</div>
+    <div class="sr-c sec-h sr-n"><b>${s.nom}</b><span class="pilot-badge">APEX ACHAT −50 à 250</span><span>${s.tick||s.sym} · ${s.etf}</span>${srWarn(s)}</div>
     ${srCells(s)}
     <div class="sr-c sr-b"></div>
    </div>
@@ -82,7 +82,7 @@ function renderSecteurs(el){
   const stUs=(typeof sectionApexAvg==='function')?sectionApexAvg('actions'):null;
   const a10=(stUs&&(stUs.apexV2||stUs.apex10))||SEC.apex10||null;
   const avP=SEC.av_pays||null;
-  const scale=a10&&(a10.v2||a10.total_max===280||a10.scale===280||a10.total_max===250||a10.scale===250||a10.total_max===270||a10.scale===270)?'280':'100';
+  const scale=a10&&(a10.v2||a10.total_max===280||a10.scale===280||a10.total_max===250||a10.scale===250||a10.total_max===270||a10.scale===270)?'250':'100';
   const disp=a10?(a10.total!=null?String(a10.total):a10.display):'';
   const apexTag=a10&&(a10.display||a10.total!=null)?`<span class="js-apex10" hidden data-display="${disp}" data-hex="${a10.hex||''}" data-note="${a10.total!=null?a10.total:a10.note}" data-scale="${scale}"></span>`:'';
   const mkt=avP&&avP.score!=null?` · <i>Marché</i> <b>${avP.label||''} ${sign(avP.score,0)}</b>`:'';

@@ -11,7 +11,7 @@ PAYSJS = (ROOT / "src" / "pays.js").read_text(encoding="utf-8")
 
 def test_collecte_top10_sans_changer_la_moyenne_etf():
     assert "list((sf.get('top') or [])[:10])" in WORLD
-    assert "ETF_FOND_N = 5" in WORLD
+    assert "ETF_FOND_N = 10" in WORLD  # APE-25 : fondamental et H sur les 10 titres affichés
     assert "avg_actions = actions[:ETF_FOND_N] or actions" in WORLD
     assert "list(fond.get('top') or [])" in WORLD
     assert "list((fond.get('top') or [])[:5])" not in WORLD
@@ -25,16 +25,16 @@ def test_cat_et_top_manquants_notes():
     bt = full["by_tv"]
     cat = bt["NYSE:CAT"]
     assert cat["ok"] is True
-    assert cat["total"] == 170
+    # APE-25 : × 0,9 par indicateur, H 0..20
+    assert cat["total"] == 166
     assert cat["total_max"] == 250 and cat["total_min"] == -50
     assert cat["points"] == {
-        "rsi": 10, "macd": 30, "fibonacci": 10, "cci": 20,
-        "fondamental": 70, "fear_greed": 30, "total": 170,
+        "rsi": 9, "macd": 27, "fibonacci": 9, "cci": 18,
+        "fondamental": 63, "fear_greed": 30, "total": 166, "hype": 10,
     }
-    # notes déjà publiées inchangées (moyenne ETF et top 5)
     assert bt["XETR:ZPDF"]["total"] == 102
-    assert bt["XETR:ZPDK"]["total"] == 140
-    assert bt["NYSE:MA"]["total"] == 110
+    assert bt["XETR:ZPDK"]["total"] == 127
+    assert bt["NYSE:MA"]["total"] == 116
     xli = full["pilotes"]["XLI"]["actions"]
     assert len(xli) == 10
     assert {a["tv"] for a in xli} >= {

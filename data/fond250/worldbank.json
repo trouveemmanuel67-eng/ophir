@@ -1,0 +1,180 @@
+{
+ "source": "Banque mondiale, World Development Indicators (API v2)",
+ "date": "2026-11-24 18:49",
+ "series": {
+  "FP.CPI.TOTL.ZG": {
+   "label": "inflation",
+   "url": "https://api.worldbank.org/v2/country/USA;JPN;GBR;CHE;AUS;CAN;KOR;EMU/indicator/FP.CPI.TOTL.ZG?format=json&mrv=4&per_page=200",
+   "values": {
+    "AUS": [
+     "2025",
+     2.87403791660173
+    ],
+    "CAN": [
+     "2025",
+     2.07232411149103
+    ],
+    "CHE": [
+     "2025",
+     0.154376978290185
+    ],
+    "EMU": [
+     "2025",
+     2.46605755272817
+    ],
+    "GBR": [
+     "2025",
+     3.88306881625999
+    ],
+    "JPN": [
+     "2025",
+     3.17253034260247
+    ],
+    "KOR": [
+     "2025",
+     2.12309421458659
+    ],
+    "USA": [
+     "2024",
+     2.94952520485207
+    ]
+   }
+  },
+  "BN.CAB.XOKA.GD.ZS": {
+   "label": "balance_courante",
+   "url": "https://api.worldbank.org/v2/country/USA;JPN;GBR;CHE;AUS;CAN;KOR;EMU/indicator/BN.CAB.XOKA.GD.ZS?format=json&mrv=4&per_page=200",
+   "values": {
+    "AUS": [
+     "2025",
+     -2.76564744083184
+    ],
+    "CAN": [
+     "2025",
+     -0.96097945348872
+    ],
+    "CHE": [
+     "2025",
+     6.24639351116552
+    ],
+    "GBR": [
+     "2025",
+     -3.13347768999639
+    ],
+    "JPN": [
+     "2025",
+     4.86496093471918
+    ],
+    "KOR": [
+     "2025",
+     6.57207036660681
+    ],
+    "USA": [
+     "2025",
+     -3.8254126624569
+    ]
+   }
+  },
+  "GC.DOD.TOTL.GD.ZS": {
+   "label": "dette_publique",
+   "url": "https://api.worldbank.org/v2/country/USA;JPN;GBR;CHE;AUS;CAN;KOR;EMU/indicator/GC.DOD.TOTL.GD.ZS?format=json&mrv=4&per_page=200",
+   "values": {
+    "AUS": [
+     "2022",
+     57.8834285733848
+    ],
+    "CAN": [
+     "2024",
+     64.1314232901439
+    ],
+    "CHE": [
+     "2024",
+     22.2786942016816
+    ],
+    "GBR": [
+     "2024",
+     130.735888365813
+    ],
+    "KOR": [
+     "2024",
+     47.8141426119509
+    ],
+    "USA": [
+     "2024",
+     115.788609964778
+    ]
+   }
+  },
+  "GC.NLD.TOTL.GD.ZS": {
+   "label": "solde_public",
+   "url": "https://api.worldbank.org/v2/country/USA;JPN;GBR;CHE;AUS;CAN;KOR;EMU/indicator/GC.NLD.TOTL.GD.ZS?format=json&mrv=4&per_page=200",
+   "values": {
+    "AUS": [
+     "2022",
+     -1.3473393407169
+    ],
+    "CAN": [
+     "2024",
+     -1.16896907916261
+    ],
+    "CHE": [
+     "2024",
+     0.49125164665876
+    ],
+    "EMU": [
+     "2024",
+     -2.74362341201109
+    ],
+    "GBR": [
+     "2024",
+     -6.86231516155942
+    ],
+    "KOR": [
+     "2024",
+     -1.78522109808118
+    ],
+    "USA": [
+     "2024",
+     -7.18895885533261
+    ]
+   }
+  },
+  "NY.GDP.MKTP.KD.ZG": {
+   "label": "croissance",
+   "url": "https://api.worldbank.org/v2/country/USA;JPN;GBR;CHE;AUS;CAN;KOR;EMU/indicator/NY.GDP.MKTP.KD.ZG?format=json&mrv=4&per_page=200",
+   "values": {
+    "AUS": [
+     "2025",
+     1.35039785076631
+    ],
+    "CAN": [
+     "2025",
+     1.74268536175708
+    ],
+    "CHE": [
+     "2025",
+     1.30007790958307
+    ],
+    "EMU": [
+     "2025",
+     1.4110724231835
+    ],
+    "GBR": [
+     "2025",
+     1.38844207858726
+    ],
+    "JPN": [
+     "2025",
+     1.19311288444599
+    ],
+    "KOR": [
+     "2025",
+     1.00701840291242
+    ],
+    "USA": [
+     "2025",
+     2.16138195623856
+    ]
+   }
+  }
+ }
+}

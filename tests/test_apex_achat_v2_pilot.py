@@ -55,8 +55,8 @@ def test_pilot_file_communication_only():
                     + pts['cci'] + pts['fondamental'] + (pts['fear_greed'] or 0)
                     + (pts.get('hype') or 0))
         assert rec['total'] == expected == pts['total']
-        assert rec['total_min'] == -80 and rec['total_max'] == 280
-        assert 'hype' in pts and (pts['hype'] is None or -30 <= pts['hype'] <= 30)
+        assert rec['total_min'] == -50 and rec['total_max'] == 250  # APE-25
+        assert 'hype' in pts and (pts['hype'] is None or 0 <= pts['hype'] <= 20)
         assert 'elliott' not in pts
         assert 'Elliott' not in (rec.get('ligne') or '')
     # déploiement mondial : toutes les sections Actions sont dans pilotes
@@ -65,20 +65,20 @@ def test_pilot_file_communication_only():
 
 
 def test_cinq_tranches_egales():
-    # t421u : −80 à 280, 5 tranches égales de 72 points
-    assert P.SCALE_MIN == -80 and P.SCALE_MAX == 280 and P.TECH_MAX == 110 and P.HYPE_ABS == 30
-    assert P.band_of(-80) == 'violet'
-    assert P.band_of(-8.1) == 'violet'
-    assert P.band_of(-8) == 'rouge'
-    assert P.band_of(63.9) == 'rouge'
-    assert P.band_of(64) == 'orange'
-    assert P.band_of(135.9) == 'orange'
-    assert P.band_of(136) == 'vert'
-    assert P.band_of(207.9) == 'vert'
-    assert P.band_of(208) == 'cyan'
-    assert P.band_of(280) == 'cyan'
+    # APE-25 : −50 à 250, 5 tranches égales de 60 points
+    assert P.SCALE_MIN == -50 and P.SCALE_MAX == 250 and P.HYPE_ABS == 20
+    assert P.band_of(-50) == 'violet'
+    assert P.band_of(9.9) == 'violet'
+    assert P.band_of(10) == 'rouge'
+    assert P.band_of(69.9) == 'rouge'
+    assert P.band_of(70) == 'orange'
+    assert P.band_of(129.9) == 'orange'
+    assert P.band_of(130) == 'vert'
+    assert P.band_of(189.9) == 'vert'
+    assert P.band_of(190) == 'cyan'
+    assert P.band_of(250) == 'cyan'
     import apply_attention as AA
-    for t in (-80, -8, 0, 64, 100, 136, 150, 208, 280):
+    for t in (-50, 9, 10, 69, 70, 100, 130, 150, 190, 250):
         assert AA.band_of(t) == P.band_of(t)
 
 
@@ -87,14 +87,14 @@ def test_note_sans_elliott_sur_le_pilote_communication():
     xlc = d['pilotes']['XLC']
     by = {a['tv']: a for a in xlc['actions']}
     by['XETR:ZPDK'] = xlc['etf']
-    # Elliott retiré de la note (pas de redistribution) : APP 160−20=140, NFLX 190−20=170, GOOGL 180−20=160
+    # APE-25 : indicateurs × 0,9 (RSI/MACD/Fibo 9-18-27, CCI 18, fond 9 × 9) ; ETF : fond moyen des 10 titres
     for tv, total in {
-        'NASDAQ:APP': 140, 'XETR:ZPDK': 140, 'NYSE:RDDT': 210,
-        'NASDAQ:META': 110, 'NASDAQ:NFLX': 170, 'NASDAQ:GOOGL': 160,
+        'NASDAQ:APP': 129, 'XETR:ZPDK': 115, 'NYSE:RDDT': 192,
+        'NASDAQ:META': 102, 'NASDAQ:NFLX': 156, 'NASDAQ:GOOGL': 147,
     }.items():
         assert 'elliott' not in by[tv]['points']
         assert base(by[tv]) == total
-        assert by[tv]['total_max'] == 280
+        assert by[tv]['total_max'] == 250
         assert 'Elliott' not in (by[tv].get('ligne') or '')
     top5 = {'NYSE:RDDT', 'NASDAQ:NFLX', 'NASDAQ:GOOGL', 'NASDAQ:APP', 'NASDAQ:META'}
     order = sorted([a for a in xlc['actions'] if a['tv'] in top5], key=lambda a: -base(a))
@@ -104,7 +104,7 @@ def test_note_sans_elliott_sur_le_pilote_communication():
     assert len(xlc['actions']) == 10
     for a in xlc['actions']:
         assert 'elliott' not in a['points']
-        assert a['total_max'] == 280
+        assert a['total_max'] == 250
 
 
 def test_cci_stochastic_formule_daveatt():
@@ -130,17 +130,17 @@ def test_cci_stoch_et_fond_valides_sur_pilote():
     d = load_full()
     d = d['pilotes']['XLC']
     expected = {
-        'XETR:ZPDK':  {'cci_pts': 0,  'cci': 24.00, 'fond': 80, 'total': 140},
-        'NASDAQ:APP': {'cci_pts': 0,  'cci': 54.29, 'fond': 90, 'total': 140},
-        'NYSE:RDDT':  {'cci_pts': 20, 'cci': 14.87, 'fond': 90, 'total': 210},
-        'NASDAQ:META':{'cci_pts': 0,  'cci': 33.95, 'fond': 80, 'total': 110},
-        'NASDAQ:NFLX':{'cci_pts': 20, 'cci': 17.60, 'fond': 70, 'total': 170},
-        'NASDAQ:GOOGL':{'cci_pts': 20,'cci': 8.12,  'fond': 70, 'total': 160},
+        'XETR:ZPDK':  {'cci_pts': 0,  'cci': 24.00, 'fond': 58, 'total': 115},
+        'NASDAQ:APP': {'cci_pts': 0,  'cci': 54.29, 'fond': 81, 'total': 129},
+        'NYSE:RDDT':  {'cci_pts': 18, 'cci': 14.87, 'fond': 81, 'total': 192},
+        'NASDAQ:META':{'cci_pts': 0,  'cci': 33.95, 'fond': 72, 'total': 102},
+        'NASDAQ:NFLX':{'cci_pts': 18, 'cci': 17.60, 'fond': 63, 'total': 156},
+        'NASDAQ:GOOGL':{'cci_pts': 18,'cci': 8.12,  'fond': 63, 'total': 147},
     }
     recs = [d['etf']] + d['actions']
     for rec in recs:
         if rec['tv'] not in expected:
-            assert rec['ok'] is True and rec['total_max'] == 280
+            assert rec['ok'] is True and rec['total_max'] == 250
             continue
         exp = expected[rec['tv']]
         det = rec['detail']['cci']
@@ -207,13 +207,14 @@ def test_finance_usa_hors_banque_sur_le_top5():
     assert all(a.get('is_bank') is False for a in by5.values())
     assert all(a.get('regles') == 'apex_achat_v2' for a in by5.values())
     by = {a['tv']: a for a in xlf['actions']}
-    assert base(by['NYSE:MA']) == 110
-    assert base(by['NYSE:V']) == 110
-    assert base(by['NYSE:BLK']) == 110
-    assert base(by['NYSE:SCHW']) == 130
-    assert base(by['NYSE:SPGI']) == 90
-    assert xlf['etf']['tv'] == 'XETR:ZPDF' and base(xlf['etf']) == 102
-    assert base(site['by_tv']['XETR:ZPDF']) == 102
+    # APE-25 (× 0,9 ; ETF : fond moyen des 10 titres)
+    assert base(by['NYSE:MA']) == 102
+    assert base(by['NYSE:V']) == 102
+    assert base(by['NYSE:BLK']) == 102
+    assert base(by['NYSE:SCHW']) == 120
+    assert base(by['NYSE:SPGI']) == 84
+    assert xlf['etf']['tv'] == 'XETR:ZPDF' and base(xlf['etf']) == 87
+    assert base(site['by_tv']['XETR:ZPDF']) == 87
     # vraies banques présentes dans le fichier (autres pays)
     banks = [a for p in d['pilotes'].values() for a in p['actions'] if a.get('is_bank')]
     assert any(a['tv'] == 'EURONEXT:BNP' for a in banks)

@@ -30,7 +30,7 @@ def test_format_compact_comme_actions():
         assert frag not in visible, frag
     assert "rgMetauxChamp" in grid or "intro_courte" in JS
     assert "Meilleures entrées" in grid
-    assert "Portail cyan" in grid
+    assert "Portail cyan" not in grid and "Qualité ETC" in grid  # APE-25 : portail retiré
     # une ligne d'intro, pas trois paragraphes d'effet d'échelle
     assert "effet_echelle_av" not in grid
 

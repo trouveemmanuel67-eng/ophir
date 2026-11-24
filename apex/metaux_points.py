@@ -192,10 +192,12 @@ def score_instrument(obj, metal=None, av=None, fg=None):
     if fg is None:
         fg = load_cnn_fg()
     fg_pts = int(fg['points']) if fg and fg.get('ok') else 0
-    # HYPE 90 : métaux purs (comptant) seulement. ETC et minières : pas de HYPE.
+    # HYPE : métaux purs (comptant) 90 ; ETC 45 (attention du métal sous-jacent, grille crypto) ;
+    # minières : pas de HYPE (fondamental 90). APE-25 : Qualité ETC 45 (justETF) complète l'ETC à 250.
     hype_pts = None
     att_val = None
-    if kind == 'spot':
+    qual_pts, qual_nc, qual_el = None, None, None
+    if kind in ('spot', 'etc'):
         try:
             from apply_attention import attention_of, hype_points_90
         except ImportError:
@@ -203,33 +205,29 @@ def score_instrument(obj, metal=None, av=None, fg=None):
         metal_key = {
             'Or': 'OR', 'Argent': 'ARGENT', 'Platine': 'PLATINE', 'Palladium': 'PALLADIUM',
         }.get(metal, (metal or '').upper())
-        att_val = attention_of(metal_key, metal, obj.get('tv'), obj.get('yahoo'), obj.get('ticker'))
-        hype_pts = hype_points_90(att_val)
+        att_val = attention_of(metal_key, metal) if kind == 'etc' else attention_of(metal_key, metal, obj.get('tv'), obj.get('yahoo'), obj.get('ticker'))
+        if kind == 'spot':
+            hype_pts = hype_points_90(att_val)
+        else:
+            from .crypto_points import hype_points_45
+            hype_pts = hype_points_45(att_val)
+    if kind == 'etc':
+        from .long250 import etc_quality
+        qual_pts, qual_nc, qual_el = etc_quality(obj.get('isin'))
+        extra += int(qual_pts)
     brut = int(rsi_pts + macd_pts + fibo_pts + cci_pts + extra + fg_pts + (hype_pts or 0))
     n = max(int(cfg['min']), min(int(cfg['max']), int(round_half(brut))))
-    # Portail cyan : même seuils 190 / 175, confirmation divergence haussière hebdo + AV ≥ +60.
-    rcfg = _R()
-    cy_av = (rcfg.get('cyan') or {}).get('av_achat_fort', 60)
-    if av is None and isinstance(obj.get('av'), dict):
-        av = obj['av'].get('score')
-    if n >= cfg['cyan_min']:
-        av_fort = (av is not None) and (float(av) >= cy_av)
-        conf = divergence_haussiere(div)
-        if not (av_fort and conf):
-            n = int(cfg['cyan_plafond'])
-            cap.append('cyan')
+    # APE-25 (t503u) : portail cyan retiré, la note peut atteindre 250.
     cap = [c for c in cap if c]
     band = metaux_band(n)
     parts = [
         ('RSI', rsi_pts), ('MACD', macd_pts), ('Fibo', fibo_pts), ('CCI', cci_pts),
         *( [('Fond.', extra)] if has_fond else [] ),
+        *( [('Qualité ETC', qual_pts)] if kind == 'etc' else [] ),
         ('F&G', fg_pts if fg and fg.get('ok') else None),
-        *( [('Hype', hype_pts if hype_pts is not None else '—')] if kind == 'spot' else [] ),
+        *( [('Hype', hype_pts if hype_pts is not None else '—')] if kind in ('spot', 'etc') else [] ),
     ]
     texte = _ligne(parts, n)
-    if 'cyan' in cap:
-        # APE-24 : rendre visible le plafond du portail cyan (somme des blocs ≠ note affichée).
-        texte = texte.replace('  →  ', f'  = {brut}, plafond cyan  →  ', 1)
     return {
         'note': n,
         'display': fmt10(n),
@@ -255,7 +253,9 @@ def score_instrument(obj, metal=None, av=None, fg=None):
             'cci': {**cci_det, 'points': cci_pts},
             'fondamental': {'points': fond_total, 'elements': fond_elems} if has_fond else None,
             'structure': struct_det,
-            'hype': {'points': hype_pts, 'attention': att_val, 'grille': '0–9→+90 … 100→0', 'etat': 'applique' if kind=='spot' else 'hors_comptant'},
+            'hype': {'points': hype_pts, 'attention': att_val, 'grille': ('0–9→+90 … 100→0' if kind == 'spot' else '0–9→+45, −4 par tranche jusqu’à 40–49 (29), puis 25 − 5 par tranche (grille crypto)'), 'etat': 'applique' if kind in ('spot', 'etc') else 'hors_comptant'},
+            'qualite_etc': None if kind != 'etc' else {'points': qual_pts, 'max': 45, 'elements': qual_el, 'nc': qual_nc,
+                            'regle': '5 × 9 : TER ≤ 0,25 % ; TER ≤ 0,15 % ; encours ≥ 1 Md€ ; ancienneté ≥ 5 ans ; réplication physique (justETF)'},
             'echelle': 250,
         },
         'technique': None,

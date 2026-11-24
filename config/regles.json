@@ -414,7 +414,7 @@
             "texte": "Si le fondamental est inférieur au seuil, une pénalité proportionnelle est retranchée de la note, plafonnée au maximum indiqué."
           }
         },
-        "precision": "Actions USA et France : note −80 à 280, points entiers qui s’additionnent. Technique 110 (RSI 30, MACD 30, Fibonacci 30, CCI 20) + Fondamental 90 (9 × 10 ; règle banque pour les banques) + F&G CNN ±50 + H ±30 (attention à contre-courant : (50 − attention) × 0,6). Sans Elliott. Le bandeau Achat / Vente reste calculé à part, sur sa propre grille.",
+        "precision": "Actions USA et France : note −50 à 250, points entiers qui s’additionnent. Technique 99 : RSI 27, MACD 27, Fibo 27, CCI 18 + Fondamental 81 (9 × 9 ; règle banque pour les banques) + F&G CNN ±50 + H 0 à 20 (attention à contre-courant : 20 − 2 × tranche de 10). Sans Elliott. Le bandeau Achat / Vente reste calculé à part, sur sa propre grille.",
         "technique": {
           "source": "config/regles.json · apex/score.py · src/technique_apex.py",
           "fixes": [
@@ -531,7 +531,7 @@
           "renormalise": true
         },
         "fondamental": null,
-        "precision": "ETF sectoriels USA et paniers APEX France : même barème −80 à 280 que les actions. Fondamental = moyenne des 5 premières actions du secteur ; H = moyenne arrondie des H des actions affichées. Technique lue sur les bougies hebdo de l’ETF (ou du panier reconstruit). Sans Elliott.",
+        "precision": "ETF sectoriels USA et paniers APEX France : même barème −50 à 250 que les actions. Fondamental et H = moyennes arrondies sur les 10 actions affichées du secteur (mêmes titres). Technique lue sur les bougies hebdo de l’ETF (ou du panier reconstruit). Sans Elliott.",
         "technique": {
           "source": "config/regles.json · apex/score.py · src/technique_apex.py",
           "fixes": [
@@ -1248,7 +1248,7 @@
         "note": null,
         "timing": null,
         "fondamental": null,
-        "precision": "Les lignes de l'onglet Placements sont un relevé patrimonial. Elles n'ont pas de note APEX /100. Barème adapté proposé (−50 à 140, sans technique) dans RÈGLES LONG ; aucune note n'est créée pour l'instant.",
+        "precision": "Lignes Placements (compte d’épargne EUR et fonds monétaire USD Revolut) : note APEX −50 à 250 depuis APE-25 — contexte de taux 110 + fondamental épargne 90 + CNN Fear & Greed inversé ±50 (voir RÈGLES LONG › Placements).",
         "technique": null
       },
       {
@@ -1299,7 +1299,7 @@
           }
         },
         "fondamental": null,
-        "precision": "L’onglet Immobilier (foncières, REIT, SCPI selon ce qui est présent) conserve son barème propre de timing, qui constitue 100 % de la note d’onglet. Les titres individuels d’une liste, s’ils ont un fondamental, suivent la formule 50 / 50 des actions. Barème adapté proposé (−50 à 140, sans technique d'onglet) dans RÈGLES LONG ; calcul non encore aligné, notes publiées inchangées.",
+        "precision": "Onglet Immobilier : note APEX −50 à 250 depuis APE-25 — contexte marché 110 + fondamental immobilier 90 (critères n.c. tant que les données ne sont pas collectées) + sentiment immobilier à contre-courant ±50. Les foncières cotées restent notées dans l’onglet Actions. Aucune SCPI suivie sur le site.",
         "technique": null
       }
     ],
@@ -1314,94 +1314,94 @@
   },
   "apex_achat_v2": {
     "titre": "APEX ACHAT — nouvelles règles (en construction)",
-    "intro": "L’indicateur APEX ACHAT se construit par accumulation de points, critère par critère. Échelle −80 à 280 (technique 110 : RSI 30, MACD 30, Fibo 30, CCI 20 ; fondamental 90 ; Fear & Greed ±50 ; H hype / attention ±30, à contre-courant). Ce règlement s’applique aux actions hors banques des USA et de la France. Les vagues d’Elliott ne font plus partie de la note.",
+    "intro": "L’indicateur APEX ACHAT se construit par accumulation de points, critère par critère. Échelle −50 à 250 (APE-25, 24/11/2026 : chaque indicateur compressé de 10 %, × 0,9 — Technique 99 : RSI 27, MACD 27, Fibo 27, CCI 18 ; fondamental 81, 9 × 9 ; Fear & Greed ±50 ; H hype / attention 0 à 20, à contre-courant). Ce règlement s’applique aux actions hors banques des USA et de la France. Les vagues d’Elliott ne font plus partie de la note.",
     "utilise_par_le_calcul": true,
     "reference_titre": "Règles actuelles de la note APEX (référence)",
     "criteres": [
       {
         "id": "rsi_14_hebdo",
         "label": "RSI 14 hebdo",
-        "max": 30,
+        "max": 27,
         "retrait": false,
         "cumulables": true,
-        "precision": "Les deux conditions sont cumulables. Maximum 30 points sur le RSI. Aucun retrait.",
+        "precision": "Les deux conditions sont cumulables. Maximum 27 points sur le RSI. Aucun retrait.",
         "conditions": [
           {
             "id": "rsi_sous_40",
             "label": "RSI < 40",
-            "points": 10
+            "points": 9
           },
           {
             "id": "divergence_rsi_haussiere_hebdo",
             "label": "Divergence RSI haussière, hebdomadaire",
-            "points": 20
+            "points": 18
           }
         ],
-        "regle_courte": "RSI < 40 : +10 ; divergence haussière : +20 ; cumulables"
+        "regle_courte": "RSI < 40 : +9 ; divergence haussière : +18 ; cumulables (max 27)"
       },
       {
         "id": "macd_12_26_9_hebdo",
         "label": "MACD 12/26/9 hebdo",
-        "max": 30,
+        "max": 27,
         "retrait": false,
         "cumulables": true,
-        "precision": "Les deux conditions sont cumulables. Maximum 30 points sur le MACD. Aucun retrait.",
+        "precision": "Les deux conditions sont cumulables. Maximum 27 points sur le MACD. Aucun retrait.",
         "conditions": [
           {
             "id": "macd_sous_0",
             "label": "MACD < 0",
-            "points": 10
+            "points": 9
           },
           {
             "id": "histo_4_barres_rouges_sous_0",
             "label": "Au moins 4 barres d’histogramme rouges consécutives sous 0",
-            "points": 20
+            "points": 18
           }
         ],
-        "regle_courte": "MACD < 0 : +10 ; MACD < 0 et 4 barres rouges d'histogramme consécutives (histogramme < 0 ou en baisse) : +20 ; cumulables, plafond 30."
+        "regle_courte": "MACD < 0 : +9 ; MACD < 0 et 4 barres rouges d'histogramme consécutives (histogramme < 0 ou en baisse) : +18 ; cumulables (max 27)"
       },
       {
         "id": "fibonacci",
         "label": "Fibonacci",
-        "max": 30,
+        "max": 27,
         "retrait": false,
         "cumulables": false,
         "preambule": "Retracement plus bas historique → plus haut historique (corps hebdomadaires).",
-        "precision": "Paliers non cumulables : le palier atteint dépend de l’endroit où se trouve le prix. Maximum 30 points. Aucun retrait.",
+        "precision": "Paliers non cumulables : le palier atteint dépend de l’endroit où se trouve le prix. Maximum 27 points. Aucun retrait.",
         "conditions": [
           {
             "id": "sous_382",
             "label": "Prix sous 38,2 %",
-            "points": 10
+            "points": 9
           },
           {
             "id": "sous_618",
             "label": "Prix sous 61,8 %",
-            "points": 20
+            "points": 18
           },
           {
             "id": "sous_786",
             "label": "Prix sous 78,6 %",
-            "points": 30
+            "points": 27
           }
         ],
-        "regle_courte": "Plus bas → plus haut (corps hebdo). Sous 38,2 % : +10 ; 61,8 % : +20 ; 78,6 % : +30. Non cumulables"
+        "regle_courte": "Plus bas → plus haut (corps hebdo). Sous 38,2 % : +9 ; 61,8 % : +18 ; 78,6 % : +27. Non cumulables"
       },
       {
         "id": "cci_20_hebdo",
         "label": "CCI Stochastic 28 hebdo (Daveatt)",
-        "max": 20,
+        "max": 18,
         "retrait": false,
         "cumulables": false,
-        "precision": "Maximum 20 points. Aucun retrait. Formule Daveatt (CCI 28, stoch 28, lissages 3 et 3, ligne D).",
+        "precision": "Maximum 18 points. Aucun retrait. Formule Daveatt (CCI 28, stoch 28, lissages 3 et 3, ligne D).",
         "conditions": [
           {
             "id": "cci_sous_20",
             "label": "CCI Stochastic sous 20",
-            "points": 20
+            "points": 18
           }
         ],
-        "regle_courte": "+20 si sous 20"
+        "regle_courte": "+18 si sous 20"
       }
     ],
     "affichage_seulement": false,
@@ -1412,10 +1412,10 @@
     "fondamental": {
       "id": "fondamental",
       "label": "Fondamental",
-      "max": 90,
-      "points_si_bon": 10,
+      "max": 81,
+      "points_si_bon": 9,
       "retrait": false,
-      "precision": "Chaque élément rapporte +10 points s’il est bon, sinon 0 (donnée manquante = 0). 9 éléments, maximum 90 points. Seuils validés.",
+      "precision": "Chaque élément rapporte +9 points s’il est bon, sinon 0 (donnée manquante = 0). 9 éléments, maximum 81 points. Seuils validés.",
       "groupes": [
         {
           "id": "sante",
@@ -1425,35 +1425,35 @@
               "id": "dette_nette_ebitda",
               "label": "Dette nette / EBITDA",
               "bon_si": "< 2",
-              "points": 10,
+              "points": 9,
               "seuil_a_valider": false
             },
             {
               "id": "marge_operationnelle",
               "label": "Marge opérationnelle",
               "bon_si": "> 15 %",
-              "points": 10,
+              "points": 9,
               "seuil_a_valider": false
             },
             {
               "id": "marge_fcf",
               "label": "Marge de cash-flow libre",
               "bon_si": "> 10 %",
-              "points": 10,
+              "points": 9,
               "seuil_a_valider": false
             },
             {
               "id": "roe",
               "label": "ROE",
               "bon_si": "> 15 %",
-              "points": 10,
+              "points": 9,
               "seuil_a_valider": false
             },
             {
               "id": "ratio_liquidite_courante",
               "label": "Ratio de liquidité courante",
               "bon_si": "> 1,2",
-              "points": 10,
+              "points": 9,
               "seuil_a_valider": false
             }
           ]
@@ -1466,28 +1466,28 @@
               "id": "bpa_annee_prochaine",
               "label": "BPA année prochaine",
               "bon_si": "> 10 %",
-              "points": 10,
+              "points": 9,
               "seuil_a_valider": false
             },
             {
               "id": "bpa_cette_annee",
               "label": "BPA cette année",
               "bon_si": "> 10 %",
-              "points": 10,
+              "points": 9,
               "seuil_a_valider": false
             },
             {
               "id": "ca_annee_prochaine",
               "label": "CA année prochaine",
               "bon_si": "> 5 %",
-              "points": 10,
+              "points": 9,
               "seuil_a_valider": false
             },
             {
               "id": "ca_cette_annee",
               "label": "CA cette année",
               "bon_si": "> 5 %",
-              "points": 10,
+              "points": 9,
               "seuil_a_valider": false
             }
           ]
@@ -1587,22 +1587,22 @@
     "hype": {
       "id": "hype",
       "label": "Hype / attention (H)",
-      "max": 30,
-      "max_affiche": "±30",
-      "min": -30,
+      "max": 20,
+      "max_affiche": "0 à 20",
+      "min": 0,
       "utilise_par_le_calcul": true,
       "a_contre_courant": true,
       "date_validation": "24/11/2026",
       "tache": "t417u–t421u",
-      "precision": "Indicateur d’Attention Long Swing : note 0–100, horizon semaines / mois, calcul hebdomadaire (week-end). Ce n’est ni un indicateur technique, ni le Fear & Greed, ni un signal d’achat ou de vente : plus un titre est à la mode, plus il perd de points (attention 100 → −30, 50 → 0, 0 → +30). Google Trends : USA « <nom> stock » (monde), France nom de la société (France). Mentions : Reddit via ApeWisdom (wallstreetbets, stocks, investing…) ; X et StockTwits non accessibles ; actions françaises sans ADR US : « – ». Pondération recalculée sur les sources disponibles. ETF / panier de section : moyenne des H des actions affichées.",
+      "precision": "Indicateur d’Attention Long Swing : note 0–100, horizon semaines / mois, calcul hebdomadaire (week-end). Ce n’est ni un indicateur technique, ni le Fear & Greed, ni un signal d’achat ou de vente : plus un titre est à la mode, plus il perd de points (attention 0–9 → +20, −2 par tranche de 10, 100 → 0). Google Trends : USA « <nom> stock » (monde), France nom de la société (France). Mentions : Reddit via ApeWisdom (wallstreetbets, stocks, investing…) ; X et StockTwits non accessibles ; actions françaises sans ADR US : « – ». Pondération recalculée sur les sources disponibles. ETF / panier de section : moyenne des H des actions affichées.",
       "criteres": [
         {
           "id": "hype_formule",
           "label": "Apport H (à contre-courant)",
-          "points_max": "±30",
-          "regle": "H = (50 − attention) × 0,6, arrondi. Attention 100 → −30 ; 50 → 0 ; 0 → +30. Donnée d’attention absente : H = 0, affiché « – », jamais inventée.",
-          "regle_courte": "H = (50 − attention) × 0,6 ; absente : 0, affiché « – »",
-          "detail": "H = (50 − attention) × 0,6 : attention 100 → −30, 50 → 0, 0 → +30. Absente : 0, affiché « – »."
+          "points_max": "0 à 20",
+          "regle": "H = 20 − 2 × tranche d’attention (tranche = attention ÷ 10, arrondi par défaut). Attention 0–9 → +20 ; 50 → +10 ; 100 → 0. Donnée d’attention absente : H = 0, affiché « – », jamais inventée.",
+          "regle_courte": "H = 20 − 2 × tranche ; absente : 0, affiché « – »",
+          "detail": "H = 20 − 2 × tranche d’attention (tranche = attention ÷ 10, arrondi par défaut). Attention 0–9 → +20 ; 50 → +10 ; 100 → 0. Donnée d’attention absente : H = 0, affiché « – », jamais inventée."
         },
         {
           "id": "hype_trends",
@@ -1635,57 +1635,52 @@
       ]
     },
     "couleurs_echelle": {
-      "regle": "Échelle −80 à 280 (360 points) découpée en 5 tranches égales de 72 points, aux mêmes proportions que l’ancienne échelle −50 à 250 (20 / 40 / 60 / 80 %). Dégradé violet → rouge → orange → vert → cyan inchangé. Meilleures entrées : note ≥ 136 (début du vert, auparavant 130 / 250).",
+      "regle": "APE-25 (24/11/2026) : échelle unique −50 à 250 pour toutes les classes. Technique 99 (RSI 27, MACD 27, Fibonacci 27, CCI 18) + Fondamental 81 (9 × 9) + H 0 à 20 + F&G ±50 : chaque indicateur est compressé de 10 % (× 0,9) pour ramener le maximum de 280 à 250. Meilleures entrées : note ≥ 130 (début du vert).",
       "bandes": [
         {
           "id": "violet",
-          "de": -80,
-          "a": -8,
-          "regle": "< −8",
+          "de": -50,
+          "a": 10,
+          "regle": "< 10",
           "hex": "#9d54ff"
         },
         {
           "id": "rouge",
-          "de": -8,
-          "a": 64,
-          "regle": "−8 à < 64",
+          "de": 10,
+          "a": 70,
+          "regle": "10 à < 70",
           "hex": "#ff2d2d"
         },
         {
           "id": "orange",
-          "de": 64,
-          "a": 136,
-          "regle": "64 à < 136",
+          "de": 70,
+          "a": 130,
+          "regle": "70 à < 130",
           "hex": "#ff8c1a"
         },
         {
           "id": "vert",
-          "de": 136,
-          "a": 208,
-          "regle": "136 à < 208",
+          "de": 130,
+          "a": 190,
+          "regle": "130 à < 190",
           "hex": "#22c55e"
         },
         {
           "id": "cyan",
-          "de": 208,
-          "a": 280,
-          "regle": "≥ 208",
+          "de": 190,
+          "a": 250,
+          "regle": "≥ 190",
           "hex": "#00e5ff"
         }
       ],
-      "seuil_meilleures_entrees": 136,
-      "ancien": {
-        "echelle": "−50 à 250",
-        "bandes": "<10 · 10–70 · 70–130 · 130–190 · ≥190",
-        "seuil": 130
-      },
-      "date": "24/11/2026"
-    }
+      "seuil_meilleures_entrees": 130
+    },
+    "echelle": "−50 à 250"
   },
   "apex_achat_v2_banque": {
     "titre": "Actions bancaires",
     "section_titre": "Actions bancaires",
-    "intro": "Même technique (110 : RSI 30, MACD 30, Fibo 30, CCI 20) et même Fear & Greed (±50) que les actions hors banque. Fondamental bancaire validé le 23/11/2026 : 90 points, 9 critères à +10 chacun (0 si le seuil n’est pas atteint ou si la donnée manque). Échelle −80 à 280 (H hype / attention ±30, à contre-courant, en plus). Les vagues d’Elliott ne font plus partie de la note. Ce règlement s’applique aux banques des USA et de la France.",
+    "intro": "Même technique (Technique 99 : RSI 27, MACD 27, Fibo 27, CCI 18) et même Fear & Greed (±50) que les actions hors banque. Fondamental bancaire validé le 23/11/2026, compressé le 24/11 (APE-25) : 81 points, 9 critères à +9 chacun (0 si le seuil n’est pas atteint ou si la donnée manque). Échelle −50 à 250 (H hype / attention 0 à 20, à contre-courant, en plus). Les vagues d’Elliott ne font plus partie de la note. Ce règlement s’applique aux banques des USA et de la France.",
     "champ_application": "Ce règlement s’applique aux banques (industries Yahoo Banks, Banks - Diversified, Banks - Regional, Savings Institutions) des USA et de la France. Les assurances et les autres financières relèvent des règles Actions (hors banque). Les positions détenues hors de cet univers restent visibles dans Mes positions.",
     "utilise_par_le_calcul": true,
     "affichage_seulement": false,
@@ -1694,87 +1689,87 @@
       {
         "id": "rsi_14_hebdo",
         "label": "RSI 14 hebdo",
-        "max": 30,
+        "max": 27,
         "retrait": false,
         "cumulables": true,
-        "precision": "Les deux conditions sont cumulables. Maximum 30 points sur le RSI. Aucun retrait.",
+        "precision": "Les deux conditions sont cumulables. Maximum 27 points sur le RSI. Aucun retrait.",
         "conditions": [
           {
             "id": "rsi_sous_40",
             "label": "RSI < 40",
-            "points": 10
+            "points": 9
           },
           {
             "id": "divergence_rsi_haussiere_hebdo",
             "label": "Divergence RSI haussière, hebdomadaire",
-            "points": 20
+            "points": 18
           }
         ],
-        "regle_courte": "RSI < 40 : +10 ; divergence haussière : +20 ; cumulables"
+        "regle_courte": "RSI < 40 : +9 ; divergence haussière : +18 ; cumulables (max 27)"
       },
       {
         "id": "macd_12_26_9_hebdo",
         "label": "MACD 12/26/9 hebdo",
-        "max": 30,
+        "max": 27,
         "retrait": false,
         "cumulables": true,
-        "precision": "Les deux conditions sont cumulables. Maximum 30 points sur le MACD. Aucun retrait.",
+        "precision": "Les deux conditions sont cumulables. Maximum 27 points sur le MACD. Aucun retrait.",
         "conditions": [
           {
             "id": "macd_sous_0",
             "label": "MACD < 0",
-            "points": 10
+            "points": 9
           },
           {
             "id": "histo_4_barres_rouges_sous_0",
             "label": "Au moins 4 barres d’histogramme rouges consécutives sous 0",
-            "points": 20
+            "points": 18
           }
         ],
-        "regle_courte": "MACD < 0 : +10 ; MACD < 0 et 4 barres rouges d'histogramme consécutives (histogramme < 0 ou en baisse) : +20 ; cumulables, plafond 30."
+        "regle_courte": "MACD < 0 : +9 ; MACD < 0 et 4 barres rouges d'histogramme consécutives (histogramme < 0 ou en baisse) : +18 ; cumulables (max 27)"
       },
       {
         "id": "fibonacci",
         "label": "Fibonacci",
-        "max": 30,
+        "max": 27,
         "retrait": false,
         "cumulables": false,
         "preambule": "Retracement plus bas historique → plus haut historique (corps hebdomadaires).",
-        "precision": "Paliers non cumulables : le palier atteint dépend de l’endroit où se trouve le prix. Maximum 30 points. Aucun retrait.",
+        "precision": "Paliers non cumulables : le palier atteint dépend de l’endroit où se trouve le prix. Maximum 27 points. Aucun retrait.",
         "conditions": [
           {
             "id": "sous_382",
             "label": "Prix sous 38,2 %",
-            "points": 10
+            "points": 9
           },
           {
             "id": "sous_618",
             "label": "Prix sous 61,8 %",
-            "points": 20
+            "points": 18
           },
           {
             "id": "sous_786",
             "label": "Prix sous 78,6 %",
-            "points": 30
+            "points": 27
           }
         ],
-        "regle_courte": "Plus bas → plus haut (corps hebdo). Sous 38,2 % : +10 ; 61,8 % : +20 ; 78,6 % : +30. Non cumulables"
+        "regle_courte": "Plus bas → plus haut (corps hebdo). Sous 38,2 % : +9 ; 61,8 % : +18 ; 78,6 % : +27. Non cumulables"
       },
       {
         "id": "cci_20_hebdo",
         "label": "CCI Stochastic 28 hebdo (Daveatt)",
-        "max": 20,
+        "max": 18,
         "retrait": false,
         "cumulables": false,
-        "precision": "Maximum 20 points. Aucun retrait. Formule Daveatt (CCI 28, stoch 28, lissages 3 et 3, ligne D).",
+        "precision": "Maximum 18 points. Aucun retrait. Formule Daveatt (CCI 28, stoch 28, lissages 3 et 3, ligne D).",
         "conditions": [
           {
             "id": "cci_sous_20",
             "label": "CCI Stochastic sous 20",
-            "points": 20
+            "points": 18
           }
         ],
-        "regle_courte": "+20 si sous 20"
+        "regle_courte": "+18 si sous 20"
       }
     ],
     "sentiment": {
@@ -1856,12 +1851,12 @@
     "fondamental": {
       "id": "fondamental_bancaire",
       "label": "Fondamental",
-      "max": 90,
-      "points_si_bon": 10,
+      "max": 81,
+      "points_si_bon": 9,
       "retrait": false,
       "a_personnaliser": false,
       "points_non_fixes": false,
-      "precision": "Chaque élément rapporte +10 points s’il est bon, sinon 0 (donnée manquante = 0). 9 éléments, maximum 90 points. Seuils validés le 23/11/2026.",
+      "precision": "Chaque élément rapporte +9 points s’il est bon, sinon 0 (donnée manquante = 0). 9 éléments, maximum 81 points. Seuils validés le 23/11/2026.",
       "groupes": [
         {
           "id": "sante_bancaire",
@@ -1871,35 +1866,35 @@
               "id": "roe",
               "label": "ROE",
               "bon_si": "> 10 %",
-              "points": 10,
+              "points": 9,
               "seuil_a_valider": false
             },
             {
               "id": "roa",
               "label": "ROA",
               "bon_si": "> 1 %",
-              "points": 10,
+              "points": 9,
               "seuil_a_valider": false
             },
             {
               "id": "ratio_cet1",
               "label": "Ratio CET1",
               "bon_si": "> 12 %",
-              "points": 10,
+              "points": 9,
               "seuil_a_valider": false
             },
             {
               "id": "cout_du_risque",
               "label": "Coût du risque",
               "bon_si": "< 0,5 %",
-              "points": 10,
+              "points": 9,
               "seuil_a_valider": false
             },
             {
               "id": "coefficient_exploitation",
               "label": "Coefficient d'exploitation",
               "bon_si": "< 60 %",
-              "points": 10,
+              "points": 9,
               "seuil_a_valider": false
             }
           ]
@@ -1912,28 +1907,28 @@
               "id": "bpa_cette_annee",
               "label": "Croissance BPA année en cours",
               "bon_si": "> 10 %",
-              "points": 10,
+              "points": 9,
               "seuil_a_valider": false
             },
             {
               "id": "bpa_annee_prochaine",
               "label": "Croissance BPA année prochaine",
               "bon_si": "> 10 %",
-              "points": 10,
+              "points": 9,
               "seuil_a_valider": false
             },
             {
               "id": "pnb_cette_annee",
               "label": "Croissance PNB année en cours",
               "bon_si": "> 5 %",
-              "points": 10,
+              "points": 9,
               "seuil_a_valider": false
             },
             {
               "id": "pnb_annee_prochaine",
               "label": "Croissance PNB année prochaine",
               "bon_si": "> 5 %",
-              "points": 10,
+              "points": 9,
               "seuil_a_valider": false
             }
           ]
@@ -1955,22 +1950,22 @@
     "hype": {
       "id": "hype",
       "label": "Hype / attention (H)",
-      "max": 30,
-      "max_affiche": "±30",
-      "min": -30,
+      "max": 20,
+      "max_affiche": "0 à 20",
+      "min": 0,
       "utilise_par_le_calcul": true,
       "a_contre_courant": true,
       "date_validation": "24/11/2026",
       "tache": "t417u–t421u",
-      "precision": "Indicateur d’Attention Long Swing : note 0–100, horizon semaines / mois, calcul hebdomadaire (week-end). Ce n’est ni un indicateur technique, ni le Fear & Greed, ni un signal d’achat ou de vente : plus un titre est à la mode, plus il perd de points (attention 100 → −30, 50 → 0, 0 → +30). Google Trends : USA « <nom> stock » (monde), France nom de la société (France). Mentions : Reddit via ApeWisdom (wallstreetbets, stocks, investing…) ; X et StockTwits non accessibles ; actions françaises sans ADR US : « – ». Pondération recalculée sur les sources disponibles. ETF / panier de section : moyenne des H des actions affichées.",
+      "precision": "Indicateur d’Attention Long Swing : note 0–100, horizon semaines / mois, calcul hebdomadaire (week-end). Ce n’est ni un indicateur technique, ni le Fear & Greed, ni un signal d’achat ou de vente : plus un titre est à la mode, plus il perd de points (attention 0–9 → +20, −2 par tranche de 10, 100 → 0). Google Trends : USA « <nom> stock » (monde), France nom de la société (France). Mentions : Reddit via ApeWisdom (wallstreetbets, stocks, investing…) ; X et StockTwits non accessibles ; actions françaises sans ADR US : « – ». Pondération recalculée sur les sources disponibles. ETF / panier de section : moyenne des H des actions affichées.",
       "criteres": [
         {
           "id": "hype_formule",
           "label": "Apport H (à contre-courant)",
-          "points_max": "±30",
-          "regle": "H = (50 − attention) × 0,6, arrondi. Attention 100 → −30 ; 50 → 0 ; 0 → +30. Donnée d’attention absente : H = 0, affiché « – », jamais inventée.",
-          "regle_courte": "H = (50 − attention) × 0,6 ; absente : 0, affiché « – »",
-          "detail": "H = (50 − attention) × 0,6 : attention 100 → −30, 50 → 0, 0 → +30. Absente : 0, affiché « – »."
+          "points_max": "0 à 20",
+          "regle": "H = 20 − 2 × tranche d’attention (tranche = attention ÷ 10, arrondi par défaut). Attention 0–9 → +20 ; 50 → +10 ; 100 → 0. Donnée d’attention absente : H = 0, affiché « – », jamais inventée.",
+          "regle_courte": "H = 20 − 2 × tranche ; absente : 0, affiché « – »",
+          "detail": "H = 20 − 2 × tranche d’attention (tranche = attention ÷ 10, arrondi par défaut). Attention 0–9 → +20 ; 50 → +10 ; 100 → 0. Donnée d’attention absente : H = 0, affiché « – », jamais inventée."
         },
         {
           "id": "hype_trends",
@@ -2003,52 +1998,47 @@
       ]
     },
     "couleurs_echelle": {
-      "regle": "Échelle −80 à 280 (360 points) découpée en 5 tranches égales de 72 points, aux mêmes proportions que l’ancienne échelle −50 à 250 (20 / 40 / 60 / 80 %). Dégradé violet → rouge → orange → vert → cyan inchangé. Meilleures entrées : note ≥ 136 (début du vert, auparavant 130 / 250).",
+      "regle": "APE-25 (24/11/2026) : échelle unique −50 à 250 pour toutes les classes. Technique 99 (RSI 27, MACD 27, Fibonacci 27, CCI 18) + Fondamental 81 (9 × 9) + H 0 à 20 + F&G ±50 : chaque indicateur est compressé de 10 % (× 0,9) pour ramener le maximum de 280 à 250. Meilleures entrées : note ≥ 130 (début du vert).",
       "bandes": [
         {
           "id": "violet",
-          "de": -80,
-          "a": -8,
-          "regle": "< −8",
+          "de": -50,
+          "a": 10,
+          "regle": "< 10",
           "hex": "#9d54ff"
         },
         {
           "id": "rouge",
-          "de": -8,
-          "a": 64,
-          "regle": "−8 à < 64",
+          "de": 10,
+          "a": 70,
+          "regle": "10 à < 70",
           "hex": "#ff2d2d"
         },
         {
           "id": "orange",
-          "de": 64,
-          "a": 136,
-          "regle": "64 à < 136",
+          "de": 70,
+          "a": 130,
+          "regle": "70 à < 130",
           "hex": "#ff8c1a"
         },
         {
           "id": "vert",
-          "de": 136,
-          "a": 208,
-          "regle": "136 à < 208",
+          "de": 130,
+          "a": 190,
+          "regle": "130 à < 190",
           "hex": "#22c55e"
         },
         {
           "id": "cyan",
-          "de": 208,
-          "a": 280,
-          "regle": "≥ 208",
+          "de": 190,
+          "a": 250,
+          "regle": "≥ 190",
           "hex": "#00e5ff"
         }
       ],
-      "seuil_meilleures_entrees": 136,
-      "ancien": {
-        "echelle": "−50 à 250",
-        "bandes": "<10 · 10–70 · 70–130 · 130–190 · ≥190",
-        "seuil": 130
-      },
-      "date": "24/11/2026"
-    }
+      "seuil_meilleures_entrees": 130
+    },
+    "echelle": "−50 à 250"
   },
   "apex_metaux": {
     "section_titre": "Métaux précieux",
@@ -2060,7 +2050,7 @@
     "cyan_sans_elliott": true,
     "av_rsi_macd_contrarien": true,
     "cci_toujours_compte": true,
-    "champ_application": "Ce règlement s'applique à l'or, l'argent, le platine, le palladium, à leurs ETC et ETF physiques, et aux métaux au comptant. La note APEX utilise la même échelle et les mêmes paliers entiers que les actions (−50 à 250). Technique : RSI 30, MACD 30, Fibonacci 30, CCI Stochastic 20 (Daveatt), soit 110 points. RSI et MACD sont lus à contre-courant, avec exactement la grille actions (RSI < 40 : +10, divergence haussière hebdo : +20, cumulables ; MACD < 0 : +10, ≥ 4 barres d'histogramme rouges sous 0 : +20, cumulables). Fibonacci : paliers non cumulables, retracement depuis le plus haut historique (sous 38,2 % : +10 ; 61,8 % : +20 ; 78,6 % : +30). CCI/Stoch : +20 si la ligne D de Daveatt est sous 20. Fondamental des minières : même grille actions, 9 critères de +10, maximum 90. Sans fondamental (ETC, contrat, métal au comptant, ou minière sans données), la Structure n'est plus comptée dans la note, sans redistribution des points (comme les vagues d'Elliott). Le Fear & Greed Index CNN (le même que pour les actions) ajoute ±50, à contre-courant (milieu 50 = 0, tranche de 10). Total borné à −50…250, uniquement des entiers. La note d'une ligne (Or, Argent, Platine, Palladium) est la moyenne des notes des instruments visibles, hors titres sans note. Les signaux du bandeau Achat / Vente restent ceux du contrat à terme continu Yahoo, avec DBC comme référence ; ce bandeau n'est pas modifié.",
+    "champ_application": "Ce règlement s'applique à l'or, l'argent, le platine, le palladium, à leurs ETC et ETF physiques, et aux métaux au comptant. La note APEX utilise la même échelle et les mêmes paliers entiers que les actions (−50 à 250). Technique : RSI 30, MACD 30, Fibonacci 30, CCI Stochastic 20 (Daveatt), soit 110 points. RSI et MACD sont lus à contre-courant, avec exactement la grille actions (RSI < 40 : +10, divergence haussière hebdo : +20, cumulables ; MACD < 0 : +10, ≥ 4 barres d'histogramme rouges sous 0 : +20, cumulables). Fibonacci : paliers non cumulables, retracement depuis le plus haut historique (sous 38,2 % : +10 ; 61,8 % : +20 ; 78,6 % : +30). CCI/Stoch : +20 si la ligne D de Daveatt est sous 20. Fondamental des minières : même grille actions, 9 critères de +10, maximum 90. Sans fondamental (ETC, contrat, métal au comptant, ou minière sans données), la Structure n'est plus comptée dans la note, sans redistribution des points (comme les vagues d'Elliott). Le Fear & Greed Index CNN (le même que pour les actions) ajoute ±50, à contre-courant (milieu 50 = 0, tranche de 10). Total borné à −50…250, uniquement des entiers. La note d'une ligne (Or, Argent, Platine, Palladium) est la moyenne des notes des instruments visibles, hors titres sans note. Les signaux du bandeau Achat / Vente restent ceux du contrat à terme continu Yahoo, avec DBC comme référence ; ce bandeau n'est pas modifié. APE-25 (24/11/2026) : portail cyan retiré, la note peut atteindre 250. Comptant : Technique 110 + HYPE 90 + F&G ±50. ETC : Technique 110 + HYPE 45 du métal (grille crypto) + Qualité ETC 45 (5 × 9 : TER ≤ 0,25 % ; TER ≤ 0,15 % ; encours ≥ 1 Md€ ; ancienneté ≥ 5 ans ; réplication physique — justETF) + F&G ±50. Minières : Technique 110 + Fondamental 90 + F&G ±50.",
     "effet_echelle": "Technique 110 (RSI 30 · MACD 30 · Fibonacci 30 · CCI 20) + Fondamental 90 (minières seulement). Sans fondamental, la Structure n'est plus comptée (pas de redistribution). F&G ±50. Total −50 à 250.",
     "av_sans_elliott": true,
     "av_ne_pas_redistribuer_elliott": true,
@@ -2107,7 +2097,8 @@
     "retirer_structure": true,
     "ne_pas_redistribuer_structure": true,
     "hype_applique_des_que_disponible": "2026-11-25",
-    "hype_champ": "métaux purs / comptant uniquement, hors ETC/ETF et minières"
+    "hype_champ": "métaux purs / comptant uniquement, hors ETC/ETF et minières",
+    "cyan_retire": true
   },
   "apex_crypto": {
     "section_titre": "Crypto",
@@ -2152,11 +2143,11 @@
     "echelle": "−50 à 250",
     "note_min": -50,
     "note_max": 250,
-    "calcul_aligne": false,
+    "calcul_aligne": true,
     "has_technique": true,
-    "note_actuelle": "/100, technique renormalisé (Elliott encore compté), pas de fondamental",
-    "intro_courte": "ETF obligataires. Barème cible −50 à 250, points entiers, sans Elliott. Calcul non encore aligné : les notes publiées restent /100.",
-    "champ_application": "Barème cible identique au modèle Actions : Technique 110 (RSI 30, MACD 30 à contre-courant, Fibonacci 30, CCI/Stoch 20), Fondamental 90 propre aux obligations, Fear & Greed CNN ±50, sans Elliott, total −50 à 250. Le calcul n'est pas encore aligné : les notes publiées restent /100. Aucun palier de fondamental n'est inventé. Les scores de sélection d'un ETF (frais, liquidité) restent hors de la note, comme aujourd'hui.",
+    "note_actuelle": "notes publiées dans l’onglet, sur 250",
+    "intro_courte": "ETF obligataires UCITS (référence de segment et liste). Technique 110 + Fondamental obligataire 90 + F&G ±50 = −50 à 250, points entiers, sans Elliott. La note d'un segment est la moyenne des ETF affichés.",
+    "champ_application": "Fondamental selon les standards des gérants obligataires : rendement réel, prime de terme ou de crédit, duration et cycle des taux, notation, frais, encours, ancienneté, risque de change. Sources : FRED (Treasuries, TIPS, spreads OAS ICE BofA, taux longs OCDE, HICP), BCE (taux de dépôt), justETF (TER, encours, date de création, couverture), Yahoo Finance (répartition des notations). n.c. = 0 point, sans redistribution.",
     "points": {
       "rsi": 30,
       "macd": 30,
@@ -2174,54 +2165,75 @@
     },
     "fond_criteres": [
       {
-        "id": "rendement",
-        "label": "Rendement",
-        "statut": "non_calcule",
-        "regle": "Non calculé : yield renseigné pour 9 ETF sur 35, palier entier absent."
+        "id": "reel_pos",
+        "label": "Rendement réel > 0",
+        "regle": "Rendement de l’indice du segment − inflation sur 1 an de la devise (TIPS : rendement réel direct) > 0",
+        "points": 10,
+        "statut": "calcule"
       },
       {
-        "id": "rendement_reel",
-        "label": "Rendement réel",
-        "statut": "non_calcule",
-        "regle": "Non calculé : IPC INSEE disponible, yield partiel, palier entier absent."
+        "id": "reel_15",
+        "label": "Rendement réel > 1,5 %",
+        "regle": "Même mesure > 1,5 %",
+        "points": 10,
+        "statut": "calcule"
       },
       {
-        "id": "cycle_taux",
-        "label": "Cycle des taux",
-        "statut": "non_calcule",
-        "regle": "Non calculé : €STR et taux de dépôt BCE disponibles, non branchés sur la note."
+        "id": "prime",
+        "label": "Prime de terme ou de crédit",
+        "regle": "Crédit : spread OAS ≥ sa médiane 10 ans. Souverains US : pente 10 − 2 ans > 0. Souverains euro : 10 ans − taux de dépôt BCE > 0,5 pt",
+        "points": 10,
+        "statut": "calcule"
       },
       {
-        "id": "duration",
-        "label": "Duration",
-        "statut": "non_calcule",
-        "regle": "Non calculé : duration absente des données."
+        "id": "duration_cycle",
+        "label": "Duration et cycle des taux",
+        "regle": "Duration longue et taux 10 ans en baisse sur 6 mois, ou duration courte (1-3, 0-5 ans) et taux stables ou en hausse",
+        "points": 10,
+        "statut": "calcule"
       },
       {
-        "id": "credit",
-        "label": "Crédit",
-        "statut": "non_calcule",
-        "regle": "Non calculé : rating présent pour 27 ETF sur 35, palier entier absent."
+        "id": "notation",
+        "label": "Qualité de crédit",
+        "regle": "≥ 50 % des titres notés A ou mieux",
+        "points": 10,
+        "statut": "calcule"
       },
       {
-        "id": "spread",
-        "label": "Spread",
-        "statut": "non_calcule",
-        "regle": "Non calculé : spread absent des données."
+        "id": "ter15",
+        "label": "Frais courants",
+        "regle": "TER ≤ 0,15 %",
+        "points": 10,
+        "statut": "calcule"
       },
       {
-        "id": "inflation",
-        "label": "Inflation",
-        "statut": "non_calcule",
-        "regle": "Non calculé : IPC disponible (entrée du rendement réel), pas de palier autonome."
+        "id": "enc500",
+        "label": "Encours",
+        "regle": "≥ 500 M€",
+        "points": 10,
+        "statut": "calcule"
+      },
+      {
+        "id": "age5",
+        "label": "Ancienneté",
+        "regle": "≥ 5 ans",
+        "points": 10,
+        "statut": "calcule"
+      },
+      {
+        "id": "change",
+        "label": "Risque de change",
+        "regle": "Fonds en EUR ou part couverte",
+        "points": 10,
+        "statut": "calcule"
       }
     ]
   },
   "apex_liquidites": {
     "section_titre": "Liquidités",
-    "echelle": "voir parties",
-    "calcul_aligne": false,
-    "intro_courte": "Trois parties : épargne/monétaire (sans graphique), devises (cours hebdo, notes encore /100) et ETF par devise (−50 à 250, calcul aligné sauf HYPE et fondamental n.c.).",
+    "echelle": "−50 à 250",
+    "calcul_aligne": true,
+    "intro_courte": "Trois parties sur la même échelle −50 à 250 : épargne et monétaire (contexte de taux à la place de la technique), devises (cours hebdo BCE/Yahoo), ETF par devise.",
     "champ_application": "L'onglet Liquidités mélange l'épargne et les devises. Les barèmes cibles sont donc distincts. Calcul non encore aligné. Sous chaque devise, un ETF/ETC coté en monnaie locale (meilleure performance annualisée sur 3 ans, dividendes inclus, encours > 100 M, bourse principale ; exclus : levier/inverse, contrats à terme, produits complexes, historique de moins de 3 ans). Barème ETF : Technique 110 + F&G ±50 + devise 30 + Fondamental 30 (n.c. si absent) + HYPE 30 (comptée depuis le 24/11).",
     "points": {
       "rsi": 30,
@@ -2241,45 +2253,59 @@
     "parties": [
       {
         "id": "epargne",
-        "titre": "Épargne et monétaire",
+        "titre": "Épargne et monétaire (Livret A, LEP, compte d’épargne et fonds monétaire Revolut)",
         "has_technique": false,
-        "sans_technique": "Pas de graphique hebdomadaire (livrets, cash, monétaire) : la Technique 110 ne s'applique pas.",
-        "echelle": "−50 à 140",
+        "sans_technique": "Pas de graphique hebdomadaire : Contexte de taux 110 — taux du produit ≥ taux directeur − 0,25 pt (+30), taux directeur stable ou en hausse sur 6 mois (+30), inflation en baisse sur 6 mois (+30), courbe plate : 10 ans − taux directeur < 0,5 pt (+20). Sentiment : CNN Fear & Greed inversé ±50 (un placement refuge est favorable quand le marché est euphorique).",
+        "echelle": "−50 à 250",
         "note_min": -50,
-        "note_max": 140,
-        "note_actuelle": "Barème d'onglet propre (rendement réel €STR − inflation, niveau de l'€STR, tendance BCE, appétit pour le risque inversé) ensuite ramené /100. Pas d'Elliott.",
+        "note_max": 250,
+        "note_actuelle": "notes publiées dans l’onglet, sur 250",
         "fond_criteres": [
           {
-            "id": "rendement_net",
-            "label": "Rendement net vs inflation",
-            "statut": "non_calcule",
-            "regle": "Données présentes (€STR, IPC, livrets) dans un autre barème ; palier entier 0/10 absent."
+            "id": "reel_pos",
+            "label": "Taux réel net > 0",
+            "regle": "Taux net d’impôt (PFU 31,4 % sur les produits imposables) − inflation > 0",
+            "points": 20,
+            "statut": "calcule"
           },
           {
-            "id": "taux_directeur",
-            "label": "Taux directeur / €STR",
-            "statut": "non_calcule",
-            "regle": "Données présentes (niveau et tendance BCE 6 mois) dans un autre barème ; palier entier absent."
+            "id": "reel_1",
+            "label": "Taux réel net > 1 pt",
+            "regle": "> 1 pt",
+            "points": 10,
+            "statut": "calcule"
           },
           {
             "id": "garantie",
-            "label": "Garantie",
-            "statut": "non_calcule",
-            "regle": "Non calculé : statut de garantie non codé (pas inventé)."
-          },
-          {
-            "id": "change",
-            "label": "Risque de change",
-            "statut": "non_calcule",
-            "regle": "Non calculé : pas de palier (EUR/USD est suivi à part, pour les devises)."
+            "label": "Capital garanti",
+            "regle": "État ou fonds de garantie des dépôts",
+            "points": 20,
+            "statut": "calcule"
           },
           {
             "id": "liquidite",
-            "label": "Liquidité",
-            "statut": "non_calcule",
-            "regle": "Non calculé : délai de retrait non chiffré dans les données."
+            "label": "Disponible à tout moment",
+            "regle": "retrait immédiat",
+            "points": 20,
+            "statut": "calcule"
+          },
+          {
+            "id": "change",
+            "label": "Sans risque de change",
+            "regle": "produit en EUR",
+            "points": 10,
+            "statut": "calcule"
+          },
+          {
+            "id": "frais",
+            "label": "Sans frais",
+            "regle": "aucun frais",
+            "points": 10,
+            "statut": "calcule"
           }
-        ]
+        ],
+        "sentiment_label": "Fear & Greed Index (CNN), inversé",
+        "sentiment_regle": "Placement refuge : lecture inversée. Avidité 60 → +10 … 100 → +50 ; peur 40 → −10 … 0 → −50. Milieu 50 = 0."
       },
       {
         "id": "devises",
@@ -2288,13 +2314,69 @@
         "echelle": "−50 à 250",
         "note_min": -50,
         "note_max": 250,
-        "note_actuelle": "/100, technique renormalisé (Elliott encore compté), pas de fondamental",
+        "note_actuelle": "notes publiées dans l’onglet, sur 250",
         "fond_criteres": [
           {
-            "id": "fond_devise",
-            "label": "Fondamental d'une devise",
-            "statut": "non_calcule",
-            "regle": "Non calculé : une paire de devises n'a pas de fondamental d'entreprise ; rien n'est inventé."
+            "id": "taux_sup",
+            "label": "Taux directeur > BCE",
+            "regle": "BRI",
+            "points": 10,
+            "statut": "calcule"
+          },
+          {
+            "id": "taux_ecart",
+            "label": "Écart de taux > 1,5 pt",
+            "regle": "BRI",
+            "points": 10,
+            "statut": "calcule"
+          },
+          {
+            "id": "inflation",
+            "label": "Inflation < zone euro",
+            "regle": "Banque mondiale",
+            "points": 10,
+            "statut": "calcule"
+          },
+          {
+            "id": "taux_reel",
+            "label": "Taux directeur réel > 0",
+            "regle": "BRI − Banque mondiale",
+            "points": 10,
+            "statut": "calcule"
+          },
+          {
+            "id": "balance",
+            "label": "Balance courante > 0",
+            "regle": "Banque mondiale",
+            "points": 10,
+            "statut": "calcule"
+          },
+          {
+            "id": "dette",
+            "label": "Dette publique < 90 % du PIB",
+            "regle": "Banque mondiale",
+            "points": 10,
+            "statut": "calcule"
+          },
+          {
+            "id": "solde",
+            "label": "Solde public > −3 % du PIB",
+            "regle": "Banque mondiale",
+            "points": 10,
+            "statut": "calcule"
+          },
+          {
+            "id": "croissance",
+            "label": "Croissance > zone euro",
+            "regle": "Banque mondiale",
+            "points": 10,
+            "statut": "calcule"
+          },
+          {
+            "id": "ppa",
+            "label": "Sous-évaluée selon la PPA",
+            "regle": "n.c. : FMI DataMapper bloqué (403), indicateur Banque mondiale archivé",
+            "statut": "non_calcule"
           }
         ]
       },
@@ -2345,14 +2427,14 @@
   },
   "apex_placements": {
     "section_titre": "Placements",
-    "echelle": "−50 à 140",
+    "echelle": "−50 à 250",
     "note_min": -50,
-    "note_max": 140,
-    "calcul_aligne": false,
+    "note_max": 250,
+    "calcul_aligne": true,
     "has_technique": false,
-    "note_actuelle": "aucune note APEX (relevé patrimonial seulement)",
-    "intro_courte": "Comptes d'épargne et monétaire (relevé patrimonial). Pas de graphique hebdo, pas de note APEX aujourd'hui. Barème adapté proposé : −50 à 140.",
-    "champ_application": "Pas de bougies hebdomadaires : la Technique 110 ne s'applique pas. Barème adapté proposé, sans invention : Fondamental 90 + Fear & Greed ±50 = −50 à 140. Sans Elliott. Calcul non encore aligné, aucune note n'est créée pour l'instant.",
+    "note_actuelle": "notes publiées dans l’onglet, sur 250",
+    "intro_courte": "Compte d’épargne EUR et fonds monétaire USD Revolut : même grille que l’épargne (onglet Liquidités).",
+    "champ_application": "Pas de bougies hebdomadaires : la Technique est remplacée par un Contexte de taux 110 (taux du produit vs taux directeur, taux directeur sur 6 mois, inflation sur 6 mois, pente 10 ans − taux directeur ; sources BCE, Fed via FRED, INSEE). Fondamental épargne 90, CNN Fear & Greed inversé ±50. Échelle −50 à 250, points entiers, sans Elliott.",
     "points": {
       "rsi": 30,
       "macd": 30,
@@ -2370,48 +2452,62 @@
     },
     "fond_criteres": [
       {
-        "id": "rendement_net",
-        "label": "Rendement net vs inflation",
-        "statut": "non_calcule",
-        "regle": "Taux relevés (ex. 2,75 % brut EUR, 4,01 % APY USD) et IPC FR disponibles ; IPC US absent ; palier entier absent."
+        "id": "reel_pos",
+        "label": "Taux réel net > 0",
+        "regle": "Taux net d’impôt (PFU 31,4 % sur les produits imposables) − inflation > 0",
+        "points": 20,
+        "statut": "calcule"
       },
       {
-        "id": "taux_directeur",
-        "label": "Taux directeur",
-        "statut": "non_calcule",
-        "regle": "€STR et taux de dépôt BCE disponibles, palier entier absent."
+        "id": "reel_1",
+        "label": "Taux réel net > 1 pt",
+        "regle": "> 1 pt",
+        "points": 10,
+        "statut": "calcule"
       },
       {
         "id": "garantie",
-        "label": "Garantie",
-        "statut": "non_calcule",
-        "regle": "Non calculé : statut de garantie non codé (pas inventé)."
-      },
-      {
-        "id": "change",
-        "label": "Risque de change",
-        "statut": "non_calcule",
-        "regle": "Non calculé : ligne USD présente, pas de palier."
+        "label": "Capital garanti",
+        "regle": "État ou fonds de garantie des dépôts",
+        "points": 20,
+        "statut": "calcule"
       },
       {
         "id": "liquidite",
-        "label": "Liquidité",
-        "statut": "non_calcule",
-        "regle": "Non calculé : délai de retrait non chiffré."
+        "label": "Disponible à tout moment",
+        "regle": "retrait immédiat",
+        "points": 20,
+        "statut": "calcule"
+      },
+      {
+        "id": "change",
+        "label": "Sans risque de change",
+        "regle": "produit en EUR",
+        "points": 10,
+        "statut": "calcule"
+      },
+      {
+        "id": "frais",
+        "label": "Sans frais",
+        "regle": "aucun frais",
+        "points": 10,
+        "statut": "calcule"
       }
     ],
-    "sans_technique": "Pas de graphique hebdomadaire (compte d'épargne, fonds monétaire) : la Technique 110 ne s'applique pas."
+    "sans_technique": "Pas de graphique hebdomadaire : contexte de taux 110 à la place de la technique (voir Liquidités › Épargne). Sentiment : CNN Fear & Greed inversé ±50.",
+    "sentiment_label": "Fear & Greed Index (CNN), inversé",
+    "sentiment_regle": "Placement refuge : lecture inversée. Avidité 60 → +10 … 100 → +50 ; peur 40 → −10 … 0 → −50. Milieu 50 = 0."
   },
   "apex_immobilier": {
     "section_titre": "Immobilier",
-    "echelle": "−50 à 140",
+    "echelle": "−50 à 250",
     "note_min": -50,
-    "note_max": 140,
-    "calcul_aligne": false,
+    "note_max": 250,
+    "calcul_aligne": true,
     "has_technique": false,
-    "note_actuelle": "Barème macro d'onglet (5 composantes −100 à +100) ensuite ramené /100. Pas d'Elliott. Pas de liste SCPI/REIT.",
-    "intro_courte": "Onglet macro (prix, taux, Trends), sans liste SCPI/REIT ni bougies hebdo. Barème adapté proposé : −50 à 140. Calcul non encore aligné.",
-    "champ_application": "L'onglet Immobilier n'a pas de cours hebdomadaire négocié ni de liste SCPI/REIT. La Technique 110 ne s'applique pas à l'onglet. Barème adapté proposé : Fondamental 90 + F&G ±50 = −50 à 140. Les foncières cotées restent notées dans l'onglet Actions (profil REIT). Sans Elliott. Calcul non encore aligné.",
+    "note_actuelle": "notes publiées dans l’onglet, sur 250",
+    "intro_courte": "Marché résidentiel français (onglet). Contexte marché 110 + Fondamental immobilier 90 + sentiment immobilier APEX à contre-courant ±50. Aucune SCPI n’est suivie sur le site.",
+    "champ_application": "L’onglet Immobilier n’a pas de cours hebdomadaire négocié : Contexte marché 110 à la place de la technique, Fondamental immobilier 90, sentiment immobilier APEX à contre-courant ±50 = −50 à 250. Les foncières cotées restent notées dans l’onglet Actions (profil REIT). Sans Elliott.",
     "points": {
       "rsi": 30,
       "macd": 30,
@@ -2429,48 +2525,56 @@
     },
     "fond_criteres": [
       {
-        "id": "rendement",
-        "label": "Rendement",
+        "id": "rdt_locatif",
+        "label": "Rendement locatif brut − OAT 10 ans > 2 pts",
+        "regle": "n.c. (loyers et prix au m² non collectés)",
         "statut": "non_calcule",
-        "regle": "Non calculé : pas de yield SCPI/REIT sur l'onglet (les foncières cotées sont dans Actions)."
+        "points": 20
       },
       {
-        "id": "decote_anr",
-        "label": "Décote / prime sur actif net",
+        "id": "prix_revenu",
+        "label": "Prix / revenu sous sa moyenne longue",
+        "regle": "n.c. (série CGEDD-Friggit non collectée)",
         "statut": "non_calcule",
-        "regle": "Non calculé : actif net et décote absents des données."
+        "points": 20
       },
       {
-        "id": "ltv",
-        "label": "Endettement (LTV)",
+        "id": "credits",
+        "label": "Crédits à l’habitat en hausse sur 1 an",
+        "regle": "n.c. (Banque de France non collectée)",
         "statut": "non_calcule",
-        "regle": "Non calculé sur cet onglet. Les foncières Actions ont une dette nette/EBITDA, pas un LTV."
+        "points": 20
       },
       {
-        "id": "occupation",
-        "label": "Taux d'occupation",
+        "id": "transactions",
+        "label": "Transactions en hausse sur 1 an",
+        "regle": "n.c. (CGEDD non collecté)",
         "statut": "non_calcule",
-        "regle": "Non calculé : taux d'occupation absent des données."
+        "points": 15
       },
       {
-        "id": "sensi_taux",
-        "label": "Sensibilité aux taux",
+        "id": "vacance",
+        "label": "Logements vacants < 8 %",
+        "regle": "n.c. (INSEE non collecté)",
         "statut": "non_calcule",
-        "regle": "Taux de crédit et tendance 6 mois existent dans un barème macro d'onglet, pas en palier entier."
+        "points": 15
       }
     ],
-    "sans_technique": "Pas de graphique hebdomadaire négocié pour l'onglet (prix Notaires-INSEE, taux, Trends) : la Technique 110 ne s'applique pas."
+    "sans_technique": "Pas de graphique hebdomadaire : contexte marché 110 : prix Notaires-INSEE en baisse sur 1 an (+30), taux de crédit sous la médiane depuis 2000 (+30), taux de crédit en baisse sur 6 mois (+30), demande d’achat Google Trends au-dessus de sa médiane 12 mois (+20).",
+    "scpi_proposee": "Grille SCPI proposée (à activer si une liste est fournie) : taux de distribution > 4,5 %, décote sur valeur de reconstitution, TOF > 90 %, LTV < 30 %, collecte nette > 0, frais de souscription ≤ 8 %.",
+    "sentiment_label": "Sentiment immobilier APEX, à contre-courant",
+    "sentiment_regle": "Composante « Sentiment immobilier » de l’onglet, lue à contre-courant par tranches de 10 (±50)."
   },
   "apex_energie": {
     "section_titre": "Énergie",
     "echelle": "−50 à 250",
     "note_min": -50,
     "note_max": 250,
-    "calcul_aligne": false,
+    "calcul_aligne": true,
     "has_technique": true,
-    "note_actuelle": "/100, 50 % fondamental actions + 50 % technique (Elliott encore compté) pour les actions ; contrats et ETP à terme sans note",
-    "intro_courte": "Producteurs et actions énergétiques : barème cible −50 à 250, sans Elliott. Contrats et ETP à terme : repères sans note. Calcul non encore aligné.",
-    "champ_application": "Pour les actions et producteurs énergétiques, barème cible : Technique 110 + Fondamental 90 propre à l'énergie + F&G ±50 = −50 à 250, sans Elliott. Les contrats à terme et ETP adossés à des contrats restent des repères de marché, sans note. Calcul non encore aligné : les notes publiées restent /100. Rien n'est inventé.",
+    "note_actuelle": "notes publiées dans l’onglet, sur 250",
+    "intro_courte": "Actions et proxies énergétiques, ETF énergie : Technique 110 + Fondamental 90 + F&G ±50 = −50 à 250. Contrats à terme et ETC gaz : repères sans note.",
+    "champ_application": "Actions : 9 ratios × 10 (Yahoo Finance). ETF énergie : TER ≤ 0,40 % (+10) et ≤ 0,20 % (+10), encours ≥ 300 M€ (+10) et ≥ 1 Md€ (+10), ancienneté ≥ 3 ans (+10) et ≥ 5 ans (+10), réplication physique (+10), ≥ 30 lignes (+10), cycle du secteur (+10) — justETF. Cycle : pétrole, gaz et charbon = WTI sous sa moyenne 5 ans (FRED DCOILWTICO) ; électricité, renouvelables, hydrogène = taux 10 ans US en baisse sur 6 mois (FRED DGS10) ; uranium = n.c. (pas de série publique gratuite du prix spot).",
     "points": {
       "rsi": 30,
       "macd": 30,
@@ -2488,34 +2592,67 @@
     },
     "fond_criteres": [
       {
-        "id": "valorisation",
-        "label": "Valorisation",
-        "statut": "non_calcule",
-        "regle": "Non calculé : pas de PER ni d'EV/EBITDA dans les données."
+        "id": "per",
+        "label": "PER",
+        "regle": "< 12",
+        "points": 10,
+        "statut": "calcule"
       },
       {
-        "id": "fcf",
-        "label": "Flux de trésorerie",
-        "statut": "non_calcule",
-        "regle": "Marge de FCF présente dans le fondamental actions ; palier entier non rebranché sur une note −50..250 énergie."
+        "id": "ev_ebitda",
+        "label": "VE / EBITDA",
+        "regle": "< 7",
+        "points": 10,
+        "statut": "calcule"
       },
       {
-        "id": "dette",
-        "label": "Dette",
-        "statut": "non_calcule",
-        "regle": "Dette nette/EBITDA présente dans le fondamental actions ; palier entier non rebranché ici."
+        "id": "nd_ebitda",
+        "label": "Dette nette / EBITDA",
+        "regle": "< 2",
+        "points": 10,
+        "statut": "calcule"
+      },
+      {
+        "id": "marge_op",
+        "label": "Marge opérationnelle",
+        "regle": "> 15 %",
+        "points": 10,
+        "statut": "calcule"
+      },
+      {
+        "id": "marge_fcf",
+        "label": "Marge de cash-flow libre",
+        "regle": "> 8 %",
+        "points": 10,
+        "statut": "calcule"
+      },
+      {
+        "id": "rdt_div",
+        "label": "Rendement du dividende",
+        "regle": "> 3 %",
+        "points": 10,
+        "statut": "calcule"
+      },
+      {
+        "id": "payout",
+        "label": "Taux de distribution",
+        "regle": "0 < x < 70 %",
+        "points": 10,
+        "statut": "calcule"
+      },
+      {
+        "id": "roe",
+        "label": "ROE",
+        "regle": "> 12 %",
+        "points": 10,
+        "statut": "calcule"
       },
       {
         "id": "cycle",
-        "label": "Cycle pétrole / gaz",
-        "statut": "non_calcule",
-        "regle": "Non calculé : contrats WTI/Brent/gaz sont des repères, sans score de cycle."
-      },
-      {
-        "id": "dividende",
-        "label": "Dividende",
-        "statut": "non_calcule",
-        "regle": "Non calculé : rendement de dividende absent des données."
+        "label": "Cycle",
+        "regle": "Pétrole/gaz/charbon : WTI < moyenne 5 ans ; utilities : 10 ans US en baisse sur 6 mois",
+        "points": 10,
+        "statut": "calcule"
       }
     ]
   },
@@ -2528,7 +2665,7 @@
     "gi_seuil": 69,
     "gi_seuil_sens": "rouge",
     "montant": "Mise (levier ×5) : 100 $ à 69/250 (dernière note entière rouge), puis +20 $ tous les 24 points en dessous (120 $ à 45, 140 $ à 21, 160 $ à −3, 180 $ à −27), jusqu’à 200 $ à −50. En petit, l’exposition équivalente (mise × 5). Grille de Meilleures entrées divisée par 5, recalée sur le seuil rouge.",
-    "univers": "Actions USA et France, métaux, crypto, ETF par devise — uniquement les actifs qui ont déjà une note APEX sur 250.",
+    "univers": "Actions USA et France, métaux, crypto, obligations, énergie, ETF par devise — uniquement les actifs qui ont une note APEX sur 250 (APE-25). La note de la devise elle-même et les actions hors USA/France restent hors liste.",
     "lecture": "On affiche la vraie note APEX « x / 250 », même couleur et même échelle que partout, triée de la plus basse à la plus haute. Entrent uniquement les titres dont la note s’affiche en rouge sur l’échelle −50 à 250 : 10 ≤ note < 70 (10 inclus, 70 déjà orange ; sous 10, violet, hors liste). Les montants sont la mise avec levier ×5 ; l’exposition équivalente est indiquée en petit. Les notes APEX ne sont pas modifiées.",
     "levier": 5,
     "avertissement": "Le short peut faire perdre plus que la mise. Il faut un compte qui l’autorise (CFD chez XTB, par exemple). Levier ×5, marge commune Revolut : les shorts se soutiennent entre eux, mais une hausse générale du marché touche toutes les positions en même temps et peut déclencher un appel de marge sur l’ensemble.",

@@ -47,10 +47,13 @@ def test_liquidites_deux_parties():
     assert "etf_par_devise" in ids
     epargne = cfg["parties"][0]
     devises = cfg["parties"][1]
-    assert epargne["has_technique"] is False and epargne["note_max"] == 140
+    assert epargne["has_technique"] is False and epargne["note_max"] == 250  # APE-25
     assert devises["has_technique"] is True and devises["note_max"] == 250
     assert "Pas de graphique" in epargne["sans_technique"]
-    assert all(el.get("statut") == "non_calcule" for p in cfg["parties"] if p["id"] in ("epargne", "devises") for el in p["fond_criteres"])
+    # APE-25 : critères calculés, sauf ceux sans source publique (PPA)
+    crit = [el for p in cfg["parties"] if p["id"] in ("epargne", "devises") for el in p["fond_criteres"]]
+    assert any(el.get("statut") == "calcule" for el in crit)
+    assert [el["id"] for el in crit if el.get("statut") == "non_calcule"] == ["ppa"]
 
 
 def test_placements_immobilier_sans_technique():
