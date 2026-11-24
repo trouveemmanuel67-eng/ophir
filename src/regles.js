@@ -978,7 +978,7 @@ function rgShortGrid(){
     rgCard('note','Note APEX','On affiche la vraie note APEX déjà publiée, « x / 250 », même couleur et même échelle ('+echelle+') que partout. Pas de note miroir, pas de nouveau calcul.',echelle),
     rgCard('tri','Classement','Inverse exact de Meilleures entrées : les plus mauvaises notes d’abord, de la plus basse à la plus haute.',''),
     rgCard('univers','Univers','Actions USA et France, métaux, crypto, ETF par devise — uniquement les actifs qui ont déjà une note APEX sur 250. Les notes /100 (devises, etc.) et les actions hors USA/France restent hors liste.',''),
-    rgCard('gi','Meilleurs short','Entrent les titres dont la note APEX est ≤ '+rgNum(seuil)+'/250 (symétrique de 130 autour de 100). Mise (levier ×5) : 100 $ à 70, puis +20 $ tous les 24 points en dessous (46, 22, −2, −26), jusqu’à 200 $ à −50. En petit : exposition équivalente (mise × 5).','≤ '+rgNum(seuil))
+    rgCard('gi','Meilleurs short','Entrent uniquement les titres dont la note APEX s’affiche en rouge sur l’échelle −50 à 250 : 10 ≤ note < 70 (10 inclus, 70 déjà orange ; sous 10, violet, hors liste). Mise (levier ×5) : 100 $ à 69, puis +20 $ tous les 24 points en dessous (45, 21, −3, −27), jusqu’à 200 $ à −50. En petit : exposition équivalente (mise × 5).','rouge')
   ].join('');
   const origine=cfg.origine?`<p class="rg-p rg-app">${rgEsc(cfg.origine)}</p>`:'';
   const lecture=cfg.lecture?`<p class="rg-p rg-app">${rgEsc(cfg.lecture)}</p>`:'';

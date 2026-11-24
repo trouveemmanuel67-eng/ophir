@@ -1,21 +1,33 @@
-/* ===== MEILLEURS SHORT : les plus mauvaises notes APEX (−50..250), seuil ≤ 70 (t497u, t498u) =====
+/* ===== MEILLEURS SHORT : uniquement les notes APEX rouges (échelle −50..250) (t501u) =====
    Affiche la vraie note APEX, même couleur et même échelle que partout, triée de la plus basse
-   à la plus haute. Inverse exact de Meilleures entrées (seuil 130, symétrique autour de 100).
-   Montant = mise avec levier ×5 (grille Meilleures entrées ÷ 5). Exposition équivalente = mise × 5.
+   à la plus haute. Seuil = bande rouge de pilotBand / PILOT_BANDS_250 : 10 ≤ note < 70
+   (10 inclus, 70 déjà orange ; sous 10, violet, hors liste).
+   Mise (levier ×5) : 100 $ à 69 (dernière note entière rouge), +20 $ / 24 pts, 200 $ max à −50.
+   Exposition équivalente = mise × 5.
    Univers : actions USA/France, métaux, crypto, ETF par devise — uniquement les notes sur 250.
    Les notes APEX ne sont pas recalculées ni modifiées.
 */
-const GS_SEUIL=70;
+const GS_ROUGE_DE=10;
+const GS_ROUGE_A=70;
+const GS_SEUIL=69;
 const GS_VALIDE_KEY='apex-short-valide';
 const GS_LIST_KEY='apex-short-list';
 const GS_ELLIOTT_KEY='apex-short-elliott-hide';
 const GS_PATTERN_KEY='apex-short-pattern-hide';
 let gsShowValides=false;
 
-function gsMontant(note){
-  /* Mise (levier ×5) : 100 $ à 70, +20 $ / 24 pts, 200 $ à −50. */
+function gsIsRouge(note){
   const n=Number(note);
-  if(!Number.isFinite(n)||n>GS_SEUIL) return null;
+  if(!Number.isFinite(n)) return false;
+  if(typeof pilotBand==='function'){
+    return pilotBand(n, {total:n, scale:250, total_max:250}).id==='rouge';
+  }
+  return n>=GS_ROUGE_DE && n<GS_ROUGE_A;
+}
+function gsMontant(note){
+  /* Mise (levier ×5) : 100 $ à 69, +20 $ / 24 pts, 200 $ max à −50. Uniquement notes rouges. */
+  const n=Number(note);
+  if(!Number.isFinite(n)||!gsIsRouge(n)) return null;
   const steps=Math.round((GS_SEUIL-Math.max(n,-50))/24);
   return Math.min(100+steps*20, 200);
 }
@@ -87,7 +99,7 @@ function gsSetValide(tv, on){
 }
 
 function gsPush(out, rec){
-  if(!rec||!rec.tv||rec.note==null||Number(rec.note)>GS_SEUIL) return;
+  if(!rec||!rec.tv||rec.note==null||!gsIsRouge(rec.note)) return;
   const k=rec.tv;
   const prev=out.get(k);
   if(!prev){ out.set(k, rec); return; }
@@ -100,7 +112,7 @@ function gsFromApex(tv, nom, section, rec, tab, yahoo, ticker){
   if(!tv||!rec||!gsIsScale250(rec)||rec.note==null||rec.cap==='moyenne') return null;
   const note=Number(rec.note);
   if(!Number.isFinite(note)) return null;
-  const hex=rec.hex||((typeof pilotHex==='function')?pilotHex({total:note}):'#e6c27a');
+  const hex=rec.hex||((typeof pilotHex==='function')?pilotHex({total:note, scale:250, total_max:250}):'#e6c27a');
   return {
     tv, nom:nom||tv, section:section||'', note,
     display:rec.display||String(note).replace('.',','), hex, flag:rec.flag||null,
@@ -189,7 +201,7 @@ function gsRender(){
   const n=list.length;
   const nVal=listVal.length;
   const rowOf=(it, checked)=>{
-    const col=it.hex||((typeof pilotHex==='function')?pilotHex({total:it.note}):'#e6c27a');
+    const col=it.hex||((typeof pilotHex==='function')?pilotHex({total:it.note, scale:250, total_max:250}):'#e6c27a');
     const note=it.display||String(it.note).replace('.',',');
     const mise=it.montant;
     const expo=(it.expo!=null)?it.expo:gsExpo(mise);
@@ -221,7 +233,7 @@ function gsRender(){
     <div class="pos-body gi-body" id="gsBody">
       <p class="gs-warn">Le short peut faire perdre plus que la mise. Il faut un compte qui l’autorise (CFD chez XTB, par exemple). Levier ×5, marge commune Revolut : les shorts se soutiennent entre eux, mais une hausse générale du marché touche toutes les positions en même temps et peut déclencher un appel de marge sur l’ensemble.</p>
       <p class="gs-legende">Montants : mise (levier ×5). En petit : exposition équivalente.</p>
-      <div class="gi-list">${rows||'<div class="gi-empty">Aucun titre au seuil (note APEX ≤ 70/250).</div>'}</div>
+      <div class="gi-list">${rows||'<div class="gi-empty">Aucun titre au seuil (note APEX rouge, 10 ≤ note < 70/250).</div>'}</div>
       ${(nVal||gsShowValides)?`<div class="gi-valides">
         <button type="button" class="gi-valides-link gs-valides-link" aria-expanded="${gsShowValides?'true':'false'}">Validés (${nVal})</button>
         ${gsShowValides?(rowsVal||'<div class="gi-empty">Aucun titre validé en short.</div>'):''}

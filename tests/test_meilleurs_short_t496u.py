@@ -1,4 +1,4 @@
-"""t496u–t499u : Meilleurs short = plus mauvaises notes APEX (≤ 70), mise levier ×5."""
+"""t496u–t501u : Meilleurs short = notes APEX rouges (10 ≤ n < 70), mise levier ×5."""
 from __future__ import annotations
 import json
 from pathlib import Path
@@ -12,30 +12,43 @@ POS = (ROOT / "src" / "positions.js").read_text(encoding="utf-8")
 CFG = json.loads((ROOT / "config" / "regles.json").read_text(encoding="utf-8"))
 
 
+def _js_round(x):
+    """Équivalent de Math.round (demi-supérieur), pas le bankers rounding de Python."""
+    import math
+    return int(math.floor(x + 0.5)) if x >= 0 else int(math.ceil(x - 0.5))
+
+
 def _montant(n):
-    if n > 70:
+    if not (10 <= n < 70):
         return None
-    steps = int(round((70 - max(n, -50)) / 24.0))
+    steps = _js_round((69 - max(n, -50)) / 24.0)
     return min(100 + steps * 20, 200)
 
 
 def test_seuil_tri_montant_et_stockage():
-    assert "GS_SEUIL=70" in JS
+    assert "GS_ROUGE_DE=10" in JS
+    assert "GS_ROUGE_A=70" in JS
+    assert "GS_SEUIL=69" in JS
+    assert "gsIsRouge" in JS
+    assert "pilotBand" in JS
     assert "GS_MIRROR" not in JS and "gsMirror" not in JS
     assert "200 −" not in JS and "200 -" not in JS
-    assert "Number(rec.note)>GS_SEUIL" in JS
+    assert "!gsIsRouge(rec.note)" in JS
     assert "a.note-b.note" in JS
     assert "apex-short-valide" in JS
     assert "apex-gi-valide" in GI
     assert "apex-short-valide" not in GI
     assert "gsIsUsaFranceTv" in JS
     assert "etf_local" in JS
-    assert _montant(70) == 100
-    assert _montant(46) == 120
-    assert _montant(22) == 140
-    assert _montant(-2) == 160
-    assert _montant(-26) == 180
-    assert _montant(-50) == 200
+    assert _montant(70) is None
+    assert _montant(9) is None
+    assert _montant(-3) is None
+    assert _montant(-27) is None
+    assert _montant(-50) is None
+    assert _montant(69) == 100
+    assert _montant(45) == 120
+    assert _montant(21) == 140
+    assert _montant(10) == 140
     assert "GS_SEUIL-Math.max(n,-50)" in JS or "GS_SEUIL-Math.max(n, -50)" in JS
     assert "100+steps*20" in JS
     assert "mise*5" in JS or "mise * 5" in JS
@@ -51,7 +64,8 @@ def test_presentation_et_avertissement():
     assert "mise (levier ×5)" in JS
     assert "Validés (${nVal})" in JS
     assert "gs-elliott" in JS and "gs-pattern" in JS and "gs-valid" in JS
-    assert "note APEX ≤ 70/250" in JS
+    assert "10 ≤ note < 70/250" in JS
+    assert "≤ 70/250" not in JS
     assert "/*__GSJS__*/" in TPL
     assert "bestShortCard" in TPL
     assert "gsInit" in TPL
@@ -61,13 +75,17 @@ def test_presentation_et_avertissement():
 def test_regles_short_grille():
     short = CFG["apex_short"]
     assert "formule" not in short
-    assert short["gi_seuil"] == 70
+    assert short["gi_seuil"] == 69
+    assert short["gi_seuil_min"] == 10
+    assert short["gi_seuil_max_exclu"] == 70
+    assert short["gi_seuil_sens"] == "rouge"
     assert "200 − note LONG" not in RG and "200 - note LONG" not in RG
     assert "function rgShortGrid" in RG
     assert "Règles SHORT à définir" not in RG
-    assert "≤ " in RG or "70" in RG
-    short = CFG["apex_short"]
-    assert "100 $" in short["montant"] and "levier" in short["montant"]
+    assert "10 ≤ note < 70" in RG
+    assert "100 $ à 69" in RG
+    assert "100 $" in short["montant"] and "69/250" in short["montant"]
+    assert "10 ≤ note < 70" in short["lecture"]
     assert "marge commune Revolut" in short["avertissement"]
     assert "20 %" not in short["avertissement"]
 
