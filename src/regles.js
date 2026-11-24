@@ -76,24 +76,26 @@ function rgSetHash(on){
   rgHashLock=false;
 }
 function rgFitRows(){
-  const root=document.getElementById('rg-table-actions');
-  if(!root||root.closest('[hidden]')||!root.getClientRects().length) return;
   const overflows=box=>{
     if(!box) return false;
     return Array.from(box.querySelectorAll('.rg-card')).some(c=>c.scrollWidth>c.clientWidth+1);
   };
-  const tech=root.querySelector('[data-group="technique"] .rg-cards');
-  if(tech){
-    tech.classList.remove('rg-cards-span');
-    void tech.offsetWidth;
-    if(overflows(tech)) tech.classList.add('rg-cards-span');
-  }
-  const fond=root.querySelector('.rg-fond-cols');
-  if(fond){
-    fond.classList.remove('rg-fond-one');
-    void fond.offsetWidth;
-    if(overflows(fond)) fond.classList.add('rg-fond-one');
-  }
+  ['rg-table-actions','rg-table-banques','rg-table-short-actions','rg-table-short-banques'].forEach(id=>{
+    const root=document.getElementById(id);
+    if(!root||root.closest('[hidden]')||!root.getClientRects().length) return;
+    const tech=root.querySelector('[data-group="technique"] .rg-cards');
+    if(tech){
+      tech.classList.remove('rg-cards-span');
+      void tech.offsetWidth;
+      if(overflows(tech)) tech.classList.add('rg-cards-span');
+    }
+    const fond=root.querySelector('.rg-fond-cols');
+    if(fond){
+      fond.classList.remove('rg-fond-one');
+      void fond.offsetWidth;
+      if(overflows(fond)) fond.classList.add('rg-fond-one');
+    }
+  });
 }
 function rgSetOpen(on, opts){
   const fromHash=opts&&opts.fromHash;
@@ -513,7 +515,7 @@ function rgActionsGrid(v, opts){
       ${hy.precision?`<p class="rg-p">${rgEsc(hy.precision)}</p>`:''}
       <div class="rg-cards rg-cards-span">${hyCards}</div>
     </section>`:'';
-  const ce=v.couleurs_echelle||null;
+  const ce=(opts.sansCouleursEntrees)?null:(v.couleurs_echelle||null);
   const ceBlock=ce?`<section class="rg-block" data-group="couleurs-250">
       <header class="rg-block-h">
         <div class="rg-block-title">Couleurs et Meilleures entrées <span class="rg-group-note">5 tranches égales de 60 points (−50 à 250)</span></div>
@@ -1006,20 +1008,114 @@ function rgCibleScale(cfg, fallbackMax){
 
 
 
-function rgShortGrid(){
+function rgShortNoteTexte(){
   const cfg=(RG&&RG.apex_short)||{};
   const echelle=cfg.echelle||'−50 à 250';
-  const seuil=cfg.gi_seuil!=null?cfg.gi_seuil:70;
-  const cards=[
-    rgCard('note','Note APEX','On affiche la vraie note APEX déjà publiée, « x / 250 », même couleur et même échelle ('+echelle+') que partout. Pas de note miroir, pas de nouveau calcul.',echelle),
-    rgCard('tri','Classement','Inverse exact de Meilleures entrées : les plus mauvaises notes d’abord, de la plus basse à la plus haute.',''),
-    rgCard('univers','Univers','Actions USA et France, métaux, crypto, obligations, énergie, ETF par devise — uniquement les actifs qui ont une note APEX sur 250 (APE-25). La note de la devise elle-même et les actions hors USA/France restent hors liste.',''),
-    rgCard('gi','Meilleurs short','Entrent uniquement les titres dont la note APEX s’affiche en rouge sur l’échelle −50 à 250 : 10 ≤ note < 70 (10 inclus, 70 déjà orange ; sous 10, violet, hors liste). Mise (levier ×5) : 100 $ à 69, puis +20 $ tous les 24 points en dessous (45, 21, −3, −27), jusqu’à 200 $ à −50. En petit : exposition équivalente (mise × 5).','rouge')
-  ].join('');
-  const origine=cfg.origine?`<p class="rg-p rg-app">${rgEsc(cfg.origine)}</p>`:'';
-  const lecture=cfg.lecture?`<p class="rg-p rg-app">${rgEsc(cfg.lecture)}</p>`:'';
-  const montant=cfg.montant?`<p class="rg-p rg-app">${rgEsc(cfg.montant)}</p>`:'';
-  return `${origine}${lecture}${montant}<div class="rg-board rg-short-grid" id="rg-table-short"><div class="rg-cards rg-cards-span">${cards}</div></div>`;
+  return 'On affiche la vraie note APEX déjà publiée, « x / 250 », même couleur et même échelle ('+echelle+') que partout. Pas de note miroir, pas de nouveau calcul.';
+}
+function rgShortEntreeTexte(){
+  return 'Entrent uniquement les titres dont la note APEX s’affiche en rouge sur l’échelle −50 à 250 : 10 ≤ note < 70 (10 inclus, 70 déjà orange ; sous 10, violet, hors liste). Classement : inverse exact de Meilleures entrées, de la plus basse à la plus haute. Mise (levier ×5) : 100 $ à 69, puis +20 $ tous les 24 points en dessous (45, 21, −3, −27), jusqu’à 200 $ à −50. En petit : exposition équivalente (mise × 5).';
+}
+function rgShortComptaP(){
+  return `<p class="rg-p rg-app">${rgEsc(rgShortNoteTexte())}</p><p class="rg-p rg-app">${rgEsc(rgShortEntreeTexte())}</p>`;
+}
+function rgShortEnergieBody(){
+  const cfg=(RG&&RG.apex_energie)||{};
+  const intro=(cfg.intro_courte?`<p class="rg-p rg-app">${rgEsc(cfg.intro_courte)}</p>`:'')
+    +(cfg.calcul_aligne&&cfg.champ_application?`<p class="rg-p rg-app">${rgEsc(cfg.champ_application)}</p>`:'');
+  return intro+rgShortComptaP()+rgCible250Board(cfg,{boardId:'rg-table-short-energie'});
+}
+function rgShortCommons(){
+  if(!RG) return '';
+  const cfg=RG.apex_short||{};
+  const ce=(RG.apex_achat_v2&&RG.apex_achat_v2.couleurs_echelle)||{};
+  const b250=(ce.bandes||[]).map(b=>`<li class="rg-band"><i style="background:${rgEsc(b.hex||'#888')}"></i><b>${rgEsc(b.regle||'')}</b> ${rgEsc(b.id||'')}</li>`).join('');
+  return `<section class="rg-sec" id="rg-sec-short-communes">
+    <h2 class="rg-h2">Règles communes</h2>
+    <div class="rg-commons-grid">
+      <div class="rg-card">
+        <h3>Couleurs</h3>
+        <p class="rg-p">Échelle unique −50 à 250 pour tous les actifs, en points entiers ; la couleur vient uniquement de la note affichée.</p>
+        <ul class="rg-bands">${b250}</ul>
+      </div>
+      <div class="rg-card">
+        <h3>Note APEX</h3>
+        <p class="rg-p">${rgEsc(rgShortNoteTexte())}</p>
+      </div>
+      <div class="rg-card">
+        <h3>Classement</h3>
+        <p class="rg-p">Inverse exact de Meilleures entrées : les plus mauvaises notes d’abord, de la plus basse à la plus haute.</p>
+      </div>
+      <div class="rg-card">
+        <h3>Meilleurs short</h3>
+        <p class="rg-p">Entrent uniquement les titres dont la note APEX s’affiche en rouge sur l’échelle −50 à 250 : 10 ≤ note < 70 (10 inclus, 70 déjà orange ; sous 10, violet, hors liste). Mise (levier ×5) : 100 $ à 69, puis +20 $ tous les 24 points en dessous (45, 21, −3, −27), jusqu’à 200 $ à −50. En petit : exposition équivalente (mise × 5).</p>
+      </div>
+      <div class="rg-card">
+        <h3>Univers</h3>
+        <p class="rg-p">${rgEsc(cfg.univers||'Actions USA et France, métaux, crypto, obligations, énergie, ETF par devise — uniquement les actifs qui ont une note APEX sur 250 (APE-25). La note de la devise elle-même et les actions hors USA/France restent hors liste.')}</p>
+      </div>
+    </div>
+  </section>`;
+}
+function rgShortGrid(){
+  const vAct=(RG&&RG.apex_achat_v2)||{};
+  const vBan=(RG&&RG.apex_achat_v2_banque)||null;
+  const en=(RG&&RG.apex_energie)||{};
+  const compta=rgShortComptaP();
+  const sections=[
+    {id:'short-actions', title:vAct.section_titre||'Actions (hors banque)', scale:rgActionsScale(vAct).label, body:compta+rgActionsGrid(vAct,{boardId:'rg-table-short-actions', note:vAct.champ_application, sansCouleursEntrees:true}), open:true},
+    vBan?{id:'short-banques', title:vBan.section_titre||vBan.titre||'Actions bancaires', scale:rgActionsScale(vBan).label, body:compta+rgActionsGrid(vBan,{boardId:'rg-table-short-banques', note:vBan.champ_application||vBan.intro, sansCouleursEntrees:true}), open:false}:null,
+    {id:'short-energie', title:en.section_titre||'Énergie', scale:rgCibleScale(en,250), body:rgShortEnergieBody(), open:false}
+  ].filter(Boolean);
+  return sections.map(rgSectionAccordion).join('')+rgShortCommons();
+}
+function rgSensActuel(){
+  const short=document.getElementById('rg-tab-short');
+  return (short&&short.getAttribute('aria-selected')==='true')?'short':'long';
+}
+function rgSetSens(sens){
+  const short=sens==='short';
+  const tabL=document.getElementById('rg-tab-long');
+  const tabS=document.getElementById('rg-tab-short');
+  const paneL=document.getElementById('rg-pane-long');
+  const paneS=document.getElementById('rg-pane-short');
+  if(tabL){
+    tabL.setAttribute('aria-selected',short?'false':'true');
+    tabL.classList.toggle('is-on',!short);
+    tabL.tabIndex=short?-1:0;
+  }
+  if(tabS){
+    tabS.setAttribute('aria-selected',short?'true':'false');
+    tabS.classList.toggle('is-on',short);
+    tabS.tabIndex=short?0:-1;
+  }
+  if(paneL){ if(short) paneL.setAttribute('hidden',''); else paneL.removeAttribute('hidden'); }
+  if(paneS){ if(short) paneS.removeAttribute('hidden'); else paneS.setAttribute('hidden',''); }
+  rgFitRows();
+  requestAnimationFrame(()=>requestAnimationFrame(rgFitRows));
+}
+function rgBindSensTabs(root){
+  const tabs=(root||document).querySelectorAll('.rg-tab');
+  tabs.forEach(btn=>{
+    if(btn._rgTab) return;
+    btn._rgTab=true;
+    btn.addEventListener('click',e=>{
+      e.preventDefault();
+      e.stopPropagation();
+      rgSetSens(btn.getAttribute('data-rg-sens')||'long');
+    });
+    btn.addEventListener('keydown',e=>{
+      if(e.key!=='ArrowLeft'&&e.key!=='ArrowRight'&&e.key!=='Home'&&e.key!=='End') return;
+      e.preventDefault();
+      const list=Array.from(tabs);
+      let i=list.indexOf(btn);
+      if(e.key==='Home') i=0;
+      else if(e.key==='End') i=list.length-1;
+      else i=(i+(e.key==='ArrowRight'?1:-1)+list.length)%list.length;
+      const next=list[i];
+      if(next){ next.focus(); rgSetSens(next.getAttribute('data-rg-sens')||'long'); }
+    });
+  });
 }
 
 function rgPageHTML(){
@@ -1046,13 +1142,15 @@ function rgPageHTML(){
     </header>
     <div class="rg-page-body">
       <div class="rg-page-main">
-        <div class="rg-pane rg-pane-long" id="rg-pane-long">
-          <h2 class="rg-pane-h">LONG</h2>
+        <div class="rg-tabs" role="tablist" aria-label="Sens des règles">
+          <button type="button" class="rg-tab is-on" id="rg-tab-long" role="tab" aria-selected="true" aria-controls="rg-pane-long" data-rg-sens="long" tabindex="0">LONG</button>
+          <button type="button" class="rg-tab" id="rg-tab-short" role="tab" aria-selected="false" aria-controls="rg-pane-short" data-rg-sens="short" tabindex="-1">SHORT</button>
+        </div>
+        <div class="rg-pane rg-pane-long" id="rg-pane-long" role="tabpanel" aria-labelledby="rg-tab-long">
           ${sections.map(rgSectionAccordion).join('')}
           ${rgCommons()}
         </div>
-        <div class="rg-pane rg-pane-short" id="rg-pane-short">
-          <h2 class="rg-pane-h">SHORT</h2>
+        <div class="rg-pane rg-pane-short" id="rg-pane-short" role="tabpanel" aria-labelledby="rg-tab-short" hidden>
           ${rgShortGrid()}
         </div>
       </div>
@@ -1077,6 +1175,8 @@ function rgRender(){
   }
   page.innerHTML=rgPageHTML();
   rgBindAccordions(page);
+  rgBindSensTabs(page);
+  rgSetSens('long');
   const btn=document.getElementById('rgBtn');
   if(btn) btn.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();rgSetOpen(!rgIsOpen());});
   const close=()=>{rgSetOpen(false);};
