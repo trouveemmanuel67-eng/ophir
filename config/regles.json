@@ -2664,13 +2664,13 @@
     "titre": "Meilleurs short",
     "regles": "apex_short_250",
     "tache": "APE-32 (t514u–t521u)",
-    "date_validation": "24/11/2026",
+    "date_validation": "24/11/2026 (réglages t522s2565)",
     "origine": "Note SHORT propre, sur 250 points entiers, distincte de la note LONG (qui n’est pas modifiée). Plus la note est haute, meilleur est le candidat short. Calcul : src/build_short250.py → data/apex_short.json.",
     "echelle": "−50 à 250",
     "note_min": -50,
     "note_max": 250,
-    "seuil": 130,
-    "gi_seuil": 130,
+    "seuil": 70,
+    "gi_seuil": 70,
     "gi_seuil_sens": "note SHORT ≥ seuil",
     "categories": [
       "Actions (hors banque)",
@@ -2686,7 +2686,7 @@
       "macd": {
         "label": "MACD 12/26/9 hebdo",
         "max": 30,
-        "regle": "Ligne MACD > 5 : +10 ; MACD > 5 et 4 barres bleues d’histogramme d’affilée (> 0, clôturées) : +20 de plus. Cumulables, max 30."
+        "regle": "Ligne MACD / cours × 100 > 4 % : +10 ; MACD > 4 % du cours et 4 barres bleues d’histogramme d’affilée (> 0, clôturées) : +20 de plus. Cumulables, max 30. Seuil en % pour comparer tous les prix (4 % : dépassé par ~15 % des actifs aujourd’hui, ~20 % des semaines sur 5 ans)."
       },
       "cci": {
         "label": "CCI Stochastic (Daveatt, ligne D)",
@@ -2697,7 +2697,7 @@
         "label": "Fondamental inversé",
         "max": 81,
         "points_si_mauvais": 9,
-        "regle": "Mêmes 9 critères que le LONG de la catégorie, lus à l’inverse : +9 par critère NON rempli (donnée disponible). Donnée manquante = 0, rien n’est inventé. Max 81."
+        "regle": "Mêmes 9 critères que le LONG de la catégorie, lus à l’inverse : +9 par critère NON rempli, 0 s’il est rempli. Critère sans donnée = moitié des points (4,5) ; le sous-total fondamental est arrondi au point entier (demi vers le haut : 1 manquant = 5, 2 = 9, 3 = 14). Max 81."
       },
       "fear_greed": {
         "label": "Fear & Greed (CNN), inversé",
@@ -2718,10 +2718,11 @@
       }
     },
     "total": "30 + 30 + 30 + 81 + 50 + 29 = 250 ; minimum borné à −50.",
-    "montant": "Mise (levier ×5) : 100 $ à 130/250, puis +20 $ tous les 24 points au-dessus (120 $ à 154, 140 $ à 178, 160 $ à 202, 180 $ à 226), 200 $ à 250. En petit, l’exposition équivalente (mise × 5). Symétrique de Meilleures entrées (500 $ à 130, +100 $ / 24 pts) divisé par 5.",
+    "montant": "Mise (levier ×5) : 100 $ à 70/250, puis +20 $ tous les 24 points au-dessus (120 $ à 94, 140 $ à 118, 160 $ à 142, 180 $ à 166), 200 $ dès 190. En petit, l’exposition équivalente (mise × 5).",
     "univers": "Actions (hors banque) USA et France, actions bancaires, actions et proxies de l’onglet Énergie. Métaux, crypto, obligations, ETF et devises ne sont plus dans Meilleurs short.",
-    "lecture": "Entrent les actifs dont la note SHORT est ≥ 130/250 et dont le cours est au-dessus du Fibonacci 38,2 %. Classement de la plus haute à la plus basse note SHORT (meilleurs candidats en haut).",
+    "lecture": "Entrent les actifs dont la note SHORT est ≥ 70/250 et dont le cours est au-dessus du Fibonacci 38,2 %. Classement de la plus haute à la plus basse note SHORT (meilleurs candidats en haut).",
     "levier": 5,
-    "avertissement": "Le short peut faire perdre plus que la mise. Il faut un compte qui l’autorise (CFD chez XTB, par exemple). Levier ×5, marge commune Revolut : les shorts se soutiennent entre eux, mais une hausse générale du marché touche toutes les positions en même temps et peut déclencher un appel de marge sur l’ensemble."
+    "avertissement": "Le short peut faire perdre plus que la mise. Il faut un compte qui l’autorise (CFD chez XTB, par exemple). Levier ×5, marge commune Revolut : les shorts se soutiennent entre eux, mais une hausse générale du marché touche toutes les positions en même temps et peut déclencher un appel de marge sur l’ensemble.",
+    "macd_pct": 4.0
   }
 }

@@ -13,27 +13,28 @@ POS = (ROOT / "src" / "positions.js").read_text(encoding="utf-8")
 CFG = json.loads((ROOT / "config" / "regles.json").read_text(encoding="utf-8"))
 
 
-def _montant(n, seuil=130):
+def _montant(n, seuil=70):
     if n < seuil:
         return None
     return min(100 + int(math.floor((n - seuil) / 24)) * 20, 200)
 
 
 def test_seuil_tri_montant_et_stockage():
-    assert "GS_SEUIL=130" in JS
+    assert "GS_SEUIL=70" in JS
     assert "dataShort" in JS and "dataShort" in TPL and "__DATA_SHORT__" in TPL
     assert "fibo_ok===true" in JS
     assert "b.note-a.note" in JS  # meilleurs candidats en haut
     assert "apex-short-valide" in JS and "apex-gi-valide" in GI and "apex-short-valide" not in GI
     assert "Math.floor((n-gsSeuil())/GS_PALIER)" in JS
     assert "mise*5" in JS
-    assert _montant(129) is None
-    assert _montant(130) == 100
-    assert _montant(153) == 100
-    assert _montant(154) == 120
-    assert _montant(178) == 140
-    assert _montant(202) == 160
-    assert _montant(226) == 180
+    assert _montant(69) is None
+    assert _montant(70) == 100
+    assert _montant(93) == 100
+    assert _montant(94) == 120
+    assert _montant(118) == 140
+    assert _montant(142) == 160
+    assert _montant(166) == 180
+    assert _montant(190) == 200
     assert _montant(250) == 200
 
 
@@ -51,7 +52,7 @@ def test_presentation():
 def test_regles_short_grille():
     s = CFG["apex_short"]
     g = s["grille"]
-    assert s["seuil"] == 130
+    assert s["seuil"] == 70 and s["macd_pct"] == 4.0
     assert g["rsi"]["max"] == 30 and g["macd"]["max"] == 30 and g["cci"]["max"] == 30
     assert g["fondamental"]["max"] == 81 and g["fear_greed"]["max"] == 50 and g["hype"]["max"] == 29
     assert g["fibonacci"]["max"] == 0
@@ -64,10 +65,12 @@ def test_calcul_short():
     import build_short250 as S
     assert S.fg_short(17.7) == -30 and S.fg_short(50) == 0 and S.fg_short(100) == 50 and S.fg_short(0) == -50
     assert S.h_short(100) == 29 and S.h_short(0) == -29 and S.h_short(50) == 0 and S.h_short(None) is None
-    assert S.mise(129) is None and S.mise(130) == 100 and S.mise(250) == 200
+    assert S.mise(69) is None and S.mise(70) == 100 and S.mise(190) == 200 and S.mise(250) == 200
     assert S.streak([80, 60, 71, 72, 73, 75], lambda v: v > 70) == 4
     pts, ko, nc, _ = S.fond_from([{"ok": False}, {"ok": True}, {"ok": None, "manquant": True}], "manquant")
-    assert (pts, ko, nc) == (9, 1, 1)
+    assert (pts, ko, nc) == (14, 1, 1)  # 9 + 4,5 → 13,5 → 14
+    assert S.fond_from([{"ok": None}, {"ok": None}], "manquant")[0] == 9
+    assert S.fond_from([{"ok": None}], "manquant")[0] == 5
 
 
 def test_donnees_short():
@@ -78,7 +81,7 @@ def test_donnees_short():
         assert -50 <= r["note"] <= 250 and isinstance(r["note"], int)
         p = r["points"]
         assert p["rsi"] in (0, 10, 30) and p["macd"] in (0, 10, 30) and p["cci"] in (0, 10, 30)
-        assert 0 <= p["fondamental"] <= 81
+        assert 0 <= p["fondamental"] <= 81 and isinstance(p["fondamental"], int)
         if r["liste"]:
             assert r["fibo_ok"] and r["note"] >= d["seuil"]
 

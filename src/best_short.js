@@ -2,12 +2,12 @@
    Note distincte de la note LONG, calculée par src/build_short250.py (data/apex_short.json) :
    RSI 30 + MACD 30 + CCI 30 + fondamental inversé 81 + Fear & Greed inversé ±50 + hype inversée ±29.
    Plus la note est haute, meilleur est le candidat short : tri de la plus haute à la plus basse.
-   Entrée : note SHORT ≥ 130/250 ET filtre Fibonacci (cours au niveau 38,2 % ou au-dessus, ATH et au-delà autorisés).
-   Mise (levier ×5) : 100 $ à 130, +20 $ tous les 24 points au-dessus (154, 178, 202, 226), 200 $ max à 250.
+   Entrée : note SHORT ≥ 70/250 ET filtre Fibonacci (cours au niveau 38,2 % ou au-dessus, ATH et au-delà autorisés).
+   Mise (levier ×5) : 100 $ à 70, +20 $ tous les 24 points au-dessus (94, 118, 142, 166), 200 $ max dès 190.
    Exposition équivalente = mise × 5. Univers : Actions (hors banque) USA/France, Actions bancaires, Énergie.
    La note LONG n'est pas modifiée.
 */
-const GS_SEUIL=130;
+const GS_SEUIL=70;
 const GS_PALIER=24;
 const GS_MISE_BASE=100;
 const GS_MISE_PAS=20;
@@ -28,7 +28,7 @@ function gsAuSeuil(note){
   return Number.isFinite(n)&&n>=gsSeuil();
 }
 function gsMontant(note){
-  /* 100 $ à 130, +20 $ par palier entier de 24 points au-dessus, 200 $ max (250). Exposition = mise × 5. */
+  /* 100 $ à 70, +20 $ par palier entier de 24 points au-dessus, 200 $ max (dès 190). Exposition = mise × 5. */
   const n=Number(note);
   if(!gsAuSeuil(n)) return null;
   const steps=Math.floor((n-gsSeuil())/GS_PALIER);

@@ -4,14 +4,14 @@
 Plus la note est haute, plus l'actif est un bon candidat short. Points entiers.
   RSI 14 hebdo (max 30)  : +10 si RSI > 70 ; +20 de plus s'il est resté > 70 plus de 3 semaines
                            (≥ 4 clôtures hebdo consécutives > 70, la dernière incluse). Cumulables.
-  MACD 12/26/9 (max 30)  : +10 si la ligne MACD > 5 ; +20 de plus si, en plus, les 4 dernières barres
+  MACD 12/26/9 (max 30)  : +10 si la ligne MACD / cours × 100 > 4 % ; +20 de plus si, en plus, les 4 dernières barres
                            d'histogramme clôturées sont bleues (> 0) d'affilée. Cumulables.
   CCI Stoch. D (max 30)  : +10 si > 80 ; +20 de plus s'il est resté > 80 plus de 3 semaines (≥ 4 clôtures).
-  Fondamental (max 81)   : lecture inversée du fondamental LONG : +9 par critère dont la donnée existe et
-                           qui n'est PAS rempli (donnée manquante = 0, rien n'est inventé).
+  Fondamental (max 81)   : lecture inversée du fondamental LONG : +9 par critère NON rempli ; critère sans
+                           donnée = 4,5 (moitié) ; sous-total arrondi au point entier (demi vers le haut).
   Fear & Greed (±50)     : inverse du LONG (avidité 60 → +10 … 100 → +50 ; peur 40 → −10 … 0 → −50).
   Hype H (±29)           : H_short = round((attention − 50) × 0,58) (Indicateur d'Attention Long Swing).
-  Fibonacci              : aucun point ; FILTRE d'entrée dans Meilleurs SHORT : cours ≥ niveau 38,2 %
+  Fibonacci              : aucun point ; FILTRE d'entrée dans Meilleurs SHORT (note ≥ 70) : cours ≥ niveau 38,2 %
                            (retracement r ≤ 0,382 depuis l'ATH, corps hebdo ; ATH et au-delà autorisés).
 Total borné −50..250. Catégories : Actions (hors banque), Actions bancaires, Énergie.
 La note LONG n'est ni lue pour le calcul technique ni modifiée.
@@ -29,9 +29,11 @@ import ind_core as K  # noqa: E402
 import fibo as FB  # noqa: E402
 import build_apex_achat_v2_pilot as P  # noqa: E402
 
-SEUIL = 130
+SEUIL = 70
+MACD_PCT = 4.0  # ligne MACD / cours × 100 > 4 % (calibré : ~15 % des actifs aujourd'hui, ~20 % des semaines sur 5 ans)
 try:
-    SEUIL = int(json.loads((ROOT / 'config' / 'regles.json').read_text(encoding='utf-8'))['apex_short'].get('seuil', 130))
+    SEUIL = int(json.loads((ROOT / 'config' / 'regles.json').read_text(encoding='utf-8'))['apex_short'].get('seuil', 70))
+    MACD_PCT = float(json.loads((ROOT / 'config' / 'regles.json').read_text(encoding='utf-8'))['apex_short'].get('macd_pct', MACD_PCT))
 except Exception:
     pass
 MISE_BASE, MISE_PAS, MISE_MAX, PALIER = 100, 20, 200, 24
@@ -95,7 +97,8 @@ def tech(tv, yahoo, ticker):
     rs = streak(r, lambda v: v > 70)
     rsi_pts = (10 if rs >= 1 else 0) + (20 if rs >= 4 else 0)
     m, _sg, h = K.macd_series(c)
-    m_ok = m[-1] is not None and m[-1] > 5
+    m_pct = None if (m[-1] is None or not c[-1]) else m[-1] / c[-1] * 100
+    m_ok = m_pct is not None and m_pct > MACD_PCT
     hb = streak(h, lambda v: v > 0)
     macd_pts = (10 if m_ok else 0) + (20 if (m_ok and hb >= 4) else 0)
     _k, d_s, _raw = K.cci_stochastic_kd(c)
@@ -107,7 +110,7 @@ def tech(tv, yahoo, ticker):
     return {
         'date_cloture': ds[-1], 'close': c[-1], 'symbole': used,
         'rsi': {'valeur': None if r[-1] is None else round(r[-1], 1), 'semaines_sup_70': rs, 'points': rsi_pts},
-        'macd': {'ligne': None if m[-1] is None else round(m[-1], 3), 'barres_bleues': hb, 'points': macd_pts},
+        'macd': {'ligne': None if m[-1] is None else round(m[-1], 3), 'pct_cours': None if m_pct is None else round(m_pct, 2), 'seuil_pct': MACD_PCT, 'barres_bleues': hb, 'points': macd_pts},
         'cci': {'d': None if not d_s or d_s[-1] is None else round(d_s[-1], 1), 'semaines_sup_80': cs, 'points': cci_pts},
         'fibo': {'r': fr, 'niveau_382': None if niv is None else round(niv, 4), 'ath': fib.get('ath'),
                  'ok': (fr is not None and fr <= FIB_MAX_R)},
@@ -115,17 +118,17 @@ def tech(tv, yahoo, ticker):
 
 
 def fond_from(elements, missing_key):
-    pts, n_ko, n_nc, det = 0, 0, 0, []
+    """+9 par critère NON rempli ; critère sans donnée = moitié (4,5), sous-total arrondi au point (demi vers le haut)."""
+    brut, n_ko, n_nc, det = 0.0, 0, 0, []
     for e in elements or []:
         nc = bool(e.get(missing_key)) or e.get('ok') is None
         ko = (not nc) and e.get('ok') is False
-        if ko:
-            pts += 9
-            n_ko += 1
-        if nc:
-            n_nc += 1
-        det.append({'id': e.get('id'), 'label': e.get('label'), 'ok_long': e.get('ok'), 'nc': nc, 'points': 9 if ko else 0})
-    return min(81, pts), n_ko, n_nc, det
+        pts = 9 if ko else (4.5 if nc else 0)
+        brut += pts
+        n_ko += ko
+        n_nc += nc
+        det.append({'id': e.get('id'), 'label': e.get('label'), 'ok_long': e.get('ok'), 'nc': nc, 'points': pts})
+    return min(81, jround(brut)), n_ko, n_nc, det
 
 
 def assemble(base, t, fond, fgv, att):
@@ -140,7 +143,7 @@ def assemble(base, t, fond, fgv, att):
     if fgv is None:
         manq.append('Fear & Greed')
     if n_nc:
-        manq.append(f'{n_nc} critère(s) fondamental n.c.')
+        manq.append(f'{n_nc} critère(s) fondamental n.c. (4,5 pts chacun)')
     if t['fibo']['r'] is None:
         manq.append('Fibonacci')
     entre = note >= SEUIL and t['fibo']['ok']

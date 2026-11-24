@@ -932,7 +932,7 @@ function rgCibleFoot(cfg, opts){
   const scale=rgFmtScaleBound(lo)+' à '+rgFmtScaleBound(hi);
   if(cfg.calcul_aligne){
     const ctx=hasTech?tech:'Contexte 110 + ';
-    return `<p class="rg-p rg-app">${ctx}Fondamental ${rgNum(pts.fond)} + sentiment ±${rgNum(pts.fg)} = −50 à 250, points entiers, sans Elliott. Calcul aligné (APE-25, 24/11/2026)${actuel?(' : '+rgEsc(actuel)):''}. Un critère sans donnée est « n.c. » = 0 point, sans invention ni redistribution ; source et date de chaque valeur dans la fiche de l’actif. Meilleures entrées dès 130 (500 $, +100 $ tous les 24 points, 1 000 $ max) ; Meilleurs short en rouge 10 ≤ n < 70.</p>`;
+    return `<p class="rg-p rg-app">${ctx}Fondamental ${rgNum(pts.fond)} + sentiment ±${rgNum(pts.fg)} = −50 à 250, points entiers, sans Elliott. Calcul aligné (APE-25, 24/11/2026)${actuel?(' : '+rgEsc(actuel)):''}. Un critère sans donnée est « n.c. » = 0 point, sans invention ni redistribution ; source et date de chaque valeur dans la fiche de l’actif. Meilleures entrées dès 130 (500 $, +100 $ tous les 24 points, 1 000 $ max) ; Meilleurs short : note SHORT dédiée ≥ 70 (voir le volet SHORT).</p>`;
   }
   return `<p class="rg-p rg-app">${tech}Fondamental ${rgNum(pts.fond)} + F&amp;G ±${rgNum(pts.fg)} = ${scale}, points entiers, sans Elliott. Calcul non encore aligné${actuel?(' : notes publiées — '+rgEsc(actuel)):''}. Un critère sans donnée ou sans palier est « non calculé », sans invention ni redistribution.</p>`;
 }
@@ -1015,7 +1015,7 @@ function rgShortNoteTexte(){
 }
 function rgShortEntreeTexte(){
   const cfg=rgShortCfg();
-  const s=cfg.seuil!=null?cfg.seuil:130;
+  const s=cfg.seuil!=null?cfg.seuil:70;
   return 'Entrent les actifs dont la note SHORT est ≥ '+s+'/250 et dont le cours est au-dessus du Fibonacci 38,2 %. Classement de la plus haute à la plus basse note SHORT (meilleurs candidats en haut). '+(cfg.montant||'');
 }
 function rgShortComptaP(){
@@ -1054,7 +1054,7 @@ function rgShortBoard(kind, boardId){
       ${inner}
     </section>`;
   return `<div class="rg-board" id="${rgEsc(boardId)}">
-    ${block('technique','Technique',rgNum(techSum),`<div class="rg-cards rg-cards-span">${techCards}</div>`,'RSI 30 · MACD 30 · CCI 30 · pas de Fibonacci')}
+    ${block('technique','Technique',rgNum(techSum),`<div class="rg-cards rg-cards-span">${techCards}</div>`,'RSI 30 · MACD 30 (en % du cours) · CCI 30 · pas de Fibonacci')}
     ${block('fondamental',f.label||'Fondamental inversé',rgNum(f.max!=null?f.max:81),`${f.regle?`<p class="rg-p">${rgEsc(f.regle)}</p>`:''}<div class="rg-cards rg-cards-span">${fondCards}</div>`)}
     ${block('sentiment','Sentiment',fg.max_affiche||'±50',`<div class="rg-cards rg-cards-span">${card('fear_greed_short',fg.label||'Fear & Greed, inversé',fg.regle||'',fg.max_affiche||'±50')}</div>`,'inversé par rapport au LONG')}
     ${block('hype','Hype / attention (H)',hy.max_affiche||'±29',`<div class="rg-cards rg-cards-span">${card('hype_short',hy.label||'Hype inversée',hy.regle||'',hy.max_affiche||'±29')}</div>`,'inversée par rapport au LONG')}
