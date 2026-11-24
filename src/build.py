@@ -34,6 +34,13 @@ if _gp.exists():
     gi=_gp.read_text()
 t=t.replace('__GI__', esc(gi) if gi else 'null')
 
+_rot=_P(B+'data/rotation.json')
+rot=_rot.read_text() if _rot.exists() else ''
+t=t.replace('__DATA_ROTATION__', esc(rot) if rot else 'null')
+_irjs=_P(B+'src/rotation.js')
+t=t.replace('/*__IRJS__*/', _irjs.read_text() if _irjs.exists() else '')
+
+
 def _slim_pilot(raw):
     import json as _json
     d=_json.loads(raw)

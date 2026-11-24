@@ -325,14 +325,16 @@ function posSyncListChrome(on){
   document.body.classList.toggle('pos-list-open',!!on);
   const giOn=typeof giListIsOpen==='function'&&giListIsOpen();
   const gsOn=typeof gsListIsOpen==='function'&&gsListIsOpen();
+  const irOn=typeof irListIsOpen==='function'&&irListIsOpen();
   document.body.classList.toggle('gi-list-open',!!giOn);
   document.body.classList.toggle('gs-list-open',!!gsOn);
+  document.body.classList.toggle('ir-list-open',!!irOn);
   const rail=document.getElementById('mes-pos');
-  if(rail) rail.classList.toggle('is-expanded',!!on||!!giOn||!!gsOn);
+  if(rail) rail.classList.toggle('is-expanded',!!on||!!giOn||!!gsOn||!!irOn);
   const ov=document.getElementById('pos-overlay');
   if(ov){
     const mobile=window.matchMedia('(max-width:1099px)').matches;
-    ov.hidden=!(mobile&&(on||giOn||gsOn));
+    ov.hidden=!(mobile&&(on||giOn||gsOn||irOn));
   }
 }
 function posApplyListState(force){
