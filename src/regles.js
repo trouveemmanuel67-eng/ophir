@@ -648,7 +648,7 @@ function rgMetauxRulesShort(){
   const avFort=((RG&&RG.cyan)||{}).av_achat_fort;
   return {
     rsi: cfg.rsi||'RSI < 40 : +10 ; divergence haussière hebdo : +20 ; cumulables.',
-    macd: cfg.macd||'MACD < 0 : +10 ; ≥ 4 barres d’histogramme rouges sous 0 : +20 ; cumulables.',
+    macd: cfg.macd||'MACD < 0 : +10 ; 4 histo. < 0 : +20 ; cumulables. Sous 0 + 4 barres rouges d’affilée : +20 (appliqué au calcul à partir du 25/11).',
     fibonacci: cfg.fibonacci||'Plus bas → plus haut (corps hebdo). Sous 38,2 % : +10 ; 61,8 % : +20 ; 78,6 % : +30. Non cumulables.',
     cci: cfg.cci||'+20 si le CCI Stochastic Daveatt (ligne D) est sous 20.',
     fond: cfg.fond||'Minières seulement, même grille que les actions : 9 critères × 10 points s’ils sont bons, sinon 0. Maximum 90.',

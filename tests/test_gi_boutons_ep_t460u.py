@@ -1,4 +1,4 @@
-"""t460u : boutons E et P de Meilleures entrées empilés, taille réduite de moitié."""
+"""t460u / t479u : boutons E, P et ✓ de Meilleures entrées, 22×22, sur une seule ligne."""
 from __future__ import annotations
 from pathlib import Path
 
@@ -14,15 +14,14 @@ def _block(start: str, end: str) -> str:
     return CSS[i:j if j >= 0 else i + 800]
 
 
-def test_empiles_verticalement_e_puis_p():
+def test_cote_a_cote_e_puis_p_puis_valide():
     assert 'class="gi-acts"' in JS
-    # E puis P dans le HTML
     i = JS.find('class="gi-acts"')
-    chunk = JS[i:i + 900]
-    assert chunk.find(">E</button>") < chunk.find(">P</button>")
+    chunk = JS[i:i + 1200]
+    assert chunk.find(">E</button>") < chunk.find(">P</button>") < chunk.find("✓</button>")
     acts = _block(".gi-acts{", ".gi-elliott")
-    assert "flex-direction:column" in acts
-    assert "flex-direction:row" not in acts
+    assert "flex-direction:row" in acts
+    assert "flex-direction:column" not in acts
     # une seule hauteur de ligne
     assert "grid-row:1" in acts
     assert ".gi-id{grid-column:2;grid-row:1;" in CSS
@@ -31,7 +30,7 @@ def test_empiles_verticalement_e_puis_p():
 
 
 def test_taille_moitie_22px():
-    blk = _block(".gi-elliott,.gi-pattern{", ".gi-elliott:hover")
+    blk = _block(".gi-elliott,.gi-pattern,.gi-valid{", ".gi-elliott:hover")
     assert "width:22px" in blk and "height:22px" in blk
     assert "min-width:22px" in blk and "min-height:22px" in blk
     assert "width:44px" not in blk and "min-width:44px" not in blk

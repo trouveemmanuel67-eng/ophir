@@ -43,6 +43,9 @@ def test_seuils_courts_identiques_au_code():
     s = REGLES["apex_metaux"]["regles_courtes"]
     assert "RSI < 40" in s["rsi"] and "+10" in s["rsi"] and "+20" in s["rsi"]
     assert "MACD < 0" in s["macd"] and "4 barres" in s["macd"]
+    assert "sous 0 + 4 barres rouges d'affilée" in s["macd"].lower() or "Sous 0 + 4 barres rouges d'affilée" in s["macd"]
+    assert "25/11" in s["macd"]
+
     assert "38,2 %" in s["fibonacci"] and "61,8 %" in s["fibonacci"] and "78,6 %" in s["fibonacci"]
     assert "sous 20" in s["cci"]
     assert "9 critères" in s["fond"] or "9" in s["fond"]

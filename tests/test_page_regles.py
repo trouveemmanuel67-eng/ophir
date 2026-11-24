@@ -91,6 +91,13 @@ def test_apex_achat_v2_rsi_seulement(regles):
     pts = {c['id']: c['points'] for c in macd['conditions']}
     assert pts['macd_sous_0'] == 10
     assert pts['histo_4_barres_rouges_sous_0'] == 20
+    assert "Sous 0 + 4 barres rouges d'affilée : +20" in (macd.get('regle_courte') or '')
+    assert "25/11" in (macd.get('regle_courte') or '')
+    banque = regles['apex_achat_v2_banque']
+    macd_b = {c['id']: c for c in banque['criteres']}['macd_12_26_9_hebdo']
+    assert "Sous 0 + 4 barres rouges d'affilée : +20" in (macd_b.get('regle_courte') or '')
+    assert "25/11" in (macd_b.get('regle_courte') or '')
+
     fibo = by['fibonacci']
     assert fibo['max'] == 30 and fibo.get('cumulables') is False and fibo.get('retrait') is False
     fp = {c['id']: c['points'] for c in fibo['conditions']}

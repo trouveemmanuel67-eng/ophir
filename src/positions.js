@@ -441,7 +441,7 @@ function renderMesPositions(){
     const cp=tvCopy?((typeof ophirCopyBtn==='function')?ophirCopyBtn(tvCopy):`<button type="button" class="cp" data-c="${String(tvCopy).replace(/"/g,'&quot;')}" aria-label="Copier ${String(tvCopy).replace(/"/g,'&quot;')}" title="Copier ${String(tvCopy).replace(/"/g,'&quot;')}">⎘</button>`):'';
     const poids=p.poids_pct==null?'—':posPct(p.poids_pct).replace('+','');
     const sell=p.vente_en_attente?`<span class="pos-mark pos-mark-sell" title="${(p.vente_en_attente_note||'Vente en attente').replace(/"/g,'&quot;')}">vente</span>`:'';
-    const ordre=p.statut==='en_attente'?posOrdreMark([p]):'';
+    const ordre=''; /* t478u : plus de badge ORDRE dans Mes positions ; les en_attente restent dans la liste */
     const stale=p.non_reverifie?`<span class="pos-mark pos-mark-stale" title="Non revérifié le ${String(p.non_reverifie).replace(/"/g,'&quot;')}"></span>`:'';
     const tip=[p.nom,p.ticker&&p.ticker!==p.nom?p.ticker:'',court,p.vente_en_attente_note||'',p.non_reverifie_note||'',p.fiche_note||''].filter(Boolean).join(' \u00b7 ');
     const posTv=p.fiche_tv||p.tv_note||p.ticker||'';

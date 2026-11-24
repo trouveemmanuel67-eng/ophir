@@ -6,18 +6,18 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<meta name="ophir-build" content="0926af5-20261124-144318">
+<meta name="ophir-build" content="7e1a57c-20261124-150633">
 <title>APEX INDICATOR INVESTMENT</title>
 <meta name="description" content="APEX Indicator Investment — notes et indicateurs de marché.">
 <meta name="theme-color" content="#0a1128">
 <meta name="apple-mobile-web-app-title" content="APEX">
 <meta name="application-name" content="APEX">
-<link rel="icon" href="favicon.ico?v=0926af5-20261124-144318" sizes="any">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=0926af5-20261124-144318">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=0926af5-20261124-144318">
-<link rel="icon" type="image/png" sizes="64x64" href="favicon.png?v=0926af5-20261124-144318">
-<link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png?v=0926af5-20261124-144318">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=0926af5-20261124-144318">
+<link rel="icon" href="favicon.ico?v=7e1a57c-20261124-150633" sizes="any">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=7e1a57c-20261124-150633">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=7e1a57c-20261124-150633">
+<link rel="icon" type="image/png" sizes="64x64" href="favicon.png?v=7e1a57c-20261124-150633">
+<link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png?v=7e1a57c-20261124-150633">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=7e1a57c-20261124-150633">
 <meta property="og:type" content="website">
 <meta property="og:title" content="APEX INDICATOR INVESTMENT">
 <meta property="og:description" content="APEX Indicator Investment — notes et indicateurs de marché.">
@@ -558,11 +558,20 @@ body{display:flex;flex-direction:column;min-height:100vh}
 .gi-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;grid-template-rows:auto;align-items:center;column-gap:8px;row-gap:0;padding:6px 4px;border-bottom:1px solid rgba(255,255,255,.08);border-radius:0;background:none}
 .gi-row:hover{background:rgba(255,255,255,.03)}
 .gi-row:last-child{border-bottom:0}
-.gi-acts{grid-column:1;grid-row:1;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:0;width:22px}
-.gi-elliott,.gi-pattern{appearance:none;-webkit-appearance:none;display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;width:22px;height:22px;min-width:22px;min-height:22px;margin:0;padding:0;border:0;border-radius:5px;background:transparent;color:#ff2d2d;font:inherit;font-size:11px;font-weight:800;line-height:1;letter-spacing:0;cursor:pointer;-webkit-tap-highlight-color:rgba(255,45,45,.28)}
+.gi-acts{grid-column:1;grid-row:1;display:flex;flex-direction:row;justify-content:center;align-items:center;gap:2px;width:auto}
+.gi-elliott,.gi-pattern,.gi-valid{appearance:none;-webkit-appearance:none;display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;width:22px;height:22px;min-width:22px;min-height:22px;margin:0;padding:0;border:0;border-radius:5px;background:transparent;color:#ff2d2d;font:inherit;font-size:11px;font-weight:800;line-height:1;letter-spacing:0;cursor:pointer;-webkit-tap-highlight-color:rgba(255,45,45,.28)}
 .gi-elliott:hover,.gi-pattern:hover{background:rgba(255,45,45,.12);color:#ff4d4d}
 .gi-elliott:active,.gi-pattern:active{background:rgba(255,45,45,.22);color:#ff6b6b;transform:scale(.96)}
 .gi-elliott:focus-visible,.gi-pattern:focus-visible{outline:1px solid rgba(255,45,45,.8);outline-offset:2px}
+.gi-valid{color:#6f8f7a;border:1px solid rgba(111,143,122,.45);font-size:13px;font-weight:700}
+.gi-valid:hover{background:rgba(111,143,122,.14);color:#9dccad}
+.gi-valid:active{background:rgba(111,143,122,.24);transform:scale(.96)}
+.gi-valid:focus-visible{outline:1px solid rgba(111,143,122,.8);outline-offset:2px}
+.gi-valid.is-on{background:rgba(111,143,122,.22);color:#b8e0c6;border-color:rgba(184,224,198,.7)}
+.gi-valides{margin-top:8px;padding-top:6px;border-top:1px solid rgba(255,255,255,.08)}
+.gi-valides-link{appearance:none;-webkit-appearance:none;display:inline-block;margin:0;padding:2px 0;border:0;background:none;color:#8d8d8d;font:inherit;font-size:11px;font-weight:600;letter-spacing:.02em;cursor:pointer;text-decoration:underline;text-underline-offset:2px;text-decoration-color:rgba(141,141,141,.45)}
+.gi-valides-link:hover{color:#b5b5b5}
+.gi-valides-link:focus-visible{outline:1px solid rgba(255,255,255,.35);outline-offset:2px;border-radius:3px}
 .gi-id{grid-column:2;grid-row:1;min-width:0;overflow:hidden;display:flex;align-items:center;gap:6px}
 .gi-id .gi-link,.gi-id .pos-nm{display:block;flex:1 1 auto;min-width:0;width:auto;font-weight:650;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;background:none;border:0;padding:0;font:inherit;cursor:pointer;text-align:left;text-decoration:none;box-shadow:none;appearance:none;-webkit-appearance:none}
 .gi-id .cp{flex:none;width:22px;height:22px}
@@ -9952,7 +9961,7 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
             "points": 20
           }
         ],
-        "regle_courte": "MACD < 0 : +10 ; ≥ 4 barres histo. rouges sous 0 : +20 ; cumulables"
+        "regle_courte": "MACD < 0 : +10 ; 4 histo. < 0 : +20 ; cumulables. Sous 0 + 4 barres rouges d'affilée : +20 (appliqué au calcul à partir du 25/11)."
       },
       {
         "id": "fibonacci",
@@ -10228,7 +10237,7 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
             "points": 20
           }
         ],
-        "regle_courte": "MACD < 0 : +10 ; ≥ 4 barres histo. rouges sous 0 : +20 ; cumulables"
+        "regle_courte": "MACD < 0 : +10 ; 4 histo. < 0 : +20 ; cumulables. Sous 0 + 4 barres rouges d'affilée : +20 (appliqué au calcul à partir du 25/11)."
       },
       {
         "id": "fibonacci",
@@ -10471,7 +10480,7 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
       "structure": "À la place du fondamental s'il est absent. Paliers de 10, plafond 90. Tendance MM40 / pente 5 s. : ≥ 70 → +30 ; ≥ 40 → +20 ; ≥ 10 → +10. Plus hauts et plus bas 13 s. : PH et PB plus hauts → +30 ; expansion → +10. Position vs ATH : note ≥ 50 → +30 ; ≥ 20 → +20 ; > 0 → +10.",
       "fibonacci": "Plus bas → plus haut (corps hebdo). Sous 38,2 % : +10 ; 61,8 % : +20 ; 78,6 % : +30. Non cumulables.",
       "rsi": "RSI < 40 : +10 ; divergence haussière hebdo : +20 ; cumulables. Maximum 30. Aucun retrait.",
-      "macd": "MACD < 0 : +10 ; ≥ 4 barres d'histogramme rouges sous 0 : +20 ; cumulables. Maximum 30. Aucun retrait.",
+      "macd": "MACD < 0 : +10 ; 4 histo. < 0 : +20 ; cumulables. Sous 0 + 4 barres rouges d'affilée : +20 (appliqué au calcul à partir du 25/11).",
       "cci": "+20 si le CCI Stochastic Daveatt (ligne D) est sous 20. Maximum 20.",
       "fond": "Minières seulement, même grille que les actions : 9 critères × 10 points s'ils sont bons, sinon 0 (donnée manquante = 0). Maximum 90.",
       "fear_greed": "Milieu 50 = 0. Tranche de 10 : peur 40 → +10 … 0 → +50 ; avidité 60 → −10 … 100 → −50.",
@@ -10505,8 +10514,8 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
   }
 }
 </script>
-<script type="application/json" id="dataBuild">{"version":"0926af5-20261124-144318"}</script>
-<link rel="preload" href="config/regles.json?v=0926af5-20261124-144318" as="fetch" crossorigin>
+<script type="application/json" id="dataBuild">{"version":"7e1a57c-20261124-150633"}</script>
+<link rel="preload" href="config/regles.json?v=7e1a57c-20261124-150633" as="fetch" crossorigin>
 
 <script type="application/json" id="dataMaj">{
   "at": "2026-11-23T21:45:22.168885+01:00",
@@ -13823,7 +13832,7 @@ function renderMesPositions(){
     const cp=tvCopy?((typeof ophirCopyBtn==='function')?ophirCopyBtn(tvCopy):`<button type="button" class="cp" data-c="${String(tvCopy).replace(/"/g,'&quot;')}" aria-label="Copier ${String(tvCopy).replace(/"/g,'&quot;')}" title="Copier ${String(tvCopy).replace(/"/g,'&quot;')}">⎘</button>`):'';
     const poids=p.poids_pct==null?'—':posPct(p.poids_pct).replace('+','');
     const sell=p.vente_en_attente?`<span class="pos-mark pos-mark-sell" title="${(p.vente_en_attente_note||'Vente en attente').replace(/"/g,'&quot;')}">vente</span>`:'';
-    const ordre=p.statut==='en_attente'?posOrdreMark([p]):'';
+    const ordre=''; /* t478u : plus de badge ORDRE dans Mes positions ; les en_attente restent dans la liste */
     const stale=p.non_reverifie?`<span class="pos-mark pos-mark-stale" title="Non revérifié le ${String(p.non_reverifie).replace(/"/g,'&quot;')}"></span>`:'';
     const tip=[p.nom,p.ticker&&p.ticker!==p.nom?p.ticker:'',court,p.vente_en_attente_note||'',p.non_reverifie_note||'',p.fiche_note||''].filter(Boolean).join(' \u00b7 ');
     const posTv=p.fiche_tv||p.tv_note||p.ticker||'';
@@ -15150,7 +15159,7 @@ function rgMetauxRulesShort(){
   const avFort=((RG&&RG.cyan)||{}).av_achat_fort;
   return {
     rsi: cfg.rsi||'RSI < 40 : +10 ; divergence haussière hebdo : +20 ; cumulables.',
-    macd: cfg.macd||'MACD < 0 : +10 ; ≥ 4 barres d’histogramme rouges sous 0 : +20 ; cumulables.',
+    macd: cfg.macd||'MACD < 0 : +10 ; 4 histo. < 0 : +20 ; cumulables. Sous 0 + 4 barres rouges d’affilée : +20 (appliqué au calcul à partir du 25/11).',
     fibonacci: cfg.fibonacci||'Plus bas → plus haut (corps hebdo). Sous 38,2 % : +10 ; 61,8 % : +20 ; 78,6 % : +30. Non cumulables.',
     cci: cfg.cci||'+20 si le CCI Stochastic Daveatt (ligne D) est sous 20.',
     fond: cfg.fond||'Minières seulement, même grille que les actions : 9 critères × 10 points s’ils sont bons, sinon 0. Maximum 90.',
@@ -15371,6 +15380,31 @@ function giHidePattern(tv){
   const map=giPatternHiddenMap();
   map[String(tv)]=giMonthKey();
   try{ localStorage.setItem(GI_PATTERN_KEY, JSON.stringify(map)); }catch(e){}
+}
+const GI_VALIDE_KEY='apex-gi-valide';
+let giShowValides=false;
+function giValideMap(){
+  let raw=null;
+  try{ raw=JSON.parse(localStorage.getItem(GI_VALIDE_KEY)||'{}'); }catch(e){ raw={}; }
+  if(!raw||typeof raw!=='object'||Array.isArray(raw)) raw={};
+  const out={};
+  Object.keys(raw).forEach(k=>{
+    const v=raw[k];
+    if(v) out[String(k)]=v===true?true:v;
+  });
+  return out;
+}
+function giIsValide(tv, map){
+  if(!tv) return false;
+  return !!((map||giValideMap())[String(tv)]);
+}
+function giSetValide(tv, on){
+  if(!tv) return;
+  const map=giValideMap();
+  const k=String(tv);
+  if(on) map[k]=true;
+  else delete map[k];
+  try{ localStorage.setItem(GI_VALIDE_KEY, JSON.stringify(map)); }catch(e){}
 }
 const GI_PAYS_ACTIONS=new Set(['USA','France']);
 const GI_PAYS_HORS=['Allemagne','Canada','Suisse','Italie','Japon','Corée du Sud','Corée','Australie'];
@@ -15653,9 +15687,13 @@ function giRender(){
   if(!host) return;
   const hidden=giElliottHiddenMap();
   const hiddenP=giPatternHiddenMap();
-  const list=giCollect().filter(it=>!giIsElliottHidden(it.tv, hidden)).filter(it=>!giIsPatternHidden(it.tv, hiddenP));
+  const valides=giValideMap();
+  const all=giCollect().filter(it=>!giIsElliottHidden(it.tv, hidden)).filter(it=>!giIsPatternHidden(it.tv, hiddenP));
+  const list=all.filter(it=>!giIsValide(it.tv, valides));
+  const listVal=all.filter(it=>giIsValide(it.tv, valides));
   const n=list.length;
-  const rows=list.map(it=>{
+  const nVal=listVal.length;
+  const rowOf=(it, checked)=>{
     const col=it.scale===250||it.scale===270?(it.hex||((typeof pilotHex==='function')?pilotHex({total:it.note}):'#e6c27a')):((typeof ttColor==='function')?ttColor(it.note):(it.hex||'#e6c27a'));
     const note=it.display||String(it.note).replace('.',',');
     const amt=(typeof ttMontantTxt==='function')?ttMontantTxt(it.montant, (typeof TT!=='undefined'&&TT&&TT.unite)||'$'):(it.montant==null?'—':it.montant+' $');
@@ -15666,7 +15704,7 @@ function giRender(){
     const tip=[it.nom,it.tv].filter(Boolean).join(' · ');
     const cp=it.tv?((typeof ophirCopyBtn==='function')?ophirCopyBtn(it.tv):`<button type="button" class="cp" data-c="${String(it.tv).replace(/"/g,'&quot;')}" aria-label="Copier ${String(it.tv).replace(/"/g,'&quot;')}" title="Copier ${String(it.tv).replace(/"/g,'&quot;')}">⎘</button>`):'';
     const ev=it.tv
-      ? `<div class="gi-acts"><button type="button" class="gi-elliott" data-tv="${String(it.tv).replace(/"/g,'&quot;')}" title="Retirer : vague Elliott non propice" aria-label="Retirer : vague Elliott non propice">E</button><button type="button" class="gi-pattern" data-tv="${String(it.tv).replace(/"/g,'&quot;')}" title="Pattern baissier : retirer jusqu'au 1er du mois" aria-label="Pattern baissier : retirer jusqu'au 1er du mois">P</button></div>`
+      ? `<div class="gi-acts"><button type="button" class="gi-elliott" data-tv="${String(it.tv).replace(/"/g,'&quot;')}" title="Retirer : vague Elliott non propice" aria-label="Retirer : vague Elliott non propice">E</button><button type="button" class="gi-pattern" data-tv="${String(it.tv).replace(/"/g,'&quot;')}" title="Pattern baissier : retirer jusqu'au 1er du mois" aria-label="Pattern baissier : retirer jusqu'au 1er du mois">P</button><button type="button" class="gi-valid${checked?' is-on':''}" data-tv="${String(it.tv).replace(/"/g,'&quot;')}" title="${checked?'Retirer de Validés (erreur)':'Validé : déjà entré en position'}" aria-label="${checked?'Retirer de Validés':'Validé'}" aria-pressed="${checked?'true':'false'}">✓</button></div>`
       : '';
     return `<article class="gi-row${it.tv?' has-fiche':''}" title="${tip.replace(/"/g,'&quot;')}">
       ${ev}
@@ -15674,7 +15712,9 @@ function giRender(){
       <span class="gi-note" style="color:${col}"><b>${note}</b><small>/${(it.scale===250||it.scale===270)?250:100}</small></span>
       <span class="gi-amt">${amt}</span>
     </article>`;
-  }).join('');
+  };
+  const rows=list.map(it=>rowOf(it, false)).join('');
+  const rowsVal=listVal.map(it=>rowOf(it, true)).join('');
   const html=`<div class="card no-group" id="goodInvestCard">
     <div class="pos-rail-h" role="button" tabindex="0" aria-expanded="false" aria-controls="giBody">
       <span class="pos-chev" aria-hidden="true">▸</span>
@@ -15683,6 +15723,10 @@ function giRender(){
     </div>
     <div class="pos-body gi-body" id="giBody">
       <div class="gi-list">${rows||'<div class="gi-empty">Aucun titre au seuil (actions ≥ 130/250, métaux ≥ 130/250, autres ≥ 75/100) hors portefeuille.</div>'}</div>
+      ${(nVal||giShowValides)?`<div class="gi-valides">
+        <button type="button" class="gi-valides-link" aria-expanded="${giShowValides?'true':'false'}">Validés (${nVal})</button>
+        ${giShowValides?(rowsVal||'<div class="gi-empty">Aucun titre validé hors portefeuille.</div>'):''}
+      </div>`:''}
     </div>
   </div>`;
   const wasOpen=giListIsOpen();
@@ -15718,6 +15762,22 @@ function giRender(){
     giHidePattern(b.dataset.tv);
     giRender();
   }));
+  card.querySelectorAll('.gi-valid').forEach(b=>b.addEventListener('click',e=>{
+    e.preventDefault();
+    e.stopPropagation();
+    const tv=b.dataset.tv;
+    giSetValide(tv, !giIsValide(tv));
+    giRender();
+  }));
+  const vLink=card.querySelector('.gi-valides-link');
+  if(vLink){
+    vLink.addEventListener('click',e=>{
+      e.preventDefault();
+      e.stopPropagation();
+      giShowValides=!giShowValides;
+      giRender();
+    });
+  }
   if(typeof posSyncListChrome==='function') posSyncListChrome(typeof posListIsOpen==='function'&&posListIsOpen());
 }
 function giInit(){

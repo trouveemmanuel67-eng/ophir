@@ -72,6 +72,31 @@ function giHidePattern(tv){
   map[String(tv)]=giMonthKey();
   try{ localStorage.setItem(GI_PATTERN_KEY, JSON.stringify(map)); }catch(e){}
 }
+const GI_VALIDE_KEY='apex-gi-valide';
+let giShowValides=false;
+function giValideMap(){
+  let raw=null;
+  try{ raw=JSON.parse(localStorage.getItem(GI_VALIDE_KEY)||'{}'); }catch(e){ raw={}; }
+  if(!raw||typeof raw!=='object'||Array.isArray(raw)) raw={};
+  const out={};
+  Object.keys(raw).forEach(k=>{
+    const v=raw[k];
+    if(v) out[String(k)]=v===true?true:v;
+  });
+  return out;
+}
+function giIsValide(tv, map){
+  if(!tv) return false;
+  return !!((map||giValideMap())[String(tv)]);
+}
+function giSetValide(tv, on){
+  if(!tv) return;
+  const map=giValideMap();
+  const k=String(tv);
+  if(on) map[k]=true;
+  else delete map[k];
+  try{ localStorage.setItem(GI_VALIDE_KEY, JSON.stringify(map)); }catch(e){}
+}
 const GI_PAYS_ACTIONS=new Set(['USA','France']);
 const GI_PAYS_HORS=['Allemagne','Canada','Suisse','Italie','Japon','Corée du Sud','Corée','Australie'];
 function giEstActionHorsUnivers(it){
@@ -353,9 +378,13 @@ function giRender(){
   if(!host) return;
   const hidden=giElliottHiddenMap();
   const hiddenP=giPatternHiddenMap();
-  const list=giCollect().filter(it=>!giIsElliottHidden(it.tv, hidden)).filter(it=>!giIsPatternHidden(it.tv, hiddenP));
+  const valides=giValideMap();
+  const all=giCollect().filter(it=>!giIsElliottHidden(it.tv, hidden)).filter(it=>!giIsPatternHidden(it.tv, hiddenP));
+  const list=all.filter(it=>!giIsValide(it.tv, valides));
+  const listVal=all.filter(it=>giIsValide(it.tv, valides));
   const n=list.length;
-  const rows=list.map(it=>{
+  const nVal=listVal.length;
+  const rowOf=(it, checked)=>{
     const col=it.scale===250||it.scale===270?(it.hex||((typeof pilotHex==='function')?pilotHex({total:it.note}):'#e6c27a')):((typeof ttColor==='function')?ttColor(it.note):(it.hex||'#e6c27a'));
     const note=it.display||String(it.note).replace('.',',');
     const amt=(typeof ttMontantTxt==='function')?ttMontantTxt(it.montant, (typeof TT!=='undefined'&&TT&&TT.unite)||'$'):(it.montant==null?'—':it.montant+' $');
@@ -366,7 +395,7 @@ function giRender(){
     const tip=[it.nom,it.tv].filter(Boolean).join(' · ');
     const cp=it.tv?((typeof ophirCopyBtn==='function')?ophirCopyBtn(it.tv):`<button type="button" class="cp" data-c="${String(it.tv).replace(/"/g,'&quot;')}" aria-label="Copier ${String(it.tv).replace(/"/g,'&quot;')}" title="Copier ${String(it.tv).replace(/"/g,'&quot;')}">⎘</button>`):'';
     const ev=it.tv
-      ? `<div class="gi-acts"><button type="button" class="gi-elliott" data-tv="${String(it.tv).replace(/"/g,'&quot;')}" title="Retirer : vague Elliott non propice" aria-label="Retirer : vague Elliott non propice">E</button><button type="button" class="gi-pattern" data-tv="${String(it.tv).replace(/"/g,'&quot;')}" title="Pattern baissier : retirer jusqu'au 1er du mois" aria-label="Pattern baissier : retirer jusqu'au 1er du mois">P</button></div>`
+      ? `<div class="gi-acts"><button type="button" class="gi-elliott" data-tv="${String(it.tv).replace(/"/g,'&quot;')}" title="Retirer : vague Elliott non propice" aria-label="Retirer : vague Elliott non propice">E</button><button type="button" class="gi-pattern" data-tv="${String(it.tv).replace(/"/g,'&quot;')}" title="Pattern baissier : retirer jusqu'au 1er du mois" aria-label="Pattern baissier : retirer jusqu'au 1er du mois">P</button><button type="button" class="gi-valid${checked?' is-on':''}" data-tv="${String(it.tv).replace(/"/g,'&quot;')}" title="${checked?'Retirer de Validés (erreur)':'Validé : déjà entré en position'}" aria-label="${checked?'Retirer de Validés':'Validé'}" aria-pressed="${checked?'true':'false'}">✓</button></div>`
       : '';
     return `<article class="gi-row${it.tv?' has-fiche':''}" title="${tip.replace(/"/g,'&quot;')}">
       ${ev}
@@ -374,7 +403,9 @@ function giRender(){
       <span class="gi-note" style="color:${col}"><b>${note}</b><small>/${(it.scale===250||it.scale===270)?250:100}</small></span>
       <span class="gi-amt">${amt}</span>
     </article>`;
-  }).join('');
+  };
+  const rows=list.map(it=>rowOf(it, false)).join('');
+  const rowsVal=listVal.map(it=>rowOf(it, true)).join('');
   const html=`<div class="card no-group" id="goodInvestCard">
     <div class="pos-rail-h" role="button" tabindex="0" aria-expanded="false" aria-controls="giBody">
       <span class="pos-chev" aria-hidden="true">▸</span>
@@ -383,6 +414,10 @@ function giRender(){
     </div>
     <div class="pos-body gi-body" id="giBody">
       <div class="gi-list">${rows||'<div class="gi-empty">Aucun titre au seuil (actions ≥ 130/250, métaux ≥ 130/250, autres ≥ 75/100) hors portefeuille.</div>'}</div>
+      ${(nVal||giShowValides)?`<div class="gi-valides">
+        <button type="button" class="gi-valides-link" aria-expanded="${giShowValides?'true':'false'}">Validés (${nVal})</button>
+        ${giShowValides?(rowsVal||'<div class="gi-empty">Aucun titre validé hors portefeuille.</div>'):''}
+      </div>`:''}
     </div>
   </div>`;
   const wasOpen=giListIsOpen();
@@ -418,6 +453,22 @@ function giRender(){
     giHidePattern(b.dataset.tv);
     giRender();
   }));
+  card.querySelectorAll('.gi-valid').forEach(b=>b.addEventListener('click',e=>{
+    e.preventDefault();
+    e.stopPropagation();
+    const tv=b.dataset.tv;
+    giSetValide(tv, !giIsValide(tv));
+    giRender();
+  }));
+  const vLink=card.querySelector('.gi-valides-link');
+  if(vLink){
+    vLink.addEventListener('click',e=>{
+      e.preventDefault();
+      e.stopPropagation();
+      giShowValides=!giShowValides;
+      giRender();
+    });
+  }
   if(typeof posSyncListChrome==='function') posSyncListChrome(typeof posListIsOpen==='function'&&posListIsOpen());
 }
 function giInit(){
