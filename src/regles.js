@@ -693,7 +693,9 @@ function rgMetauxGrid(){
   const noteHtml=note?`<p class="rg-p rg-app">${rgEsc(note)}</p>`:'';
   const mx=(RG&&RG.apex_metaux)||{};
   const effet=mx.effet_echelle?`<p class="rg-p">${rgEsc(mx.effet_echelle)}</p>`:'';
-  const baseHtml=`<p class="rg-p">Note = base ${rgNum(amp.base)} + points signés (amplitude technique typique ±${rgNum(techSum)}, Elliott retiré sans redistribution), ramenée entre ${rgNum((na.note_min!=null)?na.note_min:0)} et ${rgNum((na.note_max!=null)?na.note_max:100)}. Les points techniques ci-dessous sont ceux du cas le plus fréquent pour les métaux : sans fondamental, technique renormalisé à 100 % sans redistribuer le poids d'Elliott.</p>${effet}`;
+  const effetAv=mx.effet_echelle_av?`<p class="rg-p">${rgEsc(mx.effet_echelle_av)}</p>`:'';
+  const avRule="Dans le bandeau Achat / Vente des métaux uniquement, les vagues d'Elliott (15 %) sont retirées, sans redistribuer leur poids aux autres composantes (le 15 % reste un trou dans le dénominateur). RSI et MACD sont lus à contre-courant ; le CCI compte toujours, y compris à 0. Le plafond « au mieux Neutre » en zone Elliott rouge ne s'applique plus à ce bandeau. Les autres classes (obligations, énergie, crypto, etc.) gardent le barème inchangé.";
+  const baseHtml=`<p class="rg-p">Note = base ${rgNum(amp.base)} + points signés (amplitude technique typique ±${rgNum(techSum)}, Elliott retiré sans redistribution), ramenée entre ${rgNum((na.note_min!=null)?na.note_min:0)} et ${rgNum((na.note_max!=null)?na.note_max:100)}. Les points techniques ci-dessous sont ceux du cas le plus fréquent pour les métaux : sans fondamental, technique renormalisé à 100 % sans redistribuer le poids d'Elliott.</p>${effet}${effetAv}`;
   const wrapCss=`<style>
 #rg-table-metaux .rg-card,#rg-table-metaux .rg-card-name,#rg-table-metaux .rg-card-rule{white-space:normal;overflow-wrap:break-word;word-break:break-word;}
 #rg-table-metaux .rg-card{grid-template-columns:4.4em minmax(0,1fr);align-items:start;padding:8px 10px;white-space:normal;}
@@ -730,6 +732,7 @@ function rgMetauxGrid(){
         <div class="rg-block-title">Couleurs, entrée et montant</div>
       </header>
       <div class="rg-cards rg-cards-span">
+        ${rgCard('av','Bandeau Achat / Vente',rgEsc(avRule),'±85')}
         <article class="rg-card" data-id="couleurs">
           <span class="rg-card-pts">/100</span>
           <h3 class="rg-card-name">Couleurs</h3>

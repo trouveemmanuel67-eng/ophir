@@ -11,7 +11,7 @@
       "hex": "#22c55e",
       "flag": "green",
       "bande": "vert",
-      "av": -14.5,
+      "av": -7.5,
       "section": "Métaux – Palladium",
       "montant": 600,
       "brokers": {
@@ -79,12 +79,29 @@
       "hex": "#22c55e",
       "flag": "green",
       "bande": "vert",
-      "av": 7.6,
+      "av": 14.3,
       "section": "Métaux – Platine",
       "montant": 600,
       "brokers": {
         "revolut": true,
         "xtb": true
+      }
+    },
+    {
+      "tv": "EURONEXT:PHPD",
+      "yahoo": "PHPD.AS",
+      "nom": "WisdomTree Physical Palladium",
+      "note": 77.0,
+      "display": "77",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": 12.8,
+      "section": "Métaux – Palladium",
+      "montant": 500,
+      "brokers": {
+        "revolut": false,
+        "xtb": false
       }
     },
     {
@@ -102,23 +119,6 @@
       "brokers": {
         "revolut": true,
         "xtb": true
-      }
-    },
-    {
-      "tv": "EURONEXT:PHPD",
-      "yahoo": "PHPD.AS",
-      "nom": "WisdomTree Physical Palladium",
-      "note": 77.0,
-      "display": "77",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": 5.3,
-      "section": "Métaux – Palladium",
-      "montant": 500,
-      "brokers": {
-        "revolut": false,
-        "xtb": false
       }
     },
     {
@@ -173,33 +173,16 @@
       }
     },
     {
-      "tv": "LSE:IGLN",
-      "yahoo": "IGLN.L",
-      "nom": "iShares Physical Gold ETC",
+      "tv": "XETR:8PSB",
+      "yahoo": "8PSB.DE",
+      "nom": "Invesco Physical Silver ETC",
       "note": 75.0,
       "display": "75",
       "hex": "#22c55e",
       "flag": "green",
       "bande": "vert",
-      "av": 35.0,
-      "section": "Métaux – Or",
-      "montant": 500,
-      "brokers": {
-        "revolut": false,
-        "xtb": true
-      }
-    },
-    {
-      "tv": "XETR:GLDA",
-      "yahoo": "GLDA.DE",
-      "nom": "Amundi Physical Gold ETC C",
-      "note": 75.0,
-      "display": "75",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": 32.8,
-      "section": "Métaux – Or",
+      "av": 33.6,
+      "section": "Métaux – Argent",
       "montant": 500,
       "brokers": {
         "revolut": true,
@@ -224,19 +207,70 @@
       }
     },
     {
-      "tv": "XETR:8PSB",
-      "yahoo": "8PSB.DE",
-      "nom": "Invesco Physical Silver ETC",
+      "tv": "LSE:IGLN",
+      "yahoo": "IGLN.L",
+      "nom": "iShares Physical Gold ETC",
       "note": 75.0,
       "display": "75",
       "hex": "#22c55e",
       "flag": "green",
       "bande": "vert",
-      "av": 26.1,
-      "section": "Métaux – Argent",
+      "av": 25.8,
+      "section": "Métaux – Or",
+      "montant": 500,
+      "brokers": {
+        "revolut": false,
+        "xtb": true
+      }
+    },
+    {
+      "tv": "XETR:GLDA",
+      "yahoo": "GLDA.DE",
+      "nom": "Amundi Physical Gold ETC C",
+      "note": 75.0,
+      "display": "75",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": 23.6,
+      "section": "Métaux – Or",
       "montant": 500,
       "brokers": {
         "revolut": true,
+        "xtb": false
+      }
+    },
+    {
+      "tv": "LSE:ISLN",
+      "yahoo": "ISLN.L",
+      "nom": "iShares Physical Silver ETC",
+      "note": 75.0,
+      "display": "75",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": 17.7,
+      "section": "Métaux – Argent",
+      "montant": 500,
+      "brokers": {
+        "revolut": false,
+        "xtb": true
+      }
+    },
+    {
+      "tv": "LSE:PHAG",
+      "yahoo": "PHAG.L",
+      "nom": "WisdomTree Physical Silver",
+      "note": 75.0,
+      "display": "75",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": 17.4,
+      "section": "Métaux – Argent",
+      "montant": 500,
+      "brokers": {
+        "revolut": false,
         "xtb": false
       }
     },
@@ -272,40 +306,6 @@
       "brokers": {
         "revolut": null,
         "xtb": true
-      }
-    },
-    {
-      "tv": "LSE:ISLN",
-      "yahoo": "ISLN.L",
-      "nom": "iShares Physical Silver ETC",
-      "note": 75.0,
-      "display": "75",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": 10.2,
-      "section": "Métaux – Argent",
-      "montant": 500,
-      "brokers": {
-        "revolut": false,
-        "xtb": true
-      }
-    },
-    {
-      "tv": "LSE:PHAG",
-      "yahoo": "PHAG.L",
-      "nom": "WisdomTree Physical Silver",
-      "note": 75.0,
-      "display": "75",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": 10.2,
-      "section": "Métaux – Argent",
-      "montant": 500,
-      "brokers": {
-        "revolut": false,
-        "xtb": false
       }
     },
     {
@@ -360,6 +360,23 @@
       }
     },
     {
+      "tv": "XETR:8PSC",
+      "yahoo": "8PSC.DE",
+      "nom": "Invesco Physical Palladium ETC",
+      "note": 75.0,
+      "display": "75",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": -6.4,
+      "section": "Métaux – Palladium",
+      "montant": 500,
+      "brokers": {
+        "revolut": false,
+        "xtb": false
+      }
+    },
+    {
       "tv": "NYSE:FSM",
       "yahoo": "FSM",
       "nom": "Fortuna Mining Corp.",
@@ -374,23 +391,6 @@
       "brokers": {
         "revolut": null,
         "xtb": true
-      }
-    },
-    {
-      "tv": "XETR:8PSC",
-      "yahoo": "8PSC.DE",
-      "nom": "Invesco Physical Palladium ETC",
-      "note": 75.0,
-      "display": "75",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": -16.4,
-      "section": "Métaux – Palladium",
-      "montant": 500,
-      "brokers": {
-        "revolut": false,
-        "xtb": false
       }
     },
     {

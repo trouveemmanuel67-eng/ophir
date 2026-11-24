@@ -300,12 +300,27 @@ def yhl(path):
     return YW.as_yhl(path, now=NOW)
 def W_S(BN): return [('RSI 14 hebdo (valeur brute 0-100)',1/6),('Écart à la moyenne mobile 40 semaines (rang 5 ans)',1/6),('Momentum 26 semaines (rang 5 ans)',1/6),
      (f'Force relative vs {BN} sur 13 semaines (rang 5 ans)',1/6),('Distance au plus haut 52 semaines (rang 5 ans)',1/6),('Volatilité réalisée 13 semaines, inversée (rang 5 ans)',1/6)]
-def compute(w,BEN,BN,opens=None,fsym=None,fpre=None,hl=None,syms=None,fibo_adjust_splits=True,contrarien=False):
+def is_elliott_comp(x):
+    return bool(isinstance(x, dict) and x.get('elliott') is not None)
+
+def av_agrege(comps, hole=0.0):
+    """Moyenne pondérée du bandeau. hole = poids réservé (ex. Elliott retiré sans redistribution)."""
+    av=[x for x in comps if x['note'] is not None]
+    tw=sum(x['poids'] for x in av)+float(hole or 0)
+    for x in comps:
+        x['contrib']=round(x['poids']*x['note']/tw,1) if (x['note'] is not None and tw) else None
+    if not tw:
+        return None, comps
+    return round(sum(x['poids']*x['note'] for x in av)/tw,1), comps
+
+def compute(w,BEN,BN,opens=None,fsym=None,fpre=None,hl=None,syms=None,fibo_adjust_splits=True,contrarien=False,sans_elliott=False):
     """w = [(date ISO du vendredi, clôture, semaine clôturée ?)] ; BEN = {date: clôture de l'indice de référence}
     fpre : préfixe Fibonacci déjà calculé (ouvertures, clôtures, dates) ; sinon fsym sert à FB.prefix.
     fibo_adjust_splits : passé à fibo.analyse (False pour les crypto, afin de ne pas traiter un pump comme une division).
     contrarien : si vrai (métaux précieux uniquement), RSI / MACD en lecture contrarienne et CCI toujours compté,
-    comme dans la note APEX /100 des actions. Les autres classes gardent le barème classique du bandeau."""
+    comme dans la note APEX /100 des actions. Les autres classes gardent le barème classique du bandeau.
+    sans_elliott : si vrai (métaux précieux uniquement), les vagues d'Elliott (15 %) sont retirées du bandeau
+    sans redistribuer leur poids (le 15 % reste dans le dénominateur). Les autres classes sont inchangées."""
     live=[x for x in w if not x[2]]; wc=[x for x in w if x[2]]
     ds=[x[0] for x in wc]; c=[x[1] for x in wc]; n=len(c)
     op=[(opens or {}).get(d) for d in ds]
@@ -354,9 +369,12 @@ def compute(w,BEN,BN,opens=None,fsym=None,fpre=None,hl=None,syms=None,fibo_adjus
         for x in comps[2:]: x['poids']=round(x['poids']*SC,4)
         comps[2:2]=[CH.comp(cha(i),W_CH),CH.comp_div(cha(i),W_DV)]
         (add_cci_toujours if contrarien else add_cci)(comps,cci[i])
-        av=[x for x in comps if x['note'] is not None]; tw=sum(x['poids'] for x in av)
-        for x in comps: x['contrib']=round(x['poids']*x['note']/tw,1) if x['note'] is not None else None
-        return round(sum(x['poids']*x['note'] for x in av)/tw,1), comps
+        hole=0.0
+        if sans_elliott:
+            # t462u : retirer Elliott du bandeau, garder son poids dans le dénominateur.
+            hole=float(W_EL)
+            comps=[x for x in comps if not is_elliott_comp(x)]
+        return av_agrege(comps, hole)
     last=n-1; ss=[]; avh=[]
     for i in range(n-52,n):
         sv,_=sent_at(i); ss.append([ds[i],round(sv,1)]); a,_=av_at(i,sv); avh.append([ds[i],a])
@@ -379,7 +397,14 @@ def compute(w,BEN,BN,opens=None,fsym=None,fpre=None,hl=None,syms=None,fibo_adjus
       'elliott':{k:v for k,v in ell(last).items() if k in('key','phase','conf','note','texte','thr','manuel','override','zone')}|{'dates':[ds[j] for j in ell(last).get('idx',[])],'points':ell(last).get('points',[]),'bodies':any(x is not None for x in op),'zone':(ell(last).get('zone') if ell(last) else None)},
       'charte':cha(last),
       'fibo':{k:v for k,v in fib(last).items() if k in('ok','r','note','zone','broken','base','base_date','ath','ath_date','niveaux','texte','base_apres_ath','debut')}}
-    EZ.appliquer_av(out['av'], out.get('elliott'))
+    if sans_elliott:
+        # Plus de plafond « au mieux Neutre » en zone Elliott rouge sur le bandeau des métaux.
+        if out.get('av') and out['av'].get('score') is not None:
+            out['av']['score_raw']=out['av']['score']
+            out['av']['score_affiche']=out['av']['score']
+            out['av'].pop('cap_zone', None)
+    else:
+        EZ.appliquer_av(out['av'], out.get('elliott'))
     if out.get('elliott') and not out['elliott'].get('zone'):
         out['elliott']['zone']=EZ.zone_of(out['elliott'].get('key'))
     import technique_apex as TA

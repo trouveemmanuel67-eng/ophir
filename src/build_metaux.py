@@ -83,7 +83,7 @@ def inst(s,kind):
         x['skip_score']=True
         return x
     try:
-        rec=K.compute(w,BEN,BN,K.yopens(yf_(s)),fsym=s,hl=K.yhl(yf_(s)),contrarien=True)
+        rec=K.compute(w,BEN,BN,K.yopens(yf_(s)),fsym=s,hl=K.yhl(yf_(s)),contrarien=True, sans_elliott=True)
         x['av']=rec.get('av'); x['elliott']=rec.get('elliott'); x['sent']=rec.get('sent')
         x['date']=rec.get('date'); x['close']=rec.get('close')
     except Exception as e:
@@ -94,7 +94,7 @@ for key,nom,fut,principal,others,miners in MET:
     w,m=K.yweekly(yf_(fut)); row={'key':key,'nom':nom,'sym':fut,'etf':(m.get('shortName') or fut)+' (contrat à terme continu, '+m.get('exchangeName','')+')','kind':'fut','covered':True,'currency':'USD',
        'url':f'https://finance.yahoo.com/quote/{urllib.parse.quote(fut)}/history/','retrieved':mtime(yf_(fut)),'tv':None,
        'note':"Signaux calculés sur le contrat à terme continu Yahoo (changements d'échéance non ajustés). Référence de force relative : DBC (Invesco DB Commodity Index, panier de matières premières), en dollars."}
-    row.update(K.compute(w,BEN,BN,K.yopens(yf_(fut)),fsym=fut,hl=K.yhl(yf_(fut)),contrarien=True))
+    row.update(K.compute(w,BEN,BN,K.yopens(yf_(fut)),fsym=fut,hl=K.yhl(yf_(fut)),contrarien=True, sans_elliott=True))
     cand=[]
     for s,k in ([(principal,'etc')] if principal else [])+others:
         x=inst(s,k)
@@ -221,7 +221,7 @@ for x in acomp: x['contrib']=None if x['note'] is None else round(x['poids']*x['
 asc=round(sum(x['contrib'] for x in acomp if x['contrib'] is not None),1)
 AV={'score':asc,'label':lab_av(asc),'date':d,'sens':"Score > 0 : contexte technique plus favorable à l'achat de métaux précieux ; < 0 : plutôt à la prudence.",'components':acomp,'missing':[],
     'history':ah,'avg':round(sum(x[1] for x in ah)/len(ah),1),'min':min(ah,key=lambda x:x[1]),'max':max(ah,key=lambda x:x[1]),
-    'method':"Indicateur composite APEX, purement informatif. Moyenne pondérée des scores Achat / Vente APEX de chaque métal (or 40 %, argent 20 %, platine 10 %, palladium 10 %) et du positionnement spéculatif CFTC or + argent lu de façon contrarienne (20 %). Chaque score de métal intègre les vagues d'Elliott à 25 % (ta règle : zones vertes d'entrée : fin de vague 2, fin de vague 4, vague C ; zones rouges (aucune entrée) : vagues 1, 3, 5, A et B) et le retracement de Fibonacci du plus bas historique (base) au plus haut historique (ATH) à 15 % (plus le cours est bas dans le retracement, plus la note pousse à l'achat ; négative près de l'ATH), lus automatiquement sur les corps des bougies hebdomadaires du contrat à terme ; approximation qui peut différer de ton indicateur TradingView.",
+    'method':"Indicateur composite APEX, purement informatif. Moyenne pondérée des scores Achat / Vente APEX de chaque métal (or 40 %, argent 20 %, platine 10 %, palladium 10 %) et du positionnement spéculatif CFTC or + argent lu de façon contrarienne (20 %). Chaque score de métal n'intègre plus les vagues d'Elliott dans le bandeau (15 % retirés sans redistribution, t462u) ; le retracement de Fibonacci du plus bas historique (base) au plus haut historique (ATH) à 15 % (plus le cours est bas dans le retracement, plus la note pousse à l'achat ; négative près de l'ATH), lus automatiquement sur les corps des bougies hebdomadaires du contrat à terme ; approximation qui peut différer de ton indicateur TradingView.",
     'sources':[['Yahoo Finance (GC=F, SI=F, PL=F, PA=F, DBC)','https://finance.yahoo.com/quote/GC%3DF/history/'],['CFTC Commitments of Traders','https://www.cftc.gov/MarketReports/CommitmentsofTraders/index.htm']]}
 # ---- graphiques ----
 def fred(p): return [[a,float(b)] for a,b in list(csv.reader(open(p)))[1:] if b not in('','.')]
