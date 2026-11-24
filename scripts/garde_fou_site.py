@@ -397,7 +397,7 @@ CHECK_REGLES_OPEN_JS = r"""
     hasClose: !!document.getElementById('rgClose'),
     hasBase: true,
     noIntro: !/La note part de 0/.test(text) && !/part de 50/.test(text) && !document.querySelector('.rg-lead'),
-    hasScale: /−\s*50\s*à\s*250/.test(text) && !!document.querySelector('.rg-scale'),
+    hasScale: /−\s*80\s*à\s*280/.test(text) && !!document.querySelector('.rg-scale'),
     ptsLeft: (function(){ const c=root&&root.querySelector('.rg-card'); if(!c) return false; const pts=c.querySelector('.rg-card-pts'), name=c.querySelector('.rg-card-name'); return !!(pts&&name&&pts.getBoundingClientRect().left < name.getBoundingClientRect().left - 2); })(),
     oneLine: !root || Array.from(root.querySelectorAll('.rg-card')).every(c => { const name=c.querySelector('.rg-card-name'); return name && c.scrollHeight <= name.offsetHeight + 24 && c.scrollWidth <= c.clientWidth + 1; }),
     noOldIntro: !/part de 50/.test(text) && !/clip dans/.test(text) && !/Actions cotées/i.test(text),
@@ -620,7 +620,7 @@ def check_headless(root=ROOT):
             raise SystemExit(1)
         if not regles_open.get('hasScale'):
             _fail(
-                "page RÈGLES : l'échelle calculée « −50 à 250 » manque à côté du titre Actions "
+                "page RÈGLES : l'échelle calculée « −80 à 280 » manque à côté du titre Actions "
                 f"({regles_open!r})."
             )
             raise SystemExit(1)

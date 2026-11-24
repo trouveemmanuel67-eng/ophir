@@ -1,6 +1,6 @@
-/* ===== MEILLEURES ENTRÉES : actions APEX v2 ≥ 130/250 ; métaux ≥ 130/250 ; autres ≥ 75/100 ===== */
+/* ===== MEILLEURES ENTRÉES : actions APEX v2 ≥ 136/280 (début du vert) ; métaux ≥ 130/250 ; autres ≥ 75/100 ===== */
 const GI_SEUIL=75;
-const GI_SEUIL_V2=130;
+const GI_SEUIL_V2=(typeof PILOT!=='undefined'&&PILOT&&PILOT.scale&&PILOT.scale.seuil_meilleures_entrees!=null)?Number(PILOT.scale.seuil_meilleures_entrees):136;
 const GI_SEUIL_METAUX=130;
 function giSeuilOf(it){
   if(it&&it.tab==='actions') return GI_SEUIL_V2;
@@ -387,7 +387,7 @@ function giRender(){
   const n=list.length;
   const nVal=listVal.length;
   const rowOf=(it, checked)=>{
-    const col=it.scale===250||it.scale===270?(it.hex||((typeof pilotHex==='function')?pilotHex({total:it.note}):'#e6c27a')):((typeof ttColor==='function')?ttColor(it.note):(it.hex||'#e6c27a'));
+    const col=it.scale===280||it.scale===250||it.scale===270?(it.hex||((typeof pilotHex==='function')?pilotHex({total:it.note,scale:it.scale,total_max:it.scale}):'#e6c27a')):((typeof ttColor==='function')?ttColor(it.note):(it.hex||'#e6c27a'));
     const note=it.display||String(it.note).replace('.',',');
     const amt=(typeof ttMontantTxt==='function')?ttMontantTxt(it.montant, (typeof TT!=='undefined'&&TT&&TT.unite)||'$'):(it.montant==null?'—':it.montant+' $');
     const label=it.tv?giTickerCourt(it.tv):(it.nom||'');
@@ -402,7 +402,7 @@ function giRender(){
     return `<article class="gi-row${it.tv?' has-fiche':''}" title="${tip.replace(/"/g,'&quot;')}">
       <div class="gi-id">${go}</div>
       ${ev}
-      <span class="gi-note" style="color:${col}"><b>${note}</b><small>/${(it.scale===250||it.scale===270)?250:100}</small></span>
+      <span class="gi-note" style="color:${col}"><b>${note}</b><small>/${(it.scale===280||it.scale===270)?280:(it.scale===250?250:100)}</small></span>
       <span class="gi-amt">${amt}</span>
     </article>`;
   };
@@ -415,7 +415,7 @@ function giRender(){
       <span class="pos-head-tot">${n}<small>titre${n>1?'s':''}</small></span>
     </div>
     <div class="pos-body gi-body" id="giBody">
-      <div class="gi-list">${rows||'<div class="gi-empty">Aucun titre au seuil (actions ≥ 130/250, métaux ≥ 130/250, autres ≥ 75/100) hors portefeuille.</div>'}</div>
+      <div class="gi-list">${rows||'<div class="gi-empty">Aucun titre au seuil (actions ≥ '+GI_SEUIL_V2+'/280, métaux ≥ '+GI_SEUIL_METAUX+'/250, autres ≥ 75/100) hors portefeuille.</div>'}</div>
       ${(nVal||giShowValides)?`<div class="gi-valides">
         <button type="button" class="gi-valides-link" aria-expanded="${giShowValides?'true':'false'}">Validés (${nVal})</button>
         ${giShowValides?(rowsVal||'<div class="gi-empty">Aucun titre validé hors portefeuille.</div>'):''}

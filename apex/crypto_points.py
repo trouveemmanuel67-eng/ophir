@@ -189,7 +189,7 @@ def _closed_weekly(key):
 
 
 def score_asset(obj, fg_value=None):
-    """Calcule la note −50..250 d'un cryptoactif (Hype non comptée jusqu'au 25/11)."""
+    """Calcule la note −50..250 d'un cryptoactif (HYPE 45 comptée dès que l'attention est disponible)."""
     from build_apex_achat_v2_pilot import rsi_points, macd_points, fibo_points, cci_points
 
     obj = obj or {}
@@ -229,23 +229,30 @@ def score_asset(obj, fg_value=None):
     if fg_pts is None:
         fg_pts = 0
 
-    # Hype : non comptée (pas un 0 noté) jusqu'au 25/11.
-    hype_pts = None
+    # HYPE 45 : Attention Long Swing, à contre-courant. Absente → non comptée (« – »).
+    try:
+        from apply_attention import attention_of
+    except ImportError:
+        from src.apply_attention import attention_of
+    att_val = attention_of((key or '').upper(), obj.get('tv'), obj.get('yahoo'), obj.get('ticker'), obj.get('nom'))
+    hype_pts = hype_points_45(att_val)
 
-    brut = int(rsi_pts + macd_pts + fibo_pts + cci_pts + liq_pts + fg_pts)
+    brut = int(rsi_pts + macd_pts + fibo_pts + cci_pts + liq_pts + fg_pts + (hype_pts or 0))
     n = max(-50, min(250, int(round_half(brut))))
     band = metaux_band(n)
     cap = []
     if not liq_det.get('present'):
         cap.append('sans_liq')
-    cap.append('hype_attente_25_11')
+    if hype_pts is None:
+        cap.append('hype_nc')
 
     parts = [
         ('RSI', rsi_pts), ('MACD', macd_pts), ('Fibo', fibo_pts), ('CCI', cci_pts),
         ('Liq.', liq_pts if liq_det.get('present') else '—'),
         ('F&G', fg_pts if fg_value is not None else '—'),
+        ('Hype', hype_pts if hype_pts is not None else '—'),
     ]
-    texte = _ligne(parts, n) + ' · Hype non comptée (dès le 25/11)'
+    texte = _ligne(parts, n)
 
     return {
         'note': n,
@@ -263,7 +270,7 @@ def score_asset(obj, fg_value=None):
             'points': {
                 'rsi': rsi_pts, 'macd': macd_pts, 'fibonacci': fibo_pts, 'cci': cci_pts,
                 'liquidite': liq_pts if liq_det.get('present') else None,
-                'hype': None,
+                'hype': hype_pts,
                 'fear_greed': fg_pts if fg_value is not None else None,
                 'total': n,
             },
@@ -272,7 +279,7 @@ def score_asset(obj, fg_value=None):
             'fibonacci': {**fibo_det, 'points': fibo_pts},
             'cci': {**cci_det, 'points': cci_pts},
             'liquidite': liq_det,
-            'hype': {'points': None, 'grille': '0→45, 10→41, 20→37, 30→33, 40→29, 50→25, 60→20, 70→15, 80→10, 90→5, 100→0', 'etat': 'en_attente_25_11'},
+            'hype': {'points': hype_pts, 'attention': att_val, 'grille': '0→45, 10→41, 20→37, 30→33, 40→29, 50→25, 60→20, 70→15, 80→10, 90→5, 100→0', 'etat': 'applique' if hype_pts is not None else 'n.c.'},
             'fear_greed': {'valeur': fg_value, 'points': fg_pts if fg_value is not None else None, 'source': 'alternative.me'},
             'echelle': 250,
         },
@@ -290,7 +297,7 @@ def score_asset(obj, fg_value=None):
 
 
 def apply_notes(fiches_path=None, tabs_path=None):
-    """Écrit les notes −50..250 dans crypto_fiches.json et tabs_data.json (hors calcul Hype)."""
+    """Écrit les notes −50..250 dans crypto_fiches.json et tabs_data.json (avec HYPE 45 si l'attention est disponible)."""
     import json
     fiches_path = Path(fiches_path or (ROOT / 'data' / 'crypto_fiches.json'))
     tabs_path = Path(tabs_path or (ROOT / 'data' / 'tabs_data.json'))

@@ -1,0 +1,8247 @@
+{
+ "generated": "2026-11-24 16:34 Europe/Paris",
+ "semaine": "2026-W48",
+ "partiel": true,
+ "definition": "Attention long swing 0–100 : Google Trends 35 %, mentions 35 %, volume relatif 20 %, persistance 10 % ; poids recalculés sur les sources disponibles (variante A). n.c. = non collecté, jamais inventé. Actions : H = (50 − attention) × 0,6. Métaux / crypto : à convertir par la grille HYPE (hype_90_metaux_crypto_a_appliquer.md).",
+ "sources_globales": {
+  "apewisdom_stocks": "cache",
+  "apewisdom_crypto": "ok",
+  "x": "n.c.",
+  "stocktwits": "n.c. (403)"
+ },
+ "couverture": {
+  "actifs": 186,
+  "avec_attention": 186,
+  "avec_trends": 15,
+  "actions": 178,
+  "metaux_crypto": 8
+ },
+ "actifs": {
+  "OR": {
+   "nom": "Or",
+   "classe": "metal",
+   "pays": null,
+   "tv": null,
+   "yahoo": "GC=F",
+   "section": "metal",
+   "attention": 68.8,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": 82.4,
+    "mentions": "n.c.",
+    "volume": 58.4,
+    "persistance": 41.7
+   },
+   "sources": {
+    "trends": {
+     "source": "Google Trends (pytrends) « gold price », monde, 5 ans hebdo",
+     "statut": "ok",
+     "last4": 32.5,
+     "med5y": 15.0,
+     "score": 82.4
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance GC=F hebdo",
+     "ratio_4s_52s": 1.124,
+     "score": 58.4
+    },
+    "persistance": {
+     "source": "volume + Trends, 12 sem., lissage 3",
+     "score": 41.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "mentions"
+   ]
+  },
+  "ARGENT": {
+   "nom": "Argent",
+   "classe": "metal",
+   "pays": null,
+   "tv": null,
+   "yahoo": "SI=F",
+   "section": "metal",
+   "attention": 46.7,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": 79.5,
+    "mentions": "n.c.",
+    "volume": 0.0,
+    "persistance": 25.0
+   },
+   "sources": {
+    "trends": {
+     "source": "Google Trends (pytrends) « silver price », monde, 5 ans hebdo",
+     "statut": "ok",
+     "last4": 14.8,
+     "med5y": 5.0,
+     "score": 79.5
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance SI=F hebdo",
+     "ratio_4s_52s": 0.08,
+     "score": 0.0
+    },
+    "persistance": {
+     "source": "volume + Trends, 12 sem., lissage 3",
+     "score": 25.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "mentions"
+   ]
+  },
+  "PLATINE": {
+   "nom": "Platine",
+   "classe": "metal",
+   "pays": null,
+   "tv": null,
+   "yahoo": "PL=F",
+   "section": "metal",
+   "attention": 40.3,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": 71.3,
+    "mentions": "n.c.",
+    "volume": 0.0,
+    "persistance": 12.5
+   },
+   "sources": {
+    "trends": {
+     "source": "Google Trends (pytrends) « platinum price », monde, 5 ans hebdo",
+     "statut": "ok",
+     "last4": 16.8,
+     "med5y": 15.0,
+     "score": 71.3
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance PL=F hebdo",
+     "ratio_4s_52s": 0.034,
+     "score": 0.0
+    },
+    "persistance": {
+     "source": "volume + Trends, 12 sem., lissage 3",
+     "score": 12.5
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "mentions"
+   ]
+  },
+  "PALLADIUM": {
+   "nom": "Palladium",
+   "classe": "metal",
+   "pays": null,
+   "tv": null,
+   "yahoo": "PA=F",
+   "section": "metal",
+   "attention": 6.4,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": 7.2,
+    "mentions": "n.c.",
+    "volume": 0.0,
+    "persistance": 16.7
+   },
+   "sources": {
+    "trends": {
+     "source": "Google Trends (pytrends) « palladium price », monde, 5 ans hebdo",
+     "statut": "ok",
+     "last4": 11.0,
+     "med5y": 13.0,
+     "score": 7.2
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance PA=F hebdo",
+     "ratio_4s_52s": 0.058,
+     "score": 0.0
+    },
+    "persistance": {
+     "source": "volume + Trends, 12 sem., lissage 3",
+     "score": 16.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "mentions"
+   ]
+  },
+  "BTC": {
+   "nom": "Bitcoin",
+   "classe": "crypto",
+   "pays": null,
+   "tv": null,
+   "yahoo": "BTC-USD",
+   "section": "crypto",
+   "attention": 45.7,
+   "poids_dispo": 1.0,
+   "composantes": {
+    "trends": 3.3,
+    "mentions": 100.0,
+    "volume": 41.3,
+    "persistance": 12.5
+   },
+   "sources": {
+    "trends": {
+     "source": "Google Trends (pytrends) « Bitcoin », monde, 5 ans hebdo",
+     "statut": "ok",
+     "last4": 24.8,
+     "med5y": 35.0,
+     "score": 3.3
+    },
+    "mentions": {
+     "source": "ApeWisdom crypto 2026-11-24 (BTC.X)",
+     "m24": 115,
+     "m24_prev": 54,
+     "rang": 1,
+     "score": 100.0
+    },
+    "volume": {
+     "source": "yfinance BTC-USD hebdo",
+     "ratio_4s_52s": 0.886,
+     "score": 41.3
+    },
+    "persistance": {
+     "source": "volume + Trends, 12 sem., lissage 3",
+     "score": 12.5
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": []
+  },
+  "ETH": {
+   "nom": "Ethereum",
+   "classe": "crypto",
+   "pays": null,
+   "tv": null,
+   "yahoo": "ETH-USD",
+   "section": "crypto",
+   "attention": 30.0,
+   "poids_dispo": 1.0,
+   "composantes": {
+    "trends": 1.2,
+    "mentions": 66.2,
+    "volume": 27.8,
+    "persistance": 8.3
+   },
+   "sources": {
+    "trends": {
+     "source": "Google Trends (pytrends) « Ethereum », monde, 5 ans hebdo",
+     "statut": "ok",
+     "last4": 8.2,
+     "med5y": 17.0,
+     "score": 1.2
+    },
+    "mentions": {
+     "source": "ApeWisdom crypto 2026-11-24 (ETH.X)",
+     "m24": 25,
+     "m24_prev": 11,
+     "rang": 2,
+     "score": 66.2
+    },
+    "volume": {
+     "source": "yfinance ETH-USD hebdo",
+     "ratio_4s_52s": 0.736,
+     "score": 27.8
+    },
+    "persistance": {
+     "source": "volume + Trends, 12 sem., lissage 3",
+     "score": 8.3
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": []
+  },
+  "SOL": {
+   "nom": "Solana",
+   "classe": "crypto",
+   "pays": null,
+   "tv": null,
+   "yahoo": "SOL-USD",
+   "section": "crypto",
+   "attention": 27.6,
+   "poids_dispo": 1.0,
+   "composantes": {
+    "trends": 26.9,
+    "mentions": 24.7,
+    "volume": 35.3,
+    "persistance": 25.0
+   },
+   "sources": {
+    "trends": {
+     "source": "Google Trends (pytrends) « Solana », monde, 5 ans hebdo",
+     "statut": "ok",
+     "last4": 13.0,
+     "med5y": 18.0,
+     "score": 26.9
+    },
+    "mentions": {
+     "source": "ApeWisdom crypto 2026-11-24 (SOL.X)",
+     "m24": 3,
+     "m24_prev": 1,
+     "rang": 8,
+     "score": 24.7
+    },
+    "volume": {
+     "source": "yfinance SOL-USD hebdo",
+     "ratio_4s_52s": 0.815,
+     "score": 35.3
+    },
+    "persistance": {
+     "source": "volume + Trends, 12 sem., lissage 3",
+     "score": 25.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": []
+  },
+  "MSTR": {
+   "nom": "Strategy (MicroStrategy)",
+   "classe": "crypto",
+   "pays": null,
+   "tv": null,
+   "yahoo": "MSTR",
+   "section": "crypto",
+   "attention": 36.5,
+   "poids_dispo": 1.0,
+   "composantes": {
+    "trends": 30.0,
+    "mentions": 37.6,
+    "volume": 45.4,
+    "persistance": 37.5
+   },
+   "sources": {
+    "trends": {
+     "source": "Google Trends (pytrends) « MicroStrategy », monde, 5 ans hebdo",
+     "statut": "ok",
+     "last4": 6.0,
+     "med5y": 10.0,
+     "score": 30.0
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (MSTR)",
+     "m24": 15,
+     "m24_prev": 11,
+     "rang": 53,
+     "score": 37.6
+    },
+    "volume": {
+     "source": "yfinance MSTR hebdo",
+     "ratio_4s_52s": 0.938,
+     "score": 45.4
+    },
+    "persistance": {
+     "source": "volume + Trends, 12 sem., lissage 3",
+     "score": 37.5
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": []
+  },
+  "NASDAQ:APP": {
+   "nom": "AppLovin Corporation",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NASDAQ:APP",
+   "yahoo": "APP",
+   "section": "XLC",
+   "attention": 48.3,
+   "poids_dispo": 1.0,
+   "composantes": {
+    "trends": 85.5,
+    "mentions": 0.0,
+    "volume": 62.6,
+    "persistance": 58.3
+   },
+   "sources": {
+    "trends": {
+     "source": "Google Trends (pytrends) « AppLovin stock », monde, 5 ans hebdo",
+     "statut": "cache",
+     "last4": 39.5,
+     "med5y": 5.0,
+     "score": 85.5
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (APP)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance APP hebdo",
+     "ratio_4s_52s": 1.191,
+     "score": 62.6
+    },
+    "persistance": {
+     "source": "volume + Trends, 12 sem., lissage 3",
+     "score": 58.3
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [],
+   "H_actions": 1
+  },
+  "NYSE:RDDT": {
+   "nom": "Reddit, Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:RDDT",
+   "yahoo": "RDDT",
+   "section": "XLC",
+   "attention": 56.8,
+   "poids_dispo": 1.0,
+   "composantes": {
+    "trends": 68.8,
+    "mentions": 37.1,
+    "volume": 81.9,
+    "persistance": 33.3
+   },
+   "sources": {
+    "trends": {
+     "source": "Google Trends (pytrends) « Reddit stock », monde, 5 ans hebdo",
+     "statut": "cache",
+     "last4": 29.2,
+     "med5y": 20.0,
+     "score": 68.8
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (RDDT)",
+     "m24": 9,
+     "m24_prev": 16,
+     "rang": 87,
+     "score": 37.1
+    },
+    "volume": {
+     "source": "yfinance RDDT hebdo",
+     "ratio_4s_52s": 1.555,
+     "score": 81.9
+    },
+    "persistance": {
+     "source": "volume + Trends, 12 sem., lissage 3",
+     "score": 33.3
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [],
+   "H_actions": -4
+  },
+  "NASDAQ:META": {
+   "nom": "Meta Platforms, Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NASDAQ:META",
+   "yahoo": "META",
+   "section": "XLC",
+   "attention": 55.0,
+   "poids_dispo": 1.0,
+   "composantes": {
+    "trends": 61.2,
+    "mentions": 39.9,
+    "volume": 67.0,
+    "persistance": 62.5
+   },
+   "sources": {
+    "trends": {
+     "source": "Google Trends (pytrends) « Meta stock », monde, 5 ans hebdo",
+     "statut": "cache",
+     "last4": 31.2,
+     "med5y": 23.0,
+     "score": 61.2
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (META)",
+     "m24": 16,
+     "m24_prev": 15,
+     "rang": 48,
+     "score": 39.9
+    },
+    "volume": {
+     "source": "yfinance META hebdo",
+     "ratio_4s_52s": 1.266,
+     "score": 67.0
+    },
+    "persistance": {
+     "source": "volume + Trends, 12 sem., lissage 3",
+     "score": 62.5
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [],
+   "H_actions": -3
+  },
+  "NASDAQ:NFLX": {
+   "nom": "Netflix, Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NASDAQ:NFLX",
+   "yahoo": "NFLX",
+   "section": "XLC",
+   "attention": 36.6,
+   "poids_dispo": 1.0,
+   "composantes": {
+    "trends": 48.4,
+    "mentions": 22.9,
+    "volume": 49.9,
+    "persistance": 16.7
+   },
+   "sources": {
+    "trends": {
+     "source": "Google Trends (pytrends) « Netflix stock », monde, 5 ans hebdo",
+     "statut": "cache",
+     "last4": 5.8,
+     "med5y": 5.0,
+     "score": 48.4
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (NFLX)",
+     "m24": 7,
+     "m24_prev": 1,
+     "rang": 96,
+     "score": 22.9
+    },
+    "volume": {
+     "source": "yfinance NFLX hebdo",
+     "ratio_4s_52s": 0.998,
+     "score": 49.9
+    },
+    "persistance": {
+     "source": "volume + Trends, 12 sem., lissage 3",
+     "score": 16.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [],
+   "H_actions": 8
+  },
+  "NASDAQ:GOOGL": {
+   "nom": "Alphabet Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NASDAQ:GOOGL",
+   "yahoo": "GOOGL",
+   "section": "XLC",
+   "attention": 61.7,
+   "poids_dispo": 1.0,
+   "composantes": {
+    "trends": 79.3,
+    "mentions": 47.7,
+    "volume": 77.7,
+    "persistance": 16.7
+   },
+   "sources": {
+    "trends": {
+     "source": "Google Trends (pytrends) « Google stock », monde, 5 ans hebdo",
+     "statut": "cache",
+     "last4": 50.5,
+     "med5y": 27.0,
+     "score": 79.3
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (GOOGL)",
+     "m24": 40,
+     "m24_prev": 15,
+     "rang": 22,
+     "score": 47.7
+    },
+    "volume": {
+     "source": "yfinance GOOGL hebdo",
+     "ratio_4s_52s": 1.467,
+     "score": 77.7
+    },
+    "persistance": {
+     "source": "volume + Trends, 12 sem., lissage 3",
+     "score": 16.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [],
+   "H_actions": -7
+  },
+  "NYSE:TKO": {
+   "nom": "TKO Group Holdings, Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:TKO",
+   "yahoo": "TKO",
+   "section": "XLC",
+   "attention": 31.7,
+   "poids_dispo": 1.0,
+   "composantes": {
+    "trends": 44.4,
+    "mentions": 0.0,
+    "volume": 55.7,
+    "persistance": 50.0
+   },
+   "sources": {
+    "trends": {
+     "source": "Google Trends (pytrends) « TKO Group stock », monde, 5 ans hebdo",
+     "statut": "ok",
+     "last4": 1.0,
+     "med5y": 0.0,
+     "score": 44.4
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (TKO)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance TKO hebdo",
+     "ratio_4s_52s": 1.082,
+     "score": 55.7
+    },
+    "persistance": {
+     "source": "volume + Trends, 12 sem., lissage 3",
+     "score": 50.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [],
+   "H_actions": 11
+  },
+  "NASDAQ:TTWO": {
+   "nom": "Take-Two Interactive Software, Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NASDAQ:TTWO",
+   "yahoo": "TTWO",
+   "section": "XLC",
+   "attention": 71.6,
+   "poids_dispo": 1.0,
+   "composantes": {
+    "trends": 91.3,
+    "mentions": 36.0,
+    "volume": 100.0,
+    "persistance": 70.8
+   },
+   "sources": {
+    "trends": {
+     "source": "Google Trends (pytrends) « Take-Two stock », monde, 5 ans hebdo",
+     "statut": "ok",
+     "last4": 16.5,
+     "med5y": 1.0,
+     "score": 91.3
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (TTWO)",
+     "m24": 14,
+     "m24_prev": 9,
+     "rang": 55,
+     "score": 36.0
+    },
+    "volume": {
+     "source": "yfinance TTWO hebdo",
+     "ratio_4s_52s": 2.124,
+     "score": 100.0
+    },
+    "persistance": {
+     "source": "volume + Trends, 12 sem., lissage 3",
+     "score": 70.8
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [],
+   "H_actions": -13
+  },
+  "NASDAQ:TMUS": {
+   "nom": "T-Mobile US, Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NASDAQ:TMUS",
+   "yahoo": "TMUS",
+   "section": "XLC",
+   "attention": 27.0,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 58.7,
+    "persistance": 58.3
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "T-Mobile stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (TMUS)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance TMUS hebdo",
+     "ratio_4s_52s": 1.128,
+     "score": 58.7
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 58.3
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 14
+  },
+  "NYSE:OMC": {
+   "nom": "Omnicom Group Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:OMC",
+   "yahoo": "OMC",
+   "section": "XLC",
+   "attention": 8.1,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 26.4,
+    "persistance": 0.0
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Omnicom stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (OMC)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance OMC hebdo",
+     "ratio_4s_52s": 0.721,
+     "score": 26.4
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 0.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 25
+  },
+  "NYSE:LYV": {
+   "nom": "Live Nation Entertainment, Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:LYV",
+   "yahoo": "LYV",
+   "section": "XLC",
+   "attention": 23.8,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 65.0,
+    "persistance": 25.0
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Live Nation stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (LYV)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance LYV hebdo",
+     "ratio_4s_52s": 1.231,
+     "score": 65.0
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 25.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 16
+  },
+  "NASDAQ:ABNB": {
+   "nom": "Airbnb, Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NASDAQ:ABNB",
+   "yahoo": "ABNB",
+   "section": "XLY",
+   "attention": 31.4,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 64.4,
+    "persistance": 75.0
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Airbnb stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (ABNB)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance ABNB hebdo",
+     "ratio_4s_52s": 1.221,
+     "score": 64.4
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 75.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 11
+  },
+  "NASDAQ:DASH": {
+   "nom": "DoorDash, Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NASDAQ:DASH",
+   "yahoo": "DASH",
+   "section": "XLY",
+   "attention": 32.8,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 77.6,
+    "persistance": 58.3
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "DoorDash stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (DASH)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance DASH hebdo",
+     "ratio_4s_52s": 1.467,
+     "score": 77.6
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 58.3
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 10
+  },
+  "NASDAQ:BKNG": {
+   "nom": "Booking Holdings Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NASDAQ:BKNG",
+   "yahoo": "BKNG",
+   "section": "XLY",
+   "attention": 24.4,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 50.2,
+    "persistance": 58.3
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Booking Holdings stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (BKNG)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance BKNG hebdo",
+     "ratio_4s_52s": 1.002,
+     "score": 50.2
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 58.3
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 15
+  },
+  "NYSE:GRMN": {
+   "nom": "Garmin Ltd.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:GRMN",
+   "yahoo": "GRMN",
+   "section": "XLY",
+   "attention": 24.3,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 49.7,
+    "persistance": 58.3
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Garmin stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (GRMN)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance GRMN hebdo",
+     "ratio_4s_52s": 0.996,
+     "score": 49.7
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 58.3
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 15
+  },
+  "NYSE:CVNA": {
+   "nom": "Carvana Co.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:CVNA",
+   "yahoo": "CVNA",
+   "section": "XLY",
+   "attention": 20.7,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 9.9,
+    "volume": 37.6,
+    "persistance": 25.0
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Carvana stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (CVNA)",
+     "m24": 1,
+     "m24_prev": 1,
+     "rang": 447,
+     "score": 9.9
+    },
+    "volume": {
+     "source": "yfinance CVNA hebdo",
+     "ratio_4s_52s": 0.842,
+     "score": 37.6
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 25.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 18
+  },
+  "NASDAQ:HLT": {
+   "nom": "Hilton Worldwide Holdings Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NASDAQ:HLT",
+   "yahoo": "HLT",
+   "section": "XLY",
+   "attention": 27.2,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 55.2,
+    "persistance": 66.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Hilton stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (HLT)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance HLT hebdo",
+     "ratio_4s_52s": 1.074,
+     "score": 55.2
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 66.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 14
+  },
+  "NASDAQ:MAR": {
+   "nom": "Marriott International, Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NASDAQ:MAR",
+   "yahoo": "MAR",
+   "section": "XLY",
+   "attention": 28.0,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 57.8,
+    "persistance": 66.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Marriott stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (MAR)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance MAR hebdo",
+     "ratio_4s_52s": 1.114,
+     "score": 57.8
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 66.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 13
+  },
+  "NASDAQ:EBAY": {
+   "nom": "eBay Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NASDAQ:EBAY",
+   "yahoo": "EBAY",
+   "section": "XLY",
+   "attention": 20.8,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 46.7,
+    "persistance": 41.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "eBay stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (EBAY)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance EBAY hebdo",
+     "ratio_4s_52s": 0.956,
+     "score": 46.7
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 41.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 18
+  },
+  "NASDAQ:TSLA": {
+   "nom": "Tesla, Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NASDAQ:TSLA",
+   "yahoo": "TSLA",
+   "section": "XLY",
+   "attention": 33.8,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 46.7,
+    "volume": 28.0,
+    "persistance": 0.0
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Tesla stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (TSLA)",
+     "m24": 35,
+     "m24_prev": 16,
+     "rang": 24,
+     "score": 46.7
+    },
+    "volume": {
+     "source": "yfinance TSLA hebdo",
+     "ratio_4s_52s": 0.737,
+     "score": 28.0
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 0.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 10
+  },
+  "NASDAQ:ROST": {
+   "nom": "Ross Stores, Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NASDAQ:ROST",
+   "yahoo": "ROST",
+   "section": "XLY",
+   "attention": 17.7,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 49.3,
+    "persistance": 16.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Ross Stores stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (ROST)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance ROST hebdo",
+     "ratio_4s_52s": 0.99,
+     "score": 49.3
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 16.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 19
+  },
+  "NASDAQ:MNST": {
+   "nom": "Monster Beverage Corporation",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NASDAQ:MNST",
+   "yahoo": "MNST",
+   "section": "XLP",
+   "attention": 18.1,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 50.6,
+    "persistance": 16.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Monster Beverage stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (MNST)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance MNST hebdo",
+     "ratio_4s_52s": 1.009,
+     "score": 50.6
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 16.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 19
+  },
+  "NYSE:PM": {
+   "nom": "Philip Morris International Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:PM",
+   "yahoo": "PM",
+   "section": "XLP",
+   "attention": 22.8,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 57.5,
+    "persistance": 33.3
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Philip Morris stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (PM)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance PM hebdo",
+     "ratio_4s_52s": 1.109,
+     "score": 57.5
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 33.3
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 16
+  },
+  "NYSE:EL": {
+   "nom": "The Estée Lauder Companies Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:EL",
+   "yahoo": "EL",
+   "section": "XLP",
+   "attention": 29.1,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 9.9,
+    "volume": 56.3,
+    "persistance": 41.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Estee Lauder stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (EL)",
+     "m24": 1,
+     "m24_prev": 1,
+     "rang": 269,
+     "score": 9.9
+    },
+    "volume": {
+     "source": "yfinance EL hebdo",
+     "ratio_4s_52s": 1.091,
+     "score": 56.3
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 41.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 13
+  },
+  "NASDAQ:KDP": {
+   "nom": "Keurig Dr Pepper Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NASDAQ:KDP",
+   "yahoo": "KDP",
+   "section": "XLP",
+   "attention": 38.4,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 95.6,
+    "persistance": 58.3
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Keurig Dr Pepper stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (KDP)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance KDP hebdo",
+     "ratio_4s_52s": 1.881,
+     "score": 95.6
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 58.3
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 7
+  },
+  "NASDAQ:COST": {
+   "nom": "Costco Wholesale Corporation",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NASDAQ:COST",
+   "yahoo": "COST",
+   "section": "XLP",
+   "attention": 45.8,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 31.3,
+    "volume": 60.8,
+    "persistance": 66.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Costco stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (COST)",
+     "m24": 7,
+     "m24_prev": 9,
+     "rang": 97,
+     "score": 31.3
+    },
+    "volume": {
+     "source": "yfinance COST hebdo",
+     "ratio_4s_52s": 1.162,
+     "score": 60.8
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 66.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 3
+  },
+  "NASDAQ:KMB": {
+   "nom": "Kimberly-Clark Corporation",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NASDAQ:KMB",
+   "yahoo": "KMB",
+   "section": "XLP",
+   "attention": 35.5,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 81.9,
+    "persistance": 66.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Kimberly-Clark stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (KMB)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance KMB hebdo",
+     "ratio_4s_52s": 1.557,
+     "score": 81.9
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 66.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 9
+  },
+  "NYSE:CL": {
+   "nom": "Colgate-Palmolive Company",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:CL",
+   "yahoo": "CL",
+   "section": "XLP",
+   "attention": 25.5,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 13.1,
+    "volume": 51.6,
+    "persistance": 16.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Colgate stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (CL)",
+     "m24": 1,
+     "m24_prev": 2,
+     "rang": 263,
+     "score": 13.1
+    },
+    "volume": {
+     "source": "yfinance CL hebdo",
+     "ratio_4s_52s": 1.023,
+     "score": 51.6
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 16.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 15
+  },
+  "NYSE:KO": {
+   "nom": "The Coca-Cola Company",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:KO",
+   "yahoo": "KO",
+   "section": "XLP",
+   "attention": 43.4,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 28.7,
+    "volume": 61.8,
+    "persistance": 58.3
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Coca-Cola stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (KO)",
+     "m24": 12,
+     "m24_prev": 1,
+     "rang": 65,
+     "score": 28.7
+    },
+    "volume": {
+     "source": "yfinance KO hebdo",
+     "ratio_4s_52s": 1.177,
+     "score": 61.8
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 58.3
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 4
+  },
+  "NYSE:CHD": {
+   "nom": "Church & Dwight Co., Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:CHD",
+   "yahoo": "CHD",
+   "section": "XLP",
+   "attention": 19.8,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 51.9,
+    "persistance": 25.0
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Church & Dwight stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (CHD)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance CHD hebdo",
+     "ratio_4s_52s": 1.026,
+     "score": 51.9
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 25.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 18
+  },
+  "NYSE:PG": {
+   "nom": "The Procter & Gamble Company",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:PG",
+   "yahoo": "PG",
+   "section": "XLP",
+   "attention": 30.2,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 9.9,
+    "volume": 51.6,
+    "persistance": 58.3
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Procter & Gamble stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (PG)",
+     "m24": 1,
+     "m24_prev": 1,
+     "rang": 232,
+     "score": 9.9
+    },
+    "volume": {
+     "source": "yfinance PG hebdo",
+     "ratio_4s_52s": 1.023,
+     "score": 51.6
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 58.3
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 12
+  },
+  "NYSE:EOG": {
+   "nom": "EOG Resources, Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:EOG",
+   "yahoo": "EOG",
+   "section": "XLE",
+   "attention": 14.5,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 43.0,
+    "persistance": 8.3
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "EOG stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (EOG)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance EOG hebdo",
+     "ratio_4s_52s": 0.907,
+     "score": 43.0
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 8.3
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 21
+  },
+  "NYSE:EQT": {
+   "nom": "EQT Corporation",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:EQT",
+   "yahoo": "EQT",
+   "section": "XLE",
+   "attention": 29.0,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 5.8,
+    "volume": 63.2,
+    "persistance": 41.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "EQT stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (EQT)",
+     "m24": 1,
+     "m24_prev": 0,
+     "rang": 438,
+     "score": 5.8
+    },
+    "volume": {
+     "source": "yfinance EQT hebdo",
+     "ratio_4s_52s": 1.2,
+     "score": 63.2
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 41.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 13
+  },
+  "NYSE:COP": {
+   "nom": "ConocoPhillips",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:COP",
+   "yahoo": "COP",
+   "section": "XLE",
+   "attention": 18.9,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 49.0,
+    "persistance": 25.0
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "ConocoPhillips stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (COP)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance COP hebdo",
+     "ratio_4s_52s": 0.987,
+     "score": 49.0
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 25.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 19
+  },
+  "NYSE:OXY": {
+   "nom": "Occidental Petroleum Corporation",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:OXY",
+   "yahoo": "OXY",
+   "section": "XLE",
+   "attention": 24.1,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 9.9,
+    "volume": 48.6,
+    "persistance": 25.0
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Occidental stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (OXY)",
+     "m24": 1,
+     "m24_prev": 1,
+     "rang": 295,
+     "score": 9.9
+    },
+    "volume": {
+     "source": "yfinance OXY hebdo",
+     "ratio_4s_52s": 0.981,
+     "score": 48.6
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 25.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 16
+  },
+  "NYSE:CVX": {
+   "nom": "Chevron Corporation",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:CVX",
+   "yahoo": "CVX",
+   "section": "XLE",
+   "attention": 17.8,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 41.3,
+    "persistance": 33.3
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Chevron stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (CVX)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance CVX hebdo",
+     "ratio_4s_52s": 0.886,
+     "score": 41.3
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 33.3
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 19
+  },
+  "NYSE:VLO": {
+   "nom": "Valero Energy Corporation",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:VLO",
+   "yahoo": "VLO",
+   "section": "XLE",
+   "attention": 25.2,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 52.8,
+    "persistance": 58.3
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Valero stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (VLO)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance VLO hebdo",
+     "ratio_4s_52s": 1.04,
+     "score": 52.8
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 58.3
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 15
+  },
+  "NASDAQ:APA": {
+   "nom": "APA Corporation",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NASDAQ:APA",
+   "yahoo": "APA",
+   "section": "XLE",
+   "attention": 17.8,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 45.3,
+    "persistance": 25.0
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "APA Corp stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (APA)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance APA hebdo",
+     "ratio_4s_52s": 0.937,
+     "score": 45.3
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 25.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 19
+  },
+  "NYSE:TRGP": {
+   "nom": "Targa Resources Corp.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:TRGP",
+   "yahoo": "TRGP",
+   "section": "XLE",
+   "attention": 23.3,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 54.8,
+    "persistance": 41.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Targa Resources stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (TRGP)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance TRGP hebdo",
+     "ratio_4s_52s": 1.069,
+     "score": 54.8
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 41.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 16
+  },
+  "NYSE:XOM": {
+   "nom": "ExxonMobil Holdings Corporation",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:XOM",
+   "yahoo": "XOM",
+   "section": "XLE",
+   "attention": 18.4,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 9.9,
+    "volume": 42.5,
+    "persistance": 0.0
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Exxon stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (XOM)",
+     "m24": 1,
+     "m24_prev": 1,
+     "rang": 309,
+     "score": 9.9
+    },
+    "volume": {
+     "source": "yfinance XOM hebdo",
+     "ratio_4s_52s": 0.901,
+     "score": 42.5
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 0.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 19
+  },
+  "NYSE:DVN": {
+   "nom": "Devon Energy Corporation",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:DVN",
+   "yahoo": "DVN",
+   "section": "XLE",
+   "attention": 22.5,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 52.4,
+    "persistance": 41.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Devon Energy stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (DVN)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance DVN hebdo",
+     "ratio_4s_52s": 1.034,
+     "score": 52.4
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 41.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 16
+  },
+  "NYSE:MA": {
+   "nom": "Mastercard Incorporated",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:MA",
+   "yahoo": "MA",
+   "section": "XLF",
+   "attention": 26.3,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 13.1,
+    "volume": 50.0,
+    "persistance": 25.0
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Mastercard stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (MA)",
+     "m24": 1,
+     "m24_prev": 2,
+     "rang": 231,
+     "score": 13.1
+    },
+    "volume": {
+     "source": "yfinance MA hebdo",
+     "ratio_4s_52s": 1.0,
+     "score": 50.0
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 25.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 14
+  },
+  "NYSE:SCHW": {
+   "nom": "The Charles Schwab Corporation",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:SCHW",
+   "yahoo": "SCHW",
+   "section": "XLF",
+   "attention": 17.4,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 48.1,
+    "persistance": 16.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Schwab stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (SCHW)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance SCHW hebdo",
+     "ratio_4s_52s": 0.974,
+     "score": 48.1
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 16.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 20
+  },
+  "NYSE:V": {
+   "nom": "Visa Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:V",
+   "yahoo": "V",
+   "section": "XLF",
+   "attention": 19.9,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 52.3,
+    "persistance": 25.0
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Visa stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (V)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance V hebdo",
+     "ratio_4s_52s": 1.032,
+     "score": 52.3
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 25.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 18
+  },
+  "NYSE:BLK": {
+   "nom": "BlackRock, Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:BLK",
+   "yahoo": "BLK",
+   "section": "XLF",
+   "attention": 19.7,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 47.4,
+    "persistance": 33.3
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "BlackRock stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (BLK)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance BLK hebdo",
+     "ratio_4s_52s": 0.965,
+     "score": 47.4
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 33.3
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 18
+  },
+  "NYSE:SPGI": {
+   "nom": "S&P Global Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:SPGI",
+   "yahoo": "SPGI",
+   "section": "XLF",
+   "attention": 16.4,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 32.5,
+    "persistance": 41.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "S&P Global stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (SPGI)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance SPGI hebdo",
+     "ratio_4s_52s": 0.785,
+     "score": 32.5
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 41.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 20
+  },
+  "NYSE:ICE": {
+   "nom": "Intercontinental Exchange, Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:ICE",
+   "yahoo": "ICE",
+   "section": "XLF",
+   "attention": 30.0,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 21.4,
+    "volume": 47.6,
+    "persistance": 25.0
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Intercontinental Exchange stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (ICE)",
+     "m24": 6,
+     "m24_prev": 1,
+     "rang": 109,
+     "score": 21.4
+    },
+    "volume": {
+     "source": "yfinance ICE hebdo",
+     "ratio_4s_52s": 0.967,
+     "score": 47.6
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 25.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 12
+  },
+  "NYSE:AXP": {
+   "nom": "American Express Company",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:AXP",
+   "yahoo": "AXP",
+   "section": "XLF",
+   "attention": 27.7,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 5.8,
+    "volume": 46.5,
+    "persistance": 66.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "American Express stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (AXP)",
+     "m24": 1,
+     "m24_prev": 0,
+     "rang": 252,
+     "score": 5.8
+    },
+    "volume": {
+     "source": "yfinance AXP hebdo",
+     "ratio_4s_52s": 0.953,
+     "score": 46.5
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 66.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 13
+  },
+  "NYSE:JPM": {
+   "nom": "JPMorgan Chase & Co.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:JPM",
+   "yahoo": "JPM",
+   "section": "XLF",
+   "attention": 25.1,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 24.3,
+    "volume": 35.0,
+    "persistance": 8.3
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "JPMorgan stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (JPM)",
+     "m24": 8,
+     "m24_prev": 1,
+     "rang": 89,
+     "score": 24.3
+    },
+    "volume": {
+     "source": "yfinance JPM hebdo",
+     "ratio_4s_52s": 0.812,
+     "score": 35.0
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 8.3
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 15
+  },
+  "NASDAQ:CME": {
+   "nom": "CME Group Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NASDAQ:CME",
+   "yahoo": "CME",
+   "section": "XLF",
+   "attention": 21.4,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 15.7,
+    "volume": 38.0,
+    "persistance": 8.3
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "CME Group stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (CME)",
+     "m24": 1,
+     "m24_prev": 3,
+     "rang": 262,
+     "score": 15.7
+    },
+    "volume": {
+     "source": "yfinance CME hebdo",
+     "ratio_4s_52s": 0.847,
+     "score": 38.0
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 8.3
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 17
+  },
+  "NYSE:MS": {
+   "nom": "Morgan Stanley",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:MS",
+   "yahoo": "MS",
+   "section": "XLF",
+   "attention": 40.7,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 24.3,
+    "volume": 56.4,
+    "persistance": 66.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Morgan Stanley stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (MS)",
+     "m24": 4,
+     "m24_prev": 5,
+     "rang": 140,
+     "score": 24.3
+    },
+    "volume": {
+     "source": "yfinance MS hebdo",
+     "ratio_4s_52s": 1.092,
+     "score": 56.4
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 66.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 6
+  },
+  "NASDAQ:ISRG": {
+   "nom": "Intuitive Surgical, Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NASDAQ:ISRG",
+   "yahoo": "ISRG",
+   "section": "XLV",
+   "attention": 27.8,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 57.0,
+    "persistance": 66.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Intuitive Surgical stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (ISRG)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance ISRG hebdo",
+     "ratio_4s_52s": 1.102,
+     "score": 57.0
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 66.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 13
+  },
+  "NYSE:LLY": {
+   "nom": "Eli Lilly and Company",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:LLY",
+   "yahoo": "LLY",
+   "section": "XLV",
+   "attention": 28.5,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 13.1,
+    "volume": 57.3,
+    "persistance": 25.0
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Eli Lilly stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (LLY)",
+     "m24": 2,
+     "m24_prev": 1,
+     "rang": 177,
+     "score": 13.1
+    },
+    "volume": {
+     "source": "yfinance LLY hebdo",
+     "ratio_4s_52s": 1.107,
+     "score": 57.3
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 25.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 13
+  },
+  "NYSE:ABBV": {
+   "nom": "AbbVie Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:ABBV",
+   "yahoo": "ABBV",
+   "section": "XLV",
+   "attention": 19.6,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 9.9,
+    "volume": 42.1,
+    "persistance": 8.3
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "AbbVie stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (ABBV)",
+     "m24": 1,
+     "m24_prev": 1,
+     "rang": 242,
+     "score": 9.9
+    },
+    "volume": {
+     "source": "yfinance ABBV hebdo",
+     "ratio_4s_52s": 0.897,
+     "score": 42.1
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 8.3
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 18
+  },
+  "NASDAQ:VRTX": {
+   "nom": "Vertex Pharmaceuticals Incorporated",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NASDAQ:VRTX",
+   "yahoo": "VRTX",
+   "section": "XLV",
+   "attention": 25.5,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 62.0,
+    "persistance": 41.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Vertex stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (VRTX)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance VRTX hebdo",
+     "ratio_4s_52s": 1.181,
+     "score": 62.0
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 41.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 15
+  },
+  "NASDAQ:REGN": {
+   "nom": "Regeneron Pharmaceuticals, Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NASDAQ:REGN",
+   "yahoo": "REGN",
+   "section": "XLV",
+   "attention": 27.6,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 68.8,
+    "persistance": 41.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Regeneron stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (REGN)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance REGN hebdo",
+     "ratio_4s_52s": 1.297,
+     "score": 68.8
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 41.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 13
+  },
+  "NYSE:SYK": {
+   "nom": "Stryker Corporation",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:SYK",
+   "yahoo": "SYK",
+   "section": "XLV",
+   "attention": 38.4,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 74.9,
+    "persistance": 100.0
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Stryker stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (SYK)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance SYK hebdo",
+     "ratio_4s_52s": 1.412,
+     "score": 74.9
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 100.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 7
+  },
+  "NYSE:MRK": {
+   "nom": "Merck & Co., Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:MRK",
+   "yahoo": "MRK",
+   "section": "XLV",
+   "attention": 24.0,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 5.8,
+    "volume": 42.8,
+    "persistance": 50.0
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Merck stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (MRK)",
+     "m24": 1,
+     "m24_prev": 0,
+     "rang": 310,
+     "score": 5.8
+    },
+    "volume": {
+     "source": "yfinance MRK hebdo",
+     "ratio_4s_52s": 0.905,
+     "score": 42.8
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 50.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 16
+  },
+  "NASDAQ:AMGN": {
+   "nom": "Amgen Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NASDAQ:AMGN",
+   "yahoo": "AMGN",
+   "section": "XLV",
+   "attention": 29.1,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 52.8,
+    "persistance": 83.3
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Amgen stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (AMGN)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance AMGN hebdo",
+     "ratio_4s_52s": 1.039,
+     "score": 52.8
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 83.3
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 13
+  },
+  "NASDAQ:GILD": {
+   "nom": "Gilead Sciences, Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NASDAQ:GILD",
+   "yahoo": "GILD",
+   "section": "XLV",
+   "attention": 19.0,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 49.3,
+    "persistance": 25.0
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Gilead stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (GILD)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance GILD hebdo",
+     "ratio_4s_52s": 0.991,
+     "score": 49.3
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 25.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 19
+  },
+  "NYSE:DHR": {
+   "nom": "Danaher Corporation",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:DHR",
+   "yahoo": "DHR",
+   "section": "XLV",
+   "attention": 19.8,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 35.1,
+    "persistance": 58.3
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Danaher stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (DHR)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance DHR hebdo",
+     "ratio_4s_52s": 0.814,
+     "score": 35.1
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 58.3
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 18
+  },
+  "NYSE:HWM": {
+   "nom": "Howmet Aerospace Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:HWM",
+   "yahoo": "HWM",
+   "section": "XLI",
+   "attention": 39.5,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 82.6,
+    "persistance": 91.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Howmet stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (HWM)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance HWM hebdo",
+     "ratio_4s_52s": 1.572,
+     "score": 82.6
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 91.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 6
+  },
+  "NYSE:GEV": {
+   "nom": "GE Vernova Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:GEV",
+   "yahoo": "GEV",
+   "section": "XLI",
+   "attention": 37.9,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 9.9,
+    "volume": 84.9,
+    "persistance": 41.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "GE Vernova stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (GEV)",
+     "m24": 1,
+     "m24_prev": 1,
+     "rang": 763,
+     "score": 9.9
+    },
+    "volume": {
+     "source": "yfinance GEV hebdo",
+     "ratio_4s_52s": 1.622,
+     "score": 84.9
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 41.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 7
+  },
+  "NYSE:GE": {
+   "nom": "GE Aerospace",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:GE",
+   "yahoo": "GE",
+   "section": "XLI",
+   "attention": 35.3,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 24.3,
+    "volume": 51.2,
+    "persistance": 41.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "GE Aerospace stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (GE)",
+     "m24": 7,
+     "m24_prev": 2,
+     "rang": 98,
+     "score": 24.3
+    },
+    "volume": {
+     "source": "yfinance GE hebdo",
+     "ratio_4s_52s": 1.017,
+     "score": 51.2
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 41.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 9
+  },
+  "NYSE:TT": {
+   "nom": "Trane Technologies plc",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:TT",
+   "yahoo": "TT",
+   "section": "XLI",
+   "attention": 34.1,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 9.9,
+    "volume": 68.4,
+    "persistance": 50.0
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Trane stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (TT)",
+     "m24": 1,
+     "m24_prev": 1,
+     "rang": 409,
+     "score": 9.9
+    },
+    "volume": {
+     "source": "yfinance TT hebdo",
+     "ratio_4s_52s": 1.29,
+     "score": 68.4
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 50.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 10
+  },
+  "NYSE:PWR": {
+   "nom": "Quanta Services, Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:PWR",
+   "yahoo": "PWR",
+   "section": "XLI",
+   "attention": 32.4,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 80.4,
+    "persistance": 50.0
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Quanta Services stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (PWR)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance PWR hebdo",
+     "ratio_4s_52s": 1.524,
+     "score": 80.4
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 50.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 11
+  },
+  "NASDAQ:ADP": {
+   "nom": "Automatic Data Processing, Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NASDAQ:ADP",
+   "yahoo": "ADP",
+   "section": "XLI",
+   "attention": 19.8,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 9.9,
+    "volume": 42.9,
+    "persistance": 8.3
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "ADP stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (ADP)",
+     "m24": 1,
+     "m24_prev": 1,
+     "rang": 256,
+     "score": 9.9
+    },
+    "volume": {
+     "source": "yfinance ADP hebdo",
+     "ratio_4s_52s": 0.906,
+     "score": 42.9
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 8.3
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 18
+  },
+  "NYSE:UBER": {
+   "nom": "Uber Technologies, Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:UBER",
+   "yahoo": "UBER",
+   "section": "XLI",
+   "attention": 30.5,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 9.9,
+    "volume": 56.7,
+    "persistance": 50.0
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Uber stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (UBER)",
+     "m24": 1,
+     "m24_prev": 1,
+     "rang": 408,
+     "score": 9.9
+    },
+    "volume": {
+     "source": "yfinance UBER hebdo",
+     "ratio_4s_52s": 1.097,
+     "score": 56.7
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 50.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 12
+  },
+  "NYSE:CAT": {
+   "nom": "Caterpillar Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:CAT",
+   "yahoo": "CAT",
+   "section": "XLI",
+   "attention": 35.8,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 9.9,
+    "volume": 78.1,
+    "persistance": 41.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Caterpillar stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (CAT)",
+     "m24": 1,
+     "m24_prev": 1,
+     "rang": 258,
+     "score": 9.9
+    },
+    "volume": {
+     "source": "yfinance CAT hebdo",
+     "ratio_4s_52s": 1.476,
+     "score": 78.1
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 41.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 9
+  },
+  "NASDAQ:CSX": {
+   "nom": "CSX Corporation",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NASDAQ:CSX",
+   "yahoo": "CSX",
+   "section": "XLI",
+   "attention": 18.9,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 48.9,
+    "persistance": 25.0
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "CSX stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (CSX)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance CSX hebdo",
+     "ratio_4s_52s": 0.985,
+     "score": 48.9
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 25.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 19
+  },
+  "NYSE:ETN": {
+   "nom": "Eaton Corporation plc",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:ETN",
+   "yahoo": "ETN",
+   "section": "XLI",
+   "attention": 31.1,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 5.8,
+    "volume": 70.0,
+    "persistance": 41.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Eaton stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (ETN)",
+     "m24": 1,
+     "m24_prev": 0,
+     "rang": 318,
+     "score": 5.8
+    },
+    "volume": {
+     "source": "yfinance ETN hebdo",
+     "ratio_4s_52s": 1.32,
+     "score": 70.0
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 41.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 11
+  },
+  "NYSE:FCX": {
+   "nom": "Freeport-McMoRan Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:FCX",
+   "yahoo": "FCX",
+   "section": "XLB",
+   "attention": 18.3,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 51.0,
+    "persistance": 16.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Freeport stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (FCX)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance FCX hebdo",
+     "ratio_4s_52s": 1.014,
+     "score": 51.0
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 16.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 19
+  },
+  "NYSE:NEM": {
+   "nom": "Newmont Corporation",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:NEM",
+   "yahoo": "NEM",
+   "section": "XLB",
+   "attention": 17.6,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 44.8,
+    "persistance": 25.0
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Newmont stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (NEM)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance NEM hebdo",
+     "ratio_4s_52s": 0.93,
+     "score": 44.8
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 25.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 19
+  },
+  "NYSE:PKG": {
+   "nom": "Packaging Corporation of America",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:PKG",
+   "yahoo": "PKG",
+   "section": "XLB",
+   "attention": 19.1,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 45.3,
+    "persistance": 33.3
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Packaging Corp stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (PKG)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance PKG hebdo",
+     "ratio_4s_52s": 0.936,
+     "score": 45.3
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 33.3
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 19
+  },
+  "NASDAQ:STLD": {
+   "nom": "Steel Dynamics, Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NASDAQ:STLD",
+   "yahoo": "STLD",
+   "section": "XLB",
+   "attention": 14.8,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 39.7,
+    "persistance": 16.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Steel Dynamics stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (STLD)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance STLD hebdo",
+     "ratio_4s_52s": 0.867,
+     "score": 39.7
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 16.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 21
+  },
+  "NYSE:CF": {
+   "nom": "CF Industries Holdings, Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:CF",
+   "yahoo": "CF",
+   "section": "XLB",
+   "attention": 14.3,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 25.5,
+    "persistance": 41.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "CF Industries stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (CF)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance CF hebdo",
+     "ratio_4s_52s": 0.712,
+     "score": 25.5
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 41.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 21
+  },
+  "NASDAQ:LIN": {
+   "nom": "Linde plc",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NASDAQ:LIN",
+   "yahoo": "LIN",
+   "section": "XLB",
+   "attention": 14.6,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 47.6,
+    "persistance": 0.0
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Linde stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (LIN)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance LIN hebdo",
+     "ratio_4s_52s": 0.967,
+     "score": 47.6
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 0.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 21
+  },
+  "NYSE:NUE": {
+   "nom": "Nucor Corporation",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:NUE",
+   "yahoo": "NUE",
+   "section": "XLB",
+   "attention": 23.4,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 59.3,
+    "persistance": 33.3
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Nucor stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (NUE)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance NUE hebdo",
+     "ratio_4s_52s": 1.138,
+     "score": 59.3
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 33.3
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 16
+  },
+  "NYSE:ECL": {
+   "nom": "Ecolab Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:ECL",
+   "yahoo": "ECL",
+   "section": "XLB",
+   "attention": 26.4,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 60.9,
+    "persistance": 50.0
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Ecolab stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (ECL)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance ECL hebdo",
+     "ratio_4s_52s": 1.164,
+     "score": 60.9
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 50.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 14
+  },
+  "NYSE:MLM": {
+   "nom": "Martin Marietta Materials, Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:MLM",
+   "yahoo": "MLM",
+   "section": "XLB",
+   "attention": 41.5,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 84.9,
+    "persistance": 100.0
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Martin Marietta stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (MLM)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance MLM hebdo",
+     "ratio_4s_52s": 1.622,
+     "score": 84.9
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 100.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 5
+  },
+  "NYSE:IP": {
+   "nom": "International Paper Company",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:IP",
+   "yahoo": "IP",
+   "section": "XLB",
+   "attention": 41.2,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 37.6,
+    "volume": 51.6,
+    "persistance": 33.3
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "International Paper stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (IP)",
+     "m24": 13,
+     "m24_prev": 13,
+     "rang": 60,
+     "score": 37.6
+    },
+    "volume": {
+     "source": "yfinance IP hebdo",
+     "ratio_4s_52s": 1.023,
+     "score": 51.6
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 33.3
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 5
+  },
+  "NYSE:SPG": {
+   "nom": "Simon Property Group, Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:SPG",
+   "yahoo": "SPG",
+   "section": "XLRE",
+   "attention": 16.2,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 44.2,
+    "persistance": 16.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Simon Property stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (SPG)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance SPG hebdo",
+     "ratio_4s_52s": 0.923,
+     "score": 44.2
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 16.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 20
+  },
+  "NASDAQ:EQIX": {
+   "nom": "Equinix, Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NASDAQ:EQIX",
+   "yahoo": "EQIX",
+   "section": "XLRE",
+   "attention": 26.4,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 69.2,
+    "persistance": 33.3
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Equinix stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (EQIX)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance EQIX hebdo",
+     "ratio_4s_52s": 1.306,
+     "score": 69.2
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 33.3
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 14
+  },
+  "NYSE:PSA": {
+   "nom": "Public Storage",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:PSA",
+   "yahoo": "PSA",
+   "section": "XLRE",
+   "attention": 28.1,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 13.1,
+    "volume": 56.0,
+    "persistance": 25.0
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Public Storage stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (PSA)",
+     "m24": 1,
+     "m24_prev": 2,
+     "rang": 296,
+     "score": 13.1
+    },
+    "volume": {
+     "source": "yfinance PSA hebdo",
+     "ratio_4s_52s": 1.086,
+     "score": 56.0
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 25.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 13
+  },
+  "NYSE:O": {
+   "nom": "Realty Income Corporation",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:O",
+   "yahoo": "O",
+   "section": "XLRE",
+   "attention": 29.7,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 54.9,
+    "persistance": 83.3
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Realty Income stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (O)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance O hebdo",
+     "ratio_4s_52s": 1.071,
+     "score": 54.9
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 83.3
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 12
+  },
+  "NYSE:CBRE": {
+   "nom": "CBRE Group, Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:CBRE",
+   "yahoo": "CBRE",
+   "section": "XLRE",
+   "attention": 29.6,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 58.7,
+    "persistance": 75.0
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "CBRE stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (CBRE)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance CBRE hebdo",
+     "ratio_4s_52s": 1.129,
+     "score": 58.7
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 75.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 12
+  },
+  "NYSE:PLD": {
+   "nom": "Prologis, Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:PLD",
+   "yahoo": "PLD",
+   "section": "XLRE",
+   "attention": 26.2,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 51.9,
+    "persistance": 66.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Prologis stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (PLD)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance PLD hebdo",
+     "ratio_4s_52s": 1.026,
+     "score": 51.9
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 66.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 14
+  },
+  "NYSE:ESS": {
+   "nom": "Essex Property Trust, Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:ESS",
+   "yahoo": "ESS",
+   "section": "XLRE",
+   "attention": 33.7,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 68.0,
+    "persistance": 83.3
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Essex Property stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (ESS)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance ESS hebdo",
+     "ratio_4s_52s": 1.284,
+     "score": 68.0
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 83.3
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 10
+  },
+  "NYSE:AMT": {
+   "nom": "American Tower Corporation",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:AMT",
+   "yahoo": "AMT",
+   "section": "XLRE",
+   "attention": 26.0,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 9.9,
+    "volume": 46.3,
+    "persistance": 41.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "American Tower stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (AMT)",
+     "m24": 1,
+     "m24_prev": 1,
+     "rang": 247,
+     "score": 9.9
+    },
+    "volume": {
+     "source": "yfinance AMT hebdo",
+     "ratio_4s_52s": 0.95,
+     "score": 46.3
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 41.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 14
+  },
+  "NYSE:IRM": {
+   "nom": "Iron Mountain Incorporated",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:IRM",
+   "yahoo": "IRM",
+   "section": "XLRE",
+   "attention": 21.2,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 48.2,
+    "persistance": 41.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Iron Mountain stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (IRM)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance IRM hebdo",
+     "ratio_4s_52s": 0.975,
+     "score": 48.2
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 41.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 17
+  },
+  "NYSE:DLR": {
+   "nom": "Digital Realty Trust, Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:DLR",
+   "yahoo": "DLR",
+   "section": "XLRE",
+   "attention": 29.1,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 69.7,
+    "persistance": 50.0
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Digital Realty stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (DLR)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance DLR hebdo",
+     "ratio_4s_52s": 1.313,
+     "score": 69.7
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 50.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 13
+  },
+  "NASDAQ:PLTR": {
+   "nom": "Palantir Technologies Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NASDAQ:PLTR",
+   "yahoo": "PLTR",
+   "section": "XLK",
+   "attention": 19.7,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 25.5,
+    "volume": 19.3,
+    "persistance": 0.0
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Palantir stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (PLTR)",
+     "m24": 7,
+     "m24_prev": 3,
+     "rang": 99,
+     "score": 25.5
+    },
+    "volume": {
+     "source": "yfinance PLTR hebdo",
+     "ratio_4s_52s": 0.653,
+     "score": 19.3
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 0.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 18
+  },
+  "NASDAQ:NVDA": {
+   "nom": "NVIDIA Corporation",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NASDAQ:NVDA",
+   "yahoo": "NVDA",
+   "section": "XLK",
+   "attention": 85.2,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 100.0,
+    "volume": 93.6,
+    "persistance": 16.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Nvidia stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (NVDA)",
+     "m24": 1824,
+     "m24_prev": 406,
+     "rang": 1,
+     "score": 100.0
+    },
+    "volume": {
+     "source": "yfinance NVDA hebdo",
+     "ratio_4s_52s": 1.831,
+     "score": 93.6
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 16.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": -21
+  },
+  "NASDAQ:AVGO": {
+   "nom": "Broadcom Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NASDAQ:AVGO",
+   "yahoo": "AVGO",
+   "section": "XLK",
+   "attention": 51.5,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 41.2,
+    "volume": 62.0,
+    "persistance": 66.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Broadcom stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (AVGO)",
+     "m24": 24,
+     "m24_prev": 10,
+     "rang": 32,
+     "score": 41.2
+    },
+    "volume": {
+     "source": "yfinance AVGO hebdo",
+     "ratio_4s_52s": 1.181,
+     "score": 62.0
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 66.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": -1
+  },
+  "NYSE:ANET": {
+   "nom": "Arista Networks, Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:ANET",
+   "yahoo": "ANET",
+   "section": "XLK",
+   "attention": 32.1,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 15.7,
+    "volume": 64.5,
+    "persistance": 25.0
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Arista stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (ANET)",
+     "m24": 2,
+     "m24_prev": 2,
+     "rang": 181,
+     "score": 15.7
+    },
+    "volume": {
+     "source": "yfinance ANET hebdo",
+     "ratio_4s_52s": 1.223,
+     "score": 64.5
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 25.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 11
+  },
+  "NASDAQ:AMD": {
+   "nom": "Advanced Micro Devices, Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NASDAQ:AMD",
+   "yahoo": "AMD",
+   "section": "XLK",
+   "attention": 59.2,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 64.2,
+    "volume": 71.8,
+    "persistance": 16.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "AMD stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (AMD)",
+     "m24": 129,
+     "m24_prev": 50,
+     "rang": 5,
+     "score": 64.2
+    },
+    "volume": {
+     "source": "yfinance AMD hebdo",
+     "ratio_4s_52s": 1.353,
+     "score": 71.8
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 16.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": -6
+  },
+  "NASDAQ:MU": {
+   "nom": "Micron Technology, Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NASDAQ:MU",
+   "yahoo": "MU",
+   "section": "XLK",
+   "attention": 45.5,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 59.7,
+    "volume": 43.3,
+    "persistance": 0.0
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Micron stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (MU)",
+     "m24": 88,
+     "m24_prev": 42,
+     "rang": 7,
+     "score": 59.7
+    },
+    "volume": {
+     "source": "yfinance MU hebdo",
+     "ratio_4s_52s": 0.911,
+     "score": 43.3
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 0.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 3
+  },
+  "NASDAQ:LRCX": {
+   "nom": "Lam Research Corporation",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NASDAQ:LRCX",
+   "yahoo": "LRCX",
+   "section": "XLK",
+   "attention": 34.3,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 9.9,
+    "volume": 69.0,
+    "persistance": 50.0
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Lam Research stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (LRCX)",
+     "m24": 1,
+     "m24_prev": 1,
+     "rang": 285,
+     "score": 9.9
+    },
+    "volume": {
+     "source": "yfinance LRCX hebdo",
+     "ratio_4s_52s": 1.302,
+     "score": 69.0
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 50.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 9
+  },
+  "NASDAQ:KLAC": {
+   "nom": "KLA Corporation",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NASDAQ:KLAC",
+   "yahoo": "KLAC",
+   "section": "XLK",
+   "attention": 34.5,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 9.9,
+    "volume": 74.0,
+    "persistance": 41.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "KLA stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (KLAC)",
+     "m24": 1,
+     "m24_prev": 1,
+     "rang": 282,
+     "score": 9.9
+    },
+    "volume": {
+     "source": "yfinance KLAC hebdo",
+     "ratio_4s_52s": 1.394,
+     "score": 74.0
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 41.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 9
+  },
+  "NASDAQ:TXN": {
+   "nom": "Texas Instruments Incorporated",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NASDAQ:TXN",
+   "yahoo": "TXN",
+   "section": "XLK",
+   "attention": 30.3,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 9.9,
+    "volume": 64.5,
+    "persistance": 33.3
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Texas Instruments stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (TXN)",
+     "m24": 1,
+     "m24_prev": 1,
+     "rang": 244,
+     "score": 9.9
+    },
+    "volume": {
+     "source": "yfinance TXN hebdo",
+     "ratio_4s_52s": 1.222,
+     "score": 64.5
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 33.3
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 12
+  },
+  "NASDAQ:CRWD": {
+   "nom": "CrowdStrike Holdings, Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NASDAQ:CRWD",
+   "yahoo": "CRWD",
+   "section": "XLK",
+   "attention": 40.4,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 44.0,
+    "volume": 33.6,
+    "persistance": 41.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "CrowdStrike stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (CRWD)",
+     "m24": 40,
+     "m24_prev": 2,
+     "rang": 21,
+     "score": 44.0
+    },
+    "volume": {
+     "source": "yfinance CRWD hebdo",
+     "ratio_4s_52s": 0.797,
+     "score": 33.6
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 41.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 6
+  },
+  "NYSE:VST": {
+   "nom": "Vistra Corp.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:VST",
+   "yahoo": "VST",
+   "section": "XLU",
+   "attention": 37.3,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 9.9,
+    "volume": 70.5,
+    "persistance": 66.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Vistra stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (VST)",
+     "m24": 1,
+     "m24_prev": 1,
+     "rang": 373,
+     "score": 9.9
+    },
+    "volume": {
+     "source": "yfinance VST hebdo",
+     "ratio_4s_52s": 1.328,
+     "score": 70.5
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 66.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 8
+  },
+  "NYSE:ETR": {
+   "nom": "Entergy Corporation",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:ETR",
+   "yahoo": "ETR",
+   "section": "XLU",
+   "attention": 30.8,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 66.6,
+    "persistance": 66.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Entergy stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (ETR)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance ETR hebdo",
+     "ratio_4s_52s": 1.258,
+     "score": 66.6
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 66.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 12
+  },
+  "NASDAQ:CEG": {
+   "nom": "Constellation Energy Corporation",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NASDAQ:CEG",
+   "yahoo": "CEG",
+   "section": "XLU",
+   "attention": 29.8,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 63.5,
+    "persistance": 66.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Constellation Energy stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (CEG)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance CEG hebdo",
+     "ratio_4s_52s": 1.206,
+     "score": 63.5
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 66.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 12
+  },
+  "NYSE:AWK": {
+   "nom": "American Water Works Company, Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:AWK",
+   "yahoo": "AWK",
+   "section": "XLU",
+   "attention": 23.6,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 55.8,
+    "persistance": 41.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "American Water stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (AWK)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance AWK hebdo",
+     "ratio_4s_52s": 1.084,
+     "score": 55.8
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 41.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 16
+  },
+  "NYSE:NEE": {
+   "nom": "NextEra Energy, Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:NEE",
+   "yahoo": "NEE",
+   "section": "XLU",
+   "attention": 34.0,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 64.7,
+    "persistance": 91.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "NextEra stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (NEE)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance NEE hebdo",
+     "ratio_4s_52s": 1.227,
+     "score": 64.7
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 91.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 10
+  },
+  "NYSE:WEC": {
+   "nom": "WEC Energy Group, Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:WEC",
+   "yahoo": "WEC",
+   "section": "XLU",
+   "attention": 38.3,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 82.8,
+    "persistance": 83.3
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "WEC Energy stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (WEC)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance WEC hebdo",
+     "ratio_4s_52s": 1.576,
+     "score": 82.8
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 83.3
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 7
+  },
+  "NYSE:ATO": {
+   "nom": "Atmos Energy Corporation",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:ATO",
+   "yahoo": "ATO",
+   "section": "XLU",
+   "attention": 24.3,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 9.9,
+    "volume": 44.9,
+    "persistance": 33.3
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Atmos Energy stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (ATO)",
+     "m24": 1,
+     "m24_prev": 1,
+     "rang": 255,
+     "score": 9.9
+    },
+    "volume": {
+     "source": "yfinance ATO hebdo",
+     "ratio_4s_52s": 0.932,
+     "score": 44.9
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 33.3
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 15
+  },
+  "NYSE:SO": {
+   "nom": "The Southern Company",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:SO",
+   "yahoo": "SO",
+   "section": "XLU",
+   "attention": 61.3,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 43.0,
+    "volume": 78.2,
+    "persistance": 91.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Southern Company stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (SO)",
+     "m24": 30,
+     "m24_prev": 9,
+     "rang": 28,
+     "score": 43.0
+    },
+    "volume": {
+     "source": "yfinance SO hebdo",
+     "ratio_4s_52s": 1.479,
+     "score": 78.2
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 91.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": -7
+  },
+  "NASDAQ:XEL": {
+   "nom": "Xcel Energy Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NASDAQ:XEL",
+   "yahoo": "XEL",
+   "section": "XLU",
+   "attention": 40.5,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 90.0,
+    "persistance": 83.3
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Xcel Energy stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (XEL)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance XEL hebdo",
+     "ratio_4s_52s": 1.742,
+     "score": 90.0
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 83.3
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 6
+  },
+  "NYSE:CNP": {
+   "nom": "CenterPoint Energy, Inc.",
+   "classe": "action",
+   "pays": "USA",
+   "tv": "NYSE:CNP",
+   "yahoo": "CNP",
+   "section": "XLU",
+   "attention": 40.5,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 85.8,
+    "persistance": 91.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "CenterPoint stock"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (CNP)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance CNP hebdo",
+     "ratio_4s_52s": 1.642,
+     "score": 85.8
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 91.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 6
+  },
+  "EURONEXT:PUB": {
+   "nom": "Publicis Groupe S.A.",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:PUB",
+   "yahoo": "PUB.PA",
+   "section": "fr_com",
+   "attention": 16.8,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 21.0,
+    "persistance": 8.3
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Publicis"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance PUB.PA hebdo",
+     "ratio_4s_52s": 0.669,
+     "score": 21.0
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 8.3
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": 20
+  },
+  "EURONEXT:DEC": {
+   "nom": "JCDecaux SE",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:DEC",
+   "yahoo": "DEC.PA",
+   "section": "fr_com",
+   "attention": 47.5,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 42.1,
+    "persistance": 58.3
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "JCDecaux"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance DEC.PA hebdo",
+     "ratio_4s_52s": 0.896,
+     "score": 42.1
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 58.3
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": 2
+  },
+  "EURONEXT:ORA": {
+   "nom": "Orange S.A.",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:ORA",
+   "yahoo": "ORA.PA",
+   "section": "fr_com",
+   "attention": 66.7,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 50.1,
+    "persistance": 100.0
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Orange action"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance ORA.PA hebdo",
+     "ratio_4s_52s": 1.001,
+     "score": 50.1
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 100.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": -10
+  },
+  "EURONEXT:ETL": {
+   "nom": "Eutelsat Communications S.A.",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:ETL",
+   "yahoo": "ETL.PA",
+   "section": "fr_com",
+   "attention": 30.2,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 24.4,
+    "persistance": 41.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Eutelsat"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance ETL.PA hebdo",
+     "ratio_4s_52s": 0.701,
+     "score": 24.4
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 41.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": 12
+  },
+  "EURONEXT:MMT": {
+   "nom": "Métropole Télévision S.A.",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:MMT",
+   "yahoo": "MMT.PA",
+   "section": "fr_com",
+   "attention": 45.0,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 42.5,
+    "persistance": 50.0
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "M6 action"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance MMT.PA hebdo",
+     "ratio_4s_52s": 0.901,
+     "score": 42.5
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 50.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": 3
+  },
+  "EURONEXT:BOL": {
+   "nom": "Bolloré SE",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:BOL",
+   "yahoo": "BOL.PA",
+   "section": "fr_com",
+   "attention": 22.2,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 0.0,
+    "persistance": 66.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Bolloré"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance BOL.PA hebdo",
+     "ratio_4s_52s": 0.413,
+     "score": 0.0
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 66.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": 17
+  },
+  "EURONEXT:TFI": {
+   "nom": "TF1 SA",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:TFI",
+   "yahoo": "TFI.PA",
+   "section": "fr_com",
+   "attention": 45.7,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 39.4,
+    "persistance": 58.3
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "TF1 action"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance TFI.PA hebdo",
+     "ratio_4s_52s": 0.864,
+     "score": 39.4
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 58.3
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": 3
+  },
+  "EURONEXT:VIV": {
+   "nom": "Vivendi SE",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:VIV",
+   "yahoo": "VIV.PA",
+   "section": "fr_com",
+   "attention": 37.5,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 27.1,
+    "persistance": 58.3
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Vivendi"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance VIV.PA hebdo",
+     "ratio_4s_52s": 0.728,
+     "score": 27.1
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 58.3
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": 8
+  },
+  "EURONEXT:RMS": {
+   "nom": "Hermès International Société en commandite par actions",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:RMS",
+   "yahoo": "RMS.PA",
+   "section": "fr_cd",
+   "attention": 70.2,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 55.3,
+    "persistance": 100.0
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Hermès action"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance RMS.PA hebdo",
+     "ratio_4s_52s": 1.076,
+     "score": 55.3
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 100.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": -12
+  },
+  "EURONEXT:KER": {
+   "nom": "Kering SA",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:KER",
+   "yahoo": "KER.PA",
+   "section": "fr_cd",
+   "attention": 83.3,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 75.0,
+    "persistance": 100.0
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Kering"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance KER.PA hebdo",
+     "ratio_4s_52s": 1.413,
+     "score": 75.0
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 100.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": -20
+  },
+  "EURONEXT:AC": {
+   "nom": "Accor SA",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:AC",
+   "yahoo": "AC.PA",
+   "section": "fr_cd",
+   "attention": 58.7,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 67.2,
+    "persistance": 41.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Accor"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance AC.PA hebdo",
+     "ratio_4s_52s": 1.269,
+     "score": 67.2
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 41.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": -5
+  },
+  "EURONEXT:MC": {
+   "nom": "LVMH Moët Hennessy - Louis Vuitton, Société Européenne",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:MC",
+   "yahoo": "MC.PA",
+   "section": "fr_cd",
+   "attention": 68.0,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 60.4,
+    "persistance": 83.3
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "LVMH"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance MC.PA hebdo",
+     "ratio_4s_52s": 1.156,
+     "score": 60.4
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 83.3
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": -11
+  },
+  "EURONEXT:SK": {
+   "nom": "SEB SA",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:SK",
+   "yahoo": "SK.PA",
+   "section": "fr_cd",
+   "attention": 23.4,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 30.9,
+    "persistance": 8.3
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "SEB action"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance SK.PA hebdo",
+     "ratio_4s_52s": 0.768,
+     "score": 30.9
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 8.3
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": 16
+  },
+  "EURONEXT:RNO": {
+   "nom": "Renault SA",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:RNO",
+   "yahoo": "RNO.PA",
+   "section": "fr_cd",
+   "attention": 70.4,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 55.6,
+    "persistance": 100.0
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Renault action"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance RNO.PA hebdo",
+     "ratio_4s_52s": 1.08,
+     "score": 55.6
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 100.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": -12
+  },
+  "EURONEXT:OR": {
+   "nom": "L'Oréal S.A.",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:OR",
+   "yahoo": "OR.PA",
+   "section": "fr_cs",
+   "attention": 55.2,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 61.9,
+    "persistance": 41.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "L'Oréal action"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance OR.PA hebdo",
+     "ratio_4s_52s": 1.18,
+     "score": 61.9
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 41.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": -3
+  },
+  "EURONEXT:ITP": {
+   "nom": "Interparfums SA",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:ITP",
+   "yahoo": "ITP.PA",
+   "section": "fr_cs",
+   "attention": 68.1,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 52.2,
+    "persistance": 100.0
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Interparfums"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance ITP.PA hebdo",
+     "ratio_4s_52s": 1.031,
+     "score": 52.2
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 100.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": -11
+  },
+  "EURONEXT:RCO": {
+   "nom": "Rémy Cointreau SA",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:RCO",
+   "yahoo": "RCO.PA",
+   "section": "fr_cs",
+   "attention": 52.1,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 53.2,
+    "persistance": 50.0
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Rémy Cointreau"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance RCO.PA hebdo",
+     "ratio_4s_52s": 1.046,
+     "score": 53.2
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 50.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": -1
+  },
+  "EURONEXT:BN": {
+   "nom": "Danone S.A.",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:BN",
+   "yahoo": "BN.PA",
+   "section": "fr_cs",
+   "attention": 52.2,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 61.6,
+    "persistance": 33.3
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Danone"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance BN.PA hebdo",
+     "ratio_4s_52s": 1.174,
+     "score": 61.6
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 33.3
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": -1
+  },
+  "EURONEXT:BB": {
+   "nom": "Société BIC SA",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:BB",
+   "yahoo": "BB.PA",
+   "section": "fr_cs",
+   "attention": 69.6,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 54.4,
+    "persistance": 100.0
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "BIC action"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance BB.PA hebdo",
+     "ratio_4s_52s": 1.063,
+     "score": 54.4
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 100.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": -12
+  },
+  "EURONEXT:RI": {
+   "nom": "Pernod Ricard SA",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:RI",
+   "yahoo": "RI.PA",
+   "section": "fr_cs",
+   "attention": 64.2,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 54.6,
+    "persistance": 83.3
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Pernod Ricard"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance RI.PA hebdo",
+     "ratio_4s_52s": 1.066,
+     "score": 54.6
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 83.3
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": -9
+  },
+  "EURONEXT:CA": {
+   "nom": "Carrefour SA",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:CA",
+   "yahoo": "CA.PA",
+   "section": "fr_cs",
+   "attention": 53.6,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 59.5,
+    "persistance": 41.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Carrefour action"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance CA.PA hebdo",
+     "ratio_4s_52s": 1.141,
+     "score": 59.5
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 41.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": -2
+  },
+  "EURONEXT:GTT": {
+   "nom": "Gaztransport & Technigaz SA",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:GTT",
+   "yahoo": "GTT.PA",
+   "section": "fr_en",
+   "attention": 87.3,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 93.5,
+    "persistance": 75.0
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "GTT action"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance GTT.PA hebdo",
+     "ratio_4s_52s": 1.827,
+     "score": 93.5
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 75.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": -22
+  },
+  "EURONEXT:TE": {
+   "nom": "Technip Energies N.V.",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:TE",
+   "yahoo": "TE.PA",
+   "section": "fr_en",
+   "attention": 52.2,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 45.0,
+    "persistance": 66.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Technip Energies"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance TE.PA hebdo",
+     "ratio_4s_52s": 0.934,
+     "score": 45.0
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 66.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": -1
+  },
+  "EURONEXT:VIRI": {
+   "nom": "Viridien Société anonyme",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:VIRI",
+   "yahoo": "VIRI.PA",
+   "section": "fr_en",
+   "attention": 29.8,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 36.4,
+    "persistance": 16.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Viridien"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance VIRI.PA hebdo",
+     "ratio_4s_52s": 0.828,
+     "score": 36.4
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 16.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": 12
+  },
+  "EURONEXT:TTE": {
+   "nom": "TotalEnergies SE",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:TTE",
+   "yahoo": "TTE.PA",
+   "section": "fr_en",
+   "attention": 19.8,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 43.6,
+    "persistance": 41.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "TotalEnergies"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (TTE)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance TTE.PA hebdo",
+     "ratio_4s_52s": 0.915,
+     "score": 43.6
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 41.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 18
+  },
+  "EURONEXT:MAU": {
+   "nom": "Etablissements Maurel & Prom S.A.",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:MAU",
+   "yahoo": "MAU.PA",
+   "section": "fr_en",
+   "attention": 18.2,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 19.0,
+    "persistance": 16.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Maurel & Prom"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance MAU.PA hebdo",
+     "ratio_4s_52s": 0.651,
+     "score": 19.0
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 16.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": 19
+  },
+  "EURONEXT:RUI": {
+   "nom": "Rubis",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:RUI",
+   "yahoo": "RUI.PA",
+   "section": "fr_en",
+   "attention": 36.5,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 33.9,
+    "persistance": 41.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Rubis action"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance RUI.PA hebdo",
+     "ratio_4s_52s": 0.8,
+     "score": 33.9
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 41.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": 8
+  },
+  "EURONEXT:BNP": {
+   "nom": "BNP Paribas SA",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:BNP",
+   "yahoo": "BNP.PA",
+   "section": "fr_fin",
+   "attention": 59.1,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 55.3,
+    "persistance": 66.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "BNP Paribas"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance BNP.PA hebdo",
+     "ratio_4s_52s": 1.076,
+     "score": 55.3
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 66.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": -5
+  },
+  "EURONEXT:CS": {
+   "nom": "AXA SA",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:CS",
+   "yahoo": "CS.PA",
+   "section": "fr_fin",
+   "attention": 30.2,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 36.9,
+    "persistance": 16.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "AXA action"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance CS.PA hebdo",
+     "ratio_4s_52s": 0.834,
+     "score": 36.9
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 16.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": 12
+  },
+  "EURONEXT:EDEN": {
+   "nom": "Edenred SE",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:EDEN",
+   "yahoo": "EDEN.PA",
+   "section": "fr_fin",
+   "attention": 15.7,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 23.6,
+    "persistance": 0.0
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Edenred"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance EDEN.PA hebdo",
+     "ratio_4s_52s": 0.693,
+     "score": 23.6
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 0.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": 21
+  },
+  "EURONEXT:GLE": {
+   "nom": "Société Générale Société anonyme",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:GLE",
+   "yahoo": "GLE.PA",
+   "section": "fr_fin",
+   "attention": 50.3,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 37.9,
+    "persistance": 75.0
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Société Générale"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance GLE.PA hebdo",
+     "ratio_4s_52s": 0.846,
+     "score": 37.9
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 75.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": 0
+  },
+  "EURONEXT:ACA": {
+   "nom": "Crédit Agricole S.A.",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:ACA",
+   "yahoo": "ACA.PA",
+   "section": "fr_fin",
+   "attention": 62.4,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 60.2,
+    "persistance": 66.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Crédit Agricole action"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance ACA.PA hebdo",
+     "ratio_4s_52s": 1.153,
+     "score": 60.2
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 66.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": -7
+  },
+  "EURONEXT:SCR": {
+   "nom": "SCOR SE",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:SCR",
+   "yahoo": "SCR.PA",
+   "section": "fr_fin",
+   "attention": 33.6,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 29.5,
+    "persistance": 41.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "SCOR"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance SCR.PA hebdo",
+     "ratio_4s_52s": 0.752,
+     "score": 29.5
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 41.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": 10
+  },
+  "EURONEXT:IPN": {
+   "nom": "Ipsen S.A.",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:IPN",
+   "yahoo": "IPN.PA",
+   "section": "fr_sante",
+   "attention": 47.9,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 46.9,
+    "persistance": 50.0
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Ipsen"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance IPN.PA hebdo",
+     "ratio_4s_52s": 0.957,
+     "score": 46.9
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 50.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": 1
+  },
+  "EURONEXT:VIRP": {
+   "nom": "Virbac SA",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:VIRP",
+   "yahoo": "VIRP.PA",
+   "section": "fr_sante",
+   "attention": 62.8,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 48.3,
+    "persistance": 91.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Virbac"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance VIRP.PA hebdo",
+     "ratio_4s_52s": 0.977,
+     "score": 48.3
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 91.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": -8
+  },
+  "EURONEXT:SAN": {
+   "nom": "Sanofi",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:SAN",
+   "yahoo": "SAN.PA",
+   "section": "fr_sante",
+   "attention": 30.1,
+   "poids_dispo": 0.65,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": 0.0,
+    "volume": 68.8,
+    "persistance": 58.3
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Sanofi"
+    },
+    "mentions": {
+     "source": "ApeWisdom stocks 2026-11-24 (SNY)",
+     "m24": 0,
+     "m24_prev": 0,
+     "rang": null,
+     "score": 0.0
+    },
+    "volume": {
+     "source": "yfinance SAN.PA hebdo",
+     "ratio_4s_52s": 1.298,
+     "score": 68.8
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 58.3
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends"
+   ],
+   "H_actions": 12
+  },
+  "EURONEXT:DIM": {
+   "nom": "Sartorius Stedim Biotech S.A.",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:DIM",
+   "yahoo": "DIM.PA",
+   "section": "fr_sante",
+   "attention": 57.6,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 48.9,
+    "persistance": 75.0
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Sartorius Stedim"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance DIM.PA hebdo",
+     "ratio_4s_52s": 0.985,
+     "score": 48.9
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 75.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": -5
+  },
+  "EURONEXT:EL": {
+   "nom": "EssilorLuxottica Société anonyme",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:EL",
+   "yahoo": "EL.PA",
+   "section": "fr_sante",
+   "attention": 71.2,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 61.0,
+    "persistance": 91.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "EssilorLuxottica"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance EL.PA hebdo",
+     "ratio_4s_52s": 1.165,
+     "score": 61.0
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 91.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": -13
+  },
+  "EURONEXT:BIM": {
+   "nom": "bioMérieux S.A.",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:BIM",
+   "yahoo": "BIM.PA",
+   "section": "fr_sante",
+   "attention": 61.4,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 46.3,
+    "persistance": 91.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "bioMérieux"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance BIM.PA hebdo",
+     "ratio_4s_52s": 0.95,
+     "score": 46.3
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 91.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": -7
+  },
+  "EURONEXT:ABVX": {
+   "nom": "ABIVAX Société Anonyme",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:ABVX",
+   "yahoo": "ABVX.PA",
+   "section": "fr_sante",
+   "attention": 38.4,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 32.6,
+    "persistance": 50.0
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Abivax"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance ABVX.PA hebdo",
+     "ratio_4s_52s": 0.786,
+     "score": 32.6
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 50.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": 7
+  },
+  "EURONEXT:SU": {
+   "nom": "Schneider Electric S.E.",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:SU",
+   "yahoo": "SU.PA",
+   "section": "fr_ind",
+   "attention": 64.2,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 67.1,
+    "persistance": 58.3
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Schneider Electric"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance SU.PA hebdo",
+     "ratio_4s_52s": 1.267,
+     "score": 67.1
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 58.3
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": -9
+  },
+  "EURONEXT:SAF": {
+   "nom": "Safran SA",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:SAF",
+   "yahoo": "SAF.PA",
+   "section": "fr_ind",
+   "attention": 56.7,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 64.2,
+    "persistance": 41.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Safran"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance SAF.PA hebdo",
+     "ratio_4s_52s": 1.218,
+     "score": 64.2
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 41.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": -4
+  },
+  "EURONEXT:LR": {
+   "nom": "Legrand SA",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:LR",
+   "yahoo": "LR.PA",
+   "section": "fr_ind",
+   "attention": 66.0,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 65.7,
+    "persistance": 66.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Legrand"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance LR.PA hebdo",
+     "ratio_4s_52s": 1.243,
+     "score": 65.7
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 66.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": -10
+  },
+  "EURONEXT:AM": {
+   "nom": "Dassault Aviation société anonyme",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:AM",
+   "yahoo": "AM.PA",
+   "section": "fr_ind",
+   "attention": 34.3,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 26.4,
+    "persistance": 50.0
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Dassault Aviation"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance AM.PA hebdo",
+     "ratio_4s_52s": 0.721,
+     "score": 26.4
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 50.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": 9
+  },
+  "EURONEXT:HO": {
+   "nom": "Thales S.A.",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:HO",
+   "yahoo": "HO.PA",
+   "section": "fr_ind",
+   "attention": 40.9,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 44.7,
+    "persistance": 33.3
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Thales"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance HO.PA hebdo",
+     "ratio_4s_52s": 0.929,
+     "score": 44.7
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 33.3
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": 5
+  },
+  "EURONEXT:DG": {
+   "nom": "Vinci SA",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:DG",
+   "yahoo": "DG.PA",
+   "section": "fr_ind",
+   "attention": 60.5,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 53.2,
+    "persistance": 75.0
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Vinci action"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance DG.PA hebdo",
+     "ratio_4s_52s": 1.045,
+     "score": 53.2
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 75.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": -6
+  },
+  "EURONEXT:SGO": {
+   "nom": "Compagnie de Saint-Gobain S.A.",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:SGO",
+   "yahoo": "SGO.PA",
+   "section": "fr_ind",
+   "attention": 48.4,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 56.0,
+    "persistance": 33.3
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Saint-Gobain"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance SGO.PA hebdo",
+     "ratio_4s_52s": 1.087,
+     "score": 56.0
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 33.3
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": 1
+  },
+  "EURONEXT:VIE": {
+   "nom": "Veolia Environnement SA",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:VIE",
+   "yahoo": "VIE.PA",
+   "section": "fr_ind",
+   "attention": 37.2,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 39.1,
+    "persistance": 33.3
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Veolia"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance VIE.PA hebdo",
+     "ratio_4s_52s": 0.859,
+     "score": 39.1
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 33.3
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": 8
+  },
+  "EURONEXT:VK": {
+   "nom": "Vallourec S.A.",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:VK",
+   "yahoo": "VK.PA",
+   "section": "fr_mat",
+   "attention": 62.0,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 59.6,
+    "persistance": 66.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Vallourec"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance VK.PA hebdo",
+     "ratio_4s_52s": 1.142,
+     "score": 59.6
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 66.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": -7
+  },
+  "EURONEXT:RBT": {
+   "nom": "Robertet SA",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:RBT",
+   "yahoo": "RBT.PA",
+   "section": "fr_mat",
+   "attention": 21.3,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 11.1,
+    "persistance": 41.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Robertet"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance RBT.PA hebdo",
+     "ratio_4s_52s": 0.583,
+     "score": 11.1
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 41.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": 17
+  },
+  "EURONEXT:AI": {
+   "nom": "L'Air Liquide S.A.",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:AI",
+   "yahoo": "AI.PA",
+   "section": "fr_mat",
+   "attention": 48.9,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 60.9,
+    "persistance": 25.0
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Air Liquide"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance AI.PA hebdo",
+     "ratio_4s_52s": 1.163,
+     "score": 60.9
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 25.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": 1
+  },
+  "EURONEXT:ERA": {
+   "nom": "ERAMET S.A.",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:ERA",
+   "yahoo": "ERA.PA",
+   "section": "fr_mat",
+   "attention": 75.0,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 100.0,
+    "persistance": 25.0
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Eramet"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance ERA.PA hebdo",
+     "ratio_4s_52s": 2.075,
+     "score": 100.0
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 25.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": -15
+  },
+  "EURONEXT:VCT": {
+   "nom": "Vicat S.A.",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:VCT",
+   "yahoo": "VCT.PA",
+   "section": "fr_mat",
+   "attention": 18.1,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 27.1,
+    "persistance": 0.0
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Vicat"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance VCT.PA hebdo",
+     "ratio_4s_52s": 0.728,
+     "score": 27.1
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 0.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": 19
+  },
+  "EURONEXT:AKE": {
+   "nom": "Arkema S.A.",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:AKE",
+   "yahoo": "AKE.PA",
+   "section": "fr_mat",
+   "attention": 27.5,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 28.8,
+    "persistance": 25.0
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Arkema"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance AKE.PA hebdo",
+     "ratio_4s_52s": 0.746,
+     "score": 28.8
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 25.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": 14
+  },
+  "EURONEXT:LI": {
+   "nom": "Klépierre SA",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:LI",
+   "yahoo": "LI.PA",
+   "section": "fr_immo",
+   "attention": 43.9,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 40.8,
+    "persistance": 50.0
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Klépierre"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance LI.PA hebdo",
+     "ratio_4s_52s": 0.88,
+     "score": 40.8
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 50.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": 4
+  },
+  "EURONEXT:COV": {
+   "nom": "Covivio",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:COV",
+   "yahoo": "COV.PA",
+   "section": "fr_immo",
+   "attention": 47.6,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 38.1,
+    "persistance": 66.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Covivio"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance COV.PA hebdo",
+     "ratio_4s_52s": 0.848,
+     "score": 38.1
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 66.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": 1
+  },
+  "EURONEXT:URW": {
+   "nom": "Unibail-Rodamco-Westfield SE",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:URW",
+   "yahoo": "URW.PA",
+   "section": "fr_immo",
+   "attention": 40.1,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 39.3,
+    "persistance": 41.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Unibail"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance URW.PA hebdo",
+     "ratio_4s_52s": 0.862,
+     "score": 39.3
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 41.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": 6
+  },
+  "EURONEXT:GFC": {
+   "nom": "Gecina",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:GFC",
+   "yahoo": "GFC.PA",
+   "section": "fr_immo",
+   "attention": 61.0,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 54.0,
+    "persistance": 75.0
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Gecina"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance GFC.PA hebdo",
+     "ratio_4s_52s": 1.057,
+     "score": 54.0
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 75.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": -7
+  },
+  "EURONEXT:SOI": {
+   "nom": "Soitec SA",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:SOI",
+   "yahoo": "SOI.PA",
+   "section": "fr_tech",
+   "attention": 45.5,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 55.7,
+    "persistance": 25.0
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Soitec"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance SOI.PA hebdo",
+     "ratio_4s_52s": 1.082,
+     "score": 55.7
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 25.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": 3
+  },
+  "EURONEXT:VU": {
+   "nom": "Vusion S.A.",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:VU",
+   "yahoo": "VU.PA",
+   "section": "fr_tech",
+   "attention": 41.6,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 54.0,
+    "persistance": 16.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Vusion"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance VU.PA hebdo",
+     "ratio_4s_52s": 1.056,
+     "score": 54.0
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 16.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": 5
+  },
+  "EURONEXT:DSY": {
+   "nom": "Dassault Systèmes SE",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:DSY",
+   "yahoo": "DSY.PA",
+   "section": "fr_tech",
+   "attention": 30.1,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 45.2,
+    "persistance": 0.0
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Dassault Systèmes"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance DSY.PA hebdo",
+     "ratio_4s_52s": 0.936,
+     "score": 45.2
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 0.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": 12
+  },
+  "EURONEXT:OVH": {
+   "nom": "OVH Groupe S.A.",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:OVH",
+   "yahoo": "OVH.PA",
+   "section": "fr_tech",
+   "attention": 66.8,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 71.0,
+    "persistance": 58.3
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "OVHcloud"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance OVH.PA hebdo",
+     "ratio_4s_52s": 1.339,
+     "score": 71.0
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 58.3
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": -10
+  },
+  "EURONEXT:CAP": {
+   "nom": "Capgemini SE",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:CAP",
+   "yahoo": "CAP.PA",
+   "section": "fr_tech",
+   "attention": 38.8,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 41.5,
+    "persistance": 33.3
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Capgemini"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance CAP.PA hebdo",
+     "ratio_4s_52s": 0.888,
+     "score": 41.5
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 33.3
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": 7
+  },
+  "EURONEXT:ATE": {
+   "nom": "Alten S.A.",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:ATE",
+   "yahoo": "ATE.PA",
+   "section": "fr_tech",
+   "attention": 11.8,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 9.3,
+    "persistance": 16.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Alten"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance ATE.PA hebdo",
+     "ratio_4s_52s": 0.569,
+     "score": 9.3
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 16.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": 23
+  },
+  "EURONEXT:RXL": {
+   "nom": "Rexel S.A.",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:RXL",
+   "yahoo": "RXL.PA",
+   "section": "fr_tech",
+   "attention": 62.1,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 59.8,
+    "persistance": 66.7
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Rexel"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance RXL.PA hebdo",
+     "ratio_4s_52s": 1.146,
+     "score": 59.8
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 66.7
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": -7
+  },
+  "EURONEXT:SOP": {
+   "nom": "Sopra Steria Group SA",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:SOP",
+   "yahoo": "SOP.PA",
+   "section": "fr_tech",
+   "attention": 29.9,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 32.3,
+    "persistance": 25.0
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Sopra Steria"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance SOP.PA hebdo",
+     "ratio_4s_52s": 0.783,
+     "score": 32.3
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 25.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": 12
+  },
+  "EURONEXT:ENGI": {
+   "nom": "Engie SA",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:ENGI",
+   "yahoo": "ENGI.PA",
+   "section": "fr_util",
+   "attention": 59.7,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 47.9,
+    "persistance": 83.3
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Engie"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance ENGI.PA hebdo",
+     "ratio_4s_52s": 0.972,
+     "score": 47.9
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 83.3
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": -6
+  },
+  "EURONEXT:VLTSA": {
+   "nom": "Voltalia SA",
+   "classe": "action",
+   "pays": "France",
+   "tv": "EURONEXT:VLTSA",
+   "yahoo": "VLTSA.PA",
+   "section": "fr_util",
+   "attention": 68.5,
+   "poids_dispo": 0.3,
+   "composantes": {
+    "trends": "n.c.",
+    "mentions": "n.c.",
+    "volume": 52.8,
+    "persistance": 100.0
+   },
+   "sources": {
+    "trends": {
+     "source": "n.c.",
+     "statut": "non interrogé",
+     "terme": "Voltalia"
+    },
+    "mentions": {
+     "source": "n.c.",
+     "raison": "pas de ticker suivi par ApeWisdom"
+    },
+    "volume": {
+     "source": "yfinance VLTSA.PA hebdo",
+     "ratio_4s_52s": 1.04,
+     "score": 52.8
+    },
+    "persistance": {
+     "source": "volume, 12 sem., lissage 3",
+     "score": 100.0
+    },
+    "x": "n.c.",
+    "stocktwits": "n.c."
+   },
+   "manquants": [
+    "trends",
+    "mentions"
+   ],
+   "H_actions": -11
+  }
+ }
+}

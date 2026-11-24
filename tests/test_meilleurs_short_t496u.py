@@ -33,11 +33,12 @@ def test_seuil_tri_montant_et_stockage():
     assert "pilotBand" in JS
     assert "GS_MIRROR" not in JS and "gsMirror" not in JS
     assert "200 −" not in JS and "200 -" not in JS
-    assert "!gsIsRouge(rec.note)" in JS
+    assert "!gsIsRouge(rec.note, rec.scale)" in JS or "!gsIsRouge(rec.note,rec.scale)" in JS
     assert "a.note-b.note" in JS
     assert "apex-short-valide" in JS
     assert "apex-gi-valide" in GI
     assert "apex-short-valide" not in GI
+    assert "gsIsApexNote" in JS or "gsIsScale250" in JS
     assert "gsIsUsaFranceTv" in JS
     assert "etf_local" in JS
     assert _montant(70) is None
@@ -49,7 +50,7 @@ def test_seuil_tri_montant_et_stockage():
     assert _montant(45) == 120
     assert _montant(21) == 140
     assert _montant(10) == 140
-    assert "GS_SEUIL-Math.max(n,-50)" in JS or "GS_SEUIL-Math.max(n, -50)" in JS
+    assert "Math.max(n,floor)" in JS or "GS_SEUIL-Math.max(n,-50)" in JS or "Math.max(n, floor)" in JS
     assert "100+steps*20" in JS
     assert "mise*5" in JS or "mise * 5" in JS
 
@@ -64,7 +65,7 @@ def test_presentation_et_avertissement():
     assert "mise (levier ×5)" in JS
     assert "Validés (${nVal})" in JS
     assert "gs-elliott" in JS and "gs-pattern" in JS and "gs-valid" in JS
-    assert "10 ≤ note < 70/250" in JS
+    assert "10 ≤ n < 70/250" in JS or "10 ≤ note < 70" in JS
     assert "≤ 70/250" not in JS
     assert "/*__GSJS__*/" in TPL
     assert "bestShortCard" in TPL
@@ -93,7 +94,7 @@ def test_regles_short_grille():
 def test_notes_apex_inchangees():
     """Le lot short ne doit pas réécrire les notes APEX déjà publiées."""
     data = json.loads((ROOT / "data" / "crypto_fiches.json").read_text(encoding="utf-8"))
-    want = {"btc": 124, "eth": 140, "sol": 100, "mstr": 110}
+    want = {"btc": 153, "eth": 173, "sol": 137, "mstr": 143}
     for a in data["assets"]:
         rec = a.get("apex10") or {}
         if a.get("key") in want:

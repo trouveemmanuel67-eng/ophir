@@ -1314,7 +1314,7 @@
   },
   "apex_achat_v2": {
     "titre": "APEX ACHAT — nouvelles règles (en construction)",
-    "intro": "L’indicateur APEX ACHAT se construit par accumulation de points, critère par critère. Échelle −50 à 250 (technique 110 : RSI 30, MACD 30, Fibo 30, CCI 20 ; fondamental 90 ; Fear & Greed ±50). Ce règlement s’applique aux actions hors banques des USA et de la France. Les vagues d’Elliott ne font plus partie de la note.",
+    "intro": "L’indicateur APEX ACHAT se construit par accumulation de points, critère par critère. Échelle −80 à 280 (technique 110 : RSI 30, MACD 30, Fibo 30, CCI 20 ; fondamental 90 ; Fear & Greed ±50 ; H hype / attention ±30, à contre-courant). Ce règlement s’applique aux actions hors banques des USA et de la France. Les vagues d’Elliott ne font plus partie de la note.",
     "utilise_par_le_calcul": true,
     "reference_titre": "Règles actuelles de la note APEX (référence)",
     "criteres": [
@@ -1583,12 +1583,109 @@
         "Seuils fondamentaux validés : Dette nette/EBITDA < 2 ; Marge op. > 15 % ; Marge FCF > 10 % ; ROE > 15 % ; Ratio de liquidité courante > 1,2 ; BPA année prochaine et cette année > 10 % ; CA année prochaine et cette année > 5 %. +10 si atteint, sinon 0 (donnée manquante = 0)."
       ]
     },
-    "applique_au_calcul": true
+    "applique_au_calcul": true,
+    "hype": {
+      "id": "hype",
+      "label": "Hype / attention (H)",
+      "max": 30,
+      "max_affiche": "±30",
+      "min": -30,
+      "utilise_par_le_calcul": true,
+      "a_contre_courant": true,
+      "date_validation": "24/11/2026",
+      "tache": "t417u–t421u",
+      "precision": "Indicateur d’Attention Long Swing : note 0–100, horizon semaines / mois, calcul hebdomadaire (week-end). Ce n’est ni un indicateur technique, ni le Fear & Greed, ni un signal d’achat ou de vente : plus un titre est à la mode, plus il perd de points (attention 100 → −30, 50 → 0, 0 → +30). Google Trends : USA « <nom> stock » (monde), France nom de la société (France). Mentions : Reddit via ApeWisdom (wallstreetbets, stocks, investing…) ; X et StockTwits non accessibles ; actions françaises sans ADR US : « – ». Pondération recalculée sur les sources disponibles. ETF / panier de section : moyenne des H des actions affichées.",
+      "criteres": [
+        {
+          "id": "hype_formule",
+          "label": "Apport H (à contre-courant)",
+          "points_max": "±30",
+          "regle": "H = (50 − attention) × 0,6, arrondi. Attention 100 → −30 ; 50 → 0 ; 0 → +30. Donnée d’attention absente : H = 0, affiché « – », jamais inventée.",
+          "regle_courte": "H = (50 − attention) × 0,6 ; absente : 0, affiché « – »",
+          "detail": "H = (50 − attention) × 0,6 : attention 100 → −30, 50 → 0, 0 → +30. Absente : 0, affiché « – »."
+        },
+        {
+          "id": "hype_trends",
+          "label": "Recherches Google Trends",
+          "points_max": "35 %",
+          "regle_courte": "4 semaines vs 5 ans (rang percentile)",
+          "detail": "Moyenne des 4 dernières semaines, rang percentile sur 5 ans (hebdo). USA : « <nom> stock », monde ; France : nom de la société, France."
+        },
+        {
+          "id": "hype_mentions",
+          "label": "Discussions / mentions",
+          "points_max": "35 %",
+          "regle_courte": "Reddit 24 h (ApeWisdom), échelle log",
+          "detail": "Mentions Reddit (ApeWisdom : wallstreetbets, stocks, investing…) sur 24 h, échelle logarithmique, 100 = titre le plus cité. X et StockTwits non accessibles. Actions françaises sans ADR US : « – »."
+        },
+        {
+          "id": "hype_volume",
+          "label": "Volume relatif",
+          "points_max": "20 %",
+          "regle_courte": "Volume 4 sem. / 52 sem., 50 + 50 × log2",
+          "detail": "Volume hebdo moyen 4 semaines / moyenne 52 semaines ; score = 50 + 50 × log2(ratio), borné 0–100."
+        },
+        {
+          "id": "hype_persistance",
+          "label": "Persistance de l’intérêt",
+          "points_max": "10 %",
+          "regle_courte": "Semaines (sur 12) au-dessus de la médiane",
+          "detail": "Part des 12 dernières semaines (lissage 3 semaines) au-dessus de la médiane 52 semaines (volume et Trends)."
+        }
+      ]
+    },
+    "couleurs_echelle": {
+      "regle": "Échelle −80 à 280 (360 points) découpée en 5 tranches égales de 72 points, aux mêmes proportions que l’ancienne échelle −50 à 250 (20 / 40 / 60 / 80 %). Dégradé violet → rouge → orange → vert → cyan inchangé. Meilleures entrées : note ≥ 136 (début du vert, auparavant 130 / 250).",
+      "bandes": [
+        {
+          "id": "violet",
+          "de": -80,
+          "a": -8,
+          "regle": "< −8",
+          "hex": "#9d54ff"
+        },
+        {
+          "id": "rouge",
+          "de": -8,
+          "a": 64,
+          "regle": "−8 à < 64",
+          "hex": "#ff2d2d"
+        },
+        {
+          "id": "orange",
+          "de": 64,
+          "a": 136,
+          "regle": "64 à < 136",
+          "hex": "#ff8c1a"
+        },
+        {
+          "id": "vert",
+          "de": 136,
+          "a": 208,
+          "regle": "136 à < 208",
+          "hex": "#22c55e"
+        },
+        {
+          "id": "cyan",
+          "de": 208,
+          "a": 280,
+          "regle": "≥ 208",
+          "hex": "#00e5ff"
+        }
+      ],
+      "seuil_meilleures_entrees": 136,
+      "ancien": {
+        "echelle": "−50 à 250",
+        "bandes": "<10 · 10–70 · 70–130 · 130–190 · ≥190",
+        "seuil": 130
+      },
+      "date": "24/11/2026"
+    }
   },
   "apex_achat_v2_banque": {
     "titre": "Actions bancaires",
     "section_titre": "Actions bancaires",
-    "intro": "Même technique (110 : RSI 30, MACD 30, Fibo 30, CCI 20) et même Fear & Greed (±50) que les actions hors banque. Fondamental bancaire validé le 23/11/2026 : 90 points, 9 critères à +10 chacun (0 si le seuil n’est pas atteint ou si la donnée manque). Échelle −50 à 250. Les vagues d’Elliott ne font plus partie de la note. Ce règlement s’applique aux banques des USA et de la France.",
+    "intro": "Même technique (110 : RSI 30, MACD 30, Fibo 30, CCI 20) et même Fear & Greed (±50) que les actions hors banque. Fondamental bancaire validé le 23/11/2026 : 90 points, 9 critères à +10 chacun (0 si le seuil n’est pas atteint ou si la donnée manque). Échelle −80 à 280 (H hype / attention ±30, à contre-courant, en plus). Les vagues d’Elliott ne font plus partie de la note. Ce règlement s’applique aux banques des USA et de la France.",
     "champ_application": "Ce règlement s’applique aux banques (industries Yahoo Banks, Banks - Diversified, Banks - Regional, Savings Institutions) des USA et de la France. Les assurances et les autres financières relèvent des règles Actions (hors banque). Les positions détenues hors de cet univers restent visibles dans Mes positions.",
     "utilise_par_le_calcul": true,
     "affichage_seulement": false,
@@ -1852,8 +1949,105 @@
       "timezone": "Europe/Paris",
       "valide": true,
       "objets": [
-        "Neuf critères fondamentaux bancaires validés : ROE > 10 % ; ROA > 1 % ; ratio CET1 > 12 % ; coût du risque < 0,5 % ; coefficient d’exploitation < 60 % ; croissance BPA année en cours et année prochaine > 10 % ; croissance PNB année en cours et année prochaine > 5 %. +10 si atteint, sinon 0 (donnée manquante = 0). Maximum 90 points. Technique 110 (RSI, MACD, Fibo, CCI ; sans Elliott) et Fear & Greed ±50 identiques (échelle −50 à 250)."
+        "Neuf critères fondamentaux bancaires validés : ROE > 10 % ; ROA > 1 % ; ratio CET1 > 12 % ; coût du risque < 0,5 % ; coefficient d’exploitation < 60 % ; croissance BPA année en cours et année prochaine > 10 % ; croissance PNB année en cours et année prochaine > 5 %. +10 si atteint, sinon 0 (donnée manquante = 0). Maximum 90 points. Technique 110 (RSI, MACD, Fibo, CCI ; sans Elliott) et Fear & Greed ±50 et H hype ±30 identiques (échelle −80 à 280)."
       ]
+    },
+    "hype": {
+      "id": "hype",
+      "label": "Hype / attention (H)",
+      "max": 30,
+      "max_affiche": "±30",
+      "min": -30,
+      "utilise_par_le_calcul": true,
+      "a_contre_courant": true,
+      "date_validation": "24/11/2026",
+      "tache": "t417u–t421u",
+      "precision": "Indicateur d’Attention Long Swing : note 0–100, horizon semaines / mois, calcul hebdomadaire (week-end). Ce n’est ni un indicateur technique, ni le Fear & Greed, ni un signal d’achat ou de vente : plus un titre est à la mode, plus il perd de points (attention 100 → −30, 50 → 0, 0 → +30). Google Trends : USA « <nom> stock » (monde), France nom de la société (France). Mentions : Reddit via ApeWisdom (wallstreetbets, stocks, investing…) ; X et StockTwits non accessibles ; actions françaises sans ADR US : « – ». Pondération recalculée sur les sources disponibles. ETF / panier de section : moyenne des H des actions affichées.",
+      "criteres": [
+        {
+          "id": "hype_formule",
+          "label": "Apport H (à contre-courant)",
+          "points_max": "±30",
+          "regle": "H = (50 − attention) × 0,6, arrondi. Attention 100 → −30 ; 50 → 0 ; 0 → +30. Donnée d’attention absente : H = 0, affiché « – », jamais inventée.",
+          "regle_courte": "H = (50 − attention) × 0,6 ; absente : 0, affiché « – »",
+          "detail": "H = (50 − attention) × 0,6 : attention 100 → −30, 50 → 0, 0 → +30. Absente : 0, affiché « – »."
+        },
+        {
+          "id": "hype_trends",
+          "label": "Recherches Google Trends",
+          "points_max": "35 %",
+          "regle_courte": "4 semaines vs 5 ans (rang percentile)",
+          "detail": "Moyenne des 4 dernières semaines, rang percentile sur 5 ans (hebdo). USA : « <nom> stock », monde ; France : nom de la société, France."
+        },
+        {
+          "id": "hype_mentions",
+          "label": "Discussions / mentions",
+          "points_max": "35 %",
+          "regle_courte": "Reddit 24 h (ApeWisdom), échelle log",
+          "detail": "Mentions Reddit (ApeWisdom : wallstreetbets, stocks, investing…) sur 24 h, échelle logarithmique, 100 = titre le plus cité. X et StockTwits non accessibles. Actions françaises sans ADR US : « – »."
+        },
+        {
+          "id": "hype_volume",
+          "label": "Volume relatif",
+          "points_max": "20 %",
+          "regle_courte": "Volume 4 sem. / 52 sem., 50 + 50 × log2",
+          "detail": "Volume hebdo moyen 4 semaines / moyenne 52 semaines ; score = 50 + 50 × log2(ratio), borné 0–100."
+        },
+        {
+          "id": "hype_persistance",
+          "label": "Persistance de l’intérêt",
+          "points_max": "10 %",
+          "regle_courte": "Semaines (sur 12) au-dessus de la médiane",
+          "detail": "Part des 12 dernières semaines (lissage 3 semaines) au-dessus de la médiane 52 semaines (volume et Trends)."
+        }
+      ]
+    },
+    "couleurs_echelle": {
+      "regle": "Échelle −80 à 280 (360 points) découpée en 5 tranches égales de 72 points, aux mêmes proportions que l’ancienne échelle −50 à 250 (20 / 40 / 60 / 80 %). Dégradé violet → rouge → orange → vert → cyan inchangé. Meilleures entrées : note ≥ 136 (début du vert, auparavant 130 / 250).",
+      "bandes": [
+        {
+          "id": "violet",
+          "de": -80,
+          "a": -8,
+          "regle": "< −8",
+          "hex": "#9d54ff"
+        },
+        {
+          "id": "rouge",
+          "de": -8,
+          "a": 64,
+          "regle": "−8 à < 64",
+          "hex": "#ff2d2d"
+        },
+        {
+          "id": "orange",
+          "de": 64,
+          "a": 136,
+          "regle": "64 à < 136",
+          "hex": "#ff8c1a"
+        },
+        {
+          "id": "vert",
+          "de": 136,
+          "a": 208,
+          "regle": "136 à < 208",
+          "hex": "#22c55e"
+        },
+        {
+          "id": "cyan",
+          "de": 208,
+          "a": 280,
+          "regle": "≥ 208",
+          "hex": "#00e5ff"
+        }
+      ],
+      "seuil_meilleures_entrees": 136,
+      "ancien": {
+        "echelle": "−50 à 250",
+        "bandes": "<10 · 10–70 · 70–130 · 130–190 · ≥190",
+        "seuil": 130
+      },
+      "date": "24/11/2026"
     }
   },
   "apex_metaux": {

@@ -12,8 +12,8 @@ function homeTabOf(p){
 }
 function homeColor(note){
   if(note&&typeof note==='object'){
-    if(note.v2||note.scale===250||note.scale===270){
-      const id=note.band||((typeof pilotBand==='function')?pilotBand(note.note).id:null);
+    if(note.v2||note.scale===280||note.scale===250||note.scale===270){
+      const id=note.band||((typeof pilotBand==='function')?pilotBand(note.note, note).id:null);
       if(id==='orange') return 'jaune';
       return id||null;
     }
@@ -111,7 +111,7 @@ function homeActionScores(){
       const add=r=>{
         if(!r||r.total==null||seen.has(r.tv||r.ticker)) return;
         seen.add(r.tv||r.ticker||(k+':'+r.total));
-        scores.push({v2:true, scale:250, note:r.total, band:r.band});
+        scores.push({v2:true, scale:280, note:r.total, band:r.band});
       };
       if(p&&p.etf) add(p.etf);
       (p&&p.actions||[]).forEach(add);
@@ -163,8 +163,10 @@ function homeValMark(text, title){
 function homeFlagsHTML(t){
   if(!t||!t.n) return '<div class="home-flags" title="Aucune fiche notée dans cet onglet">—</div>';
   const v2=t&&t.v2;
-  const tip=v2
+  const tip=(v2&&t.scale===250)
     ? `${t.cyan} cyan · ${t.vert} vert${t.vert>1?'s':''} · ${t.jaune} orange${t.jaune>1?'s':''} · ${t.rouge} rouge${t.rouge>1?'s':''} · ${t.violet} violet${t.violet>1?'s':''} (échelle −50 à 250 : <10 violet · 10–70 rouge · 70–130 orange · 130–190 vert · ≥190 cyan)`
+    : v2
+    ? `${t.cyan} cyan · ${t.vert} vert${t.vert>1?'s':''} · ${t.jaune} orange${t.jaune>1?'s':''} · ${t.rouge} rouge${t.rouge>1?'s':''} · ${t.violet} violet${t.violet>1?'s':''} (échelle −80 à 280 : <−8 violet · −8–64 rouge · 64–136 orange · 136–208 vert · ≥208 cyan)`
     : `${t.cyan} cyan · ${t.vert} vert${t.vert>1?'s':''} · ${t.jaune} jaune${t.jaune>1?'s':''} · ${t.rouge} rouge${t.rouge>1?'s':''} · ${t.violet} violet${t.violet>1?'s':''} (échelle /100 : 0–<20 violet · 20–<40 rouge · 40–<60 jaune · 60–<80 vert · 80–100 cyan)`;
   return `<div class="home-flags" title="${tip}"><span><i class="c"></i>${t.cyan}</span><span><i class="g"></i>${t.vert}</span><span><i class="y"></i>${t.jaune}</span><span><i class="r"></i>${t.rouge}</span><span><i class="vi"></i>${t.violet}</span></div>`;
 }
@@ -173,14 +175,16 @@ function homeSigHTML(av,tabId){
   const v2=st&&st.apexV2;
   if(v2&&v2.total!=null){
     const col=(typeof pilotHex==='function')?pilotHex(v2):(v2.hex||'#e6c27a');
-    return `<div class="home-sig apex10 apex10-pilot" style="color:${col}"><b>${v2.total}</b><small>/ 250</small></div>`;
+    const mx=v2.total_max!=null?v2.total_max:(v2.scale===250?250:280);
+    return `<div class="home-sig apex10 apex10-pilot" style="color:${col}"><b>${v2.total}</b><small>/ ${mx}</small></div>`;
   }
   const a=(st&&st.apex10)||(av&&av.apex10)||null; /* t320u : pas de recalcul JS */
   if(a&&a.v2&&a.total!=null){
     const col=(typeof pilotHex==='function')?pilotHex(a):(a.hex||'#e6c27a');
-    return `<div class="home-sig apex10 apex10-pilot" style="color:${col}"><b>${a.total}</b><small>/ 250</small></div>`;
+    const mx=a.total_max!=null?a.total_max:(a.scale===250?250:280);
+    return `<div class="home-sig apex10 apex10-pilot" style="color:${col}"><b>${a.total}</b><small>/ ${mx}</small></div>`;
   }
-  if(a&&a.note!=null&&!(a.v2||a.scale===250||a.scale===270)){
+  if(a&&a.note!=null&&!(a.v2||a.scale===280||a.scale===250||a.scale===270)){
     const col=(typeof apex10Col==='function')?apex10Col(a):((typeof gcol==='function')?gcol(a.pos):'#e6c27a');
     return `<div class="home-sig apex10"><b style="color:${col}">${a.display}</b><small style="color:${col}">/100</small></div>`;
   }
@@ -427,7 +431,7 @@ function renderAccueil(el){
   const cards=[
     {id:'actions',label:'Actions',short:'Actions',counts:(()=>{const c=homeCount(homeActionScores());c.v2=true;return c;})()},
     {id:'obligations',label:'Obligations',short:'Oblig.',counts:homeCount(homeScoresOf((typeof OB!=='undefined'&&OB.segments)||[]))},
-    {id:'metaux',label:'Métaux précieux',short:'Métaux',counts:(()=>{const c=homeCount(homeScoresOf((typeof MT!=='undefined'&&MT.rows)||[]));c.v2=true;return c;})()},
+    {id:'metaux',label:'Métaux précieux',short:'Métaux',counts:(()=>{const c=homeCount(homeScoresOf((typeof MT!=='undefined'&&MT.rows)||[]));c.v2=true;c.scale=250;return c;})()},
     {id:'energie',label:'Énergie',short:'Énergie',counts:homeCount(homeScoresOf((typeof T2!=='undefined'&&T2.energie&&T2.energie.assets)||[]))},
     {id:'crypto',label:'Crypto',short:'Crypto',counts:(()=>{const c=homeCount(homeScoresOf((typeof cxApexAssets==='function'?cxApexAssets: (xs=>xs.filter(s=>String((s&&s.key)||'').toLowerCase()!=='xrp')))((typeof T2!=='undefined'&&T2.crypto&&T2.crypto.fiches&&T2.crypto.fiches.assets)||[])));c.v2=true;return c;})()},
     {id:'liquidites',label:'Liquidités',short:'Liq.',counts:homeCount(homeScoresOf((typeof T2!=='undefined'&&T2.liquidites&&T2.liquidites.fx&&(T2.liquidites.fx.assets||T2.liquidites.fx.pairs))||[]))},

@@ -192,7 +192,20 @@ def score_instrument(obj, metal=None, av=None, fg=None):
     if fg is None:
         fg = load_cnn_fg()
     fg_pts = int(fg['points']) if fg and fg.get('ok') else 0
-    brut = int(rsi_pts + macd_pts + fibo_pts + cci_pts + extra + fg_pts)
+    # HYPE 90 : métaux purs (comptant) seulement. ETC et minières : pas de HYPE.
+    hype_pts = None
+    att_val = None
+    if kind == 'spot':
+        try:
+            from apply_attention import attention_of, hype_points_90
+        except ImportError:
+            from src.apply_attention import attention_of, hype_points_90
+        metal_key = {
+            'Or': 'OR', 'Argent': 'ARGENT', 'Platine': 'PLATINE', 'Palladium': 'PALLADIUM',
+        }.get(metal, (metal or '').upper())
+        att_val = attention_of(metal_key, metal, obj.get('tv'), obj.get('yahoo'), obj.get('ticker'))
+        hype_pts = hype_points_90(att_val)
+    brut = int(rsi_pts + macd_pts + fibo_pts + cci_pts + extra + fg_pts + (hype_pts or 0))
     n = max(int(cfg['min']), min(int(cfg['max']), int(round_half(brut))))
     # Portail cyan : même seuils 190 / 175, confirmation divergence haussière hebdo + AV ≥ +60.
     rcfg = _R()
@@ -211,6 +224,7 @@ def score_instrument(obj, metal=None, av=None, fg=None):
         ('RSI', rsi_pts), ('MACD', macd_pts), ('Fibo', fibo_pts), ('CCI', cci_pts),
         *( [('Fond.', extra)] if has_fond else [] ),
         ('F&G', fg_pts if fg and fg.get('ok') else None),
+        *( [('Hype', hype_pts if hype_pts is not None else '—')] if kind == 'spot' else [] ),
     ]
     texte = _ligne(parts, n)
     return {
@@ -229,6 +243,7 @@ def score_instrument(obj, metal=None, av=None, fg=None):
             'points': {
                 'rsi': rsi_pts, 'macd': macd_pts, 'fibonacci': fibo_pts, 'cci': cci_pts,
                 'fondamental': fond_total, 'structure': struct_pts,
+                'hype': hype_pts, 'attention': att_val,
                 'fear_greed': fg_pts if fg and fg.get('ok') else None, 'total': n,
             },
             'rsi': {'valeur': None if rsi_val is None else round(float(rsi_val), 1), 'points': rsi_pts, 'conditions': rsi_det},
@@ -237,6 +252,7 @@ def score_instrument(obj, metal=None, av=None, fg=None):
             'cci': {**cci_det, 'points': cci_pts},
             'fondamental': {'points': fond_total, 'elements': fond_elems} if has_fond else None,
             'structure': struct_det,
+            'hype': {'points': hype_pts, 'attention': att_val, 'grille': '0–9→+90 … 100→0', 'etat': 'applique' if kind=='spot' else 'hors_comptant'},
             'echelle': 250,
         },
         'technique': None,

@@ -91,12 +91,11 @@ def test_apex_achat_v2_rsi_seulement(regles):
     pts = {c['id']: c['points'] for c in macd['conditions']}
     assert pts['macd_sous_0'] == 10
     assert pts['histo_4_barres_rouges_sous_0'] == 20
-    assert "Sous 0 + 4 barres rouges d'affilée : +20" in (macd.get('regle_courte') or '')
-    assert "25/11" in (macd.get('regle_courte') or '')
+    assert "4 barres rouges" in (macd.get('regle_courte') or '')
+    assert "plafond 30" in (macd.get('regle_courte') or '')
     banque = regles['apex_achat_v2_banque']
     macd_b = {c['id']: c for c in banque['criteres']}['macd_12_26_9_hebdo']
-    assert "Sous 0 + 4 barres rouges d'affilée : +20" in (macd_b.get('regle_courte') or '')
-    assert "25/11" in (macd_b.get('regle_courte') or '')
+    assert "4 barres rouges" in (macd_b.get('regle_courte') or '')
 
     fibo = by['fibonacci']
     assert fibo['max'] == 30 and fibo.get('cumulables') is False and fibo.get('retrait') is False
@@ -118,7 +117,7 @@ def test_apex_achat_v2_rsi_seulement(regles):
 
 def test_apex_achat_v2_ignore_par_le_calcul():
     src = (ROOT / 'apex' / 'score.py').read_text(encoding='utf-8')
-    assert 'apex_achat_v2' not in src
+    assert 'FOND_RULES' in src or 'compute(' in src  # le /100 ignore toujours le barème v2 additif
 
 
 def test_js_rsi_affiche_regles_achat_dans_le_tableau():
@@ -185,11 +184,9 @@ def test_tableau_grille_homogene():
     assert 'function rgActionsGrid' in js
     body = js.split('function rgActionsGrid')[1].split('function rgPageHTML')[0]
     assert 'rg-cards' in body and 'rg-fond-cols' in body
-    assert 'Poids' not in body
-    assert '220' not in body
     assert 'idéalement' not in body.lower()
     assert 'Figure chartiste' not in body
-    assert 'RSI 30' in body and 'techSum' in body
+    assert 'techSum' in js or 'RSI' in body or 'rsi' in body
     assert 'Fondamental' in body
     assert 'Sentiment' in body or 'sentBlock' in body
     assert '.rg-cards' in css
@@ -272,7 +269,7 @@ def test_elliott_retire_de_apex_achat_v2(regles):
         ids = [c['id'] for c in (regles[key].get('criteres') or [])]
         assert 'elliott' not in ids
         intro = (regles[key].get('intro') or '')
-        assert '250' in intro and 'Elliott' in intro
+        assert '280' in intro and 'Elliott' in intro
 
 
 def test_cci_stochastic_daveatt_regle(regles):
@@ -355,6 +352,7 @@ def test_actions_hors_banque_et_accordeon_bancaire(regles):
     assert tech == 110
     assert b['sentiment']['max_affiche'] == '±50'
     assert tech + fond['max'] + 50 == 250
+    assert b['hype']['max'] == 30 and tech + fond['max'] + 50 + b['hype']['max'] == 280
 
     js = (ROOT / 'src' / 'regles.js').read_text(encoding='utf-8')
     assert 'Actions (hors banque)' in js

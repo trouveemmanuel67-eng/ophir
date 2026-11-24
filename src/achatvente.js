@@ -52,9 +52,9 @@ function apex10Col(a){
   return (typeof gcol==='function')?gcol(a.pos!=null?a.pos:a.note):'#e6c27a';
 }
 function apexNoteHTML(a){
-  if(a&&(a.v2||a.total_max===250||a.scale===250||a.total_max===270||a.scale===270)&&a.total!=null){
+  if(a&&(a.v2||a.total_max===280||a.scale===280||a.total_max===250||a.scale===250||a.total_max===270||a.scale===270)&&a.total!=null){
     const col=(typeof pilotHex==='function')?pilotHex(a):(a.hex||'#e6c27a');
-    const mx=a.total_max!=null?a.total_max:250;
+    const mx=a.total_max!=null?a.total_max:280;
     return `<div class="apex10 apex10-pilot" style="color:${col}"><b>${a.total}</b><small>/ ${mx}</small></div>`;
   }
   if(!a||a.note==null||a.display==='–') return `<div class="apex10 apex10-na"><b>–</b></div>`;
@@ -200,25 +200,28 @@ function bakedSectionApex(tabId){
   if(tabId==='immobilier'&&typeof AV!=='undefined'&&AV.immobilier&&AV.immobilier.apex10&&AV.immobilier.apex10.note!=null) return AV.immobilier.apex10;
   return null;
 }
-function apexV2FromAvg(totals){
+function apexV2FromAvg(totals,hypes){
   const xs=(totals||[]).map(Number).filter(Number.isFinite);
   if(!xs.length) return null;
   const n=Math.round(xs.reduce((a,b)=>a+b,0)/xs.length);
   const b=(typeof pilotBand==='function')?pilotBand(n):{hex:'#e6c27a',id:''};
+  const hs=(hypes||[]).filter(x=>x!=null&&Number.isFinite(Number(x))).map(Number);
+  const h=hs.length?Math.round(hs.reduce((a,c)=>a+c,0)/hs.length):null;
   return {
-    v2:true, total:n, total_min:-50, total_max:250, scale:250,
-    display:n+' / 250', hex:b.hex, band:b.id, n_moy:xs.length,
+    v2:true, total:n, total_min:-80, total_max:280, scale:280,
+    display:n+' / 280', hex:b.hex, band:b.id, n_moy:xs.length,
+    points:{hype:h}, attention:h==null?null:{valeur:null,H:h,n:hs.length},
     ok:true
   };
 }
 function sectionApexAvg(tabId){
   if(tabId==='actions'&&typeof PILOT!=='undefined'&&PILOT&&PILOT.pilotes){
-    const recs=[];
+    const recs=[],hyp=[];
     if(typeof SEC!=='undefined') (SEC.sectors||[]).forEach(s=>{
       const p=(typeof pilotOf==='function')?pilotOf(s.sym):null;
-      if(p&&p.etf&&p.etf.total!=null) recs.push(p.etf.total);
+      if(p&&p.etf&&p.etf.total!=null){recs.push(p.etf.total);hyp.push(p.etf.points&&p.etf.points.hype);}
     });
-    const apex=apexV2FromAvg(recs);
+    const apex=apexV2FromAvg(recs,hyp);
     const items=sectionApexItems(tabId);
     const av=meanNum(items.map(x=>x.av));
     const se=meanNum(items.map(x=>x.sent));
@@ -235,7 +238,8 @@ function sectionApexAvg(tabId){
   const se=meanNum(items.map(x=>x.sent));
   if((tabId==='metaux'||tabId==='crypto')&&notes.length){
     const n=Math.round(notes.reduce((a,b)=>a+b,0)/notes.length);
-    const b=(typeof pilotBand==='function')?pilotBand(n):{hex:'#e6c27a',id:''};
+    const metaSc={scale:250,total_max:250,total_min:-50};
+    const b=(typeof pilotBand==='function')?pilotBand(n, metaSc):{hex:'#e6c27a',id:''};
     const apex={v2:true, total:n, total_min:-50, total_max:250, scale:250, display:String(n)+' / 250', hex:b.hex, band:b.id, n_moy:notes.length, ok:true, note:n};
     return {
       apexV2:apex, apex10:apex,
@@ -256,12 +260,12 @@ function sectionApexAvg(tabId){
 }
 function countryApexAvg(C){
   if(!C) return null;
-  const recs=[];
+  const recs=[],hyp=[];
   (C.rows||[]).filter(s=>s&&s.covered).forEach(s=>{
     const p=(typeof pSecOf==='function')?pSecOf(C,s):((typeof pilotOf==='function')?pilotOf((C.cc+'_'+(s.key||''))):null);
-    if(p&&p.etf&&p.etf.total!=null) recs.push(p.etf.total);
+    if(p&&p.etf&&p.etf.total!=null){recs.push(p.etf.total);hyp.push(p.etf.points&&p.etf.points.hype);}
   });
-  const apex=apexV2FromAvg(recs);
+  const apex=apexV2FromAvg(recs,hyp);
   const S=(C.rows||[]).filter(s=>s&&s.covered);
   const av=meanNum(S.map(s=>s.av&&s.av.score));
   const se=meanNum(S.map(s=>s.sent&&s.sent.value));
@@ -359,7 +363,7 @@ function isActionSector(sym){
   return false;
 }
 function v2Placeholder(){
-  return `<div class="apex-block apex-block-pilot apex-block-line"><div class="apex10 apex10-pilot apex10-na"><b>–</b><small>/ 250</small></div></div>`;
+  return `<div class="apex-block apex-block-pilot apex-block-line"><div class="apex10 apex10-pilot apex10-na"><b>–</b><small>/ 280</small></div></div>`;
 }
 function isPilotSector(sym){
   if(!PILOT||!sym) return false;
@@ -385,32 +389,53 @@ function pilotRec(tv){
   return null;
 }
 function pilotScale(){
-  const mn=(PILOT&&PILOT.scale&&PILOT.scale.min!=null)?PILOT.scale.min:-50;
-  const mx=(PILOT&&PILOT.scale&&PILOT.scale.max!=null)?PILOT.scale.max:250;
+  const mn=(PILOT&&PILOT.scale&&PILOT.scale.min!=null)?PILOT.scale.min:-80;
+  const mx=(PILOT&&PILOT.scale&&PILOT.scale.max!=null)?PILOT.scale.max:280;
   return {min:mn,max:mx};
 }
-/* 5 tranches égales de 60 pts sur [-50, 250] : violet <10, rouge 10–70, orange 70–130, vert 130–190, cyan ≥190 */
+/* 5 tranches égales de 72 pts sur [-80, 280] : violet <−8, rouge −8–64, orange 64–136, vert 136–208, cyan ≥208 */
 const PILOT_BANDS=[
+  {id:'violet',de:-80,a:-8,hex:'#9d54ff'},
+  {id:'rouge',de:-8,a:64,hex:'#ff2d2d'},
+  {id:'orange',de:64,a:136,hex:'#ff8c1a'},
+  {id:'vert',de:136,a:208,hex:'#22c55e'},
+  {id:'cyan',de:208,a:281,hex:'#00e5ff'}
+];
+/* Métaux restent sur −50 à 250 (5 tranches de 60) même quand les actions sont en −80 à 280. */
+const PILOT_BANDS_250=[
   {id:'violet',de:-50,a:10,hex:'#9d54ff'},
   {id:'rouge',de:10,a:70,hex:'#ff2d2d'},
   {id:'orange',de:70,a:130,hex:'#ff8c1a'},
   {id:'vert',de:130,a:190,hex:'#22c55e'},
   {id:'cyan',de:190,a:251,hex:'#00e5ff'}
 ];
-function pilotBand(total){
+function recIsScale250(rec){
+  if(!rec||typeof rec!=='object') return false;
+  const mx=rec.total_max!=null?Number(rec.total_max):(rec.scale!=null?Number(rec.scale):null);
+  return mx===250;
+}
+function recScale(rec){
+  if(recIsScale250(rec)) return {min:-50,max:250,bands:PILOT_BANDS_250,ticks:[-50,10,70,130,190,250]};
+  const {min:mn,max:mx}=pilotScale();
+  return {min:mn,max:mx,bands:PILOT_BANDS,ticks:[-80,-8,64,136,208,280]};
+}
+function pilotBand(total, rec){
   const t=Number(total);
   if(!Number.isFinite(t)) return {id:'',hex:'#8a8a8a'};
-  if(t>=190) return PILOT_BANDS[4];
-  if(t<-50) return PILOT_BANDS[0];
-  return PILOT_BANDS.find(b=>t>=b.de&&t<b.a)||PILOT_BANDS[4];
+  const sc=recScale(rec);
+  const bands=sc.bands;
+  const last=bands[bands.length-1];
+  if(t>=last.de && (last.id==='cyan')) return last;
+  if(t<bands[0].de) return bands[0];
+  return bands.find(b=>t>=b.de&&t<b.a)||last;
 }
-function pilotPos(total){
-  const {min:mn,max:mx}=pilotScale();
+function pilotPos(total, rec){
+  const {min:mn,max:mx}=rec?recScale(rec):pilotScale();
   const t=Number(total);
   if(!Number.isFinite(t)) return 50;
   return Math.max(0,Math.min(100,(t-mn)/(mx-mn)*100));
 }
-function pilotHex(rec){return pilotBand(rec&&rec.total).hex;}
+function pilotHex(rec){return pilotBand(rec&&rec.total, rec).hex;}
 function pilotNoteHTML(rec){
   if(!rec||rec.total==null) return '';
   const mx=rec.total_max!=null?rec.total_max:pilotScale().max;
@@ -431,11 +456,11 @@ function pilotLegJoin(parts){
 function dualBarPilot(rec, compact){
   const fg=(PILOT&&PILOT.fear_greed)||{};
   const total=rec&&rec.total!=null?rec.total:null;
-  const {min:mn,max:mx}=pilotScale();
-  const ap=pilotPos(total);
+  const sc=recScale(rec);
+  const mn=sc.min, mx=sc.max, ticks=sc.ticks;
+  const ap=pilotPos(total, rec);
   const sv=Number(fg.value);
   const sp=Number.isFinite(sv)?Math.max(0,Math.min(100,sv)):null;
-  const ticks=[-50,10,70,130,190,250];
   const pos=v=>((v-mn)/(mx-mn))*100;
   const hex=pilotHex(rec);
   const sl=fg.label||'–';
@@ -448,18 +473,28 @@ function dualBarPilot(rec, compact){
   }).join('');
   /* Même dégradé et traits de repère que les sections non pilotes ; une seule barre, deux curseurs. */
   const bandTicks=[20,40,60,80].map(p=>`<i class="av-tick" style="left:${p}%"></i>`).join('');
+  /* H = attention / hype (0–100, échelle du bas, à contre-courant) : apport (50 − attention) × 0,6, de −30 à +30 */
+  const att=(rec&&rec.attention)||null;
+  const hv=(rec&&rec.points&&rec.points.hype!=null&&Number.isFinite(Number(rec.points.hype)))?Number(rec.points.hype):null;
+  const av_=(att&&att.valeur!=null&&Number.isFinite(Number(att.valeur)))?Number(att.valeur):null;
+  const hp=av_!=null?Math.max(0,Math.min(100,av_)):(hv!=null?Math.max(0,Math.min(100,50-hv/0.6)):null);
+  const hcol=hp!=null?gmir(hp):'#888';
+  const hTxt=hv==null?'–':((hv>0?'+':'')+hv);
+  const hAtt=av_!=null?fmt(av_,0)+'/100':(hv!=null&&att&&att.n?'moy. '+att.n+(att.moyenne_de?' actions':' sections'):'');
+  const hTip=hv==null?'H = attention / hype : donnée absente (H compté 0)':('H = attention / hype '+(av_!=null?fmt(av_,1)+' / 100':'(moyenne des actions affichées)')+' → apport '+hTxt+' (à contre-courant)');
   const totTxt=total==null?'–':String(total);
   const fgTxt=Number.isFinite(sv)?fmt(sv,1):'–';
   const avPart=`<span class="pilot-av"><i class="db-dot db-a" style="color:${hex}">AV</i>Total <b class="sc-t" style="color:${hex}">${totTxt}/${mx}</b></span>`;
   const sPart=`<span class="pilot-s"><i class="db-dot db-s" style="color:${scol}">S</i>Fear &amp; Greed <b class="sc-t" style="color:${scol}">${fgTxt} ${sl}</b></span>`;
-  /* Place pour un indicateur additionnel (lettre H) : l'ajouter dans legParts, entre S et le détail. */
+  const hPart=`<span class="pilot-h" title="${hTip}"><i class="db-dot db-h" style="color:${hcol}">H</i>Hype <b class="sc-t" style="color:${hcol}">${hTxt}${hAtt?` <small>(${hAtt})</small>`:''}</b></span>`;
   const brkPart=(rec&&rec.ligne)?`<span class="pilot-brk">${rec.ligne}</span>`:'';
-  const legParts=[avPart,sPart,brkPart];
-  const bar=`<div class="db db-pilot ${compact?'db-sm':''}" role="img" aria-label="Score APEX ${totTxt} sur ${mn} à ${mx} ; Fear & Greed CNN ${fgTxt} (${sl}) sur 0 à 100">
+  const legParts=[avPart,sPart,hPart,brkPart];
+  const bar=`<div class="db db-pilot ${compact?'db-sm':''}" role="img" aria-label="Score APEX ${totTxt} sur ${mn} à ${mx} ; Fear & Greed CNN ${fgTxt} (${sl}) sur 0 à 100 ; H hype ${hTxt}">
    <div class="db-tk db-tk1">${tickHTML}</div>
    <div class="db-g"><div class="ind-bar"></div>${bandTicks}
     ${sp!=null?`<div class="db-cur db-s" style="left:${sp}%;color:${scol}" data-p="${sp}" title="S = CNN Fear & Greed Index ${fgTxt} · ${sl}">S</div>`:''}
     ${total!=null?`<div class="db-cur db-a" style="left:${ap}%;color:${hex}" data-p="${ap.toFixed(1)}" title="AV = score APEX ${totTxt} / ${mx}">AV</div>`:''}
+    ${hp!=null?`<div class="db-cur db-h" style="left:${hp}%;color:${hcol}" data-p="${hp.toFixed(1)}" title="${hTip}">H</div>`:''}
    </div>
    <div class="db-leg pilot-leg">${pilotLegJoin(legParts)}</div>
   </div>`;

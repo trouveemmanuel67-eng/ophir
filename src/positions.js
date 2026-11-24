@@ -278,7 +278,7 @@ function posNoteHTML(p){
   const rec=posPilotRec(p);
   if(rec&&rec.total!=null){
     const col=(typeof pilotHex==='function')?pilotHex(rec):(rec.hex||'#e6c27a');
-    const mx=rec.total_max!=null?rec.total_max:250;
+    const mx=rec.total_max!=null?rec.total_max:280;
     return `<span class="apex10 apex10-pilot" style="color:${col}"><b>${rec.total}</b><small>/ ${mx}</small></span>`;
   }
   if(posIsEquity(p)) return '–';
@@ -399,14 +399,14 @@ function posApexChip(p){
   const rec=posPilotRec(p);
   if(rec&&rec.total!=null){
     const col=(typeof pilotHex==='function')?pilotHex(rec):(rec.hex||'#e6c27a');
-    const mx=rec.total_max!=null?rec.total_max:250;
+    const mx=rec.total_max!=null?rec.total_max:280;
     return `<span class="pos-chip apex10 apex10-pilot" style="color:${col};border-color:${col}" title="Note APEX ${rec.total}/${mx}">${rec.total}<small>/${mx}</small></span>`;
   }
   if(posIsEquity(p)) return '';
   const a=posApex10Of(p);
   if(a&&a.note!=null){
     const mx=(a.scale===250||a.total_max===250)?250:100;
-    const col=(mx===250&&typeof pilotHex==='function')?pilotHex({total:a.total!=null?a.total:a.note, hex:a.hex}):((typeof apex10Col==='function')?apex10Col(a):(a.hex||'#e6c27a'));
+    const col=(mx===250&&typeof pilotHex==='function')?pilotHex({total:a.total!=null?a.total:a.note, hex:a.hex, scale:250, total_max:250}):((typeof apex10Col==='function')?apex10Col(a):(a.hex||'#e6c27a'));
     const col2=a.hex||col;
     return `<span class="pos-chip apex10${mx===250?' apex10-pilot':''}" style="color:${col2};border-color:${col2}" title="Note APEX ${a.display}/${mx}">${a.display}<small>/${mx}</small></span>`;
   }

@@ -38,16 +38,17 @@ def _slim_pilot(raw):
     import json as _json
     d=_json.loads(raw)
     keep=('tv','ticker','nom','kind','ok','erreur','total','total_max','total_min',
-          'display','band','hex','ligne','points','is_bank','regles','watchlist_tv')
+          'display','band','hex','ligne','points','is_bank','regles','watchlist_tv','attention')
     def v2_band(total):
         try:
             n=float(total)
         except (TypeError,ValueError):
             return None,None
-        if n>=190: return 'cyan','#00e5ff'
-        if n>=130: return 'vert','#22c55e'
-        if n>=70: return 'orange','#ff8c1a'
-        if n>=10: return 'rouge','#ff2d2d'
+        # échelle −80 à 280 : 5 tranches égales de 72 points
+        if n>=208: return 'cyan','#00e5ff'
+        if n>=136: return 'vert','#22c55e'
+        if n>=64: return 'orange','#ff8c1a'
+        if n>=-8: return 'rouge','#ff2d2d'
         return 'violet','#9d54ff'
     def rec(r):
         if not r: return r
@@ -112,7 +113,8 @@ def _slim_pilot(raw):
     out={
         'generated':d.get('generated'),
         'pilot':True,
-        'scale':d.get('scale') or {'min':-50,'max':250},
+        'scale':d.get('scale') or {'min':-80,'max':280},
+        'attention_meta':d.get('attention_meta'),
         'fear_greed':{k:fg[k] for k in ('value','label','date','points','source') if k in fg},
         'pilotes':pilotes,
         'secteurs_pilotes':[s for s in (d.get('secteurs_pilotes') or list(pilotes)) if s in keep_ids],

@@ -24,7 +24,7 @@ function listApexBar(r){
     return `<div class="fl-apex fl-apex-pilot">${dualBarPilot(prec, true)}</div>`;
   }
   if((typeof isApexV2Tv==='function'&&isApexV2Tv(r&&r.tv))||(r&&r.forceV2)){
-    return `<div class="fl-apex fl-apex-pilot">${typeof v2Placeholder==='function'?v2Placeholder():'<div class="apex10 apex10-na"><b>–</b><small>/ 250</small></div>'}</div>`;
+    return `<div class="fl-apex fl-apex-pilot">${typeof v2Placeholder==='function'?v2Placeholder():'<div class="apex10 apex10-na"><b>–</b><small>/ 280</small></div>'}</div>`;
   }
   const key=r&&(r.tv||r.yahoo||r.ticker);
   const b=key&&APEX_BARS.bars?APEX_BARS.bars[key]:null;

@@ -499,6 +499,27 @@ function rgActionsGrid(v, opts){
       <div class="rg-cards rg-cards-span">${sentCards}</div>
     </section>`
     :'';
+  /* H : hype / attention, à contre-courant (±30), t421u */
+  const hy=v.hype||null;
+  const hyMax=hy?(hy.max_affiche||('±'+rgNum(hy.max||30))):'';
+  const hyCards=hy?(hy.criteres||[]).map(el=>card(el.id, el.label||el.id, rgEsc(el.regle_courte||el.regle||''), el.points_max||hyMax)).join(''):'';
+  const hyBlock=hy?`<section class="rg-block" data-group="hype">
+      <header class="rg-block-h">
+        <div class="rg-block-title">${rgEsc(hy.label||'Hype / attention (H)')} <span class="rg-group-note">à contre-courant · Trends 35 · mentions 35 · volume 20 · persistance 10</span></div>
+        <span class="rg-block-pts">${rgEsc(hyMax)}</span>
+      </header>
+      ${hy.precision?`<p class="rg-p">${rgEsc(hy.precision)}</p>`:''}
+      <div class="rg-cards rg-cards-span">${hyCards}</div>
+    </section>`:'';
+  const ce=v.couleurs_echelle||null;
+  const ceBlock=ce?`<section class="rg-block" data-group="couleurs-280">
+      <header class="rg-block-h">
+        <div class="rg-block-title">Couleurs et Meilleures entrées <span class="rg-group-note">5 tranches égales de 72 points</span></div>
+        <span class="rg-block-pts">≥ ${rgEsc(String(ce.seuil_meilleures_entrees))}</span>
+      </header>
+      <p class="rg-p">${rgEsc(ce.regle||'')}</p>
+      <ul class="rg-bands">${(ce.bandes||[]).map(b=>`<li class="rg-band"><i style="background:${rgEsc(b.hex||'#888')}"></i><b>${rgEsc(b.regle||'')}</b> ${rgEsc(b.id)}</li>`).join('')}</ul>
+    </section>`:'';
   const fondTitle=fond.label||'Fondamental';
   const fondPts=rgNum(fondMax);
   const note=opts.note||v.champ_application||'';
@@ -519,6 +540,8 @@ function rgActionsGrid(v, opts){
       <div class="rg-fond-cols">${fondCols}</div>
     </section>
     ${sentBlock}
+    ${hyBlock}
+    ${ceBlock}
   </div>`;
 }
 function rgFmtScaleBound(n){
@@ -547,9 +570,11 @@ function rgActionsScale(v){
     sMax=Number(sent.max)||0;
     sMin=sent.min!=null?Number(sent.min):-Math.abs(sMax);
   }
-  const min=sMin;
-  const max=techMax+fond+sMax;
-  return {min, max, techMax, fond, sMin, sMax, label: rgFmtScaleBound(min)+' à '+rgFmtScaleBound(max)};
+  const hy=v.hype||null;
+  const hAbs=hy&&Number.isFinite(Number(hy.max))?Math.abs(Number(hy.max)):0;
+  const min=sMin-hAbs;
+  const max=techMax+fond+sMax+hAbs;
+  return {min, max, techMax, fond, sMin, sMax, hAbs, label: rgFmtScaleBound(min)+' à '+rgFmtScaleBound(max)};
 }
 function rgSectionAccordion(sec){
   /* Structure générique : un bouton + panneau coulissant par section (Actions aujourd'hui, Crypto / Métaux / ETF plus tard). */

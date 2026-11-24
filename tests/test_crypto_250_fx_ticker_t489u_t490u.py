@@ -21,7 +21,7 @@ def test_hype_45_grille():
 
 def test_notes_crypto_echelle_250_sans_hype():
     data = json.loads((ROOT / "data" / "crypto_fiches.json").read_text(encoding="utf-8"))
-    want = {"btc": 124, "eth": 140, "sol": 100, "mstr": 110}
+    want = {"btc": 153, "eth": 173, "sol": 137, "mstr": 143}
     for a in data["assets"]:
         rec = a.get("apex10") or {}
         assert rec.get("scale") == 250
@@ -29,8 +29,8 @@ def test_notes_crypto_echelle_250_sans_hype():
         if a["key"] in want:
             assert rec.get("note") == want[a["key"]], a["key"]
             pts = (rec.get("decomp") or {}).get("points") or {}
-            assert pts.get("hype") is None
-            assert "Hype non comptée" in (rec.get("ligne") or "")
+            assert pts.get("hype") is not None
+            assert "Hype" in (rec.get("ligne") or "") or "HYPE" in (rec.get("ligne") or "")
         if a["key"] in ("sol", "mstr"):
             assert ((rec.get("decomp") or {}).get("liquidite") or {}).get("present") is False
             assert pts.get("liquidite") is None

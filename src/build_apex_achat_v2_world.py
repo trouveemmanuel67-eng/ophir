@@ -21,6 +21,7 @@ sys.path.insert(0, str(ROOT))
 
 import build_apex_achat_v2_pilot as P
 import yahoo_week as YW
+import apply_attention as AA
 
 BANK_PREFIX = 'banks'
 SAVINGS = ('savings institutions', 'savings & loans', 'savings and loans')
@@ -66,7 +67,7 @@ def compact_rec(rec):
         'id', 'ticker', 'tv', 'yahoo', 'nom', 'kind', 'ok', 'erreur',
         'date_cloture', 'close', 'points', 'ligne', 'total', 'total_max',
         'total_min', 'display', 'band', 'hex', 'av_label', 'regles',
-        'industry', 'is_bank', 'watchlist_tv',
+        'industry', 'is_bank', 'watchlist_tv', 'attention',
     )
     out = {k: rec[k] for k in keep if k in rec}
     # éléments fondamentaux résumés (utiles au contrôle, peu volumineux)
@@ -369,11 +370,11 @@ def main():
             'fond_max': P.FOND_MAX, 'fg_abs': P.FG_ABS,
             'bandes': [{'id': n, 'de': lo, 'a': hi, 'hex': hx} for n, lo, hi, hx in P.PILOT_BANDS],
             'drapeaux_5': [
-                {'id': 'violet', 'de': None, 'a': 10, 'regle': '< 10'},
-                {'id': 'rouge', 'de': 10, 'a': 70, 'regle': '10 ≤ n < 70'},
-                {'id': 'orange', 'de': 70, 'a': 130, 'regle': '70 ≤ n < 130'},
-                {'id': 'vert', 'de': 130, 'a': 190, 'regle': '130 ≤ n < 190'},
-                {'id': 'cyan', 'de': 190, 'a': None, 'regle': '≥ 190'},
+                {'id': 'violet', 'de': None, 'a': -8, 'regle': '< −8'},
+                {'id': 'rouge', 'de': -8, 'a': 64, 'regle': '−8 ≤ n < 64'},
+                {'id': 'orange', 'de': 64, 'a': 136, 'regle': '64 ≤ n < 136'},
+                {'id': 'vert', 'de': 136, 'a': 208, 'regle': '136 ≤ n < 208'},
+                {'id': 'cyan', 'de': 208, 'a': None, 'regle': '≥ 208'},
             ],
         },
         'fear_greed': fg,
@@ -383,6 +384,9 @@ def main():
         'manquantes': manquantes,
         'stats': {'instruments_ok': n_ok, 'instruments_echec': n_fail, 'n_sections': len(pilotes)},
     }
+    # apport H (attention / hype, à contre-courant), actions USA et France ; échelle −80 à 280
+    _att = AA.load_attention()
+    AA.apply_doc(full, _att.get('by_tv') or {}, _att)
     (ROOT / 'data' / 'apex_achat_v2_scores_full.json').write_text(
         json.dumps(full, ensure_ascii=False) + '\n'
     )

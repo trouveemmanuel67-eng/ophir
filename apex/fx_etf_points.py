@@ -4,7 +4,7 @@ Technique 110 (RSI 30, MACD 30, Fibo 30, CCI/Stoch 20, sans Elliott) +
 Fear & Greed ±50 (même grille que les actions, source CNN) +
 note de la devise face à l'euro 30 (paliers de 10 sur la note /100) +
 Fondamental 30 (n.c. si absent, pas de redistribution) +
-HYPE 30 (non comptée jusqu'au 25/11).
+HYPE 30 dès que l'attention est disponible.
 """
 from __future__ import annotations
 
@@ -35,7 +35,7 @@ def devise_points(note_100):
 
 
 def hype_points_30(attention):
-    """Grille HYPE 30 (à appliquer le 25/11). None → non comptée."""
+    """Grille HYPE 30. None → non comptée (« – »)."""
     if attention is None:
         return None
     v = max(0, min(100, int(attention)))
@@ -87,7 +87,7 @@ def _ligne(parts, n):
             bits.append('%s %s' % (lab, int(pts) if pts == int(pts) else pts))
         else:
             bits.append('%s 0' % lab)
-    return '%s  →  %s / 250 · Hype non comptée (dès le 25/11)' % (' · '.join(bits), fmt10(n))
+    return '%s  →  %s / 250' % (' · '.join(bits), fmt10(n))
 
 
 def score_etf(obj, note_devise_100, fg_value=None):
@@ -124,9 +124,14 @@ def score_etf(obj, note_devise_100, fg_value=None):
 
     dev_pts = devise_points(note_devise_100)
     fond_pts = None  # n.c., pas de redistribution
-    hype_pts = None
+    try:
+        from apply_attention import attention_of
+    except ImportError:
+        from src.apply_attention import attention_of
+    att_val = attention_of(obj.get('tv'), obj.get('yahoo'), obj.get('ticker'), obj.get('nom'))
+    hype_pts = hype_points_30(att_val)
 
-    brut = int(rsi_pts + macd_pts + fibo_pts + cci_pts + (dev_pts or 0) + (fg_pts or 0))
+    brut = int(rsi_pts + macd_pts + fibo_pts + cci_pts + (dev_pts or 0) + (fg_pts or 0) + (hype_pts or 0))
     n = max(-50, min(250, int(round_half(brut))))
     band = metaux_band(n)
     parts = [
@@ -134,11 +139,12 @@ def score_etf(obj, note_devise_100, fg_value=None):
         ('Devise', dev_pts if dev_pts is not None else '—'),
         ('Fond.', '—'),
         ('F&G', fg_pts if fg_value is not None else '—'),
+        ('Hype', hype_pts if hype_pts is not None else '—'),
     ]
     texte = _ligne(parts, n)
     return {
         'note': n, 'display': fmt10(n), 'hex': band['hex'], 'flag': band['flag'],
-        'band': band['id'], 'pos': n, 'cap': 'fond_nc+hype_attente_25_11',
+        'band': band['id'], 'pos': n, 'cap': 'fond_nc' + ('' if hype_pts is not None else '+hype_nc'),
         'brut': brut, 'scale': 250, 'total': n, 'total_min': -50, 'total_max': 250,
         'v2': True, 'ligne': texte, 'renormalise': False,
         'technique': int(rsi_pts + macd_pts + fibo_pts + cci_pts),
@@ -149,7 +155,7 @@ def score_etf(obj, note_devise_100, fg_value=None):
             'texte': texte,
             'points': {
                 'rsi': rsi_pts, 'macd': macd_pts, 'fibonacci': fibo_pts, 'cci': cci_pts,
-                'devise': dev_pts, 'fondamental': None, 'hype': None,
+                'devise': dev_pts, 'fondamental': None, 'hype': hype_pts,
                 'fear_greed': fg_pts if fg_value is not None else None, 'total': n,
             },
             'rsi': {'valeur': None if rsi_val is None else round(float(rsi_val), 1), 'points': rsi_pts, 'conditions': rsi_det},
@@ -158,7 +164,7 @@ def score_etf(obj, note_devise_100, fg_value=None):
             'cci': {**cci_det, 'points': cci_pts},
             'devise': {'note_100': note_devise_100, 'points': dev_pts, 'grille': '0–9→0, 10→3, … 100→30'},
             'fondamental': {'points': None, 'etat': 'n.c.'},
-            'hype': {'points': None, 'etat': 'en_attente_25_11', 'grille': '0–9→+30, 10→+27, 50→+15, 100→0'},
+            'hype': {'points': hype_pts, 'attention': att_val, 'etat': 'applique' if hype_pts is not None else 'n.c.', 'grille': '0–9→+30, 10→+27, 50→+15, 100→0'},
             'fear_greed': {'valeur': fg_value, 'points': fg_pts if fg_value is not None else None, 'source': 'CNN'},
             'echelle': 250,
         },

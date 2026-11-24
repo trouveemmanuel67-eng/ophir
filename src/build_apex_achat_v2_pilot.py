@@ -41,8 +41,9 @@ ETF = {
 # Les 5 actions « qualité / croissance » (classement fondamental existant, top 5)
 # sont lues dynamiquement depuis fondamentaux.json.
 
-SCALE_MIN = -50
-SCALE_MAX = 250  # technique 110 + fondamental 90 + F&G ±50
+SCALE_MIN = -80
+SCALE_MAX = 280  # technique 110 + fondamental 90 + F&G ±50 + H (attention, à contre-courant) ±30
+HYPE_ABS = 30
 TECH_MAX = 110
 FOND_MAX = 90
 FG_ABS = 50
@@ -492,21 +493,22 @@ def fond_points(m, rules=None):
     return total, elems
 
 
-# 5 tranches égales de 60 points sur [-50, 250] : violet <10, rouge 10–70, orange 70–130, vert 130–190, cyan ≥190
+# 5 tranches égales de 72 points sur [−80, 280] : violet <−8, rouge −8–64, orange 64–136, vert 136–208, cyan ≥208
 PILOT_BANDS = [
-    ('violet', -50, 10, '#9d54ff'),
-    ('rouge', 10, 70, '#ff2d2d'),
-    ('orange', 70, 130, '#ff8c1a'),
-    ('vert', 130, 190, '#22c55e'),
-    ('cyan', 190, 251, '#00e5ff'),
+    # 5 tranches égales de 72 points sur [−80, 280] (t421u, proportions de −50..250 conservées)
+    ('violet', -80, -8, '#9d54ff'),
+    ('rouge', -8, 64, '#ff2d2d'),
+    ('orange', 64, 136, '#ff8c1a'),
+    ('vert', 136, 208, '#22c55e'),
+    ('cyan', 208, 281, '#00e5ff'),
 ]
 
 
 def band_of(total):
     t = float(total)
-    if t >= 190:
+    if t >= 208:
         return 'cyan'
-    if t < SCALE_MIN:
+    if t < -80:
         return 'violet'
     for name, lo, hi, _hex in PILOT_BANDS:
         if lo <= t < hi:
