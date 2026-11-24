@@ -39,6 +39,11 @@ rot=_rot.read_text() if _rot.exists() else ''
 t=t.replace('__DATA_ROTATION__', esc(rot) if rot else 'null')
 _irjs=_P(B+'src/rotation.js')
 t=t.replace('/*__IRJS__*/', _irjs.read_text() if _irjs.exists() else '')
+_evt=_P(B+'data/evenements_sous_jacents.json')
+evt=_evt.read_text() if _evt.exists() else ''
+t=t.replace('__DATA_EVT__', esc(evt) if evt else 'null')
+_evtjs=_P(B+'src/evenements.js')
+t=t.replace('/*__EVTJS__*/', _evtjs.read_text() if _evtjs.exists() else '')
 
 
 def _slim_pilot(raw):

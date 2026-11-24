@@ -1091,6 +1091,7 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
 <script type="application/json" id="dataPilot">__DATA_PILOT__</script>
 <script type="application/json" id="dataEtfRef">__DATA_ETF__</script>
 <script type="application/json" id="dataRotation">__DATA_ROTATION__</script>
+<script type="application/json" id="dataEvenements">__DATA_EVT__</script>
 <script>
 "use strict";
 const DATA = JSON.parse(document.getElementById('data').textContent);
@@ -1302,6 +1303,7 @@ function chartTrends(){
 /*__GIJS__*/
 /*__GSJS__*/
 /*__IRJS__*/
+/*__EVTJS__*/
 /*__SEARCHJS__*/
 buildTabs();
 if(typeof ttInit==='function') ttInit();
@@ -1310,6 +1312,7 @@ if(typeof posInit==='function') posInit();
 if(typeof giInit==='function') giInit();
 if(typeof gsInit==='function') gsInit();
 if(typeof irInit==='function') irInit();
+if(typeof evtInit==='function') evtInit();
 if(typeof apxSearchInit==='function') apxSearchInit();
 </script>
 
