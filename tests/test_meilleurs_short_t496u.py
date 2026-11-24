@@ -58,11 +58,13 @@ def test_seuil_tri_montant_et_stockage():
 def test_presentation_et_avertissement():
     assert "Meilleurs short" in JS
     assert "/250" in JS
-    assert "gs-warn" in JS and "XTB" in JS
-    assert "marge commune Revolut" in JS
-    assert "appel de marge" in JS
+    assert "gs-warn" not in JS
+    assert "gs-legende" not in JS
+    assert "Le short peut faire perdre plus que la mise" not in JS
+    assert "appel de marge" not in JS
+    assert "Montants : mise (levier ×5)" not in JS
     assert "20 %" not in JS and "efface la mise" not in JS
-    assert "mise (levier ×5)" in JS
+    assert "Mise (levier ×5)" in JS
     assert "Validés (${nVal})" in JS
     assert "gs-elliott" in JS and "gs-pattern" in JS and "gs-valid" in JS
     assert "10 ≤ n < 70/250" in JS or "10 ≤ note < 70" in JS
