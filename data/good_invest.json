@@ -1,6 +1,6 @@
 {
   "seuil": 75.0,
-  "n": 22,
+  "n": 20,
   "liste": [
     {
       "tv": "NYSE:PAAS",
@@ -54,44 +54,6 @@
       "montant": 700,
       "brokers": {
         "revolut": true,
-        "xtb": true
-      },
-      "scale": 250,
-      "tab": "metaux"
-    },
-    {
-      "tv": "XETR:8PSC",
-      "yahoo": "8PSC.DE",
-      "nom": "Invesco Physical Palladium ETC",
-      "note": 130.0,
-      "display": "130",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": -6.4,
-      "section": "Métaux – Palladium",
-      "montant": 500,
-      "brokers": {
-        "revolut": false,
-        "xtb": false
-      },
-      "scale": 250,
-      "tab": "metaux"
-    },
-    {
-      "tv": "LSE:IPDM",
-      "yahoo": "IPDM.L",
-      "nom": "iShares Physical Palladium ETC",
-      "note": 130.0,
-      "display": "130",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": -7.5,
-      "section": "Métaux – Palladium",
-      "montant": 500,
-      "brokers": {
-        "revolut": false,
         "xtb": true
       },
       "scale": 250,

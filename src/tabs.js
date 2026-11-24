@@ -97,7 +97,30 @@ function renderActions(el){
   if(typeof renderPays==='function') renderPays(el);
 }
 
-/* ================= CRYPTO · fiches APEX BTC / ETH / XRP / SOL / MSTR ================= */
+/* ================= CRYPTO · fiches APEX BTC / ETH / SOL / MSTR (XRP retiré, t482u) ================= */
+function cxIsXrp(s){
+  if(!s) return false;
+  if(String(s.key||'').toLowerCase()==='xrp') return true;
+  const blob=[s.sym,s.tv,s.yahoo,s.ticker,s.nom].map(x=>String(x||'').toUpperCase());
+  return blob.some(v=>v==='XRP'||v==='XRP-USD'||v==='XRPUSD'||v==='CRYPTO:XRPUSD'||v.endsWith(':XRPUSD'));
+}
+function cxApexAssets(list){
+  return (list||[]).filter(s=>!cxIsXrp(s));
+}
+function cxLiqTitle(s){
+  const L=s&&s.liquidite;
+  if(!L) return '';
+  const a=L.above_usd, b=L.below_usd;
+  if(a==null && b==null) return '';
+  let dir='';
+  if(a!=null && b!=null){
+    if(a>b) dir=' → achat';
+    else if(b>a) dir=' → vente';
+    else dir=' → neutre';
+  }
+  return 'Liquidité : '+cxUsd(a)+' au-dessus / '+cxUsd(b)+' en dessous'+dir;
+}
+
 function cxPx(s){
   const d=s.close>=1000?0:s.close<2?4:2;
   return fmt(s.close,d)+' '+(s.unit||'$');
@@ -191,7 +214,7 @@ function cxLiqBox(s){
   return `<div class="cx-liq">${head}${rows.join('')}${src}</div>`;
 }
 
-function cxTile(s,i,pack){
+function cxTile(s,i,pack,rank){
   if(s.repere) return cxRepTile(s,i,pack);
   if(!s.ok){
     return `<div class="sec">
@@ -215,13 +238,16 @@ function cxTile(s,i,pack){
   const chC=(s.av&&s.av.components||[]).find(c=>c.nom&&c.nom.startsWith('Charte graphique'))||null,dvC=(s.av&&s.av.components||[]).find(c=>c.nom==='Divergence RSI weekly')||null;
   const chV=chC&&chC.note!=null?`<span style="color:${avCol(chC.note)}">${sign(chC.note,0)}</span>`:'n.d.';
   const chS=chC?((chC.charte&&chC.charte.source==='manuel')?'lecture manuelle · ':'')+'poids '+pw(chC.poids)+' % de la note APEX':'indisponible';
-  return `<div class="sec" ${s.tv?`data-pos-tv="${s.tv||s.sym}"`:''}>
+  const rk=(rank!=null&&rank!=='')?`<span class="fl-rk">${rank}</span>`:'';
+  const tick=s.sym?`<span class="tvs"><code>${s.sym}</code>${(s.tv&&typeof ophirCopyBtn==='function')?ophirCopyBtn(s.tv):''}</span>`:'';
+  const liqTip=cxLiqTitle(s);
+  const bar=(typeof dualBarApex100==='function')?dualBarApex100(s.apex10,s.sent,s.av,true):'';
+  return `<div class="sec"${s.tv?` data-pos-tv="${s.tv}"`:''}${liqTip?` title="${liqTip.replace(/"/g,'&quot;')}"`:''}>
    <div class="sr">
-    <div class="sr-c sec-h sr-n sr-n-titre"><span class="sr-titre"><b>${s.nom}</b>${(s.tv&&typeof ophirCopyBtn==='function')?ophirCopyBtn(s.tv):''}</span>${typeof posBadges==='function'?posBadges(s.tv||s.sym):''}${typeof dispoBadge==='function'?dispoBadge(s.tv):''}</div>
-    ${typeof srCells==='function'?srCells(s):''}
+    <div class="sr-c sec-h sr-n sr-n-titre">${rk}<span class="sr-titre"><b>${s.nom}</b></span>${tick}${typeof posBadges==='function'?posBadges(s.tv||s.sym):''}${typeof dispoBadge==='function'?dispoBadge(s.tv):''}</div>
+    <div class="sr-c sr-d">${bar}</div>
     <div class="sr-c sr-b"></div>
    </div>
-   ${cxLiqLine(s)}
    <details class="ind-meth sec-det" data-cx="${i}" data-pack="${pack||'crypto'}"><summary>Détail et historique 1 an</summary>
      <p class="sr-close">Clôture hebdomadaire du ${dshort(s.date)} : <b>${cxPx(s)}</b> (${s.sym} · ${s.sous}) · bougie clôturée${s.live?` ; semaine en cours au ${dshort(s.live.date)} : ${fmt(s.live.close,s.live.close>=1000?0:2)} ${s.unit||'$'}, non utilisée`:''}.</p>
      ${s.warn&&s.warn.length?s.warn.map(w=>`<div class="note">${w}</div>`).join(''):''}
@@ -273,11 +299,14 @@ function cxCharts(det){
 function cxFichesHTML(){
   const F=T2.crypto&&T2.crypto.fiches;
   if(!F||!F.assets||!F.assets.length) return '';
-  const S=F.assets,ok=S.filter(s=>s.ok),d=ok[0]&&ok[0].date;
+  const all=F.assets;
+  const S=cxApexAssets(all);
+  const ok=S.filter(s=>s.ok),d=ok[0]&&ok[0].date;
   const cnt=z=>ok.filter(s=>s.av&&s.av.label&&s.av.label.includes(z)).length;
-  return `<div class="card no-group no-acc" id="cxFiches"><h2>BTC, ETH, XRP, SOL et MSTR · notes APEX</h2>
-   <div class="desc acc-sum">Bitcoin, Ether, XRP, Solana et Strategy (action NASDAQ, proxy bitcoin) · ${d?('clôtures hebdomadaires au '+dshort(d)):'dates indisponibles'} · <i>Achat</i> <b>${cnt('Achat')}</b> · <i>Neutre</i> <b>${cnt('Neutre')}</b> · <i>Vente</i> <b>${cnt('Vente')}</b></div>
-   <div class="sec-grid">${typeof srHead==='function'?srHead('Actif'):''}${apexSortByNote(S).map(s=>cxTile(s,S.indexOf(s))).join('')}</div>
+  const ordered=apexSortByNote(S);
+  return `<div class="card no-group no-acc" id="cxFiches"><h2>BTC, ETH, SOL et MSTR · notes APEX</h2>
+   <div class="desc acc-sum">Bitcoin, Ether, Solana et Strategy (action NASDAQ, proxy bitcoin) · ${d?('clôtures hebdomadaires au '+dshort(d)):'dates indisponibles'} · <i>Achat</i> <b>${cnt('Achat')}</b> · <i>Neutre</i> <b>${cnt('Neutre')}</b> · <i>Vente</i> <b>${cnt('Vente')}</b></div>
+   <div class="sec-grid">${typeof srHead==='function'?srHead('Actif',100):''}${ordered.map((s,k)=>cxTile(s,all.indexOf(s),'crypto',k+1)).join('')}</div>
    <details class="ind-meth"><summary>Méthode et pondérations</summary>
      <p><b>Sentiment Peur / Euphorie (0-100).</b> ${apexPlain(F.method_sent)}</p>
      <p><b>Achat / Vente (−100 à +100).</b> ${apexPlain(F.method_av)}</p>

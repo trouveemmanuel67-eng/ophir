@@ -429,7 +429,7 @@ function renderAccueil(el){
     {id:'obligations',label:'Obligations',short:'Oblig.',counts:homeCount(homeScoresOf((typeof OB!=='undefined'&&OB.segments)||[]))},
     {id:'metaux',label:'Métaux précieux',short:'Métaux',counts:(()=>{const c=homeCount(homeScoresOf((typeof MT!=='undefined'&&MT.rows)||[]));c.v2=true;return c;})()},
     {id:'energie',label:'Énergie',short:'Énergie',counts:homeCount(homeScoresOf((typeof T2!=='undefined'&&T2.energie&&T2.energie.assets)||[]))},
-    {id:'crypto',label:'Crypto',short:'Crypto',counts:homeCount(homeScoresOf((typeof T2!=='undefined'&&T2.crypto&&T2.crypto.fiches&&T2.crypto.fiches.assets)||[]))},
+    {id:'crypto',label:'Crypto',short:'Crypto',counts:homeCount(homeScoresOf((typeof cxApexAssets==='function'?cxApexAssets: (xs=>xs.filter(s=>String((s&&s.key)||'').toLowerCase()!=='xrp')))((typeof T2!=='undefined'&&T2.crypto&&T2.crypto.fiches&&T2.crypto.fiches.assets)||[])))},
     {id:'liquidites',label:'Liquidités',short:'Liq.',counts:homeCount(homeScoresOf((typeof T2!=='undefined'&&T2.liquidites&&T2.liquidites.fx&&(T2.liquidites.fx.assets||T2.liquidites.fx.pairs))||[]))},
     {id:'immobilier',label:'Immobilier',short:'Immo',counts:{n:0,violet:0,rouge:0,jaune:0,vert:0,cyan:0}}
   ];

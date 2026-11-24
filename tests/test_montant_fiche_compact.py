@@ -15,9 +15,9 @@ PAYS = (ROOT / 'src' / 'pays.js').read_text(encoding='utf-8')
 
 
 def test_gi_montant_appele_pour_les_actions_v2():
-    assert 'montant:giMontant(r.total, sc)' in GI
+    assert "montant:giMontant(r.total, sc, 'actions')" in GI
     assert "montant:null}" not in GI and "montant: null" not in GI
-    assert 'function giMontant(note, scale)' in GI
+    assert 'function giMontant(note, scale, tab)' in GI
 
 
 def test_tt_montant_null_n_affiche_pas_zero():
@@ -34,7 +34,7 @@ const TT = {unite:'$', lignes:[
 ]};
 const GI_SEUIL_V2 = 130;
 '''
-    start = GI.find('function giMontant(note, scale){')
+    start = GI.find('function giMontant(note, scale, tab){')
     end = GI.find('function giEnrich(', start)
     assert start != -1 and end != -1
     script += GI[start:end]

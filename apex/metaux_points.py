@@ -179,15 +179,14 @@ def score_instrument(obj, metal=None, av=None, fg=None):
     mdict = obj.get('m') if kind == 'min' else None
     has_fond = bool(mdict) and any(v is not None for v in mdict.values())
     cap = []
+    struct_pts, struct_det = None, None
     if has_fond:
         fond_total, fond_elems = fond_points(mdict)
-        struct_pts, struct_det = None, None
         extra = int(fond_total)
-        cap.append('')  # placeholder, cleaned later
     else:
-        struct_pts, struct_det = structure_points(c, hi, lo)
+        # t483u : Structure retirée de la note, sans redistribution (comme Elliott).
         fond_total, fond_elems = None, None
-        extra = int(struct_pts)
+        extra = 0
         cap.append('sans_fond')
 
     if fg is None:
@@ -210,7 +209,7 @@ def score_instrument(obj, metal=None, av=None, fg=None):
     band = metaux_band(n)
     parts = [
         ('RSI', rsi_pts), ('MACD', macd_pts), ('Fibo', fibo_pts), ('CCI', cci_pts),
-        ('Fond.' if has_fond else 'Struct.', extra),
+        *( [('Fond.', extra)] if has_fond else [] ),
         ('F&G', fg_pts if fg and fg.get('ok') else None),
     ]
     texte = _ligne(parts, n)
@@ -241,7 +240,7 @@ def score_instrument(obj, metal=None, av=None, fg=None):
             'echelle': 250,
         },
         'technique': None,
-        'renormalise': not has_fond,
+        'renormalise': False,
         'scale': 250,
         'total': n,
         'total_min': cfg['min'],

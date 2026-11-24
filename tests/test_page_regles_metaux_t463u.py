@@ -12,7 +12,11 @@ CORE = (ROOT / "src" / "ind_core.py").read_text(encoding="utf-8")
 
 
 def _grid():
-    return JS.split("function rgMetauxGrid")[1].split("function rgPageHTML")[0]
+    chunk = JS.split("function rgMetauxGrid")[1]
+    for stop in ("function rgCryptoChamp", "function rgPageHTML"):
+        if stop in chunk:
+            return chunk.split(stop)[0]
+    return chunk
 
 
 def test_format_compact_comme_actions():
@@ -49,5 +53,6 @@ def test_seuils_courts_identiques_au_code():
     assert "38,2 %" in s["fibonacci"] and "61,8 %" in s["fibonacci"] and "78,6 %" in s["fibonacci"]
     assert "sous 20" in s["cci"]
     assert "9 critères" in s["fond"] or "9" in s["fond"]
-    assert "Paliers de 10" in s["structure"] or "paliers de 10" in s["structure"]
+    assert "sans redistribution" in s["structure"] or "retirée" in s["structure"].lower() or "Retirée" in s["structure"]
+    assert 'data-group="structure"' not in _grid()
     assert "mx.gi_seuil" in JS and "mx.cyan_note_min" in JS and "av_achat_fort" in JS

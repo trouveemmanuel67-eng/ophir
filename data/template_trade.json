@@ -27,5 +27,32 @@
       "note": 100.0,
       "montant": 1000
     }
+  ],
+  "echelle": 250,
+  "lignes_v2": [
+    {
+      "note": 130,
+      "montant": 500
+    },
+    {
+      "note": 154,
+      "montant": 600
+    },
+    {
+      "note": 178,
+      "montant": 700
+    },
+    {
+      "note": 202,
+      "montant": 800
+    },
+    {
+      "note": 226,
+      "montant": 900
+    },
+    {
+      "note": 250,
+      "montant": 1000
+    }
   ]
 }

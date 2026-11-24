@@ -174,7 +174,8 @@ function sectionApexItems(tabId){
   }
   else if(tabId==='crypto'&&typeof T2!=='undefined'){
     const F=T2.crypto&&T2.crypto.fiches;
-    ((F&&F.assets)||[]).forEach(s=>push(s));
+    const list=typeof cxApexAssets==='function'?cxApexAssets((F&&F.assets)||[]):((F&&F.assets)||[]).filter(s=>String((s&&s.key)||'').toLowerCase()!=='xrp');
+    list.forEach(s=>push(s));
   }
   else if(tabId==='liquidites'&&typeof T2!=='undefined'){
     ((T2.liquidites&&T2.liquidites.fx&&T2.liquidites.fx.assets)||[]).forEach(s=>push(s,{fromAv:true}));
@@ -188,7 +189,8 @@ function bakedSectionApex(tabId){
   if(tabId==='energie'&&typeof T2!=='undefined'&&T2.energie&&T2.energie.apex10&&T2.energie.apex10.note!=null) return T2.energie.apex10;
   if(tabId==='crypto'&&typeof T2!=='undefined'){
     const F=T2.crypto&&T2.crypto.fiches;
-    if(F&&F.apex10&&F.apex10.note!=null) return F.apex10;
+    const hasXrp=F&&(F.assets||[]).some(s=>typeof cxIsXrp==='function'?cxIsXrp(s):String((s&&s.key)||'').toLowerCase()==='xrp');
+    if(F&&F.apex10&&F.apex10.note!=null&&!hasXrp) return F.apex10;
   }
   if(tabId==='liquidites'){
     const L=(typeof T2!=='undefined'&&T2.liquidites)||{};

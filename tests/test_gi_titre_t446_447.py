@@ -13,7 +13,7 @@ CSS = (ROOT / "src" / "template.html").read_text(encoding="utf-8")
 def test_gi_copy_a_droite_du_titre_sans_ticker_ni_type():
     assert "ophirCopyBtn" in FONDS
     assert "ophirCopyBtn(it.tv)" in GI
-    assert "${go}${cp}" in GI
+    assert "${go}" in GI and "${cp}" in GI and "✓</button>${cp}" in GI
     assert "gi-meta" not in GI
     assert "gi-sec" not in GI
     assert "gi-tick" not in GI
@@ -27,8 +27,8 @@ def test_gi_plus_de_courtier_une_seule_ligne():
     assert "giDispoTxt(it.tv)" not in GI
     assert "gi-broker" not in GI
     assert "grid-template-rows:auto;" in CSS or "grid-template-rows:auto}" in CSS
-    assert ".gi-acts{grid-column:1;grid-row:1;" in CSS
-    assert ".gi-id .cp{" in CSS
+    assert ".gi-acts{grid-column:2;grid-row:1;" in CSS
+    assert ".gi-acts .cp{" in CSS
     # plus de deuxième rangée réservée au meta / courtier
     assert "grid-row:1 / span 2" not in CSS or CSS.count("gi-acts{grid-column:1;grid-row:1 / span 2") == 0
 

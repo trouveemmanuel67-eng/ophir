@@ -19,6 +19,6 @@ def test_infobulle_nom_et_copie_symbole_complet():
     render = JS.split("function giRender")[1]
     assert "it.nom||it.tv" in render
     assert "title=" in render
-    assert "${go}${cp}" in render
+    assert "${go}" in render and "${cp}" in render and "✓</button>${cp}" in render
     assert "ophirCopyBtn(it.tv)" in render or "data-c=" in render
     assert "String(it.tv)" in render

@@ -633,8 +633,9 @@ function rgMetauxPts(){
     fibonacci:p.fibonacci!=null?Number(p.fibonacci):30,
     cci:p.cci!=null?Number(p.cci):20,
     fond:p.fondamental!=null?Number(p.fondamental):90,
-    structure:p.structure!=null?Number(p.structure):90,
-    fg:p.fear_greed!=null?Number(p.fear_greed):(mx.fg_abs!=null?Number(mx.fg_abs):50)
+    structure:p.structure!=null?Number(p.structure):0,
+    fg:p.fear_greed!=null?Number(p.fear_greed):(mx.fg_abs!=null?Number(mx.fg_abs):50),
+    hype:p.hype!=null?Number(p.hype):90
   };
 }
 function rgMetauxRulesShort(){
@@ -654,6 +655,7 @@ function rgMetauxRulesShort(){
     fond: cfg.fond||'Minières seulement, même grille que les actions : 9 critères × 10 points s’ils sont bons, sinon 0. Maximum 90.',
     structure: cfg.structure||'À la place du fondamental s’il est absent. Paliers de 10, plafond 90.',
     fear_greed: cfg.fear_greed||'Milieu 50 = 0. Tranche de 10 : peur 40 → +10 … 0 → +50 ; avidité 60 → −10 … 100 → −50.',
+    hype: cfg.hype||'Comptant seulement, hors ETC/ETF et minières. Attention Long Swing 0–100, à contre-courant, 9 pts/tranche : 0 → +90 ; 10 → +81 ; 50 → +45 ; 100 → 0. Appliqué au calcul dès que la note H est disponible (25/11).',
     gi: '≥ '+rgNum(giSeuil)+' /250, hors portefeuille, même seuil que les actions. '+rgNum(mx.gi_base_note!=null?mx.gi_base_note:130)+' = '+rgNum(mx.gi_base_montant!=null?mx.gi_base_montant:500)+'\u00a0'+unite+' ; +'+rgNum(mx.gi_pas_montant!=null?mx.gi_pas_montant:100)+'\u00a0'+unite+' tous les '+rgNum(mx.gi_pas_note!=null?mx.gi_pas_note:24)+' points, jusqu’à '+rgNum(mx.gi_max_note!=null?mx.gi_max_note:250)+' = '+rgNum(mx.gi_max_montant!=null?mx.gi_max_montant:1000)+'\u00a0'+unite+'.',
     cyan: 'Note ≥ '+rgNum(cyMin)+' : AV ≥ +'+rgNum(avFort!=null?avFort:60)+' et divergence haussière hebdo ; sinon plafond '+rgNum(cyPlafond)
   };
@@ -672,8 +674,8 @@ function rgMetauxGrid(){
   const techNote=techOrdre.map(r=>r[2]+' '+rgNum(pts[r[0]])).join(' · ');
   const techCards=techOrdre.map(([id,label])=>rgCard(id, label, rgEsc(rules[id]||''), rgNum(pts[id]))).join('');
   const fondCards=rgCard('fond','Fondamental (minières)',rgEsc(rules.fond||''), rgNum(pts.fond));
-  const structCards=rgCard('structure','Structure (sans fondamental)',rgEsc(rules.structure||''), rgNum(pts.structure));
   const sentCards=rgCard('fear_greed','Fear & Greed Index (CNN)',rgEsc(rules.fear_greed||''), '±'+rgNum(pts.fg));
+  const hypeCards=rgCard('hype','HYPE (métaux purs / comptant)',rgEsc(rules.hype||''), rgNum(pts.hype));
   const giSeuil=mx.gi_seuil!=null?mx.gi_seuil:130;
   const cyPlafond=mx.cyan_plafond!=null?mx.cyan_plafond:175;
   const entreesCards=[
@@ -682,7 +684,7 @@ function rgMetauxGrid(){
   ].join('');
   const note=rgMetauxChamp();
   const noteHtml=note?`<p class="rg-p rg-app">${rgEsc(note)}</p>`:'';
-  const foot=`<p class="rg-p rg-app">Technique ${rgNum(techSum)} + Fondamental ou Structure ${rgNum(pts.fond)} = 0 à 200. Un seul des deux blocs Fondamental / Structure est compté. F&G ±${rgNum(pts.fg)}. Total −50 à 250, points entiers.</p>`;
+  const foot=`<p class="rg-p rg-app">Technique ${rgNum(techSum)} + Fondamental ${rgNum(pts.fond)} (minières). Sans fondamental, la Structure n’est plus comptée (pas de redistribution). F&G ±${rgNum(pts.fg)}. HYPE ${rgNum(pts.hype)} : métaux purs (comptant) seulement, hors ETC/ETF et minières — appliqué au calcul dès que la note H est disponible (25/11). Total affiché −50 à 250, points entiers.</p>`;
   return `${noteHtml}<div class="rg-board" id="rg-table-metaux">
     <section class="rg-block" data-group="technique">
       <header class="rg-block-h">
@@ -698,13 +700,6 @@ function rgMetauxGrid(){
       </header>
       <div class="rg-cards rg-cards-span">${fondCards}</div>
     </section>
-    <section class="rg-block" data-group="structure">
-      <header class="rg-block-h">
-        <div class="rg-block-title">Structure</div>
-        <span class="rg-block-pts">${rgNum(pts.structure)}</span>
-      </header>
-      <div class="rg-cards rg-cards-span">${structCards}</div>
-    </section>
     <section class="rg-block" data-group="sentiment">
       <header class="rg-block-h">
         <div class="rg-block-title">Sentiment</div>
@@ -712,11 +707,81 @@ function rgMetauxGrid(){
       </header>
       <div class="rg-cards rg-cards-span">${sentCards}</div>
     </section>
+    <section class="rg-block" data-group="hype">
+      <header class="rg-block-h">
+        <div class="rg-block-title">HYPE</div>
+        <span class="rg-block-pts">${rgNum(pts.hype)}</span>
+      </header>
+      <div class="rg-cards rg-cards-span">${hypeCards}</div>
+    </section>
     <section class="rg-block" data-group="entree">
       <header class="rg-block-h">
         <div class="rg-block-title">Entrée</div>
       </header>
       <div class="rg-cards rg-cards-span">${entreesCards}</div>
+    </section>
+  </div>${foot}`;
+}
+function rgCryptoChamp(){
+  const cx=(RG&&RG.apex_crypto)||{};
+  if(cx.intro_courte) return String(cx.intro_courte);
+  return 'BTC, ETH, SOL et MSTR. Note /100 (liquidité + technique).';
+}
+function rgCryptoScale(){
+  const cx=(RG&&RG.apex_crypto)||{};
+  const lo=cx.note_min!=null?Number(cx.note_min):0;
+  const hi=cx.note_max!=null?Number(cx.note_max):100;
+  return {min:lo, max:hi, label: rgFmtScaleBound(lo)+' à '+rgFmtScaleBound(hi)};
+}
+function rgCryptoPts(){
+  const cx=(RG&&RG.apex_crypto)||{};
+  const p=cx.points||{};
+  return {
+    liquidite:p.liquidite!=null?Number(p.liquidite):50,
+    technique:p.technique!=null?Number(p.technique):50,
+    hype:p.hype!=null?Number(p.hype):90
+  };
+}
+function rgCryptoRulesShort(){
+  const cx=(RG&&RG.apex_crypto)||{};
+  const cfg=cx.regles_courtes||{};
+  return {
+    liquidite: cfg.liquidite||'À la place du fondamental. Cartes CoinAnk : 1 an 70 % + 1 mois 30 %. Sans carte, le technique est renormalisé à 100 %.',
+    technique: cfg.technique||'Mêmes composantes et poids que l’ancienne note actions /100 : Elliott, Structure, Fibonacci, RSI, MACD, CCI.',
+    hype: cfg.hype||'Toutes les cryptos APEX (BTC, ETH, SOL, MSTR). Attention Long Swing 0–100, à contre-courant, 9 pts/tranche : 0 → +90 ; 10 → +81 ; 50 → +45 ; 100 → 0. Appliqué au calcul dès que la note H est disponible (25/11).'
+  };
+}
+function rgCryptoGrid(){
+  const cx=(RG&&RG.apex_crypto)||{};
+  const pts=rgCryptoPts();
+  const rules=rgCryptoRulesShort();
+  const liqCards=rgCard('liquidite','Liquidité (à la place du fondamental)',rgEsc(rules.liquidite||''), rgNum(pts.liquidite));
+  const techCards=rgCard('technique','Technique',rgEsc(rules.technique||''), rgNum(pts.technique));
+  const hypeCards=rgCard('hype','HYPE',rgEsc(rules.hype||''), rgNum(pts.hype));
+  const note=rgCryptoChamp();
+  const noteHtml=note?`<p class="rg-p rg-app">${rgEsc(note)}</p>`:'';
+  const foot=`<p class="rg-p rg-app">Aujourd’hui : liquidité ${rgNum(pts.liquidite)} + technique ${rgNum(pts.technique)} = 0 à 100. HYPE ${rgNum(pts.hype)} : appliqué au calcul dès que la note H est disponible (25/11). Le calcul et l’échelle /100 ne changent pas avant.</p>`;
+  return `${noteHtml}<div class="rg-board" id="rg-table-crypto">
+    <section class="rg-block" data-group="liquidite">
+      <header class="rg-block-h">
+        <div class="rg-block-title">Liquidité</div>
+        <span class="rg-block-pts">${rgNum(pts.liquidite)}</span>
+      </header>
+      <div class="rg-cards rg-cards-span">${liqCards}</div>
+    </section>
+    <section class="rg-block" data-group="technique">
+      <header class="rg-block-h">
+        <div class="rg-block-title">Technique</div>
+        <span class="rg-block-pts">${rgNum(pts.technique)}</span>
+      </header>
+      <div class="rg-cards rg-cards-span">${techCards}</div>
+    </section>
+    <section class="rg-block" data-group="hype">
+      <header class="rg-block-h">
+        <div class="rg-block-title">HYPE</div>
+        <span class="rg-block-pts">${rgNum(pts.hype)}</span>
+      </header>
+      <div class="rg-cards rg-cards-span">${hypeCards}</div>
     </section>
   </div>${foot}`;
 }
@@ -729,7 +794,8 @@ function rgPageHTML(){
   const sections=[
     {id:'actions', title:vAct.section_titre||'Actions (hors banque)', scale:rgActionsScale(vAct).label, body:rgActionsGrid(vAct,{boardId:'rg-table-actions', note:vAct.champ_application}), open:true},
     vBan?{id:'banques', title:vBan.section_titre||vBan.titre||'Actions bancaires', scale:rgActionsScale(vBan).label, body:rgActionsGrid(vBan,{boardId:'rg-table-banques', note:vBan.champ_application||vBan.intro}), open:false}:null,
-    {id:'metaux', title:'Métaux précieux', scale:rgMetauxScale().label, body:rgMetauxGrid(), open:false}
+    {id:'metaux', title:'Métaux précieux', scale:rgMetauxScale().label, body:rgMetauxGrid(), open:false},
+    {id:'crypto', title:((RG&&RG.apex_crypto)||{}).section_titre||'Crypto', scale:rgCryptoScale().label, body:rgCryptoGrid(), open:false}
   ].filter(Boolean);
   return `<header class="rg-top">
       <button type="button" id="rgBack" class="rg-back">← Retour</button>

@@ -331,7 +331,7 @@ function giCollect(){
   // Crypto
   const CF=(typeof T2!=='undefined'&&T2&&T2.crypto&&T2.crypto.fiches)?T2.crypto.fiches:null;
   const assets=CF&&CF.assets||(typeof T2!=='undefined'&&T2&&T2.crypto&&T2.crypto.assets)||[];
-  assets.forEach(a=>{
+  (typeof cxApexAssets==='function'?cxApexAssets(assets):assets.filter(a=>String((a&&a.key)||'').toLowerCase()!=='xrp')).forEach(a=>{
     take(a.tv||a.sym, a.nom||a.name, 'Crypto', a.apex10, a.av, 'crypto', a.yahoo, a.ticker||a.sym);
   });
   // Obligations (lignes affichées, pas le benchmark de segment)
@@ -395,11 +395,11 @@ function giRender(){
     const tip=[it.nom,it.tv].filter(Boolean).join(' · ');
     const cp=it.tv?((typeof ophirCopyBtn==='function')?ophirCopyBtn(it.tv):`<button type="button" class="cp" data-c="${String(it.tv).replace(/"/g,'&quot;')}" aria-label="Copier ${String(it.tv).replace(/"/g,'&quot;')}" title="Copier ${String(it.tv).replace(/"/g,'&quot;')}">⎘</button>`):'';
     const ev=it.tv
-      ? `<div class="gi-acts"><button type="button" class="gi-elliott" data-tv="${String(it.tv).replace(/"/g,'&quot;')}" title="Retirer : vague Elliott non propice" aria-label="Retirer : vague Elliott non propice">E</button><button type="button" class="gi-pattern" data-tv="${String(it.tv).replace(/"/g,'&quot;')}" title="Pattern baissier : retirer jusqu'au 1er du mois" aria-label="Pattern baissier : retirer jusqu'au 1er du mois">P</button><button type="button" class="gi-valid${checked?' is-on':''}" data-tv="${String(it.tv).replace(/"/g,'&quot;')}" title="${checked?'Retirer de Validés (erreur)':'Validé : déjà entré en position'}" aria-label="${checked?'Retirer de Validés':'Validé'}" aria-pressed="${checked?'true':'false'}">✓</button></div>`
+      ? `<div class="gi-acts"><button type="button" class="gi-elliott" data-tv="${String(it.tv).replace(/"/g,'&quot;')}" title="Retirer : vague Elliott non propice" aria-label="Retirer : vague Elliott non propice">E</button><button type="button" class="gi-pattern" data-tv="${String(it.tv).replace(/"/g,'&quot;')}" title="Pattern baissier : retirer jusqu'au 1er du mois" aria-label="Pattern baissier : retirer jusqu'au 1er du mois">P</button><button type="button" class="gi-valid${checked?' is-on':''}" data-tv="${String(it.tv).replace(/"/g,'&quot;')}" title="${checked?'Retirer de Validés (erreur)':'Validé : déjà entré en position'}" aria-label="${checked?'Retirer de Validés':'Validé'}" aria-pressed="${checked?'true':'false'}">✓</button>${cp}</div>`
       : '';
     return `<article class="gi-row${it.tv?' has-fiche':''}" title="${tip.replace(/"/g,'&quot;')}">
+      <div class="gi-id">${go}</div>
       ${ev}
-      <div class="gi-id">${go}${cp}</div>
       <span class="gi-note" style="color:${col}"><b>${note}</b><small>/${(it.scale===250||it.scale===270)?250:100}</small></span>
       <span class="gi-amt">${amt}</span>
     </article>`;

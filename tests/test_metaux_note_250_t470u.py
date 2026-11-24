@@ -10,7 +10,7 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from apex.score import fg_points, load_cnn_fg, montant_template_metaux  # noqa: E402
 from apex.config import regles  # noqa: E402
-from apex.metaux_points import structure_points, moyenne_ligne  # noqa: E402
+from apex.metaux_points import moyenne_ligne  # noqa: E402
 
 
 def test_fg_grille_identique_actions():
@@ -29,17 +29,20 @@ def test_barème_entier_comme_actions():
     pts = mx["points"]
     assert pts["rsi"] == 30 and pts["macd"] == 30 and pts["fibonacci"] == 30 and pts["cci"] == 20
     assert pts["rsi"] + pts["macd"] + pts["fibonacci"] + pts["cci"] == 110
-    assert pts["fondamental"] == 90 and pts["structure"] == 90
+    assert pts["fondamental"] == 90 and pts["structure"] == 0
+    assert mx.get("retirer_structure") is True and mx.get("ne_pas_redistribuer_structure") is True
     assert pts["fear_greed"] == 50
     assert mx["note_min"] == -50 and mx["note_max"] == 250
     assert mx["gi_seuil"] == 130 and mx["gi_pas_note"] == 24
 
 
-def test_structure_paliers_de_10_max_90():
-    # série artificielle : pas assez de barres → 0
-    pts, det = structure_points([100] * 10)
-    assert pts == 0
-    assert det["points"] % 10 == 0 and det["points"] <= 90
+def test_structure_plus_dans_la_note():
+    # la fonction peut encore exister, mais elle n'entre plus dans le total
+    import inspect
+    from apex import metaux_points as MP
+    src = inspect.getsource(MP.score_instrument)
+    assert "structure_points(c, hi, lo)" not in src
+    assert "Struct." not in src
 
 
 def test_gi_aligne_actions():
@@ -50,9 +53,9 @@ def test_gi_aligne_actions():
 
 def test_regles_grid_points_entiers():
     js = (ROOT / "src" / "regles.js").read_text(encoding="utf-8")
-    grid = js.split("function rgMetauxGrid")[1].split("function rgPageHTML")[0]
+    grid = js.split("function rgMetauxGrid")[1].split("function rgCryptoChamp")[0] if "function rgCryptoChamp" in js else js.split("function rgMetauxGrid")[1].split("function rgPageHTML")[0]
     assert 'data-group="sentiment"' in grid
-    assert 'data-group="structure"' in grid
+    assert 'data-group="structure"' not in grid
     assert "Fear & Greed" in grid
     assert "CCI Stochastic" in grid
     intro = regles()["apex_metaux"]["intro_courte"]
@@ -63,10 +66,10 @@ def test_regles_grid_points_entiers():
 def test_notes_lignes_metaux_json():
     mt = json.loads((ROOT / "data" / "metaux.json").read_text(encoding="utf-8"))
     got = {r["nom"]: r["apex10"]["note"] for r in mt["rows"]}
-    assert got["Or"] == 114
+    assert got["Or"] == 88
     assert got["Argent"] == 128
     assert got["Platine"] == 103
-    assert got["Palladium"] == 134
+    assert got["Palladium"] == 126
     for r in mt["rows"]:
         a = r["apex10"]
         assert a["scale"] == 250
@@ -81,3 +84,12 @@ def test_notes_lignes_metaux_json():
                 continue
             n = it["apex10"]["note"]
             assert int(n) == n
+            ligne = it["apex10"].get("ligne") or ""
+            assert "Struct." not in ligne
+            assert "Hype" not in ligne and "HYPE" not in ligne
+            decomp = (it["apex10"].get("decomp") or {}).get("points") or {}
+            if it.get("kind") == "min" and it["apex10"].get("fond") is not None:
+                assert "Fond." in ligne
+            else:
+                assert "Fond." not in ligne
+                assert decomp.get("structure") is None

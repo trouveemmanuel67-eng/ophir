@@ -24,9 +24,10 @@ def test_cote_a_cote_e_puis_p_puis_valide():
     assert "flex-direction:column" not in acts
     # une seule hauteur de ligne
     assert "grid-row:1" in acts
-    assert ".gi-id{grid-column:2;grid-row:1;" in CSS
-    assert ".gi-note{grid-column:3;grid-row:1;" in CSS
-    assert ".gi-amt{grid-column:4;grid-row:1;" in CSS
+    assert ".gi-id{grid-column:1;grid-row:1;" in CSS
+    assert ".gi-acts{grid-column:2;grid-row:1;" in CSS
+    assert ".gi-note{grid-column:4;grid-row:1;" in CSS
+    assert ".gi-amt{grid-column:5;grid-row:1;" in CSS
 
 
 def test_taille_moitie_22px():

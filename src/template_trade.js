@@ -14,9 +14,21 @@ function ttMontantTxt(v, unite){
   const u=unite||TT.unite||'$';
   return s+'\u00a0'+u;
 }
-function ttColor(note){
+function ttLignesV2(){
+  if(TT&&Array.isArray(TT.lignes_v2)&&TT.lignes_v2.length) return TT.lignes_v2;
+  /* Même barème que giMontant (actions / métaux) : 130 = 500 $, +100 $ tous les 24 points, jusqu'à 250 = 1 000 $. */
+  const out=[];
+  for(let k=0;k<=5;k++) out.push({note:130+k*24, montant:500+k*100});
+  return out;
+}
+function ttColor(note, scale){
   const n=Number(note);
   if(!Number.isFinite(n)) return '#e6c27a';
+  const sc=scale!=null?Number(scale):(TT&&TT.echelle!=null?Number(TT.echelle):100);
+  if(sc===250||sc===270||sc===280){
+    if(typeof pilotHex==='function') return pilotHex({total:n, scale:250, total_max:250});
+    if(typeof pilotBand==='function') return (pilotBand(n, {scale:250,total_max:250})||{}).hex||'#e6c27a';
+  }
   if(typeof apexHexOf==='function') return apexHexOf(n);
   if(typeof apex10Col==='function') return apex10Col({note:n});
   return '#e6c27a';
@@ -37,13 +49,15 @@ function ttSetOpen(on){
 function ttRender(){
   const host=document.getElementById('tt-wrap');
   if(!host) return;
-  const lignes=Array.isArray(TT.lignes)?TT.lignes:[];
+  const scale=TT.echelle!=null?Number(TT.echelle):250;
+  const lignes=scale===250||scale===270||scale===280?ttLignesV2():(Array.isArray(TT.lignes)?TT.lignes:[]);
   const titre=TT.titre||'TEMPLATE TRADE';
   const unite=TT.unite||'$';
+  const denom=scale===250||scale===270||scale===280?250:100;
   const rows=lignes.map(l=>{
-    const col=ttColor(l.note);
+    const col=ttColor(l.note, denom);
     return `<tr>
-      <th scope="row"><span class="tt-note" style="color:${col};text-shadow:0 0 14px ${col}80">${ttNoteTxt(l.note)}<small>/100</small></span></th>
+      <th scope="row"><span class="tt-note" style="color:${col};text-shadow:0 0 14px ${col}80">${ttNoteTxt(l.note)}<small>/${denom}</small></span></th>
       <td>${ttMontantTxt(l.montant, unite)}</td>
     </tr>`;
   }).join('');
