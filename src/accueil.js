@@ -242,6 +242,36 @@ function homeYieldHTML(stats){
   const n=Number(y);
   return `<div class="home-rdt" title="Rendement / dividende ou coupon moyen pondéré des positions du secteur">${(typeof posPct==='function')?posPct(n):homePct1(n)}</div>`;
 }
+function homeParseParisDate(s){
+  /* Une date seule (YYYY-MM-DD) n'est pas un minuit UTC : new Date('2026-11-24')
+     décale le jour et, l'après-midi à Paris, Math.round(elapsed/86400000) passe à 1 j
+     pour un achat du jour (t458u). */
+  if(s==null||s==='') return null;
+  const str=String(s).trim();
+  const m=str.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if(m){
+    const d=new Date(Number(m[1]), Number(m[2])-1, Number(m[3]), 12, 0, 0);
+    return isNaN(d.getTime())?null:d;
+  }
+  const d=new Date(str);
+  return isNaN(d.getTime())?null:d;
+}
+function homeParisYMD(d){
+  try{
+    return new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Paris',year:'numeric',month:'2-digit',day:'2-digit'}).format(d);
+  }catch(e){
+    const y=d.getFullYear(), mo=String(d.getMonth()+1).padStart(2,'0'), da=String(d.getDate()).padStart(2,'0');
+    return y+'-'+mo+'-'+da;
+  }
+}
+function homeCalendarDays(from, now){
+  if(!from||!now) return null;
+  const a=homeParisYMD(from), b=homeParisYMD(now);
+  const [ay,am,ad]=a.split('-').map(Number);
+  const [by,bm,bd]=b.split('-').map(Number);
+  const n=(Date.UTC(by,bm-1,bd)-Date.UTC(ay,am-1,ad))/86400000;
+  return Number.isFinite(n)?n:null;
+}
 function homePosBuyDate(p){
   /* Dates d'achat explicites seulement. date_ordre / date_execution d'une vente en attente sont ignorées. perf_1an_dates n'est pas une date d'achat. Les ordres d'achat en cours (déjà actifs) comptent s'ils ont une date. */
   if(!p) return null;
@@ -250,9 +280,7 @@ function homePosBuyDate(p){
   const raw=p.date_achat||p.date_ouverture||p.opened_at||p.purchase_date||null;
   let s=raw;
   if(s==null&&!p.vente_en_attente) s=p.date_execution||p.date_ordre||null;
-  if(s==null||s==='') return null;
-  const d=new Date(s);
-  return isNaN(d.getTime())?null:d;
+  return homeParseParisDate(s);
 }
 function homeAgeTxt(days){
   if(days==null||!Number.isFinite(Number(days))||Number(days)<0) return null;
@@ -327,7 +355,7 @@ function homeSectorStats(act,id){
     else if(w) yMiss=true;
     const d=homePosBuyDate(p);
     if(d&&w){
-      const days=(now.getTime()-d.getTime())/86400000;
+      const days=homeCalendarDays(d, now);
       if(Number.isFinite(days)&&days>=0){ageNum+=days*w;ageDen+=w;ageAny=true;}
       else ageMiss=true;
     }else if(w) ageMiss=true;
