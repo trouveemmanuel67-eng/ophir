@@ -972,19 +972,18 @@ function rgCibleScale(cfg, fallbackMax){
 
 function rgShortGrid(){
   const cfg=(RG&&RG.apex_short)||{};
-  const formule=cfg.formule||'note SHORT = 200 − note LONG';
   const echelle=cfg.echelle||'−50 à 250';
-  const seuil=cfg.gi_seuil!=null?cfg.gi_seuil:130;
+  const seuil=cfg.gi_seuil!=null?cfg.gi_seuil:70;
   const cards=[
-    rgCard('formule','Formule',formule+' . Échelle '+echelle+' (même bornes que le LONG : le minimum LONG (−50) donne 250 en SHORT, le maximum LONG (250) donne −50).','200−L'),
-    rgCard('lecture','Lecture à l’inverse','Miroir exact de la note LONG déjà publiée. On n’invente aucun critère et on ne recalcule aucune composante. Une note LONG basse est un candidat short. Les trous déjà ouverts côté LONG (HYPE non comptée, fondamental n.c.) restent des trous.',''),
-    rgCard('univers','Univers','Actions USA et France, métaux, crypto, ETF par devise — uniquement les actifs qui ont déjà une note LONG sur 250. Les notes /100 (devises, etc.) et les actions hors USA/France restent hors liste.',''),
-    rgCard('gi','Meilleurs short','Dès '+rgNum(seuil)+'/250 : 500 $, puis +100 $ tous les 24 points, jusqu’à 1 000 $ à 250. Même grille que Meilleures entrées, appliquée à la note SHORT.','≥ '+rgNum(seuil))
+    rgCard('note','Note APEX','On affiche la vraie note APEX déjà publiée, « x / 250 », même couleur et même échelle ('+echelle+') que partout. Pas de note miroir, pas de nouveau calcul.',echelle),
+    rgCard('tri','Classement','Inverse exact de Meilleures entrées : les plus mauvaises notes d’abord, de la plus basse à la plus haute.',''),
+    rgCard('univers','Univers','Actions USA et France, métaux, crypto, ETF par devise — uniquement les actifs qui ont déjà une note APEX sur 250. Les notes /100 (devises, etc.) et les actions hors USA/France restent hors liste.',''),
+    rgCard('gi','Meilleurs short','Entrent les titres dont la note APEX est ≤ '+rgNum(seuil)+'/250 (symétrique de 130 autour de 100). Mise (levier ×5) : 100 $ à 70, puis +20 $ tous les 24 points en dessous (46, 22, −2, −26), jusqu’à 200 $ à −50. En petit : exposition équivalente (mise × 5).','≤ '+rgNum(seuil))
   ].join('');
   const origine=cfg.origine?`<p class="rg-p rg-app">${rgEsc(cfg.origine)}</p>`:'';
   const lecture=cfg.lecture?`<p class="rg-p rg-app">${rgEsc(cfg.lecture)}</p>`:'';
   const montant=cfg.montant?`<p class="rg-p rg-app">${rgEsc(cfg.montant)}</p>`:'';
-  return `${origine}<p class="rg-short-formule">${rgEsc(formule)}</p>${lecture}${montant}<div class="rg-board rg-short-grid" id="rg-table-short"><div class="rg-cards rg-cards-span">${cards}</div></div>`;
+  return `${origine}${lecture}${montant}<div class="rg-board rg-short-grid" id="rg-table-short"><div class="rg-cards rg-cards-span">${cards}</div></div>`;
 }
 
 function rgPageHTML(){

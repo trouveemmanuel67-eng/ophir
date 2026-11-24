@@ -2326,15 +2326,17 @@
     ]
   },
   "apex_short": {
-    "titre": "Note SHORT",
-    "origine": "Les RÈGLES SHORT étaient à définir (commit 528ed19). Il n’existait pas de note SHORT chiffrée distincte, ni dans la page Règles ni dans le bandeau Achat/Vente (échelle −100 à +100, déjà publiée et inchangée).",
-    "formule": "note SHORT = 200 − note LONG",
+    "titre": "Meilleurs short",
+    "origine": "Meilleurs short reprend la note APEX déjà publiée (échelle −50 à 250), sans la recalculer ni en inventer une autre. C’est l’inverse exact de Meilleures entrées : le classement des plus mauvaises notes.",
     "echelle": "−50 à 250",
     "note_min": -50,
     "note_max": 250,
-    "gi_seuil": 130,
-    "montant": "Dès 130/250 : 500 $, puis +100 $ tous les 24 points, jusqu’à 1 000 $ à 250 (même grille que Meilleures entrées, appliquée à la note SHORT).",
-    "univers": "Actions USA et France, métaux, crypto, ETF par devise — uniquement les actifs qui ont déjà une note LONG sur 250.",
-    "lecture": "Miroir exact de la note LONG déjà publiée : on n’invente aucun critère et on ne recalcule aucune composante. Une note LONG basse est un candidat short. Les trous déjà ouverts côté LONG (HYPE non comptée jusqu’au 25/11, fondamental n.c.) restent des trous. Les notes LONG ne sont pas modifiées."
+    "gi_seuil": 70,
+    "gi_seuil_sens": "inférieur_ou_égal",
+    "montant": "Mise (levier ×5) : 100 $ à 70/250, puis +20 $ tous les 24 points en dessous (120 $ à 46, 140 $ à 22, 160 $ à −2, 180 $ à −26), jusqu’à 200 $ à −50. En petit, l’exposition équivalente (mise × 5). Grille de Meilleures entrées divisée par 5.",
+    "univers": "Actions USA et France, métaux, crypto, ETF par devise — uniquement les actifs qui ont déjà une note APEX sur 250.",
+    "lecture": "On affiche la vraie note APEX « x / 250 », même couleur et même échelle que partout, triée de la plus basse à la plus haute. Entrent les titres dont la note est ≤ 70/250 (symétrique de 130 autour de 100). Les montants sont la mise avec levier ×5 ; l’exposition équivalente est indiquée en petit. Les notes APEX ne sont pas modifiées.",
+    "levier": 5,
+    "avertissement": "Le short peut faire perdre plus que la mise. Il faut un compte qui l’autorise (CFD chez XTB, par exemple). Levier ×5, marge commune Revolut : les shorts se soutiennent entre eux, mais une hausse générale du marché touche toutes les positions en même temps et peut déclencher un appel de marge sur l’ensemble."
   }
 }

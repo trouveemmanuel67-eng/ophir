@@ -6,18 +6,18 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<meta name="ophir-build" content="78d4fff-20261124-161135">
+<meta name="ophir-build" content="a21a812-20261124-161805">
 <title>APEX INDICATOR INVESTMENT</title>
 <meta name="description" content="APEX Indicator Investment — notes et indicateurs de marché.">
 <meta name="theme-color" content="#0a1128">
 <meta name="apple-mobile-web-app-title" content="APEX">
 <meta name="application-name" content="APEX">
-<link rel="icon" href="favicon.ico?v=78d4fff-20261124-161135" sizes="any">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=78d4fff-20261124-161135">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=78d4fff-20261124-161135">
-<link rel="icon" type="image/png" sizes="64x64" href="favicon.png?v=78d4fff-20261124-161135">
-<link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png?v=78d4fff-20261124-161135">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=78d4fff-20261124-161135">
+<link rel="icon" href="favicon.ico?v=a21a812-20261124-161805" sizes="any">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=a21a812-20261124-161805">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=a21a812-20261124-161805">
+<link rel="icon" type="image/png" sizes="64x64" href="favicon.png?v=a21a812-20261124-161805">
+<link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png?v=a21a812-20261124-161805">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=a21a812-20261124-161805">
 <meta property="og:type" content="website">
 <meta property="og:title" content="APEX INDICATOR INVESTMENT">
 <meta property="og:description" content="APEX Indicator Investment — notes et indicateurs de marché.">
@@ -626,6 +626,10 @@ body{display:flex;flex-direction:column;min-height:100vh}
 #bestShortCard .pos-rail-h:focus-visible{outline:1px solid rgba(255,255,255,.35);outline-offset:2px;border-radius:8px}
 #bestShortCard h2{text-transform:uppercase;letter-spacing:.06em;font-size:12px;font-weight:750;margin:0;color:#fff;white-space:nowrap}
 .gs-warn{margin:8px 4px 6px;padding:8px 10px;border-radius:8px;background:rgba(230,194,122,.10);border:1px solid rgba(230,194,122,.35);color:#e6c27a;font-size:11px;line-height:1.4}
+.gs-legende{margin:0 4px 8px;font-size:10.5px;color:var(--mut,#b5b5b5);line-height:1.35}
+#bestShortCard .gs-amt{display:flex;flex-direction:column;align-items:flex-end;gap:1px;line-height:1.15}
+#bestShortCard .gs-amt .gs-expo{display:block;font-size:10px;font-weight:600;color:var(--mut,#b5b5b5);margin:0}
+
 #rg-pane-short .rg-short-grid{margin:0}
 #rg-pane-short .rg-short-formule{font-size:15px;font-weight:750;color:#fff;margin:0 0 10px}
 #rg-pane-short .rg-board .rg-card{display:block;white-space:normal;padding:10px 12px}
@@ -11002,21 +11006,23 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
     ]
   },
   "apex_short": {
-    "titre": "Note SHORT",
-    "origine": "Les RÈGLES SHORT étaient à définir (commit 528ed19). Il n’existait pas de note SHORT chiffrée distincte, ni dans la page Règles ni dans le bandeau Achat/Vente (échelle −100 à +100, déjà publiée et inchangée).",
-    "formule": "note SHORT = 200 − note LONG",
+    "titre": "Meilleurs short",
+    "origine": "Meilleurs short reprend la note APEX déjà publiée (échelle −50 à 250), sans la recalculer ni en inventer une autre. C’est l’inverse exact de Meilleures entrées : le classement des plus mauvaises notes.",
     "echelle": "−50 à 250",
     "note_min": -50,
     "note_max": 250,
-    "gi_seuil": 130,
-    "montant": "Dès 130/250 : 500 $, puis +100 $ tous les 24 points, jusqu’à 1 000 $ à 250 (même grille que Meilleures entrées, appliquée à la note SHORT).",
-    "univers": "Actions USA et France, métaux, crypto, ETF par devise — uniquement les actifs qui ont déjà une note LONG sur 250.",
-    "lecture": "Miroir exact de la note LONG déjà publiée : on n’invente aucun critère et on ne recalcule aucune composante. Une note LONG basse est un candidat short. Les trous déjà ouverts côté LONG (HYPE non comptée jusqu’au 25/11, fondamental n.c.) restent des trous. Les notes LONG ne sont pas modifiées."
+    "gi_seuil": 70,
+    "gi_seuil_sens": "inférieur_ou_égal",
+    "montant": "Mise (levier ×5) : 100 $ à 70/250, puis +20 $ tous les 24 points en dessous (120 $ à 46, 140 $ à 22, 160 $ à −2, 180 $ à −26), jusqu’à 200 $ à −50. En petit, l’exposition équivalente (mise × 5). Grille de Meilleures entrées divisée par 5.",
+    "univers": "Actions USA et France, métaux, crypto, ETF par devise — uniquement les actifs qui ont déjà une note APEX sur 250.",
+    "lecture": "On affiche la vraie note APEX « x / 250 », même couleur et même échelle que partout, triée de la plus basse à la plus haute. Entrent les titres dont la note est ≤ 70/250 (symétrique de 130 autour de 100). Les montants sont la mise avec levier ×5 ; l’exposition équivalente est indiquée en petit. Les notes APEX ne sont pas modifiées.",
+    "levier": 5,
+    "avertissement": "Le short peut faire perdre plus que la mise. Il faut un compte qui l’autorise (CFD chez XTB, par exemple). Levier ×5, marge commune Revolut : les shorts se soutiennent entre eux, mais une hausse générale du marché touche toutes les positions en même temps et peut déclencher un appel de marge sur l’ensemble."
   }
 }
 </script>
-<script type="application/json" id="dataBuild">{"version":"78d4fff-20261124-161135"}</script>
-<link rel="preload" href="config/regles.json?v=78d4fff-20261124-161135" as="fetch" crossorigin>
+<script type="application/json" id="dataBuild">{"version":"a21a812-20261124-161805"}</script>
+<link rel="preload" href="config/regles.json?v=a21a812-20261124-161805" as="fetch" crossorigin>
 
 <script type="application/json" id="dataMaj">{
   "at": "2026-11-23T21:45:22.168885+01:00",
@@ -16016,19 +16022,18 @@ function rgCibleScale(cfg, fallbackMax){
 
 function rgShortGrid(){
   const cfg=(RG&&RG.apex_short)||{};
-  const formule=cfg.formule||'note SHORT = 200 − note LONG';
   const echelle=cfg.echelle||'−50 à 250';
-  const seuil=cfg.gi_seuil!=null?cfg.gi_seuil:130;
+  const seuil=cfg.gi_seuil!=null?cfg.gi_seuil:70;
   const cards=[
-    rgCard('formule','Formule',formule+' . Échelle '+echelle+' (même bornes que le LONG : le minimum LONG (−50) donne 250 en SHORT, le maximum LONG (250) donne −50).','200−L'),
-    rgCard('lecture','Lecture à l’inverse','Miroir exact de la note LONG déjà publiée. On n’invente aucun critère et on ne recalcule aucune composante. Une note LONG basse est un candidat short. Les trous déjà ouverts côté LONG (HYPE non comptée, fondamental n.c.) restent des trous.',''),
-    rgCard('univers','Univers','Actions USA et France, métaux, crypto, ETF par devise — uniquement les actifs qui ont déjà une note LONG sur 250. Les notes /100 (devises, etc.) et les actions hors USA/France restent hors liste.',''),
-    rgCard('gi','Meilleurs short','Dès '+rgNum(seuil)+'/250 : 500 $, puis +100 $ tous les 24 points, jusqu’à 1 000 $ à 250. Même grille que Meilleures entrées, appliquée à la note SHORT.','≥ '+rgNum(seuil))
+    rgCard('note','Note APEX','On affiche la vraie note APEX déjà publiée, « x / 250 », même couleur et même échelle ('+echelle+') que partout. Pas de note miroir, pas de nouveau calcul.',echelle),
+    rgCard('tri','Classement','Inverse exact de Meilleures entrées : les plus mauvaises notes d’abord, de la plus basse à la plus haute.',''),
+    rgCard('univers','Univers','Actions USA et France, métaux, crypto, ETF par devise — uniquement les actifs qui ont déjà une note APEX sur 250. Les notes /100 (devises, etc.) et les actions hors USA/France restent hors liste.',''),
+    rgCard('gi','Meilleurs short','Entrent les titres dont la note APEX est ≤ '+rgNum(seuil)+'/250 (symétrique de 130 autour de 100). Mise (levier ×5) : 100 $ à 70, puis +20 $ tous les 24 points en dessous (46, 22, −2, −26), jusqu’à 200 $ à −50. En petit : exposition équivalente (mise × 5).','≤ '+rgNum(seuil))
   ].join('');
   const origine=cfg.origine?`<p class="rg-p rg-app">${rgEsc(cfg.origine)}</p>`:'';
   const lecture=cfg.lecture?`<p class="rg-p rg-app">${rgEsc(cfg.lecture)}</p>`:'';
   const montant=cfg.montant?`<p class="rg-p rg-app">${rgEsc(cfg.montant)}</p>`:'';
-  return `${origine}<p class="rg-short-formule">${rgEsc(formule)}</p>${lecture}${montant}<div class="rg-board rg-short-grid" id="rg-table-short"><div class="rg-cards rg-cards-span">${cards}</div></div>`;
+  return `${origine}${lecture}${montant}<div class="rg-board rg-short-grid" id="rg-table-short"><div class="rg-cards rg-cards-span">${cards}</div></div>`;
 }
 
 function rgPageHTML(){
@@ -16592,29 +16597,29 @@ function giInit(){
   giRender();
 }
 
-/* ===== MEILLEURS SHORT : miroir exact de la note LONG (−50..250), seuil 130 (t496u) =====
-   Il n'existait pas de note SHORT chiffrée (RÈGLES SHORT : « à définir », commit 528ed19).
-   note SHORT = 200 − note LONG. On ne recalcule aucune composante et on ne modifie pas les notes LONG.
+/* ===== MEILLEURS SHORT : les plus mauvaises notes APEX (−50..250), seuil ≤ 70 (t497u, t498u) =====
+   Affiche la vraie note APEX, même couleur et même échelle que partout, triée de la plus basse
+   à la plus haute. Inverse exact de Meilleures entrées (seuil 130, symétrique autour de 100).
+   Montant = mise avec levier ×5 (grille Meilleures entrées ÷ 5). Exposition équivalente = mise × 5.
    Univers : actions USA/France, métaux, crypto, ETF par devise — uniquement les notes sur 250.
+   Les notes APEX ne sont pas recalculées ni modifiées.
 */
-const GS_SEUIL=130;
-const GS_MIRROR=200; /* (−50) + 250 */
+const GS_SEUIL=70;
 const GS_VALIDE_KEY='apex-short-valide';
 const GS_LIST_KEY='apex-short-list';
 const GS_ELLIOTT_KEY='apex-short-elliott-hide';
 const GS_PATTERN_KEY='apex-short-pattern-hide';
 let gsShowValides=false;
 
-function gsMirror(longNote){
-  const n=Number(longNote);
-  if(!Number.isFinite(n)) return null;
-  return GS_MIRROR-n;
+function gsMontant(note){
+  /* Mise (levier ×5) : 100 $ à 70, +20 $ / 24 pts, 200 $ à −50. */
+  const n=Number(note);
+  if(!Number.isFinite(n)||n>GS_SEUIL) return null;
+  const steps=Math.round((GS_SEUIL-Math.max(n,-50))/24);
+  return Math.min(100+steps*20, 200);
 }
-function gsMontant(shortNote){
-  const n=Number(shortNote);
-  if(!Number.isFinite(n)||n<GS_SEUIL) return null;
-  const steps=Math.round((Math.min(n,250)-GS_SEUIL)/24);
-  return Math.min(500+steps*100, 1000);
+function gsExpo(mise){
+  return (mise==null)?null:mise*5;
 }
 function gsIsUsaFranceTv(tv){
   if(!tv) return false;
@@ -16681,35 +16686,32 @@ function gsSetValide(tv, on){
 }
 
 function gsPush(out, rec){
-  if(!rec||!rec.tv||rec.note==null||Number(rec.note)<GS_SEUIL) return;
+  if(!rec||!rec.tv||rec.note==null||Number(rec.note)>GS_SEUIL) return;
   const k=rec.tv;
   const prev=out.get(k);
   if(!prev){ out.set(k, rec); return; }
-  if(rec.note>prev.note||(rec.note===prev.note&&String(rec.tv)<String(prev.tv))){
+  if(rec.note<prev.note||(rec.note===prev.note&&String(rec.tv)<String(prev.tv))){
     out.set(k, rec);
   }
 }
 
-function gsFromLong(tv, nom, section, rec, tab, yahoo, ticker){
+function gsFromApex(tv, nom, section, rec, tab, yahoo, ticker){
   if(!tv||!rec||!gsIsScale250(rec)||rec.note==null||rec.cap==='moyenne') return null;
-  const long=Number(rec.note);
-  if(!Number.isFinite(long)) return null;
-  const note=gsMirror(long);
-  if(note==null) return null;
-  const hex=(typeof pilotHex==='function')?pilotHex({total:note}):(rec.hex||'#e6c27a');
+  const note=Number(rec.note);
+  if(!Number.isFinite(note)) return null;
+  const hex=rec.hex||((typeof pilotHex==='function')?pilotHex({total:note}):'#e6c27a');
   return {
     tv, nom:nom||tv, section:section||'', note,
-    long_note:long,
-    display:String(note).replace('.',','), hex,
-    flag:null, cap:rec.cap, tab:tab||'', yahoo:yahoo||'', ticker:ticker||'',
-    scale:250, montant:gsMontant(note)
+    display:rec.display||String(note).replace('.',','), hex, flag:rec.flag||null,
+    cap:rec.cap, tab:tab||'', yahoo:yahoo||'', ticker:ticker||'',
+    scale:250, montant:gsMontant(note), expo:gsExpo(gsMontant(note))
   };
 }
 
 function gsCollect(){
   const out=new Map();
   const take=(tv, nom, section, rec, tab, yahoo, ticker)=>{
-    gsPush(out, gsFromLong(tv, nom, section, rec, tab, yahoo, ticker));
+    gsPush(out, gsFromApex(tv, nom, section, rec, tab, yahoo, ticker));
   };
 
   /* Actions USA / France (notes APEX v2 sur 250 déjà publiées). */
@@ -16750,7 +16752,7 @@ function gsCollect(){
   });
 
   return [...out.values()]
-    .sort((a,b)=> (b.note-a.note) || String(a.tv).localeCompare(String(b.tv)));
+    .sort((a,b)=> (a.note-b.note) || String(a.tv).localeCompare(String(b.tv)));
 }
 
 function gsListIsOpen(){
@@ -16786,14 +16788,16 @@ function gsRender(){
   const n=list.length;
   const nVal=listVal.length;
   const rowOf=(it, checked)=>{
-    const col=(typeof pilotHex==='function')?pilotHex({total:it.note}):(it.hex||'#e6c27a');
+    const col=it.hex||((typeof pilotHex==='function')?pilotHex({total:it.note}):'#e6c27a');
     const note=it.display||String(it.note).replace('.',',');
-    const amt=(typeof ttMontantTxt==='function')?ttMontantTxt(it.montant, (typeof TT!=='undefined'&&TT&&TT.unite)||'$'):(it.montant==null?'—':it.montant+' $');
+    const mise=it.montant;
+    const expo=(it.expo!=null)?it.expo:gsExpo(mise);
+    const amt=mise==null?'—':(mise+' $<small class="gs-expo">expo '+expo+' $</small>');
     const label=it.tv?gsTickerCourt(it.tv):(it.nom||'');
     const go=it.tv
       ? `<button type="button" class="gi-link gs-link" data-tab="${(it.tab||'').replace(/"/g,'')}" data-tv="${String(it.tv).replace(/"/g,'&quot;')}" title="${String(it.nom||it.tv).replace(/"/g,'&quot;')}">${String(label).replace(/</g,'')}</button>`
       : `<span class="pos-nm" title="${String(it.nom||'').replace(/"/g,'&quot;')}">${(it.nom||'').replace(/</g,'')}</span>`;
-    const tip=[it.nom,it.tv, (it.long_note!=null?('LONG '+it.long_note+'/250'):'')].filter(Boolean).join(' · ');
+    const tip=[it.nom,it.tv, (mise!=null?('Mise '+mise+' $ (levier ×5) · exposition '+(expo)+' $'):'')].filter(Boolean).join(' · ');
     const cp=it.tv?((typeof ophirCopyBtn==='function')?ophirCopyBtn(it.tv):`<button type="button" class="cp" data-c="${String(it.tv).replace(/"/g,'&quot;')}" aria-label="Copier ${String(it.tv).replace(/"/g,'&quot;')}" title="Copier ${String(it.tv).replace(/"/g,'&quot;')}">⎘</button>`):'';
     const ev=it.tv
       ? `<div class="gi-acts"><button type="button" class="gi-elliott gs-elliott" data-tv="${String(it.tv).replace(/"/g,'&quot;')}" title="Retirer : vague Elliott non propice au short" aria-label="Retirer : vague Elliott non propice au short">E</button><button type="button" class="gi-pattern gs-pattern" data-tv="${String(it.tv).replace(/"/g,'&quot;')}" title="Pattern haussier : retirer jusqu'au 1er du mois" aria-label="Pattern haussier : retirer jusqu'au 1er du mois">P</button><button type="button" class="gi-valid gs-valid${checked?' is-on':''}" data-tv="${String(it.tv).replace(/"/g,'&quot;')}" title="${checked?'Retirer de Validés (erreur)':'Validé : déjà entré en short'}" aria-label="${checked?'Retirer de Validés':'Validé'}" aria-pressed="${checked?'true':'false'}">✓</button>${cp}</div>`
@@ -16802,7 +16806,7 @@ function gsRender(){
       <div class="gi-id">${go}</div>
       ${ev}
       <span class="gi-note" style="color:${col}"><b>${note}</b><small>/250</small></span>
-      <span class="gi-amt">${amt}</span>
+      <span class="gi-amt gs-amt" title="${mise!=null?('Mise '+mise+' $ (levier ×5) · exposition '+expo+' $'):''}">${amt}</span>
     </article>`;
   };
   const rows=list.map(it=>rowOf(it, false)).join('');
@@ -16814,8 +16818,9 @@ function gsRender(){
       <span class="pos-head-tot">${n}<small>titre${n>1?'s':''}</small></span>
     </div>
     <div class="pos-body gi-body" id="gsBody">
-      <p class="gs-warn">Le short peut faire perdre plus que la mise. Il faut un compte qui l’autorise (CFD chez XTB, par exemple).</p>
-      <div class="gi-list">${rows||'<div class="gi-empty">Aucun titre au seuil (note SHORT ≥ 130/250, miroir de la note LONG).</div>'}</div>
+      <p class="gs-warn">Le short peut faire perdre plus que la mise. Il faut un compte qui l’autorise (CFD chez XTB, par exemple). Levier ×5, marge commune Revolut : les shorts se soutiennent entre eux, mais une hausse générale du marché touche toutes les positions en même temps et peut déclencher un appel de marge sur l’ensemble.</p>
+      <p class="gs-legende">Montants : mise (levier ×5). En petit : exposition équivalente.</p>
+      <div class="gi-list">${rows||'<div class="gi-empty">Aucun titre au seuil (note APEX ≤ 70/250).</div>'}</div>
       ${(nVal||gsShowValides)?`<div class="gi-valides">
         <button type="button" class="gi-valides-link gs-valides-link" aria-expanded="${gsShowValides?'true':'false'}">Validés (${nVal})</button>
         ${gsShowValides?(rowsVal||'<div class="gi-empty">Aucun titre validé en short.</div>'):''}

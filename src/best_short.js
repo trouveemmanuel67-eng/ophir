@@ -1,26 +1,26 @@
-/* ===== MEILLEURS SHORT : miroir exact de la note LONG (−50..250), seuil 130 (t496u) =====
-   Il n'existait pas de note SHORT chiffrée (RÈGLES SHORT : « à définir », commit 528ed19).
-   note SHORT = 200 − note LONG. On ne recalcule aucune composante et on ne modifie pas les notes LONG.
+/* ===== MEILLEURS SHORT : les plus mauvaises notes APEX (−50..250), seuil ≤ 70 (t497u, t498u) =====
+   Affiche la vraie note APEX, même couleur et même échelle que partout, triée de la plus basse
+   à la plus haute. Inverse exact de Meilleures entrées (seuil 130, symétrique autour de 100).
+   Montant = mise avec levier ×5 (grille Meilleures entrées ÷ 5). Exposition équivalente = mise × 5.
    Univers : actions USA/France, métaux, crypto, ETF par devise — uniquement les notes sur 250.
+   Les notes APEX ne sont pas recalculées ni modifiées.
 */
-const GS_SEUIL=130;
-const GS_MIRROR=200; /* (−50) + 250 */
+const GS_SEUIL=70;
 const GS_VALIDE_KEY='apex-short-valide';
 const GS_LIST_KEY='apex-short-list';
 const GS_ELLIOTT_KEY='apex-short-elliott-hide';
 const GS_PATTERN_KEY='apex-short-pattern-hide';
 let gsShowValides=false;
 
-function gsMirror(longNote){
-  const n=Number(longNote);
-  if(!Number.isFinite(n)) return null;
-  return GS_MIRROR-n;
+function gsMontant(note){
+  /* Mise (levier ×5) : 100 $ à 70, +20 $ / 24 pts, 200 $ à −50. */
+  const n=Number(note);
+  if(!Number.isFinite(n)||n>GS_SEUIL) return null;
+  const steps=Math.round((GS_SEUIL-Math.max(n,-50))/24);
+  return Math.min(100+steps*20, 200);
 }
-function gsMontant(shortNote){
-  const n=Number(shortNote);
-  if(!Number.isFinite(n)||n<GS_SEUIL) return null;
-  const steps=Math.round((Math.min(n,250)-GS_SEUIL)/24);
-  return Math.min(500+steps*100, 1000);
+function gsExpo(mise){
+  return (mise==null)?null:mise*5;
 }
 function gsIsUsaFranceTv(tv){
   if(!tv) return false;
@@ -87,35 +87,32 @@ function gsSetValide(tv, on){
 }
 
 function gsPush(out, rec){
-  if(!rec||!rec.tv||rec.note==null||Number(rec.note)<GS_SEUIL) return;
+  if(!rec||!rec.tv||rec.note==null||Number(rec.note)>GS_SEUIL) return;
   const k=rec.tv;
   const prev=out.get(k);
   if(!prev){ out.set(k, rec); return; }
-  if(rec.note>prev.note||(rec.note===prev.note&&String(rec.tv)<String(prev.tv))){
+  if(rec.note<prev.note||(rec.note===prev.note&&String(rec.tv)<String(prev.tv))){
     out.set(k, rec);
   }
 }
 
-function gsFromLong(tv, nom, section, rec, tab, yahoo, ticker){
+function gsFromApex(tv, nom, section, rec, tab, yahoo, ticker){
   if(!tv||!rec||!gsIsScale250(rec)||rec.note==null||rec.cap==='moyenne') return null;
-  const long=Number(rec.note);
-  if(!Number.isFinite(long)) return null;
-  const note=gsMirror(long);
-  if(note==null) return null;
-  const hex=(typeof pilotHex==='function')?pilotHex({total:note}):(rec.hex||'#e6c27a');
+  const note=Number(rec.note);
+  if(!Number.isFinite(note)) return null;
+  const hex=rec.hex||((typeof pilotHex==='function')?pilotHex({total:note}):'#e6c27a');
   return {
     tv, nom:nom||tv, section:section||'', note,
-    long_note:long,
-    display:String(note).replace('.',','), hex,
-    flag:null, cap:rec.cap, tab:tab||'', yahoo:yahoo||'', ticker:ticker||'',
-    scale:250, montant:gsMontant(note)
+    display:rec.display||String(note).replace('.',','), hex, flag:rec.flag||null,
+    cap:rec.cap, tab:tab||'', yahoo:yahoo||'', ticker:ticker||'',
+    scale:250, montant:gsMontant(note), expo:gsExpo(gsMontant(note))
   };
 }
 
 function gsCollect(){
   const out=new Map();
   const take=(tv, nom, section, rec, tab, yahoo, ticker)=>{
-    gsPush(out, gsFromLong(tv, nom, section, rec, tab, yahoo, ticker));
+    gsPush(out, gsFromApex(tv, nom, section, rec, tab, yahoo, ticker));
   };
 
   /* Actions USA / France (notes APEX v2 sur 250 déjà publiées). */
@@ -156,7 +153,7 @@ function gsCollect(){
   });
 
   return [...out.values()]
-    .sort((a,b)=> (b.note-a.note) || String(a.tv).localeCompare(String(b.tv)));
+    .sort((a,b)=> (a.note-b.note) || String(a.tv).localeCompare(String(b.tv)));
 }
 
 function gsListIsOpen(){
@@ -192,14 +189,16 @@ function gsRender(){
   const n=list.length;
   const nVal=listVal.length;
   const rowOf=(it, checked)=>{
-    const col=(typeof pilotHex==='function')?pilotHex({total:it.note}):(it.hex||'#e6c27a');
+    const col=it.hex||((typeof pilotHex==='function')?pilotHex({total:it.note}):'#e6c27a');
     const note=it.display||String(it.note).replace('.',',');
-    const amt=(typeof ttMontantTxt==='function')?ttMontantTxt(it.montant, (typeof TT!=='undefined'&&TT&&TT.unite)||'$'):(it.montant==null?'—':it.montant+' $');
+    const mise=it.montant;
+    const expo=(it.expo!=null)?it.expo:gsExpo(mise);
+    const amt=mise==null?'—':(mise+' $<small class="gs-expo">expo '+expo+' $</small>');
     const label=it.tv?gsTickerCourt(it.tv):(it.nom||'');
     const go=it.tv
       ? `<button type="button" class="gi-link gs-link" data-tab="${(it.tab||'').replace(/"/g,'')}" data-tv="${String(it.tv).replace(/"/g,'&quot;')}" title="${String(it.nom||it.tv).replace(/"/g,'&quot;')}">${String(label).replace(/</g,'')}</button>`
       : `<span class="pos-nm" title="${String(it.nom||'').replace(/"/g,'&quot;')}">${(it.nom||'').replace(/</g,'')}</span>`;
-    const tip=[it.nom,it.tv, (it.long_note!=null?('LONG '+it.long_note+'/250'):'')].filter(Boolean).join(' · ');
+    const tip=[it.nom,it.tv, (mise!=null?('Mise '+mise+' $ (levier ×5) · exposition '+(expo)+' $'):'')].filter(Boolean).join(' · ');
     const cp=it.tv?((typeof ophirCopyBtn==='function')?ophirCopyBtn(it.tv):`<button type="button" class="cp" data-c="${String(it.tv).replace(/"/g,'&quot;')}" aria-label="Copier ${String(it.tv).replace(/"/g,'&quot;')}" title="Copier ${String(it.tv).replace(/"/g,'&quot;')}">⎘</button>`):'';
     const ev=it.tv
       ? `<div class="gi-acts"><button type="button" class="gi-elliott gs-elliott" data-tv="${String(it.tv).replace(/"/g,'&quot;')}" title="Retirer : vague Elliott non propice au short" aria-label="Retirer : vague Elliott non propice au short">E</button><button type="button" class="gi-pattern gs-pattern" data-tv="${String(it.tv).replace(/"/g,'&quot;')}" title="Pattern haussier : retirer jusqu'au 1er du mois" aria-label="Pattern haussier : retirer jusqu'au 1er du mois">P</button><button type="button" class="gi-valid gs-valid${checked?' is-on':''}" data-tv="${String(it.tv).replace(/"/g,'&quot;')}" title="${checked?'Retirer de Validés (erreur)':'Validé : déjà entré en short'}" aria-label="${checked?'Retirer de Validés':'Validé'}" aria-pressed="${checked?'true':'false'}">✓</button>${cp}</div>`
@@ -208,7 +207,7 @@ function gsRender(){
       <div class="gi-id">${go}</div>
       ${ev}
       <span class="gi-note" style="color:${col}"><b>${note}</b><small>/250</small></span>
-      <span class="gi-amt">${amt}</span>
+      <span class="gi-amt gs-amt" title="${mise!=null?('Mise '+mise+' $ (levier ×5) · exposition '+expo+' $'):''}">${amt}</span>
     </article>`;
   };
   const rows=list.map(it=>rowOf(it, false)).join('');
@@ -220,8 +219,9 @@ function gsRender(){
       <span class="pos-head-tot">${n}<small>titre${n>1?'s':''}</small></span>
     </div>
     <div class="pos-body gi-body" id="gsBody">
-      <p class="gs-warn">Le short peut faire perdre plus que la mise. Il faut un compte qui l’autorise (CFD chez XTB, par exemple).</p>
-      <div class="gi-list">${rows||'<div class="gi-empty">Aucun titre au seuil (note SHORT ≥ 130/250, miroir de la note LONG).</div>'}</div>
+      <p class="gs-warn">Le short peut faire perdre plus que la mise. Il faut un compte qui l’autorise (CFD chez XTB, par exemple). Levier ×5, marge commune Revolut : les shorts se soutiennent entre eux, mais une hausse générale du marché touche toutes les positions en même temps et peut déclencher un appel de marge sur l’ensemble.</p>
+      <p class="gs-legende">Montants : mise (levier ×5). En petit : exposition équivalente.</p>
+      <div class="gi-list">${rows||'<div class="gi-empty">Aucun titre au seuil (note APEX ≤ 70/250).</div>'}</div>
       ${(nVal||gsShowValides)?`<div class="gi-valides">
         <button type="button" class="gi-valides-link gs-valides-link" aria-expanded="${gsShowValides?'true':'false'}">Validés (${nVal})</button>
         ${gsShowValides?(rowsVal||'<div class="gi-empty">Aucun titre validé en short.</div>'):''}
