@@ -1,6 +1,6 @@
 {
   "seuil": 75.0,
-  "n": 20,
+  "n": 19,
   "liste": [
     {
       "tv": "NYSE:PAAS",
@@ -360,22 +360,6 @@
         "revolut": false,
         "xtb": true
       },
-      "scale": 100,
-      "tab": null
-    },
-    {
-      "tv": "BTC",
-      "yahoo": "BTC",
-      "nom": "Bitcoin",
-      "note": 75.0,
-      "display": "75",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": -32.8,
-      "section": null,
-      "montant": 500,
-      "brokers": {},
       "scale": 100,
       "tab": null
     }

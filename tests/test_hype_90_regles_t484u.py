@@ -31,10 +31,11 @@ def test_hype_dans_regles_metaux_pas_dans_le_calcul():
 
 def test_section_crypto_regles_plus_hype():
     cx = regles()["apex_crypto"]
-    assert cx["points"]["liquidite"] == 50 and cx["points"]["technique"] == 50
-    assert cx["points"]["hype"] == 90
-    assert cx["note_max"] == 100
+    assert cx["points"]["liquidite"] == 45 and cx["points"]["technique"] == 110
+    assert cx["points"]["hype"] == 45
+    assert cx["note_min"] == -50 and cx["note_max"] == 250
     assert "25/11" in cx["regles_courtes"]["hype"]
+    assert "+45" in cx["regles_courtes"]["hype"] or "0–9 → +45" in cx["champ_application"]
     js = (ROOT / "src" / "regles.js").read_text(encoding="utf-8")
     assert "function rgCryptoGrid" in js
     assert "rg-table-crypto" in js

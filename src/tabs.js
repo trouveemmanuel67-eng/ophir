@@ -241,7 +241,7 @@ function cxTile(s,i,pack,rank){
   const rk=(rank!=null&&rank!=='')?`<span class="fl-rk">${rank}</span>`:'';
   const tick=s.sym?`<span class="tvs"><code>${s.sym}</code>${(s.tv&&typeof ophirCopyBtn==='function')?ophirCopyBtn(s.tv):''}</span>`:'';
   const liqTip=cxLiqTitle(s);
-  const bar=(typeof dualBarApex100==='function')?dualBarApex100(s.apex10,s.sent,s.av,true):'';
+  const bar=(typeof listApexBar==='function')?listApexBar(Object.assign({},s,{forceApex250:true})):((typeof dualBarPilot==='function'&&s.apex10)?dualBarPilot({total:s.apex10.total!=null?s.apex10.total:s.apex10.note,total_min:-50,total_max:250,ligne:s.apex10.ligne||'',hex:s.apex10.hex,band:s.apex10.band},true):'');
   return `<div class="sec"${s.tv?` data-pos-tv="${s.tv}"`:''}${liqTip?` title="${liqTip.replace(/"/g,'&quot;')}"`:''}>
    <div class="sr">
     <div class="sr-c sec-h sr-n sr-n-titre">${rk}<span class="sr-titre"><b>${s.nom}</b></span>${tick}${typeof posBadges==='function'?posBadges(s.tv||s.sym):''}${typeof dispoBadge==='function'?dispoBadge(s.tv):''}</div>
@@ -306,7 +306,7 @@ function cxFichesHTML(){
   const ordered=apexSortByNote(S);
   return `<div class="card no-group no-acc" id="cxFiches"><h2>BTC, ETH, SOL et MSTR · notes APEX</h2>
    <div class="desc acc-sum">Bitcoin, Ether, Solana et Strategy (action NASDAQ, proxy bitcoin) · ${d?('clôtures hebdomadaires au '+dshort(d)):'dates indisponibles'} · <i>Achat</i> <b>${cnt('Achat')}</b> · <i>Neutre</i> <b>${cnt('Neutre')}</b> · <i>Vente</i> <b>${cnt('Vente')}</b></div>
-   <div class="sec-grid">${typeof srHead==='function'?srHead('Actif',100):''}${ordered.map((s,k)=>cxTile(s,all.indexOf(s),'crypto',k+1)).join('')}</div>
+   <div class="sec-grid">${typeof srHead==='function'?srHead('Actif'):''}${ordered.map((s,k)=>cxTile(s,all.indexOf(s),'crypto',k+1)).join('')}</div>
    <details class="ind-meth"><summary>Méthode et pondérations</summary>
      <p><b>Sentiment Peur / Euphorie (0-100).</b> ${apexPlain(F.method_sent)}</p>
      <p><b>Achat / Vente (−100 à +100).</b> ${apexPlain(F.method_av)}</p>
@@ -481,6 +481,41 @@ function fxDetailHTML(s,i){
      <p>Source : ${lnk(s.url,s.src_name)}. Force relative contre le panier équipondéré des 7 devises APEX. Données récupérées le ${(s.retrieved||'').replace(' ',' à ')} (heure de Paris). La semaine en cours n'est pas utilisée.</p>
    </div>`;
 }
+function fxTickerHTML(s){
+  const tv=s&&s.tv;
+  if(!tv) return '<span class="fx-tv"></span>';
+  const cp=(typeof ophirCopyBtn==='function')?ophirCopyBtn(tv):'';
+  return `<span class="fx-tv tvs"><code>${tv}</code>${cp}</span>`;
+}
+function fxBarHTML(s){
+  /* t490u : barre d'indice de LA devise, échelle /100 (les règles −50..250 des devises ne sont pas encore calculées). */
+  if(s&&s.ok&&s.apex10&&typeof listApexBar==='function')
+    return `<div class="fx-apex">${listApexBar(Object.assign({},s,{forceApex100:true}))}</div>`;
+  if(s&&s.ok&&s.apex10&&typeof dualBarApex100==='function')
+    return `<div class="fx-apex">${dualBarApex100(s.apex10,s.sent,s.av,true)}</div>`;
+  return `<div class="fx-apex">${fxSigHTML(s&&s.av,s&&s.apex10)}</div>`;
+}
+function fxEtfRow(s){
+  const e=s&&s.etf_local;
+  if(!e) return '';
+  if(!e.ok){
+    const why=(e.raison||'Données insuffisantes pour désigner un ETF/ETC liquide, sans inventer.').replace(/"/g,'&quot;');
+    return `<div class="fx-etf fx-etf-na" title="${why}"><span class="fx-etf-k">ETF local</span><span class="fx-etf-na-t">Pas d’ETF/ETC retenu en ${s.sym} : données 1 an insuffisantes (voir Détail / rapport), sans invention.</span></div>`;
+  }
+  const tv=e.tv||'';
+  const cp=(tv&&typeof ophirCopyBtn==='function')?ophirCopyBtn(tv):'';
+  const tick=tv?`<span class="tvs fx-tv"><code>${tv}</code>${cp}</span>`:'';
+  const bar=(e.apex10&&typeof listApexBar==='function')?listApexBar(Object.assign({},e,{forceApex250:true})):((e.apex10&&e.apex10.display)?`<span class="home-sig apex10"><b>${e.apex10.display}</b><small>/250</small></span>`:'');
+  const perf=e.perf_1y!=null?`1 an ${e.perf_1y>=0?'+':''}${String(e.perf_1y).replace('.',',')} %`:'';
+  const asof=e.perf_asof?` au ${e.perf_asof.slice(8,10)}/${e.perf_asof.slice(5,7)}/${e.perf_asof.slice(0,4)}`:'';
+  const yld=e.yield_label?` · Dist. ${e.yield_label}`:'';
+  const tip=[e.nom, perf+asof, e.source, e.limitations].filter(Boolean).join(' · ').replace(/"/g,'&quot;');
+  return `<div class="fx-etf" title="${tip}">
+    <div class="fx-etf-id"><span class="fx-etf-k">ETF local</span><b>${e.court||e.nom||''}</b>${tick}</div>
+    <div class="fx-etf-bar">${bar}</div>
+    <div class="fx-etf-meta">${perf}${asof}${yld}</div>
+  </div>`;
+}
 function fxCard(s,i){
   const fl=FX_FLAG[s.sym];
   const flag=fl?`<img class="flag-us" src="${fl[0]}" width="28" height="15" alt="Drapeau : ${fl[1]}">`:'';
@@ -489,10 +524,12 @@ function fxCard(s,i){
   return `<div class="card fx-card no-group">
     <h2>${flag}${s.nom} · ${s.sym} · face à l'euro</h2>
     <div class="desc fx-line">
+      ${fxTickerHTML(s)}
       <span class="fx-px" title="Clôture hebdomadaire du ${s.date?dshort(s.date):''}">${s.ok&&s.close!=null?fxPx(s):'—'}</span>
-      ${fxSigHTML(s.av,s.apex10)}
+      ${fxBarHTML(s)}
       <span class="fx-sent">${sent}</span>
       <span class="fx-warn">${warn}</span>
+      ${fxEtfRow(s)}
     </div>
     ${fxDetailHTML(s,i)}
   </div>`;
@@ -506,6 +543,7 @@ function fxDxyCard(X){
   return `<div class="card fx-card fx-dxy no-group">
     <h2>Dollar Index (DXY) · repère, sans note APEX</h2>
     <div class="desc fx-line">
+      <span class="fx-tv"></span>
       <span class="fx-px" title="Clôture hebdomadaire du ${d}">${px}</span>
       <span class="home-sig fx-rep"><b>—</b><em>Repère</em></span>
       <span class="fx-sent">1 an ${p1} · 5 ans ${p5}</span>
@@ -527,9 +565,9 @@ function renderLiquidites(el){
   el.innerHTML=`
   <div class="fx-block no-group" id="fxFiches">
    <div class="fx-kicker">
-    <h2>Devises · par rapport à l'euro</h2>
+    <h2>Devises par rapport à l'euro</h2>
     <div class="desc">${fxA.length} devises face à l'euro · ${dFx?('clôtures hebdomadaires au '+dshort(dFx)):'dates indisponibles'} · triées de la meilleure à la pire note · <span class="al-dots" title="Achat ${cntFx('Achat')} · Neutre ${cntFx('Neutre')} · Vente ${cntFx('Vente')}"><span><i class="g"></i>${cntFx('Achat')}</span><span><i class="o"></i>${cntFx('Neutre')}</span><span><i class="r"></i>${cntFx('Vente')}</span></span> · DXY en repère, sans note. Une note positive favorise l'achat de la devise contre l'euro.</div>
-    <div class="fx-colh" aria-hidden="true"><span></span><span>Devise · face à l'euro</span><span>Cours en €</span><span>Note APEX</span><span>Sentiment</span><span></span></div>
+    <div class="fx-colh" aria-hidden="true"><span></span><span>Devise · face à l'euro</span><span>Ticker</span><span>Cours en €</span><span>Note APEX</span><span>Sentiment</span><span></span></div>
    </div>
    ${fxSorted.map(s=>fxCard(s,idxOf(s))).join('')}
    ${fxDxyCard(X)}

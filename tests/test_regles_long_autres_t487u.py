@@ -43,13 +43,14 @@ def test_modele_actions_sans_elliott_dans_le_calcul():
 def test_liquidites_deux_parties():
     cfg = RG["apex_liquidites"]
     ids = [p["id"] for p in cfg["parties"]]
-    assert ids == ["epargne", "devises"]
+    assert ids[:2] == ["epargne", "devises"]
+    assert "etf_par_devise" in ids
     epargne = cfg["parties"][0]
     devises = cfg["parties"][1]
     assert epargne["has_technique"] is False and epargne["note_max"] == 140
     assert devises["has_technique"] is True and devises["note_max"] == 250
     assert "Pas de graphique" in epargne["sans_technique"]
-    assert all(el.get("statut") == "non_calcule" for p in cfg["parties"] for el in p["fond_criteres"])
+    assert all(el.get("statut") == "non_calcule" for p in cfg["parties"] if p["id"] in ("epargne", "devises") for el in p["fond_criteres"])
 
 
 def test_placements_immobilier_sans_technique():

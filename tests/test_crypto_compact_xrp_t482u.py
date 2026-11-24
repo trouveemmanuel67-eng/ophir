@@ -19,14 +19,15 @@ def test_titre_sans_xrp_et_filtre():
 def test_ligne_compacte_sans_liq_visible_ni_peur_euphorie():
     js = (ROOT / "src" / "tabs.js").read_text(encoding="utf-8")
     tile = js.split("function cxTile")[1].split("function cxCharts")[0]
-    assert "dualBarApex100" in tile
+    assert "listApexBar" in tile and "forceApex250" in tile
     assert "srCells" not in tile
     assert "cxLiqLine(s)" not in tile
     assert "cxLiqTitle" in tile and "cxLiqBox" in tile
     assert "dualBar(" not in tile
     css = (ROOT / "src" / "template.html").read_text(encoding="utf-8")
     assert "#cxFiches .cx-liq-line{display:none}" in css
-    assert "srHead('Actif',100)" in js or 'srHead("Actif",100)' in js
+    assert "srHead('Actif',100)" not in js and 'srHead("Actif",100)' not in js
+    assert "srHead('Actif')" in js or 'srHead("Actif")' in js
 
 
 def test_xrp_filtre_gi_recherche_accueil_moyenne():

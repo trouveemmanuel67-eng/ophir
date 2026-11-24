@@ -4,7 +4,7 @@ const GI_SEUIL_V2=130;
 const GI_SEUIL_METAUX=130;
 function giSeuilOf(it){
   if(it&&it.tab==='actions') return GI_SEUIL_V2;
-  if(it&&it.tab==='metaux') return GI_SEUIL_METAUX;
+  if(it&&(it.tab==='metaux'||it.tab==='crypto'||(it.tab==='liquidites'&&Number(it.scale)===250))) return GI_SEUIL_METAUX;
   return GI_SEUIL;
 }
 const GI_LIST_KEY='apex-gi-list';
@@ -144,8 +144,8 @@ function giMontant(note, scale, tab){
   const n=Number(note);
   if(!Number.isFinite(n)) return null;
   const sc=Number(scale);
-  const isMetaux=tab==='metaux'||sc===250&&tab==='metaux';
-  if(isMetaux||(tab==='metaux')){
+  const isMetaux=tab==='metaux'||tab==='crypto'||(tab==='liquidites'&&sc===250)||(sc===250&&(tab==='metaux'||tab==='crypto'||tab==='liquidites'));
+  if(isMetaux){
     const base=Number(GI_SEUIL_METAUX)||130, pas=24;
     if(n<base) return null;
     const steps=Math.round((Math.min(n,250)-base)/pas);
@@ -252,7 +252,7 @@ function giCollect(){
       display:rec.display||String(rec.note).replace('.',','), hex:rec.hex,
       flag:rec.flag, cap:rec.cap, av:score==null?null:Number(score),
       tab:tab||'', yahoo:yahoo||'', ticker:ticker||'',
-      scale:(rec.scale!=null?rec.scale:(rec.total_max!=null?rec.total_max:(tab==='metaux'?250:undefined)))
+      scale:(rec.scale!=null?rec.scale:(rec.total_max!=null?rec.total_max:((tab==='metaux'||tab==='crypto')?250:undefined)))
     });
   };
   // Barres individuelles
@@ -347,6 +347,8 @@ function giCollect(){
   (fx.assets||[]).forEach(a=>{
     if(a.repere) return;
     take(a.tv||a.sym, a.nom||a.name, 'Liquidités – devises', a.apex10, a.av, 'liquidites', a.yahoo, a.sym);
+    const e=a.etf_local;
+    if(e&&e.ok&&e.tv&&e.apex10) take(e.tv, e.nom||e.court||e.tv, 'Liquidités – ETF par devise', e.apex10, null, 'liquidites', e.yahoo, (e.tv||'').split(':')[1]||'');
   });
   const held=giHeldSet();
   return [...out.values()]
