@@ -1,4 +1,4 @@
-/* ===== Détection d'événements SOUS-JACENTS non médiatisés (dans INDICE ROTATION) ===== */
+/* ===== ÉVÈNEMENT : détection d'événements sous-jacents (rail, sous INDICE ROTATION) ===== */
 const EVT_KEY='apex-evt-open';
 function evtData(){
   try{
@@ -27,14 +27,7 @@ function evtConfClass(c){
 function evtStyle(){
   if(document.getElementById('evtStyle')) return;
   const css=`
-.evt-wrap{margin-top:14px;border-top:1px solid var(--soft,rgba(255,255,255,.1));padding-top:10px}
-.evt-h{display:flex;align-items:center;gap:8px;cursor:pointer;user-select:none;padding:4px 0}
-.evt-h:focus-visible{outline:1px solid rgba(255,255,255,.35);outline-offset:2px;border-radius:8px}
-.evt-h .evt-chev{flex:none;width:14px;color:var(--mut,#bababa);font-size:12px;line-height:1;transition:transform .2s ease}
-.evt-wrap.is-open .evt-h .evt-chev{transform:rotate(90deg)}
-.evt-h h3{margin:0;font-size:12px;font-weight:750;letter-spacing:.06em;text-transform:uppercase;color:#fff;line-height:1.3}
-.evt-body{display:none;margin-top:8px}
-.evt-wrap.is-open .evt-body{display:block}
+.evt-body{margin-top:6px}
 .evt-maj{font-size:11px;color:var(--mut,#bababa);margin:0 0 6px}
 .evt-warn{font-size:10.5px;line-height:1.35;color:var(--acc2,#e6c27a);margin:0 0 10px}
 .evt-card{border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:10px 12px;margin:0 0 10px;background:rgba(255,255,255,.03)}
@@ -97,11 +90,12 @@ function evtCardHtml(e){
 }
 function evtHtml(){
   const D=evtData();
-  let body;
+  let body, n=0;
   if(!D){
     body=`<p class="evt-empty">Les données des événements n’ont pas pu être chargées. Aucun chiffre n’est inventé.</p>`;
   }else{
     const evs=D.evenements.slice().sort((a,b)=>(a.rang||9)-(b.rang||9)).slice(0,3);
+    n=evs.length;
     const meth=(D.methode||[]).map(m=>`<li>${evtEsc(m)}</li>`).join('');
     const ec=(D.ecartes||[]).map(x=>`<p class="evt-ecart"><b>${evtEsc(x.sujet)}</b> : ${evtEsc(x.raison)}${x.url?` <a href="${evtUrl(x.url)}" target="_blank" rel="noopener noreferrer">source ↗</a>`:''}</p>`).join('');
     body=`<p class="evt-maj">Mise à jour : ${evtEsc(D.maj_label||D.maj||'—')} · horizon ${evtEsc(D.horizon||'—')}</p>
@@ -111,43 +105,55 @@ function evtHtml(){
       ${meth?`<p class="evt-k">Méthode</p><ul class="evt-meth">${meth}</ul>`:''}
       ${(D.limites||[]).length?`<p class="evt-k">Limites</p><ul class="evt-meth">${D.limites.map(x=>`<li>${evtEsc(x)}</li>`).join('')}</ul>`:''}`;
   }
-  return `<section class="evt-wrap" id="evtSection">
-    <div class="evt-h" role="button" tabindex="0" aria-expanded="false" aria-controls="evtBody">
-      <span class="evt-chev" aria-hidden="true">▸</span>
-      <h3>Détection d'événements SOUS-JACENTS non médiatisés</h3>
+  return `<div class="card no-group" id="evtCard">
+    <div class="pos-rail-h" role="button" tabindex="0" aria-expanded="false" aria-controls="evtBody">
+      <span class="pos-chev" aria-hidden="true">▸</span>
+      <h2>ÉVÈNEMENT</h2>
+      <span class="pos-head-tot">${n}<small>évènement${n>1?'s':''}</small></span>
     </div>
-    <div class="evt-body" id="evtBody">${body}</div>
-  </section>`;
+    <div class="pos-body gi-body evt-body" id="evtBody">${body}</div>
+  </div>`;
 }
-function evtSetOpen(sec,on){
-  sec.classList.toggle('is-open',on);
-  const h=sec.querySelector('.evt-h');
-  if(h) h.setAttribute('aria-expanded',on?'true':'false');
-  try{ localStorage.setItem(EVT_KEY,on?'1':'0'); }catch(e){}
+function evtListIsOpen(){
+  const c=document.getElementById('evtCard');
+  return !!(c&&!c.classList.contains('pos-collapsed'));
+}
+function evtSetListOpen(on,persist){
+  const c=document.getElementById('evtCard');
+  if(!c) return;
+  c.classList.toggle('pos-collapsed',!on);
+  const head=c.querySelector('.pos-rail-h');
+  if(head) head.setAttribute('aria-expanded', on?'true':'false');
+  if(persist!==false){ try{ localStorage.setItem(EVT_KEY, on?'1':'0'); }catch(e){} }
+  if(typeof posSyncListChrome==='function') posSyncListChrome(typeof posListIsOpen==='function'&&posListIsOpen());
 }
 function evtMount(){
-  const host=document.getElementById('irBody');
-  if(!host||document.getElementById('evtSection')) return;
+  const host=document.getElementById('mes-pos');
+  if(!host) return;
   evtStyle();
-  host.insertAdjacentHTML('beforeend',evtHtml());
-  const sec=document.getElementById('evtSection');
-  if(!sec) return;
+  const html=evtHtml();
+  const prev=document.getElementById('evtCard');
+  const ir=document.getElementById('indiceRotationCard');
+  const gs=document.getElementById('bestShortCard');
+  if(prev) prev.outerHTML=html;
+  else if(ir) ir.insertAdjacentHTML('afterend', html);
+  else if(gs) gs.insertAdjacentHTML('afterend', html);
+  else host.insertAdjacentHTML('beforeend', html);
+  const card=document.getElementById('evtCard');
+  if(!card) return;
   let saved=null;
   try{ saved=localStorage.getItem(EVT_KEY); }catch(e){}
-  sec.classList.toggle('is-open',saved==='1');
-  const h=sec.querySelector('.evt-h');
-  if(h){
-    h.setAttribute('aria-expanded',saved==='1'?'true':'false');
-    const tog=e=>{ e.preventDefault(); e.stopPropagation(); evtSetOpen(sec,!sec.classList.contains('is-open')); };
-    h.addEventListener('click',tog);
-    h.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' ') tog(e); });
+  const open=saved==='1';
+  card.classList.toggle('pos-collapsed', !open);
+  const head=card.querySelector('.pos-rail-h');
+  if(head){
+    head.setAttribute('aria-expanded', open?'true':'false');
+    const tog=e=>{ e.preventDefault(); evtSetListOpen(!evtListIsOpen()); };
+    head.addEventListener('click',tog);
+    head.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); tog(e); } });
   }
+  if(typeof posSyncListChrome==='function') posSyncListChrome(typeof posListIsOpen==='function'&&posListIsOpen());
 }
 function evtInit(){
   evtMount();
-  /* INDICE ROTATION se re-rend (outerHTML) : on remonte la section à chaque fois */
-  try{
-    const obs=new MutationObserver(()=>{ if(document.getElementById('irBody')&&!document.getElementById('evtSection')) evtMount(); });
-    obs.observe(document.body,{childList:true,subtree:true});
-  }catch(e){}
 }

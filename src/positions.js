@@ -329,15 +329,17 @@ function posSyncListChrome(on){
   const giOn=typeof giListIsOpen==='function'&&giListIsOpen();
   const gsOn=typeof gsListIsOpen==='function'&&gsListIsOpen();
   const irOn=typeof irListIsOpen==='function'&&irListIsOpen();
+  const evtOn=typeof evtListIsOpen==='function'&&evtListIsOpen();
   document.body.classList.toggle('gi-list-open',!!giOn);
   document.body.classList.toggle('gs-list-open',!!gsOn);
   document.body.classList.toggle('ir-list-open',!!irOn);
+  document.body.classList.toggle('evt-list-open',!!evtOn);
   const rail=document.getElementById('mes-pos');
-  if(rail) rail.classList.toggle('is-expanded',!!on||!!giOn||!!gsOn||!!irOn);
+  if(rail) rail.classList.toggle('is-expanded',!!on||!!giOn||!!gsOn||!!irOn||!!evtOn);
   const ov=document.getElementById('pos-overlay');
   if(ov){
     const mobile=window.matchMedia('(max-width:1099px)').matches;
-    ov.hidden=!(mobile&&(on||giOn||gsOn||irOn));
+    ov.hidden=!(mobile&&(on||giOn||gsOn||irOn||evtOn));
   }
 }
 function posApplyListState(force){
