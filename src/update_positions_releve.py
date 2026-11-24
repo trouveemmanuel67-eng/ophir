@@ -70,13 +70,31 @@ META = {
              "fiche_proxy": False, "note_tv_ok": True},
     "BKNG": {"nom": "Booking Holdings", "type": "equity", "tab": "actions",
              "tv_note": "NASDAQ:BKNG", "fiche_tv": "NASDAQ:BKNG", "fiche_nom": "Booking Holdings Inc.",
-             "fiche_proxy": False, "note_tv_ok": True},
+             "fiche_proxy": False, "note_tv_ok": True,
+             "date_ordre": "2026-11-24T12:07:00+01:00", "date_achat": "2026-11-24"},
     "CAT": {"nom": "Caterpillar Inc.", "type": "equity", "tab": "actions",
             "tv_note": "NYSE:CAT", "fiche_tv": "NYSE:CAT", "fiche_nom": "Caterpillar Inc.",
-            "fiche_proxy": False, "note_tv_ok": True},
+            "fiche_proxy": False, "note_tv_ok": True,
+            "date_ordre": "2026-11-24T11:50:00+01:00", "date_achat": "2026-11-24"},
     "AVGO": {"nom": "Broadcom Inc.", "type": "equity", "tab": "actions",
              "tv_note": "NASDAQ:AVGO", "fiche_tv": "NASDAQ:AVGO", "fiche_nom": "Broadcom Inc.",
-             "fiche_proxy": False, "note_tv_ok": True},
+             "fiche_proxy": False, "note_tv_ok": True,
+             "date_ordre": "2026-11-24T10:22:00+01:00", "date_achat": "2026-11-24"},
+    "MU": {"nom": "Micron Technology, Inc.", "type": "equity", "tab": "actions",
+           "tv_note": "NASDAQ:MU", "fiche_tv": "NASDAQ:MU", "fiche_nom": "Micron Technology, Inc.",
+           "fiche_proxy": False, "note_tv_ok": True, "date_achat": "2026-11-24"},
+    "HWM": {"nom": "Howmet Aerospace Inc.", "type": "equity", "tab": "actions",
+            "tv_note": "NYSE:HWM", "fiche_tv": "NYSE:HWM", "fiche_nom": "Howmet Aerospace Inc.",
+            "fiche_proxy": False, "note_tv_ok": True, "date_achat": "2026-11-24"},
+    "GOOGL": {"nom": "Alphabet Inc.", "type": "equity", "tab": "actions",
+              "tv_note": "NASDAQ:GOOGL", "fiche_tv": "NASDAQ:GOOGL", "fiche_nom": "Alphabet Inc.",
+              "fiche_proxy": False, "note_tv_ok": True, "date_achat": "2026-11-24"},
+    "ENPH": {"nom": "Enphase Energy", "type": "equity", "tab": "energie",
+             "tv_note": "NASDAQ:ENPH", "fiche_tv": "NASDAQ:ENPH", "fiche_nom": "Enphase Energy",
+             "fiche_proxy": False, "note_tv_ok": True, "date_achat": "2026-11-24"},
+    "LRCX": {"nom": "Lam Research Corporation", "type": "equity", "tab": "actions",
+             "tv_note": "NASDAQ:LRCX", "fiche_tv": "NASDAQ:LRCX", "fiche_nom": "Lam Research Corporation",
+             "fiche_proxy": False, "note_tv_ok": True, "date_achat": "2026-11-24"},
     "XAU": {"nom": "Or", "type": "metal", "tab": "metaux",
             "tv_note": "XAU", "fiche_tv": "XAU", "fiche_nom": "Or au comptant Revolut (XAU)",
             "fiche_proxy": False, "note_tv_ok": False,
@@ -489,28 +507,28 @@ def main():
         p["poids_pct"] = r2(1000 * v / tot_usd, 1) / 10 if tot_usd else None  # 1 décimale via r2? wait
         p["poids_pct"] = round(100 * v / tot_usd + 1e-9, 1) if tot_usd else None
 
-    now = datetime(2026, 11, 24, 12, 35, tzinfo=PARIS)
+    now = datetime(2026, 11, 24, 20, 31, tzinfo=PARIS)
     fx_obj = {
         "paire": "EURUSD",
         "taux": fx,
         "date": "2026-11-24",
         "source": (
-            f"Taux implicite du relevé Revolut du 24/11/2026 vers 12 h 35 (Europe/Paris) : "
+            f"Taux implicite du relevé Revolut du 24/11/2026 vers 20 h 31 (Europe/Paris) : "
             f"EURUSD {str(fx).replace('.', ',')} d'après les lignes en euros "
             f"(FUC, PPX, HMI, URNU, VACD, XHYG, XUTL)."
         ),
-        "source_court": "Relevé 24/11/2026 12:35, taux implicite",
+        "source_court": "Relevé 24/11/2026 20:31, taux implicite",
         "zone": "Europe/Paris",
     }
 
     desc = (
-        "Relevé du 24/11/2026 vers 12 h 35 (Europe/Paris). "
+        "Relevé du 24/11/2026 vers 20 h 31 (Europe/Paris). "
         "Les ordres d'achat en cours comptent comme des positions déjà actives "
         f"(coût total prévu). CFD exclus de Mes positions (valeur {cfd_val:,.2f} $, "
         f"P/L latent {cfd_pl:,.2f} $). "
         f"{cash_usd:,.2f} $ de liquidités sur le compte-titres Revolut."
     ).replace(",", " ").replace(".", ",") if False else (
-        f"Relevé du 24/11/2026 vers 12 h 35 (Europe/Paris). "
+        f"Relevé du 24/11/2026 vers 20 h 31 (Europe/Paris). "
         f"Les ordres d'achat en cours comptent comme des positions déjà actives "
         f"(coût total prévu). CFD exclus de Mes positions "
         f"(valeur {cfd_val:.2f} $, P/L latent {cfd_pl:.2f} $). "
@@ -523,7 +541,7 @@ def main():
         return s.replace(",", "X").replace(".", ",").replace("X", " ")
 
     desc = (
-        f"Relevé du 24/11/2026 vers 12 h 35 (Europe/Paris). "
+        f"Relevé du 24/11/2026 vers 20 h 31 (Europe/Paris). "
         f"Les ordres d'achat en cours comptent comme des positions déjà actives "
         f"(coût total prévu). CFD exclus de Mes positions "
         f"(valeur {fr_money(cfd_val)} $, P/L latent {fr_money(cfd_pl)} $). "
@@ -573,17 +591,17 @@ def main():
         "valeur_usd": r2(cfd_val),
         "pnl_usd": cfd_pl,
         "n": cfd_n,
-        "libelle": f"CFD Revolut : valeur {fr_money(cfd_val, 0)} $, P/L latent ≈ {fr_money(cfd_pl, 0)} $",
-        "note": "Les 22 lignes CFD restent exclues de Mes positions (règle en vigueur). Alerte compacte uniquement.",
+        "libelle": f"CFD Revolut : valeur {fr_money(cfd_val, 0)} $, P/L latent ≈ {fr_money(cfd_pl, 0).replace('-', '−')} $",
+        "note": "Les 5 positions CFD (MSTR, XPD et SMR en long, AMD et MPC en short) restent exclues de Mes positions (règle en vigueur). Alerte compacte uniquement. Cash CFD 818,90 $ non inclus dans Mes positions.",
     }
 
     book = {
         "releve": now.isoformat(),
-        "releve_libelle": "Revolut 24/11/2026 à 12 h 35 · XTB 24/11/2026 à 12 h 31 (Europe/Paris)",
+        "releve_libelle": "Revolut 24/11/2026 à 20 h 31 · XTB 24/11/2026 à 12 h 31 (Europe/Paris)",
         "xtb_releve_libelle": "XTB 24/11/2026 à 12 h 31 (Europe/Paris)",
         "source": (
             "Relevés navigateur Revolut Invest / Revolut X / XTB xStation 5 du 24/11/2026 "
-            "vers 12 h 35 (Europe/Paris). CFD exclus de Mes positions. "
+            "vers 20 h 31 (Europe/Paris). CFD exclus de Mes positions. Revolut X non relu. "
             f"{fr_money(cash_usd)} $ de liquidités sur le compte-titres (incluses)."
         ),
         "compte": "Revolut Invest, Revolut X et XTB",
@@ -623,10 +641,10 @@ def main():
 
     rv_json = {
         "releve": now.isoformat(),
-        "releve_libelle": "Revolut 24/11/2026 à 12 h 35 (Europe/Paris)",
+        "releve_libelle": "Revolut 24/11/2026 à 20 h 31 (Europe/Paris)",
         "source": (
             "Lecture navigateur Revolut Invest (compte-titres, matières premières, ordres) "
-            "le 24/11/2026 vers 12 h 35. CFD exclus. "
+            "le 24/11/2026 vers 20 h 31. CFD exclus. Revolut X non relu. "
             f"Liquidités ({fr_money(cash_usd)} $) incluses dans Mes positions (secteur Liquidités)."
         ),
         "compte": "Revolut Invest",
@@ -637,14 +655,14 @@ def main():
         "liquidites": {
             "usd": r2(cash_usd),
             "eur": r2(cash_usd / fx),
-            "source": "Revolut Invest, cash au 24/11/2026 12:35",
+            "source": "Revolut Invest, cash au 24/11/2026 20:31",
             "inclus_dans_total": True,
         },
         "totaux": t_rev,
         "positions_json_sha256": sha,
         "cfd_alerte": cfd_alert,
         "desc": (
-            f"Relevé Revolut Invest du 24/11/2026 à 12 h 35 (Europe/Paris). "
+            f"Relevé Revolut Invest du 24/11/2026 à 20 h 31 (Europe/Paris). "
             f"CFD exclus. Ordres d'achat en cours inclus. "
             f"{fr_money(cash_usd)} $ de liquidités incluses."
         ),
@@ -664,8 +682,8 @@ def main():
         "totaux": t_rx,
         "desc": f"Relevé Revolut X du 24/11/2026 : ETH 0,28 ({fr_money(float(eth_p['valeur_usd']))} $).",
     }
-    (DATA / "positions_revolutx.json").write_text(json.dumps(rx_json, ensure_ascii=False, indent=2) + "\n")
-    _mirror_site_root(DATA / "positions_revolutx.json")
+    # Revolut X non relevé à 20 h 31 : on ne réécrit pas positions_revolutx.json
+    # (lignes, horodatage et cours conservés du 12 h 35).
 
     print("wrote", book_path, "n", len(book_rows), "actives", book["n_actives"], "ordres", book["n_en_attente"])
     print("tickers", [p["ticker"] + ("*" if p["statut"] == "en_attente" else "") for p in book_rows])

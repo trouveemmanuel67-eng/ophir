@@ -1,11 +1,11 @@
-"""t456u : les JSON à la racine (fetch de index.html) suivent le relevé du 24/11."""
+"""t456u / t510u : les JSON à la racine suivent le relevé Revolut du 24/11 à 20 h 31."""
 import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 FILES = ('positions.json', 'positions_revolut.json', 'positions_revolutx.json')
-STALE = {'ENPH', 'NKE', 'STLA', 'PKX', 'BTC', 'AGNC', 'NLY', 'PDSE', 'MBG', 'PAH3'}
-NEED = {'XAU', 'XAG', 'XPT', 'XPD', 'BKNG', 'CAT', 'AVGO'}
+STALE = {'NKE', 'STLA', 'PKX', 'BTC', 'AGNC', 'NLY', 'PDSE', 'MBG', 'PAH3'}
+NEED = {'XAU', 'XAG', 'XPT', 'XPD', 'BKNG', 'CAT', 'AVGO', 'MU', 'HWM', 'GOOGL', 'ENPH', 'LRCX'}
 
 
 def _ticks(path):
@@ -31,7 +31,8 @@ def test_releve_24_11_dans_le_json_fethe():
     # ordres en cours
     book = json.loads((ROOT / 'positions.json').read_text(encoding='utf-8'))
     pending = [p['ticker'] for p in book['positions'] if p.get('statut') == 'en_attente']
-    assert set(pending) >= {'BKNG', 'CAT', 'AVGO', 'RDDT'}
+    assert pending == []
+    assert book.get('n_en_attente') == 0
     metals = [p['ticker'] for p in book['positions'] if p.get('ticker') in {'XAU', 'XAG', 'XPT', 'XPD'}]
     assert len(metals) == 4
     # pas de CFD mélangés
