@@ -30,14 +30,16 @@ def test_positions_relisent_les_notes_deja_calculees():
     assert 'apex10_panier' in js
 
 
-def test_phpt_reste_sans_note_serie_yahoo_peu_fiable():
+def test_phpt_note_sur_milan_puis_retire_un_seul_etc():
+    """t506u : PHPT noté sur PHPT.MI (même ISIN) ; t507u : retiré de l'onglet (un seul ETC par métal)."""
     mt = json.loads((ROOT / 'data' / 'metaux.json').read_text())
-    items = [it for r in mt['rows'] for it in (r.get('mlist') or {}).get('items') or []]
-    phpt = next(x for x in items if x.get('tv') == 'EURONEXT:PHPT')
-    assert phpt.get('skip_score') is True
-    rec = phpt.get('apex10') or {}
-    assert rec.get('note') is None
-    assert rec.get('display') in (None, '–')
+    pl = next(r for r in mt['rows'] if r['nom'] == 'Platine')
+    ret = {i['tv']: i for i in pl['mlist'].get('etc_retires') or []}
+    assert 'EURONEXT:PHPT' in ret and ret['EURONEXT:PHPT']['note'] is not None
+    assert pl['etc_retenu']['tv'] == 'XETR:8PSA'
+    shown = [it.get('tv') for it in [pl['mlist']['head']] + pl['mlist']['items']]
+    assert 'EURONEXT:PHPT' not in shown
+    assert sum(1 for it in [pl['mlist']['head']] + pl['mlist']['items'] if it.get('kind') == 'etc') == 1
 
 
 def test_mda_reste_sans_note_historique_court():

@@ -57,9 +57,8 @@ function apexNoteHTML(a){
     const mx=a.total_max!=null?a.total_max:250;
     return `<div class="apex10 apex10-pilot" style="color:${col}"><b>${a.total}</b><small>/ ${mx}</small></div>`;
   }
-  if(!a||a.note==null||a.display==='–') return `<div class="apex10 apex10-na"><b>–</b></div>`;
-  const col=apex10Col(a);
-  return `<div class="apex10"><b style="color:${col};text-shadow:0 0 16px ${col}80">${a.display}</b><small style="color:${col}">/100</small></div>`;
+  /* t506u : une note qui n'est pas sur 250 n'est plus affichée (– / 250). */
+  return `<div class="apex10 apex10-pilot apex10-na" title="Note APEX −50 à 250 non disponible"><b>–</b><small>/ 250</small></div>`;
 }
 /* Barre fusionnée : une seule barre dégradée, échelle Achat / Vente (−100 → +100) au-dessus, Sentiment (0 → 100) en dessous.
    Curseur blanc = Achat / Vente, curseur gris (rond) = Sentiment. Deux échelles linéaires distinctes sur la même largeur. */
@@ -117,7 +116,7 @@ function renderAchatVente(tabId){
   charts.push(avChart);
 }
 
-/* Moyenne des notes /100 affichées d'une section (bandeau NOTE APEX), 23/11/2026 */
+/* Moyenne des notes −50..250 affichées d'une section (bandeau NOTE APEX), t506u */
 function labAv(s){
   s=Number(s);
   return s<=-60?'Vente forte':s<=-20?'Vente':s<20?'Neutre':s<60?'Achat':'Achat fort';
@@ -129,14 +128,12 @@ function labS(v){
 function apex10FromAvg(notes){
   const xs=(notes||[]).map(Number).filter(Number.isFinite);
   if(!xs.length) return null;
-  const n=Math.max(0,Math.min(100,Math.round(xs.reduce((a,b)=>a+b,0)/xs.length)));
-  const pos=n;
+  const n=Math.max(-50,Math.min(250,Math.round(xs.reduce((a,b)=>a+b,0)/xs.length)));
+  const b=(typeof pilotBand==='function')?pilotBand(n):{hex:'#e6c27a',id:''};
   return {
-    note:n, display:fmtApex10(n), pos,
-    hex:(typeof apexHexOf==='function')?apexHexOf(n):((typeof gcol==='function')?gcol(pos):null),
-    flag:(typeof apexFlagTV==='function')?apexFlagTV(n):null,
-    cap:'moyenne', n_moy:xs.length,
-    detail:'Moyenne des notes /100 affichées des actifs de la section, arrondie au point.'
+    v2:true, note:n, total:n, total_min:-50, total_max:250, scale:250, display:String(n), pos:n,
+    hex:b.hex, band:b.id, cap:'moyenne', n_moy:xs.length, ok:true,
+    detail:'Moyenne des notes −50 à 250 affichées des actifs de la section, arrondie au point.'
   };
 }
 function meanNum(xs){
@@ -171,7 +168,7 @@ function sectionApexItems(tabId){
   else if(tabId==='obligations'&&typeof OB!=='undefined') (OB.segments||[]).forEach(s=>push(s));
   else if(tabId==='metaux'&&typeof MT!=='undefined') (MT.rows||[]).forEach(s=>push(s));
   else if(tabId==='energie'&&typeof T2!=='undefined'){
-    ((T2.energie&&T2.energie.assets)||[]).forEach(s=>{if(s&&s.ok&&!s.repere) push(s);});
+    ((T2.energie&&T2.energie.assets)||[]).forEach(s=>{if(s&&s.ok) push(s);});
   }
   else if(tabId==='crypto'&&typeof T2!=='undefined'){
     const F=T2.crypto&&T2.crypto.fiches;
@@ -252,13 +249,17 @@ function sectionApexAvg(tabId){
     };
   }
   const baked=bakedSectionApex(tabId);
-  const apex=baked||apex10FromAvg(notes);
+  const b250=baked&&(baked.v2||baked.scale===250||baked.total_max===250)?baked:null;
+  /* t506u : seules les notes sur 250 comptent ; une moyenne cuite sur 250 (immobilier, placements…) devient la note pilote. */
+  const n250=items.filter(x=>x.scale===250).map(x=>x.note).filter(n=>n!=null&&Number.isFinite(n));
+  const apex=b250?Object.assign({v2:true,scale:250,total_min:-50,total_max:250,ok:true},b250,{total:b250.total!=null?b250.total:b250.note}):apex10FromAvg(n250);
   if(!apex) return null;
   return {
+    apexV2:apex,
     apex10:apex,
     av:av==null?null:{score:av,label:labAv(av)},
     sent:se==null?null:{value:se,label:labS(se)},
-    n:baked&&baked.n_moy!=null?baked.n_moy:notes.length
+    n:b250&&b250.n_moy!=null?b250.n_moy:(b250?1:n250.length)
   };
 }
 function countryApexAvg(C){
@@ -289,7 +290,7 @@ function countryApexAvg(C){
   };
 }
 
-/* Tri durable d'une liste d'actifs : note /100 décroissante, à égalité AV décroissant, sans note en bas, ordre actuel sinon. */
+/* Tri durable d'une liste d'actifs : note APEX décroissante, à égalité AV décroissant, sans note en bas, ordre actuel sinon. */
 function apexNoteOf(o){
   if(!o) return null;
   const a=o.apex10;
@@ -476,15 +477,15 @@ function dualBarPilot(rec, compact){
   }).join('');
   /* Même dégradé et traits de repère que les sections non pilotes ; une seule barre, deux curseurs. */
   const bandTicks=[20,40,60,80].map(p=>`<i class="av-tick" style="left:${p}%"></i>`).join('');
-  /* H = attention / hype (0–100, échelle du bas, à contre-courant) : apport (50 − attention) × 0,6, de −30 à +30 */
+  /* H = attention / hype (échelle du bas, à contre-courant) : apport round((50 − attention) × 0,54), de −27 à +27 */
   const att=(rec&&rec.attention)||null;
   const hv=(rec&&rec.points&&rec.points.hype!=null&&Number.isFinite(Number(rec.points.hype)))?Number(rec.points.hype):null;
   const av_=(att&&att.valeur!=null&&Number.isFinite(Number(att.valeur)))?Number(att.valeur):null;
-  const hp=av_!=null?Math.max(0,Math.min(100,av_)):(hv!=null?Math.max(0,Math.min(100,50-hv/0.6)):null);
+  const hp=av_!=null?Math.max(0,Math.min(100,av_)):(hv!=null?Math.max(0,Math.min(100,50-hv/0.54)):null);
   const hcol=hp!=null?gmir(hp):'#888';
   const hTxt=hv==null?'–':((hv>0?'+':'')+hv);
-  const hAtt=av_!=null?fmt(av_,0)+'/100':(hv!=null&&att&&att.n?'moy. '+att.n+(att.moyenne_de?' actions':' sections'):'');
-  const hTip=hv==null?'H = attention / hype : donnée absente (H compté 0)':('H = attention / hype '+(av_!=null?fmt(av_,1)+' / 100':'(moyenne des actions affichées)')+' → apport '+hTxt+' (à contre-courant)');
+  const hAtt=av_!=null?'attention '+fmt(av_,0):(hv!=null&&att&&att.n?'moy. '+att.n+(att.moyenne_de?' actions':' sections'):'');
+  const hTip=hv==null?'H = attention / hype : donnée absente (H compté 0)':('H = hype, attention '+(av_!=null?fmt(av_,1):'(moyenne des actions affichées)')+' → apport '+hTxt+' (à contre-courant)');
   const totTxt=total==null?'–':String(total);
   const fgTxt=Number.isFinite(sv)?fmt(sv,1):'–';
   const avPart=`<span class="pilot-av"><i class="db-dot db-a" style="color:${hex}">AV</i>Total <b class="sc-t" style="color:${hex}">${totTxt}/${mx}</b></span>`;
@@ -503,60 +504,15 @@ function dualBarPilot(rec, compact){
   </div>`;
   return `<div class="apex-block apex-block-pilot apex-block-line${compact?' is-compact':''}">${pilotNoteHTML(rec)}<div class="apex-rest">${bar}</div></div>`;
 }
-/* Barre APEX /100 (métaux) : même présentation que les secteurs, échelle 0 à 100. */
+/* t506u : l'ancienne barre /100 n'existe plus. Une note sur 250 passe par la barre pilote ; sinon « – / 250 ». */
 function apex100NoteHTML(rec){
-  if(!rec||rec.note==null||rec.display==='–') return `<div class="apex10 apex10-na"><b>–</b><small>/ 100</small></div>`;
-  const col=(typeof apex10Col==='function')?apex10Col(rec):(rec.hex||'#e6c27a');
-  const disp=rec.display||fmtApex10(rec.note);
-  return `<div class="apex10" style="color:${col}"><b style="color:${col};text-shadow:0 0 16px ${col}80">${disp}</b><small style="color:${col}">/ 100</small></div>`;
-}
-function apex100Legend(rec,sent,av){
-  const note=(!rec||rec.note==null||rec.display==='–')?'–':(rec.display||fmtApex10(rec.note));
-  const hex=(rec&&(typeof apex10Col==='function'))?apex10Col(rec):(rec&&rec.hex)||'#e6c27a';
-  const bits=[];
-  if(av&&av.score!=null&&av.score!==''){
-    const ac=(typeof gsol==='function')?gsol(typeof avPos==='function'?avPos(av.score):50):hex;
-    bits.push(`<span class="pilot-av"><i class="db-dot db-a" style="color:${ac}">AV</i>Achat/Vente <b class="sc-t" style="color:${ac}">${sign(av.score,0)} ${av.label||''}</b></span>`);
-  }else{
-    bits.push(`<span class="pilot-av"><i class="db-dot db-a" style="color:${hex}">AV</i>Total <b class="sc-t" style="color:${hex}">${note}/100</b></span>`);
-  }
-  if(sent&&sent.value!=null&&sent.value!==''){
-    const scol=(typeof gmir==='function')?gmir(Number(sent.value)):'#888';
-    bits.push(`<span class="pilot-s"><i class="db-dot db-s" style="color:${scol}">S</i>Sentiment <b class="sc-t" style="color:${scol}">${fmt(sent.value,0)} ${sent.label||''}</b></span>`);
-  }
-  const d=rec&&rec.decomp;
-  let tail='';
-  if(d&&d.texte) tail=d.texte;
-  else if(rec&&rec.cap==='moyenne'&&rec.n_moy) tail='moyenne de '+rec.n_moy+' instrument'+(rec.n_moy>1?'s':'');
-  if(tail) bits.push(`<span class="pilot-brk">${tail} → ${note}/100</span>`);
-  else bits.push(`<span class="pilot-brk">→ ${note}/100</span>`);
-  return (typeof pilotLegJoin==='function'?pilotLegJoin(bits):bits.join(''));
+  const r=(rec&&(rec.scale===250||rec.total_max===250||rec.v2)&&typeof apex250Rec==='function')?apex250Rec(rec):null;
+  if(r) return pilotNoteHTML(r);
+  return `<div class="apex10 apex10-pilot apex10-na"><b>–</b><small>/ 250</small></div>`;
 }
 function dualBarApex100(rec,sent,av,compact){
-  const note=rec&&rec.note!=null&&rec.display!=='–'?Number(rec.note):null;
-  const ap=Number.isFinite(note)?Math.max(0,Math.min(100,note)):null;
-  const sv=sent&&sent.value!=null&&sent.value!==''?Number(sent.value):null;
-  const sp=Number.isFinite(sv)?Math.max(0,Math.min(100,sv)):null;
-  const hex=(rec&&(typeof apex10Col==='function'))?apex10Col(rec):(rec&&rec.hex)||'#8a8a8a';
-  const sl=(sent&&sent.label)||'–';
-  const scol=sp!=null?((typeof gmir==='function')?gmir(sp):'#888'):'#888';
-  const ticks=[0,20,40,60,80,100];
-  const tickHTML=ticks.map((v,i)=>{
-    const edge=i===0?' db-e0':(i===ticks.length-1?' db-e1':'');
-    const left=i===ticks.length-1?'':` style="left:${v}%"`;
-    return `<i class="${edge.trim()}"${left}>${v}</i>`;
-  }).join('');
-  const bandTicks=[20,40,60,80].map(p=>`<i class="av-tick" style="left:${p}%"></i>`).join('');
-  const totTxt=note==null?'–':((rec&&rec.display)||fmtApex10(note));
-  const fgTxt=sp!=null?fmt(sv,0):'–';
-  const bar=`<div class="db db-apex100 ${compact?'db-sm':''}" role="img" aria-label="Note APEX ${totTxt} sur 0 à 100 ; Sentiment ${fgTxt} (${sl}) sur 0 à 100">
-   <div class="db-tk db-tk1">${tickHTML}</div>
-   <div class="db-g"><div class="ind-bar"></div>${bandTicks}
-    ${sp!=null?`<div class="db-cur db-s" style="left:${sp}%;color:${scol}" data-p="${sp}" title="S = Sentiment ${fgTxt} · ${sl}">S</div>`:''}
-    ${ap!=null?`<div class="db-cur db-a" style="left:${ap}%;color:${hex}" data-p="${ap.toFixed(1)}" title="AV = note APEX ${totTxt} / 100">AV</div>`:''}
-   </div>
-   <div class="db-leg pilot-leg">${apex100Legend(rec,sent,av)}</div>
-  </div>`;
-  return `<div class="apex-block apex-block-pilot apex-block-line apex-block-100${compact?' is-compact':''}">${apex100NoteHTML(rec)}<div class="apex-rest">${bar}</div></div>`;
+  const r=(rec&&(rec.scale===250||rec.total_max===250||rec.v2)&&typeof apex250Rec==='function')?apex250Rec(rec):null;
+  if(r&&typeof dualBarPilot==='function') return dualBarPilot(r, compact);
+  return v2Placeholder();
 }
 

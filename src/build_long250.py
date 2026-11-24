@@ -5,7 +5,7 @@ Métaux (cyan retiré, ETC = Hype 45 + Qualité 45), obligations, énergie, devi
 (fondamental 30), épargne / monétaire (Livret A, LEP, placements Revolut), immobilier.
 Écrit dans data/*.json et un journal data/fond250/journal_notes.json (avant / après, n.c.).
 """
-import json, os, sys
+import json, os, re, sys
 from pathlib import Path
 ROOT = Path(os.environ.get('APEX_ROOT') or Path(__file__).resolve().parent.parent)
 sys.path[:0] = [str(ROOT), str(ROOT / 'src')]
@@ -47,14 +47,33 @@ def avg_rec(notes, detail, n_label):
 METAL = {'OANDA:XAUUSD': 'Or', 'OANDA:XAGUSD': 'Argent', 'OANDA:XPTUSD': 'Platine', 'OANDA:XPDUSD': 'Palladium'}
 
 
+SERIE_OVERRIDE = {'EURONEXT:PHPT': {
+    'yahoo': 'PHPT.MI', 'url': 'https://finance.yahoo.com/quote/PHPT.MI/',
+    'note_serie': 'Note calculée sur la cotation Borsa Italiana PHPT.MI (même ISIN JE00B1VS2W53, en euros) : corrélation hebdomadaire 0,97 avec IPLT sur 3 ans. La série Euronext Amsterdam PHPT.AS (sauts de +127 %) n’est pas utilisée.'}}
+LIST_NOTE_FIX = {"La série Yahoo de PHPT n'est pas assez fiable pour une note.": "PHPT est noté sur sa cotation de Milan (PHPT.MI, même ISIN), la série d’Amsterdam étant inexploitable."}
+
+
 def metaux():
     M = load('metaux.json')
+    for r in M.get('rows') or []:
+        ml = r.get('mlist') or {}
+        for k in ('list_note', 'note'):
+            if isinstance(ml.get(k), str):
+                for a, b in LIST_NOTE_FIX.items():
+                    ml[k] = ml[k].replace(a, b)
+        if isinstance(r.get('list_note'), str):
+            for a, b in LIST_NOTE_FIX.items():
+                r['list_note'] = r['list_note'].replace(a, b)
     fgv = L.fg()
     for r in M.get('rows') or []:
         metal = METAL.get(r.get('tv'))
         notes = []
         ml = r.get('mlist') or {}
         for it in [ml.get('head')] + list(ml.get('items') or []):
+            if it and it.get('tv') in SERIE_OVERRIDE:
+                # t506u : PHPT noté sur la cotation de Milan (même ISIN), la série Amsterdam est inexploitable.
+                it.update(SERIE_OVERRIDE[it['tv']])
+                it.pop('skip_score', None)
             if not it or it.get('skip_score'):
                 continue
             av = (it.get('av') or {}).get('score') if isinstance(it.get('av'), dict) else None
@@ -67,9 +86,82 @@ def metaux():
             log('metaux', it.get('tv'), before, rec.get('note'), nc or (rec.get('erreur') and [rec['erreur']]))
             if rec.get('note') is not None:
                 notes.append(float(rec['note']))
+        notes = un_seul_etc(r, metal, notes)
         if notes:
-            r['apex10'] = avg_rec(notes, 'Moyenne des notes −50 à 250 des instruments visibles (ETC, métal au comptant, minières), hors titres sans note.', 'instruments')
+            r['apex10'] = avg_rec(notes, 'Moyenne des notes −50 à 250 des instruments visibles (ETC retenu, métal au comptant, minières), hors titres sans note.', 'instruments')
     save('metaux.json', M)
+
+
+# t507u : un seul ETC physique par métal (meilleure Qualité ETC, puis cotation en euro, frais, encours).
+def _held_tvs():
+    out = set()
+    for fn in ('positions.json', 'positions_revolut.json', 'positions_revolutx.json'):
+        try:
+            d = load(fn)
+        except Exception:
+            continue
+        for p in d.get('positions') or []:
+            if p.get('statut') in ('active', 'en_attente'):
+                for k in (p.get('fiche_tv'), p.get('tv_note'), p.get('tv')):
+                    if k:
+                        out.add(k)
+    return out
+
+
+def _qual(it):
+    q = ((it.get('apex10') or {}).get('decomp') or {}).get('qualite_etc') or {}
+    return q.get('points')
+
+
+def _enc(it):
+    for e in ((((it.get('apex10') or {}).get('decomp') or {}).get('qualite_etc') or {}).get('elements') or []):
+        if e.get('id', '').startswith('enc') and e.get('valeur') is not None:
+            return float(e['valeur'])
+    return 0.0
+
+
+def un_seul_etc(r, metal, notes):
+    ml = r.get('mlist') or {}
+    allit = [x for x in [ml.get('head')] + list(ml.get('items') or []) if x]
+    etcs = [x for x in allit if x.get('kind') == 'etc' and (x.get('apex10') or {}).get('note') is not None]
+    if len(etcs) <= 1:
+        return notes
+    eur = lambda x: 1 if (x.get('currency') or '').upper() == 'EUR' else 0
+    ter = lambda x: x.get('ter') if x.get('ter') is not None else 9.9
+    best = sorted(etcs, key=lambda x: (-(_qual(x) or 0), -eur(x), ter(x), -_enc(x), -(x['apex10']['note'])))[0]
+    held = _held_tvs()
+    retires, masques = [], []
+    for x in etcs:
+        if x is best:
+            continue
+        info = {'tv': x.get('tv'), 'isin': x.get('isin'), 'note': x['apex10'].get('note'), 'qualite_etc': _qual(x),
+                'ter': x.get('ter'), 'devise': x.get('currency')}
+        if x.get('tv') in held:
+            x['masque_onglet'] = True
+            masques.append(x)
+            info['detenu'] = True
+        retires.append(info)
+    others = [x for x in allit if x.get('kind') != 'etc']
+    ml['head'] = best
+    ml['items'] = others
+    ml['n'] = 1 + len(others)
+    ml['etc_retires'] = retires
+    if masques:
+        ml['etc_detenus_masques'] = masques
+    q = _qual(best)
+    noms = ', '.join(i['tv'].split(':')[-1] for i in retires if i.get('tv'))
+    ml['list_note'] = (f"Un seul ETC physique par métal (règle du 24/11/2026) : {best.get('tv')} (ISIN {best.get('isin')}), "
+                       f"meilleure Qualité ETC ({q} / 45), puis cotation en euro et frais les plus bas"
+                       f"{' ' + str(best.get('ter')).replace('.', ',') + ' %' if best.get('ter') is not None else ''}. "
+                       f"Retirés de l'onglet, des Meilleures entrées et des Meilleurs SHORT : {noms}."
+                       + (" Un ETC retiré mais détenu reste noté dans Mes positions." if masques else ''))
+    r['etc_retenu'] = {'tv': best.get('tv'), 'isin': best.get('isin'), 'note': best['apex10'].get('note'), 'qualite_etc': q,
+                       'ter': best.get('ter'), 'devise': best.get('currency')}
+    add = f" ETC retenu pour ce métal : {best.get('tv')} (un seul ETC affiché depuis le 24/11/2026)."
+    if r.get('note_revolut') and add not in r['note_revolut']:
+        r['note_revolut'] = r['note_revolut'] + add
+    log('metaux_un_etc', metal or r.get('nom'), None, best['apex10'].get('note'), [f"retenu {best.get('tv')}", f"retirés {noms}"])
+    return [float(x['apex10']['note']) for x in [best] + others if (x.get('apex10') or {}).get('note') is not None]
 
 
 # ------------------------------------------------------------------ obligations
@@ -118,6 +210,9 @@ def energie(T):
     fgp = g['points'] if g.get('ok') else None
     for a in T['energie']['assets']:
         k = a.get('kind')
+        if k in ('futures', 'etc'):
+            energie_contrat(a, g, fgp)
+            continue
         if k not in ('equity', 'equity_proxy', 'etf_equity'):
             continue
         t, used = L.tech_of(a.get('tv'), a.get('yahoo'), None)
@@ -135,7 +230,47 @@ def energie(T):
         rec['fond'] = fpts
         log('energie', a.get('tv'), note(a.get('apex10')), rec['note'], fnc)
         a['apex10'] = rec
-    T['energie']['apex250'] = {'grille': 'Technique 110 + Fondamental énergie 90 (actions : 9 ratios × 10 ; ETF : 9 critères × 10) + F&G ±50; contrats à terme et ETC gaz = repères sans note'}
+    T['energie']['apex250'] = {'grille': 'Technique 110 + Fondamental énergie 90 (actions : 9 ratios × 10 ; ETF et ETC : 9 critères justETF × 10 ; contrats à terme : critère de cycle seul, les 8 critères d’entreprise ou de fonds ne s’appliquent pas, sans redistribution) + F&G ±50'}
+    notes = [float(a['apex10']['note']) for a in T['energie']['assets']
+             if (a.get('apex10') or {}).get('note') is not None and (a.get('apex10') or {}).get('scale') == 250]
+    if notes:
+        T['energie']['apex10'] = avg_rec(notes, 'Moyenne des notes −50 à 250 de tous les actifs Énergie affichés (actions, ETF, ETC, contrats à terme), arrondie au point.', 'actifs')
+
+
+def energie_contrat(a, g, fgp):
+    """t506u : contrats à terme (WTI, Brent, fioul, essence) et ETC gaz notés sur la grille énergie."""
+    t, used = L.tech_of(a.get('tv'), a.get('yahoo'), None)
+    if a.get('kind') == 'etc':
+        fpts, fnc, fel = L.energie_etf_fond(ENERGIE_ISIN.get(a.get('tv')) or a.get('isin') or ISIN_SOUS(a), a.get('groupe'), a.get('tv'))
+        lab = 'Fond. ETC'
+    else:
+        cyc = L.cycle_wti()
+        fel = [cyc]
+        fpts = int(cyc.get('points') or 0)
+        fnc = ['cycle'] if cyc.get('nc') else []
+        lab = 'Cycle'
+    blocks = [('RSI', t and t['rsi']), ('MACD', t and t['macd']), ('Fibo', t and t['fibonacci']), ('CCI', t and t['cci']), (lab, fpts)]
+    regle = ('ETC : 9 critères justETF × 10 (TER, encours, ancienneté, réplication physique, ≥ 30 lignes, cycle WTI)'
+             if a.get('kind') == 'etc' else
+             'Contrat à terme : seul le cycle (WTI sous sa moyenne 5 ans, FRED DCOILWTICO) s’applique, +10 ; les 8 critères d’entreprise ou de fonds ne s’appliquent pas à un contrat (0, sans redistribution)')
+    rec = L.assemble(blocks, fgp, 'F&G', {
+        'fondamental': {'points': fpts, 'max': 90, 'elements': fel, 'nc': fnc, 'regle': regle},
+        'technique': {'symbole': used, 'date_cloture': t and t['date_cloture'], 'detail': t and t['detail']} if t else {'erreur': 'série hebdomadaire introuvable'},
+        'fear_greed': {'valeur': g.get('value'), 'source': 'CNN Fear & Greed, à contre-courant'}})
+    rec['fond'] = fpts
+    if not t:
+        rec.update({'note': None, 'display': '–', 'total': None, 'erreur': 'série hebdomadaire introuvable'})
+    log('energie', a.get('tv'), note(a.get('apex10')), rec['note'], fnc)
+    a['apex10'] = rec
+    # Le contrat reste un repère (non achetable au comptant, hors Meilleures entrées), mais il a sa note sur 250.
+    if a.get('repere_texte'):
+        a['repere_texte'] = (a['repere_texte']
+            .replace("Il est affiché comme repère de marché, sans note APEX ni drapeau, parce qu'il est", 'Il est noté sur la grille énergie (ETC : 9 critères justETF, −50 à 250), mais reste signalé comme repère de marché, parce qu’il est'))
+
+
+def ISIN_SOUS(a):
+    m = re.search(r'ISIN ([A-Z]{2}[A-Z0-9]{10})', a.get('sous') or '')
+    return m.group(1) if m else None
 
 
 # ------------------------------------------------------------------ devises + ETF par devise

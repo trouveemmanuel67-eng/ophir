@@ -127,6 +127,9 @@ def build() -> dict:
             return
         # APE-25 : toute note −50..250 (obligations, énergie, devises, épargne…) suit le seuil 130 et la mise 250.
         is250 = note_rec.get('scale') == 250 or note_rec.get('total_max') == 250
+        if not is250:
+            # t506u : plus aucune note hors échelle −50..250 dans les Meilleures entrées.
+            return
         cut = seuil_metaux if (is_metaux or is_crypto or is_etf_devise or is250) else seuil
         if float(note_rec['note']) < cut:
             return
@@ -185,11 +188,14 @@ def build() -> dict:
             tv = obj.get('tv') or obj.get('sym') or obj.get('ticker')
             a = obj.get('apex10')
             av = (obj.get('av') or {}).get('score') if isinstance(obj.get('av'), dict) else None
-            consider(tv, a, av, obj.get('etf') or obj.get('name') or obj.get('nom'), None, obj.get('yahoo') or obj.get('ticker') or obj.get('sym'), obj.get('elliott'), classe=classe)
+            if not (obj.get('repere') and obj.get('kind') == 'futures'):  # t506u : contrats à terme notés, non achetables
+                consider(tv, a, av, obj.get('etf') or obj.get('name') or obj.get('nom'), None, obj.get('yahoo') or obj.get('ticker') or obj.get('sym'), obj.get('elliott'), classe=classe)
             etf = obj.get('etf_local')
             if isinstance(etf, dict) and etf.get('ok') and etf.get('tv'):
                 consider(etf.get('tv'), etf.get('apex10'), None, etf.get('nom') or etf.get('court'), 'Liquidités – ETF par devise', etf.get('yahoo'), None, classe='etf_devise')
-            for v in obj.values():
+            for k2, v in obj.items():
+                if k2 in ('etc_retires', 'etc_detenus_masques'):
+                    continue  # t507u : un seul ETC par métal
                 walk(v, classe)
         elif isinstance(obj, list):
             for v in obj:

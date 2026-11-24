@@ -1263,5 +1263,24 @@
   "structure": "ETC",
   "distribution": "Accumulating",
   "n_lignes": null
+ },
+ "DE000PB6GAS5": {
+  "isin": "DE000PB6GAS5",
+  "nom": "BNPP Henry Hub Erdgas (TR) ETC",
+  "source": "justETF",
+  "url": "https://www.justetf.com/en/etf-profile.html?isin=DE000PB6GAS5",
+  "date": "2026-11-24 20:01",
+  "ter": 0.9,
+  "encours_m": 8.0,
+  "encours_devise": "EUR",
+  "replication": "Synthetic",
+  "creation": "2017-04-18",
+  "couverture": "No",
+  "devise_fonds": "USD",
+  "structure": "ETC",
+  "distribution": "Accumulating",
+  "n_lignes": null,
+  "categorie": "energie",
+  "tv": "XETR:BNQ9"
  }
 }

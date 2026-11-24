@@ -11,20 +11,17 @@ function srCells(s){
   if((typeof isActionSector==='function'&&isActionSector(s.sym))||(typeof isApexV2Tv==='function'&&isApexV2Tv(s.tv))){
     return `<div class="sr-c sr-d">${typeof v2Placeholder==='function'?v2Placeholder():'<div class="apex10 apex10-na"><b>–</b><small>/ 250</small></div>'}</div>`;
   }
-  const avObj=s.av||{};
-  const av=(avObj.score_affiche!=null)?avObj.score_affiche:avObj.score;
-  const sent=s.sent||{};
-  const dec=(typeof apexDecomp==='function')?apexDecomp(s.apex10):'';
-  return `<div class="sr-c sr-d">${dualBar(sent.value,sent.label||'–',av,avObj.label||'–','db-sm',true,s.apex10)}${dec}</div>`;
+  /* t506u : plus aucune barre /100. Note posée sur 250 → barre pilote ; sinon « – / 250 ». */
+  const r250=(typeof apex250Rec==='function'&&s.apex10&&(s.apex10.scale===250||s.apex10.total_max===250||s.apex10.v2))?apex250Rec(s.apex10):null;
+  if(r250&&typeof dualBarPilot==='function') return `<div class="sr-c sr-d">${dualBarPilot(r250, true)}</div>`;
+  return `<div class="sr-c sr-d">${typeof v2Placeholder==='function'?v2Placeholder():'<div class="apex10 apex10-na"><b>–</b><small>/ 250</small></div>'}</div>`;
 }
 function srHead(first,v2){
-  const mid=v2===100||v2==='100'
-    ? `<i class="db-dot db-a">AV</i>Score APEX (0 à 100, échelle du haut) · <i class="db-dot db-s">S</i>Sentiment (0 à 100, échelle du bas)`
-    : v2===250||v2==='250'||v2==='metaux'
+  const mid=(!v2||v2===100||v2==='100'||v2===250||v2==='250'||v2==='metaux')
     ? `<i class="db-dot db-a">AV</i>Score APEX (−50 à 250, échelle du haut) · <i class="db-dot db-s">S</i>Fear &amp; Greed (0 à 100, échelle du bas)`
     : v2
     ? `<i class="db-dot db-a">AV</i>Score APEX (−50 à 250, échelle du haut) · <i class="db-dot db-s">S</i>Fear &amp; Greed et <i class="db-dot db-h">H</i>Hype / attention (0 à 100, échelle du bas ; H à contre-courant, ±27)`
-    : `<i class="db-dot db-a">AV</i>Achat / Vente (−100 à +100, échelle du haut) · <i class="db-dot db-s">S</i>Sentiment (0 à 100, échelle du bas)`;
+    : '';
   return `<div class="sr sr-hd" aria-hidden="true"><div>${first}</div><div>${mid}</div><div>Détails</div></div>`;
 }
 /* Les panneaux <details> s'ouvrent sous la ligne ; leurs boutons sont placés dans la dernière colonne */

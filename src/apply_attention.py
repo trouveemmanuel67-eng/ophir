@@ -231,6 +231,8 @@ def apply_doc(doc, att_by, att_meta=None):
                 _copy_fond(r, pil, r['tv'])
             apply_rec(r, h, att, fo)
     for tv, r in (doc.get('by_tv') or {}).items():
+        if r.get('tete_pays') or r.get('hors_univers_position'):
+            continue  # t506u : notes posées par src/harmonise250.py (CAC 40, Fanuc), déjà sur 250
         h, att, fo = res.get(tv, (None, None, None))
         if fo is not None:
             _copy_fond(r, pil, tv)
@@ -261,8 +263,7 @@ def _h_actions(rec):
         return int(rec['H'])
     if rec.get('attention') is None:
         return None
-    h = int(round((50.0 - float(rec['attention'])) * 0.6))
-    return max(-30, min(30, h))
+    return h_points(float(rec['attention']))
 
 
 def _from_w48(doc):

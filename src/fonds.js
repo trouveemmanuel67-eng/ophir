@@ -35,12 +35,14 @@ function listApexBar(r){
   const ell=(r&&r.elliott)||(b&&b.elliott);
   const a10=(r&&r.apex10)||(b&&b.apex10)||null;
   if(!av||av.score==null||!sent||sent.value==null){
-    if(a10&&a10.display&&a10.display!=='–'){
-      const dec=(typeof apexDecomp==='function')?apexDecomp(a10):'';
-      return `<div class="fl-apex"><div class="apex10"><b>${a10.display}</b><small>/100</small></div>${dec}</div>`;
+    if(a10&&a10.display&&a10.display!=='–'&&(a10.scale===250||a10.total_max===250||a10.v2)&&typeof dualBarPilot==='function'){
+      return `<div class="fl-apex fl-apex-pilot">${dualBarPilot(apex250Rec(a10), true)}</div>`;
     }
     return '<div class="fl-apex fl-apex-na"><div class="apex10 apex10-na"><b>–</b></div></div>';
   }
+  /* t506u : plus de barre /100 : note sur 250 → barre pilote, sinon « – / 250 ». */
+  if(a10&&(a10.scale===250||a10.total_max===250||a10.v2)&&a10.note!=null&&typeof dualBarPilot==='function') return `<div class="fl-apex fl-apex-pilot">${dualBarPilot(apex250Rec(a10), true)}</div>`;
+  if(typeof v2Placeholder==='function') return `<div class="fl-apex fl-apex-pilot">${v2Placeholder()}</div>`;
   const rec=a10||null; /* t320u : pas de recalcul JS */
   const avAff=(av.score_affiche!=null)?av.score_affiche:av.score;
   const dec=(typeof apexDecomp==='function')?apexDecomp(rec):'';
@@ -49,7 +51,11 @@ function listApexBar(r){
 function fondQualite(r){
   if(!r||r.score==null) return '';
   const tip=(r.health!=null||r.growth!=null)?`Santé ${fmt(r.health,0)} · Croissance ${fmt(r.growth,0)}`:'';
-  return `<span class="fl-sc" style="color:${gcol(r.score)}"${tip?` title="${tip}"`:''}><i>Qualité fondamentale</i>${fmt(r.score,0)}<small>/100</small></span>`;
+  /* t506u : le score de qualité 0–100 n'est plus affiché comme une note ; on montre les points du fondamental de la note APEX (sur 81). */
+  const p=(typeof pilotRec==='function'&&r.tv)?pilotRec(r.tv):null;
+  const fp=p&&p.points&&p.points.fondamental!=null?p.points.fondamental:(p&&p.fond!=null?p.fond:null);
+  if(fp==null) return '';
+  return `<span class="fl-sc"${tip?` title="${tip}"`:''}><i>Fondamental</i>${fp}<small> / 81 pts</small></span>`;
 }
 const CPSVG='<svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" fill="none" stroke="currentColor" stroke-width="2"/></svg>';
 const tvTag=s=>s?`<span class="tvs"><code>${s}</code>${ophirCopyBtn(s)}</span>`:'<span class="tvs"><code>non vérifié</code></span>';

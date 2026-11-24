@@ -54,17 +54,19 @@ def test_tri_normalise_note_via_node():
     script = ACC[start:end] + r'''
 function sectionApexAvg(id){
   if(id==='actions') return {apexV2:{total:110, total_min:-50, total_max:250}};
-  const notes={crypto:71, metaux:68, liquidites:60, immobilier:54, obligations:53, energie:49};
-  if(id in notes) return {apex10:{note:notes[id]}};
+  /* t506u : toutes les sections sur −50..250 ; une note /100 n'est plus normalisée */
+  const notes={crypto:170, metaux:160, liquidites:80, immobilier:80, energie:87};
+  if(id in notes) return {apexV2:{total:notes[id], total_min:-50, total_max:250}};
+  if(id==='obligations') return {apex10:{note:53}};
   return null;
 }
 const PILOT = {scale:{min:-50, max:250}};
 function assert(c,m){ if(!c){ console.error('FAIL', m); process.exit(1);} }
-assert(Math.abs(homeApexNorm('crypto')-0.71)<1e-9, 'crypto');
-assert(Math.abs(homeApexNorm('metaux')-0.68)<1e-9, 'metaux');
+assert(Math.abs(homeApexNorm('crypto')-220/300)<1e-9, 'crypto');
+assert(Math.abs(homeApexNorm('metaux')-210/300)<1e-9, 'metaux');
 assert(Math.abs(homeApexNorm('actions')-(110+50)/300)<1e-9, 'actions 110/250');
-assert(homeApexNorm('actions')>homeApexNorm('obligations'), '110/250 > 53/100 après norme');
-assert(homeApexNorm('crypto')>homeApexNorm('actions'), 'crypto 71 > actions 110/250');
+assert(homeApexNorm('obligations')==null, 'note /100 ignorée');
+assert(homeApexNorm('crypto')>homeApexNorm('actions'), 'crypto 170 > actions 110');
 assert(homeApexNorm('inconnu')==null, 'absent');
 console.log('ok');
 '''

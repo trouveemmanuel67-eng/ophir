@@ -86,8 +86,16 @@ function obDispoHTML(s){
   return `<div class="ob-dispo"><div class="ob-dispo-top"><b>Dispo Revolut</b>${sous.length?`<span>${sous.join(' · ')}</span>`:''}</div><table><tbody>${rows}</tbody></table></div>`;
 }
 const eurAmt=(v,c)=>(v>=1e6?fmt(v/1e6,1)+' M':v>=1e3?fmt(v/1e3,0)+' k':fmt(v,0))+' '+(c==='EUR'?'€':c||'');
+/* t506u : l'ancien score de sélection /100 est remplacé par les points du fondamental obligataire de la note APEX (sur 90). */
+function obFondTag(r){
+  const f=((r&&r.apex10&&r.apex10.decomp)||{}).fondamental;
+  const pts=f&&f.points!=null?Number(f.points):null;
+  if(pts==null) return '<span class="fl-sc" style="color:#888;font-size:12px">fondamental n.c.</span>';
+  const mx=f.max!=null?f.max:90;
+  return `<span class="fl-sc" title="Fondamental obligataire de la note APEX (−50 à 250)"><i>Fond. oblig.</i>${pts}<small> / ${mx} pts</small></span>`;
+}
 function obList(s){
-  const rows=apexSortByNote(s.list).map((r,k)=>`<li${r.tv?` data-pos-tv="${r.tv}"`:''}><div class="fl-h"><b>${k+1}. ${r.name}</b>${r.score==null?'<span class="fl-sc" style="color:#888;font-size:12px">non classé</span>':`<span class="fl-sc" style="color:${gcol(r.score)}"><i>Sélection</i>${fmt(r.score,0)}<small>/100</small></span>`}</div>
+  const rows=apexSortByNote(s.list).map((r,k)=>`<li${r.tv?` data-pos-tv="${r.tv}"`:''}><div class="fl-h"><b>${k+1}. ${r.name}</b>${obFondTag(r)}</div>
     ${tvTag(r.tv)}${typeof dispoBadge==='function'?dispoBadge(r.tv):''}${listApexBar(r)}<div class="fl-m"><span><i>Frais</i> ${r.ter==null?'n.d.':fmt(r.ter,2)+' %'}</span><span><i>Liquidité</i> ${r.liq==null?'n.d.':eurAmt(r.liq,r.ccy)+'/j'}</span><span><i>Cotation Yahoo depuis</i> ${r.years==null?'n.d.':(r.years<1?'moins d’1 an':fmt(r.years,0)+' ans')}</span>
     <span><i>Rdt distribué 12 m</i> ${r.yield==null?'n.d. (capitalisant ?)':fmt(r.yield,2)+' %'}</span>${r.rating_a!=null?`<span><i>Noté ≥ A</i> ${r.rating_a} %</span>`:''}</div>
     <div class="fl-t">${r.fx==='couvert'?'<b class="fl-ok">change couvert</b>':r.fx==='USD'?'<b class="fl-warn">exposé au dollar</b>':r.fx==='local'?'<b class="fl-warn">devises émergentes</b>':r.fx==='EUR'?'<b class="fl-ok">en euro</b>':''}<span>${r.isin?'ISIN '+r.isin+' · ':''}cotation en ${r.ccy}</span></div>${r.note_revolut?`<div class="fl-sub">${r.note_revolut}</div>`:''}</li>`).join('');

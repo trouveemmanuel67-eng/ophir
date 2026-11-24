@@ -232,7 +232,7 @@ function apex10FromKnown(tv){
   if(typeof MT!=='undefined'){
     for(const row of (MT.rows||[])){
       const ml=row.mlist||{};
-      const r=scan([ml.head].concat(ml.items||[]).filter(Boolean),it=>it.tv||it.ticker,it=>it.apex10);
+      const r=scan([ml.head].concat(ml.items||[],ml.etc_detenus_masques||[]).filter(Boolean),it=>it.tv||it.ticker,it=>it.apex10);
       if(r) return r;
     }
   }
@@ -287,8 +287,11 @@ function posNoteHTML(p){
   if(posIsEquity(p)) return '–';
   const a=posApex10Of(p);
   if(a&&a.note!=null){
-    const col=(typeof apex10Col==='function')?apex10Col(a):(a.hex||'#e6c27a');
-    return `<span class="apex10"><b style="color:${col}">${a.display}</b><small style="color:${col}">/100</small></span>`;
+    if(a.scale===250||a.total_max===250||a.v2){
+      const col=(typeof pilotHex==='function')?pilotHex(a):(a.hex||'#e6c27a');
+      return `<span class="apex10 apex10-pilot" style="color:${col}"><b>${a.total!=null?a.total:a.note}</b><small>/ 250</small></span>`;
+    }
+    return `<span class="apex10 apex10-pilot apex10-na" title="Note APEX −50 à 250 non disponible"><b>–</b><small>/ 250</small></span>`;
   }
   if(p.apex_score==null) return '–';
   const lab=p.apex_label?` ${p.apex_label}`:'';

@@ -1,6 +1,6 @@
 {
   "seuil": 75.0,
-  "n": 48,
+  "n": 58,
   "liste": [
     {
       "tv": "XETR:8PSC",
@@ -17,25 +17,6 @@
       "brokers": {
         "revolut": false,
         "xtb": false
-      },
-      "scale": 250,
-      "tab": "metaux"
-    },
-    {
-      "tv": "LSE:IPDM",
-      "yahoo": "IPDM.L",
-      "nom": "iShares Physical Palladium ETC",
-      "note": 192.0,
-      "display": "192",
-      "hex": "#00e5ff",
-      "flag": "cyan",
-      "bande": "cyan",
-      "av": -7.5,
-      "section": "Métaux – Palladium",
-      "montant": 700,
-      "brokers": {
-        "revolut": false,
-        "xtb": true
       },
       "scale": 250,
       "tab": "metaux"
@@ -60,6 +41,63 @@
       "tab": "metaux"
     },
     {
+      "tv": "NASDAQ:LRCX",
+      "yahoo": "LRCX",
+      "nom": "Lam Research Corporation",
+      "note": 182.0,
+      "display": "182",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": 2.3,
+      "section": "USA – XLK",
+      "montant": 700,
+      "brokers": {
+        "revolut": null,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "autres"
+    },
+    {
+      "tv": "NASDAQ:KLAC",
+      "yahoo": "KLAC",
+      "nom": "KLA Corporation",
+      "note": 182.0,
+      "display": "182",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": -36.6,
+      "section": "USA – XLK",
+      "montant": 700,
+      "brokers": {
+        "revolut": null,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "autres"
+    },
+    {
+      "tv": "NYSE:FCX",
+      "yahoo": "FCX",
+      "nom": "Freeport-McMoRan Inc.",
+      "note": 179.0,
+      "display": "179",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": -34.6,
+      "section": "USA – XLB",
+      "montant": 700,
+      "brokers": {
+        "revolut": true,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "autres"
+    },
+    {
       "tv": "LSE:ISLN",
       "yahoo": "ISLN.L",
       "nom": "iShares Physical Silver ETC",
@@ -74,25 +112,6 @@
       "brokers": {
         "revolut": false,
         "xtb": true
-      },
-      "scale": 250,
-      "tab": "metaux"
-    },
-    {
-      "tv": "EURONEXT:PHPD",
-      "yahoo": "PHPD.AS",
-      "nom": "WisdomTree Physical Palladium",
-      "note": 173.0,
-      "display": "173",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": 12.8,
-      "section": "Métaux – Palladium",
-      "montant": 600,
-      "brokers": {
-        "revolut": false,
-        "xtb": false
       },
       "scale": 250,
       "tab": "metaux"
@@ -152,61 +171,23 @@
       "tab": "obligations"
     },
     {
-      "tv": "XETR:8PSB",
-      "yahoo": "8PSB.DE",
-      "nom": "Invesco Physical Silver ETC",
-      "note": 166.0,
-      "display": "166",
+      "tv": "NYSE:TT",
+      "yahoo": "TT",
+      "nom": "Trane Technologies plc",
+      "note": 160.0,
+      "display": "160",
       "hex": "#22c55e",
       "flag": "green",
       "bande": "vert",
-      "av": 33.6,
-      "section": "Métaux – Argent",
-      "montant": 600,
-      "brokers": {
-        "revolut": true,
-        "xtb": false
-      },
-      "scale": 250,
-      "tab": "metaux"
-    },
-    {
-      "tv": "LSE:PHAG",
-      "yahoo": "PHAG.L",
-      "nom": "WisdomTree Physical Silver",
-      "note": 166.0,
-      "display": "166",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": 17.4,
-      "section": "Métaux – Argent",
-      "montant": 600,
-      "brokers": {
-        "revolut": false,
-        "xtb": false
-      },
-      "scale": 250,
-      "tab": "metaux"
-    },
-    {
-      "tv": "XETR:XAD6",
-      "yahoo": "XAD6.DE",
-      "nom": "Xtrackers Physical Silver ETC (EUR)",
-      "note": 157.0,
-      "display": "157",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": 32.8,
-      "section": "Métaux – Argent",
+      "av": -34.3,
+      "section": "USA – XLI",
       "montant": 600,
       "brokers": {
         "revolut": true,
         "xtb": true
       },
       "scale": 250,
-      "tab": "metaux"
+      "tab": "autres"
     },
     {
       "tv": "BTC",
@@ -223,6 +204,25 @@
       "brokers": {},
       "scale": 250,
       "tab": "crypto"
+    },
+    {
+      "tv": "NASDAQ:NVDA",
+      "yahoo": "NVDA",
+      "nom": "NVIDIA Corporation",
+      "note": 152.0,
+      "display": "152",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": -35.5,
+      "section": "USA – XLK",
+      "montant": 500,
+      "brokers": {
+        "revolut": true,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "autres"
     },
     {
       "tv": "XETR:IBC5",
@@ -339,23 +339,80 @@
       "tab": "obligations"
     },
     {
-      "tv": "LSE:IPLT",
-      "yahoo": "IPLT.L",
-      "nom": "iShares Physical Platinum ETC",
-      "note": 146.0,
-      "display": "146",
+      "tv": "NYSE:ETN",
+      "yahoo": "ETN",
+      "nom": "Eaton Corporation plc",
+      "note": 149.0,
+      "display": "149",
       "hex": "#22c55e",
       "flag": "green",
       "bande": "vert",
-      "av": 32.0,
-      "section": "Métaux – Platine",
+      "av": -35.4,
+      "section": "USA – XLI",
       "montant": 500,
       "brokers": {
-        "revolut": false,
+        "revolut": null,
         "xtb": true
       },
       "scale": 250,
-      "tab": "metaux"
+      "tab": "autres"
+    },
+    {
+      "tv": "EURONEXT:SU",
+      "yahoo": "SU.PA",
+      "nom": "Schneider Electric S.E.",
+      "note": 148.0,
+      "display": "148",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": -32.6,
+      "section": "France – Industrie",
+      "montant": 500,
+      "brokers": {
+        "revolut": true,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "autres"
+    },
+    {
+      "tv": "NYSE:GEV",
+      "yahoo": "GEV",
+      "nom": "GE Vernova Inc.",
+      "note": 147.0,
+      "display": "147",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": 19.7,
+      "section": "USA – XLI",
+      "montant": 500,
+      "brokers": {
+        "revolut": true,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "autres"
+    },
+    {
+      "tv": "NYSE:MS",
+      "yahoo": "MS",
+      "nom": "Morgan Stanley",
+      "note": 147.0,
+      "display": "147",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": -43.4,
+      "section": "USA – XLF",
+      "montant": 500,
+      "brokers": {
+        "revolut": null,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "autres"
     },
     {
       "tv": "XETR:8PSA",
@@ -371,44 +428,6 @@
       "montant": 500,
       "brokers": {
         "revolut": false,
-        "xtb": false
-      },
-      "scale": 250,
-      "tab": "metaux"
-    },
-    {
-      "tv": "LSE:IGLN",
-      "yahoo": "IGLN.L",
-      "nom": "iShares Physical Gold ETC",
-      "note": 145.0,
-      "display": "145",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": 25.8,
-      "section": "Métaux – Or",
-      "montant": 500,
-      "brokers": {
-        "revolut": false,
-        "xtb": true
-      },
-      "scale": 250,
-      "tab": "metaux"
-    },
-    {
-      "tv": "XETR:GLDA",
-      "yahoo": "GLDA.DE",
-      "nom": "Amundi Physical Gold ETC C",
-      "note": 145.0,
-      "display": "145",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": 23.6,
-      "section": "Métaux – Or",
-      "montant": 500,
-      "brokers": {
-        "revolut": true,
         "xtb": false
       },
       "scale": 250,
@@ -445,6 +464,44 @@
       "brokers": {},
       "scale": 250,
       "tab": "crypto"
+    },
+    {
+      "tv": "NASDAQ:GOOGL",
+      "yahoo": "GOOGL",
+      "nom": "Alphabet Inc.",
+      "note": 141.0,
+      "display": "141",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": -4.4,
+      "section": "USA – XLC",
+      "montant": 500,
+      "brokers": {
+        "revolut": true,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "autres"
+    },
+    {
+      "tv": "NYSE:HWM",
+      "yahoo": "HWM",
+      "nom": "Howmet Aerospace Inc.",
+      "note": 141.0,
+      "display": "141",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": -34.5,
+      "section": "USA – XLI",
+      "montant": 500,
+      "brokers": {
+        "revolut": true,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "autres"
     },
     {
       "tv": "XETR:SPPX",
@@ -485,6 +542,25 @@
       "tab": "obligations"
     },
     {
+      "tv": "NASDAQ:MU",
+      "yahoo": "MU",
+      "nom": "Micron Technology, Inc.",
+      "note": 140.0,
+      "display": "140",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": 4.9,
+      "section": "USA – XLK",
+      "montant": 500,
+      "brokers": {
+        "revolut": null,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "autres"
+    },
+    {
       "tv": "NASDAQ:RING",
       "yahoo": "RING",
       "nom": "iShares MSCI Global Gold Miners ETF",
@@ -518,6 +594,25 @@
       },
       "scale": 250,
       "tab": "energie"
+    },
+    {
+      "tv": "NASDAQ:TXN",
+      "yahoo": "TXN",
+      "nom": "Texas Instruments Incorporated",
+      "note": 140.0,
+      "display": "140",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": -16.2,
+      "section": "USA – XLK",
+      "montant": 500,
+      "brokers": {
+        "revolut": null,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "autres"
     },
     {
       "tv": "NASDAQ:ENPH",
@@ -560,13 +655,13 @@
     {
       "tv": "EURONEXT:GTT",
       "yahoo": "GTT.PA",
-      "nom": "Gaztransport & Technigaz SA",
+      "nom": "Gaztransport & Technigaz",
       "note": 140.0,
       "display": "140",
       "hex": "#22c55e",
       "flag": "green",
       "bande": "vert",
-      "av": -40.7,
+      "av": -38.4,
       "section": "France – Énergie",
       "montant": 500,
       "brokers": {
@@ -577,42 +672,23 @@
       "tab": "energie"
     },
     {
-      "tv": "XETR:XAD3",
-      "yahoo": "XAD3.DE",
-      "nom": "Xtrackers Physical Platinum EUR Hedged ETC",
-      "note": 137.0,
-      "display": "137",
+      "tv": "NYSE:DLR",
+      "yahoo": "DLR",
+      "nom": "Digital Realty Trust, Inc.",
+      "note": 140.0,
+      "display": "140",
       "hex": "#22c55e",
       "flag": "green",
       "bande": "vert",
-      "av": 17.0,
-      "section": "Métaux – Platine",
+      "av": -44.7,
+      "section": "USA – XLRE",
       "montant": 500,
       "brokers": {
-        "revolut": false,
-        "xtb": false
+        "revolut": null,
+        "xtb": true
       },
       "scale": 250,
-      "tab": "metaux"
-    },
-    {
-      "tv": "XETR:XPPT",
-      "yahoo": "XPPT.DE",
-      "nom": "Xtrackers ETC plc - Xtrackers IE Physical Platinum ETC 1",
-      "note": 137.0,
-      "display": "137",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": 16.5,
-      "section": "Métaux – Platine",
-      "montant": 500,
-      "brokers": {
-        "revolut": false,
-        "xtb": false
-      },
-      "scale": 250,
-      "tab": "metaux"
+      "tab": "autres"
     },
     {
       "tv": "CRYPTO:SOLUSD",
@@ -634,6 +710,25 @@
       "tab": "crypto"
     },
     {
+      "tv": "NYSE:UBER",
+      "yahoo": "UBER",
+      "nom": "Uber Technologies, Inc.",
+      "note": 136.0,
+      "display": "136",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": -8.0,
+      "section": "USA – XLI",
+      "montant": 500,
+      "brokers": {
+        "revolut": null,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "autres"
+    },
+    {
       "tv": "XETR:8PSG",
       "yahoo": "8PSG.DE",
       "nom": "Invesco Physical Gold ETC",
@@ -653,23 +748,194 @@
       "tab": "metaux"
     },
     {
-      "tv": "XETR:4GLD",
-      "yahoo": "4GLD.DE",
-      "nom": "Xetra-Gold",
+      "tv": "NYSE:GE",
+      "yahoo": "GE",
+      "nom": "GE Aerospace",
       "note": 135.0,
       "display": "135",
       "hex": "#22c55e",
       "flag": "green",
       "bande": "vert",
-      "av": -13.6,
-      "section": "Métaux – Or",
+      "av": -17.9,
+      "section": "USA – XLI",
       "montant": 500,
       "brokers": {
-        "revolut": false,
+        "revolut": true,
         "xtb": true
       },
       "scale": 250,
-      "tab": "metaux"
+      "tab": "autres"
+    },
+    {
+      "tv": "EURONEXT:ABVX",
+      "yahoo": "ABVX.PA",
+      "nom": "ABIVAX Société Anonyme",
+      "note": 135.0,
+      "display": "135",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": -22.5,
+      "section": "France – Santé",
+      "montant": 500,
+      "brokers": {
+        "revolut": null,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "autres"
+    },
+    {
+      "tv": "NYSE:VST",
+      "yahoo": "VST",
+      "nom": "Vistra Corp.",
+      "note": 134.0,
+      "display": "134",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": -5.2,
+      "section": "USA – XLU",
+      "montant": 500,
+      "brokers": {
+        "revolut": true,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "energie"
+    },
+    {
+      "tv": "NYSE:ANET",
+      "yahoo": "ANET",
+      "nom": "Arista Networks, Inc.",
+      "note": 133.0,
+      "display": "133",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": -15.2,
+      "section": "USA – XLK",
+      "montant": 500,
+      "brokers": {
+        "revolut": true,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "autres"
+    },
+    {
+      "tv": "NYSE:AXP",
+      "yahoo": "AXP",
+      "nom": "American Express Company",
+      "note": 133.0,
+      "display": "133",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": -26.9,
+      "section": "USA – XLF",
+      "montant": 500,
+      "brokers": {
+        "revolut": null,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "autres"
+    },
+    {
+      "tv": "EURONEXT:MMT",
+      "yahoo": "MMT.PA",
+      "nom": "Métropole Télévision S.A.",
+      "note": 132.0,
+      "display": "132",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": 14.6,
+      "section": "France – Communication",
+      "montant": 500,
+      "brokers": {
+        "revolut": true,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "autres"
+    },
+    {
+      "tv": "NYSE:PWR",
+      "yahoo": "PWR",
+      "nom": "Quanta Services, Inc.",
+      "note": 132.0,
+      "display": "132",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": -9.5,
+      "section": "USA – XLI",
+      "montant": 500,
+      "brokers": {
+        "revolut": true,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "autres"
+    },
+    {
+      "tv": "NYSE:SCHW",
+      "yahoo": "SCHW",
+      "nom": "The Charles Schwab Corporation",
+      "note": 132.0,
+      "display": "132",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": -12.2,
+      "section": "USA – XLF",
+      "montant": 500,
+      "brokers": {
+        "revolut": true,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "autres"
+    },
+    {
+      "tv": "EURONEXT:ETL",
+      "yahoo": "ETL.PA",
+      "nom": "Eutelsat Communications S.A.",
+      "note": 131.0,
+      "display": "131",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": 7.1,
+      "section": "France – Communication",
+      "montant": 500,
+      "brokers": {
+        "revolut": true,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "autres"
+    },
+    {
+      "tv": "NASDAQ:ISRG",
+      "yahoo": "ISRG",
+      "nom": "Intuitive Surgical, Inc.",
+      "note": 131.0,
+      "display": "131",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": -29.4,
+      "section": "USA – XLV",
+      "montant": 500,
+      "brokers": {
+        "revolut": true,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "autres"
     },
     {
       "tv": "XETR:PRAR",
@@ -767,137 +1033,61 @@
       "tab": "energie"
     },
     {
-      "tv": "NYSE:VST",
-      "yahoo": "VST",
-      "nom": "Vistra Corp.",
+      "tv": "EURONEXT:EDEN",
+      "yahoo": "EDEN.PA",
+      "nom": "Edenred SE",
       "note": 130.0,
       "display": "130",
       "hex": "#22c55e",
       "flag": "green",
       "bande": "vert",
-      "av": -5.2,
-      "section": "USA – XLU",
+      "av": 0.0,
+      "section": "France – Finance",
       "montant": 500,
       "brokers": {
         "revolut": true,
         "xtb": true
       },
       "scale": 250,
-      "tab": "energie"
+      "tab": "autres"
     },
     {
-      "tv": "SIX:CFR",
-      "yahoo": "CFR.SW",
-      "nom": "Compagnie Financière Richemont SA",
-      "note": 76.0,
-      "display": "76",
+      "tv": "NASDAQ:APP",
+      "yahoo": "APP",
+      "nom": "AppLovin Corporation",
+      "note": 130.0,
+      "display": "130",
       "hex": "#22c55e",
       "flag": "green",
       "bande": "vert",
-      "av": -7.9,
-      "section": "Suisse – Consommation discrétionnaire",
-      "montant": 500,
-      "brokers": {
-        "revolut": false,
-        "xtb": true
-      },
-      "scale": 100,
-      "tab": null
-    },
-    {
-      "tv": "NYSE:CLS",
-      "yahoo": "CLS",
-      "nom": "Celestica Inc.",
-      "note": 75.0,
-      "display": "75",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": 10.8,
-      "section": "Canada – Technologie",
-      "montant": 500,
-      "brokers": {
-        "revolut": null,
-        "xtb": true
-      },
-      "scale": 100,
-      "tab": null
-    },
-    {
-      "tv": "XETR:KBX",
-      "yahoo": "KBX.DE",
-      "nom": "Knorr-Bremse AG",
-      "note": 75.0,
-      "display": "75",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": 9.1,
-      "section": "Allemagne – Consommation discrétionnaire",
+      "av": -3.0,
+      "section": "USA – XLC",
       "montant": 500,
       "brokers": {
         "revolut": true,
         "xtb": true
       },
-      "scale": 100,
-      "tab": null
+      "scale": 250,
+      "tab": "autres"
     },
     {
-      "tv": "NYSE:SII",
-      "yahoo": "SII",
-      "nom": "Sprott Inc.",
-      "note": 75.0,
-      "display": "75",
+      "tv": "NYSE:PLD",
+      "yahoo": "PLD",
+      "nom": "Prologis, Inc.",
+      "note": 130.0,
+      "display": "130",
       "hex": "#22c55e",
       "flag": "green",
       "bande": "vert",
-      "av": 6.5,
-      "section": "Canada – Finance",
+      "av": -37.7,
+      "section": "USA – XLRE",
       "montant": 500,
       "brokers": {
         "revolut": null,
         "xtb": true
       },
-      "scale": 100,
-      "tab": null
-    },
-    {
-      "tv": "NYSE:FSM",
-      "yahoo": "FSM",
-      "nom": "Fortuna Mining Corp.",
-      "note": 75.0,
-      "display": "75",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": -9.8,
-      "section": "Canada – Matériaux",
-      "montant": 500,
-      "brokers": {
-        "revolut": null,
-        "xtb": true
-      },
-      "scale": 100,
-      "tab": null
-    },
-    {
-      "tv": "SIX:VACN",
-      "yahoo": "VACN.SW",
-      "nom": "VAT Group AG",
-      "note": 75.0,
-      "display": "75",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": -25.9,
-      "section": "Suisse – Industrie",
-      "montant": 500,
-      "brokers": {
-        "revolut": false,
-        "xtb": true
-      },
-      "scale": 100,
-      "tab": null
+      "scale": 250,
+      "tab": "autres"
     }
   ]
 }

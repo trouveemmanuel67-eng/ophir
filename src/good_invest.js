@@ -1,11 +1,11 @@
-/* ===== MEILLEURES ENTRÉES (APE-25) : toute note APEX −50..250 ≥ 130 (début du vert) ; notes /100 restantes ≥ 75 ===== */
+/* ===== MEILLEURES ENTRÉES (APE-25 / t506u) : toute note APEX −50..250 ≥ 130 (début du vert) ===== */
 const GI_SEUIL=75;
 const GI_SEUIL_V2=(typeof PILOT!=='undefined'&&PILOT&&PILOT.scale&&PILOT.scale.seuil_meilleures_entrees!=null)?Number(PILOT.scale.seuil_meilleures_entrees):130;
 const GI_SEUIL_METAUX=130;
 function giSeuilOf(it){
   if(it&&it.tab==='actions') return GI_SEUIL_V2;
   if(it&&(it.tab==='metaux'||it.tab==='crypto'||Number(it.scale)===250)) return GI_SEUIL_METAUX;
-  return GI_SEUIL;
+  return Infinity; /* t506u : une note hors échelle −50..250 n'entre pas dans les Meilleures entrées */
 }
 const GI_LIST_KEY='apex-gi-list';
 const GI_ELLIOTT_KEY='apex-gi-elliott-hide';
@@ -315,7 +315,7 @@ function giCollect(){
   const EN=(typeof T2!=='undefined'&&T2&&T2.energie)?T2.energie:(typeof ENERGIE!=='undefined'?ENERGIE:null);
   if(EN&&EN.assets){
     EN.assets.forEach(a=>{
-      if(a.repere) return;
+      if(a.repere&&a.kind!=='etc') return; /* contrats à terme : notés mais non achetables au comptant */
       take(a.tv||a.sym, a.nom||a.name, 'Énergie'+(a.groupe?' – '+a.groupe:''), a.apex10, a.av, 'energie', a.yahoo, a.ticker||a.sym);
     });
   }
@@ -403,7 +403,7 @@ function giRender(){
     return `<article class="gi-row${it.tv?' has-fiche':''}" title="${tip.replace(/"/g,'&quot;')}">
       <div class="gi-id">${go}</div>
       ${ev}
-      <span class="gi-note" style="color:${col}"><b>${note}</b><small>/${(it.scale===250||it.scale===280||it.scale===270)?250:100}</small></span>
+      <span class="gi-note" style="color:${col}"><b>${note}</b><small>/250</small></span>
       <span class="gi-amt">${amt}</span>
     </article>`;
   };
@@ -416,7 +416,7 @@ function giRender(){
       <span class="pos-head-tot">${n}<small>titre${n>1?'s':''}</small></span>
     </div>
     <div class="pos-body gi-body" id="giBody">
-      <div class="gi-list">${rows||'<div class="gi-empty">Aucun titre au seuil (note APEX ≥ '+GI_SEUIL_METAUX+'/250, notes /100 restantes ≥ 75) hors portefeuille.</div>'}</div>
+      <div class="gi-list">${rows||'<div class="gi-empty">Aucun titre au seuil (note APEX ≥ '+GI_SEUIL_METAUX+' / 250) hors portefeuille.</div>'}</div>
       ${(nVal||giShowValides)?`<div class="gi-valides">
         <button type="button" class="gi-valides-link" aria-expanded="${giShowValides?'true':'false'}">Validés (${nVal})</button>
         ${giShowValides?(rowsVal||'<div class="gi-empty">Aucun titre validé hors portefeuille.</div>'):''}

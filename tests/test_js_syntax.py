@@ -49,5 +49,5 @@ def test_moyenne_section_pas_plafonnee_a_10():
     end = src.find('\nfunction ', start + 1)
     fn = src[start:end]
     assert 'Math.min(10,' not in fn and 'Math.min(10)' not in fn
-    assert 'Math.min(100' in fn
+    assert 'Math.min(250' in fn and 'Math.max(-50' in fn  # t506u : moyenne sur −50..250
     assert 'n*10' not in fn

@@ -131,12 +131,12 @@ function cxRepTile(s,i,pack){   // 17/11/2026 : repère de marché (non achetabl
   return `<div class="sec sec-rep">
    <div class="sr">
     <div class="sr-c sec-h sr-n"><b>${s.nom}</b><span>${s.sym} · ${s.sous}</span></div>
-    <div class="sr-c sr-d"><span class="rep-badge" style="display:inline-block;border:1px solid #888;border-radius:10px;padding:2px 10px;font-size:12px;color:#ccc">Repère de marché</span> <span style="font-size:12px;color:#999">sans note APEX ni signal achat / vente</span></div>
+    <div class="sr-c sr-d">${(s.apex10&&(s.apex10.scale===250||s.apex10.total_max===250)&&s.apex10.note!=null&&typeof apex250Rec==='function'&&typeof dualBarPilot==='function')?dualBarPilot(apex250Rec(s.apex10),true)+'<span class="rep-badge" style="display:inline-block;border:1px solid #888;border-radius:10px;padding:1px 8px;font-size:11px;color:#ccc;margin-top:4px">Repère de marché · '+(s.kind==='etc'?'ETC adossé à des contrats à terme':'contrat à terme, non achetable au comptant')+'</span>':'<span class="rep-badge" style="display:inline-block;border:1px solid #888;border-radius:10px;padding:2px 10px;font-size:12px;color:#ccc">Repère de marché</span> <span style="font-size:12px;color:#999">note APEX non disponible</span>'}</div>
     <div class="sr-c sr-b"></div>
    </div>
    <details class="ind-meth sec-det" data-cx="${i}" data-pack="${pack||'energie'}"><summary>Lecture de marché</summary>
      <p class="sr-close">Clôture hebdomadaire du ${dshort(s.date)} : <b>${cxPx(s)}</b> (${s.sym} · ${s.sous}) · bougie clôturée.</p>
-     <p>${s.repere_texte || "Contrat à terme : il n'est pas achetable au comptant chez Revolut (pas de CFD dans APEX, ni d'ETF adossé à des contrats à terme). Il est affiché uniquement comme repère de marché, sans note ni drapeau."}</p>
+     <p>${s.repere_texte || "Contrat à terme : il n'est pas achetable au comptant chez Revolut (pas de CFD dans APEX, ni d'ETF adossé à des contrats à terme). Il est affiché comme repère de marché, avec sa note APEX sur 250 (grille énergie : technique + cycle WTI + Fear &amp; Greed)."}</p>
      <p>RSI 14 hebdo : <b>${I.rsi==null?'n.d.':fmt(I.rsi,1)}</b> (${I.rsi_zone||'n.d.'}) · MACD : ${I.macd_texte||'n.d.'} · CCI 20 : ${I.cci==null?'n.d.':sign(I.cci,1)} (${I.cci_zone||'n.d.'}) · ${fib.ok?'Fibonacci base → ATH : '+fmt(fib.r*100,1)+' %':'Fibonacci n.d.'} · distance au record : ${s.ath&&s.ath.dd!=null?sign(s.ath.dd,1)+' %':'n.d.'}.</p>
      <p>Source : ${lnk(s.url,s.src_name)}. Données récupérées le ${(s.retrieved||'').replace(' ',' à ')} (heure de Paris).</p>
    </details>
@@ -182,7 +182,8 @@ function cxLiqBox(s){
   const est=t=>t?' (dont estimations)':'';
   let head='';
   if(sc!=null){
-    head=`<div class="cx-liq-h">Liquidité accumulée non liquidée · score <b style="color:${col}">${String(sc).replace('.',',')}/100</b>
+    const lp=(((s.apex10||{}).decomp||{}).points||{}).liquidite;
+    head=`<div class="cx-liq-h">Liquidité accumulée non liquidée · <b style="color:${col}">${lp!=null?('+'+lp+' / 45 points'):'n.c.'}</b> dans la note APEX (part au-dessus du prix ${String(sc).replace('.',',')} %)
       · au-dessus <b>${cxUsd(L.above_usd)}${est(L.above_est)}</b>
       · en dessous <b>${cxUsd(L.below_usd)}${est(L.below_est)}</b>
       · plus au-dessus = achat, plus en dessous = vente</div>`;
@@ -198,7 +199,7 @@ function cxLiqBox(s){
     const sides=h.sides||{};
     const atm=(sides.atm||[]).concat(sides.consumed||[]);
     const parts=[];
-    if(h.score!=null) parts.push('score '+String(h.score).replace('.',',')+'/100');
+    if(h.score!=null) parts.push('part au-dessus '+String(h.score).replace('.',',')+' %');
     parts.push('au-dessus '+cxUsd(h.above_usd)+(h.above_est?' est.':''));
     parts.push('en dessous '+cxUsd(h.below_usd)+(h.below_est?' est.':''));
     if(h.capture_price!=null) parts.push('prix de capture '+cxPx({close:h.capture_price,unit:'$'}));
@@ -241,7 +242,7 @@ function cxTile(s,i,pack,rank){
   const rk=(rank!=null&&rank!=='')?`<span class="fl-rk">${rank}</span>`:'';
   const tick=s.sym?`<span class="tvs"><code>${s.sym}</code>${(s.tv&&typeof ophirCopyBtn==='function')?ophirCopyBtn(s.tv):''}</span>`:'';
   const liqTip=cxLiqTitle(s);
-  /* APE-24 : seule la crypto est sur −50..250 ; l'énergie reste /100 (RÈGLES LONG non alignées). */
+  /* t506u : crypto et énergie sur −50..250 ; une note hors 250 s'affiche « – / 250 ». */
   const a250=pack==='crypto'||!!(s.apex10&&(s.apex10.scale===250||s.apex10.total_max===250));
   const bar=(!a250&&typeof dualBarApex100==='function')?dualBarApex100(s.apex10,s.sent,s.av,true):(typeof listApexBar==='function')?listApexBar(Object.assign({},s,{forceApex250:true})):((typeof dualBarPilot==='function'&&s.apex10)?dualBarPilot({total:s.apex10.total!=null?s.apex10.total:s.apex10.note,total_min:-50,total_max:250,ligne:s.apex10.ligne||'',hex:s.apex10.hex,band:s.apex10.band},true):'');
   return `<div class="sec"${s.tv?` data-pos-tv="${s.tv}"`:''}${liqTip?` title="${liqTip.replace(/"/g,'&quot;')}"`:''}>
@@ -313,7 +314,7 @@ function cxFichesHTML(){
      <p><b>Sentiment Peur / Euphorie (0-100).</b> ${apexPlain(F.method_sent)}</p>
      <p><b>Achat / Vente (−100 à +100).</b> ${apexPlain(F.method_av)}</p>
      <p>Le S&amp;P 500 sert de référence pour la force relative, comme sur l'onglet Actions. MSTR n'est pas du bitcoin au comptant. Calcul reproductible avec <code>src/build_crypto_fiches.py</code>.</p>
-     <p><b>Note APEX /100 et liquidité.</b> Pour les cryptoactifs, la part fondamentale (50 %) est remplacée par un score de liquidité 0–100, lu sur les cartes CoinAnk de liquidités accumulées non encore liquidées : plus au-dessus du prix = achat, plus en dessous = vente. La carte 1 an pèse 70 %, la carte 1 mois 30 %. Les plafonds et bonus Elliott restent les mêmes. MSTR, et tout actif sans carte saisie (ex. SOL tant qu'une capture n'est pas fournie), restent notés sur le timing seul. Source et formule : <code>ressources/criteres_apex_2026-11-18.md</code> § g et <code>src/liquidite_crypto.py</code>.</p>
+     <p><b>Note APEX −50 à 250 et liquidité.</b> Technique 110 (RSI 30, MACD 30, Fibonacci 30, CCI 20) + Liquidité 45 + Hype 45 + Fear &amp; Greed ±50. La liquidité est lue sur les cartes CoinAnk de liquidités accumulées non encore liquidées : la part au-dessus du prix (plus au-dessus = achat, plus en dessous = vente ; carte 1 an 70 %, carte 1 mois 30 %) est convertie en 0 à 45 points. Sans carte saisie (ex. SOL, MSTR), la liquidité compte 0, sans redistribution. Grille détaillée : page Règles, Crypto.</p>
    </details>
    <div class="src">Sources : ${lnk('https://www.binance.com/fr/trade/BTC_USDT','Binance (BTC/USDT et ETH/USDT, klines 1w)')} · ${lnk('https://finance.yahoo.com/quote/XRP-USD/history/','Yahoo Finance (XRP-USD, SOL-USD, MSTR et S&P 500)')} · ${lnk('https://coinmetrics.io/community-network-data/','CoinMetrics')} (préfixe de l'historique Fibonacci BTC, ETH et XRP) · ${lnk('https://alternative.me/crypto/fear-and-greed-index/','alternative.me')} (Fear &amp; Greed, contexte) · ${lnk('https://coinank.com/liqHeatMap','CoinAnk Liquidation Heatmap')} (liquidité accumulée, saisie manuelle des captures d'Emmanuel, 23/11/2026). Récupéré le ${(F.retrieved&&F.retrieved.binance_btc||'').replace(' ',' à ')} (heure de Paris).</div></div>`;
 }
@@ -408,14 +409,15 @@ function enFichesHTML(){
   const retD=ret['CL=F']||ret['XDW0.DE']||F.generated||'';
   const a10=F.apex10||((typeof sectionApexAvg==='function'&&(sectionApexAvg('energie')||{}).apex10)||null);
   const apexTag=a10&&a10.display?`<span class="js-apex10" hidden data-display="${a10.display}" data-hex="${a10.hex||''}" data-note="${a10.note}"></span>`:'';
-  const apexVis=a10&&a10.display?` · moyenne <b>${a10.display}/100</b>`:'';
+  const a10ok=a10&&(a10.scale===250||a10.total_max===250||a10.v2)&&a10.note!=null;
+  const apexVis=a10ok?` · moyenne <b style="color:${(typeof pilotHex==='function')?pilotHex(a10):(a10.hex||'')}">${a10.total!=null?a10.total:a10.note} / 250</b>`:'';
   return `<div class="card no-group no-acc" id="enFiches">${apexTag}<h2>Énergie · notes APEX</h2>
    <div class="desc acc-sum">${groupes.length} sous-sections${apexVis} · ${d?('clôtures hebdomadaires au '+dshort(d)):(dSpan?('clôtures hebdomadaires du '+dSpan+' selon la fiche'):'dates selon la fiche')} · <i>Achat</i> <b>${cnt('Achat')}</b> · <i>Neutre</i> <b>${cnt('Neutre')}</b> · <i>Vente</i> <b>${cnt('Vente')}</b>${nAth?` · <i>⚠ près du record</i> <b>${nAth}</b>`:''}${nNa?` · <i>indisponible</i> <b>${nNa}</b>`:''}${nRep?` · <i>repères de marché</i> <b>${nRep}</b>`:''}${F.av&&F.av.score!=null?` · signal XDW0 <b>${sign(F.av.score,0)} ${F.av.label||''}</b>`:''}</div>
    <div class="sec-grid">${typeof srHead==='function'?srHead('Actif'):''}${grid}</div>
    <details class="ind-meth"><summary>Méthode et pondérations</summary>
      <p><b>Sentiment Peur / Euphorie (0-100).</b> ${apexPlain(F.method_sent)}</p>
      <p><b>Achat / Vente (−100 à +100).</b> ${apexPlain(F.method_av)}</p>
-     <p>Le S&amp;P 500 sert de référence pour la force relative, comme sur l'onglet Actions. Chaque actif achetable au comptant (hors repères de marché) reçoit une note APEX /100, avec la même méthode et les mêmes règles Elliott (plafond zone rouge, bonus zone verte) que sur les autres onglets. Les listes sont triées par note. Le bandeau de l'onglet est la moyenne de ces notes, arrondie au point. Les ETF ou ETP adossés à des contrats à terme (UNG, USO, BNO, UGA, KRBN) ne sont pas notés. Le gaz est suivi par l'ETP BNQ9 (BNPP Natural Gas ETC, ISIN DE000PB6GAS5), affiché comme repère de marché sans note : il est adossé à des contrats à terme, avec un coût de roll en détention longue, et très volatil. Les contrats à terme (WTI, Brent, fioul, essence) restent des repères de marché sans note. Le charbon est suivi par l'action Peabody Energy (BTU), proxy clairement identifié. Calcul reproductible avec <code>src/build_energie.py</code> et <code>src/build_apex10.py</code>.</p>
+     <p>Le S&amp;P 500 sert de référence pour la force relative, comme sur l'onglet Actions. Chaque actif reçoit une note APEX sur l'échelle unique −50 à 250 : Technique 110 (RSI 30, MACD 30, Fibonacci 30, CCI 20) + Fondamental énergie 90 + Fear &amp; Greed ±50. Actions : 9 ratios × 10 ; ETF et ETC : 9 critères justETF × 10 ; contrats à terme (WTI, Brent, fioul, essence) : seul le critère de cycle (WTI sous sa moyenne 5 ans) s'applique, les 8 critères d'entreprise ou de fonds ne s'appliquent pas, sans redistribution. Les listes sont triées par note. Le bandeau de l'onglet est la moyenne de toutes ces notes, arrondie au point. Le gaz est suivi par l'ETP BNQ9 (BNPP Natural Gas ETC, ISIN DE000PB6GAS5) : il est adossé à des contrats à terme, avec un coût de roll en détention longue, et très volatil. Les contrats à terme restent signalés comme repères de marché (non achetables au comptant, hors Meilleures entrées), avec leur note. Le charbon est suivi par l'action Peabody Energy (BTU), proxy clairement identifié. Calcul reproductible avec <code>src/build_energie.py</code> et <code>src/build_apex10.py</code>.</p>
    </details>
    <div class="src">Sources : ${lnk('https://finance.yahoo.com/','Yahoo Finance')} (actions et ETF UCITS au comptant ; ETP gaz BNQ9.DE et contrats à terme continus CL=F, BZ=F, HO=F, RB=F en repères ; S&amp;P 500 pour la force relative). Récupéré le ${(retD||'').replace(' ',' à ')} (heure de Paris).</div></div>`;
 }
@@ -452,8 +454,11 @@ function fxSort(assets){
 function fxSigHTML(av,apex){
   const a=apex||(av&&av.apex10)||null; /* t320u : pas de recalcul JS */
   if(a&&a.note!=null){
-    const col=(typeof apex10Col==='function')?apex10Col(a):((typeof gcol==='function')?gcol(a.pos):'#e6c27a');
-    return `<span class="home-sig apex10"><b style="color:${col}">${a.display}</b><small style="color:${col}">/100</small></span>`;
+    if(a.scale===250||a.total_max===250||a.v2){
+      const col=(typeof pilotHex==='function')?pilotHex(a):(a.hex||'#e6c27a');
+      return `<span class="home-sig apex10 apex10-pilot" style="color:${col}"><b>${a.total!=null?a.total:a.note}</b><small>/ 250</small></span>`;
+    }
+    return `<span class="home-sig apex10 apex10-na"><b>–</b><small>/ 250</small></span>`;
   }
   if(!av||av.score==null||av.score==='') return `<span class="home-sig"><b>–</b></span>`;
   const col=(typeof avCol==='function')?avCol(av.score):'#e6c27a';
@@ -490,7 +495,7 @@ function fxTickerHTML(s){
   return `<span class="fx-tv tvs"><code>${tv}</code>${cp}</span>`;
 }
 function fxBarHTML(s){
-  /* APE-25 : note de LA devise sur −50..250 (technique EURxxx inversée + fondamental devise 90 + F&G) ; /100 seulement si une ancienne note subsiste. */
+  /* APE-25 : note de LA devise sur −50..250 (technique EURxxx inversée + fondamental devise 90 + F&G). */
   const fx250=!!(s&&s.apex10&&(s.apex10.scale===250||s.apex10.total_max===250));
   if(s&&s.ok&&s.apex10&&typeof listApexBar==='function')
     return `<div class="fx-apex">${listApexBar(Object.assign({},s,fx250?{forceApex250:true}:{forceApex100:true}))}</div>`;

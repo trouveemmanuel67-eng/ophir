@@ -667,5 +667,247 @@
     "Taux de logements vacants < 8 %"
    ]
   }
+ },
+ "t506u": {
+  "date": "2026-11-24",
+  "objet": "Toutes les notes sur −50..250 (audit du site)",
+  "avant_apres": {
+   "energie": {
+    "NYMEX:CL1!": [
+     null,
+     40
+    ],
+    "TVC:UKOIL": [
+     null,
+     40
+    ],
+    "NYMEX:HO1!": [
+     null,
+     30
+    ],
+    "NYMEX:RB1!": [
+     null,
+     100
+    ],
+    "XETR:BNQ9": [
+     null,
+     90
+    ]
+   },
+   "metaux": {
+    "EURONEXT:PHPT": [
+     null,
+     137
+    ]
+   }
+  },
+  "actions_hors_paniers": "CAC 40 (EURONEXT:CAC) et Fanuc (TSE:6954) : voir data/fond250/harmonise250_t506u.json",
+  "nc": {
+   "XETR:BNQ9": [
+    "Au moins 30 lignes"
+   ]
+  }
+ },
+ "t507u": {
+  "date": "2026-11-24",
+  "objet": "Un seul ETC physique par métal",
+  "retenus": {
+   "Or": [
+    null,
+    135
+   ],
+   "Argent": [
+    null,
+    175
+   ],
+   "Platine": [
+    null,
+    146
+   ],
+   "Palladium": [
+    null,
+    192
+   ]
+  },
+  "detail": {
+   "Or": [
+    "retenu XETR:8PSG",
+    "retirés GLDA, XAD5, 4GLD, IGLN, PHGP"
+   ],
+   "Argent": [
+    "retenu LSE:ISLN",
+    "retirés XAD6, 8PSB, PHAG"
+   ],
+   "Platine": [
+    "retenu XETR:8PSA",
+    "retirés IPLT, XPPT, XAD3, PHPT"
+   ],
+   "Palladium": [
+    "retenu XETR:8PSC",
+    "retirés IPDM, PHPD"
+   ]
+  },
+  "etc": {
+   "Or": {
+    "retenu": {
+     "tv": "XETR:8PSG",
+     "isin": "IE00B579F325",
+     "note": 135,
+     "qualite_etc": 45,
+     "ter": 0.12,
+     "devise": "EUR"
+    },
+    "retires": [
+     {
+      "tv": "XETR:GLDA",
+      "isin": "FR0013416716",
+      "note": 145,
+      "qualite_etc": 45,
+      "ter": 0.12,
+      "devise": "EUR"
+     },
+     {
+      "tv": "XETR:XAD5",
+      "isin": "DE000A1E0HR8",
+      "note": 126,
+      "qualite_etc": 36,
+      "ter": 0.25,
+      "devise": "EUR"
+     },
+     {
+      "tv": "XETR:4GLD",
+      "isin": "DE000A0S9GB0",
+      "note": 135,
+      "qualite_etc": 45,
+      "ter": 0.36,
+      "devise": "EUR"
+     },
+     {
+      "tv": "LSE:IGLN",
+      "isin": "IE00B4ND3602",
+      "note": 145,
+      "qualite_etc": 45,
+      "ter": 0.12,
+      "devise": "USD"
+     },
+     {
+      "tv": "LSE:PHGP",
+      "isin": "JE00B1VS3770",
+      "note": 127,
+      "qualite_etc": 27,
+      "ter": 0.39,
+      "devise": "GBp"
+     }
+    ]
+   },
+   "Argent": {
+    "retenu": {
+     "tv": "LSE:ISLN",
+     "isin": "IE00B4NCWG09",
+     "note": 175,
+     "qualite_etc": 36,
+     "ter": 0.2,
+     "devise": "USD"
+    },
+    "retires": [
+     {
+      "tv": "XETR:XAD6",
+      "isin": "DE000A1E0HS6",
+      "note": 157,
+      "qualite_etc": 18,
+      "ter": null,
+      "devise": "EUR"
+     },
+     {
+      "tv": "XETR:8PSB",
+      "isin": "IE00B43VDT70",
+      "note": 166,
+      "qualite_etc": 27,
+      "ter": 0.19,
+      "devise": "EUR"
+     },
+     {
+      "tv": "LSE:PHAG",
+      "isin": "JE00B1VS3333",
+      "note": 166,
+      "qualite_etc": 27,
+      "ter": 0.49,
+      "devise": "USD"
+     }
+    ]
+   },
+   "Platine": {
+    "retenu": {
+     "tv": "XETR:8PSA",
+     "isin": "IE00B40QP990",
+     "note": 146,
+     "qualite_etc": 27,
+     "ter": 0.19,
+     "devise": "EUR"
+    },
+    "retires": [
+     {
+      "tv": "LSE:IPLT",
+      "isin": "IE00B4LHWP62",
+      "note": 146,
+      "qualite_etc": 27,
+      "ter": 0.2,
+      "devise": "USD"
+     },
+     {
+      "tv": "XETR:XPPT",
+      "isin": "DE000A2T0VT7",
+      "note": 137,
+      "qualite_etc": 18,
+      "ter": 0.38,
+      "devise": "EUR"
+     },
+     {
+      "tv": "XETR:XAD3",
+      "isin": "DE000A1EK0H1",
+      "note": 137,
+      "qualite_etc": 18,
+      "ter": 0.75,
+      "devise": "EUR"
+     },
+     {
+      "tv": "EURONEXT:PHPT",
+      "isin": "JE00B1VS2W53",
+      "note": 137,
+      "qualite_etc": 18,
+      "ter": 0.49,
+      "devise": "EUR"
+     }
+    ]
+   },
+   "Palladium": {
+    "retenu": {
+     "tv": "XETR:8PSC",
+     "isin": "IE00B4LJS984",
+     "note": 192,
+     "qualite_etc": 27,
+     "ter": 0.19,
+     "devise": "EUR"
+    },
+    "retires": [
+     {
+      "tv": "LSE:IPDM",
+      "isin": "IE00B4556L06",
+      "note": 192,
+      "qualite_etc": 27,
+      "ter": 0.2,
+      "devise": "USD"
+     },
+     {
+      "tv": "EURONEXT:PHPD",
+      "isin": "JE00B1VS3002",
+      "note": 173,
+      "qualite_etc": 18,
+      "ter": 0.49,
+      "devise": "EUR"
+     }
+    ]
+   }
+  }
  }
 }

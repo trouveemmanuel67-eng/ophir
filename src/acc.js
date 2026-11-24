@@ -112,8 +112,8 @@ function accApexHTML(p){
   const col=a.hex||'#e6c27a';
   const sc=Number(a.scale)||(/\b250\b/.test(String(a.display))?250:(/\b280\b/.test(String(a.display))?280:(/\b270\b/.test(String(a.display))?270:0)));
   const v2=sc===280||sc===250||sc===270||a.scale==='280'||a.scale==='250'||a.scale==='270';
-  const mx=v2?'250':'100';
-  return `<span class="al al-note apex10${v2?' apex10-pilot':''}" title="Note APEX /${mx}"><b style="color:${col}">${accEsc(a.display)}</b><small style="color:${col}">/${mx}</small></span>`;
+  if(!v2) return `<span class="al al-note apex10 apex10-pilot apex10-na" title="Note APEX −50 à 250 non disponible"><b>–</b><small>/250</small></span>`;
+  return `<span class="al al-note apex10 apex10-pilot" title="Note APEX −50 à 250"><b style="color:${col}">${accEsc(a.display)}</b><small style="color:${col}">/250</small></span>`;
 }
 function accLineHTML(p){
   const note=accApexHTML(p);
@@ -267,7 +267,7 @@ function duoBuild(tabId){
    <div class="ir ir-s">${typeof apexNoteHTML==='function'?apexNoteHTML(aV2):''}</div>
    <div class="ir ir-g">${dualBarPilot(aV2,false)}</div></div>`;
   } else {
-  const tip='Note APEX /100'+(st?' : moyenne des notes affichées de la section, arrondie au point':'')+(duoDate?' · '+duoDate:'');
+  const tip='Note APEX −50 à 250'+(st?' : moyenne des notes affichées de la section, arrondie au point':'')+(duoDate?' · '+duoDate:'');
   card.innerHTML=`<div class="irow duo-row duo-slim" title="${accEsc(tip)}">
    <div class="ir ir-t"><h2 title="Note APEX">Note APEX</h2></div>
    <div class="ir ir-s">${typeof apexNoteHTML==='function'?apexNoteHTML(a10):''}
@@ -278,7 +278,7 @@ function duoBuild(tabId){
   const hasDetails=!!(gi&&ga&&ic&&ac&&sl);
   if(hasDetails){
     const info=document.createElement('div');info.className='duo-info';
-    const avgTxt=st?`<p class="duo-avg">${(st&&st.apexV2)?'Le bandeau affiche la moyenne des notes APEX ACHAT (−50 à 250) visibles de la section':'Le bandeau affiche la moyenne des notes /100 visibles de la section'} (${st.n} actif${st.n>1?'s':''}), arrondie au point, avec les curseurs AV, S et H à la moyenne des mêmes actifs. L'historique et les composantes ci-dessous restent ceux de l'indicateur composite de l'onglet.</p>`:'';
+    const avgTxt=st?`<p class="duo-avg">${(st&&st.apexV2)?'Le bandeau affiche la moyenne des notes APEX ACHAT (−50 à 250) visibles de la section':'Le bandeau affiche la moyenne des notes APEX (−50 à 250) visibles de la section'} (${st.n} actif${st.n>1?'s':''}), arrondie au point, avec les curseurs AV, S et H à la moyenne des mêmes actifs. L'historique et les composantes ci-dessous restent ceux de l'indicateur composite de l'onglet.</p>`:'';
     info.innerHTML=`${avgTxt}<div><div class="duo-n"><i class="db-dot db-s">S</i><b>Sentiment de marché, 1 an</b> · ${gi.title||''}</div>
      <div class="ind-date">${(q(sl,'.ind-date')||{}).innerHTML||''}</div>${src(ic)}</div>
     <div><div class="duo-n"><i class="db-dot db-a">AV</i><b>Achat / Vente</b> · indicateur composite APEX</div>
@@ -296,7 +296,7 @@ function duoBuild(tabId){
     card.querySelectorAll('.db-dot.db-s').forEach(d=>d.style.color=gmir(seObj.value));
   }else if(st){
     const info=document.createElement('div');info.className='duo-info';
-    info.innerHTML=`<p class="duo-avg">${(st&&st.apexV2)?'Le bandeau affiche la moyenne des notes APEX ACHAT (−50 à 250) visibles de la section':'Le bandeau affiche la moyenne des notes /100 visibles de la section'} (${st.n} actif${st.n>1?'s':''}), arrondie au point, avec les curseurs AV, S et H à la moyenne des mêmes actifs. Les repères de marché (sans note) sont exclus.</p>
+    info.innerHTML=`<p class="duo-avg">${(st&&st.apexV2)?'Le bandeau affiche la moyenne des notes APEX ACHAT (−50 à 250) visibles de la section':'Le bandeau affiche la moyenne des notes APEX (−50 à 250) visibles de la section'} (${st.n} actif${st.n>1?'s':''}), arrondie au point, avec les curseurs AV, S et H à la moyenne des mêmes actifs. Les repères de marché (sans note) sont exclus.</p>
     <p class="duo-scales">Lecture de la barre : deux échelles linéaires distinctes sur la même largeur. Achat / vente de −100 à +100, curseur « AV » ; sentiment de 0 à 100, curseur « S ». « S » prend la couleur du dégradé miroir (lecture contrarienne).</p>`;
     card.appendChild(accBody([info]));
   }

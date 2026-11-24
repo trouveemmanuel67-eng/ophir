@@ -42,8 +42,7 @@ function homeScoresOf(list, pick){
       out.push(a);
       return;
     }
-    const n=homeNoteOf(it);
-    if(n!=null) out.push(n);
+    /* t506u : une note qui n'est pas sur 250 n'entre plus dans les compteurs de couleurs. */
   });
   return out;
 }
@@ -163,11 +162,7 @@ function homeValMark(text, title){
 function homeFlagsHTML(t){
   if(!t||!t.n) return '<div class="home-flags" title="Aucune fiche notée dans cet onglet">—</div>';
   const v2=t&&t.v2;
-  const tip=(v2&&t.scale===250)
-    ? `${t.cyan} cyan · ${t.vert} vert${t.vert>1?'s':''} · ${t.jaune} orange${t.jaune>1?'s':''} · ${t.rouge} rouge${t.rouge>1?'s':''} · ${t.violet} violet${t.violet>1?'s':''} (échelle −50 à 250 : <10 violet · 10–70 rouge · 70–130 orange · 130–190 vert · ≥190 cyan)`
-    : v2
-    ? `${t.cyan} cyan · ${t.vert} vert${t.vert>1?'s':''} · ${t.jaune} orange${t.jaune>1?'s':''} · ${t.rouge} rouge${t.rouge>1?'s':''} · ${t.violet} violet${t.violet>1?'s':''} (échelle −50 à 250 : <10 violet · 10–69 rouge · 70–129 orange · 130–189 vert · ≥190 cyan)`
-    : `${t.cyan} cyan · ${t.vert} vert${t.vert>1?'s':''} · ${t.jaune} jaune${t.jaune>1?'s':''} · ${t.rouge} rouge${t.rouge>1?'s':''} · ${t.violet} violet${t.violet>1?'s':''} (échelle /100 : 0–<20 violet · 20–<40 rouge · 40–<60 jaune · 60–<80 vert · 80–100 cyan)`;
+  const tip=`${t.cyan} cyan · ${t.vert} vert${t.vert>1?'s':''} · ${t.jaune} orange${t.jaune>1?'s':''} · ${t.rouge} rouge${t.rouge>1?'s':''} · ${t.violet} violet${t.violet>1?'s':''} (échelle −50 à 250 : <10 violet · 10–69 rouge · 70–129 orange · 130–189 vert · ≥190 cyan)`;
   return `<div class="home-flags" title="${tip}"><span><i class="c"></i>${t.cyan}</span><span><i class="g"></i>${t.vert}</span><span><i class="y"></i>${t.jaune}</span><span><i class="r"></i>${t.rouge}</span><span><i class="vi"></i>${t.violet}</span></div>`;
 }
 function homeSigHTML(av,tabId){
@@ -184,9 +179,8 @@ function homeSigHTML(av,tabId){
     const mx=a.total_max!=null?a.total_max:250;
     return `<div class="home-sig apex10 apex10-pilot" style="color:${col}"><b>${a.total}</b><small>/ ${mx}</small></div>`;
   }
-  if(a&&a.note!=null&&!(a.v2||a.scale===280||a.scale===250||a.scale===270)){
-    const col=(typeof apex10Col==='function')?apex10Col(a):((typeof gcol==='function')?gcol(a.pos):'#e6c27a');
-    return `<div class="home-sig apex10"><b style="color:${col}">${a.display}</b><small style="color:${col}">/100</small></div>`;
+  if(a&&a.note!=null&&!(a.v2||a.scale===250)){
+    return `<div class="home-sig apex10 apex10-na" title="Note APEX −50 à 250 non disponible"><b>–</b><small>/ 250</small></div>`;
   }
   if(!av||av.score==null||av.score==='') return `<div class="home-sig"><b>–</b></div>`;
   const col=(typeof avCol==='function')?avCol(av.score):'#e6c27a';
@@ -194,7 +188,7 @@ function homeSigHTML(av,tabId){
   return `<div class="home-sig"><b style="color:${col}">${sign(av.score,0)}</b><em style="color:${col}">${lab}</em></div>`;
 }
 function homeApexNorm(id){
-  /* (note − min)/(max − min) : actions sur l'échelle publiée (−50…250, ou PILOT.scale), autres 0…100. */
+  /* (note − min)/(max − min) sur l'échelle unique −50…250. */
   const st=(typeof sectionApexAvg==='function')?sectionApexAvg(id):null;
   const v2=st&&st.apexV2;
   const sc=(typeof PILOT!=='undefined'&&PILOT&&PILOT.scale)?PILOT.scale:null;
@@ -213,7 +207,6 @@ function homeApexNorm(id){
     const span=mx-mn;
     return span>0?(Number(a.total)-mn)/span:null;
   }
-  if(a&&a.note!=null&&Number.isFinite(Number(a.note))) return Number(a.note)/100;
   return null;
 }
 function homeHeldHTML(map,id){
@@ -454,7 +447,7 @@ function renderAccueil(el){
     {id:'energie',label:'Énergie',short:'Énergie',counts:homeCount(homeScoresOf((typeof T2!=='undefined'&&T2.energie&&T2.energie.assets)||[]))},
     {id:'crypto',label:'Crypto',short:'Crypto',counts:(()=>{const c=homeCount(homeScoresOf((typeof cxApexAssets==='function'?cxApexAssets: (xs=>xs.filter(s=>String((s&&s.key)||'').toLowerCase()!=='xrp')))((typeof T2!=='undefined'&&T2.crypto&&T2.crypto.fiches&&T2.crypto.fiches.assets)||[])));c.v2=true;return c;})()},
     {id:'liquidites',label:'Liquidités',short:'Liq.',counts:homeCount(homeScoresOf((typeof T2!=='undefined'&&T2.liquidites&&T2.liquidites.fx&&(T2.liquidites.fx.assets||T2.liquidites.fx.pairs))||[]))},
-    {id:'immobilier',label:'Immobilier',short:'Immo',counts:{n:0,violet:0,rouge:0,jaune:0,vert:0,cyan:0}}
+    {id:'immobilier',label:'Immobilier',short:'Immo',counts:homeCount(homeScoresOf([(typeof AV!=='undefined'&&AV.immobilier)||null]))}
   ];
   cards.forEach(c=>{ c.stats=homeSectorStats(act,c.id); });
   cards.sort((a,b)=>{

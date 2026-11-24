@@ -56,11 +56,11 @@ def _slim_pilot(raw):
             n=float(total)
         except (TypeError,ValueError):
             return None,None
-        # échelle −80 à 280 : 5 tranches égales de 72 points
-        if n>=208: return 'cyan','#00e5ff'
-        if n>=136: return 'vert','#22c55e'
-        if n>=64: return 'orange','#ff8c1a'
-        if n>=-8: return 'rouge','#ff2d2d'
+        # t506u : échelle unique −50 à 250 (violet < 10, rouge 10–69, orange 70–129, vert 130–189, cyan ≥ 190)
+        if n>=190: return 'cyan','#00e5ff'
+        if n>=130: return 'vert','#22c55e'
+        if n>=70: return 'orange','#ff8c1a'
+        if n>=10: return 'rouge','#ff2d2d'
         return 'violet','#9d54ff'
     def rec(r):
         if not r: return r
@@ -91,6 +91,8 @@ def _slim_pilot(raw):
                     keep_tv.add(k)
     except Exception:
         pass
+    # t506u : tête de marché France (ETF CAC 40) notée sur 250 par src/harmonise250.py
+    keep_tv|={tv for tv,r in (d.get('by_tv') or {}).items() if (r or {}).get('tete_pays') in KEEP_PAYS}
     by={tv:rec(r) for tv,r in (d.get('by_tv') or {}).items() if tv in keep_tv}
     # alias TradingView des positions (fiche_tv vs tv_note) vers la même note
     try:
@@ -125,7 +127,7 @@ def _slim_pilot(raw):
     out={
         'generated':d.get('generated'),
         'pilot':True,
-        'scale':d.get('scale') or {'min':-80,'max':280},
+        'scale':d.get('scale') or {'min':-50,'max':250},
         'attention_meta':d.get('attention_meta'),
         'fear_greed':{k:fg[k] for k in ('value','label','date','points','source') if k in fg},
         'pilotes':pilotes,

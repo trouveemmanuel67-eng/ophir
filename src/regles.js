@@ -1,5 +1,5 @@
 /* ===== Page RÈGLES : vue plein écran générée depuis config/regles.json (__DATA19__) ===== */
-/* t347u / t348u / t459u : tableaux Actions (v2) et Métaux précieux (note /100 en vigueur). */
+/* t347u / t348u / t459u / t506u : tableaux Actions et Métaux précieux (note −50 à 250). */
 const RG=(()=>{try{return JSON.parse(document.getElementById('dataRegles').textContent);}catch(e){return null;}})();
 
 let rgPrevTab='accueil';
@@ -295,29 +295,31 @@ function rgCommons(){
   const pmax=na.fond_pen_max!=null?na.fond_pen_max:20;
   const unite=tt.unite||'$';
   const dev=tt.devise||'USD';
+  /* t506u : règles communes sur l'échelle unique −50..250 (plus de tranches /100, ni portail cyan, ni pénalité /100). */
+  const ce=(RG.apex_achat_v2&&RG.apex_achat_v2.couleurs_echelle)||{};
+  const b250=(ce.bandes||[]).map(b=>`<li class="rg-band"><i style="background:${rgEsc(b.hex||'#888')}"></i><b>${rgEsc(b.regle||'')}</b> ${rgEsc(b.id||'')}</li>`).join('');
+  const s250=ce.seuil_meilleures_entrees!=null?ce.seuil_meilleures_entrees:130;
+  const tl=((typeof TT!=='undefined'&&TT&&TT.lignes_v2)||[]);
+  const tt0=tl.length?tl[0]:{note:s250,montant:500}, tt1=tl.length>1?tl[1]:{note:s250+24,montant:600}, ttN=tl.length?tl[tl.length-1]:{note:250,montant:1000};
   return `<section class="rg-sec" id="rg-sec-communes">
     <h2 class="rg-h2">Règles communes</h2>
     <div class="rg-commons-grid">
       <div class="rg-card">
         <h3>Couleurs</h3>
-        <p class="rg-p">Cinq tranches égales de 20 points, d’après la note APEX /100.</p>
-        <ul class="rg-bands">${scale}</ul>
+        <p class="rg-p">Échelle unique −50 à 250 pour tous les actifs, en points entiers ; la couleur vient uniquement de la note affichée.</p>
+        <ul class="rg-bands">${b250}</ul>
       </div>
       <div class="rg-card">
-        <h3>Portail cyan</h3>
-        <p class="rg-p">Une note ≥ ${rgEsc(String(cy.note_min))} exige un Achat / Vente ≥ +${rgEsc(String(cy.av_achat_fort))} et une confirmation (${rgEsc(conf)}). Sinon la note est plafonnée à ${rgEsc(String(cy.plafond_sans_confirmation))}.</p>
-      </div>
-      <div class="rg-card">
-        <h3>Pénalité fondamentale</h3>
-        <p class="rg-p">Si le fondamental est inférieur à ${rgEsc(String(seuil))} / 100, une pénalité proportionnelle est retranchée de la note, plafonnée à ${rgEsc(String(pmax))} points.</p>
+        <h3>Bornes</h3>
+        <p class="rg-p">Le total est borné à −50…250. Aucun portail ni plafond : la note peut atteindre 250. Un critère sans donnée compte 0, sans redistribution.</p>
       </div>
       <div class="rg-card">
         <h3>Meilleures entrées</h3>
-        <p class="rg-p">Note APEX ≥ ${rgEsc(String(gi.seuil))}${gi.hors_portefeuille?', hors portefeuille':''}${gi.exclure_zone_rouge?', hors zone Elliott rouge':''}${gi.inclut_ventes_en_attente?' (une vente en attente reste considérée comme détenue)':''}.</p>
+        <p class="rg-p">Note APEX ≥ ${rgEsc(String(s250))} / 250 (début du vert)${gi.hors_portefeuille?', hors portefeuille':''}${gi.inclut_ventes_en_attente?' (une vente en attente reste considérée comme détenue)':''}.</p>
       </div>
       <div class="rg-card">
         <h3>TEMPLATE TRADE</h3>
-        <p class="rg-p">Note ${rgEsc(String(tt.base_note))} = ${rgEsc(String(tt.base_montant))}\u00a0${rgEsc(unite)} · puis +${rgEsc(String(tt.pas_montant))}\u00a0${rgEsc(unite)} par palier de ${rgEsc(String(tt.pas_note))} points · jusqu’à ${rgEsc(String(tt.max_note))} = ${rgEsc(String(tt.max_montant))}\u00a0${rgEsc(unite)} (${rgEsc(dev)}).</p>
+        <p class="rg-p">Note ${rgEsc(String(tt0.note))} = ${rgEsc(String(tt0.montant))}\u00a0${rgEsc(unite)} · puis +${rgEsc(String(tt1.montant-tt0.montant))}\u00a0${rgEsc(unite)} par palier de ${rgEsc(String(tt1.note-tt0.note))} points · jusqu’à ${rgEsc(String(ttN.note))} = ${rgEsc(String(ttN.montant))}\u00a0${rgEsc(unite)} (${rgEsc(dev)}).</p>
       </div>
     </div>
   </section>`;

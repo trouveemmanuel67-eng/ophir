@@ -67,10 +67,11 @@ def test_notes_lignes_metaux_json():
     mt = json.loads((ROOT / "data" / "metaux.json").read_text(encoding="utf-8"))
     got = {r["nom"]: r["apex10"]["note"] for r in mt["rows"]}
     # APE-25 : portail cyan retiré, ETC Hype 45 + Qualité 45
-    assert got["Or"] == 128
-    assert got["Argent"] == 170
-    assert got["Platine"] == 147
-    assert got["Palladium"] == 185
+    # t507u : un seul ETC par métal → moyenne ETC retenu + comptant + minières
+    assert got["Or"] == 118
+    assert got["Argent"] == 175
+    assert got["Platine"] == 153
+    assert got["Palladium"] == 187
     for r in mt["rows"]:
         a = r["apex10"]
         assert a["scale"] == 250
