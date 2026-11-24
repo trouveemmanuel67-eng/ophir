@@ -2715,14 +2715,20 @@
         "label": "Fibonacci : filtre",
         "max": 0,
         "regle": "Aucun point. Filtre d’entrée : l’actif n’apparaît dans Meilleurs short que si son cours est au niveau 38,2 % ou au-dessus (retracement depuis l’ATH ≤ 38,2 %, corps hebdo, plus bas historique → ATH). À l’ATH ou au-delà : autorisé. Sous 38,2 % : exclu."
+      },
+      "signal_tech": {
+        "label": "Filtre : au moins un signal technique de surachat",
+        "max": 0,
+        "regle": "Aucun point. Filtre d’entrée (t528u) : l’actif doit avoir au moins 10 points dans au moins un des blocs RSI, MACD ou CCI (RSI > 70, ou MACD > 4 % du cours, ou CCI > 80). Un actif qui n’entre que par le fondamental est exclu. Réglable : signal_tech_min = 1."
       }
     },
     "total": "RSI 25 + MACD 25 + CCI 25 + fondamental 125 + F&G 30 + hype 20 = 250 ; minimum borné à −50.",
     "montant": "Mise (levier ×5) : 100 $ à 70/250, puis +20 $ tous les 24 points au-dessus (120 $ à 94, 140 $ à 118, 160 $ à 142, 180 $ à 166), 200 $ dès 190. En petit, l’exposition équivalente (mise × 5).",
     "univers": "Actions (hors banque) USA et France, actions bancaires, actions et proxies de l’onglet Énergie. Métaux, crypto, obligations, ETF et devises ne sont plus dans Meilleurs short.",
-    "lecture": "Entrent les actifs dont la note SHORT est ≥ 70/250 et dont le cours est au-dessus du Fibonacci 38,2 %. Classement de la plus haute à la plus basse note SHORT (meilleurs candidats en haut).",
+    "lecture": "Entrent les actifs dont la note SHORT est ≥ 70/250, qui ont au moins un signal technique de surachat (RSI > 70, MACD > 4 % du cours ou CCI > 80) et dont le cours est au-dessus du Fibonacci 38,2 %. Classement de la plus haute à la plus basse note SHORT (meilleurs candidats en haut).",
     "levier": 5,
     "avertissement": "Le short peut faire perdre plus que la mise. Il faut un compte qui l’autorise (CFD chez XTB, par exemple). Levier ×5, marge commune Revolut : les shorts se soutiennent entre eux, mais une hausse générale du marché touche toutes les positions en même temps et peut déclencher un appel de marge sur l’ensemble.",
-    "macd_pct": 4.0
+    "macd_pct": 4.0,
+    "signal_tech_min": 1
   }
 }

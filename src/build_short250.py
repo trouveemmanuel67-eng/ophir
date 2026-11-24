@@ -11,6 +11,7 @@ Plus la note est haute, plus l'actif est un bon candidat short. Points entiers.
                            donnée = moitié ; sous-total arrondi au point entier (demi vers le haut).
   Fear & Greed (±30)     : inverse du LONG, échelonné à 30 (avidité 60 → +6 … 100 → +30 ; peur 40 → −6 … 0 → −30).
   Hype H (±20)           : H_short = round((attention − 50) × 0,4) (Indicateur d'Attention Long Swing).
+  Filtre technique       : au moins signal_tech_min (1) bloc RSI / MACD / CCI à ≥ 10 points (surachat).
   Fibonacci              : aucun point ; FILTRE d'entrée dans Meilleurs SHORT (note ≥ 70) : cours ≥ niveau 38,2 %
                            (retracement r ≤ 0,382 depuis l'ATH, corps hebdo ; ATH et au-delà autorisés).
 Total borné −50..250. Catégories : Actions (hors banque), Actions bancaires, Énergie.
@@ -30,9 +31,11 @@ import fibo as FB  # noqa: E402
 import build_apex_achat_v2_pilot as P  # noqa: E402
 
 SEUIL = 70
+SIG_MIN = 1  # t528u : nb minimal de blocs RSI / MACD / CCI à ≥ 10 points (surachat) pour entrer dans la liste
 MACD_PCT = 4.0  # ligne MACD / cours × 100 > 4 % (calibré : ~15 % des actifs aujourd'hui, ~20 % des semaines sur 5 ans)
 try:
     SEUIL = int(json.loads((ROOT / 'config' / 'regles.json').read_text(encoding='utf-8'))['apex_short'].get('seuil', 70))
+    SIG_MIN = int(json.loads((ROOT / 'config' / 'regles.json').read_text(encoding='utf-8'))['apex_short'].get('signal_tech_min', SIG_MIN))
     MACD_PCT = float(json.loads((ROOT / 'config' / 'regles.json').read_text(encoding='utf-8'))['apex_short'].get('macd_pct', MACD_PCT))
 except Exception:
     pass
@@ -149,7 +152,9 @@ def assemble(base, t, fond, fgv, att):
         manq.append(f'{n_nc} critère(s) fondamental n.c. (4,5 pts chacun)')
     if t['fibo']['r'] is None:
         manq.append('Fibonacci')
-    entre = note >= SEUIL and t['fibo']['ok']
+    n_sig = sum(1 for k in ('rsi', 'macd', 'cci') if t[k]['points'] >= 10)
+    tech_ok = n_sig >= SIG_MIN
+    entre = note >= SEUIL and t['fibo']['ok'] and tech_ok
     ligne = (f"RSI +{t['rsi']['points']} · MACD +{t['macd']['points']} · CCI +{t['cci']['points']} · Fond +{fpts}"
              f" · F&G {fgp:+d} · H {(hp or 0):+d}  →  {note} / 250").replace('+-', '−').replace('-', '−')
     base.update({
@@ -160,7 +165,7 @@ def assemble(base, t, fond, fgv, att):
         'tech': {k: t[k] for k in ('rsi', 'macd', 'cci')}, 'fibo': t['fibo'],
         'fond': {'criteres_non_remplis': n_ko, 'nc': n_nc, 'elements': fdet},
         'attention': att, 'manquants': manq,
-        'fibo_ok': t['fibo']['ok'], 'au_seuil': note >= SEUIL, 'liste': entre,
+        'fibo_ok': t['fibo']['ok'], 'signaux_tech': n_sig, 'tech_ok': tech_ok, 'au_seuil': note >= SEUIL, 'liste': entre,
         'mise': mise(note) if entre else None,
     })
     base['expo'] = None if base['mise'] is None else base['mise'] * 5
@@ -208,12 +213,15 @@ def main():
         out[tv] = assemble(base, t, fond_from(fel, 'nc'), fgv, att)
 
     liste = sorted([x for x in out.values() if x['liste']], key=lambda x: (-x['note'], x['tv']))
+    exclus_tech = sorted([x for x in out.values() if x['au_seuil'] and x['fibo_ok'] and not x['tech_ok']], key=lambda x: (-x['note'], x['tv']))
     exclus_fibo = sorted([x for x in out.values() if x['au_seuil'] and not x['fibo_ok']], key=lambda x: (-x['note'], x['tv']))
     doc = {
         'regles': 'apex_short_250', 'seuil': SEUIL, 'fear_greed': {'value': fgv, 'points_short': fg_short(fgv), 'date': fg.get('date_valeur')},
         'n': len(out), 'n_liste': len(liste),
         'liste': [x['tv'] for x in liste],
         'exclus_fibo': [{'tv': x['tv'], 'note': x['note'], 'r': x['fibo']['r']} for x in exclus_fibo],
+        'signal_tech_min': SIG_MIN,
+        'exclus_tech': [{'tv': x['tv'], 'note': x['note']} for x in exclus_tech],
         'sans_serie': sans_serie,
         'by_tv': out,
     }

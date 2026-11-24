@@ -1016,7 +1016,7 @@ function rgShortNoteTexte(){
 function rgShortEntreeTexte(){
   const cfg=rgShortCfg();
   const s=cfg.seuil!=null?cfg.seuil:70;
-  return 'Entrent les actifs dont la note SHORT est ≥ '+s+'/250 et dont le cours est au-dessus du Fibonacci 38,2 %. Classement de la plus haute à la plus basse note SHORT (meilleurs candidats en haut). '+(cfg.montant||'');
+  return 'Entrent les actifs dont la note SHORT est ≥ '+s+'/250, qui ont au moins un signal technique de surachat (RSI > 70, MACD > 4 % du cours ou CCI > 80) et dont le cours est au-dessus du Fibonacci 38,2 %. Classement de la plus haute à la plus basse note SHORT (meilleurs candidats en haut). '+(cfg.montant||'');
 }
 function rgShortComptaP(){
   return `<p class="rg-p rg-app">${rgEsc(rgShortNoteTexte())}</p><p class="rg-p rg-app">${rgEsc(rgShortEntreeTexte())}</p>`;
@@ -1058,16 +1058,17 @@ function rgShortBoard(kind, boardId){
     ${block('fondamental',f.label||'Fondamental inversé',rgNum(f.max!=null?f.max:125),`${f.regle?`<p class="rg-p">${rgEsc(f.regle)}</p>`:''}<div class="rg-cards rg-cards-span">${fondCards}</div>`)}
     ${block('sentiment','Sentiment',fg.max_affiche||'±30',`<div class="rg-cards rg-cards-span">${card('fear_greed_short',fg.label||'Fear & Greed, inversé',fg.regle||'',fg.max_affiche||'±30')}</div>`,'inversé par rapport au LONG')}
     ${block('hype','Hype / attention (H)',hy.max_affiche||'±20',`<div class="rg-cards rg-cards-span">${card('hype_short',hy.label||'Hype inversée',hy.regle||'',hy.max_affiche||'±20')}</div>`,'inversée par rapport au LONG')}
+    ${g.signal_tech?block('signal-tech-filtre','Filtre technique',"filtre",`<div class="rg-cards rg-cards-span">${card('signal_tech_filtre',g.signal_tech.label,g.signal_tech.regle||'','0')}</div>`,'au moins un signal de surachat'):''}
     ${block('fibonacci-filtre','Fibonacci',"filtre",`<div class="rg-cards rg-cards-span">${card('fibonacci_filtre',fb.label||'Fibonacci : filtre',fb.regle||'','0')}</div>`,'aucun point, condition d’entrée')}
   </div>`;
 }
 function rgShortTable(){
   /* Tableau récapitulatif de la grille SHORT pour les 3 catégories. */
   const g=rgShortCfg().grille||{};
-  const rows=[['rsi','RSI'],['macd','MACD'],['cci','CCI'],['fondamental','Fondamental inversé'],['fear_greed','Fear & Greed inversé'],['hype','Hype H inversée'],['fibonacci','Fibonacci']];
+  const rows=[['rsi','RSI'],['macd','MACD'],['cci','CCI'],['fondamental','Fondamental inversé'],['fear_greed','Fear & Greed inversé'],['hype','Hype H inversée'],['signal_tech','Filtre : au moins un signal technique de surachat'],['fibonacci','Fibonacci']];
   const tr=rows.map(([k,l])=>{
     const c=g[k]||{};
-    const pts=k==='fibonacci'?'filtre':(c.max_affiche||rgNum(c.max));
+    const pts=(k==='fibonacci'||k==='signal_tech')?'filtre':(c.max_affiche||rgNum(c.max));
     return `<tr><td>${rgEsc(l)}</td><td>${rgEsc(pts)}</td><td>${rgEsc(pts)}</td><td>${rgEsc(pts)}</td><td>${rgEsc(c.regle||'')}</td></tr>`;
   }).join('');
   return `<table class="rg-table rg-table-sm" id="rg-table-short-grille">
