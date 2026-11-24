@@ -785,6 +785,117 @@ function rgCryptoGrid(){
     </section>
   </div>${foot}`;
 }
+
+function rgCibleTechRules(cfg){
+  const r=(cfg&&cfg.regles_courtes)||{};
+  return {
+    rsi: r.rsi||'RSI < 40 : +10 ; divergence haussière hebdo : +20 ; cumulables.',
+    macd: r.macd||'MACD < 0 : +10 ; 4 histo. < 0 : +20 ; cumulables. Sous 0 + 4 barres rouges d’affilée : +20 (appliqué au calcul à partir du 25/11).',
+    fibonacci: r.fibonacci||'Plus bas → plus haut (corps hebdo). Sous 38,2 % : +10 ; 61,8 % : +20 ; 78,6 % : +30. Non cumulables.',
+    cci: r.cci||'+20 si le CCI Stochastic Daveatt (ligne D) est sous 20.',
+    fear_greed: r.fear_greed||'Milieu 50 = 0. Tranche de 10 : peur 40 → +10 … 0 → +50 ; avidité 60 → −10 … 100 → −50.'
+  };
+}
+function rgCiblePts(cfg){
+  const p=(cfg&&cfg.points)||{};
+  return {
+    rsi:p.rsi!=null?Number(p.rsi):30,
+    macd:p.macd!=null?Number(p.macd):30,
+    fibonacci:p.fibonacci!=null?Number(p.fibonacci):30,
+    cci:p.cci!=null?Number(p.cci):20,
+    fond:p.fondamental!=null?Number(p.fondamental):90,
+    fg:p.fear_greed!=null?Number(p.fear_greed):50
+  };
+}
+function rgCible250Board(cfg, opts){
+  cfg=cfg||{};
+  opts=opts||{};
+  const pts=rgCiblePts(cfg);
+  const rules=rgCibleTechRules(cfg);
+  const boardId=opts.boardId||'rg-table-cible';
+  const hasTech=opts.hasTechnique!=null?!!opts.hasTechnique:cfg.has_technique!==false;
+  const fondList=opts.fondCriteres||cfg.fond_criteres||[];
+  const techOrdre=[
+    ['rsi','RSI 14 hebdo'],
+    ['macd','MACD 12/26/9 hebdo'],
+    ['fibonacci','Fibonacci'],
+    ['cci','CCI Stochastic 28 hebdo (Daveatt)']
+  ];
+  const techSum=pts.rsi+pts.macd+pts.fibonacci+pts.cci;
+  const techNote=techOrdre.map(([id,lab])=>lab.split(' ')[0]+' '+rgNum(pts[id])).join(' · ');
+  const techCards=techOrdre.map(([id,label])=>rgCard(id,label,rgEsc(rules[id]||''),rgNum(pts[id]))).join('');
+  const fondCards=fondList.map(el=>rgCard(el.id||'', el.label||el.id||'', rgEsc(el.regle||'Non calculé.'), el.statut==='non_calcule'?'n.c.':(el.points!=null?rgNum(el.points):'n.c.'))).join('');
+  const sentCards=rgCard('fear_greed','Fear & Greed Index (CNN)',rgEsc(rules.fear_greed||''),'±'+rgNum(pts.fg));
+  const noTech=opts.sansTechnique||cfg.sans_technique||'';
+  const techBlock=hasTech
+    ? `<section class="rg-block" data-group="technique">
+      <header class="rg-block-h">
+        <div class="rg-block-title">Technique <span class="rg-group-note">${techNote}</span></div>
+        <span class="rg-block-pts">${rgNum(techSum)}</span>
+      </header>
+      <div class="rg-cards rg-cards-span">${techCards}</div>
+    </section>`
+    : (noTech?`<p class="rg-p rg-app">${rgEsc(noTech)}</p>`:'');
+  return `<div class="rg-board" id="${rgEsc(boardId)}">
+    ${techBlock}
+    <section class="rg-block" data-group="fondamental">
+      <header class="rg-block-h">
+        <div class="rg-block-title">Fondamental</div>
+        <span class="rg-block-pts">${rgNum(pts.fond)}</span>
+      </header>
+      <div class="rg-cards rg-cards-span">${fondCards}</div>
+    </section>
+    <section class="rg-block" data-group="sentiment">
+      <header class="rg-block-h">
+        <div class="rg-block-title">Sentiment</div>
+        <span class="rg-block-pts">±${rgNum(pts.fg)}</span>
+      </header>
+      <div class="rg-cards rg-cards-span">${sentCards}</div>
+    </section>
+  </div>`;
+}
+function rgCibleFoot(cfg, opts){
+  opts=opts||{};
+  const pts=rgCiblePts(cfg);
+  const hasTech=opts.hasTechnique!=null?!!opts.hasTechnique:cfg.has_technique!==false;
+  const lo=cfg.note_min!=null?Number(cfg.note_min):-50;
+  const hi=cfg.note_max!=null?Number(cfg.note_max):(hasTech?250:140);
+  const tech=hasTech?('Technique '+rgNum(pts.rsi+pts.macd+pts.fibonacci+pts.cci)+' + '):'';
+  const actuel=cfg.note_actuelle||opts.noteActuelle||'';
+  const scale=rgFmtScaleBound(lo)+' à '+rgFmtScaleBound(hi);
+  return `<p class="rg-p rg-app">${tech}Fondamental ${rgNum(pts.fond)} + F&amp;G ±${rgNum(pts.fg)} = ${scale}, points entiers, sans Elliott. Calcul non encore aligné${actuel?(' : notes publiées — '+rgEsc(actuel)):''}. Un critère sans donnée ou sans palier est « non calculé », sans invention ni redistribution.</p>`;
+}
+function rgCibleSectionBody(cfg, boardId){
+  cfg=cfg||{};
+  const intro=cfg.intro_courte?`<p class="rg-p rg-app">${rgEsc(cfg.intro_courte)}</p>`:'';
+  const board=rgCible250Board(cfg,{boardId:boardId});
+  return intro+board+rgCibleFoot(cfg);
+}
+function rgObligationsGrid(){ return rgCibleSectionBody((RG&&RG.apex_obligations)||{}, 'rg-table-obligations'); }
+function rgPlacementsGrid(){ return rgCibleSectionBody((RG&&RG.apex_placements)||{}, 'rg-table-placements'); }
+function rgImmobilierGrid(){ return rgCibleSectionBody((RG&&RG.apex_immobilier)||{}, 'rg-table-immobilier'); }
+function rgEnergieGrid(){ return rgCibleSectionBody((RG&&RG.apex_energie)||{}, 'rg-table-energie'); }
+function rgLiquiditesGrid(){
+  const cfg=(RG&&RG.apex_liquidites)||{};
+  const intro=cfg.intro_courte?`<p class="rg-p rg-app">${rgEsc(cfg.intro_courte)}</p>`:'';
+  const parties=cfg.parties||[];
+  const blocks=parties.map(part=>{
+    const sub=part.titre?`<h3 class="rg-subh">${rgEsc(part.titre)}</h3>`:'';
+    const merged=Object.assign({},cfg,part,{fond_criteres:part.fond_criteres,has_technique:part.has_technique,sans_technique:part.sans_technique,note_min:part.note_min,note_max:part.note_max,note_actuelle:part.note_actuelle});
+    const board=rgCible250Board(merged,{boardId:'rg-table-liquidites-'+(part.id||''), hasTechnique:!!part.has_technique, sansTechnique:part.sans_technique, fondCriteres:part.fond_criteres});
+    const foot=rgCibleFoot(merged,{hasTechnique:!!part.has_technique, noteActuelle:part.note_actuelle});
+    return sub+board+foot;
+  }).join('');
+  return intro+(blocks||rgCibleSectionBody(cfg,'rg-table-liquidites'));
+}
+function rgCibleScale(cfg, fallbackMax){
+  const lo=cfg&&cfg.note_min!=null?Number(cfg.note_min):-50;
+  const hi=cfg&&cfg.note_max!=null?Number(cfg.note_max):(fallbackMax!=null?fallbackMax:250);
+  if(cfg&&cfg.echelle&&cfg.echelle!=='voir parties') return cfg.echelle;
+  return rgFmtScaleBound(lo)+' à '+rgFmtScaleBound(hi);
+}
+
+
 function rgPageHTML(){
   if(!RG) return '<p class="rg-p">Règles indisponibles.</p>';
   const fr=RG.fiche_regles||{};
@@ -795,7 +906,12 @@ function rgPageHTML(){
     {id:'actions', title:vAct.section_titre||'Actions (hors banque)', scale:rgActionsScale(vAct).label, body:rgActionsGrid(vAct,{boardId:'rg-table-actions', note:vAct.champ_application}), open:true},
     vBan?{id:'banques', title:vBan.section_titre||vBan.titre||'Actions bancaires', scale:rgActionsScale(vBan).label, body:rgActionsGrid(vBan,{boardId:'rg-table-banques', note:vBan.champ_application||vBan.intro}), open:false}:null,
     {id:'metaux', title:'Métaux précieux', scale:rgMetauxScale().label, body:rgMetauxGrid(), open:false},
-    {id:'crypto', title:((RG&&RG.apex_crypto)||{}).section_titre||'Crypto', scale:rgCryptoScale().label, body:rgCryptoGrid(), open:false}
+    {id:'crypto', title:((RG&&RG.apex_crypto)||{}).section_titre||'Crypto', scale:rgCryptoScale().label, body:rgCryptoGrid(), open:false},
+    {id:'obligations', title:((RG&&RG.apex_obligations)||{}).section_titre||'Obligations', scale:rgCibleScale((RG&&RG.apex_obligations)||{},250), body:rgObligationsGrid(), open:false},
+    {id:'liquidites', title:((RG&&RG.apex_liquidites)||{}).section_titre||'Liquidités', scale:((RG&&RG.apex_liquidites)||{}).echelle&&((RG&&RG.apex_liquidites)||{}).echelle!=='voir parties'?((RG&&RG.apex_liquidites)||{}).echelle:'épargne −50 à 140 · devises −50 à 250', body:rgLiquiditesGrid(), open:false},
+    {id:'placements', title:((RG&&RG.apex_placements)||{}).section_titre||'Placements', scale:rgCibleScale((RG&&RG.apex_placements)||{},140), body:rgPlacementsGrid(), open:false},
+    {id:'immobilier', title:((RG&&RG.apex_immobilier)||{}).section_titre||'Immobilier', scale:rgCibleScale((RG&&RG.apex_immobilier)||{},140), body:rgImmobilierGrid(), open:false},
+    {id:'energie', title:((RG&&RG.apex_energie)||{}).section_titre||'Énergie', scale:rgCibleScale((RG&&RG.apex_energie)||{},250), body:rgEnergieGrid(), open:false}
   ].filter(Boolean);
   return `<header class="rg-top">
       <button type="button" id="rgBack" class="rg-back">← Retour</button>

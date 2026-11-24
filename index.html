@@ -6,18 +6,18 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<meta name="ophir-build" content="661a72c-20261124-152349">
+<meta name="ophir-build" content="8f91e19-20261124-152848">
 <title>APEX INDICATOR INVESTMENT</title>
 <meta name="description" content="APEX Indicator Investment — notes et indicateurs de marché.">
 <meta name="theme-color" content="#0a1128">
 <meta name="apple-mobile-web-app-title" content="APEX">
 <meta name="application-name" content="APEX">
-<link rel="icon" href="favicon.ico?v=661a72c-20261124-152349" sizes="any">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=661a72c-20261124-152349">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=661a72c-20261124-152349">
-<link rel="icon" type="image/png" sizes="64x64" href="favicon.png?v=661a72c-20261124-152349">
-<link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png?v=661a72c-20261124-152349">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=661a72c-20261124-152349">
+<link rel="icon" href="favicon.ico?v=8f91e19-20261124-152848" sizes="any">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=8f91e19-20261124-152848">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=8f91e19-20261124-152848">
+<link rel="icon" type="image/png" sizes="64x64" href="favicon.png?v=8f91e19-20261124-152848">
+<link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png?v=8f91e19-20261124-152848">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=8f91e19-20261124-152848">
 <meta property="og:type" content="website">
 <meta property="og:title" content="APEX INDICATOR INVESTMENT">
 <meta property="og:description" content="APEX Indicator Investment — notes et indicateurs de marché.">
@@ -9279,7 +9279,7 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
           "renormalise": true
         },
         "fondamental": null,
-        "precision": "Obligations et ETF obligataires : pas de fondamental. Le technique est renormalisé à 100 % et la fiche le signale. Les scores de sélection d’un ETF (frais, liquidité) ne rentrent pas dans la note APEX.",
+        "precision": "Obligations et ETF obligataires : pas de fondamental. Le technique est renormalisé à 100 % et la fiche le signale. Les scores de sélection d’un ETF (frais, liquidité) ne rentrent pas dans la note APEX. Barème cible −50 à 250 (modèle Actions, sans Elliott) décrit dans RÈGLES LONG ; calcul non encore aligné, notes publiées inchangées (/100).",
         "technique": {
           "source": "config/regles.json · apex/score.py · src/technique_apex.py",
           "fixes": [
@@ -9515,7 +9515,7 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
           "renormalise": false
         },
         "fondamental": null,
-        "precision": "Producteurs et actions énergétiques : 50 % fondamental + 50 % technique. Les ETP adossés à des contrats à terme et les contrats eux-mêmes restent des repères de marché, sans note, ou reçoivent un technique renormalisé à 100 % s’ils sont notés.",
+        "precision": "Producteurs et actions énergétiques : 50 % fondamental + 50 % technique. Les ETP adossés à des contrats à terme et les contrats eux-mêmes restent des repères de marché, sans note, ou reçoivent un technique renormalisé à 100 % s’ils sont notés. Barème cible −50 à 250 (modèle Actions, fondamental énergie, sans Elliott) décrit dans RÈGLES LONG ; calcul non encore aligné, notes publiées inchangées (/100). Contrats et ETP à terme toujours sans note.",
         "technique": {
           "source": "config/regles.json · apex/score.py · src/technique_apex.py",
           "fixes": [
@@ -9869,7 +9869,7 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
           }
         },
         "fondamental": null,
-        "precision": "L’onglet Liquidités conserve son barème propre (rendement réel, €STR, tendance des dépôts BCE, appétit pour le risque inversé), qui constitue 100 % de la note d’onglet.",
+        "precision": "L’onglet Liquidités conserve son barème propre (rendement réel, €STR, tendance des dépôts BCE, appétit pour le risque inversé), qui constitue 100 % de la note d’onglet. Barème cible décrit dans RÈGLES LONG (épargne sans technique, devises avec Technique 110) ; calcul non encore aligné, notes publiées inchangées.",
         "technique": null
       },
       {
@@ -9879,7 +9879,7 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
         "note": null,
         "timing": null,
         "fondamental": null,
-        "precision": "Les lignes de l'onglet Placements sont un relevé patrimonial. Elles n'ont pas de note APEX /100.",
+        "precision": "Les lignes de l'onglet Placements sont un relevé patrimonial. Elles n'ont pas de note APEX /100. Barème adapté proposé (−50 à 140, sans technique) dans RÈGLES LONG ; aucune note n'est créée pour l'instant.",
         "technique": null
       },
       {
@@ -9930,7 +9930,7 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
           }
         },
         "fondamental": null,
-        "precision": "L’onglet Immobilier (foncières, REIT, SCPI selon ce qui est présent) conserve son barème propre de timing, qui constitue 100 % de la note d’onglet. Les titres individuels d’une liste, s’ils ont un fondamental, suivent la formule 50 / 50 des actions.",
+        "precision": "L’onglet Immobilier (foncières, REIT, SCPI selon ce qui est présent) conserve son barème propre de timing, qui constitue 100 % de la note d’onglet. Les titres individuels d’une liste, s’ils ont un fondamental, suivent la formule 50 / 50 des actions. Barème adapté proposé (−50 à 140, sans technique d'onglet) dans RÈGLES LONG ; calcul non encore aligné, notes publiées inchangées.",
         "technique": null
       }
     ],
@@ -10564,11 +10564,340 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
       "technique": "Mêmes composantes et poids que l'ancienne note actions /100 : Elliott, Structure, Fibonacci, RSI, MACD, CCI.",
       "hype": "Toutes les cryptos APEX (BTC, ETH, SOL, MSTR). Attention Long Swing 0–100, à contre-courant, 9 pts/tranche : 0 → +90 ; 10 → +81 ; 50 → +45 ; 100 → 0. Appliqué au calcul dès que la note H est disponible (25/11)."
     }
+  },
+  "apex_obligations": {
+    "section_titre": "Obligations",
+    "echelle": "−50 à 250",
+    "note_min": -50,
+    "note_max": 250,
+    "calcul_aligne": false,
+    "has_technique": true,
+    "note_actuelle": "/100, technique renormalisé (Elliott encore compté), pas de fondamental",
+    "intro_courte": "ETF obligataires. Barème cible −50 à 250, points entiers, sans Elliott. Calcul non encore aligné : les notes publiées restent /100.",
+    "champ_application": "Barème cible identique au modèle Actions : Technique 110 (RSI 30, MACD 30 à contre-courant, Fibonacci 30, CCI/Stoch 20), Fondamental 90 propre aux obligations, Fear & Greed CNN ±50, sans Elliott, total −50 à 250. Le calcul n'est pas encore aligné : les notes publiées restent /100. Aucun palier de fondamental n'est inventé. Les scores de sélection d'un ETF (frais, liquidité) restent hors de la note, comme aujourd'hui.",
+    "points": {
+      "rsi": 30,
+      "macd": 30,
+      "fibonacci": 30,
+      "cci": 20,
+      "fondamental": 90,
+      "fear_greed": 50
+    },
+    "regles_courtes": {
+      "rsi": "RSI < 40 : +10 ; divergence haussière hebdo : +20 ; cumulables.",
+      "macd": "MACD < 0 : +10 ; 4 histo. < 0 : +20 ; cumulables. Sous 0 + 4 barres rouges d'affilée : +20 (appliqué au calcul à partir du 25/11).",
+      "fibonacci": "Plus bas → plus haut (corps hebdo). Sous 38,2 % : +10 ; 61,8 % : +20 ; 78,6 % : +30. Non cumulables.",
+      "cci": "+20 si le CCI Stochastic Daveatt (ligne D) est sous 20.",
+      "fear_greed": "Milieu 50 = 0. Tranche de 10 : peur 40 → +10 … 0 → +50 ; avidité 60 → −10 … 100 → −50."
+    },
+    "fond_criteres": [
+      {
+        "id": "rendement",
+        "label": "Rendement",
+        "statut": "non_calcule",
+        "regle": "Non calculé : yield renseigné pour 9 ETF sur 35, palier entier absent."
+      },
+      {
+        "id": "rendement_reel",
+        "label": "Rendement réel",
+        "statut": "non_calcule",
+        "regle": "Non calculé : IPC INSEE disponible, yield partiel, palier entier absent."
+      },
+      {
+        "id": "cycle_taux",
+        "label": "Cycle des taux",
+        "statut": "non_calcule",
+        "regle": "Non calculé : €STR et taux de dépôt BCE disponibles, non branchés sur la note."
+      },
+      {
+        "id": "duration",
+        "label": "Duration",
+        "statut": "non_calcule",
+        "regle": "Non calculé : duration absente des données."
+      },
+      {
+        "id": "credit",
+        "label": "Crédit",
+        "statut": "non_calcule",
+        "regle": "Non calculé : rating présent pour 27 ETF sur 35, palier entier absent."
+      },
+      {
+        "id": "spread",
+        "label": "Spread",
+        "statut": "non_calcule",
+        "regle": "Non calculé : spread absent des données."
+      },
+      {
+        "id": "inflation",
+        "label": "Inflation",
+        "statut": "non_calcule",
+        "regle": "Non calculé : IPC disponible (entrée du rendement réel), pas de palier autonome."
+      }
+    ]
+  },
+  "apex_liquidites": {
+    "section_titre": "Liquidités",
+    "echelle": "voir parties",
+    "calcul_aligne": false,
+    "intro_courte": "Deux parties : épargne/monétaire (sans graphique) et devises (cours hebdo). Calcul non encore aligné.",
+    "champ_application": "L'onglet Liquidités mélange l'épargne et les devises. Les barèmes cibles sont donc distincts. Calcul non encore aligné.",
+    "points": {
+      "rsi": 30,
+      "macd": 30,
+      "fibonacci": 30,
+      "cci": 20,
+      "fondamental": 90,
+      "fear_greed": 50
+    },
+    "regles_courtes": {
+      "rsi": "RSI < 40 : +10 ; divergence haussière hebdo : +20 ; cumulables.",
+      "macd": "MACD < 0 : +10 ; 4 histo. < 0 : +20 ; cumulables. Sous 0 + 4 barres rouges d'affilée : +20 (appliqué au calcul à partir du 25/11).",
+      "fibonacci": "Plus bas → plus haut (corps hebdo). Sous 38,2 % : +10 ; 61,8 % : +20 ; 78,6 % : +30. Non cumulables.",
+      "cci": "+20 si le CCI Stochastic Daveatt (ligne D) est sous 20.",
+      "fear_greed": "Milieu 50 = 0. Tranche de 10 : peur 40 → +10 … 0 → +50 ; avidité 60 → −10 … 100 → −50."
+    },
+    "parties": [
+      {
+        "id": "epargne",
+        "titre": "Épargne et monétaire",
+        "has_technique": false,
+        "sans_technique": "Pas de graphique hebdomadaire (livrets, cash, monétaire) : la Technique 110 ne s'applique pas.",
+        "echelle": "−50 à 140",
+        "note_min": -50,
+        "note_max": 140,
+        "note_actuelle": "Barème d'onglet propre (rendement réel €STR − inflation, niveau de l'€STR, tendance BCE, appétit pour le risque inversé) ensuite ramené /100. Pas d'Elliott.",
+        "fond_criteres": [
+          {
+            "id": "rendement_net",
+            "label": "Rendement net vs inflation",
+            "statut": "non_calcule",
+            "regle": "Données présentes (€STR, IPC, livrets) dans un autre barème ; palier entier 0/10 absent."
+          },
+          {
+            "id": "taux_directeur",
+            "label": "Taux directeur / €STR",
+            "statut": "non_calcule",
+            "regle": "Données présentes (niveau et tendance BCE 6 mois) dans un autre barème ; palier entier absent."
+          },
+          {
+            "id": "garantie",
+            "label": "Garantie",
+            "statut": "non_calcule",
+            "regle": "Non calculé : statut de garantie non codé (pas inventé)."
+          },
+          {
+            "id": "change",
+            "label": "Risque de change",
+            "statut": "non_calcule",
+            "regle": "Non calculé : pas de palier (EUR/USD est suivi à part, pour les devises)."
+          },
+          {
+            "id": "liquidite",
+            "label": "Liquidité",
+            "statut": "non_calcule",
+            "regle": "Non calculé : délai de retrait non chiffré dans les données."
+          }
+        ]
+      },
+      {
+        "id": "devises",
+        "titre": "Devises",
+        "has_technique": true,
+        "echelle": "−50 à 250",
+        "note_min": -50,
+        "note_max": 250,
+        "note_actuelle": "/100, technique renormalisé (Elliott encore compté), pas de fondamental",
+        "fond_criteres": [
+          {
+            "id": "fond_devise",
+            "label": "Fondamental d'une devise",
+            "statut": "non_calcule",
+            "regle": "Non calculé : une paire de devises n'a pas de fondamental d'entreprise ; rien n'est inventé."
+          }
+        ]
+      }
+    ]
+  },
+  "apex_placements": {
+    "section_titre": "Placements",
+    "echelle": "−50 à 140",
+    "note_min": -50,
+    "note_max": 140,
+    "calcul_aligne": false,
+    "has_technique": false,
+    "note_actuelle": "aucune note APEX (relevé patrimonial seulement)",
+    "intro_courte": "Comptes d'épargne et monétaire (relevé patrimonial). Pas de graphique hebdo, pas de note APEX aujourd'hui. Barème adapté proposé : −50 à 140.",
+    "champ_application": "Pas de bougies hebdomadaires : la Technique 110 ne s'applique pas. Barème adapté proposé, sans invention : Fondamental 90 + Fear & Greed ±50 = −50 à 140. Sans Elliott. Calcul non encore aligné, aucune note n'est créée pour l'instant.",
+    "points": {
+      "rsi": 30,
+      "macd": 30,
+      "fibonacci": 30,
+      "cci": 20,
+      "fondamental": 90,
+      "fear_greed": 50
+    },
+    "regles_courtes": {
+      "rsi": "RSI < 40 : +10 ; divergence haussière hebdo : +20 ; cumulables.",
+      "macd": "MACD < 0 : +10 ; 4 histo. < 0 : +20 ; cumulables. Sous 0 + 4 barres rouges d'affilée : +20 (appliqué au calcul à partir du 25/11).",
+      "fibonacci": "Plus bas → plus haut (corps hebdo). Sous 38,2 % : +10 ; 61,8 % : +20 ; 78,6 % : +30. Non cumulables.",
+      "cci": "+20 si le CCI Stochastic Daveatt (ligne D) est sous 20.",
+      "fear_greed": "Milieu 50 = 0. Tranche de 10 : peur 40 → +10 … 0 → +50 ; avidité 60 → −10 … 100 → −50."
+    },
+    "fond_criteres": [
+      {
+        "id": "rendement_net",
+        "label": "Rendement net vs inflation",
+        "statut": "non_calcule",
+        "regle": "Taux relevés (ex. 2,75 % brut EUR, 4,01 % APY USD) et IPC FR disponibles ; IPC US absent ; palier entier absent."
+      },
+      {
+        "id": "taux_directeur",
+        "label": "Taux directeur",
+        "statut": "non_calcule",
+        "regle": "€STR et taux de dépôt BCE disponibles, palier entier absent."
+      },
+      {
+        "id": "garantie",
+        "label": "Garantie",
+        "statut": "non_calcule",
+        "regle": "Non calculé : statut de garantie non codé (pas inventé)."
+      },
+      {
+        "id": "change",
+        "label": "Risque de change",
+        "statut": "non_calcule",
+        "regle": "Non calculé : ligne USD présente, pas de palier."
+      },
+      {
+        "id": "liquidite",
+        "label": "Liquidité",
+        "statut": "non_calcule",
+        "regle": "Non calculé : délai de retrait non chiffré."
+      }
+    ],
+    "sans_technique": "Pas de graphique hebdomadaire (compte d'épargne, fonds monétaire) : la Technique 110 ne s'applique pas."
+  },
+  "apex_immobilier": {
+    "section_titre": "Immobilier",
+    "echelle": "−50 à 140",
+    "note_min": -50,
+    "note_max": 140,
+    "calcul_aligne": false,
+    "has_technique": false,
+    "note_actuelle": "Barème macro d'onglet (5 composantes −100 à +100) ensuite ramené /100. Pas d'Elliott. Pas de liste SCPI/REIT.",
+    "intro_courte": "Onglet macro (prix, taux, Trends), sans liste SCPI/REIT ni bougies hebdo. Barème adapté proposé : −50 à 140. Calcul non encore aligné.",
+    "champ_application": "L'onglet Immobilier n'a pas de cours hebdomadaire négocié ni de liste SCPI/REIT. La Technique 110 ne s'applique pas à l'onglet. Barème adapté proposé : Fondamental 90 + F&G ±50 = −50 à 140. Les foncières cotées restent notées dans l'onglet Actions (profil REIT). Sans Elliott. Calcul non encore aligné.",
+    "points": {
+      "rsi": 30,
+      "macd": 30,
+      "fibonacci": 30,
+      "cci": 20,
+      "fondamental": 90,
+      "fear_greed": 50
+    },
+    "regles_courtes": {
+      "rsi": "RSI < 40 : +10 ; divergence haussière hebdo : +20 ; cumulables.",
+      "macd": "MACD < 0 : +10 ; 4 histo. < 0 : +20 ; cumulables. Sous 0 + 4 barres rouges d'affilée : +20 (appliqué au calcul à partir du 25/11).",
+      "fibonacci": "Plus bas → plus haut (corps hebdo). Sous 38,2 % : +10 ; 61,8 % : +20 ; 78,6 % : +30. Non cumulables.",
+      "cci": "+20 si le CCI Stochastic Daveatt (ligne D) est sous 20.",
+      "fear_greed": "Milieu 50 = 0. Tranche de 10 : peur 40 → +10 … 0 → +50 ; avidité 60 → −10 … 100 → −50."
+    },
+    "fond_criteres": [
+      {
+        "id": "rendement",
+        "label": "Rendement",
+        "statut": "non_calcule",
+        "regle": "Non calculé : pas de yield SCPI/REIT sur l'onglet (les foncières cotées sont dans Actions)."
+      },
+      {
+        "id": "decote_anr",
+        "label": "Décote / prime sur actif net",
+        "statut": "non_calcule",
+        "regle": "Non calculé : actif net et décote absents des données."
+      },
+      {
+        "id": "ltv",
+        "label": "Endettement (LTV)",
+        "statut": "non_calcule",
+        "regle": "Non calculé sur cet onglet. Les foncières Actions ont une dette nette/EBITDA, pas un LTV."
+      },
+      {
+        "id": "occupation",
+        "label": "Taux d'occupation",
+        "statut": "non_calcule",
+        "regle": "Non calculé : taux d'occupation absent des données."
+      },
+      {
+        "id": "sensi_taux",
+        "label": "Sensibilité aux taux",
+        "statut": "non_calcule",
+        "regle": "Taux de crédit et tendance 6 mois existent dans un barème macro d'onglet, pas en palier entier."
+      }
+    ],
+    "sans_technique": "Pas de graphique hebdomadaire négocié pour l'onglet (prix Notaires-INSEE, taux, Trends) : la Technique 110 ne s'applique pas."
+  },
+  "apex_energie": {
+    "section_titre": "Énergie",
+    "echelle": "−50 à 250",
+    "note_min": -50,
+    "note_max": 250,
+    "calcul_aligne": false,
+    "has_technique": true,
+    "note_actuelle": "/100, 50 % fondamental actions + 50 % technique (Elliott encore compté) pour les actions ; contrats et ETP à terme sans note",
+    "intro_courte": "Producteurs et actions énergétiques : barème cible −50 à 250, sans Elliott. Contrats et ETP à terme : repères sans note. Calcul non encore aligné.",
+    "champ_application": "Pour les actions et producteurs énergétiques, barème cible : Technique 110 + Fondamental 90 propre à l'énergie + F&G ±50 = −50 à 250, sans Elliott. Les contrats à terme et ETP adossés à des contrats restent des repères de marché, sans note. Calcul non encore aligné : les notes publiées restent /100. Rien n'est inventé.",
+    "points": {
+      "rsi": 30,
+      "macd": 30,
+      "fibonacci": 30,
+      "cci": 20,
+      "fondamental": 90,
+      "fear_greed": 50
+    },
+    "regles_courtes": {
+      "rsi": "RSI < 40 : +10 ; divergence haussière hebdo : +20 ; cumulables.",
+      "macd": "MACD < 0 : +10 ; 4 histo. < 0 : +20 ; cumulables. Sous 0 + 4 barres rouges d'affilée : +20 (appliqué au calcul à partir du 25/11).",
+      "fibonacci": "Plus bas → plus haut (corps hebdo). Sous 38,2 % : +10 ; 61,8 % : +20 ; 78,6 % : +30. Non cumulables.",
+      "cci": "+20 si le CCI Stochastic Daveatt (ligne D) est sous 20.",
+      "fear_greed": "Milieu 50 = 0. Tranche de 10 : peur 40 → +10 … 0 → +50 ; avidité 60 → −10 … 100 → −50."
+    },
+    "fond_criteres": [
+      {
+        "id": "valorisation",
+        "label": "Valorisation",
+        "statut": "non_calcule",
+        "regle": "Non calculé : pas de PER ni d'EV/EBITDA dans les données."
+      },
+      {
+        "id": "fcf",
+        "label": "Flux de trésorerie",
+        "statut": "non_calcule",
+        "regle": "Marge de FCF présente dans le fondamental actions ; palier entier non rebranché sur une note −50..250 énergie."
+      },
+      {
+        "id": "dette",
+        "label": "Dette",
+        "statut": "non_calcule",
+        "regle": "Dette nette/EBITDA présente dans le fondamental actions ; palier entier non rebranché ici."
+      },
+      {
+        "id": "cycle",
+        "label": "Cycle pétrole / gaz",
+        "statut": "non_calcule",
+        "regle": "Non calculé : contrats WTI/Brent/gaz sont des repères, sans score de cycle."
+      },
+      {
+        "id": "dividende",
+        "label": "Dividende",
+        "statut": "non_calcule",
+        "regle": "Non calculé : rendement de dividende absent des données."
+      }
+    ]
   }
 }
 </script>
-<script type="application/json" id="dataBuild">{"version":"661a72c-20261124-152349"}</script>
-<link rel="preload" href="config/regles.json?v=661a72c-20261124-152349" as="fetch" crossorigin>
+<script type="application/json" id="dataBuild">{"version":"8f91e19-20261124-152848"}</script>
+<link rel="preload" href="config/regles.json?v=8f91e19-20261124-152848" as="fetch" crossorigin>
 
 <script type="application/json" id="dataMaj">{
   "at": "2026-11-23T21:45:22.168885+01:00",
@@ -15356,6 +15685,117 @@ function rgCryptoGrid(){
     </section>
   </div>${foot}`;
 }
+
+function rgCibleTechRules(cfg){
+  const r=(cfg&&cfg.regles_courtes)||{};
+  return {
+    rsi: r.rsi||'RSI < 40 : +10 ; divergence haussière hebdo : +20 ; cumulables.',
+    macd: r.macd||'MACD < 0 : +10 ; 4 histo. < 0 : +20 ; cumulables. Sous 0 + 4 barres rouges d’affilée : +20 (appliqué au calcul à partir du 25/11).',
+    fibonacci: r.fibonacci||'Plus bas → plus haut (corps hebdo). Sous 38,2 % : +10 ; 61,8 % : +20 ; 78,6 % : +30. Non cumulables.',
+    cci: r.cci||'+20 si le CCI Stochastic Daveatt (ligne D) est sous 20.',
+    fear_greed: r.fear_greed||'Milieu 50 = 0. Tranche de 10 : peur 40 → +10 … 0 → +50 ; avidité 60 → −10 … 100 → −50.'
+  };
+}
+function rgCiblePts(cfg){
+  const p=(cfg&&cfg.points)||{};
+  return {
+    rsi:p.rsi!=null?Number(p.rsi):30,
+    macd:p.macd!=null?Number(p.macd):30,
+    fibonacci:p.fibonacci!=null?Number(p.fibonacci):30,
+    cci:p.cci!=null?Number(p.cci):20,
+    fond:p.fondamental!=null?Number(p.fondamental):90,
+    fg:p.fear_greed!=null?Number(p.fear_greed):50
+  };
+}
+function rgCible250Board(cfg, opts){
+  cfg=cfg||{};
+  opts=opts||{};
+  const pts=rgCiblePts(cfg);
+  const rules=rgCibleTechRules(cfg);
+  const boardId=opts.boardId||'rg-table-cible';
+  const hasTech=opts.hasTechnique!=null?!!opts.hasTechnique:cfg.has_technique!==false;
+  const fondList=opts.fondCriteres||cfg.fond_criteres||[];
+  const techOrdre=[
+    ['rsi','RSI 14 hebdo'],
+    ['macd','MACD 12/26/9 hebdo'],
+    ['fibonacci','Fibonacci'],
+    ['cci','CCI Stochastic 28 hebdo (Daveatt)']
+  ];
+  const techSum=pts.rsi+pts.macd+pts.fibonacci+pts.cci;
+  const techNote=techOrdre.map(([id,lab])=>lab.split(' ')[0]+' '+rgNum(pts[id])).join(' · ');
+  const techCards=techOrdre.map(([id,label])=>rgCard(id,label,rgEsc(rules[id]||''),rgNum(pts[id]))).join('');
+  const fondCards=fondList.map(el=>rgCard(el.id||'', el.label||el.id||'', rgEsc(el.regle||'Non calculé.'), el.statut==='non_calcule'?'n.c.':(el.points!=null?rgNum(el.points):'n.c.'))).join('');
+  const sentCards=rgCard('fear_greed','Fear & Greed Index (CNN)',rgEsc(rules.fear_greed||''),'±'+rgNum(pts.fg));
+  const noTech=opts.sansTechnique||cfg.sans_technique||'';
+  const techBlock=hasTech
+    ? `<section class="rg-block" data-group="technique">
+      <header class="rg-block-h">
+        <div class="rg-block-title">Technique <span class="rg-group-note">${techNote}</span></div>
+        <span class="rg-block-pts">${rgNum(techSum)}</span>
+      </header>
+      <div class="rg-cards rg-cards-span">${techCards}</div>
+    </section>`
+    : (noTech?`<p class="rg-p rg-app">${rgEsc(noTech)}</p>`:'');
+  return `<div class="rg-board" id="${rgEsc(boardId)}">
+    ${techBlock}
+    <section class="rg-block" data-group="fondamental">
+      <header class="rg-block-h">
+        <div class="rg-block-title">Fondamental</div>
+        <span class="rg-block-pts">${rgNum(pts.fond)}</span>
+      </header>
+      <div class="rg-cards rg-cards-span">${fondCards}</div>
+    </section>
+    <section class="rg-block" data-group="sentiment">
+      <header class="rg-block-h">
+        <div class="rg-block-title">Sentiment</div>
+        <span class="rg-block-pts">±${rgNum(pts.fg)}</span>
+      </header>
+      <div class="rg-cards rg-cards-span">${sentCards}</div>
+    </section>
+  </div>`;
+}
+function rgCibleFoot(cfg, opts){
+  opts=opts||{};
+  const pts=rgCiblePts(cfg);
+  const hasTech=opts.hasTechnique!=null?!!opts.hasTechnique:cfg.has_technique!==false;
+  const lo=cfg.note_min!=null?Number(cfg.note_min):-50;
+  const hi=cfg.note_max!=null?Number(cfg.note_max):(hasTech?250:140);
+  const tech=hasTech?('Technique '+rgNum(pts.rsi+pts.macd+pts.fibonacci+pts.cci)+' + '):'';
+  const actuel=cfg.note_actuelle||opts.noteActuelle||'';
+  const scale=rgFmtScaleBound(lo)+' à '+rgFmtScaleBound(hi);
+  return `<p class="rg-p rg-app">${tech}Fondamental ${rgNum(pts.fond)} + F&amp;G ±${rgNum(pts.fg)} = ${scale}, points entiers, sans Elliott. Calcul non encore aligné${actuel?(' : notes publiées — '+rgEsc(actuel)):''}. Un critère sans donnée ou sans palier est « non calculé », sans invention ni redistribution.</p>`;
+}
+function rgCibleSectionBody(cfg, boardId){
+  cfg=cfg||{};
+  const intro=cfg.intro_courte?`<p class="rg-p rg-app">${rgEsc(cfg.intro_courte)}</p>`:'';
+  const board=rgCible250Board(cfg,{boardId:boardId});
+  return intro+board+rgCibleFoot(cfg);
+}
+function rgObligationsGrid(){ return rgCibleSectionBody((RG&&RG.apex_obligations)||{}, 'rg-table-obligations'); }
+function rgPlacementsGrid(){ return rgCibleSectionBody((RG&&RG.apex_placements)||{}, 'rg-table-placements'); }
+function rgImmobilierGrid(){ return rgCibleSectionBody((RG&&RG.apex_immobilier)||{}, 'rg-table-immobilier'); }
+function rgEnergieGrid(){ return rgCibleSectionBody((RG&&RG.apex_energie)||{}, 'rg-table-energie'); }
+function rgLiquiditesGrid(){
+  const cfg=(RG&&RG.apex_liquidites)||{};
+  const intro=cfg.intro_courte?`<p class="rg-p rg-app">${rgEsc(cfg.intro_courte)}</p>`:'';
+  const parties=cfg.parties||[];
+  const blocks=parties.map(part=>{
+    const sub=part.titre?`<h3 class="rg-subh">${rgEsc(part.titre)}</h3>`:'';
+    const merged=Object.assign({},cfg,part,{fond_criteres:part.fond_criteres,has_technique:part.has_technique,sans_technique:part.sans_technique,note_min:part.note_min,note_max:part.note_max,note_actuelle:part.note_actuelle});
+    const board=rgCible250Board(merged,{boardId:'rg-table-liquidites-'+(part.id||''), hasTechnique:!!part.has_technique, sansTechnique:part.sans_technique, fondCriteres:part.fond_criteres});
+    const foot=rgCibleFoot(merged,{hasTechnique:!!part.has_technique, noteActuelle:part.note_actuelle});
+    return sub+board+foot;
+  }).join('');
+  return intro+(blocks||rgCibleSectionBody(cfg,'rg-table-liquidites'));
+}
+function rgCibleScale(cfg, fallbackMax){
+  const lo=cfg&&cfg.note_min!=null?Number(cfg.note_min):-50;
+  const hi=cfg&&cfg.note_max!=null?Number(cfg.note_max):(fallbackMax!=null?fallbackMax:250);
+  if(cfg&&cfg.echelle&&cfg.echelle!=='voir parties') return cfg.echelle;
+  return rgFmtScaleBound(lo)+' à '+rgFmtScaleBound(hi);
+}
+
+
 function rgPageHTML(){
   if(!RG) return '<p class="rg-p">Règles indisponibles.</p>';
   const fr=RG.fiche_regles||{};
@@ -15366,7 +15806,12 @@ function rgPageHTML(){
     {id:'actions', title:vAct.section_titre||'Actions (hors banque)', scale:rgActionsScale(vAct).label, body:rgActionsGrid(vAct,{boardId:'rg-table-actions', note:vAct.champ_application}), open:true},
     vBan?{id:'banques', title:vBan.section_titre||vBan.titre||'Actions bancaires', scale:rgActionsScale(vBan).label, body:rgActionsGrid(vBan,{boardId:'rg-table-banques', note:vBan.champ_application||vBan.intro}), open:false}:null,
     {id:'metaux', title:'Métaux précieux', scale:rgMetauxScale().label, body:rgMetauxGrid(), open:false},
-    {id:'crypto', title:((RG&&RG.apex_crypto)||{}).section_titre||'Crypto', scale:rgCryptoScale().label, body:rgCryptoGrid(), open:false}
+    {id:'crypto', title:((RG&&RG.apex_crypto)||{}).section_titre||'Crypto', scale:rgCryptoScale().label, body:rgCryptoGrid(), open:false},
+    {id:'obligations', title:((RG&&RG.apex_obligations)||{}).section_titre||'Obligations', scale:rgCibleScale((RG&&RG.apex_obligations)||{},250), body:rgObligationsGrid(), open:false},
+    {id:'liquidites', title:((RG&&RG.apex_liquidites)||{}).section_titre||'Liquidités', scale:((RG&&RG.apex_liquidites)||{}).echelle&&((RG&&RG.apex_liquidites)||{}).echelle!=='voir parties'?((RG&&RG.apex_liquidites)||{}).echelle:'épargne −50 à 140 · devises −50 à 250', body:rgLiquiditesGrid(), open:false},
+    {id:'placements', title:((RG&&RG.apex_placements)||{}).section_titre||'Placements', scale:rgCibleScale((RG&&RG.apex_placements)||{},140), body:rgPlacementsGrid(), open:false},
+    {id:'immobilier', title:((RG&&RG.apex_immobilier)||{}).section_titre||'Immobilier', scale:rgCibleScale((RG&&RG.apex_immobilier)||{},140), body:rgImmobilierGrid(), open:false},
+    {id:'energie', title:((RG&&RG.apex_energie)||{}).section_titre||'Énergie', scale:rgCibleScale((RG&&RG.apex_energie)||{},250), body:rgEnergieGrid(), open:false}
   ].filter(Boolean);
   return `<header class="rg-top">
       <button type="button" id="rgBack" class="rg-back">← Retour</button>
