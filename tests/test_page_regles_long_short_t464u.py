@@ -17,9 +17,12 @@ def test_panneaux_long_short():
     assert "${rgCommons()}" in html
     assert html.find("rg-pane-long") < html.find("${rgCommons()}") < html.find('id="rg-pane-short"')
     short = html.split('id="rg-pane-short"')[1]
-    assert "Règles SHORT à définir" in short
+    assert "Règles SHORT à définir" not in short
+    assert "rgShortGrid()" in short
     assert "rgSectionAccordion" not in short
     assert "rgCommons" not in short
+    assert "function rgShortGrid" in JS
+    assert "200 − note LONG" in JS or "200 - note LONG" in JS
 
 
 def test_colonnes_desktop_empilees_mobile():

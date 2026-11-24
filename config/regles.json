@@ -2324,5 +2324,17 @@
         "regle": "Non calculé : rendement de dividende absent des données."
       }
     ]
+  },
+  "apex_short": {
+    "titre": "Note SHORT",
+    "origine": "Les RÈGLES SHORT étaient à définir (commit 528ed19). Il n’existait pas de note SHORT chiffrée distincte, ni dans la page Règles ni dans le bandeau Achat/Vente (échelle −100 à +100, déjà publiée et inchangée).",
+    "formule": "note SHORT = 200 − note LONG",
+    "echelle": "−50 à 250",
+    "note_min": -50,
+    "note_max": 250,
+    "gi_seuil": 130,
+    "montant": "Dès 130/250 : 500 $, puis +100 $ tous les 24 points, jusqu’à 1 000 $ à 250 (même grille que Meilleures entrées, appliquée à la note SHORT).",
+    "univers": "Actions USA et France, métaux, crypto, ETF par devise — uniquement les actifs qui ont déjà une note LONG sur 250.",
+    "lecture": "Miroir exact de la note LONG déjà publiée : on n’invente aucun critère et on ne recalcule aucune composante. Une note LONG basse est un candidat short. Les trous déjà ouverts côté LONG (HYPE non comptée jusqu’au 25/11, fondamental n.c.) restent des trous. Les notes LONG ne sont pas modifiées."
   }
 }

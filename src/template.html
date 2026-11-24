@@ -613,6 +613,33 @@ body{display:flex;flex-direction:column;min-height:100vh}
   #mes-pos:not(.is-expanded) #goodInvestCard.pos-collapsed{background:#141414;border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:8px 14px;box-shadow:0 4px 16px rgba(0,0,0,.35)}
 }
 
+
+/* ===== MEILLEURS SHORT (sous Meilleures entrées, même rail) ===== */
+#bestShortCard{padding:10px 10px 8px;margin-top:10px}
+#bestShortCard .pos-rail-h{cursor:pointer;user-select:none}
+#bestShortCard .pos-chev{flex:none;width:14px;color:var(--mut,#bababa);font-size:12px;line-height:1;transition:transform .2s ease}
+#bestShortCard:not(.pos-collapsed) .pos-chev{transform:rotate(90deg)}
+#bestShortCard .pos-head-tot{margin-left:auto;display:flex;align-items:baseline;gap:8px;font-size:15px;font-weight:750;color:#fff;font-variant-numeric:tabular-nums;white-space:nowrap}
+#bestShortCard .pos-head-tot small{font-size:11px;font-weight:650;letter-spacing:.06em;text-transform:uppercase;color:var(--mut,#b5b5b5);margin-left:4px}
+#bestShortCard.pos-collapsed .gi-body{display:none}
+#bestShortCard.pos-collapsed{padding:8px 10px}
+#bestShortCard .pos-rail-h:focus-visible{outline:1px solid rgba(255,255,255,.35);outline-offset:2px;border-radius:8px}
+#bestShortCard h2{text-transform:uppercase;letter-spacing:.06em;font-size:12px;font-weight:750;margin:0;color:#fff;white-space:nowrap}
+.gs-warn{margin:8px 4px 6px;padding:8px 10px;border-radius:8px;background:rgba(230,194,122,.10);border:1px solid rgba(230,194,122,.35);color:#e6c27a;font-size:11px;line-height:1.4}
+#rg-pane-short .rg-short-grid{margin:0}
+#rg-pane-short .rg-short-formule{font-size:15px;font-weight:750;color:#fff;margin:0 0 10px}
+#rg-pane-short .rg-board .rg-card{display:block;white-space:normal;padding:10px 12px}
+#rg-pane-short .rg-board .rg-card-pts,
+#rg-pane-short .rg-board .rg-card-name,
+#rg-pane-short .rg-board .rg-card-rule{display:block;grid-column:auto;white-space:normal;text-align:left}
+#rg-pane-short .rg-board .rg-card-pts{margin:0 0 4px}
+#rg-pane-short .rg-board .rg-card-name{margin:0 0 6px}
+#rg-pane-short .rg-board .rg-card-rule{margin:0}
+@media(max-width:1099px){
+  #mes-pos:not(.is-expanded) #bestShortCard{margin-top:0}
+  #mes-pos:not(.is-expanded) #bestShortCard.pos-collapsed{background:#141414;border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:8px 14px;box-shadow:0 4px 16px rgba(0,0,0,.35)}
+}
+
 /* ===== TEMPLATE TRADE (haut à droite, hors menu) ===== */
 #hh,.hh-top{overflow:visible}
 .tt-btn{appearance:none;-webkit-appearance:none;display:inline-flex;align-items:center;margin:0;padding:6px 12px;font-family:inherit;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#e6c27a;background:rgba(230,194,122,.10);border:1px solid rgba(230,194,122,.55);border-radius:999px;cursor:pointer;white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,.25)}
@@ -982,7 +1009,7 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
 </header>
 <div class="page">
 <div class="layout"><main id="tabs"></main><div class="side"><aside id="duo" aria-label="Sentiment de marché et Achat / Vente"></aside><aside id="ind" hidden></aside><aside id="av" hidden></aside></div></div>
-<aside id="mes-pos" class="pos-rail" aria-label="Mes positions et Meilleures entrées"></aside>
+<aside id="mes-pos" class="pos-rail" aria-label="Mes positions, Meilleures entrées et Meilleurs short"></aside>
 </div>
 <div id="pos-overlay" hidden></div>
 <button type="button" id="posReopen" class="pos-reopen" aria-controls="mes-pos" aria-expanded="false">Mes positions →</button>
@@ -1222,12 +1249,14 @@ function chartTrends(){
 /*__TTJS__*/
 /*__RGJS__*/
 /*__GIJS__*/
+/*__GSJS__*/
 /*__SEARCHJS__*/
 buildTabs();
 if(typeof ttInit==='function') ttInit();
 if(typeof rgInit==='function') rgInit();
 if(typeof posInit==='function') posInit();
 if(typeof giInit==='function') giInit();
+if(typeof gsInit==='function') gsInit();
 if(typeof apxSearchInit==='function') apxSearchInit();
 </script>
 

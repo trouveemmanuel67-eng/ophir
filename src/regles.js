@@ -969,6 +969,24 @@ function rgCibleScale(cfg, fallbackMax){
 }
 
 
+
+function rgShortGrid(){
+  const cfg=(RG&&RG.apex_short)||{};
+  const formule=cfg.formule||'note SHORT = 200 − note LONG';
+  const echelle=cfg.echelle||'−50 à 250';
+  const seuil=cfg.gi_seuil!=null?cfg.gi_seuil:130;
+  const cards=[
+    rgCard('formule','Formule',formule+' . Échelle '+echelle+' (même bornes que le LONG : le minimum LONG (−50) donne 250 en SHORT, le maximum LONG (250) donne −50).','200−L'),
+    rgCard('lecture','Lecture à l’inverse','Miroir exact de la note LONG déjà publiée. On n’invente aucun critère et on ne recalcule aucune composante. Une note LONG basse est un candidat short. Les trous déjà ouverts côté LONG (HYPE non comptée, fondamental n.c.) restent des trous.',''),
+    rgCard('univers','Univers','Actions USA et France, métaux, crypto, ETF par devise — uniquement les actifs qui ont déjà une note LONG sur 250. Les notes /100 (devises, etc.) et les actions hors USA/France restent hors liste.',''),
+    rgCard('gi','Meilleurs short','Dès '+rgNum(seuil)+'/250 : 500 $, puis +100 $ tous les 24 points, jusqu’à 1 000 $ à 250. Même grille que Meilleures entrées, appliquée à la note SHORT.','≥ '+rgNum(seuil))
+  ].join('');
+  const origine=cfg.origine?`<p class="rg-p rg-app">${rgEsc(cfg.origine)}</p>`:'';
+  const lecture=cfg.lecture?`<p class="rg-p rg-app">${rgEsc(cfg.lecture)}</p>`:'';
+  const montant=cfg.montant?`<p class="rg-p rg-app">${rgEsc(cfg.montant)}</p>`:'';
+  return `${origine}<p class="rg-short-formule">${rgEsc(formule)}</p>${lecture}${montant}<div class="rg-board rg-short-grid" id="rg-table-short"><div class="rg-cards rg-cards-span">${cards}</div></div>`;
+}
+
 function rgPageHTML(){
   if(!RG) return '<p class="rg-p">Règles indisponibles.</p>';
   const fr=RG.fiche_regles||{};
@@ -1000,7 +1018,7 @@ function rgPageHTML(){
         </div>
         <div class="rg-pane rg-pane-short" id="rg-pane-short">
           <h2 class="rg-pane-h">SHORT</h2>
-          <p class="rg-p rg-short-empty">Règles SHORT à définir</p>
+          ${rgShortGrid()}
         </div>
       </div>
     </div>`;

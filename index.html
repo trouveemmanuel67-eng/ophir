@@ -6,18 +6,18 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<meta name="ophir-build" content="a40dd52-20261124-160320">
+<meta name="ophir-build" content="78d4fff-20261124-161135">
 <title>APEX INDICATOR INVESTMENT</title>
 <meta name="description" content="APEX Indicator Investment — notes et indicateurs de marché.">
 <meta name="theme-color" content="#0a1128">
 <meta name="apple-mobile-web-app-title" content="APEX">
 <meta name="application-name" content="APEX">
-<link rel="icon" href="favicon.ico?v=a40dd52-20261124-160320" sizes="any">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=a40dd52-20261124-160320">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=a40dd52-20261124-160320">
-<link rel="icon" type="image/png" sizes="64x64" href="favicon.png?v=a40dd52-20261124-160320">
-<link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png?v=a40dd52-20261124-160320">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=a40dd52-20261124-160320">
+<link rel="icon" href="favicon.ico?v=78d4fff-20261124-161135" sizes="any">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=78d4fff-20261124-161135">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=78d4fff-20261124-161135">
+<link rel="icon" type="image/png" sizes="64x64" href="favicon.png?v=78d4fff-20261124-161135">
+<link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png?v=78d4fff-20261124-161135">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=78d4fff-20261124-161135">
 <meta property="og:type" content="website">
 <meta property="og:title" content="APEX INDICATOR INVESTMENT">
 <meta property="og:description" content="APEX Indicator Investment — notes et indicateurs de marché.">
@@ -613,6 +613,33 @@ body{display:flex;flex-direction:column;min-height:100vh}
   #mes-pos:not(.is-expanded) #goodInvestCard.pos-collapsed{background:#141414;border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:8px 14px;box-shadow:0 4px 16px rgba(0,0,0,.35)}
 }
 
+
+/* ===== MEILLEURS SHORT (sous Meilleures entrées, même rail) ===== */
+#bestShortCard{padding:10px 10px 8px;margin-top:10px}
+#bestShortCard .pos-rail-h{cursor:pointer;user-select:none}
+#bestShortCard .pos-chev{flex:none;width:14px;color:var(--mut,#bababa);font-size:12px;line-height:1;transition:transform .2s ease}
+#bestShortCard:not(.pos-collapsed) .pos-chev{transform:rotate(90deg)}
+#bestShortCard .pos-head-tot{margin-left:auto;display:flex;align-items:baseline;gap:8px;font-size:15px;font-weight:750;color:#fff;font-variant-numeric:tabular-nums;white-space:nowrap}
+#bestShortCard .pos-head-tot small{font-size:11px;font-weight:650;letter-spacing:.06em;text-transform:uppercase;color:var(--mut,#b5b5b5);margin-left:4px}
+#bestShortCard.pos-collapsed .gi-body{display:none}
+#bestShortCard.pos-collapsed{padding:8px 10px}
+#bestShortCard .pos-rail-h:focus-visible{outline:1px solid rgba(255,255,255,.35);outline-offset:2px;border-radius:8px}
+#bestShortCard h2{text-transform:uppercase;letter-spacing:.06em;font-size:12px;font-weight:750;margin:0;color:#fff;white-space:nowrap}
+.gs-warn{margin:8px 4px 6px;padding:8px 10px;border-radius:8px;background:rgba(230,194,122,.10);border:1px solid rgba(230,194,122,.35);color:#e6c27a;font-size:11px;line-height:1.4}
+#rg-pane-short .rg-short-grid{margin:0}
+#rg-pane-short .rg-short-formule{font-size:15px;font-weight:750;color:#fff;margin:0 0 10px}
+#rg-pane-short .rg-board .rg-card{display:block;white-space:normal;padding:10px 12px}
+#rg-pane-short .rg-board .rg-card-pts,
+#rg-pane-short .rg-board .rg-card-name,
+#rg-pane-short .rg-board .rg-card-rule{display:block;grid-column:auto;white-space:normal;text-align:left}
+#rg-pane-short .rg-board .rg-card-pts{margin:0 0 4px}
+#rg-pane-short .rg-board .rg-card-name{margin:0 0 6px}
+#rg-pane-short .rg-board .rg-card-rule{margin:0}
+@media(max-width:1099px){
+  #mes-pos:not(.is-expanded) #bestShortCard{margin-top:0}
+  #mes-pos:not(.is-expanded) #bestShortCard.pos-collapsed{background:#141414;border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:8px 14px;box-shadow:0 4px 16px rgba(0,0,0,.35)}
+}
+
 /* ===== TEMPLATE TRADE (haut à droite, hors menu) ===== */
 #hh,.hh-top{overflow:visible}
 .tt-btn{appearance:none;-webkit-appearance:none;display:inline-flex;align-items:center;margin:0;padding:6px 12px;font-family:inherit;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#e6c27a;background:rgba(230,194,122,.10);border:1px solid rgba(230,194,122,.55);border-radius:999px;cursor:pointer;white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,.25)}
@@ -982,7 +1009,7 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
 </header>
 <div class="page">
 <div class="layout"><main id="tabs"></main><div class="side"><aside id="duo" aria-label="Sentiment de marché et Achat / Vente"></aside><aside id="ind" hidden></aside><aside id="av" hidden></aside></div></div>
-<aside id="mes-pos" class="pos-rail" aria-label="Mes positions et Meilleures entrées"></aside>
+<aside id="mes-pos" class="pos-rail" aria-label="Mes positions, Meilleures entrées et Meilleurs short"></aside>
 </div>
 <div id="pos-overlay" hidden></div>
 <button type="button" id="posReopen" class="pos-reopen" aria-controls="mes-pos" aria-expanded="false">Mes positions →</button>
@@ -10973,11 +11000,23 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
         "regle": "Non calculé : rendement de dividende absent des données."
       }
     ]
+  },
+  "apex_short": {
+    "titre": "Note SHORT",
+    "origine": "Les RÈGLES SHORT étaient à définir (commit 528ed19). Il n’existait pas de note SHORT chiffrée distincte, ni dans la page Règles ni dans le bandeau Achat/Vente (échelle −100 à +100, déjà publiée et inchangée).",
+    "formule": "note SHORT = 200 − note LONG",
+    "echelle": "−50 à 250",
+    "note_min": -50,
+    "note_max": 250,
+    "gi_seuil": 130,
+    "montant": "Dès 130/250 : 500 $, puis +100 $ tous les 24 points, jusqu’à 1 000 $ à 250 (même grille que Meilleures entrées, appliquée à la note SHORT).",
+    "univers": "Actions USA et France, métaux, crypto, ETF par devise — uniquement les actifs qui ont déjà une note LONG sur 250.",
+    "lecture": "Miroir exact de la note LONG déjà publiée : on n’invente aucun critère et on ne recalcule aucune composante. Une note LONG basse est un candidat short. Les trous déjà ouverts côté LONG (HYPE non comptée jusqu’au 25/11, fondamental n.c.) restent des trous. Les notes LONG ne sont pas modifiées."
   }
 }
 </script>
-<script type="application/json" id="dataBuild">{"version":"a40dd52-20261124-160320"}</script>
-<link rel="preload" href="config/regles.json?v=a40dd52-20261124-160320" as="fetch" crossorigin>
+<script type="application/json" id="dataBuild">{"version":"78d4fff-20261124-161135"}</script>
+<link rel="preload" href="config/regles.json?v=78d4fff-20261124-161135" as="fetch" crossorigin>
 
 <script type="application/json" id="dataMaj">{
   "at": "2026-11-23T21:45:22.168885+01:00",
@@ -14190,13 +14229,15 @@ function posListIsOpen(){
 function posSyncListChrome(on){
   document.body.classList.toggle('pos-list-open',!!on);
   const giOn=typeof giListIsOpen==='function'&&giListIsOpen();
+  const gsOn=typeof gsListIsOpen==='function'&&gsListIsOpen();
   document.body.classList.toggle('gi-list-open',!!giOn);
+  document.body.classList.toggle('gs-list-open',!!gsOn);
   const rail=document.getElementById('mes-pos');
-  if(rail) rail.classList.toggle('is-expanded',!!on||!!giOn);
+  if(rail) rail.classList.toggle('is-expanded',!!on||!!giOn||!!gsOn);
   const ov=document.getElementById('pos-overlay');
   if(ov){
     const mobile=window.matchMedia('(max-width:1099px)').matches;
-    ov.hidden=!(mobile&&(on||giOn));
+    ov.hidden=!(mobile&&(on||giOn||gsOn));
   }
 }
 function posApplyListState(force){
@@ -15972,6 +16013,24 @@ function rgCibleScale(cfg, fallbackMax){
 }
 
 
+
+function rgShortGrid(){
+  const cfg=(RG&&RG.apex_short)||{};
+  const formule=cfg.formule||'note SHORT = 200 − note LONG';
+  const echelle=cfg.echelle||'−50 à 250';
+  const seuil=cfg.gi_seuil!=null?cfg.gi_seuil:130;
+  const cards=[
+    rgCard('formule','Formule',formule+' . Échelle '+echelle+' (même bornes que le LONG : le minimum LONG (−50) donne 250 en SHORT, le maximum LONG (250) donne −50).','200−L'),
+    rgCard('lecture','Lecture à l’inverse','Miroir exact de la note LONG déjà publiée. On n’invente aucun critère et on ne recalcule aucune composante. Une note LONG basse est un candidat short. Les trous déjà ouverts côté LONG (HYPE non comptée, fondamental n.c.) restent des trous.',''),
+    rgCard('univers','Univers','Actions USA et France, métaux, crypto, ETF par devise — uniquement les actifs qui ont déjà une note LONG sur 250. Les notes /100 (devises, etc.) et les actions hors USA/France restent hors liste.',''),
+    rgCard('gi','Meilleurs short','Dès '+rgNum(seuil)+'/250 : 500 $, puis +100 $ tous les 24 points, jusqu’à 1 000 $ à 250. Même grille que Meilleures entrées, appliquée à la note SHORT.','≥ '+rgNum(seuil))
+  ].join('');
+  const origine=cfg.origine?`<p class="rg-p rg-app">${rgEsc(cfg.origine)}</p>`:'';
+  const lecture=cfg.lecture?`<p class="rg-p rg-app">${rgEsc(cfg.lecture)}</p>`:'';
+  const montant=cfg.montant?`<p class="rg-p rg-app">${rgEsc(cfg.montant)}</p>`:'';
+  return `${origine}<p class="rg-short-formule">${rgEsc(formule)}</p>${lecture}${montant}<div class="rg-board rg-short-grid" id="rg-table-short"><div class="rg-cards rg-cards-span">${cards}</div></div>`;
+}
+
 function rgPageHTML(){
   if(!RG) return '<p class="rg-p">Règles indisponibles.</p>';
   const fr=RG.fiche_regles||{};
@@ -16003,7 +16062,7 @@ function rgPageHTML(){
         </div>
         <div class="rg-pane rg-pane-short" id="rg-pane-short">
           <h2 class="rg-pane-h">SHORT</h2>
-          <p class="rg-p rg-short-empty">Règles SHORT à définir</p>
+          ${rgShortGrid()}
         </div>
       </div>
     </div>`;
@@ -16533,6 +16592,290 @@ function giInit(){
   giRender();
 }
 
+/* ===== MEILLEURS SHORT : miroir exact de la note LONG (−50..250), seuil 130 (t496u) =====
+   Il n'existait pas de note SHORT chiffrée (RÈGLES SHORT : « à définir », commit 528ed19).
+   note SHORT = 200 − note LONG. On ne recalcule aucune composante et on ne modifie pas les notes LONG.
+   Univers : actions USA/France, métaux, crypto, ETF par devise — uniquement les notes sur 250.
+*/
+const GS_SEUIL=130;
+const GS_MIRROR=200; /* (−50) + 250 */
+const GS_VALIDE_KEY='apex-short-valide';
+const GS_LIST_KEY='apex-short-list';
+const GS_ELLIOTT_KEY='apex-short-elliott-hide';
+const GS_PATTERN_KEY='apex-short-pattern-hide';
+let gsShowValides=false;
+
+function gsMirror(longNote){
+  const n=Number(longNote);
+  if(!Number.isFinite(n)) return null;
+  return GS_MIRROR-n;
+}
+function gsMontant(shortNote){
+  const n=Number(shortNote);
+  if(!Number.isFinite(n)||n<GS_SEUIL) return null;
+  const steps=Math.round((Math.min(n,250)-GS_SEUIL)/24);
+  return Math.min(500+steps*100, 1000);
+}
+function gsIsUsaFranceTv(tv){
+  if(!tv) return false;
+  const p=String(tv).split(':')[0];
+  return p==='NYSE'||p==='NASDAQ'||p==='AMEX'||p==='EURONEXT';
+}
+function gsIsScale250(rec){
+  if(!rec||typeof rec!=='object') return false;
+  const sc=Number(rec.scale!=null?rec.scale:rec.total_max);
+  return sc===250||rec.v2===true;
+}
+function gsMonthKey(d){
+  const x=d||((typeof giNow==='function')?giNow():new Date());
+  return x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0');
+}
+function gsHideMap(key){
+  let raw=null;
+  try{ raw=JSON.parse(localStorage.getItem(key)||'{}'); }catch(e){ raw={}; }
+  if(!raw||typeof raw!=='object'||Array.isArray(raw)) raw={};
+  const month=gsMonthKey();
+  const out={};
+  let changed=false;
+  Object.keys(raw).forEach(k=>{
+    if(raw[k]===month) out[k]=month;
+    else changed=true;
+  });
+  if(changed){
+    try{ localStorage.setItem(key, JSON.stringify(out)); }catch(e){}
+  }
+  return out;
+}
+function gsIsHidden(tv, map){
+  if(!tv) return false;
+  return !!((map||{})[String(tv)]);
+}
+function gsHideUntilMonth(key, tv){
+  if(!tv) return;
+  const map=gsHideMap(key);
+  map[String(tv)]=gsMonthKey();
+  try{ localStorage.setItem(key, JSON.stringify(map)); }catch(e){}
+}
+function gsValideMap(){
+  let raw=null;
+  try{ raw=JSON.parse(localStorage.getItem(GS_VALIDE_KEY)||'{}'); }catch(e){ raw={}; }
+  if(!raw||typeof raw!=='object'||Array.isArray(raw)) raw={};
+  const out={};
+  Object.keys(raw).forEach(k=>{
+    const v=raw[k];
+    if(v) out[String(k)]=v===true?true:v;
+  });
+  return out;
+}
+function gsIsValide(tv, map){
+  if(!tv) return false;
+  return !!((map||gsValideMap())[String(tv)]);
+}
+function gsSetValide(tv, on){
+  if(!tv) return;
+  const map=gsValideMap();
+  const k=String(tv);
+  if(on) map[k]=true;
+  else delete map[k];
+  try{ localStorage.setItem(GS_VALIDE_KEY, JSON.stringify(map)); }catch(e){}
+}
+
+function gsPush(out, rec){
+  if(!rec||!rec.tv||rec.note==null||Number(rec.note)<GS_SEUIL) return;
+  const k=rec.tv;
+  const prev=out.get(k);
+  if(!prev){ out.set(k, rec); return; }
+  if(rec.note>prev.note||(rec.note===prev.note&&String(rec.tv)<String(prev.tv))){
+    out.set(k, rec);
+  }
+}
+
+function gsFromLong(tv, nom, section, rec, tab, yahoo, ticker){
+  if(!tv||!rec||!gsIsScale250(rec)||rec.note==null||rec.cap==='moyenne') return null;
+  const long=Number(rec.note);
+  if(!Number.isFinite(long)) return null;
+  const note=gsMirror(long);
+  if(note==null) return null;
+  const hex=(typeof pilotHex==='function')?pilotHex({total:note}):(rec.hex||'#e6c27a');
+  return {
+    tv, nom:nom||tv, section:section||'', note,
+    long_note:long,
+    display:String(note).replace('.',','), hex,
+    flag:null, cap:rec.cap, tab:tab||'', yahoo:yahoo||'', ticker:ticker||'',
+    scale:250, montant:gsMontant(note)
+  };
+}
+
+function gsCollect(){
+  const out=new Map();
+  const take=(tv, nom, section, rec, tab, yahoo, ticker)=>{
+    gsPush(out, gsFromLong(tv, nom, section, rec, tab, yahoo, ticker));
+  };
+
+  /* Actions USA / France (notes APEX v2 sur 250 déjà publiées). */
+  if(typeof PILOT!=='undefined'&&PILOT&&PILOT.by_tv){
+    Object.keys(PILOT.by_tv).forEach(tv=>{
+      const r=PILOT.by_tv[tv];
+      if(!r||r.ok===false||r.total==null) return;
+      if(r.kind&&r.kind!=='action') return;
+      if(!gsIsUsaFranceTv(tv)) return;
+      const rec={note:r.total, scale:(PILOT.scale&&PILOT.scale.max!=null)?Number(PILOT.scale.max):250, v2:true, hex:r.hex};
+      take(tv, r.nom||tv, r.kind==='etf'?'ETF sectoriel':'Action', rec, 'actions', r.yahoo||'', r.ticker||'');
+    });
+  }
+
+  /* Métaux */
+  if(typeof MT!=='undefined'&&MT&&MT.rows){
+    MT.rows.forEach(r=>{
+      const ml=r.mlist||{};
+      [ml.head].concat(ml.items||[]).forEach(it=>{
+        if(!it||it.skip_score) return;
+        take(it.tv||it.ticker, it.name||it.nom, 'Métaux – '+(r.nom||''), it.apex10, 'metaux', it.yahoo, it.ticker);
+      });
+    });
+  }
+
+  /* Crypto (XRP hors APEX, comme Meilleures entrées) */
+  const CF=(typeof T2!=='undefined'&&T2&&T2.crypto&&T2.crypto.fiches)?T2.crypto.fiches:null;
+  const assets=CF&&CF.assets||(typeof T2!=='undefined'&&T2&&T2.crypto&&T2.crypto.assets)||[];
+  (typeof cxApexAssets==='function'?cxApexAssets(assets):assets.filter(a=>String((a&&a.key)||'').toLowerCase()!=='xrp')).forEach(a=>{
+    take(a.tv||a.sym, a.nom||a.name, 'Crypto', a.apex10, 'crypto', a.yahoo, a.ticker||a.sym);
+  });
+
+  /* ETF par devise uniquement (pas la note /100 de la devise) */
+  const fx=(((typeof T2!=='undefined'&&T2&&T2.liquidites)||{}).fx)||{};
+  (fx.assets||[]).forEach(a=>{
+    const e=a.etf_local;
+    if(e&&e.ok&&e.tv&&e.apex10) take(e.tv, e.nom||e.court||e.tv, 'Liquidités – ETF par devise', e.apex10, 'liquidites', e.yahoo, (e.tv||'').split(':')[1]||'');
+  });
+
+  return [...out.values()]
+    .sort((a,b)=> (b.note-a.note) || String(a.tv).localeCompare(String(b.tv)));
+}
+
+function gsListIsOpen(){
+  const c=document.getElementById('bestShortCard');
+  return !!(c&&!c.classList.contains('pos-collapsed'));
+}
+function gsSetListOpen(on,persist){
+  const c=document.getElementById('bestShortCard');
+  if(!c) return;
+  c.classList.toggle('pos-collapsed',!on);
+  const head=c.querySelector('.pos-rail-h');
+  if(head) head.setAttribute('aria-expanded', on?'true':'false');
+  if(persist!==false){ try{ localStorage.setItem(GS_LIST_KEY, on?'1':'0'); }catch(e){} }
+  if(typeof posSyncListChrome==='function') posSyncListChrome(typeof posListIsOpen==='function'&&posListIsOpen());
+}
+function gsTickerCourt(tv){
+  if(typeof giTickerCourt==='function') return giTickerCourt(tv);
+  if(!tv) return '';
+  const s=String(tv);
+  const i=s.lastIndexOf(':');
+  return i>=0?s.slice(i+1):s;
+}
+
+function gsRender(){
+  const host=document.getElementById('mes-pos');
+  if(!host) return;
+  const hiddenE=gsHideMap(GS_ELLIOTT_KEY);
+  const hiddenP=gsHideMap(GS_PATTERN_KEY);
+  const valides=gsValideMap();
+  const all=gsCollect().filter(it=>!gsIsHidden(it.tv, hiddenE)&&!gsIsHidden(it.tv, hiddenP));
+  const list=all.filter(it=>!gsIsValide(it.tv, valides));
+  const listVal=all.filter(it=>gsIsValide(it.tv, valides));
+  const n=list.length;
+  const nVal=listVal.length;
+  const rowOf=(it, checked)=>{
+    const col=(typeof pilotHex==='function')?pilotHex({total:it.note}):(it.hex||'#e6c27a');
+    const note=it.display||String(it.note).replace('.',',');
+    const amt=(typeof ttMontantTxt==='function')?ttMontantTxt(it.montant, (typeof TT!=='undefined'&&TT&&TT.unite)||'$'):(it.montant==null?'—':it.montant+' $');
+    const label=it.tv?gsTickerCourt(it.tv):(it.nom||'');
+    const go=it.tv
+      ? `<button type="button" class="gi-link gs-link" data-tab="${(it.tab||'').replace(/"/g,'')}" data-tv="${String(it.tv).replace(/"/g,'&quot;')}" title="${String(it.nom||it.tv).replace(/"/g,'&quot;')}">${String(label).replace(/</g,'')}</button>`
+      : `<span class="pos-nm" title="${String(it.nom||'').replace(/"/g,'&quot;')}">${(it.nom||'').replace(/</g,'')}</span>`;
+    const tip=[it.nom,it.tv, (it.long_note!=null?('LONG '+it.long_note+'/250'):'')].filter(Boolean).join(' · ');
+    const cp=it.tv?((typeof ophirCopyBtn==='function')?ophirCopyBtn(it.tv):`<button type="button" class="cp" data-c="${String(it.tv).replace(/"/g,'&quot;')}" aria-label="Copier ${String(it.tv).replace(/"/g,'&quot;')}" title="Copier ${String(it.tv).replace(/"/g,'&quot;')}">⎘</button>`):'';
+    const ev=it.tv
+      ? `<div class="gi-acts"><button type="button" class="gi-elliott gs-elliott" data-tv="${String(it.tv).replace(/"/g,'&quot;')}" title="Retirer : vague Elliott non propice au short" aria-label="Retirer : vague Elliott non propice au short">E</button><button type="button" class="gi-pattern gs-pattern" data-tv="${String(it.tv).replace(/"/g,'&quot;')}" title="Pattern haussier : retirer jusqu'au 1er du mois" aria-label="Pattern haussier : retirer jusqu'au 1er du mois">P</button><button type="button" class="gi-valid gs-valid${checked?' is-on':''}" data-tv="${String(it.tv).replace(/"/g,'&quot;')}" title="${checked?'Retirer de Validés (erreur)':'Validé : déjà entré en short'}" aria-label="${checked?'Retirer de Validés':'Validé'}" aria-pressed="${checked?'true':'false'}">✓</button>${cp}</div>`
+      : '';
+    return `<article class="gi-row${it.tv?' has-fiche':''}" title="${tip.replace(/"/g,'&quot;')}">
+      <div class="gi-id">${go}</div>
+      ${ev}
+      <span class="gi-note" style="color:${col}"><b>${note}</b><small>/250</small></span>
+      <span class="gi-amt">${amt}</span>
+    </article>`;
+  };
+  const rows=list.map(it=>rowOf(it, false)).join('');
+  const rowsVal=listVal.map(it=>rowOf(it, true)).join('');
+  const html=`<div class="card no-group" id="bestShortCard">
+    <div class="pos-rail-h" role="button" tabindex="0" aria-expanded="false" aria-controls="gsBody">
+      <span class="pos-chev" aria-hidden="true">▸</span>
+      <h2>Meilleurs short</h2>
+      <span class="pos-head-tot">${n}<small>titre${n>1?'s':''}</small></span>
+    </div>
+    <div class="pos-body gi-body" id="gsBody">
+      <p class="gs-warn">Le short peut faire perdre plus que la mise. Il faut un compte qui l’autorise (CFD chez XTB, par exemple).</p>
+      <div class="gi-list">${rows||'<div class="gi-empty">Aucun titre au seuil (note SHORT ≥ 130/250, miroir de la note LONG).</div>'}</div>
+      ${(nVal||gsShowValides)?`<div class="gi-valides">
+        <button type="button" class="gi-valides-link gs-valides-link" aria-expanded="${gsShowValides?'true':'false'}">Validés (${nVal})</button>
+        ${gsShowValides?(rowsVal||'<div class="gi-empty">Aucun titre validé en short.</div>'):''}
+      </div>`:''}
+    </div>
+  </div>`;
+  const wasOpen=gsListIsOpen();
+  let saved=null;
+  try{ saved=localStorage.getItem(GS_LIST_KEY); }catch(e){}
+  const prev=document.getElementById('bestShortCard');
+  const gi=document.getElementById('goodInvestCard');
+  if(prev) prev.outerHTML=html;
+  else if(gi) gi.insertAdjacentHTML('afterend', html);
+  else host.insertAdjacentHTML('beforeend', html);
+
+  const card=document.getElementById('bestShortCard');
+  if(!card) return;
+  const open=wasOpen||saved==='1';
+  card.classList.toggle('pos-collapsed', !open);
+  const head=card.querySelector('.pos-rail-h');
+  if(head){
+    head.setAttribute('aria-expanded', open?'true':'false');
+    const tog=e=>{ e.preventDefault(); gsSetListOpen(!gsListIsOpen()); };
+    head.addEventListener('click',tog);
+    head.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();tog(e);}});
+  }
+  card.querySelectorAll('.gs-link').forEach(b=>b.addEventListener('click',()=>{
+    if(window.matchMedia('(max-width:1099px)').matches) gsSetListOpen(false);
+    if(typeof posOpenFiche==='function') posOpenFiche(b.dataset.tab,b.dataset.tv);
+  }));
+  card.querySelectorAll('.gs-elliott').forEach(b=>b.addEventListener('click',e=>{
+    e.preventDefault(); e.stopPropagation();
+    gsHideUntilMonth(GS_ELLIOTT_KEY, b.dataset.tv);
+    gsRender();
+  }));
+  card.querySelectorAll('.gs-pattern').forEach(b=>b.addEventListener('click',e=>{
+    e.preventDefault(); e.stopPropagation();
+    gsHideUntilMonth(GS_PATTERN_KEY, b.dataset.tv);
+    gsRender();
+  }));
+  card.querySelectorAll('.gs-valid').forEach(b=>b.addEventListener('click',e=>{
+    e.preventDefault(); e.stopPropagation();
+    const tv=b.dataset.tv;
+    gsSetValide(tv, !gsIsValide(tv));
+    gsRender();
+  }));
+  const vLink=card.querySelector('.gs-valides-link');
+  if(vLink){
+    vLink.addEventListener('click',e=>{
+      e.preventDefault(); e.stopPropagation();
+      gsShowValides=!gsShowValides;
+      gsRender();
+    });
+  }
+  if(typeof posSyncListChrome==='function') posSyncListChrome(typeof posListIsOpen==='function'&&posListIsOpen());
+}
+function gsInit(){
+  gsRender();
+}
+
 /* ===== Recherche d'actifs (t449u, t458u) : début de mot du nom ou début du ticker ===== */
 function apxFold(s){
   return String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
@@ -16838,6 +17181,7 @@ if(typeof ttInit==='function') ttInit();
 if(typeof rgInit==='function') rgInit();
 if(typeof posInit==='function') posInit();
 if(typeof giInit==='function') giInit();
+if(typeof gsInit==='function') gsInit();
 if(typeof apxSearchInit==='function') apxSearchInit();
 </script>
 
