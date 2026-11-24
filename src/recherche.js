@@ -1,4 +1,4 @@
-/* ===== Recherche d'actifs (t449u) : nom ou ticker, suggestions en direct ===== */
+/* ===== Recherche d'actifs (t449u, t458u) : début de mot du nom ou début du ticker ===== */
 function apxFold(s){
   return String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
 }
@@ -122,21 +122,32 @@ function apxIndex(){
 }
 function apxIndexRefresh(){ _apxIndex=apxBuildIndex(); return _apxIndex; }
 
+function apxTickerKeys(it){
+  /* Symboles comparés : ticker brut, symbole après le préfixe TV, et racine avant .PA / .DE. */
+  const out=[];
+  const rawTv=String(it.tv||'');
+  const rawTick=String(it.ticker||'');
+  const push=s=>{ if(s) out.push(s); };
+  push(rawTick);
+  push(rawTv);
+  if(rawTv.indexOf(':')>=0) push(rawTv.slice(rawTv.lastIndexOf(':')+1));
+  if(rawTick.indexOf('.')>=0) push(rawTick.split('.')[0]);
+  return out;
+}
 function apxScore(it, q, qf){
+  /* t458u : uniquement début de ticker (avec ou sans préfixe TV) ou début d'un mot du nom.
+     Pas de sous-chaîne au milieu d'un mot. Le ticker exact sort en premier. */
   if(!qf) return 0;
   const nom=apxFold(it.nom);
-  const tick=apxFold(it.ticker);
-  const tv=apxFold(String(it.tv||'').replace(':',' '));
-  const rawTv=String(it.tv||'').toLowerCase();
   const rawQ=String(q||'').toLowerCase().trim();
-  if(tick===qf||apxFold(it.tv)===qf||rawTv===rawQ) return 100;
-  if(tick===qf||rawTv.endsWith(':'+rawQ)) return 98;
-  if(tick.startsWith(qf)||rawTv.endsWith(':'+rawQ)||String(it.ticker||'').toLowerCase().startsWith(rawQ)) return 86;
+  const keys=apxTickerKeys(it);
+  const folded=keys.map(apxFold);
+  const raws=keys.map(s=>String(s||'').toLowerCase());
+  if(folded.some(k=>k===qf)||raws.some(k=>k===rawQ)) return 100;
+  if(folded.some(k=>k.startsWith(qf))||raws.some(k=>k.startsWith(rawQ))) return 86;
   if(nom===qf) return 84;
   if(nom.startsWith(qf)) return 76;
-  if(nom.split(' ').some(w=>w.startsWith(qf))) return 68;
-  if(tv.startsWith(qf)||tv.split(' ').some(w=>w.startsWith(qf))) return 62;
-  if(nom.indexOf(qf)>=0||tick.indexOf(qf)>=0||tv.indexOf(qf)>=0||rawTv.indexOf(rawQ)>=0) return 40;
+  if(nom.split(' ').some(w=>w&&w.startsWith(qf))) return 68;
   return 0;
 }
 function apxSearch(q, limit){
