@@ -38,7 +38,8 @@ def test_onglets_exclusifs_centres():
     assert "rgSetSens('long')" in JS
     assert ".rg-tabs{display:flex;justify-content:center" in CSS
     assert ".rg-tab{" in CSS
-    assert "font-size:32px" in CSS
+    assert "font-size:14.5px;font-weight:650" in CSS
+    assert "font-size:32px;font-weight:800" not in CSS
     assert 'text-align:center' in CSS
     assert '.rg-pane[hidden]{display:none !important}' in CSS
     assert "grid-template-columns:minmax(0,1fr) 300px" not in CSS

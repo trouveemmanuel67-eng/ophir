@@ -43,4 +43,5 @@ def test_long_reste_complet():
 def test_css_plus_de_deux_colonnes():
     assert "grid-template-columns:minmax(0,1fr) 300px" not in CSS
     assert ".rg-tab[aria-selected=\"true\"],.rg-tab.is-on" in CSS
-    assert "font-size:32px" in CSS
+    assert "font-size:14.5px;font-weight:650" in CSS
+    assert "font-size:32px;font-weight:800" not in CSS
