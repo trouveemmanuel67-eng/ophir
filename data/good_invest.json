@@ -1,18 +1,18 @@
 {
   "seuil": 75.0,
-  "n": 26,
+  "n": 25,
   "liste": [
     {
-      "tv": "LSE:PHGP",
-      "yahoo": "PHGP.L",
-      "nom": "WisdomTree Physical Gold",
+      "tv": "LSE:IPDM",
+      "yahoo": "IPDM.L",
+      "nom": "iShares Physical Palladium ETC",
       "note": 79.0,
       "display": "79",
       "hex": "#22c55e",
       "flag": "green",
       "bande": "vert",
-      "av": 23.5,
-      "section": "Métaux – Or",
+      "av": -14.5,
+      "section": "Métaux – Palladium",
       "montant": 600,
       "brokers": {
         "revolut": false,
@@ -71,16 +71,16 @@
       }
     },
     {
-      "tv": "NASDAQ:BKNG",
-      "yahoo": "BKNG",
-      "nom": "Booking Holdings Inc.",
+      "tv": "NYSE:SBSW",
+      "yahoo": "SBSW",
+      "nom": "Sibanye Stillwater Limited",
       "note": 78.0,
       "display": "78",
       "hex": "#22c55e",
       "flag": "green",
       "bande": "vert",
-      "av": 3.5,
-      "section": "USA – XLY",
+      "av": 7.6,
+      "section": "Métaux – Platine",
       "montant": 600,
       "brokers": {
         "revolut": true,
@@ -102,6 +102,23 @@
       "brokers": {
         "revolut": true,
         "xtb": true
+      }
+    },
+    {
+      "tv": "EURONEXT:PHPD",
+      "yahoo": "PHPD.AS",
+      "nom": "WisdomTree Physical Palladium",
+      "note": 77.0,
+      "display": "77",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": 5.3,
+      "section": "Métaux – Palladium",
+      "montant": 500,
+      "brokers": {
+        "revolut": false,
+        "xtb": false
       }
     },
     {
@@ -156,6 +173,40 @@
       }
     },
     {
+      "tv": "LSE:IGLN",
+      "yahoo": "IGLN.L",
+      "nom": "iShares Physical Gold ETC",
+      "note": 75.0,
+      "display": "75",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": 35.0,
+      "section": "Métaux – Or",
+      "montant": 500,
+      "brokers": {
+        "revolut": false,
+        "xtb": true
+      }
+    },
+    {
+      "tv": "XETR:GLDA",
+      "yahoo": "GLDA.DE",
+      "nom": "Amundi Physical Gold ETC C",
+      "note": 75.0,
+      "display": "75",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": 32.8,
+      "section": "Métaux – Or",
+      "montant": 500,
+      "brokers": {
+        "revolut": true,
+        "xtb": false
+      }
+    },
+    {
       "tv": "XETR:EXHC",
       "yahoo": "EXHC.DE",
       "nom": "iShares eb.rexx Government Germany 2.5-5.5yr UCITS ETF (DE)",
@@ -173,122 +224,20 @@
       }
     },
     {
-      "tv": "OANDA:XPTUSD",
-      "yahoo": "XPT",
-      "nom": "Platine au comptant Revolut",
+      "tv": "XETR:8PSB",
+      "yahoo": "8PSB.DE",
+      "nom": "Invesco Physical Silver ETC",
       "note": 75.0,
       "display": "75",
       "hex": "#22c55e",
       "flag": "green",
       "bande": "vert",
-      "av": 27.7,
-      "section": "Métaux – Platine",
-      "montant": 500,
-      "brokers": {
-        "revolut": true,
-        "xtb": false
-      }
-    },
-    {
-      "tv": "OANDA:XAGUSD",
-      "yahoo": "XAG",
-      "nom": "Argent au comptant Revolut",
-      "note": 75.0,
-      "display": "75",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": 27.2,
+      "av": 26.1,
       "section": "Métaux – Argent",
       "montant": 500,
       "brokers": {
         "revolut": true,
         "xtb": false
-      }
-    },
-    {
-      "tv": "LSE:IGLN",
-      "yahoo": "IGLN.L",
-      "nom": "iShares Physical Gold ETC",
-      "note": 75.0,
-      "display": "75",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": 22.6,
-      "section": "Métaux – Or",
-      "montant": 500,
-      "brokers": {
-        "revolut": false,
-        "xtb": true
-      }
-    },
-    {
-      "tv": "XETR:XHYG",
-      "yahoo": "XHYG.DE",
-      "nom": "Xtrackers II EUR High Yield Corporate Bond UCITS ETF 1D",
-      "note": 75.0,
-      "display": "75",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": 22.2,
-      "section": "Obligations – High yield (haut rendement)",
-      "montant": 500,
-      "brokers": {
-        "revolut": true,
-        "xtb": true
-      }
-    },
-    {
-      "tv": "XETR:GLDA",
-      "yahoo": "GLDA.DE",
-      "nom": "Amundi Physical Gold ETC C",
-      "note": 75.0,
-      "display": "75",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": 21.8,
-      "section": "Métaux – Or",
-      "montant": 500,
-      "brokers": {
-        "revolut": true,
-        "xtb": false
-      }
-    },
-    {
-      "tv": "NASDAQ:DASH",
-      "yahoo": "DASH",
-      "nom": "DoorDash, Inc.",
-      "note": 75.0,
-      "display": "75",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": 18.8,
-      "section": "USA – XLY",
-      "montant": 500,
-      "brokers": {
-        "revolut": true,
-        "xtb": true
-      }
-    },
-    {
-      "tv": "EURONEXT:VK",
-      "yahoo": "VK.PA",
-      "nom": "Vallourec S.A.",
-      "note": 75.0,
-      "display": "75",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": 17.8,
-      "section": "France – Matériaux",
-      "montant": 500,
-      "brokers": {
-        "revolut": true,
-        "xtb": true
       }
     },
     {
@@ -326,6 +275,40 @@
       }
     },
     {
+      "tv": "LSE:ISLN",
+      "yahoo": "ISLN.L",
+      "nom": "iShares Physical Silver ETC",
+      "note": 75.0,
+      "display": "75",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": 10.2,
+      "section": "Métaux – Argent",
+      "montant": 500,
+      "brokers": {
+        "revolut": false,
+        "xtb": true
+      }
+    },
+    {
+      "tv": "LSE:PHAG",
+      "yahoo": "PHAG.L",
+      "nom": "WisdomTree Physical Silver",
+      "note": 75.0,
+      "display": "75",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": 10.2,
+      "section": "Métaux – Argent",
+      "montant": 500,
+      "brokers": {
+        "revolut": false,
+        "xtb": false
+      }
+    },
+    {
       "tv": "XETR:KBX",
       "yahoo": "KBX.DE",
       "nom": "Knorr-Bremse AG",
@@ -340,23 +323,6 @@
       "brokers": {
         "revolut": true,
         "xtb": true
-      }
-    },
-    {
-      "tv": "XETR:8PSG",
-      "yahoo": "8PSG.DE",
-      "nom": "Invesco Physical Gold ETC",
-      "note": 75.0,
-      "display": "75",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": 7.5,
-      "section": "Métaux – Or",
-      "montant": 500,
-      "brokers": {
-        "revolut": true,
-        "xtb": false
       }
     },
     {
@@ -411,20 +377,20 @@
       }
     },
     {
-      "tv": "XETR:4GLD",
-      "yahoo": "4GLD.DE",
-      "nom": "Xetra-Gold",
+      "tv": "XETR:8PSC",
+      "yahoo": "8PSC.DE",
+      "nom": "Invesco Physical Palladium ETC",
       "note": 75.0,
       "display": "75",
       "hex": "#22c55e",
       "flag": "green",
       "bande": "vert",
-      "av": -14.7,
-      "section": "Métaux – Or",
+      "av": -16.4,
+      "section": "Métaux – Palladium",
       "montant": 500,
       "brokers": {
         "revolut": false,
-        "xtb": true
+        "xtb": false
       }
     },
     {
@@ -443,6 +409,20 @@
         "revolut": false,
         "xtb": true
       }
+    },
+    {
+      "tv": "BTC",
+      "yahoo": "BTC",
+      "nom": "Bitcoin",
+      "note": 75.0,
+      "display": "75",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": -32.8,
+      "section": null,
+      "montant": 500,
+      "brokers": {}
     }
   ]
 }

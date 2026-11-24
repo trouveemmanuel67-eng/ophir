@@ -257,6 +257,11 @@ def compute(av, fond=None, elliott=None, divergence=None, parts=None, classe=Non
     fond_w = float(na.get('poids_fondamental', 0.5))
     tech_w = float(na.get('poids_technique', na.get('poids_timing', 0.5)))
     renormalise = fond is None
+    # t461u : métaux, même logique que les actions le 24/11 — Elliott retiré
+    # sans redistribuer son poids (le trou reste dans le dénominateur).
+    skip_ids = set()
+    if classe == 'metaux':
+        skip_ids.add('elliott')
     lib_fond = 'Liq.' if (classe == 'crypto' or na.get('crypto_fond') and classe == 'crypto') else 'Fond.'
     if classe == 'crypto':
         lib_fond = 'Liq.'
@@ -284,7 +289,7 @@ def compute(av, fond=None, elliott=None, divergence=None, parts=None, classe=Non
     tech_used = False
     if parts:
         for key, label in TECH_ORDER:
-            if key not in weights:
+            if key not in weights or key in skip_ids:
                 continue
             w_frac = weights[key] * scale
             score = parts.get(key)
@@ -331,14 +336,15 @@ def compute(av, fond=None, elliott=None, divergence=None, parts=None, classe=Non
     # t342u : plus de plafond Elliott sur la note entière (le score du
     # critère retire déjà des points en zone rouge). L'entrée / le cyan
     # restent filtrés plus bas.
-    if fiable and ell_r.get('bonus_seulement_manuel', True):
+    # t461u : pas de bonus Elliott sur la note des métaux (Elliott retiré).
+    if classe != 'metaux' and fiable and ell_r.get('bonus_seulement_manuel', True):
         if key in set(ell_r['bonus_05']):
             n = n + ell_r['bonus_entry']
             cap.append('bonus')
         elif key in set(ell_r['bonus_10']):
             n = n + ell_r['bonus_conf']
             cap.append('bonus')
-    elif not ell_r.get('bonus_seulement_manuel', True):
+    elif classe != 'metaux' and not ell_r.get('bonus_seulement_manuel', True):
         if key in set(ell_r['bonus_05']):
             n = n + ell_r['bonus_entry']
             cap.append('bonus')
@@ -349,7 +355,11 @@ def compute(av, fond=None, elliott=None, divergence=None, parts=None, classe=Non
     if n >= cy['note_min']:
         av_fort = (av is not None) and (float(av) >= cy['av_achat_fort'])
         vertes = set(ell_r['vagues_vertes'])
-        conf = divergence_haussiere(divergence) or (fiable and key in vertes)
+        # t461u : portail cyan des métaux sans condition Elliott (comme les actions).
+        if classe == 'metaux':
+            conf = divergence_haussiere(divergence)
+        else:
+            conf = divergence_haussiere(divergence) or (fiable and key in vertes)
         if not (av_fort and conf):
             n = cy['plafond_sans_confirmation']
             cap.append('cyan')

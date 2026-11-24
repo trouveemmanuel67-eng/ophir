@@ -398,7 +398,7 @@ def main():
     MT = load('metaux.json')
     if MT:
         for r in MT.get('rows') or []:
-            rec_fut = attach(dict(r), (r.get('av') or {}).get('score'), None, r.get('elliott'))
+            rec_fut = attach(dict(r), (r.get('av') or {}).get('score'), None, r.get('elliott'), classe='metaux')
             # on conserve la note du contrat continu, mais la note affichée
             # de la ligne devient la moyenne des instruments visibles (23/11/2026).
             r['apex10_futur'] = rec_fut
@@ -413,10 +413,17 @@ def main():
                 tv = it.get('tv') or it.get('ticker')
                 bar = (AB or {}).get('bars', {}).get(tv) if AB else None
                 fond = None if it.get('kind') in ('etc','spot') else fond_lookup(idx, tv, it.get('ticker'))
+                # Si le fichier fondamentaux du jour n'a pas le mineur, on
+                # conserve la note fondamentale déjà publiée (t461u : ne pas
+                # la faire disparaître au seul retrait d'Elliott).
+                if fond is None and it.get('kind') not in ('etc', 'spot'):
+                    prev = (it.get('apex10') or {}).get('fond')
+                    if prev is not None:
+                        fond = prev
                 av = (it.get('av') or {}).get('score') if isinstance(it.get('av'), dict) else None
                 if av is None and bar:
                     av = (bar.get('av') or {}).get('score')
-                rec = attach(it, av, fond, ell_of(it) or (bar or {}).get('elliott'))
+                rec = attach(it, av, fond, ell_of(it) or (bar or {}).get('elliott'), classe='metaux')
                 count(rec)
                 if rec and rec.get('note') is not None:
                     notes.append(float(rec['note']))

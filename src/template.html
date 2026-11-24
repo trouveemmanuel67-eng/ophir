@@ -556,15 +556,11 @@ body{display:flex;flex-direction:column;min-height:100vh}
 .gi-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;grid-template-rows:auto;align-items:center;column-gap:8px;row-gap:0;padding:6px 4px;border-bottom:1px solid rgba(255,255,255,.08);border-radius:0;background:none}
 .gi-row:hover{background:rgba(255,255,255,.03)}
 .gi-row:last-child{border-bottom:0}
-.gi-acts{grid-column:1;grid-row:1;display:flex;flex-direction:row;align-items:center;gap:0}
-.gi-elliott{appearance:none;-webkit-appearance:none;display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;width:44px;height:44px;min-width:44px;min-height:44px;margin:0;padding:0;border:0;border-radius:10px;background:transparent;color:#ff2d2d;font:inherit;font-size:16px;font-weight:800;line-height:1;letter-spacing:0;cursor:pointer;-webkit-tap-highlight-color:rgba(255,45,45,.28)}
-.gi-elliott:hover{background:rgba(255,45,45,.12);color:#ff4d4d}
-.gi-elliott:active{background:rgba(255,45,45,.22);color:#ff6b6b;transform:scale(.96)}
-.gi-elliott:focus-visible{outline:1px solid rgba(255,45,45,.8);outline-offset:2px}
-.gi-pattern{appearance:none;-webkit-appearance:none;display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;width:44px;height:44px;min-width:44px;min-height:44px;margin:0;padding:0;border:0;border-radius:10px;background:transparent;color:#ff2d2d;font:inherit;font-size:16px;font-weight:800;line-height:1;letter-spacing:0;cursor:pointer;-webkit-tap-highlight-color:rgba(255,45,45,.28)}
-.gi-pattern:hover{background:rgba(255,45,45,.12);color:#ff4d4d}
-.gi-pattern:active{background:rgba(255,45,45,.22);color:#ff6b6b;transform:scale(.96)}
-.gi-pattern:focus-visible{outline:1px solid rgba(255,45,45,.8);outline-offset:2px}
+.gi-acts{grid-column:1;grid-row:1;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:0;width:22px}
+.gi-elliott,.gi-pattern{appearance:none;-webkit-appearance:none;display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;width:22px;height:22px;min-width:22px;min-height:22px;margin:0;padding:0;border:0;border-radius:5px;background:transparent;color:#ff2d2d;font:inherit;font-size:11px;font-weight:800;line-height:1;letter-spacing:0;cursor:pointer;-webkit-tap-highlight-color:rgba(255,45,45,.28)}
+.gi-elliott:hover,.gi-pattern:hover{background:rgba(255,45,45,.12);color:#ff4d4d}
+.gi-elliott:active,.gi-pattern:active{background:rgba(255,45,45,.22);color:#ff6b6b;transform:scale(.96)}
+.gi-elliott:focus-visible,.gi-pattern:focus-visible{outline:1px solid rgba(255,45,45,.8);outline-offset:2px}
 .gi-id{grid-column:2;grid-row:1;min-width:0;overflow:hidden;display:flex;align-items:center;gap:6px}
 .gi-id .gi-link,.gi-id .pos-nm{display:block;flex:1 1 auto;min-width:0;width:auto;font-weight:650;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;background:none;border:0;padding:0;font:inherit;cursor:pointer;text-align:left;text-decoration:none;box-shadow:none;appearance:none;-webkit-appearance:none}
 .gi-id .cp{flex:none;width:22px;height:22px}

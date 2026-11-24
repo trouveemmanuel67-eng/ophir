@@ -179,7 +179,8 @@ def score_one(it, bens):
         ben, bn = bens[ben_sym]
         fpre = FB.prefix(ysym, wc[0][0], wc[0][1]) if ysym else None
         r = K.compute(w, ben, bn, opens=opens, fsym=ysym, fpre=fpre, hl=hl,
-                      syms=[x for x in (it.get('tv'), ysym, it.get('ticker')) if x])
+                      syms=[x for x in (it.get('tv'), ysym, it.get('ticker')) if x],
+                      contrarien=(it.get('src')=='metaux'))
         if r.get('av') is None or r['av'].get('score') is None or r.get('sent') is None or r['sent'].get('value') is None:
             return key, {'ok': False, 'raison': 'données insuffisantes'}
         return key, compact(r, r['sent'])

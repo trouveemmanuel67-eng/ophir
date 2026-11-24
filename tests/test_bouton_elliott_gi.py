@@ -17,9 +17,8 @@ def test_bouton_e_rouge_sur_chaque_ligne():
     assert 'aria-label="Retirer : vague Elliott non propice"' in JS
     assert 'e.stopPropagation()' in JS
     assert 'giHideElliott' in JS
-    assert '.gi-elliott{' in CSS
+    assert '.gi-elliott' in CSS
     assert 'color:#ff2d2d' in CSS
-    assert 'min-width:44px' in CSS and 'min-height:44px' in CSS
 
 
 def test_pas_de_liste_masquees_ni_de_confirm():

@@ -180,6 +180,51 @@ def cci_note(v):
     if v<=-100: return 80.0
     return None
 
+def score_rsi_contrarien(rsi_val):
+    """Lecture contrarienne du RSI 14 hebdo (même règle que la note APEX /100 et les actions)."""
+    if rsi_val is None:
+        return None
+    return clip((50.0 - float(rsi_val)) / 20.0 * 100.0)
+
+def score_macd_contrarien(m, s, h, hp=None, hist=None, i=None):
+    """Lecture contrarienne du MACD 12/26/9 hebdo (même règle que la note APEX /100 et les actions)."""
+    if m is None or s is None:
+        return None
+    sous_zero = m < 0
+    sous_signal = m < s
+    if sous_zero and sous_signal:
+        base = 70.0
+    elif sous_zero:
+        base = 40.0
+    elif sous_signal:
+        base = -40.0
+    else:
+        base = -70.0
+    adj = 0.0
+    if sous_zero and hp is not None and h is not None and h > hp:
+        adj += 30.0
+    if hist is not None and i is not None and not sous_zero:
+        sign, k = hist_streak(hist, i)
+        if sign > 0 and k >= 4:
+            adj -= 30.0
+    return clip(base + adj)
+
+def cci_note_toujours(v):
+    """Règle CCI des actions / de la note APEX : toujours compté, neutre = 0 (pas de redistribution)."""
+    if v is None:
+        return 0.0
+    n = cci_note(v)
+    return 0.0 if n is None else float(n)
+
+RULE_RSI_CONTRARIEN='(50 − RSI) / 20 × 100 (lecture contrarienne : RSI 30 = +100, RSI 70 = −100)'
+RULE_MACD_CONTRARIEN=("Lecture contrarienne : sous zéro et sous la signal = +70 ; sous zéro et au-dessus de la signal = +40 ; "
+ "au-dessus de zéro et sous la signal = −40 ; au-dessus de zéro et au-dessus de la signal = −70. "
+ "Bonus +30 si le MACD est sous zéro et que l'histogramme remonte. Malus −30 si le MACD est au-dessus de zéro "
+ "avec au moins 4 barres d'histogramme positives consécutives. Total dans [−100, +100].")
+RULE_CCI_TOUJOURS=("CCI 20 sur les corps hebdomadaires. CCI ≤ −100 : +80 (+100 si ≤ −200). "
+ "CCI ≥ +100 : −80 (−100 si ≥ +200). Entre −100 et +100, ou si la valeur manque : neutre 0. "
+ "Le critère compte toujours ; le poids n'est pas redistribué.")
+
 def cci_zone(v):
     if v is None: return 'indisponible'
     if v>=100: return 'surachat (≥ +100, seuil violet)'
@@ -218,6 +263,22 @@ def add_cci(comps,v):
         for x in others:
             x['poids']=round(x['poids']*k,4)
     return comps
+
+def add_cci_toujours(comps,v,poids=W_CCI):
+    """CCI toujours compté (règle actions) : 6 % pris sur le panier 40 % même en zone neutre (note 0)."""
+    nt=cci_note_toujours(v)
+    val=('n.d.' if v is None else f"{v:+.1f}".replace('.',',')+' · '+cci_zone(v))
+    cc={'nom':'CCI 20 hebdo (corps, seuil violet ±100)','poids':poids,'valeur':val,'note':nt,'regle':RULE_CCI_TOUJOURS,'facultatif':False}
+    idx=next((i for i,x in enumerate(comps) if x['nom'].startswith('MACD')), len(comps)-1)
+    comps.insert(idx+1,cc)
+    others=[x for x in comps if not _est_coeur(x['nom']) and x is not cc]
+    tw=sum(x['poids'] for x in others)
+    if tw>0:
+        cible=0.40-poids
+        k=cible/tw
+        for x in others:
+            x['poids']=round(x['poids']*k,4)
+    return comps
 def r_dd(dd):   # même règle que l'onglet Actions : pas d'entrée au plus haut
     if dd>=-2: return -60.0
     if dd>=-12: return -60+(-2-dd)/10*120
@@ -239,10 +300,12 @@ def yhl(path):
     return YW.as_yhl(path, now=NOW)
 def W_S(BN): return [('RSI 14 hebdo (valeur brute 0-100)',1/6),('Écart à la moyenne mobile 40 semaines (rang 5 ans)',1/6),('Momentum 26 semaines (rang 5 ans)',1/6),
      (f'Force relative vs {BN} sur 13 semaines (rang 5 ans)',1/6),('Distance au plus haut 52 semaines (rang 5 ans)',1/6),('Volatilité réalisée 13 semaines, inversée (rang 5 ans)',1/6)]
-def compute(w,BEN,BN,opens=None,fsym=None,fpre=None,hl=None,syms=None,fibo_adjust_splits=True):
+def compute(w,BEN,BN,opens=None,fsym=None,fpre=None,hl=None,syms=None,fibo_adjust_splits=True,contrarien=False):
     """w = [(date ISO du vendredi, clôture, semaine clôturée ?)] ; BEN = {date: clôture de l'indice de référence}
     fpre : préfixe Fibonacci déjà calculé (ouvertures, clôtures, dates) ; sinon fsym sert à FB.prefix.
-    fibo_adjust_splits : passé à fibo.analyse (False pour les crypto, afin de ne pas traiter un pump comme une division)."""
+    fibo_adjust_splits : passé à fibo.analyse (False pour les crypto, afin de ne pas traiter un pump comme une division).
+    contrarien : si vrai (métaux précieux uniquement), RSI / MACD en lecture contrarienne et CCI toujours compté,
+    comme dans la note APEX /100 des actions. Les autres classes gardent le barème classique du bandeau."""
     live=[x for x in w if not x[2]]; wc=[x for x in w if x[2]]
     ds=[x[0] for x in wc]; c=[x[1] for x in wc]; n=len(c)
     op=[(opens or {}).get(d) for d in ds]
@@ -281,8 +344,8 @@ def compute(w,BEN,BN,opens=None,fsym=None,fpre=None,hl=None,syms=None,fibo_adjus
         av=[p for p in parts if p is not None]; return sum(av)/len(av), parts
     def av_at(i,sv):
         comps=[E.comp(ell(i),W_EL),FB.comp(fib(i),W_FI),
-         {'nom':'RSI 14 hebdo','poids':.15,'valeur':f1(r[i]) if r[i] is not None else 'n.d.','note':clip((r[i]-50)/20*100) if r[i] is not None else None,'regle':'(RSI − 50) / 20 × 100'},
-         {'nom':'MACD 12/26/9 hebdo','poids':.15,'valeur':macd_valeur(m[i],sg[i],h[i],h[i-1],h,i) if i and None not in (m[i],sg[i],h[i],h[i-1]) else 'n.d.','note':r_macd(m[i],sg[i],h[i],h[i-1],h,i) if i and None not in (m[i],sg[i],h[i],h[i-1]) else None,'regle':RULE_MACD},
+         {'nom':'RSI 14 hebdo','poids':.15,'valeur':f1(r[i]) if r[i] is not None else 'n.d.','note':(score_rsi_contrarien(r[i]) if contrarien else clip((r[i]-50)/20*100)) if r[i] is not None else None,'regle':(RULE_RSI_CONTRARIEN if contrarien else '(RSI − 50) / 20 × 100')},
+         {'nom':'MACD 12/26/9 hebdo','poids':.15,'valeur':macd_valeur(m[i],sg[i],h[i],h[i-1],h,i) if i and None not in (m[i],sg[i],h[i],h[i-1]) else 'n.d.','note':(score_macd_contrarien(m[i],sg[i],h[i],h[i-1],h,i) if contrarien else r_macd(m[i],sg[i],h[i],h[i-1],h,i)) if i and None not in (m[i],sg[i],h[i],h[i-1]) else None,'regle':(RULE_MACD_CONTRARIEN if contrarien else RULE_MACD)},
          {'nom':'Écart à la moyenne mobile 40 semaines','poids':.15,'valeur':(fs(gap[i])+' %') if gap[i] is not None else 'n.d.','note':clip(gap[i]/10*100) if gap[i] is not None else None,'regle':'±10 % → ±100'},
          {'nom':'Distance au plus haut 52 semaines','poids':.15,'valeur':fs(dd52[i])+' %','note':r_dd(dd52[i]),'regle':"≥ −2 % : −60 (pas d'entrée au plus haut) ; −2 → −12 % : de −60 à +60 ; −12 → −25 % : +60 ; au-delà : retour vers 0"},
          {'nom':'Momentum 13 et 26 semaines','poids':.15,'valeur':f"13 s. {fs(mo13[i]) if mo13[i] is not None else 'n.d.'} % · 26 s. {fs(mo26[i]) if mo26[i] is not None else 'n.d.'} %",'note':(clip(mo13[i]/15*100)+clip(mo26[i]/25*100))/2 if mo13[i] is not None and mo26[i] is not None else None,'regle':'moyenne de (13 s. : ±15 % → ±100) et (26 s. : ±25 % → ±100)'},
@@ -290,7 +353,7 @@ def compute(w,BEN,BN,opens=None,fsym=None,fpre=None,hl=None,syms=None,fibo_adjus
          {'nom':'Sentiment du secteur (lecture contrarienne)','poids':.10,'valeur':f1(sv,0),'note':clip((50-sv)*2),'regle':'(50 − sentiment) × 2 : euphorie = prudence, peur = opportunité'}]
         for x in comps[2:]: x['poids']=round(x['poids']*SC,4)
         comps[2:2]=[CH.comp(cha(i),W_CH),CH.comp_div(cha(i),W_DV)]
-        add_cci(comps,cci[i])
+        (add_cci_toujours if contrarien else add_cci)(comps,cci[i])
         av=[x for x in comps if x['note'] is not None]; tw=sum(x['poids'] for x in av)
         for x in comps: x['contrib']=round(x['poids']*x['note']/tw,1) if x['note'] is not None else None
         return round(sum(x['poids']*x['note'] for x in av)/tw,1), comps

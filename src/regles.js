@@ -614,10 +614,9 @@ function rgCard(id, label, ruleHtml, pts){
     </article>`;
 }
 function rgMetauxChamp(){
-  /* Texte aligné sur src/build_apex10.py (lignes métaux), apex/score.py et src/technique_apex.py.
-     Rien n'est inventé : ETC/spot/contrats sans fondamental, minières 50/50 si fond disponible,
-     note de ligne = moyenne des instruments visibles, pas de Fear & Greed dans la note /100. */
-  return "Ce règlement s'applique à l'or, l'argent, le platine, le palladium, à leurs ETC et ETF physiques, et aux métaux au comptant. Les minières, si un fondamental est disponible, reçoivent 50 % de fondamental et 50 % de technique. Les ETC, les contrats à terme et les métaux au comptant n'ont pas de fondamental : le technique est renormalisé à 100 %. La note affichée d'une ligne (Or, Argent, Platine, Palladium) est la moyenne des notes /100 des instruments visibles, hors titres sans note. Les signaux sont calculés sur le contrat à terme continu Yahoo, avec DBC comme référence de force relative. La figure chartiste est calculée mais n'entre plus dans la note. Il n'y a pas de Fear & Greed CNN dans cette note.";
+  const mx=(RG&&RG.apex_metaux)||{};
+  if(mx.champ_application) return String(mx.champ_application);
+  return "Ce règlement s'applique à l'or, l'argent, le platine, le palladium, à leurs ETC et ETF physiques, et aux métaux au comptant. Les minières, si un fondamental est disponible, reçoivent 50 % de fondamental et 50 % de technique. Les ETC, les contrats à terme et les métaux au comptant n'ont pas de fondamental : le technique est renormalisé à 100 %, sans redistribuer le poids de l'Elliott retiré. La note affichée d'une ligne (Or, Argent, Platine, Palladium) est la moyenne des notes /100 des instruments visibles, hors titres sans note. Les signaux sont calculés sur le contrat à terme continu Yahoo, avec DBC comme référence de force relative. Les vagues d'Elliott et la figure chartiste n'entrent pas dans la note. Il n'y a pas de Fear & Greed CNN dans cette note.";
 }
 function rgMetauxScale(){
   const na=(RG&&RG.note_apex)||{};
@@ -653,7 +652,7 @@ function rgMetauxRules(){
 function rgMetauxGrid(){
   const na=(RG&&RG.note_apex)||{};
   const amp=rgAmp();
-  const ordre=['elliott','structure','fibonacci','rsi','macd','cci'];
+  const ordre=['structure','fibonacci','rsi','macd','cci']; /* t461u : Elliott retiré, poids non redistribué */
   const labels={elliott:"Vagues d'Elliott",structure:'Structure',fibonacci:'Retracement de Fibonacci',rsi:'RSI 14 hebdo',macd:'MACD 12/26/9 hebdo',cci:'CCI 20 hebdo (corps)'};
   const rules=rgMetauxRules();
   const techCards=ordre.map(id=>{
@@ -665,7 +664,8 @@ function rgMetauxGrid(){
     const short=id==='elliott'?'Elliott':(id==='structure'?'Struct.':(id==='fibonacci'?'Fibo':id.toUpperCase()));
     return short+' '+(pts!=null?rgFmtPts(pts):'—');
   }).join(' · ');
-  const techSum=amp.totale;
+  const elliottPts=rgTechPtsMax('elliott', true);
+  const techSum=(elliottPts!=null&&Number.isFinite(elliottPts))?(amp.totale-elliottPts):amp.totale;
   const fondMax=rgPtsMax(Number(na.poids_fondamental!=null?na.poids_fondamental:0.5));
   const fondRule="Uniquement les minières, et seulement si un fondamental est disponible dans la base (score santé / croissance 0–100). Ce score est converti en écart signé autour de 50, puis en points (poids 50 %, amplitude × 1,5, soit ±"+rgNum(fondMax)+" points). Si le fondamental est inférieur à "+rgNum(na.fond_seuil!=null?na.fond_seuil:40)+" / 100, une pénalité proportionnelle est retranchée de la note, plafonnée à "+rgNum(na.fond_pen_max!=null?na.fond_pen_max:20)+" points. Les ETC, les contrats et les métaux au comptant n'ont pas de fondamental : le technique est alors renormalisé à 100 % (points ci-dessus).";
   const fondCards=rgCard('fond','Fondamental (minières, si disponible)',rgEsc(fondRule), fondMax!=null?rgFmtPts(fondMax):'—');
@@ -683,15 +683,17 @@ function rgMetauxGrid(){
     :'';
   const giBits=['Note APEX ≥ '+rgNum(gi.seuil!=null?gi.seuil:75)+'/100'];
   if(gi.hors_portefeuille) giBits.push('hors portefeuille');
-  if(gi.exclure_zone_rouge) giBits.push('hors zone Elliott rouge');
+  /* t461u : plus d'exclusion « zone Elliott rouge » pour les métaux. */
   if(gi.inclut_ventes_en_attente) giBits.push('une vente en attente reste considérée comme détenue');
   const unite=tt.unite||'$';
   const montantRule="Seuil "+rgNum(tt.base_note!=null?tt.base_note:75)+" = "+rgNum(tt.base_montant!=null?tt.base_montant:500)+"\u00a0"+rgEsc(unite)+" · puis +"+rgNum(tt.pas_montant!=null?tt.pas_montant:100)+"\u00a0"+rgEsc(unite)+" par palier de "+rgNum(tt.pas_note!=null?tt.pas_note:5)+" points · jusqu'à "+rgNum(tt.max_note!=null?tt.max_note:100)+" = "+rgNum(tt.max_montant!=null?tt.max_montant:1000)+"\u00a0"+rgEsc(unite)+" ("+rgEsc(tt.devise||'USD')+").";
   const sentRule="Pas de Fear & Greed CNN dans la note /100. Le sentiment APEX (0 = peur, 100 = euphorie) est un indice d'onglet, hors de cette note ; une lecture contrarienne du sentiment entre dans le bandeau Achat / Vente, pas dans la note affichée.";
-  const cyanRule="Une note ≥ "+rgNum(cy.note_min!=null?cy.note_min:80)+" exige un Achat / Vente ≥ +"+rgNum(cy.av_achat_fort!=null?cy.av_achat_fort:60)+" et une confirmation (divergence haussière hebdomadaire ou vague Elliott verte en décompte manuel). Sinon la note est plafonnée à "+rgNum(cy.plafond_sans_confirmation!=null?cy.plafond_sans_confirmation:75)+".";
+  const cyanRule="Une note ≥ "+rgNum(cy.note_min!=null?cy.note_min:80)+" exige un Achat / Vente ≥ +"+rgNum(cy.av_achat_fort!=null?cy.av_achat_fort:60)+" et une confirmation par divergence haussière hebdomadaire (plus de condition Elliott). Sinon la note est plafonnée à "+rgNum(cy.plafond_sans_confirmation!=null?cy.plafond_sans_confirmation:75)+".";
   const note=rgMetauxChamp();
   const noteHtml=note?`<p class="rg-p rg-app">${rgEsc(note)}</p>`:'';
-  const baseHtml=`<p class="rg-p">Note = base ${rgNum(amp.base)} + points signés (amplitude ±${rgNum(amp.totale)}), ramenée entre ${rgNum((na.note_min!=null)?na.note_min:0)} et ${rgNum((na.note_max!=null)?na.note_max:100)}. Les points techniques ci-dessous sont ceux du cas le plus fréquent pour les métaux : sans fondamental, technique renormalisé à 100 %.</p>`;
+  const mx=(RG&&RG.apex_metaux)||{};
+  const effet=mx.effet_echelle?`<p class="rg-p">${rgEsc(mx.effet_echelle)}</p>`:'';
+  const baseHtml=`<p class="rg-p">Note = base ${rgNum(amp.base)} + points signés (amplitude technique typique ±${rgNum(techSum)}, Elliott retiré sans redistribution), ramenée entre ${rgNum((na.note_min!=null)?na.note_min:0)} et ${rgNum((na.note_max!=null)?na.note_max:100)}. Les points techniques ci-dessous sont ceux du cas le plus fréquent pour les métaux : sans fondamental, technique renormalisé à 100 % sans redistribuer le poids d'Elliott.</p>${effet}`;
   const wrapCss=`<style>
 #rg-table-metaux .rg-card,#rg-table-metaux .rg-card-name,#rg-table-metaux .rg-card-rule{white-space:normal;overflow-wrap:break-word;word-break:break-word;}
 #rg-table-metaux .rg-card{grid-template-columns:4.4em minmax(0,1fr);align-items:start;padding:8px 10px;white-space:normal;}

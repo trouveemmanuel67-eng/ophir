@@ -724,11 +724,6 @@
           "source": "config/regles.json · apex/score.py · src/technique_apex.py",
           "fixes": [
             {
-              "id": "elliott",
-              "label": "Vagues d'Elliott",
-              "poids": 0.2325581395
-            },
-            {
               "id": "structure",
               "label": "Structure (tendance hebdo, plus hauts et plus bas, position par rapport à l’ATH)",
               "poids": 0.2325581395
@@ -767,18 +762,14 @@
               "si_absent": "Hors des zones ±100, le critère est neutre (0) mais reste compté (5 % de la note, ou 10 % si le technique est renormalisé)."
             }
           ],
-          "renormalise": false
+          "renormalise": true,
+          "note_renormalise": "Sans fondamental, le technique est renormalisé à 100 % sur les composantes restantes en conservant le poids d'Elliott comme un trou (pas de redistribution)."
         },
         "fondamental": null,
-        "precision": "Minières avec fondamental : 50 / 50. ETC, contrats et métaux au comptant sans fondamental : technique renormalisé à 100 %, signalé sur la fiche.",
+        "precision": "Minières avec fondamental : 50 / 50. ETC, contrats et métaux au comptant sans fondamental : technique renormalisé à 100 %, sans redistribuer le poids de l'Elliott retiré (t461u, comme les actions le 24/11). Les vagues d'Elliott ne font plus partie de la note /100. RSI, MACD et CCI sont lus à contre-courant, y compris dans le bandeau Achat / Vente des métaux. CCI toujours compté (neutre = 0, pas de redistribution). Meilleures entrées : seuil 75/100, plus d'exclusion « zone Elliott rouge ». Portail cyan : confirmation par divergence haussière uniquement, sans vague Elliott verte.",
         "technique": {
           "source": "config/regles.json · apex/score.py · src/technique_apex.py",
           "fixes": [
-            {
-              "id": "elliott",
-              "label": "Vagues d'Elliott",
-              "poids": 0.2325581395
-            },
             {
               "id": "structure",
               "label": "Structure (tendance hebdo, plus hauts et plus bas, position par rapport à l’ATH)",
@@ -821,7 +812,8 @@
               "regle": "CCI 20 hebdomadaire (corps). Le CCI ajoute des points s’il passe en cyan sous sa barre de survente, et retire des points s’il est en violet au-dessus de sa barre de surachat. CCI ≤ −100 : +80 (+100 si ≤ −200). CCI ≥ +100 : −80 (−100 si ≥ +200). Entre −100 et +100 : neutre (score 0 = moitié des 5 points). Le critère compte toujours ; le dénominateur n’est pas redistribué."
             }
           ],
-          "renormalise": false
+          "renormalise": true,
+          "note_renormalise": "Sans fondamental, le technique est renormalisé à 100 % sur les composantes restantes en conservant le poids d'Elliott comme un trou (pas de redistribution)."
         }
       },
       {
@@ -1863,5 +1855,18 @@
         "Neuf critères fondamentaux bancaires validés : ROE > 10 % ; ROA > 1 % ; ratio CET1 > 12 % ; coût du risque < 0,5 % ; coefficient d’exploitation < 60 % ; croissance BPA année en cours et année prochaine > 10 % ; croissance PNB année en cours et année prochaine > 5 %. +10 si atteint, sinon 0 (donnée manquante = 0). Maximum 90 points. Technique 110 (RSI, MACD, Fibo, CCI ; sans Elliott) et Fear & Greed ±50 identiques (échelle −50 à 250)."
       ]
     }
+  },
+  "apex_metaux": {
+    "section_titre": "Métaux précieux",
+    "echelle": 100,
+    "date_validation": "24/11/2026",
+    "retirer_elliott": true,
+    "ne_pas_redistribuer_elliott": true,
+    "exclure_zone_rouge_meilleures_entrees": false,
+    "cyan_sans_elliott": true,
+    "av_rsi_macd_contrarien": true,
+    "cci_toujours_compte": true,
+    "champ_application": "Ce règlement s'applique à l'or, l'argent, le platine, le palladium, à leurs ETC et ETF physiques, et aux métaux au comptant. Les minières, si un fondamental est disponible, reçoivent 50 % de fondamental et 50 % de technique. Les ETC, les contrats à terme et les métaux au comptant n'ont pas de fondamental : le technique est renormalisé à 100 %, sans redistribuer le poids de l'Elliott retiré. La note affichée d'une ligne (Or, Argent, Platine, Palladium) est la moyenne des notes /100 des instruments visibles, hors titres sans note. Les signaux sont calculés sur le contrat à terme continu Yahoo, avec DBC comme référence de force relative. Les vagues d'Elliott et la figure chartiste n'entrent pas dans la note. Il n'y a pas de Fear & Greed CNN dans cette note.",
+    "effet_echelle": "Le retrait d'Elliott sans redistribution réduit l'amplitude technique typique (sans fondamental) de ±75 à ±57,6 points autour de la base 50. L'échelle affichée reste 0 à 100 (note clipsée)."
   }
 }

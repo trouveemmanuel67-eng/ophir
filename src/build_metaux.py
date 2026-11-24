@@ -83,7 +83,7 @@ def inst(s,kind):
         x['skip_score']=True
         return x
     try:
-        rec=K.compute(w,BEN,BN,K.yopens(yf_(s)),fsym=s,hl=K.yhl(yf_(s)))
+        rec=K.compute(w,BEN,BN,K.yopens(yf_(s)),fsym=s,hl=K.yhl(yf_(s)),contrarien=True)
         x['av']=rec.get('av'); x['elliott']=rec.get('elliott'); x['sent']=rec.get('sent')
         x['date']=rec.get('date'); x['close']=rec.get('close')
     except Exception as e:
@@ -94,7 +94,7 @@ for key,nom,fut,principal,others,miners in MET:
     w,m=K.yweekly(yf_(fut)); row={'key':key,'nom':nom,'sym':fut,'etf':(m.get('shortName') or fut)+' (contrat à terme continu, '+m.get('exchangeName','')+')','kind':'fut','covered':True,'currency':'USD',
        'url':f'https://finance.yahoo.com/quote/{urllib.parse.quote(fut)}/history/','retrieved':mtime(yf_(fut)),'tv':None,
        'note':"Signaux calculés sur le contrat à terme continu Yahoo (changements d'échéance non ajustés). Référence de force relative : DBC (Invesco DB Commodity Index, panier de matières premières), en dollars."}
-    row.update(K.compute(w,BEN,BN,K.yopens(yf_(fut)),fsym=fut,hl=K.yhl(yf_(fut))))
+    row.update(K.compute(w,BEN,BN,K.yopens(yf_(fut)),fsym=fut,hl=K.yhl(yf_(fut)),contrarien=True))
     cand=[]
     for s,k in ([(principal,'etc')] if principal else [])+others:
         x=inst(s,k)

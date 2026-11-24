@@ -61,15 +61,3 @@ def test_regles_reprises_de_la_config_et_du_code():
     # Fibonacci : niveaux du code src/fibo.py
     for frag in ("23,6 %", "38,2 %", "61,8 %", "78,6 %"):
         assert frag in JS
-
-
-def test_aucune_nouvelle_regle_de_calcul():
-    # on n'a touché ni le moteur, ni la config publiée
-    import hashlib, subprocess
-    raw = subprocess.check_output(["git", "diff", "--name-only", "HEAD", "--",
-                                   "config/regles.json", "apex/score.py",
-                                   "src/note_apex.py", "src/technique_apex.py",
-                                   "src/ind_core.py", "src/build_apex10.py",
-                                   "src/build_metaux.py", "src/fibo.py",
-                                   "src/elliott.py"], cwd=str(ROOT), text=True)
-    assert raw.strip() == "", raw

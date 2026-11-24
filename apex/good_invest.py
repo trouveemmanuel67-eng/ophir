@@ -80,16 +80,19 @@ def build() -> dict:
     held = _held()
     rows = []
     seen = set()
-    def consider(tv, note_rec, av=None, nom=None, section=None, yahoo=None, ell=None):
+    def consider(tv, note_rec, av=None, nom=None, section=None, yahoo=None, ell=None, classe=None):
         if not tv or not note_rec or note_rec.get('note') is None:
             return
         if float(note_rec['note']) < seuil:
             return
         if note_rec.get('cap') == 'moyenne':
             return
-        if _zone_rouge(ell, tv, bars):
-            return
         meta = actif(tv) or {}
+        sec = section or meta.get('section') or ''
+        # t461u : plus d'exclusion « zone Elliott rouge » pour les métaux précieux.
+        is_metaux = (classe == 'metaux') or str(sec).startswith('Métaux')
+        if not is_metaux and _zone_rouge(ell, tv, bars):
+            return
         # t322u : hors univers (pays retirés) et titres seulement en positions
         if meta.get('univers') in ('hors', 'positions_seulement') or meta.get('visible') is False or meta.get('visible')=='positions':
             return
@@ -121,22 +124,22 @@ def build() -> dict:
         av = (b.get('av') or {}).get('score')
         consider(tv, a, av, ell=(b or {}).get('elliott'))
 
-    def walk(obj):
+    def walk(obj, classe=None):
         if isinstance(obj, dict):
             tv = obj.get('tv') or obj.get('sym') or obj.get('ticker')
             a = obj.get('apex10')
             av = (obj.get('av') or {}).get('score') if isinstance(obj.get('av'), dict) else None
-            consider(tv, a, av, obj.get('etf') or obj.get('name') or obj.get('nom'), None, obj.get('yahoo') or obj.get('ticker') or obj.get('sym'), obj.get('elliott'))
+            consider(tv, a, av, obj.get('etf') or obj.get('name') or obj.get('nom'), None, obj.get('yahoo') or obj.get('ticker') or obj.get('sym'), obj.get('elliott'), classe=classe)
             for v in obj.values():
-                walk(v)
+                walk(v, classe)
         elif isinstance(obj, list):
             for v in obj:
-                walk(v)
+                walk(v, classe)
 
     for fn in ('pays.json', 'metaux.json', 'energie.json', 'obligations.json', 'crypto_fiches.json', 'tabs_data.json'):
         fp = data / fn
         if fp.exists():
-            walk(json.loads(fp.read_text(encoding='utf-8')))
+            walk(json.loads(fp.read_text(encoding='utf-8')), classe='metaux' if fn == 'metaux.json' else None)
 
     rows.sort(key=lambda r: (-r['note'], -(r.get('av') or 0), r['tv']))
     out = {
