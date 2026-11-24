@@ -5,8 +5,10 @@
 Hors banque : apex_achat_v2.
 Banques (industries Banks*, Savings Institutions) : apex_achat_v2_banque.
 Assurances et autres financières : règles hors banque.
-ETF / panier de section = moyenne des fondamentaux des actions affichées
-(chaque titre avec sa propre règle). Donnée manquante = 0, jamais inventée.
+ETF / panier de section = moyenne des fondamentaux des 5 premières
+actions du classement (top 5), chaque titre avec sa propre règle. Les rangs
+suivants du top (6–10 aux USA, reste du top éligible en France) sont aussi
+notés, même barème, sans entrer dans cette moyenne. Donnée manquante = 0, jamais inventée.
 """
 from __future__ import annotations
 import json, math, sys
@@ -132,10 +134,14 @@ def reconstruct_basket_bars(row):
 
 def pack(section_id, section, etf_asset, actions, fg, sector_obj=None,
          closed_bars_etf=None, fond_etf_intro=''):
-    action_fonds = []
+    # Moyenne ETF / panier : uniquement les 5 premières (règle inchangée).
+    ETF_FOND_N = 5
     for a in actions:
         a['is_bank'] = is_bank(a.get('industry'))
         a['regles'] = regles_id(a.get('industry'))
+    avg_actions = actions[:ETF_FOND_N] or actions
+    action_fonds = []
+    for a in avg_actions:
         tot, elems = P.fond_points(a.get('m'), rules_of(a.get('industry')))
         a['_fond_tot'], a['_fond_elems'] = tot, elems
         action_fonds.append((tot, elems, a))
@@ -169,7 +175,7 @@ def pack(section_id, section, etf_asset, actions, fg, sector_obj=None,
             'n': nn,
         }
         etf_elems.append(rec)
-    names = ', '.join(a.get('ticker') or a.get('nom') or '?' for a in actions)
+    names = ', '.join(a.get('ticker') or a.get('nom') or '?' for a in avg_actions)
     etf_asset = {
         **etf_asset,
         'kind': etf_asset.get('kind') or 'etf',
@@ -243,9 +249,10 @@ def collect_us(fond_all, secteurs, ratios):
     for sec in secteurs['sectors']:
         sym = sec['sym']
         sf = fond_all['sectors'][sym]
-        top5 = list((sf.get('top') or [])[:5])
+        # Top 10 du classement fondamental (l'ETF reste moyenné sur les 5 premières, voir pack).
+        top = list((sf.get('top') or [])[:10])
         actions = []
-        for r in top5:
+        for r in top:
             yahoo = r.get('yahoo') or r['ticker']
             actions.append({
                 'id': r['ticker'], 'ticker': r['ticker'], 'yahoo': yahoo,
@@ -276,7 +283,8 @@ def collect_pays(pays, ratios):
             if not row.get('covered'):
                 continue
             fond = row.get('fond') or {}
-            top = list((fond.get('top') or [])[:5])
+            # Tous les titres du top éligible (souvent > 5) ; moyenne du panier inchangée (5 premières).
+            top = list(fond.get('top') or [])
             actions = []
             for r in top:
                 yahoo = r.get('yahoo') or r.get('ticker')

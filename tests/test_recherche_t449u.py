@@ -37,9 +37,11 @@ assert(hits[0].tv==='NASDAQ:NVDA' || hits.some(h=>h.tv==='NASDAQ:NVDA'||h.ticker
 hits = apxSearch('nvidia', 8);
 assert(hits.some(h=>h.tv==='NASDAQ:NVDA'), 'recherche par nom');
 hits = apxSearch('Caterpillar', 8);
-assert(hits.length===0, 'Caterpillar absent: '+JSON.stringify(hits));
+assert(hits.some(h=>h.tv==='NYSE:CAT'), 'Caterpillar trouvé: '+JSON.stringify(hits));
 hits = apxSearch('CAT', 8);
-assert(!hits.some(h=>/caterpillar/i.test(h.nom||'')||h.ticker==='CAT'), 'CAT non référencé');
+assert(hits.some(h=>h.tv==='NYSE:CAT'), 'CAT trouvé: '+JSON.stringify(hits));
+hits = apxSearch('ZZZZNOTATICKER', 8);
+assert(hits.length===0, 'inconnu absent');
 assert(apxSearch('', 8).length===0, 'vide');
 console.log('ok', apxIndex().length);
 """

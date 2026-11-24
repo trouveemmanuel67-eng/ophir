@@ -38,11 +38,12 @@ def test_pilot_file_communication_only():
     assert d['pilot'] is True
     assert d['secteur_sym'] == 'XLC'
     assert d['etf']['tv'] == 'XETR:ZPDK'
-    assert len(d['actions']) == 5
+    assert len(d['actions']) == 10
     assert d['fear_greed']['ok'] is True
     assert d['etf']['ok'] is True
     tvs = {a['tv'] for a in d['actions']}
-    assert tvs == {'NASDAQ:APP', 'NYSE:RDDT', 'NASDAQ:META', 'NASDAQ:NFLX', 'NASDAQ:GOOGL'}
+    assert {'NASDAQ:APP', 'NYSE:RDDT', 'NASDAQ:META', 'NASDAQ:NFLX', 'NASDAQ:GOOGL'} <= tvs
+    assert 'NYSE:TKO' in tvs and 'NYSE:LYV' in tvs
     for rec in [d['etf']] + d['actions']:
         pts = rec['points']
         expected = (pts['rsi'] + pts['macd'] + pts['fibonacci']
@@ -90,10 +91,15 @@ def test_note_sans_elliott_sur_le_pilote_communication():
         assert by[tv]['total'] == total
         assert by[tv]['total_max'] == 250
         assert 'Elliott' not in (by[tv].get('ligne') or '')
-    order = sorted(xlc['actions'], key=lambda a: -a['total'])
+    top5 = {'NYSE:RDDT', 'NASDAQ:NFLX', 'NASDAQ:GOOGL', 'NASDAQ:APP', 'NASDAQ:META'}
+    order = sorted([a for a in xlc['actions'] if a['tv'] in top5], key=lambda a: -a['total'])
     assert [a['tv'] for a in order] == [
         'NYSE:RDDT', 'NASDAQ:NFLX', 'NASDAQ:GOOGL', 'NASDAQ:APP', 'NASDAQ:META'
     ]
+    assert len(xlc['actions']) == 10
+    for a in xlc['actions']:
+        assert 'elliott' not in a['points']
+        assert a['total_max'] == 250
 
 
 def test_cci_stochastic_formule_daveatt():
@@ -128,6 +134,9 @@ def test_cci_stoch_et_fond_valides_sur_pilote():
     }
     recs = [d['etf']] + d['actions']
     for rec in recs:
+        if rec['tv'] not in expected:
+            assert rec['ok'] is True and rec['total_max'] == 250
+            continue
         exp = expected[rec['tv']]
         det = rec['detail']['cci']
         assert rec['points']['cci'] == exp['cci_pts']
@@ -185,11 +194,13 @@ def test_finance_usa_hors_banque_sur_le_top5():
     site = json.loads((ROOT / 'data' / 'apex_achat_v2_pilot.json').read_text())
     d = load_full()
     xlf = d['pilotes']['XLF']
-    assert {a['tv'] for a in xlf['actions']} == {
-        'NYSE:MA', 'NYSE:SCHW', 'NYSE:V', 'NYSE:BLK', 'NYSE:SPGI'
-    }
-    assert all(a.get('is_bank') is False for a in xlf['actions'])
-    assert all(a.get('regles') == 'apex_achat_v2' for a in xlf['actions'])
+    top5 = {'NYSE:MA', 'NYSE:SCHW', 'NYSE:V', 'NYSE:BLK', 'NYSE:SPGI'}
+    tvs = {a['tv'] for a in xlf['actions']}
+    assert top5 <= tvs
+    assert len(xlf['actions']) == 10
+    by5 = {a['tv']: a for a in xlf['actions'] if a['tv'] in top5}
+    assert all(a.get('is_bank') is False for a in by5.values())
+    assert all(a.get('regles') == 'apex_achat_v2' for a in by5.values())
     by = {a['tv']: a for a in xlf['actions']}
     assert by['NYSE:MA']['total'] == 110
     assert by['NYSE:V']['total'] == 110

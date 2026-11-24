@@ -651,11 +651,12 @@ def load_elliott_key(tv, sector_obj=None):
 
 def _pack_sector(sector_sym, etf_meta, fond_rules, section, fg, fond_all, secteurs, regles_id, fond_etf_intro):
     sec_fond = fond_all['sectors'][sector_sym]
-    top5 = list(sec_fond['top'][:5])
+    top_all = list(sec_fond['top'][:10])
+    top5 = top_all[:5]
     sec = next(s for s in secteurs['sectors'] if s['sym'] == sector_sym)
 
     actions = []
-    for r in top5:
+    for r in top_all:
         actions.append({
             'id': r['ticker'], 'ticker': r['ticker'], 'yahoo': r.get('yahoo') or r['ticker'],
             'tv': r['tv'], 'nom': r['name'], 'name': r['name'], 'kind': 'action', 'm': r.get('m'),
@@ -663,7 +664,7 @@ def _pack_sector(sector_sym, etf_meta, fond_rules, section, fg, fond_all, secteu
         })
 
     action_fonds = []
-    for a in actions:
+    for a in actions[:5] or actions:
         tot, elems = fond_points(a['m'], fond_rules)
         a['_fond_tot'], a['_fond_elems'] = tot, elems
         action_fonds.append((tot, elems))
