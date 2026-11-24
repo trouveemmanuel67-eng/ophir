@@ -26,15 +26,15 @@ def test_cat_et_top_manquants_notes():
     cat = bt["NYSE:CAT"]
     assert cat["ok"] is True
     # APE-25 : × 0,9 (technique, fondamental), H ±27
-    assert cat["total"] == 155
+    assert cat["total"] == 145  # t537u : F&G sectoriel Industrie (XLI 28 → +20)
     assert cat["total_max"] == 250 and cat["total_min"] == -50
     assert cat["points"] == {
         "rsi": 9, "macd": 27, "fibonacci": 9, "cci": 18,
-        "fondamental": 63, "fear_greed": 30, "total": 155, "hype": -1,
+        "fondamental": 63, "fear_greed": 20, "total": 145, "hype": -1,
     }
-    assert bt["XETR:ZPDF"]["total"] == 97
-    assert bt["XETR:ZPDK"]["total"] == 118
-    assert bt["NYSE:MA"]["total"] == 108
+    assert bt["XETR:ZPDF"]["total"] == 67
+    assert bt["XETR:ZPDK"]["total"] == 98
+    assert bt["NYSE:MA"]["total"] == 78
     xli = full["pilotes"]["XLI"]["actions"]
     assert len(xli) == 10
     assert {a["tv"] for a in xli} >= {

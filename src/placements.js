@@ -48,7 +48,7 @@ function renderPlacements(el){
     <div class="plc-colh" aria-hidden="true"><span>Établissement</span><span>Placement</span><span>Solde</span><span>Taux</span><span>Note APEX</span></div>
     <div class="plc-list">${rows}</div>
     ${tot?`<div class="plc-tot"><span>Total</span><b>${tot}</b></div>`:''}
-    <div class="note">Note APEX épargne (−50 à 250) : contexte de taux 110 + fondamental épargne 90 (taux réel net d'impôt, garantie, disponibilité, change, frais) + CNN Fear &amp; Greed inversé ±50. Détail dans l'onglet Liquidités et la page Règles.</div>
+    <div class="note">Note APEX épargne (−50 à 250) : contexte de taux 110 + fondamental épargne 90 (taux réel net d'impôt, garantie, disponibilité, change, frais) + sentiment Liquidités APEX inversé ±50 (remplace le CNN global). Détail dans l'onglet Liquidités et la page Règles.</div>
     <div class="src">Source : ${PLC.source||('relevé du '+date)}</div>
   </div>`;
 }

@@ -89,8 +89,9 @@ def test_note_sans_elliott_sur_le_pilote_communication():
     by['XETR:ZPDK'] = xlc['etf']
     # APE-25 : indicateurs × 0,9 (RSI/MACD/Fibo 9-18-27, CCI 18, fond 9 × 9) ; ETF : fond moyen des 10 titres
     for tv, total in {
-        'NASDAQ:APP': 129, 'XETR:ZPDK': 115, 'NYSE:RDDT': 192,
-        'NASDAQ:META': 102, 'NASDAQ:NFLX': 156, 'NASDAQ:GOOGL': 147,
+        # t537u : F&G sectoriel Communication (XLC 37 → +10 au lieu du CNN +30) : −20
+        'NASDAQ:APP': 109, 'XETR:ZPDK': 95, 'NYSE:RDDT': 172,
+        'NASDAQ:META': 82, 'NASDAQ:NFLX': 136, 'NASDAQ:GOOGL': 127,
     }.items():
         assert 'elliott' not in by[tv]['points']
         assert base(by[tv]) == total
@@ -130,12 +131,12 @@ def test_cci_stoch_et_fond_valides_sur_pilote():
     d = load_full()
     d = d['pilotes']['XLC']
     expected = {
-        'XETR:ZPDK':  {'cci_pts': 0,  'cci': 24.00, 'fond': 58, 'total': 115},
-        'NASDAQ:APP': {'cci_pts': 0,  'cci': 54.29, 'fond': 81, 'total': 129},
-        'NYSE:RDDT':  {'cci_pts': 18, 'cci': 14.87, 'fond': 81, 'total': 192},
-        'NASDAQ:META':{'cci_pts': 0,  'cci': 33.95, 'fond': 72, 'total': 102},
-        'NASDAQ:NFLX':{'cci_pts': 18, 'cci': 17.60, 'fond': 63, 'total': 156},
-        'NASDAQ:GOOGL':{'cci_pts': 18,'cci': 8.12,  'fond': 63, 'total': 147},
+        'XETR:ZPDK':  {'cci_pts': 0,  'cci': 24.00, 'fond': 58, 'total': 95},
+        'NASDAQ:APP': {'cci_pts': 0,  'cci': 54.29, 'fond': 81, 'total': 109},
+        'NYSE:RDDT':  {'cci_pts': 18, 'cci': 14.87, 'fond': 81, 'total': 172},
+        'NASDAQ:META':{'cci_pts': 0,  'cci': 33.95, 'fond': 72, 'total': 82},
+        'NASDAQ:NFLX':{'cci_pts': 18, 'cci': 17.60, 'fond': 63, 'total': 136},
+        'NASDAQ:GOOGL':{'cci_pts': 18,'cci': 8.12,  'fond': 63, 'total': 127},
     }
     recs = [d['etf']] + d['actions']
     for rec in recs:
@@ -207,14 +208,14 @@ def test_finance_usa_hors_banque_sur_le_top5():
     assert all(a.get('is_bank') is False for a in by5.values())
     assert all(a.get('regles') == 'apex_achat_v2' for a in by5.values())
     by = {a['tv']: a for a in xlf['actions']}
-    # APE-25 (× 0,9 ; ETF : fond moyen des 10 titres)
-    assert base(by['NYSE:MA']) == 102
-    assert base(by['NYSE:V']) == 102
-    assert base(by['NYSE:BLK']) == 102
-    assert base(by['NYSE:SCHW']) == 120
-    assert base(by['NYSE:SPGI']) == 84
-    assert xlf['etf']['tv'] == 'XETR:ZPDF' and base(xlf['etf']) == 87
-    assert base(site['by_tv']['XETR:ZPDF']) == 87
+    # APE-25 (× 0,9 ; ETF : fond moyen des 10 titres) ; t537u : F&G sectoriel Finance (XLF 45 → 0 au lieu du CNN +30)
+    assert base(by['NYSE:MA']) == 72
+    assert base(by['NYSE:V']) == 72
+    assert base(by['NYSE:BLK']) == 72
+    assert base(by['NYSE:SCHW']) == 90
+    assert base(by['NYSE:SPGI']) == 54
+    assert xlf['etf']['tv'] == 'XETR:ZPDF' and base(xlf['etf']) == 57  # t537u : XLF 45 → 0
+    assert base(site['by_tv']['XETR:ZPDF']) == 57  # t537u
     # vraies banques présentes dans le fichier (autres pays)
     banks = [a for p in d['pilotes'].values() for a in p['actions'] if a.get('is_bank')]
     assert any(a['tv'] == 'EURONEXT:BNP' for a in banks)

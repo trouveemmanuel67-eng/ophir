@@ -49,6 +49,18 @@ def _dispo_slim(raw):
     return json.dumps(d,ensure_ascii=False)
 t=t.replace('__DATA__',esc(open(B+'data/dashboard_data.json').read())).replace('__DATA2__',esc(open(B+'data/tabs_data.json').read())).replace('__DATA3__',esc(open(B+'data/indicateur.json').read())).replace('/*__TABSJS__*/',open(B+'src/tabs.js').read()).replace('/*__INDJS__*/',open(B+'src/indicateur.js').read()).replace('__DATA4__',esc(open(B+'data/achatvente.json').read())).replace('/*__AVJS__*/',open(B+'src/achatvente.js').read()).replace('__DATA5__',esc(open(B+'data/secteurs.json').read())).replace('__DATA6__',esc(open(B+'data/fondamentaux.json').read())).replace('/*__FONDJS__*/',open(B+'src/fonds.js').read()).replace('/*__SECJS__*/',open(B+'src/secteurs.js').read()).replace('__DATA7__',esc(open(B+'data/obligations.json').read())).replace('/*__OBJS__*/',open(B+'src/obligations.js').read()).replace('__DATA8__',esc(_slim_pays(open(B+'data/pays.json').read()))).replace('__DATA9__',esc(open(B+'data/obpays.json').read())).replace('__DATA10__',esc(open(B+'data/metaux.json').read())).replace('/*__METJS__*/',open(B+'src/metaux.js').read()).replace('/*__PAYSJS__*/',open(B+'src/pays.js').read()).replace('__DATA11__',esc(open(B+'data/positions.json').read())).replace('__DATA12__',esc(_dispo_slim(open(B+'data/disponibilites.json').read()))).replace('__DATA13__',esc(open(B+'data/positions_revolutx.json').read())).replace('__DATA14__',esc(open(B+'data/positions_revolut.json').read())).replace('__DATA15__',esc(open(B+'data/obligations_dispo.json').read())).replace('__DATA16__',esc(open(B+'data/apex_bars.json').read())).replace('__DATA17__',esc(open(B+'data/placements.json').read())).replace('__DATA18__',esc(open(B+'data/template_trade.json').read())).replace('/*__POSJS__*/',open(B+'src/positions.js').read()).replace('/*__DISPOJS__*/',open(B+'src/dispo.js').read()).replace('/*__ACCJS__*/',open(B+'src/acc.js').read()).replace('/*__ACCUEILJS__*/',open(B+'src/accueil.js').read()).replace('/*__PLCJS__*/',open(B+'src/placements.js').read()).replace('__DATA19__',esc(open(B+'config/regles.json').read())).replace('/*__TTJS__*/',open(B+'src/template_trade.js').read()).replace('/*__RGJS__*/',open(B+'src/regles.js').read()).replace('/*__GIJS__*/',open(B+'src/good_invest.js').read()).replace('/*__GSJS__*/',open(B+'src/best_short.js').read()).replace('__DATA_ETF__',esc(open(B+'config/etf_reference.json').read())).replace('/*__SEARCHJS__*/',open(B+'src/recherche.js').read())
 maj=''
+# t537u : sentiment sectoriel (tableau de la page Règles)
+_sent=_P(B+'data/sentiment_secteurs.json')
+if _sent.exists():
+    try:
+        _sd=_json.loads(_sent.read_text()) if '_json' in globals() else __import__('json').loads(_sent.read_text())
+        _keep=('value','label','court','date','points_long','points_short')
+        _slim={'cnn':{k:(_sd.get('cnn') or {}).get(k) for k in _keep}}
+        for _g in ('secteurs_us','secteurs_eu','classes'):
+            _slim[_g]={_k:{k:_v.get(k) for k in _keep} for _k,_v in (_sd.get(_g) or {}).items()}
+        t=t.replace('/*__SENTDATA__*/null', esc(__import__('json').dumps(_slim,ensure_ascii=False)))
+    except Exception as _e:
+        print('sentiment_secteurs ignoré', _e)
 _mp=_P(B+'data/maj.json')
 if _mp.exists():
     maj=_mp.read_text()
@@ -75,7 +87,7 @@ def _slim_pilot(raw):
     import json as _json
     d=_json.loads(raw)
     keep=('tv','ticker','nom','kind','ok','erreur','total','total_max','total_min',
-          'display','band','hex','ligne','points','is_bank','regles','watchlist_tv','attention')
+          'display','band','hex','ligne','points','is_bank','regles','watchlist_tv','attention','sentiment')
     def v2_band(total):
         try:
             n=float(total)

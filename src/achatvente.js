@@ -458,7 +458,10 @@ function pilotLegJoin(parts){
   }).join('');
 }
 function dualBarPilot(rec, compact){
-  const fg=(PILOT&&PILOT.fear_greed)||{};
+  /* t537u : sentiment du secteur de la ligne (rec.sentiment) ; CNN global en repli */
+  const rs=(rec&&rec.sentiment&&rec.sentiment.valeur!=null)?rec.sentiment:null;
+  const fg=rs?{value:rs.valeur,label:rs.zone||''}:((PILOT&&PILOT.fear_greed)||{});
+  const sNom=rs?('Sentiment '+(rs.nom||'secteur')):'Fear &amp; Greed';
   const total=rec&&rec.total!=null?rec.total:null;
   const sc=recScale(rec);
   const mn=sc.min, mx=sc.max, ticks=sc.ticks;
@@ -489,14 +492,14 @@ function dualBarPilot(rec, compact){
   const totTxt=total==null?'–':String(total);
   const fgTxt=Number.isFinite(sv)?fmt(sv,1):'–';
   const avPart=`<span class="pilot-av"><i class="db-dot db-a" style="color:${hex}">AV</i>Total <b class="sc-t" style="color:${hex}">${totTxt}/${mx}</b></span>`;
-  const sPart=`<span class="pilot-s"><i class="db-dot db-s" style="color:${scol}">S</i>Fear &amp; Greed <b class="sc-t" style="color:${scol}">${fgTxt} ${sl}</b></span>`;
+  const sPart=`<span class="pilot-s"><i class="db-dot db-s" style="color:${scol}">S</i>${sNom} <b class="sc-t" style="color:${scol}">${fgTxt} ${sl}</b></span>`;
   const hPart=`<span class="pilot-h" title="${hTip}"><i class="db-dot db-h" style="color:${hcol}">H</i>Hype <b class="sc-t" style="color:${hcol}">${hTxt}${hAtt?` <small>(${hAtt})</small>`:''}</b></span>`;
   const brkPart=(rec&&rec.ligne)?`<span class="pilot-brk">${rec.ligne}</span>`:'';
   const legParts=[avPart,sPart,hPart,brkPart];
-  const bar=`<div class="db db-pilot ${compact?'db-sm':''}" role="img" aria-label="Score APEX ${totTxt} sur ${mn} à ${mx} ; Fear & Greed CNN ${fgTxt} (${sl}) sur 0 à 100 ; H hype ${hTxt}">
+  const bar=`<div class="db db-pilot ${compact?'db-sm':''}" role="img" aria-label="Score APEX ${totTxt} sur ${mn} à ${mx} ; ${rs?('Sentiment '+(rs.nom||'')):'Fear & Greed CNN'} ${fgTxt} (${sl}) sur 0 à 100 ; H hype ${hTxt}">
    <div class="db-tk db-tk1">${tickHTML}</div>
    <div class="db-g"><div class="ind-bar"></div>${bandTicks}
-    ${sp!=null?`<div class="db-cur db-s" style="left:${sp}%;color:${scol}" data-p="${sp}" title="S = CNN Fear & Greed Index ${fgTxt} · ${sl}">S</div>`:''}
+    ${sp!=null?`<div class="db-cur db-s" style="left:${sp}%;color:${scol}" data-p="${sp}" title="S = ${rs?('Sentiment '+(rs.nom||'')):'CNN Fear & Greed Index'} ${fgTxt} · ${sl}">S</div>`:''}
     ${total!=null?`<div class="db-cur db-a" style="left:${ap}%;color:${hex}" data-p="${ap.toFixed(1)}" title="AV = score APEX ${totTxt} / ${mx}">AV</div>`:''}
     ${hp!=null?`<div class="db-cur db-h" style="left:${hp}%;color:${hcol}" data-p="${hp.toFixed(1)}" title="${hTip}">H</div>`:''}
    </div>

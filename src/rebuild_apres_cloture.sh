@@ -17,12 +17,15 @@ for s in \
   build_fx_apex.py \
   build_apex_bars.py \
   build_indicateur.py \
+  build_sentiment_secteurs.py \
   build_achatvente.py \
   build_data_tabs.py \
   build_obpays.py \
   build_apex10.py \
+  apply_sentiment.py \
   build_univers_short.py \
   build_short250.py \
+  build_good_invest.py \
   build.py
 do
   echo "---- $s $(date -Iseconds) ----"

@@ -10,6 +10,8 @@ Plus la note est haute, plus l'actif est un bon candidat short. Points entiers.
   Fondamental (max 125)   : lecture inversée du fondamental LONG : +125/9 par critère NON rempli ; critère sans
                            donnée = moitié ; sous-total arrondi au point entier (demi vers le haut).
   Fear & Greed (±30)     : inverse du LONG, échelonné à 30 (avidité 60 → +6 … 100 → +30 ; peur 40 → −6 … 0 → −30).
+                           t537u : valeur d'entrée = sentiment du SECTEUR de l'action (ETF SPDR US ou MSCI Europe,
+                           data/sentiment_secteurs.json, apex/sentiment.py) ; repli CNN global si secteur inconnu.
   Hype H (±20)           : H_short = round((attention − 50) × 0,4) (Indicateur d'Attention Long Swing).
   Filtre technique       : au moins signal_tech_min (1) bloc RSI / MACD / CCI à ≥ 10 points (surachat).
   Fibonacci              : aucun point ; FILTRE d'entrée dans Meilleurs SHORT (note ≥ 70) : cours ≥ niveau 38,2 %
@@ -69,6 +71,34 @@ def fg_short(value):
     delta = v - 50.0
     n = min(5, int(math.floor(abs(delta) / 10.0)))
     return n * FG_TRANCHE if delta >= 0 else -n * FG_TRANCHE
+
+
+YAHOO_GICS = {
+    'Technology': 'Information Technology', 'Healthcare': 'Health Care', 'Financial Services': 'Financials',
+    'Communication Services': 'Communication Services', 'Consumer Cyclical': 'Consumer Discretionary',
+    'Consumer Defensive': 'Consumer Staples', 'Industrials': 'Industrials', 'Basic Materials': 'Materials',
+    'Utilities': 'Utilities', 'Energy': 'Energy', 'Real Estate': 'Real Estate',
+}
+EU_COUNTRIES = ('France', 'Germany', 'Switzerland', 'Belgium', 'Netherlands', 'Italy', 'Spain', 'United Kingdom')
+
+
+def sentiment_for(tv, sector=None, country=None, fgv_cnn=None):
+    """t537u : (valeur 0–100, libellé court, clé) du sentiment sectoriel de l'actif ; repli CNN global."""
+    try:
+        from apex import sentiment as S
+    except Exception:
+        return fgv_cnn, 'CNN global', 'cnn'
+    key = None
+    g = YAHOO_GICS.get(sector or '')
+    if g:
+        eu = (tv or '').split(':')[0] in ('EURONEXT', 'XETR', 'SIX')  # place de cotation (MTD, EG : NYSE → US)
+        key = ('eu:' + S.GICS_EU[g]) if eu else ('us:' + S.GICS_US[g])
+    if key is None:
+        key = S.key_for_tv(tv)
+    k, rec = S.resolve(key)
+    if rec and rec.get('value') is not None:
+        return float(rec['value']), S.court(k, rec), k
+    return fgv_cnn, 'CNN global', 'cnn'
 
 
 def h_short(att):
@@ -141,8 +171,11 @@ def fond_from(elements, missing_key):
     return min(FOND_MAX, jround(brut)), n_ko, n_nc, det
 
 
-def assemble(base, t, fond, fgv, att):
+def assemble(base, t, fond, fgv, att, sent=None):
+    if sent and sent[0] is not None:
+        fgv = sent[0]
     fgp = fg_short(fgv)
+    flab = 'F&G' if not sent else f"Sentiment {sent[1]} {int(round(fgv))} :" if fgv is not None else 'F&G'
     hp = h_short(att)
     fpts, n_ko, n_nc, fdet = fond
     tot = t['rsi']['points'] + t['macd']['points'] + t['cci']['points'] + fpts + (fgp or 0) + (hp or 0)
@@ -160,11 +193,13 @@ def assemble(base, t, fond, fgv, att):
     tech_ok = n_sig >= SIG_MIN
     entre = note >= SEUIL and t['fibo']['ok'] and tech_ok
     ligne = (f"RSI +{t['rsi']['points']} · MACD +{t['macd']['points']} · CCI +{t['cci']['points']} · Fond +{fpts}"
-             f" · F&G {fgp:+d} · H {(hp or 0):+d}  →  {note} / 250").replace('+-', '−').replace('-', '−')
+             f" · {flab} {(fgp or 0):+d} · H {(hp or 0):+d}  →  {note} / 250").replace('+-', '−').replace('-', '−')
     base.update({
         'note': note, 'scale': 250,
         'points': {'rsi': t['rsi']['points'], 'macd': t['macd']['points'], 'cci': t['cci']['points'],
                    'fondamental': fpts, 'fear_greed': fgp, 'hype': hp},
+        'sentiment': (None if not sent else {'cle': sent[2], 'nom': sent[1], 'valeur': None if fgv is None else round(fgv, 1),
+                                             'points': fgp, 'repli_cnn': sent[2] == 'cnn'}),
         'ligne': ligne, 'date_cloture': t['date_cloture'], 'close': t['close'],
         'tech': {k: t[k] for k in ('rsi', 'macd', 'cci')}, 'fibo': t['fibo'],
         'fond': {'criteres_non_remplis': n_ko, 'nc': n_nc, 'elements': fdet},
@@ -214,7 +249,8 @@ def main_univers(U, fgv, fg):
                 'categorie': cat, 'tab': 'short', 'univers': 'short',
                 'rsi_hebdo': a.get('rsi'), 'palier': a.get('palier'), 'cfd_revolut': a.get('cfd_revolut'),
                 'degradation': a.get('degradation'), 'pays': a.get('country'), 'canada': a.get('canada')}
-        out[tv] = assemble(base, t, fond_from(elems, 'manquant'), fgv, None)
+        out[tv] = assemble(base, t, fond_from(elems, 'manquant'), fgv, None,
+                           sentiment_for(tv, a.get('sector'), a.get('country'), fgv))
     return out, sans_serie
 
 
@@ -249,7 +285,8 @@ def main():
         cat = 'banque' if r.get('is_bank') else 'action'
         base = {'tv': tv, 'nom': r.get('nom'), 'ticker': r.get('ticker'), 'yahoo': r.get('yahoo'),
                 'categorie': cat, 'tab': 'actions'}
-        out[tv] = assemble(base, t, fond_from((r.get('fond') or {}).get('elements'), 'manquant'), fgv, att)
+        out[tv] = assemble(base, t, fond_from((r.get('fond') or {}).get('elements'), 'manquant'), fgv, att,
+                           sentiment_for(tv, None, None, fgv))
 
     for a in energie:
         tv = a['tv']
@@ -261,7 +298,7 @@ def main():
         att = (atj.get(tv) or {}).get('attention')
         base = {'tv': tv, 'nom': a.get('nom'), 'ticker': tv.split(':')[-1], 'yahoo': a.get('yahoo'),
                 'categorie': 'energie', 'groupe': a.get('groupe'), 'tab': 'energie'}
-        out[tv] = assemble(base, t, fond_from(fel, 'nc'), fgv, att)
+        out[tv] = assemble(base, t, fond_from(fel, 'nc'), fgv, att, sentiment_for(tv, None, None, fgv))
 
     if U:
         out, sans_serie = main_univers(U, fgv, fg)
@@ -270,7 +307,8 @@ def main():
     exclus_tech = sorted([x for x in out.values() if x['au_seuil'] and x['fibo_ok'] and not x['tech_ok']], key=lambda x: (-x['note'], x['tv']))
     exclus_fibo = sorted([x for x in out.values() if x['au_seuil'] and not x['fibo_ok']], key=lambda x: (-x['note'], x['tv']))
     doc = {
-        'regles': 'apex_short_250', 'seuil': SEUIL, 'fear_greed': {'value': fgv, 'points_short': fg_short(fgv), 'date': fg.get('date_valeur')},
+        'regles': 'apex_short_250', 'seuil': SEUIL, 'fear_greed': {'value': fgv, 'points_short': fg_short(fgv), 'date': fg.get('date_valeur'),
+                                                       'role': 'repli seulement (t537u : sentiment sectoriel par actif)'},
         'n': len(out), 'n_liste': len(liste),
         'liste': [x['tv'] for x in liste],
         'exclus_fibo': [{'tv': x['tv'], 'note': x['note'], 'r': x['fibo']['r']} for x in exclus_fibo],

@@ -57,7 +57,7 @@
         "total_min": -50,
         "total_max": 250,
         "v2": true,
-        "ligne": "RSI 0 · MACD +30 · Fibo +10 · CCI +20 · Devise +18 · Fond. — · F&G +30  →  108 / 250 · Hype non comptée (dès le 25/11)",
+        "ligne": "RSI 0 · MACD +30 · Fibo +10 · CCI +20 · Devise +18 · Fond. — · Sentiment Technologie (XLK) 19 : +30  →  108 / 250 · Hype non comptée (dès le 25/11)",
         "renormalise": false,
         "technique": 60,
         "devise_points": 18,
@@ -66,7 +66,7 @@
         "fg_value": 17.7,
         "fg_source": "CNN",
         "decomp": {
-          "texte": "RSI 0 · MACD +30 · Fibo +10 · CCI +20 · Devise +18 · Fond. — · F&G +30  →  108 / 250 · Hype non comptée (dès le 25/11)",
+          "texte": "RSI 0 · MACD +30 · Fibo +10 · CCI +20 · Devise +18 · Fond. — · Sentiment Technologie (XLK) 19 : +30  →  108 / 250 · Hype non comptée (dès le 25/11)",
           "points": {
             "rsi": 0,
             "macd": 30,
@@ -145,6 +145,16 @@
             "source": "CNN"
           },
           "echelle": 250
+        },
+        "sentiment": {
+          "cle": "us:XLK",
+          "nom": "Technologie (XLK)",
+          "valeur": 19.1,
+          "zone": "Peur extrême",
+          "points": 30,
+          "inverse": false,
+          "date": "2026-11-24",
+          "repli_cnn": false
         }
       }
     },
@@ -182,20 +192,20 @@
         "note": "Absents de la table disponibilités (OMI / site) au 23/11/2026. Disponibilité Revolut et XTB non vérifiée."
       },
       "apex10": {
-        "note": 92,
-        "display": "92",
+        "note": 102,
+        "display": "102",
         "hex": "#ff8c1a",
         "flag": "orange",
         "band": "orange",
-        "pos": 92,
+        "pos": 102,
         "cap": "fond_nc+hype_attente_25_11",
         "brut": 92,
         "scale": 250,
-        "total": 92,
+        "total": 102,
         "total_min": -50,
         "total_max": 250,
         "v2": true,
-        "ligne": "RSI +10 · MACD +30 · Fibo +10 · CCI 0 · Devise +12 · Fond. — · F&G +30  →  92 / 250 · Hype non comptée (dès le 25/11)",
+        "ligne": "RSI +10 · MACD +30 · Fibo +10 · CCI 0 · Devise +12 · Fond. — · Sentiment Métaux précieux 10 : +40  →  102 / 250 · Hype non comptée (dès le 25/11)",
         "renormalise": false,
         "technique": 50,
         "devise_points": 12,
@@ -204,7 +214,7 @@
         "fg_value": 17.7,
         "fg_source": "CNN",
         "decomp": {
-          "texte": "RSI +10 · MACD +30 · Fibo +10 · CCI 0 · Devise +12 · Fond. — · F&G +30  →  92 / 250 · Hype non comptée (dès le 25/11)",
+          "texte": "RSI +10 · MACD +30 · Fibo +10 · CCI 0 · Devise +12 · Fond. — · Sentiment Métaux précieux 10 : +40  →  102 / 250 · Hype non comptée (dès le 25/11)",
           "points": {
             "rsi": 10,
             "macd": 30,
@@ -213,8 +223,8 @@
             "devise": 12,
             "fondamental": null,
             "hype": null,
-            "fear_greed": 30,
-            "total": 92
+            "fear_greed": 40,
+            "total": 102
           },
           "rsi": {
             "valeur": 38.1,
@@ -283,6 +293,16 @@
             "source": "CNN"
           },
           "echelle": 250
+        },
+        "sentiment": {
+          "cle": "metaux",
+          "nom": "Métaux précieux",
+          "valeur": 9.8,
+          "zone": "Peur extrême",
+          "points": 40,
+          "inverse": false,
+          "date": "2026-11-24",
+          "repli_cnn": false
         }
       }
     },
@@ -332,7 +352,7 @@
         "total_min": -50,
         "total_max": 250,
         "v2": true,
-        "ligne": "RSI +10 · MACD +30 · Fibo +10 · CCI +20 · Devise +12 · Fond. — · F&G +30  →  112 / 250 · Hype non comptée (dès le 25/11)",
+        "ligne": "RSI +10 · MACD +30 · Fibo +10 · CCI +20 · Devise +12 · Fond. — · Sentiment Technologie (XLK) 19 : +30  →  112 / 250 · Hype non comptée (dès le 25/11)",
         "renormalise": false,
         "technique": 70,
         "devise_points": 12,
@@ -341,7 +361,7 @@
         "fg_value": 17.7,
         "fg_source": "CNN",
         "decomp": {
-          "texte": "RSI +10 · MACD +30 · Fibo +10 · CCI +20 · Devise +12 · Fond. — · F&G +30  →  112 / 250 · Hype non comptée (dès le 25/11)",
+          "texte": "RSI +10 · MACD +30 · Fibo +10 · CCI +20 · Devise +12 · Fond. — · Sentiment Technologie (XLK) 19 : +30  →  112 / 250 · Hype non comptée (dès le 25/11)",
           "points": {
             "rsi": 10,
             "macd": 30,
@@ -420,6 +440,16 @@
             "source": "CNN"
           },
           "echelle": 250
+        },
+        "sentiment": {
+          "cle": "us:XLK",
+          "nom": "Technologie (XLK)",
+          "valeur": 19.1,
+          "zone": "Peur extrême",
+          "points": 30,
+          "inverse": false,
+          "date": "2026-11-24",
+          "repli_cnn": false
         }
       }
     },
@@ -455,20 +485,20 @@
         "note": "Absents de la table disponibilités (OMI / site) au 23/11/2026. Disponibilité Revolut et XTB non vérifiée."
       },
       "apex10": {
-        "note": 72,
-        "display": "72",
+        "note": 82,
+        "display": "82",
         "hex": "#ff8c1a",
         "flag": "orange",
         "band": "orange",
-        "pos": 72,
+        "pos": 82,
         "cap": "fond_nc+hype_attente_25_11",
         "brut": 72,
         "scale": 250,
-        "total": 72,
+        "total": 82,
         "total_min": -50,
         "total_max": 250,
         "v2": true,
-        "ligne": "RSI 0 · MACD +30 · Fibo 0 · CCI 0 · Devise +12 · Fond. — · F&G +30  →  72 / 250 · Hype non comptée (dès le 25/11)",
+        "ligne": "RSI 0 · MACD +30 · Fibo 0 · CCI 0 · Devise +12 · Fond. — · Sentiment Métaux précieux 10 : +40  →  82 / 250 · Hype non comptée (dès le 25/11)",
         "renormalise": false,
         "technique": 30,
         "devise_points": 12,
@@ -477,7 +507,7 @@
         "fg_value": 17.7,
         "fg_source": "CNN",
         "decomp": {
-          "texte": "RSI 0 · MACD +30 · Fibo 0 · CCI 0 · Devise +12 · Fond. — · F&G +30  →  72 / 250 · Hype non comptée (dès le 25/11)",
+          "texte": "RSI 0 · MACD +30 · Fibo 0 · CCI 0 · Devise +12 · Fond. — · Sentiment Métaux précieux 10 : +40  →  82 / 250 · Hype non comptée (dès le 25/11)",
           "points": {
             "rsi": 0,
             "macd": 30,
@@ -486,8 +516,8 @@
             "devise": 12,
             "fondamental": null,
             "hype": null,
-            "fear_greed": 30,
-            "total": 72
+            "fear_greed": 40,
+            "total": 82
           },
           "rsi": {
             "valeur": 41.9,
@@ -556,6 +586,16 @@
             "source": "CNN"
           },
           "echelle": 250
+        },
+        "sentiment": {
+          "cle": "metaux",
+          "nom": "Métaux précieux",
+          "valeur": 9.8,
+          "zone": "Peur extrême",
+          "points": 40,
+          "inverse": false,
+          "date": "2026-11-24",
+          "repli_cnn": false
         }
       }
     },
@@ -600,20 +640,20 @@
         "note": "Absents de la table disponibilités (OMI / site) au 23/11/2026. Disponibilité Revolut et XTB non vérifiée."
       },
       "apex10": {
-        "note": 79,
-        "display": "79",
-        "hex": "#ff8c1a",
-        "flag": "orange",
-        "band": "orange",
-        "pos": 79,
+        "note": 49,
+        "display": "49",
+        "hex": "#ff2d2d",
+        "flag": "red",
+        "band": "rouge",
+        "pos": 49,
         "cap": "fond_nc+hype_attente_25_11",
         "brut": 79,
         "scale": 250,
-        "total": 79,
+        "total": 49,
         "total_min": -50,
         "total_max": 250,
         "v2": true,
-        "ligne": "RSI 0 · MACD +20 · Fibo 0 · CCI +20 · Devise +9 · Fond. — · F&G +30  →  79 / 250 · Hype non comptée (dès le 25/11)",
+        "ligne": "RSI 0 · MACD +20 · Fibo 0 · CCI +20 · Devise +9 · Fond. — · Sentiment Finance (XLF) 45 : 0  →  49 / 250 · Hype non comptée (dès le 25/11)",
         "renormalise": false,
         "technique": 40,
         "devise_points": 9,
@@ -622,7 +662,7 @@
         "fg_value": 17.7,
         "fg_source": "CNN",
         "decomp": {
-          "texte": "RSI 0 · MACD +20 · Fibo 0 · CCI +20 · Devise +9 · Fond. — · F&G +30  →  79 / 250 · Hype non comptée (dès le 25/11)",
+          "texte": "RSI 0 · MACD +20 · Fibo 0 · CCI +20 · Devise +9 · Fond. — · Sentiment Finance (XLF) 45 : 0  →  49 / 250 · Hype non comptée (dès le 25/11)",
           "points": {
             "rsi": 0,
             "macd": 20,
@@ -631,8 +671,8 @@
             "devise": 9,
             "fondamental": null,
             "hype": null,
-            "fear_greed": 30,
-            "total": 79
+            "fear_greed": 0,
+            "total": 49
           },
           "rsi": {
             "valeur": 43.2,
@@ -701,6 +741,16 @@
             "source": "CNN"
           },
           "echelle": 250
+        },
+        "sentiment": {
+          "cle": "us:XLF",
+          "nom": "Finance (XLF)",
+          "valeur": 45.3,
+          "zone": "Neutre",
+          "points": 0,
+          "inverse": false,
+          "date": "2026-11-24",
+          "repli_cnn": false
         }
       }
     },
@@ -736,20 +786,20 @@
         "note": "Absents de la table disponibilités (OMI / site) au 23/11/2026. Disponibilité Revolut et XTB non vérifiée."
       },
       "apex10": {
-        "note": 73,
-        "display": "73",
+        "note": 83,
+        "display": "83",
         "hex": "#ff8c1a",
         "flag": "orange",
         "band": "orange",
-        "pos": 73,
+        "pos": 83,
         "cap": "fond_nc+hype_attente_25_11",
         "brut": 73,
         "scale": 250,
-        "total": 73,
+        "total": 83,
         "total_min": -50,
         "total_max": 250,
         "v2": true,
-        "ligne": "RSI 0 · MACD +30 · Fibo +10 · CCI 0 · Devise +3 · Fond. — · F&G +30  →  73 / 250 · Hype non comptée (dès le 25/11)",
+        "ligne": "RSI 0 · MACD +30 · Fibo +10 · CCI 0 · Devise +3 · Fond. — · Sentiment Métaux précieux 10 : +40  →  83 / 250 · Hype non comptée (dès le 25/11)",
         "renormalise": false,
         "technique": 40,
         "devise_points": 3,
@@ -758,7 +808,7 @@
         "fg_value": 17.7,
         "fg_source": "CNN",
         "decomp": {
-          "texte": "RSI 0 · MACD +30 · Fibo +10 · CCI 0 · Devise +3 · Fond. — · F&G +30  →  73 / 250 · Hype non comptée (dès le 25/11)",
+          "texte": "RSI 0 · MACD +30 · Fibo +10 · CCI 0 · Devise +3 · Fond. — · Sentiment Métaux précieux 10 : +40  →  83 / 250 · Hype non comptée (dès le 25/11)",
           "points": {
             "rsi": 0,
             "macd": 30,
@@ -767,8 +817,8 @@
             "devise": 3,
             "fondamental": null,
             "hype": null,
-            "fear_greed": 30,
-            "total": 73
+            "fear_greed": 40,
+            "total": 83
           },
           "rsi": {
             "valeur": 40.6,
@@ -837,6 +887,16 @@
             "source": "CNN"
           },
           "echelle": 250
+        },
+        "sentiment": {
+          "cle": "metaux",
+          "nom": "Métaux précieux",
+          "valeur": 9.8,
+          "zone": "Peur extrême",
+          "points": 40,
+          "inverse": false,
+          "date": "2026-11-24",
+          "repli_cnn": false
         }
       }
     }

@@ -1,7 +1,26 @@
 {
   "seuil": 75.0,
-  "n": 56,
+  "n": 26,
   "liste": [
+    {
+      "tv": "NYSE:PAAS",
+      "yahoo": "PAAS",
+      "nom": "Pan American Silver Corp.",
+      "note": 200.0,
+      "display": "200",
+      "hex": "#00e5ff",
+      "flag": "cyan",
+      "bande": "cyan",
+      "av": 14.5,
+      "section": "Canada – Matériaux",
+      "montant": 700,
+      "brokers": {
+        "revolut": true,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "metaux"
+    },
     {
       "tv": "LSE:IPDM",
       "yahoo": "IPDM.L",
@@ -22,42 +41,23 @@
       "tab": "metaux"
     },
     {
-      "tv": "NYSE:PAAS",
-      "yahoo": "PAAS",
-      "nom": "Pan American Silver Corp.",
-      "note": 190.0,
-      "display": "190",
-      "hex": "#00e5ff",
-      "flag": "cyan",
-      "bande": "cyan",
-      "av": 14.5,
-      "section": "Canada – Matériaux",
+      "tv": "LSE:ISLN",
+      "yahoo": "ISLN.L",
+      "nom": "iShares Physical Silver ETC",
+      "note": 185.0,
+      "display": "185",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": 17.7,
+      "section": "Métaux – Argent",
       "montant": 700,
       "brokers": {
-        "revolut": true,
+        "revolut": false,
         "xtb": true
       },
       "scale": 250,
       "tab": "metaux"
-    },
-    {
-      "tv": "NASDAQ:LRCX",
-      "yahoo": "LRCX",
-      "nom": "Lam Research Corporation",
-      "note": 182.0,
-      "display": "182",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": 2.3,
-      "section": "USA – XLK",
-      "montant": 700,
-      "brokers": {
-        "revolut": null,
-        "xtb": true
-      },
-      "scale": 250,
-      "tab": "autres"
     },
     {
       "tv": "NASDAQ:KLAC",
@@ -79,55 +79,17 @@
       "tab": "autres"
     },
     {
-      "tv": "NYSE:FCX",
-      "yahoo": "FCX",
-      "nom": "Freeport-McMoRan Inc.",
-      "note": 179.0,
-      "display": "179",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": -34.6,
-      "section": "USA – XLB",
-      "montant": 700,
-      "brokers": {
-        "revolut": true,
-        "xtb": true
-      },
-      "scale": 250,
-      "tab": "autres"
-    },
-    {
-      "tv": "LSE:ISLN",
-      "yahoo": "ISLN.L",
-      "nom": "iShares Physical Silver ETC",
-      "note": 175.0,
-      "display": "175",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": 17.7,
-      "section": "Métaux – Argent",
-      "montant": 600,
-      "brokers": {
-        "revolut": false,
-        "xtb": true
-      },
-      "scale": 250,
-      "tab": "metaux"
-    },
-    {
       "tv": "NYSE:AG",
       "yahoo": "AG",
       "nom": "First Majestic Silver Corp.",
-      "note": 170.0,
-      "display": "170",
+      "note": 180.0,
+      "display": "180",
       "hex": "#22c55e",
       "flag": "green",
       "bande": "vert",
       "av": 30.4,
       "section": "Canada – Matériaux",
-      "montant": 600,
+      "montant": 700,
       "brokers": {
         "revolut": true,
         "xtb": true
@@ -139,14 +101,14 @@
       "tv": "NYSE:SBSW",
       "yahoo": "SBSW",
       "nom": "Sibanye Stillwater Limited",
-      "note": 170.0,
-      "display": "170",
+      "note": 180.0,
+      "display": "180",
       "hex": "#22c55e",
       "flag": "green",
       "bande": "vert",
       "av": 14.3,
       "section": "Métaux – Platine",
-      "montant": 600,
+      "montant": 700,
       "brokers": {
         "revolut": true,
         "xtb": true
@@ -155,16 +117,16 @@
       "tab": "metaux"
     },
     {
-      "tv": "NYSE:TT",
-      "yahoo": "TT",
-      "nom": "Trane Technologies plc",
-      "note": 160.0,
-      "display": "160",
+      "tv": "NYSE:FCX",
+      "yahoo": "FCX",
+      "nom": "Freeport-McMoRan Inc.",
+      "note": 159.0,
+      "display": "159",
       "hex": "#22c55e",
       "flag": "green",
       "bande": "vert",
-      "av": -34.3,
-      "section": "USA – XLI",
+      "av": -34.6,
+      "section": "USA – XLB",
       "montant": 600,
       "brokers": {
         "revolut": true,
@@ -172,6 +134,25 @@
       },
       "scale": 250,
       "tab": "autres"
+    },
+    {
+      "tv": "LSE:IPLT",
+      "yahoo": "IPLT.L",
+      "nom": "iShares Physical Platinum ETC",
+      "note": 156.0,
+      "display": "156",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": 32.0,
+      "section": "Métaux – Platine",
+      "montant": 600,
+      "brokers": {
+        "revolut": false,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "metaux"
     },
     {
       "tv": "BTC",
@@ -209,210 +190,39 @@
       "tab": "autres"
     },
     {
-      "tv": "XETR:IBC5",
-      "yahoo": "IBC5.DE",
-      "nom": "iShares $ TIPS UCITS ETF EUR Hedged (Acc)",
+      "tv": "NYSE:TT",
+      "yahoo": "TT",
+      "nom": "Trane Technologies plc",
       "note": 150.0,
       "display": "150",
       "hex": "#22c55e",
       "flag": "green",
       "bande": "vert",
-      "av": 42.4,
-      "section": "Obligations – Obligations indexées sur l'inflation",
+      "av": -34.3,
+      "section": "USA – XLI",
       "montant": 500,
       "brokers": {
         "revolut": true,
         "xtb": true
       },
       "scale": 250,
-      "tab": "obligations"
+      "tab": "autres"
     },
     {
-      "tv": "XETR:XDGU",
-      "yahoo": "XDGU.DE",
-      "nom": "Xtrackers USD Corporate Bond UCITS ETF 1D",
-      "note": 150.0,
-      "display": "150",
+      "tv": "XETR:8PSG",
+      "yahoo": "8PSG.DE",
+      "nom": "Invesco Physical Gold ETC",
+      "note": 145.0,
+      "display": "145",
       "hex": "#22c55e",
       "flag": "green",
       "bande": "vert",
-      "av": 14.1,
-      "section": "Obligations – Investment grade USD",
-      "montant": 500,
-      "brokers": {
-        "revolut": true,
-        "xtb": true
-      },
-      "scale": 250,
-      "tab": "obligations"
-    },
-    {
-      "tv": "XETR:ENDH",
-      "yahoo": "ENDH.DE",
-      "nom": "L&G Emerging Markets Government Bond (USD) 0-5 Year Screened UCITS ETF EUR Hedged Accumulation",
-      "note": 150.0,
-      "display": "150",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": -9.4,
-      "section": "Obligations – Dette émergente",
+      "av": 10.0,
+      "section": "Métaux – Or",
       "montant": 500,
       "brokers": {
         "revolut": true,
         "xtb": false
-      },
-      "scale": 250,
-      "tab": "obligations"
-    },
-    {
-      "tv": "XETR:LYQ7",
-      "yahoo": "LYQ7.DE",
-      "nom": "Amundi Euro Government Inflation-Linked Bond UCITS ETF Acc",
-      "note": 150.0,
-      "display": "150",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": -18.6,
-      "section": "Obligations – Obligations indexées sur l'inflation",
-      "montant": 500,
-      "brokers": {
-        "revolut": true,
-        "xtb": true
-      },
-      "scale": 250,
-      "tab": "obligations"
-    },
-    {
-      "tv": "XETR:XEIN",
-      "yahoo": "XEIN.DE",
-      "nom": "Xtrackers II Eurozone Inflation-Linked Bond UCITS ETF 1C",
-      "note": 150.0,
-      "display": "150",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": -22.1,
-      "section": "Obligations – Obligations indexées sur l'inflation",
-      "montant": 500,
-      "brokers": {
-        "revolut": true,
-        "xtb": true
-      },
-      "scale": 250,
-      "tab": "obligations"
-    },
-    {
-      "tv": "EURONEXT:IBCI",
-      "yahoo": "IBCI.AS",
-      "nom": "iShares € Inflation Linked Govt Bond UCITS ETF EUR (Acc)",
-      "note": 150.0,
-      "display": "150",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": -25.0,
-      "section": "Obligations – Obligations indexées sur l'inflation",
-      "montant": 500,
-      "brokers": {
-        "revolut": true,
-        "xtb": true
-      },
-      "scale": 250,
-      "tab": "obligations"
-    },
-    {
-      "tv": "NYSE:ETN",
-      "yahoo": "ETN",
-      "nom": "Eaton Corporation plc",
-      "note": 149.0,
-      "display": "149",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": -35.4,
-      "section": "USA – XLI",
-      "montant": 500,
-      "brokers": {
-        "revolut": null,
-        "xtb": true
-      },
-      "scale": 250,
-      "tab": "autres"
-    },
-    {
-      "tv": "EURONEXT:SU",
-      "yahoo": "SU.PA",
-      "nom": "Schneider Electric S.E.",
-      "note": 148.0,
-      "display": "148",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": -32.6,
-      "section": "France – Industrie",
-      "montant": 500,
-      "brokers": {
-        "revolut": true,
-        "xtb": true
-      },
-      "scale": 250,
-      "tab": "autres"
-    },
-    {
-      "tv": "NYSE:GEV",
-      "yahoo": "GEV",
-      "nom": "GE Vernova Inc.",
-      "note": 147.0,
-      "display": "147",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": 19.7,
-      "section": "USA – XLI",
-      "montant": 500,
-      "brokers": {
-        "revolut": true,
-        "xtb": true
-      },
-      "scale": 250,
-      "tab": "autres"
-    },
-    {
-      "tv": "NYSE:MS",
-      "yahoo": "MS",
-      "nom": "Morgan Stanley",
-      "note": 147.0,
-      "display": "147",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": -43.4,
-      "section": "USA – XLF",
-      "montant": 500,
-      "brokers": {
-        "revolut": null,
-        "xtb": true
-      },
-      "scale": 250,
-      "tab": "autres"
-    },
-    {
-      "tv": "LSE:IPLT",
-      "yahoo": "IPLT.L",
-      "nom": "iShares Physical Platinum ETC",
-      "note": 146.0,
-      "display": "146",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": 32.0,
-      "section": "Métaux – Platine",
-      "montant": 500,
-      "brokers": {
-        "revolut": false,
-        "xtb": true
       },
       "scale": 250,
       "tab": "metaux"
@@ -450,120 +260,6 @@
       "tab": "crypto"
     },
     {
-      "tv": "NASDAQ:GOOGL",
-      "yahoo": "GOOGL",
-      "nom": "Alphabet Inc.",
-      "note": 141.0,
-      "display": "141",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": -4.4,
-      "section": "USA – XLC",
-      "montant": 500,
-      "brokers": {
-        "revolut": true,
-        "xtb": true
-      },
-      "scale": 250,
-      "tab": "autres"
-    },
-    {
-      "tv": "NYSE:HWM",
-      "yahoo": "HWM",
-      "nom": "Howmet Aerospace Inc.",
-      "note": 141.0,
-      "display": "141",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": -34.5,
-      "section": "USA – XLI",
-      "montant": 500,
-      "brokers": {
-        "revolut": true,
-        "xtb": true
-      },
-      "scale": 250,
-      "tab": "autres"
-    },
-    {
-      "tv": "XETR:SPPX",
-      "yahoo": "SPPX.DE",
-      "nom": "State Street SPDR Bloomberg 10+ Year U.S. Treasury Bond UCITS ETF (Dist)",
-      "note": 140.0,
-      "display": "140",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": 31.5,
-      "section": "Obligations – Treasuries US longs (20 ans et +)",
-      "montant": 500,
-      "brokers": {
-        "revolut": true,
-        "xtb": true
-      },
-      "scale": 250,
-      "tab": "obligations"
-    },
-    {
-      "tv": "XETR:SYBN",
-      "yahoo": "SYBN.DE",
-      "nom": "State Street SPDR Bloomberg 10+ Year U.S. Corporate Bond UCITS ETF",
-      "note": 140.0,
-      "display": "140",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": 17.3,
-      "section": "Obligations – Investment grade USD",
-      "montant": 500,
-      "brokers": {
-        "revolut": true,
-        "xtb": false
-      },
-      "scale": 250,
-      "tab": "obligations"
-    },
-    {
-      "tv": "NASDAQ:MU",
-      "yahoo": "MU",
-      "nom": "Micron Technology, Inc.",
-      "note": 140.0,
-      "display": "140",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": 4.9,
-      "section": "USA – XLK",
-      "montant": 500,
-      "brokers": {
-        "revolut": null,
-        "xtb": true
-      },
-      "scale": 250,
-      "tab": "autres"
-    },
-    {
-      "tv": "XETR:U3O8",
-      "yahoo": "U3O8.DE",
-      "nom": "ETF minières uranium U3O8 (UCITS)",
-      "note": 140.0,
-      "display": "140",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": -4.8,
-      "section": "Énergie – Nucléaire et uranium",
-      "montant": 500,
-      "brokers": {
-        "revolut": true,
-        "xtb": true
-      },
-      "scale": 250,
-      "tab": "energie"
-    },
-    {
       "tv": "NASDAQ:TXN",
       "yahoo": "TXN",
       "nom": "Texas Instruments Incorporated",
@@ -583,76 +279,57 @@
       "tab": "autres"
     },
     {
-      "tv": "NASDAQ:ENPH",
-      "yahoo": "ENPH",
-      "nom": "Enphase Energy",
-      "note": 140.0,
-      "display": "140",
+      "tv": "NYSE:ETN",
+      "yahoo": "ETN",
+      "nom": "Eaton Corporation plc",
+      "note": 139.0,
+      "display": "139",
       "hex": "#22c55e",
       "flag": "green",
       "bande": "vert",
-      "av": -26.4,
-      "section": "Énergie – Solaire",
+      "av": -35.4,
+      "section": "USA – XLI",
       "montant": 500,
       "brokers": {
         "revolut": null,
         "xtb": true
       },
       "scale": 250,
-      "tab": "energie"
+      "tab": "autres"
     },
     {
-      "tv": "XETR:ENR",
-      "yahoo": "ENR.DE",
-      "nom": "Siemens Energy AG",
-      "note": 140.0,
-      "display": "140",
+      "tv": "EURONEXT:SU",
+      "yahoo": "SU.PA",
+      "nom": "Schneider Electric S.E.",
+      "note": 138.0,
+      "display": "138",
       "hex": "#22c55e",
       "flag": "green",
       "bande": "vert",
-      "av": -29.4,
-      "section": "Allemagne – Industrie",
+      "av": -32.6,
+      "section": "France – Industrie",
       "montant": 500,
       "brokers": {
         "revolut": true,
         "xtb": true
       },
       "scale": 250,
-      "tab": "energie"
+      "tab": "autres"
     },
     {
-      "tv": "EURONEXT:GTT",
-      "yahoo": "GTT.PA",
-      "nom": "Gaztransport & Technigaz",
-      "note": 140.0,
-      "display": "140",
+      "tv": "NYSE:GEV",
+      "yahoo": "GEV",
+      "nom": "GE Vernova Inc.",
+      "note": 137.0,
+      "display": "137",
       "hex": "#22c55e",
       "flag": "green",
       "bande": "vert",
-      "av": -38.4,
-      "section": "France – Énergie",
+      "av": 19.7,
+      "section": "USA – XLI",
       "montant": 500,
       "brokers": {
         "revolut": true,
-        "xtb": true
-      },
-      "scale": 250,
-      "tab": "energie"
-    },
-    {
-      "tv": "NYSE:DLR",
-      "yahoo": "DLR",
-      "nom": "Digital Realty Trust, Inc.",
-      "note": 140.0,
-      "display": "140",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": -44.7,
-      "section": "USA – XLRE",
-      "montant": 500,
-      "brokers": {
-        "revolut": null,
         "xtb": true
       },
       "scale": 250,
@@ -678,99 +355,20 @@
       "tab": "crypto"
     },
     {
-      "tv": "NYSE:UBER",
-      "yahoo": "UBER",
-      "nom": "Uber Technologies, Inc.",
+      "tv": "SIX:AUCO",
+      "yahoo": "AUCO.SW",
+      "nom": "L&G Gold Mining UCITS ETF",
       "note": 136.0,
       "display": "136",
       "hex": "#22c55e",
       "flag": "green",
       "bande": "vert",
-      "av": -8.0,
-      "section": "USA – XLI",
+      "av": null,
+      "section": "Liquidités – ETF par devise",
       "montant": 500,
-      "brokers": {
-        "revolut": null,
-        "xtb": true
-      },
+      "brokers": {},
       "scale": 250,
-      "tab": "autres"
-    },
-    {
-      "tv": "XETR:8PSG",
-      "yahoo": "8PSG.DE",
-      "nom": "Invesco Physical Gold ETC",
-      "note": 135.0,
-      "display": "135",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": 10.0,
-      "section": "Métaux – Or",
-      "montant": 500,
-      "brokers": {
-        "revolut": true,
-        "xtb": false
-      },
-      "scale": 250,
-      "tab": "metaux"
-    },
-    {
-      "tv": "NYSE:GE",
-      "yahoo": "GE",
-      "nom": "GE Aerospace",
-      "note": 135.0,
-      "display": "135",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": -17.9,
-      "section": "USA – XLI",
-      "montant": 500,
-      "brokers": {
-        "revolut": true,
-        "xtb": true
-      },
-      "scale": 250,
-      "tab": "autres"
-    },
-    {
-      "tv": "EURONEXT:ABVX",
-      "yahoo": "ABVX.PA",
-      "nom": "ABIVAX Société Anonyme",
-      "note": 135.0,
-      "display": "135",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": -22.5,
-      "section": "France – Santé",
-      "montant": 500,
-      "brokers": {
-        "revolut": null,
-        "xtb": true
-      },
-      "scale": 250,
-      "tab": "autres"
-    },
-    {
-      "tv": "NYSE:VST",
-      "yahoo": "VST",
-      "nom": "Vistra Corp.",
-      "note": 134.0,
-      "display": "134",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": -5.2,
-      "section": "USA – XLU",
-      "montant": 500,
-      "brokers": {
-        "revolut": true,
-        "xtb": true
-      },
-      "scale": 250,
-      "tab": "energie"
+      "tab": "liquidites"
     },
     {
       "tv": "NYSE:ANET",
@@ -792,206 +390,16 @@
       "tab": "autres"
     },
     {
-      "tv": "NYSE:AXP",
-      "yahoo": "AXP",
-      "nom": "American Express Company",
-      "note": 133.0,
-      "display": "133",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": -26.9,
-      "section": "USA – XLF",
-      "montant": 500,
-      "brokers": {
-        "revolut": null,
-        "xtb": true
-      },
-      "scale": 250,
-      "tab": "autres"
-    },
-    {
-      "tv": "EURONEXT:MMT",
-      "yahoo": "MMT.PA",
-      "nom": "Métropole Télévision S.A.",
-      "note": 132.0,
-      "display": "132",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": 14.6,
-      "section": "France – Communication",
-      "montant": 500,
-      "brokers": {
-        "revolut": true,
-        "xtb": true
-      },
-      "scale": 250,
-      "tab": "autres"
-    },
-    {
-      "tv": "NYSE:PWR",
-      "yahoo": "PWR",
-      "nom": "Quanta Services, Inc.",
-      "note": 132.0,
-      "display": "132",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": -9.5,
-      "section": "USA – XLI",
-      "montant": 500,
-      "brokers": {
-        "revolut": true,
-        "xtb": true
-      },
-      "scale": 250,
-      "tab": "autres"
-    },
-    {
-      "tv": "NYSE:SCHW",
-      "yahoo": "SCHW",
-      "nom": "The Charles Schwab Corporation",
-      "note": 132.0,
-      "display": "132",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": -12.2,
-      "section": "USA – XLF",
-      "montant": 500,
-      "brokers": {
-        "revolut": true,
-        "xtb": true
-      },
-      "scale": 250,
-      "tab": "autres"
-    },
-    {
-      "tv": "EURONEXT:ETL",
-      "yahoo": "ETL.PA",
-      "nom": "Eutelsat Communications S.A.",
-      "note": 131.0,
-      "display": "131",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": 7.1,
-      "section": "France – Communication",
-      "montant": 500,
-      "brokers": {
-        "revolut": true,
-        "xtb": true
-      },
-      "scale": 250,
-      "tab": "autres"
-    },
-    {
-      "tv": "NASDAQ:ISRG",
-      "yahoo": "ISRG",
-      "nom": "Intuitive Surgical, Inc.",
-      "note": 131.0,
-      "display": "131",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": -29.4,
-      "section": "USA – XLV",
-      "montant": 500,
-      "brokers": {
-        "revolut": true,
-        "xtb": true
-      },
-      "scale": 250,
-      "tab": "autres"
-    },
-    {
-      "tv": "XETR:PRAR",
-      "yahoo": "PRAR.DE",
-      "nom": "Amundi Index Solutions - Amundi Prime Euro Government Bond UCITS ETF Acc",
+      "tv": "XETR:U3O8",
+      "yahoo": "U3O8.DE",
+      "nom": "ETF minières uranium U3O8 (UCITS)",
       "note": 130.0,
       "display": "130",
       "hex": "#22c55e",
       "flag": "green",
       "bande": "vert",
-      "av": 45.2,
-      "section": "Obligations – Souverains zone euro",
-      "montant": 500,
-      "brokers": {
-        "revolut": true,
-        "xtb": true
-      },
-      "scale": 250,
-      "tab": "obligations"
-    },
-    {
-      "tv": "XETR:SECA",
-      "yahoo": "SECA.DE",
-      "nom": "iShares € Govt Bond Climate UCITS ETF EUR (Acc)",
-      "note": 130.0,
-      "display": "130",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": 44.9,
-      "section": "Obligations – Souverains zone euro",
-      "montant": 500,
-      "brokers": {
-        "revolut": true,
-        "xtb": false
-      },
-      "scale": 250,
-      "tab": "obligations"
-    },
-    {
-      "tv": "XETR:EH1Y",
-      "yahoo": "EH1Y.DE",
-      "nom": "iShares Broad € High Yield Corp Bond UCITS ETF EUR (Dist)",
-      "note": 130.0,
-      "display": "130",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": 16.4,
-      "section": "Obligations – High yield (haut rendement)",
-      "montant": 500,
-      "brokers": {
-        "revolut": true,
-        "xtb": true
-      },
-      "scale": 250,
-      "tab": "obligations"
-    },
-    {
-      "tv": "XETR:X03G",
-      "yahoo": "X03G.DE",
-      "nom": "Xtrackers II Germany Government Bond UCITS ETF 1C",
-      "note": 130.0,
-      "display": "130",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": 10.8,
-      "section": "Obligations – Bund / dette allemande",
-      "montant": 500,
-      "brokers": {
-        "revolut": true,
-        "xtb": true
-      },
-      "scale": 250,
-      "tab": "obligations"
-    },
-    {
-      "tv": "NYSE:BTU",
-      "yahoo": "BTU",
-      "nom": "Charbon · proxy Peabody Energy",
-      "note": 130.0,
-      "display": "130",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": 7.9,
-      "section": "Énergie – Charbon",
+      "av": -4.8,
+      "section": "Énergie – Nucléaire et uranium",
       "montant": 500,
       "brokers": {
         "revolut": true,
@@ -1001,61 +409,80 @@
       "tab": "energie"
     },
     {
-      "tv": "EURONEXT:EDEN",
-      "yahoo": "EDEN.PA",
-      "nom": "Edenred SE",
+      "tv": "XETR:ENDH",
+      "yahoo": "ENDH.DE",
+      "nom": "L&G Emerging Markets Government Bond (USD) 0-5 Year Screened UCITS ETF EUR Hedged Accumulation",
       "note": 130.0,
       "display": "130",
       "hex": "#22c55e",
       "flag": "green",
       "bande": "vert",
-      "av": 0.0,
-      "section": "France – Finance",
+      "av": -9.4,
+      "section": "Obligations – Dette émergente",
+      "montant": 500,
+      "brokers": {
+        "revolut": true,
+        "xtb": false
+      },
+      "scale": 250,
+      "tab": "obligations"
+    },
+    {
+      "tv": "NASDAQ:RGLD",
+      "yahoo": "RGLD",
+      "nom": "Royal Gold, Inc.",
+      "note": 130.0,
+      "display": "130",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": -13.3,
+      "section": "Métaux – Or",
       "montant": 500,
       "brokers": {
         "revolut": true,
         "xtb": true
       },
       "scale": 250,
-      "tab": "autres"
+      "tab": "metaux"
     },
     {
-      "tv": "NASDAQ:APP",
-      "yahoo": "APP",
-      "nom": "AppLovin Corporation",
+      "tv": "XETR:ENR",
+      "yahoo": "ENR.DE",
+      "nom": "Siemens Energy AG",
       "note": 130.0,
       "display": "130",
       "hex": "#22c55e",
       "flag": "green",
       "bande": "vert",
-      "av": -3.0,
-      "section": "USA – XLC",
+      "av": -29.4,
+      "section": "Allemagne – Industrie",
       "montant": 500,
       "brokers": {
         "revolut": true,
         "xtb": true
       },
       "scale": 250,
-      "tab": "autres"
+      "tab": "energie"
     },
     {
-      "tv": "NYSE:PLD",
-      "yahoo": "PLD",
-      "nom": "Prologis, Inc.",
+      "tv": "EURONEXT:GTT",
+      "yahoo": "GTT.PA",
+      "nom": "Gaztransport & Technigaz",
       "note": 130.0,
       "display": "130",
       "hex": "#22c55e",
       "flag": "green",
       "bande": "vert",
-      "av": -37.7,
-      "section": "USA – XLRE",
+      "av": -38.4,
+      "section": "France – Énergie",
       "montant": 500,
       "brokers": {
-        "revolut": null,
+        "revolut": true,
         "xtb": true
       },
       "scale": 250,
-      "tab": "autres"
+      "tab": "energie"
     }
   ]
 }

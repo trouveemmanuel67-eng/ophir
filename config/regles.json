@@ -414,7 +414,7 @@
             "texte": "Si le fondamental est inférieur au seuil, une pénalité proportionnelle est retranchée de la note, plafonnée au maximum indiqué."
           }
         },
-        "precision": "Actions USA et France : note −50 à 250, points entiers qui s’additionnent. Technique 99 : RSI 27, MACD 27, Fibo 27, CCI 18 + Fondamental 81 (9 × 9 ; règle banque pour les banques) + F&G CNN ±50 + H ±27 (attention à contre-courant : round((50 − attention) × 0,54)). Sans Elliott. Le bandeau Achat / Vente reste calculé à part, sur sa propre grille.",
+        "precision": "Actions USA et France : note −50 à 250, points entiers qui s’additionnent. Technique 99 : RSI 27, MACD 27, Fibo 27, CCI 18 + Fondamental 81 (9 × 9 ; règle banque pour les banques) + F&G sectoriel ±50 (sentiment du secteur de l’action, t537u) + H ±27 (attention à contre-courant : round((50 − attention) × 0,54)). Sans Elliott. Le bandeau Achat / Vente reste calculé à part, sur sa propre grille.",
         "technique": {
           "source": "config/regles.json · apex/score.py · src/technique_apex.py",
           "fixes": [
@@ -766,7 +766,7 @@
           "note_renormalise": "Sans fondamental, le technique est renormalisé à 100 % sur les composantes restantes en conservant le poids d'Elliott comme un trou (pas de redistribution)."
         },
         "fondamental": null,
-        "precision": "Note −50 à 250, points entiers comme les actions (t475u). Technique 110 : RSI 30, MACD 30, Fibonacci 30, CCI Stochastic 20, mêmes paliers que les actions ; RSI et MACD à contre-courant. Fondamental minières 90 (9 × 10, même grille). Sans fondamental, la Structure n'est plus comptée (pas de redistribution). Les vagues d'Elliott ne font plus partie de la note. F&G CNN ±50, grille identique. Meilleures entrées alignées sur les actions : seuil 130/250 (le seuil 175, équivalent de l'ancien 75/100, laissait presque toutes les lignes hors liste avec le nouveau barème additif). Portail cyan : note ≥ 190, divergence haussière hebdo et AV ≥ +60, sinon plafond 175. Bandeau Achat / Vente inchangé (Elliott 15 % retiré sans redistribution). HYPE 90 : métaux purs (comptant) seulement, hors ETC/ETF et minières, comptée depuis le 24/11 (attention W48).",
+        "precision": "Note −50 à 250, points entiers comme les actions (t475u). Technique 110 : RSI 30, MACD 30, Fibonacci 30, CCI Stochastic 20, mêmes paliers que les actions ; RSI et MACD à contre-courant. Fondamental minières 90 (9 × 10, même grille). Sans fondamental, la Structure n'est plus comptée (pas de redistribution). Les vagues d'Elliott ne font plus partie de la note. F&G du métal ±50, grille identique. Meilleures entrées alignées sur les actions : seuil 130/250 (le seuil 175, équivalent de l'ancien 75/100, laissait presque toutes les lignes hors liste avec le nouveau barème additif). Portail cyan : note ≥ 190, divergence haussière hebdo et AV ≥ +60, sinon plafond 175. Bandeau Achat / Vente inchangé (Elliott 15 % retiré sans redistribution). HYPE 90 : métaux purs (comptant) seulement, hors ETC/ETF et minières, comptée depuis le 24/11 (attention W48).",
         "technique": {
           "source": "config/regles.json · apex/score.py · src/technique_apex.py",
           "fixes": [
@@ -1248,7 +1248,7 @@
         "note": null,
         "timing": null,
         "fondamental": null,
-        "precision": "Lignes Placements (compte d’épargne EUR et fonds monétaire USD Revolut) : note APEX −50 à 250 depuis APE-25 — contexte de taux 110 + fondamental épargne 90 + CNN Fear & Greed inversé ±50 (voir RÈGLES LONG › Placements).",
+        "precision": "Lignes Placements (compte d’épargne EUR et fonds monétaire USD Revolut) : note APEX −50 à 250 depuis APE-25 — contexte de taux 110 + fondamental épargne 90 + sentiment Liquidités APEX inversé ±50 (voir RÈGLES LONG › Placements).",
         "technique": null
       },
       {
@@ -1504,11 +1504,11 @@
       "criteres": [
         {
           "id": "fear_greed_index",
-          "label": "Fear & Greed Index",
+          "label": "Fear & Greed sectoriel",
           "points_max": "±50",
           "neutre": 50,
           "tranche": 10,
-          "regle": "Milieu 50 = 0 point. Chaque tranche de 10 points d’écart : peur 40 → +10, 30 → +20, 20 → +30, 10 → +40, 0 → +50 ; avidité 60 → −10, 70 → −20, 80 → −30, 90 → −40, 100 → −50.",
+          "regle": "Milieu 50 = 0 point. Chaque tranche de 10 points d’écart : peur 40 → +10, 30 → +20, 20 → +30, 10 → +40, 0 → +50 ; avidité 60 → −10, 70 → −20, 80 → −30, 90 → −40, 100 → −50. Valeur d’entrée (t537u, 24/11/2026) : sentiment APEX 0–100 du secteur de l’action (États-Unis, Canada, Japon, Corée : ETF SPDR du secteur ; France, Allemagne, Suisse : ETF MSCI Europe du secteur), à la place du CNN global. Repli : CNN global si le secteur est inconnu.",
           "conditions": [
             {
               "id": "fg_50",
@@ -1784,11 +1784,11 @@
       "criteres": [
         {
           "id": "fear_greed_index",
-          "label": "Fear & Greed Index",
+          "label": "Fear & Greed sectoriel",
           "points_max": "±50",
           "neutre": 50,
           "tranche": 10,
-          "regle": "Milieu 50 = 0 point. Chaque tranche de 10 points d’écart : peur 40 → +10, 30 → +20, 20 → +30, 10 → +40, 0 → +50 ; avidité 60 → −10, 70 → −20, 80 → −30, 90 → −40, 100 → −50.",
+          "regle": "Milieu 50 = 0 point. Chaque tranche de 10 points d’écart : peur 40 → +10, 30 → +20, 20 → +30, 10 → +40, 0 → +50 ; avidité 60 → −10, 70 → −20, 80 → −30, 90 → −40, 100 → −50. Valeur d’entrée (t537u, 24/11/2026) : sentiment APEX 0–100 du secteur de l’action (États-Unis, Canada, Japon, Corée : ETF SPDR du secteur ; France, Allemagne, Suisse : ETF MSCI Europe du secteur), à la place du CNN global. Repli : CNN global si le secteur est inconnu.",
           "conditions": [
             {
               "id": "fg_50",
@@ -2068,7 +2068,7 @@
       "macd": "MACD < 0 : +10 ; MACD < 0 et 4 barres rouges d'histogramme consécutives (histogramme < 0 ou en baisse) : +20 ; cumulables, plafond 30.",
       "cci": "+20 si le CCI Stochastic Daveatt (ligne D) est sous 20. Maximum 20.",
       "fond": "Minières seulement, même grille que les actions : 9 critères × 10 points s'ils sont bons, sinon 0 (donnée manquante = 0). Maximum 90.",
-      "fear_greed": "Milieu 50 = 0. Tranche de 10 : peur 40 → +10 … 0 → +50 ; avidité 60 → −10 … 100 → −50.",
+      "fear_greed": "Milieu 50 = 0. Tranche de 10 : peur 40 → +10 … 0 → +50 ; avidité 60 → −10 … 100 → −50. Valeur d’entrée (t537u, 24/11/2026) : sentiment APEX 0–100 du métal (or, argent, platine, palladium ; ETC et minières suivent leur métal, panier pondéré + CFTC pour les fonds multi-métaux), à la place du CNN global.",
       "gi": "",
       "hype": "Comptant seulement, hors ETC/ETF et minières. Attention Long Swing 0–100, à contre-courant, 9 pts/tranche : 0 → +90 ; 10 → +81 ; 50 → +45 ; 100 → 0. Comptée depuis le 24/11 (attention W48)."
     },
@@ -2150,7 +2150,7 @@
     "calcul_aligne": true,
     "has_technique": true,
     "note_actuelle": "notes publiées dans l’onglet, sur 250",
-    "intro_courte": "ETF obligataires UCITS (référence de segment et liste). Technique 110 + Fondamental obligataire 90 + F&G ±50 = −50 à 250, points entiers, sans Elliott. La note d'un segment est la moyenne des ETF affichés.",
+    "intro_courte": "ETF obligataires UCITS (référence de segment et liste). Technique 110 + Fondamental obligataire 90 + sentiment du segment ±50 = −50 à 250, points entiers, sans Elliott. La note d'un segment est la moyenne des ETF affichés.",
     "champ_application": "Fondamental selon les standards des gérants obligataires : rendement réel, prime de terme ou de crédit, duration et cycle des taux, notation, frais, encours, ancienneté, risque de change. Sources : FRED (Treasuries, TIPS, spreads OAS ICE BofA, taux longs OCDE, HICP), BCE (taux de dépôt), justETF (TER, encours, date de création, couverture), Yahoo Finance (répartition des notations). n.c. = 0 point, sans redistribution.",
     "points": {
       "rsi": 30,
@@ -2165,7 +2165,7 @@
       "macd": "MACD < 0 : +10 ; MACD < 0 et 4 barres rouges d'histogramme consécutives (histogramme < 0 ou en baisse) : +20 ; cumulables, plafond 30.",
       "fibonacci": "Plus bas → plus haut (corps hebdo). Sous 38,2 % : +10 ; 61,8 % : +20 ; 78,6 % : +30. Non cumulables.",
       "cci": "+20 si le CCI Stochastic Daveatt (ligne D) est sous 20.",
-      "fear_greed": "Milieu 50 = 0. Tranche de 10 : peur 40 → +10 … 0 → +50 ; avidité 60 → −10 … 100 → −50."
+      "fear_greed": "Milieu 50 = 0. Tranche de 10 : peur 40 → +10 … 0 → +50 ; avidité 60 → −10 … 100 → −50. Valeur d’entrée (t537u, 24/11/2026) : sentiment APEX 0–100 du segment (SHY, TLT, LQD, HYG, TIP, EMB, EUNH, EUN5, EXX6…), à la place du CNN global."
     },
     "fond_criteres": [
       {
@@ -2252,14 +2252,14 @@
       "macd": "MACD < 0 : +10 ; MACD < 0 et 4 barres rouges d'histogramme consécutives (histogramme < 0 ou en baisse) : +20 ; cumulables, plafond 30.",
       "fibonacci": "Plus bas → plus haut (corps hebdo). Sous 38,2 % : +10 ; 61,8 % : +20 ; 78,6 % : +30. Non cumulables.",
       "cci": "+20 si le CCI Stochastic Daveatt (ligne D) est sous 20.",
-      "fear_greed": "Milieu 50 = 0. Tranche de 10 : peur 40 → +10 … 0 → +50 ; avidité 60 → −10 … 100 → −50."
+      "fear_greed": "Milieu 50 = 0. Tranche de 10 : peur 40 → +10 … 0 → +50 ; avidité 60 → −10 … 100 → −50. Valeur d’entrée (t537u, 24/11/2026) : devises : sentiment devises APEX (DXY inversé et AUD/JPY) ; épargne : sentiment Liquidités APEX, inversé ; ETF locaux : secteur ou métal de l’ETF. Remplace le CNN global."
     },
     "parties": [
       {
         "id": "epargne",
         "titre": "Épargne et monétaire (Livret A, LEP, compte d’épargne et fonds monétaire Revolut)",
         "has_technique": false,
-        "sans_technique": "Pas de graphique hebdomadaire : Contexte de taux 110 — taux du produit ≥ taux directeur − 0,25 pt (+30), taux directeur stable ou en hausse sur 6 mois (+30), inflation en baisse sur 6 mois (+30), courbe plate : 10 ans − taux directeur < 0,5 pt (+20). Sentiment : CNN Fear & Greed inversé ±50 (un placement refuge est favorable quand le marché est euphorique).",
+        "sans_technique": "Pas de graphique hebdomadaire : Contexte de taux 110 — taux du produit ≥ taux directeur − 0,25 pt (+30), taux directeur stable ou en hausse sur 6 mois (+30), inflation en baisse sur 6 mois (+30), courbe plate : 10 ans − taux directeur < 0,5 pt (+20). Sentiment : sentiment Liquidités APEX inversé ±50 (un placement refuge est favorable quand le marché est euphorique).",
         "echelle": "−50 à 250",
         "note_min": -50,
         "note_max": 250,
@@ -2308,7 +2308,7 @@
             "statut": "calcule"
           }
         ],
-        "sentiment_label": "Fear & Greed Index (CNN), inversé",
+        "sentiment_label": "Sentiment Liquidités (APEX), inversé",
         "sentiment_regle": "Placement refuge : lecture inversée. Avidité 60 → +10 … 100 → +50 ; peur 40 → −10 … 0 → −50. Milieu 50 = 0."
       },
       {
@@ -2438,7 +2438,7 @@
     "has_technique": false,
     "note_actuelle": "notes publiées dans l’onglet, sur 250",
     "intro_courte": "Compte d’épargne EUR et fonds monétaire USD Revolut : même grille que l’épargne (onglet Liquidités).",
-    "champ_application": "Pas de bougies hebdomadaires : la Technique est remplacée par un Contexte de taux 110 (taux du produit vs taux directeur, taux directeur sur 6 mois, inflation sur 6 mois, pente 10 ans − taux directeur ; sources BCE, Fed via FRED, INSEE). Fondamental épargne 90, CNN Fear & Greed inversé ±50. Échelle −50 à 250, points entiers, sans Elliott.",
+    "champ_application": "Pas de bougies hebdomadaires : la Technique est remplacée par un Contexte de taux 110 (taux du produit vs taux directeur, taux directeur sur 6 mois, inflation sur 6 mois, pente 10 ans − taux directeur ; sources BCE, Fed via FRED, INSEE). Fondamental épargne 90, sentiment Liquidités APEX inversé ±50. Échelle −50 à 250, points entiers, sans Elliott.",
     "points": {
       "rsi": 30,
       "macd": 30,
@@ -2452,7 +2452,7 @@
       "macd": "MACD < 0 : +10 ; MACD < 0 et 4 barres rouges d'histogramme consécutives (histogramme < 0 ou en baisse) : +20 ; cumulables, plafond 30.",
       "fibonacci": "Plus bas → plus haut (corps hebdo). Sous 38,2 % : +10 ; 61,8 % : +20 ; 78,6 % : +30. Non cumulables.",
       "cci": "+20 si le CCI Stochastic Daveatt (ligne D) est sous 20.",
-      "fear_greed": "Milieu 50 = 0. Tranche de 10 : peur 40 → +10 … 0 → +50 ; avidité 60 → −10 … 100 → −50."
+      "fear_greed": "Milieu 50 = 0. Tranche de 10 : peur 40 → +10 … 0 → +50 ; avidité 60 → −10 … 100 → −50. Valeur d’entrée (t537u, 24/11/2026) : sentiment Liquidités APEX, inversé, à la place du CNN global."
     },
     "fond_criteres": [
       {
@@ -2498,8 +2498,8 @@
         "statut": "calcule"
       }
     ],
-    "sans_technique": "Pas de graphique hebdomadaire : contexte de taux 110 à la place de la technique (voir Liquidités › Épargne). Sentiment : CNN Fear & Greed inversé ±50.",
-    "sentiment_label": "Fear & Greed Index (CNN), inversé",
+    "sans_technique": "Pas de graphique hebdomadaire : contexte de taux 110 à la place de la technique (voir Liquidités › Épargne). Sentiment : sentiment Liquidités APEX inversé ±50.",
+    "sentiment_label": "Sentiment Liquidités (APEX), inversé",
     "sentiment_regle": "Placement refuge : lecture inversée. Avidité 60 → +10 … 100 → +50 ; peur 40 → −10 … 0 → −50. Milieu 50 = 0."
   },
   "apex_immobilier": {
@@ -2577,7 +2577,7 @@
     "calcul_aligne": true,
     "has_technique": true,
     "note_actuelle": "notes publiées dans l’onglet, sur 250",
-    "intro_courte": "Actions et proxies énergétiques, ETF énergie : Technique 110 + Fondamental 90 + F&G ±50 = −50 à 250. Contrats à terme et ETC gaz : repères sans note.",
+    "intro_courte": "Actions et proxies énergétiques, ETF énergie : Technique 110 + Fondamental 90 + sentiment du produit ou du secteur ±50 = −50 à 250. Contrats à terme et ETC gaz : repères sans note.",
     "champ_application": "Actions : 9 ratios × 10 (Yahoo Finance). ETF énergie : TER ≤ 0,40 % (+10) et ≤ 0,20 % (+10), encours ≥ 300 M€ (+10) et ≥ 1 Md€ (+10), ancienneté ≥ 3 ans (+10) et ≥ 5 ans (+10), réplication physique (+10), ≥ 30 lignes (+10), cycle du secteur (+10) — justETF. Cycle : pétrole, gaz et charbon = WTI sous sa moyenne 5 ans (FRED DCOILWTICO) ; électricité, renouvelables, hydrogène = taux 10 ans US en baisse sur 6 mois (FRED DGS10) ; uranium = n.c. (pas de série publique gratuite du prix spot).",
     "points": {
       "rsi": 30,
@@ -2592,7 +2592,7 @@
       "macd": "MACD < 0 : +10 ; MACD < 0 et 4 barres rouges d'histogramme consécutives (histogramme < 0 ou en baisse) : +20 ; cumulables, plafond 30.",
       "fibonacci": "Plus bas → plus haut (corps hebdo). Sous 38,2 % : +10 ; 61,8 % : +20 ; 78,6 % : +30. Non cumulables.",
       "cci": "+20 si le CCI Stochastic Daveatt (ligne D) est sous 20.",
-      "fear_greed": "Milieu 50 = 0. Tranche de 10 : peur 40 → +10 … 0 → +50 ; avidité 60 → −10 … 100 → −50."
+      "fear_greed": "Milieu 50 = 0. Tranche de 10 : peur 40 → +10 … 0 → +50 ; avidité 60 → −10 … 100 → −50. Valeur d’entrée (t537u, 24/11/2026) : sentiment APEX 0–100 du produit (pétrole WTI / Brent, gaz) ou du secteur de l’action (Énergie XLE / EXH1, Services aux collectivités XLU / XS6R…), à la place du CNN global."
     },
     "fond_criteres": [
       {
@@ -2700,10 +2700,10 @@
         "regle": "50 % de la note. Mêmes 9 critères que le LONG de la catégorie, lus à l’inverse : 125 points répartis à parts égales, soit 125/9 ≈ 13,9 par critère NON rempli, 0 s’il est rempli. Critère sans donnée = moitié (≈ 6,9). Le sous-total fondamental est arrondi au point entier (demi vers le haut) : 1 non rempli = 14, 2 = 28, 5 = 69, 8 = 111, 9 = 125. Max 125."
       },
       "fear_greed": {
-        "label": "Fear & Greed (CNN), inversé",
+        "label": "Sentiment du secteur (F&G sectoriel), inversé",
         "max": 30,
         "max_affiche": "±30",
-        "regle": "Inverse du LONG, même grille échelonnée à 30. Milieu 50 = 0 ; tranches entières de 10 : avidité 60 → +6, 70 → +12, 80 → +18, 90 → +24, 100 → +30 ; peur 40 → −6, 30 → −12, 20 → −18, 10 → −24, 0 → −30."
+        "regle": "Inverse du LONG, même grille échelonnée à 30. Milieu 50 = 0 ; tranches entières de 10 : avidité 60 → +6, 70 → +12, 80 → +18, 90 → +24, 100 → +30 ; peur 40 → −6, 30 → −12, 20 → −18, 10 → −24, 0 → −30. Valeur d’entrée (t537u, 24/11/2026) : sentiment APEX 0–100 du secteur de l’action (ETF SPDR du secteur aux États-Unis, ETF MSCI Europe en Europe), à la place du CNN global ; repli CNN si le secteur est inconnu."
       },
       "hype": {
         "label": "Hype / attention (H), inversée",
@@ -2722,7 +2722,7 @@
         "regle": "Aucun point. Filtre d’entrée (t528u) : l’actif doit avoir au moins 10 points dans au moins un des blocs RSI, MACD ou CCI (RSI > 70, ou MACD > 4 % du cours, ou CCI > 80). Un actif qui n’entre que par le fondamental est exclu. Réglable : signal_tech_min = 1."
       }
     },
-    "total": "RSI 25 + MACD 25 + CCI 25 + fondamental 125 + F&G 30 + hype 20 = 250 ; minimum borné à −50.",
+    "total": "RSI 25 + MACD 25 + CCI 25 + fondamental 125 + sentiment sectoriel 30 + hype 20 = 250 ; minimum borné à −50.",
     "montant": "Mise (levier ×5) : 100 $ à 70/250, puis +20 $ tous les 24 points au-dessus (120 $ à 94, 140 $ à 118, 160 $ à 142, 180 $ à 166), 200 $ dès 190. En petit, l’exposition équivalente (mise × 5).",
     "univers": "Univers : jusqu’à 50 actions NYSE en CFD chez Revolut, RSI hebdomadaire ≥ 65, santé en dégradation (t534u). Liste à part, distincte de la watchlist APEX : S&P 500 coté au NYSE + grandes canadiennes cotées au NYSE + actions déjà négociées en CFD sur le compte ; seuls les titres au RSI 14 hebdo ≥ 65 sont retenus (réglable : rsi_hebdo_min), RSI > 70 en tête, sans aucun complément sous 65 (la liste peut compter moins de 50 titres) ; au moins un signe de dégradation (révisions de BPA en baisse, CA ou bénéfice en recul, marge opérationnelle en recul, dette en hausse, FCF en baisse). CFD Revolut « confirmé » si déjà négocié sur le compte, sinon « à vérifier ». Régénéré par src/build_univers_short.py → config/univers_short.json.",
     "lecture": "Entrent les actifs dont la note SHORT est ≥ 70/250, qui ont au moins un signal technique de surachat (RSI > 70, MACD > 4 % du cours ou CCI > 80) et dont le cours est au-dessus du Fibonacci 38,2 %. Classement de la plus haute à la plus basse note SHORT (meilleurs candidats en haut).",

@@ -206,7 +206,7 @@ def test_sentiment_fear_greed_affichage_seulement(regles):
     assert 'sentiment' not in (regles['note_apex'].get('technique') or {})
     fg = (sent.get('criteres') or sent.get('elements') or [None])[0]
     assert fg and fg['id'] == 'fear_greed_index'
-    assert fg['label'] == 'Fear & Greed Index'
+    assert fg['label'] == 'Fear & Greed sectoriel'  # t537u
     assert fg['points_max'] == '±50'
     assert 'Milieu 50' in fg['regle']
     assert 'peur 40 → +10' in fg['regle']

@@ -2,6 +2,33 @@
 /* t347u / t348u / t459u / t506u : tableaux Actions et Métaux précieux (note −50 à 250). */
 const RG=(()=>{try{return JSON.parse(document.getElementById('dataRegles').textContent);}catch(e){return null;}})();
 
+/* t537u : sentiment par secteur / classe d'actifs (data/sentiment_secteurs.json, injecté par build.py). */
+const RG_SENT=/*__SENTDATA__*/null;
+function rgSentPts(v){v=Number(v||0);return v>0?('+'+v):(v<0?('−'+Math.abs(v)):'0');}
+function rgSentVal(r){return (r&&r.value!=null)?String(Math.round(r.value)):'n.c.';}
+function rgSentTable(sens){
+  const S=RG_SENT; if(!S) return '';
+  const k=sens==='short'?'points_short':'points_long';
+  const us=S.secteurs_us||{}, eu=S.secteurs_eu||{}, cl=S.classes||{};
+  const G=[['Technologie','XLK','XS8R'],['Santé','XLV','DXSE'],['Finance','XLF','XS7R'],['Communication','XLC','DXSG'],['Conso. discrétionnaire','XLY','SPYR'],['Conso. de base','XLP','DXSK'],['Industrie','XLI','DXSL'],['Matériaux','XLB','DXSC'],['Services aux collectivités','XLU','XS6R'],['Énergie','XLE','EXH1'],['Immobilier','XLRE','EXI5']];
+  const cell=(r)=>r?`<td>${rgEsc(rgSentVal(r))} <span class="rg-group-note">${rgEsc(r.label||'')}</span></td><td><b>${rgEsc(rgSentPts(r[k]))}</b></td>`:'<td>—</td><td>—</td>';
+  const rows=G.map(([n,u,e])=>`<tr><td>${rgEsc(n)}</td><td>${rgEsc(u)}</td>${cell(us[u])}<td>${rgEsc(e)}</td>${cell(eu[e])}</tr>`).join('');
+  const cnn=S.cnn||{};
+  const date=(us.XLK&&us.XLK.date)||'';
+  let html=`<table class="rg-table rg-table-sm" id="rg-table-sentiment-${sens==='short'?'short':'long'}">
+    <thead><tr><th>Secteur</th><th>ETF US</th><th>Sentiment</th><th>Pts</th><th>ETF Europe</th><th>Sentiment</th><th>Pts</th></tr></thead>
+    <tbody>${rows}</tbody></table>`;
+  if(sens!=='short'){
+    const C=[['Or','metal:or'],['Argent','metal:argent'],['Platine','metal:platine'],['Palladium','metal:palladium'],['Métaux (panier + CFTC)','metaux'],['Pétrole WTI','energie:petrole'],['Pétrole Brent','energie:brent'],['Gaz naturel','energie:gaz'],['Treasuries courts (SHY)','oblig:tcourt'],['Treasuries longs (TLT)','oblig:tlong'],['Crédit IG USD (LQD)','oblig:usig'],['High yield (HYG)','oblig:hy'],['Indexées inflation (TIP)','oblig:infl'],['Dette émergente (EMB)','oblig:em'],['Souverains € (EUNH)','oblig:eurgov'],['Crédit IG € (EUN5)','oblig:eurig'],['Bund (EXX6)','oblig:de'],['Devises (DXY, AUD/JPY)','devises'],['Liquidités (épargne, inversé)','liquidites'],['Crypto (alternative.me)','crypto'],['France (CAC 40)','pays:FR'],['Allemagne (DAX)','pays:DE'],['Canada (TSX)','pays:CA'],['Suisse (SMI)','pays:CH']];
+    const cc=C.filter(([,c])=>cl[c]).map(([n,c])=>{const r=cl[c];const p=c==='liquidites'?-Number(r.points_long||0):r.points_long;return `<td>${rgEsc(n)}</td><td>${rgEsc(rgSentVal(r))} <span class="rg-group-note">${rgEsc(r.label||'')}</span></td><td><b>${rgEsc(rgSentPts(p))}</b></td>`;});
+    const half=Math.ceil(cc.length/2);
+    const cr=cc.slice(0,half).map((x,i)=>`<tr>${x}${cc[half+i]||'<td></td><td></td><td></td>'}</tr>`).join('');
+    html+=`<table class="rg-table rg-table-sm" id="rg-table-sentiment-classes"><thead><tr><th>Classe d’actifs</th><th>Sentiment</th><th>Pts</th><th>Classe d’actifs</th><th>Sentiment</th><th>Pts</th></tr></thead><tbody>${cr}</tbody></table>`;
+  }
+  html+=`<p class="rg-p rg-app">Sentiment APEX 0–100 (non officiel) au ${rgEsc(date)} : moyenne de sous-scores de cours (écart à la moyenne 125 jours, RSI 14, distance au plus haut 52 semaines, volatilité inversée, performance 21 jours ; secteurs US : + ampleur des titres de l’ETF). Barème ${sens==='short'?'SHORT ±30 inchangé (6 pts par tranche de 10, avidité = points)':'LONG ±50 inchangé (10 pts par tranche de 10, peur = points)'} ; seule la valeur d’entrée change. Repli si aucun secteur ni classe : CNN global (${rgEsc(rgSentVal(cnn))}).</p>`;
+  return html;
+}
+
 let rgPrevTab='accueil';
 let rgHashLock=false;
 
@@ -501,6 +528,7 @@ function rgActionsGrid(v, opts){
         <span class="rg-block-pts">${rgEsc(sentMax)}</span>
       </header>
       <div class="rg-cards rg-cards-span">${sentCards}</div>
+      ${rgSentTable('long')}
     </section>`
     :'';
   /* H : hype / attention, à contre-courant (±27, APE-25 validé le 24/11) */
@@ -707,7 +735,7 @@ function rgMetauxGrid(){
   const techNote=techOrdre.map(r=>r[2]+' '+rgNum(pts[r[0]])).join(' · ');
   const techCards=techOrdre.map(([id,label])=>rgCard(id, label, rgEsc(rules[id]||''), rgNum(pts[id]))).join('');
   const fondCards=rgCard('fond','Fondamental (minières)',rgEsc(rules.fond||''), rgNum(pts.fond));
-  const sentCards=rgCard('fear_greed','Fear & Greed Index (CNN)',rgEsc(rules.fear_greed||''), '±'+rgNum(pts.fg));
+  const sentCards=rgCard('fear_greed','Fear & Greed du métal (sectoriel)',rgEsc(rules.fear_greed||''), '±'+rgNum(pts.fg));
   const hypeCards=rgCard('hype','HYPE (métaux purs / comptant)',rgEsc(rules.hype||''), rgNum(pts.hype));
   const giSeuil=mx.gi_seuil!=null?mx.gi_seuil:130;
   const cyPlafond=mx.cyan_plafond!=null?mx.cyan_plafond:175;
@@ -978,7 +1006,7 @@ function rgLiquiditesEtfGrid(){
     rgCard('devise','Note de la devise face à l’euro','Note devise −50 à 250, paliers de 30 : (note + 50) ÷ 30, arrondi par défaut, × 3 ; 250 → +30.',rgNum(pts.devise)),
     rgCard('fond_etf','Fondamental de l’ETF','3 × 10 : TER ≤ 0,50 % ; encours ≥ 500 M€ ; ancienneté ≥ 5 ans (justETF, émetteur ou Yahoo, date de relevé dans la fiche). n.c. si absent, pas de redistribution.',rgNum(pts.fond)),
     rgCard('hype','HYPE','Attention Long Swing 0–100, à contre-courant : 0–9 → +30 ; 10 → +27 ; 50 → +15 ; 100 → 0. Comptée depuis le 24/11 (attention W48).',rgNum(pts.hype)),
-    rgCard('fear_greed','Fear & Greed Index (CNN)','Milieu 50 = 0. Tranche de 10 : peur 40 → +10 … 0 → +50 ; avidité 60 → −10 … 100 → −50. Même grille que les actions.','±'+rgNum(pts.fg)),
+    rgCard('fear_greed','Sentiment devises (DXY, AUD/JPY)','Milieu 50 = 0. Tranche de 10 : peur 40 → +10 … 0 → +50 ; avidité 60 → −10 … 100 → −50. Même grille que les actions. Valeur d’entrée : sentiment devises APEX (DXY inversé, AUD/JPY) à la place du CNN global ; ETF local : secteur ou métal de l’ETF.','±'+rgNum(pts.fg)),
     rgCard('gi','Meilleures entrées','Dès 130/250 : 500 $, puis +100 $ tous les 24 points, jusqu’à 1 000 $ à 250.','≥ 130')
   ].join('');
   const note=`<p class="rg-p rg-app">Sous chaque devise, un ETF ou ETC coté dans la monnaie locale (bourse principale, encours > 100 M, meilleure performance annualisée sur 3 ans, dividendes inclus ; exclus : levier/inverse, contrats à terme, produits complexes, historique de moins de 3 ans). Barème −50 à 250, points entiers. HYPE comptée depuis le 24/11 ; fondamental 30 compté depuis APE-25 (n.c. s’il manque une donnée, pas de redistribution).</p>`;
@@ -1056,7 +1084,7 @@ function rgShortBoard(kind, boardId){
   return `<div class="rg-board" id="${rgEsc(boardId)}">
     ${block('technique','Technique',rgNum(techSum),`<div class="rg-cards rg-cards-span">${techCards}</div>`,['rsi','macd','cci'].map(k=>(g[k]?((k==='macd'?'MACD':k.toUpperCase())+' '+rgNum(g[k].max)):'')).filter(Boolean).join(' · ')+' · MACD en % du cours · pas de Fibonacci')}
     ${block('fondamental',f.label||'Fondamental inversé',rgNum(f.max!=null?f.max:125),`${f.regle?`<p class="rg-p">${rgEsc(f.regle)}</p>`:''}<div class="rg-cards rg-cards-span">${fondCards}</div>`)}
-    ${block('sentiment','Sentiment',fg.max_affiche||'±30',`<div class="rg-cards rg-cards-span">${card('fear_greed_short',fg.label||'Fear & Greed, inversé',fg.regle||'',fg.max_affiche||'±30')}</div>`,'inversé par rapport au LONG')}
+    ${block('sentiment','Sentiment',fg.max_affiche||'±30',`<div class="rg-cards rg-cards-span">${card('fear_greed_short',fg.label||'Fear & Greed, inversé',fg.regle||'',fg.max_affiche||'±30')}</div>`,'inversé par rapport au LONG · secteur de l’action')}
     ${block('hype','Hype / attention (H)',hy.max_affiche||'±20',`<div class="rg-cards rg-cards-span">${card('hype_short',hy.label||'Hype inversée',hy.regle||'',hy.max_affiche||'±20')}</div>`,'inversée par rapport au LONG')}
     ${g.signal_tech?block('signal-tech-filtre','Filtre technique',"filtre",`<div class="rg-cards rg-cards-span">${card('signal_tech_filtre',g.signal_tech.label,g.signal_tech.regle||'','0')}</div>`,'au moins un signal de surachat'):''}
     ${block('fibonacci-filtre','Fibonacci',"filtre",`<div class="rg-cards rg-cards-span">${card('fibonacci_filtre',fb.label||'Fibonacci : filtre',fb.regle||'','0')}</div>`,'aucun point, condition d’entrée')}
@@ -1065,7 +1093,7 @@ function rgShortBoard(kind, boardId){
 function rgShortTable(){
   /* Tableau récapitulatif de la grille SHORT pour les 3 catégories. */
   const g=rgShortCfg().grille||{};
-  const rows=[['rsi','RSI'],['macd','MACD'],['cci','CCI'],['fondamental','Fondamental inversé'],['fear_greed','Fear & Greed inversé'],['hype','Hype H inversée'],['signal_tech','Filtre : au moins un signal technique de surachat'],['fibonacci','Fibonacci']];
+  const rows=[['rsi','RSI'],['macd','MACD'],['cci','CCI'],['fondamental','Fondamental inversé'],['fear_greed','Sentiment du secteur inversé'],['hype','Hype H inversée'],['signal_tech','Filtre : au moins un signal technique de surachat'],['fibonacci','Fibonacci']];
   const tr=rows.map(([k,l])=>{
     const c=g[k]||{};
     const pts=(k==='fibonacci'||k==='signal_tech')?'filtre':(c.max_affiche||rgNum(c.max));
@@ -1098,6 +1126,7 @@ function rgShortCommons(){
       <div class="rg-card rg-card-wide">
         <h3>Grille SHORT (250 points)</h3>
         ${rgShortTable()}
+        <h3 class="rg-subh">Sentiment par secteur (SHORT, actuel)</h3>${rgSentTable('short')}
       </div>
       <div class="rg-card">
         <h3>Couleurs</h3>

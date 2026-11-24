@@ -1,6 +1,6 @@
 {
  "regle": "t534u : 50 actions cotées au NYSE (canadiennes comprises), CFD Revolut, RSI hebdo en surachat, santé en dégradation",
- "genere": "2026-11-24 22:29",
+ "genere": "2026-11-24 23:16",
  "zone": "Europe/Paris",
  "script": "src/build_univers_short.py",
  "sources": {
