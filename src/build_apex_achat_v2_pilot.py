@@ -577,7 +577,10 @@ def score_asset(asset, fg, elliott_key=None, fond_rules=None, closed_bars=None):
     })
 
     fond_m = asset.get('m')
-    if asset.get('kind') == 'etf':
+    # ETF et panier de section : on utilise la moyenne déjà calculée des 5 premières
+    # actions. Un panier n'a pas de ratios d'émetteur ; le recalcul via fond_points
+    # donnait Fond 0 (t454u).
+    if asset.get('kind') in ('etf', 'panier') or 'fond_total' in asset:
         fond_total = asset.get('fond_total')
         fond_elems = asset.get('fond_elems')
         fond_mode = asset.get('fond_mode')

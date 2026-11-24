@@ -1,4 +1,4 @@
-/* ===== Onglet Actions · SECTEURS PAR PAYS (France, plus USA via secteurs). Allemagne, Canada, Suisse : ETF de marché seulement (t411u). ===== */
+/* ===== Onglet Actions · SECTEURS PAR PAYS (France, plus USA via secteurs). Univers limité à USA et France (t455u) : pas de carte, panier, compteur ni filtre pour les autres pays. ===== */
 const PAYS=JSON.parse(document.getElementById('data8').textContent);
 function pPilotId(C,s){return (C&&C.cc&&s&&s.key)?(C.cc+'_'+s.key):null;}
 function pSecOf(C,s){const id=pPilotId(C,s);return (id&&typeof pilotOf==='function')?pilotOf(id):null;}
@@ -77,8 +77,23 @@ function pCharts(det){
   charts.push(new Chart(document.getElementById('cPA'+id),{type:'bar',data:{labels:ah.map(p=>ml(p[0])),datasets:[{data:ah.map(p=>p[1]),backgroundColor:ah.map(p=>avCol(p[1])),borderWidth:0,barPercentage:1,categoryPercentage:.9}]},
     options:{maintainAspectRatio:false,animation:false,plugins:{legend:{display:false},tooltip:{callbacks:{title:c=>dshort(ah[c[0].dataIndex][0])}}},scales:{x,y:{min:-100,max:100,ticks:{stepSize:100,font:{size:9}}}}}}));
 }
+function paysUniversActions(){
+  const u=(typeof PAYS!=='undefined'&&PAYS&&Array.isArray(PAYS.univers_actions)&&PAYS.univers_actions.length)
+    ?PAYS.univers_actions:['USA','France'];
+  return new Set(u);
+}
+function paysEstDansUnivers(C){
+  if(!C) return false;
+  const u=paysUniversActions();
+  const nom=String(C.nom||C.name||'').trim();
+  if(nom&&u.has(nom)) return true;
+  const cc=String(C.cc||'').toLowerCase();
+  if(cc==='us'||cc==='usa') return u.has('USA');
+  if(cc==='fr') return u.has('France');
+  return false;
+}
 function renderPays(el){
-  PAYS.countries.forEach(C=>{
+  (PAYS.countries||[]).filter(paysEstDansUnivers).forEach(C=>{
     const S=(C.rows||[]).filter(s=>s.covered),nc=(C.rows||[]).filter(s=>!s.covered),d=C.head.date,cnt=z=>S.filter(s=>s.av&&s.av.label&&s.av.label.includes(z)).length;
     const hi=S.length?S.reduce((a,b)=>b.sent.value>a.sent.value?b:a):null;
     const lo=S.length?S.reduce((a,b)=>b.sent.value<a.sent.value?b:a):null;

@@ -49,7 +49,7 @@ function apxBuildIndex(){
     });
   }
   if(typeof PAYS!=='undefined'&&PAYS){
-    (PAYS.countries||PAYS.pays||[]).forEach(c=>{
+    (PAYS.countries||PAYS.pays||[]).filter(c=>typeof paysEstDansUnivers!=='function'||paysEstDansUnivers(c)).forEach(c=>{
       const rows=c.rows||[];
       rows.forEach(sec=>{
         const head=sec.head||sec.etf||null;

@@ -250,7 +250,7 @@ function giCollect(){
   }
   // Pays : titres affichés + ETF de tête (hors moyennes de section)
   if(typeof PAYS!=='undefined'&&PAYS&&PAYS.countries){
-    PAYS.countries.forEach(C=>{
+    PAYS.countries.filter(C=>typeof paysEstDansUnivers!=='function'||paysEstDansUnivers(C)).forEach(C=>{
       const pays=C.nom||C.cc||'';
       const head=C.head||{};
       if(head.tv) take(head.tv, head.etf||head.nom||head.tv, 'Marché '+pays, head.apex10, head.av, 'actions', head.sym, head.sym);

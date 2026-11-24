@@ -114,7 +114,7 @@ function homeActionScores(){
     if(scores.length) return scores;
   }
   if(typeof SEC!=='undefined') homeScoresOf(SEC.sectors||SEC.secteurs).forEach(s=>scores.push(s));
-  if(typeof PAYS!=='undefined') (PAYS.countries||PAYS.pays||[]).forEach(c=>{
+  if(typeof PAYS!=='undefined') (PAYS.countries||PAYS.pays||[]).filter(c=>typeof paysEstDansUnivers!=='function'||paysEstDansUnivers(c)).forEach(c=>{
     if(c.head) homeScoresOf([c.head]).forEach(s=>scores.push(s));
     else homeScoresOf([c]).forEach(s=>scores.push(s));
     homeScoresOf(c.rows||[]).forEach(s=>scores.push(s));
