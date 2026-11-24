@@ -2,15 +2,15 @@
 """APE-32 (t514u–t521u, validé par Emmanuel le 24/11/2026) : note SHORT sur 250, distincte de la note LONG.
 
 Plus la note est haute, plus l'actif est un bon candidat short. Points entiers.
-  RSI 14 hebdo (max 30)  : +10 si RSI > 70 ; +20 de plus s'il est resté > 70 plus de 3 semaines
+  RSI 14 hebdo (max 25)  : +10 si RSI > 70 ; +15 de plus s'il est resté > 70 plus de 3 semaines
                            (≥ 4 clôtures hebdo consécutives > 70, la dernière incluse). Cumulables.
-  MACD 12/26/9 (max 30)  : +10 si la ligne MACD / cours × 100 > 4 % ; +20 de plus si, en plus, les 4 dernières barres
+  MACD 12/26/9 (max 25)  : +10 si la ligne MACD / cours × 100 > 4 % ; +15 de plus si, en plus, les 4 dernières barres
                            d'histogramme clôturées sont bleues (> 0) d'affilée. Cumulables.
-  CCI Stoch. D (max 30)  : +10 si > 80 ; +20 de plus s'il est resté > 80 plus de 3 semaines (≥ 4 clôtures).
-  Fondamental (max 81)   : lecture inversée du fondamental LONG : +9 par critère NON rempli ; critère sans
-                           donnée = 4,5 (moitié) ; sous-total arrondi au point entier (demi vers le haut).
-  Fear & Greed (±50)     : inverse du LONG (avidité 60 → +10 … 100 → +50 ; peur 40 → −10 … 0 → −50).
-  Hype H (±29)           : H_short = round((attention − 50) × 0,58) (Indicateur d'Attention Long Swing).
+  CCI Stoch. D (max 25)  : +10 si > 80 ; +15 de plus s'il est resté > 80 plus de 3 semaines (≥ 4 clôtures).
+  Fondamental (max 125)   : lecture inversée du fondamental LONG : +125/9 par critère NON rempli ; critère sans
+                           donnée = moitié ; sous-total arrondi au point entier (demi vers le haut).
+  Fear & Greed (±30)     : inverse du LONG, échelonné à 30 (avidité 60 → +6 … 100 → +30 ; peur 40 → −6 … 0 → −30).
+  Hype H (±20)           : H_short = round((attention − 50) × 0,4) (Indicateur d'Attention Long Swing).
   Fibonacci              : aucun point ; FILTRE d'entrée dans Meilleurs SHORT (note ≥ 70) : cours ≥ niveau 38,2 %
                            (retracement r ≤ 0,382 depuis l'ATH, corps hebdo ; ATH et au-delà autorisés).
 Total borné −50..250. Catégories : Actions (hors banque), Actions bancaires, Énergie.
@@ -38,8 +38,10 @@ except Exception:
     pass
 MISE_BASE, MISE_PAS, MISE_MAX, PALIER = 100, 20, 200, 24
 FIB_MAX_R = 0.382
-H_COEF = 0.58
-H_ABS = 29
+H_COEF = 0.4
+H_ABS = 20
+FOND_MAX = 125
+FG_TRANCHE = 6  # t524u : grille F&G échelonnée à ±30 (6 points par tranche de 10)
 USA_FR = ('NYSE', 'NASDAQ', 'AMEX', 'EURONEXT')
 
 
@@ -63,7 +65,7 @@ def fg_short(value):
     v = float(value)
     delta = v - 50.0
     n = min(5, int(math.floor(abs(delta) / 10.0)))
-    return n * 10 if delta >= 0 else -n * 10
+    return n * FG_TRANCHE if delta >= 0 else -n * FG_TRANCHE
 
 
 def h_short(att):
@@ -95,15 +97,15 @@ def tech(tv, yahoo, ticker):
     ds = [b['date'] for b in closed]
     r = K.rsi(c)
     rs = streak(r, lambda v: v > 70)
-    rsi_pts = (10 if rs >= 1 else 0) + (20 if rs >= 4 else 0)
+    rsi_pts = (10 if rs >= 1 else 0) + (15 if rs >= 4 else 0)
     m, _sg, h = K.macd_series(c)
     m_pct = None if (m[-1] is None or not c[-1]) else m[-1] / c[-1] * 100
     m_ok = m_pct is not None and m_pct > MACD_PCT
     hb = streak(h, lambda v: v > 0)
-    macd_pts = (10 if m_ok else 0) + (20 if (m_ok and hb >= 4) else 0)
+    macd_pts = (10 if m_ok else 0) + (15 if (m_ok and hb >= 4) else 0)
     _k, d_s, _raw = K.cci_stochastic_kd(c)
     cs = streak(d_s or [], lambda v: v > 80)
-    cci_pts = (10 if cs >= 1 else 0) + (20 if cs >= 4 else 0)
+    cci_pts = (10 if cs >= 1 else 0) + (15 if cs >= 4 else 0)
     fib = FB.analyse(o, c, ds, adjust_splits=True, sym=used, syms=[used, tv, ticker], combine=False)
     fr = fib.get('r') if fib.get('ok') else None
     niv = (fib.get('niveaux') or {}).get('38,2 %') if fib.get('ok') else None
@@ -118,17 +120,18 @@ def tech(tv, yahoo, ticker):
 
 
 def fond_from(elements, missing_key):
-    """+9 par critère NON rempli ; critère sans donnée = moitié (4,5), sous-total arrondi au point (demi vers le haut)."""
+    """t524u : 125 points répartis à parts égales sur les 9 critères (125/9 ≈ 13,9 par critère NON rempli) ;
+    critère sans donnée = moitié ; sous-total arrondi au point (demi vers le haut). 9 non remplis = 125 exactement."""
     brut, n_ko, n_nc, det = 0.0, 0, 0, []
     for e in elements or []:
         nc = bool(e.get(missing_key)) or e.get('ok') is None
         ko = (not nc) and e.get('ok') is False
-        pts = 9 if ko else (4.5 if nc else 0)
+        pts = (FOND_MAX / 9) if ko else ((FOND_MAX / 18) if nc else 0)
         brut += pts
         n_ko += ko
         n_nc += nc
-        det.append({'id': e.get('id'), 'label': e.get('label'), 'ok_long': e.get('ok'), 'nc': nc, 'points': pts})
-    return min(81, jround(brut)), n_ko, n_nc, det
+        det.append({'id': e.get('id'), 'label': e.get('label'), 'ok_long': e.get('ok'), 'nc': nc, 'points': round(pts, 2)})
+    return min(FOND_MAX, jround(brut)), n_ko, n_nc, det
 
 
 def assemble(base, t, fond, fgv, att):

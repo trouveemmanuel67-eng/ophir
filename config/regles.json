@@ -2664,7 +2664,7 @@
     "titre": "Meilleurs short",
     "regles": "apex_short_250",
     "tache": "APE-32 (t514u–t521u)",
-    "date_validation": "24/11/2026 (réglages t522s2565)",
+    "date_validation": "24/11/2026 (répartition t524u)",
     "origine": "Note SHORT propre, sur 250 points entiers, distincte de la note LONG (qui n’est pas modifiée). Plus la note est haute, meilleur est le candidat short. Calcul : src/build_short250.py → data/apex_short.json.",
     "echelle": "−50 à 250",
     "note_min": -50,
@@ -2680,36 +2680,36 @@
     "grille": {
       "rsi": {
         "label": "RSI 14 hebdo",
-        "max": 30,
-        "regle": "RSI > 70 : +10 ; resté > 70 plus de 3 semaines (4 clôtures hebdo d’affilée ou plus) : +20 de plus. Cumulables, max 30."
+        "max": 25,
+        "regle": "RSI > 70 : +10 ; resté > 70 plus de 3 semaines (4 clôtures hebdo d’affilée ou plus) : +15 de plus. Cumulables, max 25."
       },
       "macd": {
         "label": "MACD 12/26/9 hebdo",
-        "max": 30,
-        "regle": "Ligne MACD / cours × 100 > 4 % : +10 ; MACD > 4 % du cours et 4 barres bleues d’histogramme d’affilée (> 0, clôturées) : +20 de plus. Cumulables, max 30. Seuil en % pour comparer tous les prix (4 % : dépassé par ~15 % des actifs aujourd’hui, ~20 % des semaines sur 5 ans)."
+        "max": 25,
+        "regle": "Ligne MACD / cours × 100 > 4 % : +10 ; MACD > 4 % du cours et 4 barres bleues d’histogramme d’affilée (> 0, clôturées) : +15 de plus. Cumulables, max 25. Seuil en % pour comparer tous les prix (4 % : dépassé par ~15 % des actifs aujourd’hui, ~20 % des semaines sur 5 ans)."
       },
       "cci": {
         "label": "CCI Stochastic (Daveatt, ligne D)",
-        "max": 30,
-        "regle": "CCI > 80 : +10 ; resté > 80 plus de 3 semaines (4 clôtures hebdo d’affilée ou plus) : +20 de plus. Cumulables, max 30."
+        "max": 25,
+        "regle": "CCI > 80 : +10 ; resté > 80 plus de 3 semaines (4 clôtures hebdo d’affilée ou plus) : +15 de plus. Cumulables, max 25."
       },
       "fondamental": {
         "label": "Fondamental inversé",
-        "max": 81,
-        "points_si_mauvais": 9,
-        "regle": "Mêmes 9 critères que le LONG de la catégorie, lus à l’inverse : +9 par critère NON rempli, 0 s’il est rempli. Critère sans donnée = moitié des points (4,5) ; le sous-total fondamental est arrondi au point entier (demi vers le haut : 1 manquant = 5, 2 = 9, 3 = 14). Max 81."
+        "max": 125,
+        "points_si_mauvais": "13,9",
+        "regle": "50 % de la note. Mêmes 9 critères que le LONG de la catégorie, lus à l’inverse : 125 points répartis à parts égales, soit 125/9 ≈ 13,9 par critère NON rempli, 0 s’il est rempli. Critère sans donnée = moitié (≈ 6,9). Le sous-total fondamental est arrondi au point entier (demi vers le haut) : 1 non rempli = 14, 2 = 28, 5 = 69, 8 = 111, 9 = 125. Max 125."
       },
       "fear_greed": {
         "label": "Fear & Greed (CNN), inversé",
-        "max": 50,
-        "max_affiche": "±50",
-        "regle": "Inverse du LONG. Milieu 50 = 0 ; tranches entières de 10 : avidité 60 → +10, 70 → +20, 80 → +30, 90 → +40, 100 → +50 ; peur 40 → −10, 30 → −20, 20 → −30, 10 → −40, 0 → −50."
+        "max": 30,
+        "max_affiche": "±30",
+        "regle": "Inverse du LONG, même grille échelonnée à 30. Milieu 50 = 0 ; tranches entières de 10 : avidité 60 → +6, 70 → +12, 80 → +18, 90 → +24, 100 → +30 ; peur 40 → −6, 30 → −12, 20 → −18, 10 → −24, 0 → −30."
       },
       "hype": {
         "label": "Hype / attention (H), inversée",
-        "max": 29,
-        "max_affiche": "±29",
-        "regle": "H = round((attention − 50) × 0,58) : attention 100 → +29, 50 → 0, 0 → −29 (Indicateur d’Attention Long Swing). Attention n.c. = 0."
+        "max": 20,
+        "max_affiche": "±20",
+        "regle": "H = round((attention − 50) × 0,4) : attention 100 → +20, 50 → 0, 0 → −20 (Indicateur d’Attention Long Swing). Attention n.c. = 0."
       },
       "fibonacci": {
         "label": "Fibonacci : filtre",
@@ -2717,7 +2717,7 @@
         "regle": "Aucun point. Filtre d’entrée : l’actif n’apparaît dans Meilleurs short que si son cours est au niveau 38,2 % ou au-dessus (retracement depuis l’ATH ≤ 38,2 %, corps hebdo, plus bas historique → ATH). À l’ATH ou au-delà : autorisé. Sous 38,2 % : exclu."
       }
     },
-    "total": "30 + 30 + 30 + 81 + 50 + 29 = 250 ; minimum borné à −50.",
+    "total": "RSI 25 + MACD 25 + CCI 25 + fondamental 125 + F&G 30 + hype 20 = 250 ; minimum borné à −50.",
     "montant": "Mise (levier ×5) : 100 $ à 70/250, puis +20 $ tous les 24 points au-dessus (120 $ à 94, 140 $ à 118, 160 $ à 142, 180 $ à 166), 200 $ dès 190. En petit, l’exposition équivalente (mise × 5).",
     "univers": "Actions (hors banque) USA et France, actions bancaires, actions et proxies de l’onglet Énergie. Métaux, crypto, obligations, ETF et devises ne sont plus dans Meilleurs short.",
     "lecture": "Entrent les actifs dont la note SHORT est ≥ 70/250 et dont le cours est au-dessus du Fibonacci 38,2 %. Classement de la plus haute à la plus basse note SHORT (meilleurs candidats en haut).",

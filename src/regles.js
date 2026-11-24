@@ -1044,7 +1044,7 @@ function rgShortBoard(kind, boardId){
   const techCards=tech.map((c,i)=>card(['rsi','macd','cci'][i], c.label, c.regle, rgNum(c.max))).join('');
   const f=g.fondamental||{};
   const pm=f.points_si_mauvais!=null?f.points_si_mauvais:9;
-  const fondCards=rgShortFondCrit(kind).map(c=>card(c.id, c.label, 'LONG bon si '+(c.bon||'—')+' → SHORT : +'+pm+' si non rempli', '+'+pm)).join('');
+  const fondCards=rgShortFondCrit(kind).map(c=>card(c.id, c.label, 'LONG bon si '+(c.bon||'—')+' → SHORT : +'+pm+' si non rempli (n.c. = moitié)', '+'+pm)).join('');
   const fg=g.fear_greed||{}, hy=g.hype||{}, fb=g.fibonacci||{};
   const block=(grp, title, pts, inner, note)=>`<section class="rg-block" data-group="${grp}">
       <header class="rg-block-h">
@@ -1054,10 +1054,10 @@ function rgShortBoard(kind, boardId){
       ${inner}
     </section>`;
   return `<div class="rg-board" id="${rgEsc(boardId)}">
-    ${block('technique','Technique',rgNum(techSum),`<div class="rg-cards rg-cards-span">${techCards}</div>`,'RSI 30 · MACD 30 (en % du cours) · CCI 30 · pas de Fibonacci')}
-    ${block('fondamental',f.label||'Fondamental inversé',rgNum(f.max!=null?f.max:81),`${f.regle?`<p class="rg-p">${rgEsc(f.regle)}</p>`:''}<div class="rg-cards rg-cards-span">${fondCards}</div>`)}
-    ${block('sentiment','Sentiment',fg.max_affiche||'±50',`<div class="rg-cards rg-cards-span">${card('fear_greed_short',fg.label||'Fear & Greed, inversé',fg.regle||'',fg.max_affiche||'±50')}</div>`,'inversé par rapport au LONG')}
-    ${block('hype','Hype / attention (H)',hy.max_affiche||'±29',`<div class="rg-cards rg-cards-span">${card('hype_short',hy.label||'Hype inversée',hy.regle||'',hy.max_affiche||'±29')}</div>`,'inversée par rapport au LONG')}
+    ${block('technique','Technique',rgNum(techSum),`<div class="rg-cards rg-cards-span">${techCards}</div>`,['rsi','macd','cci'].map(k=>(g[k]?((k==='macd'?'MACD':k.toUpperCase())+' '+rgNum(g[k].max)):'')).filter(Boolean).join(' · ')+' · MACD en % du cours · pas de Fibonacci')}
+    ${block('fondamental',f.label||'Fondamental inversé',rgNum(f.max!=null?f.max:125),`${f.regle?`<p class="rg-p">${rgEsc(f.regle)}</p>`:''}<div class="rg-cards rg-cards-span">${fondCards}</div>`)}
+    ${block('sentiment','Sentiment',fg.max_affiche||'±30',`<div class="rg-cards rg-cards-span">${card('fear_greed_short',fg.label||'Fear & Greed, inversé',fg.regle||'',fg.max_affiche||'±30')}</div>`,'inversé par rapport au LONG')}
+    ${block('hype','Hype / attention (H)',hy.max_affiche||'±20',`<div class="rg-cards rg-cards-span">${card('hype_short',hy.label||'Hype inversée',hy.regle||'',hy.max_affiche||'±20')}</div>`,'inversée par rapport au LONG')}
     ${block('fibonacci-filtre','Fibonacci',"filtre",`<div class="rg-cards rg-cards-span">${card('fibonacci_filtre',fb.label||'Fibonacci : filtre',fb.regle||'','0')}</div>`,'aucun point, condition d’entrée')}
   </div>`;
 }

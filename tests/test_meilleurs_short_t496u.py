@@ -53,8 +53,8 @@ def test_regles_short_grille():
     s = CFG["apex_short"]
     g = s["grille"]
     assert s["seuil"] == 70 and s["macd_pct"] == 4.0
-    assert g["rsi"]["max"] == 30 and g["macd"]["max"] == 30 and g["cci"]["max"] == 30
-    assert g["fondamental"]["max"] == 81 and g["fear_greed"]["max"] == 50 and g["hype"]["max"] == 29
+    assert g["rsi"]["max"] == 25 and g["macd"]["max"] == 25 and g["cci"]["max"] == 25
+    assert g["fondamental"]["max"] == 125 and g["fear_greed"]["max"] == 30 and g["hype"]["max"] == 20
     assert g["fibonacci"]["max"] == 0
     assert sum(g[k]["max"] for k in ("rsi", "macd", "cci", "fondamental", "fear_greed", "hype")) == 250
     assert "marge commune Revolut" in s["avertissement"]
@@ -63,14 +63,14 @@ def test_regles_short_grille():
 
 def test_calcul_short():
     import build_short250 as S
-    assert S.fg_short(17.7) == -30 and S.fg_short(50) == 0 and S.fg_short(100) == 50 and S.fg_short(0) == -50
-    assert S.h_short(100) == 29 and S.h_short(0) == -29 and S.h_short(50) == 0 and S.h_short(None) is None
+    assert S.fg_short(17.7) == -18 and S.fg_short(50) == 0 and S.fg_short(100) == 30 and S.fg_short(0) == -30 and S.fg_short(65) == 6
+    assert S.h_short(100) == 20 and S.h_short(0) == -20 and S.h_short(48.3) == -1 and S.h_short(50) == 0 and S.h_short(None) is None
     assert S.mise(69) is None and S.mise(70) == 100 and S.mise(190) == 200 and S.mise(250) == 200
     assert S.streak([80, 60, 71, 72, 73, 75], lambda v: v > 70) == 4
     pts, ko, nc, _ = S.fond_from([{"ok": False}, {"ok": True}, {"ok": None, "manquant": True}], "manquant")
-    assert (pts, ko, nc) == (14, 1, 1)  # 9 + 4,5 → 13,5 → 14
-    assert S.fond_from([{"ok": None}, {"ok": None}], "manquant")[0] == 9
-    assert S.fond_from([{"ok": None}], "manquant")[0] == 5
+    assert (pts, ko, nc) == (21, 1, 1)  # 13,89 + 6,94 → 20,8 → 21
+    assert S.fond_from([{"ok": False}] * 9, "manquant")[0] == 125
+    assert S.fond_from([{"ok": None}], "manquant")[0] == 7
 
 
 def test_donnees_short():
@@ -80,8 +80,8 @@ def test_donnees_short():
         assert r["categorie"] in ("action", "banque", "energie")
         assert -50 <= r["note"] <= 250 and isinstance(r["note"], int)
         p = r["points"]
-        assert p["rsi"] in (0, 10, 30) and p["macd"] in (0, 10, 30) and p["cci"] in (0, 10, 30)
-        assert 0 <= p["fondamental"] <= 81 and isinstance(p["fondamental"], int)
+        assert p["rsi"] in (0, 10, 25) and p["macd"] in (0, 10, 25) and p["cci"] in (0, 10, 25)
+        assert 0 <= p["fondamental"] <= 125 and isinstance(p["fondamental"], int)
         if r["liste"]:
             assert r["fibo_ok"] and r["note"] >= d["seuil"]
 
