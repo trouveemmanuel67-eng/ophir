@@ -62,7 +62,8 @@ def test_gi_et_page_regles():
     assert "is_metaux" in GI
     assert "classe == 'metaux'" in GI
     assert "classe='metaux'" in A10
-    assert "['structure','fibonacci','rsi','macd','cci']" in JS
+    assert "rsi" in JS and "macd" in JS and "fibonacci" in JS and "cci" in JS
+    assert "rgMetauxPts" in JS
     metaux_js = JS.split("function rgMetauxChamp")[1].split("function rgPageHTML")[0]
     assert "hors zone Elliott rouge" not in metaux_js
     assert "divergence haussière hebdo" in metaux_js

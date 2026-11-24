@@ -70,7 +70,7 @@ def attach(obj, av=None, fond=None, elliott=None, divergence=None, classe=None):
     if divergence is None and obj is not None:
         divergence = N.divergence_of(obj)
     parts = N.collect_parts(obj) if obj is not None else None
-    rec = N.compute(av, fond, elliott, divergence=divergence, parts=parts, classe=classe)
+    rec = N.compute(av, fond, elliott, divergence=divergence, parts=parts, classe=classe, obj=obj)
     if obj is not None:
         obj['apex10'] = rec
     return rec

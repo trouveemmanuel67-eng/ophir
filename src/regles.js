@@ -616,7 +616,7 @@ function rgCard(id, label, ruleHtml, pts){
 function rgMetauxChamp(){
   const mx=(RG&&RG.apex_metaux)||{};
   if(mx.intro_courte) return String(mx.intro_courte);
-  return 'Or, argent, platine, palladium, leurs ETC et ETF. Note −50 à 250, comme les actions.';
+  return 'Or, argent, platine, palladium, leurs ETC et ETF. Note −50 à 250, points entiers comme les actions.';
 }
 function rgMetauxScale(){
   const mx=(RG&&RG.apex_metaux)||{};
@@ -624,102 +624,91 @@ function rgMetauxScale(){
   const hi=mx.note_max!=null?Number(mx.note_max):250;
   return {min:lo, max:hi, label: rgFmtScaleBound(lo)+' à '+rgFmtScaleBound(hi)};
 }
-function rgMetauxFracs(renormSansFond){
-  /* t470u : Elliott retiré et redistribué pour couvrir exactement 0 à 200 hors F&G. */
-  const na=(RG&&RG.note_apex)||{};
-  const tech=na.technique||{};
-  const raw={};
-  let s=0;
-  Object.keys(tech).forEach(k=>{
-    if(k==='elliott') return;
-    const w=Number(tech[k])||0;
-    if(w){ raw[k]=w; s+=w; }
-  });
-  if(!renormSansFond){
-    const fw=Number(na.poids_fondamental!=null?na.poids_fondamental:0.5);
-    if(fw){ raw.fond=fw; s+=fw; }
-  }
-  const fr={};
-  if(s) Object.keys(raw).forEach(k=>{fr[k]=raw[k]/s;});
-  return fr;
-}
-function rgMetauxMaxPts(frac){
-  return 200*(Number(frac)||0);
+function rgMetauxPts(){
+  const mx=(RG&&RG.apex_metaux)||{};
+  const p=mx.points||{};
+  return {
+    rsi:p.rsi!=null?Number(p.rsi):30,
+    macd:p.macd!=null?Number(p.macd):30,
+    fibonacci:p.fibonacci!=null?Number(p.fibonacci):30,
+    cci:p.cci!=null?Number(p.cci):20,
+    fond:p.fondamental!=null?Number(p.fondamental):90,
+    structure:p.structure!=null?Number(p.structure):90,
+    fg:p.fear_greed!=null?Number(p.fear_greed):(mx.fg_abs!=null?Number(mx.fg_abs):50)
+  };
 }
 function rgMetauxRulesShort(){
   const mx=(RG&&RG.apex_metaux)||{};
   const cfg=mx.regles_courtes||{};
-  const na=(RG&&RG.note_apex)||{};
-  const giSeuil=mx.gi_seuil!=null?mx.gi_seuil:175;
+  const pts=rgMetauxPts();
+  const giSeuil=mx.gi_seuil!=null?mx.gi_seuil:130;
   const unite=(mx.gi_unite||((RG&&RG.template_trade)||{}).unite||'$');
-  const fondSeuil=rgNum(na.fond_seuil!=null?na.fond_seuil:40);
-  const fondPen=rgNum(mx.fond_pen_max!=null?mx.fond_pen_max:60);
   const cyMin=mx.cyan_note_min!=null?mx.cyan_note_min:190;
   const cyPlafond=mx.cyan_plafond!=null?mx.cyan_plafond:175;
   const avFort=((RG&&RG.cyan)||{}).av_achat_fort;
   return {
-    structure: cfg.structure||'',
-    fibonacci: cfg.fibonacci||'',
-    rsi: cfg.rsi||'',
-    macd: cfg.macd||'',
-    cci: cfg.cci||'',
-    fond: cfg.fond||('Minières seulement, si disponible. Pénalité si < '+fondSeuil+' /100, plafonnée à '+fondPen+' points sur l’échelle −50 à 250.'),
+    rsi: cfg.rsi||'RSI < 40 : +10 ; divergence haussière hebdo : +20 ; cumulables.',
+    macd: cfg.macd||'MACD < 0 : +10 ; ≥ 4 barres d’histogramme rouges sous 0 : +20 ; cumulables.',
+    fibonacci: cfg.fibonacci||'Plus bas → plus haut (corps hebdo). Sous 38,2 % : +10 ; 61,8 % : +20 ; 78,6 % : +30. Non cumulables.',
+    cci: cfg.cci||'+20 si le CCI Stochastic Daveatt (ligne D) est sous 20.',
+    fond: cfg.fond||'Minières seulement, même grille que les actions : 9 critères × 10 points s’ils sont bons, sinon 0. Maximum 90.',
+    structure: cfg.structure||'À la place du fondamental s’il est absent. Paliers de 10, plafond 90.',
     fear_greed: cfg.fear_greed||'Milieu 50 = 0. Tranche de 10 : peur 40 → +10 … 0 → +50 ; avidité 60 → −10 … 100 → −50.',
-    gi: '≥ '+rgNum(giSeuil)+' /250, hors portefeuille. '+rgNum(mx.gi_base_note!=null?mx.gi_base_note:175)+' = '+rgNum(mx.gi_base_montant!=null?mx.gi_base_montant:500)+'\u00a0'+unite+' ; +'+rgNum(mx.gi_pas_montant!=null?mx.gi_pas_montant:100)+'\u00a0'+unite+' tous les '+rgNum(mx.gi_pas_note!=null?mx.gi_pas_note:15)+' points, jusqu’à '+rgNum(mx.gi_max_note!=null?mx.gi_max_note:250)+' = '+rgNum(mx.gi_max_montant!=null?mx.gi_max_montant:1000)+'\u00a0'+unite+'.',
+    gi: '≥ '+rgNum(giSeuil)+' /250, hors portefeuille, même seuil que les actions. '+rgNum(mx.gi_base_note!=null?mx.gi_base_note:130)+' = '+rgNum(mx.gi_base_montant!=null?mx.gi_base_montant:500)+'\u00a0'+unite+' ; +'+rgNum(mx.gi_pas_montant!=null?mx.gi_pas_montant:100)+'\u00a0'+unite+' tous les '+rgNum(mx.gi_pas_note!=null?mx.gi_pas_note:24)+' points, jusqu’à '+rgNum(mx.gi_max_note!=null?mx.gi_max_note:250)+' = '+rgNum(mx.gi_max_montant!=null?mx.gi_max_montant:1000)+'\u00a0'+unite+'.',
     cyan: 'Note ≥ '+rgNum(cyMin)+' : AV ≥ +'+rgNum(avFort!=null?avFort:60)+' et divergence haussière hebdo ; sinon plafond '+rgNum(cyPlafond)
   };
 }
 function rgMetauxGrid(){
   const mx=(RG&&RG.apex_metaux)||{};
-  const ordre=['structure','fibonacci','rsi','macd','cci'];
-  const labels={structure:'Structure',fibonacci:'Fibonacci',rsi:'RSI',macd:'MACD',cci:'CCI'};
-  const shorts={structure:'Struct.',fibonacci:'Fibo',rsi:'RSI',macd:'MACD',cci:'CCI'};
+  const pts=rgMetauxPts();
   const rules=rgMetauxRulesShort();
-  const fr=rgMetauxFracs(false);
-  const fmt=n=>rgNum(Math.round(n*10)/10);
-  const techCards=ordre.map(id=>{
-    const pts=rgMetauxMaxPts(fr[id]);
-    return rgCard(id, labels[id]||id, rgEsc(rules[id]||''), fmt(pts));
-  }).join('');
-  const techNote=ordre.map(id=>{
-    return shorts[id]+' '+fmt(rgMetauxMaxPts(fr[id]));
-  }).join(' · ');
-  const techSum=ordre.reduce((s,id)=>s+rgMetauxMaxPts(fr[id]),0);
-  const fondMax=rgMetauxMaxPts(fr.fond);
-  const fondCards=rgCard('fond','Fondamental (minières)',rgEsc(rules.fond||''), fmt(fondMax));
-  const fr0=rgMetauxFracs(true);
-  const sansFondNote=ordre.map(id=>shorts[id]+' '+fmt(rgMetauxMaxPts(fr0[id]))).join(' · ');
-  const fgAbs=mx.fg_abs!=null?mx.fg_abs:50;
-  const sentCards=rgCard('fear_greed','Fear & Greed Index (CNN)',rgEsc(rules.fear_greed||''), '±'+rgNum(fgAbs));
-  const cyMin=mx.cyan_note_min!=null?mx.cyan_note_min:190;
+  const techOrdre=[
+    ['rsi','RSI 14 hebdo','RSI'],
+    ['macd','MACD 12/26/9 hebdo','MACD'],
+    ['fibonacci','Fibonacci','Fibo'],
+    ['cci','CCI Stochastic 28 hebdo (Daveatt)','CCI']
+  ];
+  const techSum=pts.rsi+pts.macd+pts.fibonacci+pts.cci;
+  const techNote=techOrdre.map(r=>r[2]+' '+rgNum(pts[r[0]])).join(' · ');
+  const techCards=techOrdre.map(([id,label])=>rgCard(id, label, rgEsc(rules[id]||''), rgNum(pts[id]))).join('');
+  const fondCards=rgCard('fond','Fondamental (minières)',rgEsc(rules.fond||''), rgNum(pts.fond));
+  const structCards=rgCard('structure','Structure (sans fondamental)',rgEsc(rules.structure||''), rgNum(pts.structure));
+  const sentCards=rgCard('fear_greed','Fear & Greed Index (CNN)',rgEsc(rules.fear_greed||''), '±'+rgNum(pts.fg));
+  const giSeuil=mx.gi_seuil!=null?mx.gi_seuil:130;
   const cyPlafond=mx.cyan_plafond!=null?mx.cyan_plafond:175;
-  const giSeuil=mx.gi_seuil!=null?mx.gi_seuil:175;
   const entreesCards=[
     rgCard('gi','Meilleures entrées',rgEsc(rules.gi), '≥ '+rgNum(giSeuil)),
     rgCard('cyan','Portail cyan',rgEsc(rules.cyan), rgNum(cyPlafond))
   ].join('');
   const note=rgMetauxChamp();
   const noteHtml=note?`<p class="rg-p rg-app">${rgEsc(note)}</p>`:'';
-  const techFoot=`<p class="rg-p rg-app">Sans fondamental (ETC, contrat, métal au comptant), le technique est renormalisé à 200 (${rgEsc(sansFondNote)}).</p>`;
+  const foot=`<p class="rg-p rg-app">Technique ${rgNum(techSum)} + Fondamental ou Structure ${rgNum(pts.fond)} = 0 à 200. Un seul des deux blocs Fondamental / Structure est compté. F&G ±${rgNum(pts.fg)}. Total −50 à 250, points entiers.</p>`;
   return `${noteHtml}<div class="rg-board" id="rg-table-metaux">
     <section class="rg-block" data-group="technique">
       <header class="rg-block-h">
         <div class="rg-block-title">Technique <span class="rg-group-note">${techNote}</span></div>
-        <span class="rg-block-pts">${fmt(techSum)}</span>
+        <span class="rg-block-pts">${rgNum(techSum)}</span>
       </header>
       <div class="rg-cards rg-cards-span">${techCards}</div>
     </section>
     <section class="rg-block" data-group="fondamental">
       <header class="rg-block-h">
         <div class="rg-block-title">Fondamental</div>
-        <span class="rg-block-pts">${fmt(fondMax)}</span>
+        <span class="rg-block-pts">${rgNum(pts.fond)}</span>
       </header>
       <div class="rg-cards rg-cards-span">${fondCards}</div>
+    </section>
+    <section class="rg-block" data-group="structure">
+      <header class="rg-block-h">
+        <div class="rg-block-title">Structure</div>
+        <span class="rg-block-pts">${rgNum(pts.structure)}</span>
+      </header>
+      <div class="rg-cards rg-cards-span">${structCards}</div>
     </section>
     <section class="rg-block" data-group="sentiment">
       <header class="rg-block-h">
         <div class="rg-block-title">Sentiment</div>
-        <span class="rg-block-pts">±${rgNum(fgAbs)}</span>
+        <span class="rg-block-pts">±${rgNum(pts.fg)}</span>
       </header>
       <div class="rg-cards rg-cards-span">${sentCards}</div>
     </section>
@@ -729,7 +718,7 @@ function rgMetauxGrid(){
       </header>
       <div class="rg-cards rg-cards-span">${entreesCards}</div>
     </section>
-  </div>${techFoot}`;
+  </div>${foot}`;
 }
 function rgPageHTML(){
   if(!RG) return '<p class="rg-p">Règles indisponibles.</p>';

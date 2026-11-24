@@ -1,13 +1,70 @@
 {
   "seuil": 75.0,
-  "n": 20,
+  "n": 22,
   "liste": [
+    {
+      "tv": "NYSE:PAAS",
+      "yahoo": "PAAS",
+      "nom": "Pan American Silver Corp.",
+      "note": 175.0,
+      "display": "175",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": 14.5,
+      "section": "Canada – Matériaux",
+      "montant": 700,
+      "brokers": {
+        "revolut": true,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "metaux"
+    },
+    {
+      "tv": "NYSE:AG",
+      "yahoo": "AG",
+      "nom": "First Majestic Silver Corp.",
+      "note": 170.0,
+      "display": "170",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": 30.4,
+      "section": "Canada – Matériaux",
+      "montant": 700,
+      "brokers": {
+        "revolut": true,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "metaux"
+    },
+    {
+      "tv": "NYSE:SBSW",
+      "yahoo": "SBSW",
+      "nom": "Sibanye Stillwater Limited",
+      "note": 170.0,
+      "display": "170",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": 14.3,
+      "section": "Métaux – Platine",
+      "montant": 700,
+      "brokers": {
+        "revolut": true,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "metaux"
+    },
     {
       "tv": "XETR:8PSC",
       "yahoo": "8PSC.DE",
       "nom": "Invesco Physical Palladium ETC",
-      "note": 182.0,
-      "display": "182",
+      "note": 130.0,
+      "display": "130",
       "hex": "#22c55e",
       "flag": "green",
       "bande": "vert",
@@ -25,8 +82,8 @@
       "tv": "LSE:IPDM",
       "yahoo": "IPDM.L",
       "nom": "iShares Physical Palladium ETC",
-      "note": 181.0,
-      "display": "181",
+      "note": 130.0,
+      "display": "130",
       "hex": "#22c55e",
       "flag": "green",
       "bande": "vert",
@@ -41,39 +98,20 @@
       "tab": "metaux"
     },
     {
-      "tv": "NYSE:SBSW",
-      "yahoo": "SBSW",
-      "nom": "Sibanye Stillwater Limited",
-      "note": 179.0,
-      "display": "179",
+      "tv": "NYSE:FNV",
+      "yahoo": "FNV",
+      "nom": "Franco-Nevada Corporation",
+      "note": 130.0,
+      "display": "130",
       "hex": "#22c55e",
       "flag": "green",
       "bande": "vert",
-      "av": 14.3,
-      "section": "Métaux – Platine",
+      "av": -19.5,
+      "section": "Canada – Matériaux",
       "montant": 500,
       "brokers": {
         "revolut": true,
         "xtb": true
-      },
-      "scale": 250,
-      "tab": "metaux"
-    },
-    {
-      "tv": "EURONEXT:PHPD",
-      "yahoo": "PHPD.AS",
-      "nom": "WisdomTree Physical Palladium",
-      "note": 178.0,
-      "display": "178",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": 12.8,
-      "section": "Métaux – Palladium",
-      "montant": 500,
-      "brokers": {
-        "revolut": false,
-        "xtb": false
       },
       "scale": 250,
       "tab": "metaux"

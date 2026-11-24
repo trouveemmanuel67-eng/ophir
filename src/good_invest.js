@@ -1,7 +1,7 @@
-/* ===== MEILLEURES ENTRÉES : actions APEX v2 ≥ 130/250 ; métaux ≥ 175/250 ; autres ≥ 75/100 ===== */
+/* ===== MEILLEURES ENTRÉES : actions APEX v2 ≥ 130/250 ; métaux ≥ 130/250 ; autres ≥ 75/100 ===== */
 const GI_SEUIL=75;
 const GI_SEUIL_V2=130;
-const GI_SEUIL_METAUX=175;
+const GI_SEUIL_METAUX=130;
 function giSeuilOf(it){
   if(it&&it.tab==='actions') return GI_SEUIL_V2;
   if(it&&it.tab==='metaux') return GI_SEUIL_METAUX;
@@ -121,7 +121,7 @@ function giMontant(note, scale, tab){
   const sc=Number(scale);
   const isMetaux=tab==='metaux'||sc===250&&tab==='metaux';
   if(isMetaux||(tab==='metaux')){
-    const base=Number(GI_SEUIL_METAUX)||175, pas=15;
+    const base=Number(GI_SEUIL_METAUX)||130, pas=24;
     if(n<base) return null;
     const steps=Math.round((Math.min(n,250)-base)/pas);
     return Math.min(500+steps*100, 1000);
@@ -382,7 +382,7 @@ function giRender(){
       <span class="pos-head-tot">${n}<small>titre${n>1?'s':''}</small></span>
     </div>
     <div class="pos-body gi-body" id="giBody">
-      <div class="gi-list">${rows||'<div class="gi-empty">Aucun titre au seuil (actions ≥ 130/250, métaux ≥ 175/250, autres ≥ 75/100) hors portefeuille.</div>'}</div>
+      <div class="gi-list">${rows||'<div class="gi-empty">Aucun titre au seuil (actions ≥ 130/250, métaux ≥ 130/250, autres ≥ 75/100) hors portefeuille.</div>'}</div>
     </div>
   </div>`;
   const wasOpen=giListIsOpen();

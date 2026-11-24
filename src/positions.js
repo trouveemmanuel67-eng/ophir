@@ -358,6 +358,21 @@ function posLinePerf(p, kind){
   const tip=(p.perf_1an_note||p.perf_1an_libelle||'').replace(/"/g,'&quot;');
   return `<span class="${p.perf_1an_pct>=0?'up':'down'}" title="${tip}">${posPct(p.perf_1an_pct)}<small> 52 sem. actif</small></span>`;
 }
+function posTickerCourt(p){
+  if(p&&p.ticker) return String(p.ticker);
+  const tv=p&&(p.fiche_tv||p.tv_note||'');
+  if(tv&&String(tv).indexOf(':')>=0) return String(tv).slice(String(tv).lastIndexOf(':')+1);
+  if(tv) return String(tv);
+  return (p&&p.nom)?String(p.nom):'—';
+}
+function posTvCopy(p){
+  /* Symbole TradingView complet. CASH / PEA n'en ont pas : pas de bouton copier. */
+  const tv=p&&p.fiche_tv;
+  if(!tv) return '';
+  const tick=String((p&&p.ticker)||'').toUpperCase();
+  if(tick==='CASH'||tick==='PEA') return '';
+  return String(tv);
+}
 function posShortName(p){
   let n=p.nom||p.ticker||'—';
   const map={
@@ -388,8 +403,10 @@ function posApexChip(p){
   if(posIsEquity(p)) return '';
   const a=posApex10Of(p);
   if(a&&a.note!=null){
-    const col=(typeof apex10Col==='function')?apex10Col(a):(a.hex||'#e6c27a');
-    return `<span class="pos-chip apex10" style="color:${col};border-color:${col}" title="Note APEX ${a.display}/100">${a.display}<small>/100</small></span>`;
+    const mx=(a.scale===250||a.total_max===250)?250:100;
+    const col=(mx===250&&typeof pilotHex==='function')?pilotHex({total:a.total!=null?a.total:a.note, hex:a.hex}):((typeof apex10Col==='function')?apex10Col(a):(a.hex||'#e6c27a'));
+    const col2=a.hex||col;
+    return `<span class="pos-chip apex10${mx===250?' apex10-pilot':''}" style="color:${col2};border-color:${col2}" title="Note APEX ${a.display}/${mx}">${a.display}<small>/${mx}</small></span>`;
   }
   if(p.apex_score==null||p.apex_score==='') return '';
   const col=(typeof avCol==='function')?avCol(p.apex_score):(posFlagCol[p.drapeau_code]||'#e6c27a');
@@ -414,11 +431,14 @@ function renderMesPositions(){
     const mon=posAmt(p.valeur,p.devise);
     const court=posCourtNom[p.courtier]||p.courtier||'';
     const cx=p.courtier==='revolutx'?'RX':p.courtier==='xtb'?'X':'R';
-    const nm=posShortName(p);
+    const abbr=posTickerCourt(p);
+    const nom=p.nom||abbr;
+    const tipNom=String(nom).replace(/"/g,'&quot;');
     const go=(p.tab&&p.fiche_tv)
-      ? `<button type="button" class="pos-link" data-tab="${p.tab}" data-tv="${p.fiche_tv}">${nm}</button>`
-      : `<span class="pos-nm">${nm}</span>`;
-    const tick=p.ticker&&p.ticker!==nm&&p.ticker.length<=6?`<span class="pos-tick">${p.ticker}</span>`:'';
+      ? `<button type="button" class="pos-link" data-tab="${p.tab}" data-tv="${String(p.fiche_tv).replace(/"/g,'&quot;')}" title="${tipNom}">${abbr.replace(/</g,'')}</button>`
+      : `<span class="pos-nm" title="${tipNom}">${abbr.replace(/</g,'')}</span>`;
+    const tvCopy=posTvCopy(p);
+    const cp=tvCopy?((typeof ophirCopyBtn==='function')?ophirCopyBtn(tvCopy):`<button type="button" class="cp" data-c="${String(tvCopy).replace(/"/g,'&quot;')}" aria-label="Copier ${String(tvCopy).replace(/"/g,'&quot;')}" title="Copier ${String(tvCopy).replace(/"/g,'&quot;')}">⎘</button>`):'';
     const poids=p.poids_pct==null?'—':posPct(p.poids_pct).replace('+','');
     const sell=p.vente_en_attente?`<span class="pos-mark pos-mark-sell" title="${(p.vente_en_attente_note||'Vente en attente').replace(/"/g,'&quot;')}">vente</span>`:'';
     const ordre=p.statut==='en_attente'?posOrdreMark([p]):'';
@@ -427,7 +447,7 @@ function renderMesPositions(){
     const posTv=p.fiche_tv||p.tv_note||p.ticker||'';
     return `<article class="pos-row pos-row-c ${p.statut==='en_attente'?'is-pend':''}${p.vente_en_attente?' is-sell':''}${p.fiche_tv?' has-fiche':''}"${posTv?` data-pos-tv="${String(posTv).replace(/"/g,'&quot;')}"`:''} title="${tip.replace(/"/g,'&quot;')}">
       <span class="pos-cx pos-cx-${cx.toLowerCase()}" title="${court}">${cx}</span>
-      <span class="pos-id">${go}${tick}${sell}${ordre}${stale}</span>
+      <span class="pos-id">${go}${cp}${sell}${ordre}${stale}</span>
       <b class="pos-m">${mon}</b>
       <span class="pos-p">${poids}</span>
       <span class="pos-d">${posLinePerf(p,'debut')}</span>

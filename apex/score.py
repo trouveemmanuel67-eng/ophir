@@ -233,15 +233,17 @@ def collect_parts(obj):
     return TA.collect_parts(obj)
 
 
-def compute(av, fond=None, elliott=None, divergence=None, parts=None, classe=None):
-    """Calcule la note APEX /100 (t342u), ou −50 à 250 pour les métaux (t470u).
+def compute(av, fond=None, elliott=None, divergence=None, parts=None, classe=None, obj=None, metal=None, fg=None):
+    """Calcule la note APEX /100, ou −50 à 250 pour les métaux (t475u, points entiers).
 
-    Part de 50. Chaque critère ajoute ou retire des points selon son
-    score −100…+100 (neutre = 0), amplitude ×1,5 (±75) puis clip 0–100.
-    Sans fondamental, le technique est renormalisé (signalé dans decomp).
-    Pas de plafond Elliott sur la note entière ; le portail cyan est conservé.
+    Hors métaux : part de 50, scores −100…+100, amplitude ×1,5, clip 0–100.
+    Métaux : paliers entiers additifs comme les actions (RSI 30, MACD 30,
+    Fibonacci 30, CCI/Stoch 20, fond 90 ou Structure 90, F&G ±50).
     """
     if classe == 'metaux':
+        if obj is not None:
+            from .metaux_points import score_instrument
+            return score_instrument(obj, metal=metal, av=av, fg=fg)
         return compute_metaux(av, fond, elliott, divergence, parts)
     r = _R()
     na = r['note_apex']
@@ -525,16 +527,16 @@ def metaux_band(note):
 
 
 def montant_template_metaux(note):
-    """Seuil 175 → 500 $, +100 $ par 15 points (équivalent de +100 $ / 5 pts sur /100), jusqu'à 250 → 1 000 $."""
+    """Aligné sur les actions : seuil 130 → 500 $, +100 $ tous les 24 points, jusqu'à 250 → 1 000 $."""
     if note is None:
         return None
     mx = _R().get('apex_metaux') or {}
     n = round_half(note)
-    base = float(mx.get('gi_base_note', 175))
+    base = float(mx.get('gi_base_note', 130))
     if n < base:
         return None
     n = min(n, float(mx.get('gi_max_note', 250)))
-    pas = float(mx.get('gi_pas_note', 15))
+    pas = float(mx.get('gi_pas_note', 24))
     steps = int(round((n - base) / pas))
     amt = int(mx.get('gi_base_montant', 500)) + steps * int(mx.get('gi_pas_montant', 100))
     return min(amt, int(mx.get('gi_max_montant', 1000)))
