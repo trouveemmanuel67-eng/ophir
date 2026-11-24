@@ -458,6 +458,15 @@ function rgActionsGrid(v, opts){
       <h3 class="rg-card-name">${rgEsc(label)}</h3>
       <p class="rg-card-rule">${ruleHtml}</p>
     </article>`;
+  const techName=c=>{
+    const id=c.id||'';
+    if(id.startsWith('rsi')) return 'RSI';
+    if(id.startsWith('macd')) return 'MACD';
+    if(id.indexOf('fibonacci')>=0) return 'Fibonacci';
+    if(id.indexOf('cci')>=0) return 'CCI';
+    return (c.label||id).split(' ')[0];
+  };
+  const techNote=tech.map(c=>techName(c)+' '+rgNum(c.max)).join(' · ');
   const techCards=tech.map(c=>card(c.id, c.label||c.id, rgEsc(rgAchatV2RuleShort(c)), c.max!=null?rgNum(c.max):'—')).join('');
   const fondCols=(fond.groupes||[]).map(g=>{
     const cards=(g.elements||[]).map(el=>{
@@ -497,7 +506,7 @@ function rgActionsGrid(v, opts){
   return `${noteHtml}<div class="rg-board" id="${rgEsc(boardId)}">
     <section class="rg-block" data-group="technique">
       <header class="rg-block-h">
-        <div class="rg-block-title">Technique <span class="rg-group-note">RSI 30 · MACD 30 · Fibonacci 30 · Elliott 20 · CCI 20</span></div>
+        <div class="rg-block-title">Technique <span class="rg-group-note">${techNote}</span></div>
         <span class="rg-block-pts">${rgNum(techSum)}</span>
       </header>
       <div class="rg-cards rg-cards-span">${techCards}</div>
