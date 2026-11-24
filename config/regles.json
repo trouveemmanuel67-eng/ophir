@@ -1358,7 +1358,7 @@
             "points": 20
           }
         ],
-        "regle_courte": "MACD < 0 : +10 ; 4 histo. < 0 : +20 ; cumulables. Sous 0 + 4 barres rouges d'affilée : +20 (appliqué au calcul à partir du 25/11)."
+        "regle_courte": "MACD < 0 : +10 ; MACD < 0 et 4 barres rouges d'histogramme consécutives (histogramme < 0 ou en baisse) : +20 ; cumulables, plafond 30."
       },
       {
         "id": "fibonacci",
@@ -1634,7 +1634,7 @@
             "points": 20
           }
         ],
-        "regle_courte": "MACD < 0 : +10 ; 4 histo. < 0 : +20 ; cumulables. Sous 0 + 4 barres rouges d'affilée : +20 (appliqué au calcul à partir du 25/11)."
+        "regle_courte": "MACD < 0 : +10 ; MACD < 0 et 4 barres rouges d'histogramme consécutives (histogramme < 0 ou en baisse) : +20 ; cumulables, plafond 30."
       },
       {
         "id": "fibonacci",
@@ -1877,7 +1877,7 @@
       "structure": "Retirée de la note, sans redistribution (comme Elliott).",
       "fibonacci": "Plus bas → plus haut (corps hebdo). Sous 38,2 % : +10 ; 61,8 % : +20 ; 78,6 % : +30. Non cumulables.",
       "rsi": "RSI < 40 : +10 ; divergence haussière hebdo : +20 ; cumulables. Maximum 30. Aucun retrait.",
-      "macd": "MACD < 0 : +10 ; 4 histo. < 0 : +20 ; cumulables. Sous 0 + 4 barres rouges d'affilée : +20 (appliqué au calcul à partir du 25/11).",
+      "macd": "MACD < 0 : +10 ; MACD < 0 et 4 barres rouges d'histogramme consécutives (histogramme < 0 ou en baisse) : +20 ; cumulables, plafond 30.",
       "cci": "+20 si le CCI Stochastic Daveatt (ligne D) est sous 20. Maximum 20.",
       "fond": "Minières seulement, même grille que les actions : 9 critères × 10 points s'ils sont bons, sinon 0 (donnée manquante = 0). Maximum 90.",
       "fear_greed": "Milieu 50 = 0. Tranche de 10 : peur 40 → +10 … 0 → +50 ; avidité 60 → −10 … 100 → −50.",
@@ -1945,7 +1945,7 @@
     "regles_courtes": {
       "liquidite": "Cartes CoinAnk, 1 an 70 % + 1 mois 30 %, converties en points entiers (plafonds 32 et 13). Sans carte : 0, pas de redistribution.",
       "rsi": "RSI < 40 : +10 ; divergence haussière hebdo : +20 ; cumulables.",
-      "macd": "MACD < 0 : +10 ; 4 histo. < 0 : +20 ; cumulables. Sous 0 + 4 barres rouges d'affilée : +20 (appliqué au calcul à partir du 25/11).",
+      "macd": "MACD < 0 : +10 ; MACD < 0 et 4 barres rouges d'histogramme consécutives (histogramme < 0 ou en baisse) : +20 ; cumulables, plafond 30.",
       "fibonacci": "Plus bas → plus haut (corps hebdo). Sous 38,2 % : +10 ; 61,8 % : +20 ; 78,6 % : +30. Non cumulables.",
       "cci": "+20 si le CCI Stochastic Daveatt (ligne D) est sous 20. Maximum 20.",
       "fear_greed": "Même grille que les actions (50 = 0, tranches de 10, cap ±50). Source : alternative.me, déjà sur les fiches.",
@@ -1973,7 +1973,7 @@
     },
     "regles_courtes": {
       "rsi": "RSI < 40 : +10 ; divergence haussière hebdo : +20 ; cumulables.",
-      "macd": "MACD < 0 : +10 ; 4 histo. < 0 : +20 ; cumulables. Sous 0 + 4 barres rouges d'affilée : +20 (appliqué au calcul à partir du 25/11).",
+      "macd": "MACD < 0 : +10 ; MACD < 0 et 4 barres rouges d'histogramme consécutives (histogramme < 0 ou en baisse) : +20 ; cumulables, plafond 30.",
       "fibonacci": "Plus bas → plus haut (corps hebdo). Sous 38,2 % : +10 ; 61,8 % : +20 ; 78,6 % : +30. Non cumulables.",
       "cci": "+20 si le CCI Stochastic Daveatt (ligne D) est sous 20.",
       "fear_greed": "Milieu 50 = 0. Tranche de 10 : peur 40 → +10 … 0 → +50 ; avidité 60 → −10 … 100 → −50."
@@ -2039,7 +2039,7 @@
     },
     "regles_courtes": {
       "rsi": "RSI < 40 : +10 ; divergence haussière hebdo : +20 ; cumulables.",
-      "macd": "MACD < 0 : +10 ; 4 histo. < 0 : +20 ; cumulables. Sous 0 + 4 barres rouges d'affilée : +20 (appliqué au calcul à partir du 25/11).",
+      "macd": "MACD < 0 : +10 ; MACD < 0 et 4 barres rouges d'histogramme consécutives (histogramme < 0 ou en baisse) : +20 ; cumulables, plafond 30.",
       "fibonacci": "Plus bas → plus haut (corps hebdo). Sous 38,2 % : +10 ; 61,8 % : +20 ; 78,6 % : +30. Non cumulables.",
       "cci": "+20 si le CCI Stochastic Daveatt (ligne D) est sous 20.",
       "fear_greed": "Milieu 50 = 0. Tranche de 10 : peur 40 → +10 … 0 → +50 ; avidité 60 → −10 … 100 → −50."
@@ -2169,7 +2169,7 @@
     },
     "regles_courtes": {
       "rsi": "RSI < 40 : +10 ; divergence haussière hebdo : +20 ; cumulables.",
-      "macd": "MACD < 0 : +10 ; 4 histo. < 0 : +20 ; cumulables. Sous 0 + 4 barres rouges d'affilée : +20 (appliqué au calcul à partir du 25/11).",
+      "macd": "MACD < 0 : +10 ; MACD < 0 et 4 barres rouges d'histogramme consécutives (histogramme < 0 ou en baisse) : +20 ; cumulables, plafond 30.",
       "fibonacci": "Plus bas → plus haut (corps hebdo). Sous 38,2 % : +10 ; 61,8 % : +20 ; 78,6 % : +30. Non cumulables.",
       "cci": "+20 si le CCI Stochastic Daveatt (ligne D) est sous 20.",
       "fear_greed": "Milieu 50 = 0. Tranche de 10 : peur 40 → +10 … 0 → +50 ; avidité 60 → −10 … 100 → −50."
@@ -2228,7 +2228,7 @@
     },
     "regles_courtes": {
       "rsi": "RSI < 40 : +10 ; divergence haussière hebdo : +20 ; cumulables.",
-      "macd": "MACD < 0 : +10 ; 4 histo. < 0 : +20 ; cumulables. Sous 0 + 4 barres rouges d'affilée : +20 (appliqué au calcul à partir du 25/11).",
+      "macd": "MACD < 0 : +10 ; MACD < 0 et 4 barres rouges d'histogramme consécutives (histogramme < 0 ou en baisse) : +20 ; cumulables, plafond 30.",
       "fibonacci": "Plus bas → plus haut (corps hebdo). Sous 38,2 % : +10 ; 61,8 % : +20 ; 78,6 % : +30. Non cumulables.",
       "cci": "+20 si le CCI Stochastic Daveatt (ligne D) est sous 20.",
       "fear_greed": "Milieu 50 = 0. Tranche de 10 : peur 40 → +10 … 0 → +50 ; avidité 60 → −10 … 100 → −50."
@@ -2287,7 +2287,7 @@
     },
     "regles_courtes": {
       "rsi": "RSI < 40 : +10 ; divergence haussière hebdo : +20 ; cumulables.",
-      "macd": "MACD < 0 : +10 ; 4 histo. < 0 : +20 ; cumulables. Sous 0 + 4 barres rouges d'affilée : +20 (appliqué au calcul à partir du 25/11).",
+      "macd": "MACD < 0 : +10 ; MACD < 0 et 4 barres rouges d'histogramme consécutives (histogramme < 0 ou en baisse) : +20 ; cumulables, plafond 30.",
       "fibonacci": "Plus bas → plus haut (corps hebdo). Sous 38,2 % : +10 ; 61,8 % : +20 ; 78,6 % : +30. Non cumulables.",
       "cci": "+20 si le CCI Stochastic Daveatt (ligne D) est sous 20.",
       "fear_greed": "Milieu 50 = 0. Tranche de 10 : peur 40 → +10 … 0 → +50 ; avidité 60 → −10 … 100 → −50."

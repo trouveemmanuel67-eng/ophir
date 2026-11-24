@@ -3060,7 +3060,7 @@
     "TVC:GOLD": {
       "revolut": false,
       "xtb": false,
-      "note": "Contrat à terme non retenu ; GLDA (or physique, EUR) vu au comptant. Alternative : or « XAU » de l'onglet Matières premières (fiche avec bouton Acheter, achat non confirmé)."
+      "note": "Contrat à terme non retenu. Or au comptant XAU (OANDA:XAUUSD) ajouté le 24/11/2026 ; GLDA (or physique, EUR) aussi vu au comptant."
     },
     "TVC:PALLADIUM": {
       "revolut": false,
@@ -5682,6 +5682,11 @@
       "revolut": false,
       "xtb": true,
       "note": "XTB OMI ROG.CH (Roche Holding AG, CH0012032048). Yahoo RO.SW, TradingView SIX:RO. Disponibilité Revolut Invest France non confirmée au 23/11/2026 : retenu chez XTB."
+    },
+    "OANDA:XAUUSD": {
+      "revolut": true,
+      "xtb": false,
+      "note": "Métal au comptant Revolut (XAU), acheté le 24/11/2026. Équivalent retenu à la place de TVC:GOLD, en plus de GLDA."
     }
   }
 }

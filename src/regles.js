@@ -649,7 +649,7 @@ function rgMetauxRulesShort(){
   const avFort=((RG&&RG.cyan)||{}).av_achat_fort;
   return {
     rsi: cfg.rsi||'RSI < 40 : +10 ; divergence haussière hebdo : +20 ; cumulables.',
-    macd: cfg.macd||'MACD < 0 : +10 ; 4 histo. < 0 : +20 ; cumulables. Sous 0 + 4 barres rouges d’affilée : +20 (appliqué au calcul à partir du 25/11).',
+    macd: cfg.macd||'MACD < 0 : +10 ; MACD < 0 et 4 barres rouges d’histogramme consécutives (histogramme < 0 ou en baisse) : +20 ; cumulables, plafond 30.',
     fibonacci: cfg.fibonacci||'Plus bas → plus haut (corps hebdo). Sous 38,2 % : +10 ; 61,8 % : +20 ; 78,6 % : +30. Non cumulables.',
     cci: cfg.cci||'+20 si le CCI Stochastic Daveatt (ligne D) est sous 20.',
     fond: cfg.fond||'Minières seulement, même grille que les actions : 9 critères × 10 points s’ils sont bons, sinon 0. Maximum 90.',
@@ -753,7 +753,7 @@ function rgCryptoRulesShort(){
   return {
     liquidite: cfg.liquidite||'Cartes CoinAnk, 1 an 70 % + 1 mois 30 %, converties en points entiers (plafonds 32 et 13). Sans carte : 0, pas de redistribution.',
     rsi: cfg.rsi||'RSI < 40 : +10 ; divergence haussière hebdo : +20 ; cumulables.',
-    macd: cfg.macd||'MACD < 0 : +10 ; 4 histo. < 0 : +20 ; cumulables. Sous 0 + 4 barres rouges d’affilée : +20 (appliqué au calcul à partir du 25/11).',
+    macd: cfg.macd||'MACD < 0 : +10 ; MACD < 0 et 4 barres rouges d’histogramme consécutives (histogramme < 0 ou en baisse) : +20 ; cumulables, plafond 30.',
     fibonacci: cfg.fibonacci||'Plus bas → plus haut (corps hebdo). Sous 38,2 % : +10 ; 61,8 % : +20 ; 78,6 % : +30. Non cumulables.',
     cci: cfg.cci||'+20 si le CCI Stochastic Daveatt (ligne D) est sous 20. Maximum 20.',
     fear_greed: cfg.fear_greed||'Même grille que les actions (50 = 0, tranches de 10, cap ±50). Source : alternative.me, déjà sur les fiches.',
@@ -824,7 +824,7 @@ function rgCibleTechRules(cfg){
   const r=(cfg&&cfg.regles_courtes)||{};
   return {
     rsi: r.rsi||'RSI < 40 : +10 ; divergence haussière hebdo : +20 ; cumulables.',
-    macd: r.macd||'MACD < 0 : +10 ; 4 histo. < 0 : +20 ; cumulables. Sous 0 + 4 barres rouges d’affilée : +20 (appliqué au calcul à partir du 25/11).',
+    macd: r.macd||'MACD < 0 : +10 ; MACD < 0 et 4 barres rouges d’histogramme consécutives (histogramme < 0 ou en baisse) : +20 ; cumulables, plafond 30.',
     fibonacci: r.fibonacci||'Plus bas → plus haut (corps hebdo). Sous 38,2 % : +10 ; 61,8 % : +20 ; 78,6 % : +30. Non cumulables.',
     cci: r.cci||'+20 si le CCI Stochastic Daveatt (ligne D) est sous 20.',
     fear_greed: r.fear_greed||'Milieu 50 = 0. Tranche de 10 : peur 40 → +10 … 0 → +50 ; avidité 60 → −10 … 100 → −50.'
@@ -932,7 +932,7 @@ function rgLiquiditesEtfGrid(){
   const techNote=['RSI '+rgNum(pts.rsi),'MACD '+rgNum(pts.macd),'Fibo '+rgNum(pts.fibonacci),'CCI '+rgNum(pts.cci)].join(' · ');
   const techCards=[
     rgCard('rsi','RSI 14 hebdo','RSI < 40 : +10 ; divergence haussière hebdo : +20 ; cumulables.',rgNum(pts.rsi)),
-    rgCard('macd','MACD 12/26/9 hebdo','MACD < 0 : +10 ; 4 histo. < 0 : +20 ; cumulables. Sous 0 + 4 barres rouges d’affilée : +20 (appliqué au calcul à partir du 25/11).',rgNum(pts.macd)),
+    rgCard('macd','MACD 12/26/9 hebdo','MACD < 0 : +10 ; MACD < 0 et 4 barres rouges d’histogramme consécutives (histogramme < 0 ou en baisse) : +20 ; cumulables, plafond 30.',rgNum(pts.macd)),
     rgCard('fibonacci','Fibonacci','Plus bas → plus haut (corps hebdo). Sous 38,2 % : +10 ; 61,8 % : +20 ; 78,6 % : +30. Non cumulables.',rgNum(pts.fibonacci)),
     rgCard('cci','CCI Stochastic 28 hebdo (Daveatt)','+20 si le CCI Stochastic Daveatt (ligne D) est sous 20. Maximum 20.',rgNum(pts.cci))
   ].join('');

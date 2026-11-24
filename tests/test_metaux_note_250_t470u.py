@@ -66,7 +66,7 @@ def test_regles_grid_points_entiers():
 def test_notes_lignes_metaux_json():
     mt = json.loads((ROOT / "data" / "metaux.json").read_text(encoding="utf-8"))
     got = {r["nom"]: r["apex10"]["note"] for r in mt["rows"]}
-    assert got["Or"] == 88
+    assert got["Or"] == 83
     assert got["Argent"] == 128
     assert got["Platine"] == 103
     assert got["Palladium"] == 126

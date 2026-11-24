@@ -60,7 +60,7 @@ ETC_META={
 }
 # ETC physiques à conserver même absents de Revolut (demande 23/11, toutes les fiches métaux).
 ETC_KEEP=set(v['tv'] for v in ETC_META.values())
-SPOT={'or':None,'argent':('OANDA:XAGUSD','XAG','Argent au comptant Revolut'),
+SPOT={'or':('OANDA:XAUUSD','XAU','Or au comptant Revolut'),'argent':('OANDA:XAGUSD','XAG','Argent au comptant Revolut'),
       'platine':('OANDA:XPTUSD','XPT','Platine au comptant Revolut'),
       'palladium':('OANDA:XPDUSD','XPD','Palladium au comptant Revolut')}
 def inst(s,kind):
@@ -139,7 +139,7 @@ for key,nom,fut,principal,others,miners in MET:
         l2.append(x)
     lst=l2
     TVM={'or':'TVC:GOLD','argent':'TVC:SILVER','platine':'TVC:PLATINUM','palladium':'TVC:PALLADIUM'}[key]; u=RV.rep(TVM)
-    # Métal au comptant Revolut, dans le bouton (sauf l'or : pas de ticker XAU dans disponibilites.json).
+    # Métal au comptant Revolut, dans le bouton (or, argent, platine, palladium).
     sp=SPOT.get(key)
     if sp:
         stv,scode,sname=sp
@@ -156,11 +156,10 @@ for key,nom,fut,principal,others,miners in MET:
         lst=[spot]+[x for x in lst if x.get('tv')!=stv]
     list_note=None
     if key=='or':
-        row['note_revolut']=("Instrument Revolut retenu pour l'or : GLDA (XETR:GLDA), ETC physique, plus 8PSG et XAD5 aussi chez Revolut. "
-            "Le ticker XAU de l'onglet Matières premières n'est pas dans le référentiel de disponibilité APEX : il n'est pas ajouté comme instrument. "
+        row['note_revolut']=("Instruments Revolut : XAU (OANDA:XAUUSD, métal au comptant, acheté le 24/11/2026) et l'ETC GLDA (XETR:GLDA), plus 8PSG et XAD5 aussi chez Revolut. "
             "Le contrat à terme TVC:GOLD n'est pas achetable au comptant. "
             "La note APEX (−50 à 250) de cette ligne est la moyenne des notes des instruments visibles dans le bouton ci-dessous.")
-        list_note=("Six ETC physiques (ISIN distincts), hors CFD et ETP de futures. 4GLD, IGLN et PHGP : chez XTB (table OMI 24/09/2026), pas chez Revolut. Ajoutés le 23/11/2026.")
+        list_note=("Ligne or au comptant Revolut (XAU / OANDA:XAUUSD) ajoutée le 24/11/2026, plus six ETC physiques (ISIN distincts), hors CFD et ETP de futures. 4GLD, IGLN et PHGP : chez XTB (table OMI 24/09/2026), pas chez Revolut.")
     elif key=='argent':
         row['note_revolut']=("Instruments Revolut : XAG (OANDA:XAGUSD, métal au comptant ; bouton Acheter visible, achat non confirmé) et l'ETC Invesco Physical Silver 8PSB (XETR:8PSB), plus XAD6. "
             "Attention : 8PSB n'est pas un ETC platine, c'est l'argent physique. "

@@ -93,7 +93,7 @@ def test_regles_short_grille():
 def test_notes_apex_inchangees():
     """Le lot short ne doit pas réécrire les notes APEX déjà publiées."""
     data = json.loads((ROOT / "data" / "crypto_fiches.json").read_text(encoding="utf-8"))
-    want = {"btc": 104, "eth": 120, "sol": 80, "mstr": 90}
+    want = {"btc": 124, "eth": 140, "sol": 100, "mstr": 110}
     for a in data["assets"]:
         rec = a.get("apex10") or {}
         if a.get("key") in want:

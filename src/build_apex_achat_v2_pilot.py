@@ -234,6 +234,14 @@ def rsi_points(rsi_val, div):
 
 
 def macd_points(macd_line, hist):
+    """MACD 12/26/9 hebdo, plafond 30.
+
+    +10 si la ligne MACD est < 0.
+    +20 si la ligne est < 0 ET 4 barres rouges consécutives sur l'histogramme
+    clôturé : soit 4 histogrammes < 0 d'affilée, soit 4 barres chacune
+    inférieure à la précédente (pente, lecture visuelle habituelle).
+    Les deux bonus sont cumulables, puis min(30, pts).
+    """
     pts, det = 0, []
     sous = macd_line is not None and macd_line < 0
     if sous:
@@ -246,10 +254,26 @@ def macd_points(macd_line, hist):
                 streak += 1
             else:
                 break
-    quatre = streak >= 4
-    if quatre:
+    streak_rouge_pente = 0
+    if hist and len(hist) >= 5:
+        for i in range(len(hist) - 1, len(hist) - 5, -1):
+            a, b = hist[i - 1], hist[i]
+            if a is not None and b is not None and b < a:
+                streak_rouge_pente += 1
+            else:
+                break
+    quatre = (streak >= 4) or (streak_rouge_pente >= 4)
+    ok20 = bool(sous and quatre)
+    if ok20:
         pts += 20
-    det.append({'id': 'histo_4_barres_rouges_sous_0', 'ok': quatre, 'points': 20 if quatre else 0, 'streak': streak})
+    det.append({
+        'id': 'histo_4_barres_rouges_sous_0',
+        'ok': ok20,
+        'points': 20 if ok20 else 0,
+        'streak': streak,
+        'streak_rouge_pente': streak_rouge_pente,
+        'macd_sous_0': bool(sous),
+    })
     return min(30, pts), det
 
 
