@@ -6,3 +6,4 @@ data/yahoo_cache/
 data/_fetch_report.json
 *.bak
 data/_note_backup/
+data/short_cache/

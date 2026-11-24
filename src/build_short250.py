@@ -18,7 +18,7 @@ Total borné −50..250. Catégories : Actions (hors banque), Actions bancaires,
 La note LONG n'est ni lue pour le calcul technique ni modifiée.
 """
 from __future__ import annotations
-import json, math, os, sys
+import json, math, os, sys, urllib.parse
 from pathlib import Path
 
 DIR = Path(__file__).resolve().parent
@@ -93,6 +93,10 @@ def weekly(tv, yahoo, ticker):
 
 def tech(tv, yahoo, ticker):
     closed, used = weekly(tv, yahoo, ticker)
+    return tech_from_closed(closed, used, tv, ticker)
+
+
+def tech_from_closed(closed, used, tv, ticker=None):
     if not closed or len(closed) < 52:
         return None
     c = [b['close'] for b in closed]
@@ -109,7 +113,7 @@ def tech(tv, yahoo, ticker):
     _k, d_s, _raw = K.cci_stochastic_kd(c)
     cs = streak(d_s or [], lambda v: v > 80)
     cci_pts = (10 if cs >= 1 else 0) + (15 if cs >= 4 else 0)
-    fib = FB.analyse(o, c, ds, adjust_splits=True, sym=used, syms=[used, tv, ticker], combine=False)
+    fib = FB.analyse(o, c, ds, adjust_splits=True, sym=used, syms=[x for x in (used, tv, ticker) if x], combine=False)
     fr = fib.get('r') if fib.get('ok') else None
     niv = (fib.get('niveaux') or {}).get('38,2 %') if fib.get('ok') else None
     return {
@@ -149,7 +153,7 @@ def assemble(base, t, fond, fgv, att):
     if fgv is None:
         manq.append('Fear & Greed')
     if n_nc:
-        manq.append(f'{n_nc} critère(s) fondamental n.c. (4,5 pts chacun)')
+        manq.append(f'{n_nc} critère(s) fondamental n.c. (≈ 6,9 pts chacun)')
     if t['fibo']['r'] is None:
         manq.append('Fibonacci')
     n_sig = sum(1 for k in ('rsi', 'macd', 'cci') if t[k]['points'] >= 10)
@@ -172,6 +176,48 @@ def assemble(base, t, fond, fgv, att):
     return base
 
 
+def load_univers():
+    """t534u : univers SHORT propre (config apex_short.univers, par défaut config/univers_short.json)."""
+    try:
+        rel = json.loads((ROOT / 'config' / 'regles.json').read_text(encoding='utf-8'))['apex_short'].get('univers_fichier')
+    except Exception:
+        rel = None
+    if not rel:
+        return None
+    p = ROOT / rel
+    if not p.exists():
+        print('univers SHORT introuvable :', p)
+        return None
+    return json.loads(p.read_text(encoding='utf-8'))
+
+
+def tech_univers(yahoo, tv):
+    path = ROOT / 'data' / 'short_cache' / ('yahoo_1wk_' + urllib.parse.quote(yahoo, safe='') + '.json')
+    if not path.exists():
+        return None
+    closed, _m, _a = P.load_closed_weekly(str(path))
+    return tech_from_closed(closed, yahoo, tv)
+
+
+def main_univers(U, fgv, fg):
+    out, sans_serie = {}, []
+    for a in U.get('actions') or []:
+        tv = a['tv']
+        t = tech_univers(a['yahoo'], tv)
+        if not t:
+            sans_serie.append(tv)
+            continue
+        bank = bool(a.get('is_bank'))
+        _tot, elems = P.fond_points(a.get('metrics') or {}, P.FOND_RULES_BANQUE if bank else P.FOND_RULES)
+        cat = 'banque' if bank else 'action'  # énergie : critères standard (pas de fiche énergie pour ces titres)
+        base = {'tv': tv, 'nom': a.get('nom'), 'ticker': a.get('ticker'), 'yahoo': a.get('yahoo'),
+                'categorie': cat, 'tab': 'short', 'univers': 'short',
+                'rsi_hebdo': a.get('rsi'), 'palier': a.get('palier'), 'cfd_revolut': a.get('cfd_revolut'),
+                'degradation': a.get('degradation'), 'pays': a.get('country'), 'canada': a.get('canada')}
+        out[tv] = assemble(base, t, fond_from(elems, 'manquant'), fgv, None)
+    return out, sans_serie
+
+
 def main():
     pil = json.loads((D / 'apex_achat_v2_pilot.json').read_text(encoding='utf-8'))
     T = json.loads((D / 'tabs_data.json').read_text(encoding='utf-8'))
@@ -182,8 +228,13 @@ def main():
 
     energie = [a for a in (T.get('energie') or {}).get('assets') or [] if a.get('kind') in ('equity', 'equity_proxy')]
     etv = {a['tv'] for a in energie}
+    U = load_univers()
+    if U:
+        energie, pil_items = [], {}
+    else:
+        pil_items = pil.get('by_tv') or {}
 
-    for tv, r in (pil.get('by_tv') or {}).items():
+    for tv, r in pil_items.items():
         if r.get('kind') != 'action' or r.get('ok') is False or tv in etv:
             continue
         if tv.split(':')[0] not in USA_FR:
@@ -212,6 +263,9 @@ def main():
                 'categorie': 'energie', 'groupe': a.get('groupe'), 'tab': 'energie'}
         out[tv] = assemble(base, t, fond_from(fel, 'nc'), fgv, att)
 
+    if U:
+        out, sans_serie = main_univers(U, fgv, fg)
+
     liste = sorted([x for x in out.values() if x['liste']], key=lambda x: (-x['note'], x['tv']))
     exclus_tech = sorted([x for x in out.values() if x['au_seuil'] and x['fibo_ok'] and not x['tech_ok']], key=lambda x: (-x['note'], x['tv']))
     exclus_fibo = sorted([x for x in out.values() if x['au_seuil'] and not x['fibo_ok']], key=lambda x: (-x['note'], x['tv']))
@@ -223,6 +277,7 @@ def main():
         'signal_tech_min': SIG_MIN,
         'exclus_tech': [{'tv': x['tv'], 'note': x['note']} for x in exclus_tech],
         'sans_serie': sans_serie,
+        'univers': ({'fichier': 'config/univers_short.json', 'genere': U.get('genere'), 'stats': U.get('stats'), 'regle': U.get('regle')} if U else 'watchlist APEX'),
         'by_tv': out,
     }
     (D / 'apex_short.json').write_text(json.dumps(doc, ensure_ascii=False, separators=(',', ':')) + '\n', encoding='utf-8')

@@ -2724,11 +2724,13 @@
     },
     "total": "RSI 25 + MACD 25 + CCI 25 + fondamental 125 + F&G 30 + hype 20 = 250 ; minimum borné à −50.",
     "montant": "Mise (levier ×5) : 100 $ à 70/250, puis +20 $ tous les 24 points au-dessus (120 $ à 94, 140 $ à 118, 160 $ à 142, 180 $ à 166), 200 $ dès 190. En petit, l’exposition équivalente (mise × 5).",
-    "univers": "Actions (hors banque) USA et France, actions bancaires, actions et proxies de l’onglet Énergie. Métaux, crypto, obligations, ETF et devises ne sont plus dans Meilleurs short.",
+    "univers": "Univers : 50 actions NYSE en CFD chez Revolut, RSI hebdomadaire en surachat, santé en dégradation (t534u). Liste à part, distincte de la watchlist APEX : S&P 500 coté au NYSE + grandes canadiennes cotées au NYSE + actions déjà négociées en CFD sur le compte ; RSI 14 hebdo > 70 en priorité, puis 65–70, complété si besoin par les RSI hebdo suivants (signalés) ; au moins un signe de dégradation (révisions de BPA en baisse, CA ou bénéfice en recul, marge opérationnelle en recul, dette en hausse, FCF en baisse). CFD Revolut « confirmé » si déjà négocié sur le compte, sinon « à vérifier ». Régénéré par src/build_univers_short.py → config/univers_short.json.",
     "lecture": "Entrent les actifs dont la note SHORT est ≥ 70/250, qui ont au moins un signal technique de surachat (RSI > 70, MACD > 4 % du cours ou CCI > 80) et dont le cours est au-dessus du Fibonacci 38,2 %. Classement de la plus haute à la plus basse note SHORT (meilleurs candidats en haut).",
     "levier": 5,
     "avertissement": "Le short peut faire perdre plus que la mise. Il faut un compte qui l’autorise (CFD chez XTB, par exemple). Levier ×5, marge commune Revolut : les shorts se soutiennent entre eux, mais une hausse générale du marché touche toutes les positions en même temps et peut déclencher un appel de marge sur l’ensemble.",
     "macd_pct": 4.0,
-    "signal_tech_min": 1
+    "signal_tech_min": 1,
+    "univers_fichier": "config/univers_short.json",
+    "univers_tache": "t534u"
   }
 }

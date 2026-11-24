@@ -1079,6 +1079,14 @@ function rgShortTable(){
 function rgShortEnergieBody(){
   return rgShortComptaP()+`<p class="rg-p rg-app">Fondamental : les 9 critères énergie du LONG (PER, VE/EBITDA, dette, marges, dividende, distribution, ROE, cycle), lus à l’inverse.</p>`+rgShortBoard('energie','rg-table-short-energie');
 }
+function rgShortUniversStats(){
+  /* t534u : chiffres du jour de l'univers SHORT (data/apex_short.json → univers.stats). */
+  let S=null; try{ const el=document.getElementById('dataShort'); S=el?JSON.parse(el.textContent):null; }catch(e){ S=null; }
+  const u=S&&S.univers&&typeof S.univers==='object'?S.univers:null;
+  const st=u&&u.stats; if(!st) return '';
+  const n=v=>(v==null?'—':String(v));
+  return `<p class="rg-p rg-app">Mise à jour ${rgEsc(u.genere||'')} : ${n(st.retenus)} titres retenus sur ${n(st.nyse)} actions NYSE analysées ; RSI hebdo &gt; 70 : ${n(st.rsi_sup_70)} sur le marché (${n(st.retenus_rsi_sup_70)} retenus), RSI 65–70 : ${n(st.retenus_rsi_65_70)} retenus, complément RSI &lt; 65 : ${n(st.retenus_complement_sous_65)} (RSI min. ${n(st.rsi_min_retenu)}). CFD Revolut confirmés : ${n(st.cfd_confirmes)}, les autres sont à vérifier.</p>`;
+}
 function rgShortCommons(){
   if(!RG) return '';
   const cfg=rgShortCfg();
@@ -1110,7 +1118,7 @@ function rgShortCommons(){
       </div>
       <div class="rg-card">
         <h3>Univers</h3>
-        <p class="rg-p">${rgEsc(cfg.univers||'')}</p>
+        <p class="rg-p">${rgEsc(cfg.univers||'')}</p>${rgShortUniversStats()}
       </div>
     </div>
   </section>`;

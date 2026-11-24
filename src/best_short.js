@@ -1,10 +1,11 @@
 /* ===== MEILLEURS SHORT : note SHORT sur 250 (APE-32, validée par Emmanuel le 24/11/2026) =====
    Note distincte de la note LONG, calculée par src/build_short250.py (data/apex_short.json) :
-   RSI 30 + MACD 30 + CCI 30 + fondamental inversé 81 + Fear & Greed inversé ±50 + hype inversée ±29.
+   RSI 25 + MACD 25 + CCI 25 + fondamental inversé 125 + Fear & Greed inversé ±30 + hype inversée ±20.
    Plus la note est haute, meilleur est le candidat short : tri de la plus haute à la plus basse.
    Entrée : note SHORT ≥ 70/250 ET au moins un signal technique de surachat (RSI, MACD ou CCI ≥ 10 pts) ET filtre Fibonacci (cours au niveau 38,2 % ou au-dessus, ATH et au-delà autorisés).
    Mise (levier ×5) : 100 $ à 70, +20 $ tous les 24 points au-dessus (94, 118, 142, 166), 200 $ max dès 190.
-   Exposition équivalente = mise × 5. Univers : Actions (hors banque) USA/France, Actions bancaires, Énergie.
+   Exposition équivalente = mise × 5. Univers (t534u) : 50 actions NYSE en CFD chez Revolut, RSI hebdo en surachat, santé en dégradation
+   (config/univers_short.json, src/build_univers_short.py) ; plus la watchlist APEX.
    La note LONG n'est pas modifiée.
 */
 const GS_SEUIL=70;
@@ -101,7 +102,8 @@ function gsCollect(){
     return {
       tv:r.tv, nom:r.nom||r.tv, section:GS_CAT[r.categorie]||'', note, display:String(note), hex,
       tab:r.tab||'actions', yahoo:r.yahoo||'', ticker:r.ticker||'', scale:250, ligne:r.ligne||'',
-      montant:mise, expo:gsExpo(mise)
+      montant:mise, expo:gsExpo(mise),
+      cfd:r.cfd_revolut||'', rsiH:r.rsi_hebdo, deg:((r.degradation&&r.degradation.signes)||[]).join(' ; '), palier:r.palier||''
     };
   }).sort((a,b)=> (b.note-a.note) || String(a.tv).localeCompare(String(b.tv)));
 }
@@ -148,7 +150,8 @@ function gsRender(){
     const go=it.tv
       ? `<button type="button" class="gi-link gs-link" data-tab="${(it.tab||'').replace(/"/g,'')}" data-tv="${String(it.tv).replace(/"/g,'&quot;')}" title="${String(it.nom||it.tv).replace(/"/g,'&quot;')}">${String(label).replace(/</g,'')}</button>`
       : `<span class="pos-nm" title="${String(it.nom||'').replace(/"/g,'&quot;')}">${(it.nom||'').replace(/</g,'')}</span>`;
-    const tip=[it.nom,it.tv,it.section,it.ligne?('SHORT : '+it.ligne):'', (mise!=null?('Mise '+mise+' $ (levier ×5) · exposition '+(expo)+' $'):'')].filter(Boolean).join(' · ');
+    const tip=[it.nom,it.tv,it.section,it.ligne?('SHORT : '+it.ligne):'', (mise!=null?('Mise '+mise+' $ (levier ×5) · exposition '+(expo)+' $'):''),
+      (it.rsiH!=null?('RSI hebdo '+String(it.rsiH).replace('.',',')):''), (it.deg?('Dégradation : '+it.deg):''), (it.cfd?('CFD Revolut : '+it.cfd):'')].filter(Boolean).join(' · ');
     const cp=it.tv?((typeof ophirCopyBtn==='function')?ophirCopyBtn(it.tv):`<button type="button" class="cp" data-c="${String(it.tv).replace(/"/g,'&quot;')}" aria-label="Copier ${String(it.tv).replace(/"/g,'&quot;')}" title="Copier ${String(it.tv).replace(/"/g,'&quot;')}">⎘</button>`):'';
     const ev=it.tv
       ? `<div class="gi-acts"><button type="button" class="gi-elliott gs-elliott" data-tv="${String(it.tv).replace(/"/g,'&quot;')}" title="Retirer : vague Elliott non propice au short" aria-label="Retirer : vague Elliott non propice au short">E</button><button type="button" class="gi-pattern gs-pattern" data-tv="${String(it.tv).replace(/"/g,'&quot;')}" title="Pattern haussier : retirer jusqu'au 1er du mois" aria-label="Pattern haussier : retirer jusqu'au 1er du mois">P</button><button type="button" class="gi-valid gs-valid${checked?' is-on':''}" data-tv="${String(it.tv).replace(/"/g,'&quot;')}" title="${checked?'Retirer de Validés (erreur)':'Validé : déjà entré en short'}" aria-label="${checked?'Retirer de Validés':'Validé'}" aria-pressed="${checked?'true':'false'}">✓</button>${cp}</div>`
@@ -198,6 +201,8 @@ function gsRender(){
   }
   card.querySelectorAll('.gs-link').forEach(b=>b.addEventListener('click',()=>{
     if(window.matchMedia('(max-width:1099px)').matches) gsSetListOpen(false);
+    /* t534u : univers SHORT propre (hors watchlist APEX) → pas de fiche sur le site : graphique TradingView. */
+    if(b.dataset.tab==='short'){ window.open('https://www.tradingview.com/chart/?symbol='+encodeURIComponent(b.dataset.tv),'_blank','noopener'); return; }
     if(typeof posOpenFiche==='function') posOpenFiche(b.dataset.tab,b.dataset.tv);
   }));
   card.querySelectorAll('.gs-elliott').forEach(b=>b.addEventListener('click',e=>{
