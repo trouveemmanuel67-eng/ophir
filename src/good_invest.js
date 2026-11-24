@@ -328,6 +328,12 @@ function giSetListOpen(on,persist){
   if(persist!==false){ try{ localStorage.setItem(GI_LIST_KEY, on?'1':'0'); }catch(e){} }
   if(typeof posSyncListChrome==='function') posSyncListChrome(typeof posListIsOpen==='function'&&posListIsOpen());
 }
+function giTickerCourt(tv){
+  if(!tv) return '';
+  const s=String(tv);
+  const i=s.lastIndexOf(':');
+  return i>=0?s.slice(i+1):s;
+}
 function giRender(){
   const host=document.getElementById('mes-pos');
   if(!host) return;
@@ -339,9 +345,10 @@ function giRender(){
     const col=it.scale===250||it.scale===270?(it.hex||((typeof pilotHex==='function')?pilotHex({total:it.note}):'#e6c27a')):((typeof ttColor==='function')?ttColor(it.note):(it.hex||'#e6c27a'));
     const note=it.display||String(it.note).replace('.',',');
     const amt=(typeof ttMontantTxt==='function')?ttMontantTxt(it.montant, (typeof TT!=='undefined'&&TT&&TT.unite)||'$'):(it.montant==null?'—':it.montant+' $');
+    const label=it.tv?giTickerCourt(it.tv):(it.nom||'');
     const go=it.tv
-      ? `<button type="button" class="gi-link" data-tab="${(it.tab||'').replace(/"/g,'')}" data-tv="${String(it.tv).replace(/"/g,'&quot;')}">${(it.nom||it.tv).replace(/</g,'')}</button>`
-      : `<span class="pos-nm">${(it.nom||'').replace(/</g,'')}</span>`;
+      ? `<button type="button" class="gi-link" data-tab="${(it.tab||'').replace(/"/g,'')}" data-tv="${String(it.tv).replace(/"/g,'&quot;')}" title="${String(it.nom||it.tv).replace(/"/g,'&quot;')}">${String(label).replace(/</g,'')}</button>`
+      : `<span class="pos-nm" title="${String(it.nom||'').replace(/"/g,'&quot;')}">${(it.nom||'').replace(/</g,'')}</span>`;
     const tip=[it.nom,it.tv].filter(Boolean).join(' · ');
     const cp=it.tv?((typeof ophirCopyBtn==='function')?ophirCopyBtn(it.tv):`<button type="button" class="cp" data-c="${String(it.tv).replace(/"/g,'&quot;')}" aria-label="Copier ${String(it.tv).replace(/"/g,'&quot;')}" title="Copier ${String(it.tv).replace(/"/g,'&quot;')}">⎘</button>`):'';
     const ev=it.tv

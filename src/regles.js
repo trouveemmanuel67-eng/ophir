@@ -615,8 +615,10 @@ function rgCard(id, label, ruleHtml, pts){
 }
 function rgMetauxChamp(){
   const mx=(RG&&RG.apex_metaux)||{};
-  if(mx.champ_application) return String(mx.champ_application);
-  return "Ce règlement s'applique à l'or, l'argent, le platine, le palladium, à leurs ETC et ETF physiques, et aux métaux au comptant. Les minières, si un fondamental est disponible, reçoivent 50 % de fondamental et 50 % de technique. Les ETC, les contrats à terme et les métaux au comptant n'ont pas de fondamental : le technique est renormalisé à 100 %, sans redistribuer le poids de l'Elliott retiré. La note affichée d'une ligne (Or, Argent, Platine, Palladium) est la moyenne des notes /100 des instruments visibles, hors titres sans note. Les signaux sont calculés sur le contrat à terme continu Yahoo, avec DBC comme référence de force relative. Les vagues d'Elliott et la figure chartiste n'entrent pas dans la note. Il n'y a pas de Fear & Greed CNN dans cette note.";
+  if(mx.intro_courte) return String(mx.intro_courte);
+  const na=(RG&&RG.note_apex)||{};
+  const amp=rgAmp();
+  return 'Or, argent, platine, palladium, leurs ETC et ETF. Note '+rgNum(na.note_min!=null?na.note_min:0)+' à '+rgNum(na.note_max!=null?na.note_max:100)+', base '+rgNum(amp.base)+'.';
 }
 function rgMetauxScale(){
   const na=(RG&&RG.note_apex)||{};
@@ -624,88 +626,56 @@ function rgMetauxScale(){
   const hi=na.note_max!=null?Number(na.note_max):100;
   return {min:lo, max:hi, label: rgFmtScaleBound(lo)+' à '+rgFmtScaleBound(hi)};
 }
-function rgMetauxRules(){
+function rgMetauxRulesShort(){
+  /* t463u : une ligne par critère, mêmes seuils que le code, format du tableau Actions. */
+  const mx=(RG&&RG.apex_metaux)||{};
+  const cfg=mx.regles_courtes||{};
   const na=(RG&&RG.note_apex)||{};
-  const rsi=na.rsi||{};
-  const macd=na.macd||{};
-  const cci=na.cci||{};
-  const ell=(RG&&RG.elliott)||{};
-  const fib=(RG&&RG.fibonacci)||{};
-  const fibRule="Retracement sur les corps des bougies hebdomadaires clôturées (jamais les mèches) : 2/3 historique (plus bas historique → plus haut historique) + 1/3 dernier mouvement (plus haut des 52 dernières semaines, plus bas des 52 semaines précédant ce sommet). Position r = (haut − cours) / (haut − base). Note interpolée : 0 % −80 ; 23,6 % −40 ; 38,2 % 0 ; 50 % +40 ; 61,8 % +80 ; 78,6 % +100 ; 100 % +80. Si l'une des deux lectures manque, on retient l'autre.";
-  const ellBonus=ell.bonus_seulement_manuel!==false
-    ?(" Bonus +"+rgNum(ell.bonus_entry!=null?ell.bonus_entry:5)+" / +"+rgNum(ell.bonus_conf!=null?ell.bonus_conf:10)+" sur la note entière uniquement si le décompte est manuel (fin de vague 2, 4 ou C, confirmée ou non).")
-    :"";
-  const ellPlafond=(ell.plafond_sur_note_entiere===false || ell.plafond_rouge==null)
-    ?" Pas de plafond Elliott sur la note entière (le critère retire déjà des points en zone rouge)."
-    :"";
-  const ellRule="Barème −100 à +100, + = achat, sur bougies hebdomadaires clôturées (corps seulement). Fin de vague C confirmée +100 ; fin de vague 2 ou 4 confirmée +80 ; fin de vague 2, 4 ou C / vague C en cours +60 ; vague 4 en cours +20 ; vague 2 en cours +10 ; indéterminé, vague 1 ou 3 : 0 ; impulsion baissière −50 ; vagues A et B / début de vague 5 : −60 ; vague 5 en cours −80. Note du critère = barème × (0,5 + 0,5 × confiance). Zones vertes d'entrée : fin de vague 2, fin de vague 4, vague C. Zones rouges (aucune entrée) : vagues 1, 3, 5, A et B."+ellPlafond+ellBonus;
-  const structRule="Moyenne à parts égales de trois lectures hebdomadaires : tendance (écart à la moyenne mobile 40 semaines et pente de cette moyenne sur 5 semaines) ; plus hauts et plus bas sur deux fenêtres de 13 semaines (plus hauts et plus bas plus hauts +100, plus hauts et plus bas plus bas −100, expansion +25, compression −25, mixte 0) ; position par rapport à l'ATH des corps (même barème que la distance au plus haut : ≥ −2 % → −60 ; de −2 % à −12 % : de −60 à +60 ; de −12 % à −25 % → +60 ; au-delà, retour vers 0).";
+  const cy=(RG&&RG.cyan)||{};
+  const gi=(RG&&RG.good_invest)||{};
+  const tt=(RG&&RG.template_trade)||{};
+  const unite=tt.unite||'$';
+  const fondSeuil=rgNum(na.fond_seuil!=null?na.fond_seuil:40);
+  const fondPen=rgNum(na.fond_pen_max!=null?na.fond_pen_max:20);
   return {
-    elliott:ellRule,
-    structure:structRule,
-    fibonacci:fibRule,
-    rsi:rsi.regle||'',
-    macd:macd.regle||'',
-    cci:cci.regle||''
+    structure: cfg.structure||'',
+    fibonacci: cfg.fibonacci||'',
+    rsi: cfg.rsi||'',
+    macd: cfg.macd||'',
+    cci: cfg.cci||'',
+    fond: cfg.fond||('Minières seulement, si disponible. Pénalité si < '+fondSeuil+' /100, plafonnée à '+fondPen),
+    gi: '≥ '+rgNum(gi.seuil!=null?gi.seuil:75)+' /100'+(gi.hors_portefeuille?', hors portefeuille':'')+'. '+rgNum(tt.base_note!=null?tt.base_note:75)+' = '+rgNum(tt.base_montant!=null?tt.base_montant:500)+'\u00a0'+unite+' ; +'+rgNum(tt.pas_montant!=null?tt.pas_montant:100)+'\u00a0'+unite+' par palier de '+rgNum(tt.pas_note!=null?tt.pas_note:5),
+    cyan: 'Note ≥ '+rgNum(cy.note_min!=null?cy.note_min:80)+' : AV ≥ +'+rgNum(cy.av_achat_fort!=null?cy.av_achat_fort:60)+' et divergence haussière hebdo ; sinon plafond '+rgNum(cy.plafond_sans_confirmation!=null?cy.plafond_sans_confirmation:75)
   };
 }
 function rgMetauxGrid(){
   const na=(RG&&RG.note_apex)||{};
   const amp=rgAmp();
-  const ordre=['structure','fibonacci','rsi','macd','cci']; /* t461u : Elliott retiré, poids non redistribué */
-  const labels={elliott:"Vagues d'Elliott",structure:'Structure',fibonacci:'Retracement de Fibonacci',rsi:'RSI 14 hebdo',macd:'MACD 12/26/9 hebdo',cci:'CCI 20 hebdo (corps)'};
-  const rules=rgMetauxRules();
+  const ordre=['structure','fibonacci','rsi','macd','cci']; /* t461u : hors critère elliott, poids conservé au dénominateur */
+  const labels={structure:'Structure',fibonacci:'Fibonacci',rsi:'RSI',macd:'MACD',cci:'CCI'};
+  const rules=rgMetauxRulesShort();
   const techCards=ordre.map(id=>{
     const pts=rgTechPtsMax(id, true);
     return rgCard(id, labels[id]||id, rgEsc(rules[id]||''), pts!=null?rgFmtPts(pts):'—');
   }).join('');
   const techNote=ordre.map(id=>{
     const pts=rgTechPtsMax(id, true);
-    const short=id==='elliott'?'Elliott':(id==='structure'?'Struct.':(id==='fibonacci'?'Fibo':id.toUpperCase()));
+    const short=id==='structure'?'Struct.':(id==='fibonacci'?'Fibo':id.toUpperCase());
     return short+' '+(pts!=null?rgFmtPts(pts):'—');
   }).join(' · ');
   const elliottPts=rgTechPtsMax('elliott', true);
   const techSum=(elliottPts!=null&&Number.isFinite(elliottPts))?(amp.totale-elliottPts):amp.totale;
   const fondMax=rgPtsMax(Number(na.poids_fondamental!=null?na.poids_fondamental:0.5));
-  const fondRule="Uniquement les minières, et seulement si un fondamental est disponible dans la base (score santé / croissance 0–100). Ce score est converti en écart signé autour de 50, puis en points (poids 50 %, amplitude × 1,5, soit ±"+rgNum(fondMax)+" points). Si le fondamental est inférieur à "+rgNum(na.fond_seuil!=null?na.fond_seuil:40)+" / 100, une pénalité proportionnelle est retranchée de la note, plafonnée à "+rgNum(na.fond_pen_max!=null?na.fond_pen_max:20)+" points. Les ETC, les contrats et les métaux au comptant n'ont pas de fondamental : le technique est alors renormalisé à 100 % (points ci-dessus).";
-  const fondCards=rgCard('fond','Fondamental (minières, si disponible)',rgEsc(fondRule), fondMax!=null?rgFmtPts(fondMax):'—');
+  const fondCards=rgCard('fond','Fondamental (minières)',rgEsc(rules.fond||''), fondMax!=null?rgFmtPts(fondMax):'—');
   const cy=(RG&&RG.cyan)||{};
   const gi=(RG&&RG.good_invest)||{};
-  const tt=(RG&&RG.template_trade)||{};
-  const bands=((RG&&RG.couleurs&&RG.couleurs.bandes)||[]);
-  const scale=bands.map(b=>{
-    const lo=String(b.min).replace('.',',');
-    const hi=String(b.max).replace('.',',');
-    return `<li class="rg-band"><i style="background:${rgEsc(b.hex||'#888')}"></i><b>${lo}–${hi}</b> ${rgEsc(b.site)}</li>`;
-  }).join('');
-  const couleursRule=bands.length
-    ?`<p class="rg-p">Cinq tranches égales de 20 points, d'après la note APEX /100 affichée.</p><ul class="rg-bands">${scale}</ul>`
-    :'';
-  const giBits=['Note APEX ≥ '+rgNum(gi.seuil!=null?gi.seuil:75)+'/100'];
-  if(gi.hors_portefeuille) giBits.push('hors portefeuille');
-  /* t461u : plus d'exclusion « zone Elliott rouge » pour les métaux. */
-  if(gi.inclut_ventes_en_attente) giBits.push('une vente en attente reste considérée comme détenue');
-  const unite=tt.unite||'$';
-  const montantRule="Seuil "+rgNum(tt.base_note!=null?tt.base_note:75)+" = "+rgNum(tt.base_montant!=null?tt.base_montant:500)+"\u00a0"+rgEsc(unite)+" · puis +"+rgNum(tt.pas_montant!=null?tt.pas_montant:100)+"\u00a0"+rgEsc(unite)+" par palier de "+rgNum(tt.pas_note!=null?tt.pas_note:5)+" points · jusqu'à "+rgNum(tt.max_note!=null?tt.max_note:100)+" = "+rgNum(tt.max_montant!=null?tt.max_montant:1000)+"\u00a0"+rgEsc(unite)+" ("+rgEsc(tt.devise||'USD')+").";
-  const sentRule="Pas de Fear & Greed CNN dans la note /100. Le sentiment APEX (0 = peur, 100 = euphorie) est un indice d'onglet, hors de cette note ; une lecture contrarienne du sentiment entre dans le bandeau Achat / Vente, pas dans la note affichée.";
-  const cyanRule="Une note ≥ "+rgNum(cy.note_min!=null?cy.note_min:80)+" exige un Achat / Vente ≥ +"+rgNum(cy.av_achat_fort!=null?cy.av_achat_fort:60)+" et une confirmation par divergence haussière hebdomadaire (plus de condition Elliott). Sinon la note est plafonnée à "+rgNum(cy.plafond_sans_confirmation!=null?cy.plafond_sans_confirmation:75)+".";
+  const entreesCards=[
+    rgCard('gi','Meilleures entrées',rgEsc(rules.gi), '≥ '+rgNum(gi.seuil!=null?gi.seuil:75)),
+    rgCard('cyan','Portail cyan',rgEsc(rules.cyan), cy.plafond_sans_confirmation!=null?rgNum(cy.plafond_sans_confirmation):'75')
+  ].join('');
   const note=rgMetauxChamp();
   const noteHtml=note?`<p class="rg-p rg-app">${rgEsc(note)}</p>`:'';
-  const mx=(RG&&RG.apex_metaux)||{};
-  const effet=mx.effet_echelle?`<p class="rg-p">${rgEsc(mx.effet_echelle)}</p>`:'';
-  const effetAv=mx.effet_echelle_av?`<p class="rg-p">${rgEsc(mx.effet_echelle_av)}</p>`:'';
-  const avRule="Dans le bandeau Achat / Vente des métaux uniquement, les vagues d'Elliott (15 %) sont retirées, sans redistribuer leur poids aux autres composantes (le 15 % reste un trou dans le dénominateur). RSI et MACD sont lus à contre-courant ; le CCI compte toujours, y compris à 0. Le plafond « au mieux Neutre » en zone Elliott rouge ne s'applique plus à ce bandeau. Les autres classes (obligations, énergie, crypto, etc.) gardent le barème inchangé.";
-  const baseHtml=`<p class="rg-p">Note = base ${rgNum(amp.base)} + points signés (amplitude technique typique ±${rgNum(techSum)}, Elliott retiré sans redistribution), ramenée entre ${rgNum((na.note_min!=null)?na.note_min:0)} et ${rgNum((na.note_max!=null)?na.note_max:100)}. Les points techniques ci-dessous sont ceux du cas le plus fréquent pour les métaux : sans fondamental, technique renormalisé à 100 % sans redistribuer le poids d'Elliott.</p>${effet}${effetAv}`;
-  const wrapCss=`<style>
-#rg-table-metaux .rg-card,#rg-table-metaux .rg-card-name,#rg-table-metaux .rg-card-rule{white-space:normal;overflow-wrap:break-word;word-break:break-word;}
-#rg-table-metaux .rg-card{grid-template-columns:4.4em minmax(0,1fr);align-items:start;padding:8px 10px;white-space:normal;}
-#rg-table-metaux .rg-card-pts{grid-column:1;}
-#rg-table-metaux .rg-card-name{grid-column:2;white-space:normal;}
-#rg-table-metaux .rg-card-rule{grid-column:1/-1;margin-top:4px;line-height:1.45;}
-#rg-table-metaux .rg-group-note{white-space:normal;}
-#rg-table-metaux .rg-bands{margin:6px 0 0;padding:0;list-style:none;}
-</style>`;
-  return `${wrapCss}${noteHtml}${baseHtml}<div class="rg-board" id="rg-table-metaux">
+  return `${noteHtml}<div class="rg-board" id="rg-table-metaux">
     <section class="rg-block" data-group="technique">
       <header class="rg-block-h">
         <div class="rg-block-title">Technique <span class="rg-group-note">${techNote}</span></div>
@@ -720,28 +690,11 @@ function rgMetauxGrid(){
       </header>
       <div class="rg-cards rg-cards-span">${fondCards}</div>
     </section>
-    <section class="rg-block" data-group="sentiment">
+    <section class="rg-block" data-group="entree">
       <header class="rg-block-h">
-        <div class="rg-block-title">Sentiment</div>
-        <span class="rg-block-pts">hors note</span>
+        <div class="rg-block-title">Entrée</div>
       </header>
-      <div class="rg-cards rg-cards-span">${rgCard('sentiment','Pas de Fear & Greed',rgEsc(sentRule),'—')}</div>
-    </section>
-    <section class="rg-block" data-group="application">
-      <header class="rg-block-h">
-        <div class="rg-block-title">Couleurs, entrée et montant</div>
-      </header>
-      <div class="rg-cards rg-cards-span">
-        ${rgCard('av','Bandeau Achat / Vente',rgEsc(avRule),'±85')}
-        <article class="rg-card" data-id="couleurs">
-          <span class="rg-card-pts">/100</span>
-          <h3 class="rg-card-name">Couleurs</h3>
-          <div class="rg-card-rule">${couleursRule}</div>
-        </article>
-        ${rgCard('cyan','Portail cyan',rgEsc(cyanRule), cy.plafond_sans_confirmation!=null?rgNum(cy.plafond_sans_confirmation):'75')}
-        ${rgCard('gi','Meilleures entrées',rgEsc(giBits.join(' · ')+'.'), '≥ '+rgNum(gi.seuil!=null?gi.seuil:75))}
-        ${rgCard('montant','Montant d\'entrée',montantRule, rgNum(tt.base_montant!=null?tt.base_montant:500)+'\u00a0'+(tt.unite||'$'))}
-      </div>
+      <div class="rg-cards rg-cards-span">${entreesCards}</div>
     </section>
   </div>`;
 }
@@ -763,8 +716,15 @@ function rgPageHTML(){
     </header>
     <div class="rg-page-body">
       <div class="rg-page-main">
-        ${sections.map(rgSectionAccordion).join('')}
-        ${rgCommons()}
+        <div class="rg-pane rg-pane-long" id="rg-pane-long">
+          <h2 class="rg-pane-h">LONG</h2>
+          ${sections.map(rgSectionAccordion).join('')}
+          ${rgCommons()}
+        </div>
+        <div class="rg-pane rg-pane-short" id="rg-pane-short">
+          <h2 class="rg-pane-h">SHORT</h2>
+          <p class="rg-p rg-short-empty">Règles SHORT à définir</p>
+        </div>
       </div>
     </div>`;
 }

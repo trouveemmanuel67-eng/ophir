@@ -4,17 +4,31 @@ IND.metaux=MT.ind; AV.metaux=MT.av;
 const MET_C={cc:'met',nom:'métaux précieux',bench:MT.bench,bench_nom:MT.bench_nom,bench_url:MT.bench_url,rows:MT.rows};
 const MCOL={or:'#e6c27a',argent:'#c9d1d9',platine:'#a9cdf5',palladium:'#c9a7ff'};
 const mUsd=v=>fmt(v,v<100?2:0)+' $',mEur=v=>fmt(v,v<100?2:0)+' €';
+function mInstTip(r){
+  if(!r) return '';
+  const parts=[];
+  if(r.kind_nom) parts.push(r.kind_nom+(r.hedged?' (couvert en euros)':''));
+  if(r.isin) parts.push('ISIN '+r.isin);
+  if(r.ter_note) parts.push(r.ter_note);
+  else if(r.ter!=null) parts.push('TER '+String(r.ter).replace('.',',')+' %');
+  if(r.currency) parts.push('cotation '+r.currency);
+  if(r.note_revolut) parts.push(r.note_revolut);
+  return parts.join(' · ').replace(/"/g,'&quot;');
+}
+function mRow(r,k,principal){
+  const tip=mInstTip(r);
+  const badge=principal?'<span class="fl-prin">principal</span>':'';
+  return `<li class="fl-row"${r.tv?` data-pos-tv="${r.tv}"`:''}><div class="fl-id"${tip?` title="${tip}"`:''}><span class="fl-rk">${k+1}</span><b>${r.name}</b>${badge}${tvTag(r.tv)}${typeof posBadges==='function'?posBadges(r.tv):''}${typeof dispoBadge==='function'?dispoBadge(r.tv):''}</div>${listApexBar(Object.assign({},r,{forceApex100:true}))}</li>`;
+}
 function mList(C,s){
   const L=s.mlist,h=L.head;
-  const li=(r,k)=>`<li${r.tv?` data-pos-tv="${r.tv}"`:''}><div class="fl-h"><b>${k+1}. ${r.name}</b></div>
-     ${tvTag(r.tv)}${typeof posBadges==='function'?posBadges(r.tv):''}${typeof dispoBadge==='function'?dispoBadge(r.tv):''}${listApexBar(r)}<div class="fl-m"><span><i>Type</i> ${r.kind_nom}${r.hedged?' (couvert en euros)':''}</span>${r.isin?`<span><i>ISIN</i> ${r.isin}</span>`:''}${r.ter_note?`<span><i>Frais</i> ${r.ter_note}</span>`:(r.ter!=null?`<span><i>Frais</i> TER ${String(r.ter).replace('.',',')} %</span>`:'')}<span><i>Cotation</i> ${r.currency||'—'}</span></div>${r.note_revolut?`<div class="fl-sub">${r.note_revolut}</div>`:''}</li>`;
+  const rest=apexSortByNote(L.items||[]);
+  const rows=[h?mRow(h,0,true):''].concat(rest.map((r,i)=>mRow(r,h?i+1:i,false))).join('');
   return `<details class="ind-meth sec-list"><summary>ETC principal + ${L.items.length} instruments</summary>
-   ${s.note_revolut?`<div class="note">${s.note_revolut}</div>`:''}
-   ${s.apex10&&s.apex10.cap==='moyenne'?`<div class="note">Note APEX /100 de la ligne : moyenne de ${s.apex10.n_moy} instrument${s.apex10.n_moy>1?'s':''} noté${s.apex10.n_moy>1?'s':''} = ${s.apex10.display}/100. Note du contrat à terme seul : ${(s.apex10_futur&&s.apex10_futur.display)||'—'} /100 (les barres Achat/Vente et Sentiment restent celles du contrat).</div>`:''}
-   ${h?`<div class="fl-etf"><span class="fl-k">ETC principal</span><b>${h.name}</b>${tvTag(h.tv)}${typeof dispoBadge==='function'?dispoBadge(h.tv):''}<span class="sec-d" style="text-align:left">${h.kind_nom}${h.hedged?' (couvert en euros)':''}${h.isin?' · ISIN '+h.isin:''}${h.ter_note?' · '+h.ter_note:(h.ter!=null?' · TER '+String(h.ter).replace('.',',')+' %':'')} · cotation ${h.currency}</span>${listApexBar(h)}</div>`:'<div class="sr-ncm">ETC principal : aucun ETC de ce métal disponible chez Revolut (vérification du 17/11/2026)</div>'}
-   <ol class="fl">${apexSortByNote(L.items).map(li).join('')}</ol>
+   ${h?'':`<div class="sr-ncm">ETC principal : aucun ETC de ce métal disponible chez Revolut (vérification du 17/11/2026)</div>`}
+   <ol class="fl fl-pilot">${rows}</ol>
    ${L.list_note?`<div class="note">${L.list_note}</div>`:(L.items.length<5?`<div class="note">Seulement ${L.items.length} instrument${L.items.length>1?'s':''} retenu${L.items.length>1?'s':''} : les instruments non disponibles chez Revolut ont été retirés (règle APEX du 17/11/2026) ; les autres candidats n'avaient pas d'historique Yahoo exploitable ou de symbole TradingView vérifié.</div>`:'')}
-   <div class="sec-d" style="text-align:left">Ordre de la liste : métal au comptant (s'il est listé), autres ETC physiques, puis jusqu'à deux minières. ${L.miner_note} Score minières = 50 % santé financière + 50 % croissance prévue (mêmes critères que les secteurs actions). Les ETC sont des titres de créance émis par une société dédiée et adossés à du métal stocké en coffre : ce ne sont pas des fonds UCITS. ETC, ETF de minières et minières étrangères ne sont pas éligibles au PEA (compte-titres). Risques : prix du métal en dollars, change EUR/USD (sauf part couverte), émetteur de l'ETC ; pour les minières, risques d'exploitation et de pays.</div>
+   <div class="sec-d" style="text-align:left">L'ETC principal est la ligne 1 ; les autres instruments suivent par note /100 (métal au comptant, ETC physiques, puis jusqu'à deux minières). ${L.miner_note} Score minières = 50 % santé financière + 50 % croissance prévue (mêmes critères que les secteurs actions). Les ETC sont des titres de créance émis par une société dédiée et adossés à du métal stocké en coffre : ce ne sont pas des fonds UCITS. ETC, ETF de minières et minières étrangères ne sont pas éligibles au PEA (compte-titres). Risques : prix du métal en dollars, change EUR/USD (sauf part couverte), émetteur de l'ETC ; pour les minières, risques d'exploitation et de pays.</div>
   </details>`;
 }
 function renderMetaux(el){
@@ -76,11 +90,16 @@ function renderMetaux(el){
   const cm=merge(K.map(k=>C.cot[k]));
   lineChart('cMtC',cm.labels.map(dshort),K.map((k,j)=>({label:NM[k],data:cm.data[j],borderColor:MCOL[k],borderWidth:1.3})),{unit:' %',dec:1,ticks:8});
   // section Métaux (lignes AV / S)
-  const S=apexSortByNote(MT.rows),cnt=z=>S.filter(s=>s.av.label.includes(z)).length,d=S[0].date;
+  const S=apexSortByNote(MT.rows),cnt=z=>S.filter(s=>s.av&&s.av.label&&s.av.label.includes(z)).length,d=S[0].date;
+  const hi=S.reduce((a,b)=>b.sent.value>a.sent.value?b:a),lo=S.reduce((a,b)=>b.sent.value<a.sent.value?b:a);
+  const stMt=(typeof sectionApexAvg==='function')?sectionApexAvg('metaux'):null;
+  const a10=(stMt&&stMt.apex10)||null;
+  const disp=a10?(a10.display!=null?String(a10.display):(a10.note!=null?String(a10.note):'')):'';
+  const apexTag=a10&&disp?`<span class="js-apex10" hidden data-display="${disp}" data-hex="${a10.hex||''}" data-note="${a10.note!=null?a10.note:disp}" data-scale="100"></span>`:'';
   const c=document.createElement('div');c.className='card no-group met-card';
   c.innerHTML=`<h2>Métaux · sentiment et achat / vente</h2>
-   <div class="desc acc-sum">4 métaux · au ${dshort(d)} · ${S.map(s=>`<i>${s.nom}</i> <b>${s.av.label} ${sign(s.av.score,0)} · S ${fmt(s.sent.value,0)}</b>`).join(' · ')}</div>
-   <div class="sec-grid">${srHead('Métal · contrat de référence')}${S.map(s=>pTile(MET_C,s,MT.rows.indexOf(s))).join('')}</div>
+   <div class="desc acc-sum">${apexTag}4 métaux · au ${dshort(d)} · <i>Achat</i> <b>${cnt('Achat')}</b> · <i>Neutre</i> <b>${cnt('Neutre')}</b> · <i>Vente</i> <b>${cnt('Vente')}</b> · <i>sentiment max</i> <b>${hi.nom} ${fmt(hi.sent.value,0)}</b> · <i>min</i> <b>${lo.nom} ${fmt(lo.sent.value,0)}</b></div>
+   <div class="sec-grid">${srHead('Métal · contrat de référence', 100)}${S.map(s=>pTile(MET_C,s,MT.rows.indexOf(s))).join('')}</div>
    <details class="ind-meth"><summary>Méthode et pondérations</summary>
     <p><b>Sentiment Peur / Euphorie (0-100).</b> ${apexPlain(SEC.method_sent.replace(/S&P 500/g,'DBC'))}</p>
     <p><b>Achat / Vente (−100 à +100).</b> ${apexPlain(SEC.method_av.replace(/S&P 500/g,'DBC'))}</p>

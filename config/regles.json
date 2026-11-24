@@ -1871,6 +1871,15 @@
     "av_sans_elliott": true,
     "av_ne_pas_redistribuer_elliott": true,
     "av_pas_plafond_zone_rouge": true,
-    "effet_echelle_av": "Le retrait des vagues d'Elliott (15 %) du bandeau Achat / Vente, sans redistribution, ramène l'amplitude typique de ±100 à ±85 lorsque toutes les autres composantes (y compris la divergence 10 %) sont comptées. Si la divergence est absente (elle n'est déjà pas comptée, et son poids est alors hors du dénominateur, comme avant), le plafond typique est ±83,3. Le seuil +60 du portail cyan reste atteignable : il faut un score moyen d'environ +70,6 sur les 85 % restants (ou +72 sur les 75 % restants si la divergence n'est pas comptée). L'échelle affichée du bandeau reste −100 à +100."
+    "effet_echelle_av": "Le retrait des vagues d'Elliott (15 %) du bandeau Achat / Vente, sans redistribution, ramène l'amplitude typique de ±100 à ±85 lorsque toutes les autres composantes (y compris la divergence 10 %) sont comptées. Si la divergence est absente (elle n'est déjà pas comptée, et son poids est alors hors du dénominateur, comme avant), le plafond typique est ±83,3. Le seuil +60 du portail cyan reste atteignable : il faut un score moyen d'environ +70,6 sur les 85 % restants (ou +72 sur les 75 % restants si la divergence n'est pas comptée). L'échelle affichée du bandeau reste −100 à +100.",
+    "intro_courte": "Or, argent, platine, palladium, leurs ETC et ETF. Note 0 à 100, base 50.",
+    "regles_courtes": {
+      "structure": "Parts égales : MM40 ±8 %, pente 5 s. ±2 % ; PH/PB 13 s. +100/−100/+25/−25 ; ATH ≥ −2 % −60, −2…−12 % −60…+60, −12…−25 % +60, au-delà → 0",
+      "fibonacci": "2/3 historique + 1/3 dernier mvt (corps hebdo, 52 s.). 0 % −80 ; 23,6 % −40 ; 38,2 % 0 ; 50 % +40 ; 61,8 % +80 ; 78,6 % +100 ; 100 % +80",
+      "rsi": "Contrarien : RSI 30 = +100 ; 50 = 0 ; 70 = −100",
+      "macd": "Contrarien : sous 0 et signal +70 ; sous 0 +40 ; dessus 0 sous signal −40 ; dessus 0 −70 ; +30 retournement sous 0 ; −30 si ≥ 4 barres + dessus 0",
+      "cci": "≤ −100 : +80 (≤ −200 : +100) ; ≥ +100 : −80 (≥ +200 : −100) ; sinon 0, toujours compté",
+      "fond": "Minières seulement, si disponible. Pénalité si < 40 /100, plafonnée à 20"
+    }
   }
 }

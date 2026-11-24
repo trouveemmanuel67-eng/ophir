@@ -44,10 +44,16 @@ function pTile(C,s,i){
   const id=C.cc+'_'+i;
   if(!s.covered) return `<div class="sec sec-nc"><div class="sr"><div class="sr-c sec-h sr-n"><b>${s.nom}</b><span>non couvert</span></div><div class="sr-c sr-d"><div class="sr-ncm">${s.why}</div></div><div class="sr-c sr-b"></div></div></div>`;
   const [sc,ac]=pComps(s);
+  const metTip=C.cc==='met'?(function(){
+    const parts=[];
+    if(s.apex10&&s.apex10.cap==='moyenne') parts.push('Note APEX /100 : moyenne de '+(s.apex10.n_moy||'')+' instrument'+(s.apex10.n_moy>1?'s':'')+' = '+(s.apex10.display||'—')+'/100. Note du contrat à terme seul : '+((s.apex10_futur&&s.apex10_futur.display)||'—')+' /100 (les curseurs AV Achat/Vente et S Sentiment restent ceux du contrat).');
+    if(s.note_revolut) parts.push(s.note_revolut);
+    return parts.join(' ').replace(/"/g,'&quot;');
+  })():'';
   return `<div class="sec${s.head?' sec-head':''}">
    <div class="sr">
-    <div class="sr-c sec-h sr-n"><b>${s.nom}</b>${s.head?'':`<span class="pilot-badge">APEX ACHAT −50 à 250</span>`}<span>${s.kind==='basket'?'Panier APEX · '+s.basket.length+' grandes capitalisations, pondérées (plafond 25 %)':(s.sym.startsWith('^')?s.sym+' · ':s.sym.split('.')[0]+' · ')+s.etf}</span>${srWarn(s)}</div>
-    ${(()=>{const p=pSecOf(C,s); if(p&&p.etf&&p.etf.total!=null) return `<div class="sr-c sr-d">${dualBarPilot(p.etf, true)}</div>`; if(!s.head) return `<div class="sr-c sr-d">${typeof v2Placeholder==='function'?v2Placeholder():''}</div>`; return srCells(s);})()}
+    <div class="sr-c sec-h sr-n"${metTip?` title="${metTip}"`:''}><b>${s.nom}</b>${s.head?'':`<span class="pilot-badge">${C.cc==='met'?'APEX ACHAT 0 à 100':'APEX ACHAT −50 à 250'}</span>`}<span>${s.kind==='basket'?'Panier APEX · '+s.basket.length+' grandes capitalisations, pondérées (plafond 25 %)':(s.sym.startsWith('^')?s.sym+' · ':s.sym.split('.')[0]+' · ')+s.etf}</span>${srWarn(s)}</div>
+    ${(()=>{if(C.cc==='met') return `<div class="sr-c sr-d">${(typeof dualBarApex100==='function')?dualBarApex100(s.apex10,s.sent,s.av,true):''}</div>`; const p=pSecOf(C,s); if(p&&p.etf&&p.etf.total!=null) return `<div class="sr-c sr-d">${dualBarPilot(p.etf, true)}</div>`; if(!s.head) return `<div class="sr-c sr-d">${typeof v2Placeholder==='function'?v2Placeholder():''}</div>`; return srCells(s);})()}
     <div class="sr-c sr-b"></div>
    </div>
    ${s.head?'':(s.mlist?mList(C,s):pList(C,s))}

@@ -452,3 +452,60 @@ function dualBarPilot(rec, compact){
   </div>`;
   return `<div class="apex-block apex-block-pilot apex-block-line${compact?' is-compact':''}">${pilotNoteHTML(rec)}<div class="apex-rest">${bar}</div></div>`;
 }
+/* Barre APEX /100 (métaux) : même présentation que les secteurs, échelle 0 à 100. */
+function apex100NoteHTML(rec){
+  if(!rec||rec.note==null||rec.display==='–') return `<div class="apex10 apex10-na"><b>–</b><small>/ 100</small></div>`;
+  const col=(typeof apex10Col==='function')?apex10Col(rec):(rec.hex||'#e6c27a');
+  const disp=rec.display||fmtApex10(rec.note);
+  return `<div class="apex10" style="color:${col}"><b style="color:${col};text-shadow:0 0 16px ${col}80">${disp}</b><small style="color:${col}">/ 100</small></div>`;
+}
+function apex100Legend(rec,sent,av){
+  const note=(!rec||rec.note==null||rec.display==='–')?'–':(rec.display||fmtApex10(rec.note));
+  const hex=(rec&&(typeof apex10Col==='function'))?apex10Col(rec):(rec&&rec.hex)||'#e6c27a';
+  const bits=[];
+  if(av&&av.score!=null&&av.score!==''){
+    const ac=(typeof gsol==='function')?gsol(typeof avPos==='function'?avPos(av.score):50):hex;
+    bits.push(`<span class="pilot-av"><i class="db-dot db-a" style="color:${ac}">AV</i>Achat/Vente <b class="sc-t" style="color:${ac}">${sign(av.score,0)} ${av.label||''}</b></span>`);
+  }else{
+    bits.push(`<span class="pilot-av"><i class="db-dot db-a" style="color:${hex}">AV</i>Total <b class="sc-t" style="color:${hex}">${note}/100</b></span>`);
+  }
+  if(sent&&sent.value!=null&&sent.value!==''){
+    const scol=(typeof gmir==='function')?gmir(Number(sent.value)):'#888';
+    bits.push(`<span class="pilot-s"><i class="db-dot db-s" style="color:${scol}">S</i>Sentiment <b class="sc-t" style="color:${scol}">${fmt(sent.value,0)} ${sent.label||''}</b></span>`);
+  }
+  const d=rec&&rec.decomp;
+  let tail='';
+  if(d&&d.texte) tail=d.texte;
+  else if(rec&&rec.cap==='moyenne'&&rec.n_moy) tail='moyenne de '+rec.n_moy+' instrument'+(rec.n_moy>1?'s':'');
+  if(tail) bits.push(`<span class="pilot-brk">${tail} → ${note}/100</span>`);
+  else bits.push(`<span class="pilot-brk">→ ${note}/100</span>`);
+  return (typeof pilotLegJoin==='function'?pilotLegJoin(bits):bits.join(''));
+}
+function dualBarApex100(rec,sent,av,compact){
+  const note=rec&&rec.note!=null&&rec.display!=='–'?Number(rec.note):null;
+  const ap=Number.isFinite(note)?Math.max(0,Math.min(100,note)):null;
+  const sv=sent&&sent.value!=null&&sent.value!==''?Number(sent.value):null;
+  const sp=Number.isFinite(sv)?Math.max(0,Math.min(100,sv)):null;
+  const hex=(rec&&(typeof apex10Col==='function'))?apex10Col(rec):(rec&&rec.hex)||'#8a8a8a';
+  const sl=(sent&&sent.label)||'–';
+  const scol=sp!=null?((typeof gmir==='function')?gmir(sp):'#888'):'#888';
+  const ticks=[0,20,40,60,80,100];
+  const tickHTML=ticks.map((v,i)=>{
+    const edge=i===0?' db-e0':(i===ticks.length-1?' db-e1':'');
+    const left=i===ticks.length-1?'':` style="left:${v}%"`;
+    return `<i class="${edge.trim()}"${left}>${v}</i>`;
+  }).join('');
+  const bandTicks=[20,40,60,80].map(p=>`<i class="av-tick" style="left:${p}%"></i>`).join('');
+  const totTxt=note==null?'–':((rec&&rec.display)||fmtApex10(note));
+  const fgTxt=sp!=null?fmt(sv,0):'–';
+  const bar=`<div class="db db-apex100 ${compact?'db-sm':''}" role="img" aria-label="Note APEX ${totTxt} sur 0 à 100 ; Sentiment ${fgTxt} (${sl}) sur 0 à 100">
+   <div class="db-tk db-tk1">${tickHTML}</div>
+   <div class="db-g"><div class="ind-bar"></div>${bandTicks}
+    ${sp!=null?`<div class="db-cur db-s" style="left:${sp}%;color:${scol}" data-p="${sp}" title="S = Sentiment ${fgTxt} · ${sl}">S</div>`:''}
+    ${ap!=null?`<div class="db-cur db-a" style="left:${ap}%;color:${hex}" data-p="${ap.toFixed(1)}" title="AV = note APEX ${totTxt} / 100">AV</div>`:''}
+   </div>
+   <div class="db-leg pilot-leg">${apex100Legend(rec,sent,av)}</div>
+  </div>`;
+  return `<div class="apex-block apex-block-pilot apex-block-line apex-block-100${compact?' is-compact':''}">${apex100NoteHTML(rec)}<div class="apex-rest">${bar}</div></div>`;
+}
+

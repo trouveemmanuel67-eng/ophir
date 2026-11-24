@@ -18,7 +18,9 @@ function srCells(s){
   return `<div class="sr-c sr-d">${dualBar(sent.value,sent.label||'–',av,avObj.label||'–','db-sm',true,s.apex10)}${dec}</div>`;
 }
 function srHead(first,v2){
-  const mid=v2
+  const mid=v2===100||v2==='100'
+    ? `<i class="db-dot db-a">AV</i>Score APEX (0 à 100, échelle du haut) · <i class="db-dot db-s">S</i>Sentiment (0 à 100, échelle du bas)`
+    : v2
     ? `<i class="db-dot db-a">AV</i>Score APEX (−50 à 250, échelle du haut) · <i class="db-dot db-s">S</i>Fear &amp; Greed (0 à 100, échelle du bas)`
     : `<i class="db-dot db-a">AV</i>Achat / Vente (−100 à +100, échelle du haut) · <i class="db-dot db-s">S</i>Sentiment (0 à 100, échelle du bas)`;
   return `<div class="sr sr-hd" aria-hidden="true"><div>${first}</div><div>${mid}</div><div>Détails</div></div>`;

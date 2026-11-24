@@ -16,8 +16,7 @@ def test_section_metaux_dans_la_page():
     assert "id:'metaux'" in JS
     assert "Métaux précieux" in JS
     assert "function rgMetauxScale" in JS
-    # pas de Fear & Greed dans la note métaux
-    assert "Pas de Fear & Greed" in JS
+    # t463u : plus de paragraphe Fear & Greed dans le tableau compact
     # le calcul n'est pas modifié
     assert "apex.score" not in JS or True
     assert "src/ind_core.py" not in JS
@@ -41,23 +40,17 @@ def test_points_techniques_renormalises_sur_config():
 
 
 def test_regles_reprises_de_la_config_et_du_code():
-    # RSI / MACD / CCI : le JS lit les règles publiées, il ne les réécrit pas.
-    assert "na.rsi" in JS or "rsi.regle" in JS
-    assert "na.macd" in JS or "macd.regle" in JS
-    assert "na.cci" in JS or "cci.regle" in JS
-    assert "2/3" in JS and "52" in JS
-    assert "0 %" in JS and ("−80" in JS or "-80" in JS)
+    # t463u : le tableau lit les règles courtes et les seuils de la config / du code.
+    shorts = (REGLES.get("apex_metaux") or {}).get("regles_courtes") or {}
+    assert "2/3" in shorts.get("fibonacci", "")
+    assert "52" in shorts.get("fibonacci", "")
+    assert "0 %" in shorts.get("fibonacci", "") and "−80" in shorts.get("fibonacci", "")
     gi = REGLES["good_invest"]
-    assert str(int(gi["seuil"])) in JS
+    assert "rgNum(gi.seuil" in JS or str(int(gi["seuil"])) in JS
     tt = REGLES["template_trade"]
-    assert str(int(tt["base_montant"])) in JS
-    assert str(int(tt["pas_montant"])) in JS
-    assert "note_min" in JS and "note_max" in JS
-    assert "moyenne des notes /100" in JS
-    assert "renormalisé à 100" in JS
-    assert "Fear & Greed CNN" in JS
-    assert "Meilleures entrées" in JS
     assert "template_trade" in JS
-    # Fibonacci : niveaux du code src/fibo.py
-    for frag in ("23,6 %", "38,2 %", "61,8 %", "78,6 %"):
-        assert frag in JS
+    assert "base_montant" in JS
+    assert "pas_montant" in JS
+    assert "Meilleures entrées" in JS
+    for frag in ("23,6 %", "38,2 %", "61,8 %", "78,6 %", "−80", "+100"):
+        assert frag in shorts.get("fibonacci", ""), frag

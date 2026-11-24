@@ -6,6 +6,9 @@ const APEX_BARS=(function(){
   try{return JSON.parse(el.textContent)||{bars:{}};}catch(e){return {bars:{}};}
 })();
 function listApexBar(r){
+  if(r&&r.forceApex100){
+    return `<div class="fl-apex fl-apex-100">${(typeof dualBarApex100==='function')?dualBarApex100(r.apex10,r.sent,r.av,true):''}</div>`;
+  }
   const prec=(typeof pilotRec==='function')?pilotRec(r&&r.tv):null;
   if(prec&&prec.ok!==false&&prec.total!=null){
     return `<div class="fl-apex fl-apex-pilot">${dualBarPilot(prec, true)}</div>`;

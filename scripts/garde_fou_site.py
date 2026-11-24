@@ -409,7 +409,7 @@ CHECK_REGLES_OPEN_JS = r"""
     })(),
     accOpen: (document.querySelector('#rg-sec-actions .rg-acc-btn')||{}).getAttribute?.('aria-expanded')==='true',
     accBtn: !!document.querySelector('#rg-sec-actions .rg-acc-btn'),
-    otherH2: h2.filter(s => !/^Actions\b/.test((s||'').replace(/\s+/g,' ').trim()) && !/Fondamental|Règles communes/.test(s)),
+    otherH2: h2.filter(s => { const t=(s||'').replace(/\s+/g,' ').trim(); return !/^Actions\b/.test(t) && !/^(LONG|SHORT)$/.test(t) && !/Fondamental|Règles communes|Métaux précieux/.test(t); }),
     noAchatTable: !document.getElementById('rg-table-achat'),
     noRefFold: !document.getElementById('rg-ref'),
     rsiText,

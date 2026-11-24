@@ -51,9 +51,8 @@ def test_av_agrege_garde_le_trou():
     assert s > 60
 
 
-def test_page_regles_carte_av():
-    grid = JS.split("function rgMetauxGrid")[1].split("function rgPageHTML")[0]
-    assert "Bandeau Achat / Vente" in grid
-    assert "effet_echelle_av" in grid
-    assert "sans redistribuer" in grid
-    assert "rgCard('av'" in grid
+def test_config_av_toujours_documente():
+    # t463u : le tableau compact n'affiche plus le bandeau AV, mais la règle reste dans la config.
+    mx = REGLES["apex_metaux"]
+    assert mx["av_sans_elliott"] is True
+    assert "sans redistribution" in (mx.get("effet_echelle_av") or "").lower() or "sans redistribuer" in (mx.get("effet_echelle_av") or "")

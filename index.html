@@ -6,18 +6,18 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<meta name="ophir-build" content="4418197-20261124-140213">
+<meta name="ophir-build" content="26dcc82-20261124-141530">
 <title>APEX INDICATOR INVESTMENT</title>
 <meta name="description" content="APEX Indicator Investment — notes et indicateurs de marché.">
 <meta name="theme-color" content="#0a1128">
 <meta name="apple-mobile-web-app-title" content="APEX">
 <meta name="application-name" content="APEX">
-<link rel="icon" href="favicon.ico?v=4418197-20261124-140213" sizes="any">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=4418197-20261124-140213">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=4418197-20261124-140213">
-<link rel="icon" type="image/png" sizes="64x64" href="favicon.png?v=4418197-20261124-140213">
-<link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png?v=4418197-20261124-140213">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=4418197-20261124-140213">
+<link rel="icon" href="favicon.ico?v=26dcc82-20261124-141530" sizes="any">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=26dcc82-20261124-141530">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=26dcc82-20261124-141530">
+<link rel="icon" type="image/png" sizes="64x64" href="favicon.png?v=26dcc82-20261124-141530">
+<link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png?v=26dcc82-20261124-141530">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=26dcc82-20261124-141530">
 <meta property="og:type" content="website">
 <meta property="og:title" content="APEX INDICATOR INVESTMENT">
 <meta property="og:description" content="APEX Indicator Investment — notes et indicateurs de marché.">
@@ -241,6 +241,8 @@ main{max-width:1240px;margin:8px auto 0;padding:0 14px 20px}
 .fl.fl-pilot>li,.fl-row{display:grid;grid-template-columns:minmax(11em,1fr) minmax(0,1.5fr);align-items:center;gap:4px 10px;padding:5px 10px}
 .fl-id{display:flex;flex-wrap:wrap;align-items:center;gap:2px 8px;min-width:0}
 .fl-rk{font-variant-numeric:tabular-nums;font-weight:750;color:#e6c27a;font-size:13px;text-align:right;min-width:1.25em;flex:0 0 auto;line-height:1.2}
+.fl-prin{display:inline-block;margin:0;padding:0 6px;border-radius:999px;border:1px solid rgba(0,229,255,.45);color:#00e5ff;font-size:10px;font-weight:650;letter-spacing:.02em;white-space:nowrap;vertical-align:middle}
+.apex-block-100 .pilot-brk{white-space:normal}
 .fl-id b{display:inline;color:#fff;font-size:13px;font-weight:700;line-height:1.2;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .fl-id .tvs{margin:0}
 .fl-pilot .fl-apex{margin:0;min-width:0}
@@ -621,7 +623,14 @@ body.rg-on #rg-page[hidden]{display:flex}
 .rg-back:hover,.rg-close:hover{background:rgba(230,194,122,.14);color:#fff}
 .rg-back:focus-visible,.rg-close:focus-visible{outline:1px solid rgba(230,194,122,.8);outline-offset:2px}
 .rg-page-body{flex:1;overflow:auto;-webkit-overflow-scrolling:touch}
-.rg-page-main{max-width:1080px;margin:0 auto;padding:22px 20px 64px}
+.rg-page-main{max-width:1600px;margin:0 auto;padding:22px 20px 64px;display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:28px 32px;align-items:start}
+.rg-pane-h{margin:0 0 12px;padding:0 2px 8px;border-bottom:1px solid rgba(230,194,122,.28);color:#e6c27a;font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+.rg-pane-short{position:sticky;top:16px;min-width:0}
+.rg-short-empty{margin:0;padding:14px 16px;border:1px dashed rgba(230,194,122,.35);border-radius:10px;color:#c8c4bc;font-size:14px;background:rgba(255,255,255,.03)}
+@media(max-width:900px){
+  .rg-page-main{grid-template-columns:1fr;max-width:1080px;gap:28px}
+  .rg-pane-short{position:static}
+}
 .rg-intro{font-size:15px;line-height:1.55;color:#d8d0c2;margin:0 0 10px}
 .rg-p{font-size:13.5px;line-height:1.5;color:#c8c4bc;margin:0 0 12px}
 .rg-h2{display:flex;align-items:baseline;flex-wrap:wrap;gap:8px 14px;margin:28px 0 12px;font-size:18px;font-weight:700;letter-spacing:.04em;color:#e6c27a;border-bottom:1px solid rgba(230,194,122,.22);padding-bottom:8px}
@@ -672,7 +681,7 @@ body.rg-on #rg-page[hidden]{display:flex}
 .rg-table-sm th,.rg-table-sm td{font-size:12.5px;padding:8px 10px;white-space:normal}
 .rg-vars{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:0 0 8px}
 .rg-var{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:12px 12px 4px}
-.rg-var h3,.rg-card h3{margin:0 0 10px;font-size:14px;font-weight:700;color:#fff}
+.rg-var h3,.rg-commons-grid .rg-card h3{margin:0 0 10px;font-size:14px;font-weight:700;color:#fff}
 .rg-var-full{grid-column:1/-1}
 .rg-commons-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 .rg-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:14px 16px}
@@ -693,16 +702,18 @@ body.rg-on #rg-page[hidden]{display:flex}
 .rg-cards-stack,.rg-cards-span{grid-template-columns:1fr}
 .rg-fond-cols{display:grid;grid-template-columns:1fr 1fr;gap:8px 14px;align-items:start}
 .rg-fond-cols.rg-fond-one{grid-template-columns:1fr}
-.rg-card{display:grid;grid-template-columns:3.4em auto minmax(0,1fr);column-gap:8px;align-items:baseline;margin:0;padding:4px 8px;border:1px solid rgba(255,255,255,.10);border-radius:7px;background:rgba(255,255,255,.03);min-width:0;white-space:nowrap}
-.rg-card-pts{grid-column:1;color:#e6c27a;font-weight:700;font-size:13px;font-variant-numeric:tabular-nums;white-space:nowrap;text-align:right;margin:0}
-.rg-card-name{grid-column:2;margin:0;color:#fff;font-weight:650;font-size:13px;line-height:1.3;white-space:nowrap}
-.rg-card-rule{grid-column:3;margin:0;color:#b8b4ac;font-size:12.5px;line-height:1.3;white-space:nowrap}
+.rg-board .rg-card{display:grid;grid-template-columns:3.4em auto minmax(0,1fr);column-gap:8px;align-items:baseline;margin:0;padding:4px 8px;border:1px solid rgba(255,255,255,.10);border-radius:7px;background:rgba(255,255,255,.03);min-width:0;white-space:nowrap}
+.rg-commons-grid .rg-card{display:block;white-space:normal;padding:14px 16px;border-radius:12px;min-width:0}
+.rg-commons-grid .rg-card .rg-p{white-space:normal;margin:0 0 10px}
+.rg-board .rg-card-pts{grid-column:1;color:#e6c27a;font-weight:700;font-size:13px;font-variant-numeric:tabular-nums;white-space:nowrap;text-align:right;margin:0}
+.rg-board .rg-card-name{grid-column:2;margin:0;color:#fff;font-weight:650;font-size:13px;line-height:1.3;white-space:nowrap}
+.rg-board .rg-card-rule{grid-column:3;margin:0;color:#b8b4ac;font-size:12.5px;line-height:1.3;white-space:nowrap}
 .rg-seuil{color:#b8b4ac}
 .rg-av{display:inline;margin-left:6px;padding:0;border:0;background:none;color:#8a8680;font-size:10.5px;font-weight:500;letter-spacing:.02em;text-transform:none;white-space:nowrap;opacity:.85}
 @media(max-width:800px){
   .rg-cards,.rg-fond-cols,.rg-fond-cols.rg-fond-one{grid-template-columns:1fr;gap:4px}
   .rg-group-note{display:inline;margin-left:8px;font-size:11px}
-  .rg-card{padding:4px 7px}
+  .rg-board .rg-card{padding:4px 7px}
   .rg-block-h{margin-bottom:5px}
 }
 
@@ -10451,12 +10462,21 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
     "av_sans_elliott": true,
     "av_ne_pas_redistribuer_elliott": true,
     "av_pas_plafond_zone_rouge": true,
-    "effet_echelle_av": "Le retrait des vagues d'Elliott (15 %) du bandeau Achat / Vente, sans redistribution, ramène l'amplitude typique de ±100 à ±85 lorsque toutes les autres composantes (y compris la divergence 10 %) sont comptées. Si la divergence est absente (elle n'est déjà pas comptée, et son poids est alors hors du dénominateur, comme avant), le plafond typique est ±83,3. Le seuil +60 du portail cyan reste atteignable : il faut un score moyen d'environ +70,6 sur les 85 % restants (ou +72 sur les 75 % restants si la divergence n'est pas comptée). L'échelle affichée du bandeau reste −100 à +100."
+    "effet_echelle_av": "Le retrait des vagues d'Elliott (15 %) du bandeau Achat / Vente, sans redistribution, ramène l'amplitude typique de ±100 à ±85 lorsque toutes les autres composantes (y compris la divergence 10 %) sont comptées. Si la divergence est absente (elle n'est déjà pas comptée, et son poids est alors hors du dénominateur, comme avant), le plafond typique est ±83,3. Le seuil +60 du portail cyan reste atteignable : il faut un score moyen d'environ +70,6 sur les 85 % restants (ou +72 sur les 75 % restants si la divergence n'est pas comptée). L'échelle affichée du bandeau reste −100 à +100.",
+    "intro_courte": "Or, argent, platine, palladium, leurs ETC et ETF. Note 0 à 100, base 50.",
+    "regles_courtes": {
+      "structure": "Parts égales : MM40 ±8 %, pente 5 s. ±2 % ; PH/PB 13 s. +100/−100/+25/−25 ; ATH ≥ −2 % −60, −2…−12 % −60…+60, −12…−25 % +60, au-delà → 0",
+      "fibonacci": "2/3 historique + 1/3 dernier mvt (corps hebdo, 52 s.). 0 % −80 ; 23,6 % −40 ; 38,2 % 0 ; 50 % +40 ; 61,8 % +80 ; 78,6 % +100 ; 100 % +80",
+      "rsi": "Contrarien : RSI 30 = +100 ; 50 = 0 ; 70 = −100",
+      "macd": "Contrarien : sous 0 et signal +70 ; sous 0 +40 ; dessus 0 sous signal −40 ; dessus 0 −70 ; +30 retournement sous 0 ; −30 si ≥ 4 barres + dessus 0",
+      "cci": "≤ −100 : +80 (≤ −200 : +100) ; ≥ +100 : −80 (≥ +200 : −100) ; sinon 0, toujours compté",
+      "fond": "Minières seulement, si disponible. Pénalité si < 40 /100, plafonnée à 20"
+    }
   }
 }
 </script>
-<script type="application/json" id="dataBuild">{"version":"4418197-20261124-140213"}</script>
-<link rel="preload" href="config/regles.json?v=4418197-20261124-140213" as="fetch" crossorigin>
+<script type="application/json" id="dataBuild">{"version":"26dcc82-20261124-141530"}</script>
+<link rel="preload" href="config/regles.json?v=26dcc82-20261124-141530" as="fetch" crossorigin>
 
 <script type="application/json" id="dataMaj">{
   "at": "2026-11-23T21:45:22.168885+01:00",
@@ -12238,6 +12258,63 @@ function dualBarPilot(rec, compact){
   </div>`;
   return `<div class="apex-block apex-block-pilot apex-block-line${compact?' is-compact':''}">${pilotNoteHTML(rec)}<div class="apex-rest">${bar}</div></div>`;
 }
+/* Barre APEX /100 (métaux) : même présentation que les secteurs, échelle 0 à 100. */
+function apex100NoteHTML(rec){
+  if(!rec||rec.note==null||rec.display==='–') return `<div class="apex10 apex10-na"><b>–</b><small>/ 100</small></div>`;
+  const col=(typeof apex10Col==='function')?apex10Col(rec):(rec.hex||'#e6c27a');
+  const disp=rec.display||fmtApex10(rec.note);
+  return `<div class="apex10" style="color:${col}"><b style="color:${col};text-shadow:0 0 16px ${col}80">${disp}</b><small style="color:${col}">/ 100</small></div>`;
+}
+function apex100Legend(rec,sent,av){
+  const note=(!rec||rec.note==null||rec.display==='–')?'–':(rec.display||fmtApex10(rec.note));
+  const hex=(rec&&(typeof apex10Col==='function'))?apex10Col(rec):(rec&&rec.hex)||'#e6c27a';
+  const bits=[];
+  if(av&&av.score!=null&&av.score!==''){
+    const ac=(typeof gsol==='function')?gsol(typeof avPos==='function'?avPos(av.score):50):hex;
+    bits.push(`<span class="pilot-av"><i class="db-dot db-a" style="color:${ac}">AV</i>Achat/Vente <b class="sc-t" style="color:${ac}">${sign(av.score,0)} ${av.label||''}</b></span>`);
+  }else{
+    bits.push(`<span class="pilot-av"><i class="db-dot db-a" style="color:${hex}">AV</i>Total <b class="sc-t" style="color:${hex}">${note}/100</b></span>`);
+  }
+  if(sent&&sent.value!=null&&sent.value!==''){
+    const scol=(typeof gmir==='function')?gmir(Number(sent.value)):'#888';
+    bits.push(`<span class="pilot-s"><i class="db-dot db-s" style="color:${scol}">S</i>Sentiment <b class="sc-t" style="color:${scol}">${fmt(sent.value,0)} ${sent.label||''}</b></span>`);
+  }
+  const d=rec&&rec.decomp;
+  let tail='';
+  if(d&&d.texte) tail=d.texte;
+  else if(rec&&rec.cap==='moyenne'&&rec.n_moy) tail='moyenne de '+rec.n_moy+' instrument'+(rec.n_moy>1?'s':'');
+  if(tail) bits.push(`<span class="pilot-brk">${tail} → ${note}/100</span>`);
+  else bits.push(`<span class="pilot-brk">→ ${note}/100</span>`);
+  return (typeof pilotLegJoin==='function'?pilotLegJoin(bits):bits.join(''));
+}
+function dualBarApex100(rec,sent,av,compact){
+  const note=rec&&rec.note!=null&&rec.display!=='–'?Number(rec.note):null;
+  const ap=Number.isFinite(note)?Math.max(0,Math.min(100,note)):null;
+  const sv=sent&&sent.value!=null&&sent.value!==''?Number(sent.value):null;
+  const sp=Number.isFinite(sv)?Math.max(0,Math.min(100,sv)):null;
+  const hex=(rec&&(typeof apex10Col==='function'))?apex10Col(rec):(rec&&rec.hex)||'#8a8a8a';
+  const sl=(sent&&sent.label)||'–';
+  const scol=sp!=null?((typeof gmir==='function')?gmir(sp):'#888'):'#888';
+  const ticks=[0,20,40,60,80,100];
+  const tickHTML=ticks.map((v,i)=>{
+    const edge=i===0?' db-e0':(i===ticks.length-1?' db-e1':'');
+    const left=i===ticks.length-1?'':` style="left:${v}%"`;
+    return `<i class="${edge.trim()}"${left}>${v}</i>`;
+  }).join('');
+  const bandTicks=[20,40,60,80].map(p=>`<i class="av-tick" style="left:${p}%"></i>`).join('');
+  const totTxt=note==null?'–':((rec&&rec.display)||fmtApex10(note));
+  const fgTxt=sp!=null?fmt(sv,0):'–';
+  const bar=`<div class="db db-apex100 ${compact?'db-sm':''}" role="img" aria-label="Note APEX ${totTxt} sur 0 à 100 ; Sentiment ${fgTxt} (${sl}) sur 0 à 100">
+   <div class="db-tk db-tk1">${tickHTML}</div>
+   <div class="db-g"><div class="ind-bar"></div>${bandTicks}
+    ${sp!=null?`<div class="db-cur db-s" style="left:${sp}%;color:${scol}" data-p="${sp}" title="S = Sentiment ${fgTxt} · ${sl}">S</div>`:''}
+    ${ap!=null?`<div class="db-cur db-a" style="left:${ap}%;color:${hex}" data-p="${ap.toFixed(1)}" title="AV = note APEX ${totTxt} / 100">AV</div>`:''}
+   </div>
+   <div class="db-leg pilot-leg">${apex100Legend(rec,sent,av)}</div>
+  </div>`;
+  return `<div class="apex-block apex-block-pilot apex-block-line apex-block-100${compact?' is-compact':''}">${apex100NoteHTML(rec)}<div class="apex-rest">${bar}</div></div>`;
+}
+
 
 /* ===== Secteurs : ETF principal + top 10 actions (sélection quantitative APEX) + bouton copier le symbole TradingView ===== */
 const FOND=JSON.parse(document.getElementById('data6').textContent);
@@ -12247,6 +12324,9 @@ const APEX_BARS=(function(){
   try{return JSON.parse(el.textContent)||{bars:{}};}catch(e){return {bars:{}};}
 })();
 function listApexBar(r){
+  if(r&&r.forceApex100){
+    return `<div class="fl-apex fl-apex-100">${(typeof dualBarApex100==='function')?dualBarApex100(r.apex10,r.sent,r.av,true):''}</div>`;
+  }
   const prec=(typeof pilotRec==='function')?pilotRec(r&&r.tv):null;
   if(prec&&prec.ok!==false&&prec.total!=null){
     return `<div class="fl-apex fl-apex-pilot">${dualBarPilot(prec, true)}</div>`;
@@ -12357,7 +12437,9 @@ function srCells(s){
   return `<div class="sr-c sr-d">${dualBar(sent.value,sent.label||'–',av,avObj.label||'–','db-sm',true,s.apex10)}${dec}</div>`;
 }
 function srHead(first,v2){
-  const mid=v2
+  const mid=v2===100||v2==='100'
+    ? `<i class="db-dot db-a">AV</i>Score APEX (0 à 100, échelle du haut) · <i class="db-dot db-s">S</i>Sentiment (0 à 100, échelle du bas)`
+    : v2
     ? `<i class="db-dot db-a">AV</i>Score APEX (−50 à 250, échelle du haut) · <i class="db-dot db-s">S</i>Fear &amp; Greed (0 à 100, échelle du bas)`
     : `<i class="db-dot db-a">AV</i>Achat / Vente (−100 à +100, échelle du haut) · <i class="db-dot db-s">S</i>Sentiment (0 à 100, échelle du bas)`;
   return `<div class="sr sr-hd" aria-hidden="true"><div>${first}</div><div>${mid}</div><div>Détails</div></div>`;
@@ -12479,10 +12561,16 @@ function pTile(C,s,i){
   const id=C.cc+'_'+i;
   if(!s.covered) return `<div class="sec sec-nc"><div class="sr"><div class="sr-c sec-h sr-n"><b>${s.nom}</b><span>non couvert</span></div><div class="sr-c sr-d"><div class="sr-ncm">${s.why}</div></div><div class="sr-c sr-b"></div></div></div>`;
   const [sc,ac]=pComps(s);
+  const metTip=C.cc==='met'?(function(){
+    const parts=[];
+    if(s.apex10&&s.apex10.cap==='moyenne') parts.push('Note APEX /100 : moyenne de '+(s.apex10.n_moy||'')+' instrument'+(s.apex10.n_moy>1?'s':'')+' = '+(s.apex10.display||'—')+'/100. Note du contrat à terme seul : '+((s.apex10_futur&&s.apex10_futur.display)||'—')+' /100 (les curseurs AV Achat/Vente et S Sentiment restent ceux du contrat).');
+    if(s.note_revolut) parts.push(s.note_revolut);
+    return parts.join(' ').replace(/"/g,'&quot;');
+  })():'';
   return `<div class="sec${s.head?' sec-head':''}">
    <div class="sr">
-    <div class="sr-c sec-h sr-n"><b>${s.nom}</b>${s.head?'':`<span class="pilot-badge">APEX ACHAT −50 à 250</span>`}<span>${s.kind==='basket'?'Panier APEX · '+s.basket.length+' grandes capitalisations, pondérées (plafond 25 %)':(s.sym.startsWith('^')?s.sym+' · ':s.sym.split('.')[0]+' · ')+s.etf}</span>${srWarn(s)}</div>
-    ${(()=>{const p=pSecOf(C,s); if(p&&p.etf&&p.etf.total!=null) return `<div class="sr-c sr-d">${dualBarPilot(p.etf, true)}</div>`; if(!s.head) return `<div class="sr-c sr-d">${typeof v2Placeholder==='function'?v2Placeholder():''}</div>`; return srCells(s);})()}
+    <div class="sr-c sec-h sr-n"${metTip?` title="${metTip}"`:''}><b>${s.nom}</b>${s.head?'':`<span class="pilot-badge">${C.cc==='met'?'APEX ACHAT 0 à 100':'APEX ACHAT −50 à 250'}</span>`}<span>${s.kind==='basket'?'Panier APEX · '+s.basket.length+' grandes capitalisations, pondérées (plafond 25 %)':(s.sym.startsWith('^')?s.sym+' · ':s.sym.split('.')[0]+' · ')+s.etf}</span>${srWarn(s)}</div>
+    ${(()=>{if(C.cc==='met') return `<div class="sr-c sr-d">${(typeof dualBarApex100==='function')?dualBarApex100(s.apex10,s.sent,s.av,true):''}</div>`; const p=pSecOf(C,s); if(p&&p.etf&&p.etf.total!=null) return `<div class="sr-c sr-d">${dualBarPilot(p.etf, true)}</div>`; if(!s.head) return `<div class="sr-c sr-d">${typeof v2Placeholder==='function'?v2Placeholder():''}</div>`; return srCells(s);})()}
     <div class="sr-c sr-b"></div>
    </div>
    ${s.head?'':(s.mlist?mList(C,s):pList(C,s))}
@@ -12569,17 +12657,31 @@ IND.metaux=MT.ind; AV.metaux=MT.av;
 const MET_C={cc:'met',nom:'métaux précieux',bench:MT.bench,bench_nom:MT.bench_nom,bench_url:MT.bench_url,rows:MT.rows};
 const MCOL={or:'#e6c27a',argent:'#c9d1d9',platine:'#a9cdf5',palladium:'#c9a7ff'};
 const mUsd=v=>fmt(v,v<100?2:0)+' $',mEur=v=>fmt(v,v<100?2:0)+' €';
+function mInstTip(r){
+  if(!r) return '';
+  const parts=[];
+  if(r.kind_nom) parts.push(r.kind_nom+(r.hedged?' (couvert en euros)':''));
+  if(r.isin) parts.push('ISIN '+r.isin);
+  if(r.ter_note) parts.push(r.ter_note);
+  else if(r.ter!=null) parts.push('TER '+String(r.ter).replace('.',',')+' %');
+  if(r.currency) parts.push('cotation '+r.currency);
+  if(r.note_revolut) parts.push(r.note_revolut);
+  return parts.join(' · ').replace(/"/g,'&quot;');
+}
+function mRow(r,k,principal){
+  const tip=mInstTip(r);
+  const badge=principal?'<span class="fl-prin">principal</span>':'';
+  return `<li class="fl-row"${r.tv?` data-pos-tv="${r.tv}"`:''}><div class="fl-id"${tip?` title="${tip}"`:''}><span class="fl-rk">${k+1}</span><b>${r.name}</b>${badge}${tvTag(r.tv)}${typeof posBadges==='function'?posBadges(r.tv):''}${typeof dispoBadge==='function'?dispoBadge(r.tv):''}</div>${listApexBar(Object.assign({},r,{forceApex100:true}))}</li>`;
+}
 function mList(C,s){
   const L=s.mlist,h=L.head;
-  const li=(r,k)=>`<li${r.tv?` data-pos-tv="${r.tv}"`:''}><div class="fl-h"><b>${k+1}. ${r.name}</b></div>
-     ${tvTag(r.tv)}${typeof posBadges==='function'?posBadges(r.tv):''}${typeof dispoBadge==='function'?dispoBadge(r.tv):''}${listApexBar(r)}<div class="fl-m"><span><i>Type</i> ${r.kind_nom}${r.hedged?' (couvert en euros)':''}</span>${r.isin?`<span><i>ISIN</i> ${r.isin}</span>`:''}${r.ter_note?`<span><i>Frais</i> ${r.ter_note}</span>`:(r.ter!=null?`<span><i>Frais</i> TER ${String(r.ter).replace('.',',')} %</span>`:'')}<span><i>Cotation</i> ${r.currency||'—'}</span></div>${r.note_revolut?`<div class="fl-sub">${r.note_revolut}</div>`:''}</li>`;
+  const rest=apexSortByNote(L.items||[]);
+  const rows=[h?mRow(h,0,true):''].concat(rest.map((r,i)=>mRow(r,h?i+1:i,false))).join('');
   return `<details class="ind-meth sec-list"><summary>ETC principal + ${L.items.length} instruments</summary>
-   ${s.note_revolut?`<div class="note">${s.note_revolut}</div>`:''}
-   ${s.apex10&&s.apex10.cap==='moyenne'?`<div class="note">Note APEX /100 de la ligne : moyenne de ${s.apex10.n_moy} instrument${s.apex10.n_moy>1?'s':''} noté${s.apex10.n_moy>1?'s':''} = ${s.apex10.display}/100. Note du contrat à terme seul : ${(s.apex10_futur&&s.apex10_futur.display)||'—'} /100 (les barres Achat/Vente et Sentiment restent celles du contrat).</div>`:''}
-   ${h?`<div class="fl-etf"><span class="fl-k">ETC principal</span><b>${h.name}</b>${tvTag(h.tv)}${typeof dispoBadge==='function'?dispoBadge(h.tv):''}<span class="sec-d" style="text-align:left">${h.kind_nom}${h.hedged?' (couvert en euros)':''}${h.isin?' · ISIN '+h.isin:''}${h.ter_note?' · '+h.ter_note:(h.ter!=null?' · TER '+String(h.ter).replace('.',',')+' %':'')} · cotation ${h.currency}</span>${listApexBar(h)}</div>`:'<div class="sr-ncm">ETC principal : aucun ETC de ce métal disponible chez Revolut (vérification du 17/11/2026)</div>'}
-   <ol class="fl">${apexSortByNote(L.items).map(li).join('')}</ol>
+   ${h?'':`<div class="sr-ncm">ETC principal : aucun ETC de ce métal disponible chez Revolut (vérification du 17/11/2026)</div>`}
+   <ol class="fl fl-pilot">${rows}</ol>
    ${L.list_note?`<div class="note">${L.list_note}</div>`:(L.items.length<5?`<div class="note">Seulement ${L.items.length} instrument${L.items.length>1?'s':''} retenu${L.items.length>1?'s':''} : les instruments non disponibles chez Revolut ont été retirés (règle APEX du 17/11/2026) ; les autres candidats n'avaient pas d'historique Yahoo exploitable ou de symbole TradingView vérifié.</div>`:'')}
-   <div class="sec-d" style="text-align:left">Ordre de la liste : métal au comptant (s'il est listé), autres ETC physiques, puis jusqu'à deux minières. ${L.miner_note} Score minières = 50 % santé financière + 50 % croissance prévue (mêmes critères que les secteurs actions). Les ETC sont des titres de créance émis par une société dédiée et adossés à du métal stocké en coffre : ce ne sont pas des fonds UCITS. ETC, ETF de minières et minières étrangères ne sont pas éligibles au PEA (compte-titres). Risques : prix du métal en dollars, change EUR/USD (sauf part couverte), émetteur de l'ETC ; pour les minières, risques d'exploitation et de pays.</div>
+   <div class="sec-d" style="text-align:left">L'ETC principal est la ligne 1 ; les autres instruments suivent par note /100 (métal au comptant, ETC physiques, puis jusqu'à deux minières). ${L.miner_note} Score minières = 50 % santé financière + 50 % croissance prévue (mêmes critères que les secteurs actions). Les ETC sont des titres de créance émis par une société dédiée et adossés à du métal stocké en coffre : ce ne sont pas des fonds UCITS. ETC, ETF de minières et minières étrangères ne sont pas éligibles au PEA (compte-titres). Risques : prix du métal en dollars, change EUR/USD (sauf part couverte), émetteur de l'ETC ; pour les minières, risques d'exploitation et de pays.</div>
   </details>`;
 }
 function renderMetaux(el){
@@ -12641,11 +12743,16 @@ function renderMetaux(el){
   const cm=merge(K.map(k=>C.cot[k]));
   lineChart('cMtC',cm.labels.map(dshort),K.map((k,j)=>({label:NM[k],data:cm.data[j],borderColor:MCOL[k],borderWidth:1.3})),{unit:' %',dec:1,ticks:8});
   // section Métaux (lignes AV / S)
-  const S=apexSortByNote(MT.rows),cnt=z=>S.filter(s=>s.av.label.includes(z)).length,d=S[0].date;
+  const S=apexSortByNote(MT.rows),cnt=z=>S.filter(s=>s.av&&s.av.label&&s.av.label.includes(z)).length,d=S[0].date;
+  const hi=S.reduce((a,b)=>b.sent.value>a.sent.value?b:a),lo=S.reduce((a,b)=>b.sent.value<a.sent.value?b:a);
+  const stMt=(typeof sectionApexAvg==='function')?sectionApexAvg('metaux'):null;
+  const a10=(stMt&&stMt.apex10)||null;
+  const disp=a10?(a10.display!=null?String(a10.display):(a10.note!=null?String(a10.note):'')):'';
+  const apexTag=a10&&disp?`<span class="js-apex10" hidden data-display="${disp}" data-hex="${a10.hex||''}" data-note="${a10.note!=null?a10.note:disp}" data-scale="100"></span>`:'';
   const c=document.createElement('div');c.className='card no-group met-card';
   c.innerHTML=`<h2>Métaux · sentiment et achat / vente</h2>
-   <div class="desc acc-sum">4 métaux · au ${dshort(d)} · ${S.map(s=>`<i>${s.nom}</i> <b>${s.av.label} ${sign(s.av.score,0)} · S ${fmt(s.sent.value,0)}</b>`).join(' · ')}</div>
-   <div class="sec-grid">${srHead('Métal · contrat de référence')}${S.map(s=>pTile(MET_C,s,MT.rows.indexOf(s))).join('')}</div>
+   <div class="desc acc-sum">${apexTag}4 métaux · au ${dshort(d)} · <i>Achat</i> <b>${cnt('Achat')}</b> · <i>Neutre</i> <b>${cnt('Neutre')}</b> · <i>Vente</i> <b>${cnt('Vente')}</b> · <i>sentiment max</i> <b>${hi.nom} ${fmt(hi.sent.value,0)}</b> · <i>min</i> <b>${lo.nom} ${fmt(lo.sent.value,0)}</b></div>
+   <div class="sec-grid">${srHead('Métal · contrat de référence', 100)}${S.map(s=>pTile(MET_C,s,MT.rows.indexOf(s))).join('')}</div>
    <details class="ind-meth"><summary>Méthode et pondérations</summary>
     <p><b>Sentiment Peur / Euphorie (0-100).</b> ${apexPlain(SEC.method_sent.replace(/S&P 500/g,'DBC'))}</p>
     <p><b>Achat / Vente (−100 à +100).</b> ${apexPlain(SEC.method_av.replace(/S&P 500/g,'DBC'))}</p>
@@ -14941,8 +15048,10 @@ function rgCard(id, label, ruleHtml, pts){
 }
 function rgMetauxChamp(){
   const mx=(RG&&RG.apex_metaux)||{};
-  if(mx.champ_application) return String(mx.champ_application);
-  return "Ce règlement s'applique à l'or, l'argent, le platine, le palladium, à leurs ETC et ETF physiques, et aux métaux au comptant. Les minières, si un fondamental est disponible, reçoivent 50 % de fondamental et 50 % de technique. Les ETC, les contrats à terme et les métaux au comptant n'ont pas de fondamental : le technique est renormalisé à 100 %, sans redistribuer le poids de l'Elliott retiré. La note affichée d'une ligne (Or, Argent, Platine, Palladium) est la moyenne des notes /100 des instruments visibles, hors titres sans note. Les signaux sont calculés sur le contrat à terme continu Yahoo, avec DBC comme référence de force relative. Les vagues d'Elliott et la figure chartiste n'entrent pas dans la note. Il n'y a pas de Fear & Greed CNN dans cette note.";
+  if(mx.intro_courte) return String(mx.intro_courte);
+  const na=(RG&&RG.note_apex)||{};
+  const amp=rgAmp();
+  return 'Or, argent, platine, palladium, leurs ETC et ETF. Note '+rgNum(na.note_min!=null?na.note_min:0)+' à '+rgNum(na.note_max!=null?na.note_max:100)+', base '+rgNum(amp.base)+'.';
 }
 function rgMetauxScale(){
   const na=(RG&&RG.note_apex)||{};
@@ -14950,88 +15059,56 @@ function rgMetauxScale(){
   const hi=na.note_max!=null?Number(na.note_max):100;
   return {min:lo, max:hi, label: rgFmtScaleBound(lo)+' à '+rgFmtScaleBound(hi)};
 }
-function rgMetauxRules(){
+function rgMetauxRulesShort(){
+  /* t463u : une ligne par critère, mêmes seuils que le code, format du tableau Actions. */
+  const mx=(RG&&RG.apex_metaux)||{};
+  const cfg=mx.regles_courtes||{};
   const na=(RG&&RG.note_apex)||{};
-  const rsi=na.rsi||{};
-  const macd=na.macd||{};
-  const cci=na.cci||{};
-  const ell=(RG&&RG.elliott)||{};
-  const fib=(RG&&RG.fibonacci)||{};
-  const fibRule="Retracement sur les corps des bougies hebdomadaires clôturées (jamais les mèches) : 2/3 historique (plus bas historique → plus haut historique) + 1/3 dernier mouvement (plus haut des 52 dernières semaines, plus bas des 52 semaines précédant ce sommet). Position r = (haut − cours) / (haut − base). Note interpolée : 0 % −80 ; 23,6 % −40 ; 38,2 % 0 ; 50 % +40 ; 61,8 % +80 ; 78,6 % +100 ; 100 % +80. Si l'une des deux lectures manque, on retient l'autre.";
-  const ellBonus=ell.bonus_seulement_manuel!==false
-    ?(" Bonus +"+rgNum(ell.bonus_entry!=null?ell.bonus_entry:5)+" / +"+rgNum(ell.bonus_conf!=null?ell.bonus_conf:10)+" sur la note entière uniquement si le décompte est manuel (fin de vague 2, 4 ou C, confirmée ou non).")
-    :"";
-  const ellPlafond=(ell.plafond_sur_note_entiere===false || ell.plafond_rouge==null)
-    ?" Pas de plafond Elliott sur la note entière (le critère retire déjà des points en zone rouge)."
-    :"";
-  const ellRule="Barème −100 à +100, + = achat, sur bougies hebdomadaires clôturées (corps seulement). Fin de vague C confirmée +100 ; fin de vague 2 ou 4 confirmée +80 ; fin de vague 2, 4 ou C / vague C en cours +60 ; vague 4 en cours +20 ; vague 2 en cours +10 ; indéterminé, vague 1 ou 3 : 0 ; impulsion baissière −50 ; vagues A et B / début de vague 5 : −60 ; vague 5 en cours −80. Note du critère = barème × (0,5 + 0,5 × confiance). Zones vertes d'entrée : fin de vague 2, fin de vague 4, vague C. Zones rouges (aucune entrée) : vagues 1, 3, 5, A et B."+ellPlafond+ellBonus;
-  const structRule="Moyenne à parts égales de trois lectures hebdomadaires : tendance (écart à la moyenne mobile 40 semaines et pente de cette moyenne sur 5 semaines) ; plus hauts et plus bas sur deux fenêtres de 13 semaines (plus hauts et plus bas plus hauts +100, plus hauts et plus bas plus bas −100, expansion +25, compression −25, mixte 0) ; position par rapport à l'ATH des corps (même barème que la distance au plus haut : ≥ −2 % → −60 ; de −2 % à −12 % : de −60 à +60 ; de −12 % à −25 % → +60 ; au-delà, retour vers 0).";
+  const cy=(RG&&RG.cyan)||{};
+  const gi=(RG&&RG.good_invest)||{};
+  const tt=(RG&&RG.template_trade)||{};
+  const unite=tt.unite||'$';
+  const fondSeuil=rgNum(na.fond_seuil!=null?na.fond_seuil:40);
+  const fondPen=rgNum(na.fond_pen_max!=null?na.fond_pen_max:20);
   return {
-    elliott:ellRule,
-    structure:structRule,
-    fibonacci:fibRule,
-    rsi:rsi.regle||'',
-    macd:macd.regle||'',
-    cci:cci.regle||''
+    structure: cfg.structure||'',
+    fibonacci: cfg.fibonacci||'',
+    rsi: cfg.rsi||'',
+    macd: cfg.macd||'',
+    cci: cfg.cci||'',
+    fond: cfg.fond||('Minières seulement, si disponible. Pénalité si < '+fondSeuil+' /100, plafonnée à '+fondPen),
+    gi: '≥ '+rgNum(gi.seuil!=null?gi.seuil:75)+' /100'+(gi.hors_portefeuille?', hors portefeuille':'')+'. '+rgNum(tt.base_note!=null?tt.base_note:75)+' = '+rgNum(tt.base_montant!=null?tt.base_montant:500)+'\u00a0'+unite+' ; +'+rgNum(tt.pas_montant!=null?tt.pas_montant:100)+'\u00a0'+unite+' par palier de '+rgNum(tt.pas_note!=null?tt.pas_note:5),
+    cyan: 'Note ≥ '+rgNum(cy.note_min!=null?cy.note_min:80)+' : AV ≥ +'+rgNum(cy.av_achat_fort!=null?cy.av_achat_fort:60)+' et divergence haussière hebdo ; sinon plafond '+rgNum(cy.plafond_sans_confirmation!=null?cy.plafond_sans_confirmation:75)
   };
 }
 function rgMetauxGrid(){
   const na=(RG&&RG.note_apex)||{};
   const amp=rgAmp();
-  const ordre=['structure','fibonacci','rsi','macd','cci']; /* t461u : Elliott retiré, poids non redistribué */
-  const labels={elliott:"Vagues d'Elliott",structure:'Structure',fibonacci:'Retracement de Fibonacci',rsi:'RSI 14 hebdo',macd:'MACD 12/26/9 hebdo',cci:'CCI 20 hebdo (corps)'};
-  const rules=rgMetauxRules();
+  const ordre=['structure','fibonacci','rsi','macd','cci']; /* t461u : hors critère elliott, poids conservé au dénominateur */
+  const labels={structure:'Structure',fibonacci:'Fibonacci',rsi:'RSI',macd:'MACD',cci:'CCI'};
+  const rules=rgMetauxRulesShort();
   const techCards=ordre.map(id=>{
     const pts=rgTechPtsMax(id, true);
     return rgCard(id, labels[id]||id, rgEsc(rules[id]||''), pts!=null?rgFmtPts(pts):'—');
   }).join('');
   const techNote=ordre.map(id=>{
     const pts=rgTechPtsMax(id, true);
-    const short=id==='elliott'?'Elliott':(id==='structure'?'Struct.':(id==='fibonacci'?'Fibo':id.toUpperCase()));
+    const short=id==='structure'?'Struct.':(id==='fibonacci'?'Fibo':id.toUpperCase());
     return short+' '+(pts!=null?rgFmtPts(pts):'—');
   }).join(' · ');
   const elliottPts=rgTechPtsMax('elliott', true);
   const techSum=(elliottPts!=null&&Number.isFinite(elliottPts))?(amp.totale-elliottPts):amp.totale;
   const fondMax=rgPtsMax(Number(na.poids_fondamental!=null?na.poids_fondamental:0.5));
-  const fondRule="Uniquement les minières, et seulement si un fondamental est disponible dans la base (score santé / croissance 0–100). Ce score est converti en écart signé autour de 50, puis en points (poids 50 %, amplitude × 1,5, soit ±"+rgNum(fondMax)+" points). Si le fondamental est inférieur à "+rgNum(na.fond_seuil!=null?na.fond_seuil:40)+" / 100, une pénalité proportionnelle est retranchée de la note, plafonnée à "+rgNum(na.fond_pen_max!=null?na.fond_pen_max:20)+" points. Les ETC, les contrats et les métaux au comptant n'ont pas de fondamental : le technique est alors renormalisé à 100 % (points ci-dessus).";
-  const fondCards=rgCard('fond','Fondamental (minières, si disponible)',rgEsc(fondRule), fondMax!=null?rgFmtPts(fondMax):'—');
+  const fondCards=rgCard('fond','Fondamental (minières)',rgEsc(rules.fond||''), fondMax!=null?rgFmtPts(fondMax):'—');
   const cy=(RG&&RG.cyan)||{};
   const gi=(RG&&RG.good_invest)||{};
-  const tt=(RG&&RG.template_trade)||{};
-  const bands=((RG&&RG.couleurs&&RG.couleurs.bandes)||[]);
-  const scale=bands.map(b=>{
-    const lo=String(b.min).replace('.',',');
-    const hi=String(b.max).replace('.',',');
-    return `<li class="rg-band"><i style="background:${rgEsc(b.hex||'#888')}"></i><b>${lo}–${hi}</b> ${rgEsc(b.site)}</li>`;
-  }).join('');
-  const couleursRule=bands.length
-    ?`<p class="rg-p">Cinq tranches égales de 20 points, d'après la note APEX /100 affichée.</p><ul class="rg-bands">${scale}</ul>`
-    :'';
-  const giBits=['Note APEX ≥ '+rgNum(gi.seuil!=null?gi.seuil:75)+'/100'];
-  if(gi.hors_portefeuille) giBits.push('hors portefeuille');
-  /* t461u : plus d'exclusion « zone Elliott rouge » pour les métaux. */
-  if(gi.inclut_ventes_en_attente) giBits.push('une vente en attente reste considérée comme détenue');
-  const unite=tt.unite||'$';
-  const montantRule="Seuil "+rgNum(tt.base_note!=null?tt.base_note:75)+" = "+rgNum(tt.base_montant!=null?tt.base_montant:500)+"\u00a0"+rgEsc(unite)+" · puis +"+rgNum(tt.pas_montant!=null?tt.pas_montant:100)+"\u00a0"+rgEsc(unite)+" par palier de "+rgNum(tt.pas_note!=null?tt.pas_note:5)+" points · jusqu'à "+rgNum(tt.max_note!=null?tt.max_note:100)+" = "+rgNum(tt.max_montant!=null?tt.max_montant:1000)+"\u00a0"+rgEsc(unite)+" ("+rgEsc(tt.devise||'USD')+").";
-  const sentRule="Pas de Fear & Greed CNN dans la note /100. Le sentiment APEX (0 = peur, 100 = euphorie) est un indice d'onglet, hors de cette note ; une lecture contrarienne du sentiment entre dans le bandeau Achat / Vente, pas dans la note affichée.";
-  const cyanRule="Une note ≥ "+rgNum(cy.note_min!=null?cy.note_min:80)+" exige un Achat / Vente ≥ +"+rgNum(cy.av_achat_fort!=null?cy.av_achat_fort:60)+" et une confirmation par divergence haussière hebdomadaire (plus de condition Elliott). Sinon la note est plafonnée à "+rgNum(cy.plafond_sans_confirmation!=null?cy.plafond_sans_confirmation:75)+".";
+  const entreesCards=[
+    rgCard('gi','Meilleures entrées',rgEsc(rules.gi), '≥ '+rgNum(gi.seuil!=null?gi.seuil:75)),
+    rgCard('cyan','Portail cyan',rgEsc(rules.cyan), cy.plafond_sans_confirmation!=null?rgNum(cy.plafond_sans_confirmation):'75')
+  ].join('');
   const note=rgMetauxChamp();
   const noteHtml=note?`<p class="rg-p rg-app">${rgEsc(note)}</p>`:'';
-  const mx=(RG&&RG.apex_metaux)||{};
-  const effet=mx.effet_echelle?`<p class="rg-p">${rgEsc(mx.effet_echelle)}</p>`:'';
-  const effetAv=mx.effet_echelle_av?`<p class="rg-p">${rgEsc(mx.effet_echelle_av)}</p>`:'';
-  const avRule="Dans le bandeau Achat / Vente des métaux uniquement, les vagues d'Elliott (15 %) sont retirées, sans redistribuer leur poids aux autres composantes (le 15 % reste un trou dans le dénominateur). RSI et MACD sont lus à contre-courant ; le CCI compte toujours, y compris à 0. Le plafond « au mieux Neutre » en zone Elliott rouge ne s'applique plus à ce bandeau. Les autres classes (obligations, énergie, crypto, etc.) gardent le barème inchangé.";
-  const baseHtml=`<p class="rg-p">Note = base ${rgNum(amp.base)} + points signés (amplitude technique typique ±${rgNum(techSum)}, Elliott retiré sans redistribution), ramenée entre ${rgNum((na.note_min!=null)?na.note_min:0)} et ${rgNum((na.note_max!=null)?na.note_max:100)}. Les points techniques ci-dessous sont ceux du cas le plus fréquent pour les métaux : sans fondamental, technique renormalisé à 100 % sans redistribuer le poids d'Elliott.</p>${effet}${effetAv}`;
-  const wrapCss=`<style>
-#rg-table-metaux .rg-card,#rg-table-metaux .rg-card-name,#rg-table-metaux .rg-card-rule{white-space:normal;overflow-wrap:break-word;word-break:break-word;}
-#rg-table-metaux .rg-card{grid-template-columns:4.4em minmax(0,1fr);align-items:start;padding:8px 10px;white-space:normal;}
-#rg-table-metaux .rg-card-pts{grid-column:1;}
-#rg-table-metaux .rg-card-name{grid-column:2;white-space:normal;}
-#rg-table-metaux .rg-card-rule{grid-column:1/-1;margin-top:4px;line-height:1.45;}
-#rg-table-metaux .rg-group-note{white-space:normal;}
-#rg-table-metaux .rg-bands{margin:6px 0 0;padding:0;list-style:none;}
-</style>`;
-  return `${wrapCss}${noteHtml}${baseHtml}<div class="rg-board" id="rg-table-metaux">
+  return `${noteHtml}<div class="rg-board" id="rg-table-metaux">
     <section class="rg-block" data-group="technique">
       <header class="rg-block-h">
         <div class="rg-block-title">Technique <span class="rg-group-note">${techNote}</span></div>
@@ -15046,28 +15123,11 @@ function rgMetauxGrid(){
       </header>
       <div class="rg-cards rg-cards-span">${fondCards}</div>
     </section>
-    <section class="rg-block" data-group="sentiment">
+    <section class="rg-block" data-group="entree">
       <header class="rg-block-h">
-        <div class="rg-block-title">Sentiment</div>
-        <span class="rg-block-pts">hors note</span>
+        <div class="rg-block-title">Entrée</div>
       </header>
-      <div class="rg-cards rg-cards-span">${rgCard('sentiment','Pas de Fear & Greed',rgEsc(sentRule),'—')}</div>
-    </section>
-    <section class="rg-block" data-group="application">
-      <header class="rg-block-h">
-        <div class="rg-block-title">Couleurs, entrée et montant</div>
-      </header>
-      <div class="rg-cards rg-cards-span">
-        ${rgCard('av','Bandeau Achat / Vente',rgEsc(avRule),'±85')}
-        <article class="rg-card" data-id="couleurs">
-          <span class="rg-card-pts">/100</span>
-          <h3 class="rg-card-name">Couleurs</h3>
-          <div class="rg-card-rule">${couleursRule}</div>
-        </article>
-        ${rgCard('cyan','Portail cyan',rgEsc(cyanRule), cy.plafond_sans_confirmation!=null?rgNum(cy.plafond_sans_confirmation):'75')}
-        ${rgCard('gi','Meilleures entrées',rgEsc(giBits.join(' · ')+'.'), '≥ '+rgNum(gi.seuil!=null?gi.seuil:75))}
-        ${rgCard('montant','Montant d\'entrée',montantRule, rgNum(tt.base_montant!=null?tt.base_montant:500)+'\u00a0'+(tt.unite||'$'))}
-      </div>
+      <div class="rg-cards rg-cards-span">${entreesCards}</div>
     </section>
   </div>`;
 }
@@ -15089,8 +15149,15 @@ function rgPageHTML(){
     </header>
     <div class="rg-page-body">
       <div class="rg-page-main">
-        ${sections.map(rgSectionAccordion).join('')}
-        ${rgCommons()}
+        <div class="rg-pane rg-pane-long" id="rg-pane-long">
+          <h2 class="rg-pane-h">LONG</h2>
+          ${sections.map(rgSectionAccordion).join('')}
+          ${rgCommons()}
+        </div>
+        <div class="rg-pane rg-pane-short" id="rg-pane-short">
+          <h2 class="rg-pane-h">SHORT</h2>
+          <p class="rg-p rg-short-empty">Règles SHORT à définir</p>
+        </div>
       </div>
     </div>`;
 }
@@ -15470,6 +15537,12 @@ function giSetListOpen(on,persist){
   if(persist!==false){ try{ localStorage.setItem(GI_LIST_KEY, on?'1':'0'); }catch(e){} }
   if(typeof posSyncListChrome==='function') posSyncListChrome(typeof posListIsOpen==='function'&&posListIsOpen());
 }
+function giTickerCourt(tv){
+  if(!tv) return '';
+  const s=String(tv);
+  const i=s.lastIndexOf(':');
+  return i>=0?s.slice(i+1):s;
+}
 function giRender(){
   const host=document.getElementById('mes-pos');
   if(!host) return;
@@ -15481,9 +15554,10 @@ function giRender(){
     const col=it.scale===250||it.scale===270?(it.hex||((typeof pilotHex==='function')?pilotHex({total:it.note}):'#e6c27a')):((typeof ttColor==='function')?ttColor(it.note):(it.hex||'#e6c27a'));
     const note=it.display||String(it.note).replace('.',',');
     const amt=(typeof ttMontantTxt==='function')?ttMontantTxt(it.montant, (typeof TT!=='undefined'&&TT&&TT.unite)||'$'):(it.montant==null?'—':it.montant+' $');
+    const label=it.tv?giTickerCourt(it.tv):(it.nom||'');
     const go=it.tv
-      ? `<button type="button" class="gi-link" data-tab="${(it.tab||'').replace(/"/g,'')}" data-tv="${String(it.tv).replace(/"/g,'&quot;')}">${(it.nom||it.tv).replace(/</g,'')}</button>`
-      : `<span class="pos-nm">${(it.nom||'').replace(/</g,'')}</span>`;
+      ? `<button type="button" class="gi-link" data-tab="${(it.tab||'').replace(/"/g,'')}" data-tv="${String(it.tv).replace(/"/g,'&quot;')}" title="${String(it.nom||it.tv).replace(/"/g,'&quot;')}">${String(label).replace(/</g,'')}</button>`
+      : `<span class="pos-nm" title="${String(it.nom||'').replace(/"/g,'&quot;')}">${(it.nom||'').replace(/</g,'')}</span>`;
     const tip=[it.nom,it.tv].filter(Boolean).join(' · ');
     const cp=it.tv?((typeof ophirCopyBtn==='function')?ophirCopyBtn(it.tv):`<button type="button" class="cp" data-c="${String(it.tv).replace(/"/g,'&quot;')}" aria-label="Copier ${String(it.tv).replace(/"/g,'&quot;')}" title="Copier ${String(it.tv).replace(/"/g,'&quot;')}">⎘</button>`):'';
     const ev=it.tv
