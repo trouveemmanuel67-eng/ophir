@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 """Met à jour data/positions_revolut.json à partir d'un relevé CSV Revolut Invest.
 
+Depuis le 24/11/2026 (t452u), le livre officiel est produit par
+update_positions_releve.py à partir de data/revolut/releve_courtiers_YYYY-MM-DD.json.
+Ne pas relancer ce script sur un ancien CSV : il réintroduirait des lignes cédées.
+
 Ne touche pas à positions.json : les lignes Revolut mises à jour vivent dans
 positions_revolut.json et sont fusionnées au chargement (les lignes XTB du
 livre de base restent inchangées).

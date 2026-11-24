@@ -243,11 +243,13 @@ function homeYieldHTML(stats){
   return `<div class="home-rdt" title="Rendement / dividende ou coupon moyen pondéré des positions du secteur">${(typeof posPct==='function')?posPct(n):homePct1(n)}</div>`;
 }
 function homePosBuyDate(p){
-  /* Dates d'achat explicites seulement. date_ordre / date_execution d'une vente en attente sont ignorées. perf_1an_dates n'est pas une date d'achat. */
-  if(!p||p.statut&&p.statut!=='active') return null;
+  /* Dates d'achat explicites seulement. date_ordre / date_execution d'une vente en attente sont ignorées. perf_1an_dates n'est pas une date d'achat. Les ordres d'achat en cours (déjà actifs) comptent s'ils ont une date. */
+  if(!p) return null;
+  const st=String(p.statut||'active').toLowerCase();
+  if(st!=='active'&&st!=='en_attente') return null;
   const raw=p.date_achat||p.date_ouverture||p.opened_at||p.purchase_date||null;
   let s=raw;
-  if(s==null&&!p.vente_en_attente) s=p.date_execution||null;
+  if(s==null&&!p.vente_en_attente) s=p.date_execution||p.date_ordre||null;
   if(s==null||s==='') return null;
   const d=new Date(s);
   return isNaN(d.getTime())?null:d;
@@ -382,7 +384,7 @@ function renderAccueil(el){
   const P=(typeof POS!=='undefined'&&POS)?POS:{positions:[],totaux:{},courtiers:{}};
   const T=P.totaux||{};
   const C=(T.courtiers)||{};
-  const act=(P.positions||[]).filter(p=>p.statut==='active');
+  const act=(P.positions||[]).filter(p=>p.statut==='active'||p.statut==='en_attente');
   const pend=(P.positions||[]).filter(p=>p.statut==='en_attente');
   const held=homeHeldMap(act);
   const nAct=P.n_actives!=null?P.n_actives:act.length;

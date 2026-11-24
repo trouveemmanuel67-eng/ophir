@@ -10,13 +10,17 @@ function posMergeRevolut(rv){
   if(R.liquidites) POS.liquidites=R.liquidites;
   POS._rvMerged=true;
 }
+function posIsHeld(p){
+  const st=String((p&&p.statut)||'active').toLowerCase();
+  return st==='active'||st==='en_attente';
+}
 function posRecompute(){
-  const act=(POS.positions||[]).filter(p=>p.statut==='active');
+  const held=(POS.positions||[]).filter(posIsHeld);
   const T=POS.totaux||(POS.totaux={});
   const prevXtb=(T.courtiers&&T.courtiers.xtb)?Object.assign({},T.courtiers.xtb):null;
   const C={};
   let te=0,tu=0,ie=0,iu=0,vk=0,ik=0;
-  act.forEach(p=>{
+  held.forEach(p=>{
     const c=p.courtier||'revolut';
     const e=Number(p.valeur_eur)||0, u=Number(p.valeur_usd)||0;
     const eI=p.investi_eur, uI=p.investi_usd;
@@ -44,7 +48,7 @@ function posRecompute(){
   T.investi_usd=Math.round((iu+1e-12)*100)/100;
   T.courtiers=C;
   T.perf_debut_pct=ik>0?Math.round(((vk/ik-1)*100)*10+1e-9)/10:null;
-  POS.n_actives=act.length;
+  POS.n_actives=(POS.positions||[]).filter(p=>p.statut==='active').length;
   POS.n_en_attente=(POS.positions||[]).filter(p=>p.statut==='en_attente').length;
   const totU=T.total_usd||0;
   if(totU>0) POS.positions.forEach(p=>{
@@ -53,9 +57,9 @@ function posRecompute(){
   });
   const bits=[];
   if(POS_RV&&POS_RV.releve_libelle) bits.push(POS_RV.releve_libelle);
-  bits.push('XTB 23/11/2026 à 13 h 48 (Europe/Paris)');
+  if(POS.xtb_releve_libelle) bits.push(POS.xtb_releve_libelle);
   if(POS_RX&&POS_RX.releve_libelle) bits.push(POS_RX.releve_libelle);
-  POS.releve_libelle=bits.join(' · ');
+  if(bits.length) POS.releve_libelle=bits.join(' · ');
 }
 function posApplyOverlays(){
   posMergeRevolut(POS_RV);
@@ -152,19 +156,29 @@ function posActifCarre(list){
   const tip=[amt,court,hasPnl?posPct(pnl):'',...list.map(p=>[p.fiche_note,p.fiche_proxy?'Ce n’est pas le titre exact détenu.':''].filter(Boolean).join(' '))].filter(Boolean).join(' · ').replace(/"/g,'&quot;');
   return `<span class="${cls}" title="${tip}"><b>${amt}</b><span class="pos-carre-c">${court}</span><span class="pos-carre-p">${pct}</span></span>`;
 }
-function posBadgeHTML(p){
+function posOrdreTip(p){
   const court=posCourtNom[p.courtier]||p.courtier||'Revolut';
-  if(p.statut==='en_attente')
-    return `<span class="pos-badge pos-pend" title="${(p.fiche_note||'Ordre d’achat au marché chez '+court)+' · expiration le 19/11/2026 à 21 h (Europe/Paris)'}">Ordre en attente · ${posAmt(p.valeur,p.devise)}</span>`;
+  const exp=p.expiration?String(p.expiration).replace('T',' ').replace(':00+01:00','').replace('+01:00',''):'';
+  return (p.fiche_note||('Ordre d’achat au marché chez '+court))+(exp?' · expiration '+exp+' (Europe/Paris)':'');
+}
+function posOrdreMark(list){
+  const pend=(list||[]).filter(p=>p.statut==='en_attente');
+  if(!pend.length) return '';
+  const tip=pend.map(posOrdreTip).filter(Boolean).join(' · ').replace(/"/g,'&quot;');
+  return `<span class="pos-mark pos-mark-ordre" title="${tip}">ordre</span>`;
+}
+function posBadgeHTML(p){
+  if(p.statut==='en_attente') return posActifCarre([p])+posOrdreMark([p]);
   return posActifCarre([p]);
 }
 function posBadges(tv){
   const L=posOfTv(tv); if(!L.length) return '';
   const pending=L.filter(p=>p.statut==='en_attente');
   const active=L.filter(p=>p.statut!=='en_attente');
+  const all=active.concat(pending);
   const parts=[];
-  if(active.length) parts.push(posActifCarre(active));
-  pending.forEach(p=>parts.push(posBadgeHTML(p)));
+  if(all.length) parts.push(posActifCarre(all));
+  if(pending.length) parts.push(posOrdreMark(pending));
   return `<span class="pos-badges">${parts.join('')}</span>`;
 }
 function posOpenFiche(tab,tv){
@@ -335,7 +349,7 @@ function posSetListOpen(on,persist){
   if(persist!==false){ try{ localStorage.setItem(POS_LIST_KEY,on?'1':'0'); }catch(e){} }
 }
 function posLinePerf(p, kind){
-  if(p.statut==='en_attente') return '—';
+  if(p.statut==='en_attente') return `<span class="pos-na" title="Ordre en cours : le pourcentage vaut 0 jusqu’à l’exécution">+0,0 %</span>`;
   if(kind==='debut') return p.perf_debut_pct==null?'—':`<span class="${p.perf_debut_pct>=0?'up':'down'}">${posPct(p.perf_debut_pct)}</span>`;
   if(p.perf_1an_pct==null){
     const lab=p.perf_1an_libelle||'à venir';
@@ -350,7 +364,11 @@ function posShortName(p){
     'Enphase Energy':'Enphase','AGNC Investment':'AGNC','Annaly Capital Management':'Annaly',
     'Porsche Automobil Holding SE':'Porsche','Hermès International':'Hermès','Fanuc Corporation':'Fanuc',
     'Mercedes-Benz Group AG':'Mercedes','Global X Uranium UCITS ETF':'Uranium',
-    'Invesco Preferred Shares UCITS ETF (EUR Hdg)':'Preferred Shares'
+    'Invesco Preferred Shares UCITS ETF (EUR Hdg)':'Preferred Shares',
+    'Etablissements Maurel et Prom':'Maurel & Prom','Booking Holdings':'Booking',
+    'Caterpillar Inc.':'Caterpillar','Broadcom Inc.':'Broadcom',
+    'Liquidités Revolut':'Liquidités','Xtrackers Euro High Yield Corporate Bond Dist ETF':'High Yield €',
+    'Xtrackers II US Treasuries 10+ UCITS ETF 1D':'Treasuries 10+'
   };
   if(map[n]) return map[n];
   n=n.replace(/\s+(janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)\s+(\d{4})/i,' $2');
@@ -384,8 +402,8 @@ function posApexChip(p){
 function renderMesPositions(){
   const host=document.getElementById('mes-pos'); if(!host) return;
   const L=POS.positions||[];
-  const act=L.filter(p=>p.statut==='active');
-  const pend=L.filter(p=>p.statut==='en_attente');
+  const act=L.filter(p=>p.statut==='active'||p.statut==='en_attente');
+  const pend=[];
   const T=POS.totaux||{};
   const C=T.courtiers||{};
   const rev=C.revolut||{};
@@ -403,12 +421,13 @@ function renderMesPositions(){
     const tick=p.ticker&&p.ticker!==nm&&p.ticker.length<=6?`<span class="pos-tick">${p.ticker}</span>`:'';
     const poids=p.poids_pct==null?'—':posPct(p.poids_pct).replace('+','');
     const sell=p.vente_en_attente?`<span class="pos-mark pos-mark-sell" title="${(p.vente_en_attente_note||'Vente en attente').replace(/"/g,'&quot;')}">vente</span>`:'';
+    const ordre=p.statut==='en_attente'?posOrdreMark([p]):'';
     const stale=p.non_reverifie?`<span class="pos-mark pos-mark-stale" title="Non revérifié le ${String(p.non_reverifie).replace(/"/g,'&quot;')}"></span>`:'';
     const tip=[p.nom,p.ticker&&p.ticker!==p.nom?p.ticker:'',court,p.vente_en_attente_note||'',p.non_reverifie_note||'',p.fiche_note||''].filter(Boolean).join(' \u00b7 ');
     const posTv=p.fiche_tv||p.tv_note||p.ticker||'';
     return `<article class="pos-row pos-row-c ${p.statut==='en_attente'?'is-pend':''}${p.vente_en_attente?' is-sell':''}${p.fiche_tv?' has-fiche':''}"${posTv?` data-pos-tv="${String(posTv).replace(/"/g,'&quot;')}"`:''} title="${tip.replace(/"/g,'&quot;')}">
       <span class="pos-cx pos-cx-${cx.toLowerCase()}" title="${court}">${cx}</span>
-      <span class="pos-id">${go}${tick}${sell}${stale}</span>
+      <span class="pos-id">${go}${tick}${sell}${ordre}${stale}</span>
       <b class="pos-m">${mon}</b>
       <span class="pos-p">${poids}</span>
       <span class="pos-d">${posLinePerf(p,'debut')}</span>
@@ -450,7 +469,7 @@ function renderMesPositions(){
         </div>
       </div>
       <div class="pos-list">${act.map(row).join('')||'<div class="note">—</div>'}</div>
-      ${pend.length?`<div class="pos-list pos-pend-list">${pend.map(row).join('')}</div>`:''}
+      ${(()=>{const a=POS.cfd_alerte||(POS_RV&&POS_RV.cfd_alerte); if(!a) return ''; const tip=(a.note||'').replace(/"/g,'&quot;'); return `<div class="pos-cfd-alert" title="${tip}">${a.libelle||'CFD Revolut'}</div>`;})()}
     </div>
   </div>`;
   const prev=document.getElementById('mesPosCard');
