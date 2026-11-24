@@ -2,7 +2,7 @@
 """t534u (Emmanuel, 24/11/2026) : univers propre des Meilleurs SHORT, à la place de la watchlist APEX.
 
 50 actions cotées au NYSE (y compris les sociétés canadiennes cotées au NYSE), négociables en CFD chez Revolut,
-en surachat sur le RSI 14 HEBDO (> 70 en priorité ; complété par RSI ≥ 65 si besoin) et dont la santé
+en surachat sur le RSI 14 HEBDO (≥ rsi_hebdo_min = 65, > 70 en tête ; aucun complément sous le seuil) et dont la santé
 financière se dégrade (révisions de BPA en baisse, CA en recul, marges en recul, dette en hausse, FCF en baisse…).
 
 Étapes (régénérable : python3 src/build_univers_short.py [--force]) :
@@ -36,8 +36,12 @@ CACHE.mkdir(parents=True, exist_ok=True)
 OUT = ROOT / 'config' / 'univers_short.json'
 N = 50
 RSI_SUR = 70.0
-RSI_MIN = 65.0
-RSI_PLANCHER = 50.0  # plancher du complément (jamais sous 50)
+RSI_MIN = 65.0  # réglable : config/regles.json → apex_short.rsi_hebdo_min (décision Emmanuel : ≥ 65, plus de complément)
+try:
+    RSI_MIN = float(json.loads((ROOT / 'config' / 'regles.json').read_text(encoding='utf-8'))['apex_short'].get('rsi_hebdo_min', RSI_MIN))
+except Exception:
+    pass
+RSI_PLANCHER = RSI_MIN  # plus aucun complément sous le seuil
 UA = {'User-Agent': 'Mozilla/5.0'}
 FORCE = '--force' in sys.argv
 
@@ -284,12 +288,11 @@ def main():
     n70 = [y for y, w in nyse.items() if (w['rsi'] or 0) > RSI_SUR]
     n65 = [y for y, w in nyse.items() if (w['rsi'] or 0) >= RSI_MIN]
     print('NYSE', len(nyse), 'RSI>70', len(n70), 'RSI>=65', len(n65), flush=True)
-    # Fondamentaux par RSI hebdo décroissant ; si moins de N titres RSI ≥ 65 avec dégradation, on complète avec
-    # les RSI hebdo suivants (palier « complément RSI < 65 », signalé), jusqu'à N titres ou RSI < RSI_PLANCHER.
+    # Fondamentaux par RSI hebdo décroissant, uniquement RSI hebdo ≥ RSI_MIN (liste plus courte si besoin, plafond N).
     cands, elig = {}, []
     for y in sorted(nyse, key=lambda y: -(nyse[y]['rsi'] or 0)):
         r = nyse[y]['rsi'] or 0
-        if r < RSI_MIN and (len(elig) >= N or r < RSI_PLANCHER):
+        if r < RSI_MIN:
             break
         try:
             f = fondamentaux(y)

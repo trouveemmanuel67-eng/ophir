@@ -1085,7 +1085,7 @@ function rgShortUniversStats(){
   const u=S&&S.univers&&typeof S.univers==='object'?S.univers:null;
   const st=u&&u.stats; if(!st) return '';
   const n=v=>(v==null?'—':String(v));
-  return `<p class="rg-p rg-app">Mise à jour ${rgEsc(u.genere||'')} : ${n(st.retenus)} titres retenus sur ${n(st.nyse)} actions NYSE analysées ; RSI hebdo &gt; 70 : ${n(st.rsi_sup_70)} sur le marché (${n(st.retenus_rsi_sup_70)} retenus), RSI 65–70 : ${n(st.retenus_rsi_65_70)} retenus, complément RSI &lt; 65 : ${n(st.retenus_complement_sous_65)} (RSI min. ${n(st.rsi_min_retenu)}). CFD Revolut confirmés : ${n(st.cfd_confirmes)}, les autres sont à vérifier.</p>`;
+  return `<p class="rg-p rg-app">Mise à jour ${rgEsc(u.genere||'')} : ${n(st.retenus)} titres retenus sur ${n(st.nyse)} actions NYSE analysées ; RSI hebdo &gt; 70 : ${n(st.rsi_sup_70)} sur le marché (${n(st.retenus_rsi_sup_70)} retenus), RSI 65–70 : ${n(st.retenus_rsi_65_70)} retenus, RSI min. retenu ${n(st.rsi_min_retenu)} (seuil ≥ 65, sans complément). CFD Revolut confirmés : ${n(st.cfd_confirmes)}, les autres sont à vérifier.</p>`;
 }
 function rgShortCommons(){
   if(!RG) return '';
