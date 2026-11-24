@@ -405,7 +405,8 @@ function renderMesPositions(){
     const sell=p.vente_en_attente?`<span class="pos-mark pos-mark-sell" title="${(p.vente_en_attente_note||'Vente en attente').replace(/"/g,'&quot;')}">vente</span>`:'';
     const stale=p.non_reverifie?`<span class="pos-mark pos-mark-stale" title="Non revérifié le ${String(p.non_reverifie).replace(/"/g,'&quot;')}"></span>`:'';
     const tip=[p.nom,p.ticker&&p.ticker!==p.nom?p.ticker:'',court,p.vente_en_attente_note||'',p.non_reverifie_note||'',p.fiche_note||''].filter(Boolean).join(' \u00b7 ');
-    return `<article class="pos-row pos-row-c ${p.statut==='en_attente'?'is-pend':''}${p.vente_en_attente?' is-sell':''}${p.fiche_tv?' has-fiche':''}" title="${tip.replace(/"/g,'&quot;')}">
+    const posTv=p.fiche_tv||p.tv_note||p.ticker||'';
+    return `<article class="pos-row pos-row-c ${p.statut==='en_attente'?'is-pend':''}${p.vente_en_attente?' is-sell':''}${p.fiche_tv?' has-fiche':''}"${posTv?` data-pos-tv="${String(posTv).replace(/"/g,'&quot;')}"`:''} title="${tip.replace(/"/g,'&quot;')}">
       <span class="pos-cx pos-cx-${cx.toLowerCase()}" title="${court}">${cx}</span>
       <span class="pos-id">${go}${tick}${sell}${stale}</span>
       <b class="pos-m">${mon}</b>
