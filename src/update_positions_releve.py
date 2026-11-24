@@ -435,6 +435,15 @@ def totaux(rows, courtier=None):
     }
 
 
+
+def _mirror_site_root(data_file: Path):
+    """Copie vers la racine du dépôt (fetch de index.html : positions.json, etc.)."""
+    if data_file.parent.name != "data":
+        return
+    dest = data_file.parent.parent / data_file.name
+    dest.write_bytes(data_file.read_bytes())
+    print("mirrored", dest)
+
 def main():
     rel = json.loads(RELEVE.read_text())
     rv = rel["revolut"]["comptes"]
@@ -609,6 +618,7 @@ def main():
 
     book_path = DATA / "positions.json"
     book_path.write_text(json.dumps(book, ensure_ascii=False, indent=2) + "\n")
+    _mirror_site_root(book_path)
     sha = hashlib.sha256(book_path.read_bytes()).hexdigest()
 
     rv_json = {
@@ -640,6 +650,7 @@ def main():
         ),
     }
     (DATA / "positions_revolut.json").write_text(json.dumps(rv_json, ensure_ascii=False, indent=2) + "\n")
+    _mirror_site_root(DATA / "positions_revolut.json")
 
     rx_json = {
         "releve": now.isoformat(),
@@ -654,6 +665,7 @@ def main():
         "desc": f"Relevé Revolut X du 24/11/2026 : ETH 0,28 ({fr_money(float(eth_p['valeur_usd']))} $).",
     }
     (DATA / "positions_revolutx.json").write_text(json.dumps(rx_json, ensure_ascii=False, indent=2) + "\n")
+    _mirror_site_root(DATA / "positions_revolutx.json")
 
     print("wrote", book_path, "n", len(book_rows), "actives", book["n_actives"], "ordres", book["n_en_attente"])
     print("tickers", [p["ticker"] + ("*" if p["statut"] == "en_attente" else "") for p in book_rows])

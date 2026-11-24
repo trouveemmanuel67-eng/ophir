@@ -754,6 +754,54 @@ def check_headless(root=ROOT):
             pass
 
 
+
+def check_positions_root(root=ROOT):
+    """t456u : les JSON fetchés à la racine doivent suivre data/ (même relevé)."""
+    names = ('positions.json', 'positions_revolut.json', 'positions_revolutx.json')
+    print('[positions] JSON à la racine alignés sur data/')
+    for fn in names:
+        data = root / 'data' / fn
+        racine = root / fn
+        if not data.exists():
+            _fail(f'{fn} : absent de data/, pas de source de vérité')
+            raise SystemExit(1)
+        if not racine.exists():
+            _fail(
+                f'{fn} : absent à la racine du dépôt. index.html le recharge au démarrage '
+                f'(fetch cache:no-cache) et écraserait le relevé embarqué avec une copie '
+                f'obsolète, ou le laisserait manquer.'
+            )
+            raise SystemExit(1)
+        a = data.read_bytes()
+        b = racine.read_bytes()
+        if a != b:
+            _fail(
+                f'{fn} à la racine diffère de data/{fn} '
+                f'({len(b)} octets vs {len(a)}). Recopier data/ vers la racine '
+                f'(build.py le fait) avant de publier.'
+            )
+            raise SystemExit(1)
+        _ok(f'{fn} racine = data/ ({len(a)} octets)')
+    try:
+        import json
+        book = json.loads((root / 'positions.json').read_text(encoding='utf-8'))
+        ticks = [(p.get('ticker') or '') for p in (book.get('positions') or [])]
+        stale = [t for t in ('ENPH', 'NKE', 'STLA', 'PKX', 'BTC') if t in ticks]
+        missing = [t for t in ('XAU', 'BKNG') if t not in ticks]
+        if stale or missing:
+            _fail(
+                'positions.json racine : relevé incomplet ou obsolète '
+                f'(encore {stale or "—"} / manque {missing or "—"}).'
+            )
+            raise SystemExit(1)
+        _ok('positions.json : XAU et BKNG présents, ENPH/NKE/STLA/PKX/BTC absents')
+    except SystemExit:
+        raise
+    except Exception as e:
+        _fail(f'lecture positions.json : {type(e).__name__}: {e}')
+        raise SystemExit(1)
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(
         description='Garde-fou : syntaxe JS + rendu headless avant publication.'
@@ -782,6 +830,7 @@ def main(argv=None):
     try:
         if both or args.syntax:
             check_syntax(root)
+            check_positions_root(root)
         if both or args.headless:
             check_headless(root)
     except SystemExit as e:

@@ -149,12 +149,28 @@ print('build', _build)
 
 open(B+'index.html','w').write(t)
 print('ok',len(t))
+
+# t456u : index.html recharge positions.json, positions_revolut.json et
+# positions_revolutx.json à la racine (fetch cache:no-cache). Ces copies
+# doivent suivre data/, sinon elles écrasent le relevé embarqué.
+_POS_ROOT=('positions.json','positions_revolut.json','positions_revolutx.json')
+def _publish_positions_root(dest_root):
+    dest_root=_P(dest_root)
+    for fn in _POS_ROOT:
+        src=_P(B+'data/'+fn)
+        if not src.exists():
+            continue
+        target=dest_root/fn
+        target.write_text(src.read_text(encoding='utf-8'), encoding='utf-8')
+        print('positions root', target, 'bytes', target.stat().st_size)
+_publish_positions_root(B)
 # copie vers le site publié si distinct
 try:
     if _SITE and _P(_SITE).resolve()!=_P(B).resolve():
         dest=_P(_SITE)/'index.html'
         dest.write_text(t)
         print('site', dest, 'bytes', dest.stat().st_size)
+        _publish_positions_root(_SITE)
         _spj=_P(B+'data/apex_achat_v2_site.json')
         if _spj.exists():
             sdest=_P(_SITE)/'data'/'apex_achat_v2_site.json'
