@@ -556,10 +556,15 @@ body{display:flex;flex-direction:column;min-height:100vh}
 .gi-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;grid-template-rows:auto auto;align-items:center;column-gap:10px;row-gap:3px;padding:10px 4px;border-bottom:1px solid rgba(255,255,255,.08);border-radius:0;background:none}
 .gi-row:hover{background:rgba(255,255,255,.03)}
 .gi-row:last-child{border-bottom:0}
-.gi-elliott{grid-column:1;grid-row:1 / span 2;appearance:none;-webkit-appearance:none;display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;width:44px;height:44px;min-width:44px;min-height:44px;margin:0;padding:0;border:0;border-radius:10px;background:transparent;color:#ff2d2d;font:inherit;font-size:16px;font-weight:800;line-height:1;letter-spacing:0;cursor:pointer;-webkit-tap-highlight-color:rgba(255,45,45,.28)}
+.gi-acts{grid-column:1;grid-row:1 / span 2;display:flex;flex-direction:row;align-items:center;gap:0}
+.gi-elliott{appearance:none;-webkit-appearance:none;display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;width:44px;height:44px;min-width:44px;min-height:44px;margin:0;padding:0;border:0;border-radius:10px;background:transparent;color:#ff2d2d;font:inherit;font-size:16px;font-weight:800;line-height:1;letter-spacing:0;cursor:pointer;-webkit-tap-highlight-color:rgba(255,45,45,.28)}
 .gi-elliott:hover{background:rgba(255,45,45,.12);color:#ff4d4d}
 .gi-elliott:active{background:rgba(255,45,45,.22);color:#ff6b6b;transform:scale(.96)}
 .gi-elliott:focus-visible{outline:1px solid rgba(255,45,45,.8);outline-offset:2px}
+.gi-pattern{appearance:none;-webkit-appearance:none;display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;width:44px;height:44px;min-width:44px;min-height:44px;margin:0;padding:0;border:0;border-radius:10px;background:transparent;color:#ff2d2d;font:inherit;font-size:16px;font-weight:800;line-height:1;letter-spacing:0;cursor:pointer;-webkit-tap-highlight-color:rgba(255,45,45,.28)}
+.gi-pattern:hover{background:rgba(255,45,45,.12);color:#ff4d4d}
+.gi-pattern:active{background:rgba(255,45,45,.22);color:#ff6b6b;transform:scale(.96)}
+.gi-pattern:focus-visible{outline:1px solid rgba(255,45,45,.8);outline-offset:2px}
 .gi-id{grid-column:2;grid-row:1;min-width:0;overflow:hidden}
 .gi-id .gi-link,.gi-id .pos-nm{display:block;width:100%;font-weight:650;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;background:none;border:0;padding:0;font:inherit;cursor:pointer;text-align:left;text-decoration:none;box-shadow:none;appearance:none;-webkit-appearance:none}
 .gi-id .gi-link:hover,.gi-id .pos-nm{color:#fff;text-decoration:none}
@@ -814,9 +819,9 @@ body.home-on.pos-open #mes-pos{margin-top:8px}
 .home-table{display:flex;flex-direction:column;gap:3px}
 .home-table-h,a.home-card{
   display:grid;
-  grid-template-columns:minmax(9.2rem,0.95fr) 6.6rem minmax(8rem,1.05fr) 6.4rem minmax(5.6rem,0.9fr) minmax(6.4rem,1.1fr) 1.2rem;
+  grid-template-columns:minmax(7.4rem,1.05fr) 4.6rem 4.6rem 3.7rem 3.1rem minmax(4.8rem,0.85fr) 2.8rem 2.8rem 2.4rem 3.4rem minmax(5.6rem,0.8fr) 1rem;
   align-items:center;
-  gap:0 10px;
+  gap:0 6px;
   min-width:0;
 }
 .home-table-h > *,a.home-card > *{min-width:0;}
@@ -836,12 +841,24 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
 .home-mark.is-empty{color:var(--mut)}
 .home-go{font-size:14px;color:#e6c27a;font-weight:700;text-align:right;letter-spacing:0;text-transform:none}
 .home-meta{display:contents}
+.home-pnl,.home-rdt,.home-sent,.home-av,.home-hype,.home-age,.home-etf{font-size:11.5px;font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;color:#d8d0c2}
+.home-pnl.is-empty,.home-rdt.is-empty,.home-sent.is-empty,.home-av.is-empty,.home-hype.is-empty,.home-age.is-empty,.home-etf.is-empty{color:var(--mut)}
+.home-av b{font-size:12.5px;font-weight:750}
+.home-etf{display:flex;align-items:center;min-width:0}
+.home-etf .tvs{margin:0;gap:3px;min-width:0}
+.home-etf .tvs code{font-size:10px;padding:0 3px;color:#c8c4bc;background:transparent;overflow:hidden;text-overflow:ellipsis;max-width:7.2rem}
+.home-etf .cp{width:20px;height:20px;flex:none;border-radius:4px}
+.home-flags{gap:4px;font-size:10.5px}
+.home-flags i{width:7px;height:7px;margin-right:2px}
+.home-held{font-size:12px}
+.home-card .home-sig.apex10 b{font-size:14px}
+.home-card .home-sig.apex10 small{font-size:10px}
 @media(max-width:900px){
   .home-tot .home-big{font-size:22px}
   .home-tot .home-sub{font-size:15px}
   .home-hero-top .home-openpos{margin-left:0}
 }
-@media(max-width:800px){
+@media(max-width:1099px){
   .home-table-scroll{overflow-x:visible;margin:0;padding:0}
   .home-table{min-width:0}
   .home-table-h{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:0 10px}
@@ -855,12 +872,13 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
   a.home-card h2{font-size:13px;letter-spacing:.03em}
   a.home-card .home-sig{justify-self:end}
   a.home-card .home-meta{
-    display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;
+    display:flex;flex-wrap:wrap;align-items:center;gap:3px 8px;
     grid-column:1/-1;min-width:0;
   }
-  a.home-card .home-flags,a.home-card .home-held,a.home-card .home-mark{
+  a.home-card .home-flags,a.home-card .home-held,a.home-card .home-pnl,a.home-card .home-rdt,a.home-card .home-sent,a.home-card .home-av,a.home-card .home-hype,a.home-card .home-age,a.home-card .home-etf{
     display:inline-flex;align-items:center;flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;
   }
+  a.home-card .home-etf .tvs code{max-width:6.4rem}
   a.home-card .home-go{margin-left:auto;flex:0 0 auto}
 }
 @media(max-width:600px){
@@ -932,6 +950,7 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
 <script type="application/json" id="dataMaj">__MAJ__</script>
 <script type="application/json" id="dataGi">__GI__</script>
 <script type="application/json" id="dataPilot">__DATA_PILOT__</script>
+<script type="application/json" id="dataEtfRef">__DATA_ETF__</script>
 <script>
 "use strict";
 const DATA = JSON.parse(document.getElementById('data').textContent);

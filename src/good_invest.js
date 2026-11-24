@@ -39,6 +39,33 @@ function giHideElliott(tv){
   map[String(tv)]=giMonthKey();
   try{ localStorage.setItem(GI_ELLIOTT_KEY, JSON.stringify(map)); }catch(e){}
 }
+const GI_PATTERN_KEY='apex-gi-pattern-hide';
+function giPatternHiddenMap(){
+  let raw=null;
+  try{ raw=JSON.parse(localStorage.getItem(GI_PATTERN_KEY)||'{}'); }catch(e){ raw={}; }
+  if(!raw||typeof raw!=='object'||Array.isArray(raw)) raw={};
+  const month=giMonthKey();
+  const out={};
+  let changed=false;
+  Object.keys(raw).forEach(k=>{
+    if(raw[k]===month) out[k]=month;
+    else changed=true;
+  });
+  if(changed){
+    try{ localStorage.setItem(GI_PATTERN_KEY, JSON.stringify(out)); }catch(e){}
+  }
+  return out;
+}
+function giIsPatternHidden(tv, map){
+  if(!tv) return false;
+  return !!((map||giPatternHiddenMap())[String(tv)]);
+}
+function giHidePattern(tv){
+  if(!tv) return;
+  const map=giPatternHiddenMap();
+  map[String(tv)]=giMonthKey();
+  try{ localStorage.setItem(GI_PATTERN_KEY, JSON.stringify(map)); }catch(e){}
+}
 const GI_PAYS_ACTIONS=new Set(['USA','France']);
 const GI_PAYS_HORS=['Allemagne','Canada','Suisse','Italie','Japon','Corée du Sud','Corée','Australie'];
 function giEstActionHorsUnivers(it){
@@ -315,7 +342,8 @@ function giRender(){
   const host=document.getElementById('mes-pos');
   if(!host) return;
   const hidden=giElliottHiddenMap();
-  const list=giCollect().filter(it=>!giIsElliottHidden(it.tv, hidden));
+  const hiddenP=giPatternHiddenMap();
+  const list=giCollect().filter(it=>!giIsElliottHidden(it.tv, hidden)).filter(it=>!giIsPatternHidden(it.tv, hiddenP));
   const n=list.length;
   const rows=list.map(it=>{
     const col=it.scale===250||it.scale===270?(it.hex||((typeof pilotHex==='function')?pilotHex({total:it.note}):'#e6c27a')):((typeof ttColor==='function')?ttColor(it.note):(it.hex||'#e6c27a'));
@@ -329,7 +357,7 @@ function giRender(){
     const tick=it.tv?((typeof tvTag==='function')?tvTag(it.tv):`<span class="gi-tick">${String(it.tv).replace(/</g,'')}</span>`):'';
     const sec=it.section?`<span class="gi-sec">${String(it.section).replace(/</g,'')}</span>`:'';
     const ev=it.tv
-      ? `<button type="button" class="gi-elliott" data-tv="${String(it.tv).replace(/"/g,'&quot;')}" title="Retirer : vague Elliott non propice" aria-label="Retirer : vague Elliott non propice">E</button>`
+      ? `<div class="gi-acts"><button type="button" class="gi-elliott" data-tv="${String(it.tv).replace(/"/g,'&quot;')}" title="Retirer : vague Elliott non propice" aria-label="Retirer : vague Elliott non propice">E</button><button type="button" class="gi-pattern" data-tv="${String(it.tv).replace(/"/g,'&quot;')}" title="Pattern baissier : retirer jusqu'au 1er du mois" aria-label="Pattern baissier : retirer jusqu'au 1er du mois">P</button></div>`
       : '';
     return `<article class="gi-row${it.tv?' has-fiche':''}" title="${tip.replace(/"/g,'&quot;')}">
       ${ev}
@@ -375,6 +403,12 @@ function giRender(){
     e.preventDefault();
     e.stopPropagation();
     giHideElliott(b.dataset.tv);
+    giRender();
+  }));
+  card.querySelectorAll('.gi-pattern').forEach(b=>b.addEventListener('click',e=>{
+    e.preventDefault();
+    e.stopPropagation();
+    giHidePattern(b.dataset.tv);
     giRender();
   }));
   if(typeof posSyncListChrome==='function') posSyncListChrome(typeof posListIsOpen==='function'&&posListIsOpen());

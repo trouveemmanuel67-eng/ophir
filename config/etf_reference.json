@@ -1,0 +1,38 @@
+{
+  "_comment": "ETF de référence par secteur du tableau d'accueil (t444u). Champ tv = ticker TradingView complet, copié par le bouton. Modifier ici, puis régénérer index.html (python3 src/build.py).",
+  "actions": {
+    "tv": "AMEX:SPY",
+    "nom": "SPDR S&P 500 ETF Trust",
+    "pourquoi": "ETF actions le plus liquide, référence S&P 500 déjà suivie sur APEX. Alternative envisagée : AMEX:URTH (MSCI World), moins liquide."
+  },
+  "obligations": {
+    "tv": "AMEX:AGG",
+    "nom": "iShares Core US Aggregate Bond ETF",
+    "pourquoi": "Panier obligataire large (Trésor, agences, crédit IG). Alternative : NASDAQ:TLT (Treasuries 20+ ans), déjà dans la méthode, trop typé duration longue pour tout le secteur."
+  },
+  "metaux": {
+    "tv": "AMEX:GLD",
+    "nom": "SPDR Gold Shares",
+    "pourquoi": "ETF or physique le plus liquide. Alternative : AMEX:IAU."
+  },
+  "energie": {
+    "tv": "AMEX:XLE",
+    "nom": "Energy Select Sector SPDR Fund",
+    "pourquoi": "Référence sectorielle énergie US la plus liquide (pas un proxy uranium type URNU)."
+  },
+  "crypto": {
+    "tv": "NASDAQ:IBIT",
+    "nom": "iShares Bitcoin Trust ETF",
+    "pourquoi": "ETF Bitcoin spot le plus liquide."
+  },
+  "liquidites": {
+    "tv": "AMEX:BIL",
+    "nom": "SPDR Bloomberg 1-3 Month T-Bill ETF",
+    "pourquoi": "Proxy liquidités / T-bills court terme, très liquide. Alternative : AMEX:SHV."
+  },
+  "immobilier": {
+    "tv": "AMEX:VNQ",
+    "nom": "Vanguard Real Estate ETF",
+    "pourquoi": "ETF immobilier (REIT) US de référence, très liquide."
+  }
+}

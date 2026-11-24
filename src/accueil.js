@@ -1,4 +1,5 @@
 /* ===== Accueil : patrimoine + lignes de secteurs (données déjà présentes, lecture seule) ===== */
+const ETF_REF=(()=>{try{const el=document.getElementById('dataEtfRef');return el?JSON.parse(el.textContent):{};}catch(e){return {};}})();
 function homeTabOf(p){
   const tab=p&&p.tab;
   if(tab==='obligations'||tab==='energie'||tab==='crypto'||tab==='metaux'||tab==='liquidites'||tab==='immobilier'||tab==='actions') return tab;
@@ -211,23 +212,147 @@ function homeHeldHTML(map,id){
   if(v==null||!(v>0)) return `<div class="home-held" title="Détenu">—</div>`;
   return `<div class="home-held" title="Détenu">${posAmt(v,'EUR')}</div>`;
 }
-function homeMarkHTML(m){
-  if(!m||!m.text||m.text==='—') return `<div class="home-mark is-empty">—</div>`;
-  const tip=m.title?` title="${homeEsc(m.title)}"`:'';
-  return `<div class="home-mark"${tip}>${homeEsc(m.text)}</div>`;
+function homeSectorPositions(act,id){
+  return (act||[]).filter(p=>homeTabOf(p)===id);
 }
-function homeCard({id,label,short,counts,held,marks}){
+function homeEmpty(cls,tip){
+  return `<div class="${cls} is-empty"${tip?` title="${homeEsc(tip)}"`:''}>—</div>`;
+}
+function homePnlHTML(stats){
+  const pct=stats&&stats.pnl;
+  if(pct==null||!Number.isFinite(Number(pct))) return homeEmpty('home-pnl','Gain ou perte latent : pas de prix de revient sur les positions du secteur');
+  const n=Number(pct);
+  const tip=stats.pnlPartial?'Gain ou perte latent, uniquement sur les lignes avec prix de revient':'Gain ou perte latent des positions du secteur';
+  return `<div class="home-pnl" title="${homeEsc(tip)}"><span class="${n>=0?'up':'down'}">${(typeof posPct==='function')?posPct(n):homePct1(n)}</span></div>`;
+}
+function homePosYield(p){
+  if(!p) return null;
+  const keys=['rendement','rendement_pct','yield','yield_pct','dividende','dividend_yield','coupon','coupon_pct','rdt'];
+  for(let i=0;i<keys.length;i++){
+    const v=p[keys[i]];
+    if(v==null||v==='') continue;
+    const n=Number(v);
+    if(Number.isFinite(n)) return n;
+  }
+  return null;
+}
+function homeYieldHTML(stats){
+  const y=stats&&stats.yield;
+  if(y==null||!Number.isFinite(Number(y))) return homeEmpty('home-rdt','Rendement / dividende ou coupon : donnée absente sur les positions, non inventée');
+  const n=Number(y);
+  return `<div class="home-rdt" title="Rendement / dividende ou coupon moyen pondéré des positions du secteur">${(typeof posPct==='function')?posPct(n):homePct1(n)}</div>`;
+}
+function homePosBuyDate(p){
+  /* Dates d'achat explicites seulement. date_ordre / date_execution d'une vente en attente sont ignorées. perf_1an_dates n'est pas une date d'achat. */
+  if(!p||p.statut&&p.statut!=='active') return null;
+  const raw=p.date_achat||p.date_ouverture||p.opened_at||p.purchase_date||null;
+  let s=raw;
+  if(s==null&&!p.vente_en_attente) s=p.date_execution||null;
+  if(s==null||s==='') return null;
+  const d=new Date(s);
+  return isNaN(d.getTime())?null:d;
+}
+function homeAgeTxt(days){
+  if(days==null||!Number.isFinite(Number(days))||Number(days)<0) return null;
+  const n=Number(days);
+  if(n<45) return Math.round(n)+'\u00a0j';
+  const mois=n/30.4375;
+  if(mois<18) return mois.toLocaleString('fr-FR',{minimumFractionDigits:1,maximumFractionDigits:1})+'\u00a0mois';
+  const ans=n/365.25;
+  return ans.toLocaleString('fr-FR',{minimumFractionDigits:1,maximumFractionDigits:1})+'\u00a0an'+(ans>=1.95?'s':'');
+}
+function homeAgeHTML(stats){
+  const txt=homeAgeTxt(stats&&stats.ageDays);
+  if(!txt) return homeEmpty('home-age','Ancienneté : dates d’achat indisponibles (Revolut / XTB), non inventées');
+  return `<div class="home-age" title="Ancienneté moyenne des positions, pondérée par le montant">${txt}</div>`;
+}
+function homeEtfHTML(id){
+  const ref=(typeof ETF_REF!=='undefined'&&ETF_REF)?ETF_REF[id]:null;
+  const tv=ref&&(ref.tv||ref.ticker);
+  if(!tv) return homeEmpty('home-etf','Aucun ETF de référence configuré');
+  const nom=ref.nom||'';
+  const full=String(tv);
+  const sym=full.indexOf(':')>=0?full.slice(full.indexOf(':')+1):full;
+  const svg=(typeof CPSVG!=='undefined')?CPSVG:'<svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><rect x="5" y="1.5" width="8" height="10" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.3"/><rect x="2.5" y="4.5" width="8" height="10" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>';
+  /* Affiche le symbole (compact) ; le bouton copie le ticker TradingView complet (ex. AMEX:SPY). */
+  return `<div class="home-etf" title="${homeEsc((nom?nom+' · ':'')+full)}"><span class="tvs"><code>${homeEsc(sym)}</code><button type="button" class="cp" data-c="${homeEsc(full)}" aria-label="Copier ${homeEsc(full)}" title="Copier ${homeEsc(full)}">${svg}</button></span></div>`;
+}
+function homeSentHTML(id){
+  const ind=homeIndOf(id);
+  if(!ind||ind.value==null||!Number.isFinite(Number(ind.value))) return homeEmpty('home-sent','Note Sentiment indisponible');
+  const bits=['Note Sentiment',ind.title,ind.date&&homeD(ind.date),ind.label].filter(Boolean);
+  return `<div class="home-sent" title="${homeEsc(bits.join(' · '))}">S\u00a0${fmt(ind.value,0)}</div>`;
+}
+function homeAvHTML(id){
   const av=homeAvOf(id);
-  const pair=[(marks&&marks[0])||{text:'—'},(marks&&marks[1])||{text:'—'}];
+  if(!av||av.score==null||av.score===''||!Number.isFinite(Number(av.score))) return homeEmpty('home-av','Note Achat / Vente indisponible');
+  const col=(typeof avCol==='function')?avCol(av.score):'#e6c27a';
+  const lab=av.label||'';
+  const tip=['Note AV (Achat / Vente)',lab,av.date&&homeD(av.date)].filter(Boolean).join(' · ');
+  return `<div class="home-av" title="${homeEsc(tip)}"><b style="color:${col}">${sign(av.score,0)}</b></div>`;
+}
+function homeHypeOf(id){
+  /* Branchement H : si sectionHypeAvg est définie (intégration H non publiée), on affiche sa moyenne ; sinon « – ». */
+  if(typeof sectionHypeAvg==='function'){
+    const v=sectionHypeAvg(id);
+    if(v!=null&&typeof v==='object'){
+      const n=v.note!=null?v.note:(v.hype!=null?v.hype:v.total);
+      if(n!=null&&Number.isFinite(Number(n))) return Number(n);
+    }else if(v!=null&&Number.isFinite(Number(v))) return Number(v);
+  }
+  return null;
+}
+function homeHypeHTML(id){
+  const n=homeHypeOf(id);
+  if(n==null||!Number.isFinite(Number(n))) return `<div class="home-hype is-empty" title="Note HYPE indisponible (indicateur d’attention non publié)">–</div>`;
+  return `<div class="home-hype" title="Note HYPE : moyenne d’attention des actifs du secteur">${fmt(n,0)}</div>`;
+}
+function homeSectorStats(act,id){
+  const list=homeSectorPositions(act,id);
+  let val=0,valK=0,invK=0,unkInvest=false;
+  let yNum=0,yDen=0,yMiss=false,yAny=false;
+  let ageNum=0,ageDen=0,ageMiss=false,ageAny=false;
+  const now=(typeof giNow==='function')?giNow():new Date();
+  (list||[]).forEach(p=>{
+    const v=Number(p.valeur_eur);
+    const w=Number.isFinite(v)&&v>0?v:null;
+    if(Number.isFinite(v)&&v>0) val+=v;
+    const inv=p.investi_eur;
+    if(inv!=null&&inv!==''&&Number.isFinite(Number(inv))&&Number(inv)>0&&Number.isFinite(v)){valK+=v;invK+=Number(inv);}
+    else if(Number.isFinite(v)&&v>0) unkInvest=true;
+    const y=homePosYield(p);
+    if(y!=null&&w){yNum+=y*w;yDen+=w;yAny=true;}
+    else if(w) yMiss=true;
+    const d=homePosBuyDate(p);
+    if(d&&w){
+      const days=(now.getTime()-d.getTime())/86400000;
+      if(Number.isFinite(days)&&days>=0){ageNum+=days*w;ageDen+=w;ageAny=true;}
+      else ageMiss=true;
+    }else if(w) ageMiss=true;
+  });
+  const pnl=(invK>0)?(valK/invK-1)*100:null;
+  /* Rendement et ancienneté : seulement si toutes les lignes détenues ont la donnée (sinon on n'affiche pas une moyenne partielle). */
+  const yieldPct=(yAny&&!yMiss&&yDen>0)?yNum/yDen:null;
+  const ageDays=(ageAny&&!ageMiss&&ageDen>0)?ageNum/ageDen:null;
+  return {list,val,pnl,pnlPartial:!!(unkInvest&&invK>0),yield:yieldPct,ageDays};
+}
+function homeCard({id,label,short,counts,stats}){
+  const av=homeAvOf(id);
   const full=label||short;
+  const held={};held[id]=stats&&stats.val;
   return `<a class="card home-card no-acc no-group" href="#${id}" title="${homeEsc('Ouvrir l’onglet '+full)}">
     <h2 title="${homeEsc(full)}">${homeEsc(label||short)}</h2>
     ${homeSigHTML(av,id)}
     <div class="home-meta">
-    ${homeFlagsHTML(counts)}
     ${homeHeldHTML(held,id)}
-    ${homeMarkHTML(pair[0])}
-    ${homeMarkHTML(pair[1])}
+    ${homePnlHTML(stats)}
+    ${homeYieldHTML(stats)}
+    ${homeEtfHTML(id)}
+    ${homeSentHTML(id)}
+    ${homeAvHTML(id)}
+    ${homeHypeHTML(id)}
+    ${homeAgeHTML(stats)}
+    ${homeFlagsHTML(counts)}
     <div class="home-go" aria-hidden="true">→</div>
     </div>
   </a>`;
@@ -264,55 +389,16 @@ function renderAccueil(el){
   /* Le bandeau « Patrimoine et positions » a été retiré le 23/11/2026 :
      le total figure dans l'en-tête du panneau repliable « Mes positions ». */
 
-  const vix=homeLastPair(typeof T2!=='undefined'&&T2.actions&&T2.actions.vix);
-  const us10=homeLastPair(typeof T2!=='undefined'&&T2.actions&&T2.actions.taux10&&T2.actions.taux10.us_last);
-  const orRow=(typeof MT!=='undefined'&&(MT.rows||[])).find(r=>/or/i.test(r.nom||''));
-  const liv=(typeof T2!=='undefined'&&T2.liquidites&&T2.liquidites.livrets&&T2.liquidites.livrets.last);
-  const prix=(typeof DATA!=='undefined'&&DATA.prix)||{};
-
-  const marks={
-    actions:[
-      homeSentMark(homeIndOf('actions')),
-      vix?homeValMark(`VIX ${homeNum(vix[1],1)}`, homeD(vix[0])):null
-    ],
-    obligations:[
-      homeSentMark(homeIndOf('obligations')),
-      us10?homeValMark(`US10Y ${homeNum(us10[1],1)}\u00a0%`, homeD(us10[0])):null
-    ],
-    metaux:[
-      homeSentMark(homeIndOf('metaux')),
-      orRow&&orRow.close!=null?homeValMark(`Or ${homeNum(orRow.close,0)}\u00a0$`, orRow.date?homeD(orRow.date):''):null
-    ],
-    energie:[null,null],
-    crypto:[
-      homeSentMark(homeIndOf('crypto'))
-    ],
-    liquidites:[
-      homeSentMark(homeIndOf('liquidites')),
-      Array.isArray(liv)&&liv.length>=3?homeValMark(`LA ${homeNum(liv[1],1)}\u00a0% · LEP ${homeNum(liv[2],1)}\u00a0%`, homeD(liv[0])):null
-    ],
-    immobilier:[
-      homeSentMark(homeIndOf('immobilier')),
-      prix.last&&prix.last.value!=null?homeValMark(
-        `Indice ${homeNum(prix.last.value,1)}`,
-        [homeD(prix.last.period), prix.peak&&prix.peak.dd!=null?`${homePct1(prix.peak.dd)} vs sommet`:''].filter(Boolean).join(' · ')
-      ):null
-    ]
-  };
-  if(typeof T2!=='undefined'&&T2.energie&&Array.isArray(T2.energie.assets)){
-    const urnu=T2.energie.assets.find(a=>a.sym==='URNU'&&a.av&&a.av.score!=null);
-    if(urnu) marks.energie[1]=homeValMark(`URNU ${sign(urnu.av.score,0)} ${urnu.av.label||''}`.trim(), 'Fiche URNU, déjà sur l’onglet Énergie');
-  }
-
   const cards=[
-    {id:'actions',label:'Actions',short:'Actions',counts:(()=>{const c=homeCount(homeActionScores());c.v2=true;return c;})(),held,marks:marks.actions},
-    {id:'obligations',label:'Obligations',short:'Oblig.',counts:homeCount(homeScoresOf((typeof OB!=='undefined'&&OB.segments)||[])),held,marks:marks.obligations},
-    {id:'metaux',label:'Métaux précieux',short:'Métaux',counts:homeCount(homeScoresOf((typeof MT!=='undefined'&&MT.rows)||[])),held,marks:marks.metaux},
-    {id:'energie',label:'Énergie',short:'Énergie',counts:homeCount(homeScoresOf((typeof T2!=='undefined'&&T2.energie&&T2.energie.assets)||[])),held,marks:marks.energie},
-    {id:'crypto',label:'Crypto',short:'Crypto',counts:homeCount(homeScoresOf((typeof T2!=='undefined'&&T2.crypto&&T2.crypto.fiches&&T2.crypto.fiches.assets)||[])),held,marks:marks.crypto},
-    {id:'liquidites',label:'Liquidités',short:'Liq.',counts:homeCount(homeScoresOf((typeof T2!=='undefined'&&T2.liquidites&&T2.liquidites.fx&&(T2.liquidites.fx.assets||T2.liquidites.fx.pairs))||[])),held,marks:marks.liquidites},
-    {id:'immobilier',label:'Immobilier',short:'Immo',counts:{n:0,violet:0,rouge:0,jaune:0,vert:0,cyan:0},held,marks:marks.immobilier}
+    {id:'actions',label:'Actions',short:'Actions',counts:(()=>{const c=homeCount(homeActionScores());c.v2=true;return c;})()},
+    {id:'obligations',label:'Obligations',short:'Oblig.',counts:homeCount(homeScoresOf((typeof OB!=='undefined'&&OB.segments)||[]))},
+    {id:'metaux',label:'Métaux précieux',short:'Métaux',counts:homeCount(homeScoresOf((typeof MT!=='undefined'&&MT.rows)||[]))},
+    {id:'energie',label:'Énergie',short:'Énergie',counts:homeCount(homeScoresOf((typeof T2!=='undefined'&&T2.energie&&T2.energie.assets)||[]))},
+    {id:'crypto',label:'Crypto',short:'Crypto',counts:homeCount(homeScoresOf((typeof T2!=='undefined'&&T2.crypto&&T2.crypto.fiches&&T2.crypto.fiches.assets)||[]))},
+    {id:'liquidites',label:'Liquidités',short:'Liq.',counts:homeCount(homeScoresOf((typeof T2!=='undefined'&&T2.liquidites&&T2.liquidites.fx&&(T2.liquidites.fx.assets||T2.liquidites.fx.pairs))||[]))},
+    {id:'immobilier',label:'Immobilier',short:'Immo',counts:{n:0,violet:0,rouge:0,jaune:0,vert:0,cyan:0}}
   ];
+  cards.forEach(c=>{ c.stats=homeSectorStats(act,c.id); });
   cards.sort((a,b)=>{
     const sa=homeApexNorm(a.id),sb=homeApexNorm(b.id);
     if(sa==null&&sb==null) return String(a.label||'').localeCompare(String(b.label||''),'fr');
@@ -326,7 +412,7 @@ function renderAccueil(el){
     <div class="home-table-scroll">
       <div class="home-table">
         <div class="home-table-h" aria-hidden="true">
-          <span>Secteur</span><span>Note APEX</span><span>Drapeaux</span><span>Détenu</span><span>Sentiment</span><span>Repère</span><span></span>
+          <span>Secteur</span><span>Note APEX</span><span>Détenu</span><span>Latent</span><span>Rdt</span><span>ETF</span><span>Sent.</span><span>AV</span><span>Hype</span><span>Âge</span><span>Drap.</span><span></span>
         </div>
         ${cards.map(homeCard).join('')}
       </div>
