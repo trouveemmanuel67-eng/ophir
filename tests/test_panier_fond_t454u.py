@@ -58,13 +58,9 @@ def test_panier_france_communication_dans_les_json():
         assert etf['kind'] == 'panier'
         assert etf['points']['fondamental'] == moy
         assert moy == 38
-        assert etf['total'] == 78
-        assert etf['points']['total'] == 78
-        # les actions elles-mêmes n'ont pas été recalculées
-        by_t = {a.get('ticker'): (a.get('points') or {}).get('total') for a in p['actions']}
-        assert by_t.get('MMT.PA') == 140
-        assert by_t.get('ETL.PA') == 130
-        assert by_t.get('ORA.PA') == 110
+        # APE-24 : valeurs figées retirées (H W48 et MACD +20 changent les totaux) ; on vérifie la somme des blocs.
+        P = etf['points']
+        assert etf['total'] == P['total'] == sum(P.get(k) or 0 for k in ('rsi', 'macd', 'fibonacci', 'cci', 'fondamental', 'fear_greed', 'hype'))
 
 
 def test_etf_usa_communication_inchange():
@@ -73,5 +69,5 @@ def test_etf_usa_communication_inchange():
     d = json.loads((Path(__file__).resolve().parents[1] / 'data/apex_achat_v2_pilot.json').read_text())
     etf = d['pilotes']['XLC']['etf']
     assert etf['kind'] == 'etf'
-    assert etf['total'] == 140
+    assert etf['total'] == etf['points']['total']
     assert etf['points']['fondamental'] == 80

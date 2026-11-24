@@ -38,7 +38,9 @@ function gsMontant(note, scale){
   if(!Number.isFinite(n)||!gsIsRouge(n, sc)) return null;
   const seuil=sc===280?63:GS_SEUIL;
   const floor=sc===280?-80:-50;
-  const steps=Math.round((seuil-Math.max(n,floor))/24);
+  /* Paliers entiers (APE-24) : 120 $ dès 24 points sous le seuil (45/250), 140 $ à 21, 160 $ à −3, 180 $ à −27, 200 $ au plancher. */
+  if(n<=floor) return 200;
+  const steps=Math.floor((seuil-n)/24);
   return Math.min(100+steps*20, 200);
 }
 function gsExpo(mise){

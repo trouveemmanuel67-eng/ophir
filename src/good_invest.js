@@ -101,6 +101,7 @@ const GI_PAYS_ACTIONS=new Set(['USA','France']);
 const GI_PAYS_HORS=['Allemagne','Canada','Suisse','Italie','Japon','Corée du Sud','Corée','Australie'];
 function giEstActionHorsUnivers(it){
   if(!it) return false;
+  if(it.tab==='metaux'||it.tab==='crypto') return false; /* minières notées dans Métaux (PAAS, AG…) : univers Métaux, pas « actions hors USA/France » (APE-24) */
   const sec=String(it.section||'');
   if(/Indice\s*\/\s*ETF pays|Obligations|Métaux|Crypto|ENERGIE|Indices\s*&|Placements|Liquidités/i.test(sec)) return false;
   const pays=sec.split('–')[0].split(' - ')[0].trim();
@@ -148,7 +149,7 @@ function giMontant(note, scale, tab){
   if(isMetaux){
     const base=Number(GI_SEUIL_METAUX)||130, pas=24;
     if(n<base) return null;
-    const steps=Math.round((Math.min(n,250)-base)/pas);
+    const steps=Math.floor((Math.min(n,250)-base)/pas); /* paliers entiers : 154 → 600 $, 250 → 1 000 $ (APE-24) */
     return Math.min(500+steps*100, 1000);
   }
   const src=(typeof TT!=='undefined'&&TT&&Array.isArray(TT.lignes))

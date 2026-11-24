@@ -136,7 +136,7 @@ def montant_template(note):
     if n < t['base_note']:
         return None
     n = min(n, t['max_note'])
-    steps = int(round((n - t['base_note']) / t['pas_note']))
+    steps = int((n - t['base_note']) // t['pas_note'])  # paliers entiers (audit APE-24)
     amt = t['base_montant'] + steps * t['pas_montant']
     return min(amt, t['max_montant'])
 
@@ -537,7 +537,7 @@ def montant_template_metaux(note):
         return None
     n = min(n, float(mx.get('gi_max_note', 250)))
     pas = float(mx.get('gi_pas_note', 24))
-    steps = int(round((n - base) / pas))
+    steps = int((n - base) // pas)  # paliers entiers : 154 → 600 $, 250 → 1 000 $ (audit APE-24)
     amt = int(mx.get('gi_base_montant', 500)) + steps * int(mx.get('gi_pas_montant', 100))
     return min(amt, int(mx.get('gi_max_montant', 1000)))
 

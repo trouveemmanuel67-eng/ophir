@@ -241,7 +241,9 @@ function cxTile(s,i,pack,rank){
   const rk=(rank!=null&&rank!=='')?`<span class="fl-rk">${rank}</span>`:'';
   const tick=s.sym?`<span class="tvs"><code>${s.sym}</code>${(s.tv&&typeof ophirCopyBtn==='function')?ophirCopyBtn(s.tv):''}</span>`:'';
   const liqTip=cxLiqTitle(s);
-  const bar=(typeof listApexBar==='function')?listApexBar(Object.assign({},s,{forceApex250:true})):((typeof dualBarPilot==='function'&&s.apex10)?dualBarPilot({total:s.apex10.total!=null?s.apex10.total:s.apex10.note,total_min:-50,total_max:250,ligne:s.apex10.ligne||'',hex:s.apex10.hex,band:s.apex10.band},true):'');
+  /* APE-24 : seule la crypto est sur −50..250 ; l'énergie reste /100 (RÈGLES LONG non alignées). */
+  const a250=pack==='crypto'||!!(s.apex10&&(s.apex10.scale===250||s.apex10.total_max===250));
+  const bar=(!a250&&typeof dualBarApex100==='function')?dualBarApex100(s.apex10,s.sent,s.av,true):(typeof listApexBar==='function')?listApexBar(Object.assign({},s,{forceApex250:true})):((typeof dualBarPilot==='function'&&s.apex10)?dualBarPilot({total:s.apex10.total!=null?s.apex10.total:s.apex10.note,total_min:-50,total_max:250,ligne:s.apex10.ligne||'',hex:s.apex10.hex,band:s.apex10.band},true):'');
   return `<div class="sec"${s.tv?` data-pos-tv="${s.tv}"`:''}${liqTip?` title="${liqTip.replace(/"/g,'&quot;')}"`:''}>
    <div class="sr">
     <div class="sr-c sec-h sr-n sr-n-titre">${rk}<span class="sr-titre"><b>${s.nom}</b></span>${tick}${typeof posBadges==='function'?posBadges(s.tv||s.sym):''}${typeof dispoBadge==='function'?dispoBadge(s.tv):''}</div>

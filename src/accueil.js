@@ -330,8 +330,27 @@ function homeAvHTML(id){
   const tip=['Note AV (Achat / Vente)',lab,av.date&&homeD(av.date)].filter(Boolean).join(' · ');
   return `<div class="home-av" title="${homeEsc(tip)}"><b style="color:${col}">${sign(av.score,0)}</b></div>`;
 }
+function sectionHypeAvg(id){
+  /* APE-24 : moyenne d'attention (0–100) des actifs notés avec HYPE dans la section (H publiée en W48). */
+  const vals=[];
+  const add=v=>{const n=Number(v); if(v!=null&&v!==''&&Number.isFinite(n)) vals.push(n);};
+  try{
+    if(id==='actions'&&typeof PILOT!=='undefined'&&PILOT&&PILOT.by_tv){
+      Object.keys(PILOT.by_tv).forEach(tv=>{const r=PILOT.by_tv[tv]; if(r&&r.ok!==false&&r.kind==='action'&&r.attention) add(r.attention.valeur);});
+    }else if(id==='crypto'&&typeof T2!=='undefined'){
+      const F=T2.crypto&&T2.crypto.fiches;
+      ((F&&F.assets)||[]).filter(s=>String((s&&s.key)||'').toLowerCase()!=='xrp').forEach(s=>{const h=s&&s.apex10&&s.apex10.decomp&&s.apex10.decomp.hype; if(h) add(h.attention);});
+    }else if(id==='metaux'&&typeof MT!=='undefined'){
+      (MT.rows||[]).forEach(r=>(((r&&r.mlist)||{}).items||[]).forEach(i=>{if(i&&i.kind==='spot'){const P=i.apex10&&i.apex10.decomp&&i.apex10.decomp.points; if(P) add(P.attention);}}));
+    }else if(id==='liquidites'&&typeof T2!=='undefined'){
+      (((T2.liquidites||{}).fx||{}).assets||[]).forEach(a=>{const h=a&&a.etf_local&&a.etf_local.apex10&&a.etf_local.apex10.decomp&&a.etf_local.apex10.decomp.hype; if(h) add(h.attention);});
+    }
+  }catch(e){ return null; }
+  if(!vals.length) return null;
+  return {note:Math.round(vals.reduce((a,b)=>a+b,0)/vals.length), n:vals.length};
+}
 function homeHypeOf(id){
-  /* Branchement H : si sectionHypeAvg est définie (intégration H non publiée), on affiche sa moyenne ; sinon « – ». */
+  /* Branchement H : moyenne d’attention de la section (sectionHypeAvg) ; sinon « – ». */
   if(typeof sectionHypeAvg==='function'){
     const v=sectionHypeAvg(id);
     if(v!=null&&typeof v==='object'){

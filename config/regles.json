@@ -414,7 +414,7 @@
             "texte": "Si le fondamental est inférieur au seuil, une pénalité proportionnelle est retranchée de la note, plafonnée au maximum indiqué."
           }
         },
-        "precision": "Actions cotées : 50 % fondamental (santé + croissance) et 50 % technique. Le bandeau Achat / Vente reste calculé à part, sur sa propre grille, et sert aussi à la règle cyan.",
+        "precision": "Actions USA et France : note −80 à 280, points entiers qui s’additionnent. Technique 110 (RSI 30, MACD 30, Fibonacci 30, CCI 20) + Fondamental 90 (9 × 10 ; règle banque pour les banques) + F&G CNN ±50 + H ±30 (attention à contre-courant : (50 − attention) × 0,6). Sans Elliott. Le bandeau Achat / Vente reste calculé à part, sur sa propre grille.",
         "technique": {
           "source": "config/regles.json · apex/score.py · src/technique_apex.py",
           "fixes": [
@@ -531,7 +531,7 @@
           "renormalise": true
         },
         "fondamental": null,
-        "precision": "Les ETF actions n’ont pas de fondamental d’émetteur. Le technique (Elliott, structure, Fibonacci, figure, RSI, MACD, CCI) est renormalisé à 100 %. C’est signalé sur chaque fiche (« sans fond. »).",
+        "precision": "ETF sectoriels USA et paniers APEX France : même barème −80 à 280 que les actions. Fondamental = moyenne des 5 premières actions du secteur ; H = moyenne arrondie des H des actions affichées. Technique lue sur les bougies hebdo de l’ETF (ou du panier reconstruit). Sans Elliott.",
         "technique": {
           "source": "config/regles.json · apex/score.py · src/technique_apex.py",
           "fixes": [
@@ -766,7 +766,7 @@
           "note_renormalise": "Sans fondamental, le technique est renormalisé à 100 % sur les composantes restantes en conservant le poids d'Elliott comme un trou (pas de redistribution)."
         },
         "fondamental": null,
-        "precision": "Note −50 à 250, points entiers comme les actions (t475u). Technique 110 : RSI 30, MACD 30, Fibonacci 30, CCI Stochastic 20, mêmes paliers que les actions ; RSI et MACD à contre-courant. Fondamental minières 90 (9 × 10, même grille). Sans fondamental, la Structure n'est plus comptée (pas de redistribution). Les vagues d'Elliott ne font plus partie de la note. F&G CNN ±50, grille identique. Meilleures entrées alignées sur les actions : seuil 130/250 (le seuil 175, équivalent de l'ancien 75/100, laissait presque toutes les lignes hors liste avec le nouveau barème additif). Portail cyan : note ≥ 190, divergence haussière hebdo et AV ≥ +60, sinon plafond 175. Bandeau Achat / Vente inchangé (Elliott 15 % retiré sans redistribution). HYPE 90 : métaux purs (comptant) seulement, hors ETC/ETF et minières, appliqué au calcul dès que la note H est disponible (25/11).",
+        "precision": "Note −50 à 250, points entiers comme les actions (t475u). Technique 110 : RSI 30, MACD 30, Fibonacci 30, CCI Stochastic 20, mêmes paliers que les actions ; RSI et MACD à contre-courant. Fondamental minières 90 (9 × 10, même grille). Sans fondamental, la Structure n'est plus comptée (pas de redistribution). Les vagues d'Elliott ne font plus partie de la note. F&G CNN ±50, grille identique. Meilleures entrées alignées sur les actions : seuil 130/250 (le seuil 175, équivalent de l'ancien 75/100, laissait presque toutes les lignes hors liste avec le nouveau barème additif). Portail cyan : note ≥ 190, divergence haussière hebdo et AV ≥ +60, sinon plafond 175. Bandeau Achat / Vente inchangé (Elliott 15 % retiré sans redistribution). HYPE 90 : métaux purs (comptant) seulement, hors ETC/ETF et minières, comptée depuis le 24/11 (attention W48).",
         "technique": {
           "source": "config/regles.json · apex/score.py · src/technique_apex.py",
           "fixes": [
@@ -1024,7 +1024,7 @@
           ],
           "si_absent": "Sans score de liquidité, le technique est renormalisé à 100 % (signalé)."
         },
-        "precision": "Pour la crypto, la liquidité accumulée non liquidée remplace le fondamental (50 %). Le technique compte pour l’autre moitié, avec les mêmes poids que les actions. Sans score de liquidité, le technique est renormalisé à 100 % et la fiche le signale. HYPE 90 (Attention Long Swing, à contre-courant, 9 pts/tranche) : appliqué au calcul dès que la note H est disponible (25/11) ; le calcul /100 ne change pas avant.",
+        "precision": "BTC, ETH, SOL et MSTR : note −50 à 250, points entiers. Technique 110 (RSI 30, MACD 30, Fibonacci 30, CCI 20) + Liquidité CoinAnk 45 + F&G ±50 (alternative.me) + HYPE 45 (attention à contre-courant, comptée depuis le 24/11). Sans carte de liquidité : 0 point, pas de redistribution. XRP hors APEX.",
         "technique": {
           "source": "config/regles.json · apex/score.py · src/technique_apex.py",
           "fixes": [
@@ -1861,7 +1861,7 @@
       "retrait": false,
       "a_personnaliser": false,
       "points_non_fixes": false,
-      "precision": "Chaque élément rapporte +10 points s’il est bon, sinon 0 (donnée manquante = 0). 9 éléments, maximum 90 points. Ces règles ne sont pas encore appliquées au calcul. Seuils validés le 23/11/2026.",
+      "precision": "Chaque élément rapporte +10 points s’il est bon, sinon 0 (donnée manquante = 0). 9 éléments, maximum 90 points. Seuils validés le 23/11/2026.",
       "groupes": [
         {
           "id": "sante_bancaire",
@@ -2076,7 +2076,7 @@
       "fond": "Minières seulement, même grille que les actions : 9 critères × 10 points s'ils sont bons, sinon 0 (donnée manquante = 0). Maximum 90.",
       "fear_greed": "Milieu 50 = 0. Tranche de 10 : peur 40 → +10 … 0 → +50 ; avidité 60 → −10 … 100 → −50.",
       "gi": "",
-      "hype": "Comptant seulement, hors ETC/ETF et minières. Attention Long Swing 0–100, à contre-courant, 9 pts/tranche : 0 → +90 ; 10 → +81 ; 50 → +45 ; 100 → 0. Appliqué au calcul dès que la note H est disponible (25/11)."
+      "hype": "Comptant seulement, hors ETC/ETF et minières. Attention Long Swing 0–100, à contre-courant, 9 pts/tranche : 0 → +90 ; 10 → +81 ; 50 → +45 ; 100 → 0. Comptée depuis le 24/11 (attention W48)."
     },
     "note_min": -50,
     "note_max": 250,
@@ -2114,8 +2114,8 @@
     "echelle": "−50 à 250",
     "note_min": -50,
     "note_max": 250,
-    "intro_courte": "BTC, ETH, SOL et MSTR. Note −50 à 250 (points entiers). XRP n'entre plus dans APEX. HYPE 45 dès le 25/11, non comptée aujourd'hui.",
-    "champ_application": "Ce règlement décrit la note APEX des cryptoactifs suivis (Bitcoin, Ether, Solana et Strategy). XRP est retiré d'APEX. Échelle −50 à 250, points entiers qui s'additionnent, comme les actions. Liquidité 45 (cartes CoinAnk, à la place du fondamental) : carte 1 an 70 %, carte 1 mois 30 %, converties en points entiers (plafonds affichés 32 et 13). Sans carte, 0 point de liquidité, pas de redistribution. Technique 110, sans Elliott ni Structure : RSI 30, MACD 30, Fibonacci 30, CCI/Stoch Daveatt 20. Fear & Greed ±50, même grille que les actions, source alternative.me déjà sur les fiches. HYPE 45 : indicateur d'Attention Long Swing (0–100), lu à contre-courant par tranches de 10 : 0–9 → +45, 10–19 → +41, 20–29 → +37, 30–39 → +33, 40–49 → +29, 50–59 → +25, 60–69 → +20, 70–79 → +15, 80–89 → +10, 90–99 → +5, 100 → 0. Appliqué au calcul dès que la note H est disponible (25/11). En attendant, HYPE n'est pas comptée (pas un 0 noté) : trou de 45, maximum brut ce soir 205. Meilleures entrées dès 130/250 (500 $, +100 $ tous les 24 points, 1 000 $ à 250).",
+    "intro_courte": "BTC, ETH, SOL et MSTR. Note −50 à 250 (points entiers). XRP n'entre plus dans APEX. HYPE 45 comptée depuis le 24/11.",
+    "champ_application": "Ce règlement décrit la note APEX des cryptoactifs suivis (Bitcoin, Ether, Solana et Strategy). XRP est retiré d'APEX. Échelle −50 à 250, points entiers qui s'additionnent, comme les actions. Liquidité 45 (cartes CoinAnk, à la place du fondamental) : carte 1 an 70 %, carte 1 mois 30 %, converties en points entiers (plafonds affichés 32 et 13). Sans carte, 0 point de liquidité, pas de redistribution. Technique 110, sans Elliott ni Structure : RSI 30, MACD 30, Fibonacci 30, CCI/Stoch Daveatt 20. Fear & Greed ±50, même grille que les actions, source alternative.me déjà sur les fiches. HYPE 45 : indicateur d'Attention Long Swing (0–100), lu à contre-courant par tranches de 10 : 0–9 → +45, 10–19 → +41, 20–29 → +37, 30–39 → +33, 40–49 → +29, 50–59 → +25, 60–69 → +20, 70–79 → +15, 80–89 → +10, 90–99 → +5, 100 → 0. Comptée depuis le 24/11 (attention W48). Meilleures entrées dès 130/250 (500 $, +100 $ tous les 24 points, 1 000 $ à 250).",
     "points": {
       "liquidite": 45,
       "technique": 110,
@@ -2143,7 +2143,7 @@
       "fibonacci": "Plus bas → plus haut (corps hebdo). Sous 38,2 % : +10 ; 61,8 % : +20 ; 78,6 % : +30. Non cumulables.",
       "cci": "+20 si le CCI Stochastic Daveatt (ligne D) est sous 20. Maximum 20.",
       "fear_greed": "Même grille que les actions (50 = 0, tranches de 10, cap ±50). Source : alternative.me, déjà sur les fiches.",
-      "hype": "Toutes les cryptos APEX (BTC, ETH, SOL, MSTR). Attention Long Swing 0–100, à contre-courant : 0–9 → +45 ; 10 → +41 ; 20 → +37 ; 30 → +33 ; 40 → +29 ; 50 → +25 ; 60 → +20 ; 70 → +15 ; 80 → +10 ; 90 → +5 ; 100 → 0. Non comptée jusqu'au 25/11.",
+      "hype": "Toutes les cryptos APEX (BTC, ETH, SOL, MSTR). Attention Long Swing 0–100, à contre-courant : 0–9 → +45 ; 10 → +41 ; 20 → +37 ; 30 → +33 ; 40 → +29 ; 50 → +25 ; 60 → +20 ; 70 → +15 ; 80 → +10 ; 90 → +5 ; 100 → 0. Comptée depuis le 24/11 (attention W48).",
       "gi": "Dès 130/250 : 500 $, puis +100 $ tous les 24 points, jusqu'à 1 000 $ à 250."
     }
   },
@@ -2222,7 +2222,7 @@
     "echelle": "voir parties",
     "calcul_aligne": false,
     "intro_courte": "Trois parties : épargne/monétaire (sans graphique), devises (cours hebdo, notes encore /100) et ETF par devise (−50 à 250, calcul aligné sauf HYPE et fondamental n.c.).",
-    "champ_application": "L'onglet Liquidités mélange l'épargne et les devises. Les barèmes cibles sont donc distincts. Calcul non encore aligné. Sous chaque devise, un ETF/ETC coté en monnaie locale (meilleure performance annualisée sur 3 ans, dividendes inclus, encours > 100 M, bourse principale ; exclus : levier/inverse, contrats à terme, produits complexes, historique de moins de 3 ans). Barème ETF : Technique 110 + F&G ±50 + devise 30 + Fondamental 30 (n.c. si absent) + HYPE 30 (dès le 25/11).",
+    "champ_application": "L'onglet Liquidités mélange l'épargne et les devises. Les barèmes cibles sont donc distincts. Calcul non encore aligné. Sous chaque devise, un ETF/ETC coté en monnaie locale (meilleure performance annualisée sur 3 ans, dividendes inclus, encours > 100 M, bourse principale ; exclus : levier/inverse, contrats à terme, produits complexes, historique de moins de 3 ans). Barème ETF : Technique 110 + F&G ±50 + devise 30 + Fondamental 30 (n.c. si absent) + HYPE 30 (comptée depuis le 24/11).",
     "points": {
       "rsi": 30,
       "macd": 30,
@@ -2306,7 +2306,7 @@
         "note_min": -50,
         "note_max": 250,
         "calcul_aligne": true,
-        "note_actuelle": "Calcul aligné dès aujourd’hui, sauf HYPE 30 (dès le 25/11, non comptée) et Fondamental 30 (n.c. s’il n’y a pas de données, pas de redistribution).",
+        "note_actuelle": "Calcul aligné dès aujourd’hui, HYPE 30 comptée depuis le 24/11 ; Fondamental 30 (n.c. s’il n’y a pas de données, pas de redistribution).",
         "points": {
           "rsi": 30,
           "macd": 30,
@@ -2337,7 +2337,7 @@
             "label": "HYPE",
             "points": 30,
             "statut": "non_calcule",
-            "regle": "Attention Long Swing 0–100, à contre-courant : 0–9 → +30 ; 10 → +27 ; 50 → +15 ; 100 → 0. Non comptée jusqu’au 25/11."
+            "regle": "Attention Long Swing 0–100, à contre-courant : 0–9 → +30 ; 10 → +27 ; 50 → +15 ; 100 → 0. Comptée depuis le 24/11 (attention W48)."
           }
         ]
       }

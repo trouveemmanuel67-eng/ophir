@@ -680,7 +680,7 @@ function rgMetauxRulesShort(){
     fond: cfg.fond||'Minières seulement, même grille que les actions : 9 critères × 10 points s’ils sont bons, sinon 0. Maximum 90.',
     structure: cfg.structure||'À la place du fondamental s’il est absent. Paliers de 10, plafond 90.',
     fear_greed: cfg.fear_greed||'Milieu 50 = 0. Tranche de 10 : peur 40 → +10 … 0 → +50 ; avidité 60 → −10 … 100 → −50.',
-    hype: cfg.hype||'Comptant seulement, hors ETC/ETF et minières. Attention Long Swing 0–100, à contre-courant, 9 pts/tranche : 0 → +90 ; 10 → +81 ; 50 → +45 ; 100 → 0. Appliqué au calcul dès que la note H est disponible (25/11).',
+    hype: cfg.hype||'Comptant seulement, hors ETC/ETF et minières. Attention Long Swing 0–100, à contre-courant, 9 pts/tranche : 0 → +90 ; 10 → +81 ; 50 → +45 ; 100 → 0. Comptée depuis le 24/11 (attention W48).',
     gi: '≥ '+rgNum(giSeuil)+' /250, hors portefeuille, même seuil que les actions. '+rgNum(mx.gi_base_note!=null?mx.gi_base_note:130)+' = '+rgNum(mx.gi_base_montant!=null?mx.gi_base_montant:500)+'\u00a0'+unite+' ; +'+rgNum(mx.gi_pas_montant!=null?mx.gi_pas_montant:100)+'\u00a0'+unite+' tous les '+rgNum(mx.gi_pas_note!=null?mx.gi_pas_note:24)+' points, jusqu’à '+rgNum(mx.gi_max_note!=null?mx.gi_max_note:250)+' = '+rgNum(mx.gi_max_montant!=null?mx.gi_max_montant:1000)+'\u00a0'+unite+'.',
     cyan: 'Note ≥ '+rgNum(cyMin)+' : AV ≥ +'+rgNum(avFort!=null?avFort:60)+' et divergence haussière hebdo ; sinon plafond '+rgNum(cyPlafond)
   };
@@ -709,7 +709,7 @@ function rgMetauxGrid(){
   ].join('');
   const note=rgMetauxChamp();
   const noteHtml=note?`<p class="rg-p rg-app">${rgEsc(note)}</p>`:'';
-  const foot=`<p class="rg-p rg-app">Technique ${rgNum(techSum)} + Fondamental ${rgNum(pts.fond)} (minières). Sans fondamental, la Structure n’est plus comptée (pas de redistribution). F&G ±${rgNum(pts.fg)}. HYPE ${rgNum(pts.hype)} : métaux purs (comptant) seulement, hors ETC/ETF et minières — appliqué au calcul dès que la note H est disponible (25/11). Total affiché −50 à 250, points entiers.</p>`;
+  const foot=`<p class="rg-p rg-app">Technique ${rgNum(techSum)} + Fondamental ${rgNum(pts.fond)} (minières). Sans fondamental, la Structure n’est plus comptée (pas de redistribution). F&G ±${rgNum(pts.fg)}. HYPE ${rgNum(pts.hype)} : métaux purs (comptant) seulement, hors ETC/ETF et minières — comptée depuis le 24/11 (attention W48). Total affiché −50 à 250, points entiers.</p>`;
   return `${noteHtml}<div class="rg-board" id="rg-table-metaux">
     <section class="rg-block" data-group="technique">
       <header class="rg-block-h">
@@ -750,7 +750,7 @@ function rgMetauxGrid(){
 function rgCryptoChamp(){
   const cx=(RG&&RG.apex_crypto)||{};
   if(cx.intro_courte) return String(cx.intro_courte);
-  return 'BTC, ETH, SOL et MSTR. Note −50 à 250 (points entiers). XRP n’entre plus dans APEX. HYPE 45 dès le 25/11, non comptée aujourd’hui.';
+  return 'BTC, ETH, SOL et MSTR. Note −50 à 250 (points entiers). XRP n’entre plus dans APEX. HYPE 45 comptée depuis le 24/11.';
 }
 function rgCryptoScale(){
   const cx=(RG&&RG.apex_crypto)||{};
@@ -782,7 +782,7 @@ function rgCryptoRulesShort(){
     fibonacci: cfg.fibonacci||'Plus bas → plus haut (corps hebdo). Sous 38,2 % : +10 ; 61,8 % : +20 ; 78,6 % : +30. Non cumulables.',
     cci: cfg.cci||'+20 si le CCI Stochastic Daveatt (ligne D) est sous 20. Maximum 20.',
     fear_greed: cfg.fear_greed||'Même grille que les actions (50 = 0, tranches de 10, cap ±50). Source : alternative.me, déjà sur les fiches.',
-    hype: cfg.hype||'Toutes les cryptos APEX (BTC, ETH, SOL, MSTR). Attention Long Swing 0–100, à contre-courant : 0–9 → +45 ; 10 → +41 ; 20 → +37 ; 30 → +33 ; 40 → +29 ; 50 → +25 ; 60 → +20 ; 70 → +15 ; 80 → +10 ; 90 → +5 ; 100 → 0. Non comptée jusqu’au 25/11.',
+    hype: cfg.hype||'Toutes les cryptos APEX (BTC, ETH, SOL, MSTR). Attention Long Swing 0–100, à contre-courant : 0–9 → +45 ; 10 → +41 ; 20 → +37 ; 30 → +33 ; 40 → +29 ; 50 → +25 ; 60 → +20 ; 70 → +15 ; 80 → +10 ; 90 → +5 ; 100 → 0. Comptée depuis le 24/11 (attention W48).',
     gi: cfg.gi||'Dès 130/250 : 500 $, puis +100 $ tous les 24 points, jusqu’à 1 000 $ à 250.'
   };
 }
@@ -806,7 +806,7 @@ function rgCryptoGrid(){
   const entreesCards=rgCard('gi','Meilleures entrées',rgEsc(rules.gi||''), '≥ '+rgNum(giSeuil));
   const note=rgCryptoChamp();
   const noteHtml=note?`<p class="rg-p rg-app">${rgEsc(note)}</p>`:'';
-  const foot=`<p class="rg-p rg-app">Technique ${rgNum(techSum)} + Liquidité ${rgNum(pts.liquidite)} + F&G ±${rgNum(pts.fg)}. HYPE ${rgNum(pts.hype)} : appliqué au calcul dès que la note H est disponible (25/11), non comptée aujourd’hui (trou de 45, max brut 205). Total affiché −50 à 250, points entiers. Calcul liquidité + technique + F&G déjà aligné.</p>`;
+  const foot=`<p class="rg-p rg-app">Technique ${rgNum(techSum)} + Liquidité ${rgNum(pts.liquidite)} + F&G ±${rgNum(pts.fg)}. HYPE ${rgNum(pts.hype)} : comptée depuis le 24/11 (attention W48). Total affiché −50 à 250, points entiers. Sans carte CoinAnk, liquidité 0 (pas de redistribution).</p>`;
   return `${noteHtml}<div class="rg-board" id="rg-table-crypto">
     <section class="rg-block" data-group="technique">
       <header class="rg-block-h">
@@ -964,12 +964,12 @@ function rgLiquiditesEtfGrid(){
   const extraCards=[
     rgCard('devise','Note de la devise face à l’euro','Note devise /100, paliers de 10 : 0–9 → 0 ; 10 → +3 ; … 100 → +30.',rgNum(pts.devise)),
     rgCard('fond_etf','Fondamental de l’ETF','Valorisation/qualité (actions) ou rendement/duration (obligataire). n.c. si absent, pas de redistribution.','n.c.'),
-    rgCard('hype','HYPE','Attention Long Swing 0–100, à contre-courant : 0–9 → +30 ; 10 → +27 ; 50 → +15 ; 100 → 0. Non comptée jusqu’au 25/11.',rgNum(pts.hype)),
+    rgCard('hype','HYPE','Attention Long Swing 0–100, à contre-courant : 0–9 → +30 ; 10 → +27 ; 50 → +15 ; 100 → 0. Comptée depuis le 24/11 (attention W48).',rgNum(pts.hype)),
     rgCard('fear_greed','Fear & Greed Index (CNN)','Milieu 50 = 0. Tranche de 10 : peur 40 → +10 … 0 → +50 ; avidité 60 → −10 … 100 → −50. Même grille que les actions.','±'+rgNum(pts.fg)),
     rgCard('gi','Meilleures entrées','Dès 130/250 : 500 $, puis +100 $ tous les 24 points, jusqu’à 1 000 $ à 250.','≥ 130')
   ].join('');
-  const note=`<p class="rg-p rg-app">Sous chaque devise, un ETF ou ETC coté dans la monnaie locale (bourse principale, encours > 100 M, meilleure performance annualisée sur 3 ans, dividendes inclus ; exclus : levier/inverse, contrats à terme, produits complexes, historique de moins de 3 ans). Barème −50 à 250, points entiers. HYPE non comptée jusqu’au 25/11 ; fondamental n.c. s’il n’y a pas de données (pas de redistribution).</p>`;
-  const foot=`<p class="rg-p rg-app">Technique ${rgNum(techSum)} + devise ${rgNum(pts.devise)} + F&G ±${rgNum(pts.fg)} + Fondamental ${rgNum(pts.fond)} (n.c. aujourd’hui) + HYPE ${rgNum(pts.hype)} (dès le 25/11, non comptée). Total affiché −50 à 250. Calcul technique + devise + F&G déjà aligné.</p>`;
+  const note=`<p class="rg-p rg-app">Sous chaque devise, un ETF ou ETC coté dans la monnaie locale (bourse principale, encours > 100 M, meilleure performance annualisée sur 3 ans, dividendes inclus ; exclus : levier/inverse, contrats à terme, produits complexes, historique de moins de 3 ans). Barème −50 à 250, points entiers. HYPE comptée depuis le 24/11 ; fondamental n.c. s’il n’y a pas de données (pas de redistribution).</p>`;
+  const foot=`<p class="rg-p rg-app">Technique ${rgNum(techSum)} + devise ${rgNum(pts.devise)} + F&G ±${rgNum(pts.fg)} + Fondamental ${rgNum(pts.fond)} (n.c. aujourd’hui) + HYPE ${rgNum(pts.hype)} (comptée depuis le 24/11). Total affiché −50 à 250.</p>`;
   return `${note}<div class="rg-board" id="rg-table-liquidites-etf">
     <section class="rg-block" data-group="technique">
       <header class="rg-block-h">

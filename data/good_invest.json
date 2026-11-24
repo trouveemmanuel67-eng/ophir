@@ -1,6 +1,6 @@
 {
   "seuil": 75.0,
-  "n": 19,
+  "n": 21,
   "liste": [
     {
       "tv": "NYSE:PAAS",
@@ -13,7 +13,7 @@
       "bande": "vert",
       "av": 14.5,
       "section": "Canada – Matériaux",
-      "montant": 700,
+      "montant": 600,
       "brokers": {
         "revolut": true,
         "xtb": true
@@ -32,7 +32,7 @@
       "bande": "vert",
       "av": 30.4,
       "section": "Canada – Matériaux",
-      "montant": 700,
+      "montant": 600,
       "brokers": {
         "revolut": true,
         "xtb": true
@@ -51,7 +51,7 @@
       "bande": "vert",
       "av": 14.3,
       "section": "Métaux – Platine",
-      "montant": 700,
+      "montant": 600,
       "brokers": {
         "revolut": true,
         "xtb": true
@@ -60,23 +60,55 @@
       "tab": "metaux"
     },
     {
-      "tv": "NYSE:FNV",
-      "yahoo": "FNV",
-      "nom": "Franco-Nevada Corporation",
-      "note": 130.0,
-      "display": "130",
+      "tv": "BTC",
+      "yahoo": "BTC",
+      "nom": "Bitcoin",
+      "note": 153.0,
+      "display": "153",
       "hex": "#22c55e",
       "flag": "green",
       "bande": "vert",
-      "av": -19.5,
-      "section": "Canada – Matériaux",
+      "av": -32.8,
+      "section": null,
+      "montant": 500,
+      "brokers": {},
+      "scale": 250,
+      "tab": "crypto"
+    },
+    {
+      "tv": "MSTR",
+      "yahoo": "MSTR",
+      "nom": "Strategy (ex-MicroStrategy)",
+      "note": 143.0,
+      "display": "143",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": -18.1,
+      "section": null,
+      "montant": 500,
+      "brokers": {},
+      "scale": 250,
+      "tab": "crypto"
+    },
+    {
+      "tv": "CRYPTO:SOLUSD",
+      "yahoo": "SOL",
+      "nom": "Solana",
+      "note": 137.0,
+      "display": "137",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": -12.2,
+      "section": "Crypto",
       "montant": 500,
       "brokers": {
-        "revolut": true,
-        "xtb": true
+        "revolut": null,
+        "xtb": null
       },
       "scale": 250,
-      "tab": "metaux"
+      "tab": "crypto"
     },
     {
       "tv": "XETR:PRAR",
@@ -89,7 +121,7 @@
       "bande": "vert",
       "av": 45.2,
       "section": "Obligations – Souverains zone euro",
-      "montant": 600,
+      "montant": 500,
       "brokers": {
         "revolut": true,
         "xtb": true
@@ -108,7 +140,7 @@
       "bande": "vert",
       "av": 44.9,
       "section": "Obligations – Souverains zone euro",
-      "montant": 600,
+      "montant": 500,
       "brokers": {
         "revolut": true,
         "xtb": false
@@ -127,7 +159,7 @@
       "bande": "vert",
       "av": 42.4,
       "section": "Obligations – Obligations indexées sur l'inflation",
-      "montant": 600,
+      "montant": 500,
       "brokers": {
         "revolut": true,
         "xtb": true

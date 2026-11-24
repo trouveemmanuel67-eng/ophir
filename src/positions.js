@@ -206,6 +206,9 @@ function posOpenFiche(tab,tv){
 function apex10FromKnown(tv){
   /* t344u : relire une note déjà calculée (onglets), sans recalcul. */
   if(!tv||tv==='pas de note') return null;
+  /* APE-24 : métaux au comptant Revolut (XAU…) = ligne « au comptant » de l'onglet Métaux. */
+  const MET_ALIAS={XAU:'OANDA:XAUUSD',XAG:'OANDA:XAGUSD',XPT:'OANDA:XPTUSD',XPD:'OANDA:XPDUSD'};
+  if(MET_ALIAS[String(tv).toUpperCase()]) tv=MET_ALIAS[String(tv).toUpperCase()];
   const ok=a=>a&&a.note!=null&&a.display!=='–'?a:null;
   const bars=(typeof APEX_BARS!=='undefined'&&APEX_BARS.bars)?APEX_BARS.bars:{};
   if(ok((bars[tv]||{}).apex10)) return bars[tv].apex10;

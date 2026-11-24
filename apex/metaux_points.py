@@ -227,6 +227,9 @@ def score_instrument(obj, metal=None, av=None, fg=None):
         *( [('Hype', hype_pts if hype_pts is not None else '—')] if kind == 'spot' else [] ),
     ]
     texte = _ligne(parts, n)
+    if 'cyan' in cap:
+        # APE-24 : rendre visible le plafond du portail cyan (somme des blocs ≠ note affichée).
+        texte = texte.replace('  →  ', f'  = {brut}, plafond cyan  →  ', 1)
     return {
         'note': n,
         'display': fmt10(n),
