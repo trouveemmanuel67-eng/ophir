@@ -21,6 +21,7 @@ for s in \
   build_data_tabs.py \
   build_obpays.py \
   build_apex10.py \
+  build_short250.py \
   build.py
 do
   echo "---- $s $(date -Iseconds) ----"

@@ -173,6 +173,17 @@ if _pp.exists():
     print('pilot slim', len(pilot), 'from', _pp.stat().st_size)
 t=t.replace('__DATA_PILOT__', esc(pilot) if pilot else 'null')
 
+# APE-32 : note SHORT sur 250 (src/build_short250.py) pour Meilleurs SHORT
+_sh=_P(B+'data/apex_short.json')
+short=''
+if _sh.exists():
+    _sd=json.loads(_sh.read_text())
+    for _r in (_sd.get('by_tv') or {}).values():
+        (_r.get('fond') or {}).pop('elements', None)
+    short=json.dumps(_sd, ensure_ascii=False, separators=(',',':'))
+    print('short', len(short))
+t=t.replace('__DATA_SHORT__', esc(short) if short else 'null')
+
 
 # identifiant de build (cache-busting) : horodatage Paris + sha court si dispo
 import datetime as _dt, subprocess as _sp

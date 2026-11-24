@@ -18,23 +18,17 @@ def test_short_trois_categories_seulement():
     for forbidden in ("short-metaux", "short-crypto", "short-obligations", "short-liquidites", "short-placements", "short-immobilier"):
         assert forbidden not in SHORT_FN
     assert "rgShortCommons()" in SHORT_FN
-    assert "sansCouleursEntrees:true" in SHORT_FN
     assert "rg-table-short-actions" in SHORT_FN
     assert "rg-table-short-banques" in SHORT_FN
     assert "rg-table-short-energie" in JS
 
 
-def test_comptabilisation_short_sans_invention():
-    assert "Pas de note miroir, pas de nouveau calcul." in JS
-    assert "10 ≤ note < 70" in JS
-    assert "100 $ à 69" in JS
-    assert "+20 $ tous les 24 points" in JS
-    assert "200 $ à −50" in JS
-    assert "mise × 5" in JS
-    assert "de la plus basse à la plus haute" in JS
-    # pas de remise de l’encadré retiré de Meilleurs SHORT
+def test_comptabilisation_short_250():
+    assert "rgShortBoard" in JS and "rgShortTable" in JS
+    assert "≥ '+s+'/250" in JS
+    assert "Fibonacci 38,2 %" in JS
+    assert "de la plus haute à la plus basse" in JS.lower() or "De la plus haute à la plus basse" in JS
     assert "Le short peut faire perdre plus que la mise" not in JS
-    assert "Montants : mise (levier ×5)" not in JS
     assert "avertissement" not in JS.lower()
 
 

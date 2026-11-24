@@ -787,6 +787,8 @@ body.rg-on #rg-page[hidden]{display:flex}
 .rg-var h3,.rg-commons-grid .rg-card h3{margin:0 0 10px;font-size:14px;font-weight:700;color:#fff}
 .rg-var-full{grid-column:1/-1}
 .rg-commons-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.rg-commons-grid .rg-card-wide{grid-column:1/-1;overflow-x:auto}
+#rg-table-short-grille td:nth-child(n+2):nth-child(-n+4),#rg-table-short-grille th:nth-child(n+2):nth-child(-n+4){text-align:center;white-space:nowrap}
 .rg-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:14px 16px}
 .rg-bands{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
 .rg-band{display:flex;align-items:center;gap:8px;font-size:13px;color:#d8d0c2}
@@ -1089,6 +1091,7 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
 <script type="application/json" id="dataMaj">__MAJ__</script>
 <script type="application/json" id="dataGi">__GI__</script>
 <script type="application/json" id="dataPilot">__DATA_PILOT__</script>
+<script type="application/json" id="dataShort">__DATA_SHORT__</script>
 <script type="application/json" id="dataEtfRef">__DATA_ETF__</script>
 <script type="application/json" id="dataRotation">__DATA_ROTATION__</script>
 <script type="application/json" id="dataEvenements">__DATA_EVT__</script>

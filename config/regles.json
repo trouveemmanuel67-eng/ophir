@@ -2662,18 +2662,66 @@
   },
   "apex_short": {
     "titre": "Meilleurs short",
-    "origine": "Meilleurs short reprend la note APEX déjà publiée (échelle −50 à 250), sans la recalculer ni en inventer une autre. Seuls les titres dont la note s’affiche en rouge y figurent (bande 10 ≤ n < 70 de l’échelle du site).",
+    "regles": "apex_short_250",
+    "tache": "APE-32 (t514u–t521u)",
+    "date_validation": "24/11/2026",
+    "origine": "Note SHORT propre, sur 250 points entiers, distincte de la note LONG (qui n’est pas modifiée). Plus la note est haute, meilleur est le candidat short. Calcul : src/build_short250.py → data/apex_short.json.",
     "echelle": "−50 à 250",
     "note_min": -50,
     "note_max": 250,
-    "gi_seuil": 69,
-    "gi_seuil_sens": "rouge",
-    "montant": "Mise (levier ×5) : 100 $ à 69/250 (dernière note entière rouge), puis +20 $ tous les 24 points en dessous (120 $ à 45, 140 $ à 21, 160 $ à −3, 180 $ à −27), jusqu’à 200 $ à −50. En petit, l’exposition équivalente (mise × 5). Grille de Meilleures entrées divisée par 5, recalée sur le seuil rouge.",
-    "univers": "Actions USA et France, métaux, crypto, obligations, énergie, ETF par devise — uniquement les actifs qui ont une note APEX sur 250 (APE-25). La note de la devise elle-même et les actions hors USA/France restent hors liste.",
-    "lecture": "On affiche la vraie note APEX « x / 250 », même couleur et même échelle que partout, triée de la plus basse à la plus haute. Entrent uniquement les titres dont la note s’affiche en rouge sur l’échelle −50 à 250 : 10 ≤ note < 70 (10 inclus, 70 déjà orange ; sous 10, violet, hors liste). Les montants sont la mise avec levier ×5 ; l’exposition équivalente est indiquée en petit. Les notes APEX ne sont pas modifiées.",
+    "seuil": 130,
+    "gi_seuil": 130,
+    "gi_seuil_sens": "note SHORT ≥ seuil",
+    "categories": [
+      "Actions (hors banque)",
+      "Actions bancaires",
+      "Énergie"
+    ],
+    "grille": {
+      "rsi": {
+        "label": "RSI 14 hebdo",
+        "max": 30,
+        "regle": "RSI > 70 : +10 ; resté > 70 plus de 3 semaines (4 clôtures hebdo d’affilée ou plus) : +20 de plus. Cumulables, max 30."
+      },
+      "macd": {
+        "label": "MACD 12/26/9 hebdo",
+        "max": 30,
+        "regle": "Ligne MACD > 5 : +10 ; MACD > 5 et 4 barres bleues d’histogramme d’affilée (> 0, clôturées) : +20 de plus. Cumulables, max 30."
+      },
+      "cci": {
+        "label": "CCI Stochastic (Daveatt, ligne D)",
+        "max": 30,
+        "regle": "CCI > 80 : +10 ; resté > 80 plus de 3 semaines (4 clôtures hebdo d’affilée ou plus) : +20 de plus. Cumulables, max 30."
+      },
+      "fondamental": {
+        "label": "Fondamental inversé",
+        "max": 81,
+        "points_si_mauvais": 9,
+        "regle": "Mêmes 9 critères que le LONG de la catégorie, lus à l’inverse : +9 par critère NON rempli (donnée disponible). Donnée manquante = 0, rien n’est inventé. Max 81."
+      },
+      "fear_greed": {
+        "label": "Fear & Greed (CNN), inversé",
+        "max": 50,
+        "max_affiche": "±50",
+        "regle": "Inverse du LONG. Milieu 50 = 0 ; tranches entières de 10 : avidité 60 → +10, 70 → +20, 80 → +30, 90 → +40, 100 → +50 ; peur 40 → −10, 30 → −20, 20 → −30, 10 → −40, 0 → −50."
+      },
+      "hype": {
+        "label": "Hype / attention (H), inversée",
+        "max": 29,
+        "max_affiche": "±29",
+        "regle": "H = round((attention − 50) × 0,58) : attention 100 → +29, 50 → 0, 0 → −29 (Indicateur d’Attention Long Swing). Attention n.c. = 0."
+      },
+      "fibonacci": {
+        "label": "Fibonacci : filtre",
+        "max": 0,
+        "regle": "Aucun point. Filtre d’entrée : l’actif n’apparaît dans Meilleurs short que si son cours est au niveau 38,2 % ou au-dessus (retracement depuis l’ATH ≤ 38,2 %, corps hebdo, plus bas historique → ATH). À l’ATH ou au-delà : autorisé. Sous 38,2 % : exclu."
+      }
+    },
+    "total": "30 + 30 + 30 + 81 + 50 + 29 = 250 ; minimum borné à −50.",
+    "montant": "Mise (levier ×5) : 100 $ à 130/250, puis +20 $ tous les 24 points au-dessus (120 $ à 154, 140 $ à 178, 160 $ à 202, 180 $ à 226), 200 $ à 250. En petit, l’exposition équivalente (mise × 5). Symétrique de Meilleures entrées (500 $ à 130, +100 $ / 24 pts) divisé par 5.",
+    "univers": "Actions (hors banque) USA et France, actions bancaires, actions et proxies de l’onglet Énergie. Métaux, crypto, obligations, ETF et devises ne sont plus dans Meilleurs short.",
+    "lecture": "Entrent les actifs dont la note SHORT est ≥ 130/250 et dont le cours est au-dessus du Fibonacci 38,2 %. Classement de la plus haute à la plus basse note SHORT (meilleurs candidats en haut).",
     "levier": 5,
-    "avertissement": "Le short peut faire perdre plus que la mise. Il faut un compte qui l’autorise (CFD chez XTB, par exemple). Levier ×5, marge commune Revolut : les shorts se soutiennent entre eux, mais une hausse générale du marché touche toutes les positions en même temps et peut déclencher un appel de marge sur l’ensemble.",
-    "gi_seuil_min": 10,
-    "gi_seuil_max_exclu": 70
+    "avertissement": "Le short peut faire perdre plus que la mise. Il faut un compte qui l’autorise (CFD chez XTB, par exemple). Levier ×5, marge commune Revolut : les shorts se soutiennent entre eux, mais une hausse générale du marché touche toutes les positions en même temps et peut déclencher un appel de marge sur l’ensemble."
   }
 }

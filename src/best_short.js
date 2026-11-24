@@ -1,49 +1,43 @@
-/* ===== MEILLEURS SHORT : uniquement les notes APEX rouges (couleur réelle de l’échelle) (t501u, t502u) =====
-   Affiche la vraie note APEX, même couleur et même échelle que partout, triée de la plus basse
-   à la plus haute. Seuil = bande rouge de pilotBand / PILOT_BANDS_250 : 10 ≤ note < 70
-   (10 inclus, 70 déjà orange ; sous 10, violet, hors liste).
-   Mise (levier ×5) : 100 $ à 69 (dernière note entière rouge), +20 $ / 24 pts, 200 $ max à −50.
-   Exposition équivalente = mise × 5.
-   Univers : actions USA/France, métaux, crypto, ETF par devise — uniquement les notes sur 250.
-   Les notes APEX ne sont pas recalculées ni modifiées.
+/* ===== MEILLEURS SHORT : note SHORT sur 250 (APE-32, validée par Emmanuel le 24/11/2026) =====
+   Note distincte de la note LONG, calculée par src/build_short250.py (data/apex_short.json) :
+   RSI 30 + MACD 30 + CCI 30 + fondamental inversé 81 + Fear & Greed inversé ±50 + hype inversée ±29.
+   Plus la note est haute, meilleur est le candidat short : tri de la plus haute à la plus basse.
+   Entrée : note SHORT ≥ 130/250 ET filtre Fibonacci (cours au niveau 38,2 % ou au-dessus, ATH et au-delà autorisés).
+   Mise (levier ×5) : 100 $ à 130, +20 $ tous les 24 points au-dessus (154, 178, 202, 226), 200 $ max à 250.
+   Exposition équivalente = mise × 5. Univers : Actions (hors banque) USA/France, Actions bancaires, Énergie.
+   La note LONG n'est pas modifiée.
 */
-const GS_ROUGE_DE=10;
-const GS_ROUGE_A=70;
-const GS_SEUIL=69;
+const GS_SEUIL=130;
+const GS_PALIER=24;
+const GS_MISE_BASE=100;
+const GS_MISE_PAS=20;
+const GS_MISE_MAX=200;
 const GS_VALIDE_KEY='apex-short-valide';
 const GS_LIST_KEY='apex-short-list';
 const GS_ELLIOTT_KEY='apex-short-elliott-hide';
 const GS_PATTERN_KEY='apex-short-pattern-hide';
+const SHORT=(()=>{try{const el=document.getElementById('dataShort');return el?JSON.parse(el.textContent):null;}catch(e){return null;}})();
 let gsShowValides=false;
 
-function gsScaleOf(rec){
-  return 250; /* APE-25 : échelle unique −50..250 */
+function gsSeuil(){
+  const s=SHORT&&Number(SHORT.seuil);
+  return Number.isFinite(s)?s:GS_SEUIL;
 }
-function gsIsRouge(note, scale){
+function gsAuSeuil(note){
   const n=Number(note);
-  if(!Number.isFinite(n)) return false;
-  return n>=GS_ROUGE_DE && n<GS_ROUGE_A;
+  return Number.isFinite(n)&&n>=gsSeuil();
 }
-function gsMontant(note, scale){
-  /* 100 $ à 69, +20 $ par palier entier de 24 points sous 69, 200 $ max (−50). Exposition = mise × 5. */
+function gsMontant(note){
+  /* 100 $ à 130, +20 $ par palier entier de 24 points au-dessus, 200 $ max (250). Exposition = mise × 5. */
   const n=Number(note);
-  if(!Number.isFinite(n)||!gsIsRouge(n, 250)) return null;
-  const steps=Math.floor((GS_SEUIL-n)/24);
-  return Math.min(100+steps*20, 200);
+  if(!gsAuSeuil(n)) return null;
+  const steps=Math.floor((n-gsSeuil())/GS_PALIER);
+  return Math.min(GS_MISE_BASE+steps*GS_MISE_PAS, GS_MISE_MAX);
 }
 function gsExpo(mise){
   return (mise==null)?null:mise*5;
 }
-function gsIsUsaFranceTv(tv){
-  if(!tv) return false;
-  const p=String(tv).split(':')[0];
-  return p==='NYSE'||p==='NASDAQ'||p==='AMEX'||p==='EURONEXT';
-}
-function gsIsApexNote(rec){
-  if(!rec||typeof rec!=='object') return false;
-  const sc=Number(rec.scale!=null?rec.scale:rec.total_max);
-  return sc===250||sc===280||sc===270||rec.v2===true;
-}
+const GS_CAT={action:'Action', banque:'Action bancaire', energie:'Énergie'};
 function gsMonthKey(d){
   const x=d||((typeof giNow==='function')?giNow():new Date());
   return x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0');
@@ -98,87 +92,18 @@ function gsSetValide(tv, on){
   try{ localStorage.setItem(GS_VALIDE_KEY, JSON.stringify(map)); }catch(e){}
 }
 
-function gsPush(out, rec){
-  if(!rec||!rec.tv||rec.note==null||!gsIsRouge(rec.note, rec.scale)) return;
-  const k=rec.tv;
-  const prev=out.get(k);
-  if(!prev){ out.set(k, rec); return; }
-  if(rec.note<prev.note||(rec.note===prev.note&&String(rec.tv)<String(prev.tv))){
-    out.set(k, rec);
-  }
-}
-
-function gsFromApex(tv, nom, section, rec, tab, yahoo, ticker){
-  if(!tv||!rec||!gsIsApexNote(rec)||rec.note==null||rec.cap==='moyenne') return null;
-  const note=Number(rec.note);
-  if(!Number.isFinite(note)) return null;
-  const scale=gsScaleOf(rec);
-  const hex=rec.hex||((typeof pilotHex==='function')?pilotHex({total:note, scale:scale, total_max:scale}):'#e6c27a');
-  const mise=gsMontant(note, scale);
-  return {
-    tv, nom:nom||tv, section:section||'', note,
-    display:rec.display||String(note).replace('.',','), hex, flag:rec.flag||null,
-    cap:rec.cap, tab:tab||'', yahoo:yahoo||'', ticker:ticker||'',
-    scale, montant:mise, expo:gsExpo(mise)
-  };
-}
-
 function gsCollect(){
-  const out=new Map();
-  const take=(tv, nom, section, rec, tab, yahoo, ticker)=>{
-    gsPush(out, gsFromApex(tv, nom, section, rec, tab, yahoo, ticker));
-  };
-
-  /* Actions USA / France (notes APEX v2 sur 250 déjà publiées). */
-  if(typeof PILOT!=='undefined'&&PILOT&&PILOT.by_tv){
-    Object.keys(PILOT.by_tv).forEach(tv=>{
-      const r=PILOT.by_tv[tv];
-      if(!r||r.ok===false||r.total==null) return;
-      if(r.kind&&r.kind!=='action') return;
-      if(!gsIsUsaFranceTv(tv)) return;
-      const rec={note:r.total, scale:(PILOT.scale&&PILOT.scale.max!=null)?Number(PILOT.scale.max):250, v2:true, hex:r.hex};
-      take(tv, r.nom||tv, r.kind==='etf'?'ETF sectoriel':'Action', rec, 'actions', r.yahoo||'', r.ticker||'');
-    });
-  }
-
-  /* Métaux */
-  if(typeof MT!=='undefined'&&MT&&MT.rows){
-    MT.rows.forEach(r=>{
-      const ml=r.mlist||{};
-      [ml.head].concat(ml.items||[]).forEach(it=>{
-        if(!it||it.skip_score) return;
-        take(it.tv||it.ticker, it.name||it.nom, 'Métaux – '+(r.nom||''), it.apex10, 'metaux', it.yahoo, it.ticker);
-      });
-    });
-  }
-
-  /* Crypto (XRP hors APEX, comme Meilleures entrées) */
-  const CF=(typeof T2!=='undefined'&&T2&&T2.crypto&&T2.crypto.fiches)?T2.crypto.fiches:null;
-  const assets=CF&&CF.assets||(typeof T2!=='undefined'&&T2&&T2.crypto&&T2.crypto.assets)||[];
-  (typeof cxApexAssets==='function'?cxApexAssets(assets):assets.filter(a=>String((a&&a.key)||'').toLowerCase()!=='xrp')).forEach(a=>{
-    take(a.tv||a.sym, a.nom||a.name, 'Crypto', a.apex10, 'crypto', a.yahoo, a.ticker||a.sym);
-  });
-
-  /* APE-25 : obligations (ETF UCITS) et énergie (actions, proxies, ETF) sur la même échelle −50..250 */
-  if(typeof OB!=='undefined'&&OB&&OB.segments){
-    OB.segments.forEach(s=>{
-      if(s.apex10_panier&&s.apex10_panier.scale===250) take(s.tv, s.pname||s.nom, 'Obligations – '+(s.nom||''), s.apex10_panier, 'obligations', s.sym, (s.tv||'').split(':')[1]||'');
-      (s.list||[]).forEach(e=>{ if(e&&e.apex10&&e.apex10.scale===250) take(e.tv, e.name||e.tv, 'Obligations – '+(s.nom||''), e.apex10, 'obligations', e.yahoo, (e.tv||'').split(':')[1]||''); });
-    });
-  }
-  ((((typeof T2!=='undefined'&&T2&&T2.energie)||{}).assets)||[]).forEach(a=>{
-    if(a&&a.apex10&&a.apex10.scale===250) take(a.tv, a.nom||a.tv, 'Énergie – '+(a.groupe||''), a.apex10, 'energie', a.yahoo, (a.tv||'').split(':')[1]||'');
-  });
-
-  /* ETF par devise uniquement (pas la note de la devise) */
-  const fx=(((typeof T2!=='undefined'&&T2&&T2.liquidites)||{}).fx)||{};
-  (fx.assets||[]).forEach(a=>{
-    const e=a.etf_local;
-    if(e&&e.ok&&e.tv&&e.apex10) take(e.tv, e.nom||e.court||e.tv, 'Liquidités – ETF par devise', e.apex10, 'liquidites', e.yahoo, (e.tv||'').split(':')[1]||'');
-  });
-
-  return [...out.values()]
-    .sort((a,b)=> (a.note-b.note) || String(a.tv).localeCompare(String(b.tv)));
+  const by=(SHORT&&SHORT.by_tv)||{};
+  return Object.keys(by).map(tv=>by[tv]).filter(r=>r&&r.tv&&r.note!=null&&r.fibo_ok===true&&gsAuSeuil(r.note)).map(r=>{
+    const note=Number(r.note);
+    const mise=gsMontant(note);
+    const hex=(typeof pilotHex==='function')?pilotHex({total:note, scale:250, total_max:250}):'#22c55e';
+    return {
+      tv:r.tv, nom:r.nom||r.tv, section:GS_CAT[r.categorie]||'', note, display:String(note), hex,
+      tab:r.tab||'actions', yahoo:r.yahoo||'', ticker:r.ticker||'', scale:250, ligne:r.ligne||'',
+      montant:mise, expo:gsExpo(mise)
+    };
+  }).sort((a,b)=> (b.note-a.note) || String(a.tv).localeCompare(String(b.tv)));
 }
 
 function gsListIsOpen(){
@@ -223,7 +148,7 @@ function gsRender(){
     const go=it.tv
       ? `<button type="button" class="gi-link gs-link" data-tab="${(it.tab||'').replace(/"/g,'')}" data-tv="${String(it.tv).replace(/"/g,'&quot;')}" title="${String(it.nom||it.tv).replace(/"/g,'&quot;')}">${String(label).replace(/</g,'')}</button>`
       : `<span class="pos-nm" title="${String(it.nom||'').replace(/"/g,'&quot;')}">${(it.nom||'').replace(/</g,'')}</span>`;
-    const tip=[it.nom,it.tv, (mise!=null?('Mise '+mise+' $ (levier ×5) · exposition '+(expo)+' $'):'')].filter(Boolean).join(' · ');
+    const tip=[it.nom,it.tv,it.section,it.ligne?('SHORT : '+it.ligne):'', (mise!=null?('Mise '+mise+' $ (levier ×5) · exposition '+(expo)+' $'):'')].filter(Boolean).join(' · ');
     const cp=it.tv?((typeof ophirCopyBtn==='function')?ophirCopyBtn(it.tv):`<button type="button" class="cp" data-c="${String(it.tv).replace(/"/g,'&quot;')}" aria-label="Copier ${String(it.tv).replace(/"/g,'&quot;')}" title="Copier ${String(it.tv).replace(/"/g,'&quot;')}">⎘</button>`):'';
     const ev=it.tv
       ? `<div class="gi-acts"><button type="button" class="gi-elliott gs-elliott" data-tv="${String(it.tv).replace(/"/g,'&quot;')}" title="Retirer : vague Elliott non propice au short" aria-label="Retirer : vague Elliott non propice au short">E</button><button type="button" class="gi-pattern gs-pattern" data-tv="${String(it.tv).replace(/"/g,'&quot;')}" title="Pattern haussier : retirer jusqu'au 1er du mois" aria-label="Pattern haussier : retirer jusqu'au 1er du mois">P</button><button type="button" class="gi-valid gs-valid${checked?' is-on':''}" data-tv="${String(it.tv).replace(/"/g,'&quot;')}" title="${checked?'Retirer de Validés (erreur)':'Validé : déjà entré en short'}" aria-label="${checked?'Retirer de Validés':'Validé'}" aria-pressed="${checked?'true':'false'}">✓</button>${cp}</div>`
@@ -244,7 +169,7 @@ function gsRender(){
       <span class="pos-head-tot">${n}<small>titre${n>1?'s':''}</small></span>
     </div>
     <div class="pos-body gi-body" id="gsBody">
-      <div class="gi-list">${rows||'<div class="gi-empty">Aucun titre au seuil (note APEX rouge : 10 ≤ n < 70/250).</div>'}</div>
+      <div class="gi-list">${rows||'<div class="gi-empty">Aucun titre au seuil (note SHORT ≥ ${gsSeuil()}/250 et cours au-dessus du Fibonacci 38,2 %).</div>'}</div>
       ${(nVal||gsShowValides)?`<div class="gi-valides">
         <button type="button" class="gi-valides-link gs-valides-link" aria-expanded="${gsShowValides?'true':'false'}">Validés (${nVal})</button>
         ${gsShowValides?(rowsVal||'<div class="gi-empty">Aucun titre validé en short.</div>'):''}

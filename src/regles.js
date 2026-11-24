@@ -1008,51 +1008,108 @@ function rgCibleScale(cfg, fallbackMax){
 
 
 
+function rgShortCfg(){ return (RG&&RG.apex_short)||{}; }
 function rgShortNoteTexte(){
-  const cfg=(RG&&RG.apex_short)||{};
-  const echelle=cfg.echelle||'−50 à 250';
-  return 'On affiche la vraie note APEX déjà publiée, « x / 250 », même couleur et même échelle ('+echelle+') que partout. Pas de note miroir, pas de nouveau calcul.';
+  const cfg=rgShortCfg();
+  return cfg.origine||'Note SHORT propre, sur 250 points entiers, distincte de la note LONG. Plus la note est haute, meilleur est le candidat short.';
 }
 function rgShortEntreeTexte(){
-  return 'Entrent uniquement les titres dont la note APEX s’affiche en rouge sur l’échelle −50 à 250 : 10 ≤ note < 70 (10 inclus, 70 déjà orange ; sous 10, violet, hors liste). Classement : inverse exact de Meilleures entrées, de la plus basse à la plus haute. Mise (levier ×5) : 100 $ à 69, puis +20 $ tous les 24 points en dessous (45, 21, −3, −27), jusqu’à 200 $ à −50. En petit : exposition équivalente (mise × 5).';
+  const cfg=rgShortCfg();
+  const s=cfg.seuil!=null?cfg.seuil:130;
+  return 'Entrent les actifs dont la note SHORT est ≥ '+s+'/250 et dont le cours est au-dessus du Fibonacci 38,2 %. Classement de la plus haute à la plus basse note SHORT (meilleurs candidats en haut). '+(cfg.montant||'');
 }
 function rgShortComptaP(){
   return `<p class="rg-p rg-app">${rgEsc(rgShortNoteTexte())}</p><p class="rg-p rg-app">${rgEsc(rgShortEntreeTexte())}</p>`;
 }
+function rgShortFondCrit(kind){
+  /* Mêmes 9 critères que le LONG de la catégorie, lus à l’inverse (+9 si NON rempli). */
+  if(kind==='energie'){
+    const en=(RG&&RG.apex_energie)||{};
+    return (en.fond_criteres||[]).map(c=>({id:c.id,label:c.label,bon:c.regle}));
+  }
+  const v=kind==='banque'?((RG&&RG.apex_achat_v2_banque)||{}):((RG&&RG.apex_achat_v2)||{});
+  const out=[];
+  (((v.fondamental||{}).groupes)||[]).forEach(g=>(g.elements||[]).forEach(el=>out.push({id:el.id,label:el.label,bon:el.bon_si})));
+  return out;
+}
+function rgShortBoard(kind, boardId){
+  const g=rgShortCfg().grille||{};
+  const card=(id, label, rule, pts)=>`<article class="rg-card" data-id="${rgEsc(id||'')}">
+      <span class="rg-card-pts">${rgEsc(pts)}</span>
+      <h3 class="rg-card-name">${rgEsc(label)}</h3>
+      <p class="rg-card-rule">${rgEsc(rule)}</p>
+    </article>`;
+  const tech=['rsi','macd','cci'].map(k=>g[k]).filter(Boolean);
+  const techSum=tech.reduce((s,c)=>s+(Number(c.max)||0),0);
+  const techCards=tech.map((c,i)=>card(['rsi','macd','cci'][i], c.label, c.regle, rgNum(c.max))).join('');
+  const f=g.fondamental||{};
+  const pm=f.points_si_mauvais!=null?f.points_si_mauvais:9;
+  const fondCards=rgShortFondCrit(kind).map(c=>card(c.id, c.label, 'LONG bon si '+(c.bon||'—')+' → SHORT : +'+pm+' si non rempli', '+'+pm)).join('');
+  const fg=g.fear_greed||{}, hy=g.hype||{}, fb=g.fibonacci||{};
+  const block=(grp, title, pts, inner, note)=>`<section class="rg-block" data-group="${grp}">
+      <header class="rg-block-h">
+        <div class="rg-block-title">${rgEsc(title)}${note?` <span class="rg-group-note">${rgEsc(note)}</span>`:''}</div>
+        <span class="rg-block-pts">${rgEsc(pts)}</span>
+      </header>
+      ${inner}
+    </section>`;
+  return `<div class="rg-board" id="${rgEsc(boardId)}">
+    ${block('technique','Technique',rgNum(techSum),`<div class="rg-cards rg-cards-span">${techCards}</div>`,'RSI 30 · MACD 30 · CCI 30 · pas de Fibonacci')}
+    ${block('fondamental',f.label||'Fondamental inversé',rgNum(f.max!=null?f.max:81),`${f.regle?`<p class="rg-p">${rgEsc(f.regle)}</p>`:''}<div class="rg-cards rg-cards-span">${fondCards}</div>`)}
+    ${block('sentiment','Sentiment',fg.max_affiche||'±50',`<div class="rg-cards rg-cards-span">${card('fear_greed_short',fg.label||'Fear & Greed, inversé',fg.regle||'',fg.max_affiche||'±50')}</div>`,'inversé par rapport au LONG')}
+    ${block('hype','Hype / attention (H)',hy.max_affiche||'±29',`<div class="rg-cards rg-cards-span">${card('hype_short',hy.label||'Hype inversée',hy.regle||'',hy.max_affiche||'±29')}</div>`,'inversée par rapport au LONG')}
+    ${block('fibonacci-filtre','Fibonacci',"filtre",`<div class="rg-cards rg-cards-span">${card('fibonacci_filtre',fb.label||'Fibonacci : filtre',fb.regle||'','0')}</div>`,'aucun point, condition d’entrée')}
+  </div>`;
+}
+function rgShortTable(){
+  /* Tableau récapitulatif de la grille SHORT pour les 3 catégories. */
+  const g=rgShortCfg().grille||{};
+  const rows=[['rsi','RSI'],['macd','MACD'],['cci','CCI'],['fondamental','Fondamental inversé'],['fear_greed','Fear & Greed inversé'],['hype','Hype H inversée'],['fibonacci','Fibonacci']];
+  const tr=rows.map(([k,l])=>{
+    const c=g[k]||{};
+    const pts=k==='fibonacci'?'filtre':(c.max_affiche||rgNum(c.max));
+    return `<tr><td>${rgEsc(l)}</td><td>${rgEsc(pts)}</td><td>${rgEsc(pts)}</td><td>${rgEsc(pts)}</td><td>${rgEsc(c.regle||'')}</td></tr>`;
+  }).join('');
+  return `<table class="rg-table rg-table-sm" id="rg-table-short-grille">
+    <thead><tr><th>Critère</th><th>Actions (hors banque)</th><th>Actions bancaires</th><th>Énergie</th><th>Règle</th></tr></thead>
+    <tbody>${tr}<tr><td><b>Total</b></td><td><b>250</b></td><td><b>250</b></td><td><b>250</b></td><td>${rgEsc(rgShortCfg().total||'')}</td></tr></tbody>
+  </table>`;
+}
 function rgShortEnergieBody(){
-  const cfg=(RG&&RG.apex_energie)||{};
-  const intro=(cfg.intro_courte?`<p class="rg-p rg-app">${rgEsc(cfg.intro_courte)}</p>`:'')
-    +(cfg.calcul_aligne&&cfg.champ_application?`<p class="rg-p rg-app">${rgEsc(cfg.champ_application)}</p>`:'');
-  return intro+rgShortComptaP()+rgCible250Board(cfg,{boardId:'rg-table-short-energie'});
+  return rgShortComptaP()+`<p class="rg-p rg-app">Fondamental : les 9 critères énergie du LONG (PER, VE/EBITDA, dette, marges, dividende, distribution, ROE, cycle), lus à l’inverse.</p>`+rgShortBoard('energie','rg-table-short-energie');
 }
 function rgShortCommons(){
   if(!RG) return '';
-  const cfg=RG.apex_short||{};
+  const cfg=rgShortCfg();
   const ce=(RG.apex_achat_v2&&RG.apex_achat_v2.couleurs_echelle)||{};
   const b250=(ce.bandes||[]).map(b=>`<li class="rg-band"><i style="background:${rgEsc(b.hex||'#888')}"></i><b>${rgEsc(b.regle||'')}</b> ${rgEsc(b.id||'')}</li>`).join('');
   return `<section class="rg-sec" id="rg-sec-short-communes">
     <h2 class="rg-h2">Règles communes</h2>
     <div class="rg-commons-grid">
+      <div class="rg-card rg-card-wide">
+        <h3>Grille SHORT (250 points)</h3>
+        ${rgShortTable()}
+      </div>
       <div class="rg-card">
         <h3>Couleurs</h3>
-        <p class="rg-p">Échelle unique −50 à 250 pour tous les actifs, en points entiers ; la couleur vient uniquement de la note affichée.</p>
+        <p class="rg-p">Même échelle −50 à 250 et mêmes couleurs que partout ; sur la note SHORT, le vert et le cyan signalent les meilleurs candidats short.</p>
         <ul class="rg-bands">${b250}</ul>
       </div>
       <div class="rg-card">
-        <h3>Note APEX</h3>
+        <h3>Note SHORT</h3>
         <p class="rg-p">${rgEsc(rgShortNoteTexte())}</p>
       </div>
       <div class="rg-card">
         <h3>Classement</h3>
-        <p class="rg-p">Inverse exact de Meilleures entrées : les plus mauvaises notes d’abord, de la plus basse à la plus haute.</p>
+        <p class="rg-p">De la plus haute à la plus basse note SHORT : les meilleurs candidats short en haut.</p>
       </div>
       <div class="rg-card">
         <h3>Meilleurs short</h3>
-        <p class="rg-p">Entrent uniquement les titres dont la note APEX s’affiche en rouge sur l’échelle −50 à 250 : 10 ≤ note < 70 (10 inclus, 70 déjà orange ; sous 10, violet, hors liste). Mise (levier ×5) : 100 $ à 69, puis +20 $ tous les 24 points en dessous (45, 21, −3, −27), jusqu’à 200 $ à −50. En petit : exposition équivalente (mise × 5).</p>
+        <p class="rg-p">${rgEsc(rgShortEntreeTexte())}</p>
       </div>
       <div class="rg-card">
         <h3>Univers</h3>
-        <p class="rg-p">${rgEsc(cfg.univers||'Actions USA et France, métaux, crypto, obligations, énergie, ETF par devise — uniquement les actifs qui ont une note APEX sur 250 (APE-25). La note de la devise elle-même et les actions hors USA/France restent hors liste.')}</p>
+        <p class="rg-p">${rgEsc(cfg.univers||'')}</p>
       </div>
     </div>
   </section>`;
@@ -1062,10 +1119,11 @@ function rgShortGrid(){
   const vBan=(RG&&RG.apex_achat_v2_banque)||null;
   const en=(RG&&RG.apex_energie)||{};
   const compta=rgShortComptaP();
+  const sc='−50 à 250';
   const sections=[
-    {id:'short-actions', title:vAct.section_titre||'Actions (hors banque)', scale:rgActionsScale(vAct).label, body:compta+rgActionsGrid(vAct,{boardId:'rg-table-short-actions', note:vAct.champ_application, sansCouleursEntrees:true}), open:true},
-    vBan?{id:'short-banques', title:vBan.section_titre||vBan.titre||'Actions bancaires', scale:rgActionsScale(vBan).label, body:compta+rgActionsGrid(vBan,{boardId:'rg-table-short-banques', note:vBan.champ_application||vBan.intro, sansCouleursEntrees:true}), open:false}:null,
-    {id:'short-energie', title:en.section_titre||'Énergie', scale:rgCibleScale(en,250), body:rgShortEnergieBody(), open:false}
+    {id:'short-actions', title:vAct.section_titre||'Actions (hors banque)', scale:sc, body:compta+rgShortBoard('action','rg-table-short-actions'), open:true},
+    vBan?{id:'short-banques', title:vBan.section_titre||vBan.titre||'Actions bancaires', scale:sc, body:compta+rgShortBoard('banque','rg-table-short-banques'), open:false}:null,
+    {id:'short-energie', title:en.section_titre||'Énergie', scale:sc, body:rgShortEnergieBody(), open:false}
   ].filter(Boolean);
   return sections.map(rgSectionAccordion).join('')+rgShortCommons();
 }

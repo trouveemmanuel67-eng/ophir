@@ -1,9 +1,10 @@
-"""t496u–t501u : Meilleurs short = notes APEX rouges (10 ≤ n < 70), mise levier ×5."""
+"""APE-32 (t514u–t521u) : Meilleurs short = note SHORT sur 250 (≥ 130) + filtre Fibonacci 38,2 %, mise levier ×5."""
 from __future__ import annotations
-import json
+import json, math, sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path[:0] = [str(ROOT / "src"), str(ROOT)]
 JS = (ROOT / "src" / "best_short.js").read_text(encoding="utf-8")
 GI = (ROOT / "src" / "good_invest.js").read_text(encoding="utf-8")
 RG = (ROOT / "src" / "regles.js").read_text(encoding="utf-8")
@@ -12,89 +13,78 @@ POS = (ROOT / "src" / "positions.js").read_text(encoding="utf-8")
 CFG = json.loads((ROOT / "config" / "regles.json").read_text(encoding="utf-8"))
 
 
-def _js_round(x):
-    """Équivalent de Math.round (demi-supérieur), pas le bankers rounding de Python."""
-    import math
-    return int(math.floor(x + 0.5)) if x >= 0 else int(math.ceil(x - 0.5))
-
-
-def _montant(n):
-    if not (10 <= n < 70):
+def _montant(n, seuil=130):
+    if n < seuil:
         return None
-    steps = _js_round((69 - max(n, -50)) / 24.0)
-    return min(100 + steps * 20, 200)
+    return min(100 + int(math.floor((n - seuil) / 24)) * 20, 200)
 
 
 def test_seuil_tri_montant_et_stockage():
-    assert "GS_ROUGE_DE=10" in JS
-    assert "GS_ROUGE_A=70" in JS
-    assert "GS_SEUIL=69" in JS
-    assert "gsIsRouge" in JS
-    assert "pilotBand" in JS
-    assert "GS_MIRROR" not in JS and "gsMirror" not in JS
-    assert "200 −" not in JS and "200 -" not in JS
-    assert "!gsIsRouge(rec.note, rec.scale)" in JS or "!gsIsRouge(rec.note,rec.scale)" in JS
-    assert "a.note-b.note" in JS
-    assert "apex-short-valide" in JS
-    assert "apex-gi-valide" in GI
-    assert "apex-short-valide" not in GI
-    assert "gsIsApexNote" in JS or "gsIsScale250" in JS
-    assert "gsIsUsaFranceTv" in JS
-    assert "etf_local" in JS
-    assert _montant(70) is None
-    assert _montant(9) is None
-    assert _montant(-3) is None
-    assert _montant(-27) is None
-    assert _montant(-50) is None
-    assert _montant(69) == 100
-    assert _montant(45) == 120
-    assert _montant(21) == 140
-    assert _montant(10) == 140
-    assert "Math.floor((GS_SEUIL-n)/24)" in JS or "Math.floor((seuil-n)/24)" in JS or "Math.max(n,floor)" in JS or "GS_SEUIL-Math.max(n,-50)" in JS or "Math.max(n, floor)" in JS
-    assert "100+steps*20" in JS
-    assert "mise*5" in JS or "mise * 5" in JS
+    assert "GS_SEUIL=130" in JS
+    assert "dataShort" in JS and "dataShort" in TPL and "__DATA_SHORT__" in TPL
+    assert "fibo_ok===true" in JS
+    assert "b.note-a.note" in JS  # meilleurs candidats en haut
+    assert "apex-short-valide" in JS and "apex-gi-valide" in GI and "apex-short-valide" not in GI
+    assert "Math.floor((n-gsSeuil())/GS_PALIER)" in JS
+    assert "mise*5" in JS
+    assert _montant(129) is None
+    assert _montant(130) == 100
+    assert _montant(153) == 100
+    assert _montant(154) == 120
+    assert _montant(178) == 140
+    assert _montant(202) == 160
+    assert _montant(226) == 180
+    assert _montant(250) == 200
 
 
-def test_presentation_et_avertissement():
+def test_presentation():
     assert "Meilleurs short" in JS
-    assert "/250" in JS
-    assert "gs-warn" not in JS
-    assert "gs-legende" not in JS
+    assert "/250" in JS or "/${it.scale||250}" in JS
     assert "Le short peut faire perdre plus que la mise" not in JS
-    assert "appel de marge" not in JS
-    assert "Montants : mise (levier ×5)" not in JS
-    assert "20 %" not in JS and "efface la mise" not in JS
     assert "Mise (levier ×5)" in JS
     assert "Validés (${nVal})" in JS
     assert "gs-elliott" in JS and "gs-pattern" in JS and "gs-valid" in JS
-    assert "10 ≤ n < 70/250" in JS or "10 ≤ note < 70" in JS
-    assert "≤ 70/250" not in JS
-    assert "/*__GSJS__*/" in TPL
-    assert "bestShortCard" in TPL
-    assert "gsInit" in TPL
+    assert "/*__GSJS__*/" in TPL and "bestShortCard" in TPL and "gsInit" in TPL
     assert "gsOn" in POS and "gsListIsOpen" in POS
 
 
 def test_regles_short_grille():
-    short = CFG["apex_short"]
-    assert "formule" not in short
-    assert short["gi_seuil"] == 69
-    assert short["gi_seuil_min"] == 10
-    assert short["gi_seuil_max_exclu"] == 70
-    assert short["gi_seuil_sens"] == "rouge"
-    assert "200 − note LONG" not in RG and "200 - note LONG" not in RG
-    assert "function rgShortGrid" in RG
-    assert "Règles SHORT à définir" not in RG
-    assert "10 ≤ note < 70" in RG
-    assert "100 $ à 69" in RG
-    assert "100 $" in short["montant"] and "69/250" in short["montant"]
-    assert "10 ≤ note < 70" in short["lecture"]
-    assert "marge commune Revolut" in short["avertissement"]
-    assert "20 %" not in short["avertissement"]
+    s = CFG["apex_short"]
+    g = s["grille"]
+    assert s["seuil"] == 130
+    assert g["rsi"]["max"] == 30 and g["macd"]["max"] == 30 and g["cci"]["max"] == 30
+    assert g["fondamental"]["max"] == 81 and g["fear_greed"]["max"] == 50 and g["hype"]["max"] == 29
+    assert g["fibonacci"]["max"] == 0
+    assert sum(g[k]["max"] for k in ("rsi", "macd", "cci", "fondamental", "fear_greed", "hype")) == 250
+    assert "marge commune Revolut" in s["avertissement"]
+    assert "function rgShortGrid" in RG and "rg-table-short-grille" in RG
+
+
+def test_calcul_short():
+    import build_short250 as S
+    assert S.fg_short(17.7) == -30 and S.fg_short(50) == 0 and S.fg_short(100) == 50 and S.fg_short(0) == -50
+    assert S.h_short(100) == 29 and S.h_short(0) == -29 and S.h_short(50) == 0 and S.h_short(None) is None
+    assert S.mise(129) is None and S.mise(130) == 100 and S.mise(250) == 200
+    assert S.streak([80, 60, 71, 72, 73, 75], lambda v: v > 70) == 4
+    pts, ko, nc, _ = S.fond_from([{"ok": False}, {"ok": True}, {"ok": None, "manquant": True}], "manquant")
+    assert (pts, ko, nc) == (9, 1, 1)
+
+
+def test_donnees_short():
+    d = json.loads((ROOT / "data" / "apex_short.json").read_text(encoding="utf-8"))
+    assert d["n"] > 100
+    for r in d["by_tv"].values():
+        assert r["categorie"] in ("action", "banque", "energie")
+        assert -50 <= r["note"] <= 250 and isinstance(r["note"], int)
+        p = r["points"]
+        assert p["rsi"] in (0, 10, 30) and p["macd"] in (0, 10, 30) and p["cci"] in (0, 10, 30)
+        assert 0 <= p["fondamental"] <= 81
+        if r["liste"]:
+            assert r["fibo_ok"] and r["note"] >= d["seuil"]
 
 
 def test_notes_apex_inchangees():
-    """Le lot short ne doit pas réécrire les notes APEX déjà publiées."""
+    """La note SHORT ne réécrit pas les notes LONG / APEX déjà publiées."""
     data = json.loads((ROOT / "data" / "crypto_fiches.json").read_text(encoding="utf-8"))
     want = {"btc": 153, "eth": 173, "sol": 137, "mstr": 143}
     for a in data["assets"]:
