@@ -6,18 +6,18 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<meta name="ophir-build" content="2679551-20261124-074042">
+<meta name="ophir-build" content="2d5f017-20261124-074311">
 <title>APEX INDICATOR INVESTMENT</title>
 <meta name="description" content="APEX Indicator Investment — notes et indicateurs de marché.">
 <meta name="theme-color" content="#0a1128">
 <meta name="apple-mobile-web-app-title" content="APEX">
 <meta name="application-name" content="APEX">
-<link rel="icon" href="favicon.ico?v=2679551-20261124-074042" sizes="any">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=2679551-20261124-074042">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=2679551-20261124-074042">
-<link rel="icon" type="image/png" sizes="64x64" href="favicon.png?v=2679551-20261124-074042">
-<link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png?v=2679551-20261124-074042">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=2679551-20261124-074042">
+<link rel="icon" href="favicon.ico?v=2d5f017-20261124-074311" sizes="any">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=2d5f017-20261124-074311">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=2d5f017-20261124-074311">
+<link rel="icon" type="image/png" sizes="64x64" href="favicon.png?v=2d5f017-20261124-074311">
+<link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png?v=2d5f017-20261124-074311">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=2d5f017-20261124-074311">
 <meta property="og:type" content="website">
 <meta property="og:title" content="APEX INDICATOR INVESTMENT">
 <meta property="og:description" content="APEX Indicator Investment — notes et indicateurs de marché.">
@@ -10645,8 +10645,8 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
   }
 }
 </script>
-<script type="application/json" id="dataBuild">{"version":"2679551-20261124-074042"}</script>
-<link rel="preload" href="config/regles.json?v=2679551-20261124-074042" as="fetch" crossorigin>
+<script type="application/json" id="dataBuild">{"version":"2d5f017-20261124-074311"}</script>
+<link rel="preload" href="config/regles.json?v=2d5f017-20261124-074311" as="fetch" crossorigin>
 
 <script type="application/json" id="dataMaj">{
   "at": "2026-11-23T21:45:22.168885+01:00",
@@ -14956,6 +14956,17 @@ function rgInit(){
 const GI_SEUIL=75;
 const GI_SEUIL_V2=130;
 const GI_LIST_KEY='apex-gi-list';
+const GI_PAYS_ACTIONS=new Set(['USA','France']);
+const GI_PAYS_HORS=['Allemagne','Canada','Suisse','Italie','Japon','Corée du Sud','Corée','Australie'];
+function giEstActionHorsUnivers(it){
+  if(!it) return false;
+  const sec=String(it.section||'');
+  if(/Indice\s*\/\s*ETF pays|Obligations|Métaux|Crypto|ENERGIE|Indices\s*&|Placements|Liquidités/i.test(sec)) return false;
+  const pays=sec.split('–')[0].split(' - ')[0].trim();
+  if(GI_PAYS_ACTIONS.has(pays)) return false;
+  if(GI_PAYS_HORS.some(p=>pays===p||pays.startsWith(p))) return true;
+  return false;
+}
 
 function giHeldSet(){
   const set=new Set();
@@ -15030,7 +15041,7 @@ function giPrecomputed(){
     if(!j||!Array.isArray(j.liste)) return null;
     const held=giHeldSet();
     return j.liste
-      .filter(it=>it&&it.tv&&it.note!=null&&Number(it.note)>=GI_SEUIL&&!giIsHeld(it,held))
+      .filter(it=>it&&it.tv&&it.note!=null&&Number(it.note)>=GI_SEUIL&&!giIsHeld(it,held)&&!giEstActionHorsUnivers(it))
       .map(it=>Object.assign({},it,{montant:it.montant!=null?it.montant:giMontant(it.note)}))
       .sort((a,b)=> (b.note-a.note) || ((b.av||0)-(a.av||0)) || String(a.tv).localeCompare(String(b.tv)));
   }catch(e){ return null; }
@@ -15060,7 +15071,7 @@ function giCollect(){
   const stocks=giStockRecs();
   const pre=giPrecomputed();
   if(pre){
-    const rest=pre.filter(it=>!(typeof isApexV2Tv==='function'&&isApexV2Tv(it.tv)) && !(typeof pilotRec==='function'&&pilotRec(it.tv)));
+    const rest=pre.filter(it=>!(typeof isApexV2Tv==='function'&&isApexV2Tv(it.tv)) && !(typeof pilotRec==='function'&&pilotRec(it.tv)) && !giEstActionHorsUnivers(it));
     return stocks.concat(rest).sort((a,b)=> (b.note-a.note) || String(a.tv).localeCompare(String(b.tv)));
   }
   const out=new Map();

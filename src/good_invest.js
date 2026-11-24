@@ -2,6 +2,17 @@
 const GI_SEUIL=75;
 const GI_SEUIL_V2=130;
 const GI_LIST_KEY='apex-gi-list';
+const GI_PAYS_ACTIONS=new Set(['USA','France']);
+const GI_PAYS_HORS=['Allemagne','Canada','Suisse','Italie','Japon','Corée du Sud','Corée','Australie'];
+function giEstActionHorsUnivers(it){
+  if(!it) return false;
+  const sec=String(it.section||'');
+  if(/Indice\s*\/\s*ETF pays|Obligations|Métaux|Crypto|ENERGIE|Indices\s*&|Placements|Liquidités/i.test(sec)) return false;
+  const pays=sec.split('–')[0].split(' - ')[0].trim();
+  if(GI_PAYS_ACTIONS.has(pays)) return false;
+  if(GI_PAYS_HORS.some(p=>pays===p||pays.startsWith(p))) return true;
+  return false;
+}
 
 function giHeldSet(){
   const set=new Set();
@@ -76,7 +87,7 @@ function giPrecomputed(){
     if(!j||!Array.isArray(j.liste)) return null;
     const held=giHeldSet();
     return j.liste
-      .filter(it=>it&&it.tv&&it.note!=null&&Number(it.note)>=GI_SEUIL&&!giIsHeld(it,held))
+      .filter(it=>it&&it.tv&&it.note!=null&&Number(it.note)>=GI_SEUIL&&!giIsHeld(it,held)&&!giEstActionHorsUnivers(it))
       .map(it=>Object.assign({},it,{montant:it.montant!=null?it.montant:giMontant(it.note)}))
       .sort((a,b)=> (b.note-a.note) || ((b.av||0)-(a.av||0)) || String(a.tv).localeCompare(String(b.tv)));
   }catch(e){ return null; }
@@ -106,7 +117,7 @@ function giCollect(){
   const stocks=giStockRecs();
   const pre=giPrecomputed();
   if(pre){
-    const rest=pre.filter(it=>!(typeof isApexV2Tv==='function'&&isApexV2Tv(it.tv)) && !(typeof pilotRec==='function'&&pilotRec(it.tv)));
+    const rest=pre.filter(it=>!(typeof isApexV2Tv==='function'&&isApexV2Tv(it.tv)) && !(typeof pilotRec==='function'&&pilotRec(it.tv)) && !giEstActionHorsUnivers(it));
     return stocks.concat(rest).sort((a,b)=> (b.note-a.note) || String(a.tv).localeCompare(String(b.tv)));
   }
   const out=new Map();
