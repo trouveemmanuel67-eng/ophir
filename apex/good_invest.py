@@ -5,7 +5,7 @@ from pathlib import Path
 
 from . import paths
 from .config import actif, regles
-from .score import montant_template, fmt10, bande_couleur
+from .score import montant_template, montant_template_metaux, fmt10, bande_couleur, metaux_band, metaux_cfg
 
 
 def _held():
@@ -80,10 +80,10 @@ def build() -> dict:
     held = _held()
     rows = []
     seen = set()
+    mx_cfg = metaux_cfg()
+    seuil_metaux = float((regles().get('apex_metaux') or {}).get('gi_seuil', mx_cfg.get('gi_seuil', 175)))
     def consider(tv, note_rec, av=None, nom=None, section=None, yahoo=None, ell=None, classe=None):
         if not tv or not note_rec or note_rec.get('note') is None:
-            return
-        if float(note_rec['note']) < seuil:
             return
         if note_rec.get('cap') == 'moyenne':
             return
@@ -91,6 +91,12 @@ def build() -> dict:
         sec = section or meta.get('section') or ''
         # t461u : plus d'exclusion « zone Elliott rouge » pour les métaux précieux.
         is_metaux = (classe == 'metaux') or str(sec).startswith('Métaux')
+        if is_metaux and note_rec.get('scale') != 250:
+            # laisser metaux.json fournir la note −50..250
+            return
+        cut = seuil_metaux if is_metaux else seuil
+        if float(note_rec['note']) < cut:
+            return
         if not is_metaux and _zone_rouge(ell, tv, bars):
             return
         # t322u : hors univers (pays retirés) et titres seulement en positions
@@ -103,19 +109,36 @@ def build() -> dict:
         seen.add(tv)
         note = float(note_rec['note'])
         br = meta.get('brokers') or {}
+        if is_metaux:
+            band = metaux_band(note)
+            montant = montant_template_metaux(note)
+            scale = 250
+            tab = 'metaux'
+            bande = note_rec.get('band') or band['id']
+            hx = note_rec.get('hex') or band['hex']
+            fl = note_rec.get('flag') or band['flag']
+        else:
+            montant = montant_template(note)
+            scale = 100
+            tab = classe
+            bande = bande_couleur(note)
+            hx = note_rec.get('hex')
+            fl = note_rec.get('flag')
         rows.append({
             'tv': tv,
             'yahoo': yahoo or meta.get('yahoo'),
             'nom': nom or meta.get('nom') or tv,
             'note': note,
             'display': note_rec.get('display') or fmt10(note),
-            'hex': note_rec.get('hex'),
-            'flag': note_rec.get('flag'),
-            'bande': bande_couleur(note),
+            'hex': hx,
+            'flag': fl,
+            'bande': bande,
             'av': av,
             'section': section or meta.get('section'),
-            'montant': montant_template(note),
+            'montant': montant,
             'brokers': br,
+            'scale': scale,
+            'tab': tab,
         })
 
     # barres individuelles + enrichissement via config

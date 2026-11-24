@@ -8,6 +8,7 @@ ne s'appliquent que sur un comptage manuel. Une note ≥ 80 exige un AV Achat
 fort et une confirmation. Les couleurs découlent uniquement de la note affichée.
 """
 from __future__ import annotations
+import json
 import sys
 from pathlib import Path
 
@@ -233,13 +234,15 @@ def collect_parts(obj):
 
 
 def compute(av, fond=None, elliott=None, divergence=None, parts=None, classe=None):
-    """Calcule la note APEX /100 (t342u).
+    """Calcule la note APEX /100 (t342u), ou −50 à 250 pour les métaux (t470u).
 
     Part de 50. Chaque critère ajoute ou retire des points selon son
     score −100…+100 (neutre = 0), amplitude ×1,5 (±75) puis clip 0–100.
     Sans fondamental, le technique est renormalisé (signalé dans decomp).
     Pas de plafond Elliott sur la note entière ; le portail cyan est conservé.
     """
+    if classe == 'metaux':
+        return compute_metaux(av, fond, elliott, divergence, parts)
     r = _R()
     na = r['note_apex']
     ell_r = r['elliott']
@@ -396,4 +399,300 @@ def compute(av, fond=None, elliott=None, divergence=None, parts=None, classe=Non
         'decomp': decomp,
         'technique': tech_moy,
         'renormalise': renormalise,
+    }
+
+
+
+# ----- Métaux précieux : même échelle que les actions (−50 à 250), t470u -----
+# Technique + fondamental (minières) = 0 à 200, en gardant les proportions
+# des critères restants (Elliott hors calcul, son ancien poids est réparti
+# pour que l'échelle soit entièrement couverte). F&G CNN ±50, même grille
+# que les actions. Le bandeau Achat / Vente n'est pas modifié ici.
+
+METAUX_PILOT_BANDS = (
+    ('violet', -50, 10, '#9d54ff', 'purple'),
+    ('rouge', 10, 70, '#ff2d2d', 'red'),
+    ('orange', 70, 130, '#ff8c1a', 'orange'),
+    ('vert', 130, 190, '#22c55e', 'green'),
+    ('cyan', 190, 251, '#00e5ff', 'cyan'),
+)
+
+
+def fg_points(value):
+    """Tranches de 10 autour de 50 : 40→+10 … 0→+50 ; 60→−10 … 100→−50.
+    Une tranche n'est comptée que lorsqu'elle est entièrement franchie
+    (floor de |50 − valeur| / 10), plafonnée à ±50.
+    Ex. 17,7 → écart 32,3 → 3 tranches → +30 (seuil 20 atteint, 10 pas encore).
+    """
+    import math
+    if value is None:
+        return None
+    try:
+        v = float(value)
+    except (TypeError, ValueError):
+        return None
+    if not math.isfinite(v):
+        return None
+    delta = 50.0 - v
+    n = int(math.floor(abs(delta) / 10.0))
+    n = min(5, n)
+    pts = n * 10
+    return pts if delta >= 0 else -pts
+
+
+def load_cnn_fg():
+    """Lit l'indice CNN déjà utilisé pour les actions (pas de valeur inventée)."""
+    from . import paths as _p
+    root = _p.ROOT if hasattr(_p, 'ROOT') else Path(__file__).resolve().parents[1]
+    data = getattr(_p, 'data_dir', None)
+    data = data() if callable(data) else (root / 'data')
+    for name in ('apex_achat_v2_pilot.json', 'apex_achat_v2_cnn_fng.json'):
+        fp = data / name
+        if not fp.exists():
+            continue
+        try:
+            raw = json.loads(fp.read_text(encoding='utf-8'))
+        except Exception:
+            continue
+        fg = raw.get('fear_greed')
+        if isinstance(fg, dict) and fg.get('ok') and fg.get('value') is not None:
+            pts = fg.get('points')
+            if pts is None:
+                pts = fg_points(fg.get('value'))
+            return {
+                'ok': True,
+                'value': float(fg['value']),
+                'points': int(pts) if pts is not None else 0,
+                'label': fg.get('label') or '',
+            }
+        core = raw.get('fear_and_greed') or {}
+        score = core.get('score')
+        if score is not None:
+            pts = fg_points(score)
+            return {
+                'ok': True,
+                'value': float(score),
+                'points': int(pts) if pts is not None else 0,
+                'label': core.get('rating') or '',
+            }
+    return {'ok': False, 'value': None, 'points': 0, 'label': ''}
+
+
+def metaux_cfg():
+    mx = _R().get('apex_metaux') or {}
+    return {
+        'min': float(mx.get('note_min', -50)),
+        'max': float(mx.get('note_max', 250)),
+        'tech_fond': float(mx.get('tech_fond_max', 200)),
+        'fg_abs': float(mx.get('fg_abs', 50)),
+        'cyan_min': float(mx.get('cyan_note_min', 190)),
+        'cyan_plafond': float(mx.get('cyan_plafond', 175)),
+        'pen_max': float(mx.get('fond_pen_max', 60)),
+        'arrondi': float((_R().get('note_apex') or {}).get('arrondi', 1)),
+    }
+
+
+def metaux_fracs(na, renormalise):
+    """Fractions des critères restants (sans Elliott), somme 1."""
+    used = {k: w for k, w in technique_weights(na).items() if k != 'elliott'}
+    if not renormalise:
+        used['fond'] = float(na.get('poids_fondamental', 0.5))
+    s = sum(used.values()) or 1.0
+    return {k: float(w) / s for k, w in used.items()}
+
+
+def metaux_max_pts(frac, tech_fond=200.0):
+    return float(tech_fond) * float(frac)
+
+
+def metaux_contrib(score, max_pts):
+    """0 .. max_pts, neutre (score 0) = moitié des points, comme une accumulation actions."""
+    return float(max_pts) * (_as_score(score) + 100.0) / 200.0
+
+
+def metaux_band(note):
+    if note is None:
+        return {'id': '', 'hex': '#8a8a8a', 'flag': 'none'}
+    t = float(note)
+    if t >= 190:
+        return {'id': 'cyan', 'hex': '#00e5ff', 'flag': 'cyan'}
+    if t < -50:
+        return {'id': 'violet', 'hex': '#9d54ff', 'flag': 'purple'}
+    for bid, lo, hi, hex_, flag in METAUX_PILOT_BANDS:
+        if lo <= t < hi:
+            return {'id': bid, 'hex': hex_, 'flag': flag}
+    return {'id': 'cyan', 'hex': '#00e5ff', 'flag': 'cyan'}
+
+
+def montant_template_metaux(note):
+    """Seuil 175 → 500 $, +100 $ par 15 points (équivalent de +100 $ / 5 pts sur /100), jusqu'à 250 → 1 000 $."""
+    if note is None:
+        return None
+    mx = _R().get('apex_metaux') or {}
+    n = round_half(note)
+    base = float(mx.get('gi_base_note', 175))
+    if n < base:
+        return None
+    n = min(n, float(mx.get('gi_max_note', 250)))
+    pas = float(mx.get('gi_pas_note', 15))
+    steps = int(round((n - base) / pas))
+    amt = int(mx.get('gi_base_montant', 500)) + steps * int(mx.get('gi_pas_montant', 100))
+    return min(amt, int(mx.get('gi_max_montant', 1000)))
+
+
+def compute_metaux(av, fond=None, elliott=None, divergence=None, parts=None):
+    """Note métaux −50 à 250 (t470u). Bandeau Achat / Vente inchangé."""
+    r = _R()
+    na = r['note_apex']
+    cy_av = (r.get('cyan') or {}).get('av_achat_fort', 60)
+    cfg = metaux_cfg()
+    cap = []
+    if av is None and not parts:
+        return {
+            'note': None, 'display': '–', 'hex': None, 'flag': 'none',
+            'pos': None, 'cap': '', 'timing': None, 'fond': None, 'brut': None,
+            'decomp': None, 'technique': None, 'renormalise': False,
+            'scale': 250, 'total': None, 'total_min': cfg['min'], 'total_max': cfg['max'],
+            'ligne': '',
+        }
+    timing = None if av is None else av_pos(av, na['av_lo'], na['av_hi'])
+    renormalise = fond is None
+    fracs = metaux_fracs(na, renormalise)
+    if renormalise:
+        cap.append('sans_fond')
+    lignes = []
+    pts_total = 0.0
+    labels = dict(TECH_ORDER)
+    labels['fond'] = 'Fond.'
+    order = ['structure', 'fibonacci', 'rsi', 'macd', 'cci']
+    if not renormalise:
+        order = ['fond'] + order
+        fond = float(fond)
+        score_f = max(-100.0, min(100.0, (fond - 50.0) * 2.0))
+        mxp = metaux_max_pts(fracs['fond'], cfg['tech_fond'])
+        pts = metaux_contrib(score_f, mxp)
+        lignes.append({
+            'id': 'fond', 'label': 'Fond.', 'pts': round(pts, 2),
+            'poids': int(round(fracs['fond'] * cfg['tech_fond'])),
+            'score': round(fond, 1), 'hex': _hex_of_score(score_f),
+            'max_pts': round(mxp, 2),
+        })
+        pts_total += pts
+
+    tech_used = False
+    if parts:
+        for key in ['structure', 'fibonacci', 'rsi', 'macd', 'cci']:
+            if key not in fracs:
+                continue
+            score = parts.get(key)
+            mxp = metaux_max_pts(fracs[key], cfg['tech_fond'])
+            pts = metaux_contrib(0.0 if score is None else score, mxp)
+            sc = None if score is None else round(_as_score(score), 1)
+            lignes.append({
+                'id': key, 'label': labels.get(key, key), 'pts': round(pts, 2),
+                'poids': int(round(fracs[key] * cfg['tech_fond'])),
+                'score': sc, 'hex': _hex_of_score(0.0 if score is None else score),
+                'neutre': (sc is not None and abs(sc) < 1e-9),
+                'max_pts': round(mxp, 2),
+            })
+            pts_total += pts
+            tech_used = True
+    if not tech_used:
+        if timing is None:
+            return {
+                'note': None, 'display': '–', 'hex': None, 'flag': 'none',
+                'pos': None, 'cap': '', 'timing': None,
+                'fond': None if fond is None else round(float(fond), 1),
+                'brut': None, 'decomp': None, 'technique': None,
+                'renormalise': renormalise,
+                'scale': 250, 'total': None, 'total_min': cfg['min'], 'total_max': cfg['max'],
+                'ligne': '',
+            }
+        # un seul bloc technique agrégé, même 0..tech_fond (ou part restante)
+        frac_tech = sum(fracs[k] for k in fracs if k != 'fond') or 1.0
+        mxp = metaux_max_pts(frac_tech, cfg['tech_fond'])
+        score_t = max(-100.0, min(100.0, (float(timing) - 50.0) * 2.0))
+        pts = metaux_contrib(score_t, mxp)
+        lignes.append({
+            'id': 'agregé', 'label': 'Tech.', 'pts': round(pts, 2),
+            'poids': int(round(frac_tech * cfg['tech_fond'])),
+            'score': round(float(timing), 1), 'hex': _hex_of_score(score_t),
+            'max_pts': round(mxp, 2),
+        })
+        pts_total += pts
+
+    fg = load_cnn_fg()
+    fg_pts = int(fg['points']) if fg.get('ok') else 0
+    if fg.get('ok'):
+        lignes.append({
+            'id': 'fear_greed', 'label': 'F&G', 'pts': fg_pts,
+            'poids': int(cfg['fg_abs']), 'score': None if fg.get('value') is None else round(float(fg['value']), 1),
+            'hex': '#e6c27a',
+            'max_pts': cfg['fg_abs'],
+        })
+    else:
+        cap.append('fg_absent')
+
+    pen = 0.0
+    if not renormalise:
+        # Pénalité fondamentale : 20 pts sur /100 → 60 pts sur l'échelle 300 (−50..250).
+        rpen = na
+        if fond is not None and float(fond) < rpen['fond_seuil']:
+            pen = cfg['pen_max'] * (rpen['fond_seuil'] - float(fond)) / rpen['fond_seuil']
+            cap.append('fondamental')
+
+    brut = pts_total + fg_pts - pen
+    n = max(cfg['min'], min(cfg['max'], round_half(brut, cfg['arrondi'])))
+    if n >= cfg['cyan_min']:
+        av_fort = (av is not None) and (float(av) >= cy_av)
+        conf = divergence_haussiere(divergence)
+        if not (av_fort and conf):
+            n = cfg['cyan_plafond']
+            cap.append('cyan')
+    band = metaux_band(n)
+    bits = []
+    if renormalise:
+        bits.append('sans fond.')
+    for ln in lignes:
+        if ln['id'] == 'fear_greed':
+            bits.append(f"{ln['label']} {_fmt_signed(ln['pts'])}")
+        else:
+            bits.append(f"{ln['label']} {_fmt_pts(ln['pts'])}")
+    texte = ' · '.join(bits) + f"  →  {_fmt_pts(n)} / 250"
+    decomp = {
+        'renormalise': renormalise,
+        'libelle_fond': None if renormalise else 'Fond.',
+        'lignes': lignes,
+        'texte': texte,
+        'pts': round(brut, 2),
+        'base': 0,
+        'echelle': 250,
+        'tech_fond_max': cfg['tech_fond'],
+    }
+    tech_moy = None
+    if parts:
+        vals = [_as_score(parts.get(k)) for k in ('structure', 'fibonacci', 'rsi', 'macd', 'cci') if k in (parts or {})]
+        if vals:
+            tech_moy = round(sum(vals) / len(vals), 1)
+    return {
+        'note': n,
+        'display': fmt10(n),
+        'hex': band['hex'],
+        'flag': band['flag'],
+        'band': band['id'],
+        'pos': n,
+        'cap': '+'.join(cap),
+        'timing': None if timing is None else round(timing, 1),
+        'fond': None if fond is None else round(float(fond), 1),
+        'brut': round(brut, 1),
+        'decomp': decomp,
+        'technique': tech_moy,
+        'renormalise': renormalise,
+        'scale': 250,
+        'total': n,
+        'total_min': cfg['min'],
+        'total_max': cfg['max'],
+        'ligne': texte,
+        'fg_points': fg_pts if fg.get('ok') else None,
+        'fg_value': fg.get('value') if fg.get('ok') else None,
     }

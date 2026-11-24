@@ -428,21 +428,22 @@ def main():
                 if rec and rec.get('note') is not None:
                     notes.append(float(rec['note']))
             if notes:
+                import apex.score as SC
+                cfg = SC.metaux_cfg()
                 avg = N.round_half(sum(notes)/len(notes))
-                avg = max(N.NOTE_MIN, min(N.NOTE_MAX, avg))
-                pos = avg
+                avg = max(cfg['min'], min(cfg['max'], avg))
+                band = SC.metaux_band(avg)
                 r['apex10'] = {
                     'note': avg, 'display': N.fmt10(avg),
-                    'hex': FC.hex_from_apex10(avg),
-                    'flag': N.flag_from_apex10(avg), 'pos': pos,
+                    'hex': band['hex'], 'flag': band['flag'], 'band': band['id'],
+                    'pos': avg,
                     'cap': 'moyenne', 'timing': rec_fut.get('timing'),
                     'fond': None, 'brut': rec_fut.get('brut'),
                     'n_moy': len(notes),
-                    'detail': 'Moyenne des notes /100 des instruments visibles (ETC, métal au comptant, minières), hors titres sans note.',
+                    'detail': 'Moyenne des notes −50 à 250 des instruments visibles (ETC, métal au comptant, minières), hors titres sans note.',
+                    'scale': 250, 'total': avg, 'total_min': cfg['min'], 'total_max': cfg['max'],
+                    'ligne': 'moyenne de %d instrument%s  →  %s / 250' % (len(notes), 's' if len(notes)>1 else '', N.fmt10(avg)),
                 }
-                # couleur de la moyenne, pas celle du futur
-                import flags_couleur as FC
-                r['apex10']['hex'] = FC.hex_from_apex10(r['apex10']['note'])
             else:
                 r['apex10'] = rec_fut
             count(r['apex10'])

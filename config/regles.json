@@ -766,7 +766,7 @@
           "note_renormalise": "Sans fondamental, le technique est renormalisé à 100 % sur les composantes restantes en conservant le poids d'Elliott comme un trou (pas de redistribution)."
         },
         "fondamental": null,
-        "precision": "Minières avec fondamental : 50 / 50. ETC, contrats et métaux au comptant sans fondamental : technique renormalisé à 100 %, sans redistribuer le poids de l'Elliott retiré (t461u, comme les actions le 24/11). Les vagues d'Elliott ne font plus partie de la note /100. RSI, MACD et CCI sont lus à contre-courant, y compris dans le bandeau Achat / Vente des métaux. CCI toujours compté (neutre = 0, pas de redistribution). Meilleures entrées : seuil 75/100, plus d'exclusion « zone Elliott rouge ». Portail cyan : confirmation par divergence haussière uniquement, sans vague Elliott verte. Bandeau Achat / Vente (t462u) : Elliott 15 % retiré sans redistribution (trou conservé dans le dénominateur) ; plus de plafond de label en zone rouge. Amplitude typique ±85 (seuil cyan +60 toujours atteignable).",
+        "precision": "Note −50 à 250, comme les actions. Technique + fondamental des minières = 0 à 200 (avec fondamental : Structure 26,3 · Fibonacci 21,1 · RSI 13,2 · MACD 13,2 · CCI 13,2 = 86,8 ; fondamental 113,2). Les vagues d'Elliott ne font plus partie de la note ; leur ancien poids est réparti entre ces critères pour couvrir toute l'échelle (t470u, note seulement). Sans fondamental (ETC, contrat, métal au comptant), le technique est renormalisé à 200 (Structure 60,6 · Fibonacci 48,5 · RSI 30,3 · MACD 30,3 · CCI 30,3). Fear & Greed Index CNN (le même que pour les actions) : ±50, grille identique (milieu 50 = 0, tranche de 10). RSI, MACD et CCI sont lus à contre-courant, y compris dans le bandeau Achat / Vente des métaux. CCI toujours compté. Meilleures entrées : seuil 175/250 (équivalent de 75/100), +100 $ tous les 15 points, de 500 $ à 1 000 $ ; plus d'exclusion « zone Elliott rouge ». Portail cyan : note ≥ 190, confirmation par divergence haussière hebdo uniquement et AV ≥ +60, sinon plafond 175. Bandeau Achat / Vente (t462u, inchangé) : Elliott 15 % retiré sans redistribution (trou conservé dans le dénominateur) ; plus de plafond de label en zone rouge. Amplitude typique ±85 (seuil cyan +60 toujours atteignable).",
         "technique": {
           "source": "config/regles.json · apex/score.py · src/technique_apex.py",
           "fixes": [
@@ -1858,7 +1858,7 @@
   },
   "apex_metaux": {
     "section_titre": "Métaux précieux",
-    "echelle": 100,
+    "echelle": 250,
     "date_validation": "24/11/2026",
     "retirer_elliott": true,
     "ne_pas_redistribuer_elliott": true,
@@ -1866,20 +1866,37 @@
     "cyan_sans_elliott": true,
     "av_rsi_macd_contrarien": true,
     "cci_toujours_compte": true,
-    "champ_application": "Ce règlement s'applique à l'or, l'argent, le platine, le palladium, à leurs ETC et ETF physiques, et aux métaux au comptant. Les minières, si un fondamental est disponible, reçoivent 50 % de fondamental et 50 % de technique. Les ETC, les contrats à terme et les métaux au comptant n'ont pas de fondamental : le technique est renormalisé à 100 %, sans redistribuer le poids de l'Elliott retiré. La note affichée d'une ligne (Or, Argent, Platine, Palladium) est la moyenne des notes /100 des instruments visibles, hors titres sans note. Les signaux sont calculés sur le contrat à terme continu Yahoo, avec DBC comme référence de force relative. Les vagues d'Elliott et la figure chartiste n'entrent pas dans la note. Il n'y a pas de Fear & Greed CNN dans cette note. Dans le bandeau Achat / Vente des métaux, les vagues d'Elliott (15 %) sont également retirées, sans redistribuer leur poids ; le plafond « au mieux Neutre » en zone Elliott rouge ne s'applique plus.",
-    "effet_echelle": "Le retrait d'Elliott sans redistribution réduit l'amplitude technique typique (sans fondamental) de ±75 à ±57,6 points autour de la base 50. L'échelle affichée reste 0 à 100 (note clipsée).",
+    "champ_application": "Ce règlement s'applique à l'or, l'argent, le platine, le palladium, à leurs ETC et ETF physiques, et aux métaux au comptant. La note APEX utilise la même échelle que les actions (−50 à 250). Technique + fondamental des minières = 0 à 200, en conservant les proportions entre Structure, Fibonacci, RSI, MACD, CCI et le fondamental (minières seulement). Les vagues d'Elliott restent hors du calcul ; leur ancien poids est réparti entre ces critères pour que l'échelle soit entièrement couverte. Sans fondamental (ETC, contrat, métal au comptant), le technique est renormalisé à 200 points. Le Fear & Greed Index CNN (le même que pour les actions) ajoute ±50 points, à contre-courant (milieu 50 = 0, tranche de 10). La note finale est bornée à −50…250. La note affichée d'une ligne (Or, Argent, Platine, Palladium) est la moyenne des notes des instruments visibles, hors titres sans note. Les signaux du bandeau Achat / Vente restent ceux du contrat à terme continu Yahoo, avec DBC comme référence ; ce bandeau n'est pas modifié.",
+    "effet_echelle": "Technique + fondamental couvrent 0 à 200 (avec fondamental : Structure 26,3 · Fibonacci 21,1 · RSI 13,2 · MACD 13,2 · CCI 13,2 = 86,8 ; fondamental minières 113,2). Sans fondamental, le technique est renormalisé à 200 (Structure 60,6 · Fibonacci 48,5 · RSI 30,3 · MACD 30,3 · CCI 30,3). F&G ±50. Total −50 à 250.",
     "av_sans_elliott": true,
     "av_ne_pas_redistribuer_elliott": true,
     "av_pas_plafond_zone_rouge": true,
     "effet_echelle_av": "Le retrait des vagues d'Elliott (15 %) du bandeau Achat / Vente, sans redistribution, ramène l'amplitude typique de ±100 à ±85 lorsque toutes les autres composantes (y compris la divergence 10 %) sont comptées. Si la divergence est absente (elle n'est déjà pas comptée, et son poids est alors hors du dénominateur, comme avant), le plafond typique est ±83,3. Le seuil +60 du portail cyan reste atteignable : il faut un score moyen d'environ +70,6 sur les 85 % restants (ou +72 sur les 75 % restants si la divergence n'est pas comptée). L'échelle affichée du bandeau reste −100 à +100.",
-    "intro_courte": "Or, argent, platine, palladium, leurs ETC et ETF. Note 0 à 100, base 50.",
+    "intro_courte": "Or, argent, platine, palladium, leurs ETC et ETF. Note −50 à 250, comme les actions.",
     "regles_courtes": {
       "structure": "Parts égales : MM40 ±8 %, pente 5 s. ±2 % ; PH/PB 13 s. +100/−100/+25/−25 ; ATH ≥ −2 % −60, −2…−12 % −60…+60, −12…−25 % +60, au-delà → 0",
       "fibonacci": "2/3 historique + 1/3 dernier mvt (corps hebdo, 52 s.). 0 % −80 ; 23,6 % −40 ; 38,2 % 0 ; 50 % +40 ; 61,8 % +80 ; 78,6 % +100 ; 100 % +80",
       "rsi": "Contrarien : RSI 30 = +100 ; 50 = 0 ; 70 = −100",
       "macd": "Contrarien : sous 0 et signal +70 ; sous 0 +40 ; dessus 0 sous signal −40 ; dessus 0 −70 ; +30 retournement sous 0 ; −30 si ≥ 4 barres + dessus 0",
       "cci": "≤ −100 : +80 (≤ −200 : +100) ; ≥ +100 : −80 (≥ +200 : −100) ; sinon 0, toujours compté",
-      "fond": "Minières seulement, si disponible. Pénalité si < 40 /100, plafonnée à 20"
-    }
+      "fond": "Minières seulement, si disponible. Pénalité si < 40 /100, plafonnée à 60 points sur l'échelle −50 à 250.",
+      "fear_greed": "Milieu 50 = 0. Tranche de 10 : peur 40 → +10 … 0 → +50 ; avidité 60 → −10 … 100 → −50.",
+      "gi": ""
+    },
+    "note_min": -50,
+    "note_max": 250,
+    "note_base": 0,
+    "tech_fond_max": 200,
+    "fg_abs": 50,
+    "cyan_note_min": 190,
+    "cyan_plafond": 175,
+    "fond_pen_max": 60,
+    "gi_seuil": 175,
+    "gi_base_note": 175,
+    "gi_pas_note": 15,
+    "gi_base_montant": 500,
+    "gi_pas_montant": 100,
+    "gi_max_note": 250,
+    "gi_max_montant": 1000
   }
 }

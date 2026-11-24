@@ -18,7 +18,7 @@ function mInstTip(r){
 function mRow(r,k,principal){
   const tip=mInstTip(r);
   const badge=principal?'<span class="fl-prin">principal</span>':'';
-  return `<li class="fl-row"${r.tv?` data-pos-tv="${r.tv}"`:''}><div class="fl-id"${tip?` title="${tip}"`:''}><span class="fl-rk">${k+1}</span><b>${r.name}</b>${badge}${tvTag(r.tv)}${typeof posBadges==='function'?posBadges(r.tv):''}${typeof dispoBadge==='function'?dispoBadge(r.tv):''}</div>${listApexBar(Object.assign({},r,{forceApex100:true}))}</li>`;
+  return `<li class="fl-row"${r.tv?` data-pos-tv="${r.tv}"`:''}><div class="fl-id"${tip?` title="${tip}"`:''}><span class="fl-rk">${k+1}</span><b>${r.name}</b>${badge}${tvTag(r.tv)}${typeof posBadges==='function'?posBadges(r.tv):''}${typeof dispoBadge==='function'?dispoBadge(r.tv):''}</div>${listApexBar(Object.assign({},r,{forceApex250:true}))}</li>`;
 }
 function mList(C,s){
   const L=s.mlist,h=L.head;
@@ -28,7 +28,7 @@ function mList(C,s){
    ${h?'':`<div class="sr-ncm">ETC principal : aucun ETC de ce métal disponible chez Revolut (vérification du 17/11/2026)</div>`}
    <ol class="fl fl-pilot">${rows}</ol>
    ${L.list_note?`<div class="note">${L.list_note}</div>`:(L.items.length<5?`<div class="note">Seulement ${L.items.length} instrument${L.items.length>1?'s':''} retenu${L.items.length>1?'s':''} : les instruments non disponibles chez Revolut ont été retirés (règle APEX du 17/11/2026) ; les autres candidats n'avaient pas d'historique Yahoo exploitable ou de symbole TradingView vérifié.</div>`:'')}
-   <div class="sec-d" style="text-align:left">L'ETC principal est la ligne 1 ; les autres instruments suivent par note /100 (métal au comptant, ETC physiques, puis jusqu'à deux minières). ${L.miner_note} Score minières = 50 % santé financière + 50 % croissance prévue (mêmes critères que les secteurs actions). Les ETC sont des titres de créance émis par une société dédiée et adossés à du métal stocké en coffre : ce ne sont pas des fonds UCITS. ETC, ETF de minières et minières étrangères ne sont pas éligibles au PEA (compte-titres). Risques : prix du métal en dollars, change EUR/USD (sauf part couverte), émetteur de l'ETC ; pour les minières, risques d'exploitation et de pays.</div>
+   <div class="sec-d" style="text-align:left">L'ETC principal est la ligne 1 ; les autres instruments suivent par note APEX (métal au comptant, ETC physiques, puis jusqu'à deux minières). ${L.miner_note} Score minières = 50 % santé financière + 50 % croissance prévue (mêmes critères que les secteurs actions). Les ETC sont des titres de créance émis par une société dédiée et adossés à du métal stocké en coffre : ce ne sont pas des fonds UCITS. ETC, ETF de minières et minières étrangères ne sont pas éligibles au PEA (compte-titres). Risques : prix du métal en dollars, change EUR/USD (sauf part couverte), émetteur de l'ETC ; pour les minières, risques d'exploitation et de pays.</div>
   </details>`;
 }
 function renderMetaux(el){
@@ -95,15 +95,15 @@ function renderMetaux(el){
   const stMt=(typeof sectionApexAvg==='function')?sectionApexAvg('metaux'):null;
   const a10=(stMt&&stMt.apex10)||null;
   const disp=a10?(a10.display!=null?String(a10.display):(a10.note!=null?String(a10.note):'')):'';
-  const apexTag=a10&&disp?`<span class="js-apex10" hidden data-display="${disp}" data-hex="${a10.hex||''}" data-note="${a10.note!=null?a10.note:disp}" data-scale="100"></span>`:'';
+  const apexTag=a10&&disp?`<span class="js-apex10" hidden data-display="${disp}" data-hex="${a10.hex||''}" data-note="${a10.note!=null?a10.note:disp}" data-scale="250"></span>`:'';
   const c=document.createElement('div');c.className='card no-group met-card';
   c.innerHTML=`<h2>Métaux · sentiment et achat / vente</h2>
    <div class="desc acc-sum">${apexTag}4 métaux · au ${dshort(d)} · <i>Achat</i> <b>${cnt('Achat')}</b> · <i>Neutre</i> <b>${cnt('Neutre')}</b> · <i>Vente</i> <b>${cnt('Vente')}</b> · <i>sentiment max</i> <b>${hi.nom} ${fmt(hi.sent.value,0)}</b> · <i>min</i> <b>${lo.nom} ${fmt(lo.sent.value,0)}</b></div>
-   <div class="sec-grid">${srHead('Métal · contrat de référence', 100)}${S.map(s=>pTile(MET_C,s,MT.rows.indexOf(s))).join('')}</div>
+   <div class="sec-grid">${srHead('Métal · contrat de référence', true)}${S.map(s=>pTile(MET_C,s,MT.rows.indexOf(s))).join('')}</div>
    <details class="ind-meth"><summary>Méthode et pondérations</summary>
     <p><b>Sentiment Peur / Euphorie (0-100).</b> ${apexPlain(SEC.method_sent.replace(/S&P 500/g,'DBC'))}</p>
     <p><b>Achat / Vente (−100 à +100).</b> ${apexPlain(SEC.method_av.replace(/S&P 500/g,'DBC'))}</p>
-    <p>Mêmes formules que les secteurs actions, appliquées aux contrats à terme continus Yahoo (GC=F or COMEX, SI=F argent COMEX, PL=F platine NYMEX, PA=F palladium NYMEX) pour les barres Achat/Vente et Sentiment de chaque ligne. Référence de force relative : DBC (panier diversifié de matières premières). <b>Note APEX /100 de chaque métal</b> : moyenne (arrondie au point) des notes /100 des instruments visibles dans le bouton « ETC principal + N instruments » (ETC physiques, métal au comptant, minières) ; les titres sans note sont exclus. Calcul reproductible avec <code>src/fetch_metaux.py</code>, <code>src/fetch_metaux2.py</code> et <code>src/build_metaux.py</code>.</p></details>
+    <p>Mêmes formules que les secteurs actions, appliquées aux contrats à terme continus Yahoo (GC=F or COMEX, SI=F argent COMEX, PL=F platine NYMEX, PA=F palladium NYMEX) pour les barres Achat/Vente et Sentiment de chaque ligne. Référence de force relative : DBC (panier diversifié de matières premières). <b>Note APEX (−50 à 250) de chaque métal</b> : moyenne (arrondie au point) des notes des instruments visibles dans le bouton « ETC principal + N instruments » (ETC physiques, métal au comptant, minières) ; les titres sans note sont exclus. Calcul reproductible avec <code>src/fetch_metaux.py</code>, <code>src/fetch_metaux2.py</code> et <code>src/build_metaux.py</code>.</p></details>
    <div class="src">Sources : ${yl}, ${lnk(MT.bench_url,MT.bench_nom)}, ${lnk('https://www.tradingview.com/','TradingView')} (symboles vérifiés). Calcul le ${MT.generated.replace(' ',' à ')} (heure de Paris).</div>`;
   el.prepend(c);srWire(c);
   c.querySelectorAll('.sec-det').forEach(dt=>dt.addEventListener('toggle',()=>{if(dt.open)pCharts(dt);}));

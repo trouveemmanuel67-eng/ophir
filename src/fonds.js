@@ -5,7 +5,17 @@ const APEX_BARS=(function(){
   if(!el) return {bars:{}};
   try{return JSON.parse(el.textContent)||{bars:{}};}catch(e){return {bars:{}};}
 })();
+function apex250Rec(a){
+  if(!a||a.note==null||a.display==='–') return null;
+  const tot=a.total!=null?a.total:a.note;
+  return {total:tot, total_max:a.total_max!=null?a.total_max:250, total_min:a.total_min!=null?a.total_min:-50, ligne:a.ligne||((a.decomp&&a.decomp.texte)||''), hex:a.hex, band:a.band};
+}
 function listApexBar(r){
+  const a250=r&&r.apex10&&(r.apex10.scale===250||r.apex10.total_max===250||r.forceApex250);
+  if(a250||(r&&r.forceApex250)){
+    const rec=apex250Rec(r.apex10);
+    if(rec&&typeof dualBarPilot==='function') return `<div class="fl-apex fl-apex-pilot">${dualBarPilot(rec, true)}</div>`;
+  }
   if(r&&r.forceApex100){
     return `<div class="fl-apex fl-apex-100">${(typeof dualBarApex100==='function')?dualBarApex100(r.apex10,r.sent,r.av,true):''}</div>`;
   }

@@ -13,7 +13,7 @@ def test_mlist_lignes_pas_cartes():
     assert 'class="fl-row"' in MET
     assert "fl fl-pilot" in mlist
     assert 'class="fl-prin">principal' in MET
-    assert "forceApex100:true" in MET
+    assert "forceApex250:true" in MET
     assert "fl-etf" not in mlist
     assert "fl-m" not in mlist
     assert "<ol class=\"fl\">" not in mlist
@@ -32,9 +32,10 @@ def test_infos_isin_ter_en_infobulle():
     assert "tvTag(r.tv)" in row
 
 
-def test_list_apex_bar_force_100_avant_pilote():
+def test_list_apex_bar_force_250_avant_rec_actions():
     fn = FONDS.split("function listApexBar")[1].split("function fondQualite")[0]
     head = fn.split("const prec=")[0]
-    assert "r.forceApex100" in head
-    assert "dualBarApex100" in head
-    assert "pilotRec" not in head
+    assert "forceApex250" in head or "apex250Rec" in head
+    assert "dualBarPilot" in head
+    # la branche 250 vient avant le rec actions (pilotRec) pour les minières
+    assert head.find("dualBarPilot") < head.find("pilotRec") or "pilotRec" not in head

@@ -35,7 +35,7 @@ def test_intro_courte():
     intro = REGLES["apex_metaux"]["intro_courte"]
     assert intro.count(".") <= 2
     assert "Or" in intro and "argent" in intro
-    assert "0 à 100" in intro and "50" in intro
+    assert "−50 à 250" in intro
     assert "Yahoo" not in intro and "DBC" not in intro and "Elliott" not in intro
 
 
@@ -66,7 +66,8 @@ def test_seuils_courts_identiques_au_code():
     assert "if dd>=-2: return -60.0" in CORE and "if dd>=-25: return 60.0" in CORE
     # Fond
     na = REGLES["note_apex"]
+    mx = REGLES["apex_metaux"]
     assert str(int(na["fond_seuil"])) in s["fond"]
-    assert str(int(na["fond_pen_max"])) in s["fond"]
-    # GI / cyan sont assemblés depuis la config dans le JS
-    assert "gi.seuil" in JS and "cy.note_min" in JS and "av_achat_fort" in JS
+    assert str(int(mx.get("fond_pen_max") or 60)) in s["fond"]
+    # GI / cyan métaux (échelle −50 à 250) assemblés depuis apex_metaux
+    assert "mx.gi_seuil" in JS and "mx.cyan_note_min" in JS and "av_achat_fort" in JS

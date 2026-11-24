@@ -1,6 +1,12 @@
-/* ===== MEILLEURES ENTRÉES : actions APEX v2 ≥ 130/250 ; autres actifs ≥ 75/100 ===== */
+/* ===== MEILLEURES ENTRÉES : actions APEX v2 ≥ 130/250 ; métaux ≥ 175/250 ; autres ≥ 75/100 ===== */
 const GI_SEUIL=75;
 const GI_SEUIL_V2=130;
+const GI_SEUIL_METAUX=175;
+function giSeuilOf(it){
+  if(it&&it.tab==='actions') return GI_SEUIL_V2;
+  if(it&&it.tab==='metaux') return GI_SEUIL_METAUX;
+  return GI_SEUIL;
+}
 const GI_LIST_KEY='apex-gi-list';
 const GI_ELLIOTT_KEY='apex-gi-elliott-hide';
 function giNow(){
@@ -109,13 +115,20 @@ function giIsHeld(it, held){
     return false;
   });
 }
-function giMontant(note, scale){
+function giMontant(note, scale, tab){
   const n=Number(note);
   if(!Number.isFinite(n)) return null;
+  const sc=Number(scale);
+  const isMetaux=tab==='metaux'||sc===250&&tab==='metaux';
+  if(isMetaux||(tab==='metaux')){
+    const base=Number(GI_SEUIL_METAUX)||175, pas=15;
+    if(n<base) return null;
+    const steps=Math.round((Math.min(n,250)-base)/pas);
+    return Math.min(500+steps*100, 1000);
+  }
   const src=(typeof TT!=='undefined'&&TT&&Array.isArray(TT.lignes))
     ?TT.lignes.slice().filter(l=>l&&Number.isFinite(Number(l.note))).sort((a,b)=>Number(a.note)-Number(b.note))
     :[];
-  const sc=Number(scale);
   const isV2=Number.isFinite(sc)&&sc!==100&&sc>=200;
   let lignes=src;
   if(isV2){
@@ -150,7 +163,7 @@ function giEnrich(prev, rec){
   return prev;
 }
 function giPush(out, rec){
-  if(!rec||!rec.tv||rec.note==null||Number(rec.note)<GI_SEUIL) return;
+  if(!rec||!rec.tv||rec.note==null||Number(rec.note)<giSeuilOf(rec)) return;
   if(rec.cap==='moyenne') return;
   const k=rec.tv;
   const prev=out.get(k);
@@ -170,8 +183,8 @@ function giPrecomputed(){
     if(!j||!Array.isArray(j.liste)) return null;
     const held=giHeldSet();
     return j.liste
-      .filter(it=>it&&it.tv&&it.note!=null&&Number(it.note)>=GI_SEUIL&&!giIsHeld(it,held)&&!giEstActionHorsUnivers(it))
-      .map(it=>Object.assign({},it,{montant:it.montant!=null?it.montant:giMontant(it.note,it.scale)}))
+      .filter(it=>it&&it.tv&&it.note!=null&&Number(it.note)>=giSeuilOf(it)&&!giIsHeld(it,held)&&!giEstActionHorsUnivers(it))
+      .map(it=>Object.assign({},it,{montant:it.montant!=null?it.montant:giMontant(it.note,it.scale,it.tab)}))
       .sort((a,b)=> (b.note-a.note) || ((b.av||0)-(a.av||0)) || String(a.tv).localeCompare(String(b.tv)));
   }catch(e){ return null; }
 }
@@ -188,7 +201,7 @@ function giStockRecs(){
     const sc=(typeof PILOT!=='undefined'&&PILOT&&PILOT.scale&&PILOT.scale.max!=null)?Number(PILOT.scale.max):250;
     const it={tv, nom:r.nom||tv, section:r.kind==='panier'?'Panier APEX':(r.kind==='etf'?'ETF sectoriel':'Action'),
       note:r.total, display:String(r.total), hex:r.hex, flag:r.band, scale:sc, tab:'actions',
-      ticker:r.ticker||'', yahoo:r.yahoo||'', montant:giMontant(r.total, sc)};
+      ticker:r.ticker||'', yahoo:r.yahoo||'', montant:giMontant(r.total, sc, 'actions')};
     if(giIsHeld(it,held)) return;
     const k=r.tv||tv;
     if(seen.has(k)) return;
@@ -213,7 +226,8 @@ function giCollect(){
       tv, nom:nom||tv, section:section||'', note:Number(rec.note),
       display:rec.display||String(rec.note).replace('.',','), hex:rec.hex,
       flag:rec.flag, cap:rec.cap, av:score==null?null:Number(score),
-      tab:tab||'', yahoo:yahoo||'', ticker:ticker||''
+      tab:tab||'', yahoo:yahoo||'', ticker:ticker||'',
+      scale:(rec.scale!=null?rec.scale:(rec.total_max!=null?rec.total_max:(tab==='metaux'?250:undefined)))
     });
   };
   // Barres individuelles
@@ -312,7 +326,7 @@ function giCollect(){
   const held=giHeldSet();
   return [...out.values()]
     .filter(it=>!giIsHeld(it, held))
-    .map(it=>Object.assign(it,{montant:giMontant(it.note,it.scale)}))
+    .map(it=>Object.assign(it,{montant:giMontant(it.note,it.scale,it.tab)}))
     .sort((a,b)=> (b.note-a.note) || ((b.av||0)-(a.av||0)) || String(a.tv).localeCompare(String(b.tv)));
 }
 function giListIsOpen(){
@@ -368,7 +382,7 @@ function giRender(){
       <span class="pos-head-tot">${n}<small>titre${n>1?'s':''}</small></span>
     </div>
     <div class="pos-body gi-body" id="giBody">
-      <div class="gi-list">${rows||'<div class="gi-empty">Aucun titre au seuil (actions ≥ 130/250, autres ≥ 75/100) hors portefeuille.</div>'}</div>
+      <div class="gi-list">${rows||'<div class="gi-empty">Aucun titre au seuil (actions ≥ 130/250, métaux ≥ 175/250, autres ≥ 75/100) hors portefeuille.</div>'}</div>
     </div>
   </div>`;
   const wasOpen=giListIsOpen();

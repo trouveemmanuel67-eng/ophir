@@ -231,6 +231,17 @@ function sectionApexAvg(tabId){
   const notes=items.map(x=>x.note).filter(n=>n!=null&&Number.isFinite(n));
   const av=meanNum(items.map(x=>x.av));
   const se=meanNum(items.map(x=>x.sent));
+  if(tabId==='metaux'&&notes.length){
+    const n=Math.round(notes.reduce((a,b)=>a+b,0)/notes.length);
+    const b=(typeof pilotBand==='function')?pilotBand(n):{hex:'#e6c27a',id:''};
+    const apex={v2:true, total:n, total_min:-50, total_max:250, scale:250, display:String(n)+' / 250', hex:b.hex, band:b.id, n_moy:notes.length, ok:true, note:n};
+    return {
+      apexV2:apex, apex10:apex,
+      av:av==null?null:{score:av,label:labAv(av)},
+      sent:se==null?null:{value:se,label:labS(se)},
+      n:notes.length
+    };
+  }
   const baked=bakedSectionApex(tabId);
   const apex=baked||apex10FromAvg(notes);
   if(!apex) return null;
