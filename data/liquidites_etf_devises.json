@@ -1,7 +1,9 @@
 {
-  "generated": "2026-11-24 15:50",
-  "tache": "t491u",
-  "echelle": "-50 à 250",
+  "generated": "2026-11-24 16:01",
+  "tache": "t492u",
+  "echelle": "−50 à 250",
+  "critere": "meilleure performance annualisée sur 3 ans (dividendes inclus)",
+  "exclusions": "levier/inverse, contrats à terme, produits complexes, historique de moins de 3 ans",
   "hype": "non comptée jusqu’au 25/11",
   "fondamental": "n.c. (pas de redistribution)",
   "fear_greed": "CNN, même grille que les actions",
@@ -11,75 +13,80 @@
     {
       "ccy": "AUD",
       "ok": true,
-      "nom": "Betashares Crude Oil Index Currency Hedged Complex ETF",
-      "court": "OOO · pétrole brut (couvert, complexe)",
-      "tv": "ASX:OOO",
-      "yahoo": "OOO.AX",
-      "yahoo_weekly": "yahoo_1wk_OOO.AX.json",
+      "nom": "Global X Semiconductor ETF",
+      "court": "SEMI · semi-conducteurs mondiaux",
+      "tv": "ASX:SEMI",
+      "yahoo": "SEMI.AX",
+      "yahoo_weekly": "yahoo_1wk_SEMI.AX.json",
       "exchange": "ASX",
       "currency": "AUD",
-      "perf_1y": 119.2,
-      "perf_asof": "2026-10-31",
-      "perf_kind": "total_return",
-      "aum": "123 M AUD",
+      "perf_3y_ann": 41.79,
+      "perf_3y_cum": null,
+      "perf_asof": "2026-11-23",
+      "perf_kind": "total_return_annualise_3ans",
+      "perf_note": "Rendement total annualisé (NAV, distributions réinvesties) publié par l’émetteur.",
+      "aum": "894 M AUD",
       "aum_ok": true,
-      "yield_dist": 3.6,
-      "yield_label": "3,6 % (est., annuel)",
-      "yield_asof": "2026-10-31",
-      "source": "ReviewETF, d'après le rapport mensuel TMX Australia (total return, dividendes inclus)",
-      "source_url": "https://www.reviewetf.com.au/blog/the-best-etfs-on-the-asx-in-2026-top-performers-by-1-year-returns",
-      "source_date": "2026-11-11",
-      "univers": "Ensemble des ETF ASX/TMX avec au moins un an d’historique ; OOO a un encours de 123 M AUD (> 100 M).",
-      "limitations": null,
+      "aum_detail": "894 267 787 AUD au 23/11/2026 (émetteur).",
+      "yield_dist": 8.78,
+      "yield_label": "8,78 % (12 mois, au 3/11/2026)",
+      "yield_asof": "2026-11-03",
+      "source": "Sélection : ReviewETF, univers ASX/TMX, total return au 31/10/2026 (SEMI +252,2 % cumulés sur 3 ans, 1er éligible). Performance affichée : Global X, 41,79 % annualisés au 23/11/2026.",
+      "source_url": "https://www.globalxetfs.com.au/funds/semi/",
+      "source_date": "2026-11-23",
+      "univers": "Ensemble des ETF ASX/TMX d’après ReviewETF (données TMX Australia au 31/10/2026). Seuil : encours > 100 M AUD, cotation ASX en AUD, historique ≥ 3 ans. Exclus : levier/inverse, contrats à terme, produits complexes.",
+      "limitations": "Le classement de sélection est arrêté au 31/10/2026 ; la performance officialisée par l’émetteur est plus récente (23/11/2026). Après la baisse de novembre, SEMI reste devant MNRS sur Yahoo (ajusté).",
+      "isin": "AU0000169120",
+      "inception": "2021-08-27",
       "brokers": {
         "revolut": null,
         "xtb": null,
         "note": "Absents de la table disponibilités (OMI / site) au 23/11/2026. Disponibilité Revolut et XTB non vérifiée."
       },
       "apex10": {
-        "note": 68,
-        "display": "68",
-        "hex": "#ff2d2d",
-        "flag": "red",
-        "band": "rouge",
-        "pos": 68,
+        "note": 108,
+        "display": "108",
+        "hex": "#ff8c1a",
+        "flag": "orange",
+        "band": "orange",
+        "pos": 108,
         "cap": "fond_nc+hype_attente_25_11",
-        "brut": 68,
+        "brut": 108,
         "scale": 250,
-        "total": 68,
+        "total": 108,
         "total_min": -50,
         "total_max": 250,
         "v2": true,
-        "ligne": "RSI 0 · MACD 0 · Fibo +20 · CCI 0 · Devise +18 · Fond. — · F&G +30  →  68 / 250 · Hype non comptée (dès le 25/11)",
+        "ligne": "RSI 0 · MACD +30 · Fibo +10 · CCI +20 · Devise +18 · Fond. — · F&G +30  →  108 / 250 · Hype non comptée (dès le 25/11)",
         "renormalise": false,
-        "technique": 20,
+        "technique": 60,
         "devise_points": 18,
         "devise_note_100": 63.0,
         "fg_points": 30,
         "fg_value": 17.7,
         "fg_source": "CNN",
         "decomp": {
-          "texte": "RSI 0 · MACD 0 · Fibo +20 · CCI 0 · Devise +18 · Fond. — · F&G +30  →  68 / 250 · Hype non comptée (dès le 25/11)",
+          "texte": "RSI 0 · MACD +30 · Fibo +10 · CCI +20 · Devise +18 · Fond. — · F&G +30  →  108 / 250 · Hype non comptée (dès le 25/11)",
           "points": {
             "rsi": 0,
-            "macd": 0,
-            "fibonacci": 20,
-            "cci": 0,
+            "macd": 30,
+            "fibonacci": 10,
+            "cci": 20,
             "devise": 18,
             "fondamental": null,
             "hype": null,
             "fear_greed": 30,
-            "total": 68
+            "total": 108
           },
           "rsi": {
-            "valeur": 49.3,
+            "valeur": 40.5,
             "points": 0,
             "conditions": [
               {
                 "id": "rsi_sous_40",
                 "ok": false,
                 "points": 0,
-                "valeur": 49.3
+                "valeur": 40.5
               },
               {
                 "id": "divergence_rsi_haussiere_hebdo",
@@ -90,33 +97,33 @@
             ]
           },
           "macd": {
-            "points": 0,
+            "points": 30,
             "conditions": [
               {
                 "id": "macd_sous_0",
-                "ok": false,
-                "points": 0,
-                "valeur": 0.5033
+                "ok": true,
+                "points": 10,
+                "valeur": -0.5238
               },
               {
                 "id": "histo_4_barres_rouges_sous_0",
-                "ok": false,
-                "points": 0,
-                "streak": 2
+                "ok": true,
+                "points": 20,
+                "streak": 19
               }
             ]
           },
           "fibonacci": {
             "ok": true,
-            "r": 0.6511,
-            "r_pct": 65.1,
-            "points": 20,
-            "palier": "61,8 %"
+            "r": 0.4336,
+            "r_pct": 43.4,
+            "points": 10,
+            "palier": "38,2 %"
           },
           "cci": {
-            "ok": false,
-            "valeur": 50.78,
-            "points": 0
+            "ok": true,
+            "valeur": 5.15,
+            "points": 20
           },
           "devise": {
             "note_100": 63.0,
@@ -144,76 +151,80 @@
     {
       "ccy": "USD",
       "ok": true,
-      "nom": "Breakwave Tanker Shipping ETF",
-      "court": "BWET · fret pétrolier (tankers)",
-      "tv": "AMEX:BWET",
-      "yahoo": "BWET",
-      "yahoo_weekly": "yahoo_1wk_BWET.json",
-      "exchange": "NYSE Arca",
+      "nom": "iShares MSCI Global Gold Miners ETF",
+      "court": "RING · mines d’or mondiales",
+      "tv": "NASDAQ:RING",
+      "yahoo": "RING",
+      "yahoo_weekly": "yahoo_1wk_RING.json",
+      "exchange": "NASDAQ",
       "currency": "USD",
-      "perf_1y": 3202.32,
-      "perf_asof": "2026-11-23",
-      "perf_kind": "price_return",
-      "perf_note": "Rendement prix (pas de dividende sur 12 mois, yield 0 %). Yahoo au 24/11/2026 confirme environ +3 186 %, sans split signalé.",
-      "aum": "181 M USD",
+      "perf_3y_ann": 42.8,
+      "perf_3y_cum": null,
+      "perf_asof": "2026-11-01",
+      "perf_kind": "total_return_annualise_3ans",
+      "perf_note": "etf.net indique « 3Y return, per year » +42,8 % (novembre 2026) ; ETF Database +42,78 % (hors levier/inverse).",
+      "aum": "1,90 Md USD",
       "aum_ok": true,
-      "yield_dist": 0,
-      "yield_label": "0 %",
-      "yield_asof": "2026-11-23",
-      "source": "FindETFStock, cours Yahoo Finance au 23/11/2026 (univers d’environ 5 993 ETF cotés aux États-Unis)",
-      "source_url": "https://findetfstock.com/",
-      "source_date": "2026-11-23",
-      "univers": "ETF cotés aux États-Unis, encours 181 M USD > 100 M, place NYSE Arca, devise USD.",
-      "limitations": "Produit très volatil (fret). Performance hors norme, vérifiée sur Yahoo (pas de split dans les événements).",
+      "aum_detail": "1 904 794 576 USD au 23/11/2026 (iShares).",
+      "yield_dist": 1.35,
+      "yield_label": "1,35 % (12 mois, au 31/10/2026)",
+      "yield_asof": "2026-10-31",
+      "source": "etf.net (classement novembre 2026, 3 ans annualisés) et ETF Database (hors levier/inverse). Encours et rendement : iShares au 23/11 et 31/10/2026.",
+      "source_url": "https://etf.net/top/best-performing-etfs",
+      "source_date": "2026-11-24",
+      "univers": "ETF cotés aux États-Unis. Seuil : encours > 100 M USD, cotation NYSE/Nasdaq en USD, historique ≥ 3 ans. Exclus : levier/inverse, contrats à terme (ex. BWET fret), produits complexes (ex. ZCSH Zcash), GOEX sous 100 M.",
+      "limitations": "Les tableaux de performance iShares affichaient encore 56,74 % annualisés, incohérents avec le cours actuel et avec etf.net/ETFDB ; le chiffre retenu est celui des classements de novembre 2026.",
+      "isin": "US46434G8551",
+      "inception": "2012-01-31",
       "brokers": {
         "revolut": null,
         "xtb": null,
         "note": "Absents de la table disponibilités (OMI / site) au 23/11/2026. Disponibilité Revolut et XTB non vérifiée."
       },
       "apex10": {
-        "note": 62,
-        "display": "62",
-        "hex": "#ff2d2d",
-        "flag": "red",
-        "band": "rouge",
-        "pos": 62,
+        "note": 92,
+        "display": "92",
+        "hex": "#ff8c1a",
+        "flag": "orange",
+        "band": "orange",
+        "pos": 92,
         "cap": "fond_nc+hype_attente_25_11",
-        "brut": 62,
+        "brut": 92,
         "scale": 250,
-        "total": 62,
+        "total": 92,
         "total_min": -50,
         "total_max": 250,
         "v2": true,
-        "ligne": "RSI 0 · MACD 0 · Fibo 0 · CCI +20 · Devise +12 · Fond. — · F&G +30  →  62 / 250 · Hype non comptée (dès le 25/11)",
+        "ligne": "RSI +10 · MACD +30 · Fibo +10 · CCI 0 · Devise +12 · Fond. — · F&G +30  →  92 / 250 · Hype non comptée (dès le 25/11)",
         "renormalise": false,
-        "technique": 20,
+        "technique": 50,
         "devise_points": 12,
         "devise_note_100": 44.0,
         "fg_points": 30,
         "fg_value": 17.7,
         "fg_source": "CNN",
         "decomp": {
-          "texte": "RSI 0 · MACD 0 · Fibo 0 · CCI +20 · Devise +12 · Fond. — · F&G +30  →  62 / 250 · Hype non comptée (dès le 25/11)",
+          "texte": "RSI +10 · MACD +30 · Fibo +10 · CCI 0 · Devise +12 · Fond. — · F&G +30  →  92 / 250 · Hype non comptée (dès le 25/11)",
           "points": {
-            "rsi": 0,
-            "macd": 0,
-            "fibonacci": 0,
-            "cci": 20,
+            "rsi": 10,
+            "macd": 30,
+            "fibonacci": 10,
+            "cci": 0,
             "devise": 12,
             "fondamental": null,
             "hype": null,
             "fear_greed": 30,
-            "total": 62
+            "total": 92
           },
           "rsi": {
-            "valeur": 58.1,
-            "points": 0,
+            "valeur": 38.1,
+            "points": 10,
             "conditions": [
               {
                 "id": "rsi_sous_40",
-                "ok": false,
-                "points": 0,
-                "valeur": 58.1
+                "ok": true,
+                "points": 10,
+                "valeur": 38.1
               },
               {
                 "id": "divergence_rsi_haussiere_hebdo",
@@ -224,33 +235,33 @@
             ]
           },
           "macd": {
-            "points": 0,
+            "points": 30,
             "conditions": [
               {
                 "id": "macd_sous_0",
-                "ok": false,
-                "points": 0,
-                "valeur": 155.8725
+                "ok": true,
+                "points": 10,
+                "valeur": -1.7176
               },
               {
                 "id": "histo_4_barres_rouges_sous_0",
-                "ok": false,
-                "points": 0,
-                "streak": 2
+                "ok": true,
+                "points": 20,
+                "streak": 5
               }
             ]
           },
           "fibonacci": {
             "ok": true,
-            "r": 0.2785,
-            "r_pct": 27.9,
-            "points": 0,
-            "palier": null
+            "r": 0.4531,
+            "r_pct": 45.3,
+            "points": 10,
+            "palier": "38,2 %"
           },
           "cci": {
-            "ok": true,
-            "valeur": 19.25,
-            "points": 20
+            "ok": false,
+            "valeur": 41.36,
+            "points": 0
           },
           "devise": {
             "note_100": 44.0,
@@ -278,160 +289,30 @@
     {
       "ccy": "CAD",
       "ok": true,
-      "nom": "iShares S&P/TSX Capped Energy Index ETF",
-      "court": "XEG · énergie canadienne",
-      "tv": "TSX:XEG",
-      "yahoo": "XEG.TO",
-      "yahoo_weekly": "yahoo_1wk_XEG.TO.json",
+      "nom": "iShares Semiconductor Index ETF",
+      "court": "XCHP · semi-conducteurs",
+      "tv": "TSX:XCHP",
+      "yahoo": "XCHP.TO",
+      "yahoo_weekly": "yahoo_1wk_XCHP.TO.json",
       "exchange": "TSX",
       "currency": "CAD",
-      "perf_1y": 81.5,
-      "perf_asof": "2026-10-20",
-      "perf_kind": "total_return",
-      "perf_note": "BlackRock : +76,96 % au 31/10/2026, encours 2,57 Md CAD. Yahoo au 24/11 montre une baisse nette en novembre (environ +37 % sur 12 mois glissants).",
-      "aum": "2,57 Md CAD",
+      "perf_3y_ann": 48.11,
+      "perf_3y_cum": 224.92,
+      "perf_asof": "2026-10-31",
+      "perf_kind": "total_return_annualise_3ans",
+      "perf_note": "BlackRock, rendement total moyen annualisé 48,11 % et cumulé 224,92 % au 31/10/2026.",
+      "aum": "344 M CAD",
       "aum_ok": true,
-      "yield_dist": 2.1,
-      "yield_label": "2,10 % (fwd)",
-      "yield_asof": "2026-10-20",
-      "source": "Trade That Swing / StockRover au 20/10/2026 (total return, dividendes réinvestis). Encours et +76,96 % : BlackRock au 31/10/2026.",
-      "source_url": "https://tradethatswing.com/best-performing-canadian-etfs-of-the-last-1-3-5-and-10-years/",
-      "source_date": "2026-10-21",
-      "univers": "ETF cotés au Canada, non leveragés, volume moyen ≥ 30 000 titres/jour.",
-      "limitations": "Le classement source exclut les ETF à effet de levier. Pas de classement TSX toutes classes plus récent après la baisse de novembre.",
-      "brokers": {
-        "revolut": null,
-        "xtb": null,
-        "note": "Absents de la table disponibilités (OMI / site) au 23/11/2026. Disponibilité Revolut et XTB non vérifiée."
-      },
-      "apex10": {
-        "note": 42,
-        "display": "42",
-        "hex": "#ff2d2d",
-        "flag": "red",
-        "band": "rouge",
-        "pos": 42,
-        "cap": "fond_nc+hype_attente_25_11",
-        "brut": 42,
-        "scale": 250,
-        "total": 42,
-        "total_min": -50,
-        "total_max": 250,
-        "v2": true,
-        "ligne": "RSI 0 · MACD 0 · Fibo 0 · CCI 0 · Devise +12 · Fond. — · F&G +30  →  42 / 250 · Hype non comptée (dès le 25/11)",
-        "renormalise": false,
-        "technique": 0,
-        "devise_points": 12,
-        "devise_note_100": 43.0,
-        "fg_points": 30,
-        "fg_value": 17.7,
-        "fg_source": "CNN",
-        "decomp": {
-          "texte": "RSI 0 · MACD 0 · Fibo 0 · CCI 0 · Devise +12 · Fond. — · F&G +30  →  42 / 250 · Hype non comptée (dès le 25/11)",
-          "points": {
-            "rsi": 0,
-            "macd": 0,
-            "fibonacci": 0,
-            "cci": 0,
-            "devise": 12,
-            "fondamental": null,
-            "hype": null,
-            "fear_greed": 30,
-            "total": 42
-          },
-          "rsi": {
-            "valeur": 46.1,
-            "points": 0,
-            "conditions": [
-              {
-                "id": "rsi_sous_40",
-                "ok": false,
-                "points": 0,
-                "valeur": 46.1
-              },
-              {
-                "id": "divergence_rsi_haussiere_hebdo",
-                "ok": false,
-                "points": 0,
-                "texte": null
-              }
-            ]
-          },
-          "macd": {
-            "points": 0,
-            "conditions": [
-              {
-                "id": "macd_sous_0",
-                "ok": false,
-                "points": 0,
-                "valeur": 0.9253
-              },
-              {
-                "id": "histo_4_barres_rouges_sous_0",
-                "ok": false,
-                "points": 0,
-                "streak": 3
-              }
-            ]
-          },
-          "fibonacci": {
-            "ok": true,
-            "r": 0.1743,
-            "r_pct": 17.4,
-            "points": 0,
-            "palier": null
-          },
-          "cci": {
-            "ok": false,
-            "valeur": 36.48,
-            "points": 0
-          },
-          "devise": {
-            "note_100": 43.0,
-            "points": 12,
-            "grille": "0–9→0, 10→3, … 100→30"
-          },
-          "fondamental": {
-            "points": null,
-            "etat": "n.c."
-          },
-          "hype": {
-            "points": null,
-            "etat": "en_attente_25_11",
-            "grille": "0–9→+30, 10→+27, 50→+15, 100→0"
-          },
-          "fear_greed": {
-            "valeur": 17.7,
-            "points": 30,
-            "source": "CNN"
-          },
-          "echelle": 250
-        }
-      }
-    },
-    {
-      "ccy": "GBP",
-      "ok": true,
-      "nom": "Franklin FTSE Korea UCITS ETF",
-      "court": "FLRK · actions Corée",
-      "tv": "LSE:FLRK",
-      "yahoo": "FLRK.L",
-      "yahoo_weekly": "yahoo_1wk_FLRK.L.json",
-      "isin": "IE00BHZRR030",
-      "exchange": "LSE",
-      "currency": "GBP",
-      "perf_1y": 69.84,
-      "perf_asof": "2026-11-24",
-      "perf_kind": "total_return",
-      "aum": "3 053 M GBP",
-      "aum_ok": true,
-      "yield_dist": null,
-      "yield_label": "capitalisant (pas de distribution)",
-      "source": "justETF, profil GBP (ticker LSE FLRK), performance dividendes inclus.",
-      "source_url": "https://www.justetf.com/uk/etf-profile.html?isin=IE00BHZRR030",
-      "source_date": "2026-11-24",
-      "univers": "Meilleur ETF UCITS documenté dans le top justETF (1 an) disposant d’une cotation LSE en GBP et d’un encours > 100 M GBP.",
-      "limitations": "Pas un passage en revue exhaustif de tous les ETP à effet de levier cotés à Londres.",
+      "aum_detail": "344 470 383 CAD au 23/11/2026 (BlackRock).",
+      "yield_dist": 0.23,
+      "yield_label": "0,23 % (12 mois, au 20/11/2026)",
+      "yield_asof": "2026-11-20",
+      "source": "Sélection : Trade That Swing / StockRover au 20/10/2026 (1er ETF canadien non levier, volume > 30 k, +225,80 % cumulés 3 ans). Performance et encours : BlackRock.",
+      "source_url": "https://www.blackrock.com/ca/investors/en/products/332756/ishares-semiconductor-index-etf",
+      "source_date": "2026-11-23",
+      "univers": "ETF cotés au Canada, non levier, volume quotidien moyen > 30 000 (StockRover au 20/10/2026). Encours 344 M CAD > 100 M, cotation TSX en CAD. Lancé le 6/09/2023, donc un peu plus de 3 ans au 24/11/2026.",
+      "limitations": "La performance officialisée est arrêtée au 31/10/2026. CHPS (Global X) était 2e, à +220,40 % cumulés.",
+      "inception": "2023-09-06",
       "brokers": {
         "revolut": null,
         "xtb": null,
@@ -473,14 +354,14 @@
             "total": 112
           },
           "rsi": {
-            "valeur": 37.1,
+            "valeur": 36.4,
             "points": 10,
             "conditions": [
               {
                 "id": "rsi_sous_40",
                 "ok": true,
                 "points": 10,
-                "valeur": 37.1
+                "valeur": 36.4
               },
               {
                 "id": "divergence_rsi_haussiere_hebdo",
@@ -497,26 +378,26 @@
                 "id": "macd_sous_0",
                 "ok": true,
                 "points": 10,
-                "valeur": -1.5837
+                "valeur": -2.2393
               },
               {
                 "id": "histo_4_barres_rouges_sous_0",
                 "ok": true,
                 "points": 20,
-                "streak": 19
+                "streak": 18
               }
             ]
           },
           "fibonacci": {
             "ok": true,
-            "r": 0.487,
-            "r_pct": 48.7,
+            "r": 0.5472,
+            "r_pct": 54.7,
             "points": 10,
             "palier": "38,2 %"
           },
           "cci": {
             "ok": true,
-            "valeur": 1.72,
+            "valeur": 3.19,
             "points": 20
           },
           "devise": {
@@ -543,27 +424,176 @@
       }
     },
     {
-      "ccy": "JPY",
+      "ccy": "GBP",
       "ok": true,
-      "nom": "Global X 中小型リーダーズ ESG – 日本株式 ETF",
-      "court": "2837 · mid/small caps Japon",
-      "tv": "TSE:2837",
-      "yahoo": "2837.T",
-      "yahoo_weekly": "yahoo_1wk_2837.T.json",
-      "exchange": "TSE",
-      "currency": "JPY",
-      "perf_1y": 74.7,
-      "perf_asof": "2026-10-31",
-      "perf_kind": "total_return",
-      "aum": "650 億 JPY",
+      "nom": "L&G Gold Mining UCITS ETF",
+      "court": "AUCP · mines d’or mondiales",
+      "tv": "LSE:AUCP",
+      "yahoo": "AUCP.L",
+      "yahoo_weekly": "yahoo_1wk_AUCP.L.json",
+      "isin": "IE00B3CNHG25",
+      "exchange": "LSE",
+      "currency": "GBP",
+      "perf_3y_ann": 46.64,
+      "perf_3y_cum": 215.26,
+      "perf_asof": "2026-11-24",
+      "perf_kind": "total_return_annualise_3ans",
+      "perf_note": "justETF (profil UK, en GBP) : +215,26 % cumulés sur 3 ans, dividendes inclus, soit 46,64 % annualisés.",
+      "aum": "527 M GBP",
       "aum_ok": true,
       "yield_dist": null,
-      "yield_label": "distribution semestrielle (rendement % n.c.)",
-      "source": "myINDEX, classement des fonds indiciaires au 31/10/2026 (rendements en JPY).",
-      "source_url": "https://myindex.jp/ranking_f.php?a=20&s=15",
+      "yield_label": "capitalisant (pas de distribution)",
+      "source": "justETF, meilleurs ETF sur 3 ans (hors levier : l’IBEX 2x est exclu) ; cotation LSE en GBX, ticker AUCP. Encours 527 M GBP.",
+      "source_url": "https://www.justetf.com/uk/etf-profile.html?isin=IE00B3CNHG25",
+      "source_date": "2026-11-24",
+      "univers": "UCITS suivis par justETF disposant d’une cotation LSE en GBP, encours > 100 M GBP, historique ≥ 3 ans. Exclus : levier/inverse, contrats à terme, produits complexes, fonds trop petits (ex. Fineco Semi, 52 M €).",
+      "limitations": "Le classement justETF « best 3 years » est un univers européen (souvent en EUR) ; AUCP est le premier fonds non levier de cette liste qui a une ligne LSE en GBP.",
+      "inception": "2008-11-06",
+      "brokers": {
+        "revolut": null,
+        "xtb": null,
+        "note": "Absents de la table disponibilités (OMI / site) au 23/11/2026. Disponibilité Revolut et XTB non vérifiée."
+      },
+      "apex10": {
+        "note": 72,
+        "display": "72",
+        "hex": "#ff8c1a",
+        "flag": "orange",
+        "band": "orange",
+        "pos": 72,
+        "cap": "fond_nc+hype_attente_25_11",
+        "brut": 72,
+        "scale": 250,
+        "total": 72,
+        "total_min": -50,
+        "total_max": 250,
+        "v2": true,
+        "ligne": "RSI 0 · MACD +30 · Fibo 0 · CCI 0 · Devise +12 · Fond. — · F&G +30  →  72 / 250 · Hype non comptée (dès le 25/11)",
+        "renormalise": false,
+        "technique": 30,
+        "devise_points": 12,
+        "devise_note_100": 43.0,
+        "fg_points": 30,
+        "fg_value": 17.7,
+        "fg_source": "CNN",
+        "decomp": {
+          "texte": "RSI 0 · MACD +30 · Fibo 0 · CCI 0 · Devise +12 · Fond. — · F&G +30  →  72 / 250 · Hype non comptée (dès le 25/11)",
+          "points": {
+            "rsi": 0,
+            "macd": 30,
+            "fibonacci": 0,
+            "cci": 0,
+            "devise": 12,
+            "fondamental": null,
+            "hype": null,
+            "fear_greed": 30,
+            "total": 72
+          },
+          "rsi": {
+            "valeur": 41.9,
+            "points": 0,
+            "conditions": [
+              {
+                "id": "rsi_sous_40",
+                "ok": false,
+                "points": 0,
+                "valeur": 41.9
+              },
+              {
+                "id": "divergence_rsi_haussiere_hebdo",
+                "ok": false,
+                "points": 0,
+                "texte": null
+              }
+            ]
+          },
+          "macd": {
+            "points": 30,
+            "conditions": [
+              {
+                "id": "macd_sous_0",
+                "ok": true,
+                "points": 10,
+                "valeur": -124.5929
+              },
+              {
+                "id": "histo_4_barres_rouges_sous_0",
+                "ok": true,
+                "points": 20,
+                "streak": 6
+              }
+            ]
+          },
+          "fibonacci": {
+            "ok": true,
+            "r": 0.3352,
+            "r_pct": 33.5,
+            "points": 0,
+            "palier": null
+          },
+          "cci": {
+            "ok": false,
+            "valeur": 52.5,
+            "points": 0
+          },
+          "devise": {
+            "note_100": 43.0,
+            "points": 12,
+            "grille": "0–9→0, 10→3, … 100→30"
+          },
+          "fondamental": {
+            "points": null,
+            "etat": "n.c."
+          },
+          "hype": {
+            "points": null,
+            "etat": "en_attente_25_11",
+            "grille": "0–9→+30, 10→+27, 50→+15, 100→0"
+          },
+          "fear_greed": {
+            "valeur": 17.7,
+            "points": 30,
+            "source": "CNN"
+          },
+          "echelle": 250
+        }
+      }
+    },
+    {
+      "ccy": "KRW",
+      "ok": false,
+      "nom": null,
+      "tv": null,
+      "raison": "Nouvel essai sur le critère 3 ans annualisés (dividendes inclus). etfro.com ne publie un classement que jusqu’à 1 an (1 188 fonds, pas de colonne 3 ans). Les pages KRX data.krx.co.kr ne renvoient pas de tableau 3 ans exploitable en accès public. etfselect.kr (24/11/2026) et jusikcalc.com (24/11/2026) ne couvrent qu’un échantillon de fonds « représentatifs » ou de pension, et jusikcalc n’ajoute les dividendes que sans les réinvestir. Aucun « meilleur ETF KRW » n’est donc retenu, pour ne pas inventer un vainqueur.",
+      "source": "etfro.com/rank/return ; data.krx.co.kr ; etfselect.kr (24/11/2026) ; jusikcalc.com/kr-etf (24/11/2026)."
+    },
+    {
+      "ccy": "JPY",
+      "ok": true,
+      "nom": "NEXT FUNDS 銀行（TOPIX-17）上場投信",
+      "court": "1631 · banques japonaises (TOPIX-17)",
+      "tv": "TSE:1631",
+      "yahoo": "1631.T",
+      "yahoo_weekly": "yahoo_1wk_1631.T.json",
+      "exchange": "TSE",
+      "currency": "JPY",
+      "perf_3y_ann": 42.6,
+      "perf_3y_cum": null,
+      "perf_asof": "2026-10-31",
+      "perf_kind": "total_return_annualise_3ans",
+      "perf_note": "myINDEX, rendement annualisé en yen au 31/10/2026 : +42,6 %.",
+      "aum": "231 Md JPY",
+      "aum_ok": true,
+      "aum_detail": "230,6 milliards de JPY au 24/11/2026 (émetteur).",
+      "yield_dist": 2.19,
+      "yield_label": "2,19 % (au 20/11/2026)",
+      "yield_asof": "2026-11-20",
+      "source": "myINDEX, classement 3 ans des ETF/index japonais, données à fin octobre 2026. Encours et rendement : NEXT FUNDS au 24/11/2026.",
+      "source_url": "https://myindex.jp/ranking_f.php?a=20&s=16",
       "source_date": "2026-10-31",
-      "univers": "Classement myINDEX (321 fonds), 1er ETF domestique : 2837, +74,7 %, encours 650 milliards JPY (très au-dessus de 100 M USD).",
+      "univers": "ETF domestiques suivis par myINDEX (données 31/10/2026), cotés à Tokyo en yen, historique ≥ 3 ans, encours > 100 M JPY. Après exclusion des leviers/inverses (1579, 1365, 1570, 1568, 1367), 1631 devance 1615 de 0,1 point (42,6 % vs 42,5 %).",
       "limitations": null,
+      "inception": "2008-03-25",
       "brokers": {
         "revolut": null,
         "xtb": null,
@@ -605,14 +635,14 @@
             "total": 79
           },
           "rsi": {
-            "valeur": 54.2,
+            "valeur": 43.2,
             "points": 0,
             "conditions": [
               {
                 "id": "rsi_sous_40",
                 "ok": false,
                 "points": 0,
-                "valeur": 54.2
+                "valeur": 43.2
               },
               {
                 "id": "divergence_rsi_haussiere_hebdo",
@@ -629,26 +659,26 @@
                 "id": "macd_sous_0",
                 "ok": false,
                 "points": 0,
-                "valeur": 204.5571
+                "valeur": 414.1201
               },
               {
                 "id": "histo_4_barres_rouges_sous_0",
                 "ok": true,
                 "points": 20,
-                "streak": 18
+                "streak": 10
               }
             ]
           },
           "fibonacci": {
             "ok": true,
-            "r": 0.2892,
-            "r_pct": 28.9,
+            "r": 0.1997,
+            "r_pct": 20.0,
             "points": 0,
             "palier": null
           },
           "cci": {
             "ok": true,
-            "valeur": 7.47,
+            "valeur": 11.49,
             "points": 20
           },
           "devise": {
@@ -677,75 +707,78 @@
     {
       "ccy": "CHF",
       "ok": true,
-      "nom": "UBS SMI ETF CHF acc",
-      "court": "SMIA · SMI (capitalisant)",
-      "tv": "SIX:SMIA",
-      "yahoo": "SMIA.SW",
-      "yahoo_weekly": "yahoo_1wk_SMIA.SW.json",
-      "isin": "CH1447931341",
+      "nom": "L&G Gold Mining UCITS ETF",
+      "court": "AUCO · mines d’or mondiales",
+      "tv": "SIX:AUCO",
+      "yahoo": "AUCO.SW",
+      "yahoo_weekly": "yahoo_1wk_AUCO.SW.json",
+      "isin": "IE00B3CNHG25",
       "exchange": "SIX",
       "currency": "CHF",
-      "perf_1y": 26.45,
-      "perf_asof": "2026-10-31",
-      "perf_kind": "total_return",
-      "aum": "226 M CHF",
+      "perf_3y_ann": 46.17,
+      "perf_3y_cum": 212.27,
+      "perf_asof": "2026-11-24",
+      "perf_kind": "total_return_annualise_3ans",
+      "perf_note": "justETF (profil CH, en CHF) : +212,27 % cumulés sur 3 ans, dividendes inclus, soit 46,17 % annualisés.",
+      "aum": "581 M CHF",
       "aum_ok": true,
       "yield_dist": null,
       "yield_label": "capitalisant (pas de distribution)",
-      "source": "justETF, « meilleurs ETF Suisse par rendement 1 an », au 31/10/2026.",
-      "source_url": "https://www.justetf.com/en-ch/how-to/invest-in-switzerland.html",
-      "source_date": "2026-10-31",
-      "univers": "ETF d’actions suisses suivis par justETF, cotés en CHF, encours > 100 M CHF.",
-      "limitations": "Univers restreint aux indices actions suisses (SMI, SPI, SLI, MSCI Switzerland…). Pas un classement de tous les ETF/ETC toutes classes cotés au SIX en CHF (un ETC pétrole CHF existe, mais son encours est sous 100 M).",
+      "source": "justETF, profil Suisse (ticker SIX AUCO, devise CHF). Même fonds que AUCP à Londres, ligne SIX en franc. Encours 581 M CHF.",
+      "source_url": "https://www.justetf.com/en-ch/etf-profile.html?isin=IE00B3CNHG25",
+      "source_date": "2026-11-24",
+      "univers": "UCITS/ETF avec cotation SIX en CHF, encours > 100 M CHF, historique ≥ 3 ans. Le UBS SMI acc (SMIA, CH1447931341) est exclu : pas encore 3 ans d’historique. AUCO est le premier fonds non levier du classement justETF 3 ans qui a une ligne SIX en CHF.",
+      "limitations": "Pas un passage exhaustif, titre par titre, de tous les ETP cotés au SIX en CHF ; le choix s’appuie sur le classement justETF 3 ans et sur la cotation SIX confirmée.",
+      "inception": "2008-11-06",
       "brokers": {
         "revolut": null,
         "xtb": null,
         "note": "Absents de la table disponibilités (OMI / site) au 23/11/2026. Disponibilité Revolut et XTB non vérifiée."
       },
       "apex10": {
-        "note": 63,
-        "display": "63",
-        "hex": "#ff2d2d",
-        "flag": "red",
-        "band": "rouge",
-        "pos": 63,
+        "note": 73,
+        "display": "73",
+        "hex": "#ff8c1a",
+        "flag": "orange",
+        "band": "orange",
+        "pos": 73,
         "cap": "fond_nc+hype_attente_25_11",
-        "brut": 63,
+        "brut": 73,
         "scale": 250,
-        "total": 63,
+        "total": 73,
         "total_min": -50,
         "total_max": 250,
         "v2": true,
-        "ligne": "RSI 0 · MACD 0 · Fibo +30 · CCI 0 · Devise +3 · Fond. — · F&G +30  →  63 / 250 · Hype non comptée (dès le 25/11)",
+        "ligne": "RSI 0 · MACD +30 · Fibo +10 · CCI 0 · Devise +3 · Fond. — · F&G +30  →  73 / 250 · Hype non comptée (dès le 25/11)",
         "renormalise": false,
-        "technique": 30,
+        "technique": 40,
         "devise_points": 3,
         "devise_note_100": 12.0,
         "fg_points": 30,
         "fg_value": 17.7,
         "fg_source": "CNN",
         "decomp": {
-          "texte": "RSI 0 · MACD 0 · Fibo +30 · CCI 0 · Devise +3 · Fond. — · F&G +30  →  63 / 250 · Hype non comptée (dès le 25/11)",
+          "texte": "RSI 0 · MACD +30 · Fibo +10 · CCI 0 · Devise +3 · Fond. — · F&G +30  →  73 / 250 · Hype non comptée (dès le 25/11)",
           "points": {
             "rsi": 0,
-            "macd": 0,
-            "fibonacci": 30,
+            "macd": 30,
+            "fibonacci": 10,
             "cci": 0,
             "devise": 3,
             "fondamental": null,
             "hype": null,
             "fear_greed": 30,
-            "total": 63
+            "total": 73
           },
           "rsi": {
-            "valeur": 54.7,
+            "valeur": 40.6,
             "points": 0,
             "conditions": [
               {
                 "id": "rsi_sous_40",
                 "ok": false,
                 "points": 0,
-                "valeur": 54.7
+                "valeur": 40.6
               },
               {
                 "id": "divergence_rsi_haussiere_hebdo",
@@ -756,32 +789,32 @@
             ]
           },
           "macd": {
-            "points": 0,
+            "points": 30,
             "conditions": [
               {
                 "id": "macd_sous_0",
-                "ok": false,
-                "points": 0,
-                "valeur": 0.0599
+                "ok": true,
+                "points": 10,
+                "valeur": -0.6036
               },
               {
                 "id": "histo_4_barres_rouges_sous_0",
-                "ok": false,
-                "points": 0,
-                "streak": 0
+                "ok": true,
+                "points": 20,
+                "streak": 5
               }
             ]
           },
           "fibonacci": {
             "ok": true,
-            "r": 0.8751,
-            "r_pct": 87.5,
-            "points": 30,
-            "palier": "78,6 %"
+            "r": 0.3853,
+            "r_pct": 38.5,
+            "points": 10,
+            "palier": "38,2 %"
           },
           "cci": {
             "ok": false,
-            "valeur": 56.13,
+            "valeur": 46.16,
             "points": 0
           },
           "devise": {
@@ -806,14 +839,6 @@
           "echelle": 250
         }
       }
-    },
-    {
-      "ccy": "KRW",
-      "ok": false,
-      "nom": null,
-      "tv": null,
-      "raison": "Des classements KRX existent (etfro.com, 1 188 fonds, données Bourse de Corée au 23/11/2026 ; etfselect.kr n’est qu’un échantillon « représentatif »). La vue publique n’est pas triée sur 1 an et le téléchargement complet du tableau 1 an a échoué. Aucun « meilleur ETF KRW » n’est donc retenu, pour ne pas inventer un vainqueur.",
-      "source": "etfro.com/rank/return (KRX, 23/11/2026) ; etfselect.kr (échantillon seulement, 24/11/2026)."
     }
   ]
 }

@@ -943,7 +943,7 @@ function rgLiquiditesEtfGrid(){
     rgCard('fear_greed','Fear & Greed Index (CNN)','Milieu 50 = 0. Tranche de 10 : peur 40 → +10 … 0 → +50 ; avidité 60 → −10 … 100 → −50. Même grille que les actions.','±'+rgNum(pts.fg)),
     rgCard('gi','Meilleures entrées','Dès 130/250 : 500 $, puis +100 $ tous les 24 points, jusqu’à 1 000 $ à 250.','≥ 130')
   ].join('');
-  const note=`<p class="rg-p rg-app">Sous chaque devise, un ETF ou ETC coté dans la monnaie locale (bourse principale, encours > 100 M, meilleure performance totale sur 1 an, dividendes inclus). Barème −50 à 250, points entiers. HYPE non comptée jusqu’au 25/11 ; fondamental n.c. s’il n’y a pas de données (pas de redistribution).</p>`;
+  const note=`<p class="rg-p rg-app">Sous chaque devise, un ETF ou ETC coté dans la monnaie locale (bourse principale, encours > 100 M, meilleure performance annualisée sur 3 ans, dividendes inclus ; exclus : levier/inverse, contrats à terme, produits complexes, historique de moins de 3 ans). Barème −50 à 250, points entiers. HYPE non comptée jusqu’au 25/11 ; fondamental n.c. s’il n’y a pas de données (pas de redistribution).</p>`;
   const foot=`<p class="rg-p rg-app">Technique ${rgNum(techSum)} + devise ${rgNum(pts.devise)} + F&G ±${rgNum(pts.fg)} + Fondamental ${rgNum(pts.fond)} (n.c. aujourd’hui) + HYPE ${rgNum(pts.hype)} (dès le 25/11, non comptée). Total affiché −50 à 250. Calcul technique + devise + F&G déjà aligné.</p>`;
   return `${note}<div class="rg-board" id="rg-table-liquidites-etf">
     <section class="rg-block" data-group="technique">

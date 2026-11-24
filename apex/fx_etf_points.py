@@ -1,4 +1,4 @@
-"""Notes APEX −50..250 des ETF/ETC locaux sous chaque devise (t491u).
+"""Notes APEX −50..250 des ETF/ETC locaux sous chaque devise (t491u, critère 3 ans annualisés t492u).
 
 Technique 110 (RSI 30, MACD 30, Fibo 30, CCI/Stoch 20, sans Elliott) +
 Fear & Greed ±50 (même grille que les actions, source CNN) +

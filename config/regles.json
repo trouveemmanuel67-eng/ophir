@@ -2028,7 +2028,7 @@
     "echelle": "voir parties",
     "calcul_aligne": false,
     "intro_courte": "Trois parties : épargne/monétaire (sans graphique), devises (cours hebdo, notes encore /100) et ETF par devise (−50 à 250, calcul aligné sauf HYPE et fondamental n.c.).",
-    "champ_application": "L'onglet Liquidités mélange l'épargne et les devises. Les barèmes cibles sont donc distincts. Calcul non encore aligné. Sous chaque devise, un ETF/ETC coté en monnaie locale (meilleure performance totale 1 an, encours > 100 M, bourse principale). Barème ETF : Technique 110 + F&G ±50 + devise 30 + Fondamental 30 (n.c. si absent) + HYPE 30 (dès le 25/11).",
+    "champ_application": "L'onglet Liquidités mélange l'épargne et les devises. Les barèmes cibles sont donc distincts. Calcul non encore aligné. Sous chaque devise, un ETF/ETC coté en monnaie locale (meilleure performance annualisée sur 3 ans, dividendes inclus, encours > 100 M, bourse principale ; exclus : levier/inverse, contrats à terme, produits complexes, historique de moins de 3 ans). Barème ETF : Technique 110 + F&G ±50 + devise 30 + Fondamental 30 (n.c. si absent) + HYPE 30 (dès le 25/11).",
     "points": {
       "rsi": 30,
       "macd": 30,

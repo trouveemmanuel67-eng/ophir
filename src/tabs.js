@@ -500,13 +500,14 @@ function fxEtfRow(s){
   if(!e) return '';
   if(!e.ok){
     const why=(e.raison||'Données insuffisantes pour désigner un ETF/ETC liquide, sans inventer.').replace(/"/g,'&quot;');
-    return `<div class="fx-etf fx-etf-na" title="${why}"><span class="fx-etf-k">ETF local</span><span class="fx-etf-na-t">Pas d’ETF/ETC retenu en ${s.sym} : données 1 an insuffisantes (voir Détail / rapport), sans invention.</span></div>`;
+    return `<div class="fx-etf fx-etf-na" title="${why}"><span class="fx-etf-k">ETF local</span><span class="fx-etf-na-t">Pas d’ETF/ETC retenu en ${s.sym} : données 3 ans annualisées insuffisantes (voir Détail / rapport), sans invention.</span></div>`;
   }
   const tv=e.tv||'';
   const cp=(tv&&typeof ophirCopyBtn==='function')?ophirCopyBtn(tv):'';
   const tick=tv?`<span class="tvs fx-tv"><code>${tv}</code>${cp}</span>`:'';
   const bar=(e.apex10&&typeof listApexBar==='function')?listApexBar(Object.assign({},e,{forceApex250:true})):((e.apex10&&e.apex10.display)?`<span class="home-sig apex10"><b>${e.apex10.display}</b><small>/250</small></span>`:'');
-  const perf=e.perf_1y!=null?`1 an ${e.perf_1y>=0?'+':''}${String(e.perf_1y).replace('.',',')} %`:'';
+  const p3=e.perf_3y_ann!=null?e.perf_3y_ann:e.perf_1y;
+  const perf=p3!=null?`3 ans ann. ${p3>=0?'+':''}${String(p3).replace('.',',')} %`:'';
   const asof=e.perf_asof?` au ${e.perf_asof.slice(8,10)}/${e.perf_asof.slice(5,7)}/${e.perf_asof.slice(0,4)}`:'';
   const yld=e.yield_label?` · Dist. ${e.yield_label}`:'';
   const tip=[e.nom, perf+asof, e.source, e.limitations].filter(Boolean).join(' · ').replace(/"/g,'&quot;');

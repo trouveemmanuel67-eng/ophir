@@ -64,19 +64,22 @@ def test_fx_ticker_et_barre_100():
         assert rec.get("scale") != 250
 
 
-def test_etf_par_devise_t491u():
+def test_etf_par_devise_t492u():
     js = (ROOT / "src" / "tabs.js").read_text(encoding="utf-8")
     assert "function fxEtfRow" in js
-    assert "forceApex250" in js.split("function fxEtfRow")[1].split("function fxCard")[0]
-    assert "ophirCopyBtn(tv)" in js.split("function fxEtfRow")[1].split("function fxCard")[0]
+    row = js.split("function fxEtfRow")[1].split("function fxCard")[0]
+    assert "forceApex250" in row
+    assert "ophirCopyBtn(tv)" in row
+    assert "3 ans ann." in row
+    assert "données 3 ans annualisées insuffisantes" in row
     data = json.loads((ROOT / "data" / "liquidites_etf_devises.json").read_text(encoding="utf-8"))
     by = {a["ccy"]: a for a in data["assets"]}
-    assert by["AUD"]["tv"] == "ASX:OOO" and by["AUD"]["apex10"]["note"] == 68
-    assert by["USD"]["tv"] == "AMEX:BWET" and by["USD"]["apex10"]["scale"] == 250
-    assert by["CAD"]["tv"] == "TSX:XEG"
-    assert by["GBP"]["tv"] == "LSE:FLRK" and by["GBP"]["isin"] == "IE00BHZRR030"
-    assert by["JPY"]["tv"] == "TSE:2837"
-    assert by["CHF"]["tv"] == "SIX:SMIA"
+    assert by["AUD"]["tv"] == "ASX:SEMI" and by["AUD"]["perf_kind"] == "total_return_annualise_3ans"
+    assert by["USD"]["tv"] == "NASDAQ:RING" and by["USD"]["apex10"]["scale"] == 250
+    assert by["CAD"]["tv"] == "TSX:XCHP"
+    assert by["GBP"]["tv"] == "LSE:AUCP" and by["GBP"]["isin"] == "IE00B3CNHG25"
+    assert by["JPY"]["tv"] == "TSE:1631"
+    assert by["CHF"]["tv"] == "SIX:AUCO" and by["CHF"]["isin"] == "IE00B3CNHG25"
     assert by["KRW"]["ok"] is False and not by["KRW"].get("tv")
     for ccy in ("AUD", "USD", "CAD", "GBP", "JPY", "CHF"):
         rec = by[ccy]["apex10"]
@@ -84,7 +87,11 @@ def test_etf_par_devise_t491u():
         assert rec["decomp"]["points"]["hype"] is None
         assert rec["decomp"]["points"]["fondamental"] is None
         assert rec["note"] < 130
+        assert by[ccy]["perf_3y_ann"] is not None
+        # exclus du lot 1 an : pétrole, fret, classe SMI trop jeune
+        assert by[ccy]["tv"] not in ("ASX:OOO", "AMEX:BWET", "SIX:SMIA")
     rg = (ROOT / "src" / "regles.js").read_text(encoding="utf-8")
     assert "function rgLiquiditesEtfGrid" in rg
     assert "rg-table-liquidites-etf" in rg
-    assert "etf_par_devise" in (ROOT / "config" / "regles.json").read_text(encoding="utf-8")
+    assert "annualisée sur 3 ans" in rg
+    assert "annualisée sur 3 ans" in (ROOT / "config" / "regles.json").read_text(encoding="utf-8")
