@@ -2,6 +2,43 @@
 const GI_SEUIL=75;
 const GI_SEUIL_V2=130;
 const GI_LIST_KEY='apex-gi-list';
+const GI_ELLIOTT_KEY='apex-gi-elliott-hide';
+function giNow(){
+  if(typeof GI_NOW!=='undefined'&&GI_NOW!=null){
+    try{ return (typeof GI_NOW==='function')?new Date(GI_NOW()):new Date(GI_NOW); }catch(e){}
+  }
+  return new Date();
+}
+function giMonthKey(d){
+  const x=d||giNow();
+  return x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0');
+}
+function giElliottHiddenMap(){
+  let raw=null;
+  try{ raw=JSON.parse(localStorage.getItem(GI_ELLIOTT_KEY)||'{}'); }catch(e){ raw={}; }
+  if(!raw||typeof raw!=='object'||Array.isArray(raw)) raw={};
+  const month=giMonthKey();
+  const out={};
+  let changed=false;
+  Object.keys(raw).forEach(k=>{
+    if(raw[k]===month) out[k]=month;
+    else changed=true;
+  });
+  if(changed){
+    try{ localStorage.setItem(GI_ELLIOTT_KEY, JSON.stringify(out)); }catch(e){}
+  }
+  return out;
+}
+function giIsElliottHidden(tv, map){
+  if(!tv) return false;
+  return !!((map||giElliottHiddenMap())[String(tv)]);
+}
+function giHideElliott(tv){
+  if(!tv) return;
+  const map=giElliottHiddenMap();
+  map[String(tv)]=giMonthKey();
+  try{ localStorage.setItem(GI_ELLIOTT_KEY, JSON.stringify(map)); }catch(e){}
+}
 const GI_PAYS_ACTIONS=new Set(['USA','France']);
 const GI_PAYS_HORS=['Allemagne','Canada','Suisse','Italie','Japon','Corée du Sud','Corée','Australie'];
 function giEstActionHorsUnivers(it){
@@ -257,7 +294,8 @@ function giDispoTxt(tv){
 function giRender(){
   const host=document.getElementById('mes-pos');
   if(!host) return;
-  const list=giCollect();
+  const hidden=giElliottHiddenMap();
+  const list=giCollect().filter(it=>!giIsElliottHidden(it.tv, hidden));
   const n=list.length;
   const rows=list.map(it=>{
     const col=it.scale===250||it.scale===270?(it.hex||((typeof pilotHex==='function')?pilotHex({total:it.note}):'#e6c27a')):((typeof ttColor==='function')?ttColor(it.note):(it.hex||'#e6c27a'));
@@ -270,7 +308,11 @@ function giRender(){
     const tip=[it.nom,it.tv,it.section,d.lab].filter(Boolean).join(' · ');
     const tick=it.tv?`<span class="gi-tick">${String(it.tv).replace(/</g,'')}</span>`:'';
     const sec=it.section?`<span class="gi-sec">${String(it.section).replace(/</g,'')}</span>`:'';
+    const ev=it.tv
+      ? `<button type="button" class="gi-elliott" data-tv="${String(it.tv).replace(/"/g,'&quot;')}" title="Retirer : vague Elliott non propice" aria-label="Retirer : vague Elliott non propice">E</button>`
+      : '';
     return `<article class="gi-row${it.tv?' has-fiche':''}" title="${tip.replace(/"/g,'&quot;')}">
+      ${ev}
       <div class="gi-id">${go}</div>
       <span class="gi-note" style="color:${col}"><b>${note}</b><small>/${(it.scale===250||it.scale===270)?250:100}</small></span>
       <span class="gi-amt">${amt}</span>
@@ -308,6 +350,12 @@ function giRender(){
   card.querySelectorAll('.gi-link').forEach(b=>b.addEventListener('click',()=>{
     if(window.matchMedia('(max-width:1099px)').matches) giSetListOpen(false);
     if(typeof posOpenFiche==='function') posOpenFiche(b.dataset.tab,b.dataset.tv);
+  }));
+  card.querySelectorAll('.gi-elliott').forEach(b=>b.addEventListener('click',e=>{
+    e.preventDefault();
+    e.stopPropagation();
+    giHideElliott(b.dataset.tv);
+    giRender();
   }));
   if(typeof posSyncListChrome==='function') posSyncListChrome(typeof posListIsOpen==='function'&&posListIsOpen());
 }

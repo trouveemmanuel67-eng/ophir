@@ -6,18 +6,18 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<meta name="ophir-build" content="2d5f017-20261124-074311">
+<meta name="ophir-build" content="4f3730e-20261124-110309">
 <title>APEX INDICATOR INVESTMENT</title>
 <meta name="description" content="APEX Indicator Investment — notes et indicateurs de marché.">
 <meta name="theme-color" content="#0a1128">
 <meta name="apple-mobile-web-app-title" content="APEX">
 <meta name="application-name" content="APEX">
-<link rel="icon" href="favicon.ico?v=2d5f017-20261124-074311" sizes="any">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=2d5f017-20261124-074311">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=2d5f017-20261124-074311">
-<link rel="icon" type="image/png" sizes="64x64" href="favicon.png?v=2d5f017-20261124-074311">
-<link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png?v=2d5f017-20261124-074311">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=2d5f017-20261124-074311">
+<link rel="icon" href="favicon.ico?v=4f3730e-20261124-110309" sizes="any">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=4f3730e-20261124-110309">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=4f3730e-20261124-110309">
+<link rel="icon" type="image/png" sizes="64x64" href="favicon.png?v=4f3730e-20261124-110309">
+<link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png?v=4f3730e-20261124-110309">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=4f3730e-20261124-110309">
 <meta property="og:type" content="website">
 <meta property="og:title" content="APEX INDICATOR INVESTMENT">
 <meta property="og:description" content="APEX Indicator Investment — notes et indicateurs de marché.">
@@ -542,20 +542,24 @@ body{display:flex;flex-direction:column;min-height:100vh}
 #goodInvestCard h2{text-transform:uppercase;letter-spacing:.06em;font-size:12px;font-weight:750;margin:0;color:#fff;white-space:nowrap}
 .gi-list{display:flex;flex-direction:column;gap:0;margin-top:6px;border-top:1px solid rgba(255,255,255,.08)}
 .gi-empty{color:var(--mut,#b5b5b5);font-size:12px;padding:12px 4px}
-.gi-row{display:grid;grid-template-columns:minmax(0,1fr) auto auto;grid-template-rows:auto auto;align-items:center;column-gap:12px;row-gap:3px;padding:10px 4px;border-bottom:1px solid rgba(255,255,255,.08);border-radius:0;background:none}
+.gi-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;grid-template-rows:auto auto;align-items:center;column-gap:10px;row-gap:3px;padding:10px 4px;border-bottom:1px solid rgba(255,255,255,.08);border-radius:0;background:none}
 .gi-row:hover{background:rgba(255,255,255,.03)}
 .gi-row:last-child{border-bottom:0}
-.gi-id{grid-column:1;grid-row:1;min-width:0;overflow:hidden}
+.gi-elliott{grid-column:1;grid-row:1 / span 2;appearance:none;-webkit-appearance:none;display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;width:44px;height:44px;min-width:44px;min-height:44px;margin:0;padding:0;border:0;border-radius:10px;background:transparent;color:#ff2d2d;font:inherit;font-size:16px;font-weight:800;line-height:1;letter-spacing:0;cursor:pointer;-webkit-tap-highlight-color:rgba(255,45,45,.28)}
+.gi-elliott:hover{background:rgba(255,45,45,.12);color:#ff4d4d}
+.gi-elliott:active{background:rgba(255,45,45,.22);color:#ff6b6b;transform:scale(.96)}
+.gi-elliott:focus-visible{outline:1px solid rgba(255,45,45,.8);outline-offset:2px}
+.gi-id{grid-column:2;grid-row:1;min-width:0;overflow:hidden}
 .gi-id .gi-link,.gi-id .pos-nm{display:block;width:100%;font-weight:650;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;background:none;border:0;padding:0;font:inherit;cursor:pointer;text-align:left;text-decoration:none;box-shadow:none;appearance:none;-webkit-appearance:none}
 .gi-id .gi-link:hover,.gi-id .pos-nm{color:#fff;text-decoration:none}
 .gi-id .gi-link:focus-visible{outline:1px solid rgba(255,255,255,.35);outline-offset:2px;border-radius:3px}
-.gi-meta{grid-column:1;grid-row:2;min-width:0;display:flex;align-items:baseline;gap:8px;overflow:hidden}
+.gi-meta{grid-column:2;grid-row:2;min-width:0;display:flex;align-items:baseline;gap:8px;overflow:hidden}
 .gi-tick{flex:none;font-size:10.5px;color:#8d8d8d;font-weight:500;letter-spacing:.01em}
 .gi-sec{min-width:0;font-size:10.5px;color:#8d8d8d;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.gi-note{grid-column:2;grid-row:1;font-weight:750;font-variant-numeric:tabular-nums;white-space:nowrap;justify-self:end;text-shadow:none}
+.gi-note{grid-column:3;grid-row:1;font-weight:750;font-variant-numeric:tabular-nums;white-space:nowrap;justify-self:end;text-shadow:none}
 .gi-note small{font-size:10px;font-weight:650;margin-left:1px;opacity:.8}
-.gi-amt{grid-column:3;grid-row:1;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap;justify-self:end;color:#fff}
-.gi-broker{grid-column:2 / span 2;grid-row:2;justify-self:end;display:inline-flex;align-items:center;padding:1px 7px;border-radius:999px;font-size:10px;font-weight:600;letter-spacing:.02em;color:#b0b0b0;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);white-space:nowrap}
+.gi-amt{grid-column:4;grid-row:1;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap;justify-self:end;color:#fff}
+.gi-broker{grid-column:3 / span 2;grid-row:2;justify-self:end;display:inline-flex;align-items:center;padding:1px 7px;border-radius:999px;font-size:10px;font-weight:600;letter-spacing:.02em;color:#b0b0b0;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);white-space:nowrap}
 .gi-broker.is-none{color:#b9a3a3;background:rgba(255,255,255,.03);border-color:rgba(255,255,255,.10)}
 .gi-broker.is-na{color:#8d8d8d;background:transparent;border-color:rgba(255,255,255,.08)}
 @media(max-width:1099px){
@@ -838,8 +842,6 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
 .apex10-pilot small{font-size:11px;margin-left:2px;opacity:.85}
 .pilot-brk{margin:4px 0 0;font-size:11.5px;line-height:1.35;color:#c8c4bc;white-space:normal}
 .db-pilot .db-g{position:relative;margin:0}
-.db-pilot .ind-bar{background:linear-gradient(90deg,#9d54ff 0%,#9d54ff 16%,#ff2d2d 24%,#ff2d2d 36%,#ff8c1a 44%,#ff8c1a 56%,#22c55e 64%,#22c55e 76%,#00e5ff 84%,#00e5ff 100%)}
-@media(max-width:600px){.db-pilot .db-tk1{font-size:8.5px}}
 .db-pilot .pilot-leg{align-items:center;gap:6px 14px;margin-top:4px}
 .db-pilot .pilot-leg .pilot-spark{margin-left:auto}
 .pilot-spark{display:block;color:#8aa;opacity:.95;flex:0 0 auto}
@@ -10645,8 +10647,8 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
   }
 }
 </script>
-<script type="application/json" id="dataBuild">{"version":"2d5f017-20261124-074311"}</script>
-<link rel="preload" href="config/regles.json?v=2d5f017-20261124-074311" as="fetch" crossorigin>
+<script type="application/json" id="dataBuild">{"version":"4f3730e-20261124-110309"}</script>
+<link rel="preload" href="config/regles.json?v=4f3730e-20261124-110309" as="fetch" crossorigin>
 
 <script type="application/json" id="dataMaj">{
   "at": "2026-11-23T21:45:22.168885+01:00",
@@ -14956,6 +14958,43 @@ function rgInit(){
 const GI_SEUIL=75;
 const GI_SEUIL_V2=130;
 const GI_LIST_KEY='apex-gi-list';
+const GI_ELLIOTT_KEY='apex-gi-elliott-hide';
+function giNow(){
+  if(typeof GI_NOW!=='undefined'&&GI_NOW!=null){
+    try{ return (typeof GI_NOW==='function')?new Date(GI_NOW()):new Date(GI_NOW); }catch(e){}
+  }
+  return new Date();
+}
+function giMonthKey(d){
+  const x=d||giNow();
+  return x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0');
+}
+function giElliottHiddenMap(){
+  let raw=null;
+  try{ raw=JSON.parse(localStorage.getItem(GI_ELLIOTT_KEY)||'{}'); }catch(e){ raw={}; }
+  if(!raw||typeof raw!=='object'||Array.isArray(raw)) raw={};
+  const month=giMonthKey();
+  const out={};
+  let changed=false;
+  Object.keys(raw).forEach(k=>{
+    if(raw[k]===month) out[k]=month;
+    else changed=true;
+  });
+  if(changed){
+    try{ localStorage.setItem(GI_ELLIOTT_KEY, JSON.stringify(out)); }catch(e){}
+  }
+  return out;
+}
+function giIsElliottHidden(tv, map){
+  if(!tv) return false;
+  return !!((map||giElliottHiddenMap())[String(tv)]);
+}
+function giHideElliott(tv){
+  if(!tv) return;
+  const map=giElliottHiddenMap();
+  map[String(tv)]=giMonthKey();
+  try{ localStorage.setItem(GI_ELLIOTT_KEY, JSON.stringify(map)); }catch(e){}
+}
 const GI_PAYS_ACTIONS=new Set(['USA','France']);
 const GI_PAYS_HORS=['Allemagne','Canada','Suisse','Italie','Japon','Corée du Sud','Corée','Australie'];
 function giEstActionHorsUnivers(it){
@@ -15211,7 +15250,8 @@ function giDispoTxt(tv){
 function giRender(){
   const host=document.getElementById('mes-pos');
   if(!host) return;
-  const list=giCollect();
+  const hidden=giElliottHiddenMap();
+  const list=giCollect().filter(it=>!giIsElliottHidden(it.tv, hidden));
   const n=list.length;
   const rows=list.map(it=>{
     const col=it.scale===250||it.scale===270?(it.hex||((typeof pilotHex==='function')?pilotHex({total:it.note}):'#e6c27a')):((typeof ttColor==='function')?ttColor(it.note):(it.hex||'#e6c27a'));
@@ -15224,7 +15264,11 @@ function giRender(){
     const tip=[it.nom,it.tv,it.section,d.lab].filter(Boolean).join(' · ');
     const tick=it.tv?`<span class="gi-tick">${String(it.tv).replace(/</g,'')}</span>`:'';
     const sec=it.section?`<span class="gi-sec">${String(it.section).replace(/</g,'')}</span>`:'';
+    const ev=it.tv
+      ? `<button type="button" class="gi-elliott" data-tv="${String(it.tv).replace(/"/g,'&quot;')}" title="Retirer : vague Elliott non propice" aria-label="Retirer : vague Elliott non propice">E</button>`
+      : '';
     return `<article class="gi-row${it.tv?' has-fiche':''}" title="${tip.replace(/"/g,'&quot;')}">
+      ${ev}
       <div class="gi-id">${go}</div>
       <span class="gi-note" style="color:${col}"><b>${note}</b><small>/${(it.scale===250||it.scale===270)?250:100}</small></span>
       <span class="gi-amt">${amt}</span>
@@ -15262,6 +15306,12 @@ function giRender(){
   card.querySelectorAll('.gi-link').forEach(b=>b.addEventListener('click',()=>{
     if(window.matchMedia('(max-width:1099px)').matches) giSetListOpen(false);
     if(typeof posOpenFiche==='function') posOpenFiche(b.dataset.tab,b.dataset.tv);
+  }));
+  card.querySelectorAll('.gi-elliott').forEach(b=>b.addEventListener('click',e=>{
+    e.preventDefault();
+    e.stopPropagation();
+    giHideElliott(b.dataset.tv);
+    giRender();
   }));
   if(typeof posSyncListChrome==='function') posSyncListChrome(typeof posListIsOpen==='function'&&posListIsOpen());
 }
