@@ -684,12 +684,14 @@ function bdgMensuelHtml(b){
   const refLib=m.mois_reference_libelle||'Mois de référence : octobre 2026';
   const moisSec=res.mois_securite;
   const moisSecTxt=(moisSec==null||moisSec==='')?'—':(Number(moisSec).toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+'\u00a0mois');
-  const alerte=defic?`<div class="bdg-moy-alerte" role="status">Budget déficitaire sur la base prudente : ${bdgAmt(act.eur,'EUR')} / mois (revenus 3 133,33 € − dépenses récurrentes d'octobre). Le panier de propositions ne suffit pas à revenir à l'équilibre.</div>`:'';
+  const red=m.objectif_reduction_autres_postes||{};
+  const alerte=defic?`<div class="bdg-moy-alerte" role="status">Budget déficitaire sur la base prudente : ${bdgAmt(act.eur,'EUR')} / mois (revenus 3 133,33 € − dépenses récurrentes d'octobre). Grok Heavy est conservé (outil de pilotage). Objectif de réduction sur les autres postes pour atteindre l'équilibre : ${bdgAmt(red.eur,'EUR')} / mois (déficit actuel − panier).</div>`:'';
   const kv=`<div class="home-strip bdg-kvs bdg-moy-kvs">
       ${bdgMoyKv('Base prudente', rev.total_moyenne_eur, rev.total_moyenne_usd)}
       ${bdgMoyKv('Dépenses récurrentes (octobre)', dep.moyenne_eur, dep.moyenne_usd)}
       ${bdgMoyKv("Capacité d'épargne actuelle", act.eur, act.usd, [], actTone)}
       ${bdgMoyKv('Capacité cible (propositions)', cib.eur, cib.usd, ['bdg-kv-fixe'], cibTone)}
+      ${bdgMoyKv("Objectif de réduction sur les autres postes pour l'équilibre", red.eur, red.usd, [], 'down')}
       <div class="home-kv${(moisSec!=null&&moisSec<3)?' is-down':''}"><span class="l">Mois de sécurité</span><b class="${(moisSec!=null&&moisSec<3)?'down':''}">${moisSecTxt}</b><small>${bdgAmt(res.epargne_disponible_eur,'EUR')} d'épargne dispo</small></div>
       ${bdgMoyKv('Bonus France Travail (hors base)', bonus.octobre_eur, bonus.octobre_usd)}
       ${bdgMoyKv('Revenus réels d\'octobre (comparaison)', obs.total_eur, obs.total_usd)}
@@ -742,9 +744,10 @@ function bdgMensuelHtml(b){
     </div>`;
   const aboLi=a=>{
     const hors=a.inclus_dans_recurrent===false;
+    const cons=!!a.conserve;
     const amt=hors&&a.affichage_eur!=null?bdgAmt(a.affichage_eur,'EUR'):bdgAmt(a.moyenne_eur,'EUR');
-    const flag=hors?' <small class="bdg-moy-hors">hors récurrent</small>':'';
-    return `<li class="${hors?'is-hors':''}"><span>${bdgEsc(a.libelle||'')}<small>${bdgEsc(a.detail||'')}</small></span><span class="bdg-moy-eco">${amt}${flag}</span></li>`;
+    const flag=hors?' <small class="bdg-moy-hors">hors récurrent</small>':(cons?' <small class="bdg-moy-keep">conservé (outil de pilotage)</small>':'');
+    return `<li class="${hors?'is-hors':''}${cons?' is-keep':''}"><span>${bdgEsc(a.libelle||'')}<small>${bdgEsc(a.detail||'')}</small></span><span class="bdg-moy-eco">${amt}${flag}</span></li>`;
   };
   const abos=m.abonnements||[];
   const grokAbos=abos.filter(a=>a.famille==='grok');
@@ -762,7 +765,7 @@ function bdgMensuelHtml(b){
         const flag=t.dans_panier_cible?' · retenue dans la capacité cible':'';
         return `<li><h3>${bdgEsc(t.libelle||'')} <span class="bdg-moy-eco">${bdgAmt(t.economie_eur_mois,'EUR')}/mois</span></h3><p>${bdgEsc((t.source||'')+' '+(t.note||'')+flag)}</p></li>`;
       }).join('')}</ul>
-      <p class="bdg-moy-p">${bdgEsc(pan.note||'')} Total du panier : ${bdgAmt(pan.total_economie_eur,'EUR')} / ${bdgAmt(pan.total_economie_usd,'USD')}.</p>
+      <p class="bdg-moy-p">${bdgEsc(pan.note||'')} Total du panier : ${bdgAmt(pan.total_economie_eur,'EUR')} / ${bdgAmt(pan.total_economie_usd,'USD')}. ${bdgEsc(red.libelle||"Objectif de réduction sur les autres postes pour atteindre l'équilibre")} : ${bdgAmt(red.eur,'EUR')} / ${bdgAmt(red.usd,'USD')} (déficit actuel − panier).</p>
     </div>`;
   const synt=`<div class="bdg-moy-block" id="bdg-moy-synthese">
       <h3 class="bdg-moy-h">Synthèse</h3>
@@ -771,6 +774,7 @@ function bdgMensuelHtml(b){
         ${bdgMoyRow({libelle:'Dépenses récurrentes d\'octobre', moyenne_eur:dep.moyenne_eur, moyenne_usd:dep.moyenne_usd, detail:dep.detail})}
         ${bdgMoyRow({libelle:"Capacité d'épargne actuelle", moyenne_eur:act.eur, moyenne_usd:act.usd, detail:act.formule+(defic?' Budget déficitaire sur cette base.':'')})}
         ${bdgMoyRow({libelle:'Capacité cible après propositions', moyenne_eur:cib.eur, moyenne_usd:cib.usd, detail:cib.formule})}
+        ${bdgMoyRow({libelle:(red.libelle||"Objectif de réduction sur les autres postes pour atteindre l'équilibre"), moyenne_eur:red.eur, moyenne_usd:red.usd, detail:red.formule+' '+(red.note||'')})}
         ${bdgMoyRow({libelle:"Objectif proposé", moyenne_eur:obj.propose_eur, moyenne_usd:obj.propose_usd, detail:obj.note})}
         ${bdgMoyRow({libelle:'Épargne disponible (25/11)', moyenne_eur:res.epargne_disponible_eur, moyenne_usd:res.epargne_disponible_usd, detail:res.epargne_disponible_note})}
         ${bdgMoyRow({libelle:'Mois de sécurité : '+moisSecTxt, moyenne_eur:null, moyenne_usd:null, detail:'Nombre de mois de charges fixes couverts par l\'épargne disponible. '+(res.note||'')})}

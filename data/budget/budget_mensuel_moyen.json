@@ -30,7 +30,7 @@
       "Les revenus réels d'octobre restent affichés pour comparer : salaire Tesla 4 169,59 € (22/10, réf. Salary 102026) + France Travail 876,60 € (1/10) = 5 046,19 €. Le salaire de novembre (6 315,41 € le 24/11) est différent et hors moyenne.",
       "Chaque poste de dépense retenu est le montant d'octobre, après sortie des exceptionnels d'octobre. Rien n'est ramené ni lissé avec novembre.",
       "Les dépenses exceptionnelles d'octobre sont sorties du courant et lissées sur 12 mois dans « Provisions annuelles » (dentiste Koch du 27/10, Salomon, déco de Noël Lidl d'octobre, séjour Ramatuelle, pot de naissance, solde IR 2025, Grok via Apple d'octobre, WordPress d'octobre, INPI + CCI). TradingView Essential annuel (186,48 € / 12) est aussi provisionné, à la place du Premium encore prélevé en octobre.",
-      "Grok Heavy (219,99 € le 4/11 via Apple) est confirmé comme abonnement mensuel : il entre dans les charges fixes et l'encart des abonnements, même s'il n'est apparu qu'en novembre. Les autres pics de novembre (Decathlon, gros Amazon, déco de Noël, Free Mobile, second paiement Koch, WordPress de novembre, opérations en attente des 23–24/11) restent hors mois de référence : ils n'entrent ni dans le courant ni dans les provisions.",
+      "Grok Heavy (219,99 € le 4/11 via Apple) est confirmé comme abonnement mensuel et conservé (outil de pilotage) : il reste dans les charges fixes, hors du panier de réductions. L'équilibre doit être trouvé en réduisant les autres postes. Les autres pics de novembre (Decathlon, gros Amazon, déco de Noël, Free Mobile, second paiement Koch, WordPress de novembre, opérations en attente des 23–24/11) restent hors mois de référence : ils n'entrent ni dans le courant ni dans les provisions.",
       "Les frais de courtage et overnight d'octobre, relevés sur les relevés Revolut Securities (99,41 € : entrée 26,16 €, sortie 15,37 €, overnight 57,85 €, autres 0,03 €), sont une charge variable du mois de référence. Les dividendes et coupons nets d'octobre (27,99 €) sont affichés en face, sans être ajoutés à la base prudente.",
       "Les virements vers l'investissement ne sont pas des dépenses. L'épargne réalisée de référence est celle d'octobre. Le flux de novembre, très supérieur, est hors moyenne et a pu être alimenté par le crédit Revolut de 23 500 €.",
       "Le crédit Revolut n'est ni un revenu ni une dépense ; sa mensualité d'octobre (169,60 €) est une charge fixe, comme la LOA Tesla (486,32 €).",
@@ -162,7 +162,7 @@
           "libelle": "Abonnements récurrents",
           "moyenne_eur": 369.39,
           "moyenne_usd": 404.26,
-          "detail": "Somme des abonnements mensuels retenus, dont Grok Heavy 219.99 € (confirmé mensuel par Emmanuel, apparu le 4/11, inclus dans les charges fixes). Voir l'encart des abonnements pour les trois formules Grok. TradingView Essential, WordPress d'octobre et Grok (via Apple) 114,99 € d'octobre restent dans les provisions annuelles.",
+          "detail": "Somme des abonnements mensuels retenus, dont Grok Heavy 219.99 € (confirmé mensuel, conservé comme outil de pilotage pour réduire les autres dépenses, apparu le 4/11). Voir l'encart des abonnements pour les trois formules Grok. TradingView Essential, WordPress d'octobre et Grok (via Apple) 114,99 € d'octobre restent dans les provisions annuelles.",
           "octobre_eur": null,
           "novembre_eur": null,
           "abonnements": [
@@ -256,16 +256,18 @@
             },
             {
               "id": "grok_heavy",
-              "libelle": "Grok Heavy (via Apple)",
+              "libelle": "Grok Heavy (via Apple) — conservé (outil de pilotage)",
               "octobre_eur": 0.0,
               "novembre_eur": 219.99,
               "moyenne_eur": 219.99,
               "moyenne_usd": 240.76,
               "n": 1,
-              "detail": "219,99 € le 4/11 via Apple.com/bill. Confirmé par Emmanuel comme abonnement mensuel : retenu dans les charges fixes, même s'il n'est apparu qu'en novembre.",
+              "detail": "219,99 € le 4/11 via Apple.com/bill, confirmé mensuel. Conservé : c'est l'outil de pilotage qui doit aider à réduire les autres dépenses. Hors du panier de réductions, même s'il n'est apparu qu'en novembre.",
               "type": "mensuel_confirme",
               "famille": "grok",
-              "inclus_dans_recurrent": true
+              "inclus_dans_recurrent": true,
+              "conserve": true,
+              "badge": "conservé (outil de pilotage)"
             },
             {
               "id": "grok_apple",
@@ -702,16 +704,18 @@
     },
     {
       "id": "grok_heavy",
-      "libelle": "Grok Heavy (via Apple)",
+      "libelle": "Grok Heavy (via Apple) — conservé (outil de pilotage)",
       "octobre_eur": 0.0,
       "novembre_eur": 219.99,
       "moyenne_eur": 219.99,
       "moyenne_usd": 240.76,
       "n": 1,
-      "detail": "219,99 € le 4/11 via Apple.com/bill. Confirmé par Emmanuel comme abonnement mensuel : retenu dans les charges fixes, même s'il n'est apparu qu'en novembre.",
+      "detail": "219,99 € le 4/11 via Apple.com/bill, confirmé mensuel. Conservé : c'est l'outil de pilotage qui doit aider à réduire les autres dépenses. Hors du panier de réductions, même s'il n'est apparu qu'en novembre.",
       "type": "mensuel_confirme",
       "famille": "grok",
-      "inclus_dans_recurrent": true
+      "inclus_dans_recurrent": true,
+      "conserve": true,
+      "badge": "conservé (outil de pilotage)"
     },
     {
       "id": "grok_apple",
@@ -789,15 +793,6 @@
       "dans_panier_cible": true
     },
     {
-      "id": "grok_heavy",
-      "libelle": "Grok Heavy → formule inférieure ou résiliation",
-      "economie_eur_mois": 219.99,
-      "economie_usd_mois": 240.76,
-      "source": "Apple.com/bill 219,99 € le 4/11, confirmé par Emmanuel comme abonnement mensuel.",
-      "note": "Proposition, pas une décision. L'économie maximale est 219,99 €/mois en cas de résiliation. Une formule inférieure n'est pas chiffrée ici (tarif non sourcé dans les relevés). Les autres formules Grok (114,99 € via Apple en octobre, déjà remplacée ; 4,50 € en direct) restent affichées dans l'encart.",
-      "dans_panier_cible": true
-    },
-    {
       "id": "pro_airglow",
       "libelle": "Sortir du budget perso les formalités et pubs encore floues si elles sont pour Air Glow",
       "economie_eur_mois": 97.03,
@@ -809,7 +804,7 @@
   ],
   "panier_cible": {
     "libelle": "Panier de propositions retenu pour la capacité cible",
-    "note": "Ce n'est pas une décision. Panier retenu : Grok Heavy → formule inférieure ou résiliation (219,99 €), OVN ramené sous 20 € (37,85 €), résiliation Revolut Ultra, résiliation YouTube, moitié du textile Lidl d'octobre, moitié de la restauration courante d'octobre.",
+    "note": "Ce n'est pas une décision. Grok Heavy est conservé (outil de pilotage) et n'entre pas dans le panier. Panier retenu : OVN ramené sous 20 € (37,85 €), résiliation Revolut Ultra, résiliation YouTube, moitié du textile Lidl d'octobre, moitié de la restauration courante d'octobre.",
     "lignes": [
       {
         "id": "ovn",
@@ -840,31 +835,36 @@
         "libelle": "Réduire de moitié la restauration courante",
         "economie_eur_mois": 15.08,
         "economie_usd_mois": 16.5
-      },
-      {
-        "id": "grok_heavy",
-        "libelle": "Grok Heavy → formule inférieure ou résiliation",
-        "economie_eur_mois": 219.99,
-        "economie_usd_mois": 240.76
       }
     ],
-    "total_economie_eur": 355.9,
-    "total_economie_usd": 389.5
+    "total_economie_eur": 135.91,
+    "total_economie_usd": 148.74
   },
   "capacite_cible": {
-    "eur": -835.95,
-    "usd": -914.86,
+    "eur": -1055.94,
+    "usd": -1155.62,
     "formule": "Capacité actuelle + somme du panier de propositions.",
     "variante_grok_heavy_mensuel_eur": -1191.85,
-    "variante_grok_heavy_mensuel_cible_eur": -835.95,
-    "variante_grok_heavy_mensuel_note": "Grok Heavy (219,99 € le 4/11) est confirmé mensuel et déjà inclus dans les charges fixes et dans le panier (levier de 219,99 €/mois, proposition, pas une décision)."
+    "variante_grok_heavy_mensuel_cible_eur": -1055.94,
+    "variante_grok_heavy_mensuel_note": "Grok Heavy (219,99 € le 4/11) est confirmé mensuel, conservé comme outil de pilotage, et reste dans les charges fixes. Il n'entre pas dans le panier : l'équilibre doit venir des autres postes."
+  },
+  "objectif_reduction_autres_postes": {
+    "libelle": "Objectif de réduction sur les autres postes pour atteindre l'équilibre",
+    "eur": 1055.94,
+    "usd": 1155.62,
+    "formule": "Déficit actuel − panier de propositions (Grok Heavy conservé, hors panier).",
+    "note": "Grok Heavy reste dans les charges fixes. Pour revenir à l'équilibre, il faut encore trouver 1055.94 €/mois sur les autres postes, après le panier de 135.91 €."
   },
   "objectif_epargne": {
     "propose_eur": 0,
     "propose_usd": 0.0,
     "ecart_equilibre_eur": 1191.85,
-    "ecart_apres_panier_eur": 835.95,
-    "note": "Sur la base prudente de 3 133,33 €, le budget d'octobre est déficitaire de 1191.85 €/mois. L'objectif immédiat proposé n'est pas d'épargner, mais de revenir à l'équilibre (combler 1191.85 €/mois). Le panier de propositions (355.90 €) ne suffit pas : il resterait un déficit de 835.95 €/mois. Avec le bonus temporaire France Travail, la capacité passerait à -315.25 €/mois. Si l'on comparait aux revenus réellement perçus en octobre (5 046,19 €), la capacité serait de 721.01 €/mois — cet écart montre le poids des commissions / heures au-delà de 2 800 € net.",
+    "ecart_apres_panier_eur": 1055.94,
+    "objectif_reduction_autres_postes_eur": 1055.94,
+    "objectif_reduction_autres_postes_usd": 1155.62,
+    "objectif_reduction_autres_postes_libelle": "Objectif de réduction sur les autres postes pour atteindre l'équilibre",
+    "objectif_reduction_autres_postes_formule": "Déficit actuel − panier de propositions (Grok Heavy conservé, hors panier).",
+    "note": "Sur la base prudente de 3 133,33 €, le budget d'octobre est déficitaire de 1191.85 €/mois. Grok Heavy est conservé (outil de pilotage) et n'entre pas dans le panier. L'objectif de réduction sur les autres postes pour atteindre l'équilibre est de 1055.94 €/mois (déficit actuel 1191.85 € − panier 135.91 €). Avec le bonus temporaire France Travail, la capacité passerait à -315.25 €/mois. Si l'on comparait aux revenus réellement perçus en octobre (5 046,19 €), la capacité serait de 721.01 €/mois — cet écart montre le poids des commissions / heures au-delà de 2 800 € net.",
     "cible_si_reductions_eur": 0
   },
   "reserve_securite": {

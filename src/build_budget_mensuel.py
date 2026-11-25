@@ -517,17 +517,19 @@ def build():
     m_heavy = r2(heavy_tot) if heavy_tot else 219.99
     rec_abos.append({
         "id": "grok_heavy",
-        "libelle": "Grok Heavy (via Apple)",
+        "libelle": "Grok Heavy (via Apple) — conservé (outil de pilotage)",
         "octobre_eur": 0.0,
         "novembre_eur": m_heavy,
         "moyenne_eur": m_heavy,
         "moyenne_usd": usd(m_heavy),
         "n": len(heavy_ops),
-        "detail": "219,99 € le 4/11 via Apple.com/bill. Confirmé par Emmanuel comme abonnement mensuel : "
-                  "retenu dans les charges fixes, même s'il n'est apparu qu'en novembre.",
+        "detail": "219,99 € le 4/11 via Apple.com/bill, confirmé mensuel. Conservé : c'est l'outil de pilotage "
+                  "qui doit aider à réduire les autres dépenses. Hors du panier de réductions, même s'il n'est apparu qu'en novembre.",
         "type": "mensuel_confirme",
         "famille": "grok",
         "inclus_dans_recurrent": True,
+        "conserve": True,
+        "badge": "conservé (outil de pilotage)",
     })
     rec_abos.append({
         "id": "grok_apple",
@@ -680,8 +682,8 @@ def build():
               octobre_eur=tel_obs_oct, novembre_eur=tel_obs_nov,
               hypothese="Free Mobile constaté en novembre seulement, donc absent du budget d'octobre."),
         poste("abonnements", "Abonnements récurrents", abo_recurrent,
-              f"Somme des abonnements mensuels retenus, dont Grok Heavy {m_heavy:.2f} € (confirmé mensuel par Emmanuel, "
-              f"apparu le 4/11, inclus dans les charges fixes). Voir l'encart des abonnements pour les trois formules Grok. "
+              f"Somme des abonnements mensuels retenus, dont Grok Heavy {m_heavy:.2f} € (confirmé mensuel, conservé comme outil de pilotage "
+              f"pour réduire les autres dépenses, apparu le 4/11). Voir l'encart des abonnements pour les trois formules Grok. "
               "TradingView Essential, WordPress d'octobre et Grok (via Apple) 114,99 € d'octobre restent dans les provisions annuelles.",
               octobre_eur=None, novembre_eur=None, abonnements=rec_abos),
         poste("impots_recurrents", "Impôts récurrents", 0.0,
@@ -845,17 +847,6 @@ def build():
             "dans_panier_cible": True,
         },
         {
-            "id": "grok_heavy",
-            "libelle": "Grok Heavy → formule inférieure ou résiliation",
-            "economie_eur_mois": eco_heavy_mensuel,
-            "economie_usd_mois": usd(eco_heavy_mensuel),
-            "source": "Apple.com/bill 219,99 € le 4/11, confirmé par Emmanuel comme abonnement mensuel.",
-            "note": "Proposition, pas une décision. L'économie maximale est 219,99 €/mois en cas de résiliation. "
-                    "Une formule inférieure n'est pas chiffrée ici (tarif non sourcé dans les relevés). "
-                    "Les autres formules Grok (114,99 € via Apple en octobre, déjà remplacée ; 4,50 € en direct) restent affichées dans l'encart.",
-            "dans_panier_cible": True,
-        },
-        {
             "id": "pro_airglow",
             "libelle": "Sortir du budget perso les formalités et pubs encore floues si elles sont pour Air Glow",
             "economie_eur_mois": r2(inpi_cci_tot / 12 + 22.27 / 2),  # rough, refined below
@@ -905,6 +896,7 @@ def build():
     obj_cible = 0 if (capa_cible < 0) else floor100(max(0, capa_cible))
     ecart_equilibre = r2(abs(min(0, capa_actuelle)))
     ecart_apres_panier = r2(abs(min(0, capa_cible)))
+    objectif_reduction_autres = r2(max(0.0, ecart_equilibre - eco_panier))
 
     charges_fixes_reserve = r2(log_m + loa_m + cr_m + as_m + tel_retenu + abo_recurrent)  # without OVN (stoppable)
     reserve_3 = r2(charges_fixes_reserve * 3)
@@ -1018,7 +1010,7 @@ def build():
         "Les dépenses exceptionnelles d'octobre sont sorties du courant et lissées sur 12 mois dans « Provisions annuelles » "
         "(dentiste Koch du 27/10, Salomon, déco de Noël Lidl d'octobre, séjour Ramatuelle, pot de naissance, solde IR 2025, Grok via Apple d'octobre, WordPress d'octobre, INPI + CCI). "
         "TradingView Essential annuel (186,48 € / 12) est aussi provisionné, à la place du Premium encore prélevé en octobre.",
-        "Grok Heavy (219,99 € le 4/11 via Apple) est confirmé comme abonnement mensuel : il entre dans les charges fixes et l'encart des abonnements, même s'il n'est apparu qu'en novembre. "
+        "Grok Heavy (219,99 € le 4/11 via Apple) est confirmé comme abonnement mensuel et conservé (outil de pilotage) : il reste dans les charges fixes, hors du panier de réductions. L'équilibre doit être trouvé en réduisant les autres postes. "
         "Les autres pics de novembre (Decathlon, gros Amazon, déco de Noël, Free Mobile, second paiement Koch, WordPress de novembre, opérations en attente des 23–24/11) restent hors mois de référence : ils n'entrent ni dans le courant ni dans les provisions.",
         "Les frais de courtage et overnight d'octobre, relevés sur les relevés Revolut Securities (99,41 € : entrée 26,16 €, sortie 15,37 €, overnight 57,85 €, autres 0,03 €), "
         "sont une charge variable du mois de référence. Les dividendes et coupons nets d'octobre (27,99 €) sont affichés en face, sans être ajoutés à la base prudente.",
@@ -1159,7 +1151,7 @@ def build():
         "pistes": pistes,
         "panier_cible": {
             "libelle": "Panier de propositions retenu pour la capacité cible",
-            "note": "Ce n'est pas une décision. Panier retenu : Grok Heavy → formule inférieure ou résiliation (219,99 €), OVN ramené sous 20 € (37,85 €), résiliation Revolut Ultra, résiliation YouTube, moitié du textile Lidl d'octobre, moitié de la restauration courante d'octobre.",
+            "note": "Ce n'est pas une décision. Grok Heavy est conservé (outil de pilotage) et n'entre pas dans le panier. Panier retenu : OVN ramené sous 20 € (37,85 €), résiliation Revolut Ultra, résiliation YouTube, moitié du textile Lidl d'octobre, moitié de la restauration courante d'octobre.",
             "lignes": [{"id": p["id"], "libelle": p["libelle"], "economie_eur_mois": p["economie_eur_mois"], "economie_usd_mois": p["economie_usd_mois"]} for p in panier],
             "total_economie_eur": eco_panier,
             "total_economie_usd": usd(eco_panier),
@@ -1170,17 +1162,29 @@ def build():
             "formule": "Capacité actuelle + somme du panier de propositions.",
             "variante_grok_heavy_mensuel_eur": capa_actuelle,
             "variante_grok_heavy_mensuel_cible_eur": capa_cible,
-            "variante_grok_heavy_mensuel_note": "Grok Heavy (219,99 € le 4/11) est confirmé mensuel et déjà inclus dans les charges fixes et dans le panier (levier de 219,99 €/mois, proposition, pas une décision).",
+            "variante_grok_heavy_mensuel_note": "Grok Heavy (219,99 € le 4/11) est confirmé mensuel, conservé comme outil de pilotage, et reste dans les charges fixes. Il n'entre pas dans le panier : l'équilibre doit venir des autres postes.",
+        },
+        "objectif_reduction_autres_postes": {
+            "libelle": "Objectif de réduction sur les autres postes pour atteindre l'équilibre",
+            "eur": objectif_reduction_autres,
+            "usd": usd(objectif_reduction_autres),
+            "formule": "Déficit actuel − panier de propositions (Grok Heavy conservé, hors panier).",
+            "note": f"Grok Heavy reste dans les charges fixes. Pour revenir à l'équilibre, il faut encore trouver {objectif_reduction_autres:.2f} €/mois sur les autres postes, après le panier de {eco_panier:.2f} €.",
         },
         "objectif_epargne": {
             "propose_eur": obj_souple,
             "propose_usd": usd(obj_souple),
             "ecart_equilibre_eur": ecart_equilibre,
             "ecart_apres_panier_eur": ecart_apres_panier,
+            "objectif_reduction_autres_postes_eur": objectif_reduction_autres,
+            "objectif_reduction_autres_postes_usd": usd(objectif_reduction_autres),
+            "objectif_reduction_autres_postes_libelle": "Objectif de réduction sur les autres postes pour atteindre l'équilibre",
+            "objectif_reduction_autres_postes_formule": "Déficit actuel − panier de propositions (Grok Heavy conservé, hors panier).",
             "note": (
                 f"Sur la base prudente de 3 133,33 €, le budget d'octobre est déficitaire de {ecart_equilibre:.2f} €/mois. "
-                f"L'objectif immédiat proposé n'est pas d'épargner, mais de revenir à l'équilibre (combler {ecart_equilibre:.2f} €/mois). "
-                f"Le panier de propositions ({eco_panier:.2f} €) ne suffit pas : il resterait un déficit de {ecart_apres_panier:.2f} €/mois. "
+                f"Grok Heavy est conservé (outil de pilotage) et n'entre pas dans le panier. "
+                f"L'objectif de réduction sur les autres postes pour atteindre l'équilibre est de {objectif_reduction_autres:.2f} €/mois "
+                f"(déficit actuel {ecart_equilibre:.2f} € − panier {eco_panier:.2f} €). "
                 f"Avec le bonus temporaire France Travail, la capacité passerait à {capa_avec_ft:.2f} €/mois. "
                 f"Si l'on comparait aux revenus réellement perçus en octobre (5 046,19 €), la capacité serait de {capa_si_observe_oct:.2f} €/mois — cet écart montre le poids des commissions / heures au-delà de 2 800 € net."
                 if deficitaire else
