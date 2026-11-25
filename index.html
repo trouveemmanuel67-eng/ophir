@@ -6,18 +6,18 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<meta name="ophir-build" content="49c158c-20261125-180005">
+<meta name="ophir-build" content="f9aaf82-20261125-190402">
 <title>APEX INDICATOR INVESTMENT</title>
 <meta name="description" content="APEX Indicator Investment — notes et indicateurs de marché.">
 <meta name="theme-color" content="#0a1128">
 <meta name="apple-mobile-web-app-title" content="APEX">
 <meta name="application-name" content="APEX">
-<link rel="icon" href="favicon.ico?v=49c158c-20261125-180005" sizes="any">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=49c158c-20261125-180005">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=49c158c-20261125-180005">
-<link rel="icon" type="image/png" sizes="64x64" href="favicon.png?v=49c158c-20261125-180005">
-<link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png?v=49c158c-20261125-180005">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=49c158c-20261125-180005">
+<link rel="icon" href="favicon.ico?v=f9aaf82-20261125-190402" sizes="any">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=f9aaf82-20261125-190402">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=f9aaf82-20261125-190402">
+<link rel="icon" type="image/png" sizes="64x64" href="favicon.png?v=f9aaf82-20261125-190402">
+<link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png?v=f9aaf82-20261125-190402">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=f9aaf82-20261125-190402">
 <meta property="og:type" content="website">
 <meta property="og:title" content="APEX INDICATOR INVESTMENT">
 <meta property="og:description" content="APEX Indicator Investment — notes et indicateurs de marché.">
@@ -362,6 +362,8 @@ th{color:var(--mut);font-weight:600;font-size:11px;letter-spacing:.06em;text-tra
 .db-cur.db-a,.ind-gauge.lt .ind-cur.cur-a{top:0!important;bottom:auto!important;z-index:3}.db-cur.db-a::after,.ind-gauge.lt .ind-cur.cur-a::after{top:100%;height:var(--pk,3px)}
 .db-cur.db-s,.ind-gauge.lt .ind-cur.cur-s{top:auto!important;bottom:0!important;z-index:2}.db-cur.db-s::after,.ind-gauge.lt .ind-cur.cur-s::after{bottom:100%;height:var(--pk,3px)}
 .db-cur.db-h{top:auto!important;bottom:0!important;z-index:2;font-style:italic}.db-cur.db-h::after{bottom:100%;height:var(--pk,3px)}
+.db-cur.db-f{top:auto!important;bottom:0!important;z-index:2}.db-cur.db-f::after{bottom:100%;height:var(--pk,3px)}
+.pilot-leg .pilot-f b,.pilot-leg .pilot-mm b{font-weight:700}
 .pilot-leg .pilot-h small{font-weight:600;opacity:.8;font-size:.85em}
 .db-g{height:40px}.db-g .ind-bar{top:15px;height:10px}.db-g .av-tick{top:13px;height:14px}.db-mid{top:12px;height:16px}.db-cur{font-size:12px}
 .db-lg .db-g{height:50px}.db-lg .db-g .ind-bar{top:18px;height:14px}.db-lg .db-g .av-tick{top:16px;height:18px}.db-lg .db-mid{top:15px;height:20px}.db-lg .db-cur{font-size:15px}
@@ -102817,8 +102819,8 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
   }
 }
 </script>
-<script type="application/json" id="dataBuild">{"version":"49c158c-20261125-180005"}</script>
-<link rel="preload" href="config/regles.json?v=49c158c-20261125-180005" as="fetch" crossorigin>
+<script type="application/json" id="dataBuild">{"version":"f9aaf82-20261125-190402"}</script>
+<link rel="preload" href="config/regles.json?v=f9aaf82-20261125-190402" as="fetch" crossorigin>
 
 <script type="application/json" id="dataMaj">{
   "at": "2026-11-23T21:45:22.168885+01:00",
@@ -111656,7 +111658,7 @@ function sectionApexItems(tabId){
     }
     if(note==null) return;
     const a10=o.apex10||{};
-    out.push({note,av,sent:se,name:o.nom||o.name||o.code||'',scale:Number(a10.scale!=null?a10.scale:a10.total_max)});
+    out.push({note,av,sent:se,name:o.nom||o.name||o.code||'',scale:Number(a10.scale!=null?a10.scale:a10.total_max),src:o,apex10:a10});
   };
   if(tabId==='actions'&&typeof SEC!=='undefined') (SEC.sectors||[]).forEach(s=>push(s));
   else if(tabId==='obligations'&&typeof OB!=='undefined') (OB.segments||[]).forEach(s=>push(s));
@@ -111691,6 +111693,107 @@ function bakedSectionApex(tabId){
   if(tabId==='immobilier'&&typeof AV!=='undefined'&&AV.immobilier&&AV.immobilier.apex10&&AV.immobilier.apex10.note!=null) return AV.immobilier.apex10;
   return null;
 }
+
+/* t613u : lecture du bloc fondamental et de la MM40 hebdo, pour la légende des barres. */
+const FOND_POINT_KEYS=['fondamental','Fondamental','Fond.','Fond. oblig.','Fond. énergie','Fond. energie','Fond. devise','Fond. épargne','Fond. epargne','Fond. immobilier','Qualité ETC','Qualite ETC','qualite_etc','qualité_etc'];
+function _numOrNull(v){
+  if(v==null||v==='') return null;
+  const n=Number(v);
+  return Number.isFinite(n)?n:null;
+}
+function fondOf(rec){
+  if(!rec) return null;
+  const dec=rec.decomp||{};
+  const blocks=[rec.fond,rec.fondamental,dec.fondamental,dec.fond,dec.qualite_etc,dec.qualite,rec.qualite_etc];
+  let points=null,max=null,hasBlock=false,fromQualite=false,absent=false;
+  for(const b of blocks){
+    if(b==null||b==='') continue;
+    if(typeof b==='number'){
+      if(Number.isFinite(b)){points=b;hasBlock=true;}
+      continue;
+    }
+    if(typeof b==='object'){
+      const hasEls=Array.isArray(b.elements)&&b.elements.length;
+      const p=_numOrNull(b.points);
+      const m=_numOrNull(b.max);
+      if(p==null&&m==null&&!hasEls&&!b.etat) continue;
+      hasBlock=true;
+      if(p!=null) points=p;
+      if(m!=null) max=m;
+      if(b===dec.qualite_etc||b===rec.qualite_etc||b===dec.qualite) fromQualite=true;
+      if((b.etat==='n.c.'||b.etat==='nc'||b.etat==='absent')&&p==null) absent=true;
+      break;
+    }
+  }
+  const pts=rec.points||dec.points||{};
+  if(points==null&&pts){
+    for(const k of FOND_POINT_KEYS){
+      if(!Object.prototype.hasOwnProperty.call(pts,k)) continue;
+      const p=_numOrNull(pts[k]);
+      if(p==null) continue; /* clé nulle dans un points partagé ≠ bloc fondamental (ex. spots métaux) */
+      points=p;
+      if(/qualit|etc/i.test(k)) fromQualite=true;
+      break;
+    }
+  }
+  if(points==null&&!hasBlock&&!absent) return null;
+  if(max==null&&fromQualite) max=45;
+  if(max==null){
+    for(const b of blocks){
+      if(b&&Array.isArray(b.elements)&&b.elements.length){
+        const s=b.elements.reduce((a,e)=>a+(e&&e.max!=null?Number(e.max):0),0);
+        if(s>0){max=s;break;}
+      }
+    }
+  }
+  if(max==null){
+    if(pts['Fond. oblig.']!=null||pts['Fond. énergie']!=null||pts['Fond. energie']!=null||pts['Fond. devise']!=null||pts['Fond. épargne']!=null||pts['Fond. epargne']!=null||pts['Fond. immobilier']!=null) max=90;
+    else if(fromQualite) max=45;
+    else if(rec.fond&&typeof rec.fond==='object'&&rec.fond.max!=null) max=_numOrNull(rec.fond.max);
+  }
+  if(max==null) max=90;
+  if(points==null) return {points:null,max,absent:true};
+  return {points,max};
+}
+function mm40Of(rec){
+  if(!rec) return null;
+  const dec=rec.decomp||{};
+  const b=rec.mm40||dec.mm40;
+  const pts=rec.points||dec.points||{};
+  let points=null;
+  if(typeof b==='number') points=_numOrNull(b);
+  else if(b&&typeof b==='object') points=_numOrNull(b.points);
+  if(points==null) points=_numOrNull(pts.mm40!=null?pts.mm40:pts['MM40 hebdo']);
+  if(points==null&&!b) return null;
+  return {points,max:b&&typeof b==='object'?_numOrNull(b.max):null,ecart_pct:b&&typeof b==='object'?b.ecart_pct:null};
+}
+function avgFond(recs){
+  const xs=(recs||[]).map(fondOf).filter(f=>f&&f.points!=null&&f.max!=null);
+  if(!xs.length) return null;
+  const maxes=[...new Set(xs.map(f=>f.max))];
+  if(maxes.length!==1) return null;
+  return {points:Math.round(xs.reduce((a,f)=>a+f.points,0)/xs.length),max:maxes[0],n:xs.length,moyenne:true};
+}
+function avgMm40(recs){
+  const xs=(recs||[]).map(mm40Of).filter(m=>m&&m.points!=null);
+  if(!xs.length) return null;
+  return {points:Math.round(xs.reduce((a,m)=>a+m.points,0)/xs.length),n:xs.length,moyenne:true};
+}
+function attachAvgFondMm40(target,kids){
+  if(!target) return target;
+  const f=avgFond(kids);
+  const m=avgMm40(kids);
+  if(f){
+    target.fond=f;
+    target.points=Object.assign({},target.points||{},{fondamental:f.points});
+  }
+  if(m){
+    target.mm40=m;
+    target.points=Object.assign({},target.points||{},{mm40:m.points,'MM40 hebdo':m.points});
+  }
+  return target;
+}
+
 function apexV2FromAvg(totals,hypes){
   const xs=(totals||[]).map(Number).filter(Number.isFinite);
   if(!xs.length) return null;
@@ -111708,11 +111811,13 @@ function apexV2FromAvg(totals,hypes){
 function sectionApexAvg(tabId){
   if(tabId==='actions'&&typeof PILOT!=='undefined'&&PILOT&&PILOT.pilotes){
     const recs=[],hyp=[];
+    const kids=[];
     if(typeof SEC!=='undefined') (SEC.sectors||[]).forEach(s=>{
       const p=(typeof pilotOf==='function')?pilotOf(s.sym):null;
-      if(p&&p.etf&&p.etf.total!=null){recs.push(p.etf.total);hyp.push(p.etf.points&&p.etf.points.hype);}
+      if(p&&p.etf&&p.etf.total!=null){recs.push(p.etf.total);hyp.push(p.etf.points&&p.etf.points.hype);kids.push(p.etf);}
     });
     const apex=apexV2FromAvg(recs,hyp);
+    if(apex&&typeof attachAvgFondMm40==='function') attachAvgFondMm40(apex,kids);
     const items=sectionApexItems(tabId);
     const av=meanNum(items.map(x=>x.av));
     const se=meanNum(items.map(x=>x.sent));
@@ -111752,6 +111857,7 @@ function sectionApexAvg(tabId){
         apex.attention=att==null?null:{valeur:att,H:h,n:atts.length};
       }
     }
+    if(apex&&typeof attachAvgFondMm40==='function') attachAvgFondMm40(apex,items.map(x=>x.apex10||x.src).filter(Boolean));
     return {
       apexV2:apex, apex10:apex,
       av:av==null?null:{score:av,label:labAv(av)},
@@ -111765,6 +111871,11 @@ function sectionApexAvg(tabId){
   const n250=items.filter(x=>x.scale===250).map(x=>x.note).filter(n=>n!=null&&Number.isFinite(n));
   const apex=b250?Object.assign({v2:true,scale:250,total_min:-50,total_max:250,ok:true},b250,{total:b250.total!=null?b250.total:b250.note}):apex10FromAvg(n250);
   if(!apex) return null;
+  if(typeof attachAvgFondMm40==='function'){
+    const kids=items.map(x=>x.apex10||x.src).filter(Boolean);
+    if(kids.length) attachAvgFondMm40(apex,kids);
+    else if(!apex.fond&&!apex.decomp){/* baké : fondOf lira decomp si présent */}
+  }
   return {
     apexV2:apex,
     apex10:apex,
@@ -111776,11 +111887,13 @@ function sectionApexAvg(tabId){
 function countryApexAvg(C){
   if(!C) return null;
   const recs=[],hyp=[];
+  const kids=[];
   (C.rows||[]).filter(s=>s&&s.covered).forEach(s=>{
     const p=(typeof pSecOf==='function')?pSecOf(C,s):((typeof pilotOf==='function')?pilotOf((C.cc+'_'+(s.key||''))):null);
-    if(p&&p.etf&&p.etf.total!=null){recs.push(p.etf.total);hyp.push(p.etf.points&&p.etf.points.hype);}
+    if(p&&p.etf&&p.etf.total!=null){recs.push(p.etf.total);hyp.push(p.etf.points&&p.etf.points.hype);kids.push(p.etf);}
   });
   const apex=apexV2FromAvg(recs,hyp);
+  if(apex&&typeof attachAvgFondMm40==='function') attachAvgFondMm40(apex,kids);
   const S=(C.rows||[]).filter(s=>s&&s.covered);
   const av=meanNum(S.map(s=>s.av&&s.av.score));
   const se=meanNum(S.map(s=>s.sent&&s.sent.value));
@@ -112002,17 +112115,28 @@ function dualBarPilot(rec, compact){
   const hTip=hv==null?'H = attention / hype : donnée absente (H compté 0)':('H = hype, attention '+(av_!=null?fmt(av_,1):'(moyenne des actions affichées)')+' → apport '+hTxt+' (à contre-courant)');
   const totTxt=total==null?'–':String(total);
   const fgTxt=Number.isFinite(sv)?fmt(sv,1):'–';
+  const fd=(typeof fondOf==='function')?fondOf(rec):(rec&&rec.fond)||null;
+  const fcol='#e8c36a';
+  const fTxt=fd?(fd.points==null?'–':(String(Math.round(fd.points))+'/'+(fd.max!=null?fd.max:'90'))):'';
+  const fp=(fd&&fd.points!=null&&fd.max)?Math.max(0,Math.min(100,(Number(fd.points)/Number(fd.max))*100)):null;
+  const fTip=fd?('F = fondamental '+(fd.points==null?'non calculé':(fTxt+(fd.moyenne?' · moyenne des titres du bloc':'')))):'';
+  const fPart=fd?`<span class="pilot-f" title="${fTip}"><i class="db-dot db-f" style="color:${fcol}">F</i>Fondamental <b class="sc-t" style="color:${fcol}">${fTxt}</b></span>`:'';
+  const mm=(typeof mm40Of==='function')?mm40Of(rec):(rec&&rec.mm40)||null;
+  const mmTxt=mm?(mm.points==null?'–':((mm.points>0?'+':'')+String(mm.points))):'';
+  const mmTip=mm?('MM40 hebdo '+(mm.points==null?'donnée absente':(mmTxt+(mm.ecart_pct!=null?(' · écart '+((mm.ecart_pct>0?'+': '')+fmt(mm.ecart_pct,1)+' %')):'')))):'';
+  const mmPart=mm?`<span class="pilot-mm" title="${mmTip}">MM40 hebdo <b class="sc-t">${mmTxt}</b></span>`:'';
   const avPart=`<span class="pilot-av"><i class="db-dot db-a" style="color:${hex}">AV</i>Total <b class="sc-t" style="color:${hex}">${totTxt}/${mx}</b></span>`;
   const sPart=`<span class="pilot-s"><i class="db-dot db-s" style="color:${scol}">S</i>${sNom} <b class="sc-t" style="color:${scol}">${fgTxt} ${sl}</b></span>`;
   const hPart=`<span class="pilot-h" title="${hTip}"><i class="db-dot db-h" style="color:${hcol}">H</i>Hype <b class="sc-t" style="color:${hcol}">${hTxt}${hAtt?` <small>(${hAtt})</small>`:''}</b></span>`;
   const brkPart=(rec&&rec.ligne)?`<span class="pilot-brk">${rec.ligne}</span>`:'';
-  const legParts=[avPart,sPart,hPart,brkPart];
-  const bar=`<div class="db db-pilot ${compact?'db-sm':''}" role="img" aria-label="Score APEX ${totTxt} sur ${mn} à ${mx} ; ${rs?('Sentiment '+(rs.nom||'')):'Fear & Greed CNN'} ${fgTxt} (${sl}) sur 0 à 100 ; H hype ${hTxt}">
+  const legParts=[avPart,fPart,sPart,hPart,mmPart,brkPart];
+  const bar=`<div class="db db-pilot ${compact?'db-sm':''}" role="img" aria-label="Score APEX ${totTxt} sur ${mn} à ${mx} ; ${rs?('Sentiment '+(rs.nom||'')):'Fear & Greed CNN'} ${fgTxt} (${sl}) sur 0 à 100 ; H hype ${hTxt}${fd?' ; F fondamental '+fTxt:''}${mm?' ; MM40 hebdo '+mmTxt:''}">
    <div class="db-tk db-tk1">${tickHTML}</div>
    <div class="db-g"><div class="ind-bar"></div>${bandTicks}
     ${sp!=null?`<div class="db-cur db-s" style="left:${sp}%;color:${scol}" data-p="${sp}" title="S = ${rs?('Sentiment '+(rs.nom||'')):'CNN Fear & Greed Index'} ${fgTxt} · ${sl}">S</div>`:''}
     ${total!=null?`<div class="db-cur db-a" style="left:${ap}%;color:${hex}" data-p="${ap.toFixed(1)}" title="AV = score APEX ${totTxt} / ${mx}">AV</div>`:''}
     ${hp!=null?`<div class="db-cur db-h" style="left:${hp}%;color:${hcol}" data-p="${hp.toFixed(1)}" title="${hTip}">H</div>`:''}
+    ${fp!=null?`<div class="db-cur db-f" style="left:${fp}%;color:${fcol}" data-p="${fp.toFixed(1)}" title="${fTip}">F</div>`:''}
    </div>
    <div class="db-leg pilot-leg">${pilotLegJoin(legParts)}</div>
   </div>`;
@@ -112047,6 +112171,12 @@ function apex250Rec(a){
   const rec={total:tot, total_max:a.total_max!=null?a.total_max:250, total_min:a.total_min!=null?a.total_min:-50, ligne:a.ligne||((a.decomp&&a.decomp.texte)||''), hex:a.hex, band:a.band};
   if(pts) rec.points=pts;
   if(att) rec.attention=att;
+  if(a.decomp) rec.decomp=a.decomp;
+  if(a.sentiment) rec.sentiment=a.sentiment;
+  if(typeof fondOf==='function'){const f=fondOf(a);if(f) rec.fond=f;}
+  else if(a.fond) rec.fond=a.fond;
+  if(typeof mm40Of==='function'){const m=mm40Of(a);if(m) rec.mm40=m;}
+  else if(a.mm40) rec.mm40=a.mm40;
   return rec;
 }
 function listApexBar(r){
@@ -112174,11 +112304,11 @@ function srCells(s){
 }
 function srHead(first,v2){
   const mid=(v2==='metaux')
-    ? `<i class="db-dot db-a">AV</i>Score APEX (−50 à 250, échelle du haut) · <i class="db-dot db-s">S</i>Fear &amp; Greed et <i class="db-dot db-h">H</i>Hype / attention (0 à 100, échelle du bas ; H à contre-courant, comptant 0→+90 … 100→0)`
+    ? `<i class="db-dot db-a">AV</i>Score APEX (−50 à 250, échelle du haut) · <i class="db-dot db-s">S</i>Fear &amp; Greed, <i class="db-dot db-f">F</i>Fondamental et <i class="db-dot db-h">H</i>Hype / attention (0 à 100, échelle du bas ; H à contre-courant, comptant 0→+90 … 100→0) · MM40 hebdo`
     : (!v2||v2===100||v2==='100'||v2===250||v2==='250')
-    ? `<i class="db-dot db-a">AV</i>Score APEX (−50 à 250, échelle du haut) · <i class="db-dot db-s">S</i>Fear &amp; Greed (0 à 100, échelle du bas)`
+    ? `<i class="db-dot db-a">AV</i>Score APEX (−50 à 250, échelle du haut) · <i class="db-dot db-s">S</i>Fear &amp; Greed et <i class="db-dot db-f">F</i>Fondamental (F sur le barème du bloc, S sur 0 à 100, échelle du bas) · MM40 hebdo`
     : v2
-    ? `<i class="db-dot db-a">AV</i>Score APEX (−50 à 250, échelle du haut) · <i class="db-dot db-s">S</i>Fear &amp; Greed et <i class="db-dot db-h">H</i>Hype / attention (0 à 100, échelle du bas ; H à contre-courant, ±27)`
+    ? `<i class="db-dot db-a">AV</i>Score APEX (−50 à 250, échelle du haut) · <i class="db-dot db-s">S</i>Fear &amp; Greed, <i class="db-dot db-f">F</i>Fondamental et <i class="db-dot db-h">H</i>Hype / attention (0 à 100, échelle du bas ; H à contre-courant, ±27) · MM40 hebdo`
     : '';
   return `<div class="sr sr-hd" aria-hidden="true"><div>${first}</div><div>${mid}</div><div>Détails</div></div>`;
 }
@@ -112503,6 +112633,21 @@ function renderMetaux(el){
 /* ===== Onglet OBLIGATIONS ===== */
 const OB=JSON.parse(document.getElementById('data7').textContent);
 IND.obligations=OB.ind; AV.obligations=OB.av;
+
+/* t613u : moyenne du fondamental et de la MM40 des ETF du segment, pour la légende de la barre. */
+function enrichObAverages(){
+  if(typeof attachAvgFondMm40!=='function') return;
+  (OB.segments||[]).forEach(s=>{
+    const kids=(s.list||[]).map(x=>x&&x.apex10).filter(Boolean);
+    if(s.apex10&&kids.length) attachAvgFondMm40(s.apex10,kids);
+    if(s.apex10_panier&&typeof fondOf==='function'&&!s.apex10_panier.fond){
+      const f=fondOf(s.apex10_panier); if(f) s.apex10_panier.fond=f;
+      const m=typeof mm40Of==='function'?mm40Of(s.apex10_panier):null; if(m) s.apex10_panier.mm40=m;
+    }
+  });
+}
+enrichObAverages();
+
 const pt=(v,d=2)=>fmt(v,d)+' %';
 function renderObligations(el){
   const C=OB.charts,L=C.last,R=C.retrieved,fredL=(id,t)=>lnk('https://fred.stlouisfed.org/series/'+id,t||id);
@@ -112705,6 +112850,7 @@ function obEnsureRefNote(s){
   return s;
 }
 function renderSegments(el){
+  enrichObAverages();
   (OB.segments||[]).forEach(obEnsureRefNote);
   const byKey=Object.fromEntries(OB.segments.map((s,i)=>[s.key,[s,i]]));
   const blocks=[];
@@ -113033,7 +113179,7 @@ function duoBuild(tabId){
   const hasDetails=!!(gi&&ga&&ic&&ac&&sl);
   if(hasDetails){
     const info=document.createElement('div');info.className='duo-info';
-    const avgTxt=st?`<p class="duo-avg">${(st&&st.apexV2)?'Le bandeau affiche la moyenne des notes APEX ACHAT (−50 à 250) visibles de la section':'Le bandeau affiche la moyenne des notes APEX (−50 à 250) visibles de la section'} (${st.n} actif${st.n>1?'s':''}), arrondie au point, avec les curseurs AV, S et H à la moyenne des mêmes actifs. L'historique et les composantes ci-dessous restent ceux de l'indicateur composite de l'onglet.</p>`:'';
+    const avgTxt=st?`<p class="duo-avg">${(st&&st.apexV2)?'Le bandeau affiche la moyenne des notes APEX ACHAT (−50 à 250) visibles de la section':'Le bandeau affiche la moyenne des notes APEX (−50 à 250) visibles de la section'} (${st.n} actif${st.n>1?'s':''}), arrondie au point, avec les curseurs AV, F, S et H à la moyenne des mêmes actifs. L'historique et les composantes ci-dessous restent ceux de l'indicateur composite de l'onglet.</p>`:'';
     info.innerHTML=`${avgTxt}<div><div class="duo-n"><i class="db-dot db-s">S</i><b>Sentiment de marché, 1 an</b> · ${gi.title||''}</div>
      <div class="ind-date">${(q(sl,'.ind-date')||{}).innerHTML||''}</div>${src(ic)}</div>
     <div><div class="duo-n"><i class="db-dot db-a">AV</i><b>Achat / Vente</b> · indicateur composite APEX</div>
@@ -113051,7 +113197,7 @@ function duoBuild(tabId){
     card.querySelectorAll('.db-dot.db-s').forEach(d=>d.style.color=gmir(seObj.value));
   }else if(st){
     const info=document.createElement('div');info.className='duo-info';
-    info.innerHTML=`<p class="duo-avg">${(st&&st.apexV2)?'Le bandeau affiche la moyenne des notes APEX ACHAT (−50 à 250) visibles de la section':'Le bandeau affiche la moyenne des notes APEX (−50 à 250) visibles de la section'} (${st.n} actif${st.n>1?'s':''}), arrondie au point, avec les curseurs AV, S et H à la moyenne des mêmes actifs. Les repères de marché (sans note) sont exclus.</p>
+    info.innerHTML=`<p class="duo-avg">${(st&&st.apexV2)?'Le bandeau affiche la moyenne des notes APEX ACHAT (−50 à 250) visibles de la section':'Le bandeau affiche la moyenne des notes APEX (−50 à 250) visibles de la section'} (${st.n} actif${st.n>1?'s':''}), arrondie au point, avec les curseurs AV, F, S et H à la moyenne des mêmes actifs. Les repères de marché (sans note) sont exclus.</p>
     <p class="duo-scales">Lecture de la barre : deux échelles linéaires distinctes sur la même largeur. Achat / vente de −100 à +100, curseur « AV » ; sentiment de 0 à 100, curseur « S ». « S » prend la couleur du dégradé miroir (lecture contrarienne).</p>`;
     card.appendChild(accBody([info]));
   }

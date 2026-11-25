@@ -277,7 +277,7 @@ function duoBuild(tabId){
   const hasDetails=!!(gi&&ga&&ic&&ac&&sl);
   if(hasDetails){
     const info=document.createElement('div');info.className='duo-info';
-    const avgTxt=st?`<p class="duo-avg">${(st&&st.apexV2)?'Le bandeau affiche la moyenne des notes APEX ACHAT (−50 à 250) visibles de la section':'Le bandeau affiche la moyenne des notes APEX (−50 à 250) visibles de la section'} (${st.n} actif${st.n>1?'s':''}), arrondie au point, avec les curseurs AV, S et H à la moyenne des mêmes actifs. L'historique et les composantes ci-dessous restent ceux de l'indicateur composite de l'onglet.</p>`:'';
+    const avgTxt=st?`<p class="duo-avg">${(st&&st.apexV2)?'Le bandeau affiche la moyenne des notes APEX ACHAT (−50 à 250) visibles de la section':'Le bandeau affiche la moyenne des notes APEX (−50 à 250) visibles de la section'} (${st.n} actif${st.n>1?'s':''}), arrondie au point, avec les curseurs AV, F, S et H à la moyenne des mêmes actifs. L'historique et les composantes ci-dessous restent ceux de l'indicateur composite de l'onglet.</p>`:'';
     info.innerHTML=`${avgTxt}<div><div class="duo-n"><i class="db-dot db-s">S</i><b>Sentiment de marché, 1 an</b> · ${gi.title||''}</div>
      <div class="ind-date">${(q(sl,'.ind-date')||{}).innerHTML||''}</div>${src(ic)}</div>
     <div><div class="duo-n"><i class="db-dot db-a">AV</i><b>Achat / Vente</b> · indicateur composite APEX</div>
@@ -295,7 +295,7 @@ function duoBuild(tabId){
     card.querySelectorAll('.db-dot.db-s').forEach(d=>d.style.color=gmir(seObj.value));
   }else if(st){
     const info=document.createElement('div');info.className='duo-info';
-    info.innerHTML=`<p class="duo-avg">${(st&&st.apexV2)?'Le bandeau affiche la moyenne des notes APEX ACHAT (−50 à 250) visibles de la section':'Le bandeau affiche la moyenne des notes APEX (−50 à 250) visibles de la section'} (${st.n} actif${st.n>1?'s':''}), arrondie au point, avec les curseurs AV, S et H à la moyenne des mêmes actifs. Les repères de marché (sans note) sont exclus.</p>
+    info.innerHTML=`<p class="duo-avg">${(st&&st.apexV2)?'Le bandeau affiche la moyenne des notes APEX ACHAT (−50 à 250) visibles de la section':'Le bandeau affiche la moyenne des notes APEX (−50 à 250) visibles de la section'} (${st.n} actif${st.n>1?'s':''}), arrondie au point, avec les curseurs AV, F, S et H à la moyenne des mêmes actifs. Les repères de marché (sans note) sont exclus.</p>
     <p class="duo-scales">Lecture de la barre : deux échelles linéaires distinctes sur la même largeur. Achat / vente de −100 à +100, curseur « AV » ; sentiment de 0 à 100, curseur « S ». « S » prend la couleur du dégradé miroir (lecture contrarienne).</p>`;
     card.appendChild(accBody([info]));
   }

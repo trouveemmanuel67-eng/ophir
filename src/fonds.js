@@ -14,6 +14,12 @@ function apex250Rec(a){
   const rec={total:tot, total_max:a.total_max!=null?a.total_max:250, total_min:a.total_min!=null?a.total_min:-50, ligne:a.ligne||((a.decomp&&a.decomp.texte)||''), hex:a.hex, band:a.band};
   if(pts) rec.points=pts;
   if(att) rec.attention=att;
+  if(a.decomp) rec.decomp=a.decomp;
+  if(a.sentiment) rec.sentiment=a.sentiment;
+  if(typeof fondOf==='function'){const f=fondOf(a);if(f) rec.fond=f;}
+  else if(a.fond) rec.fond=a.fond;
+  if(typeof mm40Of==='function'){const m=mm40Of(a);if(m) rec.mm40=m;}
+  else if(a.mm40) rec.mm40=a.mm40;
   return rec;
 }
 function listApexBar(r){

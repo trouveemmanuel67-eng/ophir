@@ -18,11 +18,11 @@ function srCells(s){
 }
 function srHead(first,v2){
   const mid=(v2==='metaux')
-    ? `<i class="db-dot db-a">AV</i>Score APEX (−50 à 250, échelle du haut) · <i class="db-dot db-s">S</i>Fear &amp; Greed et <i class="db-dot db-h">H</i>Hype / attention (0 à 100, échelle du bas ; H à contre-courant, comptant 0→+90 … 100→0)`
+    ? `<i class="db-dot db-a">AV</i>Score APEX (−50 à 250, échelle du haut) · <i class="db-dot db-s">S</i>Fear &amp; Greed, <i class="db-dot db-f">F</i>Fondamental et <i class="db-dot db-h">H</i>Hype / attention (0 à 100, échelle du bas ; H à contre-courant, comptant 0→+90 … 100→0) · MM40 hebdo`
     : (!v2||v2===100||v2==='100'||v2===250||v2==='250')
-    ? `<i class="db-dot db-a">AV</i>Score APEX (−50 à 250, échelle du haut) · <i class="db-dot db-s">S</i>Fear &amp; Greed (0 à 100, échelle du bas)`
+    ? `<i class="db-dot db-a">AV</i>Score APEX (−50 à 250, échelle du haut) · <i class="db-dot db-s">S</i>Fear &amp; Greed et <i class="db-dot db-f">F</i>Fondamental (F sur le barème du bloc, S sur 0 à 100, échelle du bas) · MM40 hebdo`
     : v2
-    ? `<i class="db-dot db-a">AV</i>Score APEX (−50 à 250, échelle du haut) · <i class="db-dot db-s">S</i>Fear &amp; Greed et <i class="db-dot db-h">H</i>Hype / attention (0 à 100, échelle du bas ; H à contre-courant, ±27)`
+    ? `<i class="db-dot db-a">AV</i>Score APEX (−50 à 250, échelle du haut) · <i class="db-dot db-s">S</i>Fear &amp; Greed, <i class="db-dot db-f">F</i>Fondamental et <i class="db-dot db-h">H</i>Hype / attention (0 à 100, échelle du bas ; H à contre-courant, ±27) · MM40 hebdo`
     : '';
   return `<div class="sr sr-hd" aria-hidden="true"><div>${first}</div><div>${mid}</div><div>Détails</div></div>`;
 }

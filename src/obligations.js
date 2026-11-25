@@ -1,6 +1,21 @@
 /* ===== Onglet OBLIGATIONS ===== */
 const OB=JSON.parse(document.getElementById('data7').textContent);
 IND.obligations=OB.ind; AV.obligations=OB.av;
+
+/* t613u : moyenne du fondamental et de la MM40 des ETF du segment, pour la légende de la barre. */
+function enrichObAverages(){
+  if(typeof attachAvgFondMm40!=='function') return;
+  (OB.segments||[]).forEach(s=>{
+    const kids=(s.list||[]).map(x=>x&&x.apex10).filter(Boolean);
+    if(s.apex10&&kids.length) attachAvgFondMm40(s.apex10,kids);
+    if(s.apex10_panier&&typeof fondOf==='function'&&!s.apex10_panier.fond){
+      const f=fondOf(s.apex10_panier); if(f) s.apex10_panier.fond=f;
+      const m=typeof mm40Of==='function'?mm40Of(s.apex10_panier):null; if(m) s.apex10_panier.mm40=m;
+    }
+  });
+}
+enrichObAverages();
+
 const pt=(v,d=2)=>fmt(v,d)+' %';
 function renderObligations(el){
   const C=OB.charts,L=C.last,R=C.retrieved,fredL=(id,t)=>lnk('https://fred.stlouisfed.org/series/'+id,t||id);
@@ -203,6 +218,7 @@ function obEnsureRefNote(s){
   return s;
 }
 function renderSegments(el){
+  enrichObAverages();
   (OB.segments||[]).forEach(obEnsureRefNote);
   const byKey=Object.fromEntries(OB.segments.map((s,i)=>[s.key,[s,i]]));
   const blocks=[];
