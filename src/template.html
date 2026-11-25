@@ -833,6 +833,15 @@ body.bdg-on .rg-btn[aria-expanded="true"],#bdgBtn.rg-btn[aria-expanded="true"],b
 .bdg-lidl-tot{border-color:rgba(230,194,122,.4);background:rgba(230,194,122,.08)}
 .bdg-lidl-tot .bdg-lidl-lab,.bdg-lidl-tot .bdg-num{color:#e6c27a}
 .bdg-lidl-lists{display:grid;grid-template-columns:1fr 1fr;gap:10px 18px;margin-top:12px}
+
+.bdg-ens-filt{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px}
+.bdg-ens-btn{appearance:none;cursor:pointer;padding:4px 12px;border-radius:999px;border:1px solid rgba(230,194,122,.4);background:transparent;color:#d8d0c2;font-size:11px;font-weight:650;letter-spacing:.04em;text-transform:uppercase}
+.bdg-ens-btn:hover{color:#fff;border-color:rgba(230,194,122,.7)}
+.bdg-ens-btn.is-on{background:rgba(230,194,122,.18);color:#e6c27a;border-color:rgba(230,194,122,.7)}
+.bdg-ens-panel{display:none}
+.bdg-ens-panel.is-on{display:block}
+.bdg-lidl-nc .bdg-lidl-lab,.bdg-lidl-nc .bdg-num{color:#e6c27a}
+
 @media(max-width:800px){
   .bdg-lidl-lists{grid-template-columns:1fr}
   .bdg-lidl-table{min-width:0}

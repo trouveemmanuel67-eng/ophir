@@ -348,7 +348,7 @@ function bdgCourtHtml(b){
 }
 function bdgLidlOf(c){
   const sous=(c&&c.sous_categories)||[];
-  return sous.find(s=>s&&s.id==='tickets_lidl'&&s.mois)||null;
+  return sous.find(s=>s&&(s.id==='tickets_caisse'||s.id==='tickets_lidl')&&(s.mois||(s.enseignes&&s.enseignes.tous)))||null;
 }
 function bdgLidlPct(n){
   if(n==null||n==='') return '—';
@@ -356,15 +356,22 @@ function bdgLidlPct(n){
   if(!Number.isFinite(v)) return '—';
   return v.toLocaleString('fr-FR',{minimumFractionDigits:1,maximumFractionDigits:1})+'\u00a0%';
 }
-function bdgLidlBlock(c){
-  const s=bdgLidlOf(c);
-  if(!s) return '';
-  const oct=s.mois['2026-10']||{};
-  const nov=s.mois['2026-11']||{};
-  const rows=(oct.par_sous_categorie||[]).map((o,i)=>{
-    const n=(nov.par_sous_categorie||[])[i]||{};
+function bdgTicketsEns(s, ens){
+  if(!s) return null;
+  if(s.enseignes&&s.enseignes[ens]&&s.enseignes[ens].mois) return s.enseignes[ens];
+  if(ens==='tous'||ens==='lidl') return {id:ens, libelle:ens==='leclerc'?'E.Leclerc':(ens==='lidl'?'Lidl':'Tous'), mois:s.mois||{}};
+  return {id:ens, libelle:'E.Leclerc', mois:{}};
+}
+function bdgTicketsPanel(s, ens){
+  const pack=bdgTicketsEns(s, ens)||{mois:{}};
+  const oct=pack.mois['2026-10']||{};
+  const nov=pack.mois['2026-11']||{};
+  const cats=oct.par_sous_categorie&&oct.par_sous_categorie.length?oct.par_sous_categorie:(nov.par_sous_categorie||[]);
+  const rows=cats.map((o,i)=>{
+    const n=(nov.par_sous_categorie||[]).find(x=>x.libelle===o.libelle)||(nov.par_sous_categorie||[])[i]||{};
     const empty=!(Number(o.eur)||Number(n.eur));
-    return `<div class="bdg-lidl-row${empty?' is-empty':''}${o.alimentaire?'':' bdg-lidl-nonalim'}">
+    const nc=!!(o.non_classe||o.libelle==='Non classé');
+    return `<div class="bdg-lidl-row${empty?' is-empty':''}${o.alimentaire?'':' bdg-lidl-nonalim'}${nc?' bdg-lidl-nc':''}">
       <div class="bdg-lidl-lab">${bdgEsc(o.libelle)}</div>
       <div class="bdg-num">${bdgAmt(o.eur,'EUR')}</div>
       <div class="bdg-num">${bdgAmt(o.usd,'USD')}</div>
@@ -383,36 +390,44 @@ function bdgLidlBlock(c){
       <div class="bdg-num">${bdgAmt(na.usd,'USD')}</div>
       <div class="bdg-num">${bdgLidlPct(na.pct)}</div>
     </div>`;
-  const totFoot=foot('Total Lidl',{eur:oct.total_eur,usd:oct.total_usd,pct:100},{eur:nov.total_eur,usd:nov.total_usd,pct:100},'bdg-lidl-tot');
+  const totLab=ens==='lidl'?'Total Lidl':(ens==='leclerc'?'Total E.Leclerc':'Total tickets');
+  const totFoot=foot(totLab,{eur:oct.total_eur,usd:oct.total_usd,pct:oct.total_eur?100:0},{eur:nov.total_eur,usd:nov.total_usd,pct:nov.total_eur?100:0},'bdg-lidl-tot');
   const alimFoot=foot('Alimentaire',{eur:oct.alimentaire_eur,usd:oct.alimentaire_usd,pct:oct.alimentaire_pct},{eur:nov.alimentaire_eur,usd:nov.alimentaire_usd,pct:nov.alimentaire_pct});
   const nonFoot=foot('Non alimentaire',{eur:oct.non_alimentaire_eur,usd:oct.non_alimentaire_usd,pct:oct.non_alimentaire_pct},{eur:nov.non_alimentaire_eur,usd:nov.non_alimentaire_usd,pct:nov.non_alimentaire_pct});
+  const ncNov=nov.non_classe_eur, ncOct=oct.non_classe_eur;
+  const ncFoot=(Number(ncOct)||Number(ncNov))?foot('Non classé (écart de lecture)',{eur:ncOct||0,usd:oct.non_classe_usd,pct:oct.total_eur?((Number(ncOct)||0)/Number(oct.total_eur)*100):0},{eur:ncNov||0,usd:nov.non_classe_usd,pct:nov.total_eur?((Number(ncNov)||0)/Number(nov.total_eur)*100):0},'bdg-lidl-nc'):'';
+  const trNovTxt=bdgAmt(nov.tr_eur,'EUR')+' · '+bdgLidlPct(nov.tr_pct)+(Number(nov.tr_a_confirmer_eur)?(' dont '+bdgAmt(nov.tr_a_confirmer_eur,'EUR')+' à confirmer'):'');
   const kv=(lab,octV,novV)=>`<div class="home-kv"><span class="l">${bdgEsc(lab)}</span><b>${octV}</b><small>oct</small><b>${novV}</b><small>nov</small></div>`;
   const kvs=`<div class="home-strip bdg-kvs bdg-lidl-kvs">
     ${kv('Alimentaire',bdgAmt(oct.alimentaire_eur,'EUR'),bdgAmt(nov.alimentaire_eur,'EUR'))}
     ${kv('Non alimentaire',bdgAmt(oct.non_alimentaire_eur,'EUR'),bdgAmt(nov.non_alimentaire_eur,'EUR'))}
+    ${kv('Déco de Noël',bdgAmt(oct.deco_noel_eur,'EUR'),bdgAmt(nov.deco_noel_eur,'EUR'))}
     ${kv('Remises (économies)',bdgAmt(oct.remises_eur_abs,'EUR'),bdgAmt(nov.remises_eur_abs,'EUR'))}
-    ${kv('Titres-restaurant',bdgAmt(oct.tr_eur,'EUR')+' · '+bdgLidlPct(oct.tr_pct),bdgAmt(nov.tr_eur,'EUR')+' · '+bdgLidlPct(nov.tr_pct))}
+    ${kv('Titres-restaurant',bdgAmt(oct.tr_eur,'EUR')+' · '+bdgLidlPct(oct.tr_pct),trNovTxt)}
     ${kv('Passages',String(oct.n_tickets||0),String(nov.n_tickets||0))}
     ${kv('Panier moyen',bdgAmt(oct.panier_moyen_eur,'EUR'),bdgAmt(nov.panier_moyen_eur,'EUR'))}
   </div>`;
+  const ticketWhen=(t)=>{
+    if(t.date_libelle) return t.date_libelle;
+    return (t.date?bdgDate(t.date):'')+(t.heure?(' · '+t.heure.slice(0,5)):'');
+  };
+  const ticketMag=(t)=>{
+    const ens=t.enseigne_libelle||(t.enseigne==='leclerc'?'E.Leclerc':(t.enseigne==='lidl'?'Lidl':''));
+    const mag=t.magasin==='S'?'Schiltigheim':(t.magasin==='H'?'Hoenheim':(t.magasin_libelle||''));
+    return [ens, mag].filter(Boolean).join(' · ')||'Ticket';
+  };
+  const ticketLine=(t)=>{
+    const when=ticketWhen(t);
+    const lab=ticketMag(t);
+    const href=t.lien;
+    const name=href?`<a href="${bdgEsc(href)}" target="_blank" rel="noopener">${bdgEsc(lab)}</a>`:bdgEsc(lab);
+    const tr=Number(t.tr_eur)?(` · TR ${bdgAmt(t.tr_eur,'EUR')}${t.tr_a_confirmer?' à confirmer':''}`):'';
+    return `<li><span class="bdg-op-d">${bdgEsc(when)}</span><span class="bdg-op-l">${name}${tr}</span><span class="bdg-op-m">${bdgAmt(t.a_payer_eur,'EUR')}</span></li>`;
+  };
   const ticketList=(m,arr)=>`<details class="bdg-ops bdg-lidl-tickets"><summary>${bdgEsc(m.libelle||'')} · ${m.n_tickets||0} passage${(m.n_tickets||0)>1?'s':''} · ${bdgAmt(m.total_eur,'EUR')}</summary>
-    <ul class="bdg-op-list">${(arr||[]).map(t=>{
-      const mag=t.magasin==='S'?'Schiltigheim':(t.magasin==='H'?'Hoenheim':(t.magasin_libelle||''));
-      const when=(t.date?bdgDate(t.date):'')+(t.heure?(' · '+t.heure.slice(0,5)):'');
-      const href=t.lien||('https://www.lidl.fr/mre/purchase-detail?t='+t.id);
-      return `<li><span class="bdg-op-d">${bdgEsc(when)}</span><span class="bdg-op-l"><a href="${bdgEsc(href)}" target="_blank" rel="noopener">${bdgEsc(mag)}</a></span><span class="bdg-op-m">${bdgAmt(t.a_payer_eur,'EUR')}</span></li>`;
-    }).join('')}</ul>
+    <ul class="bdg-op-list">${(arr||[]).length?(arr||[]).map(ticketLine).join(''):'<li class="bdg-op-empty">Aucun ticket pour cette enseigne.</li>'}</ul>
   </details>`;
-  const part=s.courses_releve_octobre||{};
-  const note=part.note||'Les Courses du relevé incluent aussi d’autres enseignes.';
-  const partLine=part.lidl_releve_eur!=null?(`Part Lidl d’octobre au relevé : ${bdgAmt(part.lidl_releve_eur,'EUR')} sur ${bdgAmt(part.observe_eur,'EUR')} de Courses (${bdgLidlPct(part.lidl_part_releve_pct)}), pour ${part.lidl_releve_n||'—'} paiements carte. Les tickets Lidl d’octobre totalisent ${bdgAmt(part.lidl_tickets_eur,'EUR')}.`):'';
-  return `<div class="bdg-sous bdg-lidl" id="bdg-courses-sous" data-bdg-fold="lidl">
-    <div class="home-hero-top">
-      <h3>${bdgFoldTitle('lidl', s.libelle||'Tickets Lidl — détail par rayons', 'bdg-lidl-body')}</h3>
-      <p class="desc">Octobre et novembre 2026 (au 24) · change 1,0944 · objectif —</p>
-    </div>
-    ${kvs}
-    <div class="bdg-fold-body" id="bdg-lidl-body">
+  return `${kvs}
     <div class="home-table-scroll">
       <div class="bdg-lidl-table">
         <div class="bdg-lidl-row bdg-lidl-th" aria-hidden="true">
@@ -423,16 +438,59 @@ function bdgLidlBlock(c){
         ${rows}
         ${alimFoot}
         ${nonFoot}
+        ${ncFoot}
         ${totFoot}
       </div>
     </div>
-    <p class="bdg-src">${bdgEsc(note)}${partLine?(' '+partLine):''}</p>
     <div class="bdg-lidl-lists">
       ${ticketList(oct,oct.tickets)}
       ${ticketList(nov,nov.tickets)}
+    </div>`;
+}
+function bdgLidlBlock(c){
+  const s=bdgLidlOf(c);
+  if(!s) return '';
+  const part=s.courses_releve_octobre||{};
+  const note=s.note||part.note||'Les Courses du relevé incluent aussi d’autres enseignes.';
+  const partLine=part.lidl_releve_eur!=null?(`Part Lidl d’octobre au relevé : ${bdgAmt(part.lidl_releve_eur,'EUR')} sur ${bdgAmt(part.observe_eur,'EUR')} de Courses (${bdgLidlPct(part.lidl_part_releve_pct)}), pour ${part.lidl_releve_n||'—'} paiements carte. Les tickets Lidl d’octobre totalisent ${bdgAmt(part.lidl_tickets_eur,'EUR')}.`):'';
+  const filt=['tous','lidl','leclerc'].map(e=>{
+    const lab=e==='tous'?'Tous':(e==='lidl'?'Lidl':'E.Leclerc');
+    return `<button type="button" class="bdg-ens-btn${e==='tous'?' is-on':''}" data-ens="${e}" role="tab" aria-selected="${e==='tous'?'true':'false'}">${bdgEsc(lab)}</button>`;
+  }).join('');
+  const panels=['tous','lidl','leclerc'].map(e=>`<div class="bdg-ens-panel${e==='tous'?' is-on':''}" data-ens-panel="${e}">${bdgTicketsPanel(s,e)}</div>`).join('');
+  return `<div class="bdg-sous bdg-lidl" id="bdg-courses-sous" data-bdg-fold="tickets">
+    <div class="home-hero-top">
+      <h3>${bdgFoldTitle('tickets', s.libelle||'Tickets de caisse — détail par rayons', 'bdg-tickets-body')}</h3>
+      <p class="desc">Lidl (octobre et novembre au 24) et E.Leclerc (date inconnue, reçu le 25/11/2026) · change 1,0944 · objectif —</p>
     </div>
+    <div class="bdg-fold-body" id="bdg-tickets-body">
+      <div class="bdg-ens-filt" role="tablist" aria-label="Filtrer par enseigne">${filt}</div>
+      ${panels}
+      <p class="bdg-src">${bdgEsc(note)}${partLine?(' '+partLine):''}</p>
     </div>
   </div>`;
+}
+function bdgBindEnsFilt(scope){
+  (scope||document).querySelectorAll('.bdg-lidl .bdg-ens-filt').forEach(bar=>{
+    if(bar.dataset.bdgEnsBound) return;
+    bar.dataset.bdgEnsBound='1';
+    const root=bar.closest('.bdg-lidl');
+    bar.querySelectorAll('.bdg-ens-btn').forEach(btn=>{
+      btn.addEventListener('click',e=>{
+        e.preventDefault();
+        e.stopPropagation();
+        const ens=btn.getAttribute('data-ens');
+        bar.querySelectorAll('.bdg-ens-btn').forEach(b=>{
+          const on=b===btn;
+          b.classList.toggle('is-on', on);
+          b.setAttribute('aria-selected', on?'true':'false');
+        });
+        (root||document).querySelectorAll('[data-ens-panel]').forEach(p=>{
+          p.classList.toggle('is-on', p.getAttribute('data-ens-panel')===ens);
+        });
+      });
+    });
+  });
 }
 function bdgJointHtml(b){
 
@@ -857,6 +915,7 @@ function bdgRender(){
   }
   page.innerHTML=bdgPageHTML();
   bdgBindFolds(page);
+  bdgBindEnsFilt(page);
   const btn=document.getElementById('bdgBtn');
   if(btn) btn.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();bdgSetOpen(!bdgIsOpen());});
   const close=()=>{bdgSetOpen(false);};

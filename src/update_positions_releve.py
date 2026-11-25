@@ -20,6 +20,7 @@ FRAIS_TRADING = DATA / "revolut" / "frais_trading_ordres.json"
 ABO_TV = DATA / "abonnement_tradingview.json"
 COMPTE_JOINT = DATA / "budget" / "compte_joint_2026-10.json"
 LIDL_TICKETS = DATA / "budget" / "lidl_tickets_2026-10_11.json"
+LECLERC_TICKETS = DATA / "budget" / "tickets_leclerc_2026-11.json"
 COMPTES = DATA / "budget" / "comptes_2026-10_11.json"
 BUDGET_MENSUEL = DATA / "budget" / "budget_mensuel_moyen.json"
 FRAIS_OCTOBRE = DATA / "budget" / "frais_courtage_2026-10.json"
@@ -800,25 +801,210 @@ def _cj_ops(ops, fx):
 
 
 
+
 def _attach_lidl_tickets(sous, fx):
-    """Remplace le bloc tickets_lidl par le détail sourcé, sans toucher aux autres champs Courses."""
+    """Injecte Lidl + Leclerc dans le bloc tickets de caisse, sans toucher aux autres champs Courses."""
     sous = [dict(s) for s in (sous or [])]
-    if not LIDL_TICKETS.exists():
+    bundle = _build_tickets_caisse(fx)
+    if not bundle:
         return sous
-    lidl = json.loads(LIDL_TICKETS.read_text(encoding="utf-8"))
     found = False
     for i, s in enumerate(sous):
-        if s.get("id") == "tickets_lidl":
+        if s.get("id") in ("tickets_lidl", "tickets_caisse"):
             rec = dict(s)
-            rec.update(lidl)
-            rec["id"] = "tickets_lidl"
+            rec.update(bundle)
+            rec["id"] = "tickets_caisse"
             rec["statut"] = "complet"
             sous[i] = rec
             found = True
             break
     if not found:
-        sous.append(lidl)
+        sous.append(bundle)
     return sous
+
+
+_TICKETS_CATS = [
+    "Frais (fruits, légumes)", "Crèmerie & fromages", "Viande & poisson", "Boulangerie",
+    "Épicerie salée", "Épicerie sucrée & snacks", "Plats préparés & pizzas",
+    "Boissons sans alcool", "Alcool", "Entretien maison", "Hygiène & beauté",
+    "Animaux (litière)", "Textile & vêtements", "Maison & déco (dont Noël)",
+    "Cuisine & bricolage (non alimentaire)", "Sacs", "Non classé",
+]
+_TICKETS_ALIM = {
+    "Frais (fruits, légumes)", "Crèmerie & fromages", "Viande & poisson", "Boulangerie",
+    "Épicerie salée", "Épicerie sucrée & snacks", "Plats préparés & pizzas",
+    "Boissons sans alcool", "Alcool",
+}
+
+
+def _cj_usd_safe(eur, fx):
+    if eur is None or fx in (None, 0):
+        return None
+    try:
+        return r2(float(eur) * float(fx))
+    except (TypeError, ValueError):
+        return None
+
+
+def _tickets_empty_month(ym, libelle, fx):
+    sous = []
+    for c in _TICKETS_CATS:
+        sous.append({
+            "id": c, "libelle": c, "eur": 0.0, "usd": 0.0, "pct": 0.0,
+            "alimentaire": c in _TICKETS_ALIM, "non_classe": c == "Non classé",
+        })
+    return {
+        "mois": ym, "libelle": libelle, "n_tickets": 0,
+        "total_eur": 0.0, "total_usd": 0.0,
+        "alimentaire_eur": 0.0, "alimentaire_usd": 0.0, "alimentaire_pct": 0.0,
+        "non_alimentaire_eur": 0.0, "non_alimentaire_usd": 0.0, "non_alimentaire_pct": 0.0,
+        "non_classe_eur": 0.0, "non_classe_usd": 0.0,
+        "deco_noel_eur": 0.0, "deco_noel_usd": 0.0, "deco_noel_pct": 0.0,
+        "remises_eur": 0.0, "remises_eur_abs": 0.0, "remises_usd_abs": 0.0,
+        "tr_eur": 0.0, "tr_usd": 0.0, "tr_pct": 0.0, "tr_a_confirmer_eur": 0.0,
+        "cb_eur": 0.0, "cb_usd": 0.0,
+        "panier_moyen_eur": 0.0, "panier_moyen_usd": 0.0,
+        "par_sous_categorie": sous, "tickets": [],
+    }
+
+
+def _tickets_norm_month(m, fx):
+    """Normalise un mois (ajoute Non classé / déco / TR à confirmer si absents)."""
+    if not m:
+        return None
+    out = dict(m)
+    by = {s.get("libelle") or s.get("id"): dict(s) for s in (m.get("par_sous_categorie") or [])}
+    sous = []
+    for c in _TICKETS_CATS:
+        s = by.get(c) or {"id": c, "libelle": c, "eur": 0.0, "usd": 0.0, "pct": 0.0}
+        s["id"] = c
+        s["libelle"] = c
+        s["eur"] = r2(s.get("eur") or 0)
+        s["usd"] = s["usd"] if s.get("usd") is not None else _cj_usd_safe(s["eur"], fx)
+        s["alimentaire"] = c in _TICKETS_ALIM
+        s["non_classe"] = c == "Non classé"
+        sous.append(s)
+    tot = r2(out.get("total_eur") or 0)
+    for s in sous:
+        s["pct"] = r2(100.0 * (s["eur"] or 0) / tot) if tot else 0.0
+    out["par_sous_categorie"] = sous
+    if out.get("non_classe_eur") is None:
+        out["non_classe_eur"] = next((s["eur"] for s in sous if s["non_classe"]), 0.0)
+        out["non_classe_usd"] = _cj_usd_safe(out["non_classe_eur"], fx)
+    deco = next((s["eur"] for s in sous if s["id"] == "Maison & déco (dont Noël)"), 0.0)
+    out["deco_noel_eur"] = r2(out.get("deco_noel_eur") if out.get("deco_noel_eur") is not None else deco)
+    out["deco_noel_usd"] = out.get("deco_noel_usd") if out.get("deco_noel_usd") is not None else _cj_usd_safe(out["deco_noel_eur"], fx)
+    out["deco_noel_pct"] = r2(100.0 * (out["deco_noel_eur"] or 0) / tot) if tot else 0.0
+    out["tr_a_confirmer_eur"] = r2(out.get("tr_a_confirmer_eur") or 0)
+    out["tickets"] = list(out.get("tickets") or [])
+    return out
+
+
+def _tickets_add_month(a, b, libelle, fx):
+    a = a or _tickets_empty_month((b or {}).get("mois") or "2026-11", libelle, fx)
+    b = b or _tickets_empty_month((a or {}).get("mois") or "2026-11", libelle, fx)
+    tot = r2((a.get("total_eur") or 0) + (b.get("total_eur") or 0))
+    n = (a.get("n_tickets") or 0) + (b.get("n_tickets") or 0)
+    by = {}
+    for src in (a, b):
+        for s in src.get("par_sous_categorie") or []:
+            k = s.get("libelle") or s.get("id")
+            rec = by.setdefault(k, {"id": k, "libelle": k, "eur": 0.0})
+            rec["eur"] = r2((rec["eur"] or 0) + (s.get("eur") or 0))
+    sous = []
+    for c in _TICKETS_CATS:
+        e = (by.get(c) or {}).get("eur") or 0.0
+        sous.append({
+            "id": c, "libelle": c, "eur": e, "usd": _cj_usd_safe(e, fx),
+            "pct": r2(100.0 * e / tot) if tot else 0.0,
+            "alimentaire": c in _TICKETS_ALIM, "non_classe": c == "Non classé",
+        })
+    alim = r2(sum(s["eur"] for s in sous if s["alimentaire"]))
+    non = r2(sum(s["eur"] for s in sous if not s["alimentaire"] and not s["non_classe"]))
+    nc = r2(sum(s["eur"] for s in sous if s["non_classe"]))
+    deco = r2(next((s["eur"] for s in sous if s["id"] == "Maison & déco (dont Noël)"), 0.0))
+    rem_abs = r2((a.get("remises_eur_abs") or 0) + (b.get("remises_eur_abs") or 0))
+    rem = r2((a.get("remises_eur") or 0) + (b.get("remises_eur") or 0))
+    tr = r2((a.get("tr_eur") or 0) + (b.get("tr_eur") or 0))
+    tr_conf = r2((a.get("tr_a_confirmer_eur") or 0) + (b.get("tr_a_confirmer_eur") or 0))
+    cb = r2((a.get("cb_eur") or 0) + (b.get("cb_eur") or 0))
+    panier = r2(tot / n) if n else 0.0
+    tickets = list(a.get("tickets") or []) + list(b.get("tickets") or [])
+    return {
+        "mois": a.get("mois") or b.get("mois"),
+        "libelle": libelle or a.get("libelle") or b.get("libelle"),
+        "n_tickets": n, "total_eur": tot, "total_usd": _cj_usd_safe(tot, fx),
+        "alimentaire_eur": alim, "alimentaire_usd": _cj_usd_safe(alim, fx),
+        "alimentaire_pct": r2(100.0 * alim / tot) if tot else 0.0,
+        "non_alimentaire_eur": non, "non_alimentaire_usd": _cj_usd_safe(non, fx),
+        "non_alimentaire_pct": r2(100.0 * non / tot) if tot else 0.0,
+        "non_classe_eur": nc, "non_classe_usd": _cj_usd_safe(nc, fx),
+        "deco_noel_eur": deco, "deco_noel_usd": _cj_usd_safe(deco, fx),
+        "deco_noel_pct": r2(100.0 * deco / tot) if tot else 0.0,
+        "remises_eur": rem, "remises_eur_abs": rem_abs, "remises_usd_abs": _cj_usd_safe(rem_abs, fx),
+        "tr_eur": tr, "tr_usd": _cj_usd_safe(tr, fx),
+        "tr_pct": r2(100.0 * tr / tot) if tot else 0.0,
+        "tr_a_confirmer_eur": tr_conf,
+        "cb_eur": cb, "cb_usd": _cj_usd_safe(cb, fx),
+        "panier_moyen_eur": panier, "panier_moyen_usd": _cj_usd_safe(panier, fx),
+        "par_sous_categorie": sous, "tickets": tickets,
+    }
+
+
+def _build_tickets_caisse(fx):
+    lidl = json.loads(LIDL_TICKETS.read_text(encoding="utf-8")) if LIDL_TICKETS.exists() else None
+    lec = json.loads(LECLERC_TICKETS.read_text(encoding="utf-8")) if LECLERC_TICKETS.exists() else None
+    if not lidl and not lec:
+        return None
+    lidl_mois = {k: _tickets_norm_month(v, fx) for k, v in ((lidl or {}).get("mois") or {}).items()}
+    lec_mois = {k: _tickets_norm_month(v, fx) for k, v in ((lec or {}).get("mois") or {}).items()}
+    # tag enseigne on tickets if missing
+    for m in lidl_mois.values():
+        for t in m.get("tickets") or []:
+            t.setdefault("enseigne", "lidl")
+            t.setdefault("enseigne_libelle", "Lidl")
+    for m in lec_mois.values():
+        for t in m.get("tickets") or []:
+            t.setdefault("enseigne", "leclerc")
+            t.setdefault("enseigne_libelle", "E.Leclerc")
+    tous_mois = {}
+    for ym in sorted(set(lidl_mois) | set(lec_mois)):
+        lib = (lidl_mois.get(ym) or lec_mois.get(ym) or {}).get("libelle") or ym
+        if ym == "2026-11":
+            lib = "Novembre 2026 (Lidl au 24 + ticket Leclerc reçu le 25/11)"
+        tous_mois[ym] = _tickets_add_month(lidl_mois.get(ym), lec_mois.get(ym), lib, fx)
+    # empty oct for leclerc display
+    if "2026-10" not in lec_mois:
+        lec_mois["2026-10"] = _tickets_empty_month("2026-10", "Octobre 2026 (aucun ticket E.Leclerc)", fx)
+    if "2026-11" not in lidl_mois and "2026-11" in tous_mois:
+        pass
+    part = (lidl or {}).get("courses_releve_octobre") or {}
+    note = part.get("note") or "Les Courses du relevé incluent aussi d’autres enseignes."
+    extra = (
+        " Un ticket E.Leclerc (date inconnue, reçu le 25/11/2026, 101,78 €) est ajouté aux totaux de novembre. "
+        "Les 25,00 € payés à part sont comptés en titres-restaurant, à confirmer."
+    )
+    return {
+        "id": "tickets_caisse",
+        "libelle": "Tickets de caisse — détail par rayons",
+        "statut": "complet",
+        "objectif": None,
+        "source": {
+            "intitule": "Tickets Lidl Plus (octobre et novembre au 24) et ticket E.Leclerc (photo reçue le 25/11/2026).",
+            "fx": 1.0944,
+        },
+        "courses_releve_octobre": part,
+        "note": note + extra,
+        "enseigne_defaut": "tous",
+        "enseignes": {
+            "tous": {"id": "tous", "libelle": "Tous", "mois": tous_mois},
+            "lidl": {"id": "lidl", "libelle": "Lidl", "mois": lidl_mois},
+            "leclerc": {"id": "leclerc", "libelle": "E.Leclerc", "mois": lec_mois},
+        },
+        "mois": tous_mois,
+    }
+
+
 
 
 def build_compte_joint(fx):
