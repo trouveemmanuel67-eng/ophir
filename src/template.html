@@ -1296,6 +1296,267 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
 .db-pilot .db-tk1 i.db-e0{left:0;transform:none}
 .db-pilot .db-tk1 i.db-e1{left:auto;right:0;transform:none}
 .db-pilot{margin:0}
+
+/* ===== Mobile ≤768 : barre du bas, outils hors onglets, cartes lisibles.
+   N'affecte pas le rendu desktop (≥769 px). Aucune donnée ni note modifiée. ===== */
+@media(max-width:768px){
+  /* 1. Barre fixe compacte à la place des pilules en escalier */
+  #mes-pos:not(.is-expanded){
+    left:0;right:0;bottom:0;top:auto;
+    width:100%;max-width:none;
+    height:auto;
+    padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));
+    display:grid;
+    grid-template-columns:repeat(6,minmax(0,1fr));
+    gap:4px;
+    align-items:stretch;
+    background:rgba(10,12,16,.94);
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
+    border-top:1px solid rgba(255,255,255,.16);
+    box-shadow:0 -8px 28px rgba(0,0,0,.45);
+    overflow:visible;
+    box-sizing:border-box;
+  }
+  #mes-pos:not(.is-expanded)>.card,
+  #mes-pos:not(.is-expanded) #mesPosCard,
+  #mes-pos:not(.is-expanded) #goodInvestCard,
+  #mes-pos:not(.is-expanded) #bestShortCard,
+  #mes-pos:not(.is-expanded) #indiceRotationCard,
+  #mes-pos:not(.is-expanded) #evtCard{
+    margin:0;
+    width:auto;
+    max-width:none;
+    min-width:0;
+    box-shadow:none;
+  }
+  #mes-pos:not(.is-expanded) #mesPosCard,
+  #mes-pos:not(.is-expanded) #goodInvestCard,
+  #mes-pos:not(.is-expanded) #bestShortCard{grid-column:span 2}
+  #mes-pos:not(.is-expanded) #indiceRotationCard,
+  #mes-pos:not(.is-expanded) #evtCard{grid-column:span 3}
+  #mes-pos:not(.is-expanded)>.card.pos-collapsed,
+  #mes-pos:not(.is-expanded) #mesPosCard.pos-collapsed,
+  #mes-pos:not(.is-expanded) #goodInvestCard.pos-collapsed,
+  #mes-pos:not(.is-expanded) #bestShortCard.pos-collapsed,
+  #mes-pos:not(.is-expanded) #indiceRotationCard.pos-collapsed,
+  #mes-pos:not(.is-expanded) #evtCard.pos-collapsed{
+    background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.16);
+    border-radius:10px;
+    padding:5px 4px 6px;
+    box-shadow:none;
+  }
+  #mes-pos:not(.is-expanded) .pos-rail-h{
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    gap:1px;
+    min-height:40px;
+    width:100%;
+  }
+  #mes-pos:not(.is-expanded) .pos-chev{display:none}
+  #mes-pos:not(.is-expanded) .pos-rail-h h2,
+  #mes-pos:not(.is-expanded) #evtCard.pos-collapsed h2,
+  #mes-pos:not(.is-expanded) #indiceRotationCard h2{
+    font-size:8.5px;
+    letter-spacing:.04em;
+    font-weight:750;
+    text-transform:uppercase;
+    color:#c8c4bc;
+    white-space:normal;
+    line-height:1.15;
+    max-width:100%;
+    margin:0;
+  }
+  #mes-pos:not(.is-expanded) .pos-head-tot,
+  #mes-pos:not(.is-expanded) #mesPosCard .pos-head-tot,
+  #mes-pos:not(.is-expanded) #goodInvestCard .pos-head-tot,
+  #mes-pos:not(.is-expanded) #bestShortCard .pos-head-tot,
+  #mes-pos:not(.is-expanded) #indiceRotationCard .pos-head-tot,
+  #mes-pos:not(.is-expanded) #evtCard .pos-head-tot,
+  #mes-pos:not(.is-expanded) #indiceRotationCard .ir-head-row .pos-head-tot{
+    margin:0;
+    font-size:11px;
+    font-weight:750;
+    line-height:1.2;
+    white-space:nowrap;
+    justify-content:center;
+    gap:3px;
+    max-width:100%;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  #mes-pos:not(.is-expanded) .pos-head-tot small{
+    font-size:8px;
+    letter-spacing:.04em;
+    margin-left:0;
+  }
+  /* Rotation : garder Boom +3,7 % ; sous-ligne from→to très compacte */
+  #mes-pos:not(.is-expanded) #indiceRotationCard .ir-head-main{width:100%;min-width:0}
+  #mes-pos:not(.is-expanded) #indiceRotationCard .ir-head-row{
+    display:flex;flex-direction:column;align-items:center;gap:1px;width:100%;
+  }
+  #mes-pos:not(.is-expanded) #indiceRotationCard .ir-rcap{
+    font-size:8px;line-height:1.15;max-width:100%;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+    justify-content:center;text-align:center;margin:0;padding:0;border:0;background:none;
+  }
+  #mes-pos:not(.is-expanded) #indiceRotationCard .ir-rcap-conf{display:none}
+  /* Évènement : le libellé long « prochain : … » passe sous le titre, sans déborder */
+  #mes-pos:not(.is-expanded) #evtCard.pos-collapsed h2{white-space:normal}
+  #mes-pos:not(.is-expanded) #evtCard.pos-collapsed .evt-next{display:block;font-size:8px;letter-spacing:.02em;font-weight:650;margin-top:1px}
+  #mes-pos:not(.is-expanded) #evtCard.pos-collapsed .evt-next-full{display:none}
+  /* Le menu déroulant du titre ne doit pas avaler le clic : ouvrir le volet d'abord */
+  #mes-pos:not(.is-expanded) #evtCard .evt-dd{pointer-events:none}
+
+  /* Le contenu n'est plus masqué par la barre (surcharge body.home-on .layout) */
+  .layout,
+  body.home-on .layout,
+  .page,
+  body.home-on .page{
+    padding-bottom:calc(124px + env(safe-area-inset-bottom,0px));
+  }
+  body.home-on.pos-open #mes-pos:not(.is-expanded){margin-top:0}
+
+  /* Jauge APEX : pleine largeur sous le titre, graduations lisibles */
+  .acc-head .apex-block,
+  .acc-head .apex-block-pilot,
+  .acc-head .apex-block-line,
+  .acc-head .ir-g,
+  .card.acc .apex-block-pilot,
+  .card.acc .apex-block-line{
+    flex:1 1 100%;
+    width:100%;
+    min-width:0;
+  }
+  .db-pilot .db-tk1{overflow:visible}
+  .db-pilot .db-tk1 i{font-size:8px}
+
+  /* 2. Règles / Budget / Template trade + recherche : leur propre ligne, sans chevaucher les onglets */
+  #hh .hh-top{flex-wrap:wrap;align-items:flex-start;min-height:0}
+  #hh .hh-nav{
+    position:static;
+    transform:none;
+    left:auto;
+    flex:1 1 100%;
+    flex-basis:100%;
+    max-width:100%;
+    min-width:0;
+    align-items:flex-start;
+    z-index:1;
+  }
+  nav{justify-content:flex-start;flex-wrap:wrap}
+  #hh-tools{
+    position:static;
+    top:auto;right:auto;
+    transform:none;
+    flex:1 1 100%;
+    width:100%;
+    flex-direction:row;
+    flex-wrap:wrap;
+    align-items:center;
+    justify-content:flex-start;
+    gap:6px;
+    z-index:2;
+    margin:4px 0 2px;
+  }
+  #hh-tools .hh-btns{flex-wrap:wrap}
+  .apx-s{flex:none}
+  .apx-s-tog{width:34px;height:34px;min-width:34px;min-height:34px}
+  .rg-btn,.tt-btn{padding:5px 10px;font-size:10px}
+
+  /* 3. Cartes : plus de débordement horizontal, chiffres qui reviennent à la ligne */
+  .layout,#duo,section.tab{overflow-x:visible}
+  .acc-head:has(.acc-line),
+  .duo-row.duo-slim,
+  .acc-head.acc-has-note:has(.acc-line){min-width:0}
+  .acc-head:has(.acc-line),
+  .acc-head.acc-has-note:has(.acc-line){
+    display:flex;
+    flex-wrap:wrap;
+    align-items:baseline;
+    column-gap:8px;
+    row-gap:4px;
+    min-height:0;
+  }
+  .acc-head:has(.acc-line) h2,
+  .acc-head.acc-has-note:has(.acc-line) h2{
+    display:flex;
+    flex:1 1 auto;
+    min-width:0;
+    align-items:baseline;
+    gap:8px;
+  }
+  .acc-head:has(.acc-line) .acc-tt,
+  .acc-head:has(.fx-line) .acc-tt{
+    white-space:normal;
+    overflow:visible;
+    text-overflow:unset;
+    line-height:1.25;
+  }
+  .acc-head:has(.acc-line) .al{
+    white-space:normal;
+    overflow:visible;
+    text-overflow:unset;
+    flex:1 1 auto;
+    min-width:min(100%,7.5rem);
+    line-height:1.25;
+  }
+  .acc-head.acc-has-note .al-note{
+    flex:0 0 auto;
+    min-width:0;
+    margin-left:auto;
+  }
+  .acc-head.acc-has-note .al-note b{font-size:1.55rem}
+
+  a.home-card .home-meta{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:4px 8px;
+    row-gap:3px;
+    width:100%;
+    min-width:0;
+  }
+  a.home-card .home-flags,
+  a.home-card .home-held,
+  a.home-card .home-pnl,
+  a.home-card .home-rdt,
+  a.home-card .home-rdt-an,
+  a.home-card .home-sent,
+  a.home-card .home-av,
+  a.home-card .home-hype,
+  a.home-card .home-age,
+  a.home-card .home-etf,
+  a.home-card .home-mark{
+    flex:0 1 auto;
+    overflow:visible;
+    text-overflow:unset;
+    white-space:nowrap;
+    font-size:11px;
+    min-width:0;
+  }
+  a.home-card .home-flags{flex:1 1 100%;white-space:normal}
+  .home-bw,.home-bw-g{flex-wrap:wrap;white-space:normal}
+
+  .sr{grid-template-columns:minmax(0,1fr);gap:8px}
+  .sr-d,.sr-b,.sr-n{grid-column:auto}
+  .sr-v{flex-wrap:wrap;align-items:baseline;gap:2px 8px}
+  .sr-v b{font-size:16px}
+  .sr-b{flex-wrap:wrap}
+
+  .apex-block-line,
+  .apex-block-pilot{
+    grid-template-columns:minmax(0,1fr);
+    gap:6px;
+  }
+  .apex-block-line .pilot-brk,
+  .apex-block-pilot .pilot-brk,
+  .pilot-brk{white-space:normal}
+  .db-pilot .pilot-leg{white-space:normal}
+}
 </style>
 </head>
 <body>
