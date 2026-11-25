@@ -270,7 +270,7 @@ function posIsEquity(p){
 }
 function posTvKeys(p){
   /* fiche, ticker, symbole nu et alias métaux — pour CFD (MSTR-CFD, NASDAQ:MSTR) et XAU. */
-  const raw=[p&&p.fiche_tv,p&&p.tv_note,p&&p.tv,p&&p.ticker].filter(k=>k&&k!=='pas de note');
+  const raw=[p&&p.fiche_tv,p&&p.tv_note,p&&p.tv,p&&p.sous_jacent,p&&p.ticker].filter(k=>k&&k!=='pas de note');
   const out=[];
   const add=x=>{ if(x&&out.indexOf(x)<0) out.push(x); };
   const MET={XAU:'OANDA:XAUUSD',XAG:'OANDA:XAGUSD',XPT:'OANDA:XPTUSD',XPD:'OANDA:XPDUSD'};
@@ -294,8 +294,17 @@ function posPilotRec(p){
   }
   return null;
 }
+function posShortData(){
+  if(typeof SHORT!=='undefined'&&SHORT) return SHORT;
+  if(typeof POS!=='undefined'&&POS._shortCache!==undefined) return POS._shortCache;
+  let d=null;
+  try{ const el=document.getElementById('dataShort'); if(el) d=JSON.parse(el.textContent); }catch(e){}
+  if(typeof POS!=='undefined') POS._shortCache=d;
+  return d;
+}
 function posShortRec(p){
-  const by=(typeof SHORT!=='undefined'&&SHORT&&SHORT.by_tv)||{};
+  const sh=posShortData();
+  const by=(sh&&sh.by_tv)||{};
   for(const k of posTvKeys(p)){
     if(by[k]&&by[k].note!=null) return by[k];
   }

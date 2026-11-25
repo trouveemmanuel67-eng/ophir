@@ -57,15 +57,25 @@ def test_notes_short_existantes():
     assert SHORT["by_tv"]["NYSE:ABBV"]["note"] != PILOT["by_tv"]["NYSE:ABBV"]["total"]
 
 
-def test_mstr_une_seule_note_crypto():
+def test_mstr_note_action_et_crypto():
+    # Panier crypto : MicroStrategy reste à 240/250 (barème Crypto)
     mstr = next(a for a in CRYPTO["assets"] if a.get("sym") == "MSTR" or a.get("key") == "mstr")
-    rec = mstr["apex10"]
-    assert rec["note"] == 240
-    assert rec["total"] == 240
+    rec_c = mstr["apex10"]
+    assert rec_c["note"] == 240
+    assert rec_c["total"] == 240
+    assert rec_c["total_max"] == 250
+    # Grille Actions pour la position NASDAQ:MSTR dans Mes positions
+    rec = PILOT["by_tv"]["NASDAQ:MSTR"]
+    assert rec["ok"] is True
+    assert rec["regles"] == "apex_achat_v2"
     assert rec["total_max"] == 250
-    # pas de seconde note Actions qui divergeraient
-    assert "NASDAQ:MSTR" not in (PILOT.get("by_tv") or {})
-    assert "NASDAQ:MSTR" not in (SITE.get("by_tv") or {})
+    assert -50 <= rec["total"] <= 250
+    assert rec["points"]["mm40"] == 30
+    assert rec["points"]["hype"] == 7
+    assert rec["points"]["fear_greed"] == 30
+    assert rec["sentiment"]["cle"] == "us:XLK"
+    assert rec["sentiment"].get("repli_cnn") is False
+    assert SITE["by_tv"]["NASDAQ:MSTR"]["total"] == rec["total"]
 
 
 def test_smr_note_achat_dans_pilot():

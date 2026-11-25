@@ -41,8 +41,6 @@ def _pos_files():
             yield p
 
 
-# MicroStrategy : note officielle du panier crypto (240/250), pas la grille Actions.
-SKIP_CRYPTO_TV = frozenset({'NASDAQ:MSTR', 'MSTR'})
 SKIP_TABS_CFD = frozenset({'metaux', 'liquidites', 'obligations', 'crypto'})
 
 
@@ -72,11 +70,8 @@ def iter_held_equities():
             key = tvs[0]
             if key in seen or key in SKIP_TV:
                 continue
-            tick = (p.get('ticker') or '').upper().replace('-CFD', '')
-            if key in SKIP_CRYPTO_TV or tick in SKIP_CRYPTO_TV or any(x.split(':')[-1] in SKIP_CRYPTO_TV for x in tvs):
-                continue
             seen.add(key)
-            ticker = p.get('ticker') or (key.split(':')[-1] if ':' in key else key)
+            ticker = p.get('sous_jacent') or p.get('ticker') or (key.split(':')[-1] if ':' in key else key)
             yahoo = ticker
             if key.startswith('NASDAQ:') or key.startswith('NYSE:') or key.startswith('AMEX:'):
                 yahoo = key.split(':', 1)[1]
@@ -85,7 +80,7 @@ def iter_held_equities():
                 'aliases': [t for t in tvs if t != key],
                 'ticker': yahoo,
                 'yahoo': yahoo,
-                'nom': (p.get('nom') or ticker).replace(' CFD', '').strip(),
+                'nom': p.get('fiche_nom') or (p.get('nom') or ticker).replace(' CFD', '').strip(),
                 'kind': 'action',
                 'tab': p.get('tab'),
                 'source': path.name,
@@ -126,6 +121,16 @@ def volume_from_closed(closed):
 
 def attention_for(asset, closed):
     """Attention Long Swing 0–100, sources réelles ; H via la grille Actions 0,54."""
+    att_doc = AA.load_attention()
+    by_tv = att_doc.get('by_tv') or {}
+    by_key = att_doc.get('by_key') or {}
+    for cand in [asset.get('tv'), *(asset.get('aliases') or []), asset.get('yahoo'), asset.get('ticker')]:
+        if not cand:
+            continue
+        raw = by_tv.get(cand) or by_key.get(str(cand).upper())
+        if raw and raw.get('attention') is not None:
+            att_val = raw['attention']
+            return att_val, AA.att_compact(raw), raw
     ticker = asset.get('ticker') or ''
     nom = asset.get('nom') or ticker
     # Terme US : court si connu, sinon « <nom> stock ». ENPH → Enphase stock (cache W48).
@@ -283,6 +288,16 @@ def score_asset_held(asset, fg=None):
     from apex import sentiment as SENT
     tv = rec.get('tv') or asset.get('tv')
     skey = SENT.key_for_tv(tv)
+    if not skey and meta.get('sector'):
+        gics = {
+            'Technology': 'Information Technology', 'Healthcare': 'Health Care',
+            'Financial Services': 'Financials', 'Communication Services': 'Communication Services',
+            'Consumer Cyclical': 'Consumer Discretionary', 'Consumer Defensive': 'Consumer Staples',
+            'Industrials': 'Industrials', 'Basic Materials': 'Materials',
+            'Utilities': 'Utilities', 'Energy': 'Energy', 'Real Estate': 'Real Estate',
+        }.get(meta['sector'])
+        if gics and gics in SENT.GICS_US:
+            skey = 'us:' + SENT.GICS_US[gics]
     # Si le CNN n'a pas été fourni, F&G est n.d. : on pose 0 pour que le sentiment maison puisse le remplacer.
     pts = rec.get('points')
     if isinstance(pts, dict) and pts.get('fear_greed') is None:
@@ -316,6 +331,13 @@ def compact_held(rec):
     # fond déjà posé par compact_rec depuis detail ; après apply_rec il est aussi dans rec['fond']
     if 'fond' not in out and isinstance(rec.get('fond'), dict):
         out['fond'] = rec['fond']
+    if not isinstance(out.get('decomp'), dict):
+        mm40_det = (rec.get('detail') or {}).get('mm40') or (rec.get('decomp') or {}).get('mm40')
+        if mm40_det is not None or isinstance(rec.get('points'), dict):
+            out['decomp'] = {
+                'points': dict(rec.get('points') or {}),
+                **({'mm40': mm40_det} if mm40_det is not None else {}),
+            }
     return out
 
 

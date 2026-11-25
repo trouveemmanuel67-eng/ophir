@@ -1,0 +1,19 @@
+{
+ "m": {
+  "nd_ebitda": null,
+  "op_margin": -1100.13,
+  "fcf_margin": -654.54,
+  "roe": -21.59,
+  "current": 4.041,
+  "eps_0y": null,
+  "eps_1y": null,
+  "rev_0y": 4.81,
+  "rev_1y": 3.06
+ },
+ "industry": "Software - Application",
+ "sector": "Technology",
+ "source": "Yahoo Finance key-statistics + earnings/revenue estimate",
+ "url": "https://finance.yahoo.com/quote/MSTR/key-statistics/",
+ "retrieved": "2026-11-25 20:06 Europe/Paris",
+ "yahoo": "MSTR"
+}
