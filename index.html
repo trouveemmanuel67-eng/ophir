@@ -6,18 +6,18 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<meta name="ophir-build" content="cf247d4-20261125-124847">
+<meta name="ophir-build" content="c1e42ba-20261125-130506">
 <title>APEX INDICATOR INVESTMENT</title>
 <meta name="description" content="APEX Indicator Investment — notes et indicateurs de marché.">
 <meta name="theme-color" content="#0a1128">
 <meta name="apple-mobile-web-app-title" content="APEX">
 <meta name="application-name" content="APEX">
-<link rel="icon" href="favicon.ico?v=cf247d4-20261125-124847" sizes="any">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=cf247d4-20261125-124847">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=cf247d4-20261125-124847">
-<link rel="icon" type="image/png" sizes="64x64" href="favicon.png?v=cf247d4-20261125-124847">
-<link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png?v=cf247d4-20261125-124847">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=cf247d4-20261125-124847">
+<link rel="icon" href="favicon.ico?v=c1e42ba-20261125-130506" sizes="any">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=c1e42ba-20261125-130506">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=c1e42ba-20261125-130506">
+<link rel="icon" type="image/png" sizes="64x64" href="favicon.png?v=c1e42ba-20261125-130506">
+<link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png?v=c1e42ba-20261125-130506">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=c1e42ba-20261125-130506">
 <meta property="og:type" content="website">
 <meta property="og:title" content="APEX INDICATOR INVESTMENT">
 <meta property="og:description" content="APEX Indicator Investment — notes et indicateurs de marché.">
@@ -754,32 +754,65 @@ body{display:flex;flex-direction:column;min-height:100vh}
 .rg-btn:hover,body.rg-on .rg-btn{background:rgba(255,255,255,.12);color:#fff;box-shadow:0 0 0 1px rgba(255,255,255,.28)}
 .rg-btn:focus-visible{outline:1px solid rgba(255,255,255,.7);outline-offset:2px}
 
-#bdg-page{display:none;position:fixed;inset:0;z-index:241;flex-direction:column;background:#0c1016;color:#fff;overflow:hidden}
+#bdg-page{display:none;position:fixed;inset:0;z-index:241;flex-direction:column;background:#000;color:#fff;overflow:hidden}
 body.bdg-on{overflow:hidden}
 body.bdg-on #bdg-page{display:flex}
 body.bdg-on #bdg-page[hidden]{display:flex}
 #bdg-page[hidden]{display:none !important}
 body.bdg-on .rg-btn[aria-expanded="true"],#bdgBtn.rg-btn[aria-expanded="true"],body.bdg-on #bdgBtn{background:rgba(255,255,255,.12);color:#fff;box-shadow:0 0 0 1px rgba(255,255,255,.28)}
-.bdg-main{width:100%;max-width:1720px;margin:0 auto;padding:18px 24px 48px;box-sizing:border-box}
-.bdg-table-wrap{width:100%;overflow-x:auto}
-.bdg-table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:14px;line-height:1.4}
-.bdg-table th,.bdg-table td{padding:12px 14px;vertical-align:middle}
-.bdg-table th{text-align:right;font-size:11px;font-weight:650;letter-spacing:.06em;text-transform:uppercase;color:var(--mut);border-bottom:1px solid rgba(255,255,255,.16);white-space:nowrap}
-.bdg-table th:nth-child(1),.bdg-table th:nth-child(2),
-.bdg-table td:nth-child(1),.bdg-table td:nth-child(2){text-align:left}
-.bdg-table td{border-bottom:1px solid rgba(255,255,255,.08);white-space:nowrap;color:#f5efe4}
-.bdg-table td:nth-child(1){font-weight:750;letter-spacing:.02em}
-.bdg-table td:nth-child(n+3){text-align:right}
-.bdg-table tfoot td{border-bottom:0;border-top:1px solid rgba(255,255,255,.22);font-weight:750}
-.bdg-table tr.is-over td{color:#f87171}
-.bdg-table tr.is-ok td{color:#4ade80}
-.bdg-table td.bdg-wrap,.bdg-table td.bdg-obj{white-space:normal;text-align:left;line-height:1.35;max-width:28em}
-.bdg-table th:last-child,.bdg-table td:last-child{text-align:left}
-.bdg-src{margin:14px 2px 0;font-size:11px;color:var(--mut);line-height:1.4}
-@media(max-width:800px){
-  .bdg-main{padding:12px 12px 40px}
-  .bdg-table th,.bdg-table td{padding:10px 8px;font-size:13px}
+.bdg-main{width:100%;max-width:1720px;margin:4px auto 0;padding:8px 24px 48px;box-sizing:border-box}
+.bdg-hero{padding:12px 16px 14px;margin-bottom:14px;border-color:rgba(230,194,122,.32);background:linear-gradient(180deg,rgba(230,194,122,.07),transparent 55%),var(--card)}
+.bdg-hero h2{color:#e6c27a;font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:700}
+.bdg-hero>.home-hero-top{margin-bottom:10px}
+.bdg-kvs{gap:8px 22px;margin:0 0 12px}
+.bdg-kvs .home-kv b{font-size:18px}
+.bdg-kvs .home-kv.is-down b,.bdg-kvs .down{color:var(--down)}
+.bdg-kvs .up{color:var(--up)}
+.bdg-table{display:flex;flex-direction:column;gap:3px;width:100%;font-variant-numeric:tabular-nums}
+.bdg-th,.bdg-row,.bdg-foot{display:grid;grid-template-columns:minmax(8.2rem,0.95fr) minmax(10rem,1.55fr) 5.4rem 5.4rem 5.8rem 5.4rem minmax(8rem,1.15fr);align-items:center;gap:0 8px;min-width:0}
+.bdg-th{padding:2px 12px 4px;font-size:9.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--mut);font-weight:650}
+.bdg-th span:nth-child(n+3):nth-child(-n+6){text-align:right}
+.bdg-row.card,.bdg-foot.card{margin-bottom:0;padding:7px 12px;min-height:0;border-radius:8px;color:inherit;box-shadow:0 10px 28px rgba(0,0,0,.4)}
+.bdg-row{transition:border-color .15s,background-color .15s,transform .15s,box-shadow .15s}
+.bdg-row:hover{border-color:rgba(230,194,122,.6);background:rgba(230,194,122,.07);transform:translateX(2px);box-shadow:0 0 0 1px rgba(230,194,122,.15)}
+.bdg-poste h2{margin:0;font-size:12.5px;letter-spacing:.04em;color:#fff;text-transform:none;font-weight:700;line-height:1.2}
+.bdg-detail,.bdg-det,.bdg-obj{font-size:12px;color:#d8d0c2;line-height:1.35;white-space:normal;min-width:0}
+.bdg-num{font-size:13px;color:#fff;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bdg-obj{color:#d8d0c2}
+.bdg-row.is-ok .bdg-poste h2,.bdg-row.is-ok .bdg-obj,.bdg-row.is-ok .bdg-num{color:#7fd1a8}
+.bdg-row.is-over .bdg-poste h2,.bdg-row.is-over .bdg-obj,.bdg-row.is-over .bdg-num{color:#e88f8f}
+.bdg-row.is-empty .bdg-poste h2,.bdg-row.is-empty .bdg-num,.bdg-row.is-empty .bdg-det{color:var(--mut)}
+.bdg-foot{margin-top:2px;padding:8px 12px;border-top:0}
+.bdg-foot.card{background:rgba(255,255,255,.035);border:1px solid var(--line);border-radius:8px}
+.bdg-foot .bdg-poste h2{font-size:13px}
+.bdg-cat-interne{opacity:.96}
+.bdg-cat-interne .bdg-poste h2{color:#e6c27a}
+.bdg-annexe .bdg-poste h2{font-weight:650;color:#d8d0c2}
+.bdg-src{margin:12px 2px 0;font-size:11px;color:var(--mut);line-height:1.4}
+.bdg-tv-flag{margin-top:10px;color:#e6c27a}
+.bdg-ops{margin:0}
+.bdg-ops summary{cursor:pointer;color:#d8d0c2;font-size:12px;line-height:1.35;list-style:none}
+.bdg-ops summary::-webkit-details-marker{display:none}
+.bdg-ops summary:before{content:"▸ ";color:#e6c27a;font-size:10px}
+.bdg-ops[open] summary:before{content:"▾ "}
+.bdg-ops summary:hover{color:#fff}
+.bdg-op-list{margin:8px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:3px;max-height:16rem;overflow:auto}
+.bdg-op-list li{display:grid;grid-template-columns:3.4rem minmax(0,1fr) auto;gap:8px;align-items:baseline;font-size:11.5px;color:#fff;padding:2px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.bdg-op-d{color:var(--mut);font-variant-numeric:tabular-nums}
+.bdg-op-l{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bdg-op-m{font-variant-numeric:tabular-nums;color:#fff;white-space:nowrap}
+.bdg-sous{margin-top:8px;padding:8px 10px;border:1px dashed rgba(230,194,122,.35);border-radius:8px;background:rgba(230,194,122,.05)}
+.bdg-sous .desc{margin:0;font-size:11.5px;color:var(--mut);line-height:1.4}
+.bdg-soon{display:inline-block;margin-left:4px;padding:1px 7px;border-radius:999px;border:1px solid rgba(230,194,122,.4);color:#e6c27a;font-size:10px;font-weight:650;letter-spacing:.02em;vertical-align:middle}
+@media(max-width:900px){
+  .bdg-main{padding:8px 12px 40px}
+  .bdg-th,.bdg-row,.bdg-foot{grid-template-columns:minmax(0,1.1fr) minmax(0,1.2fr) auto auto;gap:4px 8px}
+  .bdg-th span:nth-child(5),.bdg-th span:nth-child(6),.bdg-th span:nth-child(7),
+  .bdg-row > :nth-child(5),.bdg-row > :nth-child(6),.bdg-row > :nth-child(7),
+  .bdg-foot > :nth-child(5),.bdg-foot > :nth-child(6),.bdg-foot > :nth-child(7){display:none}
+  .bdg-hero{padding:12px 12px 12px}
 }
+
 
 #rg-page{display:none;position:fixed;inset:0;z-index:240;flex-direction:column;background:#0c1016;color:#fff;overflow:hidden}
 body.rg-on{overflow:hidden}
@@ -3061,6 +3094,4165 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
       "montant_usd_an": 204.08,
       "total_mois_usd": null,
       "total_mois_eur": null
+    },
+    "compte_joint": {
+      "id": "compte_joint_famille_2026-10",
+      "titre": "Compte joint famille, octobre 2026",
+      "compte": {
+        "banque": "Revolut France succursale de Revolut Bank UAB",
+        "etablissement": "Revolut Bank UAB (Lituanie), succursale France, SIREN 917 420 077",
+        "produit": "Compte joint en EUR — compte courant",
+        "titulaires": "EMMANUEL TROUVE & PRISCILLA AURORE MOONIEN",
+        "iban": "FR7628233000013262519711931",
+        "bic": "REVOFRP2",
+        "adresse": "21 A Rue Des Chasseurs, 67300 Schiltigheim, Bas-Rhin",
+        "carte": "Visa 416598******7711"
+      },
+      "source": {
+        "type": "Relevé de compte PDF",
+        "intitule": "Relevé de compte joint en EUR",
+        "genere_le": "2026-11-25",
+        "genere_le_libelle": "25 nov. 2026",
+        "periode_releve": {
+          "debut": "2026-10-01",
+          "fin": "2026-11-25",
+          "libelle": "du 1 octobre 2026 au 25 novembre 2026"
+        },
+        "extraction": "pdftotext -layout, le 25/11/2026 (Europe/Paris). Aucun montant inventé. Les opérations de novembre (1–25/11, plus 6 opérations en attente des 23–24/11) figurent sur le même relevé : elles sont conservées dans ce fichier sous operations_hors_octobre / en_attente, mais le bloc Budget « octobre 2026 » n’utilise que les opérations comptabilisées d’octobre.",
+        "fourni_par": "Emmanuel Trouvé, 25/11/2026 à 12 h 53 (Europe/Paris)",
+        "pages": 20
+      },
+      "periode": {
+        "mois": "2026-10",
+        "libelle": "octobre 2026",
+        "debut": "2026-10-01",
+        "fin": "2026-10-31"
+      },
+      "soldes": {
+        "ouverture_eur": 1220.38,
+        "ouverture_usd": 1335.58,
+        "cloture_octobre_eur": 1640.41,
+        "cloture_octobre_usd": 1795.26,
+        "cloture_releve_eur": 1287.51,
+        "cloture_releve_usd": 1409.05,
+        "cloture_releve_note": "Solde de clôture du relevé au 25/11/2026 (période 1/10–25/11), après les opérations de novembre. Le solde de fin octobre (après la dernière opération du 31/10) est 1 640,41 €.",
+        "argent_sortant_releve_eur": 21204.95,
+        "argent_entrant_releve_eur": 21272.08,
+        "argent_sortant_octobre_eur": 9338.43,
+        "argent_entrant_octobre_eur": 9758.46,
+        "verification": "1220,38 + 21 272,08 − 21 204,95 = 1 287,51 (relevé entier). Pour octobre : 1 220,38 + 9 758,46 − 9 338,43 = 1 640,41. Chemin des soldes vérifié opération par opération.",
+        "argent_sortant_releve_usd": 23206.7,
+        "argent_entrant_releve_usd": 23280.16,
+        "argent_sortant_octobre_usd": 10219.98,
+        "argent_entrant_octobre_usd": 10679.66
+      },
+      "fx": 1.0944,
+      "categories": [
+        {
+          "id": "logement",
+          "poste": "Logement / loyer",
+          "n_operations": 1,
+          "debit_eur": 900.18,
+          "credit_eur": 0.0,
+          "observe_eur": 900.18,
+          "observe_usd": 985.16,
+          "projection_eur": 900.18,
+          "projection_usd": 985.16,
+          "objectif": null,
+          "compte_dans_total_depenses": true,
+          "detail": "1 opération · Fonds Logt Intermediaire-fonds De Logement",
+          "operations": [
+            {
+              "date": "2026-10-05",
+              "date_libelle": "5 oct. 2026",
+              "libelle": "Fonds Logt Intermediaire-fonds De Logement",
+              "details": [
+                "Intermediaire (fli)",
+                "Référence : 000027396"
+              ],
+              "sens": "debit",
+              "montant_eur": 900.18,
+              "montant_usd": 985.16,
+              "solde_apres_eur": 857.7,
+              "categorie": "logement",
+              "categorie_libelle": "Logement / loyer",
+              "type": "depense",
+              "page": 2,
+              "statut": "comptable"
+            }
+          ]
+        },
+        {
+          "id": "energie",
+          "poste": "Énergie",
+          "n_operations": 0,
+          "debit_eur": 0.0,
+          "credit_eur": 0.0,
+          "observe_eur": 0.0,
+          "observe_usd": 0.0,
+          "projection_eur": 0.0,
+          "projection_usd": 0.0,
+          "objectif": null,
+          "compte_dans_total_depenses": true,
+          "detail": "Aucune opération en octobre 2026.",
+          "operations": []
+        },
+        {
+          "id": "courses",
+          "poste": "Courses",
+          "n_operations": 55,
+          "debit_eur": 984.83,
+          "credit_eur": 0.0,
+          "observe_eur": 984.83,
+          "observe_usd": 1077.8,
+          "projection_eur": 984.83,
+          "projection_usd": 1077.8,
+          "objectif": null,
+          "compte_dans_total_depenses": true,
+          "detail": "Lidl, Carrefour, Magasin U, Leclerc, Auchan, IKA, MaxiCoffee. Détail tickets Lidl : à venir.",
+          "operations": [
+            {
+              "date": "2026-10-02",
+              "date_libelle": "2 oct. 2026",
+              "libelle": "Lidl",
+              "details": [
+                "À : Lidl 3772 4972923, 673772 Hoenhe",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 4.28,
+              "montant_usd": 4.68,
+              "solde_apres_eur": 1947.68,
+              "categorie": "courses",
+              "categorie_libelle": "Courses",
+              "type": "depense",
+              "page": null,
+              "statut": "comptable",
+              "ticket": null,
+              "sous_categorie": null
+            },
+            {
+              "date": "2026-10-02",
+              "date_libelle": "2 oct. 2026",
+              "libelle": "Carrefour",
+              "details": [
+                "À : Carrefour Expres2099243, Schiltigheim",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 8.25,
+              "montant_usd": 9.03,
+              "solde_apres_eur": 1939.43,
+              "categorie": "courses",
+              "categorie_libelle": "Courses",
+              "type": "depense",
+              "page": null,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-03",
+              "date_libelle": "3 oct. 2026",
+              "libelle": "IKA",
+              "details": [
+                "À : Ika Patisserie Boulan, Schiltigheim",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 5.6,
+              "montant_usd": 6.13,
+              "solde_apres_eur": 1933.83,
+              "categorie": "courses",
+              "categorie_libelle": "Courses",
+              "type": "depense",
+              "page": null,
+              "statut": "comptable",
+              "note_classification": "Boulangerie / pâtisserie classée courses (alimentaire)."
+            },
+            {
+              "date": "2026-10-03",
+              "date_libelle": "3 oct. 2026",
+              "libelle": "Carrefour",
+              "details": [
+                "À : Carrefour Expres2099243, Schiltigheim",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 10.7,
+              "montant_usd": 11.71,
+              "solde_apres_eur": 1923.13,
+              "categorie": "courses",
+              "categorie_libelle": "Courses",
+              "type": "depense",
+              "page": null,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-04",
+              "date_libelle": "4 oct. 2026",
+              "libelle": "Carrefour",
+              "details": [
+                "À : Carrefour Expres2099243, Schiltigheim",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 14.31,
+              "montant_usd": 15.66,
+              "solde_apres_eur": 1908.82,
+              "categorie": "courses",
+              "categorie_libelle": "Courses",
+              "type": "depense",
+              "page": null,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-04",
+              "date_libelle": "4 oct. 2026",
+              "libelle": "Lidl",
+              "details": [
+                "À : Lidl 3772 4972923, 673772 Hoenhe",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 6.99,
+              "montant_usd": 7.65,
+              "solde_apres_eur": 1901.83,
+              "categorie": "courses",
+              "categorie_libelle": "Courses",
+              "type": "depense",
+              "page": null,
+              "statut": "comptable",
+              "ticket": null,
+              "sous_categorie": null
+            },
+            {
+              "date": "2026-10-06",
+              "date_libelle": "6 oct. 2026",
+              "libelle": "Lidl",
+              "details": [
+                "À : Lidl 3772 4972923, 673772 Hoenhe",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 27.87,
+              "montant_usd": 30.5,
+              "solde_apres_eur": 591.86,
+              "categorie": "courses",
+              "categorie_libelle": "Courses",
+              "type": "depense",
+              "page": 2,
+              "statut": "comptable",
+              "ticket": null,
+              "sous_categorie": null
+            },
+            {
+              "date": "2026-10-06",
+              "date_libelle": "6 oct. 2026",
+              "libelle": "Carrefour",
+              "details": [
+                "À : Carrefour Expres2099243, Schiltigheim",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 13.7,
+              "montant_usd": 14.99,
+              "solde_apres_eur": 578.16,
+              "categorie": "courses",
+              "categorie_libelle": "Courses",
+              "type": "depense",
+              "page": 2,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-06",
+              "date_libelle": "6 oct. 2026",
+              "libelle": "Carrefour",
+              "details": [
+                "À : Carrefour Expres2099243, Schiltigheim",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 12.33,
+              "montant_usd": 13.49,
+              "solde_apres_eur": 565.83,
+              "categorie": "courses",
+              "categorie_libelle": "Courses",
+              "type": "depense",
+              "page": 2,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-07",
+              "date_libelle": "7 oct. 2026",
+              "libelle": "Lidl",
+              "details": [
+                "À : Lidl 4047, Schiltigheim",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 46.2,
+              "montant_usd": 50.56,
+              "solde_apres_eur": 585.69,
+              "categorie": "courses",
+              "categorie_libelle": "Courses",
+              "type": "depense",
+              "page": 2,
+              "statut": "comptable",
+              "ticket": null,
+              "sous_categorie": null
+            },
+            {
+              "date": "2026-10-07",
+              "date_libelle": "7 oct. 2026",
+              "libelle": "Carrefour",
+              "details": [
+                "À : Carrefour Expres2099243, Schiltigheim",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 4.69,
+              "montant_usd": 5.13,
+              "solde_apres_eur": 316.05,
+              "categorie": "courses",
+              "categorie_libelle": "Courses",
+              "type": "depense",
+              "page": 2,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-07",
+              "date_libelle": "7 oct. 2026",
+              "libelle": "Carrefour",
+              "details": [
+                "À : Carrefour Expres2099243, Schiltigheim",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 21.29,
+              "montant_usd": 23.3,
+              "solde_apres_eur": 243.25,
+              "categorie": "courses",
+              "categorie_libelle": "Courses",
+              "type": "depense",
+              "page": 2,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-08",
+              "date_libelle": "8 oct. 2026",
+              "libelle": "Carrefour",
+              "details": [
+                "À : Carrefour City 2111279, Strasbourg",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 11.45,
+              "montant_usd": 12.53,
+              "solde_apres_eur": 1274.05,
+              "categorie": "courses",
+              "categorie_libelle": "Courses",
+              "type": "depense",
+              "page": 3,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-08",
+              "date_libelle": "8 oct. 2026",
+              "libelle": "Carrefour",
+              "details": [
+                "À : Carrefour Expres2099243, Schiltigheim",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 11.35,
+              "montant_usd": 12.42,
+              "solde_apres_eur": 1262.7,
+              "categorie": "courses",
+              "categorie_libelle": "Courses",
+              "type": "depense",
+              "page": 3,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-09",
+              "date_libelle": "9 oct. 2026",
+              "libelle": "IKA",
+              "details": [
+                "À : Ika Patisserie Boulan, Schiltigheim",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 4.3,
+              "montant_usd": 4.71,
+              "solde_apres_eur": 1256.55,
+              "categorie": "courses",
+              "categorie_libelle": "Courses",
+              "type": "depense",
+              "page": 3,
+              "statut": "comptable",
+              "note_classification": "Boulangerie / pâtisserie classée courses (alimentaire)."
+            },
+            {
+              "date": "2026-10-09",
+              "date_libelle": "9 oct. 2026",
+              "libelle": "Carrefour",
+              "details": [
+                "À : Carrefour Expres2099243, Schiltigheim",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 17.89,
+              "montant_usd": 19.58,
+              "solde_apres_eur": 1238.66,
+              "categorie": "courses",
+              "categorie_libelle": "Courses",
+              "type": "depense",
+              "page": 3,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-10",
+              "date_libelle": "10 oct. 2026",
+              "libelle": "Lidl",
+              "details": [
+                "À : Lidl 4047, Schiltigheim",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 7.77,
+              "montant_usd": 8.5,
+              "solde_apres_eur": 1229.05,
+              "categorie": "courses",
+              "categorie_libelle": "Courses",
+              "type": "depense",
+              "page": 3,
+              "statut": "comptable",
+              "ticket": null,
+              "sous_categorie": null
+            },
+            {
+              "date": "2026-10-10",
+              "date_libelle": "10 oct. 2026",
+              "libelle": "Carrefour",
+              "details": [
+                "À : Carrefour Expres2099243, Schiltigheim",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 8.88,
+              "montant_usd": 9.72,
+              "solde_apres_eur": 1220.17,
+              "categorie": "courses",
+              "categorie_libelle": "Courses",
+              "type": "depense",
+              "page": 3,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-10",
+              "date_libelle": "10 oct. 2026",
+              "libelle": "Lidl",
+              "details": [
+                "À : Lidl 3772 4972923, 673772 Hoenhe",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 24.27,
+              "montant_usd": 26.56,
+              "solde_apres_eur": 1188.03,
+              "categorie": "courses",
+              "categorie_libelle": "Courses",
+              "type": "depense",
+              "page": 3,
+              "statut": "comptable",
+              "ticket": null,
+              "sous_categorie": null
+            },
+            {
+              "date": "2026-10-11",
+              "date_libelle": "11 oct. 2026",
+              "libelle": "Carrefour",
+              "details": [
+                "À : Carrefour Expres2099243, Schiltigheim",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 17.56,
+              "montant_usd": 19.22,
+              "solde_apres_eur": 1144.74,
+              "categorie": "courses",
+              "categorie_libelle": "Courses",
+              "type": "depense",
+              "page": 4,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-12",
+              "date_libelle": "12 oct. 2026",
+              "libelle": "IKA",
+              "details": [
+                "À : Ika Patisserie Boulan, Schiltigheim",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 2.6,
+              "montant_usd": 2.85,
+              "solde_apres_eur": 1115.55,
+              "categorie": "courses",
+              "categorie_libelle": "Courses",
+              "type": "depense",
+              "page": 4,
+              "statut": "comptable",
+              "note_classification": "Boulangerie / pâtisserie classée courses (alimentaire)."
+            },
+            {
+              "date": "2026-10-12",
+              "date_libelle": "12 oct. 2026",
+              "libelle": "Carrefour",
+              "details": [
+                "À : Carrefour Expres2099243, Schiltigheim",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 9.4,
+              "montant_usd": 10.29,
+              "solde_apres_eur": 1106.15,
+              "categorie": "courses",
+              "categorie_libelle": "Courses",
+              "type": "depense",
+              "page": 4,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-13",
+              "date_libelle": "13 oct. 2026",
+              "libelle": "Carrefour",
+              "details": [
+                "À : Carrefour Expres2099243, Schiltigheim",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 18.87,
+              "montant_usd": 20.65,
+              "solde_apres_eur": 955.95,
+              "categorie": "courses",
+              "categorie_libelle": "Courses",
+              "type": "depense",
+              "page": 5,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-14",
+              "date_libelle": "14 oct. 2026",
+              "libelle": "Carrefour",
+              "details": [
+                "À : Carrefour Expres2099243, Schiltigheim",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 22.58,
+              "montant_usd": 24.71,
+              "solde_apres_eur": 860.89,
+              "categorie": "courses",
+              "categorie_libelle": "Courses",
+              "type": "depense",
+              "page": 5,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-14",
+              "date_libelle": "14 oct. 2026",
+              "libelle": "Carrefour",
+              "details": [
+                "À : Crf Strasbourg -, Mundolsheim",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 134.32,
+              "montant_usd": 147.0,
+              "solde_apres_eur": 726.57,
+              "categorie": "courses",
+              "categorie_libelle": "Courses",
+              "type": "depense",
+              "page": 5,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-15",
+              "date_libelle": "15 oct. 2026",
+              "libelle": "Carrefour",
+              "details": [
+                "À : Carrefour Expres2099243, Schiltigheim",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 16.29,
+              "montant_usd": 17.83,
+              "solde_apres_eur": 1203.82,
+              "categorie": "courses",
+              "categorie_libelle": "Courses",
+              "type": "depense",
+              "page": 5,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-15",
+              "date_libelle": "15 oct. 2026",
+              "libelle": "Carrefour",
+              "details": [
+                "À : Carrefour Expres2099243, Schiltigheim",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 4.4,
+              "montant_usd": 4.82,
+              "solde_apres_eur": 1199.42,
+              "categorie": "courses",
+              "categorie_libelle": "Courses",
+              "type": "depense",
+              "page": 5,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-15",
+              "date_libelle": "15 oct. 2026",
+              "libelle": "IKA",
+              "details": [
+                "À : Ika Patisserie Boulan, Schiltigheim",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 1.3,
+              "montant_usd": 1.42,
+              "solde_apres_eur": 1198.12,
+              "categorie": "courses",
+              "categorie_libelle": "Courses",
+              "type": "depense",
+              "page": 5,
+              "statut": "comptable",
+              "note_classification": "Boulangerie / pâtisserie classée courses (alimentaire)."
+            },
+            {
+              "date": "2026-10-15",
+              "date_libelle": "15 oct. 2026",
+              "libelle": "Lidl",
+              "details": [
+                "À : Lidl 3772 4972923, 673772 Hoenhe",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 35.57,
+              "montant_usd": 38.93,
+              "solde_apres_eur": 1162.55,
+              "categorie": "courses",
+              "categorie_libelle": "Courses",
+              "type": "depense",
+              "page": 5,
+              "statut": "comptable",
+              "ticket": null,
+              "sous_categorie": null
+            },
+            {
+              "date": "2026-10-16",
+              "date_libelle": "16 oct. 2026",
+              "libelle": "Carrefour",
+              "details": [
+                "À : Carrefour Expres2099243, Schiltigheim",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 9.87,
+              "montant_usd": 10.8,
+              "solde_apres_eur": 1137.72,
+              "categorie": "courses",
+              "categorie_libelle": "Courses",
+              "type": "depense",
+              "page": 5,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-16",
+              "date_libelle": "16 oct. 2026",
+              "libelle": "E.Leclerc",
+              "details": [
+                "À : E Leclerc, Schiltigheim",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 17.07,
+              "montant_usd": 18.68,
+              "solde_apres_eur": 1116.85,
+              "categorie": "courses",
+              "categorie_libelle": "Courses",
+              "type": "depense",
+              "page": 6,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-17",
+              "date_libelle": "17 oct. 2026",
+              "libelle": "Carrefour",
+              "details": [
+                "À : Carrefour Expres2099243, Schiltigheim",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 10.55,
+              "montant_usd": 11.55,
+              "solde_apres_eur": 1095.27,
+              "categorie": "courses",
+              "categorie_libelle": "Courses",
+              "type": "depense",
+              "page": 6,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-17",
+              "date_libelle": "17 oct. 2026",
+              "libelle": "Lidl",
+              "details": [
+                "À : Lidl 3772 4972923, 673772 Hoenhe",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 12.8,
+              "montant_usd": 14.01,
+              "solde_apres_eur": 964.84,
+              "categorie": "courses",
+              "categorie_libelle": "Courses",
+              "type": "depense",
+              "page": 6,
+              "statut": "comptable",
+              "ticket": null,
+              "sous_categorie": null
+            },
+            {
+              "date": "2026-10-18",
+              "date_libelle": "18 oct. 2026",
+              "libelle": "Lidl",
+              "details": [
+                "À : Lidl 3772 4972923, 673772 Hoenhe",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 6.99,
+              "montant_usd": 7.65,
+              "solde_apres_eur": 941.3,
+              "categorie": "courses",
+              "categorie_libelle": "Courses",
+              "type": "depense",
+              "page": 6,
+              "statut": "comptable",
+              "ticket": null,
+              "sous_categorie": null
+            },
+            {
+              "date": "2026-10-19",
+              "date_libelle": "19 oct. 2026",
+              "libelle": "Lidl",
+              "details": [
+                "À : Lidl 4047, Schiltigheim",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 45.96,
+              "montant_usd": 50.3,
+              "solde_apres_eur": 887.06,
+              "categorie": "courses",
+              "categorie_libelle": "Courses",
+              "type": "depense",
+              "page": 6,
+              "statut": "comptable",
+              "ticket": null,
+              "sous_categorie": null
+            },
+            {
+              "date": "2026-10-19",
+              "date_libelle": "19 oct. 2026",
+              "libelle": "Lidl",
+              "details": [
+                "À : Lidl 4047, Schiltigheim",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 15.94,
+              "montant_usd": 17.44,
+              "solde_apres_eur": 871.12,
+              "categorie": "courses",
+              "categorie_libelle": "Courses",
+              "type": "depense",
+              "page": 6,
+              "statut": "comptable",
+              "ticket": null,
+              "sous_categorie": null
+            },
+            {
+              "date": "2026-10-21",
+              "date_libelle": "21 oct. 2026",
+              "libelle": "MaxiCoffee",
+              "details": [
+                "À : Maxicoffee Gc, Daumesnil",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 3.6,
+              "montant_usd": 3.94,
+              "solde_apres_eur": 1237.4,
+              "categorie": "courses",
+              "categorie_libelle": "Courses",
+              "type": "depense",
+              "page": 7,
+              "statut": "comptable",
+              "note_classification": "MaxiCoffee (3,60 €) classé courses (consommable) ; à confirmer si achat ponctuel."
+            },
+            {
+              "date": "2026-10-21",
+              "date_libelle": "21 oct. 2026",
+              "libelle": "Magasin U",
+              "details": [
+                "À : U Express 9242480, 83ramatuelle",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 20.75,
+              "montant_usd": 22.71,
+              "solde_apres_eur": 1066.65,
+              "categorie": "courses",
+              "categorie_libelle": "Courses",
+              "type": "depense",
+              "page": 7,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-21",
+              "date_libelle": "21 oct. 2026",
+              "libelle": "Magasin U",
+              "details": [
+                "À : U Express 9242480, 83ramatuelle",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 11.05,
+              "montant_usd": 12.09,
+              "solde_apres_eur": 1055.6,
+              "categorie": "courses",
+              "categorie_libelle": "Courses",
+              "type": "depense",
+              "page": 7,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-22",
+              "date_libelle": "22 oct. 2026",
+              "libelle": "Magasin U",
+              "details": [
+                "À : U Express 9242480, 83ramatuelle",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 35.07,
+              "montant_usd": 38.38,
+              "solde_apres_eur": 1013.21,
+              "categorie": "courses",
+              "categorie_libelle": "Courses",
+              "type": "depense",
+              "page": 8,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-22",
+              "date_libelle": "22 oct. 2026",
+              "libelle": "Magasin U",
+              "details": [
+                "À : U Express 9242480, 83ramatuelle",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 38.06,
+              "montant_usd": 41.65,
+              "solde_apres_eur": 975.15,
+              "categorie": "courses",
+              "categorie_libelle": "Courses",
+              "type": "depense",
+              "page": 8,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-23",
+              "date_libelle": "23 oct. 2026",
+              "libelle": "Magasin U",
+              "details": [
+                "À : U Express 9242480, 83ramatuelle",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 31.07,
+              "montant_usd": 34.0,
+              "solde_apres_eur": 902.08,
+              "categorie": "courses",
+              "categorie_libelle": "Courses",
+              "type": "depense",
+              "page": 8,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-24",
+              "date_libelle": "24 oct. 2026",
+              "libelle": "Auchan",
+              "details": [
+                "À : Auchan Hyp 266, Gassin",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 22.83,
+              "montant_usd": 24.99,
+              "solde_apres_eur": 762.35,
+              "categorie": "courses",
+              "categorie_libelle": "Courses",
+              "type": "depense",
+              "page": 8,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-26",
+              "date_libelle": "26 oct. 2026",
+              "libelle": "IKA",
+              "details": [
+                "À : Ika Patisserie Boulan, Schiltigheim",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 5.9,
+              "montant_usd": 6.46,
+              "solde_apres_eur": 1750.42,
+              "categorie": "courses",
+              "categorie_libelle": "Courses",
+              "type": "depense",
+              "page": 9,
+              "statut": "comptable",
+              "note_classification": "Boulangerie / pâtisserie classée courses (alimentaire)."
+            },
+            {
+              "date": "2026-10-26",
+              "date_libelle": "26 oct. 2026",
+              "libelle": "Carrefour",
+              "details": [
+                "À : Carrefour Expres2099243, Schiltigheim",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 10.47,
+              "montant_usd": 11.46,
+              "solde_apres_eur": 1705.47,
+              "categorie": "courses",
+              "categorie_libelle": "Courses",
+              "type": "depense",
+              "page": 9,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-27",
+              "date_libelle": "27 oct. 2026",
+              "libelle": "Carrefour",
+              "details": [
+                "À : Carrefour Expres2099243, Schiltigheim",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 17.52,
+              "montant_usd": 19.17,
+              "solde_apres_eur": 3714.67,
+              "categorie": "courses",
+              "categorie_libelle": "Courses",
+              "type": "depense",
+              "page": 10,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-27",
+              "date_libelle": "27 oct. 2026",
+              "libelle": "Lidl",
+              "details": [
+                "À : Lidl 4047, Schiltigheim",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 26.65,
+              "montant_usd": 29.17,
+              "solde_apres_eur": 2865.03,
+              "categorie": "courses",
+              "categorie_libelle": "Courses",
+              "type": "depense",
+              "page": 10,
+              "statut": "comptable",
+              "ticket": null,
+              "sous_categorie": null
+            },
+            {
+              "date": "2026-10-28",
+              "date_libelle": "28 oct. 2026",
+              "libelle": "Lidl",
+              "details": [
+                "À : Lidl 3772 4972923, 673772 Hoenhe",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 30.03,
+              "montant_usd": 32.86,
+              "solde_apres_eur": 2748.37,
+              "categorie": "courses",
+              "categorie_libelle": "Courses",
+              "type": "depense",
+              "page": 10,
+              "statut": "comptable",
+              "ticket": null,
+              "sous_categorie": null
+            },
+            {
+              "date": "2026-10-28",
+              "date_libelle": "28 oct. 2026",
+              "libelle": "Carrefour",
+              "details": [
+                "À : Carrefour Expres2099243, Schiltigheim",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 16.22,
+              "montant_usd": 17.75,
+              "solde_apres_eur": 2454.87,
+              "categorie": "courses",
+              "categorie_libelle": "Courses",
+              "type": "depense",
+              "page": 10,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-29",
+              "date_libelle": "29 oct. 2026",
+              "libelle": "Lidl",
+              "details": [
+                "À : Lidl 3772 4972923, 673772 Hoenhe",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 1.0,
+              "montant_usd": 1.09,
+              "solde_apres_eur": 2306.43,
+              "categorie": "courses",
+              "categorie_libelle": "Courses",
+              "type": "depense",
+              "page": 10,
+              "statut": "comptable",
+              "ticket": null,
+              "sous_categorie": null
+            },
+            {
+              "date": "2026-10-29",
+              "date_libelle": "29 oct. 2026",
+              "libelle": "Carrefour",
+              "details": [
+                "À : Carrefour Expres2099243, Schiltigheim",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 17.37,
+              "montant_usd": 19.01,
+              "solde_apres_eur": 2289.06,
+              "categorie": "courses",
+              "categorie_libelle": "Courses",
+              "type": "depense",
+              "page": 10,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-29",
+              "date_libelle": "29 oct. 2026",
+              "libelle": "Carrefour",
+              "details": [
+                "À : Carrefour Expres2099243, Schiltigheim",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 8.1,
+              "montant_usd": 8.86,
+              "solde_apres_eur": 2280.96,
+              "categorie": "courses",
+              "categorie_libelle": "Courses",
+              "type": "depense",
+              "page": 11,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-30",
+              "date_libelle": "30 oct. 2026",
+              "libelle": "Lidl",
+              "details": [
+                "À : Lidl 4047, Schiltigheim",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 17.52,
+              "montant_usd": 19.17,
+              "solde_apres_eur": 1544.48,
+              "categorie": "courses",
+              "categorie_libelle": "Courses",
+              "type": "depense",
+              "page": 11,
+              "statut": "comptable",
+              "ticket": null,
+              "sous_categorie": null
+            },
+            {
+              "date": "2026-10-30",
+              "date_libelle": "30 oct. 2026",
+              "libelle": "Carrefour",
+              "details": [
+                "À : Carrefour Expres2099243, Schiltigheim",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 11.25,
+              "montant_usd": 12.31,
+              "solde_apres_eur": 1529.73,
+              "categorie": "courses",
+              "categorie_libelle": "Courses",
+              "type": "depense",
+              "page": 11,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-31",
+              "date_libelle": "31 oct. 2026",
+              "libelle": "Lidl",
+              "details": [
+                "À : Lidl 4047, Schiltigheim",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 16.18,
+              "montant_usd": 17.71,
+              "solde_apres_eur": 1640.41,
+              "categorie": "courses",
+              "categorie_libelle": "Courses",
+              "type": "depense",
+              "page": 11,
+              "statut": "comptable",
+              "ticket": null,
+              "sous_categorie": null
+            }
+          ],
+          "commercants": [
+            {
+              "libelle": "Lidl",
+              "n": 16,
+              "total_eur": 326.02,
+              "total_usd": 356.8
+            },
+            {
+              "libelle": "Carrefour",
+              "n": 26,
+              "total_eur": 459.61,
+              "total_usd": 503.0
+            },
+            {
+              "libelle": "IKA",
+              "n": 5,
+              "total_eur": 19.7,
+              "total_usd": 21.56
+            },
+            {
+              "libelle": "E.Leclerc",
+              "n": 1,
+              "total_eur": 17.07,
+              "total_usd": 18.68
+            },
+            {
+              "libelle": "MaxiCoffee",
+              "n": 1,
+              "total_eur": 3.6,
+              "total_usd": 3.94
+            },
+            {
+              "libelle": "Magasin U",
+              "n": 5,
+              "total_eur": 136.0,
+              "total_usd": 148.84
+            },
+            {
+              "libelle": "Auchan",
+              "n": 1,
+              "total_eur": 22.83,
+              "total_usd": 24.99
+            }
+          ],
+          "sous_categories": [
+            {
+              "id": "tickets_lidl",
+              "libelle": "Tickets Lidl — détail par rayons",
+              "statut": "a_venir",
+              "note": "Emplacement prévu pour le détail catégorisé des tickets Lidl (sous-catégories : fruits et légumes, viandes, épicerie, etc.). Aucun ticket n’a été fourni à ce jour : les paiements carte Lidl restent agrégés dans Courses, sans inventer de répartition.",
+              "operations": [],
+              "observe_eur": null
+            }
+          ]
+        },
+        {
+          "id": "transport",
+          "poste": "Transport / carburant",
+          "n_operations": 28,
+          "debit_eur": 354.26,
+          "credit_eur": 0.0,
+          "observe_eur": 354.26,
+          "observe_usd": 387.7,
+          "projection_eur": 354.26,
+          "projection_usd": 387.7,
+          "objectif": null,
+          "compte_dans_total_depenses": true,
+          "detail": "28 opérations · Tesla, VINCI Autoroutes, APRR, Avia…",
+          "operations": [
+            {
+              "date": "2026-10-11",
+              "date_libelle": "11 oct. 2026",
+              "libelle": "CTS",
+              "details": [
+                "À : Cts, Strasbourg",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 1.9,
+              "montant_usd": 2.08,
+              "solde_apres_eur": 1142.84,
+              "categorie": "transport",
+              "categorie_libelle": "Transport / carburant",
+              "type": "depense",
+              "page": 4,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-15",
+              "date_libelle": "15 oct. 2026",
+              "libelle": "CTS",
+              "details": [
+                "À : Cts, Strasbourg",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 1.9,
+              "montant_usd": 2.08,
+              "solde_apres_eur": 1160.65,
+              "categorie": "transport",
+              "categorie_libelle": "Transport / carburant",
+              "type": "depense",
+              "page": 5,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-15",
+              "date_libelle": "15 oct. 2026",
+              "libelle": "CTS",
+              "details": [
+                "À : Cts, Strasbourg",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 1.9,
+              "montant_usd": 2.08,
+              "solde_apres_eur": 1158.75,
+              "categorie": "transport",
+              "categorie_libelle": "Transport / carburant",
+              "type": "depense",
+              "page": 5,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-16",
+              "date_libelle": "16 oct. 2026",
+              "libelle": "CTS",
+              "details": [
+                "À : Cts, Strasbourg",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 1.9,
+              "montant_usd": 2.08,
+              "solde_apres_eur": 1135.82,
+              "categorie": "transport",
+              "categorie_libelle": "Transport / carburant",
+              "type": "depense",
+              "page": 5,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-16",
+              "date_libelle": "16 oct. 2026",
+              "libelle": "CTS",
+              "details": [
+                "À : Cts, Strasbourg",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 1.9,
+              "montant_usd": 2.08,
+              "solde_apres_eur": 1133.92,
+              "categorie": "transport",
+              "categorie_libelle": "Transport / carburant",
+              "type": "depense",
+              "page": 5,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-20",
+              "date_libelle": "20 oct. 2026",
+              "libelle": "VINCI Autoroutes",
+              "details": [
+                "À : Autoroutes Asf, Vedene Cedex",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 28.1,
+              "montant_usd": 30.75,
+              "solde_apres_eur": 843.02,
+              "categorie": "transport",
+              "categorie_libelle": "Transport / carburant",
+              "type": "depense",
+              "page": 6,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-20",
+              "date_libelle": "20 oct. 2026",
+              "libelle": "VINCI Autoroutes",
+              "details": [
+                "À : Escota Vinci, 06211",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 9.3,
+              "montant_usd": 10.18,
+              "solde_apres_eur": 833.72,
+              "categorie": "transport",
+              "categorie_libelle": "Transport / carburant",
+              "type": "depense",
+              "page": 6,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-20",
+              "date_libelle": "20 oct. 2026",
+              "libelle": "Eni",
+              "details": [
+                "À : Agip9356jura, Arlay",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 15.9,
+              "montant_usd": 17.4,
+              "solde_apres_eur": 817.82,
+              "categorie": "transport",
+              "categorie_libelle": "Transport / carburant",
+              "type": "depense",
+              "page": 6,
+              "statut": "comptable",
+              "note_classification": "Station Eni / Agip (Arlay) — carburant, pas une facture énergie du logement."
+            },
+            {
+              "date": "2026-10-20",
+              "date_libelle": "20 oct. 2026",
+              "libelle": "Tesla",
+              "details": [
+                "À : Tesla Inc., Chambourcy",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 17.67,
+              "montant_usd": 19.34,
+              "solde_apres_eur": 734.15,
+              "categorie": "transport",
+              "categorie_libelle": "Transport / carburant",
+              "type": "depense",
+              "page": 6,
+              "statut": "comptable",
+              "note_classification": "Paiements Tesla France / Tesla Inc., Chambourcy — classés transport / véhicule ; les montants 9–18 € ressemblent à de la recharge, le 81,00 € du 30/10 est à confirmer (recharge, SAV ou accessoires)."
+            },
+            {
+              "date": "2026-10-20",
+              "date_libelle": "20 oct. 2026",
+              "libelle": "Tesla",
+              "details": [
+                "À : Tesla Inc., Chambourcy",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 13.82,
+              "montant_usd": 15.12,
+              "solde_apres_eur": 720.33,
+              "categorie": "transport",
+              "categorie_libelle": "Transport / carburant",
+              "type": "depense",
+              "page": 7,
+              "statut": "comptable",
+              "note_classification": "Paiements Tesla France / Tesla Inc., Chambourcy — classés transport / véhicule ; les montants 9–18 € ressemblent à de la recharge, le 81,00 € du 30/10 est à confirmer (recharge, SAV ou accessoires)."
+            },
+            {
+              "date": "2026-10-20",
+              "date_libelle": "20 oct. 2026",
+              "libelle": "Tesla",
+              "details": [
+                "À : Tesla Inc., Chambourcy",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 9.21,
+              "montant_usd": 10.08,
+              "solde_apres_eur": 711.12,
+              "categorie": "transport",
+              "categorie_libelle": "Transport / carburant",
+              "type": "depense",
+              "page": 7,
+              "statut": "comptable",
+              "note_classification": "Paiements Tesla France / Tesla Inc., Chambourcy — classés transport / véhicule ; les montants 9–18 € ressemblent à de la recharge, le 81,00 € du 30/10 est à confirmer (recharge, SAV ou accessoires)."
+            },
+            {
+              "date": "2026-10-20",
+              "date_libelle": "20 oct. 2026",
+              "libelle": "APRR",
+              "details": [
+                "À : Aprr Nfc 4261522, 21st Apollina",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 3.1,
+              "montant_usd": 3.39,
+              "solde_apres_eur": 664.77,
+              "categorie": "transport",
+              "categorie_libelle": "Transport / carburant",
+              "type": "depense",
+              "page": 7,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-20",
+              "date_libelle": "20 oct. 2026",
+              "libelle": "APRR",
+              "details": [
+                "À : Aprr Nfc 4261522, 21st Apollina",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 32.8,
+              "montant_usd": 35.9,
+              "solde_apres_eur": 631.97,
+              "categorie": "transport",
+              "categorie_libelle": "Transport / carburant",
+              "type": "depense",
+              "page": 7,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-22",
+              "date_libelle": "22 oct. 2026",
+              "libelle": "Parking Foch",
+              "details": [
+                "À : Parking Foch, Saint-tropez",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 6.8,
+              "montant_usd": 7.44,
+              "solde_apres_eur": 1080.84,
+              "categorie": "transport",
+              "categorie_libelle": "Transport / carburant",
+              "type": "depense",
+              "page": 7,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-22",
+              "date_libelle": "22 oct. 2026",
+              "libelle": "Avia",
+              "details": [
+                "À : Station Avia 4738537, 26portes L855",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 9.09,
+              "montant_usd": 9.95,
+              "solde_apres_eur": 1071.75,
+              "categorie": "transport",
+              "categorie_libelle": "Transport / carburant",
+              "type": "depense",
+              "page": 7,
+              "statut": "comptable",
+              "note_classification": "Station Avia — carburant."
+            },
+            {
+              "date": "2026-10-22",
+              "date_libelle": "22 oct. 2026",
+              "libelle": "Avia",
+              "details": [
+                "À : Station Avia 4738537, 26portes L855",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 18.48,
+              "montant_usd": 20.22,
+              "solde_apres_eur": 1053.27,
+              "categorie": "transport",
+              "categorie_libelle": "Transport / carburant",
+              "type": "depense",
+              "page": 7,
+              "statut": "comptable",
+              "note_classification": "Station Avia — carburant."
+            },
+            {
+              "date": "2026-10-24",
+              "date_libelle": "24 oct. 2026",
+              "libelle": "APRR",
+              "details": [
+                "À : Aprr, 21850",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 6.7,
+              "montant_usd": 7.33,
+              "solde_apres_eur": 743.95,
+              "categorie": "transport",
+              "categorie_libelle": "Transport / carburant",
+              "type": "depense",
+              "page": 8,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-24",
+              "date_libelle": "24 oct. 2026",
+              "libelle": "VINCI Autoroutes",
+              "details": [
+                "À : Autoroutes Asf, Vedene Cedex",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 22.3,
+              "montant_usd": 24.41,
+              "solde_apres_eur": 721.65,
+              "categorie": "transport",
+              "categorie_libelle": "Transport / carburant",
+              "type": "depense",
+              "page": 8,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-24",
+              "date_libelle": "24 oct. 2026",
+              "libelle": "VINCI Autoroutes",
+              "details": [
+                "À : Autoroutes Asf, Vedene Cedex",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 9.0,
+              "montant_usd": 9.85,
+              "solde_apres_eur": 712.65,
+              "categorie": "transport",
+              "categorie_libelle": "Transport / carburant",
+              "type": "depense",
+              "page": 8,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-24",
+              "date_libelle": "24 oct. 2026",
+              "libelle": "VINCI Autoroutes",
+              "details": [
+                "À : Escota Vinci, 06211",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 13.6,
+              "montant_usd": 14.88,
+              "solde_apres_eur": 699.05,
+              "categorie": "transport",
+              "categorie_libelle": "Transport / carburant",
+              "type": "depense",
+              "page": 8,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-25",
+              "date_libelle": "25 oct. 2026",
+              "libelle": "Parking Foch",
+              "details": [
+                "À : Parking Foch, Saint-tropez",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 6.0,
+              "montant_usd": 6.57,
+              "solde_apres_eur": 693.05,
+              "categorie": "transport",
+              "categorie_libelle": "Transport / carburant",
+              "type": "depense",
+              "page": 8,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-25",
+              "date_libelle": "25 oct. 2026",
+              "libelle": "APRR",
+              "details": [
+                "À : Aprr Nfc 4261522, 21st Apollina",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 3.1,
+              "montant_usd": 3.39,
+              "solde_apres_eur": 668.48,
+              "categorie": "transport",
+              "categorie_libelle": "Transport / carburant",
+              "type": "depense",
+              "page": 9,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-25",
+              "date_libelle": "25 oct. 2026",
+              "libelle": "APRR",
+              "details": [
+                "À : Aprr Nfc 4261522, 21st Apollina",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 5.0,
+              "montant_usd": 5.47,
+              "solde_apres_eur": 663.48,
+              "categorie": "transport",
+              "categorie_libelle": "Transport / carburant",
+              "type": "depense",
+              "page": 9,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-25",
+              "date_libelle": "25 oct. 2026",
+              "libelle": "APRR",
+              "details": [
+                "À : Aprr Nfc 4261522, 21st Apollina",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 9.4,
+              "montant_usd": 10.29,
+              "solde_apres_eur": 654.08,
+              "categorie": "transport",
+              "categorie_libelle": "Transport / carburant",
+              "type": "depense",
+              "page": 9,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-26",
+              "date_libelle": "26 oct. 2026",
+              "libelle": "APRR",
+              "details": [
+                "À : Aprr, 21850",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 12.5,
+              "montant_usd": 13.68,
+              "solde_apres_eur": 1737.92,
+              "categorie": "transport",
+              "categorie_libelle": "Transport / carburant",
+              "type": "depense",
+              "page": 9,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-27",
+              "date_libelle": "27 oct. 2026",
+              "libelle": "Tesla",
+              "details": [
+                "À : Tesla France Sarl, Chambourcy",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 9.99,
+              "montant_usd": 10.93,
+              "solde_apres_eur": 3734.09,
+              "categorie": "transport",
+              "categorie_libelle": "Transport / carburant",
+              "type": "depense",
+              "page": 10,
+              "statut": "comptable",
+              "note_classification": "Paiements Tesla France / Tesla Inc., Chambourcy — classés transport / véhicule ; les montants 9–18 € ressemblent à de la recharge, le 81,00 € du 30/10 est à confirmer (recharge, SAV ou accessoires)."
+            },
+            {
+              "date": "2026-10-27",
+              "date_libelle": "27 oct. 2026",
+              "libelle": "CTS",
+              "details": [
+                "À : Cts, Strasbourg",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 1.9,
+              "montant_usd": 2.08,
+              "solde_apres_eur": 3732.19,
+              "categorie": "transport",
+              "categorie_libelle": "Transport / carburant",
+              "type": "depense",
+              "page": 10,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-30",
+              "date_libelle": "30 oct. 2026",
+              "libelle": "Tesla",
+              "details": [
+                "À : Tesla France S.a.r.l, Chambourcy",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 81.0,
+              "montant_usd": 88.65,
+              "solde_apres_eur": 1562.0,
+              "categorie": "transport",
+              "categorie_libelle": "Transport / carburant",
+              "type": "depense",
+              "page": 11,
+              "statut": "comptable",
+              "note_classification": "Paiements Tesla France / Tesla Inc., Chambourcy — classés transport / véhicule ; les montants 9–18 € ressemblent à de la recharge, le 81,00 € du 30/10 est à confirmer (recharge, SAV ou accessoires)."
+            }
+          ]
+        },
+        {
+          "id": "assurances",
+          "poste": "Assurances / mutuelle",
+          "n_operations": 3,
+          "debit_eur": 86.96,
+          "credit_eur": 0.0,
+          "observe_eur": 86.96,
+          "observe_usd": 95.17,
+          "projection_eur": 86.96,
+          "projection_usd": 95.17,
+          "objectif": null,
+          "compte_dans_total_depenses": true,
+          "detail": "3 opérations · Axa",
+          "operations": [
+            {
+              "date": "2026-10-05",
+              "date_libelle": "5 oct. 2026",
+              "libelle": "Axa",
+              "details": [
+                "Référence : I0000996157474-CONTRAT0000022720695004"
+              ],
+              "sens": "debit",
+              "montant_eur": 15.88,
+              "montant_usd": 17.38,
+              "solde_apres_eur": 1828.96,
+              "categorie": "assurances",
+              "categorie_libelle": "Assurances / mutuelle",
+              "type": "depense",
+              "page": 2,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-05",
+              "date_libelle": "5 oct. 2026",
+              "libelle": "Axa",
+              "details": [
+                "Référence : I0000998201543-CONTRAT0000022772666404"
+              ],
+              "sens": "debit",
+              "montant_eur": 7.65,
+              "montant_usd": 8.37,
+              "solde_apres_eur": 1821.31,
+              "categorie": "assurances",
+              "categorie_libelle": "Assurances / mutuelle",
+              "type": "depense",
+              "page": 2,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-05",
+              "date_libelle": "5 oct. 2026",
+              "libelle": "Axa",
+              "details": [
+                "Référence : I0000998201534-CONTRAT0000022720648404"
+              ],
+              "sens": "debit",
+              "montant_eur": 63.43,
+              "montant_usd": 69.42,
+              "solde_apres_eur": 1757.88,
+              "categorie": "assurances",
+              "categorie_libelle": "Assurances / mutuelle",
+              "type": "depense",
+              "page": 2,
+              "statut": "comptable"
+            }
+          ]
+        },
+        {
+          "id": "telecom",
+          "poste": "Télécom / internet",
+          "n_operations": 0,
+          "debit_eur": 0.0,
+          "credit_eur": 0.0,
+          "observe_eur": 0.0,
+          "observe_usd": 0.0,
+          "projection_eur": 0.0,
+          "projection_usd": 0.0,
+          "objectif": null,
+          "compte_dans_total_depenses": true,
+          "detail": "Aucune opération en octobre 2026.",
+          "operations": []
+        },
+        {
+          "id": "abonnements",
+          "poste": "Abonnements",
+          "n_operations": 13,
+          "debit_eur": 358.95,
+          "credit_eur": 47.36,
+          "observe_eur": 311.59,
+          "observe_usd": 341.0,
+          "projection_eur": 311.59,
+          "projection_usd": 341.0,
+          "objectif": null,
+          "compte_dans_total_depenses": true,
+          "detail": "13 opérations · Apple, Tradingview, WordPress, Microsoft…",
+          "operations": [
+            {
+              "date": "2026-10-02",
+              "date_libelle": "2 oct. 2026",
+              "libelle": "Microsoft",
+              "details": [
+                "À : Microsoft*subscription, Dublin 2",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 10.0,
+              "montant_usd": 10.94,
+              "solde_apres_eur": 1951.96,
+              "categorie": "abonnements",
+              "categorie_libelle": "Abonnements",
+              "type": "depense",
+              "page": null,
+              "statut": "comptable",
+              "note_classification": "Microsoft*subscription 10,00 €."
+            },
+            {
+              "date": "2026-10-05",
+              "date_libelle": "5 oct. 2026",
+              "libelle": "Apple",
+              "details": [
+                "À : Apple.com/bill, Itunes.com",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 35.0,
+              "montant_usd": 38.3,
+              "solde_apres_eur": 1866.83,
+              "categorie": "abonnements",
+              "categorie_libelle": "Abonnements",
+              "type": "depense",
+              "page": null,
+              "statut": "comptable",
+              "note_classification": "Factures Apple.com/bill ; le 114,99 € du 26/10 est atypique pour un abonnement mensuel — à confirmer s’il s’agit d’un achat App Store. Les crédits Apple du mois (13,53 € et 33,83 €) sont déduits du net de la catégorie."
+            },
+            {
+              "date": "2026-10-07",
+              "date_libelle": "7 oct. 2026",
+              "libelle": "Tradingview",
+              "details": [
+                "À : Tradingviewv*product, Dublin",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 83.94,
+              "montant_usd": 91.86,
+              "solde_apres_eur": 631.89,
+              "categorie": "abonnements",
+              "categorie_libelle": "Abonnements",
+              "type": "depense",
+              "page": 2,
+              "statut": "comptable",
+              "note_classification": "Prélèvement TradingView Premium 83,94 € le 7/10/2026, carte Visa ..7711 — déjà suivi sur la ligne Abonnement TradingView du Budget (formule Essential annuel depuis le 25/11). Non recopié en ligne distincte."
+            },
+            {
+              "date": "2026-10-20",
+              "date_libelle": "20 oct. 2026",
+              "libelle": "Apple",
+              "details": [
+                "À : Apple.com/bill, Itunes.com",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 34.95,
+              "montant_usd": 38.25,
+              "solde_apres_eur": 676.17,
+              "categorie": "abonnements",
+              "categorie_libelle": "Abonnements",
+              "type": "depense",
+              "page": 7,
+              "statut": "comptable",
+              "note_classification": "Factures Apple.com/bill ; le 114,99 € du 26/10 est atypique pour un abonnement mensuel — à confirmer s’il s’agit d’un achat App Store. Les crédits Apple du mois (13,53 € et 33,83 €) sont déduits du net de la catégorie."
+            },
+            {
+              "date": "2026-10-22",
+              "date_libelle": "22 oct. 2026",
+              "libelle": "Apple",
+              "details": [
+                "À : Apple.com/bill, Itunes.com",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 4.99,
+              "montant_usd": 5.46,
+              "solde_apres_eur": 1048.28,
+              "categorie": "abonnements",
+              "categorie_libelle": "Abonnements",
+              "type": "depense",
+              "page": 8,
+              "statut": "comptable",
+              "note_classification": "Factures Apple.com/bill ; le 114,99 € du 26/10 est atypique pour un abonnement mensuel — à confirmer s’il s’agit d’un achat App Store. Les crédits Apple du mois (13,53 € et 33,83 €) sont déduits du net de la catégorie."
+            },
+            {
+              "date": "2026-10-25",
+              "date_libelle": "25 oct. 2026",
+              "libelle": "Apple",
+              "details": [
+                "À : Apple.com/bill, Itunes.com",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 35.0,
+              "montant_usd": 38.3,
+              "solde_apres_eur": 658.05,
+              "categorie": "abonnements",
+              "categorie_libelle": "Abonnements",
+              "type": "depense",
+              "page": 9,
+              "statut": "comptable",
+              "note_classification": "Factures Apple.com/bill ; le 114,99 € du 26/10 est atypique pour un abonnement mensuel — à confirmer s’il s’agit d’un achat App Store. Les crédits Apple du mois (13,53 € et 33,83 €) sont déduits du net de la catégorie."
+            },
+            {
+              "date": "2026-10-25",
+              "date_libelle": "25 oct. 2026",
+              "libelle": "Apple",
+              "details": [
+                "De : Apple.com/bill, Itunes.com",
+                "Carte : 416598******7711"
+              ],
+              "sens": "credit",
+              "montant_eur": 13.53,
+              "montant_usd": 14.81,
+              "solde_apres_eur": 671.58,
+              "categorie": "abonnements",
+              "categorie_libelle": "Abonnements",
+              "type": "remboursement_categorie",
+              "page": 9,
+              "statut": "comptable",
+              "note_classification": "Crédit Apple.com/bill — déduit du net de la catégorie Abonnements."
+            },
+            {
+              "date": "2026-10-26",
+              "date_libelle": "26 oct. 2026",
+              "libelle": "Apple",
+              "details": [
+                "À : Apple.com/bill, Itunes.com",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 114.99,
+              "montant_usd": 125.85,
+              "solde_apres_eur": 1722.49,
+              "categorie": "abonnements",
+              "categorie_libelle": "Abonnements",
+              "type": "depense",
+              "page": 9,
+              "statut": "comptable",
+              "note_classification": "Factures Apple.com/bill ; le 114,99 € du 26/10 est atypique pour un abonnement mensuel — à confirmer s’il s’agit d’un achat App Store. Les crédits Apple du mois (13,53 € et 33,83 €) sont déduits du net de la catégorie."
+            },
+            {
+              "date": "2026-10-26",
+              "date_libelle": "26 oct. 2026",
+              "libelle": "Apple",
+              "details": [
+                "De : Apple.com/bill, Itunes.com",
+                "Carte : 416598******7711"
+              ],
+              "sens": "credit",
+              "montant_eur": 33.83,
+              "montant_usd": 37.02,
+              "solde_apres_eur": 1756.32,
+              "categorie": "abonnements",
+              "categorie_libelle": "Abonnements",
+              "type": "remboursement_categorie",
+              "page": 9,
+              "statut": "comptable",
+              "note_classification": "Crédit Apple.com/bill — déduit du net de la catégorie Abonnements."
+            },
+            {
+              "date": "2026-10-26",
+              "date_libelle": "26 oct. 2026",
+              "libelle": "SpaceXSI",
+              "details": [
+                "Taux Revolut : 1,00 € = 1,11 $",
+                "À : Grok Xai, Www.grok.com, CA",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 4.5,
+              "montant_usd": 4.92,
+              "solde_apres_eur": 1700.97,
+              "devise_origine": {
+                "montant": 5.0,
+                "devise": "USD"
+              },
+              "categorie": "abonnements",
+              "categorie_libelle": "Abonnements",
+              "type": "depense",
+              "page": 9,
+              "statut": "comptable",
+              "note_classification": "Libellé SpaceXSI, commerçant Grok Xai (www.grok.com) — abonnement Grok 4,50 € (5,00 $)."
+            },
+            {
+              "date": "2026-10-29",
+              "date_libelle": "29 oct. 2026",
+              "libelle": "Apple",
+              "details": [
+                "À : Apple.com/bill, Itunes.com",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 6.99,
+              "montant_usd": 7.65,
+              "solde_apres_eur": 2307.43,
+              "categorie": "abonnements",
+              "categorie_libelle": "Abonnements",
+              "type": "depense",
+              "page": 10,
+              "statut": "comptable",
+              "note_classification": "Factures Apple.com/bill ; le 114,99 € du 26/10 est atypique pour un abonnement mensuel — à confirmer s’il s’agit d’un achat App Store. Les crédits Apple du mois (13,53 € et 33,83 €) sont déduits du net de la catégorie."
+            },
+            {
+              "date": "2026-10-29",
+              "date_libelle": "29 oct. 2026",
+              "libelle": "Amazon Digital France Sas",
+              "details": [
+                "Référence : D01-6546231-4312628 Prime Video 3XEMSVKPN0NB495H"
+              ],
+              "sens": "debit",
+              "montant_eur": 6.99,
+              "montant_usd": 7.65,
+              "solde_apres_eur": 2264.89,
+              "categorie": "abonnements",
+              "categorie_libelle": "Abonnements",
+              "type": "depense",
+              "page": 11,
+              "statut": "comptable",
+              "note_classification": "Prime Video (référence D01-6546231-4312628)."
+            },
+            {
+              "date": "2026-10-30",
+              "date_libelle": "30 oct. 2026",
+              "libelle": "WordPress",
+              "details": [
+                "À : Wp*wordpress 8szr8kq44, Dublin",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 21.6,
+              "montant_usd": 23.64,
+              "solde_apres_eur": 1643.0,
+              "categorie": "abonnements",
+              "categorie_libelle": "Abonnements",
+              "type": "depense",
+              "page": 11,
+              "statut": "comptable",
+              "note_classification": "Wp*wordpress — abonnement site (probable activité pro Air Glow)."
+            }
+          ]
+        },
+        {
+          "id": "sante",
+          "poste": "Santé",
+          "n_operations": 5,
+          "debit_eur": 852.15,
+          "credit_eur": 0.0,
+          "observe_eur": 852.15,
+          "observe_usd": 932.59,
+          "projection_eur": 852.15,
+          "projection_usd": 932.59,
+          "objectif": null,
+          "compte_dans_total_depenses": true,
+          "detail": "5 opérations · Dr Eric Koch, Phie Pasteur, Pharmacie Du Port, Pharmacie…",
+          "operations": [
+            {
+              "date": "2026-10-24",
+              "date_libelle": "24 oct. 2026",
+              "libelle": "Pharmacie Du Port",
+              "details": [
+                "À : Selarl Pharmacie, St Tropez",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 8.5,
+              "montant_usd": 9.3,
+              "solde_apres_eur": 753.85,
+              "categorie": "sante",
+              "categorie_libelle": "Santé",
+              "type": "depense",
+              "page": 8,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-27",
+              "date_libelle": "27 oct. 2026",
+              "libelle": "Dr Eric Koch",
+              "details": [
+                "À : Dr Eric Koch, Strasbourg",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 822.99,
+              "montant_usd": 900.68,
+              "solde_apres_eur": 2891.68,
+              "categorie": "sante",
+              "categorie_libelle": "Santé",
+              "type": "depense",
+              "page": 10,
+              "statut": "comptable",
+              "note_classification": "Honoraire / soin 822,99 € — montant élevé, à confirmer la nature (dentaire ?)."
+            },
+            {
+              "date": "2026-10-28",
+              "date_libelle": "28 oct. 2026",
+              "libelle": "Pharmacie",
+              "details": [
+                "À : Pharmacie De L E2158160, Strasbourg",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 8.08,
+              "montant_usd": 8.84,
+              "solde_apres_eur": 2740.29,
+              "categorie": "sante",
+              "categorie_libelle": "Santé",
+              "type": "depense",
+              "page": 10,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-29",
+              "date_libelle": "29 oct. 2026",
+              "libelle": "Phie Pasteur",
+              "details": [
+                "À : Phie Pasteur, Schiltigheim",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 9.08,
+              "montant_usd": 9.94,
+              "solde_apres_eur": 2271.88,
+              "categorie": "sante",
+              "categorie_libelle": "Santé",
+              "type": "depense",
+              "page": 11,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-30",
+              "date_libelle": "30 oct. 2026",
+              "libelle": "Dr Werth Simon",
+              "details": [
+                "À : Dr Werth Simon, Schiltigheim",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 3.5,
+              "montant_usd": 3.83,
+              "solde_apres_eur": 1540.98,
+              "categorie": "sante",
+              "categorie_libelle": "Santé",
+              "type": "depense",
+              "page": 11,
+              "statut": "comptable"
+            }
+          ]
+        },
+        {
+          "id": "enfant",
+          "poste": "Enfant / école",
+          "n_operations": 1,
+          "debit_eur": 80.0,
+          "credit_eur": 0.0,
+          "observe_eur": 80.0,
+          "observe_usd": 87.55,
+          "projection_eur": 80.0,
+          "projection_usd": 87.55,
+          "objectif": null,
+          "compte_dans_total_depenses": true,
+          "detail": "1 opération · Virement à : Shana Trouve",
+          "operations": [
+            {
+              "date": "2026-10-24",
+              "date_libelle": "24 oct. 2026",
+              "libelle": "Virement à : Shana Trouve",
+              "details": [
+                "Référence : (illisible sur le relevé, caractères non extraits)",
+                "À : Shana Trouve"
+              ],
+              "sens": "debit",
+              "montant_eur": 80.0,
+              "montant_usd": 87.55,
+              "solde_apres_eur": 822.08,
+              "categorie": "enfant",
+              "categorie_libelle": "Enfant / école",
+              "type": "depense",
+              "page": 8,
+              "statut": "comptable",
+              "note_classification": "Virement à Shana Trouve 80,00 € — classé enfant / école (argent de poche ou frais) ; à confirmer l’objet. Ce n’est pas un compte d’Emmanuel."
+            }
+          ]
+        },
+        {
+          "id": "loisirs",
+          "poste": "Loisirs / restaurants",
+          "n_operations": 13,
+          "debit_eur": 228.95,
+          "credit_eur": 0.0,
+          "observe_eur": 228.95,
+          "observe_usd": 250.56,
+          "projection_eur": 228.95,
+          "projection_usd": 250.56,
+          "objectif": null,
+          "compte_dans_total_depenses": true,
+          "detail": "13 opérations · Le Jardin des Pins, Yelloh! Village, McDonald's, Le Glacier du Vin…",
+          "operations": [
+            {
+              "date": "2026-10-11",
+              "date_libelle": "11 oct. 2026",
+              "libelle": "McDonald's",
+              "details": [
+                "À : Mc Donald's, Schiltigheim",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 15.45,
+              "montant_usd": 16.91,
+              "solde_apres_eur": 1127.39,
+              "categorie": "loisirs",
+              "categorie_libelle": "Loisirs / restaurants",
+              "type": "depense",
+              "page": 4,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-12",
+              "date_libelle": "12 oct. 2026",
+              "libelle": "Strasbourg Evene",
+              "details": [
+                "À : Strasbourg Evene, Strasbourg",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 6.0,
+              "montant_usd": 6.57,
+              "solde_apres_eur": 1100.15,
+              "categorie": "loisirs",
+              "categorie_libelle": "Loisirs / restaurants",
+              "type": "depense",
+              "page": 4,
+              "statut": "comptable",
+              "note_classification": "Strasbourg Evene 6,00 € — loisir / événement."
+            },
+            {
+              "date": "2026-10-20",
+              "date_libelle": "20 oct. 2026",
+              "libelle": "Le Jardin des Pins",
+              "details": [
+                "À : Le Jardin Des Pi, Ramatuelle",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 28.0,
+              "montant_usd": 30.64,
+              "solde_apres_eur": 789.82,
+              "categorie": "loisirs",
+              "categorie_libelle": "Loisirs / restaurants",
+              "type": "depense",
+              "page": 6,
+              "statut": "comptable",
+              "note_classification": "Le Jardin des Pins, Ramatuelle (6 paiements, 142,80 €) pendant un séjour Ramatuelle / Saint-Tropez — classé loisirs / restaurants ; à confirmer s’il ne s’agit pas d’hébergement."
+            },
+            {
+              "date": "2026-10-20",
+              "date_libelle": "20 oct. 2026",
+              "libelle": "Yelloh! Village",
+              "details": [
+                "À : Camp. Tournels, Ramatuelle",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 38.0,
+              "montant_usd": 41.59,
+              "solde_apres_eur": 751.82,
+              "categorie": "loisirs",
+              "categorie_libelle": "Loisirs / restaurants",
+              "type": "depense",
+              "page": 6,
+              "statut": "comptable",
+              "note_classification": "Camping Yelloh ! Village — Camp. Tournels, Ramatuelle."
+            },
+            {
+              "date": "2026-10-21",
+              "date_libelle": "21 oct. 2026",
+              "libelle": "Le Jardin des Pins",
+              "details": [
+                "À : Le Jardin Des Pi, Ramatuelle",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 43.9,
+              "montant_usd": 48.04,
+              "solde_apres_eur": 1011.7,
+              "categorie": "loisirs",
+              "categorie_libelle": "Loisirs / restaurants",
+              "type": "depense",
+              "page": 7,
+              "statut": "comptable",
+              "note_classification": "Le Jardin des Pins, Ramatuelle (6 paiements, 142,80 €) pendant un séjour Ramatuelle / Saint-Tropez — classé loisirs / restaurants ; à confirmer s’il ne s’agit pas d’hébergement."
+            },
+            {
+              "date": "2026-10-21",
+              "date_libelle": "21 oct. 2026",
+              "libelle": "Le Jardin des Pins",
+              "details": [
+                "À : Le Jardin Des Pi, Ramatuelle",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 4.0,
+              "montant_usd": 4.38,
+              "solde_apres_eur": 1007.7,
+              "categorie": "loisirs",
+              "categorie_libelle": "Loisirs / restaurants",
+              "type": "depense",
+              "page": 7,
+              "statut": "comptable",
+              "note_classification": "Le Jardin des Pins, Ramatuelle (6 paiements, 142,80 €) pendant un séjour Ramatuelle / Saint-Tropez — classé loisirs / restaurants ; à confirmer s’il ne s’agit pas d’hébergement."
+            },
+            {
+              "date": "2026-10-22",
+              "date_libelle": "22 oct. 2026",
+              "libelle": "Le Glacier du Vin",
+              "details": [
+                "À : Le Glacier Du Vi, St Tropez",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 12.0,
+              "montant_usd": 13.13,
+              "solde_apres_eur": 963.15,
+              "categorie": "loisirs",
+              "categorie_libelle": "Loisirs / restaurants",
+              "type": "depense",
+              "page": 8,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-22",
+              "date_libelle": "22 oct. 2026",
+              "libelle": "Le Jardin des Pins",
+              "details": [
+                "À : Le Jardin Des Pi, Ramatuelle",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 30.0,
+              "montant_usd": 32.83,
+              "solde_apres_eur": 933.15,
+              "categorie": "loisirs",
+              "categorie_libelle": "Loisirs / restaurants",
+              "type": "depense",
+              "page": 8,
+              "statut": "comptable",
+              "note_classification": "Le Jardin des Pins, Ramatuelle (6 paiements, 142,80 €) pendant un séjour Ramatuelle / Saint-Tropez — classé loisirs / restaurants ; à confirmer s’il ne s’agit pas d’hébergement."
+            },
+            {
+              "date": "2026-10-24",
+              "date_libelle": "24 oct. 2026",
+              "libelle": "Le Jardin des Pins",
+              "details": [
+                "À : Le Jardin Des Pi, Ramatuelle",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 33.4,
+              "montant_usd": 36.55,
+              "solde_apres_eur": 788.68,
+              "categorie": "loisirs",
+              "categorie_libelle": "Loisirs / restaurants",
+              "type": "depense",
+              "page": 8,
+              "statut": "comptable",
+              "note_classification": "Le Jardin des Pins, Ramatuelle (6 paiements, 142,80 €) pendant un séjour Ramatuelle / Saint-Tropez — classé loisirs / restaurants ; à confirmer s’il ne s’agit pas d’hébergement."
+            },
+            {
+              "date": "2026-10-24",
+              "date_libelle": "24 oct. 2026",
+              "libelle": "Le Jardin des Pins",
+              "details": [
+                "À : Le Jardin Des Pi, Ramatuelle",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 3.5,
+              "montant_usd": 3.83,
+              "solde_apres_eur": 785.18,
+              "categorie": "loisirs",
+              "categorie_libelle": "Loisirs / restaurants",
+              "type": "depense",
+              "page": 8,
+              "statut": "comptable",
+              "note_classification": "Le Jardin des Pins, Ramatuelle (6 paiements, 142,80 €) pendant un séjour Ramatuelle / Saint-Tropez — classé loisirs / restaurants ; à confirmer s’il ne s’agit pas d’hébergement."
+            },
+            {
+              "date": "2026-10-24",
+              "date_libelle": "24 oct. 2026",
+              "libelle": "Selecta",
+              "details": [
+                "À : Selecta Sas, Le Bourget",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 1.6,
+              "montant_usd": 1.75,
+              "solde_apres_eur": 752.25,
+              "categorie": "loisirs",
+              "categorie_libelle": "Loisirs / restaurants",
+              "type": "depense",
+              "page": 8,
+              "statut": "comptable",
+              "note_classification": "Distributeur Selecta."
+            },
+            {
+              "date": "2026-10-24",
+              "date_libelle": "24 oct. 2026",
+              "libelle": "Selecta",
+              "details": [
+                "À : Selecta Sas, Le Bourget",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 1.6,
+              "montant_usd": 1.75,
+              "solde_apres_eur": 750.65,
+              "categorie": "loisirs",
+              "categorie_libelle": "Loisirs / restaurants",
+              "type": "depense",
+              "page": 8,
+              "statut": "comptable",
+              "note_classification": "Distributeur Selecta."
+            },
+            {
+              "date": "2026-10-28",
+              "date_libelle": "28 oct. 2026",
+              "libelle": "Snack Cicek",
+              "details": [
+                "À : Snack Cicek, Schiltigheim",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 11.5,
+              "montant_usd": 12.59,
+              "solde_apres_eur": 2471.09,
+              "categorie": "loisirs",
+              "categorie_libelle": "Loisirs / restaurants",
+              "type": "depense",
+              "page": 10,
+              "statut": "comptable"
+            }
+          ]
+        },
+        {
+          "id": "achats",
+          "poste": "Achats",
+          "n_operations": 15,
+          "debit_eur": 915.83,
+          "credit_eur": 0.0,
+          "observe_eur": 915.83,
+          "observe_usd": 1002.28,
+          "projection_eur": 915.83,
+          "projection_usd": 1002.28,
+          "objectif": null,
+          "compte_dans_total_depenses": true,
+          "detail": "15 opérations · Amazon, Salomon Roppenheim, Temu, Decathlon…",
+          "operations": [
+            {
+              "date": "2026-10-01",
+              "date_libelle": "1 oct. 2026",
+              "libelle": "Amazon",
+              "details": [
+                "À : Amazon Payments 2441535, Paris2441535/",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 36.98,
+              "montant_usd": 40.47,
+              "solde_apres_eur": 2060.0,
+              "categorie": "achats",
+              "categorie_libelle": "Achats",
+              "type": "depense",
+              "page": null,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-05",
+              "date_libelle": "5 oct. 2026",
+              "libelle": "Amazon",
+              "details": [
+                "À : Amazon Payments 2441535, Paris2441535/",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 21.99,
+              "montant_usd": 24.07,
+              "solde_apres_eur": 1844.84,
+              "categorie": "achats",
+              "categorie_libelle": "Achats",
+              "type": "depense",
+              "page": 2,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-05",
+              "date_libelle": "5 oct. 2026",
+              "libelle": "Envato",
+              "details": [
+                "Taux Revolut : 1,00 € = 1,12 $",
+                "À : Envato *72319514, Envato.com, UT",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 87.97,
+              "montant_usd": 96.27,
+              "solde_apres_eur": 769.73,
+              "devise_origine": {
+                "montant": 98.4,
+                "devise": "USD"
+              },
+              "categorie": "achats",
+              "categorie_libelle": "Achats",
+              "type": "depense",
+              "page": 2,
+              "statut": "comptable",
+              "note_classification": "Envato 87,97 € (98,40 $) — licence / thème ; à confirmer s’il s’agit d’un abonnement. Probable activité pro."
+            },
+            {
+              "date": "2026-10-07",
+              "date_libelle": "7 oct. 2026",
+              "libelle": "Amazon",
+              "details": [
+                "À : Amazon Payments 2441535, Paris2441535/",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 34.95,
+              "montant_usd": 38.25,
+              "solde_apres_eur": 320.74,
+              "categorie": "achats",
+              "categorie_libelle": "Achats",
+              "type": "depense",
+              "page": 2,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-07",
+              "date_libelle": "7 oct. 2026",
+              "libelle": "Amazon",
+              "details": [
+                "À : Amazon Payments 2441535, Paris2441535/",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 51.51,
+              "montant_usd": 56.37,
+              "solde_apres_eur": 264.54,
+              "categorie": "achats",
+              "categorie_libelle": "Achats",
+              "type": "depense",
+              "page": 2,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-07",
+              "date_libelle": "7 oct. 2026",
+              "libelle": "Amazon",
+              "details": [
+                "À : Amazon Eu Sarl 2090401, Payli2090401/",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 20.0,
+              "montant_usd": 21.89,
+              "solde_apres_eur": 206.57,
+              "categorie": "achats",
+              "categorie_libelle": "Achats",
+              "type": "depense",
+              "page": 3,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-13",
+              "date_libelle": "13 oct. 2026",
+              "libelle": "Decathlon",
+              "details": [
+                "À : Decathlon 0116, Geispolsheim",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 103.53,
+              "montant_usd": 113.3,
+              "solde_apres_eur": 989.22,
+              "categorie": "achats",
+              "categorie_libelle": "Achats",
+              "type": "depense",
+              "page": 4,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-13",
+              "date_libelle": "13 oct. 2026",
+              "libelle": "Amazon",
+              "details": [
+                "À : Amazon Payments 2441535, Paris2441535/",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 68.77,
+              "montant_usd": 75.26,
+              "solde_apres_eur": 887.18,
+              "categorie": "achats",
+              "categorie_libelle": "Achats",
+              "type": "depense",
+              "page": 5,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-26",
+              "date_libelle": "26 oct. 2026",
+              "libelle": "Amazon",
+              "details": [
+                "À : Amazon Payments 2441535, Paris2441535/",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 14.99,
+              "montant_usd": 16.41,
+              "solde_apres_eur": 1722.93,
+              "categorie": "achats",
+              "categorie_libelle": "Achats",
+              "type": "depense",
+              "page": 9,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-26",
+              "date_libelle": "26 oct. 2026",
+              "libelle": "Amazon",
+              "details": [
+                "À : Amazon Eu Sarl 2090401, Payli2090401/",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 6.99,
+              "montant_usd": 7.65,
+              "solde_apres_eur": 1715.94,
+              "categorie": "achats",
+              "categorie_libelle": "Achats",
+              "type": "depense",
+              "page": 9,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-28",
+              "date_libelle": "28 oct. 2026",
+              "libelle": "The North Face",
+              "details": [
+                "À : Tnf, Roppenheim",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 70.0,
+              "montant_usd": 76.61,
+              "solde_apres_eur": 2778.4,
+              "categorie": "achats",
+              "categorie_libelle": "Achats",
+              "type": "depense",
+              "page": 10,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-28",
+              "date_libelle": "28 oct. 2026",
+              "libelle": "Salomon Roppenheim",
+              "details": [
+                "À : Salomon Roppenheim, Roppenheim",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 234.7,
+              "montant_usd": 256.86,
+              "solde_apres_eur": 2505.59,
+              "categorie": "achats",
+              "categorie_libelle": "Achats",
+              "type": "depense",
+              "page": 10,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-28",
+              "date_libelle": "28 oct. 2026",
+              "libelle": "Mollie Thood Franc...",
+              "details": [
+                "À : Mollie *thood Franc..., Roppenheim",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 23.0,
+              "montant_usd": 25.17,
+              "solde_apres_eur": 2482.59,
+              "categorie": "achats",
+              "categorie_libelle": "Achats",
+              "type": "depense",
+              "page": 10,
+              "statut": "comptable",
+              "note_classification": "Libellé incomplet « Mollie *thood Franc... », Roppenheim — classé achats (magasin outlet) ; commerçant exact à confirmer."
+            },
+            {
+              "date": "2026-10-28",
+              "date_libelle": "28 oct. 2026",
+              "libelle": "Temu",
+              "details": [
+                "À : Temu, Temu.com",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 11.61,
+              "montant_usd": 12.71,
+              "solde_apres_eur": 2443.26,
+              "categorie": "achats",
+              "categorie_libelle": "Achats",
+              "type": "depense",
+              "page": 10,
+              "statut": "comptable"
+            },
+            {
+              "date": "2026-10-28",
+              "date_libelle": "28 oct. 2026",
+              "libelle": "Temu",
+              "details": [
+                "À : Temu, Temu.com",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 128.84,
+              "montant_usd": 141.0,
+              "solde_apres_eur": 2314.42,
+              "categorie": "achats",
+              "categorie_libelle": "Achats",
+              "type": "depense",
+              "page": 10,
+              "statut": "comptable"
+            }
+          ]
+        },
+        {
+          "id": "banque",
+          "poste": "Banque / frais",
+          "n_operations": 0,
+          "debit_eur": 0.0,
+          "credit_eur": 0.0,
+          "observe_eur": 0.0,
+          "observe_usd": 0.0,
+          "projection_eur": 0.0,
+          "projection_usd": 0.0,
+          "objectif": null,
+          "compte_dans_total_depenses": true,
+          "detail": "Aucune opération en octobre 2026.",
+          "operations": []
+        },
+        {
+          "id": "impots",
+          "poste": "Impôts",
+          "n_operations": 1,
+          "debit_eur": 288.0,
+          "credit_eur": 0.0,
+          "observe_eur": 288.0,
+          "observe_usd": 315.19,
+          "projection_eur": 288.0,
+          "projection_usd": 315.19,
+          "objectif": null,
+          "compte_dans_total_depenses": true,
+          "detail": "1 opération · Direction Generale Des Finances Publiques",
+          "operations": [
+            {
+              "date": "2026-10-26",
+              "date_libelle": "26 oct. 2026",
+              "libelle": "Direction Generale Des Finances Publiques",
+              "details": [
+                "Référence : SOLDE IMPOT REVENUS 2025 N DE FACTURE 2667005282776"
+              ],
+              "sens": "debit",
+              "montant_eur": 288.0,
+              "montant_usd": 315.19,
+              "solde_apres_eur": 1412.97,
+              "categorie": "impots",
+              "categorie_libelle": "Impôts",
+              "type": "depense",
+              "page": 9,
+              "statut": "comptable",
+              "note_classification": "Solde impôt sur les revenus 2025, facture 2667005282776."
+            }
+          ]
+        },
+        {
+          "id": "virements_internes",
+          "poste": "Virements internes / épargne / investissement",
+          "n_operations": 10,
+          "debit_eur": 3773.46,
+          "credit_eur": 0.0,
+          "observe_eur": 3773.46,
+          "observe_usd": 4129.67,
+          "projection_eur": 3773.46,
+          "projection_usd": 4129.67,
+          "objectif": null,
+          "compte_dans_total_depenses": false,
+          "detail": "10 opérations · Virement à : EMMANUEL TROUVE, To Emmanuel Trouvé, Deblock",
+          "operations": [
+            {
+              "date": "2026-10-01",
+              "date_libelle": "1 oct. 2026",
+              "libelle": "To Emmanuel Trouvé",
+              "details": [
+                "Référence : Envoyé depuis Revolut",
+                "À : Emmanuel Trouvé, FR7610278010100002262220176"
+              ],
+              "sens": "debit",
+              "montant_eur": 1000.0,
+              "montant_usd": 1094.4,
+              "solde_apres_eur": 1220.38,
+              "categorie": "virements_internes",
+              "categorie_libelle": "Virements internes / épargne / investissement",
+              "type": "virement_interne",
+              "page": null,
+              "statut": "comptable",
+              "note_classification": "Virement vers Emmanuel Trouvé, IBAN FR7610278010100002262220176 (CIC). Ce n’est pas une dépense."
+            },
+            {
+              "date": "2026-10-01",
+              "date_libelle": "1 oct. 2026",
+              "libelle": "Virement à : EMMANUEL TROUVE",
+              "details": [
+                "Référence : To EMMANUEL TROUVE",
+                "À : EMMANUEL TROUVE"
+              ],
+              "sens": "debit",
+              "montant_eur": 1338.7,
+              "montant_usd": 1465.07,
+              "solde_apres_eur": 1321.3,
+              "devise_origine": {
+                "montant": 1500.0,
+                "devise": "USD"
+              },
+              "categorie": "virements_internes",
+              "categorie_libelle": "Virements internes / épargne / investissement",
+              "type": "virement_interne",
+              "page": null,
+              "statut": "comptable",
+              "note_classification": "Virement vers un compte à son nom (dont conversions USD). Ce n’est pas une dépense."
+            },
+            {
+              "date": "2026-10-01",
+              "date_libelle": "1 oct. 2026",
+              "libelle": "Virement à : EMMANUEL TROUVE",
+              "details": [
+                "Référence : To EMMANUEL TROUVE",
+                "À : EMMANUEL TROUVE"
+              ],
+              "sens": "debit",
+              "montant_eur": 267.97,
+              "montant_usd": 293.27,
+              "solde_apres_eur": 1053.33,
+              "devise_origine": {
+                "montant": 300.0,
+                "devise": "USD"
+              },
+              "categorie": "virements_internes",
+              "categorie_libelle": "Virements internes / épargne / investissement",
+              "type": "virement_interne",
+              "page": null,
+              "statut": "comptable",
+              "note_classification": "Virement vers un compte à son nom (dont conversions USD). Ce n’est pas une dépense."
+            },
+            {
+              "date": "2026-10-06",
+              "date_libelle": "6 oct. 2026",
+              "libelle": "Virement à : EMMANUEL TROUVE",
+              "details": [
+                "Référence : To EMMANUEL TROUVE",
+                "À : EMMANUEL TROUVE"
+              ],
+              "sens": "debit",
+              "montant_eur": 150.0,
+              "montant_usd": 164.16,
+              "solde_apres_eur": 619.73,
+              "categorie": "virements_internes",
+              "categorie_libelle": "Virements internes / épargne / investissement",
+              "type": "virement_interne",
+              "page": 2,
+              "statut": "comptable",
+              "note_classification": "Virement vers un compte à son nom (dont conversions USD). Ce n’est pas une dépense."
+            },
+            {
+              "date": "2026-10-07",
+              "date_libelle": "7 oct. 2026",
+              "libelle": "Virement à : EMMANUEL TROUVE",
+              "details": [
+                "Référence : To EMMANUEL TROUVE",
+                "À : EMMANUEL TROUVE"
+              ],
+              "sens": "debit",
+              "montant_eur": 250.0,
+              "montant_usd": 273.6,
+              "solde_apres_eur": 1285.5,
+              "categorie": "virements_internes",
+              "categorie_libelle": "Virements internes / épargne / investissement",
+              "type": "virement_interne",
+              "page": 3,
+              "statut": "comptable",
+              "note_classification": "Virement vers un compte à son nom (dont conversions USD). Ce n’est pas une dépense."
+            },
+            {
+              "date": "2026-10-11",
+              "date_libelle": "11 oct. 2026",
+              "libelle": "To Emmanuel Trouvé",
+              "details": [
+                "Référence : Envoyé depuis Revolut",
+                "À : Emmanuel Trouvé, FR7610278010100002262220176"
+              ],
+              "sens": "debit",
+              "montant_eur": 16.5,
+              "montant_usd": 18.06,
+              "solde_apres_eur": 1162.3,
+              "categorie": "virements_internes",
+              "categorie_libelle": "Virements internes / épargne / investissement",
+              "type": "virement_interne",
+              "page": 4,
+              "statut": "comptable",
+              "note_classification": "Virement vers Emmanuel Trouvé, IBAN FR7610278010100002262220176 (CIC). Ce n’est pas une dépense."
+            },
+            {
+              "date": "2026-10-21",
+              "date_libelle": "21 oct. 2026",
+              "libelle": "Deblock",
+              "details": [
+                "À : Deblock Sas, Lille",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 50.0,
+              "montant_usd": 54.72,
+              "solde_apres_eur": 1187.4,
+              "categorie": "virements_internes",
+              "categorie_libelle": "Virements internes / épargne / investissement",
+              "type": "virement_interne",
+              "page": 7,
+              "statut": "comptable",
+              "note_classification": "Deblock SAS (Lille) 50 € + 100 € — classé épargne / investissement (crypto) ; à confirmer. Ce n’est pas une dépense de consommation."
+            },
+            {
+              "date": "2026-10-21",
+              "date_libelle": "21 oct. 2026",
+              "libelle": "Deblock",
+              "details": [
+                "À : Deblock Sas, Lille",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 100.0,
+              "montant_usd": 109.44,
+              "solde_apres_eur": 1087.4,
+              "categorie": "virements_internes",
+              "categorie_libelle": "Virements internes / épargne / investissement",
+              "type": "virement_interne",
+              "page": 7,
+              "statut": "comptable",
+              "note_classification": "Deblock SAS (Lille) 50 € + 100 € — classé épargne / investissement (crypto) ; à confirmer. Ce n’est pas une dépense de consommation."
+            },
+            {
+              "date": "2026-10-29",
+              "date_libelle": "29 oct. 2026",
+              "libelle": "Virement à : EMMANUEL TROUVE",
+              "details": [
+                "Référence : To EMMANUEL TROUVE",
+                "À : EMMANUEL TROUVE"
+              ],
+              "sens": "debit",
+              "montant_eur": 150.0,
+              "montant_usd": 164.16,
+              "solde_apres_eur": 2114.89,
+              "categorie": "virements_internes",
+              "categorie_libelle": "Virements internes / épargne / investissement",
+              "type": "virement_interne",
+              "page": 11,
+              "statut": "comptable",
+              "note_classification": "Virement vers un compte à son nom (dont conversions USD). Ce n’est pas une dépense."
+            },
+            {
+              "date": "2026-10-30",
+              "date_libelle": "30 oct. 2026",
+              "libelle": "Virement à : EMMANUEL TROUVE",
+              "details": [
+                "Référence : To EMMANUEL TROUVE",
+                "À : EMMANUEL TROUVE"
+              ],
+              "sens": "debit",
+              "montant_eur": 450.29,
+              "montant_usd": 492.8,
+              "solde_apres_eur": 1664.6,
+              "devise_origine": {
+                "montant": 500.0,
+                "devise": "USD"
+              },
+              "categorie": "virements_internes",
+              "categorie_libelle": "Virements internes / épargne / investissement",
+              "type": "virement_interne",
+              "page": 11,
+              "statut": "comptable",
+              "note_classification": "Virement vers un compte à son nom (dont conversions USD). Ce n’est pas une dépense."
+            }
+          ]
+        },
+        {
+          "id": "retraits",
+          "poste": "Retraits",
+          "n_operations": 0,
+          "debit_eur": 0.0,
+          "credit_eur": 0.0,
+          "observe_eur": 0.0,
+          "observe_usd": 0.0,
+          "projection_eur": 0.0,
+          "projection_usd": 0.0,
+          "objectif": null,
+          "compte_dans_total_depenses": true,
+          "detail": "Aucune opération en octobre 2026.",
+          "operations": []
+        },
+        {
+          "id": "autres",
+          "poste": "Autres",
+          "n_operations": 29,
+          "debit_eur": 514.86,
+          "credit_eur": 0.0,
+          "observe_eur": 514.86,
+          "observe_usd": 563.46,
+          "projection_eur": 514.86,
+          "projection_usd": 563.46,
+          "objectif": null,
+          "compte_dans_total_depenses": true,
+          "detail": "29 opérations · l'Institut national de la propriété industrielle, Facebook, Cci Alsace Eurom, X Corp…",
+          "operations": [
+            {
+              "date": "2026-10-07",
+              "date_libelle": "7 oct. 2026",
+              "libelle": "l'Institut national de la propriété industrielle",
+              "details": [
+                "À : Inpi Vads 2338701, 92courbevoie",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 230.0,
+              "montant_usd": 251.71,
+              "solde_apres_eur": 355.69,
+              "categorie": "autres",
+              "categorie_libelle": "Autres",
+              "type": "depense",
+              "page": 2,
+              "statut": "comptable",
+              "note_classification": "INPI 230,00 € — démarche professionnelle (marque / titre). À confirmer."
+            },
+            {
+              "date": "2026-10-07",
+              "date_libelle": "7 oct. 2026",
+              "libelle": "MaxiZoo",
+              "details": [
+                "À : Maxi Zoo Vendenheim Xxl, Vendenheim",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 16.68,
+              "montant_usd": 18.25,
+              "solde_apres_eur": 226.57,
+              "categorie": "autres",
+              "categorie_libelle": "Autres",
+              "type": "depense",
+              "page": 3,
+              "statut": "comptable",
+              "note_classification": "MaxiZoo Vendenheim — animalerie (pas de catégorie dédiée)."
+            },
+            {
+              "date": "2026-10-08",
+              "date_libelle": "8 oct. 2026",
+              "libelle": "Facebook",
+              "details": [
+                "Taux Revolut : 1,00 € = 1,11 $",
+                "À : Facebk *62uce5aga4, Facebook.com",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 1.85,
+              "montant_usd": 2.02,
+              "solde_apres_eur": 1260.85,
+              "devise_origine": {
+                "montant": 2.06,
+                "devise": "USD"
+              },
+              "categorie": "autres",
+              "categorie_libelle": "Autres",
+              "type": "depense",
+              "page": 3,
+              "statut": "comptable",
+              "note_classification": "24 paiements Facebk *… (publicité). Probable dépense professionnelle Air Glow — à confirmer."
+            },
+            {
+              "date": "2026-10-09",
+              "date_libelle": "9 oct. 2026",
+              "libelle": "Facebook",
+              "details": [
+                "Taux Revolut : 1,00 € = 1,12 $",
+                "À : Facebk *a5mzx5aha4, Facebook.com",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 1.84,
+              "montant_usd": 2.01,
+              "solde_apres_eur": 1236.82,
+              "devise_origine": {
+                "montant": 2.05,
+                "devise": "USD"
+              },
+              "categorie": "autres",
+              "categorie_libelle": "Autres",
+              "type": "depense",
+              "page": 3,
+              "statut": "comptable",
+              "note_classification": "24 paiements Facebk *… (publicité). Probable dépense professionnelle Air Glow — à confirmer."
+            },
+            {
+              "date": "2026-10-10",
+              "date_libelle": "10 oct. 2026",
+              "libelle": "X Corp",
+              "details": [
+                "À : X Corp Advertising, Dublin 2",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 7.87,
+              "montant_usd": 8.61,
+              "solde_apres_eur": 1212.3,
+              "categorie": "autres",
+              "categorie_libelle": "Autres",
+              "type": "depense",
+              "page": 3,
+              "statut": "comptable",
+              "note_classification": "X Corp Advertising, Dublin — publicité. Probable dépense professionnelle — à confirmer."
+            },
+            {
+              "date": "2026-10-10",
+              "date_libelle": "10 oct. 2026",
+              "libelle": "Facebook",
+              "details": [
+                "Taux Revolut : 1,00 € = 1,12 $",
+                "À : Facebk *qbytc76ha4, Facebook.com",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 1.84,
+              "montant_usd": 2.01,
+              "solde_apres_eur": 1186.19,
+              "devise_origine": {
+                "montant": 2.05,
+                "devise": "USD"
+              },
+              "categorie": "autres",
+              "categorie_libelle": "Autres",
+              "type": "depense",
+              "page": 3,
+              "statut": "comptable",
+              "note_classification": "24 paiements Facebk *… (publicité). Probable dépense professionnelle Air Glow — à confirmer."
+            },
+            {
+              "date": "2026-10-10",
+              "date_libelle": "10 oct. 2026",
+              "libelle": "Facebook",
+              "details": [
+                "Taux Revolut : 1,00 € = 1,12 $",
+                "À : Facebk *2sk7y6ega4, Facebook.com",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 1.85,
+              "montant_usd": 2.02,
+              "solde_apres_eur": 1184.34,
+              "devise_origine": {
+                "montant": 2.06,
+                "devise": "USD"
+              },
+              "categorie": "autres",
+              "categorie_libelle": "Autres",
+              "type": "depense",
+              "page": 3,
+              "statut": "comptable",
+              "note_classification": "24 paiements Facebk *… (publicité). Probable dépense professionnelle Air Glow — à confirmer."
+            },
+            {
+              "date": "2026-10-10",
+              "date_libelle": "10 oct. 2026",
+              "libelle": "Facebook",
+              "details": [
+                "Taux Revolut : 1,00 € = 1,12 $",
+                "À : Facebk *z5eln5aga4, Facebook.com",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 1.85,
+              "montant_usd": 2.02,
+              "solde_apres_eur": 1182.49,
+              "devise_origine": {
+                "montant": 2.06,
+                "devise": "USD"
+              },
+              "categorie": "autres",
+              "categorie_libelle": "Autres",
+              "type": "depense",
+              "page": 3,
+              "statut": "comptable",
+              "note_classification": "24 paiements Facebk *… (publicité). Probable dépense professionnelle Air Glow — à confirmer."
+            },
+            {
+              "date": "2026-10-10",
+              "date_libelle": "10 oct. 2026",
+              "libelle": "Facebook",
+              "details": [
+                "Taux Revolut : 1,00 € = 1,12 $",
+                "À : Facebk *xwl9z6ega4, Facebook.com",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 1.85,
+              "montant_usd": 2.02,
+              "solde_apres_eur": 1180.64,
+              "devise_origine": {
+                "montant": 2.06,
+                "devise": "USD"
+              },
+              "categorie": "autres",
+              "categorie_libelle": "Autres",
+              "type": "depense",
+              "page": 4,
+              "statut": "comptable",
+              "note_classification": "24 paiements Facebk *… (publicité). Probable dépense professionnelle Air Glow — à confirmer."
+            },
+            {
+              "date": "2026-10-10",
+              "date_libelle": "10 oct. 2026",
+              "libelle": "Facebook",
+              "details": [
+                "Taux Revolut : 1,00 € = 1,12 $",
+                "À : Facebk *rrl737nga4, Facebook.com",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 1.84,
+              "montant_usd": 2.01,
+              "solde_apres_eur": 1178.8,
+              "devise_origine": {
+                "montant": 2.05,
+                "devise": "USD"
+              },
+              "categorie": "autres",
+              "categorie_libelle": "Autres",
+              "type": "depense",
+              "page": 4,
+              "statut": "comptable",
+              "note_classification": "24 paiements Facebk *… (publicité). Probable dépense professionnelle Air Glow — à confirmer."
+            },
+            {
+              "date": "2026-10-11",
+              "date_libelle": "11 oct. 2026",
+              "libelle": "Facebook",
+              "details": [
+                "Taux Revolut : 1,00 € = 1,12 $",
+                "À : Facebk *n8uxr5aga4, Facebook.com",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 1.86,
+              "montant_usd": 2.04,
+              "solde_apres_eur": 1125.53,
+              "devise_origine": {
+                "montant": 2.07,
+                "devise": "USD"
+              },
+              "categorie": "autres",
+              "categorie_libelle": "Autres",
+              "type": "depense",
+              "page": 4,
+              "statut": "comptable",
+              "note_classification": "24 paiements Facebk *… (publicité). Probable dépense professionnelle Air Glow — à confirmer."
+            },
+            {
+              "date": "2026-10-11",
+              "date_libelle": "11 oct. 2026",
+              "libelle": "Facebook",
+              "details": [
+                "Taux Revolut : 1,00 € = 1,12 $",
+                "À : Facebk *dp38j76ha4, Facebook.com",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 1.85,
+              "montant_usd": 2.02,
+              "solde_apres_eur": 1123.68,
+              "devise_origine": {
+                "montant": 2.06,
+                "devise": "USD"
+              },
+              "categorie": "autres",
+              "categorie_libelle": "Autres",
+              "type": "depense",
+              "page": 4,
+              "statut": "comptable",
+              "note_classification": "24 paiements Facebk *… (publicité). Probable dépense professionnelle Air Glow — à confirmer."
+            },
+            {
+              "date": "2026-10-11",
+              "date_libelle": "11 oct. 2026",
+              "libelle": "Facebook",
+              "details": [
+                "Taux Revolut : 1,00 € = 1,12 $",
+                "À : Facebk *53gyj76ha4, Facebook.com",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 1.85,
+              "montant_usd": 2.02,
+              "solde_apres_eur": 1121.83,
+              "devise_origine": {
+                "montant": 2.06,
+                "devise": "USD"
+              },
+              "categorie": "autres",
+              "categorie_libelle": "Autres",
+              "type": "depense",
+              "page": 4,
+              "statut": "comptable",
+              "note_classification": "24 paiements Facebk *… (publicité). Probable dépense professionnelle Air Glow — à confirmer."
+            },
+            {
+              "date": "2026-10-11",
+              "date_libelle": "11 oct. 2026",
+              "libelle": "Facebook",
+              "details": [
+                "Taux Revolut : 1,00 € = 1,12 $",
+                "À : Facebk *zla467ega4, Facebook.com",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 1.85,
+              "montant_usd": 2.02,
+              "solde_apres_eur": 1119.98,
+              "devise_origine": {
+                "montant": 2.06,
+                "devise": "USD"
+              },
+              "categorie": "autres",
+              "categorie_libelle": "Autres",
+              "type": "depense",
+              "page": 4,
+              "statut": "comptable",
+              "note_classification": "24 paiements Facebk *… (publicité). Probable dépense professionnelle Air Glow — à confirmer."
+            },
+            {
+              "date": "2026-10-11",
+              "date_libelle": "11 oct. 2026",
+              "libelle": "Facebook",
+              "details": [
+                "Taux Revolut : 1,00 € = 1,12 $",
+                "À : Facebk *r8etf82ha4, Facebook.com",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 1.83,
+              "montant_usd": 2.0,
+              "solde_apres_eur": 1118.15,
+              "devise_origine": {
+                "montant": 2.04,
+                "devise": "USD"
+              },
+              "categorie": "autres",
+              "categorie_libelle": "Autres",
+              "type": "depense",
+              "page": 4,
+              "statut": "comptable",
+              "note_classification": "24 paiements Facebk *… (publicité). Probable dépense professionnelle Air Glow — à confirmer."
+            },
+            {
+              "date": "2026-10-12",
+              "date_libelle": "12 oct. 2026",
+              "libelle": "Facebook",
+              "details": [
+                "Taux Revolut : 1,00 € = 1,11 $",
+                "À : Facebk *pujb58sga4, Facebook.com",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 3.7,
+              "montant_usd": 4.05,
+              "solde_apres_eur": 1096.45,
+              "devise_origine": {
+                "montant": 4.12,
+                "devise": "USD"
+              },
+              "categorie": "autres",
+              "categorie_libelle": "Autres",
+              "type": "depense",
+              "page": 4,
+              "statut": "comptable",
+              "note_classification": "24 paiements Facebk *… (publicité). Probable dépense professionnelle Air Glow — à confirmer."
+            },
+            {
+              "date": "2026-10-12",
+              "date_libelle": "12 oct. 2026",
+              "libelle": "Facebook",
+              "details": [
+                "Taux Revolut : 1,00 € = 1,11 $",
+                "À : Facebk *nwy5k82ha4, Facebook.com",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 3.7,
+              "montant_usd": 4.05,
+              "solde_apres_eur": 1092.75,
+              "devise_origine": {
+                "montant": 4.12,
+                "devise": "USD"
+              },
+              "categorie": "autres",
+              "categorie_libelle": "Autres",
+              "type": "depense",
+              "page": 4,
+              "statut": "comptable",
+              "note_classification": "24 paiements Facebk *… (publicité). Probable dépense professionnelle Air Glow — à confirmer."
+            },
+            {
+              "date": "2026-10-13",
+              "date_libelle": "13 oct. 2026",
+              "libelle": "X Corp",
+              "details": [
+                "À : X Corp Advertising, Dublin 2",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 14.4,
+              "montant_usd": 15.76,
+              "solde_apres_eur": 974.82,
+              "categorie": "autres",
+              "categorie_libelle": "Autres",
+              "type": "depense",
+              "page": 5,
+              "statut": "comptable",
+              "note_classification": "X Corp Advertising, Dublin — publicité. Probable dépense professionnelle — à confirmer."
+            },
+            {
+              "date": "2026-10-13",
+              "date_libelle": "13 oct. 2026",
+              "libelle": "Facebook",
+              "details": [
+                "Taux Revolut : 1,00 € = 1,11 $",
+                "À : Facebk *7rr5m82ha4, Facebook.com",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 3.71,
+              "montant_usd": 4.06,
+              "solde_apres_eur": 883.47,
+              "devise_origine": {
+                "montant": 4.12,
+                "devise": "USD"
+              },
+              "categorie": "autres",
+              "categorie_libelle": "Autres",
+              "type": "depense",
+              "page": 5,
+              "statut": "comptable",
+              "note_classification": "24 paiements Facebk *… (publicité). Probable dépense professionnelle Air Glow — à confirmer."
+            },
+            {
+              "date": "2026-10-14",
+              "date_libelle": "14 oct. 2026",
+              "libelle": "Facebook",
+              "details": [
+                "Taux Revolut : 1,00 € = 1,11 $",
+                "À : Facebk *gjblr82ha4, Facebook.com",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 6.46,
+              "montant_usd": 7.07,
+              "solde_apres_eur": 720.11,
+              "devise_origine": {
+                "montant": 7.19,
+                "devise": "USD"
+              },
+              "categorie": "autres",
+              "categorie_libelle": "Autres",
+              "type": "depense",
+              "page": 5,
+              "statut": "comptable",
+              "note_classification": "24 paiements Facebk *… (publicité). Probable dépense professionnelle Air Glow — à confirmer."
+            },
+            {
+              "date": "2026-10-15",
+              "date_libelle": "15 oct. 2026",
+              "libelle": "Facebook",
+              "details": [
+                "Taux Revolut : 1,00 € = 1,11 $",
+                "À : Facebk *hka4p7ega4, Facebook.com",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 11.16,
+              "montant_usd": 12.21,
+              "solde_apres_eur": 1147.59,
+              "devise_origine": {
+                "montant": 12.35,
+                "devise": "USD"
+              },
+              "categorie": "autres",
+              "categorie_libelle": "Autres",
+              "type": "depense",
+              "page": 5,
+              "statut": "comptable",
+              "note_classification": "24 paiements Facebk *… (publicité). Probable dépense professionnelle Air Glow — à confirmer."
+            },
+            {
+              "date": "2026-10-16",
+              "date_libelle": "16 oct. 2026",
+              "libelle": "Facebook",
+              "details": [
+                "Taux Revolut : 1,00 € = 1,12 $",
+                "À : Facebk *h4s6x6aha4, Facebook.com",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 11.03,
+              "montant_usd": 12.07,
+              "solde_apres_eur": 1105.82,
+              "devise_origine": {
+                "montant": 12.31,
+                "devise": "USD"
+              },
+              "categorie": "autres",
+              "categorie_libelle": "Autres",
+              "type": "depense",
+              "page": 6,
+              "statut": "comptable",
+              "note_classification": "24 paiements Facebk *… (publicité). Probable dépense professionnelle Air Glow — à confirmer."
+            },
+            {
+              "date": "2026-10-17",
+              "date_libelle": "17 oct. 2026",
+              "libelle": "Cci Alsace Eurom",
+              "details": [
+                "À : Cci Alsace Eurom, Schiltigheim",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 117.63,
+              "montant_usd": 128.73,
+              "solde_apres_eur": 977.64,
+              "categorie": "autres",
+              "categorie_libelle": "Autres",
+              "type": "depense",
+              "page": 6,
+              "statut": "comptable",
+              "note_classification": "CCI Alsace Eurométropole 117,63 € — cotisation / formalité professionnelle. À confirmer."
+            },
+            {
+              "date": "2026-10-17",
+              "date_libelle": "17 oct. 2026",
+              "libelle": "Facebook",
+              "details": [
+                "Taux Revolut : 1,00 € = 1,12 $",
+                "À : Facebk *sfurv6wga4, Facebook.com",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 8.27,
+              "montant_usd": 9.05,
+              "solde_apres_eur": 956.57,
+              "devise_origine": {
+                "montant": 9.26,
+                "devise": "USD"
+              },
+              "categorie": "autres",
+              "categorie_libelle": "Autres",
+              "type": "depense",
+              "page": 6,
+              "statut": "comptable",
+              "note_classification": "24 paiements Facebk *… (publicité). Probable dépense professionnelle Air Glow — à confirmer."
+            },
+            {
+              "date": "2026-10-17",
+              "date_libelle": "17 oct. 2026",
+              "libelle": "Facebook",
+              "details": [
+                "Taux Revolut : 1,00 € = 1,12 $",
+                "À : Facebk *hhd8y7jga4, Facebook.com",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 8.28,
+              "montant_usd": 9.06,
+              "solde_apres_eur": 948.29,
+              "devise_origine": {
+                "montant": 9.26,
+                "devise": "USD"
+              },
+              "categorie": "autres",
+              "categorie_libelle": "Autres",
+              "type": "depense",
+              "page": 6,
+              "statut": "comptable",
+              "note_classification": "24 paiements Facebk *… (publicité). Probable dépense professionnelle Air Glow — à confirmer."
+            },
+            {
+              "date": "2026-10-18",
+              "date_libelle": "18 oct. 2026",
+              "libelle": "Facebook",
+              "details": [
+                "Taux Revolut : 1,00 € = 1,12 $",
+                "À : Facebk *gmas29sga4, Facebook.com",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 8.28,
+              "montant_usd": 9.06,
+              "solde_apres_eur": 933.02,
+              "devise_origine": {
+                "montant": 9.26,
+                "devise": "USD"
+              },
+              "categorie": "autres",
+              "categorie_libelle": "Autres",
+              "type": "depense",
+              "page": 6,
+              "statut": "comptable",
+              "note_classification": "24 paiements Facebk *… (publicité). Probable dépense professionnelle Air Glow — à confirmer."
+            },
+            {
+              "date": "2026-10-20",
+              "date_libelle": "20 oct. 2026",
+              "libelle": "Facebook",
+              "details": [
+                "Taux Revolut : 1,00 € = 1,12 $",
+                "À : Facebk *pp4bk7aha4, Facebook.com",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 8.3,
+              "montant_usd": 9.08,
+              "solde_apres_eur": 667.87,
+              "devise_origine": {
+                "montant": 9.26,
+                "devise": "USD"
+              },
+              "categorie": "autres",
+              "categorie_libelle": "Autres",
+              "type": "depense",
+              "page": 7,
+              "statut": "comptable",
+              "note_classification": "24 paiements Facebk *… (publicité). Probable dépense professionnelle Air Glow — à confirmer."
+            },
+            {
+              "date": "2026-10-25",
+              "date_libelle": "25 oct. 2026",
+              "libelle": "Facebook",
+              "details": [
+                "Taux Revolut : 1,00 € = 1,11 $",
+                "À : Facebk *rnn5da2ha4, Facebook.com",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 16.6,
+              "montant_usd": 18.17,
+              "solde_apres_eur": 637.48,
+              "devise_origine": {
+                "montant": 18.5,
+                "devise": "USD"
+              },
+              "categorie": "autres",
+              "categorie_libelle": "Autres",
+              "type": "depense",
+              "page": 9,
+              "statut": "comptable",
+              "note_classification": "24 paiements Facebk *… (publicité). Probable dépense professionnelle Air Glow — à confirmer."
+            },
+            {
+              "date": "2026-10-27",
+              "date_libelle": "27 oct. 2026",
+              "libelle": "Facebook",
+              "details": [
+                "Taux Revolut : 1,00 € = 1,11 $",
+                "À : Facebk *vxdwna2ha4, Facebook.com",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 16.63,
+              "montant_usd": 18.2,
+              "solde_apres_eur": 2848.4,
+              "devise_origine": {
+                "montant": 18.5,
+                "devise": "USD"
+              },
+              "categorie": "autres",
+              "categorie_libelle": "Autres",
+              "type": "depense",
+              "page": 10,
+              "statut": "comptable",
+              "note_classification": "24 paiements Facebk *… (publicité). Probable dépense professionnelle Air Glow — à confirmer."
+            }
+          ]
+        }
+      ],
+      "totaux": {
+        "depenses_eur": 5517.61,
+        "depenses_usd": 6038.47,
+        "depenses_note": "Somme nette des catégories de dépenses (virements internes, épargne et investissement exclus). Les crédits Apple.com/bill du même mois sont déduits des Abonnements.",
+        "revenus_eur": 876.6,
+        "revenus_usd": 959.35,
+        "revenus_detail": "France Travail Grand Est 876,60 €. Aucun salaire d’employeur sur le relevé d’octobre.",
+        "remboursements_eur": 126.86,
+        "remboursements_usd": 138.84,
+        "remboursements_note": "Remboursement AXA 126,86 € (période 26/06–26/08/2026), présenté à part, non inclus dans les revenus d’octobre ni déduit des cotisations d’octobre.",
+        "reste_eur": -4641.01,
+        "reste_usd": -5079.12,
+        "reste_formule": "revenus − dépenses (hors virements internes / épargne / investissement ; hors remboursement AXA)",
+        "virements_internes_entrants_eur": 8707.64,
+        "virements_internes_entrants_usd": 9529.64,
+        "virements_internes_sortants_eur": 3773.46,
+        "virements_internes_sortants_usd": 4129.67,
+        "argent_sortant_octobre_eur": 9338.43,
+        "argent_entrant_octobre_eur": 9758.46,
+        "argent_sortant_octobre_usd": 10219.98,
+        "argent_entrant_octobre_usd": 10679.66
+      },
+      "revenus_operations": [
+        {
+          "date": "2026-10-01",
+          "date_libelle": "1 oct. 2026",
+          "libelle": "Paiement envoyé par FRANCE TRAVAIL GRAND EST",
+          "details": [
+            "Référence : 17 008 3517942A 01102026",
+            "De : FRANCE TRAVAIL GRAND EST, FR7630066109260001020220303"
+          ],
+          "sens": "credit",
+          "montant_eur": 876.6,
+          "montant_usd": 959.35,
+          "solde_apres_eur": 2096.98,
+          "categorie": "revenus",
+          "categorie_libelle": "revenus",
+          "type": "revenus",
+          "page": null,
+          "statut": "comptable",
+          "note_classification": "Allocation France Travail Grand Est 876,60 € (réf. 17 008 3517942A 01102026). Aucun salaire d’employeur n’apparaît sur le relevé d’octobre."
+        }
+      ],
+      "remboursements_operations": [
+        {
+          "date": "2026-10-30",
+          "date_libelle": "30 oct. 2026",
+          "libelle": "Paiement envoyé par AXA FRANCE IARD",
+          "details": [
+            "Référence : QUITTANCE DE REMBOURSEMENT CONTRAT N 0000022720648404 POUR LA PERIODE DU",
+            "26/06/2026 AU 26/08/2026",
+            "De : AXA FRANCE IARD, FR7630004008180001612507927"
+          ],
+          "sens": "credit",
+          "montant_eur": 126.86,
+          "montant_usd": 138.84,
+          "solde_apres_eur": 1656.59,
+          "categorie": "remboursements",
+          "categorie_libelle": "remboursements",
+          "type": "remboursements",
+          "page": 11,
+          "statut": "comptable",
+          "note_classification": "Quittance de remboursement AXA contrat n° 0000022720648404 pour la période du 26/06/2026 au 26/08/2026 (126,86 €). Ce n’est pas un revenu d’octobre ; non déduit des cotisations AXA d’octobre (période différente)."
+        }
+      ],
+      "virements_internes_entrants": [
+        {
+          "date": "2026-10-01",
+          "date_libelle": "1 oct. 2026",
+          "libelle": "Virement de : EMMANUEL TROUVE",
+          "details": [
+            "Référence : From Emmanuel T",
+            "De : EMMANUEL TROUVE"
+          ],
+          "sens": "credit",
+          "montant_eur": 1000.0,
+          "montant_usd": 1094.4,
+          "solde_apres_eur": 2220.38,
+          "categorie": "virements_internes_entrants",
+          "categorie_libelle": "virements_internes_entrants",
+          "type": "virements_internes_entrants",
+          "page": null,
+          "statut": "comptable",
+          "note_classification": "Alimentation du compte joint depuis un compte à son nom. Ce n’est pas un revenu."
+        },
+        {
+          "date": "2026-10-01",
+          "date_libelle": "1 oct. 2026",
+          "libelle": "Virement de : EMMANUEL TROUVE",
+          "details": [
+            "Référence : From Emmanuel T",
+            "De : EMMANUEL TROUVE"
+          ],
+          "sens": "credit",
+          "montant_eur": 600.0,
+          "montant_usd": 656.64,
+          "solde_apres_eur": 2660.0,
+          "categorie": "virements_internes_entrants",
+          "categorie_libelle": "virements_internes_entrants",
+          "type": "virements_internes_entrants",
+          "page": null,
+          "statut": "comptable",
+          "note_classification": "Alimentation du compte joint depuis un compte à son nom. Ce n’est pas un revenu."
+        },
+        {
+          "date": "2026-10-02",
+          "date_libelle": "2 oct. 2026",
+          "libelle": "Virement de : EMMANUEL TROUVE",
+          "details": [
+            "Référence : From Emmanuel T",
+            "De : EMMANUEL TROUVE"
+          ],
+          "sens": "credit",
+          "montant_eur": 150.0,
+          "montant_usd": 164.16,
+          "solde_apres_eur": 1203.33,
+          "categorie": "virements_internes_entrants",
+          "categorie_libelle": "virements_internes_entrants",
+          "type": "virements_internes_entrants",
+          "page": null,
+          "statut": "comptable",
+          "note_classification": "Alimentation du compte joint depuis un compte à son nom. Ce n’est pas un revenu."
+        },
+        {
+          "date": "2026-10-02",
+          "date_libelle": "2 oct. 2026",
+          "libelle": "Virement de : EMMANUEL TROUVE",
+          "details": [
+            "Référence : From Emmanuel T",
+            "De : EMMANUEL TROUVE"
+          ],
+          "sens": "credit",
+          "montant_eur": 758.63,
+          "montant_usd": 830.24,
+          "solde_apres_eur": 1961.96,
+          "categorie": "virements_internes_entrants",
+          "categorie_libelle": "virements_internes_entrants",
+          "type": "virements_internes_entrants",
+          "page": null,
+          "statut": "comptable",
+          "note_classification": "Alimentation du compte joint depuis un compte à son nom. Ce n’est pas un revenu."
+        },
+        {
+          "date": "2026-10-06",
+          "date_libelle": "6 oct. 2026",
+          "libelle": "Virement de : EMMANUEL TROUVE",
+          "details": [
+            "Référence : From Emmanuel T",
+            "De : EMMANUEL TROUVE"
+          ],
+          "sens": "credit",
+          "montant_eur": 150.0,
+          "montant_usd": 164.16,
+          "solde_apres_eur": 715.83,
+          "categorie": "virements_internes_entrants",
+          "categorie_libelle": "virements_internes_entrants",
+          "type": "virements_internes_entrants",
+          "page": 2,
+          "statut": "comptable",
+          "note_classification": "Alimentation du compte joint depuis un compte à son nom. Ce n’est pas un revenu."
+        },
+        {
+          "date": "2026-10-07",
+          "date_libelle": "7 oct. 2026",
+          "libelle": "Virement de : EMMANUEL TROUVE",
+          "details": [
+            "Référence : From Emmanuel T",
+            "De : EMMANUEL TROUVE"
+          ],
+          "sens": "credit",
+          "montant_eur": 1328.93,
+          "montant_usd": 1454.38,
+          "solde_apres_eur": 1535.5,
+          "categorie": "virements_internes_entrants",
+          "categorie_libelle": "virements_internes_entrants",
+          "type": "virements_internes_entrants",
+          "page": 3,
+          "statut": "comptable",
+          "note_classification": "Alimentation du compte joint depuis un compte à son nom. Ce n’est pas un revenu."
+        },
+        {
+          "date": "2026-10-14",
+          "date_libelle": "14 oct. 2026",
+          "libelle": "Virement de : EMMANUEL TROUVE",
+          "details": [
+            "Référence : From Emmanuel T",
+            "De : EMMANUEL TROUVE"
+          ],
+          "sens": "credit",
+          "montant_eur": 500.0,
+          "montant_usd": 547.2,
+          "solde_apres_eur": 1220.11,
+          "categorie": "virements_internes_entrants",
+          "categorie_libelle": "virements_internes_entrants",
+          "type": "virements_internes_entrants",
+          "page": 5,
+          "statut": "comptable",
+          "note_classification": "Alimentation du compte joint depuis un compte à son nom. Ce n’est pas un revenu."
+        },
+        {
+          "date": "2026-10-21",
+          "date_libelle": "21 oct. 2026",
+          "libelle": "Virement de : EMMANUEL TROUVE",
+          "details": [
+            "Référence : From Emmanuel T",
+            "De : EMMANUEL TROUVE"
+          ],
+          "sens": "credit",
+          "montant_eur": 609.03,
+          "montant_usd": 666.52,
+          "solde_apres_eur": 1241.0,
+          "categorie": "virements_internes_entrants",
+          "categorie_libelle": "virements_internes_entrants",
+          "type": "virements_internes_entrants",
+          "page": 7,
+          "statut": "comptable",
+          "note_classification": "Alimentation du compte joint depuis un compte à son nom. Ce n’est pas un revenu."
+        },
+        {
+          "date": "2026-10-22",
+          "date_libelle": "22 oct. 2026",
+          "libelle": "Virement de : EMMANUEL TROUVE",
+          "details": [
+            "Référence : From Emmanuel T",
+            "De : EMMANUEL TROUVE"
+          ],
+          "sens": "credit",
+          "montant_eur": 79.94,
+          "montant_usd": 87.49,
+          "solde_apres_eur": 1087.64,
+          "categorie": "virements_internes_entrants",
+          "categorie_libelle": "virements_internes_entrants",
+          "type": "virements_internes_entrants",
+          "page": 7,
+          "statut": "comptable",
+          "note_classification": "Alimentation du compte joint depuis un compte à son nom. Ce n’est pas un revenu."
+        },
+        {
+          "date": "2026-10-26",
+          "date_libelle": "26 oct. 2026",
+          "libelle": "Virement de : EMMANUEL TROUVE",
+          "details": [
+            "Référence : From Emmanuel T",
+            "De : EMMANUEL TROUVE"
+          ],
+          "sens": "credit",
+          "montant_eur": 500.0,
+          "montant_usd": 547.2,
+          "solde_apres_eur": 1137.48,
+          "categorie": "virements_internes_entrants",
+          "categorie_libelle": "virements_internes_entrants",
+          "type": "virements_internes_entrants",
+          "page": 9,
+          "statut": "comptable",
+          "note_classification": "Alimentation du compte joint depuis un compte à son nom. Ce n’est pas un revenu."
+        },
+        {
+          "date": "2026-10-26",
+          "date_libelle": "26 oct. 2026",
+          "libelle": "Virement de : EMMANUEL TROUVE",
+          "details": [
+            "Référence : From Emmanuel T",
+            "De : EMMANUEL TROUVE"
+          ],
+          "sens": "credit",
+          "montant_eur": 700.0,
+          "montant_usd": 766.08,
+          "solde_apres_eur": 1837.48,
+          "categorie": "virements_internes_entrants",
+          "categorie_libelle": "virements_internes_entrants",
+          "type": "virements_internes_entrants",
+          "page": 9,
+          "statut": "comptable",
+          "note_classification": "Alimentation du compte joint depuis un compte à son nom. Ce n’est pas un revenu."
+        },
+        {
+          "date": "2026-10-27",
+          "date_libelle": "27 oct. 2026",
+          "libelle": "Virement de : EMMANUEL TROUVE",
+          "details": [
+            "Référence : From Emmanuel T",
+            "De : EMMANUEL TROUVE"
+          ],
+          "sens": "credit",
+          "montant_eur": 2331.11,
+          "montant_usd": 2551.17,
+          "solde_apres_eur": 3744.08,
+          "categorie": "virements_internes_entrants",
+          "categorie_libelle": "virements_internes_entrants",
+          "type": "virements_internes_entrants",
+          "page": 9,
+          "statut": "comptable",
+          "note_classification": "Alimentation du compte joint depuis un compte à son nom. Ce n’est pas un revenu."
+        }
+      ],
+      "tradingview_sur_le_releve": {
+        "present_sur_le_releve": true,
+        "operations": [
+          {
+            "date": "2026-10-07",
+            "date_libelle": "7 oct. 2026",
+            "libelle": "Tradingview",
+            "details": [
+              "À : Tradingviewv*product, Dublin",
+              "Carte : 416598******7711"
+            ],
+            "sens": "debit",
+            "montant_eur": 83.94,
+            "montant_usd": 91.86,
+            "solde_apres_eur": 631.89,
+            "categorie": "abonnements",
+            "categorie_libelle": "Abonnements",
+            "type": "depense",
+            "page": 2,
+            "statut": "comptable",
+            "note_classification": "Prélèvement TradingView Premium 83,94 € le 7/10/2026, carte Visa ..7711 — déjà suivi sur la ligne Abonnement TradingView du Budget (formule Essential annuel depuis le 25/11). Non recopié en ligne distincte."
+          }
+        ],
+        "total_eur": 83.94,
+        "note": "Un prélèvement TradingView 83,94 € (Tradingviewv*product, Dublin, carte 416598******7711) apparaît le 7/10/2026. C’est l’ancien Premium mensuel, déjà suivi sur la ligne « Abonnement TradingView » du Budget (Essential annuel Black Friday 186,48 €/an, soit 15,54 €/mois, depuis le 25/11/2026). Le montant d’octobre est conservé dans la catégorie Abonnements du compte joint (flux réel du mois) ; il n’est pas recopié en seconde ligne d’abonnement. Un second prélèvement identique de 83,94 € figure le 7/11/2026 sur le même relevé (hors bloc octobre)."
+      },
+      "operations_ambigues": [
+        {
+          "sujet": "Le Jardin des Pins, Ramatuelle",
+          "montant_eur": 142.8,
+          "classification": "loisirs",
+          "question": "Restaurant ou hébergement pendant le séjour à Ramatuelle / Saint-Tropez (6 paiements carte) ?"
+        },
+        {
+          "sujet": "Tesla France / Tesla Inc., Chambourcy",
+          "montant_eur": 131.69,
+          "classification": "transport",
+          "question": "Recharge Supercharger, SAV ou accessoires ? Le 81,00 € du 30/10 surtout."
+        },
+        {
+          "sujet": "Virement à Shana Trouve",
+          "montant_eur": 80.0,
+          "classification": "enfant",
+          "question": "Objet du virement (argent de poche, frais scolaires, autre) ?"
+        },
+        {
+          "sujet": "Facebook (Facebk *)",
+          "montant_eur": 128.28,
+          "classification": "autres",
+          "question": "Publicité professionnelle Air Glow, ou dépense personnelle ?"
+        },
+        {
+          "sujet": "X Corp Advertising",
+          "montant_eur": 22.27,
+          "classification": "autres",
+          "question": "Publicité professionnelle, ou dépense personnelle ?"
+        },
+        {
+          "sujet": "INPI (Institut national de la propriété industrielle)",
+          "montant_eur": 230.0,
+          "classification": "autres",
+          "question": "Confirmer la démarche (marque / titre) et le rattachement à l’activité pro."
+        },
+        {
+          "sujet": "CCI Alsace Eurométropole",
+          "montant_eur": 117.63,
+          "classification": "autres",
+          "question": "Cotisation / formalité professionnelle ?"
+        },
+        {
+          "sujet": "Envato",
+          "montant_eur": 87.97,
+          "classification": "achats",
+          "question": "Licence ponctuelle ou abonnement ? Activité pro ?"
+        },
+        {
+          "sujet": "Apple.com/bill 114,99 € le 26/10",
+          "montant_eur": 114.99,
+          "classification": "abonnements",
+          "question": "Abonnement annuel / pack, ou achat App Store ponctuel ?"
+        },
+        {
+          "sujet": "Deblock SAS",
+          "montant_eur": 150.0,
+          "classification": "virements_internes",
+          "question": "Confirmer qu’il s’agit d’un investissement crypto (non dépense)."
+        },
+        {
+          "sujet": "Mollie *thood Franc..., Roppenheim",
+          "montant_eur": 23.0,
+          "classification": "achats",
+          "question": "Commerçant exact (libellé tronqué sur le relevé) ?"
+        },
+        {
+          "sujet": "MaxiZoo Vendenheim 16,68 €",
+          "montant_eur": 16.68,
+          "classification": "autres",
+          "question": "Laisser en Autres (animalerie) ou rattacher à Courses ?"
+        },
+        {
+          "sujet": "Dr Eric Koch 822,99 €",
+          "montant_eur": 822.99,
+          "classification": "sante",
+          "question": "Nature du soin (montant élevé) ?"
+        }
+      ],
+      "operations_hors_octobre": {
+        "note": "Opérations comptabilisées du 1 au 24/11/2026 figurant sur le même relevé. Non incluses dans le bloc Budget octobre 2026.",
+        "n": 134,
+        "argent_sortant_eur": 11866.52,
+        "argent_entrant_eur": 11513.62
+      },
+      "en_attente": {
+        "note": "Section « En attente de 1 octobre 2026 à 25 novembre 2026 » du relevé. Six opérations des 23–24/11, non comptabilisées dans les soldes. Hors bloc octobre.",
+        "n": 6,
+        "total_sortant_eur": 364.1
+      },
+      "renvoyes": {
+        "note": "Section « Renvoyé de 1 octobre 2026 à 25 novembre 2026 ». Paiements carte annulés / renvoyés, non repris dans les totaux comptables ni dans le Budget octobre.",
+        "n": 2
+      }
     }
   }
 }
@@ -7540,8 +11732,8 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
   }
 }
 </script>
-<script type="application/json" id="dataBuild">{"version":"cf247d4-20261125-124847"}</script>
-<link rel="preload" href="config/regles.json?v=cf247d4-20261125-124847" as="fetch" crossorigin>
+<script type="application/json" id="dataBuild">{"version":"c1e42ba-20261125-130506"}</script>
+<link rel="preload" href="config/regles.json?v=c1e42ba-20261125-130506" as="fetch" crossorigin>
 
 <script type="application/json" id="dataMaj">{
   "at": "2026-11-23T21:45:22.168885+01:00",
@@ -20336,20 +24528,53 @@ function bdgTvObjectif(tv){
   }
   return bdgEsc(o.libelle);
 }
-function bdgTableHTML(b){
+function bdgDateShort(s){
+  const m=String(s||'').match(/^(\d{4})-(\d{2})-(\d{2})/);
+  return m?(String(Number(m[3]))+'/'+m[2]):(s||'');
+}
+function bdgJoint(b){ return (b&&b.compte_joint)||null; }
+function bdgOpLine(o){
+  const sens=o.sens==='credit'?'+':'';
+  const when=bdgDateShort(o.date);
+  const amt=bdgAmt(o.montant_eur,'EUR');
+  const fx=o.devise_origine&&o.devise_origine.montant!=null?(' · '+bdgAmt(o.devise_origine.montant,o.devise_origine.devise==='USD'?'USD':'EUR').replace('\u00a0$',' $')):'';
+  return `<li><span class="bdg-op-d">${bdgEsc(when)}</span><span class="bdg-op-l">${bdgEsc(o.libelle||'')}</span><span class="bdg-op-m">${sens}${amt}</span></li>`;
+}
+function bdgOpsDetails(ops, summary, extra){
+  const list=(ops&&ops.length)?(`<ul class="bdg-op-list">${ops.map(bdgOpLine).join('')}</ul>`):'<p class="desc">Aucune opération.</p>';
+  return `<details class="bdg-ops"><summary>${bdgEsc(summary)}</summary>${list}${extra||''}</details>`;
+}
+function bdgRow(opts){
+  const id=opts.id?` id="${opts.id}"`:'';
+  const cls=['card','bdg-row'].concat(opts.cls||[]).join(' ');
+  const det=opts.detailsHtml||`<div class="bdg-det">${opts.detail||'—'}</div>`;
+  const obj=opts.objectif==null||opts.objectif===''?'—':opts.objectif;
+  return `<div class="${cls}"${id}>
+    <div class="bdg-poste"><h2>${opts.poste}</h2></div>
+    <div class="bdg-detail bdg-wrap">${det}</div>
+    <div class="bdg-num">${opts.obsUsd||'—'}</div>
+    <div class="bdg-num">${opts.obsEur||'—'}</div>
+    <div class="bdg-num">${opts.projUsd||'—'}</div>
+    <div class="bdg-num">${opts.projEur||'—'}</div>
+    <div class="bdg-obj">${obj}</div>
+  </div>`;
+}
+function bdgHead(){
+  return `<div class="home-table-h bdg-th" aria-hidden="true">
+    <span>Poste</span><span>Détail</span><span>Observé ce mois $</span><span>€</span><span>Projection mensuelle $</span><span>€</span><span>Objectif</span>
+  </div>`;
+}
+function bdgCourtHtml(b){
   const o=bdgOvnOf(b);
   const t=(b&&b.trading)||{};
   const jour=o.dernier_usd!=null?Number(o.dernier_usd):(o.jours&&o.jours.length&&o.jours[o.jours.length-1].montant_usd!=null?Math.abs(Number(o.jours[o.jours.length-1].montant_usd)):null);
   const obj=o.objectif_eur_mois!=null?o.objectif_eur_mois:20;
   const over=bdgOvnOver(o);
-  const detail= (jour==null||!Number.isFinite(Number(jour)))?'—':(bdgAmt(jour,'USD')+'/j');
+  const detail=(jour==null||!Number.isFinite(Number(jour)))?'—':(bdgAmt(jour,'USD')+'/j');
   const objTxt='&lt; '+String(obj).replace('.', ',')+'\u00a0€';
   const pending=!!(t.a_relever||t.projection_note==='à relever'||!(t.lignes_mois||t.ordres||[]).length);
   const trDet=pending?'à relever':'—';
-  const trUsd=pending?'—':bdgAmt(t.total_mois_usd,'USD');
-  const trEur=pending?'—':bdgAmt(t.total_mois_eur,'EUR');
-  const trPusd=pending?'—':bdgAmt(t.projection_usd,'USD');
-  const trPeur=pending?'—':bdgAmt(t.projection_eur,'EUR');
+  const trDash=pending?'—':null;
   const tv=bdgTvOf(b);
   const tvOk=!!(tv.objectif&&tv.objectif.atteint);
   const tvDet=tv.detail||'—';
@@ -20366,67 +24591,122 @@ function bdgTableHTML(b){
   }
   if(fx) srcParts.push('change '+fx);
   const src=srcParts.length?('Source : '+srcParts.join(' · ')+'.'):'';
-  return `<div class="bdg-table-wrap">
-    <table class="bdg-table" id="bdg-table">
-      <thead>
-        <tr>
-          <th>Poste</th>
-          <th>Détail</th>
-          <th>Observé ce mois $</th>
-          <th>€</th>
-          <th>Projection mensuelle $</th>
-          <th>€</th>
-          <th>Objectif</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr id="bdg-ovn" class="${over?'is-over':'is-ok'}">
-          <td>OVN</td>
-          ${bdgTd(detail)}
-          ${bdgTd(bdgAmt(o.total_mois_usd,'USD'))}
-          ${bdgTd(bdgAmt(o.total_mois_eur,'EUR'))}
-          ${bdgTd(bdgAmt(o.projection_usd,'USD'))}
-          ${bdgTd(bdgAmt(o.projection_eur,'EUR'))}
-          ${bdgTd(objTxt)}
-        </tr>
-        <tr id="bdg-trading">
-          <td>Frais trading</td>
-          ${bdgTd(trDet)}
-          ${bdgTd(trUsd)}
-          ${bdgTd(trEur)}
-          ${bdgTd(trPusd)}
-          ${bdgTd(trPeur)}
-          <td>—</td>
-        </tr>
-        <tr id="bdg-tv" class="${tvOk?'is-ok':''}">
-          <td>Abonnement TradingView</td>
-          <td class="bdg-wrap">${bdgEsc(tvDet)}</td>
-          ${bdgTd(bdgAmt(tv.total_mois_usd,'USD'))}
-          ${bdgTd(bdgAmt(tv.total_mois_eur,'EUR'))}
-          ${bdgTd(bdgAmt(tv.projection_usd,'USD'))}
-          ${bdgTd(bdgAmt(tv.projection_eur,'EUR'))}
-          <td class="bdg-obj">${bdgTvObjectif(tv)}</td>
-        </tr>
-      </tbody>
-      <tfoot>
-        <tr id="bdg-general">
-          <td>Total général</td>
-          <td></td>
-          ${bdgTd(bdgAmt(b.total_observe_usd,'USD'))}
-          ${bdgTd(bdgAmt(b.total_observe_eur,'EUR'))}
-          ${bdgTd(bdgAmt(b.projection_usd,'USD'))}
-          ${bdgTd(bdgAmt(b.projection_eur,'EUR'))}
-          <td>—</td>
-        </tr>
-      </tfoot>
-    </table>
-  </div>
-  ${src?`<p class="bdg-src">${bdgEsc(src)}</p>`:''}`;
+  const mois=b.mois_libelle||'';
+  return `<section class="card home-hero bdg-hero" id="bdg-courtage">
+    <div class="home-hero-top">
+      <h2>Frais de courtage et abonnements</h2>
+      <p class="desc">${bdgEsc(mois?(mois+' · flux courants'):'Flux courants')}</p>
+    </div>
+    <div class="home-table-scroll">
+      <div class="home-table bdg-table" id="bdg-table">
+        ${bdgHead()}
+        ${bdgRow({id:'bdg-ovn',cls:over?['is-over']:['is-ok'],poste:'OVN',detail:detail,obsUsd:bdgAmt(o.total_mois_usd,'USD'),obsEur:bdgAmt(o.total_mois_eur,'EUR'),projUsd:bdgAmt(o.projection_usd,'USD'),projEur:bdgAmt(o.projection_eur,'EUR'),objectif:objTxt})}
+        ${bdgRow({id:'bdg-trading',poste:'Frais trading',detail:trDet,obsUsd:pending?'—':bdgAmt(t.total_mois_usd,'USD'),obsEur:pending?'—':bdgAmt(t.total_mois_eur,'EUR'),projUsd:pending?'—':bdgAmt(t.projection_usd,'USD'),projEur:pending?'—':bdgAmt(t.projection_eur,'EUR'),objectif:'—'})}
+        ${bdgRow({id:'bdg-tv',cls:tvOk?['is-ok']:[],poste:'Abonnement TradingView',detailsHtml:`<div class="bdg-det">${bdgEsc(tvDet)}</div>`,obsUsd:bdgAmt(tv.total_mois_usd,'USD'),obsEur:bdgAmt(tv.total_mois_eur,'EUR'),projUsd:bdgAmt(tv.projection_usd,'USD'),projEur:bdgAmt(tv.projection_eur,'EUR'),objectif:bdgTvObjectif(tv)})}
+        <div class="bdg-foot" id="bdg-general">
+          <div class="bdg-poste"><h2>Total général</h2></div>
+          <div class="bdg-detail"></div>
+          <div class="bdg-num">${bdgAmt(b.total_observe_usd,'USD')}</div>
+          <div class="bdg-num">${bdgAmt(b.total_observe_eur,'EUR')}</div>
+          <div class="bdg-num">${bdgAmt(b.projection_usd,'USD')}</div>
+          <div class="bdg-num">${bdgAmt(b.projection_eur,'EUR')}</div>
+          <div class="bdg-obj">—</div>
+        </div>
+      </div>
+    </div>
+    ${src?`<p class="bdg-src">${bdgEsc(src)}</p>`:''}
+  </section>`;
+}
+function bdgJointHtml(b){
+  const j=bdgJoint(b);
+  if(!j) return '';
+  const tot=j.totaux||{};
+  const per=(j.periode&&j.periode.libelle)||'octobre 2026';
+  const fx=j.fx!=null?String(j.fx).replace('.', ','):(bdgFx(b)||'1,0944');
+  const cats=j.categories||[];
+  const rows=cats.map(c=>{
+    const empty=!c.n_operations;
+    const obsU=empty&&!(c.observe_eur)? '—' : bdgAmt(c.observe_usd,'USD');
+    const obsE=empty&&!(c.observe_eur)? '—' : bdgAmt(c.observe_eur,'EUR');
+    const zeroEmpty=empty && !(Number(c.observe_eur));
+    let extra='';
+    if(c.id==='courses'){
+      const sous=(c.sous_categories||[]).map(s=>{
+        const st=s.statut==='a_venir'?'<span class="bdg-soon">à venir</span>':'';
+        return `<div class="bdg-sous" id="bdg-courses-sous"><p class="desc"><strong>${bdgEsc(s.libelle||'Tickets Lidl')}</strong> ${st}${(s.note)?(' — '+bdgEsc(s.note)) : ''}</p></div>`;
+      }).join('');
+      extra=sous;
+    }
+    const sum=(c.detail||(c.n_operations? (c.n_operations+' opération'+(c.n_operations>1?'s':'')) : 'Aucune opération en octobre 2026.'));
+    const det=empty?`<div class="bdg-det">${bdgEsc(c.detail||'Aucune opération en octobre 2026.')}</div>`:bdgOpsDetails(c.operations,sum,extra);
+    const cls=['bdg-cat'];
+    if(c.id==='courses') cls.push('bdg-cat-courses');
+    if(c.id==='virements_internes') cls.push('bdg-cat-interne');
+    if(zeroEmpty) cls.push('is-empty');
+    return bdgRow({
+      id:'bdg-cat-'+c.id,
+      cls:cls,
+      poste:c.poste||c.id,
+      detailsHtml:det,
+      obsUsd:zeroEmpty?'—':obsU,
+      obsEur:zeroEmpty?'—':obsE,
+      projUsd:zeroEmpty?'—':bdgAmt(c.projection_usd,'USD'),
+      projEur:zeroEmpty?'—':bdgAmt(c.projection_eur,'EUR'),
+      objectif:'—'
+    });
+  }).join('');
+  const resteNeg=Number(tot.reste_eur)<0;
+  const depRow=bdgRow({id:'bdg-joint-depenses',cls:['bdg-foot','bdg-tot-dep'],poste:'Total dépenses',detail:'Hors virements internes, épargne et investissement',obsUsd:bdgAmt(tot.depenses_usd,'USD'),obsEur:bdgAmt(tot.depenses_eur,'EUR'),projUsd:bdgAmt(tot.depenses_usd,'USD'),projEur:bdgAmt(tot.depenses_eur,'EUR'),objectif:'—'});
+  const revDet=bdgOpsDetails(j.revenus_operations||[], tot.revenus_detail||'Revenus d’octobre');
+  const revRow=bdgRow({id:'bdg-joint-revenus',cls:['bdg-foot','bdg-tot-rev'],poste:'Total revenus',detailsHtml:revDet,obsUsd:bdgAmt(tot.revenus_usd,'USD'),obsEur:bdgAmt(tot.revenus_eur,'EUR'),projUsd:bdgAmt(tot.revenus_usd,'USD'),projEur:bdgAmt(tot.revenus_eur,'EUR'),objectif:'—'});
+  const resteRow=bdgRow({id:'bdg-joint-reste',cls:['bdg-foot','bdg-tot-reste',resteNeg?'is-over':'is-ok'],poste:'Reste (revenus − dépenses)',detail:tot.reste_formule||'Revenus − dépenses',obsUsd:bdgAmt(tot.reste_usd,'USD'),obsEur:bdgAmt(tot.reste_eur,'EUR'),projUsd:bdgAmt(tot.reste_usd,'USD'),projEur:bdgAmt(tot.reste_eur,'EUR'),objectif:'—'});
+  const remb=j.remboursements_operations||[];
+  const rembRow=remb.length?bdgRow({id:'bdg-joint-remb',cls:['bdg-annexe'],poste:'Remboursements (à part)',detailsHtml:bdgOpsDetails(remb, tot.remboursements_note||'Remboursements, non inclus dans les revenus'),obsUsd:bdgAmt(tot.remboursements_usd,'USD'),obsEur:bdgAmt(tot.remboursements_eur,'EUR'),projUsd:'—',projEur:'—',objectif:'—'}):'';
+  const vin=j.virements_internes_entrants||[];
+  const vinRow=bdgRow({id:'bdg-joint-vin',cls:['bdg-annexe','bdg-cat-interne'],poste:'Virements internes entrants',detailsHtml:bdgOpsDetails(vin, 'Alimentations du compte joint (non revenus) · '+((vin.length)||0)+' opération'+(vin.length>1?'s':'')),obsUsd:bdgAmt(tot.virements_internes_entrants_usd,'USD'),obsEur:bdgAmt(tot.virements_internes_entrants_eur,'EUR'),projUsd:'—',projEur:'—',objectif:'—'});
+  const tvFlag=j.tradingview_sur_le_releve||{};
+  const tvNote=tvFlag.present_sur_le_releve?(tvFlag.note||'Un prélèvement TradingView figure sur le relevé ; non recopié en seconde ligne d’abonnement.'):'';
+  const srcBits=[];
+  const s=j.source||{};
+  if(s.intitule) srcBits.push(s.intitule);
+  if(s.periode_releve&&s.periode_releve.libelle) srcBits.push('période '+s.periode_releve.libelle);
+  if(s.genere_le_libelle) srcBits.push('généré le '+s.genere_le_libelle);
+  srcBits.push('change '+fx);
+  const cpt=j.compte||{};
+  if(cpt.banque) srcBits.push(cpt.banque);
+  const src='Source : '+srcBits.join(' · ')+'.';
+  const bank=cpt.titulaires?(' · '+cpt.titulaires):'';
+  return `<section class="card home-hero bdg-hero" id="bdg-joint">
+    <div class="home-hero-top">
+      <h2>${bdgEsc(j.titre||'Compte joint famille, octobre 2026')}</h2>
+      <p class="desc">${bdgEsc(per+(cpt.banque?(' · '+cpt.banque):'')+bank)}</p>
+    </div>
+    <div class="home-strip bdg-kvs">
+      <div class="home-kv"><span class="l">Dépenses</span><b>${bdgAmt(tot.depenses_eur,'EUR')}</b><small>${bdgAmt(tot.depenses_usd,'USD')}</small></div>
+      <div class="home-kv"><span class="l">Revenus</span><b>${bdgAmt(tot.revenus_eur,'EUR')}</b><small>${bdgAmt(tot.revenus_usd,'USD')}</small></div>
+      <div class="home-kv ${resteNeg?'is-down':''}"><span class="l">Reste</span><b class="${resteNeg?'down':'up'}">${bdgAmt(tot.reste_eur,'EUR')}</b><small class="${resteNeg?'down':'up'}">${bdgAmt(tot.reste_usd,'USD')}</small></div>
+    </div>
+    <div class="home-table-scroll">
+      <div class="home-table bdg-table" id="bdg-table-joint">
+        ${bdgHead()}
+        ${rows}
+        ${depRow}
+        ${revRow}
+        ${resteRow}
+        ${rembRow}
+        ${vinRow}
+      </div>
+    </div>
+    ${tvNote?`<p class="bdg-src bdg-tv-flag">${bdgEsc(tvNote)}</p>`:''}
+    <p class="bdg-src">${bdgEsc(src)}</p>
+  </section>`;
+}
+function bdgTableHTML(b){
+  return bdgCourtHtml(b)+bdgJointHtml(b);
 }
 function bdgPageHTML(){
   const b=bdgData()||{};
-  const mois=b.mois_libelle||'';
-  const title=mois?('Budget — '+mois):'Budget';
+  const title='Budget';
   return `<div class="rg-top">
       <button type="button" id="bdgBack" class="rg-back">← Retour</button>
       <h1 id="bdgPageTitle">${bdgEsc(title)}</h1>

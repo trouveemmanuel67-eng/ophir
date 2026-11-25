@@ -153,7 +153,8 @@ def test_ordres_traites_comme_positions_actives_dans_le_js():
     assert "FRAIS CFD" not in BDG
     assert "Frais trading" in BDG
     assert "Abonnement TradingView" in BDG
-    assert 'id="bdg-tv"' in BDG
+    assert "id:'bdg-tv'" in BDG or "id:\"bdg-tv\"" in BDG or "bdg-tv" in BDG
+    assert "bdg-cat-courses" in BDG
     assert "Objectif atteint" in BDG
     assert 'id="bdg-wrap"' in CSS
     assert "function bdgSetOpen" in BDG
@@ -180,6 +181,24 @@ def test_ordres_traites_comme_positions_actives_dans_le_js():
     assert bud["total_observe_usd"] == 2.34
     assert bud["projection_usd"] == 87.21
     assert bud["projection_eur"] == 79.68
+    cj = bud["compte_joint"]
+    assert cj["titre"] == "Compte joint famille, octobre 2026"
+    assert cj["periode"]["mois"] == "2026-10"
+    assert cj["totaux"]["depenses_eur"] == 5517.61
+    assert cj["totaux"]["revenus_eur"] == 876.6
+    assert cj["totaux"]["reste_eur"] == -4641.01
+    assert cj["totaux"]["virements_internes_sortants_eur"] == 3773.46
+    courses = next(c for c in cj["categories"] if c["id"] == "courses")
+    assert courses["observe_eur"] == 984.83
+    assert courses["sous_categories"][0]["id"] == "tickets_lidl"
+    assert courses["sous_categories"][0]["statut"] == "a_venir"
+    assert cj["tradingview_sur_le_releve"]["present_sur_le_releve"] is True
+    assert cj["tradingview_sur_le_releve"]["total_eur"] == 83.94
+    assert "Compte joint famille" in BDG
+    assert "Tickets Lidl" in BDG
+    assert "bdg-courses-sous" in BDG
+    assert "bdg-hero" in BDG and "bdg-hero" in CSS
+    assert "home-hero" in CSS
     assert (ROOT / "data" / "revolut" / "frais_trading_ordres.json").exists()
     assert "19/11/2026 à 21 h" not in JS
     assert "XTB 23/11/2026 à 13 h 48" not in JS

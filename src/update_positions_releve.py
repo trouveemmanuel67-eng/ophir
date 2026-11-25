@@ -18,6 +18,7 @@ YIELDS = DATA / "rendements_positions.json"
 FRAIS_CFD = DATA / "revolut" / "frais_cfd_ovn.json"
 FRAIS_TRADING = DATA / "revolut" / "frais_trading_ordres.json"
 ABO_TV = DATA / "abonnement_tradingview.json"
+COMPTE_JOINT = DATA / "budget" / "compte_joint_2026-10.json"
 PARIS = ZoneInfo("Europe/Paris")
 
 # Métadonnées APEX (tickers TV, onglets, dates d'achat déjà connues).
@@ -778,10 +779,91 @@ def build_abonnement_tv(fx):
     return out
 
 
+
+def _cj_usd(eur, fx):
+    if eur in (None, ""):
+        return None
+    return r2(float(eur) * fx) if fx else None
+
+
+def _cj_ops(ops, fx):
+    out = []
+    for o in ops or []:
+        rec = dict(o)
+        rec["montant_usd"] = _cj_usd(rec.get("montant_eur"), fx)
+        out.append(rec)
+    return out
+
+
+def build_compte_joint(fx):
+    """Compte joint famille octobre 2026, sourcé (data/budget/compte_joint_2026-10.json)."""
+    if not COMPTE_JOINT.exists():
+        return None
+    raw = json.loads(COMPTE_JOINT.read_text(encoding="utf-8"))
+    cats = []
+    for c in raw.get("categories") or []:
+        rec = {k: v for k, v in c.items() if k not in ("operations", "sous_categories", "commercants")}
+        rec["observe_usd"] = _cj_usd(rec.get("observe_eur"), fx)
+        rec["projection_eur"] = rec.get("observe_eur")
+        rec["projection_usd"] = rec["observe_usd"]
+        rec["operations"] = _cj_ops(c.get("operations"), fx)
+        if c.get("id") == "courses":
+            rec["commercants"] = []
+            for m in c.get("commercants") or []:
+                mm = dict(m)
+                mm["total_usd"] = _cj_usd(mm.get("total_eur"), fx)
+                rec["commercants"].append(mm)
+            rec["sous_categories"] = c.get("sous_categories") or []
+        cats.append(rec)
+    tot = dict(raw.get("totaux") or {})
+    for k in list(tot):
+        if k.endswith("_eur"):
+            tot[k[:-4] + "_usd"] = _cj_usd(tot.get(k), fx)
+    soldes = dict(raw.get("soldes") or {})
+    for k in list(soldes):
+        if k.endswith("_eur") and isinstance(soldes.get(k), (int, float)):
+            soldes[k[:-4] + "_usd"] = _cj_usd(soldes.get(k), fx)
+    hors = raw.get("operations_hors_octobre") or {}
+    att = raw.get("en_attente") or {}
+    ren = raw.get("renvoyes") or {}
+    return {
+        "id": raw.get("id"),
+        "titre": raw.get("titre") or "Compte joint famille, octobre 2026",
+        "compte": raw.get("compte"),
+        "source": raw.get("source"),
+        "periode": raw.get("periode"),
+        "soldes": soldes,
+        "fx": fx,
+        "categories": cats,
+        "totaux": tot,
+        "revenus_operations": _cj_ops(raw.get("revenus_operations"), fx),
+        "remboursements_operations": _cj_ops(raw.get("remboursements_operations"), fx),
+        "virements_internes_entrants": _cj_ops(raw.get("virements_internes_entrants"), fx),
+        "tradingview_sur_le_releve": raw.get("tradingview_sur_le_releve"),
+        "operations_ambigues": raw.get("operations_ambigues") or [],
+        "operations_hors_octobre": {
+            "note": hors.get("note"),
+            "n": hors.get("n"),
+            "argent_sortant_eur": hors.get("argent_sortant_eur"),
+            "argent_entrant_eur": hors.get("argent_entrant_eur"),
+        },
+        "en_attente": {
+            "note": att.get("note"),
+            "n": len(att.get("operations") or []),
+            "total_sortant_eur": att.get("total_sortant_eur"),
+        },
+        "renvoyes": {
+            "note": ren.get("note"),
+            "n": len(ren.get("operations") or []),
+        },
+    }
+
+
 def build_budget(fx, now):
-    """Agrège OVN et frais d'ordres sourcés, sans inventer un montant manquant."""
+    """Agrège OVN, frais d'ordres, TradingView et le compte joint sourcé, sans inventer un montant manquant."""
     ovn = build_frais_cfd(fx)
     tv = build_abonnement_tv(fx)
+    cj = build_compte_joint(fx)
     raw_t = json.loads(FRAIS_TRADING.read_text()) if FRAIS_TRADING.exists() else {"ordres": []}
     ym = f"{now.year:04d}-{now.month:02d}"
     mois_lib = f"{MOIS_FR[now.month]} {now.year}"
@@ -823,6 +905,7 @@ def build_budget(fx, now):
             "projection_note": "à relever" if a_relever else None,
         },
         "tradingview": tv,
+        "compte_joint": cj,
         "total_observe_usd": observe_usd,
         "total_observe_eur": r2(observe_usd / fx) if fx else None,
         "projection_usd": r2((ovn.get("projection_usd") or 0) + ((tv or {}).get("projection_usd") or 0)),

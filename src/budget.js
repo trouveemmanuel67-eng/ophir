@@ -113,20 +113,53 @@ function bdgTvObjectif(tv){
   }
   return bdgEsc(o.libelle);
 }
-function bdgTableHTML(b){
+function bdgDateShort(s){
+  const m=String(s||'').match(/^(\d{4})-(\d{2})-(\d{2})/);
+  return m?(String(Number(m[3]))+'/'+m[2]):(s||'');
+}
+function bdgJoint(b){ return (b&&b.compte_joint)||null; }
+function bdgOpLine(o){
+  const sens=o.sens==='credit'?'+':'';
+  const when=bdgDateShort(o.date);
+  const amt=bdgAmt(o.montant_eur,'EUR');
+  const fx=o.devise_origine&&o.devise_origine.montant!=null?(' · '+bdgAmt(o.devise_origine.montant,o.devise_origine.devise==='USD'?'USD':'EUR').replace('\u00a0$',' $')):'';
+  return `<li><span class="bdg-op-d">${bdgEsc(when)}</span><span class="bdg-op-l">${bdgEsc(o.libelle||'')}</span><span class="bdg-op-m">${sens}${amt}</span></li>`;
+}
+function bdgOpsDetails(ops, summary, extra){
+  const list=(ops&&ops.length)?(`<ul class="bdg-op-list">${ops.map(bdgOpLine).join('')}</ul>`):'<p class="desc">Aucune opération.</p>';
+  return `<details class="bdg-ops"><summary>${bdgEsc(summary)}</summary>${list}${extra||''}</details>`;
+}
+function bdgRow(opts){
+  const id=opts.id?` id="${opts.id}"`:'';
+  const cls=['card','bdg-row'].concat(opts.cls||[]).join(' ');
+  const det=opts.detailsHtml||`<div class="bdg-det">${opts.detail||'—'}</div>`;
+  const obj=opts.objectif==null||opts.objectif===''?'—':opts.objectif;
+  return `<div class="${cls}"${id}>
+    <div class="bdg-poste"><h2>${opts.poste}</h2></div>
+    <div class="bdg-detail bdg-wrap">${det}</div>
+    <div class="bdg-num">${opts.obsUsd||'—'}</div>
+    <div class="bdg-num">${opts.obsEur||'—'}</div>
+    <div class="bdg-num">${opts.projUsd||'—'}</div>
+    <div class="bdg-num">${opts.projEur||'—'}</div>
+    <div class="bdg-obj">${obj}</div>
+  </div>`;
+}
+function bdgHead(){
+  return `<div class="home-table-h bdg-th" aria-hidden="true">
+    <span>Poste</span><span>Détail</span><span>Observé ce mois $</span><span>€</span><span>Projection mensuelle $</span><span>€</span><span>Objectif</span>
+  </div>`;
+}
+function bdgCourtHtml(b){
   const o=bdgOvnOf(b);
   const t=(b&&b.trading)||{};
   const jour=o.dernier_usd!=null?Number(o.dernier_usd):(o.jours&&o.jours.length&&o.jours[o.jours.length-1].montant_usd!=null?Math.abs(Number(o.jours[o.jours.length-1].montant_usd)):null);
   const obj=o.objectif_eur_mois!=null?o.objectif_eur_mois:20;
   const over=bdgOvnOver(o);
-  const detail= (jour==null||!Number.isFinite(Number(jour)))?'—':(bdgAmt(jour,'USD')+'/j');
+  const detail=(jour==null||!Number.isFinite(Number(jour)))?'—':(bdgAmt(jour,'USD')+'/j');
   const objTxt='&lt; '+String(obj).replace('.', ',')+'\u00a0€';
   const pending=!!(t.a_relever||t.projection_note==='à relever'||!(t.lignes_mois||t.ordres||[]).length);
   const trDet=pending?'à relever':'—';
-  const trUsd=pending?'—':bdgAmt(t.total_mois_usd,'USD');
-  const trEur=pending?'—':bdgAmt(t.total_mois_eur,'EUR');
-  const trPusd=pending?'—':bdgAmt(t.projection_usd,'USD');
-  const trPeur=pending?'—':bdgAmt(t.projection_eur,'EUR');
+  const trDash=pending?'—':null;
   const tv=bdgTvOf(b);
   const tvOk=!!(tv.objectif&&tv.objectif.atteint);
   const tvDet=tv.detail||'—';
@@ -143,67 +176,122 @@ function bdgTableHTML(b){
   }
   if(fx) srcParts.push('change '+fx);
   const src=srcParts.length?('Source : '+srcParts.join(' · ')+'.'):'';
-  return `<div class="bdg-table-wrap">
-    <table class="bdg-table" id="bdg-table">
-      <thead>
-        <tr>
-          <th>Poste</th>
-          <th>Détail</th>
-          <th>Observé ce mois $</th>
-          <th>€</th>
-          <th>Projection mensuelle $</th>
-          <th>€</th>
-          <th>Objectif</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr id="bdg-ovn" class="${over?'is-over':'is-ok'}">
-          <td>OVN</td>
-          ${bdgTd(detail)}
-          ${bdgTd(bdgAmt(o.total_mois_usd,'USD'))}
-          ${bdgTd(bdgAmt(o.total_mois_eur,'EUR'))}
-          ${bdgTd(bdgAmt(o.projection_usd,'USD'))}
-          ${bdgTd(bdgAmt(o.projection_eur,'EUR'))}
-          ${bdgTd(objTxt)}
-        </tr>
-        <tr id="bdg-trading">
-          <td>Frais trading</td>
-          ${bdgTd(trDet)}
-          ${bdgTd(trUsd)}
-          ${bdgTd(trEur)}
-          ${bdgTd(trPusd)}
-          ${bdgTd(trPeur)}
-          <td>—</td>
-        </tr>
-        <tr id="bdg-tv" class="${tvOk?'is-ok':''}">
-          <td>Abonnement TradingView</td>
-          <td class="bdg-wrap">${bdgEsc(tvDet)}</td>
-          ${bdgTd(bdgAmt(tv.total_mois_usd,'USD'))}
-          ${bdgTd(bdgAmt(tv.total_mois_eur,'EUR'))}
-          ${bdgTd(bdgAmt(tv.projection_usd,'USD'))}
-          ${bdgTd(bdgAmt(tv.projection_eur,'EUR'))}
-          <td class="bdg-obj">${bdgTvObjectif(tv)}</td>
-        </tr>
-      </tbody>
-      <tfoot>
-        <tr id="bdg-general">
-          <td>Total général</td>
-          <td></td>
-          ${bdgTd(bdgAmt(b.total_observe_usd,'USD'))}
-          ${bdgTd(bdgAmt(b.total_observe_eur,'EUR'))}
-          ${bdgTd(bdgAmt(b.projection_usd,'USD'))}
-          ${bdgTd(bdgAmt(b.projection_eur,'EUR'))}
-          <td>—</td>
-        </tr>
-      </tfoot>
-    </table>
-  </div>
-  ${src?`<p class="bdg-src">${bdgEsc(src)}</p>`:''}`;
+  const mois=b.mois_libelle||'';
+  return `<section class="card home-hero bdg-hero" id="bdg-courtage">
+    <div class="home-hero-top">
+      <h2>Frais de courtage et abonnements</h2>
+      <p class="desc">${bdgEsc(mois?(mois+' · flux courants'):'Flux courants')}</p>
+    </div>
+    <div class="home-table-scroll">
+      <div class="home-table bdg-table" id="bdg-table">
+        ${bdgHead()}
+        ${bdgRow({id:'bdg-ovn',cls:over?['is-over']:['is-ok'],poste:'OVN',detail:detail,obsUsd:bdgAmt(o.total_mois_usd,'USD'),obsEur:bdgAmt(o.total_mois_eur,'EUR'),projUsd:bdgAmt(o.projection_usd,'USD'),projEur:bdgAmt(o.projection_eur,'EUR'),objectif:objTxt})}
+        ${bdgRow({id:'bdg-trading',poste:'Frais trading',detail:trDet,obsUsd:pending?'—':bdgAmt(t.total_mois_usd,'USD'),obsEur:pending?'—':bdgAmt(t.total_mois_eur,'EUR'),projUsd:pending?'—':bdgAmt(t.projection_usd,'USD'),projEur:pending?'—':bdgAmt(t.projection_eur,'EUR'),objectif:'—'})}
+        ${bdgRow({id:'bdg-tv',cls:tvOk?['is-ok']:[],poste:'Abonnement TradingView',detailsHtml:`<div class="bdg-det">${bdgEsc(tvDet)}</div>`,obsUsd:bdgAmt(tv.total_mois_usd,'USD'),obsEur:bdgAmt(tv.total_mois_eur,'EUR'),projUsd:bdgAmt(tv.projection_usd,'USD'),projEur:bdgAmt(tv.projection_eur,'EUR'),objectif:bdgTvObjectif(tv)})}
+        <div class="bdg-foot" id="bdg-general">
+          <div class="bdg-poste"><h2>Total général</h2></div>
+          <div class="bdg-detail"></div>
+          <div class="bdg-num">${bdgAmt(b.total_observe_usd,'USD')}</div>
+          <div class="bdg-num">${bdgAmt(b.total_observe_eur,'EUR')}</div>
+          <div class="bdg-num">${bdgAmt(b.projection_usd,'USD')}</div>
+          <div class="bdg-num">${bdgAmt(b.projection_eur,'EUR')}</div>
+          <div class="bdg-obj">—</div>
+        </div>
+      </div>
+    </div>
+    ${src?`<p class="bdg-src">${bdgEsc(src)}</p>`:''}
+  </section>`;
+}
+function bdgJointHtml(b){
+  const j=bdgJoint(b);
+  if(!j) return '';
+  const tot=j.totaux||{};
+  const per=(j.periode&&j.periode.libelle)||'octobre 2026';
+  const fx=j.fx!=null?String(j.fx).replace('.', ','):(bdgFx(b)||'1,0944');
+  const cats=j.categories||[];
+  const rows=cats.map(c=>{
+    const empty=!c.n_operations;
+    const obsU=empty&&!(c.observe_eur)? '—' : bdgAmt(c.observe_usd,'USD');
+    const obsE=empty&&!(c.observe_eur)? '—' : bdgAmt(c.observe_eur,'EUR');
+    const zeroEmpty=empty && !(Number(c.observe_eur));
+    let extra='';
+    if(c.id==='courses'){
+      const sous=(c.sous_categories||[]).map(s=>{
+        const st=s.statut==='a_venir'?'<span class="bdg-soon">à venir</span>':'';
+        return `<div class="bdg-sous" id="bdg-courses-sous"><p class="desc"><strong>${bdgEsc(s.libelle||'Tickets Lidl')}</strong> ${st}${(s.note)?(' — '+bdgEsc(s.note)) : ''}</p></div>`;
+      }).join('');
+      extra=sous;
+    }
+    const sum=(c.detail||(c.n_operations? (c.n_operations+' opération'+(c.n_operations>1?'s':'')) : 'Aucune opération en octobre 2026.'));
+    const det=empty?`<div class="bdg-det">${bdgEsc(c.detail||'Aucune opération en octobre 2026.')}</div>`:bdgOpsDetails(c.operations,sum,extra);
+    const cls=['bdg-cat'];
+    if(c.id==='courses') cls.push('bdg-cat-courses');
+    if(c.id==='virements_internes') cls.push('bdg-cat-interne');
+    if(zeroEmpty) cls.push('is-empty');
+    return bdgRow({
+      id:'bdg-cat-'+c.id,
+      cls:cls,
+      poste:c.poste||c.id,
+      detailsHtml:det,
+      obsUsd:zeroEmpty?'—':obsU,
+      obsEur:zeroEmpty?'—':obsE,
+      projUsd:zeroEmpty?'—':bdgAmt(c.projection_usd,'USD'),
+      projEur:zeroEmpty?'—':bdgAmt(c.projection_eur,'EUR'),
+      objectif:'—'
+    });
+  }).join('');
+  const resteNeg=Number(tot.reste_eur)<0;
+  const depRow=bdgRow({id:'bdg-joint-depenses',cls:['bdg-foot','bdg-tot-dep'],poste:'Total dépenses',detail:'Hors virements internes, épargne et investissement',obsUsd:bdgAmt(tot.depenses_usd,'USD'),obsEur:bdgAmt(tot.depenses_eur,'EUR'),projUsd:bdgAmt(tot.depenses_usd,'USD'),projEur:bdgAmt(tot.depenses_eur,'EUR'),objectif:'—'});
+  const revDet=bdgOpsDetails(j.revenus_operations||[], tot.revenus_detail||'Revenus d’octobre');
+  const revRow=bdgRow({id:'bdg-joint-revenus',cls:['bdg-foot','bdg-tot-rev'],poste:'Total revenus',detailsHtml:revDet,obsUsd:bdgAmt(tot.revenus_usd,'USD'),obsEur:bdgAmt(tot.revenus_eur,'EUR'),projUsd:bdgAmt(tot.revenus_usd,'USD'),projEur:bdgAmt(tot.revenus_eur,'EUR'),objectif:'—'});
+  const resteRow=bdgRow({id:'bdg-joint-reste',cls:['bdg-foot','bdg-tot-reste',resteNeg?'is-over':'is-ok'],poste:'Reste (revenus − dépenses)',detail:tot.reste_formule||'Revenus − dépenses',obsUsd:bdgAmt(tot.reste_usd,'USD'),obsEur:bdgAmt(tot.reste_eur,'EUR'),projUsd:bdgAmt(tot.reste_usd,'USD'),projEur:bdgAmt(tot.reste_eur,'EUR'),objectif:'—'});
+  const remb=j.remboursements_operations||[];
+  const rembRow=remb.length?bdgRow({id:'bdg-joint-remb',cls:['bdg-annexe'],poste:'Remboursements (à part)',detailsHtml:bdgOpsDetails(remb, tot.remboursements_note||'Remboursements, non inclus dans les revenus'),obsUsd:bdgAmt(tot.remboursements_usd,'USD'),obsEur:bdgAmt(tot.remboursements_eur,'EUR'),projUsd:'—',projEur:'—',objectif:'—'}):'';
+  const vin=j.virements_internes_entrants||[];
+  const vinRow=bdgRow({id:'bdg-joint-vin',cls:['bdg-annexe','bdg-cat-interne'],poste:'Virements internes entrants',detailsHtml:bdgOpsDetails(vin, 'Alimentations du compte joint (non revenus) · '+((vin.length)||0)+' opération'+(vin.length>1?'s':'')),obsUsd:bdgAmt(tot.virements_internes_entrants_usd,'USD'),obsEur:bdgAmt(tot.virements_internes_entrants_eur,'EUR'),projUsd:'—',projEur:'—',objectif:'—'});
+  const tvFlag=j.tradingview_sur_le_releve||{};
+  const tvNote=tvFlag.present_sur_le_releve?(tvFlag.note||'Un prélèvement TradingView figure sur le relevé ; non recopié en seconde ligne d’abonnement.'):'';
+  const srcBits=[];
+  const s=j.source||{};
+  if(s.intitule) srcBits.push(s.intitule);
+  if(s.periode_releve&&s.periode_releve.libelle) srcBits.push('période '+s.periode_releve.libelle);
+  if(s.genere_le_libelle) srcBits.push('généré le '+s.genere_le_libelle);
+  srcBits.push('change '+fx);
+  const cpt=j.compte||{};
+  if(cpt.banque) srcBits.push(cpt.banque);
+  const src='Source : '+srcBits.join(' · ')+'.';
+  const bank=cpt.titulaires?(' · '+cpt.titulaires):'';
+  return `<section class="card home-hero bdg-hero" id="bdg-joint">
+    <div class="home-hero-top">
+      <h2>${bdgEsc(j.titre||'Compte joint famille, octobre 2026')}</h2>
+      <p class="desc">${bdgEsc(per+(cpt.banque?(' · '+cpt.banque):'')+bank)}</p>
+    </div>
+    <div class="home-strip bdg-kvs">
+      <div class="home-kv"><span class="l">Dépenses</span><b>${bdgAmt(tot.depenses_eur,'EUR')}</b><small>${bdgAmt(tot.depenses_usd,'USD')}</small></div>
+      <div class="home-kv"><span class="l">Revenus</span><b>${bdgAmt(tot.revenus_eur,'EUR')}</b><small>${bdgAmt(tot.revenus_usd,'USD')}</small></div>
+      <div class="home-kv ${resteNeg?'is-down':''}"><span class="l">Reste</span><b class="${resteNeg?'down':'up'}">${bdgAmt(tot.reste_eur,'EUR')}</b><small class="${resteNeg?'down':'up'}">${bdgAmt(tot.reste_usd,'USD')}</small></div>
+    </div>
+    <div class="home-table-scroll">
+      <div class="home-table bdg-table" id="bdg-table-joint">
+        ${bdgHead()}
+        ${rows}
+        ${depRow}
+        ${revRow}
+        ${resteRow}
+        ${rembRow}
+        ${vinRow}
+      </div>
+    </div>
+    ${tvNote?`<p class="bdg-src bdg-tv-flag">${bdgEsc(tvNote)}</p>`:''}
+    <p class="bdg-src">${bdgEsc(src)}</p>
+  </section>`;
+}
+function bdgTableHTML(b){
+  return bdgCourtHtml(b)+bdgJointHtml(b);
 }
 function bdgPageHTML(){
   const b=bdgData()||{};
-  const mois=b.mois_libelle||'';
-  const title=mois?('Budget — '+mois):'Budget';
+  const title='Budget';
   return `<div class="rg-top">
       <button type="button" id="bdgBack" class="rg-back">← Retour</button>
       <h1 id="bdgPageTitle">${bdgEsc(title)}</h1>
