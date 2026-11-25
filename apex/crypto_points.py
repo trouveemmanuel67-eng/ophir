@@ -225,12 +225,23 @@ def score_asset(obj, fg_value=None):
 
     liq_pts, liq_det = liquidite_points(obj.get('liquidite'))
 
-    if fg_value is None:
-        fng = obj.get('fng') or {}
-        fg_value = fng.get('value') if fng else None
-    fg_pts = fg_points(fg_value) if fg_value is not None else 0
-    if fg_pts is None:
-        fg_pts = 0
+    sent_pl = None
+    try:
+        from apex import sentiment as S
+        k, recs = S.of(classe='crypto')
+        sent_pl = S.payload(k, recs)
+    except Exception:
+        sent_pl = None
+    if sent_pl:
+        fg_value = sent_pl['valeur']
+        fg_pts = sent_pl['points']
+    else:
+        if fg_value is None:
+            fng = obj.get('fng') or {}
+            fg_value = fng.get('value') if fng else None
+        fg_pts = fg_points(fg_value) if fg_value is not None else 0
+        if fg_pts is None:
+            fg_pts = 0
 
     # HYPE 45 : Attention Long Swing, à contre-courant. Absente → non comptée (« – »).
     try:
@@ -253,7 +264,7 @@ def score_asset(obj, fg_value=None):
     parts = [
         ('RSI', rsi_pts), ('MACD', macd_pts), ('Fibo', fibo_pts), ('CCI', cci_pts),
         ('Liq.', liq_pts if liq_det.get('present') else '—'),
-        ('F&G', fg_pts if fg_value is not None else '—'),
+        ('Sentiment Crypto (alternative.me)', fg_pts if fg_value is not None else '—'),
         ('Hype', hype_pts if hype_pts is not None else '—'),
         ('MM40 hebdo', (mm40_det or {}).get('texte') or mm40_hebdo_texte((mm40_det or {}).get('ecart'), mm40_pts)),
     ]
@@ -287,7 +298,8 @@ def score_asset(obj, fg_value=None):
             'liquidite': liq_det,
             'hype': {'points': hype_pts, 'attention': att_val, 'grille': '0→45, 10→41, 20→37, 30→33, 40→29, 50→25, 60→20, 70→15, 80→10, 90→5, 100→0', 'etat': 'applique' if hype_pts is not None else 'n.c.'},
             'mm40': mm40_det,
-            'fear_greed': {'valeur': fg_value, 'points': fg_pts if fg_value is not None else None, 'source': 'alternative.me'},
+            'fear_greed': {'valeur': fg_value, 'points': fg_pts if fg_value is not None else None, 'source': 'sentiment maison crypto (alternative.me)'},
+            'sentiment': sent_pl,
             'echelle': 250,
         },
         'technique': int(rsi_pts + macd_pts + fibo_pts + cci_pts),
@@ -299,6 +311,7 @@ def score_asset(obj, fg_value=None):
         'ligne': texte,
         'fg_points': fg_pts if fg_value is not None else None,
         'fg_value': fg_value,
+        'sentiment': sent_pl,
         'v2': True,
     }
 

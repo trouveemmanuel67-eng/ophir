@@ -6,8 +6,10 @@ au lieu du CNN Fear & Greed global. Barème inchangé : floor(|50 − v| / 10) �
 Idempotent : l'ancien apport F&G est lu dans la note elle-même (points, décomposition ou ligne),
 puis remplacé ; le total est recalculé (actions : somme des composantes ; sinon total − ancien + nouveau),
 borné à −50..250. La ligne de détail affiche « Sentiment Santé (XLV) 66 : −10 ».
-Rattachement : voir apex/sentiment.py. Repli : CNN global si aucun secteur ni classe.
-Ne touche pas aux notes crypto (déjà alternative.me) ni à la note SHORT (src/build_short250.py).
+Rattachement : voir apex/sentiment.py. Si aucun secteur ni classe : 0 point, pas de repli CNN.
+Crypto : même sentiment de classe (alternative.me via sentiment_secteurs.json).
+Les moyennes (segments, paniers, bandeaux) reçoivent le sentiment maison de leurs membres.
+Plus de repli CNN dans les notes. SHORT : src/build_short250.py.
 Usage : python3 apply_sentiment.py [--dry-run]
 """
 from __future__ import annotations
@@ -27,7 +29,7 @@ from apex.score import metaux_band  # noqa: E402
 D = ROOT / 'data'
 MIN, MAX = -50, 250
 FILES = ['apex_achat_v2_pilot.json', 'apex_achat_v2_scores_full.json', 'apex_achat_v2_site.json', 'apex_bars.json',
-         'energie.json', 'metaux.json', 'obligations.json', 'placements.json', 'tabs_data.json',
+         'energie.json', 'metaux.json', 'obligations.json', 'placements.json', 'tabs_data.json', 'crypto_fiches.json',
          'liquidites_etf_devises.json', 'secteurs.json', 'pays.json', 'achatvente.json']
 TOK = re.compile(r'(?:F&G(?: inversé)?|Sentiment(?: inversé)? [^·→]*?\d+(?:,\d)? :) ([+−-]?\d+)')
 TOTAL = re.compile(r'→\s+(-?−?\d+)\s*/\s*250')
@@ -84,11 +86,16 @@ def patch(rec, key, where):
     if old is None or not is_note(rec):
         return
     k, sr = S.resolve(key)
+    if (not sr or sr.get('value') is None) and k == 'cnn':
+        k, sr = None, None
     if not sr or sr.get('value') is None:
         STATS['sans_sentiment'] += 1
         return
     if k == 'cnn':
+        # plus de CNN dans les notes
+        STATS['sans_sentiment'] += 1
         FALLBACK[where] += 1
+        return
     val = float(sr['value'])
     new = S.fg_long(val)
     if inv:
@@ -139,7 +146,13 @@ def patch(rec, key, where):
     if 'av_label' in rec:
         rec['av_label'] = LABEL_AV[b['id']]
     rec['sentiment'] = {'cle': k, 'nom': lab, 'valeur': round(val, 1), 'zone': sr.get('label'), 'points': new,
-                        'inverse': inv, 'date': sr.get('date'), 'repli_cnn': k == 'cnn'}
+                        'inverse': inv, 'date': sr.get('date'), 'repli_cnn': False}
+    fgmeta = rec.get('fear_greed')
+    if isinstance(fgmeta, dict) and ('CNN' in str(fgmeta.get('source') or '') or fgmeta.get('valeur') is not None):
+        rec['fear_greed'] = {'valeur': round(val, 1), 'source': 'sentiment maison ' + lab, 'points': new}
+    dec = rec.get('decomp')
+    if isinstance(dec, dict) and isinstance(dec.get('fear_greed'), dict) and 'CNN' in str((dec['fear_greed'] or {}).get('source') or ''):
+        dec['fear_greed'] = {'valeur': round(val, 1), 'source': 'sentiment maison ' + lab, 'points': new}
     STATS['notes'] += 1
     if new != old:
         STATS['modifiees'] += 1
@@ -174,6 +187,12 @@ def walk(obj, ctx, where, file):
                 key = 'devises'
             if key is None and cl == 'metaux':
                 key = 'metaux'
+            if key is None and cl == 'crypto':
+                key = 'crypto'
+            if key is None and cl == 'liquidites':
+                key = 'liquidites'
+            if key is None and cl == 'immobilier':
+                key = 'immo:fr'
             r = patch(obj, key, f"{file}:{c.get('tv') or c.get('pilote') or c.get('row')}")
             if r and c.get('tv'):
                 CHANGES.setdefault((file, c['tv']), r)
@@ -181,7 +200,11 @@ def walk(obj, ctx, where, file):
             cc = dict(c)
             if where == 'root' and file == 'tabs_data.json':
                 if k == 'crypto':
-                    cc['skip'] = True
+                    cc['classe'] = 'crypto'
+                if k == 'energie':
+                    cc['classe'] = cc.get('classe') or 'energie'
+                if k == 'liquidites':
+                    cc['classe'] = 'liquidites'
             if k == 'pilotes':
                 cc['in_pilotes'] = True
             elif c.get('in_pilotes') and 'pilote' not in c:
@@ -190,6 +213,8 @@ def walk(obj, ctx, where, file):
                 cc['classe'] = 'liquidites'
             if k == 'fx':
                 cc['classe'] = 'devises'
+            if k == 'immobilier':
+                cc['classe'] = 'immobilier'
             if isinstance(v, dict) and TV_RE.match(str(k)) and not v.get('tv'):
                 cc['tv'] = k
             walk(v, cc, 'child', file)
@@ -198,9 +223,98 @@ def walk(obj, ctx, where, file):
             walk(v, ctx, 'child', file)
 
 
+
+def _sent_kids(obj):
+    kids = []
+    if not isinstance(obj, dict):
+        return kids
+    for k in ('list', 'assets', 'rows', 'items', 'lignes', 'produits', 'segments'):
+        v = obj.get(k)
+        if isinstance(v, list):
+            for x in v:
+                if not isinstance(x, dict):
+                    continue
+                a = x.get('apex10') if isinstance(x.get('apex10'), dict) else None
+                if a and isinstance((a.get('sentiment') or x.get('sentiment')), dict):
+                    kids.append(a if a.get('sentiment') else x)
+                elif isinstance(x.get('sentiment'), dict):
+                    kids.append(x)
+    ml = obj.get('mlist') or {}
+    for x in [ml.get('head')] + list(ml.get('items') or []):
+        if isinstance(x, dict) and isinstance((x.get('apex10') or {}).get('sentiment'), dict):
+            kids.append(x['apex10'])
+    return kids
+
+
+def _is_avg_note(rec):
+    if not isinstance(rec, dict) or not is_note(rec):
+        return False
+    if rec.get('n_moy') or rec.get('cap') in ('moyenne', 'panier'):
+        return True
+    t = rec.get('ligne') or ''
+    if isinstance(t, str) and t.lower().startswith('moyenne'):
+        return True
+    d = (rec.get('decomp') or {}).get('texte') if isinstance(rec.get('decomp'), dict) else ''
+    return isinstance(d, str) and d.lower().startswith('moyenne')
+
+
+def attach_avg_sent(target, kids):
+    xs = []
+    for k in kids or []:
+        s = k.get('sentiment') if isinstance(k, dict) else None
+        if isinstance(s, dict) and s.get('valeur') is not None and not s.get('repli_cnn') and s.get('cle') != 'cnn':
+            xs.append(s)
+    if not xs or not isinstance(target, dict):
+        return False
+    keys = []
+    for s in xs:
+        if s.get('cle') and s['cle'] not in keys:
+            keys.append(s['cle'])
+    val = sum(float(s['valeur']) for s in xs) / len(xs)
+    nom = xs[0]['nom'] if len(keys) == 1 else ('moyenne de %d' % len(xs))
+    # zone : mêmes seuils que le site (labS)
+    v = val
+    zone = 'Peur extrême' if v < 25 else 'Peur' if v < 45 else 'Neutre' if v <= 55 else 'Avidité' if v <= 75 else 'Euphorie'
+    pts = None
+    if len(set(s.get('points') for s in xs if s.get('points') is not None)) == 1:
+        pts = xs[0].get('points')
+    elif all(s.get('points') is not None for s in xs):
+        pts = int(round(sum(s['points'] for s in xs) / len(xs)))
+    target['sentiment'] = {
+        'cle': keys[0] if len(keys) == 1 else 'moyenne',
+        'nom': nom, 'valeur': round(val, 1), 'zone': zone, 'points': pts,
+        'inverse': False, 'moyenne': True, 'n': len(xs), 'repli_cnn': False,
+    }
+    return True
+
+
+def enrich_averages(obj):
+    n = 0
+    if isinstance(obj, dict):
+        kids = _sent_kids(obj)
+        rec = obj.get('apex10') if isinstance(obj.get('apex10'), dict) else None
+        if rec and _is_avg_note(rec) and kids:
+            if attach_avg_sent(rec, kids):
+                n += 1
+        if _is_avg_note(obj) and kids:
+            if attach_avg_sent(obj, kids):
+                n += 1
+        # crypto fiches.apex10
+        if 'fiches' in obj and isinstance(obj['fiches'], dict):
+            n += enrich_averages(obj['fiches'])
+        for v in obj.values():
+            if v is rec:
+                continue
+            n += enrich_averages(v)
+    elif isinstance(obj, list):
+        for v in obj:
+            n += enrich_averages(v)
+    return n
+
+
 def main(dry=False):
     if not S.data():
-        print('data/sentiment_secteurs.json absent : rien à faire (les notes gardent le CNN global).')
+        print('data/sentiment_secteurs.json absent : rien à faire.')
         return 0
     for f in FILES:
         p = D / f
@@ -214,9 +328,16 @@ def main(dry=False):
             ctx['classe'] = 'liquidites'
         if f == 'metaux.json':
             ctx['classe'] = 'metaux'
+        if f == 'crypto_fiches.json':
+            ctx['classe'] = 'crypto'
         if f == 'liquidites_etf_devises.json':
             ctx['classe'] = 'devises'
+        if f == 'achatvente.json':
+            ctx['in_av'] = True
         walk(doc, ctx, 'root', f)
+        na = enrich_averages(doc)
+        if na:
+            print(f'  moyennes enrichies : {na}')
         if f == 'metaux.json':
             from build_long250 import recalc_moyennes_metaux
             recalc_moyennes_metaux(doc)

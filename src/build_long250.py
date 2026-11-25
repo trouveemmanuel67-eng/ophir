@@ -88,7 +88,7 @@ def recalc_moyennes_metaux(M=None):
     """Recalcule les moyennes de lignes à partir des notes déjà posées sur les instruments.
 
     À appeler après apply_sentiment, pour que la moyenne intègre le F&G sectoriel
-    (le scoring initial utilise encore le CNN global).
+    (sentiment maison du secteur ou de la classe ; pas de repli CNN).
     """
     close = False
     if M is None:
@@ -269,19 +269,21 @@ def un_seul_etc(r, metal, notes):
 # ------------------------------------------------------------------ obligations
 def obligations():
     O = load('obligations.json')
-    g = L.fg()
-    fgp = g['points'] if g.get('ok') else None
     for s in O['segments']:
         head_isin = next((k for k, v in L.HEADS.items() if v == s.get('tv')), None)
         def one(tv, yahoo, isin, nom, rating_a=None, hedged=None):
             t, used = L.tech_of(tv, yahoo, None)
             fpts, fnc, fel = L.oblig_fond(s['key'], tv, isin, nom, rating_a, hedged)
+            g = L.house(tv=tv, classe='oblig:'+s['key'])
+            fgp, flab, fmeta = L.sent_pack(g)
             blocks = [('RSI', t and t['rsi']), ('MACD', t and t['macd']), ('Fibo', t and t['fibonacci']), ('CCI', t and t['cci']), ('Fond. oblig.', fpts)]
-            rec = L.assemble(blocks, fgp, 'F&G', {
+            rec = L.assemble(blocks, fgp, flab, {
                 'fondamental': {'points': fpts, 'max': 90, 'elements': fel, 'nc': fnc},
                 'technique': {'symbole': used, 'date_cloture': t and t['date_cloture'], 'detail': t and t['detail']} if t else {'erreur': 'série hebdomadaire introuvable'},
-                'fear_greed': {'valeur': g.get('value'), 'source': 'CNN Fear & Greed, à contre-courant'}},
+                'fear_greed': fmeta, 'sentiment': g.get('payload')},
                 mm40=L.mm40_of(tv, yahoo, None))
+            if g.get('payload'):
+                rec['sentiment'] = g['payload']
             rec['fond'] = fpts
             if not t:
                 rec['cap'] = 'sans_technique'
@@ -309,12 +311,10 @@ ENERGIE_ISIN = {v: k for k, v in L.ENERGIE_ETF.items()}
 
 
 def energie(T):
-    g = L.fg()
-    fgp = g['points'] if g.get('ok') else None
     for a in T['energie']['assets']:
         k = a.get('kind')
         if k in ('futures', 'etc'):
-            energie_contrat(a, g, fgp)
+            energie_contrat(a)
             continue
         if k not in ('equity', 'equity_proxy', 'etf_equity'):
             continue
@@ -326,12 +326,16 @@ def energie(T):
             fpts, fnc, fel = L.energie_fond(a.get('yahoo'), a.get('groupe'), a.get('tv'))
             lab = 'Fond. énergie'
         blocks = [('RSI', t and t['rsi']), ('MACD', t and t['macd']), ('Fibo', t and t['fibonacci']), ('CCI', t and t['cci']), (lab, fpts)]
-        rec = L.assemble(blocks, fgp, 'F&G', {
+        g = L.house(tv=a.get('tv'))
+        fgp, flab, fmeta = L.sent_pack(g)
+        rec = L.assemble(blocks, fgp, flab, {
             'fondamental': {'points': fpts, 'max': 90, 'elements': fel, 'nc': fnc},
             'technique': {'symbole': used, 'date_cloture': t and t['date_cloture'], 'detail': t and t['detail']} if t else {'erreur': 'série hebdomadaire introuvable'},
-            'fear_greed': {'valeur': g.get('value'), 'source': 'CNN Fear & Greed, à contre-courant'}},
+            'fear_greed': fmeta, 'sentiment': g.get('payload')},
             mm40=L.mm40_of(a.get('tv'), a.get('yahoo'), None))
         rec['fond'] = fpts
+        if g.get('payload'):
+            rec['sentiment'] = g['payload']
         log('energie', a.get('tv'), note(a.get('apex10')), rec['note'], fnc)
         a['apex10'] = rec
     T['energie']['apex250'] = {'grille': 'Technique 110 + Fondamental énergie 90 (actions : 9 ratios × 10 ; ETF et ETC : 9 critères justETF × 10 ; contrats à terme : critère de cycle seul, les 8 critères d’entreprise ou de fonds ne s’appliquent pas, sans redistribution) + F&G ±50'}
@@ -341,8 +345,10 @@ def energie(T):
         T['energie']['apex10'] = avg_rec(notes, 'Moyenne des notes −50 à 250 de tous les actifs Énergie affichés (actions, ETF, ETC, contrats à terme), arrondie au point.', 'actifs')
 
 
-def energie_contrat(a, g, fgp):
+def energie_contrat(a, g=None, fgp=None):
     """t506u : contrats à terme (WTI, Brent, fioul, essence) et ETC gaz notés sur la grille énergie."""
+    g = L.house(tv=a.get('tv'))
+    fgp, flab, fmeta = L.sent_pack(g)
     t, used = L.tech_of(a.get('tv'), a.get('yahoo'), None)
     if a.get('kind') == 'etc':
         fpts, fnc, fel = L.energie_etf_fond(ENERGIE_ISIN.get(a.get('tv')) or a.get('isin') or ISIN_SOUS(a), a.get('groupe'), a.get('tv'))
@@ -357,12 +363,14 @@ def energie_contrat(a, g, fgp):
     regle = ('ETC : 9 critères justETF × 10 (TER, encours, ancienneté, réplication physique, ≥ 30 lignes, cycle WTI)'
              if a.get('kind') == 'etc' else
              'Contrat à terme : seul le cycle (WTI sous sa moyenne 5 ans, FRED DCOILWTICO) s’applique, +10 ; les 8 critères d’entreprise ou de fonds ne s’appliquent pas à un contrat (0, sans redistribution)')
-    rec = L.assemble(blocks, fgp, 'F&G', {
+    rec = L.assemble(blocks, fgp, flab, {
         'fondamental': {'points': fpts, 'max': 90, 'elements': fel, 'nc': fnc, 'regle': regle},
         'technique': {'symbole': used, 'date_cloture': t and t['date_cloture'], 'detail': t and t['detail']} if t else {'erreur': 'série hebdomadaire introuvable'},
-        'fear_greed': {'valeur': g.get('value'), 'source': 'CNN Fear & Greed, à contre-courant'}},
+        'fear_greed': fmeta, 'sentiment': g.get('payload')},
         mm40=L.mm40_of(a.get('tv'), a.get('yahoo'), None))
     rec['fond'] = fpts
+    if g.get('payload'):
+        rec['sentiment'] = g['payload']
     if not t:
         rec.update({'note': None, 'display': '–', 'total': None, 'erreur': 'série hebdomadaire introuvable'})
     log('energie', a.get('tv'), note(a.get('apex10')), rec['note'], fnc)
@@ -383,7 +391,6 @@ def devises(T):
     from apex.fx_etf_points import hype_points_30
     import apply_attention as AA
     AA.load_attention(refresh=True)
-    g = L.fg()
     for a in T['liquidites']['fx']['assets']:
         ccy = a.get('code') or a.get('quote_for')
         if ccy not in L.CCY_WB:
@@ -402,14 +409,18 @@ def devises(T):
         fpts, fnc = L.bloc(E)
         att = AA.attention_of(e.get('tv'), e.get('yahoo'), e.get('ticker'), e.get('nom'))
         hp = hype_points_30(att)
-        fgp = g['points'] if g.get('ok') else None
+        g = L.house(tv=e.get('tv'))
+        fgp, flab, fmeta = L.sent_pack(g)
         blocks = [('RSI', P.get('rsi')), ('MACD', P.get('macd')), ('Fibo', P.get('fibonacci')), ('CCI', P.get('cci')),
                   ('Devise', dev), ('Fond.', fpts), ('Hype', hp)]
-        new = L.assemble(blocks, fgp, 'F&G', {
+        new = L.assemble(blocks, fgp, flab, {
             'fondamental': {'points': fpts, 'max': 30, 'elements': E, 'nc': fnc},
             'devise': {'points': dev, 'note_devise_250': rec['note'], 'regle': 'floor((note devise + 50) / 30) × 3, max 30'},
-            'hype': {'points': hp, 'attention': att, 'grille': '0–9→+30, 10→+27, 50→+15, 100→0'}},
+            'hype': {'points': hp, 'attention': att, 'grille': '0–9→+30, 10→+27, 50→+15, 100→0'},
+            'fear_greed': fmeta, 'sentiment': g.get('payload')},
             mm40=L.mm40_of(e.get('tv'), e.get('yahoo'), e.get('ticker')))
+        if g.get('payload'):
+            new['sentiment'] = g['payload']
         new['decomp']['points'].update({'rsi': P.get('rsi'), 'macd': P.get('macd'), 'fibonacci': P.get('fibonacci'), 'cci': P.get('cci'),
                                         'devise': dev, 'fondamental': fpts, 'hype': hp, 'fear_greed': fgp, 'total': new['note']})
         for k in ('fg_value',):
@@ -488,7 +499,7 @@ def epargne(T, PL):
         for ln in PL.get('lignes') or []:
             if ln['id'] == p['id']:
                 ln['apex10'] = rec
-    T['liquidites']['apex_epargne'] = {'grille': 'Contexte de taux 110 + Fondamental épargne 90 + CNN Fear & Greed inversé ±50', 'produits': out}
+    T['liquidites']['apex_epargne'] = {'grille': 'Contexte de taux 110 + Fondamental épargne 90 + Sentiment liquidités inversé ±50', 'produits': out}
 
 
 def immobilier():

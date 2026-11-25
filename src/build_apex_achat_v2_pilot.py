@@ -616,7 +616,21 @@ def score_asset(asset, fg, elliott_key=None, fond_rules=None, closed_bars=None):
         fond_total, fond_elems = fond_points(fond_m, fond_rules)
         fond_mode = 'ratios de l’émetteur (Yahoo Finance, fondamentaux déjà en base)'
 
-    fg_pts = fg['points'] if fg.get('ok') else 0
+    sent_pl = None
+    try:
+        from apex import sentiment as S
+        k, recs = S.of(tv=asset.get('tv'), key=S.key_for_section(asset.get('section'), asset.get('sous_section')))
+        sent_pl = S.payload(k, recs)
+    except Exception:
+        sent_pl = None
+    if sent_pl:
+        fg_pts = sent_pl['points']
+        fg_ok = True
+        fg_lab = 'Sentiment ' + sent_pl['nom']
+    else:
+        fg_pts = 0
+        fg_ok = False
+        fg_lab = 'Sentiment'
     mm40_pts, mm40_det = mm40_hebdo_points(c, max_pts=MM40_HEBDO_MAX_AUTRES)
     total = rsi_pts + macd_pts + fibo_pts + cci_pts + int(round(fond_total or 0)) + (fg_pts or 0) + (mm40_pts or 0)
     band = band_of(total)
@@ -624,7 +638,7 @@ def score_asset(asset, fg, elliott_key=None, fond_rules=None, closed_bars=None):
         ('RSI', rsi_pts), ('MACD', macd_pts), ('Fibo', fibo_pts),
         ('CCI', cci_pts),
         ('Fond', int(round(fond_total or 0))),
-        ('F&G', fg_pts if fg.get('ok') else None),
+        (fg_lab, fg_pts if fg_ok else None),
         ('MM40 hebdo', mm40_pts),
     ]
     out.update({
@@ -637,7 +651,7 @@ def score_asset(asset, fg, elliott_key=None, fond_rules=None, closed_bars=None):
             'rsi': rsi_pts, 'macd': macd_pts, 'fibonacci': fibo_pts,
             'cci': cci_pts,
             'fondamental': int(round(fond_total or 0)),
-            'fear_greed': fg_pts if fg.get('ok') else None,
+            'fear_greed': fg_pts if fg_ok else None,
             'mm40': mm40_pts,
             'total': total,
         },
@@ -664,6 +678,7 @@ def score_asset(asset, fg, elliott_key=None, fond_rules=None, closed_bars=None):
         'band': band,
         'hex': HEX[band],
         'av_label': band_label(total),
+        'sentiment': sent_pl,
     })
     return out
 
@@ -791,7 +806,9 @@ def main():
     secteurs = json.loads((ROOT / 'data' / 'secteurs.json').read_text())
 
     fg = fetch_cnn_fng()
-    print('F&G', fg.get('ok'), fg.get('value'), fg.get('points'), fg.get('date_valeur'), fg.get('erreur'))
+    if isinstance(fg, dict):
+        fg.setdefault('role', 'repere_hors_note')
+    print('F&G CNN (repère hors note)', fg.get('ok'), fg.get('value'), fg.get('date_valeur'), fg.get('erreur'))
 
     etf_xlc = {
         'id': 'etf', 'ticker': 'ZPDK', 'yahoo': 'ZPDK.DE', 'tv': 'XETR:ZPDK',

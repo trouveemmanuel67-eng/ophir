@@ -744,7 +744,7 @@ def main():
         "écart à la SMA 125 j, RSI 14 journalier, distance au plus haut 52 semaines, volatilité 20 j inversée, performance 21 j "
         "(rangs sur 5 ans, clôtures journalières Yahoo) ; pour les 11 secteurs US, + % de titres au-dessus de leur SMA 50 j et 200 j "
         "et force interne (holdings SPDR). Crypto : alternative.me. Immobilier France et liquidités : indices APEX de la colonne Indicateur. "
-        "Repli : CNN Fear & Greed global quand un actif n’a pas de secteur ou de classe.")
+        "Si un actif n’a pas de secteur ni de classe, le critère vaut 0 dans la note. Le CNN Fear & Greed global reste un repère d’information, hors note.")
     dest = DATA / 'sentiment_secteurs.json'
     dest.write_text(json.dumps(out, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')
     for k in ('secteurs_us', 'secteurs_eu', 'classes'):

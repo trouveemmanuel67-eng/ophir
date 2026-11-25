@@ -192,9 +192,17 @@ def score_instrument(obj, metal=None, av=None, fg=None):
         extra = 0
         cap.append('sans_fond')
 
+    sent_pl = None
     if fg is None:
-        fg = load_cnn_fg()
+        from . import sentiment as S
+        metal_cle = {'Or': 'metal:or', 'Argent': 'metal:argent', 'Platine': 'metal:platine', 'Palladium': 'metal:palladium'}.get(metal)
+        k, recs = S.of(tv=obj.get('tv'), classe=metal_cle)
+        sent_pl = S.payload(k, recs)
+        fg = {'ok': bool(sent_pl), 'points': (sent_pl or {}).get('points') or 0,
+              'value': (sent_pl or {}).get('valeur'), 'court': (sent_pl or {}).get('nom')}
     fg_pts = int(fg['points']) if fg and fg.get('ok') else 0
+    if sent_pl is None and isinstance(fg, dict):
+        sent_pl = fg.get('payload')
     # HYPE : métaux purs (comptant) 90 ; ETC 45 (attention du métal sous-jacent, grille crypto) ;
     # minières : pas de HYPE (fondamental 90). APE-25 : Qualité ETC 45 (justETF) complète l'ETC à 250.
     hype_pts = None
@@ -231,7 +239,7 @@ def score_instrument(obj, metal=None, av=None, fg=None):
         ('RSI', rsi_pts), ('MACD', macd_pts), ('Fibo', fibo_pts), ('CCI', cci_pts),
         *( [('Fond.', extra)] if has_fond else [] ),
         *( [('Qualité ETC', qual_pts)] if kind == 'etc' else [] ),
-        ('F&G', fg_pts if fg and fg.get('ok') else None),
+        ('Sentiment ' + ((fg or {}).get('court') or (sent_pl or {}).get('nom') or ''), fg_pts if fg and fg.get('ok') else None),
         *( [('Hype', hype_pts if hype_pts is not None else '—')] if kind in ('spot', 'etc') else [] ),
         *( [('MM40 hebdo', (mm40_det or {}).get('texte') or mm40_hebdo_texte((mm40_det or {}).get('ecart'), mm40_pts))] if mm40_det else [] ),
     ]

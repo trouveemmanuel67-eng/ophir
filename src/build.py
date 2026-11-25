@@ -58,7 +58,7 @@ if _sent.exists():
         _slim={'cnn':{k:(_sd.get('cnn') or {}).get(k) for k in _keep}}
         for _g in ('secteurs_us','secteurs_eu','classes'):
             _slim[_g]={_k:{k:_v.get(k) for k in _keep} for _k,_v in (_sd.get(_g) or {}).items()}
-        t=t.replace('/*__SENTDATA__*/null', esc(__import__('json').dumps(_slim,ensure_ascii=False)))
+        t=t.replace('/*__SENTDATA__*/null', esc(__import__('json').dumps(_slim,ensure_ascii=False)))  # toutes les occurrences (achatvente.js + regles.js)
     except Exception as _e:
         print('sentiment_secteurs ignoré', _e)
 _mp=_P(B+'data/maj.json')

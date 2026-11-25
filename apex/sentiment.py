@@ -7,8 +7,8 @@ Rattachement d'un actif (tv) à son sentiment, dans cet ordre :
  2. actions : secteur GICS (sous-section APEX : « Santé », « USA – XLV »…) et pays :
     USA, Canada, Japon, Corée → ETF sectoriel SPDR US ; France, Allemagne, Suisse → ETF sectoriel MSCI Europe ;
  3. ETF de section (ZPDx, paniers APEX:PANIER-FR-*) → leur secteur ; têtes de marché pays → indice du pays ;
- 4. repli documenté : CNN Fear & Greed global (« CNN global (repli) »).
-Crypto : déjà notée avec alternative.me par son propre calcul, non modifiée ici.
+ 4. si aucun secteur ni classe n'est trouvé : 0 point (pas de repli CNN).
+Crypto : classe « crypto » (alternative.me via sentiment_secteurs.json).
 """
 from __future__ import annotations
 
@@ -237,12 +237,43 @@ def key_for_row(cc, rowkey):
     return 'us:' + GICS_US[gics]
 
 
-def resolve(key):
-    """(clé effective, enregistrement) avec repli CNN."""
+def resolve(key, *, repli_cnn=False):
+    """(clé effective, enregistrement). Plus de repli CNN dans les notes (repli_cnn=False)."""
     r = get(key) if key else None
     if r and r.get('value') is not None:
         return key, r
-    return 'cnn', get('cnn')
+    if repli_cnn:
+        return 'cnn', get('cnn')
+    return None, None
+
+
+def of(tv=None, key=None, classe=None, pilote=None, cc=None, row=None):
+    """Résout le sentiment maison d'un actif. Retourne (clé, enregistrement) ou (None, None)."""
+    k = key
+    if k is None and tv:
+        k = key_for_tv(tv)
+    if k is None and pilote:
+        k = key_for_pilote(pilote)
+    if k is None and row:
+        k = key_for_row(cc, row)
+    if k is None and classe:
+        k = classe
+    return resolve(k)
+
+
+def payload(key, rec, inv=False, short=False):
+    """Bloc sentiment à poser sur une note (hors CNN)."""
+    if not rec or rec.get('value') is None:
+        return None
+    val = float(rec['value'])
+    pts = fg_short(val) if short else fg_long(val)
+    if inv:
+        pts = -pts
+    return {
+        'cle': key, 'nom': court(key, rec), 'valeur': round(val, 1),
+        'zone': rec.get('label'), 'points': pts, 'inverse': inv,
+        'date': rec.get('date'), 'repli_cnn': False,
+    }
 
 
 def court(key, rec):

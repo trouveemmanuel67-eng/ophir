@@ -230,10 +230,36 @@ FG = None
 
 
 def fg():
+    """Repère CNN (hors note). Pour le calcul, utiliser house()."""
     global FG
     if FG is None:
-        FG = load_cnn_fg()
+        FG = load_cnn_fg() or {}
+        if FG:
+            FG = dict(FG)
+            FG['role'] = 'repere_hors_note'
     return FG
+
+
+def house(tv=None, classe=None, inv=False):
+    """Sentiment maison du secteur / de la classe, pour le critère ±50."""
+    from . import sentiment as S
+    k, rec = S.of(tv=tv, classe=classe)
+    pl = S.payload(k, rec, inv=inv)
+    if not pl:
+        return {'ok': False, 'points': 0, 'value': None, 'label': None, 'cle': None,
+                'payload': None, 'court': None, 'source': None}
+    return {'ok': True, 'points': pl['points'], 'value': pl['valeur'], 'label': pl['zone'],
+            'cle': k, 'payload': pl, 'court': pl['nom'],
+            'source': 'sentiment maison ' + pl['nom']}
+
+
+def sent_pack(g):
+    """(points, libellé de ligne, meta fear_greed) à passer à assemble."""
+    if g and g.get('ok'):
+        lab = 'Sentiment ' + (g.get('court') or '')
+        meta = {'valeur': g.get('value'), 'source': g.get('source'), 'points': g['points']}
+        return g['points'], lab, meta
+    return 0, 'Sentiment', {'valeur': None, 'source': None, 'points': 0}
 
 
 def years_since(iso):
@@ -599,14 +625,18 @@ def score_devise(ccy):
     bars, path = devise_weekly(ccy)
     t = tech_from_closed(bars, f'EUR{ccy}=X (inversé)') if bars else None
     fpts, fnc, fel = devise_fond(ccy)
-    g = fg()
+    g = house(classe='devises')
+    fgp, flab, fmeta = sent_pack(g)
     blocks = [('RSI', t and t['rsi']), ('MACD', t and t['macd']), ('Fibo', t and t['fibonacci']), ('CCI', t and t['cci']), ('Fond. devise', fpts)]
     closes = [b['close'] for b in bars] if bars else []
-    out = assemble(blocks, g['points'] if g.get('ok') else None, 'F&G',
+    out = assemble(blocks, fgp, flab,
                    {'fondamental': {'points': fpts, 'max': 90, 'elements': fel, 'nc': fnc},
                     'technique': {'source': path, 'date_cloture': t and t['date_cloture'], 'detail': t and t['detail']},
-                    'fear_greed': {'valeur': g.get('value'), 'source': 'CNN Fear & Greed, à contre-courant'}},
+                    'fear_greed': fmeta,
+                    'sentiment': g.get('payload')},
                    mm40=mm40_of(closes=closes, path=path))
+    if g.get('payload'):
+        out['sentiment'] = g['payload']
     return out
 
 
@@ -654,12 +684,16 @@ def epargne_score(prod):
     ]
     cpts, cnc = bloc(C)
     fpts, fnc = bloc(Fd)
-    g = fg()
-    fgp = None if not g.get('ok') else -int(g['points'])
-    return assemble([('Contexte taux', cpts), ('Fond. épargne', fpts)], fgp, 'F&G inversé',
+    g = house(classe='liquidites', inv=True)
+    fgp, flab, fmeta = sent_pack(g)
+    rec = assemble([('Contexte taux', cpts), ('Fond. épargne', fpts)], fgp, flab or 'Sentiment inversé',
                     {'contexte': {'points': cpts, 'max': 110, 'elements': C, 'nc': cnc},
                      'fondamental': {'points': fpts, 'max': 90, 'elements': Fd, 'nc': fnc, 'taux_net': None if net is None else round(net, 2)},
-                     'fear_greed': {'valeur': g.get('value'), 'source': 'CNN Fear & Greed inversé : un placement refuge est favorable quand le marché est euphorique'}})
+                     'fear_greed': fmeta,
+                     'sentiment': g.get('payload')})
+    if g.get('payload'):
+        rec['sentiment'] = g['payload']
+    return rec
 
 
 # ---------------------------------------------------------------- immobilier
@@ -693,6 +727,15 @@ def immobilier_score(comp):
     ]
     cpts, cnc = bloc(C)
     fpts, fnc = bloc(Fd)
+    g = house(classe='immo:fr')
+    if g.get('ok'):
+        fgp, flab, fmeta = sent_pack(g)
+        rec = assemble([('Contexte marché', cpts), ('Fond. immobilier', fpts)], fgp, flab or 'Sentiment immo',
+                       {'contexte': {'points': cpts, 'max': 110, 'elements': C, 'nc': cnc},
+                        'fondamental': {'points': fpts, 'max': 90, 'elements': Fd, 'nc': fnc},
+                        'fear_greed': fmeta, 'sentiment': g.get('payload')})
+        rec['sentiment'] = g['payload']
+        return rec
     sv = num(sent and sent.get('valeur'))
     sp = None if sv is None else (1 if sv < 50 else -1) * int(abs(50 - sv) // 10) * 10
     return assemble([('Contexte marché', cpts), ('Fond. immobilier', fpts)], sp, 'Sentiment immo',

@@ -3,7 +3,7 @@
 const RG=(()=>{try{return JSON.parse(document.getElementById('dataRegles').textContent);}catch(e){return null;}})();
 
 /* t537u : sentiment par secteur / classe d'actifs (data/sentiment_secteurs.json, injecté par build.py). */
-const RG_SENT=/*__SENTDATA__*/null;
+const RG_SENT=(typeof APEX_SENT!=='undefined'&&APEX_SENT)?APEX_SENT:(/*__SENTDATA__*/null);
 function rgSentPts(v){v=Number(v||0);return v>0?('+'+v):(v<0?('−'+Math.abs(v)):'0');}
 function rgSentVal(r){return (r&&r.value!=null)?String(Math.round(r.value)):'n.c.';}
 function rgSentTable(sens){
@@ -25,7 +25,7 @@ function rgSentTable(sens){
     const cr=cc.slice(0,half).map((x,i)=>`<tr>${x}${cc[half+i]||'<td></td><td></td><td></td>'}</tr>`).join('');
     html+=`<table class="rg-table rg-table-sm" id="rg-table-sentiment-classes"><thead><tr><th>Classe d’actifs</th><th>Sentiment</th><th>Pts</th><th>Classe d’actifs</th><th>Sentiment</th><th>Pts</th></tr></thead><tbody>${cr}</tbody></table>`;
   }
-  html+=`<p class="rg-p rg-app">Sentiment APEX 0–100 (non officiel) au ${rgEsc(date)} : moyenne de sous-scores de cours (écart à la moyenne 125 jours, RSI 14, distance au plus haut 52 semaines, volatilité inversée, performance 21 jours ; secteurs US : + ampleur des titres de l’ETF). Barème ${sens==='short'?'SHORT ±30 inchangé (6 pts par tranche de 10, avidité = points)':'LONG ±50 inchangé (10 pts par tranche de 10, peur = points)'} ; seule la valeur d’entrée change. Repli si aucun secteur ni classe : CNN global (${rgEsc(rgSentVal(cnn))}).</p>`;
+  html+=`<p class="rg-p rg-app">Sentiment APEX 0–100 (non officiel) au ${rgEsc(date)} : moyenne de sous-scores de cours (écart à la moyenne 125 jours, RSI 14, distance au plus haut 52 semaines, volatilité inversée, performance 21 jours ; secteurs US : + ampleur des titres de l’ETF). Barème ${sens==='short'?'SHORT ±30 inchangé (6 pts par tranche de 10, avidité = points)':'LONG ±50 inchangé (10 pts par tranche de 10, peur = points)'} ; seule la valeur d’entrée change. Si le secteur ou la classe est inconnu, le critère vaut 0 (le CNN Fear &amp; Greed, ${rgEsc(rgSentVal(cnn))}, reste un repère d’information, hors note).</p>`;
   return html;
 }
 
@@ -957,7 +957,7 @@ function rgCible250Board(cfg, opts){
   const techNote=techOrdre.map(([id,lab])=>lab.split(' ')[0]+' '+rgNum(pts[id])).join(' · ');
   const techCards=techOrdre.map(([id,label])=>rgCard(id,label,rgEsc(rules[id]||''),rgNum(pts[id]))).join('');
   const fondCards=fondList.map(el=>rgCard(el.id||'', el.label||el.id||'', rgEsc(el.regle||'Non calculé.'), el.statut==='non_calcule'?'n.c.':(el.points!=null?rgNum(el.points):'n.c.'))).join('');
-  const sentCards=rgCard('fear_greed',cfg.sentiment_label||'Fear & Greed Index (CNN)',rgEsc(cfg.sentiment_regle||rules.fear_greed||''),'±'+rgNum(pts.fg));
+  const sentCards=rgCard('fear_greed',cfg.sentiment_label||'Sentiment maison (secteur / classe)',rgEsc(cfg.sentiment_regle||rules.fear_greed||''),'±'+rgNum(pts.fg));
   const noTech=opts.sansTechnique||cfg.sans_technique||'';
   const techBlock=hasTech
     ? `<section class="rg-block" data-group="technique">

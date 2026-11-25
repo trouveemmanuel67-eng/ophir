@@ -23,7 +23,9 @@ def test_rattachement():
     assert S.key_for_tv('XETR:XHYG') == 'oblig:hy'
     assert S.key_for_pilote('fr_fin') == 'eu:XS7R' and S.key_for_pilote('XLK') == 'us:XLK'
     k, rec = S.resolve(None)
-    assert k == 'cnn'
+    assert k is None and rec is None
+    k2, rec2 = S.resolve(None, repli_cnn=True)
+    assert k2 == 'cnn' and rec2 is not None
 
 
 def test_notes_et_lignes():

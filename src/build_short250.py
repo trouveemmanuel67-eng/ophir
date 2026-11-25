@@ -10,8 +10,8 @@ Plus la note est haute, plus l'actif est un bon candidat short. Points entiers.
   Fondamental (max 125)   : lecture inversée du fondamental LONG : +125/9 par critère NON rempli ; critère sans
                            donnée = moitié ; sous-total arrondi au point entier (demi vers le haut).
   Fear & Greed (±30)     : inverse du LONG, échelonné à 30 (avidité 60 → +6 … 100 → +30 ; peur 40 → −6 … 0 → −30).
-                           t537u : valeur d'entrée = sentiment du SECTEUR de l'action (ETF SPDR US ou MSCI Europe,
-                           data/sentiment_secteurs.json, apex/sentiment.py) ; repli CNN global si secteur inconnu.
+                           valeur d'entrée = sentiment maison du SECTEUR de l'action (ETF SPDR US ou MSCI Europe,
+                           data/sentiment_secteurs.json, apex/sentiment.py). Plus de repli CNN : si le secteur est inconnu, 0 point.
   Hype H (±20)           : H_short = round((attention − 50) × 0,4) (Indicateur d'Attention Long Swing).
   Filtre technique       : au moins signal_tech_min (1) bloc RSI / MACD / CCI à ≥ 10 points (surachat).
   Fibonacci              : aucun point ; FILTRE d'entrée dans Meilleurs SHORT (note ≥ 70) : cours ≥ niveau 38,2 %
@@ -87,11 +87,11 @@ EU_COUNTRIES = ('France', 'Germany', 'Switzerland', 'Belgium', 'Netherlands', 'I
 
 
 def sentiment_for(tv, sector=None, country=None, fgv_cnn=None):
-    """t537u : (valeur 0–100, libellé court, clé) du sentiment sectoriel de l'actif ; repli CNN global."""
+    """Sentiment maison du secteur (0–100, libellé, clé). Plus de repli CNN (fgv_cnn ignoré)."""
     try:
         from apex import sentiment as S
     except Exception:
-        return fgv_cnn, 'CNN global', 'cnn'
+        return None, None, None
     key = None
     g = YAHOO_GICS.get(sector or '')
     if g:
@@ -102,7 +102,7 @@ def sentiment_for(tv, sector=None, country=None, fgv_cnn=None):
     k, rec = S.resolve(key)
     if rec and rec.get('value') is not None:
         return float(rec['value']), S.court(k, rec), k
-    return fgv_cnn, 'CNN global', 'cnn'
+    return None, None, None
 
 
 def h_short(att):
@@ -324,7 +324,7 @@ def main():
     exclus_fibo = sorted([x for x in out.values() if x['au_seuil'] and not x['fibo_ok']], key=lambda x: (-x['note'], x['tv']))
     doc = {
         'regles': 'apex_short_250', 'seuil': SEUIL, 'fear_greed': {'value': fgv, 'points_short': fg_short(fgv), 'date': fg.get('date_valeur'),
-                                                       'role': 'repli seulement (t537u : sentiment sectoriel par actif)'},
+                                                       'role': 'repère d\'information, hors note (sentiment maison par secteur)'},
         'n': len(out), 'n_liste': len(liste),
         'liste': [x['tv'] for x in liste],
         'exclus_fibo': [{'tv': x['tv'], 'note': x['note'], 'r': x['fibo']['r']} for x in exclus_fibo],

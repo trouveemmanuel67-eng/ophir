@@ -1,3 +1,5 @@
+/* t614u : sentiment maison par secteur / classe (injecté par build.py). */
+const APEX_SENT=/*__SENTDATA__*/null;
 /* ===== Compteur ACHAT / VENTE (aiguille en demi-cercle, score −100 … +100) ===== */
 const AV=JSON.parse(document.getElementById('data4').textContent);
 const AVZ=[[-100,-60,'#ff2d2d','Vente forte'],[-60,-20,'#ff9a1f','Vente'],[-20,20,'#e6c27a','Neutre'],[20,60,'#22c55e','Achat'],[60,100,'#00e5ff','Achat fort']];
@@ -298,6 +300,40 @@ function attachAvgFondMm40(target,kids){
   return target;
 }
 
+
+function sentZone(v){
+  v=Number(v);
+  return !Number.isFinite(v)?'–':(v<25?'Peur extrême':v<45?'Peur':v<=55?'Neutre':v<=75?'Avidité':'Euphorie');
+}
+function sentLookup(cle){
+  const S=typeof APEX_SENT!=='undefined'?APEX_SENT:((typeof RG_SENT!=='undefined')?RG_SENT:null);
+  if(!S||!cle||cle==='cnn'||cle==='moyenne') return null;
+  if(String(cle).indexOf('us:')===0) return (S.secteurs_us||{})[cle.slice(3)]||null;
+  if(String(cle).indexOf('eu:')===0) return (S.secteurs_eu||{})[cle.slice(3)]||null;
+  return (S.classes||{})[cle]||null;
+}
+function houseSentOf(rec){
+  const rs=rec&&rec.sentiment;
+  if(rs&&rs.valeur!=null&&rs.cle!=='cnn'&&!rs.repli_cnn){
+    return {valeur:Number(rs.valeur),zone:rs.zone||sentZone(rs.valeur),nom:rs.nom||'secteur',cle:rs.cle};
+  }
+  if(rs&&rs.cle&&rs.cle!=='cnn'){
+    const d=sentLookup(rs.cle);
+    if(d&&d.value!=null) return {valeur:Number(d.value),zone:d.label||sentZone(d.value),nom:rs.nom||d.court||rs.cle,cle:rs.cle};
+  }
+  return null;
+}
+function attachAvgSent(target,kids){
+  const xs=(kids||[]).map(k=>houseSentOf(k)||(k&&houseSentOf(k.apex10))).filter(Boolean);
+  if(!target||!xs.length) return target;
+  const keys=[];
+  xs.forEach(s=>{if(s.cle&&keys.indexOf(s.cle)<0)keys.push(s.cle);});
+  const val=xs.reduce((a,s)=>a+Number(s.valeur),0)/xs.length;
+  const nom=keys.length===1?(xs[0].nom):('moyenne de '+xs.length);
+  target.sentiment={cle:keys.length===1?keys[0]:'moyenne',nom:nom,valeur:Math.round(val*10)/10,zone:sentZone(val),moyenne:true,n:xs.length,repli_cnn:false};
+  return target;
+}
+
 function apexV2FromAvg(totals,hypes){
   const xs=(totals||[]).map(Number).filter(Number.isFinite);
   if(!xs.length) return null;
@@ -322,6 +358,7 @@ function sectionApexAvg(tabId){
     });
     const apex=apexV2FromAvg(recs,hyp);
     if(apex&&typeof attachAvgFondMm40==='function') attachAvgFondMm40(apex,kids);
+    if(apex&&typeof attachAvgSent==='function') attachAvgSent(apex,kids);
     const items=sectionApexItems(tabId);
     const av=meanNum(items.map(x=>x.av));
     const se=meanNum(items.map(x=>x.sent));
@@ -362,6 +399,7 @@ function sectionApexAvg(tabId){
       }
     }
     if(apex&&typeof attachAvgFondMm40==='function') attachAvgFondMm40(apex,items.map(x=>x.apex10||x.src).filter(Boolean));
+    if(apex&&typeof attachAvgSent==='function') attachAvgSent(apex,items.map(x=>x.apex10||x.src).filter(Boolean));
     return {
       apexV2:apex, apex10:apex,
       av:av==null?null:{score:av,label:labAv(av)},
@@ -377,7 +415,7 @@ function sectionApexAvg(tabId){
   if(!apex) return null;
   if(typeof attachAvgFondMm40==='function'){
     const kids=items.map(x=>x.apex10||x.src).filter(Boolean);
-    if(kids.length) attachAvgFondMm40(apex,kids);
+    if(kids.length){attachAvgFondMm40(apex,kids);if(typeof attachAvgSent==='function') attachAvgSent(apex,kids);}
     else if(!apex.fond&&!apex.decomp){/* baké : fondOf lira decomp si présent */}
   }
   return {
@@ -398,6 +436,7 @@ function countryApexAvg(C){
   });
   const apex=apexV2FromAvg(recs,hyp);
   if(apex&&typeof attachAvgFondMm40==='function') attachAvgFondMm40(apex,kids);
+    if(apex&&typeof attachAvgSent==='function') attachAvgSent(apex,kids);
   const S=(C.rows||[]).filter(s=>s&&s.covered);
   const av=meanNum(S.map(s=>s.av&&s.av.score));
   const se=meanNum(S.map(s=>s.sent&&s.sent.value));
@@ -586,10 +625,10 @@ function pilotLegJoin(parts){
   }).join('');
 }
 function dualBarPilot(rec, compact){
-  /* t537u : sentiment du secteur de la ligne (rec.sentiment) ; CNN global en repli */
-  const rs=(rec&&rec.sentiment&&rec.sentiment.valeur!=null)?rec.sentiment:null;
-  const fg=rs?{value:rs.valeur,label:rs.zone||''}:((PILOT&&PILOT.fear_greed)||{});
-  const sNom=rs?('Sentiment '+(rs.nom||'secteur')):'Fear &amp; Greed';
+  /* Sentiment maison du secteur ou de la classe ; pas de repli CNN */
+  const rs=houseSentOf(rec);
+  const fg=rs?{value:rs.valeur,label:rs.zone||sentZone(rs.valeur)}:{};
+  const sNom=rs?('Sentiment '+(rs.nom||'secteur')):'Sentiment';
   const total=rec&&rec.total!=null?rec.total:null;
   const sc=recScale(rec);
   const mn=sc.min, mx=sc.max, ticks=sc.ticks;
@@ -598,7 +637,7 @@ function dualBarPilot(rec, compact){
   const sp=Number.isFinite(sv)?Math.max(0,Math.min(100,sv)):null;
   const pos=v=>((v-mn)/(mx-mn))*100;
   const hex=pilotHex(rec);
-  const sl=fg.label||'–';
+  const sl=rs?(fg.label||sentZone(rs.valeur)):'';
   const scol=sp!=null?gmir(sp):'#888';
   const tickHTML=ticks.map((v,i)=>{
     const edge=i===0?' db-e0':(i===ticks.length-1?' db-e1':'');
@@ -630,14 +669,14 @@ function dualBarPilot(rec, compact){
   const mmTip=mm?('MM40 hebdo '+(mm.points==null?'donnée absente':(mmTxt+(mm.ecart_pct!=null?(' · écart '+((mm.ecart_pct>0?'+': '')+fmt(mm.ecart_pct,1)+' %')):'')))):'';
   const mmPart=mm?`<span class="pilot-mm" title="${mmTip}">MM40 hebdo <b class="sc-t">${mmTxt}</b></span>`:'';
   const avPart=`<span class="pilot-av"><i class="db-dot db-a" style="color:${hex}">AV</i>Total <b class="sc-t" style="color:${hex}">${totTxt}/${mx}</b></span>`;
-  const sPart=`<span class="pilot-s"><i class="db-dot db-s" style="color:${scol}">S</i>${sNom} <b class="sc-t" style="color:${scol}">${fgTxt} ${sl}</b></span>`;
+  const sPart=rs?`<span class="pilot-s"><i class="db-dot db-s" style="color:${scol}">S</i>${sNom} <b class="sc-t" style="color:${scol}">${fgTxt} ${sl}</b></span>`:`<span class="pilot-s"><i class="db-dot db-s" style="color:#888">S</i>Sentiment <b class="sc-t" style="color:#888">–</b></span>`;
   const hPart=`<span class="pilot-h" title="${hTip}"><i class="db-dot db-h" style="color:${hcol}">H</i>Hype <b class="sc-t" style="color:${hcol}">${hTxt}${hAtt?` <small>(${hAtt})</small>`:''}</b></span>`;
   const brkPart=(rec&&rec.ligne)?`<span class="pilot-brk">${rec.ligne}</span>`:'';
   const legParts=[avPart,fPart,sPart,hPart,mmPart,brkPart];
-  const bar=`<div class="db db-pilot ${compact?'db-sm':''}" role="img" aria-label="Score APEX ${totTxt} sur ${mn} à ${mx} ; ${rs?('Sentiment '+(rs.nom||'')):'Fear & Greed CNN'} ${fgTxt} (${sl}) sur 0 à 100 ; H hype ${hTxt}${fd?' ; F fondamental '+fTxt:''}${mm?' ; MM40 hebdo '+mmTxt:''}">
+  const bar=`<div class="db db-pilot ${compact?'db-sm':''}" role="img" aria-label="Score APEX ${totTxt} sur ${mn} à ${mx} ; ${rs?('Sentiment '+(rs.nom||'')):'Sentiment'} ${fgTxt} (${sl}) sur 0 à 100 ; H hype ${hTxt}${fd?' ; F fondamental '+fTxt:''}${mm?' ; MM40 hebdo '+mmTxt:''}">
    <div class="db-tk db-tk1">${tickHTML}</div>
    <div class="db-g"><div class="ind-bar"></div>${bandTicks}
-    ${sp!=null?`<div class="db-cur db-s" style="left:${sp}%;color:${scol}" data-p="${sp}" title="S = ${rs?('Sentiment '+(rs.nom||'')):'CNN Fear & Greed Index'} ${fgTxt} · ${sl}">S</div>`:''}
+    ${sp!=null?`<div class="db-cur db-s" style="left:${sp}%;color:${scol}" data-p="${sp}" title="S = ${rs?('Sentiment '+(rs.nom||'')):'Sentiment'} ${fgTxt} · ${sl}">S</div>`:''}
     ${total!=null?`<div class="db-cur db-a" style="left:${ap}%;color:${hex}" data-p="${ap.toFixed(1)}" title="AV = score APEX ${totTxt} / ${mx}">AV</div>`:''}
     ${hp!=null?`<div class="db-cur db-h" style="left:${hp}%;color:${hcol}" data-p="${hp.toFixed(1)}" title="${hTip}">H</div>`:''}
     ${fp!=null?`<div class="db-cur db-f" style="left:${fp}%;color:${fcol}" data-p="${fp.toFixed(1)}" title="${fTip}">F</div>`:''}

@@ -1444,5 +1444,5 @@
   "official": true,
   "source": "https://edition.cnn.com/markets/fear-and-greed"
  },
- "methode": "Indice composite APEX, non officiel, de 0 (peur extrême) à 100 (euphorie). Moyenne simple de sous-scores 0-100 : écart à la SMA 125 j, RSI 14 journalier, distance au plus haut 52 semaines, volatilité 20 j inversée, performance 21 j (rangs sur 5 ans, clôtures journalières Yahoo) ; pour les 11 secteurs US, + % de titres au-dessus de leur SMA 50 j et 200 j et force interne (holdings SPDR). Crypto : alternative.me. Immobilier France et liquidités : indices APEX de la colonne Indicateur. Repli : CNN Fear & Greed global quand un actif n’a pas de secteur ou de classe."
+ "methode": "Indice composite APEX, non officiel, de 0 (peur extrême) à 100 (euphorie). Moyenne simple de sous-scores 0-100 : écart à la SMA 125 j, RSI 14 journalier, distance au plus haut 52 semaines, volatilité 20 j inversée, performance 21 j (rangs sur 5 ans, clôtures journalières Yahoo) ; pour les 11 secteurs US, + % de titres au-dessus de leur SMA 50 j et 200 j et force interne (holdings SPDR). Crypto : alternative.me. Immobilier France et liquidités : indices APEX de la colonne Indicateur. Si un actif n’a pas de secteur ni de classe, le critère vaut 0 dans la note. Le CNN Fear & Greed global reste un repère d’information, hors note."
 }
