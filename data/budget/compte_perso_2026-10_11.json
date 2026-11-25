@@ -348,7 +348,7 @@
         {
           "date": "2026-10-05",
           "date_libelle": "5 oct. 2026",
-          "libelle": "Cofica Bail",
+          "libelle": "LOA Tesla (Cofica Bail)",
           "details": [
             "Référence : 88023063210355"
           ],
@@ -363,13 +363,14 @@
           "statut": "comptable",
           "compte": "perso",
           "compte_libelle": "perso",
-          "note_classification": "Cofica Bail — probable échéance de LOA / financement véhicule. Classé en Transport.",
+          "note_classification": "LOA de la Tesla (Cofica Bail), 486,32 € par mois. Confirmé par Emmanuel le 25/11/2026. Charge fixe, catégorie Transport.",
+          "libelle_releve": "Cofica Bail",
           "produit": "compte_courant"
         },
         {
           "date": "2026-11-05",
           "date_libelle": "5 nov. 2026",
-          "libelle": "Cofica Bail",
+          "libelle": "LOA Tesla (Cofica Bail)",
           "details": [
             "Référence : 88023063210355"
           ],
@@ -384,7 +385,64 @@
           "statut": "comptable",
           "compte": "perso",
           "compte_libelle": "perso",
-          "note_classification": "Cofica Bail — probable échéance de LOA / financement véhicule. Classé en Transport.",
+          "note_classification": "LOA de la Tesla (Cofica Bail), 486,32 € par mois. Confirmé par Emmanuel le 25/11/2026. Charge fixe, catégorie Transport.",
+          "libelle_releve": "Cofica Bail",
+          "produit": "compte_courant"
+        }
+      ],
+      "detail": "2 opérations"
+    },
+    {
+      "id": "credit_revolut",
+      "poste": "Crédit Revolut (remboursement)",
+      "n_operations": 2,
+      "debit_eur": 339.2,
+      "credit_eur": 0.0,
+      "observe_eur": 339.2,
+      "observe_usd": 371.22,
+      "projection_eur": 339.2,
+      "projection_usd": 371.22,
+      "objectif": null,
+      "compte_dans_total_depenses": true,
+      "operations": [
+        {
+          "date": "2026-10-09",
+          "date_libelle": "9 oct. 2026",
+          "libelle": "Crédit Revolut (remboursement)",
+          "details": [],
+          "sens": "debit",
+          "montant_eur": 169.6,
+          "montant_usd": 185.61,
+          "solde_apres_eur": 622.99,
+          "categorie": "credit_revolut",
+          "categorie_libelle": "Crédit Revolut (remboursement)",
+          "type": "depense",
+          "page": 2,
+          "statut": "comptable",
+          "compte": "perso",
+          "compte_libelle": "perso",
+          "note_classification": "Mensualité du crédit Revolut 23 500 € (169,60 €). Confirmé par Emmanuel le 25/11/2026. Catégorie « Crédit Revolut (remboursement) », charge fixe.",
+          "libelle_releve": "repayment",
+          "produit": "compte_courant"
+        },
+        {
+          "date": "2026-11-09",
+          "date_libelle": "9 nov. 2026",
+          "libelle": "Crédit Revolut (remboursement)",
+          "details": [],
+          "sens": "debit",
+          "montant_eur": 169.6,
+          "montant_usd": 185.61,
+          "solde_apres_eur": 328.17,
+          "categorie": "credit_revolut",
+          "categorie_libelle": "Crédit Revolut (remboursement)",
+          "type": "depense",
+          "page": 4,
+          "statut": "comptable",
+          "compte": "perso",
+          "compte_libelle": "perso",
+          "note_classification": "Mensualité du crédit Revolut 23 500 € (169,60 €). Confirmé par Emmanuel le 25/11/2026. Catégorie « Crédit Revolut (remboursement) », charge fixe.",
+          "libelle_releve": "repayment",
           "produit": "compte_courant"
         }
       ],
@@ -887,17 +945,46 @@
     {
       "id": "loisirs",
       "poste": "Loisirs / restaurants",
-      "n_operations": 0,
-      "debit_eur": 0.0,
+      "n_operations": 1,
+      "debit_eur": 20.93,
       "credit_eur": 0.0,
-      "observe_eur": 0.0,
-      "observe_usd": 0.0,
-      "projection_eur": 0.0,
-      "projection_usd": 0.0,
+      "observe_eur": 20.93,
+      "observe_usd": 22.91,
+      "projection_eur": 20.93,
+      "projection_usd": 22.91,
       "objectif": null,
       "compte_dans_total_depenses": true,
-      "operations": [],
-      "detail": "Aucune opération sur le compte perso."
+      "operations": [
+        {
+          "date": "2026-10-16",
+          "date_libelle": "16 oct. 2026",
+          "libelle": "Cadeau / pot de naissance (travail)",
+          "details": [
+            "Taux Revolut = 1,00€ = 1,12$ (taux ECB x 1,00€ = 1,12$)                              23,36$",
+            "À : Paypal *bastos_67, 4029357733, LUX",
+            "Carte : 516794******5361"
+          ],
+          "sens": "debit",
+          "montant_eur": 20.93,
+          "montant_usd": 22.91,
+          "solde_apres_eur": 84.07,
+          "categorie": "loisirs",
+          "categorie_libelle": "Loisirs / restaurants",
+          "type": "depense",
+          "page": 2,
+          "statut": "comptable",
+          "compte": "perso",
+          "compte_libelle": "perso",
+          "devise_origine": {
+            "montant": 1.12,
+            "devise": "USD"
+          },
+          "note_classification": "Pot de naissance au travail (PayPal *bastos_67). Confirmé par Emmanuel le 25/11/2026. Catégorie Loisirs.",
+          "libelle_releve": "Bastos 67",
+          "produit": "compte_courant"
+        }
+      ],
+      "detail": "1 opération"
     },
     {
       "id": "achats",
@@ -1518,7 +1605,7 @@
           "statut": "comptable",
           "compte": "perso",
           "compte_libelle": "perso",
-          "note_classification": "Virement vers le compte FR7610278010100002262220176 à son nom. Transfert interne, pas une dépense.",
+          "note_classification": "Versement du capital du crédit Revolut 23 500 € vers FR7610278010100002262220176 (23 430,00 € + 4,34 € = 23 434,34 €). Confirmé par Emmanuel le 25/11/2026 : ce n'est ni un revenu ni une dépense. La mensualité est 169,60 €.",
           "produit": "compte_courant"
         },
         {
@@ -1540,7 +1627,7 @@
           "statut": "comptable",
           "compte": "perso",
           "compte_libelle": "perso",
-          "note_classification": "Virement vers le compte FR7610278010100002262220176 à son nom. Transfert interne, pas une dépense.",
+          "note_classification": "Versement du capital du crédit Revolut 23 500 € vers FR7610278010100002262220176 (23 430,00 € + 4,34 € = 23 434,34 €). Confirmé par Emmanuel le 25/11/2026 : ce n'est ni un revenu ni une dépense. La mensualité est 169,60 €.",
           "produit": "compte_courant"
         },
         {
@@ -2482,45 +2569,17 @@
     {
       "id": "autres",
       "poste": "Autres",
-      "n_operations": 1,
-      "debit_eur": 20.93,
+      "n_operations": 0,
+      "debit_eur": 0.0,
       "credit_eur": 0.0,
-      "observe_eur": 20.93,
-      "observe_usd": 22.91,
-      "projection_eur": 20.93,
-      "projection_usd": 22.91,
+      "observe_eur": 0.0,
+      "observe_usd": 0.0,
+      "projection_eur": 0.0,
+      "projection_usd": 0.0,
       "objectif": null,
       "compte_dans_total_depenses": true,
-      "operations": [
-        {
-          "date": "2026-10-16",
-          "date_libelle": "16 oct. 2026",
-          "libelle": "Bastos 67",
-          "details": [
-            "Taux Revolut = 1,00€ = 1,12$ (taux ECB x 1,00€ = 1,12$)                              23,36$",
-            "À : Paypal *bastos_67, 4029357733, LUX",
-            "Carte : 516794******5361"
-          ],
-          "sens": "debit",
-          "montant_eur": 20.93,
-          "montant_usd": 22.91,
-          "solde_apres_eur": 84.07,
-          "categorie": "autres",
-          "categorie_libelle": "Autres",
-          "type": "depense",
-          "page": 2,
-          "statut": "comptable",
-          "compte": "perso",
-          "compte_libelle": "perso",
-          "devise_origine": {
-            "montant": 1.12,
-            "devise": "USD"
-          },
-          "note_classification": "PayPal *bastos_67 (Luxembourg). Catégorie Autres en attendant confirmation.",
-          "produit": "compte_courant"
-        }
-      ],
-      "detail": "1 opération"
+      "operations": [],
+      "detail": "Aucune opération sur le compte perso."
     },
     {
       "id": "air_glow_pub",
@@ -2539,12 +2598,12 @@
     }
   ],
   "totaux": {
-    "depenses_eur": 1439.59,
-    "depenses_usd": 1575.49,
+    "depenses_eur": 1778.79,
+    "depenses_usd": 1946.71,
     "revenus_eur": 10485.48,
     "revenus_usd": 11475.31,
-    "reste_eur": 9045.89,
-    "reste_usd": 9899.82,
+    "reste_eur": 8706.69,
+    "reste_usd": 9528.6,
     "salaire_eur": 10485.0
   },
   "revenus_operations": [
@@ -3783,25 +3842,6 @@
   ],
   "financement_operations": [
     {
-      "date": "2026-10-09",
-      "date_libelle": "9 oct. 2026",
-      "libelle": "repayment",
-      "details": [],
-      "sens": "debit",
-      "montant_eur": 169.6,
-      "montant_usd": 185.61,
-      "solde_apres_eur": 622.99,
-      "categorie": "financement",
-      "categorie_libelle": "financement_sortant",
-      "type": "financement_sortant",
-      "page": 2,
-      "statut": "comptable",
-      "compte": "perso",
-      "compte_libelle": "perso",
-      "note_classification": "Libellé « repayment » 169,60 € (9/10 et 9/11). Probable échéance de crédit Revolut. Exclu des dépenses de consommation.",
-      "produit": "compte_courant"
-    },
-    {
       "date": "2026-11-06",
       "date_libelle": "6 nov. 2026",
       "libelle": "Personal loan",
@@ -3817,26 +3857,7 @@
       "statut": "comptable",
       "compte": "perso",
       "compte_libelle": "perso",
-      "note_classification": "Prêt personnel Revolut 23 500 €. Ce n'est pas un revenu. Le jour même, 23 434,34 € partent vers le compte FR7610278010100002262220176.",
-      "produit": "compte_courant"
-    },
-    {
-      "date": "2026-11-09",
-      "date_libelle": "9 nov. 2026",
-      "libelle": "repayment",
-      "details": [],
-      "sens": "debit",
-      "montant_eur": 169.6,
-      "montant_usd": 185.61,
-      "solde_apres_eur": 328.17,
-      "categorie": "financement",
-      "categorie_libelle": "financement_sortant",
-      "type": "financement_sortant",
-      "page": 4,
-      "statut": "comptable",
-      "compte": "perso",
-      "compte_libelle": "perso",
-      "note_classification": "Libellé « repayment » 169,60 € (9/10 et 9/11). Probable échéance de crédit Revolut. Exclu des dépenses de consommation.",
+      "note_classification": "Crédit Revolut 23 500 € (confirmé par Emmanuel le 25/11/2026). Ce n'est ni un revenu ni une dépense. Mensualité 169,60 € (libellé « repayment »). Le jour même, 23 434,34 € sont virés vers FR7610278010100002262220176 (transfert interne, pas une dépense).",
       "produit": "compte_courant"
     }
   ],
@@ -3846,30 +3867,6 @@
       "montant_eur": 36.35,
       "classification": "remboursements",
       "question": "Remboursement d'impôt, de frais scolaires, ou autre versement de la DGFIP ?"
-    },
-    {
-      "sujet": "Cofica Bail 486,32 € (5/10 et 5/11)",
-      "montant_eur": 486.32,
-      "classification": "transport",
-      "question": "Confirmer qu'il s'agit bien d'une échéance de LOA / crédit véhicule ?"
-    },
-    {
-      "sujet": "repayment 169,60 € (9/10 et 9/11)",
-      "montant_eur": 169.6,
-      "classification": "financement (exclu des dépenses perso)",
-      "question": "Remboursement d'un crédit Revolut (lié au Personal loan ou à un autre crédit) ?"
-    },
-    {
-      "sujet": "Bastos 67 (PayPal) 20,93 €",
-      "montant_eur": 20.93,
-      "classification": "autres",
-      "question": "Tabac, commerçant, ou autre dépense ?"
-    },
-    {
-      "sujet": "Personal loan Revolut 23 500 € (6/11/2026)",
-      "montant_eur": 23500.0,
-      "classification": "financement",
-      "question": "Confirmer qu'il s'agit bien d'un prêt Revolut, et l'usage du virement de 23 434,34 € vers le compte FR7610278010100002262220176 (clôturé le 16/11, solde résiduel 47,89 € reçu sur le joint)."
     },
     {
       "sujet": "Paiement envoyé par M FRANCKY VETSCH 2,00 €",
@@ -4046,7 +4043,7 @@
     {
       "date": "2026-10-05",
       "date_libelle": "5 oct. 2026",
-      "libelle": "Cofica Bail",
+      "libelle": "LOA Tesla (Cofica Bail)",
       "details": [
         "Référence : 88023063210355"
       ],
@@ -4061,7 +4058,8 @@
       "statut": "comptable",
       "compte": "perso",
       "compte_libelle": "perso",
-      "note_classification": "Cofica Bail — probable échéance de LOA / financement véhicule. Classé en Transport.",
+      "note_classification": "LOA de la Tesla (Cofica Bail), 486,32 € par mois. Confirmé par Emmanuel le 25/11/2026. Charge fixe, catégorie Transport.",
+      "libelle_releve": "Cofica Bail",
       "produit": "compte_courant"
     },
     {
@@ -4197,20 +4195,21 @@
     {
       "date": "2026-10-09",
       "date_libelle": "9 oct. 2026",
-      "libelle": "repayment",
+      "libelle": "Crédit Revolut (remboursement)",
       "details": [],
       "sens": "debit",
       "montant_eur": 169.6,
       "montant_usd": 185.61,
       "solde_apres_eur": 622.99,
-      "categorie": "financement",
-      "categorie_libelle": "financement_sortant",
-      "type": "financement_sortant",
+      "categorie": "credit_revolut",
+      "categorie_libelle": "Crédit Revolut (remboursement)",
+      "type": "depense",
       "page": 2,
       "statut": "comptable",
       "compte": "perso",
       "compte_libelle": "perso",
-      "note_classification": "Libellé « repayment » 169,60 € (9/10 et 9/11). Probable échéance de crédit Revolut. Exclu des dépenses de consommation.",
+      "note_classification": "Mensualité du crédit Revolut 23 500 € (169,60 €). Confirmé par Emmanuel le 25/11/2026. Catégorie « Crédit Revolut (remboursement) », charge fixe.",
+      "libelle_releve": "repayment",
       "produit": "compte_courant"
     },
     {
@@ -4282,7 +4281,7 @@
     {
       "date": "2026-10-16",
       "date_libelle": "16 oct. 2026",
-      "libelle": "Bastos 67",
+      "libelle": "Cadeau / pot de naissance (travail)",
       "details": [
         "Taux Revolut = 1,00€ = 1,12$ (taux ECB x 1,00€ = 1,12$)                              23,36$",
         "À : Paypal *bastos_67, 4029357733, LUX",
@@ -4292,8 +4291,8 @@
       "montant_eur": 20.93,
       "montant_usd": 22.91,
       "solde_apres_eur": 84.07,
-      "categorie": "autres",
-      "categorie_libelle": "Autres",
+      "categorie": "loisirs",
+      "categorie_libelle": "Loisirs / restaurants",
       "type": "depense",
       "page": 2,
       "statut": "comptable",
@@ -4303,7 +4302,8 @@
         "montant": 1.12,
         "devise": "USD"
       },
-      "note_classification": "PayPal *bastos_67 (Luxembourg). Catégorie Autres en attendant confirmation.",
+      "note_classification": "Pot de naissance au travail (PayPal *bastos_67). Confirmé par Emmanuel le 25/11/2026. Catégorie Loisirs.",
+      "libelle_releve": "Bastos 67",
       "produit": "compte_courant"
     },
     {
@@ -4972,7 +4972,7 @@
     {
       "date": "2026-11-05",
       "date_libelle": "5 nov. 2026",
-      "libelle": "Cofica Bail",
+      "libelle": "LOA Tesla (Cofica Bail)",
       "details": [
         "Référence : 88023063210355"
       ],
@@ -4987,7 +4987,8 @@
       "statut": "comptable",
       "compte": "perso",
       "compte_libelle": "perso",
-      "note_classification": "Cofica Bail — probable échéance de LOA / financement véhicule. Classé en Transport.",
+      "note_classification": "LOA de la Tesla (Cofica Bail), 486,32 € par mois. Confirmé par Emmanuel le 25/11/2026. Charge fixe, catégorie Transport.",
+      "libelle_releve": "Cofica Bail",
       "produit": "compte_courant"
     },
     {
@@ -5069,7 +5070,7 @@
       "statut": "comptable",
       "compte": "perso",
       "compte_libelle": "perso",
-      "note_classification": "Prêt personnel Revolut 23 500 €. Ce n'est pas un revenu. Le jour même, 23 434,34 € partent vers le compte FR7610278010100002262220176.",
+      "note_classification": "Crédit Revolut 23 500 € (confirmé par Emmanuel le 25/11/2026). Ce n'est ni un revenu ni une dépense. Mensualité 169,60 € (libellé « repayment »). Le jour même, 23 434,34 € sont virés vers FR7610278010100002262220176 (transfert interne, pas une dépense).",
       "produit": "compte_courant"
     },
     {
@@ -5091,7 +5092,7 @@
       "statut": "comptable",
       "compte": "perso",
       "compte_libelle": "perso",
-      "note_classification": "Virement vers le compte FR7610278010100002262220176 à son nom. Transfert interne, pas une dépense.",
+      "note_classification": "Versement du capital du crédit Revolut 23 500 € vers FR7610278010100002262220176 (23 430,00 € + 4,34 € = 23 434,34 €). Confirmé par Emmanuel le 25/11/2026 : ce n'est ni un revenu ni une dépense. La mensualité est 169,60 €.",
       "produit": "compte_courant"
     },
     {
@@ -5113,7 +5114,7 @@
       "statut": "comptable",
       "compte": "perso",
       "compte_libelle": "perso",
-      "note_classification": "Virement vers le compte FR7610278010100002262220176 à son nom. Transfert interne, pas une dépense.",
+      "note_classification": "Versement du capital du crédit Revolut 23 500 € vers FR7610278010100002262220176 (23 430,00 € + 4,34 € = 23 434,34 €). Confirmé par Emmanuel le 25/11/2026 : ce n'est ni un revenu ni une dépense. La mensualité est 169,60 €.",
       "produit": "compte_courant"
     },
     {
@@ -5160,20 +5161,21 @@
     {
       "date": "2026-11-09",
       "date_libelle": "9 nov. 2026",
-      "libelle": "repayment",
+      "libelle": "Crédit Revolut (remboursement)",
       "details": [],
       "sens": "debit",
       "montant_eur": 169.6,
       "montant_usd": 185.61,
       "solde_apres_eur": 328.17,
-      "categorie": "financement",
-      "categorie_libelle": "financement_sortant",
-      "type": "financement_sortant",
+      "categorie": "credit_revolut",
+      "categorie_libelle": "Crédit Revolut (remboursement)",
+      "type": "depense",
       "page": 4,
       "statut": "comptable",
       "compte": "perso",
       "compte_libelle": "perso",
-      "note_classification": "Libellé « repayment » 169,60 € (9/10 et 9/11). Probable échéance de crédit Revolut. Exclu des dépenses de consommation.",
+      "note_classification": "Mensualité du crédit Revolut 23 500 € (169,60 €). Confirmé par Emmanuel le 25/11/2026. Catégorie « Crédit Revolut (remboursement) », charge fixe.",
+      "libelle_releve": "repayment",
       "produit": "compte_courant"
     },
     {

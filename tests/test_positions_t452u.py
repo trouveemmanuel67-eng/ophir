@@ -236,12 +236,33 @@ def test_ordres_traites_comme_positions_actives_dans_le_js():
     assert comptes["totaux"]["salaire_eur"] == 10485.0
     assert comptes["totaux"]["france_travail_eur"] == 1753.2
     assert comptes["totaux"]["revenus_eur"] == 12238.68
-    assert comptes["totaux"]["depenses_eur"] == 13040.15
-    assert comptes["totaux"]["reste_eur"] == -801.47
-    assert comptes["totaux"]["air_glow_pub_eur"] == 159.92
+    assert comptes["totaux"]["depenses_eur"] == 13279.0
+    assert comptes["totaux"]["reste_eur"] == -1040.32
+    assert comptes["totaux"]["air_glow_pub_eur"] == 260.27
     assert comptes["totaux"]["n_transferts_dedoublonnes"] == 36
+    assert comptes["totaux"]["charges_fixes_credit_mensuel_eur"] == 655.92
+    assert comptes["totaux"]["credit_revolut"]["capital_eur"] == 23500.0
+    assert comptes["totaux"]["credit_revolut"]["mensualite_eur"] == 169.6
     abo_c = next(c for c in comptes["categories"] if c["id"] == "abonnements")
     assert any(o["libelle"] == "Grok (via Apple)" and o["montant_eur"] == 114.99 for o in abo_c["operations"])
+    assert any(o["libelle"] == "Grok Heavy (via Apple)" and o["montant_eur"] == 219.99 for o in abo_c["operations"])
+    tr_c = next(c for c in comptes["categories"] if c["id"] == "transport")
+    assert all(o["libelle"] != "Cofica Bail" for o in tr_c["operations"])
+    assert sum(o["montant_eur"] for o in tr_c["operations"] if o["libelle"] == "LOA Tesla (Cofica Bail)") == 972.64
+    cred = next(c for c in comptes["categories"] if c["id"] == "credit_revolut")
+    assert cred["poste"] == "Crédit Revolut (remboursement)"
+    assert cred["observe_eur"] == 339.2
+    assert cred["compte_dans_total_depenses"] is True
+    lois = next(c for c in comptes["categories"] if c["id"] == "loisirs")
+    assert any(o["libelle"] == "Cadeau / pot de naissance (travail)" and o["montant_eur"] == 20.93 for o in lois["operations"])
+    glow_c = next(c for c in comptes["categories"] if c["id"] == "air_glow_pub")
+    assert any(o["libelle"] == "MailPoet" and o["montant_eur"] == 85.95 for o in glow_c["operations"])
+    assert any(o["libelle"] == "Dualhook" and o["montant_eur"] == 14.4 for o in glow_c["operations"])
+    amb = " ".join((a.get("sujet") or "") for a in (comptes.get("operations_ambigues") or []))
+    assert "Cofica" not in amb and "repayment" not in amb and "Bastos" not in amb
+    assert "219,99" not in amb and "MailPoet" not in amb and "Dualhook" not in amb and "Personal loan" not in amb
+    assert "Crédit Revolut 23 500" in BDG
+    assert "bdg-cat-fixe" in BDG and "bdg-cat-fixe" in CSS
     san_c = next(c for c in comptes["categories"] if c["id"] == "sante")
     koch_c = [o for o in san_c["operations"] if o["libelle"] == "Dentiste (Dr Koch)"]
     assert len(koch_c) == 2

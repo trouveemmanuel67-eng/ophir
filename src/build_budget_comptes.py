@@ -23,6 +23,7 @@ CAT_DEFS = [
     ("energie", "Énergie", True),
     ("courses", "Courses", True),
     ("transport", "Transport / carburant", True),
+    ("credit_revolut", "Crédit Revolut (remboursement)", True),
     ("assurances", "Assurances / mutuelle", True),
     ("telecom", "Télécom / internet", True),
     ("abonnements", "Abonnements", True),
@@ -163,13 +164,11 @@ def classify_perso(raw):
             notes.append("Aon France, complément sécurité sociale (mutuelle). À rapprocher des soins dentaires Dr Koch. Non inclus dans les revenus.")
         elif lib == "Personal loan":
             cat, typ = "financement", "financement_entrant"
-            notes.append("Prêt personnel Revolut 23 500 €. Ce n'est pas un revenu. Le jour même, 23 434,34 € partent vers le compte FR7610278010100002262220176.")
-            ambigu = {
-                "sujet": "Personal loan Revolut 23 500 € (6/11/2026)",
-                "montant_eur": amt,
-                "classification": "financement",
-                "question": "Confirmer qu'il s'agit bien d'un prêt Revolut, et l'usage du virement de 23 434,34 € vers le compte FR7610278010100002262220176 (clôturé le 16/11, solde résiduel 47,89 € reçu sur le joint).",
-            }
+            notes.append(
+                "Crédit Revolut 23 500 € (confirmé par Emmanuel le 25/11/2026). "
+                "Ce n'est ni un revenu ni une dépense. Mensualité 169,60 € (libellé « repayment »). "
+                "Le jour même, 23 434,34 € sont virés vers FR7610278010100002262220176 (transfert interne, pas une dépense)."
+            )
         elif "FRANCKY VETSCH" in lib:
             cat, typ = "a_confirmer_credit", "a_confirmer"
             notes.append("Petit virement reçu (2,00 €). Non compté en revenu en attendant confirmation.")
@@ -243,7 +242,14 @@ def classify_perso(raw):
         notes.append("Vers le compte d'épargne Revolut.")
     elif lib.startswith("To Emmanuel Trouvé") or lib.startswith("To Emmanuel Trouve"):
         cat, typ = "virements_internes", "virement_interne"
-        notes.append("Virement vers le compte FR7610278010100002262220176 à son nom. Transfert interne, pas une dépense.")
+        if raw.get("date") == "2026-11-06" and amt in (23430.0, 4.34):
+            notes.append(
+                "Versement du capital du crédit Revolut 23 500 € vers FR7610278010100002262220176 "
+                "(23 430,00 € + 4,34 € = 23 434,34 €). Confirmé par Emmanuel le 25/11/2026 : "
+                "ce n'est ni un revenu ni une dépense. La mensualité est 169,60 €."
+            )
+        else:
+            notes.append("Virement vers le compte FR7610278010100002262220176 à son nom. Transfert interne, pas une dépense.")
     elif lib.startswith("Change en") or lib.startswith("Exchanged to"):
         cat, typ = "virements_internes", "virement_interne"
         if lib in ("Change en XPT", "Change en XAG", "Change en XPD", "Change en XAU"):
@@ -253,13 +259,8 @@ def classify_perso(raw):
             notes.append("Change de devise (poche interne Revolut). Pas une dépense de consommation.")
     elif lib == "Cofica Bail":
         cat, typ = "transport", "depense"
-        notes.append("Cofica Bail — probable échéance de LOA / financement véhicule. Classé en Transport.")
-        ambigu = {
-            "sujet": "Cofica Bail 486,32 € (5/10 et 5/11)",
-            "montant_eur": 486.32,
-            "classification": "transport",
-            "question": "Confirmer qu'il s'agit bien d'une échéance de LOA / crédit véhicule ?",
-        }
+        rename = "LOA Tesla (Cofica Bail)"
+        notes.append("LOA de la Tesla (Cofica Bail), 486,32 € par mois. Confirmé par Emmanuel le 25/11/2026. Charge fixe, catégorie Transport.")
     elif "Free Telecom" in lib:
         cat, typ = "telecom", "depense"
         notes.append("Free Haut Débit.")
@@ -267,25 +268,18 @@ def classify_perso(raw):
         cat, typ = "abonnements", "depense"
         notes.append("Abonnement Revolut Ultra.")
     elif lib == "repayment":
-        cat, typ = "financement", "financement_sortant"
-        notes.append("Libellé « repayment » 169,60 € (9/10 et 9/11). Probable échéance de crédit Revolut. Exclu des dépenses de consommation.")
-        ambigu = {
-            "sujet": "repayment 169,60 € (9/10 et 9/11)",
-            "montant_eur": 169.60,
-            "classification": "financement (exclu des dépenses perso)",
-            "question": "Remboursement d'un crédit Revolut (lié au Personal loan ou à un autre crédit) ?",
-        }
+        cat, typ = "credit_revolut", "depense"
+        rename = "Crédit Revolut (remboursement)"
+        notes.append(
+            "Mensualité du crédit Revolut 23 500 € (169,60 €). Confirmé par Emmanuel le 25/11/2026. "
+            "Catégorie « Crédit Revolut (remboursement) », charge fixe."
+        )
     elif lib in ("Netflix", "Disney+", "YouTube"):
         cat, typ = "abonnements", "depense"
     elif "Bastos" in lib:
-        cat, typ = "autres", "depense"
-        notes.append("PayPal *bastos_67 (Luxembourg). Catégorie Autres en attendant confirmation.")
-        ambigu = {
-            "sujet": "Bastos 67 (PayPal) 20,93 €",
-            "montant_eur": amt,
-            "classification": "autres",
-            "question": "Tabac, commerçant, ou autre dépense ?",
-        }
+        cat, typ = "loisirs", "depense"
+        rename = "Cadeau / pot de naissance (travail)"
+        notes.append("Pot de naissance au travail (PayPal *bastos_67). Confirmé par Emmanuel le 25/11/2026. Catégorie Loisirs.")
     else:
         cat, typ = "autres", "depense"
         ambigu = {
@@ -304,16 +298,14 @@ NOV_JOINT_MAP = {
     "Amazon": ("achats", "depense", None, None, None, None),
     "Fonds Logt Intermediaire-fonds De Logement": ("logement", "depense", None, None, None, None),
     "Lidl": ("courses", "depense", None, None, None, None),
-    "Apple": ("abonnements", "depense", None, None, "Facture Apple.com/bill. Les crédits Apple du même mois sont déduits du net Abonnements. Le 219,99 € du 4/11 n'est pas l'abonnement Grok d'octobre (114,99 €).",
-              {"sujet": "Apple.com/bill 219,99 € le 4/11/2026", "montant_eur": 219.99, "classification": "abonnements", "question": "Objet de cette facture Apple (autre abonnement, achat, renouvellement) ? Ce n'est pas le Grok 114,99 € d'octobre."}),
+    "Apple": ("abonnements", "depense", None, None, "Facture Apple.com/bill. Les crédits Apple du même mois sont déduits du net Abonnements.", None),
     "Carrefour": ("courses", "depense", None, None, None, None),
     "Temu": ("achats", "depense", None, None, None, None),
     "WordPress": ("abonnements", "depense", None, None, "Wp*wordpress — abonnement site (probable activité pro Air Glow).", None),
     "Dr Eric Koch": ("sante", "depense", "Dentiste (Dr Koch)", "dentaire", "Dentiste (Dr Eric Koch, Strasbourg). Remboursement mutuelle Aon à vérifier (des versements Aon « complément sécurité sociale » apparaissent sur le compte perso en novembre).", None),
     "Karllagerfeld Outletro": ("achats", "depense", None, None, "Karl Lagerfeld outlet, Roppenheim.", None),
     "Axa": ("assurances", "depense", None, None, None, None),
-    "MailPoet": ("abonnements", "depense", None, None, "MailPoet (Dublin) — extension e-mail WordPress, probable activité pro Air Glow.",
-                 {"sujet": "MailPoet 85,95 € le 5/11/2026", "montant_eur": 85.95, "classification": "abonnements", "question": "Outil pro Air Glow (comme WordPress) ? Le laisser dans les abonnements perso, ou le sortir comme dépense pro ?",}),
+    "MailPoet": ("air_glow_pub", "depense_pro", None, None, "MailPoet — abonnement annuel pour la publicité Air Glow. Confirmé par Emmanuel le 25/11/2026. Catégorie « Air Glow, pub (pro) », exclu des dépenses personnelles.", None),
     "Tradingview": ("abonnements", "depense", None, None, "Prélèvement TradingView (Premium 83,94 €). Déjà suivi à part dans le bloc courtage (objectif Essential annuel).", None),
     "Free": ("telecom", "depense", None, None, "Free Mobile.", None),
     "L'Onglery des Tanneurs": ("loisirs", "depense", None, None, "Institut d'ongles, Strasbourg.", None),
@@ -329,8 +321,7 @@ NOV_JOINT_MAP = {
     "Normal": ("achats", "depense", None, None, "Normal Strasbourg (hygiène / bazar).", None),
     "CTS": ("transport", "depense", None, None, None, None),
     "Virement à : Shana Trouve": ("virements_internes", "virement_interne", None, None, "Virement vers la poche Shana. Les dépenses carte de Shana sont comptées à part (pas de double compte).", None),
-    "Dualhook": ("autres", "depense", None, None, "Dualhook.com, Anvers.",
-                 {"sujet": "Dualhook.com 14,40 € (Anvers, 21/11)", "montant_eur": 14.40, "classification": "autres", "question": "Commerçant / objet de l'achat ?",}),
+    "Dualhook": ("air_glow_pub", "depense_pro", None, None, "Dualhook.com — publicité Air Glow. Confirmé par Emmanuel le 25/11/2026. Catégorie « Air Glow, pub (pro) », exclu des dépenses personnelles.", None),
     "IKA": ("courses", "depense", None, None, None, None),
     "Microsoft": ("abonnements", "depense", None, None, None, None),
     "Les Ciseaux D Or": ("loisirs", "depense", None, None, "Coiffeur, Strasbourg.", None),
@@ -501,23 +492,20 @@ def build():
             unmapped.append(lib)
             continue
         cat, typ, rename, sous, note, ambigu = NOV_JOINT_MAP[lib]
-        # Apple 219.99 ambiguity only for that amount; other Apple lines: same cat, no extra question
         if lib == "Apple":
             if o.get("sens") == "credit":
                 note = "Crédit Apple.com/bill — déduit du net de la catégorie Abonnements."
                 ambigu = None
-            elif r2(o["montant_eur"]) != 219.99:
+            elif r2(o["montant_eur"]) == 219.99:
+                rename = "Grok Heavy (via Apple)"
+                note = (
+                    "Abonnement Grok Heavy prélevé via Apple.com/bill (219,99 € le 4/11/2026). "
+                    "Confirmé par Emmanuel le 25/11/2026 : libellé « Grok Heavy (via Apple) », catégorie Abonnements."
+                )
                 ambigu = None
-                if r2(o["montant_eur"]) != 219.99:
-                    note = "Facture Apple.com/bill. Les crédits Apple du même mois sont déduits du net Abonnements."
             else:
-                if apple_ambigu_once:
-                    ambigu = None
-                apple_ambigu_once = True
-        if lib == "MailPoet":
-            if mailpoet_once:
+                note = "Facture Apple.com/bill. Les crédits Apple du même mois sont déduits du net Abonnements."
                 ambigu = None
-            mailpoet_once = True
         if lib.startswith("Recharge sur Apple Pay"):
             if applepay_once:
                 ambigu = None
@@ -714,12 +702,17 @@ def build():
         rev_m = r2(sum(o["montant_eur"] for o in ops_m if o["type"] == "revenus" and o["sens"] == "credit")) or 0.0
         return {"depenses_eur": dep_m, "depenses_usd": usd(dep_m), "revenus_eur": rev_m, "revenus_usd": usd(rev_m), "reste_eur": r2(rev_m - dep_m), "reste_usd": usd(r2(rev_m - dep_m))}
 
+    credit_cat = next((c for c in cats if c["id"] == "credit_revolut"), None)
+    credit_obs = (credit_cat or {}).get("observe_eur") or 0.0
+    loa_mens = 486.32
+    cred_mens = 169.60
+    charges_fixes_mens = r2(loa_mens + cred_mens)
     totaux = {
         "depenses_eur": dep,
         "depenses_usd": usd(dep),
         "depenses_note": (
             "Somme nette des catégories de dépenses personnelles des deux comptes "
-            "(virements internes, épargne, investissement, financement, remboursements et dépenses pro Air Glow pub exclus). "
+            "(virements internes, épargne, investissement, capital du crédit Revolut, remboursements d'assurance et dépenses pro Air Glow pub exclus). "
             "Les virements perso → joint (et l'inverse) ne sont comptés qu'une fois, et uniquement en transferts internes. "
             "Les crédits Apple.com/bill du même mois sont déduits des Abonnements."
         ),
@@ -747,7 +740,7 @@ def build():
         ),
         "reste_eur": reste,
         "reste_usd": usd(reste),
-        "reste_formule": "revenus réels (salaire Tesla + France Travail + intérêts d'épargne) − dépenses personnelles (hors virements internes / épargne / investissement, hors Air Glow pub pro, hors financement, hors remboursements)",
+        "reste_formule": "revenus réels (salaire Tesla + France Travail + intérêts d'épargne) − dépenses personnelles (hors virements internes / épargne / investissement, hors Air Glow pub pro, hors capital du crédit Revolut, hors remboursements d'assurance)",
         "virements_internes_entrants_eur": vin_tot,
         "virements_internes_entrants_usd": usd(vin_tot),
         "virements_internes_sortants_eur": intern_out["observe_eur"],
@@ -755,24 +748,46 @@ def build():
         "air_glow_pub_eur": glow["observe_eur"],
         "air_glow_pub_usd": glow["observe_usd"],
         "air_glow_pub_note": (
-            f"Sous-total des paiements Facebook / Meta pour la publicité Air Glow ({glow['observe_eur']:.2f} €, "
-            f"{glow['n_operations']} paiements sur les deux mois). Exclu du total des dépenses personnelles, "
-            "sur confirmation d'Emmanuel le 25/11/2026 à 13 h 07."
+            f"Sous-total publicité Air Glow ({glow['observe_eur']:.2f} €, {glow['n_operations']} opérations) : "
+            "paiements Facebook / Meta, MailPoet (abonnement annuel) et Dualhook. "
+            "Exclu du total des dépenses personnelles, sur confirmation d'Emmanuel le 25/11/2026."
         ),
         "emprunt_entrant_eur": pret,
         "emprunt_entrant_usd": usd(pret),
         "remboursements_emprunt_eur": remb_emp,
         "remboursements_emprunt_usd": usd(remb_emp),
         "financement_note": (
-            "Prêt personnel Revolut 23 500 € le 6/11 (pas un revenu). "
-            "Le jour même, 23 434,34 € sont virés vers le compte FR7610278010100002262220176 (transfert interne). "
-            "Deux « repayment » de 169,60 € (9/10 et 9/11) sont traités comme remboursement d'emprunt, exclus des dépenses de consommation, à confirmer."
+            "Crédit Revolut 23 500 € le 6/11 (confirmé par Emmanuel le 25/11/2026) : ce n'est ni un revenu ni une dépense. "
+            "Le capital (23 434,34 €) est viré le jour même vers FR7610278010100002262220176 (transfert interne). "
+            "La mensualité de 169,60 € figure dans la catégorie « Crédit Revolut (remboursement) »."
         ),
         "octobre": slice_tot(is_oct),
         "novembre_1_25": slice_tot(is_nov),
         "n_operations_fusionnees": len(fused),
         "n_transferts_dedoublonnes": matched_n,
         "virements_internes_detail": vi_break,
+        "credit_revolut": {
+            "libelle": "Crédit Revolut 23 500 €",
+            "capital_eur": 23500.0,
+            "capital_usd": usd(23500.0),
+            "versement_capital_eur": 23434.34,
+            "versement_capital_usd": usd(23434.34),
+            "mensualite_eur": cred_mens,
+            "mensualite_usd": usd(cred_mens),
+            "n_echeances": (credit_cat or {}).get("n_operations") or 0,
+            "echeances_eur": credit_obs,
+            "echeances_usd": usd(credit_obs),
+            "note": (
+                "Crédit Revolut 23 500 €, confirmé par Emmanuel le 25/11/2026. "
+                "Ni un revenu ni une dépense. Mensualité 169,60 €. "
+                "Le capital 23 434,34 € a été viré le 6/11 vers FR7610278010100002262220176."
+            ),
+        },
+        "loa_tesla_mensualite_eur": loa_mens,
+        "loa_tesla_mensualite_usd": usd(loa_mens),
+        "charges_fixes_credit_mensuel_eur": charges_fixes_mens,
+        "charges_fixes_credit_mensuel_usd": usd(charges_fixes_mens),
+        "charges_fixes_credit_note": "Charges fixes de crédit : LOA Tesla (Cofica Bail) 486,32 €/mois + crédit Revolut 169,60 €/mois = 655,92 €/mois.",
     }
 
     # perso JSON
@@ -880,7 +895,7 @@ def build():
     # simpler: perso ambigues = those added while classifying perso (before joint nov). We'll just store all perso-origin ones in perso file from a tag.
     # I'll recompute: ambigues collected in order; for perso file, filter those about perso/shana/depot/loan/repayment/bastos/dgfip/francky/apple pay *3356/cofica
     perso_doc["operations_ambigues"] = [a for a in ambigues if any(k in json.dumps(a, ensure_ascii=False).lower() for k in (
-        "bastos", "dgfip", "francky", "*3356", "personal loan", "repayment", "cofica", "poche shana"
+        "dgfip", "francky", "*3356", "poche shana"
     ))]
 
     comptes_doc = {
@@ -1008,7 +1023,9 @@ def detail_cat(cid, ops, debit, credit, observe):
         srcs[k] = srcs.get(k, 0) + 1
     bits.append(", ".join(f"{v} {k}" for k, v in sorted(srcs.items(), key=lambda x: -x[1])))
     if cid == "air_glow_pub":
-        bits.append("publicité Facebook / Meta, exclue des dépenses personnelles")
+        bits.append("Facebook / Meta, MailPoet (annuel) et Dualhook — exclus des dépenses personnelles")
+    if cid == "credit_revolut":
+        bits.append("mensualité 169,60 € du crédit Revolut 23 500 € — charge fixe")
     if cid == "virements_internes":
         bits.append("vers joint, épargne, XTB, Revolut X, marge, métaux, compte à son nom — exclus des dépenses")
     if credit and cid == "abonnements":

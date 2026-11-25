@@ -312,6 +312,7 @@ function bdgJointHtml(b){
     const cls=['bdg-cat'];
     if(c.id==='courses') cls.push('bdg-cat-courses');
     if(c.id==='virements_internes') cls.push('bdg-cat-interne');
+    if(c.id==='credit_revolut') cls.push('bdg-cat-fixe');
     if(c.id==='air_glow_pub') cls.push('bdg-cat-pro');
     if(zeroEmpty) cls.push('is-empty');
     const row=bdgRow({
@@ -402,6 +403,7 @@ function bdgComptesHtml(b){
     const cls=['bdg-cat'];
     if(c.id==='courses') cls.push('bdg-cat-courses');
     if(c.id==='virements_internes') cls.push('bdg-cat-interne');
+    if(c.id==='credit_revolut') cls.push('bdg-cat-fixe');
     if(c.id==='air_glow_pub') cls.push('bdg-cat-pro');
     if(zeroEmpty) cls.push('is-empty');
     const row=bdgRow({
@@ -418,7 +420,7 @@ function bdgComptesHtml(b){
     return c.id==='courses'? (row+bdgLidlBlock(c)) : row;
   }).join('');
   const resteNeg=Number(tot.reste_eur)<0;
-  const depRow=bdgRow({id:'bdg-comptes-depenses',cls:['bdg-foot','bdg-tot-dep'],poste:'Total dépenses personnelles',detail:'Hors virements internes, épargne, investissement, financement et Air Glow pub (pro)',obsUsd:bdgAmt(tot.depenses_usd,'USD'),obsEur:bdgAmt(tot.depenses_eur,'EUR'),projUsd:bdgAmt(tot.depenses_usd,'USD'),projEur:bdgAmt(tot.depenses_eur,'EUR'),objectif:'—'});
+  const depRow=bdgRow({id:'bdg-comptes-depenses',cls:['bdg-foot','bdg-tot-dep'],poste:'Total dépenses personnelles',detail:'Hors virements internes, épargne, investissement, capital du crédit Revolut et Air Glow pub (pro)',obsUsd:bdgAmt(tot.depenses_usd,'USD'),obsEur:bdgAmt(tot.depenses_eur,'EUR'),projUsd:bdgAmt(tot.depenses_usd,'USD'),projEur:bdgAmt(tot.depenses_eur,'EUR'),objectif:'—'});
   const revDet=bdgOpsDetails(j.revenus_operations||[], tot.revenus_detail||'Revenus réels du foyer (salaire Tesla + France Travail)');
   const revRow=bdgRow({id:'bdg-comptes-revenus',cls:['bdg-foot','bdg-tot-rev'],poste:'Total revenus',detailsHtml:revDet,obsUsd:bdgAmt(tot.revenus_usd,'USD'),obsEur:bdgAmt(tot.revenus_eur,'EUR'),projUsd:bdgAmt(tot.revenus_usd,'USD'),projEur:bdgAmt(tot.revenus_eur,'EUR'),objectif:'—'});
   const resteRow=bdgRow({id:'bdg-comptes-reste',cls:['bdg-foot','bdg-tot-reste',resteNeg?'is-over':'is-ok'],poste:'Reste (revenus − dépenses)',detail:tot.reste_formule||'Revenus − dépenses personnelles',obsUsd:bdgAmt(tot.reste_usd,'USD'),obsEur:bdgAmt(tot.reste_eur,'EUR'),projUsd:bdgAmt(tot.reste_usd,'USD'),projEur:bdgAmt(tot.reste_eur,'EUR'),objectif:'—'});
@@ -426,8 +428,11 @@ function bdgComptesHtml(b){
   const rembRow=remb.length?bdgRow({id:'bdg-comptes-remb',cls:['bdg-annexe'],poste:'Remboursements (à part)',detailsHtml:bdgOpsDetails(remb, tot.remboursements_note||'Remboursements, non inclus dans les revenus'),obsUsd:bdgAmt(tot.remboursements_usd,'USD'),obsEur:bdgAmt(tot.remboursements_eur,'EUR'),projUsd:'—',projEur:'—',objectif:'—'}):'';
   const vin=j.virements_internes_entrants||[];
   const vinRow=bdgRow({id:'bdg-comptes-vin',cls:['bdg-annexe','bdg-cat-interne'],poste:'Virements internes entrants',detailsHtml:bdgOpsDetails(vin, 'Alimentations internes (non revenus) · '+((vin.length)||0)+' opération'+(vin.length>1?'s':'')),obsUsd:bdgAmt(tot.virements_internes_entrants_usd,'USD'),obsEur:bdgAmt(tot.virements_internes_entrants_eur,'EUR'),projUsd:'—',projEur:'—',objectif:'—'});
+  const cr=tot.credit_revolut||{};
   const fin=j.financement_operations||[];
-  const finRow=fin.length?bdgRow({id:'bdg-comptes-fin',cls:['bdg-annexe','bdg-cat-interne'],poste:'Emprunts / financement (à part)',detailsHtml:bdgOpsDetails(fin, tot.financement_note||'Prêt et remboursements d’emprunt, non inclus dans les revenus ni dans les dépenses de consommation'),obsUsd:bdgAmt(tot.emprunt_entrant_usd,'USD'),obsEur:bdgAmt(tot.emprunt_entrant_eur,'EUR'),projUsd:'—',projEur:'—',objectif:'—'}):'';
+  const finNote=cr.note||tot.financement_note||'Crédit Revolut : ni un revenu ni une dépense. Mensualité 169,60 €.';
+  const finDet=bdgOpsDetails(fin, finNote+(cr.mensualite_eur!=null?(' Mensualité : '+bdgAmt(cr.mensualite_eur,'EUR')+' / '+bdgAmt(cr.mensualite_usd,'USD')+'.'):'' ));
+  const finRow=(fin.length||cr.capital_eur)?bdgRow({id:'bdg-comptes-credit-revolut',cls:['bdg-annexe','bdg-cat-fixe'],poste:cr.libelle||'Crédit Revolut 23 500 €',detailsHtml:finDet,obsUsd:bdgAmt(cr.mensualite_usd,'USD'),obsEur:bdgAmt(cr.mensualite_eur,'EUR'),projUsd:bdgAmt(cr.mensualite_usd,'USD'),projEur:bdgAmt(cr.mensualite_eur,'EUR'),objectif:'mensualité'}):'';
   const glow=cats.find(c=>c.id==='air_glow_pub');
   const glowRow=glow?bdgRow({id:'bdg-comptes-airglow',cls:['bdg-foot','bdg-annexe','bdg-cat-pro'],poste:'Sous-total Air Glow, pub (pro)',detailsHtml:bdgOpsDetails(glow.operations||[], glow.detail||(tot.air_glow_pub_note||'Publicité Air Glow, exclue des dépenses personnelles')),obsUsd:bdgAmt(tot.air_glow_pub_usd!=null?tot.air_glow_pub_usd:glow.observe_usd,'USD'),obsEur:bdgAmt(tot.air_glow_pub_eur!=null?tot.air_glow_pub_eur:glow.observe_eur,'EUR'),projUsd:bdgAmt(glow.projection_usd,'USD'),projEur:bdgAmt(glow.projection_eur,'EUR'),objectif:'—' }):'';
   const tvFlag=j.tradingview_sur_le_releve||{};
@@ -452,6 +457,8 @@ function bdgComptesHtml(b){
       <div class="home-kv"><span class="l">Revenus</span><b>${bdgAmt(tot.revenus_eur,'EUR')}</b><small>${bdgAmt(tot.revenus_usd,'USD')}</small></div>
       <div class="home-kv ${resteNeg?'is-down':''}"><span class="l">Reste</span><b class="${resteNeg?'down':'up'}">${bdgAmt(tot.reste_eur,'EUR')}</b><small class="${resteNeg?'down':'up'}">${bdgAmt(tot.reste_usd,'USD')}</small></div>
       <div class="home-kv"><span class="l">Salaire Tesla</span><b>${bdgAmt(tot.salaire_eur,'EUR')}</b><small>${bdgAmt(tot.salaire_usd,'USD')}</small></div>
+      <div class="home-kv bdg-kv-fixe"><span class="l">Crédit Revolut 23 500 €</span><b>${bdgAmt((tot.credit_revolut||{}).mensualite_eur,'EUR')}</b><small>mensualité · ${bdgAmt((tot.credit_revolut||{}).mensualite_usd,'USD')}</small></div>
+      <div class="home-kv bdg-kv-fixe"><span class="l">Charges fixes crédit</span><b>${bdgAmt(tot.charges_fixes_credit_mensuel_eur,'EUR')}</b><small>LOA Tesla + Revolut / mois · ${bdgAmt(tot.charges_fixes_credit_mensuel_usd,'USD')}</small></div>
       <div class="home-kv bdg-kv-pro"><span class="l">Air Glow pub (pro)</span><b>${bdgAmt(tot.air_glow_pub_eur,'EUR')}</b><small>${bdgAmt(tot.air_glow_pub_usd,'USD')}</small></div>
     </div>
     <div class="home-table-scroll">
@@ -470,6 +477,7 @@ function bdgComptesHtml(b){
     ${tvNote?`<p class="bdg-src bdg-tv-flag">${bdgEsc(tvNote)}</p>`:''}
     <p class="bdg-src">${bdgEsc(src)}</p>
     ${moisNote?`<p class="bdg-src">${moisNote}</p>`:''}
+    ${tot.charges_fixes_credit_note?`<p class="bdg-src bdg-tv-flag">${bdgEsc(tot.charges_fixes_credit_note)}</p>`:''}
   </section>`;
 }
 function bdgTableHTML(b){
