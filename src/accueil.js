@@ -91,13 +91,31 @@ function homeCashFromSource(src){
   const toNum=s=>s?Number(s.replace(/[ \u00a0\u202f]/g,'').replace(',','.')):null;
   return {cash:toNum(cash&&cash[1]),cfd:toNum(cfd&&cfd[1])};
 }
+function homeFx(){
+  const fx=(typeof POS!=='undefined'&&POS&&POS.fx&&Number(POS.fx.taux)>0)?Number(POS.fx.taux):1.0944;
+  return fx;
+}
+function homeFxTip(){
+  const fxo=(typeof POS!=='undefined'&&POS&&POS.fx)?POS.fx:{};
+  const taux=homeFx();
+  const src=fxo.source_court||fxo.source||'taux EURUSD du 25/11/2026';
+  const date=fxo.date||'2026-11-25';
+  return 'Montants en $ (USD). Taux EURUSD '+String(taux).replace('.',',')+' au '+date+' ('+src+').';
+}
+function homeValUsd(p){
+  if(!p) return null;
+  if(p.valeur_usd!=null&&p.valeur_usd!==''&&Number.isFinite(Number(p.valeur_usd))) return Number(p.valeur_usd);
+  const v=Number(p.valeur_eur);
+  if(Number.isFinite(v)) return v*homeFx();
+  return null;
+}
 function homeHeldMap(act){
   const map={actions:0,obligations:0,metaux:0,energie:0,crypto:0,liquidites:0,immobilier:0};
   act.forEach(p=>{
     const tab=homeTabOf(p);
     if(!tab||!(tab in map)) return;
-    const v=p.valeur_eur;
-    if(v!=null&&Number.isFinite(Number(v))) map[tab]+=Number(v);
+    const v=homeValUsd(p);
+    if(v!=null&&Number.isFinite(v)) map[tab]+=v;
   });
   return map;
 }
@@ -211,8 +229,8 @@ function homeApexNorm(id){
 }
 function homeHeldHTML(map,id){
   const v=map[id];
-  if(v==null||!(v>0)) return `<div class="home-held" title="Détenu">—</div>`;
-  return `<div class="home-held" title="Détenu">${posAmt(v,'EUR')}</div>`;
+  if(v==null||!(v>0)) return `<div class="home-held" title="${homeEsc(homeFxTip())}">—</div>`;
+  return `<div class="home-held" title="${homeEsc('Détenu en $ (USD). '+homeFxTip())}">${(typeof posAmt==='function')?posAmt(v,'USD'):homeNum(v,0)+'\u00a0$'}</div>`;
 }
 function homeSectorPositions(act,id){
   return (act||[]).filter(p=>homeTabOf(p)===id);
@@ -243,6 +261,28 @@ function homeYieldHTML(stats){
   if(y==null||!Number.isFinite(Number(y))) return homeEmpty('home-rdt','Rendement / dividende ou coupon : donnée absente sur les positions, non inventée');
   const n=Number(y);
   return `<div class="home-rdt" title="Rendement / dividende ou coupon moyen pondéré des positions du secteur">${(typeof posPct==='function')?posPct(n):homePct1(n)}</div>`;
+}
+function homeIsCfd(p){
+  return !!(p&&(p.type==='cfd'||String(p.ticker||'').indexOf('-CFD')>=0||p.cfd_badge));
+}
+function homeIncomeUsd(list){
+  let sum=0, miss=false, any=false;
+  (list||[]).forEach(p=>{
+    if(homeIsCfd(p)) return; /* pas de dividende CFD inventé ; n'invalide pas le secteur */
+    const w=homeValUsd(p);
+    const y=homePosYield(p);
+    if(y!=null&&w!=null&&Number.isFinite(w)){sum+=w*(Number(y)/100); any=true;}
+    else if(w) miss=true;
+  });
+  if(!any||miss) return null;
+  return sum;
+}
+function homeYieldAmtHTML(stats){
+  const v=stats&&stats.incomeUsd;
+  if(v==null||!Number.isFinite(Number(v))) return homeEmpty('home-rdt-an','Revenu annuel estimé en $ : Rdt inconnu sur au moins une ligne du secteur, non inventé');
+  const n=Number(v);
+  const tip='Revenu annuel estimé en $ (USD) : somme ligne à ligne de (détenu en $ × rendement). '+homeFxTip();
+  return `<div class="home-rdt-an" title="${homeEsc(tip)}">${(typeof posAmt==='function')?posAmt(n,'USD'):homeNum(n,0)+'\u00a0$'}</div>`;
 }
 function homeParseParisDate(s){
   /* Une date seule (YYYY-MM-DD) n'est pas un minuit UTC : new Date('2026-11-24')
@@ -365,27 +405,36 @@ function homeSectorStats(act,id){
   let ageNum=0,ageDen=0,ageMiss=false,ageAny=false;
   const now=(typeof giNow==='function')?giNow():new Date();
   (list||[]).forEach(p=>{
-    const v=Number(p.valeur_eur);
-    const w=Number.isFinite(v)&&v>0?v:null;
-    if(Number.isFinite(v)&&v>0) val+=v;
+    const vEur=Number(p.valeur_eur);
+    const vUsd=homeValUsd(p);
+    const w=vUsd!=null&&Number.isFinite(vUsd)&&vUsd>0?vUsd:null;
+    if(w) val+=w;
+    /* Latent : ratio en EUR (ou USD, c'est le même %), uniquement si prix de revient connu.
+       Les CFD sans P/L relu n'entrent pas dans le latent (pas un 0 % inventé). */
     const inv=p.investi_eur;
-    if(inv!=null&&inv!==''&&Number.isFinite(Number(inv))&&Number(inv)>0&&Number.isFinite(v)){valK+=v;invK+=Number(inv);}
-    else if(Number.isFinite(v)&&v>0) unkInvest=true;
-    const y=homePosYield(p);
-    if(y!=null&&w){yNum+=y*w;yDen+=w;yAny=true;}
-    else if(w) yMiss=true;
-    const d=homePosBuyDate(p);
-    if(d&&w){
-      const days=homeCalendarDays(d, now);
-      if(Number.isFinite(days)&&days>=0){ageNum+=days*w;ageDen+=w;ageAny=true;}
-      else ageMiss=true;
-    }else if(w) ageMiss=true;
+    const cfd=homeIsCfd(p);
+    if(!cfd && inv!=null&&inv!==''&&Number.isFinite(Number(inv))&&Number(inv)>0&&Number.isFinite(vEur)){valK+=vEur;invK+=Number(inv);}
+    else if(!cfd && Number.isFinite(vEur)&&vEur>0) unkInvest=true;
+    if(cfd){
+      /* pas de rendement ni d'âge CFD inventés ; n'invalide pas la moyenne du secteur */
+    }else{
+      const y=homePosYield(p);
+      if(y!=null&&w){yNum+=y*w;yDen+=w;yAny=true;}
+      else if(w) yMiss=true;
+      const d=homePosBuyDate(p);
+      if(d&&w){
+        const days=homeCalendarDays(d, now);
+        if(Number.isFinite(days)&&days>=0){ageNum+=days*w;ageDen+=w;ageAny=true;}
+        else ageMiss=true;
+      }else if(w) ageMiss=true;
+    }
   });
   const pnl=(invK>0)?(valK/invK-1)*100:null;
-  /* Rendement et ancienneté : seulement si toutes les lignes détenues ont la donnée (sinon on n'affiche pas une moyenne partielle). */
+  /* Rendement et ancienneté : seulement si toutes les lignes détenues (hors CFD) ont la donnée. */
   const yieldPct=(yAny&&!yMiss&&yDen>0)?yNum/yDen:null;
   const ageDays=(ageAny&&!ageMiss&&ageDen>0)?ageNum/ageDen:null;
-  return {list,val,pnl,pnlPartial:!!(unkInvest&&invK>0),yield:yieldPct,ageDays};
+  const incomeUsd=homeIncomeUsd(list);
+  return {list,val,pnl,pnlPartial:!!(unkInvest&&invK>0),yield:yieldPct,incomeUsd,ageDays};
 }
 function homeCard({id,label,short,counts,stats}){
   const av=homeAvOf(id);
@@ -398,6 +447,7 @@ function homeCard({id,label,short,counts,stats}){
     ${homeHeldHTML(held,id)}
     ${homePnlHTML(stats)}
     ${homeYieldHTML(stats)}
+    ${homeYieldAmtHTML(stats)}
     ${homeEtfHTML(id)}
     ${homeSentHTML(id)}
     ${homeAvHTML(id)}
@@ -463,9 +513,21 @@ function renderAccueil(el){
     <div class="home-table-scroll">
       <div class="home-table">
         <div class="home-table-h" aria-hidden="true">
-          <span>Secteur</span><span>Note APEX</span><span>Détenu</span><span>Latent</span><span>Rdt</span><span>ETF</span><span>Sent.</span><span>AV</span><span>Hype</span><span>Âge</span><span>Drap.</span><span></span>
+          <span>Secteur</span><span>Note APEX</span><span>Détenu</span><span>Latent</span><span>Rdt</span><span>Rdt/an $</span><span>ETF</span><span>Sent.</span><span>AV</span><span>Hype</span><span>Âge</span><span>Drap.</span><span></span>
         </div>
         ${cards.map(homeCard).join('')}
       </div>
-    </div>`;
+    </div>
+    ${homeIncomeFoot(cards)}`;
+}
+function homeIncomeFoot(cards){
+  let sum=0, any=false, miss=false;
+  (cards||[]).forEach(c=>{
+    const v=c&&c.stats&&c.stats.incomeUsd;
+    if(v!=null&&Number.isFinite(Number(v))){sum+=Number(v); any=true;}
+    else if(c&&c.stats&&c.stats.val>0) miss=true;
+  });
+  const amt=(any)?((typeof posAmt==='function')?posAmt(sum,'USD'):homeNum(sum,0)+'\u00a0$'):'—';
+  const tip=homeFxTip()+' Revenu annuel estimé = somme des secteurs dont le Rdt est connu sur toutes les lignes (hors CFD). Les secteurs en « — » ne sont pas interpolés.'+(miss?' Certains secteurs n\'ont pas de Rdt complet.':'');
+  return `<div class="home-income-foot" title="${homeEsc(tip)}"><span class="l">Revenu annuel estimé</span><b>${amt}</b></div>`;
 }

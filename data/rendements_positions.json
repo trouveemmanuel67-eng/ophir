@@ -166,6 +166,12 @@
       "type": "crypto",
       "source": "Ether : crypto-actif, aucun dividende.",
       "date": "2026-11-25"
+    },
+    "BTC": {
+      "rendement_pct": 0.0,
+      "type": "crypto",
+      "source": "Bitcoin : crypto-actif, aucun dividende.",
+      "date": "2026-11-25"
     }
   }
 }

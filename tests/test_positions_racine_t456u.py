@@ -1,4 +1,4 @@
-"""t456u / t545u : les JSON à la racine suivent le pointage Revolut du 25/11 à 08 h 15."""
+"""t456u / t549u : les JSON à la racine suivent les captures du 25/11 à 09 h 50."""
 import json
 from pathlib import Path
 
@@ -35,9 +35,9 @@ def test_releve_25_11_dans_le_json_fethe():
     assert book.get('n_en_attente') == 0
     metals = [p['ticker'] for p in book['positions'] if p.get('ticker') in {'XAU', 'XAG', 'XPT', 'XPD'}]
     assert len(metals) == 4
-    # pas de CFD mélangés
-    kinds = {p.get('type') or p.get('kind') for p in book['positions']}
-    assert 'cfd' not in {str(k).lower() for k in kinds if k}
+    cfds = [p for p in book['positions'] if (p.get('type') or '').lower() == 'cfd']
+    assert {p['ticker'] for p in cfds} == {'XPD-CFD', 'COST-CFD', 'MSTR-CFD', 'SMR-CFD'}
+    assert book['totaux']['courtiers']['revolut']['cfd_usd'] == 2680.35
 
 
 def test_build_py_publie_la_racine():

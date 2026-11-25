@@ -123,6 +123,26 @@ META = {
             "tv_note": "EURONEXT:MAU", "fiche_tv": "EURONEXT:MAU",
             "fiche_nom": "Etablissements Maurel & Prom S.A.",
             "fiche_proxy": False, "note_tv_ok": True},
+    "BTC": {"nom": "Bitcoin", "type": "crypto", "tab": "crypto",
+            "tv_note": "BTC", "fiche_tv": "BTC", "fiche_nom": "Bitcoin",
+            "fiche_proxy": False, "note_tv_ok": True,
+            "fiche_note": "Position Revolut X ouverte (ou réouverte) au 25/11/2026 vers 09 h 50 : 0,018 BTC."},
+    "CFD-XPD": {"nom": "Palladium CFD", "type": "cfd", "tab": "metaux",
+                "tv_note": "OANDA:XPDUSD", "fiche_tv": "OANDA:XPDUSD",
+                "fiche_nom": "Palladium au comptant (sous-jacent du CFD Revolut)",
+                "fiche_proxy": False, "note_tv_ok": True},
+    "CFD-COST": {"nom": "Costco CFD", "type": "cfd", "tab": "actions",
+                 "tv_note": "NASDAQ:COST", "fiche_tv": "NASDAQ:COST",
+                 "fiche_nom": "Costco Wholesale Corporation",
+                 "fiche_proxy": False, "note_tv_ok": True},
+    "CFD-MSTR": {"nom": "MicroStrategy CFD", "type": "cfd", "tab": "actions",
+                 "tv_note": "NASDAQ:MSTR", "fiche_tv": "NASDAQ:MSTR",
+                 "fiche_nom": "Strategy (ex-MicroStrategy)",
+                 "fiche_proxy": False, "note_tv_ok": True},
+    "CFD-SMR": {"nom": "NuScale Power CFD", "type": "cfd", "tab": "energie",
+                "tv_note": "NYSE:SMR", "fiche_tv": "NYSE:SMR",
+                "fiche_nom": "NuScale Power Corporation (nucléaire)",
+                "fiche_proxy": False, "note_tv_ok": True},
 }
 
 
@@ -263,22 +283,29 @@ def from_invest_line(p, fx):
     # devise de cotation
     dev = (p.get("devise_prix") or p.get("devise") or "USD").upper()
     if dev == "EUR":
-        # valeur du relevé est en USD ; on conserve aussi la valeur locale
-        val_loc = qty * cours
-        val_usd = float(p["valeur_usd"])
-        pl_usd = float(p["pl_usd"])
-        investi_usd = val_usd - pl_usd
-        # investi en EUR via le taux implicite, pas via qty*prix_moyen (frais possibles)
-        investi_eur = investi_usd / fx
-        pl_eur = val_loc - investi_eur
+        # Valeur et P/L % officiels de la ligne (pointage 08 h 15) : on ne les
+        # fait pas dériver en changeant le taux EURUSD. Les USD sont convertis
+        # au taux officiel du 25/11 (1,0944).
+        val_loc = float(p["valeur_eur"]) if p.get("valeur_eur") is not None else qty * cours
+        official_pct = p.get("pl_pct")
+        if official_pct is not None and float(official_pct) != -100:
+            investi_eur = val_loc / (1 + float(official_pct) / 100.0)
+            pl_eur = val_loc - investi_eur
+        else:
+            val_usd = float(p["valeur_usd"])
+            pl_usd = float(p["pl_usd"])
+            investi_eur = (val_usd - pl_usd) / fx
+            pl_eur = val_loc - investi_eur
         out["quantite"] = qty
         out["prix_moyen"] = pm
         out["cours"] = cours
-        fill_money(out, val_loc, investi_eur, "EUR", fx, pl=pl_eur, pnl_pct=p.get("pl_pct"))
-        # recaler USD sur le relevé (source)
-        out["valeur_usd"] = r2(val_usd)
+        fill_money(out, val_loc, investi_eur, "EUR", fx, pl=pl_eur, pnl_pct=official_pct)
+        if official_pct is not None:
+            out["pnl_pct"] = r2(official_pct)
+            out["perf_debut_pct"] = out["pnl_pct"]
+        out["valeur_usd"] = r2(val_loc * fx)
+        out["investi_usd"] = r2(investi_eur * fx) if investi_eur is not None else None
         out["pnl_valeur"] = r2(pl_eur)
-        out["investi_usd"] = r2(investi_usd)
     else:
         val_usd = float(p["valeur_usd"])
         pl_usd = float(p["pl_usd"])
@@ -354,14 +381,12 @@ def from_mau(p, fx):
 
 
 def from_pea(pea, fx):
-    val_acc = float(pea["valeur"])          # 10.40 = marché + cash
-    val_mkt = float(pea["valeur_marche"])   # 9.57
-    cash = float(pea.get("fonds_dispo") or 0)
+    val_acc = float(pea["valeur"])
     pl = float(pea["pl"])
-    investi = val_acc - pl  # 20.00, même base que le 23/11
+    investi = val_acc - pl  # 20.00 €, même base que les relevés précédents
     out = rec_base("PEA", "xtb")
     out["id"] = "PEA-XTB"
-    out["nom"] = "PEA XTB"
+    out["nom"] = "ligne PEA non identifiée"
     out["ticker"] = "PEA"
     out["type"] = "cash"
     out["tab"] = None
@@ -373,10 +398,20 @@ def from_pea(pea, fx):
     out["quantite"] = 1
     out["prix_moyen"] = r2(investi)
     out["cours"] = r2(val_acc)
-    out["fiche_note"] = (
-        f"PEA XTB #54086450 : valeur de marché {val_mkt:.2f} € + cash {cash:.2f} € "
-        f"(enveloppe {val_acc:.2f} €). Lignes non lisibles (app mobile uniquement) : aucun titre inventé."
-    )
+    inst = pea.get("instrument_pl_pct")
+    bits = [
+        f"PEA XTB #54086450 : enveloppe {val_acc:.2f} €, résultat {pl:.2f} €, au 25/11/2026 vers 09 h 50 (Europe/Paris).",
+        "Ligne unique à −51,1 %, logo bleu foncé avec un A, nom non lisible : « ligne PEA non identifiée ».",
+    ]
+    if pea.get("valeur_marche") is not None and pea.get("fonds_dispo") is not None:
+        bits.append(
+            f"Valeur de marché {float(pea['valeur_marche']):.2f} € + cash {float(pea['fonds_dispo']):.2f} €."
+        )
+    else:
+        bits.append("Valeur de marché et cash du PEA non séparés sur la capture : non inventés.")
+    if inst is not None:
+        out["instrument_pl_pct"] = float(inst)
+    out["fiche_note"] = " ".join(bits)
     fill_money(out, val_acc, investi, "EUR", fx, pl=pl)
     return out
 
@@ -393,7 +428,7 @@ def from_cash(usd, fx):
     out["fiche_nom"] = None
     out["fiche_proxy"] = False
     out["note_tv_ok"] = False
-    out["fiche_note"] = ("Liquidités du compte-titres Revolut Invest, non relues le 25/11/2026 à 08 h 15 ""(conservées du relevé du 24/11/2026 à 20 h 31).")
+    out["fiche_note"] = ("Liquidités du compte-titres Revolut Invest, 5,50 $, non relues le 25/11/2026 à 09 h 50 ""(conservées du relevé du 24/11/2026 à 20 h 31, déjà incluses dans le total officiel du compte de courtage).")
     out["quantite"] = 1
     out["prix_moyen"] = r2(usd)
     out["cours"] = r2(usd)
@@ -417,6 +452,98 @@ def from_eth(p, fx, old_investi=506.54):
     out["prix_moyen"] = r2(investi / qty, 2) if qty else cours
     out["cours"] = cours
     fill_money(out, val, investi, "USD", fx, pl=pl, pnl_pct=p.get("pl_pct"))
+    return out
+
+
+def from_btc(p, fx):
+    out = rec_base("BTC", "revolutx")
+    out["id"] = "RX-BTC"
+    out["source"] = "Revolut X"
+    qty = float(p["quantite"])
+    cours = float(p["prix_usd"]) if p.get("prix_usd") is not None else None
+    val = float(p["valeur_usd"])
+    pl = p.get("pl_usd")
+    if pl is None and p.get("pl_pct") is not None:
+        # investi implicite à partir du % officiel, sans inventer un autre PRU
+        pl = r2(val - val / (1 + float(p["pl_pct"]) / 100.0)) if float(p["pl_pct"]) != -100 else None
+    pl = float(pl) if pl is not None else None
+    investi = r2(val - pl) if pl is not None else None
+    out["quantite"] = qty
+    out["prix_moyen"] = r2(investi / qty, 2) if (investi and qty) else None
+    out["cours"] = cours
+    out["prix_affiche_usd"] = cours
+    if p.get("note"):
+        out["fiche_note"] = (out.get("fiche_note") or "") + (" " if out.get("fiche_note") else "") + p["note"]
+    fill_money(out, val, investi, "USD", fx, pl=pl, pnl_pct=p.get("pl_pct"))
+    return out
+
+
+def from_xtb_cash(eur, fx):
+    out = rec_base("CASH-XTB", "xtb")
+    out["id"] = "CASH-XTB"
+    out["nom"] = "Liquidités XTB"
+    out["ticker"] = "CASH-XTB"
+    out["type"] = "cash"
+    out["tab"] = "liquidites"
+    out["tv_note"] = None
+    out["fiche_tv"] = None
+    out["fiche_nom"] = None
+    out["fiche_proxy"] = False
+    out["note_tv_ok"] = False
+    out["fiche_note"] = (
+        "Fonds disponibles du compte XTB EUR #54086450, 5,93 €, relevés le 25/11/2026 vers 09 h 50 "
+        "(inclus dans Mes transactions 525,14 € et dans le total 535,35 €)."
+    )
+    out["quantite"] = 1
+    out["prix_moyen"] = r2(eur)
+    out["cours"] = r2(eur)
+    fill_money(out, eur, eur, "EUR", fx, pl=0, pnl_pct=0)
+    out["pnl_pct"] = 0
+    out["perf_debut_pct"] = 0
+    return out
+
+
+def from_cfd(p, fx):
+    """Une ligne CFD : montant = marge connue. P/L ligne seulement si cours et quantité sont connus."""
+    ticker = p["ticker"]
+    key = f"CFD-{ticker}"
+    out = rec_base(key, "revolut")
+    sens_raw = (p.get("sens") or "Buy").strip()
+    long_ = sens_raw.lower() in ("buy", "long", "l")
+    out["id"] = key
+    out["ticker"] = f"{ticker}-CFD"
+    out["sous_jacent"] = ticker
+    out["type"] = "cfd"
+    out["sens"] = "long" if long_ else "short"
+    out["levier"] = 5
+    out["cfd_badge"] = "CFD L x5" if long_ else "CFD S x5"
+    out["marge_usd"] = r2(p["marge_usd"])
+    out["prix_moyen"] = p.get("prix_ouverture")
+    out["cours"] = p.get("prix_actuel")
+    qty = p.get("quantite")
+    out["quantite"] = float(qty) if qty not in (None, "") else None
+    out["statut"] = "active"
+    if p.get("note"):
+        out["fiche_note"] = ((out.get("fiche_note") or "") + " " + p["note"]).strip()
+    # P/L ligne : seulement avec quantité ET cours actuel, sinon non relu (aucun cours inventé).
+    pl = None
+    pnl_pct = None
+    if out["quantite"] and out["cours"] not in (None, "") and out["prix_moyen"] not in (None, ""):
+        q, c, o = float(out["quantite"]), float(out["cours"]), float(out["prix_moyen"])
+        pl = q * (c - o) if long_ else q * (o - c)
+        notional = q * o
+        pnl_pct = (100.0 * pl / notional) if notional else None
+        out["pnl_relu"] = True
+    else:
+        out["pnl_relu"] = False
+        out["perf_1an_libelle"] = "P/L non relu"
+        out["perf_1an_note"] = "Cours actuel et/ou quantité manquants à 09 h 50 : le P/L de cette ligne n'est pas inventé."
+    # Montant affiché = marge connue (seule valeur ligne sûre). Pas d'investi, pour ne pas afficher un latent à 0 %.
+    fill_money(out, out["marge_usd"], None, "USD", fx, pl=pl, pnl_pct=pnl_pct)
+    if pl is None:
+        out["pnl_valeur"] = None
+        out["pnl_pct"] = None
+        out["perf_debut_pct"] = None
     return out
 
 
@@ -496,13 +623,27 @@ def main():
     ordres = rv["compte_titres"]["ordres"]
     metaux = rv["matieres_premieres"]["positions"]
     cash_usd = float(rv["compte_titres"]["liquidites_usd"])
-    fx = infer_fx(titres)
-    print("EURUSD implicite", fx)
 
-    cfd_pl, cfd_n = cfd_stats(rv["cfd"]["positions"])
-    raw_cfd_val = rv["cfd"].get("valeur_usd")
+    # Taux officiel du 25/11 (plan Tesla, 03 h 51 EDT) : plus récent que le taux
+    # implicite des lignes euro conservées du 24/11 20 h 31 (1,094217).
+    fx_rel = (rel.get("fx") or {})
+    fx = float(fx_rel.get("taux") or 1.0944)
+    print("EURUSD officiel", fx)
+
+    cfd_acc = rv["cfd"]
+    cfd_rows_raw = cfd_acc.get("positions") or []
+    raw_cfd_val = cfd_acc.get("valeur_usd")
     cfd_val = float(raw_cfd_val) if raw_cfd_val not in (None, "") else None
-    cfd_names = [x.get("ticker") for x in (rv["cfd"].get("positions") or []) if x.get("ticker")]
+    cfd_pct = cfd_acc.get("pl_pct")
+    cfd_pl = cfd_acc.get("pl_usd")
+    if cfd_pl in (None, "") and cfd_val is not None and cfd_pct not in (None, ""):
+        cfd_pl = r2(cfd_val - cfd_val / (1 - float(cfd_pct) / 100.0)) if float(cfd_pct) != 100 else None
+    elif cfd_pl not in (None, ""):
+        cfd_pl = float(cfd_pl)
+    else:
+        cfd_pl = None
+    cfd_names = [x.get("ticker") for x in cfd_rows_raw if x.get("ticker")]
+    cfd_n = len(cfd_rows_raw)
 
     liv = []
     for p in titres:
@@ -512,69 +653,177 @@ def main():
     for p in metaux:
         liv.append(from_metal(p, fx))
     liv.append(from_cash(cash_usd, fx))
+    cfd_rows = [from_cfd(p, fx) for p in cfd_rows_raw]
+    liv.extend(cfd_rows)
 
-    xtb_eur = next(c for c in rel["xtb"]["comptes"] if c["id"] == "54086450")
+    xtb_eur = next(c for c in rel["xtb"]["comptes"] if str(c["id"]) == "54086450")
     mau = xtb_eur["positions"][0]
     pea = xtb_eur["pea"]
-    xtb_rows = [from_mau(mau, fx), from_pea(pea, fx)]
+    xtb_cash = float(xtb_eur.get("fonds_disponibles") or 0)
+    xtb_rows = [from_mau(mau, fx), from_xtb_cash(xtb_cash, fx), from_pea(pea, fx)]
 
-    eth_p = rv["revolut_x"]["positions"][0]
-    rx_rows = [from_eth(eth_p, fx)]
+    rx_raw = rv["revolut_x"]["positions"]
+    rx_rows = []
+    for p in rx_raw:
+        if p.get("ticker") == "BTC":
+            rx_rows.append(from_btc(p, fx))
+        elif p.get("ticker") == "ETH":
+            rx_rows.append(from_eth(p, fx))
+        else:
+            raise SystemExit(f"ligne Revolut X inconnue: {p.get('ticker')}")
 
     apply_yields(liv)
     apply_yields(xtb_rows)
     apply_yields(rx_rows)
 
-    book_rows = liv + xtb_rows  # revolutx fusionné au chargement
+    book_rows = liv + xtb_rows  # revolutx fusionné au chargement JS
 
-    t_all = totaux(book_rows + rx_rows)
-    t_rev = totaux(liv, "revolut")
+    t_liv_spot = totaux([p for p in liv if p.get("type") != "cfd"], "revolut")
     t_xtb = totaux(xtb_rows, "xtb")
     t_rx = totaux(rx_rows, "revolutx")
     t_xtb["compte"] = "54086450"
     t_xtb["devise_compte"] = "EUR"
 
-    tot_usd = t_all["valeur_usd"]
-    for p in book_rows + rx_rows:
-        v = p.get("valeur_usd") or 0
-        p["poids_pct"] = round(100 * v / tot_usd + 1e-9, 1) if tot_usd else None
-
-    now = datetime(2026, 11, 25, 8, 15, tzinfo=PARIS)
-    eur_ticks = [p["ticker"] for p in titres if (p.get("devise_prix") or p.get("devise")) == "EUR"]
-    fx_obj = {
-        "paire": "EURUSD",
-        "taux": fx,
-        "date": "2026-11-24",
-        "source": (
-            "Taux implicite du relevé Revolut du 24/11/2026 vers 20 h 31 (Europe/Paris), "
-            "conservé le 25/11/2026 à 08 h 15 faute de nouveau taux implicite Revolut : "
-            f"EURUSD {str(fx).replace('.', ',')} d'après les lignes en euros "
-            f"({', '.join(eur_ticks)})."
-        ),
-        "source_court": "Relevé 24/11/2026 20:31, taux implicite conservé",
-        "zone": "Europe/Paris",
-    }
-
     def fr_money(n, d=2):
         s = f"{n:,.{d}f}"
         return s.replace(",", "X").replace(".", ",").replace("X", " ")
 
-    if cfd_val is not None and cfd_pl is not None:
-        cfd_txt = f"valeur {fr_money(cfd_val)} $, P/L latent {fr_money(cfd_pl)} $"
-        cfd_lib = f"CFD Revolut : valeur {fr_money(cfd_val, 0)} $, P/L latent ≈ {fr_money(cfd_pl, 0).replace('-', '−')} $"
-    else:
-        cfd_txt = f"{cfd_n} positions ({', '.join(cfd_names)}), P/L non relu"
-        cfd_lib = f"CFD Revolut : {cfd_n} positions ({', '.join(cfd_names)}), P/L non relu"
+    # Totaux officiels des captures 09 h 50 (prenant le pas sur la somme des lignes
+    # spot restées au pointage 08 h 15, et sur la somme des marges CFD).
+    off_rev_usd = 17312.37
+    off_rev_pl = -4335.96
+    off_rev_pct = -20.03
+    off_ct_usd = 12549.34
+    off_met_usd = 2082.68
+    off_cfd_usd = 2680.35
+    off_rx_usd = 1554.56
+    off_rx_pl = -47.69
+    off_rx_pct = -2.98
+    off_xtb_eur = 535.35
+    off_xtb_pl = -14.65
+    off_xtb_usd = r2(off_xtb_eur * fx)
+    liquide_usd = r2(off_rev_usd + off_rx_usd + off_xtb_usd)
+    liquide_eur = r2(off_rev_usd / fx + off_rx_usd / fx + off_xtb_eur)
+    tesla_eur = 12302.45
+    tesla_usd = r2(tesla_eur * fx)
+    patrimoine_eur = r2(liquide_eur + tesla_eur)
+    patrimoine_usd = r2(liquide_usd + tesla_usd)
+
+    t_rev = {
+        "valeur_eur": r2(off_rev_usd / fx),
+        "valeur_usd": off_rev_usd,
+        "investi_usd": r2(off_rev_usd - off_rev_pl),
+        "investi_eur": r2((off_rev_usd - off_rev_pl) / fx),
+        "perf_debut_pct": off_rev_pct,
+        "statut": "ok",
+        "n": sum(1 for p in liv if p.get("statut") in ("active", "en_attente")),
+        "compte_courtage_usd": off_ct_usd,
+        "compte_courtage_pct": -0.38,
+        "matieres_usd": off_met_usd,
+        "matieres_pct": -4.12,
+        "cfd_usd": off_cfd_usd,
+        "cfd_pct": -61.03,
+        "cfd_pl_usd": r2(cfd_pl) if cfd_pl is not None else None,
+        "somme_lignes_usd": t_liv_spot["valeur_usd"] + r2(sum(p.get("valeur_usd") or 0 for p in cfd_rows)),
+    }
+    t_rx.update({
+        "valeur_usd": off_rx_usd,
+        "valeur_eur": r2(off_rx_usd / fx),
+        "investi_usd": r2(off_rx_usd - off_rx_pl),
+        "investi_eur": r2((off_rx_usd - off_rx_pl) / fx),
+        "perf_debut_pct": off_rx_pct,
+        "n": len(rx_rows),
+        "statut": "ok",
+    })
+    t_xtb.update({
+        "valeur_eur": off_xtb_eur,
+        "valeur_usd": off_xtb_usd,
+        "investi_eur": r2(off_xtb_eur - off_xtb_pl),
+        "investi_usd": r2((off_xtb_eur - off_xtb_pl) * fx),
+        "perf_debut_pct": r2(100.0 * off_xtb_pl / (off_xtb_eur - off_xtb_pl), 1) if (off_xtb_eur - off_xtb_pl) else None,
+        "fonds_disponibles_eur": 5.93,
+        "n": len(xtb_rows),
+        "statut": "ok",
+    })
+
+    tesla = rel.get("tesla_plan") or {}
+    tesla_plan = {
+        "nom": tesla.get("nom") or "Plan d'actions Tesla",
+        "avantage_potentiel_eur": tesla_eur,
+        "avantage_potentiel_usd": tesla_usd,
+        "valeur_compte_eur": tesla.get("valeur_compte_eur", 0),
+        "non_liquide": True,
+        "libelle": tesla.get("libelle") or "non liquide / avantage potentiel",
+        "cours_tsla_usd": tesla.get("cours_tsla_usd", 384.68),
+        "fx": fx,
+        "releve": tesla.get("releve"),
+        "releve_libelle": tesla.get("releve_libelle"),
+        "note": tesla.get("note"),
+    }
+
+    officiels = {
+        "source": "Captures Revolut, Revolut X, XTB et plan Tesla du 25/11/2026 vers 09 h 50 (Europe/Paris). Tesla à 03 h 51 EDT (09 h 51 Europe/Paris).",
+        "fx": fx,
+        "revolut": t_rev,
+        "revolutx": t_rx,
+        "xtb": t_xtb,
+        "liquide_usd": liquide_usd,
+        "liquide_eur": liquide_eur,
+        "patrimoine_usd": patrimoine_usd,
+        "patrimoine_eur": patrimoine_eur,
+        "tesla_plan": tesla_plan,
+        "note": (
+            "Les totaux de comptes (Revolut 17 312,37 $, Revolut X 1 554,56 $, XTB 535,35 €) "
+            "sont ceux des captures de 09 h 50. Les lignes titres et métaux Revolut restent au "
+            "pointage 08 h 15 (notes TradingView) : leur somme diffère légèrement des sous-totaux "
+            "officiels (courtage +33,95 $, métaux +8,57 $), écart non ventilé. "
+            f"Les 4 CFD sont inclus ; la valeur du compte CFD est {fr_money(off_cfd_usd)} $, "
+            f"la somme des marges affichées sur les lignes est {fr_money(sum(p['marge_usd'] for p in cfd_rows))} $ "
+            f"(écart {fr_money(cfd_acc.get('ecart_valeur_moins_marges_usd') or (off_cfd_usd - sum(p['marge_usd'] for p in cfd_rows)))} $ non ventilé)."
+        ),
+    }
+
+    tot_usd = liquide_usd
+    for p in book_rows + rx_rows:
+        v = p.get("valeur_usd") or 0
+        p["poids_pct"] = round(100 * v / tot_usd + 1e-9, 1) if tot_usd else None
+
+    now = datetime(2026, 11, 25, 9, 50, tzinfo=PARIS)
+    fx_obj = {
+        "paire": "EURUSD",
+        "taux": fx,
+        "date": "2026-11-25",
+        "source": fx_rel.get("source") or (
+            "Taux EURUSD 1,0944 indiqué sur le plan d'actions Tesla au 25/11/2026 "
+            "à 03 h 51 EDT (09 h 51 Europe/Paris)."
+        ),
+        "source_court": fx_rel.get("source_court") or "Plan Tesla 25/11/2026 03:51 EDT",
+        "zone": "Europe/Paris",
+    }
+
+    marges_cfd = r2(sum(p["marge_usd"] for p in cfd_rows))
+    cfd_txt = (
+        f"valeur du compte {fr_money(off_cfd_usd)} $ (−61,03 %, P/L implicite "
+        f"{fr_money(cfd_pl).replace('-', '−')} $), {cfd_n} lignes (XPD long, COST short, MSTR long, SMR long), "
+        f"marges {fr_money(marges_cfd)} $, P/L ligne non relu"
+    )
+    cfd_note = cfd_acc.get("note") or ""
 
     desc = (
-        f"Pointage Revolut spot du 25/11/2026 vers 08 h 15 (Europe/Paris) : "
-        f"P/L et cours d'après les notes TradingView, quantités et prix de revient "
-        f"du relevé du 24/11 à 20 h 31, LVMH ajouté. "
-        f"Les ordres d'achat en cours comptent comme des positions déjà actives "
-        f"(coût total prévu). CFD exclus de Mes positions ({cfd_txt}). "
-        f"{fr_money(cash_usd)} $ de liquidités sur le compte-titres Revolut "
-        f"(non relues, conservées du 24/11 20 h 31). "
-        f"XTB conservé du 24/11 à 12 h 31, Revolut X du 24/11 vers 12 h 35."
+        f"Captures du 25/11/2026 vers 09 h 50 (Europe/Paris). "
+        f"Revolut Invest {fr_money(off_rev_usd)} $ ({fr_money(off_rev_pl).replace('-', '−')} $, −20,03 %) : "
+        f"courtage {fr_money(off_ct_usd)} $ (−0,38 %), matières premières {fr_money(off_met_usd)} $ (−4,12 %), "
+        f"CFD {fr_money(off_cfd_usd)} $ (−61,03 %). "
+        f"Les CFD sont comptés dans Mes positions, les totaux, le tableau sectoriel et le patrimoine "
+        f"({cfd_txt}). "
+        f"Lignes titres et métaux : cours et P/L du pointage 08 h 15 (notes TradingView), "
+        f"quantités du 24/11 20 h 31 ; {fr_money(cash_usd)} $ de liquidités du compte-titres "
+        f"(non relues, déjà dans le total courtage). "
+        f"Revolut X {fr_money(off_rx_usd)} $ (−47,69 $, −2,98 %) : Bitcoin 0,018 = {fr_money(1086.14)} $ "
+        f"(−0,87 %) et Ether 0,28 = {fr_money(468.35)} $ (−7,54 %). "
+        f"XTB {fr_money(off_xtb_eur)} € (fonds disponibles 5,93 €, gain −14,65 €). "
+        f"Plan Tesla : avantage potentiel {fr_money(tesla_eur)} €, compte 0 €, non liquide. "
+        f"Taux EURUSD {str(fx).replace('.', ',')}."
     )
 
     pea_xtb = {
@@ -582,16 +831,17 @@ def main():
         "compte": "54086450",
         "devise": "EUR",
         "valeur_eur": r2(pea["valeur"]),
-        "valeur_marche_eur": r2(pea["valeur_marche"]),
-        "cash_eur": r2(pea["fonds_dispo"]),
+        "valeur_marche_eur": r2(pea["valeur_marche"]) if pea.get("valeur_marche") is not None else None,
+        "cash_eur": r2(pea["fonds_dispo"]) if pea.get("fonds_dispo") is not None else None,
         "pnl_eur": r2(pea["pl"]),
+        "instrument_pl_pct": pea.get("instrument_pl_pct"),
+        "ligne": pea.get("ligne") or "ligne PEA non identifiée",
         "valeur_usd": r2(float(pea["valeur"]) * fx),
         "note": (
-            f"PEA XTB #54086450 relevé le 24/11/2026 vers 12 h 31 (Europe/Paris), non relu le 25/11 : "
-            f"{fr_money(float(pea['valeur']))} € (valeur de marché {fr_money(float(pea['valeur_marche']))} €, "
-            f"cash {fr_money(float(pea['fonds_dispo']))} €, résultat {fr_money(float(pea['pl']))} €). "
-            f"Lignes visibles seulement sur mobile, non détaillées : aucun titre inventé. "
-            f"Inclus dans Mes positions (ligne PEA XTB)."
+            f"PEA XTB #54086450 relevé le 25/11/2026 vers 09 h 50 (Europe/Paris) : "
+            f"{fr_money(float(pea['valeur']))} € (résultat {fr_money(float(pea['pl']))} €). "
+            f"Une ligne à −51,1 %, nom non lisible : « ligne PEA non identifiée ». "
+            f"Valeur de marché et cash non séparés : non inventés. Inclus dans Mes positions."
         ),
     }
     xtb_id = {
@@ -600,59 +850,68 @@ def main():
         "certitude": "élevée",
         "lignes": [
             {"nom": "Etablissements Maurel et Prom", "tv": "EURONEXT:MAU", "xtb": "MAU.FR",
-             "cotation": "Euronext Paris"}
+             "cotation": "Euronext Paris"},
+            {"nom": "ligne PEA non identifiée", "tv": None, "xtb": None,
+             "cotation": None, "note": "PEA, logo bleu foncé avec un A, nom non lisible, −51,1 %."},
         ],
         "pea_compte": "54086450",
         "autres_comptes": [
-            {"compte": "54128907", "devise": "USD", "valeur": 0.01, "note": "aucune position"},
-            {"compte": "54351185", "devise": "USD", "valeur": 0.0, "note": "aucune position"},
-            {"compte": "54351187", "devise": "CAD", "valeur": 0.0, "note": "aucune position (ENPH et PKX retirés)"},
+            {"compte": "54128907", "devise": "USD", "valeur": 0.01, "note": "aucune position, non relu à 09 h 50"},
+            {"compte": "54351185", "devise": "USD", "valeur": 0.0, "note": "aucune position, non relu à 09 h 50"},
+            {"compte": "54351187", "devise": "CAD", "valeur": 0.0, "note": "aucune position (ENPH et PKX retirés), non relu à 09 h 50"},
         ],
         "note": (
-            "Compte réel EUR #54086450 relevé le 24/11/2026 vers 12 h 31 (xStation 5), "
-            "non relu le 25/11/2026 à 08 h 15 : "
-            "Maurel & Prom (81 titres) et PEA. Comptes USD et CAD à 0 : ENPH et PKX ne sont plus détenus. "
-            "Deutsche Bank clôturée le 16/11/2026. Aucun ordre XTB en attente."
+            "Compte réel EUR #54086450 relevé le 25/11/2026 vers 09 h 50 : "
+            "Maurel & Prom (81 titres, 519,21 €, −0,93 %), liquidités 5,93 €, et PEA 10,21 €. "
+            "Deutsche Bank clôturée le 16/11/2026. Aucun ordre XTB en attente. "
+            "Comptes USD et CAD non relus à 09 h 50 (à 0 le 24/11)."
         ),
     }
 
+    # Plus d'encadré rouge « CFD exclus » : les lignes sont dans Mes positions.
+    # On conserve une note d'incohérence (P/L ligne, écart marges / valeur du compte).
     cfd_alert = {
         "courtier": "revolut",
+        "inclus": True,
         "valeur_usd": r2(cfd_val) if cfd_val is not None else None,
-        "pnl_usd": cfd_pl,
+        "pnl_usd": r2(cfd_pl) if cfd_pl is not None else None,
+        "pnl_pct": cfd_pct,
         "n": cfd_n,
         "tickers": cfd_names,
-        "libelle": cfd_lib,
-        "note": (
-            "Les 4 positions CFD (XPD et MSTR et SMR en long, COST en short) restent exclues "
-            "de Mes positions (règle en vigueur). Composition relevée le 25/11/2026 vers 08 h 15 "
-            "(marges et cours d'entrée). P/L, valeur de marché, liquidités CFD et levier non relus : "
-            "non inventés. Alerte compacte uniquement."
+        "marges_usd": marges_cfd,
+        "ecart_usd": r2((cfd_val or 0) - marges_cfd) if cfd_val is not None else None,
+        "libelle": (
+            f"CFD inclus : compte {fr_money(off_cfd_usd)} $ (−61,03 %). "
+            f"P/L de chaque ligne non relu. Écart compte − marges : "
+            f"{fr_money((cfd_val or 0) - marges_cfd)} $ non ventilé."
         ),
+        "afficher_encadre": False,
+        "note": cfd_note,
     }
 
     book = {
         "releve": now.isoformat(),
-        "releve_libelle": "Revolut 25/11/2026 à 08 h 15 · XTB 24/11/2026 à 12 h 31 (Europe/Paris)",
-        "xtb_releve_libelle": "XTB 24/11/2026 à 12 h 31 (Europe/Paris)",
-        "source": (
-            "Pointage Revolut Invest (titres et métaux) du 25/11/2026 vers 08 h 15 (Europe/Paris) : "
-            "P/L d'après les notes TradingView, quantités et prix de revient du relevé du 24/11 20 h 31, "
-            "LVMH ajouté. CFD exclus de Mes positions, P/L CFD non relu. "
-            "XTB non relu (24/11 12 h 31). Revolut X non relu (24/11 12 h 35). "
-            f"{fr_money(cash_usd)} $ de liquidités sur le compte-titres (incluses, non relues)."
-        ),
-        "compte": "Revolut Invest, Revolut X et XTB",
+        "releve_libelle": "Revolut, Revolut X et XTB 25/11/2026 à 09 h 50 (Europe/Paris)",
+        "xtb_releve_libelle": "XTB 25/11/2026 à 09 h 50 (Europe/Paris)",
+        "source": desc,
+        "compte": "Revolut Invest, Revolut X, XTB et plan Tesla (non liquide)",
         "n_actives": sum(1 for p in book_rows if p["statut"] == "active"),
         "n_en_attente": sum(1 for p in book_rows if p["statut"] == "en_attente"),
         "positions": book_rows,
         "fx": fx_obj,
         "totaux": {
-            "total_usd": t_all["valeur_usd"],
-            "total_eur": t_all["valeur_eur"],
-            "investi_usd": t_all["investi_usd"],
-            "investi_eur": t_all["investi_eur"],
-            "perf_debut_pct": t_all["perf_debut_pct"],
+            "total_usd": liquide_usd,
+            "total_eur": liquide_eur,
+            "investi_usd": r2(t_rev["investi_usd"] + t_rx["investi_usd"] + t_xtb["investi_usd"]),
+            "investi_eur": r2(t_rev["investi_eur"] + t_rx["investi_eur"] + t_xtb["investi_eur"]),
+            "perf_debut_pct": r2(
+                100.0 * (
+                    (t_rev["valeur_usd"] + t_rx["valeur_usd"] + t_xtb["valeur_usd"])
+                    / (t_rev["investi_usd"] + t_rx["investi_usd"] + t_xtb["investi_usd"])
+                    - 1
+                ),
+                1,
+            ),
             "perf_1an_pct": None,
             "perf_1an_libelle": "à venir",
             "perf_1an_note": (
@@ -665,6 +924,12 @@ def main():
                 "xtb": t_xtb,
                 "revolutx": t_rx,
             },
+            "officiels": officiels,
+            "tesla_plan": tesla_plan,
+            "patrimoine_usd": patrimoine_usd,
+            "patrimoine_eur": patrimoine_eur,
+            "liquide_usd": liquide_usd,
+            "liquide_eur": liquide_eur,
         },
         "desc": desc,
         "pea_xtb": pea_xtb,
@@ -679,12 +944,11 @@ def main():
 
     rv_json = {
         "releve": now.isoformat(),
-        "releve_libelle": "Revolut 25/11/2026 à 08 h 15 (Europe/Paris)",
+        "releve_libelle": "Revolut 25/11/2026 à 09 h 50 (Europe/Paris)",
         "source": (
-            "Pointage Revolut Invest (compte-titres et matières premières) le 25/11/2026 vers 08 h 15 : "
-            "P/L d'après les notes TradingView, LVMH ajouté, quantités et prix de revient du 24/11 20 h 31. "
-            "CFD exclus, P/L CFD non relu. Revolut X non relu. "
-            f"Liquidités ({fr_money(cash_usd)} $) incluses dans Mes positions (secteur Liquidités), non relues."
+            "Captures Revolut Invest du 25/11/2026 vers 09 h 50 : totaux officiels du compte, "
+            "CFD inclus (XPD, COST, MSTR, SMR). Lignes titres et métaux au pointage 08 h 15 "
+            f"(notes TradingView). Liquidités ({fr_money(cash_usd)} $) incluses (non relues)."
         ),
         "compte": "Revolut Invest",
         "n_actives": sum(1 for p in liv if p["statut"] == "active"),
@@ -694,34 +958,48 @@ def main():
         "liquidites": {
             "usd": r2(cash_usd),
             "eur": r2(cash_usd / fx),
-            "source": "Revolut Invest, cash au 24/11/2026 20:31, non relu le 25/11 08:15",
+            "source": "Revolut Invest, cash au 24/11/2026 20:31, non relu le 25/11 09:50",
             "inclus_dans_total": True,
         },
         "totaux": t_rev,
         "positions_json_sha256": sha,
         "cfd_alerte": cfd_alert,
         "desc": (
-            f"Pointage Revolut Invest du 25/11/2026 à 08 h 15 (Europe/Paris). "
-            f"CFD exclus (P/L non relu). Ordres d'achat en cours inclus. "
-            f"{fr_money(cash_usd)} $ de liquidités incluses (non relues)."
+            f"Captures Revolut Invest du 25/11/2026 à 09 h 50 (Europe/Paris). "
+            f"Total {fr_money(off_rev_usd)} $ (−20,03 %), CFD inclus. "
+            f"{fr_money(cash_usd)} $ de liquidités du compte-titres (non relues)."
         ),
     }
     (DATA / "positions_revolut.json").write_text(json.dumps(rv_json, ensure_ascii=False, indent=2) + "\n")
     _mirror_site_root(DATA / "positions_revolut.json")
 
-    # Revolut X non relu le 25/11 : on conserve horodatage et cours du 24/11 12 h 35,
-    # on n'y attache que le rendement sourcé (colonne Rdt).
-    rx_path = DATA / "positions_revolutx.json"
-    if rx_path.exists():
-        rx_json = json.loads(rx_path.read_text())
-        apply_yields(rx_json.get("positions") or [])
-        rx_path.write_text(json.dumps(rx_json, ensure_ascii=False, indent=2) + "\n")
-        _mirror_site_root(rx_path)
+    rx_json = {
+        "releve": now.isoformat(),
+        "releve_libelle": "Revolut X 25/11/2026 à 09 h 50 (Europe/Paris)",
+        "source": (
+            "Capture Revolut X du 25/11/2026 vers 09 h 50 (Europe/Paris). "
+            "Bitcoin ajouté (0,018 BTC). Ether conservé (0,28 ETH), cours mis à jour."
+        ),
+        "compte": "Revolut X",
+        "n_actives": len(rx_rows),
+        "n_en_attente": 0,
+        "positions": rx_rows,
+        "fx": fx_obj,
+        "totaux": t_rx,
+        "desc": (
+            f"Relevé Revolut X du 25/11/2026 à 09 h 50 : total {fr_money(off_rx_usd)} $ "
+            f"(−47,69 $, −2,98 %). BTC 0,018 = {fr_money(1086.14)} $ (−0,87 %), "
+            f"ETH 0,28 = {fr_money(468.35)} $ (−7,54 %)."
+        ),
+    }
+    (DATA / "positions_revolutx.json").write_text(json.dumps(rx_json, ensure_ascii=False, indent=2) + "\n")
+    _mirror_site_root(DATA / "positions_revolutx.json")
 
     print("wrote", book_path, "n", len(book_rows), "actives", book["n_actives"], "ordres", book["n_en_attente"])
     print("tickers", [p["ticker"] + ("*" if p["statut"] == "en_attente" else "") for p in book_rows])
-    print("totaux USD", t_all["valeur_usd"], "EUR", t_all["valeur_eur"], "perf", t_all["perf_debut_pct"])
-    print("cfd", cfd_val, cfd_pl, cfd_n, cfd_names)
+    print("rx", [p["ticker"] for p in rx_rows])
+    print("totaux USD", liquide_usd, "EUR", liquide_eur, "patrimoine EUR", patrimoine_eur)
+    print("cfd", cfd_val, cfd_pl, cfd_n, cfd_names, "marges", marges_cfd)
     return 0
 
 

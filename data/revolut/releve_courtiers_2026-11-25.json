@@ -2,9 +2,9 @@
   "date": "2026-11-25",
   "xtb": {
     "valeur_totale": {
-      "montant": 591.91,
-      "devise": "USD",
-      "note": "EUR 540.66 affiché après sélection du compte EUR"
+      "devise": "EUR",
+      "montant": 535.35,
+      "note": "Total XTB 535,35 € (fonds disponibles 5,93 €, gain −14,65 €) au 25/11/2026 vers 09 h 50."
     },
     "carte_xtb": {
       "montant": 2.05,
@@ -14,8 +14,8 @@
       {
         "id": "54086450",
         "devise": "EUR",
-        "solde": 538.78,
-        "gain": -11.22,
+        "solde": 535.35,
+        "gain": -14.65,
         "fonds_disponibles": 5.93,
         "positions": [
           {
@@ -23,27 +23,27 @@
             "type": "Action",
             "volume": 81,
             "prix_ouverture": 6.47,
-            "prix_actuel": 6.45,
-            "valeur": 522.45,
-            "pl": -1.62,
-            "pl_pct": -0.31,
+            "prix_actuel": 6.41,
+            "valeur": 519.21,
+            "pl": -4.86,
+            "pl_pct": -0.93,
             "devise": "EUR"
           }
         ],
         "ordres": [],
         "resume_accueil": {
           "mes_transactions": {
-            "valeur": 528.38,
-            "pl": -1.62,
-            "instrument_pl_pct": -0.31
+            "valeur": 525.14,
+            "pl": -4.86,
+            "instrument_pl_pct": -0.93
           },
           "PEA": {
-            "valeur": 10.4,
-            "pl": -9.6,
-            "instrument_pl_pct": -50.1
+            "valeur": 10.21,
+            "pl": -9.79,
+            "instrument_pl_pct": -51.1
           }
         },
-        "note": "Positions relues 24/11 12:31. Aucun ordre en attente. PEA (10.40 EUR, perte -9.60, valeur marché 9.57, dispo 0.83) non détaillé : gestion PEA mobile uniquement. Historique 25/10-24/11: Deutsche Bank x17 ouvert 23/10 à 28.035, clôturé 16/11 à 33.315 (fermée).",
+        "note": "Compte réel EUR #54086450 relevé le 25/11/2026 vers 09 h 50 (Europe/Paris) : total 535,35 €, fonds disponibles 5,93 €, gain −14,65 €. Mes transactions 525,14 € = Maurel & Prom 519,21 € (−4,86 €, −0,93 %, 81 titres à 6,41 €) + liquidités 5,93 €. PEA 10,21 € (−9,79 €), ligne non identifiée à −51,1 %.",
         "historique": [
           {
             "nom": "Deutsche Bank",
@@ -55,12 +55,12 @@
           }
         ],
         "pea": {
-          "valeur": 10.4,
-          "pl": -9.6,
-          "valeur_marche": 9.57,
-          "fonds_dispo": 0.83,
+          "valeur": 10.21,
+          "pl": -9.79,
+          "instrument_pl_pct": -51.1,
+          "ligne": "ligne PEA non identifiée",
           "devise": "EUR",
-          "positions": "non lisible (app mobile)"
+          "note": "PEA 10,21 € (−9,79 €) au 25/11/2026 vers 09 h 50. Une ligne à −51,1 %, logo bleu foncé avec un A, nom non lisible. Valeur de marché et cash non séparés : non inventés."
         }
       },
       {
@@ -94,15 +94,15 @@
         "note": "Soldes confirmés dans le sélecteur de comptes; aucune position lue (non ouverts un par un)"
       }
     ],
-    "note_maj": "Non relu le 25/11/2026 à 08 h 15 ; conservé du relevé du 24/11/2026 vers 12 h 31 (Europe/Paris)."
+    "note_maj": "Total XTB 535,35 € (fonds disponibles 5,93 €, gain −14,65 €) au 25/11/2026 vers 09 h 50."
   },
   "revolut": {
-    "statut": "maj P/L notes TV 25/11 ~08:15 ; XTB / Revolut X / cash non relus",
-    "total_invest_usd": 14589.5,
-    "total_invest_affiche_usd": null,
+    "statut": "maj totaux 25/11 09:50 ; lignes spot 08:15 ; CFD inclus",
+    "total_invest_usd": 17312.37,
+    "total_invest_affiche_usd": 17312.37,
     "comptes": {
       "compte_titres": {
-        "valeur_usd": 12515.39,
+        "valeur_usd": 12549.34,
         "liquidites_usd": 5.5,
         "disponible_pour_investir_usd": 5.5,
         "positions": [
@@ -345,10 +345,13 @@
           }
         ],
         "ordres": [],
-        "obligations": "aucune ligne obligation directe (XHYG, XUTL = ETF obligataires)"
+        "obligations": "aucune ligne obligation directe (XHYG, XUTL = ETF obligataires)",
+        "valeur_officielle_usd": 12549.34,
+        "pl_pct": -0.38,
+        "note": "Valeur officielle du compte de courtage 12 549,34 $ (−0,38 %) au 25/11/2026 vers 09 h 50. Les 19 lignes et les 5,50 $ de liquidités conservent les cours / P/L du pointage 08 h 15 (somme alors 12 515,39 $). Écart +33,95 $ non ventilé ligne à ligne (aucun cours inventé)."
       },
       "cfd": {
-        "valeur_usd": null,
+        "valeur_usd": 2680.35,
         "liquidites_usd": null,
         "positions": [
           {
@@ -357,7 +360,7 @@
             "prix_ouverture": 841.81,
             "marge_usd": 303,
             "devise": "USD",
-            "note": "Long, marge 303 $. P/L et quantité non relus le 25/11 vers 08 h 15."
+            "note": "Long, marge 303 $, cours d'entrée 841,81 $. Quantité et P/L non relus à 09 h 50 : non inventés. Levier ×5 supposé."
           },
           {
             "ticker": "COST",
@@ -365,29 +368,36 @@
             "prix_ouverture": 1091.02,
             "marge_usd": 120,
             "devise": "USD",
-            "note": "Short, marge 120 $. P/L et quantité non relus le 25/11 vers 08 h 15."
+            "note": "Short, marge 120 $, cours d'entrée 1 091,02 $. Quantité et P/L non relus à 09 h 50 : non inventés. Levier ×5 supposé."
           },
           {
             "ticker": "MSTR",
             "sens": "Buy",
             "prix_ouverture": 79.55,
             "marge_usd": 764,
+            "quantite": 48,
             "devise": "USD",
-            "note": "Long, marge 764 $. P/L et quantité non relus le 25/11 vers 08 h 15."
+            "note": "Long, 48 titres, marge 764 $, cours d'entrée 79,55 $ (48×79,55=3 818,40 $ = marge ×5). Cours actuel et P/L non relus à 09 h 50 : non inventés."
           },
           {
             "ticker": "SMR",
             "sens": "Buy",
             "prix_ouverture": 3.35,
             "marge_usd": 251,
+            "quantite": 300,
             "devise": "USD",
-            "note": "Long, marge 251 $. P/L et quantité non relus le 25/11 vers 08 h 15."
+            "note": "Long, 300 titres, marge 251 $, cours d'entrée 3,35 $ (300×3,35=1 005 $ ≈ marge ×4,00, pas ×5). Cours actuel et P/L non relus à 09 h 50 : non inventés. Incohérence de levier signalée ; badge « CFD L x5 » selon la consigne (levier du profil, non confirmé sur cette ligne)."
           }
         ],
-        "note": "Composition au 25/11/2026 vers 08 h 15 d'après les notes de position (XPD long, COST short, MSTR long, SMR long : marges et cours d'entrée). P/L, valeur de marché, liquidités CFD et levier non relus : non inventés. Les 4 CFD restent exclus de Mes positions. Le détail chiffré du 24/11 20 h 31 (5 CFD, dont AMD et MPC) n'est plus à jour."
+        "note": "Compte CFD 2 680,35 $ (−61,03 %, P/L implicite -4197.63 $) au 25/11/2026 vers 09 h 50. Quatre sous-jacents relevés (notes TradingView et consignes) : XPD long, COST short, MSTR long, SMR long. Somme des marges connues 1438 $ ; écart 1242.35 $ non ventilé (peut inclure des liquidités après P/L et/ou d'autres sous-jacents). AMD short et MPC short figuraient au relevé du 24/11 à 20 h 31 (P/L alors −4 082,91 $, valeur 2 344 $) mais n'ont pas été confirmés ouverts le 25/11 : non réinscrits. P/L de chaque ligne non calculé (cours actuel manquant, quantité manquante pour XPD et COST).",
+        "pl_pct": -61.03,
+        "investi_implicite_usd": 6877.98,
+        "pl_usd": -4197.63,
+        "marges_connues_usd": 1438,
+        "ecart_valeur_moins_marges_usd": 1242.35
       },
       "matieres_premieres": {
-        "valeur_usd": 2074.11,
+        "valeur_usd": 2082.68,
         "positions": [
           {
             "ticker": "XPD",
@@ -429,23 +439,40 @@
             "pl_pct": -5.27,
             "devise": "USD"
           }
-        ]
+        ],
+        "valeur_officielle_usd": 2082.68,
+        "pl_pct": -4.12,
+        "note": "Valeur officielle 2 082,68 $ (−4,12 %) au 25/11/2026 vers 09 h 50. Les 4 lignes conservent les cours / P/L du pointage 08 h 15 (somme alors 2 074,11 $). Écart +8,57 $ non ventilé (aucun cours inventé)."
       },
       "revolut_x": {
-        "valeur_usd": 478.31,
+        "valeur_usd": 1554.56,
         "positions": [
+          {
+            "ticker": "BTC",
+            "nom": "Bitcoin",
+            "quantite": 0.018,
+            "prix_usd": 59338,
+            "valeur_usd": 1086.14,
+            "pl_pct": -0.87,
+            "pl_usd": -9.57,
+            "note": "0,018 BTC = 1 086,14 $ (−0,87 %). Prix affiché 59 338 $ (0,018×59 338=1 068,08 $, écart d'affichage 18,06 $ non interprété). Position nouvelle par rapport au 24/11."
+          },
           {
             "ticker": "ETH",
             "nom": "Ether",
             "quantite": 0.28,
-            "prix_usd": 1685.86,
-            "valeur_usd": 478.24,
-            "pl_usd": -28.3,
-            "pl_pct": -5.59
+            "prix_usd": 1650.97,
+            "valeur_usd": 468.35,
+            "pl_pct": -7.54,
+            "pl_usd": -38.19,
+            "note": "0,28 ETH = 468,35 $ (−7,54 %). Prix affiché 1 650,97 $ (0,28×1 650,97=462,27 $, la valeur retenue est 468,35 $). Coût de revient conservé 1 809,07 $ / ETH (506,54 $)."
           }
         ],
         "ordres": [],
-        "note_maj": "Non relu le 25/11/2026 à 08 h 15 ; conservé du relevé du 24/11/2026 vers 12 h 35 (Europe/Paris)."
+        "note_maj": "Relevé Revolut X du 25/11/2026 vers 09 h 50 (Europe/Paris). Total officiel 1 554,56 $ (−47,69 $, −2,98 %). Somme des deux lignes 1 554,49 $ (écart d'arrondi 0,07 $ non inscrit comme liquidités).",
+        "pl_usd": -47.69,
+        "pl_pct": -2.98,
+        "note": "Relevé Revolut X du 25/11/2026 vers 09 h 50 (Europe/Paris). Total officiel 1 554,56 $ (−47,69 $, −2,98 %). Somme des deux lignes 1 554,49 $ (écart d'arrondi 0,07 $ non inscrit comme liquidités)."
       },
       "compte_courant": {
         "solde_eur": 253.31,
@@ -468,7 +495,31 @@
         "note": "Compte courant non relu à 20 h 31 ; soldes et virements conservés du relevé de 12 h 35. Les virements alors en attente ont probablement été exécutés (liquidités du compte-titres passées de 1 388,40 $ à 5,50 $)."
       }
     },
-    "note": "Mise à jour du 25/11/2026 vers 08 h 15 (Europe/Paris). P/L et cours des lignes Revolut spot (titres et métaux) recalculés à partir des notes TradingView, en conservant les quantités et les prix de revient du relevé du 24/11/2026 à 20 h 31. LVMH (EURONEXT:MC) ajouté : 2,50761088 titres, 1 000 € investis, −0,16 %, prix indiqué 396,80 €. XTB, Revolut X et liquidités du compte-titres non relus (conservés du 24/11). Taux EURUSD 1,094217 conservé du relevé du 24/11 20 h 31 (pas de nouveau taux implicite Revolut). CFD exclus de Mes positions ; composition du 25/11 08 h 15 (marges et cours d'entrée), P/L non relu donc non inventé."
+    "note": "Mise à jour du 25/11/2026 vers 09 h 50 (Europe/Paris), d'après les captures d'Emmanuel. Totaux de comptes officiels : Revolut Invest 17 312,37 $ (−4 335,96 $, −20,03 %) dont compte de courtage 12 549,34 $ (−0,38 %), matières premières 2 082,68 $ (−4,12 %), CFD 2 680,35 $ (−61,03 %). Revolut X 1 554,56 $ (−47,69 $, −2,98 %) : Bitcoin ajouté (0,018 BTC = 1 086,14 $, −0,87 %) et Ether 0,28 ETH = 468,35 $ (−7,54 %). XTB 535,35 € (fonds disponibles 5,93 €, gain −14,65 €) : Mes transactions 525,14 € (Maurel & Prom −4,86 €, −0,93 %) et PEA 10,21 € (−9,79 €, une ligne à −51,1 % non identifiée). Plan Tesla : avantage potentiel 12 302,45 €, valeur actuelle du compte 0 €, TSLA 384,68 $, taux 1,0944, relevé 03 h 51 EDT (09 h 51 Europe/Paris). Lignes titres et métaux Revolut : quantités et P/L du pointage 08 h 15 (notes TradingView) conservés, faute de cours ligne à ligne à 09 h 50 (aucun cours inventé). CFD désormais inclus dans Mes positions, les totaux, le tableau sectoriel et le patrimoine.",
+    "pl_usd": -4335.96,
+    "pl_pct": -20.03
   },
-  "note_maj": "Mise à jour du 25/11/2026 vers 08 h 15 (Europe/Paris). P/L et cours des lignes Revolut spot (titres et métaux) recalculés à partir des notes TradingView, en conservant les quantités et les prix de revient du relevé du 24/11/2026 à 20 h 31. LVMH (EURONEXT:MC) ajouté : 2,50761088 titres, 1 000 € investis, −0,16 %, prix indiqué 396,80 €. XTB, Revolut X et liquidités du compte-titres non relus (conservés du 24/11). Taux EURUSD 1,094217 conservé du relevé du 24/11 20 h 31 (pas de nouveau taux implicite Revolut). CFD exclus de Mes positions ; composition du 25/11 08 h 15 (marges et cours d'entrée), P/L non relu donc non inventé."
+  "note_maj": "Mise à jour du 25/11/2026 vers 09 h 50 (Europe/Paris), d'après les captures d'Emmanuel. Totaux de comptes officiels : Revolut Invest 17 312,37 $ (−4 335,96 $, −20,03 %) dont compte de courtage 12 549,34 $ (−0,38 %), matières premières 2 082,68 $ (−4,12 %), CFD 2 680,35 $ (−61,03 %). Revolut X 1 554,56 $ (−47,69 $, −2,98 %) : Bitcoin ajouté (0,018 BTC = 1 086,14 $, −0,87 %) et Ether 0,28 ETH = 468,35 $ (−7,54 %). XTB 535,35 € (fonds disponibles 5,93 €, gain −14,65 €) : Mes transactions 525,14 € (Maurel & Prom −4,86 €, −0,93 %) et PEA 10,21 € (−9,79 €, une ligne à −51,1 % non identifiée). Plan Tesla : avantage potentiel 12 302,45 €, valeur actuelle du compte 0 €, TSLA 384,68 $, taux 1,0944, relevé 03 h 51 EDT (09 h 51 Europe/Paris). Lignes titres et métaux Revolut : quantités et P/L du pointage 08 h 15 (notes TradingView) conservés, faute de cours ligne à ligne à 09 h 50 (aucun cours inventé). CFD désormais inclus dans Mes positions, les totaux, le tableau sectoriel et le patrimoine.",
+  "heure": "09:50",
+  "fuseau": "Europe/Paris",
+  "fx": {
+    "paire": "EURUSD",
+    "taux": 1.0944,
+    "date": "2026-11-25",
+    "source": "Taux EURUSD 1,0944 indiqué sur le plan d'actions Tesla au 25/11/2026 à 03 h 51 EDT (09 h 51 Europe/Paris).",
+    "source_court": "Plan Tesla 25/11/2026 03:51 EDT",
+    "zone": "Europe/Paris"
+  },
+  "tesla_plan": {
+    "nom": "Plan d'actions Tesla",
+    "avantage_potentiel_eur": 12302.45,
+    "valeur_compte_eur": 0,
+    "non_liquide": true,
+    "libelle": "non liquide / avantage potentiel",
+    "cours_tsla_usd": 384.68,
+    "fx": 1.0944,
+    "releve": "2026-11-25T03:51:00-04:00",
+    "releve_libelle": "25/11/2026 à 03 h 51 EDT (09 h 51 Europe/Paris)",
+    "note": "Avantage potentiel 12 302,45 €, valeur actuelle du compte 0 €, cours TSLA 384,68 $, EURUSD 1,0944. Non liquide : inclus dans le patrimoine total, exclu du tableau sectoriel et des totaux liquides."
+  }
 }

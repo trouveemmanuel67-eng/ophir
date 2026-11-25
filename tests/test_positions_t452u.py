@@ -1,4 +1,4 @@
-"""t452u / t545u : pointage Revolut du 25/11/2026 (08 h 15) ; plus d'ordre en attente."""
+"""t452u / t549u : captures courtiers du 25/11/2026 à 09 h 50 ; CFD inclus ; Bitcoin ajouté."""
 from __future__ import annotations
 import json
 from pathlib import Path
@@ -20,11 +20,11 @@ def test_anciennes_lignes_retirees():
     gone = {
         "NKE", "STLA", "AGNC", "NLY", "PDSE", "MBG", "PAH3", "P911",
         "PKX", "US912810TR95", "US912810SA79", "US91086QAV05",
-        "US260543BJ10", "US105756BB58", "BTC",
+        "US260543BJ10", "US105756BB58",
     }
     have = {p["ticker"] for p in POS["positions"]} | {p["ticker"] for p in RV["positions"]} | {p["ticker"] for p in RX["positions"]}
     assert gone.isdisjoint(have)
-    assert all(p.get("courtier") != "xtb" or p["ticker"] in {"MAU", "PEA"} for p in POS["positions"])
+    assert all(p.get("courtier") != "xtb" or p["ticker"] in {"MAU", "PEA", "CASH-XTB"} for p in POS["positions"])
 
 
 def test_lignes_du_releve_et_ordres():
@@ -44,19 +44,30 @@ def test_lignes_du_releve_et_ordres():
     assert by[("XAU", "active")]["tab"] == "metaux"
     assert by[("XAU", "active")].get("date_achat") == "2026-11-24"
     assert by[("MAU", "active")]["fiche_tv"] == "EURONEXT:MAU"
-    assert by[("MAU", "active")]["valeur"] == 522.45
-    assert by[("PEA", "active")]["nom"] == "PEA XTB"
+    assert by[("MAU", "active")]["valeur"] == 519.21
+    assert by[("PEA", "active")]["nom"] == "ligne PEA non identifiée"
     assert POS["n_en_attente"] == 0
-    assert POS["n_actives"] == 26
-    assert {p["ticker"] for p in RX["positions"]} == {"ETH"}
-    assert RX["positions"][0]["quantite"] == 0.28
-    assert RX["positions"][0]["valeur"] == 478.24
-    assert "12 h 35" in RX["releve_libelle"]  # Revolut X non relu le 25/11 08 h 15
-    # CFD absents des listes
-    assert all(p.get("type") != "cfd" for p in POS["positions"] + RV["positions"])
-    assert "CFD Revolut" in (POS.get("cfd_alerte") or {}).get("libelle", "")
-    assert "P/L non relu" in POS["cfd_alerte"]["libelle"]
+    assert POS["n_actives"] == 31
+    assert {p["ticker"] for p in RX["positions"]} == {"BTC", "ETH"}
+    eth=next(p for p in RX["positions"] if p["ticker"]=="ETH")
+    btc=next(p for p in RX["positions"] if p["ticker"]=="BTC")
+    assert eth["quantite"] == 0.28
+    assert eth["valeur"] == 468.35
+    assert btc["valeur"] == 1086.14
+    assert btc["quantite"] == 0.018
+    assert "09 h 50" in RX["releve_libelle"]
+    # CFD inclus dans Mes positions (une ligne par sous-jacent)
+    cfds = [p for p in POS["positions"] if p.get("type") == "cfd"]
+    assert {p["ticker"] for p in cfds} == {"XPD-CFD", "COST-CFD", "MSTR-CFD", "SMR-CFD"}
+    assert {p["cfd_badge"] for p in cfds if p["ticker"]=="COST-CFD"} == {"CFD S x5"}
+    assert all(p["cfd_badge"].startswith("CFD L") for p in cfds if p["ticker"]!="COST-CFD")
+    assert all(p.get("pnl_relu") is False for p in cfds)
     assert POS["cfd_alerte"]["n"] == 4
+    assert POS["cfd_alerte"]["valeur_usd"] == 2680.35
+    assert POS["cfd_alerte"].get("afficher_encadre") is False
+    assert POS["totaux"]["courtiers"]["revolut"]["valeur_usd"] == 17312.37
+    assert POS["totaux"]["tesla_plan"]["avantage_potentiel_eur"] == 12302.45
+    assert POS["totaux"]["tesla_plan"]["non_liquide"] is True
     assert ("MC", "active") in by
     assert by[("MC", "active")]["valeur"] == 998.4
     assert by[("MC", "active")]["fiche_tv"] == "EURONEXT:MC"

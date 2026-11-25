@@ -41,6 +41,7 @@ def test_entetes_colonnes_compactes():
     assert "<span>Détenu</span>" in ACC
     assert "<span>Latent</span>" in ACC
     assert "<span>Rdt</span>" in ACC
+    assert "<span>Rdt/an $</span>" in ACC
     assert "<span>ETF</span>" in ACC
     assert "<span>Sent.</span>" in ACC
     assert "<span>AV</span>" in ACC
