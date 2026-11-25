@@ -160,6 +160,10 @@ META = {
                 "tv_note": "NASDAQ:AMD", "fiche_tv": "NASDAQ:AMD",
                 "fiche_nom": "Advanced Micro Devices, Inc.",
                 "fiche_proxy": False, "note_tv_ok": True},
+    "CFD-BDX": {"nom": "Becton Dickinson CFD", "type": "cfd", "tab": "actions",
+                "tv_note": "NYSE:BDX", "fiche_tv": "NYSE:BDX",
+                "fiche_nom": "Becton, Dickinson and Company",
+                "fiche_proxy": False, "note_tv_ok": True},
 }
 
 

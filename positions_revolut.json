@@ -1,9 +1,9 @@
 {
   "releve": "2026-11-25T10:14:00+01:00",
-  "releve_libelle": "COST CFD 25/11/2026 à 11 h 01 · autres CFD 10 h 14 · autres comptes 09 h 50 (Europe/Paris) · ventes spot 25/11/2026 15 h 49–16 h 07 (PPX, BKNG, HMI, DASH, LVMH, XUTL, règlement 27/11) et pointage URNU (Europe/Paris)",
-  "source": "Captures du 25/11/2026 : courtage, métaux, Revolut X, XTB et Tesla vers 09 h 50 ; CFD vers 10 h 11–10 h 14 (Europe/Paris). Revolut Invest, montant retenu 30 709,57 $ = courtage 12 549,34 $ (−0,38 %) + métaux 2 082,68 $ (−4,12 %) + exposition CFD 16 077,55 $. Attention : l'exposition CFD dépasse le capital du compte (2 614,02 $ ; exposition 16 077,55 $ (somme quantité × cours des 6 lignes relues, COST inclus à 11 h 01), P&L lignes −4 235,46 $, valeur du compte 2 614,02 $ (affiché 2 644,26 $, −4 264,65 $, −61,56 %), marge de maintenance 98 % / seuil de fermeture 1 336,40 $). Les CFD sont des positions normales dans Mes positions, les totaux, le tableau sectoriel et le patrimoine (montant = exposition, pas la marge). Short COST relu à 11 h 01, inclus dans l'exposition. Lignes titres et métaux : cours et P/L du pointage 08 h 15 (notes TradingView). Revolut X 1 554,56 $ (−47,69 $, −2,98 %). XTB 535,35 € (fonds disponibles 5,93 €, gain −14,65 €). Plan Tesla (RSU) : avantage potentiel 12 302,45 € (13 463,80 $), compte 0 €, non liquide, inclus dans le total de Mes positions. Taux EURUSD 1,0944. Après-midi 25/11/2026 : six ventes spot exécutées (PPX, BKNG, HMI, DASH, LVMH, XUTL), liquidités en règlement le 27/11 (2 569,08 € et 1 112,72 $), URNU relu à 92,34519963 parts. Les cinq (plus XUTL) lignes vendues correspondaient aux positions entières (BKNG : écart d'arrondi 0,0000196).",
+  "releve_libelle": "Revolut 25/11/2026 : BDX CFD 19 h 25 · ventes spot 15 h 49–16 h 07 · COST CFD 11 h 01 · autres CFD 10 h 14 · courtage et métaux 09 h 50 (Europe/Paris)",
+  "source": "Captures du 25/11/2026 : courtage, métaux, Revolut X, XTB et Tesla vers 09 h 50 ; CFD vers 10 h 11–10 h 14 (Europe/Paris). Revolut Invest, montant retenu 32 165,36 $ = courtage 13 226,17 $ + métaux 2 082,68 $ (−4,12 %) + exposition CFD 16 856,51 $. Attention : l'exposition CFD dépasse le capital du compte (2 614,02 $ ; exposition 16 856,51 $ (somme quantité × cours des 7 lignes relues, COST à 11 h 01 et BDX à 19 h 25 inclus), P&L lignes −4 235,46 $, valeur du compte 2 614,02 $ (affiché 2 644,26 $, −4 264,65 $, −61,56 %), marge de maintenance 98 % / seuil de fermeture 1 336,40 $). Les CFD sont des positions normales dans Mes positions, les totaux, le tableau sectoriel et le patrimoine (montant = exposition, pas la marge). Après-midi et soir 25/11/2026 : six ventes spot exécutées (PPX, BKNG, HMI, DASH, LVMH, XUTL), liquidités en règlement le 27/11 (2 569,08 € et 1 112,72 $), URNU relu à 92,34519963 parts, et ouverture du short BDX:CFD à 19 h 25 (3,5 @ 222,56 $, ×5, exposition 778,96 $, marge 155,79 $, frais 1,95 $).",
   "compte": "Revolut Invest",
-  "n_actives": 26,
+  "n_actives": 27,
   "n_en_attente": 0,
   "positions": [
     {
@@ -46,7 +46,7 @@
       "rendement_type": "sans_dividende",
       "rendement_source": "Yahoo Finance, trailingAnnualDividendYield 0,00 % et Forward Dividend & Yield -- (0,00 %), page https://finance.yahoo.com/quote/NFLX/",
       "rendement_date": "2026-11-25",
-      "poids_pct": 22.8
+      "poids_pct": 2.2
     },
     {
       "id": "RDDT",
@@ -88,7 +88,7 @@
       "rendement_type": "sans_dividende",
       "rendement_source": "Yahoo Finance, trailingAnnualDividendYield 0,00 % et Forward Dividend & Yield -- (0,00 %), page https://finance.yahoo.com/quote/RDDT/",
       "rendement_date": "2026-11-25",
-      "poids_pct": 22.8
+      "poids_pct": 2.2
     },
     {
       "id": "CAT",
@@ -133,7 +133,7 @@
       "rendement_source": "Yahoo Finance, trailingAnnualDividendYield 1,15 % (forward 1,21 %, taux 6,52 $), page https://finance.yahoo.com/quote/CAT/",
       "rendement_date": "2026-11-25",
       "rendement_forward_pct": 1.21,
-      "poids_pct": 16.1
+      "poids_pct": 1.6
     },
     {
       "id": "FUC",
@@ -178,7 +178,7 @@
       "rendement_source": "Yahoo Finance (6954.T), trailingAnnualDividendYield 2,40 % (forward 128,30 JPY / 2,40 %), page https://finance.yahoo.com/quote/6954.T/",
       "rendement_date": "2026-11-25",
       "rendement_forward_pct": 2.4,
-      "poids_pct": 15.3
+      "poids_pct": 1.5
     },
     {
       "id": "URNU",
@@ -222,7 +222,7 @@
       "rendement_type": "etf_capitalisant",
       "rendement_source": "Global X (https://globalxetfs.eu/funds/urnu) et JustETF (https://www.justetf.com/en/etf-profile.html?isin=IE000NDWFGA5) : compartiment USD Accumulating, ISIN IE000NDWFGA5, politique de distribution accumulating (dividendes réinvestis, non versés).",
       "rendement_date": "2026-11-25",
-      "poids_pct": 29.6
+      "poids_pct": 2.9
     },
     {
       "id": "AVGO",
@@ -267,7 +267,7 @@
       "rendement_source": "Yahoo Finance, trailingAnnualDividendYield 0,83 % (forward 0,86 %, taux 2,60 $), page https://finance.yahoo.com/quote/AVGO/",
       "rendement_date": "2026-11-25",
       "rendement_forward_pct": 0.86,
-      "poids_pct": 11.6
+      "poids_pct": 1.1
     },
     {
       "id": "MU",
@@ -311,7 +311,7 @@
       "rendement_source": "Yahoo Finance, trailingAnnualDividendYield 0,08 % (forward 0,10 %, taux 0,60 $), page https://finance.yahoo.com/quote/MU/",
       "rendement_date": "2026-11-25",
       "rendement_forward_pct": 0.1,
-      "poids_pct": 11.4
+      "poids_pct": 1.1
     },
     {
       "id": "HWM",
@@ -355,7 +355,7 @@
       "rendement_source": "Yahoo Finance, trailingAnnualDividendYield 0,23 % (forward 0,27 %, taux 0,56 $), page https://finance.yahoo.com/quote/HWM/",
       "rendement_date": "2026-11-25",
       "rendement_forward_pct": 0.27,
-      "poids_pct": 11.5
+      "poids_pct": 1.1
     },
     {
       "id": "GOOGL",
@@ -399,7 +399,7 @@
       "rendement_source": "Yahoo Finance, trailingAnnualDividendYield 0,30 % (forward 0,32 %, taux 0,88 $), page https://finance.yahoo.com/quote/GOOGL/",
       "rendement_date": "2026-11-25",
       "rendement_forward_pct": 0.32,
-      "poids_pct": 11.6
+      "poids_pct": 1.1
     },
     {
       "id": "ENPH",
@@ -442,7 +442,7 @@
       "rendement_type": "sans_dividende",
       "rendement_source": "Yahoo Finance, trailingAnnualDividendYield 0,00 % et Forward Dividend & Yield -- (0,00 %), page https://finance.yahoo.com/quote/ENPH/",
       "rendement_date": "2026-11-25",
-      "poids_pct": 11.4
+      "poids_pct": 1.1
     },
     {
       "id": "LRCX",
@@ -486,7 +486,7 @@
       "rendement_source": "Yahoo Finance, trailingAnnualDividendYield 0,53 % (forward 0,67 %, taux 1,32 $), page https://finance.yahoo.com/quote/LRCX/",
       "rendement_date": "2026-11-25",
       "rendement_forward_pct": 0.67,
-      "poids_pct": 11.2
+      "poids_pct": 1.1
     },
     {
       "id": "VACD",
@@ -529,7 +529,7 @@
       "rendement_source": "Vallourec, page officielle Actions et dividendes (https://www.vallourec.com/fr/investisseurs/informations-boursieres/actions-et-dividendes/) : l'AG du 21/05/2026 a décidé qu'il ne serait pas distribué de dividende au titre de l'exercice 2025. Un dividende intérimaire exceptionnel de 2,05 € par action, décidé par le conseil et mis en paiement le 05/08/2026, n'est pas retenu dans le rendement récurrent. Yahoo Finance (VK.PA) affiche aussi trailingAnnualDividendYield 0,00 %.",
       "rendement_date": "2026-11-25",
       "rendement_note": "Dividende intérimaire exceptionnel 2,05 € (paiement 05/08/2026) exclu du rendement retenu.",
-      "poids_pct": 11.4
+      "poids_pct": 1.1
     },
     {
       "id": "XHYG",
@@ -571,7 +571,7 @@
       "rendement_type": "distribution_etf_trailing",
       "rendement_source": "JustETF, current dividend yield 5,39 %, dividendes des 12 derniers mois 0,82 €, ISIN LU1109942653, page https://www.justetf.com/en/etf-profile.html?isin=LU1109942653 (consultée le 25/11/2026).",
       "rendement_date": "2026-11-25",
-      "poids_pct": 10.5
+      "poids_pct": 1.0
     },
     {
       "id": "XPD",
@@ -614,7 +614,7 @@
       "rendement_type": "metal",
       "rendement_source": "Métal au comptant (palladium) : aucun dividende ni coupon.",
       "rendement_date": "2026-11-25",
-      "poids_pct": 11.0
+      "poids_pct": 1.1
     },
     {
       "id": "XAU",
@@ -657,7 +657,7 @@
       "rendement_type": "metal",
       "rendement_source": "Métal au comptant (or) : aucun dividende ni coupon.",
       "rendement_date": "2026-11-25",
-      "poids_pct": 11.1
+      "poids_pct": 1.1
     },
     {
       "id": "XPT",
@@ -700,7 +700,7 @@
       "rendement_type": "metal",
       "rendement_source": "Métal au comptant (platine) : aucun dividende ni coupon.",
       "rendement_date": "2026-11-25",
-      "poids_pct": 11.1
+      "poids_pct": 1.1
     },
     {
       "id": "XAG",
@@ -743,7 +743,7 @@
       "rendement_type": "metal",
       "rendement_source": "Métal au comptant (argent) : aucun dividende ni coupon.",
       "rendement_date": "2026-11-25",
-      "poids_pct": 10.9
+      "poids_pct": 1.1
     },
     {
       "id": "CASH-REV",
@@ -781,7 +781,7 @@
       "investi_usd": 5.5,
       "valeur_eur": 5.03,
       "investi_eur": 5.03,
-      "poids_pct": 0.1
+      "poids_pct": 0.0
     },
     {
       "id": "CASH-REV-EUR-REG",
@@ -820,7 +820,7 @@
       "valeur_eur": 2569.08,
       "investi_eur": 2569.08,
       "reglement": "2026-11-27",
-      "poids_pct": 59.8
+      "poids_pct": 5.9
     },
     {
       "id": "CASH-REV-USD-REG",
@@ -859,7 +859,7 @@
       "valeur_eur": 1016.74,
       "investi_eur": 1016.74,
       "reglement": "2026-11-27",
-      "poids_pct": 23.7
+      "poids_pct": 2.3
     },
     {
       "id": "CFD-MSTR",
@@ -905,7 +905,7 @@
       "valeur_eur": 4667.47,
       "investi_eur": 5126.83,
       "pnl_relu": true,
-      "poids_pct": 108.7
+      "poids_pct": 10.7
     },
     {
       "id": "CFD-XPD",
@@ -951,7 +951,7 @@
       "valeur_eur": 5813.4,
       "investi_eur": 7679.08,
       "pnl_relu": true,
-      "poids_pct": 135.4
+      "poids_pct": 13.3
     },
     {
       "id": "CFD-SMR",
@@ -997,7 +997,7 @@
       "valeur_eur": 1733.98,
       "investi_eur": 2785.08,
       "pnl_relu": true,
-      "poids_pct": 40.4
+      "poids_pct": 4.0
     },
     {
       "id": "CFD-MPC",
@@ -1043,7 +1043,7 @@
       "valeur_eur": 974.45,
       "investi_eur": 747.96,
       "pnl_relu": true,
-      "poids_pct": 22.7
+      "poids_pct": 2.2
     },
     {
       "id": "CFD-AMD",
@@ -1089,7 +1089,7 @@
       "valeur_eur": 949.87,
       "investi_eur": 685.64,
       "pnl_relu": true,
-      "poids_pct": 22.1
+      "poids_pct": 2.2
     },
     {
       "id": "CFD-COST",
@@ -1136,7 +1136,57 @@
       "valeur_eur": 551.56,
       "investi_eur": 548.3,
       "pnl_relu": true,
-      "poids_pct": 12.8
+      "poids_pct": 1.3
+    },
+    {
+      "id": "CFD-BDX",
+      "nom": "Becton Dickinson CFD",
+      "ticker": "BDX-CFD",
+      "type": "cfd",
+      "statut": "active",
+      "tv_note": "NYSE:BDX",
+      "note_tv_ok": true,
+      "fiche_tv": "NYSE:BDX",
+      "fiche_nom": "Becton, Dickinson and Company",
+      "fiche_proxy": false,
+      "fiche_note": "Capture du 25/11/2026 à 19 h 25 (Europe/Paris) : « Vendre BDX:CFD », statut Exécuté, 3,5 unités à 222,56 $, levier ×5, exposition 778,96 $, frais 1,95 $, marge 155,79 $. Exposition retenue = quantité × cours = 3,5 × 222,56 = 778,96 $. Coût d'entrée 778,96 $ ; P&L latent à l'ouverture 0,00 $ (0,00 %). Les totaux du compte CFD (valeur 2 614,02 $, marge de maintenance 98 %, seuil 1 336,40 $) restent ceux de 10 h 14 : pas de nouveau total de compte à 19 h 25.",
+      "tab": "actions",
+      "apex_score": null,
+      "apex_label": null,
+      "drapeau": null,
+      "drapeau_code": null,
+      "courtier": "revolut",
+      "perf_1an_pct": null,
+      "perf_1an_libelle": "à venir",
+      "perf_1an_note": "Le relevé ne donne pas d'historique de la ligne ; le rendement 1 an n'est pas inventé.",
+      "sous_jacent": "BDX",
+      "sens": "short",
+      "levier": 5,
+      "cfd_badge": "CFD S x5",
+      "marge_usd": 155.79,
+      "prix_moyen": 222.56,
+      "cours": 222.56,
+      "valeur_affichee_usd": null,
+      "quantite": 3.5,
+      "a_confirmer": false,
+      "exposition_usd": 778.96,
+      "devise": "USD",
+      "valeur": 778.96,
+      "valeur_arrondie": 779,
+      "investi": 778.96,
+      "investi_arrondi": 779,
+      "pnl_valeur": 0.0,
+      "pnl_pct": 0.0,
+      "perf_debut_pct": 0.0,
+      "valeur_usd": 778.96,
+      "investi_usd": 778.96,
+      "valeur_eur": 711.77,
+      "investi_eur": 711.77,
+      "pnl_relu": true,
+      "date_achat": "2026-11-25",
+      "date_execution": "2026-11-25T19:25:00+01:00",
+      "frais_ouverture_usd": 1.95,
+      "poids_pct": 1.6
     }
   ],
   "fx": {
@@ -1154,27 +1204,27 @@
     "inclus_dans_total": true
   },
   "totaux": {
-    "valeur_eur": 28679.09,
-    "valeur_usd": 31386.4,
-    "investi_usd": 34721.32,
-    "investi_eur": 31726.36,
-    "perf_debut_pct": -9.6,
+    "valeur_eur": 29390.86,
+    "valeur_usd": 32165.36,
+    "investi_usd": 35500.28,
+    "investi_eur": 32438.12,
+    "perf_debut_pct": -9.4,
     "statut": "ok",
-    "n": 26,
+    "n": 27,
     "compte_courtage_usd": 13226.17,
     "compte_courtage_pct": -1.1,
     "matieres_usd": 2082.68,
     "matieres_pct": -4.12,
-    "cfd_exposition_usd": 16077.55,
-    "cfd_entree_usd": 19231.76,
+    "cfd_exposition_usd": 16856.51,
+    "cfd_entree_usd": 20010.72,
     "cfd_compte_usd": 2614.02,
     "cfd_compte_affiche_usd": 2644.26,
-    "cfd_usd": 16077.55,
+    "cfd_usd": 16856.51,
     "cfd_pct": -61.56,
     "cfd_pl_usd": -4264.65,
     "cfd_pl_lignes_usd": -4235.46,
-    "somme_lignes_usd": 31344.75,
-    "note": "Total Revolut = courtage 13226.17 $ (officiel 09 h 50 de 12549.34 $ ajusté des 6 ventes du 25/11 15 h 49–16 h 07, du nouveau pointage URNU et des liquidités en règlement le 27/11) + métaux 2082.68 $ (captures 09 h 50) + exposition CFD 16077.55 $ (10 h 14). Le capital du compte CFD n'est que 2614.02 $ : l'exposition dépasse le capital. Le % du courtage est recalculé sur les lignes restantes (pas de nouveau total officiel Revolut pour l'après-midi)."
+    "somme_lignes_usd": 32123.71,
+    "note": "Total Revolut = courtage 13226.17 $ (officiel 09 h 50 de 12549.34 $ ajusté des 6 ventes du 25/11 15 h 49–16 h 07, du nouveau pointage URNU et des liquidités en règlement le 27/11) + métaux 2082.68 $ (captures 09 h 50) + exposition CFD 16856.51 $ (10 h 14, COST 11 h 01, BDX 19 h 25). Le capital du compte CFD n'est que 2614.02 $ : l'exposition dépasse le capital. Le % du courtage est recalculé sur les lignes restantes (pas de nouveau total officiel Revolut pour l'après-midi)."
   },
   "cfd_alerte": {
     "courtier": "revolut",
@@ -1184,25 +1234,26 @@
     "valeur_affichee_usd": 2644.26,
     "pnl_usd": -4264.65,
     "pnl_pct": -61.56,
-    "exposition_usd": 16077.55,
+    "exposition_usd": 16856.51,
     "pl_lignes_usd": -4235.46,
     "marge_reservee_usd": 2672.8,
     "solde_pret_a_investir_usd": 0,
     "liquidites_usd": 0,
     "marge_maintenance_pct": 98,
     "seuil_fermeture_usd": 1336.4,
-    "n": 6,
+    "n": 7,
     "tickers": [
       "MSTR",
       "XPD",
       "SMR",
       "MPC",
       "AMD",
-      "COST"
+      "COST",
+      "BDX"
     ],
     "a_confirmer": [],
-    "libelle": "Alerte CFD : l'exposition 16 077,55 $ dépasse le capital du compte (2 614,02 $, affiché 2 644,26 $, P&L −4 264,65 $, −61,56 %). Marge de maintenance 98 % — fermeture forcée si la valeur passe sous 1 336,40 $. Marge réservée 2 672,80 $, solde prêt à investir 0 $, cash USD 0 $.",
-    "note": "Compte CFD relevé le 25/11/2026 vers 10 h 11–10 h 14 (Europe/Paris) : valeur 2 614 02 $ (affiché 2 644 26 $  −61 56 %)  P&L −4 264 65 $  marge réservée 2 672 80 $  solde prêt à investir 0 $  cash USD 0 $  marge de maintenance 98 % (fermeture forcée si valeur < 1 336 40 $). Cinq lignes lues (MSTR ×5  XPD ×5  SMR ×7  MPC ×2  AMD ×3). Exposition retenue (quantité × cours) 15 473.92 $. Somme des P&L lignes −4 231,88 $ contre P&L du compte −4 264,65 $ (écart 32,77 $ non ventilé : peut inclure COST non relu, d'autres lignes sous « Afficher plus », ou des frais). Addendum 25/11 vers 11 h 01 : short COST confirmé (0,55 @ 1 097,51 $, levier ×5, marge 120,62 $, P&L −3,58 $). Exposition COST retenue 603,63 $ (quantité × cours) ; la capture affiche 603,09 $ (écart 0,54 $). Somme des expositions des 6 lignes 16 077,55 $. P&L lignes −4 235,46 $ contre P&L du compte à 10 h 14 (−4 264,65 $), écart 29,19 $ non ventilé. Totaux du compte CFD non relus à 11 h 01."
+    "libelle": "Alerte CFD : l'exposition 16 856,51 $ dépasse le capital du compte (2 614,02 $, affiché 2 644,26 $, P&L −4 264,65 $, −61,56 %). Marge de maintenance 98 % — fermeture forcée si la valeur passe sous 1 336,40 $. Marge réservée 2 672,80 $, solde prêt à investir 0 $, cash USD 0 $.",
+    "note": "Compte CFD relevé le 25/11/2026 vers 10 h 11–10 h 14 (Europe/Paris) : valeur 2 614 02 $ (affiché 2 644 26 $  −61 56 %)  P&L −4 264 65 $  marge réservée 2 672 80 $  solde prêt à investir 0 $  cash USD 0 $  marge de maintenance 98 % (fermeture forcée si valeur < 1 336 40 $). Cinq lignes lues (MSTR ×5  XPD ×5  SMR ×7  MPC ×2  AMD ×3). Exposition retenue (quantité × cours) 15 473.92 $. Somme des P&L lignes −4 231,88 $ contre P&L du compte −4 264,65 $ (écart 32,77 $ non ventilé : peut inclure COST non relu, d'autres lignes sous « Afficher plus », ou des frais). Addendum 25/11 vers 11 h 01 : short COST confirmé (0,55 @ 1 097,51 $, levier ×5, marge 120,62 $, P&L −3,58 $). Exposition COST retenue 603,63 $ (quantité × cours) ; la capture affiche 603,09 $ (écart 0,54 $). Somme des expositions des 6 lignes 16 077,55 $. P&L lignes −4 235,46 $ contre P&L du compte à 10 h 14 (−4 264,65 $), écart 29,19 $ non ventilé. Totaux du compte CFD non relus à 11 h 01. Addendum 25/11 à 19 h 25 : nouveau short BDX:CFD exécuté (3,5 @ 222,56 $, levier ×5, exposition 778,96 $, marge 155,79 $, frais 1,95 $). Somme des expositions des 7 lignes 16 856,51 $. Totaux du compte CFD non relus à 19 h 25."
   },
   "frais_cfd": {
     "objectif_eur_mois": 20,
@@ -1305,7 +1356,7 @@
       "recherche_repo": {
         "date": "2026-11-25",
         "zone": "Europe/Paris",
-        "resultat": "Frais d'ordres du 25/11/2026 sourcés sur les captures d'Emmanuel (6 ventes spot). 5 × 1,00 € + 2 × 1,09 $. Aucun frais d'achat URNU n'a été communiqué : non inventé.",
+        "resultat": "Frais d'ordres du 25/11/2026 sourcés sur les captures d'Emmanuel (6 ventes spot + ouverture short BDX:CFD). 4 × 1,00 € + 2 × 1,09 $ + 1,95 $. Aucun frais d'achat URNU n'a été communiqué : non inventé.",
         "fichiers_lus": [
           "captures Emmanuel 25/11/2026",
           "data/revolut/ventes_2026-11-25.json"
@@ -1437,6 +1488,25 @@
           "source": "Capture Emmanuel 25/11/2026, vente exécutée, règlement le 27/11/2026.",
           "montant_usd": 1.09,
           "montant_eur": 1.0
+        },
+        {
+          "date": "2026-11-25",
+          "heure": "19:25",
+          "zone": "Europe/Paris",
+          "courtier": "revolut",
+          "actif": "BDX",
+          "nom": "Becton, Dickinson and Company (CFD)",
+          "type": "trading_fee",
+          "sens": "sortie",
+          "montant": -1.95,
+          "devise": "USD",
+          "ordre": "vente_cfd",
+          "quantite": 3.5,
+          "prix": 222.56,
+          "valeur_brute": 778.96,
+          "source": "Capture Emmanuel 25/11/2026 à 19 h 25 (Europe/Paris) : « Vendre BDX:CFD », statut Exécuté, 3,5 @ 222,56 $, levier ×5, marge 155,79 $, frais 1,95 $.",
+          "montant_usd": 1.95,
+          "montant_eur": 1.78
         }
       ],
       "lignes_mois": [
@@ -1565,13 +1635,32 @@
           "source": "Capture Emmanuel 25/11/2026, vente exécutée, règlement le 27/11/2026.",
           "montant_usd": 1.09,
           "montant_eur": 1.0
+        },
+        {
+          "date": "2026-11-25",
+          "heure": "19:25",
+          "zone": "Europe/Paris",
+          "courtier": "revolut",
+          "actif": "BDX",
+          "nom": "Becton, Dickinson and Company (CFD)",
+          "type": "trading_fee",
+          "sens": "sortie",
+          "montant": -1.95,
+          "devise": "USD",
+          "ordre": "vente_cfd",
+          "quantite": 3.5,
+          "prix": 222.56,
+          "valeur_brute": 778.96,
+          "source": "Capture Emmanuel 25/11/2026 à 19 h 25 (Europe/Paris) : « Vendre BDX:CFD », statut Exécuté, 3,5 @ 222,56 $, levier ×5, marge 155,79 $, frais 1,95 $.",
+          "montant_usd": 1.95,
+          "montant_eur": 1.78
         }
       ],
       "a_relever": false,
-      "total_mois_usd": 6.56,
-      "total_mois_eur": 5.99,
-      "projection_usd": 6.56,
-      "projection_eur": 5.99,
+      "total_mois_usd": 8.51,
+      "total_mois_eur": 7.77,
+      "projection_usd": 8.51,
+      "projection_eur": 7.77,
       "projection_note": "Transactions sans commission épuisées jusqu'au 7 décembre 2026 (indiqué par Emmanuel le 25/11/2026).",
       "note": "Transactions sans commission épuisées jusqu'au 7 décembre 2026 (indiqué par Emmanuel le 25/11/2026)."
     },
@@ -48821,13 +48910,13 @@
         "genere_par": "src/build_budget_mensuel.py"
       }
     },
-    "total_observe_usd": 8.9,
-    "total_observe_eur": 8.13,
-    "projection_usd": 93.77,
-    "projection_eur": 85.67,
+    "total_observe_usd": 10.85,
+    "total_observe_eur": 9.91,
+    "projection_usd": 95.72,
+    "projection_eur": 87.45,
     "projection_note": "Projection mensuelle = OVN projeté (dernier jour relu × ~30 jours), abonnement TradingView (Essential annuel / 12) et frais d'ordres déjà sourcés en novembre. Les transactions sans commission sont épuisées jusqu'au 7 décembre 2026."
   },
-  "desc": "Captures du 25/11/2026 : courtage, métaux, Revolut X, XTB et Tesla vers 09 h 50 ; CFD vers 10 h 11–10 h 14 (Europe/Paris). Revolut Invest, montant retenu 30 709,57 $ = courtage 12 549,34 $ (−0,38 %) + métaux 2 082,68 $ (−4,12 %) + exposition CFD 16 077,55 $. Attention : l'exposition CFD dépasse le capital du compte (2 614,02 $ ; exposition 16 077,55 $ (somme quantité × cours des 6 lignes relues, COST inclus à 11 h 01), P&L lignes −4 235,46 $, valeur du compte 2 614,02 $ (affiché 2 644,26 $, −4 264,65 $, −61,56 %), marge de maintenance 98 % / seuil de fermeture 1 336,40 $). Les CFD sont des positions normales dans Mes positions, les totaux, le tableau sectoriel et le patrimoine (montant = exposition, pas la marge). Short COST relu à 11 h 01, inclus dans l'exposition. Lignes titres et métaux : cours et P/L du pointage 08 h 15 (notes TradingView). Revolut X 1 554,56 $ (−47,69 $, −2,98 %). XTB 535,35 € (fonds disponibles 5,93 €, gain −14,65 €). Plan Tesla (RSU) : avantage potentiel 12 302,45 € (13 463,80 $), compte 0 €, non liquide, inclus dans le total de Mes positions. Taux EURUSD 1,0944. Après-midi 25/11/2026 : six ventes spot exécutées (PPX, BKNG, HMI, DASH, LVMH, XUTL), liquidités en règlement le 27/11 (2 569,08 € et 1 112,72 $), URNU relu à 92,34519963 parts. Les cinq (plus XUTL) lignes vendues correspondaient aux positions entières (BKNG : écart d'arrondi 0,0000196).",
+  "desc": "Captures du 25/11/2026 : courtage, métaux, Revolut X, XTB et Tesla vers 09 h 50 ; CFD vers 10 h 11–10 h 14 (Europe/Paris). Revolut Invest, montant retenu 32 165,36 $ = courtage 13 226,17 $ + métaux 2 082,68 $ (−4,12 %) + exposition CFD 16 856,51 $. Attention : l'exposition CFD dépasse le capital du compte (2 614,02 $ ; exposition 16 856,51 $ (somme quantité × cours des 7 lignes relues, COST à 11 h 01 et BDX à 19 h 25 inclus), P&L lignes −4 235,46 $, valeur du compte 2 614,02 $ (affiché 2 644,26 $, −4 264,65 $, −61,56 %), marge de maintenance 98 % / seuil de fermeture 1 336,40 $). Les CFD sont des positions normales dans Mes positions, les totaux, le tableau sectoriel et le patrimoine (montant = exposition, pas la marge). Après-midi et soir 25/11/2026 : six ventes spot exécutées (PPX, BKNG, HMI, DASH, LVMH, XUTL), liquidités en règlement le 27/11 (2 569,08 € et 1 112,72 $), URNU relu à 92,34519963 parts, et ouverture du short BDX:CFD à 19 h 25 (3,5 @ 222,56 $, ×5, exposition 778,96 $, marge 155,79 $, frais 1,95 $).",
   "ventes_2026_11_25": {
     "titre": "Ventes du 25/11/2026, règlement le 27/11",
     "source": "Captures d'Emmanuel Trouvé, 25/11/2026. Tous les ordres sont exécutés ; règlement le 27/11/2026.",
@@ -49058,5 +49147,6 @@
       "note_bkng": "BKNG : quantité vendue 3,9873196 vs 3,9873 au livre (arrondi). Traité comme sortie entière.",
       "note_lvmh": "LVMH : P&L réalisé calculé sur les 1 000,00 € investis du livre, pas sur qty × 396,80 € (995,02 €)."
     }
-  }
+  },
+  "positions_json_sha256": "7305989833e56267bc535414baba923371ff2c51e8b00ab78035632858a86d95"
 }

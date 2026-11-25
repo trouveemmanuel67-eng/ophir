@@ -423,9 +423,24 @@
             "valeur_affichee_usd": null,
             "exposition_capturee_usd": 603.09,
             "pl_usd": -3.58
+          },
+          {
+            "ticker": "BDX",
+            "sens": "Sell",
+            "levier": 5,
+            "quantite": 3.5,
+            "prix_ouverture": 222.56,
+            "marge_usd": 155.79,
+            "devise": "USD",
+            "a_confirmer": false,
+            "note": "Capture du 25/11/2026 à 19 h 25 (Europe/Paris) : « Vendre BDX:CFD », statut Exécuté, 3,5 unités à 222,56 $, levier ×5, exposition 778,96 $, frais 1,95 $, marge 155,79 $. P&L latent à l'ouverture 0,00 $ (0,00 %). Les totaux du compte CFD (valeur 2 614,02 $, marge de maintenance 98 %, seuil 1 336,40 $) restent ceux de 10 h 14 : pas de nouveau total de compte à 19 h 25.",
+            "prix_actuel": 222.56,
+            "valeur_affichee_usd": null,
+            "exposition_capturee_usd": 778.96,
+            "pl_usd": 0.0
           }
         ],
-        "note": "Compte CFD relevé le 25/11/2026 vers 10 h 11–10 h 14 (Europe/Paris) : valeur 2 614 02 $ (affiché 2 644 26 $  −61 56 %)  P&L −4 264 65 $  marge réservée 2 672 80 $  solde prêt à investir 0 $  cash USD 0 $  marge de maintenance 98 % (fermeture forcée si valeur < 1 336 40 $). Cinq lignes lues (MSTR ×5  XPD ×5  SMR ×7  MPC ×2  AMD ×3). Exposition retenue (quantité × cours) 15 473.92 $. Somme des P&L lignes −4 231,88 $ contre P&L du compte −4 264,65 $ (écart 32,77 $ non ventilé : peut inclure COST non relu, d'autres lignes sous « Afficher plus », ou des frais). Addendum 25/11 vers 11 h 01 : short COST confirmé (0,55 @ 1 097,51 $, levier ×5, marge 120,62 $, P&L −3,58 $). Exposition COST retenue 603,63 $ (quantité × cours) ; la capture affiche 603,09 $ (écart 0,54 $). Somme des expositions des 6 lignes 16 077,55 $. P&L lignes −4 235,46 $ contre P&L du compte à 10 h 14 (−4 264,65 $), écart 29,19 $ non ventilé. Totaux du compte CFD non relus à 11 h 01.",
+        "note": "Compte CFD relevé le 25/11/2026 vers 10 h 11–10 h 14 (Europe/Paris) : valeur 2 614 02 $ (affiché 2 644 26 $  −61 56 %)  P&L −4 264 65 $  marge réservée 2 672 80 $  solde prêt à investir 0 $  cash USD 0 $  marge de maintenance 98 % (fermeture forcée si valeur < 1 336 40 $). Cinq lignes lues (MSTR ×5  XPD ×5  SMR ×7  MPC ×2  AMD ×3). Exposition retenue (quantité × cours) 15 473.92 $. Somme des P&L lignes −4 231,88 $ contre P&L du compte −4 264,65 $ (écart 32,77 $ non ventilé : peut inclure COST non relu, d'autres lignes sous « Afficher plus », ou des frais). Addendum 25/11 vers 11 h 01 : short COST confirmé (0,55 @ 1 097,51 $, levier ×5, marge 120,62 $, P&L −3,58 $). Exposition COST retenue 603,63 $ (quantité × cours) ; la capture affiche 603,09 $ (écart 0,54 $). Somme des expositions des 6 lignes 16 077,55 $. P&L lignes −4 235,46 $ contre P&L du compte à 10 h 14 (−4 264,65 $), écart 29,19 $ non ventilé. Totaux du compte CFD non relus à 11 h 01. Addendum 25/11 à 19 h 25 : nouveau short BDX:CFD exécuté (3,5 @ 222,56 $, levier ×5, exposition 778,96 $, marge 155,79 $, frais 1,95 $). Somme des expositions des 7 lignes 16 856,51 $. Totaux du compte CFD non relus à 19 h 25.",
         "pl_pct": -61.56,
         "pl_usd": -4264.65,
         "releve": "2026-11-25T10:14:00+01:00",
@@ -455,7 +470,7 @@
             "source": "Capture Revolut 25/11 10 h 11–10 h 14."
           }
         ],
-        "exposition_usd": 16077.55,
+        "exposition_usd": 16856.51,
         "pl_lignes_usd": -4235.46
       },
       "matieres_premieres": {
@@ -585,5 +600,6 @@
     "note": "Avantage potentiel 12 302,45 €, valeur actuelle du compte 0 €, cours TSLA 384,68 $, EURUSD 1,0944. Non liquide : inclus dans le patrimoine total, exclu du tableau sectoriel et des totaux liquides."
   },
   "heure_cfd": "10:14",
-  "heure_cost": "11:01"
+  "heure_cost": "11:01",
+  "heure_bdx": "19:25"
 }

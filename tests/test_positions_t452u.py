@@ -46,7 +46,7 @@ def test_lignes_du_releve_et_ordres():
     assert by[("MAU", "active")]["valeur"] == 519.21
     assert by[("PEA", "active")]["nom"] == "ligne PEA non identifiée"
     assert POS["n_en_attente"] == 0
-    assert POS["n_actives"] == 30
+    assert POS["n_actives"] == 31
     assert {p["ticker"] for p in RX["positions"]} == {"BTC", "ETH"}
     eth=next(p for p in RX["positions"] if p["ticker"]=="ETH")
     btc=next(p for p in RX["positions"] if p["ticker"]=="BTC")
@@ -57,7 +57,7 @@ def test_lignes_du_releve_et_ordres():
     assert "09 h 50" in RX["releve_libelle"]
     # CFD : montant = exposition (quantité × cours), levier lu par ligne
     cfds = {p["ticker"]: p for p in POS["positions"] if p.get("type") == "cfd"}
-    assert set(cfds) == {"XPD-CFD", "COST-CFD", "MSTR-CFD", "SMR-CFD", "MPC-CFD", "AMD-CFD"}
+    assert set(cfds) == {"XPD-CFD", "COST-CFD", "MSTR-CFD", "SMR-CFD", "MPC-CFD", "AMD-CFD", "BDX-CFD"}
     assert cfds["MSTR-CFD"]["cfd_badge"] == "CFD L x5"
     assert cfds["XPD-CFD"]["cfd_badge"] == "CFD L x5"
     assert cfds["SMR-CFD"]["cfd_badge"] == "CFD L x7"
@@ -82,21 +82,28 @@ def test_lignes_du_releve_et_ordres():
     assert cfds["COST-CFD"]["cours"] == 1097.51
     assert cfds["COST-CFD"]["marge_usd"] == 120.62
     assert cfds["COST-CFD"].get("pnl_relu") is True
+    assert cfds["BDX-CFD"]["cfd_badge"] == "CFD S x5"
+    assert cfds["BDX-CFD"]["valeur"] == 778.96
+    assert cfds["BDX-CFD"]["quantite"] == 3.5
+    assert cfds["BDX-CFD"]["cours"] == 222.56
+    assert cfds["BDX-CFD"]["marge_usd"] == 155.79
+    assert cfds["BDX-CFD"]["sens"] == "short"
+    assert cfds["BDX-CFD"]["tab"] == "actions"
     al = POS["cfd_alerte"]
     assert al["afficher_encadre"] is True
     assert al["valeur_usd"] == 2614.02
-    assert al["exposition_usd"] == 16077.55
-    assert al["n"] == 6
-    assert "COST" in al["tickers"]
+    assert al["exposition_usd"] == 16856.51
+    assert al["n"] == 7
+    assert "COST" in al["tickers"] and "BDX" in al["tickers"]
     assert al.get("a_confirmer") in (None, [], ())
     assert al["marge_maintenance_pct"] == 98
     assert al["seuil_fermeture_usd"] == 1336.40
     assert "2 614,02" in al["libelle"]
-    assert "16 077,55" in al["libelle"]
-    assert POS["totaux"]["courtiers"]["revolut"]["valeur_usd"] == 31386.4
-    assert POS["totaux"]["courtiers"]["revolut"]["cfd_exposition_usd"] == 16077.55
-    assert POS["totaux"]["total_usd"] == 46990.65
-    assert POS["totaux"]["liquide_usd"] == 33526.85
+    assert "16 856,51" in al["libelle"]
+    assert POS["totaux"]["courtiers"]["revolut"]["valeur_usd"] == 32165.36
+    assert POS["totaux"]["courtiers"]["revolut"]["cfd_exposition_usd"] == 16856.51
+    assert POS["totaux"]["total_usd"] == 47769.61
+    assert POS["totaux"]["liquide_usd"] == 34305.81
     tes=next(x for x in POS["positions"] if x["ticker"]=="TSLA-RSU")
     assert tes["valeur"] == 12302.45
     assert tes["valeur_usd"] == 13463.8
@@ -177,9 +184,9 @@ def test_ordres_traites_comme_positions_actives_dans_le_js():
     assert bud["ovn"]["projection_usd"] == 70.2
     assert any(abs(float(j["montant_usd"])) == 2.34 for j in bud["ovn"]["lignes_mois"])
     assert bud["trading"]["a_relever"] is False
-    assert len(bud["trading"]["ordres"]) == 6
-    assert bud["trading"]["total_mois_usd"] == 6.56
-    assert bud["trading"]["total_mois_eur"] == 5.99
+    assert len(bud["trading"]["ordres"]) == 7
+    assert bud["trading"]["total_mois_usd"] == 8.51
+    assert bud["trading"]["total_mois_eur"] == 7.77
     tv = bud["tradingview"]
     assert tv["poste"] == "Abonnement TradingView"
     assert tv["montant_eur_mois"] == 15.54
@@ -193,9 +200,9 @@ def test_ordres_traites_comme_positions_actives_dans_le_js():
     assert tv["objectif"]["economie_eur_mois"] == 68.4
     assert tv["objectif"]["economie_eur_an"] == 820.8
     assert "Essential annuel Black Friday, 186,48 €/an prélevé le 6/12/2026 (Premium 83,94 €/mois résilié)" in tv["detail"]
-    assert bud["total_observe_usd"] == 8.9
-    assert bud["projection_usd"] == 93.77
-    assert bud["projection_eur"] == 85.67
+    assert bud["total_observe_usd"] == 10.85
+    assert bud["projection_usd"] == 95.72
+    assert bud["projection_eur"] == 87.45
     cj = bud["compte_joint"]
     assert cj["titre"] == "Compte joint famille, octobre 2026"
     assert cj["periode"]["mois"] == "2026-10"
@@ -337,7 +344,7 @@ def test_ordres_traites_comme_positions_actives_dans_le_js():
     assert "Entrée" in BDG and "Sortie" in BDG and "OVN octobre" in BDG
     assert "Total frais octobre" in BDG
     assert "function bdgOctOf" in BDG
-    assert bud["projection_usd"] == 93.77 and bud["projection_eur"] == 85.67
+    assert bud["projection_usd"] == 95.72 and bud["projection_eur"] == 87.45
 
 
 def test_source_dashboard_presente():

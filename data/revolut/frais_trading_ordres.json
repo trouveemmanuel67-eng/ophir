@@ -4,7 +4,7 @@
   "recherche_repo": {
     "date": "2026-11-25",
     "zone": "Europe/Paris",
-    "resultat": "Frais d'ordres du 25/11/2026 sourcés sur les captures d'Emmanuel (6 ventes spot). 5 × 1,00 € + 2 × 1,09 $. Aucun frais d'achat URNU n'a été communiqué : non inventé.",
+    "resultat": "Frais d'ordres du 25/11/2026 sourcés sur les captures d'Emmanuel (6 ventes spot + ouverture short BDX:CFD). 4 × 1,00 € + 2 × 1,09 $ + 1,95 $. Aucun frais d'achat URNU n'a été communiqué : non inventé.",
     "fichiers_lus": [
       "captures Emmanuel 25/11/2026",
       "data/revolut/ventes_2026-11-25.json"
@@ -124,6 +124,23 @@
       "credit": 228.48,
       "reglement": "2026-11-27",
       "source": "Capture Emmanuel 25/11/2026, vente exécutée, règlement le 27/11/2026."
+    },
+    {
+      "date": "2026-11-25",
+      "heure": "19:25",
+      "zone": "Europe/Paris",
+      "courtier": "revolut",
+      "actif": "BDX",
+      "nom": "Becton, Dickinson and Company (CFD)",
+      "type": "trading_fee",
+      "sens": "sortie",
+      "montant": -1.95,
+      "devise": "USD",
+      "ordre": "vente_cfd",
+      "quantite": 3.5,
+      "prix": 222.56,
+      "valeur_brute": 778.96,
+      "source": "Capture Emmanuel 25/11/2026 à 19 h 25 (Europe/Paris) : « Vendre BDX:CFD », statut Exécuté, 3,5 @ 222,56 $, levier ×5, marge 155,79 $, frais 1,95 $."
     }
   ]
 }
