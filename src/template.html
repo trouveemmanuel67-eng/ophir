@@ -495,15 +495,18 @@ body{display:flex;flex-direction:column;min-height:100vh}
 .plc-solde{justify-self:end;font-size:16px;font-weight:700;white-space:nowrap}
 .plc-taux{justify-self:end;color:var(--acc2);white-space:nowrap;font-size:13px}
 .plc-apex{justify-self:end}.plc-apex .apex10{font-size:15px}
-.plc-dec{grid-column:1/-1;font-size:11px;color:var(--mut)}
+.plc-dec,.plc-meta{grid-column:1/-1;font-size:11px;color:var(--mut)}
+.plc-meta{margin-top:2px;line-height:1.4}
+.plc-h{margin:16px 0 8px;font-size:12px;font-weight:750;letter-spacing:.08em;text-transform:uppercase;color:var(--acc2,#e6c27a)}
+.plc-h:first-of-type{margin-top:8px}
 .ep-apex td.ep-n .apex10{font-size:15px}.ep-apex td.ep-d{font-size:11px;color:var(--mut);text-align:left}
 .plc-tot{display:flex;justify-content:space-between;align-items:baseline;margin-top:12px;padding:8px 12px 0;border-top:1px solid var(--soft);font-variant-numeric:tabular-nums}
 .plc-tot span{color:var(--mut);font-size:11px;letter-spacing:.06em;text-transform:uppercase}
 .plc-tot b{font-size:16px}
 @media(max-width:640px){
   .plc-colh{display:none}
-  .plc-row{grid-template-columns:1fr auto;grid-template-areas:"et taux" "nm solde" "dec apex";gap:2px 12px;padding:10px 12px}
-  .plc-apex{grid-area:apex}.plc-dec{grid-area:dec}
+  .plc-row{grid-template-columns:1fr auto;grid-template-areas:"et taux" "nm solde" "meta meta" "dec apex";gap:2px 12px;padding:10px 12px}
+  .plc-apex{grid-area:apex}.plc-dec{grid-area:dec}.plc-meta{grid-area:meta}
   .plc-et{grid-area:et;font-size:12px}
   .plc-nm{grid-area:nm}
   .plc-solde{grid-area:solde}

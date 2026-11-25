@@ -344,40 +344,64 @@ def devises(T):
 
 
 # ------------------------------------------------------------------ épargne
+def prod_from_placement(ln, liv=None, src_liv=None, pl_src=None):
+    """Caractéristiques lues dans placements.json (rebuild nocturne)."""
+    cid = ln['id']
+    ccy = ln.get('devise') or ln.get('ccy') or 'EUR'
+    taux = ln.get('taux')
+    src_taux = ln.get('src_taux') or pl_src
+    if liv:
+        if cid in ('livret_a', 'ldds'):
+            taux = liv[1]
+            src_taux = src_liv
+        elif cid == 'lep':
+            taux = liv[2]
+            src_taux = src_liv
+        elif cid == 'livret_jeune':
+            taux = liv[1]
+            src_taux = (src_liv or '') + ' — plancher réglementé (= taux du Livret A) ; les banques peuvent offrir davantage.'
+    noms = {
+        'revolut-epargne-eur': 'Revolut, compte d’épargne EUR',
+        'revolut-mmf-usd': 'Revolut, fonds monétaires flexibles USD',
+    }
+    return {
+        'id': cid,
+        'nom': ln.get('nom_score') or noms.get(cid) or ln.get('nom'),
+        'taux': taux,
+        'ccy': ccy,
+        'impose': bool(ln['impose']) if 'impose' in ln else True,
+        'garantie': ln.get('garantie'),
+        'src_garantie': ln.get('src_garantie'),
+        'liquide': ln.get('liquide'),
+        'liquide_txt': ln.get('liquide_txt'),
+        'src_liquide': ln.get('src_liquide'),
+        'frais': ln.get('frais'),
+        'frais_txt': ln.get('frais_txt'),
+        'src_frais': ln.get('src_frais'),
+        'src_taux': src_taux,
+    }
+
+
 def epargne(T, PL):
     liv = T['liquidites']['livrets']['monthly'][-1]
     src_liv = 'Banque de France, taux des livrets réglementés (tabs_data.liquidites.livrets, mois %s)' % liv[0]
-    sp = 'https://www.service-public.fr/particuliers/vosdroits/F2365'
-    prods = [
-        {'id': 'livret_a', 'nom': 'Livret A', 'taux': liv[1], 'ccy': 'EUR', 'impose': False, 'garantie': 'État', 'src_garantie': 'Service-Public (Livret A : capital garanti par l’État) ' + sp,
-         'liquide': True, 'liquide_txt': 'retrait à tout moment', 'src_liquide': sp, 'frais': True, 'frais_txt': 'aucun frais', 'src_frais': sp, 'src_taux': src_liv},
-        {'id': 'lep', 'nom': 'LEP', 'taux': liv[2], 'ccy': 'EUR', 'impose': False, 'garantie': 'État', 'src_garantie': 'Service-Public (LEP) https://www.service-public.fr/particuliers/vosdroits/F2367',
-         'liquide': True, 'liquide_txt': 'retrait à tout moment', 'src_liquide': 'https://www.service-public.fr/particuliers/vosdroits/F2367', 'frais': True, 'frais_txt': 'aucun frais',
-         'src_frais': 'https://www.service-public.fr/particuliers/vosdroits/F2367', 'src_taux': src_liv},
-    ]
-    help_url = 'https://help.revolut.com/fr-FR/help/accounts/difference-between-instant-access-savings-and-flexible-account/'
-    fcf_url = 'https://www.revolut.com/fr-FR/flexible-cash-funds/'
-    for ln in PL.get('lignes') or []:
-        if ln['id'] == 'revolut-epargne-eur':
-            prods.append({'id': ln['id'], 'nom': 'Revolut, compte d’épargne EUR', 'taux': ln['taux'], 'ccy': 'EUR', 'impose': True,
-                          'garantie': 'FGD lituanien (dépôts Revolut Bank UAB, 100 000 €)', 'src_garantie': help_url,
-                          'liquide': True, 'liquide_txt': 'accès instantané, aucun frais de retrait', 'src_liquide': help_url,
-                          'frais': True, 'frais_txt': 'aucun frais de retrait ni montant minimum', 'src_frais': help_url, 'src_taux': PL.get('source')})
-        elif ln['id'] == 'revolut-mmf-usd':
-            # Caractéristiques lues dans placements.json (pas en dur dans l'affichage) pour survivre au rebuild nocturne.
-            prods.append({'id': ln['id'], 'nom': 'Revolut, fonds monétaires flexibles USD', 'taux': ln['taux'], 'ccy': 'USD', 'impose': True,
-                          'garantie': ln.get('garantie') or 'non',
-                          'src_garantie': ln.get('src_garantie') or (fcf_url + ' (capital non garanti ; protection des investisseurs 22 000 € seulement en cas de faillite)'),
-                          'liquide': True if ln.get('liquide') is None else bool(ln['liquide']),
-                          'liquide_txt': ln.get('liquide_txt') or 'retrait instantané, sans latence',
-                          'src_liquide': ln.get('src_liquide') or 'Emmanuel, 25/11/2026 (Europe/Paris) : retrait instantané, sans latence.',
-                          'frais': True if ln.get('frais') is None else bool(ln['frais']),
-                          'frais_txt': ln.get('frais_txt') or 'aucun frais réel (abonnement couvert par cartes cadeaux Amazon)',
-                          'src_frais': ln.get('src_frais') or 'Emmanuel, 25/11/2026 (Europe/Paris) : abonnement couvert par cartes cadeaux Amazon, aucun frais réel.',
-                          'src_taux': PL.get('source')})
     ipc = (T['liquidites'].get('ipc') or {})
-    for p in prods:
-        p['ipc'] = ipc.get('series'); p['ipc_id'] = ipc.get('idbank')
+    prods = []
+    for ln in PL.get('lignes') or []:
+        if ln.get('taux') is None and ln.get('id') not in ('livret_a', 'ldds', 'lep', 'livret_jeune'):
+            continue
+        p = prod_from_placement(ln, liv, src_liv, PL.get('source'))
+        if p.get('taux') is None:
+            continue
+        p['ipc'] = ipc.get('series')
+        p['ipc_id'] = ipc.get('idbank')
+        prods.append(p)
+        if ln['id'] in ('livret_a', 'ldds', 'lep', 'livret_jeune') and liv:
+            ln['taux'] = p['taux']
+            if ln['id'] == 'livret_jeune':
+                ln['taux_libelle'] = ('%.2f' % float(p['taux'])).replace('.', ',') + ' % minimum'
+            elif not ln.get('taux_libelle'):
+                ln['taux_libelle'] = ('%.2f' % float(p['taux'])).replace('.', ',') + ' %'
     out = []
     for p in prods:
         rec = L.epargne_score(p)

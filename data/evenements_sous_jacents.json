@@ -71,21 +71,24 @@
           "debut": "2026-11-28",
           "fin": "2026-12-06",
           "fait": "Élections locales taïwanaises le 28 novembre ; une percée du DPP autour de Taipei pourrait inciter Pékin à « resserrer la vis » (The Wire China).",
-          "source": "https://www.thewirechina.com/2026/10/25/how-taiwans-november-local-elections-could-change-the-world/"
+          "source": "https://www.thewirechina.com/2026/10/25/how-taiwans-november-local-elections-could-change-the-world/",
+          "label": "élections taïwanaises"
         },
         {
           "fenetre": "25 – 28 déc. 2026",
           "debut": "2026-12-25",
           "fin": "2026-12-28",
           "fait": "Prise de fonction des maires et magistrats élus, prévue le 25 décembre 2026. C'est un jalon politique, sans preuve qu'il provoquera une opération chinoise.",
-          "source": "https://en.wikipedia.org/wiki/2026_Taiwanese_local_elections"
+          "source": "https://en.wikipedia.org/wiki/2026_Taiwanese_local_elections",
+          "label": "prise de fonction"
         },
         {
           "fenetre": "29 – 31 déc. 2026",
           "debut": "2026-12-29",
           "fin": "2026-12-31",
           "fait": "Anniversaire de « Justice Mission-2025 », exercice chinois de blocus des ports lancé le 29 décembre 2025. Repère historique seulement : aucune répétition en 2026 n'est annoncée.",
-          "source": "https://www.theguardian.com/world/2025/dec/29/china-live-fire-military-drills-around-taiwan"
+          "source": "https://www.theguardian.com/world/2025/dec/29/china-live-fire-military-drills-around-taiwan",
+          "label": "Justice Mission"
         }
       ],
       "decomposition_score": {
@@ -93,7 +96,22 @@
         "corroboration": 21,
         "sous_exposition": 14,
         "impact": 24
-      }
+      },
+      "impacts": [
+        {
+          "sens": "baisse",
+          "libelle": "Semi-conducteurs / Tech Asie"
+        },
+        {
+          "sens": "hausse",
+          "libelle": "Or"
+        },
+        {
+          "sens": "hausse",
+          "libelle": "Défense"
+        }
+      ],
+      "impacts_source": "Canaux déjà listés dans actifs (semi-conducteurs TSM/ASML/NVDA/AMD/SOXX, or, défense). Sens : choc d'offre et d'incertitude lié à un blocus ou une quarantaine autour de Taïwan. Pas une prévision de cours."
     },
     {
       "rang": 2,
@@ -153,21 +171,24 @@
           "debut": "2026-12-01",
           "fin": "2026-12-04",
           "fait": "Expiration de l'offre de rachat du 4e trimestre de BCRED (1er décembre), puis Bain, StepStone, New Mountain, TPG Twin Brook et North Haven (2 au 4 décembre).",
-          "source": "https://www.crowdfundedwealth.com/articles/q4-2026-redemption-tender-deadlines-non-traded-reit-bdc-interval"
+          "source": "https://www.crowdfundedwealth.com/articles/q4-2026-redemption-tender-deadlines-non-traded-reit-bdc-interval",
+          "label": "rachat BCRED"
         },
         {
           "fenetre": "9 déc. 2026",
           "debut": "2026-12-09",
           "fin": "2026-12-09",
           "fait": "Réunion FOMC les 8–9 décembre, point de contrôle du coût de financement ; expiration des offres HLEND, HPS et BlackRock le 9 décembre selon le calendrier CrowdfundedWealth (source ci-dessus). La décision de taux n'est pas connue.",
-          "source": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
+          "source": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+          "label": "FOMC"
         },
         {
           "fenetre": "14 – 31 déc. 2026",
           "debut": "2026-12-14",
           "fin": "2026-12-31",
           "fait": "Expiration de l'offre d'Apollo Debt Solutions (14 décembre) ; les rachats sont valorisés à la VNI du 31 décembre. La date de publication des résultats et des nouvelles valorisations n'est pas encore garantie.",
-          "source": "https://www.crowdfundedwealth.com/articles/q4-2026-redemption-tender-deadlines-non-traded-reit-bdc-interval"
+          "source": "https://www.crowdfundedwealth.com/articles/q4-2026-redemption-tender-deadlines-non-traded-reit-bdc-interval",
+          "label": "rachat Apollo"
         }
       ],
       "decomposition_score": {
@@ -175,7 +196,26 @@
         "corroboration": 23,
         "sous_exposition": 15,
         "impact": 21
-      }
+      },
+      "impacts": [
+        {
+          "sens": "baisse",
+          "libelle": "BDC cotées"
+        },
+        {
+          "sens": "baisse",
+          "libelle": "Gérants alternatifs"
+        },
+        {
+          "sens": "baisse",
+          "libelle": "High yield"
+        },
+        {
+          "sens": "baisse",
+          "libelle": "Banques régionales US"
+        }
+      ],
+      "impacts_source": "Actifs déjà listés. L'événement mesuré est une suspension de rachats ou une baisse marquée de VNI d'un grand fonds de crédit privé : canal baissier sur ces titres de crédit et d'intermédiation, sans contrepartie haussière listée."
     },
     {
       "rang": 3,
@@ -234,21 +274,24 @@
           "debut": "2026-11-30",
           "fin": "2026-12-04",
           "fait": "Réouverture prévue du port de Nogales (Arizona) aux bovins mexicains le 30 novembre, alors que l'Arizona compte 9 cas actifs (Reuters).",
-          "source": "https://direct.aphis.usda.gov/animals/animal-health/livestock-and-poultry-disease/stop-screwworm/current-status"
+          "source": "https://direct.aphis.usda.gov/animals/animal-health/livestock-and-poultry-disease/stop-screwworm/current-status",
+          "label": "Nogales"
         },
         {
           "fenetre": "10 déc. 2026",
           "debut": "2026-12-10",
           "fin": "2026-12-10",
           "fait": "Rapport WASDE de l'USDA (offre et demande, dont la viande bovine).",
-          "source": "https://www.usda.gov/about-usda/general-information/staff-offices/office-chief-economist/commodity-markets/wasde-report"
+          "source": "https://www.usda.gov/about-usda/general-information/staff-offices/office-chief-economist/commodity-markets/wasde-report",
+          "label": "WASDE"
         },
         {
           "fenetre": "18 déc. 2026",
           "debut": "2026-12-18",
           "fin": "2026-12-18",
           "fait": "Publication USDA NASS « Cattle on Feed », le 18 décembre 2026 à 21 h (heure de Paris). Elle mesure les effectifs en engraissement, pas une décision de fermeture de frontière.",
-          "source": "https://www.nass.usda.gov/Publications/Calendar/reports_by_date.php?month=12&view=l&year=2026"
+          "source": "https://www.nass.usda.gov/Publications/Calendar/reports_by_date.php?month=12&view=l&year=2026",
+          "label": "Cattle on Feed"
         }
       ],
       "decomposition_score": {
@@ -256,7 +299,26 @@
         "corroboration": 22,
         "sous_exposition": 12,
         "impact": 16
-      }
+      },
+      "impacts": [
+        {
+          "sens": "hausse",
+          "libelle": "Futures bovins / prix du bœuf"
+        },
+        {
+          "sens": "baisse",
+          "libelle": "Transformateurs de viande"
+        },
+        {
+          "sens": "baisse",
+          "libelle": "Restauration"
+        },
+        {
+          "sens": "hausse",
+          "libelle": "Inflation alimentaire US"
+        }
+      ],
+      "impacts_source": "Actifs déjà listés. Signal existant : « La fermeture de 2025 avait porté les prix du bœuf à des records (Reuters) ». Une nouvelle suspension des importations ou une flambée en engraissement resserre l'offre (prix du bœuf et inflation alimentaire en hausse) et pèse sur les marges des transformateurs et de la restauration."
     }
   ],
   "ecartes": [

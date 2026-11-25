@@ -9,7 +9,10 @@ POS = (ROOT / "src" / "positions.js").read_text(encoding="utf-8")
 
 
 def test_carte_dans_le_rail_sous_indice_rotation():
-    assert "<h2>ÉVÈNEMENT</h2>" in JS
+    assert "<h2>ÉVÈNEMENT" in JS
+    assert "evtProchain" in JS
+    assert "evt-dd" in JS
+    assert "evtImpactHtml" in JS
     assert 'id="evtCard"' in JS
     assert "indiceRotationCard" in JS
     assert "insertAdjacentHTML('afterend'" in JS
@@ -49,3 +52,14 @@ def test_contenu_interne_conserve():
         "Les données des événements n’ont pas pu être chargées",
     ):
         assert token in JS
+
+
+def test_impacts_et_prochain_dans_les_donnees():
+    import json
+    data = json.loads((ROOT / "data" / "evenements_sous_jacents.json").read_text(encoding="utf-8"))
+    evs = data["evenements"]
+    assert len(evs) >= 3
+    for e in evs[:3]:
+        assert e.get("impacts"), e["id"]
+        assert all(i.get("sens") in ("hausse", "baisse") and i.get("libelle") for i in e["impacts"])
+        assert any(d.get("label") and d.get("debut") for d in e.get("dates") or []), e["id"]

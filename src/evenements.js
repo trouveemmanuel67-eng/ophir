@@ -24,6 +24,57 @@ function evtConfClass(c){
   if(k.startsWith('moy')) return 'evt-c-mid';
   return 'evt-c-lo';
 }
+
+function evtParseDay(s){
+  const m=String(s||'').match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if(!m) return null;
+  return new Date(Number(m[1]), Number(m[2])-1, Number(m[3]));
+}
+function evtFmtDM(d){
+  if(!d) return '';
+  const dd=String(d.getDate()).padStart(2,'0');
+  const mm=String(d.getMonth()+1).padStart(2,'0');
+  return dd+'/'+mm;
+}
+function evtToday(){
+  const n=new Date();
+  return new Date(n.getFullYear(), n.getMonth(), n.getDate());
+}
+function evtProchain(D){
+  if(!D||!Array.isArray(D.evenements)) return null;
+  const today=evtToday();
+  const cands=[];
+  D.evenements.forEach(e=>{
+    (e.dates||[]).forEach(d=>{
+      const debut=evtParseDay(d.debut), fin=evtParseDay(d.fin||d.debut);
+      const end=fin||debut;
+      if(!debut||!end||end<today) return;
+      cands.push({debut, label:d.label||d.fenetre||e.titre, id:e.id, titre:e.titre});
+    });
+  });
+  cands.sort((a,b)=>a.debut-b.debut);
+  return cands[0]||null;
+}
+function evtImpactHtml(e){
+  const arr=e&&Array.isArray(e.impacts)?e.impacts:[];
+  if(!arr.length) return '';
+  const parts=arr.map(it=>{
+    const down=String(it.sens||'')==='baisse';
+    const arrow=down?'▼':'▲';
+    const cls=down?'evt-dn':'evt-up';
+    return `<span class="${cls}">${arrow} ${evtEsc(it.libelle||'')}</span>`;
+  });
+  return `<p class="evt-impact">${parts.join(' · ')}</p>`;
+}
+function evtSetMenuOpen(on){
+  const btn=document.getElementById('evtDdBtn');
+  const list=document.getElementById('evtDdList');
+  if(!btn||!list) return;
+  btn.setAttribute('aria-expanded', on?'true':'false');
+  if(on) list.removeAttribute('hidden');
+  else list.setAttribute('hidden','');
+}
+
 function evtStyle(){
   if(document.getElementById('evtStyle')) return;
   const css=`
@@ -57,7 +108,24 @@ function evtStyle(){
 .evt-meth{margin:6px 0 0;padding-left:16px}
 .evt-meth li{font-size:11px;line-height:1.4;color:#cfcfcf;margin:0 0 3px}
 .evt-ecart{font-size:11px;line-height:1.4;color:#cfcfcf;margin:0 0 4px}
-.evt-empty{margin:0;padding:10px 12px;border:1px dashed rgba(230,194,122,.35);border-radius:10px;color:#c8c4bc;font-size:12px}`;
+.evt-empty{margin:0;padding:10px 12px;border:1px dashed rgba(230,194,122,.35);border-radius:10px;color:#c8c4bc;font-size:12px}
+.evt-impact{font-size:13px;font-weight:750;line-height:1.4;margin:0 0 8px;font-variant-numeric:tabular-nums}
+.evt-up{color:#4ade80}
+.evt-dn{color:#f87171}
+.evt-dd{position:relative;min-width:0;flex:1 1 auto}
+.evt-dd-btn{appearance:none;-webkit-appearance:none;display:flex;align-items:center;gap:6px;max-width:100%;margin:0;padding:0;border:0;background:transparent;color:inherit;font:inherit;cursor:pointer;text-align:left}
+.evt-dd-btn:focus-visible{outline:1px solid rgba(230,194,122,.8);outline-offset:3px;border-radius:6px}
+.evt-dd-caret{flex:none;color:var(--acc2,#e6c27a);font-size:11px;line-height:1}
+.evt-dd-btn[aria-expanded="true"] .evt-dd-caret{transform:rotate(180deg)}
+.evt-dd-list{position:absolute;z-index:5;left:0;right:auto;top:calc(100% + 6px);min-width:min(420px,70vw);margin:0;padding:6px 0;list-style:none;background:#14181f;border:1px solid rgba(230,194,122,.35);border-radius:10px;box-shadow:0 12px 32px rgba(0,0,0,.45)}
+.evt-dd-list[hidden]{display:none !important}
+.evt-dd-list a{display:block;padding:8px 12px;color:#f2efe8;text-decoration:none;font-size:12.5px;line-height:1.35;font-weight:650}
+.evt-dd-list a:hover,.evt-dd-list a:focus{background:rgba(230,194,122,.12);color:#fff}
+.evt-next{font-weight:650;letter-spacing:.04em}
+#evtCard h2{white-space:normal;line-height:1.3}
+#mes-pos:not(.is-expanded) #evtCard.pos-collapsed .evt-next-full{display:none}
+#mes-pos:not(.is-expanded) #evtCard.pos-collapsed h2{white-space:nowrap}
+`;
   const st=document.createElement('style');
   st.id='evtStyle';
   st.textContent=css;
@@ -77,6 +145,7 @@ function evtCardHtml(e){
       <span class="evt-b ${evtConfClass(e.confiance)}">Confiance ${evtEsc(e.confiance)}</span>
       <span class="evt-b evt-cat">${evtEsc(e.categorie)}</span>
     </div>
+    ${evtImpactHtml(e)}
     <p class="evt-res">${evtEsc(e.resume)}</p>
     ${e.decomposition_score?`<p class="evt-t" style="color:var(--mut,#bababa)">Score = intensité ${evtEsc(e.decomposition_score.intensite)} + corroboration ${evtEsc(e.decomposition_score.corroboration)} + sous-exposition ${evtEsc(e.decomposition_score.sous_exposition)} + impact ${evtEsc(e.decomposition_score.impact)} (sur 25 chacun)</p>`:''}
     ${e.evenement_mesure?`<p class="evt-k">Événement mesuré</p><p class="evt-t">${evtEsc(e.evenement_mesure)}</p>`:''}
@@ -105,10 +174,21 @@ function evtHtml(){
       ${meth?`<p class="evt-k">Méthode</p><ul class="evt-meth">${meth}</ul>`:''}
       ${(D.limites||[]).length?`<p class="evt-k">Limites</p><ul class="evt-meth">${D.limites.map(x=>`<li>${evtEsc(x)}</li>`).join('')}</ul>`:''}`;
   }
+  const nx=D?evtProchain(D):null;
+  const nxTxt=nx?(` · <span class="evt-next">prochain : ${evtEsc(evtFmtDM(nx.debut))} <span class="evt-next-full">${evtEsc(nx.label)}</span></span>`):'';
+  const menu=(!D||!n)?'':`<div class="evt-dd" id="evtDd">
+      <button type="button" class="evt-dd-btn" id="evtDdBtn" aria-haspopup="listbox" aria-expanded="false" aria-controls="evtDdList">
+        <h2>ÉVÈNEMENT${nxTxt}</h2>
+        <span class="evt-dd-caret" aria-hidden="true">▾</span>
+      </button>
+      <ul class="evt-dd-list" id="evtDdList" hidden role="listbox">
+        ${ (D.evenements.slice().sort((a,b)=>(a.rang||9)-(b.rang||9)).slice(0,3) ).map(e=>`<li role="option"><a href="#evt-${evtEsc(e.id)}" data-evt="${evtEsc(e.id)}">#${evtEsc(e.rang)} ${evtEsc(e.titre)}</a></li>`).join('') }
+      </ul>
+    </div>`;
   return `<div class="card no-group" id="evtCard">
     <div class="pos-rail-h" role="button" tabindex="0" aria-expanded="false" aria-controls="evtBody">
       <span class="pos-chev" aria-hidden="true">▸</span>
-      <h2>ÉVÈNEMENT</h2>
+      ${menu||`<h2>ÉVÈNEMENT${nxTxt}</h2>`}
       <span class="pos-head-tot">${n}<small>évènement${n>1?'s':''}</small></span>
     </div>
     <div class="pos-body gi-body evt-body" id="evtBody">${body}</div>
@@ -149,8 +229,28 @@ function evtMount(){
   if(head){
     head.setAttribute('aria-expanded', open?'true':'false');
     const tog=e=>{ e.preventDefault(); evtSetListOpen(!evtListIsOpen()); };
-    head.addEventListener('click',tog);
-    head.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); tog(e); } });
+    head.addEventListener('click',e=>{ if(e.target.closest('.evt-dd')) return; tog(e); });
+    head.addEventListener('keydown',e=>{ if(e.target.closest('.evt-dd')) return; if(e.key==='Enter'||e.key===' '){ e.preventDefault(); tog(e); } });
+  }
+  const ddBtn=document.getElementById('evtDdBtn');
+  const ddList=document.getElementById('evtDdList');
+  if(ddBtn&&ddList){
+    ddBtn.addEventListener('click',e=>{ e.preventDefault(); e.stopPropagation(); evtSetMenuOpen(ddBtn.getAttribute('aria-expanded')!=='true'); });
+    ddList.addEventListener('click',e=>{
+      const a=e.target.closest('a[data-evt]');
+      if(!a) return;
+      e.preventDefault();
+      e.stopPropagation();
+      evtSetMenuOpen(false);
+      evtSetListOpen(true);
+      const target=document.getElementById('evt-'+a.getAttribute('data-evt'));
+      if(target) target.scrollIntoView({block:'nearest', behavior:'smooth'});
+    });
+    if(!document.documentElement._evtDdBound){
+      document.documentElement._evtDdBound=true;
+      document.addEventListener('click',e=>{ if(!e.target.closest('#evtDd')) evtSetMenuOpen(false); });
+      document.addEventListener('keydown',e=>{ if(e.key==='Escape') evtSetMenuOpen(false); });
+    }
   }
   if(typeof posSyncListChrome==='function') posSyncListChrome(typeof posListIsOpen==='function'&&posListIsOpen());
 }
