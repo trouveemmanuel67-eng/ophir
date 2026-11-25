@@ -313,6 +313,18 @@ function bdgCourtHtml(b){
     }
     octRows=rows.join('\n        ');
   }
+  let novTradingRow='';
+  const novFees=!pending&&((t.lignes_mois||t.ordres||[]).length);
+  if(novFees){
+    const ops=(t.lignes_mois||t.ordres||[]).map(o=>({
+      date:o.date,heure_gmt:o.heure,symbole:o.actif||o.ticker,nom:o.nom,sens:o.sens||'sortie',
+      type:o.type,quantite:o.quantite,prix:o.prix,prix_devise:o.devise,montant_usd:o.montant_usd,montant_eur:o.montant_eur
+    }));
+    const det=bdgFeeOpsDetails(ops, (ops.length+' commission'+(ops.length>1?'s':'')+" d'ordres, novembre 2026")+(t.note?(' · '+t.note):''));
+    novTradingRow=bdgRow({id:'bdg-trading',poste:'Frais trading (nov.)',detailsHtml:det,obsUsd:bdgAmt(t.total_mois_usd,'USD'),obsEur:bdgAmt(t.total_mois_eur,'EUR'),projUsd:bdgAmt(t.projection_usd,'USD'),projEur:bdgAmt(t.projection_eur,'EUR'),objectif:'—'});
+  }else if(fo){
+    novTradingRow=fallbackTrading;
+  }
   const octKv=fo?`<div class="home-kv"><span class="l">Frais octobre</span><b>${bdgAmt(totOct.frais_eur,'EUR')}</b><small>${bdgAmt(totOct.frais_usd,'USD')}</small></div>`:'';
   return `<section class="card home-hero bdg-hero" id="bdg-courtage" data-bdg-fold="courtage">
     <div class="home-hero-top">
@@ -329,6 +341,7 @@ function bdgCourtHtml(b){
       <div class="home-table bdg-table" id="bdg-table">
         ${bdgHead()}
         ${bdgRow({id:'bdg-ovn',cls:over?['is-over']:['is-ok'],poste:'OVN',detail:detail,obsUsd:bdgAmt(o.total_mois_usd,'USD'),obsEur:bdgAmt(o.total_mois_eur,'EUR'),projUsd:bdgAmt(o.projection_usd,'USD'),projEur:bdgAmt(o.projection_eur,'EUR'),objectif:objTxt})}
+        ${novTradingRow}
         ${octRows}
         ${bdgRow({id:'bdg-tv',cls:tvOk?['is-ok']:[],poste:'Abonnement TradingView',detailsHtml:`<div class="bdg-det">${bdgEsc(tvDet)}</div>`,obsUsd:bdgAmt(tv.total_mois_usd,'USD'),obsEur:bdgAmt(tv.total_mois_eur,'EUR'),projUsd:bdgAmt(tv.projection_usd,'USD'),projEur:bdgAmt(tv.projection_eur,'EUR'),objectif:bdgTvObjectif(tv)})}
         <div class="bdg-foot" id="bdg-general">

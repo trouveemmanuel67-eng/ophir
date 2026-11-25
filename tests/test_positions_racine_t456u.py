@@ -4,8 +4,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 FILES = ('positions.json', 'positions_revolut.json', 'positions_revolutx.json')
-STALE = {'NKE', 'STLA', 'PKX', 'BTC', 'AGNC', 'NLY', 'PDSE', 'MBG', 'PAH3'}
-NEED = {'XAU', 'XAG', 'XPT', 'XPD', 'BKNG', 'CAT', 'AVGO', 'MU', 'HWM', 'GOOGL', 'ENPH', 'LRCX', 'MC'}
+STALE = {'NKE', 'STLA', 'PKX', 'BTC', 'AGNC', 'NLY', 'PDSE', 'MBG', 'PAH3', 'BKNG', 'PPX', 'HMI', 'DASH', 'MC', 'XUTL'}
+NEED = {'XAU', 'XAG', 'XPT', 'XPD', 'CAT', 'AVGO', 'MU', 'HWM', 'GOOGL', 'ENPH', 'LRCX', 'URNU'}
 
 
 def _ticks(path):
@@ -39,7 +39,7 @@ def test_releve_25_11_dans_le_json_fethe():
     assert {p['ticker'] for p in cfds} == {'XPD-CFD', 'COST-CFD', 'MSTR-CFD', 'SMR-CFD', 'MPC-CFD', 'AMD-CFD'}
     assert book['totaux']['courtiers']['revolut']['cfd_usd'] == 16077.55
     assert book['totaux']['courtiers']['revolut']['cfd_exposition_usd'] == 16077.55
-    assert book['totaux']['total_usd'] == 46313.82
+    assert book['totaux']['total_usd'] == 46990.65
     assert any(p.get('ticker')=='TSLA-RSU' for p in book['positions'])
 
 

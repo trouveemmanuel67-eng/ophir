@@ -488,6 +488,55 @@ function posFraisCfdHTML(){
   /* Encart détaillé retiré : le tableau des frais vit dans le panneau Budget. */
   return '';
 }
+function posBlocOf(p){
+  const tk=String((p&&p.ticker)||'').toUpperCase();
+  if((p&&p.type)==='cash'||(p&&p.tab)==='liquidites'||tk==='CASH'||tk==='PEA'||tk==='CASH-XTB'||tk.indexOf('CASH-')===0||(p&&p.reglement)) return 'cash';
+  if((p&&p.type)==='rsu'||(p&&p.non_liquide)) return 'hors';
+  if((p&&p.type)==='cfd'&&p.sens==='short') return 'short';
+  const badge=String((p&&p.cfd_badge)||'');
+  if(badge.indexOf('CFD S')>=0||/\bS x/.test(badge)) return 'short';
+  return 'long';
+}
+function posBlocTot(list){
+  const usd=list.reduce((s,p)=>s+(Number(p.valeur_usd!=null?p.valeur_usd:p.devise==='USD'?p.valeur:0)||0),0);
+  const inv=list.reduce((s,p)=>s+(Number(p.investi_usd!=null?p.investi_usd:0)||0),0);
+  let pnl=null;
+  const tradable=list.filter(p=>p.type!=='cash'&&!p.non_liquide&&p.type!=='rsu'&&p.investi_usd!=null&&Number(p.investi_usd)>0);
+  if(tradable.length){
+    const i=tradable.reduce((s,p)=>s+Number(p.investi_usd),0);
+    const v=tradable.reduce((s,p)=>s+Number(p.valeur_usd||0),0);
+    if(i) pnl=100*(v/i-1);
+  }
+  return {usd, pnl};
+}
+function posBlocHead(label, list, extra){
+  const t=posBlocTot(list);
+  const amt=posAmt(t.usd,'USD');
+  const pct=t.pnl==null?'':(` <small class="${t.pnl>=0?'up':'down'}">${posPct(t.pnl)}</small>`);
+  return `<div class="pos-bloc-h"><h3>${label}</h3><span class="pos-bloc-tot">${amt}${pct}</span>${extra||''}</div>`;
+}
+function posVentesHTML(){
+  const V=(POS&&POS.ventes_2026_11_25)||{};
+  const ops=V.operations||[];
+  if(!ops.length) return '';
+  const tot=V.totaux||{};
+  const lines=ops.map(o=>{
+    const px=o.devise==='EUR'?posAmt(o.prix_achat,'EUR'):posAmt(o.prix_achat,'USD');
+    const cr=o.devise==='EUR'?posAmt(o.credit,'EUR'):posAmt(o.credit,'USD');
+    const pnl=o.pnl_usd!=null?`<span class="${Number(o.pnl)>=0?'up':'down'}">${posAmt(o.pnl_usd,'USD')} / ${posAmt(o.pnl_eur,'EUR')}</span>`:'—';
+    const when=(o.heure||'').replace(/^(\d{1,2}):(\d{2}).*/,'$1 h $2');
+    return `<li><span class="pos-vente-l">${(o.heure?when+' · ':'')+(o.ticker||'')+' · vente '+(o.quantite!=null?String(o.quantite).replace('.',','):'')+' @ '+(o.devise==='EUR'?posAmt(o.prix_vente,'EUR'):posAmt(o.prix_vente,'USD'))+' · achat '+px+' · crédit '+cr}</span><span class="pos-vente-m">${pnl}</span></li>`;
+  }).join('');
+  const tPnl=`<span class="${Number(tot.pnl_realise_usd)<0?'down':'up'}">${posAmt(tot.pnl_realise_usd,'USD')} / ${posAmt(tot.pnl_realise_eur,'EUR')}</span>`;
+  return `<div class="pos-bloc pos-bloc-ventes" id="pos-ventes">
+    <details class="pos-ventes">
+      <summary>Ventes du 25/11, règlement le 27/11 · P&L réalisé ${tPnl}</summary>
+      <ul class="pos-vente-list">${lines}</ul>
+      <p class="note">P&L réalisé = crédit net (après frais) − prix de revient du livre. ${tot.note_lvmh||''} ${tot.note_bkng||''}</p>
+    </details>
+  </div>`;
+}
+
 function renderMesPositions(){
   const host=document.getElementById('mes-pos'); if(!host) return;
   const L=POS.positions||[];
@@ -569,7 +618,14 @@ function renderMesPositions(){
         <div class="pos-total-v" title="${((T.entete_detail||((POS.totaux&&POS.totaux.officiels&&POS.totaux.officiels.entete_detail)||'Total en dollars de toutes les positions, CFD en exposition et Tesla RSU compris, sans double compte.'))+' '+headTip).replace(/"/g,'&quot;')}">${posAmt(T.total_usd||0,'USD')} <small>${totDeb}</small></div>
       </div>
       ${posCfdAlertHTML()}
-      <div class="pos-list">${act.map(row).join('')||'<div class="note">—</div>'}</div>
+      ${(()=>{
+        const long=act.filter(p=>posBlocOf(p)==='long');
+        const sh=act.filter(p=>posBlocOf(p)==='short');
+        const cash=act.filter(p=>posBlocOf(p)==='cash');
+        const hors=act.filter(p=>posBlocOf(p)==='hors');
+        const bloc=(id,label,list)=>!list.length?'':(`<div class="pos-bloc" data-pos-bloc="${id}">${posBlocHead(label,list)}<div class="pos-list">${list.map(row).join('')}</div></div>`);
+        return bloc('long','LONG',long)+bloc('short','SHORT',sh)+bloc('cash','CASH',cash)+bloc('hors','Non liquide',hors)+posVentesHTML();
+      })()}
     </div>
   </div>`;
   const prev=document.getElementById('mesPosCard');

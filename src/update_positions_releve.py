@@ -1256,8 +1256,14 @@ def build_budget(fx, now):
         lignes.append(rec)
     lignes_mois = [x for x in lignes if _in_month(x.get("date"), ym)]
     a_relever = not lignes
-    tot_tr_usd = None if a_relever else r2(sum((x.get("montant_usd") or 0) for x in lignes_mois))
-    tot_tr_eur = r2(tot_tr_usd / fx) if (tot_tr_usd is not None and fx) else None
+    # Totaux de catégorie : somme des montants natifs, puis une seule conversion (comme les frais d'octobre).
+    if a_relever:
+        tot_tr_usd = tot_tr_eur = None
+    else:
+        usd_n = r2(sum(abs(float(x["montant"])) for x in lignes_mois if str(x.get("devise") or "").upper()=="USD" and x.get("montant") not in (None, "")))
+        eur_n = r2(sum(abs(float(x["montant"])) for x in lignes_mois if str(x.get("devise") or "").upper()=="EUR" and x.get("montant") not in (None, "")))
+        tot_tr_usd = r2(usd_n + (r2(eur_n * fx) if eur_n and fx else 0))
+        tot_tr_eur = r2(eur_n + (r2(usd_n / fx) if usd_n and fx else 0))
     observe_usd = r2(tot_ovn_usd + (tot_tr_usd or 0))
     return {
         "mois": ym,
@@ -1277,9 +1283,10 @@ def build_budget(fx, now):
             "a_relever": a_relever,
             "total_mois_usd": tot_tr_usd,
             "total_mois_eur": tot_tr_eur,
-            "projection_usd": None,
-            "projection_eur": None,
-            "projection_note": "à relever" if a_relever else None,
+            "projection_usd": tot_tr_usd,
+            "projection_eur": tot_tr_eur,
+            "projection_note": "à relever" if a_relever else raw_t.get("note"),
+            "note": raw_t.get("note"),
         },
         "tradingview": tv,
         "frais_octobre": fo,
@@ -1288,13 +1295,16 @@ def build_budget(fx, now):
         "budget_mensuel": build_budget_mensuel(),
         "total_observe_usd": observe_usd,
         "total_observe_eur": r2(observe_usd / fx) if fx else None,
-        "projection_usd": r2((ovn.get("projection_usd") or 0) + ((tv or {}).get("projection_usd") or 0)),
-        "projection_eur": r2((ovn.get("projection_eur") or 0) + ((tv or {}).get("projection_eur") or 0)),
+        "projection_usd": r2((ovn.get("projection_usd") or 0) + ((tv or {}).get("projection_usd") or 0) + (tot_tr_usd or 0)),
+        "projection_eur": r2((ovn.get("projection_eur") or 0) + ((tv or {}).get("projection_eur") or 0) + (tot_tr_eur or 0)),
         "projection_note": (
             "Projection mensuelle = OVN projeté (dernier jour relu × ~30 jours) "
             "et abonnement TradingView (Essential annuel / 12). "
             "Les frais d'ordres n'y sont pas inclus tant qu'aucun montant n'est sourcé."
-            if a_relever else None
+            if a_relever else
+            "Projection mensuelle = OVN projeté (dernier jour relu × ~30 jours), "
+            "abonnement TradingView (Essential annuel / 12) et frais d'ordres déjà sourcés en novembre. "
+            "Les transactions sans commission sont épuisées jusqu'au 7 décembre 2026."
         ),
     }
 

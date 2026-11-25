@@ -786,15 +786,15 @@ def check_positions_root(root=ROOT):
         import json
         book = json.loads((root / 'positions.json').read_text(encoding='utf-8'))
         ticks = [(p.get('ticker') or '') for p in (book.get('positions') or [])]
-        stale = [t for t in ('NKE', 'STLA', 'PKX', 'BTC') if t in ticks]
-        missing = [t for t in ('XAU', 'BKNG', 'ENPH', 'MU', 'LRCX') if t not in ticks]
+        stale = [t for t in ('NKE', 'STLA', 'PKX', 'BTC', 'BKNG', 'PPX', 'HMI', 'DASH', 'MC', 'XUTL') if t in ticks]
+        missing = [t for t in ('XAU', 'CAT', 'ENPH', 'MU', 'LRCX') if t not in ticks]
         if stale or missing:
             _fail(
                 'positions.json racine : relevé incomplet ou obsolète '
                 f'(encore {stale or "—"} / manque {missing or "—"}).'
             )
             raise SystemExit(1)
-        _ok('positions.json : XAU, BKNG, ENPH, MU, LRCX présents ; NKE/STLA/PKX/BTC absents')
+        _ok('positions.json : XAU, CAT, ENPH, MU, LRCX présents ; ventes du 25/11 (PPX, BKNG, HMI, DASH, MC, XUTL) et NKE/STLA/PKX/BTC absents')
     except SystemExit:
         raise
     except Exception as e:

@@ -31,7 +31,6 @@ def test_lignes_du_releve_et_ordres():
     by = {(p["ticker"], p["statut"]): p for p in POS["positions"]}
     assert by[("NFLX", "active")]["valeur"] == 1072.71
     assert by[("CAT", "active")]["valeur"] == 754.66
-    assert by[("BKNG", "active")]["valeur"] == 589.5
     assert by[("AVGO", "active")]["valeur"] == 544.06
     assert by[("RDDT", "active")]["valeur"] == 1073.72
     assert by[("MU", "active")]["valeur"] == 533.89
@@ -47,7 +46,7 @@ def test_lignes_du_releve_et_ordres():
     assert by[("MAU", "active")]["valeur"] == 519.21
     assert by[("PEA", "active")]["nom"] == "ligne PEA non identifiée"
     assert POS["n_en_attente"] == 0
-    assert POS["n_actives"] == 34
+    assert POS["n_actives"] == 30
     assert {p["ticker"] for p in RX["positions"]} == {"BTC", "ETH"}
     eth=next(p for p in RX["positions"] if p["ticker"]=="ETH")
     btc=next(p for p in RX["positions"] if p["ticker"]=="BTC")
@@ -94,10 +93,10 @@ def test_lignes_du_releve_et_ordres():
     assert al["seuil_fermeture_usd"] == 1336.40
     assert "2 614,02" in al["libelle"]
     assert "16 077,55" in al["libelle"]
-    assert POS["totaux"]["courtiers"]["revolut"]["valeur_usd"] == 30709.57
+    assert POS["totaux"]["courtiers"]["revolut"]["valeur_usd"] == 31386.4
     assert POS["totaux"]["courtiers"]["revolut"]["cfd_exposition_usd"] == 16077.55
-    assert POS["totaux"]["total_usd"] == 46313.82
-    assert POS["totaux"]["liquide_usd"] == 32850.02
+    assert POS["totaux"]["total_usd"] == 46990.65
+    assert POS["totaux"]["liquide_usd"] == 33526.85
     tes=next(x for x in POS["positions"] if x["ticker"]=="TSLA-RSU")
     assert tes["valeur"] == 12302.45
     assert tes["valeur_usd"] == 13463.8
@@ -115,15 +114,29 @@ def test_lignes_du_releve_et_ordres():
     assert fr["depasse_objectif"] is True
     assert POS["totaux"]["tesla_plan"]["avantage_potentiel_eur"] == 12302.45
     assert POS["totaux"]["tesla_plan"]["non_liquide"] is True
-    assert ("MC", "active") in by
-    assert by[("MC", "active")]["valeur"] == 998.4
-    assert by[("MC", "active")]["fiche_tv"] == "EURONEXT:MC"
-    assert by[("MC", "active")]["pnl_pct"] == -0.16
+    assert ("MC", "active") not in by
+    assert ("BKNG", "active") not in by
+    assert ("PPX", "active") not in by
+    assert ("HMI", "active") not in by
+    assert ("DASH", "active") not in by
+    assert ("XUTL", "active") not in by
     assert by[("NFLX", "active")]["pnl_pct"] == 0.75
-    assert by[("MC", "active")]["rendement_pct"] == 3.29
+    assert by[("URNU", "active")]["quantite"] == 92.34519963
+    assert by[("URNU", "active")]["prix_moyen"] == 14.69
+    assert by[("URNU", "active")]["valeur"] == 1272.52
+    assert by[("URNU", "active")]["pnl_valeur"] == -83.63
+    assert by[("CASH-EUR-REG", "active")]["valeur"] == 2569.08
+    assert by[("CASH-USD-REG", "active")]["valeur"] == 1112.72
+    ventes = POS["ventes_2026_11_25"]
+    assert ventes["totaux"]["pnl_realise_usd"] == -19.29
+    assert ventes["totaux"]["pnl_realise_eur"] == -17.62
+    assert ventes["totaux"]["n"] == 6
 
 
 def test_ordres_traites_comme_positions_actives_dans_le_js():
+    assert "function posBlocOf" in JS
+    assert "data-pos-bloc" in JS
+    assert "function posVentesHTML" in JS
     assert "function posIsHeld" in JS
     assert "p.statut==='active'||p.statut==='en_attente'" in JS
     assert "p.statut==='active'||p.statut==='en_attente'" in ACC
@@ -163,8 +176,10 @@ def test_ordres_traites_comme_positions_actives_dans_le_js():
     assert bud["ovn"]["total_mois_usd"] == 2.34
     assert bud["ovn"]["projection_usd"] == 70.2
     assert any(abs(float(j["montant_usd"])) == 2.34 for j in bud["ovn"]["lignes_mois"])
-    assert bud["trading"]["a_relever"] is True
-    assert bud["trading"]["ordres"] == []
+    assert bud["trading"]["a_relever"] is False
+    assert len(bud["trading"]["ordres"]) == 6
+    assert bud["trading"]["total_mois_usd"] == 6.56
+    assert bud["trading"]["total_mois_eur"] == 5.99
     tv = bud["tradingview"]
     assert tv["poste"] == "Abonnement TradingView"
     assert tv["montant_eur_mois"] == 15.54
@@ -178,25 +193,25 @@ def test_ordres_traites_comme_positions_actives_dans_le_js():
     assert tv["objectif"]["economie_eur_mois"] == 68.4
     assert tv["objectif"]["economie_eur_an"] == 820.8
     assert "Essential annuel Black Friday, 186,48 €/an prélevé le 6/12/2026 (Premium 83,94 €/mois résilié)" in tv["detail"]
-    assert bud["total_observe_usd"] == 2.34
-    assert bud["projection_usd"] == 87.21
-    assert bud["projection_eur"] == 79.68
+    assert bud["total_observe_usd"] == 8.9
+    assert bud["projection_usd"] == 93.77
+    assert bud["projection_eur"] == 85.67
     cj = bud["compte_joint"]
     assert cj["titre"] == "Compte joint famille, octobre 2026"
     assert cj["periode"]["mois"] == "2026-10"
-    assert cj["totaux"]["depenses_eur"] == 5389.33
+    assert cj["totaux"]["depenses_eur"] == 4909.86
     assert cj["totaux"]["revenus_eur"] == 876.6
-    assert cj["totaux"]["reste_eur"] == -4512.73
+    assert cj["totaux"]["reste_eur"] == -4033.26
     assert cj["totaux"]["virements_internes_sortants_eur"] == 3773.46
-    assert cj["totaux"]["air_glow_pub_eur"] == 128.28
-    glow = next(c for c in cj["categories"] if c["id"] == "air_glow_pub")
-    assert glow["poste"] == "Air Glow, pub (pro)"
-    assert glow["n_operations"] == 24
-    assert glow["observe_eur"] == 128.28
+    assert cj["totaux"]["air_glow_pub_eur"] == 607.75
+    glow = next(c for c in cj["categories"] if c["id"] == "air_glow")
+    assert glow["poste"] == "Air Glow, frais de fonctionnement"
+    assert glow["n_operations"] == 30
+    assert glow["observe_eur"] == 607.75
     assert glow["compte_dans_total_depenses"] is False
     autres = next(c for c in cj["categories"] if c["id"] == "autres")
-    assert autres["observe_eur"] == 386.58
-    assert autres["n_operations"] == 5
+    assert autres["observe_eur"] == 16.68
+    assert autres["n_operations"] == 1
     assert all(o["libelle"] != "Facebook" for o in autres["operations"])
     deblock = [o for c in cj["categories"] if c["id"]=="virements_internes" for o in c["operations"] if o["libelle"]=="Deblock"]
     assert len(deblock) == 2
@@ -204,8 +219,8 @@ def test_ordres_traites_comme_positions_actives_dans_le_js():
     assert not any("Facebook" in (a.get("sujet") or "") or "Deblock" in (a.get("sujet") or "") for a in (cj.get("operations_ambigues") or []))
     assert not any("114,99" in (a.get("sujet") or "") or "Dr Eric Koch" in (a.get("sujet") or "") for a in (cj.get("operations_ambigues") or []))
     abo = next(c for c in cj["categories"] if c["id"] == "abonnements")
-    assert abo["observe_eur"] == 311.59
-    assert abo["observe_usd"] == 341.0
+    assert abo["observe_eur"] == 289.99
+    assert abo["observe_usd"] == 317.37
     grok = [o for o in abo["operations"] if o["libelle"] == "Grok (via Apple)"]
     assert len(grok) == 1 and grok[0]["montant_eur"] == 114.99
     san = next(c for c in cj["categories"] if c["id"] == "sante")
@@ -215,17 +230,17 @@ def test_ordres_traites_comme_positions_actives_dans_le_js():
     assert len(koch) == 1 and koch[0]["montant_eur"] == 822.99
     assert koch[0]["sous_categorie"] == "dentaire"
     assert "mutuelle Aon" in (koch[0].get("note_classification") or "")
-    assert "Air Glow, pub (pro)" in BDG
+    assert "Air Glow, frais de fonctionnement" in BDG
     assert "bdg-joint-airglow" in BDG
     courses = next(c for c in cj["categories"] if c["id"] == "courses")
     assert courses["observe_eur"] == 984.83
-    assert courses["sous_categories"][0]["id"] == "tickets_lidl"
+    assert courses["sous_categories"][0]["id"] == "tickets_caisse"
     assert courses["sous_categories"][0]["statut"] == "complet"
     assert "mois" in courses["sous_categories"][0]
     assert cj["tradingview_sur_le_releve"]["present_sur_le_releve"] is True
     assert cj["tradingview_sur_le_releve"]["total_eur"] == 83.94
     assert "Compte joint famille" in BDG
-    assert "Tickets Lidl" in BDG
+    assert "Tickets de caisse" in BDG
     assert "bdg-courses-sous" in BDG
     assert "bdg-hero" in BDG and "bdg-hero" in CSS
     # Bloc fusionné « Comptes » (joint + perso), sans doublon des virements
@@ -236,14 +251,14 @@ def test_ordres_traites_comme_positions_actives_dans_le_js():
     assert comptes["totaux"]["salaire_eur"] == 10485.0
     assert comptes["totaux"]["france_travail_eur"] == 1753.2
     assert comptes["totaux"]["revenus_eur"] == 12238.68
-    assert comptes["totaux"]["depenses_eur"] == 13242.65
-    assert comptes["totaux"]["reste_eur"] == -1003.97
+    assert comptes["totaux"]["depenses_eur"] == 12628.58
+    assert comptes["totaux"]["reste_eur"] == -389.9
     assert comptes["totaux"]["investissement_eur"] == 14882.73
     assert comptes["totaux"]["investissement_xtb_apple_pay_eur"] == 1006.0
-    assert comptes["totaux"]["octobre"]["depenses_eur"] == 6215.52
-    assert comptes["totaux"]["novembre_1_25"]["depenses_eur"] == 7027.13
+    assert comptes["totaux"]["octobre"]["depenses_eur"] == 5736.05
+    assert comptes["totaux"]["novembre_1_25"]["depenses_eur"] == 6892.53
     assert comptes["totaux"]["remboursements_eur"] == 552.3
-    assert comptes["totaux"]["air_glow_pub_eur"] == 260.27
+    assert comptes["totaux"]["air_glow_pub_eur"] == 874.34
     assert comptes["totaux"]["n_transferts_dedoublonnes"] == 36
     assert comptes["totaux"]["charges_fixes_credit_mensuel_eur"] == 655.92
     assert comptes["totaux"]["credit_revolut"]["capital_eur"] == 23500.0
@@ -271,7 +286,7 @@ def test_ordres_traites_comme_positions_actives_dans_le_js():
     assert any(o["libelle"] == "Investissement XTB (Apple Pay *3356)" and o["montant_eur"] == 86.0 for o in vin_ops)
     assert sum(o["montant_eur"] for o in vin_ops if o["libelle"] == "Investissement XTB (Apple Pay *0225)") == 920.0
     assert not (comptes.get("credits_a_confirmer") or [])
-    glow_c = next(c for c in comptes["categories"] if c["id"] == "air_glow_pub")
+    glow_c = next(c for c in comptes["categories"] if c["id"] in ("air_glow", "air_glow_pub"))
     assert any(o["libelle"] == "MailPoet" and o["montant_eur"] == 85.95 for o in glow_c["operations"])
     assert any(o["libelle"] == "Dualhook" and o["montant_eur"] == 14.4 for o in glow_c["operations"])
     amb = " ".join((a.get("sujet") or "") for a in (comptes.get("operations_ambigues") or []))
@@ -292,7 +307,7 @@ def test_ordres_traites_comme_positions_actives_dans_le_js():
     deblock_c = [o for c in comptes["categories"] if c["id"]=="virements_internes" for o in c["operations"] if o["libelle"]=="Deblock"]
     assert round(sum(o["montant_eur"] for o in deblock_c), 2) == 150.0
     courses_c = next(c for c in comptes["categories"] if c["id"] == "courses")
-    assert courses_c["sous_categories"][0]["id"] == "tickets_lidl"
+    assert courses_c["sous_categories"][0]["id"] == "tickets_caisse"
     assert courses_c["sous_categories"][0]["statut"] == "complet"
     assert "mois" in courses_c["sous_categories"][0]
     assert "function bdgComptesHtml" in BDG
@@ -322,7 +337,7 @@ def test_ordres_traites_comme_positions_actives_dans_le_js():
     assert "Entrée" in BDG and "Sortie" in BDG and "OVN octobre" in BDG
     assert "Total frais octobre" in BDG
     assert "function bdgOctOf" in BDG
-    assert bud["projection_usd"] == 87.21 and bud["projection_eur"] == 79.68
+    assert bud["projection_usd"] == 93.77 and bud["projection_eur"] == 85.67
 
 
 def test_source_dashboard_presente():
