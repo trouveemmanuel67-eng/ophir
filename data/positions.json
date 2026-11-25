@@ -1833,11 +1833,6 @@
       "projection_eur": null,
       "projection_note": "à relever"
     },
-    "total_observe_usd": 2.34,
-    "total_observe_eur": 2.14,
-    "projection_usd": 87.21,
-    "projection_eur": 79.68,
-    "projection_note": "Projection mensuelle = OVN projeté (dernier jour relu × ~30 jours) et abonnement TradingView (Essential annuel / 12). Les frais d'ordres n'y sont pas inclus tant qu'aucun montant n'est sourcé.",
     "tradingview": {
       "id": "tradingview",
       "poste": "Abonnement TradingView",
@@ -1994,7 +1989,7 @@
           "projection_usd": 1077.8,
           "objectif": null,
           "compte_dans_total_depenses": true,
-          "detail": "Lidl, Carrefour, Magasin U, Leclerc, Auchan, IKA, MaxiCoffee. Détail tickets Lidl : à venir.",
+          "detail": "Lidl, Carrefour, Magasin U, Leclerc, Auchan, IKA, MaxiCoffee. Tickets Lidl octobre : 368,57 € (16 passages). La part Lidl au relevé carte est 326,02 € sur 984,83 € de Courses (autres enseignes comprises) ; le détail par rayons est sous la ligne.",
           "operations": [
             {
               "date": "2026-10-02",
@@ -3073,10 +3068,4410 @@
             {
               "id": "tickets_lidl",
               "libelle": "Tickets Lidl — détail par rayons",
-              "statut": "a_venir",
-              "note": "Emplacement prévu pour le détail catégorisé des tickets Lidl (sous-catégories : fruits et légumes, viandes, épicerie, etc.). Aucun ticket n’a été fourni à ce jour : les paiements carte Lidl restent agrégés dans Courses, sans inventer de répartition.",
+              "statut": "complet",
+              "note": "35 tickets Lidl Plus (16 en octobre, 19 en novembre au 24). Source : data/budget/lidl_tickets_2026-10_11.json. Les totaux et le détail sont injectés au build, sans modifier les opérations du relevé.",
               "operations": [],
-              "observe_eur": null
+              "observe_eur": 368.57,
+              "source": {
+                "intitule": "Tickets de caisse Lidl Plus (compte Emmanuel Trouvé), ouverts un par un sur lidl.fr/mre/purchase-detail.",
+                "periode": "Octobre 2026 (16 tickets) et novembre 2026 jusqu’au 24 (19 tickets).",
+                "n_tickets": 35,
+                "fx": 1.0944,
+                "fx_note": "Taux déjà utilisé sur le site APEX (1,0944). montant_usd = arrondi(montant_eur × 1,0944, 2).",
+                "note_totaux": "La somme des lignes nettes (après remises imputées à l’article) égale le « A payer » de chaque ticket. Totaux mois : octobre 368,57 €, novembre au 24 486,80 €."
+              },
+              "objectif": null,
+              "courses_releve_octobre": {
+                "observe_eur": 984.83,
+                "lidl_releve_eur": 326.02,
+                "lidl_releve_n": 16,
+                "lidl_tickets_eur": 368.57,
+                "lidl_tickets_n": 16,
+                "lidl_part_releve_pct": 33.1,
+                "note": "Les 984,83 € de Courses du relevé d’octobre incluent aussi d’autres enseignes (Carrefour, Magasin U, Leclerc, Auchan, IKA, MaxiCoffee). La part Lidl au relevé est 326,02 € (16 paiements carte). Les 16 tickets Lidl d’octobre totalisent 368,57 € : l’écart vient des titres-restaurant (non débités sur la carte) et des décalages de date d’imputation entre le ticket et le relevé."
+              },
+              "mois": {
+                "2026-10": {
+                  "mois": "2026-10",
+                  "libelle": "Octobre 2026",
+                  "n_tickets": 16,
+                  "total_eur": 368.57,
+                  "total_usd": 403.36,
+                  "alimentaire_eur": 207.68,
+                  "alimentaire_usd": 227.28,
+                  "alimentaire_pct": 56.35,
+                  "non_alimentaire_eur": 160.89,
+                  "non_alimentaire_usd": 176.08,
+                  "non_alimentaire_pct": 43.65,
+                  "remises_eur": -25.92,
+                  "remises_eur_abs": 25.92,
+                  "remises_usd_abs": 28.37,
+                  "tr_eur": 59.0,
+                  "tr_usd": 64.57,
+                  "tr_pct": 16.01,
+                  "cb_eur": 309.57,
+                  "cb_usd": 338.79,
+                  "panier_moyen_eur": 23.04,
+                  "panier_moyen_usd": 25.21,
+                  "par_sous_categorie": [
+                    {
+                      "id": "Frais (fruits, légumes)",
+                      "libelle": "Frais (fruits, légumes)",
+                      "eur": 16.35,
+                      "usd": 17.89,
+                      "pct": 4.44,
+                      "alimentaire": true
+                    },
+                    {
+                      "id": "Crèmerie & fromages",
+                      "libelle": "Crèmerie & fromages",
+                      "eur": 63.51,
+                      "usd": 69.51,
+                      "pct": 17.23,
+                      "alimentaire": true
+                    },
+                    {
+                      "id": "Viande & poisson",
+                      "libelle": "Viande & poisson",
+                      "eur": 28.38,
+                      "usd": 31.06,
+                      "pct": 7.7,
+                      "alimentaire": true
+                    },
+                    {
+                      "id": "Boulangerie",
+                      "libelle": "Boulangerie",
+                      "eur": 23.59,
+                      "usd": 25.82,
+                      "pct": 6.4,
+                      "alimentaire": true
+                    },
+                    {
+                      "id": "Épicerie salée",
+                      "libelle": "Épicerie salée",
+                      "eur": 12.67,
+                      "usd": 13.87,
+                      "pct": 3.44,
+                      "alimentaire": true
+                    },
+                    {
+                      "id": "Épicerie sucrée & snacks",
+                      "libelle": "Épicerie sucrée & snacks",
+                      "eur": 20.0,
+                      "usd": 21.89,
+                      "pct": 5.43,
+                      "alimentaire": true
+                    },
+                    {
+                      "id": "Plats préparés & pizzas",
+                      "libelle": "Plats préparés & pizzas",
+                      "eur": 23.76,
+                      "usd": 26.0,
+                      "pct": 6.45,
+                      "alimentaire": true
+                    },
+                    {
+                      "id": "Boissons sans alcool",
+                      "libelle": "Boissons sans alcool",
+                      "eur": 8.54,
+                      "usd": 9.35,
+                      "pct": 2.32,
+                      "alimentaire": true
+                    },
+                    {
+                      "id": "Alcool",
+                      "libelle": "Alcool",
+                      "eur": 10.88,
+                      "usd": 11.91,
+                      "pct": 2.95,
+                      "alimentaire": true
+                    },
+                    {
+                      "id": "Entretien maison",
+                      "libelle": "Entretien maison",
+                      "eur": 37.33,
+                      "usd": 40.85,
+                      "pct": 10.13,
+                      "alimentaire": false
+                    },
+                    {
+                      "id": "Hygiène & beauté",
+                      "libelle": "Hygiène & beauté",
+                      "eur": 19.79,
+                      "usd": 21.66,
+                      "pct": 5.37,
+                      "alimentaire": false
+                    },
+                    {
+                      "id": "Animaux (litière)",
+                      "libelle": "Animaux (litière)",
+                      "eur": 3.69,
+                      "usd": 4.04,
+                      "pct": 1.0,
+                      "alimentaire": false
+                    },
+                    {
+                      "id": "Textile & vêtements",
+                      "libelle": "Textile & vêtements",
+                      "eur": 19.98,
+                      "usd": 21.87,
+                      "pct": 5.42,
+                      "alimentaire": false
+                    },
+                    {
+                      "id": "Maison & déco (dont Noël)",
+                      "libelle": "Maison & déco (dont Noël)",
+                      "eur": 20.97,
+                      "usd": 22.95,
+                      "pct": 5.69,
+                      "alimentaire": false
+                    },
+                    {
+                      "id": "Cuisine & bricolage (non alimentaire)",
+                      "libelle": "Cuisine & bricolage (non alimentaire)",
+                      "eur": 58.49,
+                      "usd": 64.01,
+                      "pct": 15.87,
+                      "alimentaire": false
+                    },
+                    {
+                      "id": "Sacs",
+                      "libelle": "Sacs",
+                      "eur": 0.64,
+                      "usd": 0.7,
+                      "pct": 0.17,
+                      "alimentaire": false
+                    }
+                  ],
+                  "tickets": [
+                    {
+                      "id": "12003772822026100223427",
+                      "date": "2026-10-02",
+                      "heure": "12:24:04",
+                      "magasin": "H",
+                      "magasin_libelle": "Hoenheim",
+                      "magasin_code": "3772",
+                      "magasin_nom": "HOENHEIM Brumath",
+                      "lien": "https://www.lidl.fr/mre/purchase-detail?t=12003772822026100223427",
+                      "a_payer_eur": 3.49,
+                      "a_payer_usd": 3.82,
+                      "remise_eur": 0.0,
+                      "remise_eur_abs": 0.0,
+                      "tr_eligible_eur": 3.49,
+                      "tr_eur": 3.49,
+                      "cb_eur": 0.0,
+                      "n_articles": 1,
+                      "lignes": [
+                        {
+                          "article": "Buddha bol saumon",
+                          "pu_eur": 3.49,
+                          "qte": 1,
+                          "montant_eur": 3.49,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 3.49,
+                          "sous_categorie": "Plats préparés & pizzas"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "12003772832026100318992",
+                      "date": "2026-10-03",
+                      "heure": "13:20:32",
+                      "magasin": "H",
+                      "magasin_libelle": "Hoenheim",
+                      "magasin_code": "3772",
+                      "magasin_nom": "HOENHEIM Brumath",
+                      "lien": "https://www.lidl.fr/mre/purchase-detail?t=12003772832026100318992",
+                      "a_payer_eur": 8.34,
+                      "a_payer_usd": 9.13,
+                      "remise_eur": 0.0,
+                      "remise_eur_abs": 0.0,
+                      "tr_eligible_eur": 1.35,
+                      "tr_eur": 1.35,
+                      "cb_eur": 6.99,
+                      "n_articles": 2,
+                      "lignes": [
+                        {
+                          "article": "Ruban LED bl 0374224",
+                          "pu_eur": 6.99,
+                          "qte": 1,
+                          "montant_eur": 6.99,
+                          "remise_eur": 0.0,
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 6.99,
+                          "sous_categorie": "Cuisine & bricolage (non alimentaire)"
+                        },
+                        {
+                          "article": "Pain complet",
+                          "pu_eur": 1.35,
+                          "qte": 1,
+                          "montant_eur": 1.35,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.35,
+                          "sous_categorie": "Boulangerie"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "12003772842026100529457",
+                      "date": "2026-10-05",
+                      "heure": "13:15:54",
+                      "magasin": "H",
+                      "magasin_libelle": "Hoenheim",
+                      "magasin_code": "3772",
+                      "magasin_nom": "HOENHEIM Brumath",
+                      "lien": "https://www.lidl.fr/mre/purchase-detail?t=12003772842026100529457",
+                      "a_payer_eur": 27.87,
+                      "a_payer_usd": 30.5,
+                      "remise_eur": -3.0,
+                      "remise_eur_abs": 3.0,
+                      "tr_eligible_eur": 6.9,
+                      "tr_eur": 0.0,
+                      "cb_eur": 27.87,
+                      "n_articles": 5,
+                      "lignes": [
+                        {
+                          "article": "Plaid beige 0484256",
+                          "pu_eur": 7.99,
+                          "qte": 1,
+                          "montant_eur": 7.99,
+                          "remise_eur": -1.0,
+                          "remises": [
+                            {
+                              "libelle": "Prix en baisse",
+                              "montant_eur": -1.0
+                            }
+                          ],
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 6.99,
+                          "sous_categorie": "Maison & déco (dont Noël)"
+                        },
+                        {
+                          "article": "Plaid beige 0484256",
+                          "pu_eur": 7.99,
+                          "qte": 2,
+                          "montant_eur": 15.98,
+                          "remise_eur": -2.0,
+                          "remises": [
+                            {
+                              "libelle": "Prix en baisse",
+                              "montant_eur": -2.0
+                            }
+                          ],
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 13.98,
+                          "sous_categorie": "Maison & déco (dont Noël)"
+                        },
+                        {
+                          "article": "Tomme de Savoie IGP",
+                          "pu_eur": 4.34,
+                          "qte": 1,
+                          "montant_eur": 4.34,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 4.34,
+                          "sous_categorie": "Crèmerie & fromages"
+                        },
+                        {
+                          "article": "Pain aux noix",
+                          "pu_eur": 1.99,
+                          "qte": 1,
+                          "montant_eur": 1.99,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.99,
+                          "sous_categorie": "Boulangerie"
+                        },
+                        {
+                          "article": "Poire verte vrac",
+                          "pu_eur": 2.95,
+                          "qte": null,
+                          "montant_eur": 0.57,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": 0.19,
+                          "prix_kg_eur": 2.95,
+                          "net_eur": 0.57,
+                          "sous_categorie": "Frais (fruits, légumes)"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "12003772832026100719322",
+                      "date": "2026-10-07",
+                      "heure": "13:19:04",
+                      "magasin": "H",
+                      "magasin_libelle": "Hoenheim",
+                      "magasin_code": "3772",
+                      "magasin_nom": "HOENHEIM Brumath",
+                      "lien": "https://www.lidl.fr/mre/purchase-detail?t=12003772832026100719322",
+                      "a_payer_eur": 8.38,
+                      "a_payer_usd": 9.17,
+                      "remise_eur": -0.18,
+                      "remise_eur_abs": 0.18,
+                      "tr_eligible_eur": 8.38,
+                      "tr_eur": 8.38,
+                      "cb_eur": 0.0,
+                      "n_articles": 3,
+                      "lignes": [
+                        {
+                          "article": "Tomme de Savoie IGP",
+                          "pu_eur": 4.34,
+                          "qte": 1,
+                          "montant_eur": 4.34,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 4.34,
+                          "sous_categorie": "Crèmerie & fromages"
+                        },
+                        {
+                          "article": "Pain complet",
+                          "pu_eur": 1.35,
+                          "qte": 1,
+                          "montant_eur": 1.35,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.35,
+                          "sous_categorie": "Boulangerie"
+                        },
+                        {
+                          "article": "Avocat filet 700g",
+                          "pu_eur": 2.87,
+                          "qte": 1,
+                          "montant_eur": 2.87,
+                          "remise_eur": -0.18,
+                          "remises": [
+                            {
+                              "libelle": "Prix en baisse",
+                              "montant_eur": -0.18
+                            }
+                          ],
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 2.69,
+                          "sous_categorie": "Frais (fruits, légumes)"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "12003772812026100929211",
+                      "date": "2026-10-09",
+                      "heure": "13:31:14",
+                      "magasin": "H",
+                      "magasin_libelle": "Hoenheim",
+                      "magasin_code": "3772",
+                      "magasin_nom": "HOENHEIM Brumath",
+                      "lien": "https://www.lidl.fr/mre/purchase-detail?t=12003772812026100929211",
+                      "a_payer_eur": 35.09,
+                      "a_payer_usd": 38.4,
+                      "remise_eur": 0.0,
+                      "remise_eur_abs": 0.0,
+                      "tr_eligible_eur": 10.82,
+                      "tr_eur": 10.82,
+                      "cb_eur": 24.27,
+                      "n_articles": 8,
+                      "lignes": [
+                        {
+                          "article": "Boules inox x8",
+                          "pu_eur": 0.96,
+                          "qte": 1,
+                          "montant_eur": 0.96,
+                          "remise_eur": 0.0,
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 0.96,
+                          "sous_categorie": "Cuisine & bricolage (non alimentaire)"
+                        },
+                        {
+                          "article": "Pantalon.F N 0514822",
+                          "pu_eur": 11.99,
+                          "qte": 1,
+                          "montant_eur": 11.99,
+                          "remise_eur": 0.0,
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 11.99,
+                          "sous_categorie": "Textile & vêtements"
+                        },
+                        {
+                          "article": "Ciseaux 0517395",
+                          "pu_eur": 1.99,
+                          "qte": 1,
+                          "montant_eur": 1.99,
+                          "remise_eur": 0.0,
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.99,
+                          "sous_categorie": "Cuisine & bricolage (non alimentaire)"
+                        },
+                        {
+                          "article": "Cotons-tiges 100%bio",
+                          "pu_eur": 0.96,
+                          "qte": 1,
+                          "montant_eur": 0.96,
+                          "remise_eur": 0.0,
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 0.96,
+                          "sous_categorie": "Hygiène & beauté"
+                        },
+                        {
+                          "article": "Vernis teint 0540114",
+                          "pu_eur": 2.79,
+                          "qte": 3,
+                          "montant_eur": 8.37,
+                          "remise_eur": 0.0,
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 8.37,
+                          "sous_categorie": "Hygiène & beauté"
+                        },
+                        {
+                          "article": "Emincés de saumon",
+                          "pu_eur": 4.49,
+                          "qte": 1,
+                          "montant_eur": 4.49,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 4.49,
+                          "sous_categorie": "Viande & poisson"
+                        },
+                        {
+                          "article": "Tomme de Savoie IGP",
+                          "pu_eur": 4.34,
+                          "qte": 1,
+                          "montant_eur": 4.34,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 4.34,
+                          "sous_categorie": "Crèmerie & fromages"
+                        },
+                        {
+                          "article": "Pain aux noix",
+                          "pu_eur": 1.99,
+                          "qte": 1,
+                          "montant_eur": 1.99,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.99,
+                          "sous_categorie": "Boulangerie"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "12003772832026101419995",
+                      "date": "2026-10-14",
+                      "heure": "12:15:22",
+                      "magasin": "H",
+                      "magasin_libelle": "Hoenheim",
+                      "magasin_code": "3772",
+                      "magasin_nom": "HOENHEIM Brumath",
+                      "lien": "https://www.lidl.fr/mre/purchase-detail?t=12003772832026101419995",
+                      "a_payer_eur": 46.39,
+                      "a_payer_usd": 50.77,
+                      "remise_eur": 0.0,
+                      "remise_eur_abs": 0.0,
+                      "tr_eligible_eur": 10.82,
+                      "tr_eur": 10.82,
+                      "cb_eur": 35.57,
+                      "n_articles": 5,
+                      "lignes": [
+                        {
+                          "article": "Vernis teint 0540114",
+                          "pu_eur": 2.79,
+                          "qte": 2,
+                          "montant_eur": 5.58,
+                          "remise_eur": 0.0,
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 5.58,
+                          "sous_categorie": "Hygiène & beauté"
+                        },
+                        {
+                          "article": "Tomme de Savoie IGP",
+                          "pu_eur": 4.34,
+                          "qte": 1,
+                          "montant_eur": 4.34,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 4.34,
+                          "sous_categorie": "Crèmerie & fromages"
+                        },
+                        {
+                          "article": "Emincés de saumon",
+                          "pu_eur": 4.49,
+                          "qte": 1,
+                          "montant_eur": 4.49,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 4.49,
+                          "sous_categorie": "Viande & poisson"
+                        },
+                        {
+                          "article": "Poêle cuivre 0523275",
+                          "pu_eur": 29.99,
+                          "qte": 1,
+                          "montant_eur": 29.99,
+                          "remise_eur": 0.0,
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 29.99,
+                          "sous_categorie": "Cuisine & bricolage (non alimentaire)"
+                        },
+                        {
+                          "article": "Pain aux noix",
+                          "pu_eur": 1.99,
+                          "qte": 1,
+                          "montant_eur": 1.99,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.99,
+                          "sous_categorie": "Boulangerie"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "12003772852026101618838",
+                      "date": "2026-10-16",
+                      "heure": "12:46:02",
+                      "magasin": "H",
+                      "magasin_libelle": "Hoenheim",
+                      "magasin_code": "3772",
+                      "magasin_nom": "HOENHEIM Brumath",
+                      "lien": "https://www.lidl.fr/mre/purchase-detail?t=12003772852026101618838",
+                      "a_payer_eur": 12.8,
+                      "a_payer_usd": 14.01,
+                      "remise_eur": -1.92,
+                      "remise_eur_abs": 1.92,
+                      "tr_eligible_eur": 7.21,
+                      "tr_eur": 0.0,
+                      "cb_eur": 12.8,
+                      "n_articles": 4,
+                      "lignes": [
+                        {
+                          "article": "Pain aux noix",
+                          "pu_eur": 1.99,
+                          "qte": 1,
+                          "montant_eur": 1.99,
+                          "remise_eur": -0.5,
+                          "remises": [
+                            {
+                              "libelle": "Rem Pain",
+                              "montant_eur": -0.5
+                            }
+                          ],
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.49,
+                          "sous_categorie": "Boulangerie"
+                        },
+                        {
+                          "article": "Coca-Cola Cherry",
+                          "pu_eur": 1.39,
+                          "qte": 1,
+                          "montant_eur": 1.39,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.39,
+                          "sous_categorie": "Boissons sans alcool"
+                        },
+                        {
+                          "article": "Comté AOP affiné 15",
+                          "pu_eur": 4.35,
+                          "qte": 1,
+                          "montant_eur": 4.35,
+                          "remise_eur": -0.02,
+                          "remises": [
+                            {
+                              "libelle": "Prix en baisse",
+                              "montant_eur": -0.02
+                            }
+                          ],
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 4.33,
+                          "sous_categorie": "Crèmerie & fromages"
+                        },
+                        {
+                          "article": "Ruban LED bl 0374224",
+                          "pu_eur": 6.99,
+                          "qte": 1,
+                          "montant_eur": 6.99,
+                          "remise_eur": -1.4,
+                          "remises": [
+                            {
+                              "libelle": "Prix en baisse",
+                              "montant_eur": -1.4
+                            }
+                          ],
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 5.59,
+                          "sous_categorie": "Cuisine & bricolage (non alimentaire)"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "120040478420261016132485",
+                      "date": "2026-10-16",
+                      "heure": "16:17:09",
+                      "magasin": "S",
+                      "magasin_libelle": "Schiltigheim",
+                      "magasin_code": "4047",
+                      "magasin_nom": "Schiltigheim - Bischwiller",
+                      "lien": "https://www.lidl.fr/mre/purchase-detail?t=120040478420261016132485",
+                      "a_payer_eur": 45.96,
+                      "a_payer_usd": 50.3,
+                      "remise_eur": -1.61,
+                      "remise_eur_abs": 1.61,
+                      "tr_eligible_eur": 30.4,
+                      "tr_eur": 0.0,
+                      "cb_eur": 45.96,
+                      "n_articles": 15,
+                      "lignes": [
+                        {
+                          "article": "Florentine",
+                          "pu_eur": 2.99,
+                          "qte": 1,
+                          "montant_eur": 2.99,
+                          "remise_eur": -0.6,
+                          "remises": [
+                            {
+                              "libelle": "Réduction Lidl Plus",
+                              "montant_eur": -0.6
+                            }
+                          ],
+                          "tva": "A",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 2.39,
+                          "sous_categorie": "Épicerie sucrée & snacks"
+                        },
+                        {
+                          "article": "Pain aux noix",
+                          "pu_eur": 1.99,
+                          "qte": 1,
+                          "montant_eur": 1.99,
+                          "remise_eur": -0.5,
+                          "remises": [
+                            {
+                              "libelle": "Rem Pain",
+                              "montant_eur": -0.5
+                            }
+                          ],
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.49,
+                          "sous_categorie": "Boulangerie"
+                        },
+                        {
+                          "article": "Double conc. tomates",
+                          "pu_eur": 0.95,
+                          "qte": 1,
+                          "montant_eur": 0.95,
+                          "remise_eur": -0.32,
+                          "remises": [
+                            {
+                              "libelle": "Prix en baisse",
+                              "montant_eur": -0.05
+                            },
+                            {
+                              "libelle": "Rem Double concentré",
+                              "montant_eur": -0.27
+                            }
+                          ],
+                          "tva": "A",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 0.63,
+                          "sous_categorie": "Épicerie salée"
+                        },
+                        {
+                          "article": "Sun Capsules Pro",
+                          "pu_eur": 6.55,
+                          "qte": 1,
+                          "montant_eur": 6.55,
+                          "remise_eur": 0.0,
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 6.55,
+                          "sous_categorie": "Entretien maison"
+                        },
+                        {
+                          "article": "Mir lessive black",
+                          "pu_eur": 6.05,
+                          "qte": 1,
+                          "montant_eur": 6.05,
+                          "remise_eur": -0.18,
+                          "remises": [
+                            {
+                              "libelle": "Prix en baisse",
+                              "montant_eur": -0.18
+                            }
+                          ],
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 5.87,
+                          "sous_categorie": "Entretien maison"
+                        },
+                        {
+                          "article": "Mix apéritif Pépita",
+                          "pu_eur": 2.99,
+                          "qte": 1,
+                          "montant_eur": 2.99,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 2.99,
+                          "sous_categorie": "Épicerie sucrée & snacks"
+                        },
+                        {
+                          "article": "Fromage râpé fondant",
+                          "pu_eur": 4.29,
+                          "qte": 1,
+                          "montant_eur": 4.29,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 4.29,
+                          "sous_categorie": "Crèmerie & fromages"
+                        },
+                        {
+                          "article": "Capsules Caramel",
+                          "pu_eur": 3.55,
+                          "qte": 1,
+                          "montant_eur": 3.55,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 3.55,
+                          "sous_categorie": "Boissons sans alcool"
+                        },
+                        {
+                          "article": "Pot de glace choco-n",
+                          "pu_eur": 2.99,
+                          "qte": 1,
+                          "montant_eur": 2.99,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 2.99,
+                          "sous_categorie": "Épicerie sucrée & snacks"
+                        },
+                        {
+                          "article": "Purée de tomates",
+                          "pu_eur": 1.87,
+                          "qte": 1,
+                          "montant_eur": 1.87,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.87,
+                          "sous_categorie": "Épicerie salée"
+                        },
+                        {
+                          "article": "Viande hachée 20%",
+                          "pu_eur": 9.99,
+                          "qte": 1,
+                          "montant_eur": 9.99,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 9.99,
+                          "sous_categorie": "Viande & poisson"
+                        },
+                        {
+                          "article": "Lasagne",
+                          "pu_eur": 1.29,
+                          "qte": 1,
+                          "montant_eur": 1.29,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.29,
+                          "sous_categorie": "Épicerie salée"
+                        },
+                        {
+                          "article": "Maggi Bechamel",
+                          "pu_eur": 1.16,
+                          "qte": 1,
+                          "montant_eur": 1.16,
+                          "remise_eur": -0.01,
+                          "remises": [
+                            {
+                              "libelle": "Prix en baisse",
+                              "montant_eur": -0.01
+                            }
+                          ],
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.15,
+                          "sous_categorie": "Épicerie salée"
+                        },
+                        {
+                          "article": "Lait demi-écrémé UHT",
+                          "pu_eur": 0.79,
+                          "qte": 1,
+                          "montant_eur": 0.79,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 0.79,
+                          "sous_categorie": "Crèmerie & fromages"
+                        },
+                        {
+                          "article": "Sac poignée souple",
+                          "pu_eur": 0.12,
+                          "qte": 1,
+                          "montant_eur": 0.12,
+                          "remise_eur": 0.0,
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 0.12,
+                          "sous_categorie": "Sacs"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "12003772822026101725089",
+                      "date": "2026-10-17",
+                      "heure": "13:17:51",
+                      "magasin": "H",
+                      "magasin_libelle": "Hoenheim",
+                      "magasin_code": "3772",
+                      "magasin_nom": "HOENHEIM Brumath",
+                      "lien": "https://www.lidl.fr/mre/purchase-detail?t=12003772822026101725089",
+                      "a_payer_eur": 22.03,
+                      "a_payer_usd": 24.11,
+                      "remise_eur": -0.66,
+                      "remise_eur_abs": 0.66,
+                      "tr_eligible_eur": 15.04,
+                      "tr_eur": 15.04,
+                      "cb_eur": 6.99,
+                      "n_articles": 5,
+                      "lignes": [
+                        {
+                          "article": "Pain aux noix",
+                          "pu_eur": 1.99,
+                          "qte": 1,
+                          "montant_eur": 1.99,
+                          "remise_eur": -0.5,
+                          "remises": [
+                            {
+                              "libelle": "Rem Pain",
+                              "montant_eur": -0.5
+                            }
+                          ],
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.49,
+                          "sous_categorie": "Boulangerie"
+                        },
+                        {
+                          "article": "Pizza maxi moelleuse",
+                          "pu_eur": 5.27,
+                          "qte": 1,
+                          "montant_eur": 5.27,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 5.27,
+                          "sous_categorie": "Plats préparés & pizzas"
+                        },
+                        {
+                          "article": "Monalie AOP rosé",
+                          "pu_eur": 6.99,
+                          "qte": 1,
+                          "montant_eur": 6.99,
+                          "remise_eur": 0.0,
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 6.99,
+                          "sous_categorie": "Alcool"
+                        },
+                        {
+                          "article": "Yaos Vanille",
+                          "pu_eur": 4.1,
+                          "qte": 1,
+                          "montant_eur": 4.1,
+                          "remise_eur": -0.16,
+                          "remises": [
+                            {
+                              "libelle": "Prix en baisse",
+                              "montant_eur": -0.16
+                            }
+                          ],
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 3.94,
+                          "sous_categorie": "Crèmerie & fromages"
+                        },
+                        {
+                          "article": "Tomme de Savoie IGP",
+                          "pu_eur": 4.34,
+                          "qte": 1,
+                          "montant_eur": 4.34,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 4.34,
+                          "sous_categorie": "Crèmerie & fromages"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "120040478320261024169208",
+                      "date": "2026-10-24",
+                      "heure": "09:32:22",
+                      "magasin": "S",
+                      "magasin_libelle": "Schiltigheim",
+                      "magasin_code": "4047",
+                      "magasin_nom": "Schiltigheim - Bischwiller",
+                      "lien": "https://www.lidl.fr/mre/purchase-detail?t=120040478320261024169208",
+                      "a_payer_eur": 26.65,
+                      "a_payer_usd": 29.17,
+                      "remise_eur": -0.2,
+                      "remise_eur_abs": 0.2,
+                      "tr_eligible_eur": 23.66,
+                      "tr_eur": 0.0,
+                      "cb_eur": 26.65,
+                      "n_articles": 12,
+                      "lignes": [
+                        {
+                          "article": "Persil sachet 40g",
+                          "pu_eur": 0.99,
+                          "qte": 1,
+                          "montant_eur": 0.99,
+                          "remise_eur": -0.2,
+                          "remises": [
+                            {
+                              "libelle": "Réduction Lidl Plus",
+                              "montant_eur": -0.2
+                            }
+                          ],
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 0.79,
+                          "sous_categorie": "Frais (fruits, légumes)"
+                        },
+                        {
+                          "article": "Figue fraîche",
+                          "pu_eur": 0.49,
+                          "qte": 2,
+                          "montant_eur": 0.98,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 0.98,
+                          "sous_categorie": "Frais (fruits, légumes)"
+                        },
+                        {
+                          "article": "Florentine",
+                          "pu_eur": 2.99,
+                          "qte": 1,
+                          "montant_eur": 2.99,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 2.99,
+                          "sous_categorie": "Épicerie sucrée & snacks"
+                        },
+                        {
+                          "article": "Champignon blanc 250",
+                          "pu_eur": 1.79,
+                          "qte": 1,
+                          "montant_eur": 1.79,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.79,
+                          "sous_categorie": "Frais (fruits, légumes)"
+                        },
+                        {
+                          "article": "Lait demi-écrémé UHT",
+                          "pu_eur": 0.79,
+                          "qte": 1,
+                          "montant_eur": 0.79,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 0.79,
+                          "sous_categorie": "Crèmerie & fromages"
+                        },
+                        {
+                          "article": "Mouliné de légumes",
+                          "pu_eur": 1.95,
+                          "qte": 1,
+                          "montant_eur": 1.95,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.95,
+                          "sous_categorie": "Plats préparés & pizzas"
+                        },
+                        {
+                          "article": "Blanc poireau 500 g",
+                          "pu_eur": 3.49,
+                          "qte": 1,
+                          "montant_eur": 3.49,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 3.49,
+                          "sous_categorie": "Frais (fruits, légumes)"
+                        },
+                        {
+                          "article": "Knorr Bouill.Volail.",
+                          "pu_eur": 1.03,
+                          "qte": 1,
+                          "montant_eur": 1.03,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.03,
+                          "sous_categorie": "Épicerie salée"
+                        },
+                        {
+                          "article": "Médaillons à la Prov",
+                          "pu_eur": 6.85,
+                          "qte": 1,
+                          "montant_eur": 6.85,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 6.85,
+                          "sous_categorie": "Viande & poisson"
+                        },
+                        {
+                          "article": "Crème UHT 18%",
+                          "pu_eur": 2.09,
+                          "qte": 1,
+                          "montant_eur": 2.09,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 2.09,
+                          "sous_categorie": "Crèmerie & fromages"
+                        },
+                        {
+                          "article": "Crème Brûlée",
+                          "pu_eur": 2.55,
+                          "qte": 1,
+                          "montant_eur": 2.55,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 2.55,
+                          "sous_categorie": "Épicerie sucrée & snacks"
+                        },
+                        {
+                          "article": "Riz Basmati",
+                          "pu_eur": 1.35,
+                          "qte": 1,
+                          "montant_eur": 1.35,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.35,
+                          "sous_categorie": "Épicerie salée"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "12003772832026102621010",
+                      "date": "2026-10-26",
+                      "heure": "12:22:51",
+                      "magasin": "H",
+                      "magasin_libelle": "Hoenheim",
+                      "magasin_code": "3772",
+                      "magasin_nom": "HOENHEIM Brumath",
+                      "lien": "https://www.lidl.fr/mre/purchase-detail?t=12003772832026102621010",
+                      "a_payer_eur": 30.03,
+                      "a_payer_usd": 32.86,
+                      "remise_eur": -5.66,
+                      "remise_eur_abs": 5.66,
+                      "tr_eligible_eur": 8.95,
+                      "tr_eur": 0.0,
+                      "cb_eur": 30.03,
+                      "n_articles": 8,
+                      "lignes": [
+                        {
+                          "article": "Pantalon H n 0494922",
+                          "pu_eur": 11.99,
+                          "qte": 1,
+                          "montant_eur": 11.99,
+                          "remise_eur": -4.0,
+                          "remises": [
+                            {
+                              "libelle": "Rem Pantalon technique ho",
+                              "montant_eur": -4.0
+                            }
+                          ],
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 7.99,
+                          "sous_categorie": "Textile & vêtements"
+                        },
+                        {
+                          "article": "Set coupe-pi 0540852",
+                          "pu_eur": 3.99,
+                          "qte": 1,
+                          "montant_eur": 3.99,
+                          "remise_eur": -1.0,
+                          "remises": [
+                            {
+                              "libelle": "Rem Accessoire pour pizza",
+                              "montant_eur": -1.0
+                            }
+                          ],
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 2.99,
+                          "sous_categorie": "Cuisine & bricolage (non alimentaire)"
+                        },
+                        {
+                          "article": "Tomme de Montagne",
+                          "pu_eur": 3.58,
+                          "qte": 1,
+                          "montant_eur": 3.58,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 3.58,
+                          "sous_categorie": "Crèmerie & fromages"
+                        },
+                        {
+                          "article": "Yaos Vanille",
+                          "pu_eur": 3.94,
+                          "qte": 1,
+                          "montant_eur": 3.94,
+                          "remise_eur": -0.06,
+                          "remises": [
+                            {
+                              "libelle": "Prix en baisse",
+                              "montant_eur": -0.06
+                            }
+                          ],
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 3.88,
+                          "sous_categorie": "Crèmerie & fromages"
+                        },
+                        {
+                          "article": "Kit de coute 0437663",
+                          "pu_eur": 5.59,
+                          "qte": 1,
+                          "montant_eur": 5.59,
+                          "remise_eur": -0.6,
+                          "remises": [
+                            {
+                              "libelle": "Prix en baisse",
+                              "montant_eur": -0.6
+                            }
+                          ],
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 4.99,
+                          "sous_categorie": "Cuisine & bricolage (non alimentaire)"
+                        },
+                        {
+                          "article": "Boîtes conse 0521770",
+                          "pu_eur": 4.99,
+                          "qte": 1,
+                          "montant_eur": 4.99,
+                          "remise_eur": 0.0,
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 4.99,
+                          "sous_categorie": "Cuisine & bricolage (non alimentaire)"
+                        },
+                        {
+                          "article": "Pain au maïs",
+                          "pu_eur": 1.49,
+                          "qte": 1,
+                          "montant_eur": 1.49,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.49,
+                          "sous_categorie": "Boulangerie"
+                        },
+                        {
+                          "article": "Sac poignée souple",
+                          "pu_eur": 0.12,
+                          "qte": 1,
+                          "montant_eur": 0.12,
+                          "remise_eur": 0.0,
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 0.12,
+                          "sous_categorie": "Sacs"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "12003772822026102826185",
+                      "date": "2026-10-28",
+                      "heure": "12:53:34",
+                      "magasin": "H",
+                      "magasin_libelle": "Hoenheim",
+                      "magasin_code": "3772",
+                      "magasin_nom": "HOENHEIM Brumath",
+                      "lien": "https://www.lidl.fr/mre/purchase-detail?t=12003772822026102826185",
+                      "a_payer_eur": 10.1,
+                      "a_payer_usd": 11.05,
+                      "remise_eur": 0.0,
+                      "remise_eur_abs": 0.0,
+                      "tr_eligible_eur": 9.1,
+                      "tr_eur": 9.1,
+                      "cb_eur": 1.0,
+                      "n_articles": 5,
+                      "lignes": [
+                        {
+                          "article": "Jambon de Paris TSR",
+                          "pu_eur": 2.56,
+                          "qte": 1,
+                          "montant_eur": 2.56,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 2.56,
+                          "sous_categorie": "Viande & poisson"
+                        },
+                        {
+                          "article": "Meule fruitée",
+                          "pu_eur": 3.96,
+                          "qte": 1,
+                          "montant_eur": 3.96,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 3.96,
+                          "sous_categorie": "Crèmerie & fromages"
+                        },
+                        {
+                          "article": "Poire verte vrac",
+                          "pu_eur": 2.95,
+                          "qte": null,
+                          "montant_eur": 0.59,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": 0.2,
+                          "prix_kg_eur": 2.95,
+                          "net_eur": 0.59,
+                          "sous_categorie": "Frais (fruits, légumes)"
+                        },
+                        {
+                          "article": "Pain aux noix",
+                          "pu_eur": 1.99,
+                          "qte": 1,
+                          "montant_eur": 1.99,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.99,
+                          "sous_categorie": "Boulangerie"
+                        },
+                        {
+                          "article": "Microfiber x 0550526",
+                          "pu_eur": 1.0,
+                          "qte": 1,
+                          "montant_eur": 1.0,
+                          "remise_eur": 0.0,
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.0,
+                          "sous_categorie": "Entretien maison"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "120040478120261028159329",
+                      "date": "2026-10-28",
+                      "heure": "15:52:10",
+                      "magasin": "S",
+                      "magasin_libelle": "Schiltigheim",
+                      "magasin_code": "4047",
+                      "magasin_nom": "Schiltigheim - Bischwiller",
+                      "lien": "https://www.lidl.fr/mre/purchase-detail?t=120040478120261028159329",
+                      "a_payer_eur": 17.52,
+                      "a_payer_usd": 19.17,
+                      "remise_eur": -0.51,
+                      "remise_eur_abs": 0.51,
+                      "tr_eligible_eur": 8.97,
+                      "tr_eur": 0.0,
+                      "cb_eur": 17.52,
+                      "n_articles": 7,
+                      "lignes": [
+                        {
+                          "article": "Ultra Doux shampoo",
+                          "pu_eur": 3.56,
+                          "qte": 1,
+                          "montant_eur": 3.56,
+                          "remise_eur": 0.0,
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 3.56,
+                          "sous_categorie": "Hygiène & beauté"
+                        },
+                        {
+                          "article": "Tomates farcies",
+                          "pu_eur": 4.49,
+                          "qte": 1,
+                          "montant_eur": 4.49,
+                          "remise_eur": -0.5,
+                          "remises": [
+                            {
+                              "libelle": "Prix en baisse",
+                              "montant_eur": -0.5
+                            }
+                          ],
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 3.99,
+                          "sous_categorie": "Plats préparés & pizzas"
+                        },
+                        {
+                          "article": "Litière agglomérante",
+                          "pu_eur": 3.69,
+                          "qte": 1,
+                          "montant_eur": 3.69,
+                          "remise_eur": 0.0,
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 3.69,
+                          "sous_categorie": "Animaux (litière)"
+                        },
+                        {
+                          "article": "Liquide de rinçage",
+                          "pu_eur": 1.15,
+                          "qte": 1,
+                          "montant_eur": 1.15,
+                          "remise_eur": -0.01,
+                          "remises": [
+                            {
+                              "libelle": "Prix en baisse",
+                              "montant_eur": -0.01
+                            }
+                          ],
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.14,
+                          "sous_categorie": "Entretien maison"
+                        },
+                        {
+                          "article": "Frites de patate",
+                          "pu_eur": 2.99,
+                          "qte": 1,
+                          "montant_eur": 2.99,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 2.99,
+                          "sous_categorie": "Épicerie salée"
+                        },
+                        {
+                          "article": "Pain aux noix",
+                          "pu_eur": 1.99,
+                          "qte": 1,
+                          "montant_eur": 1.99,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.99,
+                          "sous_categorie": "Boulangerie"
+                        },
+                        {
+                          "article": "Sac en papier 20L",
+                          "pu_eur": 0.16,
+                          "qte": 1,
+                          "montant_eur": 0.16,
+                          "remise_eur": 0.0,
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 0.16,
+                          "sous_categorie": "Sacs"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "12004047872026103054039",
+                      "date": "2026-10-30",
+                      "heure": "15:52:07",
+                      "magasin": "S",
+                      "magasin_libelle": "Schiltigheim",
+                      "magasin_code": "4047",
+                      "magasin_nom": "Schiltigheim - Bischwiller",
+                      "lien": "https://www.lidl.fr/mre/purchase-detail?t=12004047872026103054039",
+                      "a_payer_eur": 12.76,
+                      "a_payer_usd": 13.96,
+                      "remise_eur": 0.0,
+                      "remise_eur_abs": 0.0,
+                      "tr_eligible_eur": 8.87,
+                      "tr_eur": 0.0,
+                      "cb_eur": 12.76,
+                      "n_articles": 3,
+                      "lignes": [
+                        {
+                          "article": "Pizza maxi moelleuse",
+                          "pu_eur": 5.27,
+                          "qte": 1,
+                          "montant_eur": 5.27,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 5.27,
+                          "sous_categorie": "Plats préparés & pizzas"
+                        },
+                        {
+                          "article": "Côtes du Rhône Villa",
+                          "pu_eur": 3.89,
+                          "qte": 1,
+                          "montant_eur": 3.89,
+                          "remise_eur": 0.0,
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 3.89,
+                          "sous_categorie": "Alcool"
+                        },
+                        {
+                          "article": "Badoit Verte",
+                          "pu_eur": 0.6,
+                          "qte": 6,
+                          "montant_eur": 3.6,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 3.6,
+                          "sous_categorie": "Boissons sans alcool"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "120040478220261031171330",
+                      "date": "2026-10-31",
+                      "heure": "12:05:48",
+                      "magasin": "S",
+                      "magasin_libelle": "Schiltigheim",
+                      "magasin_code": "4047",
+                      "magasin_nom": "SCHILTIGHEIM Frédérique Kleinknecht",
+                      "lien": "https://www.lidl.fr/mre/purchase-detail?t=120040478220261031171330",
+                      "a_payer_eur": 38.84,
+                      "a_payer_usd": 42.51,
+                      "remise_eur": -3.85,
+                      "remise_eur_abs": 3.85,
+                      "tr_eligible_eur": 21.39,
+                      "tr_eur": 0.0,
+                      "cb_eur": 38.84,
+                      "n_articles": 14,
+                      "lignes": [
+                        {
+                          "article": "Lutti Tubo Partyfizz",
+                          "pu_eur": 3.6,
+                          "qte": 1,
+                          "montant_eur": 3.6,
+                          "remise_eur": 0.0,
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 3.6,
+                          "sous_categorie": "Épicerie sucrée & snacks"
+                        },
+                        {
+                          "article": "Le Viennois Chocolat",
+                          "pu_eur": 2.83,
+                          "qte": 1,
+                          "montant_eur": 2.83,
+                          "remise_eur": -0.03,
+                          "remises": [
+                            {
+                              "libelle": "Prix en baisse",
+                              "montant_eur": -0.03
+                            }
+                          ],
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 2.8,
+                          "sous_categorie": "Crèmerie & fromages"
+                        },
+                        {
+                          "article": "Pipe Rigate 1kg",
+                          "pu_eur": 1.75,
+                          "qte": 1,
+                          "montant_eur": 1.75,
+                          "remise_eur": -0.04,
+                          "remises": [
+                            {
+                              "libelle": "Prix en baisse",
+                              "montant_eur": -0.04
+                            }
+                          ],
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.71,
+                          "sous_categorie": "Épicerie salée"
+                        },
+                        {
+                          "article": "Sac poignée souple",
+                          "pu_eur": 0.12,
+                          "qte": 2,
+                          "montant_eur": 0.24,
+                          "remise_eur": 0.0,
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 0.24,
+                          "sous_categorie": "Sacs"
+                        },
+                        {
+                          "article": "Ariel Lessive Liqui.",
+                          "pu_eur": 14.9,
+                          "qte": 1,
+                          "montant_eur": 14.9,
+                          "remise_eur": -3.78,
+                          "remises": [
+                            {
+                              "libelle": "Prix en baisse",
+                              "montant_eur": -3.78
+                            }
+                          ],
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 11.12,
+                          "sous_categorie": "Entretien maison"
+                        },
+                        {
+                          "article": "Crème UHT 18%",
+                          "pu_eur": 2.09,
+                          "qte": 1,
+                          "montant_eur": 2.09,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 2.09,
+                          "sous_categorie": "Crèmerie & fromages"
+                        },
+                        {
+                          "article": "Lait demi-écrémé",
+                          "pu_eur": 0.79,
+                          "qte": 1,
+                          "montant_eur": 0.79,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 0.79,
+                          "sous_categorie": "Crèmerie & fromages"
+                        },
+                        {
+                          "article": "Bouchées à la reine",
+                          "pu_eur": 3.79,
+                          "qte": 1,
+                          "montant_eur": 3.79,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 3.79,
+                          "sous_categorie": "Plats préparés & pizzas"
+                        },
+                        {
+                          "article": "Oeufs Label Rouge",
+                          "pu_eur": 1.79,
+                          "qte": 1,
+                          "montant_eur": 1.79,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.79,
+                          "sous_categorie": "Crèmerie & fromages"
+                        },
+                        {
+                          "article": "Oignon jaune 4 têtes",
+                          "pu_eur": 1.79,
+                          "qte": 1,
+                          "montant_eur": 1.79,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.79,
+                          "sous_categorie": "Frais (fruits, légumes)"
+                        },
+                        {
+                          "article": "Pomme de terre four",
+                          "pu_eur": 2.99,
+                          "qte": 1,
+                          "montant_eur": 2.99,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 2.99,
+                          "sous_categorie": "Frais (fruits, légumes)"
+                        },
+                        {
+                          "article": "Pâte brisée",
+                          "pu_eur": 0.65,
+                          "qte": 1,
+                          "montant_eur": 0.65,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 0.65,
+                          "sous_categorie": "Épicerie salée"
+                        },
+                        {
+                          "article": "Carrot cake glaçage",
+                          "pu_eur": 2.99,
+                          "qte": 1,
+                          "montant_eur": 2.99,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 2.99,
+                          "sous_categorie": "Boulangerie"
+                        },
+                        {
+                          "article": "Croquants cacahuètes",
+                          "pu_eur": 2.49,
+                          "qte": 1,
+                          "montant_eur": 2.49,
+                          "remise_eur": 0.0,
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 2.49,
+                          "sous_categorie": "Épicerie sucrée & snacks"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "12003772822026103126571",
+                      "date": "2026-10-31",
+                      "heure": "12:10:00",
+                      "magasin": "H",
+                      "magasin_libelle": "Hoenheim",
+                      "magasin_code": "3772",
+                      "magasin_nom": "HOENHEIM Brumath",
+                      "lien": "https://www.lidl.fr/mre/purchase-detail?t=12003772822026103126571",
+                      "a_payer_eur": 22.32,
+                      "a_payer_usd": 24.43,
+                      "remise_eur": -8.33,
+                      "remise_eur_abs": 8.33,
+                      "tr_eligible_eur": 9.35,
+                      "tr_eur": 0.0,
+                      "cb_eur": 22.32,
+                      "n_articles": 6,
+                      "lignes": [
+                        {
+                          "article": "Skip Lessive MCCP",
+                          "pu_eur": 19.41,
+                          "qte": 1,
+                          "montant_eur": 19.41,
+                          "remise_eur": -7.76,
+                          "remises": [
+                            {
+                              "libelle": "Rem Skip",
+                              "montant_eur": -7.76
+                            }
+                          ],
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 11.65,
+                          "sous_categorie": "Entretien maison"
+                        },
+                        {
+                          "article": "Gel douche BLACK",
+                          "pu_eur": 1.89,
+                          "qte": 1,
+                          "montant_eur": 1.89,
+                          "remise_eur": -0.57,
+                          "remises": [
+                            {
+                              "libelle": "Rem Gel douche",
+                              "montant_eur": -0.57
+                            }
+                          ],
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.32,
+                          "sous_categorie": "Hygiène & beauté"
+                        },
+                        {
+                          "article": "Yaourt à la grecque",
+                          "pu_eur": 2.35,
+                          "qte": 1,
+                          "montant_eur": 2.35,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 2.35,
+                          "sous_categorie": "Crèmerie & fromages"
+                        },
+                        {
+                          "article": "Tomme de Savoie IGP",
+                          "pu_eur": 4.34,
+                          "qte": 1,
+                          "montant_eur": 4.34,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 4.34,
+                          "sous_categorie": "Crèmerie & fromages"
+                        },
+                        {
+                          "article": "Poire verte vrac",
+                          "pu_eur": 2.99,
+                          "qte": null,
+                          "montant_eur": 0.67,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": 0.22,
+                          "prix_kg_eur": 2.99,
+                          "net_eur": 0.67,
+                          "sous_categorie": "Frais (fruits, légumes)"
+                        },
+                        {
+                          "article": "Pain aux noix",
+                          "pu_eur": 1.99,
+                          "qte": 1,
+                          "montant_eur": 1.99,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.99,
+                          "sous_categorie": "Boulangerie"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "2026-11": {
+                  "mois": "2026-11",
+                  "libelle": "Novembre 2026 (au 24)",
+                  "n_tickets": 19,
+                  "total_eur": 486.8,
+                  "total_usd": 532.75,
+                  "alimentaire_eur": 224.04,
+                  "alimentaire_usd": 245.19,
+                  "alimentaire_pct": 46.02,
+                  "non_alimentaire_eur": 262.76,
+                  "non_alimentaire_usd": 287.56,
+                  "non_alimentaire_pct": 53.98,
+                  "remises_eur": -44.55,
+                  "remises_eur_abs": 44.55,
+                  "remises_usd_abs": 48.76,
+                  "tr_eur": 54.79,
+                  "tr_usd": 59.96,
+                  "tr_pct": 11.26,
+                  "cb_eur": 432.01,
+                  "cb_usd": 472.79,
+                  "panier_moyen_eur": 25.62,
+                  "panier_moyen_usd": 28.04,
+                  "par_sous_categorie": [
+                    {
+                      "id": "Frais (fruits, légumes)",
+                      "libelle": "Frais (fruits, légumes)",
+                      "eur": 22.07,
+                      "usd": 24.15,
+                      "pct": 4.53,
+                      "alimentaire": true
+                    },
+                    {
+                      "id": "Crèmerie & fromages",
+                      "libelle": "Crèmerie & fromages",
+                      "eur": 53.54,
+                      "usd": 58.59,
+                      "pct": 11.0,
+                      "alimentaire": true
+                    },
+                    {
+                      "id": "Viande & poisson",
+                      "libelle": "Viande & poisson",
+                      "eur": 41.14,
+                      "usd": 45.02,
+                      "pct": 8.45,
+                      "alimentaire": true
+                    },
+                    {
+                      "id": "Boulangerie",
+                      "libelle": "Boulangerie",
+                      "eur": 17.87,
+                      "usd": 19.56,
+                      "pct": 3.67,
+                      "alimentaire": true
+                    },
+                    {
+                      "id": "Épicerie salée",
+                      "libelle": "Épicerie salée",
+                      "eur": 23.08,
+                      "usd": 25.26,
+                      "pct": 4.74,
+                      "alimentaire": true
+                    },
+                    {
+                      "id": "Épicerie sucrée & snacks",
+                      "libelle": "Épicerie sucrée & snacks",
+                      "eur": 4.97,
+                      "usd": 5.44,
+                      "pct": 1.02,
+                      "alimentaire": true
+                    },
+                    {
+                      "id": "Plats préparés & pizzas",
+                      "libelle": "Plats préparés & pizzas",
+                      "eur": 33.7,
+                      "usd": 36.88,
+                      "pct": 6.92,
+                      "alimentaire": true
+                    },
+                    {
+                      "id": "Boissons sans alcool",
+                      "libelle": "Boissons sans alcool",
+                      "eur": 21.69,
+                      "usd": 23.74,
+                      "pct": 4.46,
+                      "alimentaire": true
+                    },
+                    {
+                      "id": "Alcool",
+                      "libelle": "Alcool",
+                      "eur": 5.98,
+                      "usd": 6.54,
+                      "pct": 1.23,
+                      "alimentaire": true
+                    },
+                    {
+                      "id": "Entretien maison",
+                      "libelle": "Entretien maison",
+                      "eur": 23.58,
+                      "usd": 25.81,
+                      "pct": 4.84,
+                      "alimentaire": false
+                    },
+                    {
+                      "id": "Hygiène & beauté",
+                      "libelle": "Hygiène & beauté",
+                      "eur": 13.68,
+                      "usd": 14.97,
+                      "pct": 2.81,
+                      "alimentaire": false
+                    },
+                    {
+                      "id": "Animaux (litière)",
+                      "libelle": "Animaux (litière)",
+                      "eur": 3.69,
+                      "usd": 4.04,
+                      "pct": 0.76,
+                      "alimentaire": false
+                    },
+                    {
+                      "id": "Textile & vêtements",
+                      "libelle": "Textile & vêtements",
+                      "eur": 67.88,
+                      "usd": 74.29,
+                      "pct": 13.94,
+                      "alimentaire": false
+                    },
+                    {
+                      "id": "Maison & déco (dont Noël)",
+                      "libelle": "Maison & déco (dont Noël)",
+                      "eur": 123.35,
+                      "usd": 134.99,
+                      "pct": 25.34,
+                      "alimentaire": false
+                    },
+                    {
+                      "id": "Cuisine & bricolage (non alimentaire)",
+                      "libelle": "Cuisine & bricolage (non alimentaire)",
+                      "eur": 26.97,
+                      "usd": 29.52,
+                      "pct": 5.54,
+                      "alimentaire": false
+                    },
+                    {
+                      "id": "Sacs",
+                      "libelle": "Sacs",
+                      "eur": 3.61,
+                      "usd": 3.95,
+                      "pct": 0.74,
+                      "alimentaire": false
+                    }
+                  ],
+                  "tickets": [
+                    {
+                      "id": "12003772842026110233528",
+                      "date": "2026-11-02",
+                      "heure": "11:48:06",
+                      "magasin": "H",
+                      "magasin_libelle": "Hoenheim",
+                      "magasin_code": "3772",
+                      "magasin_nom": "HOENHEIM Brumath",
+                      "lien": "https://www.lidl.fr/mre/purchase-detail?t=12003772842026110233528",
+                      "a_payer_eur": 25.54,
+                      "a_payer_usd": 27.95,
+                      "remise_eur": 0.0,
+                      "remise_eur_abs": 0.0,
+                      "tr_eligible_eur": 5.56,
+                      "tr_eur": 0.0,
+                      "cb_eur": 25.54,
+                      "n_articles": 4,
+                      "lignes": [
+                        {
+                          "article": "Chauffe-main 0524872",
+                          "pu_eur": 9.99,
+                          "qte": 2,
+                          "montant_eur": 19.98,
+                          "remise_eur": 0.0,
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 19.98,
+                          "sous_categorie": "Cuisine & bricolage (non alimentaire)"
+                        },
+                        {
+                          "article": "Bûche Sainte Maure",
+                          "pu_eur": 2.99,
+                          "qte": 1,
+                          "montant_eur": 2.99,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 2.99,
+                          "sous_categorie": "Crèmerie & fromages"
+                        },
+                        {
+                          "article": "Poire verte vrac",
+                          "pu_eur": 2.95,
+                          "qte": null,
+                          "montant_eur": 0.58,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": 0.2,
+                          "prix_kg_eur": 2.95,
+                          "net_eur": 0.58,
+                          "sous_categorie": "Frais (fruits, légumes)"
+                        },
+                        {
+                          "article": "Pain aux noix",
+                          "pu_eur": 1.99,
+                          "qte": 1,
+                          "montant_eur": 1.99,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.99,
+                          "sous_categorie": "Boulangerie"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "120040478420261103134177",
+                      "date": "2026-11-03",
+                      "heure": "11:47:38",
+                      "magasin": "S",
+                      "magasin_libelle": "Schiltigheim",
+                      "magasin_code": "4047",
+                      "magasin_nom": "SCHILTIGHEIM Frédérique Kleinknecht",
+                      "lien": "https://www.lidl.fr/mre/purchase-detail?t=120040478420261103134177",
+                      "a_payer_eur": 19.2,
+                      "a_payer_usd": 21.01,
+                      "remise_eur": -0.26,
+                      "remise_eur_abs": 0.26,
+                      "tr_eligible_eur": 19.2,
+                      "tr_eur": 0.0,
+                      "cb_eur": 19.2,
+                      "n_articles": 8,
+                      "lignes": [
+                        {
+                          "article": "Mélange de salades",
+                          "pu_eur": 1.29,
+                          "qte": 1,
+                          "montant_eur": 1.29,
+                          "remise_eur": -0.26,
+                          "remises": [
+                            {
+                              "libelle": "Réduction Lidl Plus",
+                              "montant_eur": -0.26
+                            }
+                          ],
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.03,
+                          "sous_categorie": "Frais (fruits, légumes)"
+                        },
+                        {
+                          "article": "Crème balsamique",
+                          "pu_eur": 1.89,
+                          "qte": 1,
+                          "montant_eur": 1.89,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.89,
+                          "sous_categorie": "Épicerie salée"
+                        },
+                        {
+                          "article": "Champignon blanc 250",
+                          "pu_eur": 1.79,
+                          "qte": 1,
+                          "montant_eur": 1.79,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.79,
+                          "sous_categorie": "Frais (fruits, légumes)"
+                        },
+                        {
+                          "article": "Riz long blanc PPX",
+                          "pu_eur": 1.13,
+                          "qte": 1,
+                          "montant_eur": 1.13,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.13,
+                          "sous_categorie": "Épicerie salée"
+                        },
+                        {
+                          "article": "Feuilleté de canard",
+                          "pu_eur": 3.49,
+                          "qte": 1,
+                          "montant_eur": 3.49,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 3.49,
+                          "sous_categorie": "Plats préparés & pizzas"
+                        },
+                        {
+                          "article": "Tartare ail & herbes",
+                          "pu_eur": 2.79,
+                          "qte": 1,
+                          "montant_eur": 2.79,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 2.79,
+                          "sous_categorie": "Crèmerie & fromages"
+                        },
+                        {
+                          "article": "Crème UHT 18%",
+                          "pu_eur": 2.09,
+                          "qte": 1,
+                          "montant_eur": 2.09,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 2.09,
+                          "sous_categorie": "Crèmerie & fromages"
+                        },
+                        {
+                          "article": "Clémentine caissette",
+                          "pu_eur": 4.99,
+                          "qte": 1,
+                          "montant_eur": 4.99,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 4.99,
+                          "sous_categorie": "Frais (fruits, légumes)"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "120040478520261103157942",
+                      "date": "2026-11-03",
+                      "heure": "16:59:26",
+                      "magasin": "S",
+                      "magasin_libelle": "Schiltigheim",
+                      "magasin_code": "4047",
+                      "magasin_nom": "SCHILTIGHEIM Frédérique Kleinknecht",
+                      "lien": "https://www.lidl.fr/mre/purchase-detail?t=120040478520261103157942",
+                      "a_payer_eur": 16.94,
+                      "a_payer_usd": 18.54,
+                      "remise_eur": -0.1,
+                      "remise_eur_abs": 0.1,
+                      "tr_eligible_eur": 7.57,
+                      "tr_eur": 0.0,
+                      "cb_eur": 16.94,
+                      "n_articles": 4,
+                      "lignes": [
+                        {
+                          "article": "Papier toilette 2pli",
+                          "pu_eur": 2.68,
+                          "qte": 1,
+                          "montant_eur": 2.68,
+                          "remise_eur": -0.1,
+                          "remises": [
+                            {
+                              "libelle": "Prix en baisse",
+                              "montant_eur": -0.1
+                            }
+                          ],
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 2.58,
+                          "sous_categorie": "Hygiène & beauté"
+                        },
+                        {
+                          "article": "Haché moelleux au bo",
+                          "pu_eur": 5.59,
+                          "qte": 1,
+                          "montant_eur": 5.59,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 5.59,
+                          "sous_categorie": "Viande & poisson"
+                        },
+                        {
+                          "article": "Parmigiano Reggiano",
+                          "pu_eur": 1.98,
+                          "qte": 1,
+                          "montant_eur": 1.98,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.98,
+                          "sous_categorie": "Crèmerie & fromages"
+                        },
+                        {
+                          "article": "Tabl. lave vaiselle",
+                          "pu_eur": 6.79,
+                          "qte": 1,
+                          "montant_eur": 6.79,
+                          "remise_eur": 0.0,
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 6.79,
+                          "sous_categorie": "Entretien maison"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "12003772832026110421801",
+                      "date": "2026-11-04",
+                      "heure": "12:41:13",
+                      "magasin": "H",
+                      "magasin_libelle": "Hoenheim",
+                      "magasin_code": "3772",
+                      "magasin_nom": "HOENHEIM Brumath",
+                      "lien": "https://www.lidl.fr/mre/purchase-detail?t=12003772832026110421801",
+                      "a_payer_eur": 9.69,
+                      "a_payer_usd": 10.6,
+                      "remise_eur": 0.0,
+                      "remise_eur_abs": 0.0,
+                      "tr_eligible_eur": 9.69,
+                      "tr_eur": 0.0,
+                      "cb_eur": 9.69,
+                      "n_articles": 3,
+                      "lignes": [
+                        {
+                          "article": "Comté 18 mois AOP",
+                          "pu_eur": 5.31,
+                          "qte": 1,
+                          "montant_eur": 5.31,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 5.31,
+                          "sous_categorie": "Crèmerie & fromages"
+                        },
+                        {
+                          "article": "Yaourt à la grecque",
+                          "pu_eur": 2.39,
+                          "qte": 1,
+                          "montant_eur": 2.39,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 2.39,
+                          "sous_categorie": "Crèmerie & fromages"
+                        },
+                        {
+                          "article": "Pain aux noix",
+                          "pu_eur": 1.99,
+                          "qte": 1,
+                          "montant_eur": 1.99,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.99,
+                          "sous_categorie": "Boulangerie"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "12003772842026110534018",
+                      "date": "2026-11-05",
+                      "heure": "11:59:41",
+                      "magasin": "H",
+                      "magasin_libelle": "Hoenheim",
+                      "magasin_code": "3772",
+                      "magasin_nom": "HOENHEIM Brumath",
+                      "lien": "https://www.lidl.fr/mre/purchase-detail?t=12003772842026110534018",
+                      "a_payer_eur": 9.55,
+                      "a_payer_usd": 10.45,
+                      "remise_eur": 0.0,
+                      "remise_eur_abs": 0.0,
+                      "tr_eligible_eur": 1.56,
+                      "tr_eur": 0.0,
+                      "cb_eur": 9.55,
+                      "n_articles": 2,
+                      "lignes": [
+                        {
+                          "article": "Guirlande lu 0526663",
+                          "pu_eur": 7.99,
+                          "qte": 1,
+                          "montant_eur": 7.99,
+                          "remise_eur": 0.0,
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 7.99,
+                          "sous_categorie": "Maison & déco (dont Noël)"
+                        },
+                        {
+                          "article": "Eau min.nat.gazeuse",
+                          "pu_eur": 0.26,
+                          "qte": 6,
+                          "montant_eur": 1.56,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.56,
+                          "sous_categorie": "Boissons sans alcool"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "12003772832026110722117",
+                      "date": "2026-11-07",
+                      "heure": "12:34:01",
+                      "magasin": "H",
+                      "magasin_libelle": "Hoenheim",
+                      "magasin_code": "3772",
+                      "magasin_nom": "HOENHEIM Brumath",
+                      "lien": "https://www.lidl.fr/mre/purchase-detail?t=12003772832026110722117",
+                      "a_payer_eur": 19.63,
+                      "a_payer_usd": 21.48,
+                      "remise_eur": -4.0,
+                      "remise_eur_abs": 4.0,
+                      "tr_eligible_eur": 9.65,
+                      "tr_eur": 9.65,
+                      "cb_eur": 9.98,
+                      "n_articles": 5,
+                      "lignes": [
+                        {
+                          "article": "Brassière F 0521518",
+                          "pu_eur": 6.99,
+                          "qte": 1,
+                          "montant_eur": 6.99,
+                          "remise_eur": -2.0,
+                          "remises": [
+                            {
+                              "libelle": "Réduction Lidl Plus",
+                              "montant_eur": -2.0
+                            }
+                          ],
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 4.99,
+                          "sous_categorie": "Textile & vêtements"
+                        },
+                        {
+                          "article": "Brassière F 0521518",
+                          "pu_eur": 6.99,
+                          "qte": 1,
+                          "montant_eur": 6.99,
+                          "remise_eur": -2.0,
+                          "remises": [
+                            {
+                              "libelle": "Réduction Lidl Plus",
+                              "montant_eur": -2.0
+                            }
+                          ],
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 4.99,
+                          "sous_categorie": "Textile & vêtements"
+                        },
+                        {
+                          "article": "Comté 18 mois AOP",
+                          "pu_eur": 5.31,
+                          "qte": 1,
+                          "montant_eur": 5.31,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 5.31,
+                          "sous_categorie": "Crèmerie & fromages"
+                        },
+                        {
+                          "article": "Yaourt à la grecque",
+                          "pu_eur": 2.35,
+                          "qte": 1,
+                          "montant_eur": 2.35,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 2.35,
+                          "sous_categorie": "Crèmerie & fromages"
+                        },
+                        {
+                          "article": "Pain aux noix",
+                          "pu_eur": 1.99,
+                          "qte": 1,
+                          "montant_eur": 1.99,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.99,
+                          "sous_categorie": "Boulangerie"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "12003772812026110933467",
+                      "date": "2026-11-09",
+                      "heure": "11:42:13",
+                      "magasin": "H",
+                      "magasin_libelle": "Hoenheim",
+                      "magasin_code": "3772",
+                      "magasin_nom": "HOENHEIM Brumath",
+                      "lien": "https://www.lidl.fr/mre/purchase-detail?t=12003772812026110933467",
+                      "a_payer_eur": 15.44,
+                      "a_payer_usd": 16.9,
+                      "remise_eur": 0.0,
+                      "remise_eur_abs": 0.0,
+                      "tr_eligible_eur": 7.42,
+                      "tr_eur": 7.42,
+                      "cb_eur": 8.02,
+                      "n_articles": 7,
+                      "lignes": [
+                        {
+                          "article": "Red Bull Sea Blue",
+                          "pu_eur": 1.39,
+                          "qte": 1,
+                          "montant_eur": 1.39,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.39,
+                          "sous_categorie": "Boissons sans alcool"
+                        },
+                        {
+                          "article": "Colgate Soin Complet",
+                          "pu_eur": 2.05,
+                          "qte": 1,
+                          "montant_eur": 2.05,
+                          "remise_eur": 0.0,
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 2.05,
+                          "sous_categorie": "Hygiène & beauté"
+                        },
+                        {
+                          "article": "Chèvre bûchette 45%",
+                          "pu_eur": 1.89,
+                          "qte": 1,
+                          "montant_eur": 1.89,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.89,
+                          "sous_categorie": "Crèmerie & fromages"
+                        },
+                        {
+                          "article": "Chauss. gris 0521512",
+                          "pu_eur": 2.49,
+                          "qte": 2,
+                          "montant_eur": 4.98,
+                          "remise_eur": 0.0,
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 4.98,
+                          "sous_categorie": "Textile & vêtements"
+                        },
+                        {
+                          "article": "Truite fumée",
+                          "pu_eur": 2.15,
+                          "qte": 1,
+                          "montant_eur": 2.15,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 2.15,
+                          "sous_categorie": "Viande & poisson"
+                        },
+                        {
+                          "article": "Pain aux noix",
+                          "pu_eur": 1.99,
+                          "qte": 1,
+                          "montant_eur": 1.99,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.99,
+                          "sous_categorie": "Boulangerie"
+                        },
+                        {
+                          "article": "Sac cabas 4 anses",
+                          "pu_eur": 0.99,
+                          "qte": 1,
+                          "montant_eur": 0.99,
+                          "remise_eur": 0.0,
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 0.99,
+                          "sous_categorie": "Sacs"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "12003772812026111233814",
+                      "date": "2026-11-12",
+                      "heure": "12:51:55",
+                      "magasin": "H",
+                      "magasin_libelle": "Hoenheim",
+                      "magasin_code": "3772",
+                      "magasin_nom": "HOENHEIM Brumath",
+                      "lien": "https://www.lidl.fr/mre/purchase-detail?t=12003772812026111233814",
+                      "a_payer_eur": 26.34,
+                      "a_payer_usd": 28.83,
+                      "remise_eur": 0.0,
+                      "remise_eur_abs": 0.0,
+                      "tr_eligible_eur": 6.43,
+                      "tr_eur": 0.0,
+                      "cb_eur": 26.34,
+                      "n_articles": 9,
+                      "lignes": [
+                        {
+                          "article": "Yaourt à la grecque",
+                          "pu_eur": 2.35,
+                          "qte": 1,
+                          "montant_eur": 2.35,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 2.35,
+                          "sous_categorie": "Crèmerie & fromages"
+                        },
+                        {
+                          "article": "Lanterne Bon 0523868",
+                          "pu_eur": 7.99,
+                          "qte": 1,
+                          "montant_eur": 7.99,
+                          "remise_eur": 0.0,
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 7.99,
+                          "sous_categorie": "Maison & déco (dont Noël)"
+                        },
+                        {
+                          "article": "Lanterne Pèr 0523868",
+                          "pu_eur": 7.99,
+                          "qte": 1,
+                          "montant_eur": 7.99,
+                          "remise_eur": 0.0,
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 7.99,
+                          "sous_categorie": "Maison & déco (dont Noël)"
+                        },
+                        {
+                          "article": "Stickers Noë 0523882",
+                          "pu_eur": 0.49,
+                          "qte": 4,
+                          "montant_eur": 1.96,
+                          "remise_eur": 0.0,
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.96,
+                          "sous_categorie": "Maison & déco (dont Noël)"
+                        },
+                        {
+                          "article": "Stickers Noë 0523882",
+                          "pu_eur": 0.49,
+                          "qte": 1,
+                          "montant_eur": 0.49,
+                          "remise_eur": 0.0,
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 0.49,
+                          "sous_categorie": "Maison & déco (dont Noël)"
+                        },
+                        {
+                          "article": "Stickers Noë 0523882",
+                          "pu_eur": 0.49,
+                          "qte": 1,
+                          "montant_eur": 0.49,
+                          "remise_eur": 0.0,
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 0.49,
+                          "sous_categorie": "Maison & déco (dont Noël)"
+                        },
+                        {
+                          "article": "FM Jambon Sup 4T",
+                          "pu_eur": 2.09,
+                          "qte": 1,
+                          "montant_eur": 2.09,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 2.09,
+                          "sous_categorie": "Viande & poisson"
+                        },
+                        {
+                          "article": "Pain aux noix",
+                          "pu_eur": 1.99,
+                          "qte": 1,
+                          "montant_eur": 1.99,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.99,
+                          "sous_categorie": "Boulangerie"
+                        },
+                        {
+                          "article": "Sac cabas 4 anses",
+                          "pu_eur": 0.99,
+                          "qte": 1,
+                          "montant_eur": 0.99,
+                          "remise_eur": 0.0,
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 0.99,
+                          "sous_categorie": "Sacs"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "120040478420261113135157",
+                      "date": "2026-11-13",
+                      "heure": "09:42:13",
+                      "magasin": "S",
+                      "magasin_libelle": "Schiltigheim",
+                      "magasin_code": "4047",
+                      "magasin_nom": "SCHILTIGHEIM Frédérique Kleinknecht",
+                      "lien": "https://www.lidl.fr/mre/purchase-detail?t=120040478420261113135157",
+                      "a_payer_eur": 44.06,
+                      "a_payer_usd": 48.22,
+                      "remise_eur": -2.62,
+                      "remise_eur_abs": 2.62,
+                      "tr_eligible_eur": 30.11,
+                      "tr_eur": 0.0,
+                      "cb_eur": 44.06,
+                      "n_articles": 13,
+                      "lignes": [
+                        {
+                          "article": "Ultra Doux Camomille",
+                          "pu_eur": 3.36,
+                          "qte": 1,
+                          "montant_eur": 3.36,
+                          "remise_eur": -0.03,
+                          "remises": [
+                            {
+                              "libelle": "Prix en baisse",
+                              "montant_eur": -0.03
+                            }
+                          ],
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 3.33,
+                          "sous_categorie": "Hygiène & beauté"
+                        },
+                        {
+                          "article": "L'Or Espresso Rist.",
+                          "pu_eur": 13.97,
+                          "qte": 1,
+                          "montant_eur": 13.97,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 13.97,
+                          "sous_categorie": "Boissons sans alcool"
+                        },
+                        {
+                          "article": "Barilla Lasagne",
+                          "pu_eur": 1.95,
+                          "qte": 1,
+                          "montant_eur": 1.95,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.95,
+                          "sous_categorie": "Épicerie salée"
+                        },
+                        {
+                          "article": "Viande boeuf hachée",
+                          "pu_eur": 5.85,
+                          "qte": 1,
+                          "montant_eur": 5.85,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 5.85,
+                          "sous_categorie": "Viande & poisson"
+                        },
+                        {
+                          "article": "Persil lessive Prov.",
+                          "pu_eur": 10.32,
+                          "qte": 1,
+                          "montant_eur": 10.32,
+                          "remise_eur": -1.56,
+                          "remises": [
+                            {
+                              "libelle": "Prix en baisse",
+                              "montant_eur": -1.56
+                            }
+                          ],
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 8.76,
+                          "sous_categorie": "Entretien maison"
+                        },
+                        {
+                          "article": "Sac poignée souple",
+                          "pu_eur": 0.12,
+                          "qte": 2,
+                          "montant_eur": 0.24,
+                          "remise_eur": 0.0,
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 0.24,
+                          "sous_categorie": "Sacs"
+                        },
+                        {
+                          "article": "Emmental râpé",
+                          "pu_eur": 1.65,
+                          "qte": 1,
+                          "montant_eur": 1.65,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.65,
+                          "sous_categorie": "Crèmerie & fromages"
+                        },
+                        {
+                          "article": "Oignon jaune 4 têtes",
+                          "pu_eur": 1.79,
+                          "qte": 1,
+                          "montant_eur": 1.79,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.79,
+                          "sous_categorie": "Frais (fruits, légumes)"
+                        },
+                        {
+                          "article": "Purée de tomates",
+                          "pu_eur": 1.87,
+                          "qte": 1,
+                          "montant_eur": 1.87,
+                          "remise_eur": -1.02,
+                          "remises": [
+                            {
+                              "libelle": "Prix en baisse",
+                              "montant_eur": -1.02
+                            }
+                          ],
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 0.85,
+                          "sous_categorie": "Épicerie salée"
+                        },
+                        {
+                          "article": "Panzani sauce tomate",
+                          "pu_eur": 1.48,
+                          "qte": 1,
+                          "montant_eur": 1.48,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.48,
+                          "sous_categorie": "Épicerie salée"
+                        },
+                        {
+                          "article": "Knorr Fines Herbes",
+                          "pu_eur": 1.42,
+                          "qte": 1,
+                          "montant_eur": 1.42,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.42,
+                          "sous_categorie": "Épicerie salée"
+                        },
+                        {
+                          "article": "Maggi Bechamel",
+                          "pu_eur": 1.16,
+                          "qte": 1,
+                          "montant_eur": 1.16,
+                          "remise_eur": -0.01,
+                          "remises": [
+                            {
+                              "libelle": "Prix en baisse",
+                              "montant_eur": -0.01
+                            }
+                          ],
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.15,
+                          "sous_categorie": "Épicerie salée"
+                        },
+                        {
+                          "article": "Sacs poubelle 100 L",
+                          "pu_eur": 1.62,
+                          "qte": 1,
+                          "montant_eur": 1.62,
+                          "remise_eur": 0.0,
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.62,
+                          "sous_categorie": "Entretien maison"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "12003772862026111422660",
+                      "date": "2026-11-14",
+                      "heure": "12:14:38",
+                      "magasin": "H",
+                      "magasin_libelle": "Hoenheim",
+                      "magasin_code": "3772",
+                      "magasin_nom": "HOENHEIM Brumath",
+                      "lien": "https://www.lidl.fr/mre/purchase-detail?t=12003772862026111422660",
+                      "a_payer_eur": 39.16,
+                      "a_payer_usd": 42.86,
+                      "remise_eur": 0.0,
+                      "remise_eur_abs": 0.0,
+                      "tr_eligible_eur": 22.81,
+                      "tr_eur": 22.81,
+                      "cb_eur": 16.35,
+                      "n_articles": 10,
+                      "lignes": [
+                        {
+                          "article": "Red Bull Summer",
+                          "pu_eur": 1.39,
+                          "qte": 1,
+                          "montant_eur": 1.39,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.39,
+                          "sous_categorie": "Boissons sans alcool"
+                        },
+                        {
+                          "article": "Mouchoirs blancs 120",
+                          "pu_eur": 1.38,
+                          "qte": 1,
+                          "montant_eur": 1.38,
+                          "remise_eur": 0.0,
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.38,
+                          "sous_categorie": "Hygiène & beauté"
+                        },
+                        {
+                          "article": "Boules de No 0551545",
+                          "pu_eur": 5.99,
+                          "qte": 1,
+                          "montant_eur": 5.99,
+                          "remise_eur": 0.0,
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 5.99,
+                          "sous_categorie": "Maison & déco (dont Noël)"
+                        },
+                        {
+                          "article": "Boules de No 0551545",
+                          "pu_eur": 5.99,
+                          "qte": 1,
+                          "montant_eur": 5.99,
+                          "remise_eur": 0.0,
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 5.99,
+                          "sous_categorie": "Maison & déco (dont Noël)"
+                        },
+                        {
+                          "article": "Yaourt à la grecque",
+                          "pu_eur": 2.39,
+                          "qte": 1,
+                          "montant_eur": 2.39,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 2.39,
+                          "sous_categorie": "Crèmerie & fromages"
+                        },
+                        {
+                          "article": "Viande hachée 20%",
+                          "pu_eur": 7.25,
+                          "qte": 1,
+                          "montant_eur": 7.25,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 7.25,
+                          "sous_categorie": "Viande & poisson"
+                        },
+                        {
+                          "article": "Spaetzle",
+                          "pu_eur": 2.65,
+                          "qte": 2,
+                          "montant_eur": 5.3,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 5.3,
+                          "sous_categorie": "Épicerie salée"
+                        },
+                        {
+                          "article": "Emincés de saumon",
+                          "pu_eur": 4.49,
+                          "qte": 1,
+                          "montant_eur": 4.49,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 4.49,
+                          "sous_categorie": "Viande & poisson"
+                        },
+                        {
+                          "article": "Abbaye de vauclair",
+                          "pu_eur": 2.99,
+                          "qte": 1,
+                          "montant_eur": 2.99,
+                          "remise_eur": 0.0,
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 2.99,
+                          "sous_categorie": "Alcool"
+                        },
+                        {
+                          "article": "Pain aux noix",
+                          "pu_eur": 1.99,
+                          "qte": 1,
+                          "montant_eur": 1.99,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.99,
+                          "sous_categorie": "Boulangerie"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "12003772812026111634348",
+                      "date": "2026-11-16",
+                      "heure": "12:16:56",
+                      "magasin": "H",
+                      "magasin_libelle": "Hoenheim",
+                      "magasin_code": "3772",
+                      "magasin_nom": "HOENHEIM Brumath",
+                      "lien": "https://www.lidl.fr/mre/purchase-detail?t=12003772812026111634348",
+                      "a_payer_eur": 71.39,
+                      "a_payer_usd": 78.13,
+                      "remise_eur": -18.0,
+                      "remise_eur_abs": 18.0,
+                      "tr_eligible_eur": 3.43,
+                      "tr_eur": 0.0,
+                      "cb_eur": 71.39,
+                      "n_articles": 6,
+                      "lignes": [
+                        {
+                          "article": "Sapin de Noë 0523867",
+                          "pu_eur": 59.99,
+                          "qte": 1,
+                          "montant_eur": 59.99,
+                          "remise_eur": -15.0,
+                          "remises": [
+                            {
+                              "libelle": "Prix en baisse",
+                              "montant_eur": -15.0
+                            }
+                          ],
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 44.99,
+                          "sous_categorie": "Maison & déco (dont Noël)"
+                        },
+                        {
+                          "article": "Maison décor 0524350",
+                          "pu_eur": 8.99,
+                          "qte": 1,
+                          "montant_eur": 8.99,
+                          "remise_eur": -1.0,
+                          "remises": [
+                            {
+                              "libelle": "Prix en baisse",
+                              "montant_eur": -1.0
+                            }
+                          ],
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 7.99,
+                          "sous_categorie": "Maison & déco (dont Noël)"
+                        },
+                        {
+                          "article": "Maison décor 0524350",
+                          "pu_eur": 8.99,
+                          "qte": 1,
+                          "montant_eur": 8.99,
+                          "remise_eur": -1.0,
+                          "remises": [
+                            {
+                              "libelle": "Prix en baisse",
+                              "montant_eur": -1.0
+                            }
+                          ],
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 7.99,
+                          "sous_categorie": "Maison & déco (dont Noël)"
+                        },
+                        {
+                          "article": "Moulins sel/ 0489756",
+                          "pu_eur": 7.99,
+                          "qte": 1,
+                          "montant_eur": 7.99,
+                          "remise_eur": -1.0,
+                          "remises": [
+                            {
+                              "libelle": "Prix en baisse",
+                              "montant_eur": -1.0
+                            }
+                          ],
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 6.99,
+                          "sous_categorie": "Cuisine & bricolage (non alimentaire)"
+                        },
+                        {
+                          "article": "Cheddar en tranches",
+                          "pu_eur": 1.94,
+                          "qte": 1,
+                          "montant_eur": 1.94,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.94,
+                          "sous_categorie": "Crèmerie & fromages"
+                        },
+                        {
+                          "article": "Pain nordique",
+                          "pu_eur": 1.49,
+                          "qte": 1,
+                          "montant_eur": 1.49,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.49,
+                          "sous_categorie": "Boulangerie"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "120040478420261116135528",
+                      "date": "2026-11-16",
+                      "heure": "17:33:05",
+                      "magasin": "S",
+                      "magasin_libelle": "Schiltigheim",
+                      "magasin_code": "4047",
+                      "magasin_nom": "SCHILTIGHEIM Frédérique Kleinknecht",
+                      "lien": "https://www.lidl.fr/mre/purchase-detail?t=120040478420261116135528",
+                      "a_payer_eur": 18.71,
+                      "a_payer_usd": 20.48,
+                      "remise_eur": 0.0,
+                      "remise_eur_abs": 0.0,
+                      "tr_eligible_eur": 16.0,
+                      "tr_eur": 0.0,
+                      "cb_eur": 18.71,
+                      "n_articles": 9,
+                      "lignes": [
+                        {
+                          "article": "Sirop de menthe",
+                          "pu_eur": 1.99,
+                          "qte": 1,
+                          "montant_eur": 1.99,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.99,
+                          "sous_categorie": "Boissons sans alcool"
+                        },
+                        {
+                          "article": "Brosse à dents Sensi",
+                          "pu_eur": 0.85,
+                          "qte": 2,
+                          "montant_eur": 1.7,
+                          "remise_eur": 0.0,
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.7,
+                          "sous_categorie": "Hygiène & beauté"
+                        },
+                        {
+                          "article": "Brosse à dents White",
+                          "pu_eur": 0.85,
+                          "qte": 1,
+                          "montant_eur": 0.85,
+                          "remise_eur": 0.0,
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 0.85,
+                          "sous_categorie": "Hygiène & beauté"
+                        },
+                        {
+                          "article": "Feuille de Chêne",
+                          "pu_eur": 0.95,
+                          "qte": 1,
+                          "montant_eur": 0.95,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 0.95,
+                          "sous_categorie": "Frais (fruits, légumes)"
+                        },
+                        {
+                          "article": "Yoplait Perle lait",
+                          "pu_eur": 2.69,
+                          "qte": 1,
+                          "montant_eur": 2.69,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 2.69,
+                          "sous_categorie": "Crèmerie & fromages"
+                        },
+                        {
+                          "article": "Tomates farcies",
+                          "pu_eur": 4.29,
+                          "qte": 1,
+                          "montant_eur": 4.29,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 4.29,
+                          "sous_categorie": "Plats préparés & pizzas"
+                        },
+                        {
+                          "article": "Pizza Prosciutto",
+                          "pu_eur": 3.99,
+                          "qte": 1,
+                          "montant_eur": 3.99,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 3.99,
+                          "sous_categorie": "Plats préparés & pizzas"
+                        },
+                        {
+                          "article": "Crème UHT 18%",
+                          "pu_eur": 2.09,
+                          "qte": 1,
+                          "montant_eur": 2.09,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 2.09,
+                          "sous_categorie": "Crèmerie & fromages"
+                        },
+                        {
+                          "article": "Sac en papier 20L",
+                          "pu_eur": 0.16,
+                          "qte": 1,
+                          "montant_eur": 0.16,
+                          "remise_eur": 0.0,
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 0.16,
+                          "sous_categorie": "Sacs"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "12003772822026111828379",
+                      "date": "2026-11-18",
+                      "heure": "11:48:42",
+                      "magasin": "H",
+                      "magasin_libelle": "Hoenheim",
+                      "magasin_code": "3772",
+                      "magasin_nom": "HOENHEIM Brumath",
+                      "lien": "https://www.lidl.fr/mre/purchase-detail?t=12003772822026111828379",
+                      "a_payer_eur": 12.61,
+                      "a_payer_usd": 13.8,
+                      "remise_eur": -4.45,
+                      "remise_eur_abs": 4.45,
+                      "tr_eligible_eur": 1.99,
+                      "tr_eur": 1.99,
+                      "cb_eur": 10.62,
+                      "n_articles": 7,
+                      "lignes": [
+                        {
+                          "article": "Boules de No 0529140",
+                          "pu_eur": 4.99,
+                          "qte": 1,
+                          "montant_eur": 4.99,
+                          "remise_eur": -2.0,
+                          "remises": [
+                            {
+                              "libelle": "Rem Boules de Noël 6p",
+                              "montant_eur": -2.0
+                            }
+                          ],
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 2.99,
+                          "sous_categorie": "Maison & déco (dont Noël)"
+                        },
+                        {
+                          "article": "Boules de No 0529140",
+                          "pu_eur": 4.99,
+                          "qte": 1,
+                          "montant_eur": 4.99,
+                          "remise_eur": -2.0,
+                          "remises": [
+                            {
+                              "libelle": "Rem Boules de Noël 6p",
+                              "montant_eur": -2.0
+                            }
+                          ],
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 2.99,
+                          "sous_categorie": "Maison & déco (dont Noël)"
+                        },
+                        {
+                          "article": "Guirlande lu 0521013",
+                          "pu_eur": 1.49,
+                          "qte": 1,
+                          "montant_eur": 1.49,
+                          "remise_eur": -0.23,
+                          "remises": [
+                            {
+                              "libelle": "Rem Guirlande lumineuse à",
+                              "montant_eur": -0.23
+                            }
+                          ],
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.26,
+                          "sous_categorie": "Maison & déco (dont Noël)"
+                        },
+                        {
+                          "article": "Guirlande lu 0521013",
+                          "pu_eur": 1.49,
+                          "qte": 1,
+                          "montant_eur": 1.49,
+                          "remise_eur": -0.22,
+                          "remises": [
+                            {
+                              "libelle": "Rem Guirlande lumineuse à",
+                              "montant_eur": -0.22
+                            }
+                          ],
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.27,
+                          "sous_categorie": "Maison & déco (dont Noël)"
+                        },
+                        {
+                          "article": "Guirlande lu 0523843",
+                          "pu_eur": 1.99,
+                          "qte": 1,
+                          "montant_eur": 1.99,
+                          "remise_eur": 0.0,
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.99,
+                          "sous_categorie": "Maison & déco (dont Noël)"
+                        },
+                        {
+                          "article": "Pizza 3 fromages",
+                          "pu_eur": 1.99,
+                          "qte": 1,
+                          "montant_eur": 1.99,
+                          "remise_eur": 0.0,
+                          "tva": "E",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.99,
+                          "sous_categorie": "Plats préparés & pizzas"
+                        },
+                        {
+                          "article": "Sac poignée souple",
+                          "pu_eur": 0.12,
+                          "qte": 1,
+                          "montant_eur": 0.12,
+                          "remise_eur": 0.0,
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 0.12,
+                          "sous_categorie": "Sacs"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "120040478520261118160263",
+                      "date": "2026-11-18",
+                      "heure": "16:46:21",
+                      "magasin": "S",
+                      "magasin_libelle": "Schiltigheim",
+                      "magasin_code": "4047",
+                      "magasin_nom": "SCHILTIGHEIM Frédérique Kleinknecht",
+                      "lien": "https://www.lidl.fr/mre/purchase-detail?t=120040478520261118160263",
+                      "a_payer_eur": 21.29,
+                      "a_payer_usd": 23.3,
+                      "remise_eur": 0.0,
+                      "remise_eur_abs": 0.0,
+                      "tr_eligible_eur": 17.48,
+                      "tr_eur": 0.0,
+                      "cb_eur": 21.29,
+                      "n_articles": 9,
+                      "lignes": [
+                        {
+                          "article": "Litière agglomérante",
+                          "pu_eur": 3.69,
+                          "qte": 1,
+                          "montant_eur": 3.69,
+                          "remise_eur": 0.0,
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 3.69,
+                          "sous_categorie": "Animaux (litière)"
+                        },
+                        {
+                          "article": "Noix de Cajou aromat",
+                          "pu_eur": 2.98,
+                          "qte": 1,
+                          "montant_eur": 2.98,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 2.98,
+                          "sous_categorie": "Épicerie sucrée & snacks"
+                        },
+                        {
+                          "article": "Pommes de terre",
+                          "pu_eur": 2.99,
+                          "qte": 1,
+                          "montant_eur": 2.99,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 2.99,
+                          "sous_categorie": "Frais (fruits, légumes)"
+                        },
+                        {
+                          "article": "Saucisses fumées x6",
+                          "pu_eur": 4.99,
+                          "qte": 1,
+                          "montant_eur": 4.99,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 4.99,
+                          "sous_categorie": "Viande & poisson"
+                        },
+                        {
+                          "article": "Haricots verts extra",
+                          "pu_eur": 1.85,
+                          "qte": 1,
+                          "montant_eur": 1.85,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.85,
+                          "sous_categorie": "Épicerie salée"
+                        },
+                        {
+                          "article": "Champignon blanc 250",
+                          "pu_eur": 1.79,
+                          "qte": 1,
+                          "montant_eur": 1.79,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.79,
+                          "sous_categorie": "Frais (fruits, légumes)"
+                        },
+                        {
+                          "article": "Riz Basmati Bio",
+                          "pu_eur": 1.49,
+                          "qte": 1,
+                          "montant_eur": 1.49,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.49,
+                          "sous_categorie": "Épicerie salée"
+                        },
+                        {
+                          "article": "Sac poignée souple",
+                          "pu_eur": 0.12,
+                          "qte": 1,
+                          "montant_eur": 0.12,
+                          "remise_eur": 0.0,
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 0.12,
+                          "sous_categorie": "Sacs"
+                        },
+                        {
+                          "article": "Fuze Tea Pêche",
+                          "pu_eur": 1.39,
+                          "qte": 1,
+                          "montant_eur": 1.39,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.39,
+                          "sous_categorie": "Boissons sans alcool"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "12003772832026111923195",
+                      "date": "2026-11-19",
+                      "heure": "12:25:32",
+                      "magasin": "H",
+                      "magasin_libelle": "Hoenheim",
+                      "magasin_code": "3772",
+                      "magasin_nom": "HOENHEIM Brumath",
+                      "lien": "https://www.lidl.fr/mre/purchase-detail?t=12003772832026111923195",
+                      "a_payer_eur": 58.11,
+                      "a_payer_usd": 63.6,
+                      "remise_eur": -9.99,
+                      "remise_eur_abs": 9.99,
+                      "tr_eligible_eur": 5.19,
+                      "tr_eur": 0.0,
+                      "cb_eur": 58.11,
+                      "n_articles": 10,
+                      "lignes": [
+                        {
+                          "article": "Chauss. F gr 0524421",
+                          "pu_eur": 3.99,
+                          "qte": 2,
+                          "montant_eur": 7.98,
+                          "remise_eur": -3.99,
+                          "remises": [
+                            {
+                              "libelle": "Rem Chaussettes technique",
+                              "montant_eur": -3.99
+                            }
+                          ],
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 3.99,
+                          "sous_categorie": "Textile & vêtements"
+                        },
+                        {
+                          "article": "Blanc de poulet 100%",
+                          "pu_eur": 1.35,
+                          "qte": 1,
+                          "montant_eur": 1.35,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.35,
+                          "sous_categorie": "Viande & poisson"
+                        },
+                        {
+                          "article": "Masque de sk 0524765",
+                          "pu_eur": 9.99,
+                          "qte": 1,
+                          "montant_eur": 9.99,
+                          "remise_eur": 0.0,
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 9.99,
+                          "sous_categorie": "Textile & vêtements"
+                        },
+                        {
+                          "article": "Masque de sk 0524765",
+                          "pu_eur": 9.99,
+                          "qte": 1,
+                          "montant_eur": 9.99,
+                          "remise_eur": 0.0,
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 9.99,
+                          "sous_categorie": "Textile & vêtements"
+                        },
+                        {
+                          "article": "Chauss. F gr 0524421",
+                          "pu_eur": 3.99,
+                          "qte": 2,
+                          "montant_eur": 7.98,
+                          "remise_eur": 0.0,
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 7.98,
+                          "sous_categorie": "Textile & vêtements"
+                        },
+                        {
+                          "article": "Caleçon F ma 0484986",
+                          "pu_eur": 8.99,
+                          "qte": 1,
+                          "montant_eur": 8.99,
+                          "remise_eur": -2.0,
+                          "remises": [
+                            {
+                              "libelle": "Prix en baisse",
+                              "montant_eur": -2.0
+                            }
+                          ],
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 6.99,
+                          "sous_categorie": "Textile & vêtements"
+                        },
+                        {
+                          "article": "Caleçon F ma 0484986",
+                          "pu_eur": 8.99,
+                          "qte": 1,
+                          "montant_eur": 8.99,
+                          "remise_eur": -2.0,
+                          "remises": [
+                            {
+                              "libelle": "Prix en baisse",
+                              "montant_eur": -2.0
+                            }
+                          ],
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 6.99,
+                          "sous_categorie": "Textile & vêtements"
+                        },
+                        {
+                          "article": "Caleçon H no 0484989",
+                          "pu_eur": 8.99,
+                          "qte": 1,
+                          "montant_eur": 8.99,
+                          "remise_eur": -2.0,
+                          "remises": [
+                            {
+                              "libelle": "Prix en baisse",
+                              "montant_eur": -2.0
+                            }
+                          ],
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 6.99,
+                          "sous_categorie": "Textile & vêtements"
+                        },
+                        {
+                          "article": "Yaourt à la grecque",
+                          "pu_eur": 2.35,
+                          "qte": 1,
+                          "montant_eur": 2.35,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 2.35,
+                          "sous_categorie": "Crèmerie & fromages"
+                        },
+                        {
+                          "article": "Pain nordique",
+                          "pu_eur": 1.49,
+                          "qte": 1,
+                          "montant_eur": 1.49,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.49,
+                          "sous_categorie": "Boulangerie"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "12003772862026112023257",
+                      "date": "2026-11-20",
+                      "heure": "12:19:43",
+                      "magasin": "H",
+                      "magasin_libelle": "Hoenheim",
+                      "magasin_code": "3772",
+                      "magasin_nom": "HOENHEIM Brumath",
+                      "lien": "https://www.lidl.fr/mre/purchase-detail?t=12003772862026112023257",
+                      "a_payer_eur": 12.96,
+                      "a_payer_usd": 14.18,
+                      "remise_eur": 0.0,
+                      "remise_eur_abs": 0.0,
+                      "tr_eligible_eur": 9.97,
+                      "tr_eur": 0.0,
+                      "cb_eur": 12.96,
+                      "n_articles": 4,
+                      "lignes": [
+                        {
+                          "article": "Pizza Prosciutto",
+                          "pu_eur": 3.99,
+                          "qte": 1,
+                          "montant_eur": 3.99,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 3.99,
+                          "sous_categorie": "Plats préparés & pizzas"
+                        },
+                        {
+                          "article": "Pizza Pesto",
+                          "pu_eur": 3.99,
+                          "qte": 1,
+                          "montant_eur": 3.99,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 3.99,
+                          "sous_categorie": "Plats préparés & pizzas"
+                        },
+                        {
+                          "article": "Abbaye de vauclair",
+                          "pu_eur": 2.99,
+                          "qte": 1,
+                          "montant_eur": 2.99,
+                          "remise_eur": 0.0,
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 2.99,
+                          "sous_categorie": "Alcool"
+                        },
+                        {
+                          "article": "Pizza Reine",
+                          "pu_eur": 1.99,
+                          "qte": 1,
+                          "montant_eur": 1.99,
+                          "remise_eur": 0.0,
+                          "tva": "E",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.99,
+                          "sous_categorie": "Plats préparés & pizzas"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "12003772822026112128779",
+                      "date": "2026-11-21",
+                      "heure": "13:21:39",
+                      "magasin": "H",
+                      "magasin_libelle": "Hoenheim",
+                      "magasin_code": "3772",
+                      "magasin_nom": "HOENHEIM Brumath",
+                      "lien": "https://www.lidl.fr/mre/purchase-detail?t=12003772822026112128779",
+                      "a_payer_eur": 14.71,
+                      "a_payer_usd": 16.1,
+                      "remise_eur": -0.1,
+                      "remise_eur_abs": 0.1,
+                      "tr_eligible_eur": 12.92,
+                      "tr_eur": 12.92,
+                      "cb_eur": 1.79,
+                      "n_articles": 4,
+                      "lignes": [
+                        {
+                          "article": "Pizza Pesto",
+                          "pu_eur": 3.99,
+                          "qte": 2,
+                          "montant_eur": 7.98,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 7.98,
+                          "sous_categorie": "Plats préparés & pizzas"
+                        },
+                        {
+                          "article": "Gel douche BLACK",
+                          "pu_eur": 1.89,
+                          "qte": 1,
+                          "montant_eur": 1.89,
+                          "remise_eur": -0.1,
+                          "remises": [
+                            {
+                              "libelle": "Prix en baisse",
+                              "montant_eur": -0.1
+                            }
+                          ],
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.79,
+                          "sous_categorie": "Hygiène & beauté"
+                        },
+                        {
+                          "article": "Pizza 3 fromages",
+                          "pu_eur": 1.99,
+                          "qte": 1,
+                          "montant_eur": 1.99,
+                          "remise_eur": 0.0,
+                          "tva": "E",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.99,
+                          "sous_categorie": "Plats préparés & pizzas"
+                        },
+                        {
+                          "article": "Beignet fruits",
+                          "pu_eur": 0.59,
+                          "qte": 5,
+                          "montant_eur": 2.95,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 2.95,
+                          "sous_categorie": "Boulangerie"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "120040478420261123136052",
+                      "date": "2026-11-23",
+                      "heure": "09:42:10",
+                      "magasin": "S",
+                      "magasin_libelle": "Schiltigheim",
+                      "magasin_code": "4047",
+                      "magasin_nom": "SCHILTIGHEIM Frédérique Kleinknecht",
+                      "lien": "https://www.lidl.fr/mre/purchase-detail?t=120040478420261123136052",
+                      "a_payer_eur": 27.08,
+                      "a_payer_usd": 29.64,
+                      "remise_eur": -1.03,
+                      "remise_eur_abs": 1.03,
+                      "tr_eligible_eur": 18.68,
+                      "tr_eur": 0.0,
+                      "cb_eur": 27.08,
+                      "n_articles": 13,
+                      "lignes": [
+                        {
+                          "article": "Etoile noël cannelle",
+                          "pu_eur": 2.99,
+                          "qte": 1,
+                          "montant_eur": 2.99,
+                          "remise_eur": -1.0,
+                          "remises": [
+                            {
+                              "libelle": "Prix en baisse",
+                              "montant_eur": -0.5
+                            },
+                            {
+                              "libelle": "Rem Etoiles de Noël",
+                              "montant_eur": -0.5
+                            }
+                          ],
+                          "tva": "A",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.99,
+                          "sous_categorie": "Épicerie sucrée & snacks"
+                        },
+                        {
+                          "article": "Lessive liq Alpine",
+                          "pu_eur": 4.29,
+                          "qte": 1,
+                          "montant_eur": 4.29,
+                          "remise_eur": 0.0,
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 4.29,
+                          "sous_categorie": "Entretien maison"
+                        },
+                        {
+                          "article": "Salade mélange",
+                          "pu_eur": 0.99,
+                          "qte": 1,
+                          "montant_eur": 0.99,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 0.99,
+                          "sous_categorie": "Frais (fruits, légumes)"
+                        },
+                        {
+                          "article": "Vinaigrettes moutard",
+                          "pu_eur": 0.85,
+                          "qte": 1,
+                          "montant_eur": 0.85,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 0.85,
+                          "sous_categorie": "Épicerie salée"
+                        },
+                        {
+                          "article": "Yoplait Perle lait",
+                          "pu_eur": 2.69,
+                          "qte": 1,
+                          "montant_eur": 2.69,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 2.69,
+                          "sous_categorie": "Crèmerie & fromages"
+                        },
+                        {
+                          "article": "Fromage râpé fondant",
+                          "pu_eur": 4.45,
+                          "qte": 1,
+                          "montant_eur": 4.45,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 4.45,
+                          "sous_categorie": "Crèmerie & fromages"
+                        },
+                        {
+                          "article": "Elle&Vire crème NORM",
+                          "pu_eur": 3.08,
+                          "qte": 1,
+                          "montant_eur": 3.08,
+                          "remise_eur": -0.03,
+                          "remises": [
+                            {
+                              "libelle": "Prix en baisse",
+                              "montant_eur": -0.03
+                            }
+                          ],
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 3.05,
+                          "sous_categorie": "Crèmerie & fromages"
+                        },
+                        {
+                          "article": "Lingettes désinfect.",
+                          "pu_eur": 2.12,
+                          "qte": 1,
+                          "montant_eur": 2.12,
+                          "remise_eur": 0.0,
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 2.12,
+                          "sous_categorie": "Entretien maison"
+                        },
+                        {
+                          "article": "Echalote",
+                          "pu_eur": 1.69,
+                          "qte": 1,
+                          "montant_eur": 1.69,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.69,
+                          "sous_categorie": "Frais (fruits, légumes)"
+                        },
+                        {
+                          "article": "Clémentine Filet 1kg",
+                          "pu_eur": 1.99,
+                          "qte": 1,
+                          "montant_eur": 1.99,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.99,
+                          "sous_categorie": "Frais (fruits, légumes)"
+                        },
+                        {
+                          "article": "Pâte brisée",
+                          "pu_eur": 0.69,
+                          "qte": 1,
+                          "montant_eur": 0.69,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 0.69,
+                          "sous_categorie": "Épicerie salée"
+                        },
+                        {
+                          "article": "Oignon jaune 750 g",
+                          "pu_eur": 1.49,
+                          "qte": 1,
+                          "montant_eur": 1.49,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 1.49,
+                          "sous_categorie": "Frais (fruits, légumes)"
+                        },
+                        {
+                          "article": "Lait demi-écrémé UHT",
+                          "pu_eur": 0.79,
+                          "qte": 1,
+                          "montant_eur": 0.79,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 0.79,
+                          "sous_categorie": "Crèmerie & fromages"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "120040478320261124172845",
+                      "date": "2026-11-24",
+                      "heure": "11:31:53",
+                      "magasin": "S",
+                      "magasin_libelle": "Schiltigheim",
+                      "magasin_code": "4047",
+                      "magasin_nom": "SCHILTIGHEIM Frédérique Kleinknecht",
+                      "lien": "https://www.lidl.fr/mre/purchase-detail?t=120040478320261124172845",
+                      "a_payer_eur": 24.39,
+                      "a_payer_usd": 26.69,
+                      "remise_eur": -4.0,
+                      "remise_eur_abs": 4.0,
+                      "tr_eligible_eur": 10.41,
+                      "tr_eur": 0.0,
+                      "cb_eur": 24.39,
+                      "n_articles": 6,
+                      "lignes": [
+                        {
+                          "article": "Coquillettes rapides",
+                          "pu_eur": 0.73,
+                          "qte": 1,
+                          "montant_eur": 0.73,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 0.73,
+                          "sous_categorie": "Épicerie salée"
+                        },
+                        {
+                          "article": "Saucisse fumée à cui",
+                          "pu_eur": 3.39,
+                          "qte": 1,
+                          "montant_eur": 3.39,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 3.39,
+                          "sous_categorie": "Viande & poisson"
+                        },
+                        {
+                          "article": "Saucisse de viande B",
+                          "pu_eur": 3.99,
+                          "qte": 1,
+                          "montant_eur": 3.99,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 3.99,
+                          "sous_categorie": "Viande & poisson"
+                        },
+                        {
+                          "article": "Lentilles",
+                          "pu_eur": 1.15,
+                          "qte": 2,
+                          "montant_eur": 2.3,
+                          "remise_eur": 0.0,
+                          "tva": "A",
+                          "tr": true,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 2.3,
+                          "sous_categorie": "Épicerie salée"
+                        },
+                        {
+                          "article": "Plaid marron 0523469",
+                          "pu_eur": 16.99,
+                          "qte": 1,
+                          "montant_eur": 16.99,
+                          "remise_eur": -4.0,
+                          "remises": [
+                            {
+                              "libelle": "Prix en baisse",
+                              "montant_eur": -4.0
+                            }
+                          ],
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 12.99,
+                          "sous_categorie": "Maison & déco (dont Noël)"
+                        },
+                        {
+                          "article": "Sac cabas 4 anses",
+                          "pu_eur": 0.99,
+                          "qte": 1,
+                          "montant_eur": 0.99,
+                          "remise_eur": 0.0,
+                          "tva": "B",
+                          "tr": false,
+                          "poids_kg": null,
+                          "prix_kg_eur": null,
+                          "net_eur": 0.99,
+                          "sous_categorie": "Sacs"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
             }
           ]
         },
@@ -6036,6 +10431,11 @@
         "note": "Section « Renvoyé de 1 octobre 2026 à 25 novembre 2026 ». Paiements carte annulés / renvoyés, non repris dans les totaux comptables ni dans le Budget octobre.",
         "n": 2
       }
-    }
+    },
+    "total_observe_usd": 2.34,
+    "total_observe_eur": 2.14,
+    "projection_usd": 87.21,
+    "projection_eur": 79.68,
+    "projection_note": "Projection mensuelle = OVN projeté (dernier jour relu × ~30 jours) et abonnement TradingView (Essential annuel / 12). Les frais d'ordres n'y sont pas inclus tant qu'aucun montant n'est sourcé."
   }
 }

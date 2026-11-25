@@ -1190,13 +1190,13 @@
         {
           "id": "tickets_lidl",
           "libelle": "Tickets Lidl — détail par rayons",
-          "statut": "a_venir",
-          "note": "Emplacement prévu pour le détail catégorisé des tickets Lidl (sous-catégories : fruits et légumes, viandes, épicerie, etc.). Aucun ticket n’a été fourni à ce jour : les paiements carte Lidl restent agrégés dans Courses, sans inventer de répartition.",
+          "statut": "complet",
+          "note": "35 tickets Lidl Plus (16 en octobre, 19 en novembre au 24). Source : data/budget/lidl_tickets_2026-10_11.json. Les totaux et le détail sont injectés au build, sans modifier les opérations du relevé.",
           "operations": [],
-          "observe_eur": null
+          "observe_eur": 368.57
         }
       ],
-      "detail": "Lidl, Carrefour, Magasin U, Leclerc, Auchan, IKA, MaxiCoffee. Détail tickets Lidl : à venir."
+      "detail": "Lidl, Carrefour, Magasin U, Leclerc, Auchan, IKA, MaxiCoffee. Tickets Lidl octobre : 368,57 € (16 passages). La part Lidl au relevé carte est 326,02 € sur 984,83 € de Courses (autres enseignes comprises) ; le détail par rayons est sous la ligne."
     },
     {
       "id": "transport",

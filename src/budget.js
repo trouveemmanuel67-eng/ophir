@@ -202,7 +202,94 @@ function bdgCourtHtml(b){
     ${src?`<p class="bdg-src">${bdgEsc(src)}</p>`:''}
   </section>`;
 }
+function bdgLidlOf(c){
+  const sous=(c&&c.sous_categories)||[];
+  return sous.find(s=>s&&s.id==='tickets_lidl'&&s.mois)||null;
+}
+function bdgLidlPct(n){
+  if(n==null||n==='') return '—';
+  const v=Number(n);
+  if(!Number.isFinite(v)) return '—';
+  return v.toLocaleString('fr-FR',{minimumFractionDigits:1,maximumFractionDigits:1})+'\u00a0%';
+}
+function bdgLidlBlock(c){
+  const s=bdgLidlOf(c);
+  if(!s) return '';
+  const oct=s.mois['2026-10']||{};
+  const nov=s.mois['2026-11']||{};
+  const rows=(oct.par_sous_categorie||[]).map((o,i)=>{
+    const n=(nov.par_sous_categorie||[])[i]||{};
+    const empty=!(Number(o.eur)||Number(n.eur));
+    return `<div class="bdg-lidl-row${empty?' is-empty':''}${o.alimentaire?'':' bdg-lidl-nonalim'}">
+      <div class="bdg-lidl-lab">${bdgEsc(o.libelle)}</div>
+      <div class="bdg-num">${bdgAmt(o.eur,'EUR')}</div>
+      <div class="bdg-num">${bdgAmt(o.usd,'USD')}</div>
+      <div class="bdg-num">${bdgLidlPct(o.pct)}</div>
+      <div class="bdg-num">${bdgAmt(n.eur,'EUR')}</div>
+      <div class="bdg-num">${bdgAmt(n.usd,'USD')}</div>
+      <div class="bdg-num">${bdgLidlPct(n.pct)}</div>
+    </div>`;
+  }).join('');
+  const foot=(lab,oa,na,cls='')=>`<div class="bdg-lidl-row bdg-lidl-foot ${cls}">
+      <div class="bdg-lidl-lab">${bdgEsc(lab)}</div>
+      <div class="bdg-num">${bdgAmt(oa.eur,'EUR')}</div>
+      <div class="bdg-num">${bdgAmt(oa.usd,'USD')}</div>
+      <div class="bdg-num">${bdgLidlPct(oa.pct)}</div>
+      <div class="bdg-num">${bdgAmt(na.eur,'EUR')}</div>
+      <div class="bdg-num">${bdgAmt(na.usd,'USD')}</div>
+      <div class="bdg-num">${bdgLidlPct(na.pct)}</div>
+    </div>`;
+  const totFoot=foot('Total Lidl',{eur:oct.total_eur,usd:oct.total_usd,pct:100},{eur:nov.total_eur,usd:nov.total_usd,pct:100},'bdg-lidl-tot');
+  const alimFoot=foot('Alimentaire',{eur:oct.alimentaire_eur,usd:oct.alimentaire_usd,pct:oct.alimentaire_pct},{eur:nov.alimentaire_eur,usd:nov.alimentaire_usd,pct:nov.alimentaire_pct});
+  const nonFoot=foot('Non alimentaire',{eur:oct.non_alimentaire_eur,usd:oct.non_alimentaire_usd,pct:oct.non_alimentaire_pct},{eur:nov.non_alimentaire_eur,usd:nov.non_alimentaire_usd,pct:nov.non_alimentaire_pct});
+  const kv=(lab,octV,novV)=>`<div class="home-kv"><span class="l">${bdgEsc(lab)}</span><b>${octV}</b><small>oct</small><b>${novV}</b><small>nov</small></div>`;
+  const kvs=`<div class="home-strip bdg-kvs bdg-lidl-kvs">
+    ${kv('Alimentaire',bdgAmt(oct.alimentaire_eur,'EUR'),bdgAmt(nov.alimentaire_eur,'EUR'))}
+    ${kv('Non alimentaire',bdgAmt(oct.non_alimentaire_eur,'EUR'),bdgAmt(nov.non_alimentaire_eur,'EUR'))}
+    ${kv('Remises (économies)',bdgAmt(oct.remises_eur_abs,'EUR'),bdgAmt(nov.remises_eur_abs,'EUR'))}
+    ${kv('Titres-restaurant',bdgAmt(oct.tr_eur,'EUR')+' · '+bdgLidlPct(oct.tr_pct),bdgAmt(nov.tr_eur,'EUR')+' · '+bdgLidlPct(nov.tr_pct))}
+    ${kv('Passages',String(oct.n_tickets||0),String(nov.n_tickets||0))}
+    ${kv('Panier moyen',bdgAmt(oct.panier_moyen_eur,'EUR'),bdgAmt(nov.panier_moyen_eur,'EUR'))}
+  </div>`;
+  const ticketList=(m,arr)=>`<details class="bdg-ops bdg-lidl-tickets"><summary>${bdgEsc(m.libelle||'')} · ${m.n_tickets||0} passage${(m.n_tickets||0)>1?'s':''} · ${bdgAmt(m.total_eur,'EUR')}</summary>
+    <ul class="bdg-op-list">${(arr||[]).map(t=>{
+      const mag=t.magasin==='S'?'Schiltigheim':(t.magasin==='H'?'Hoenheim':(t.magasin_libelle||''));
+      const when=(t.date?bdgDate(t.date):'')+(t.heure?(' · '+t.heure.slice(0,5)):'');
+      const href=t.lien||('https://www.lidl.fr/mre/purchase-detail?t='+t.id);
+      return `<li><span class="bdg-op-d">${bdgEsc(when)}</span><span class="bdg-op-l"><a href="${bdgEsc(href)}" target="_blank" rel="noopener">${bdgEsc(mag)}</a></span><span class="bdg-op-m">${bdgAmt(t.a_payer_eur,'EUR')}</span></li>`;
+    }).join('')}</ul>
+  </details>`;
+  const part=s.courses_releve_octobre||{};
+  const note=part.note||'Les Courses du relevé incluent aussi d’autres enseignes.';
+  const partLine=part.lidl_releve_eur!=null?(`Part Lidl d’octobre au relevé : ${bdgAmt(part.lidl_releve_eur,'EUR')} sur ${bdgAmt(part.observe_eur,'EUR')} de Courses (${bdgLidlPct(part.lidl_part_releve_pct)}), pour ${part.lidl_releve_n||'—'} paiements carte. Les tickets Lidl d’octobre totalisent ${bdgAmt(part.lidl_tickets_eur,'EUR')}.`):'';
+  return `<div class="bdg-sous bdg-lidl" id="bdg-courses-sous">
+    <div class="home-hero-top">
+      <h3>${bdgEsc(s.libelle||'Tickets Lidl — détail par rayons')}</h3>
+      <p class="desc">Octobre et novembre 2026 (au 24) · change 1,0944 · objectif —</p>
+    </div>
+    ${kvs}
+    <div class="home-table-scroll">
+      <div class="bdg-lidl-table">
+        <div class="bdg-lidl-row bdg-lidl-th" aria-hidden="true">
+          <div>Rayon</div>
+          <div>Octobre €</div><div>$</div><div>%</div>
+          <div>Novembre €</div><div>$</div><div>%</div>
+        </div>
+        ${rows}
+        ${alimFoot}
+        ${nonFoot}
+        ${totFoot}
+      </div>
+    </div>
+    <p class="bdg-src">${bdgEsc(note)}${partLine?(' '+partLine):''}</p>
+    <div class="bdg-lidl-lists">
+      ${ticketList(oct,oct.tickets)}
+      ${ticketList(nov,nov.tickets)}
+    </div>
+  </div>`;
+}
 function bdgJointHtml(b){
+
   const j=bdgJoint(b);
   if(!j) return '';
   const tot=j.totaux||{};
@@ -216,11 +303,7 @@ function bdgJointHtml(b){
     const zeroEmpty=empty && !(Number(c.observe_eur));
     let extra='';
     if(c.id==='courses'){
-      const sous=(c.sous_categories||[]).map(s=>{
-        const st=s.statut==='a_venir'?'<span class="bdg-soon">à venir</span>':'';
-        return `<div class="bdg-sous" id="bdg-courses-sous"><p class="desc"><strong>${bdgEsc(s.libelle||'Tickets Lidl')}</strong> ${st}${(s.note)?(' — '+bdgEsc(s.note)) : ''}</p></div>`;
-      }).join('');
-      extra=sous;
+      extra='';
     }
     const sum=(c.detail||(c.n_operations? (c.n_operations+' opération'+(c.n_operations>1?'s':'')) : 'Aucune opération en octobre 2026.'));
     const det=empty?`<div class="bdg-det">${bdgEsc(c.detail||'Aucune opération en octobre 2026.')}</div>`:bdgOpsDetails(c.operations,sum,extra);
@@ -229,7 +312,7 @@ function bdgJointHtml(b){
     if(c.id==='virements_internes') cls.push('bdg-cat-interne');
     if(c.id==='air_glow_pub') cls.push('bdg-cat-pro');
     if(zeroEmpty) cls.push('is-empty');
-    return bdgRow({
+    const row=bdgRow({
       id:'bdg-cat-'+c.id,
       cls:cls,
       poste:c.poste||c.id,
@@ -240,6 +323,7 @@ function bdgJointHtml(b){
       projEur:zeroEmpty?'—':bdgAmt(c.projection_eur,'EUR'),
       objectif:'—'
     });
+    return c.id==='courses'? (row+bdgLidlBlock(c)) : row;
   }).join('');
   const resteNeg=Number(tot.reste_eur)<0;
   const depNote=tot.depenses_note||'Hors virements internes, épargne, investissement et dépenses pro Air Glow (pub)';

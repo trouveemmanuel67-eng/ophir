@@ -19,6 +19,7 @@ FRAIS_CFD = DATA / "revolut" / "frais_cfd_ovn.json"
 FRAIS_TRADING = DATA / "revolut" / "frais_trading_ordres.json"
 ABO_TV = DATA / "abonnement_tradingview.json"
 COMPTE_JOINT = DATA / "budget" / "compte_joint_2026-10.json"
+LIDL_TICKETS = DATA / "budget" / "lidl_tickets_2026-10_11.json"
 PARIS = ZoneInfo("Europe/Paris")
 
 # Métadonnées APEX (tickers TV, onglets, dates d'achat déjà connues).
@@ -795,6 +796,28 @@ def _cj_ops(ops, fx):
     return out
 
 
+
+def _attach_lidl_tickets(sous, fx):
+    """Remplace le bloc tickets_lidl par le détail sourcé, sans toucher aux autres champs Courses."""
+    sous = [dict(s) for s in (sous or [])]
+    if not LIDL_TICKETS.exists():
+        return sous
+    lidl = json.loads(LIDL_TICKETS.read_text(encoding="utf-8"))
+    found = False
+    for i, s in enumerate(sous):
+        if s.get("id") == "tickets_lidl":
+            rec = dict(s)
+            rec.update(lidl)
+            rec["id"] = "tickets_lidl"
+            rec["statut"] = "complet"
+            sous[i] = rec
+            found = True
+            break
+    if not found:
+        sous.append(lidl)
+    return sous
+
+
 def build_compte_joint(fx):
     """Compte joint famille octobre 2026, sourcé (data/budget/compte_joint_2026-10.json)."""
     if not COMPTE_JOINT.exists():
@@ -813,7 +836,7 @@ def build_compte_joint(fx):
                 mm = dict(m)
                 mm["total_usd"] = _cj_usd(mm.get("total_eur"), fx)
                 rec["commercants"].append(mm)
-            rec["sous_categories"] = c.get("sous_categories") or []
+            rec["sous_categories"] = _attach_lidl_tickets(c.get("sous_categories") or [], fx)
         cats.append(rec)
     tot = dict(raw.get("totaux") or {})
     for k in list(tot):
