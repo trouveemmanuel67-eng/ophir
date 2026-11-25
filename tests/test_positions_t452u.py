@@ -58,7 +58,8 @@ def test_lignes_du_releve_et_ordres():
     # CFD : montant = exposition (quantité × cours), levier lu par ligne
     cfds = {p["ticker"]: p for p in POS["positions"] if p.get("type") == "cfd"}
     assert set(cfds) == {"XPD-CFD", "COST-CFD", "MSTR-CFD", "SMR-CFD", "MPC-CFD", "AMD-CFD", "BDX-CFD", "EG-CFD", "ABBV-CFD"}
-    assert cfds["MSTR-CFD"]["cfd_badge"] == "CFD L x5"
+    assert cfds["MSTR-CFD"]["cfd_badge"] == "CFD L x6"
+    assert cfds["MSTR-CFD"]["levier"] == 6
     assert cfds["XPD-CFD"]["cfd_badge"] == "CFD L x5"
     assert cfds["SMR-CFD"]["cfd_badge"] == "CFD L x7"
     assert cfds["MPC-CFD"]["cfd_badge"] == "CFD S x2"
