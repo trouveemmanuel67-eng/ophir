@@ -35,22 +35,37 @@ def log(cat, key, avant, apres, nc=None):
         J['nc'].setdefault(cat, {})[key] = nc
 
 
-def avg_rec(notes, detail, n_label, hype=None, attention=None):
+def avg_rec(notes, detail, n_label, hype=None, attention=None, mm40=None, mm40_det=None):
     avg = int(round_half(sum(notes) / len(notes)))
     b = metaux_band(avg)
     rec = {'note': avg, 'display': fmt10(avg), 'hex': b['hex'], 'flag': b['flag'], 'band': b['id'], 'pos': avg,
             'cap': 'moyenne', 'n_moy': len(notes), 'detail': detail, 'scale': 250, 'total': avg, 'total_min': -50,
             'total_max': 250, 'v2': True, 'ligne': f'moyenne de {len(notes)} {n_label}  →  {avg} / 250'}
-    if hype is not None or attention is not None:
-        rec['points'] = {'hype': hype, 'attention': attention, 'total': avg}
+    if hype is not None or attention is not None or mm40 is not None or mm40_det:
+        rec['points'] = {'hype': hype, 'attention': attention, 'mm40': mm40, 'total': avg}
         rec['attention'] = None if attention is None else {'valeur': attention, 'H': hype}
         rec['decomp'] = {
             'texte': rec['ligne'],
             'points': rec['points'],
             'hype': {'points': hype, 'attention': attention,
                      'grille': '0–9→+90 … 100→0 (comptant)', 'etat': 'applique' if hype is not None else 'n.c.'},
+            'mm40': mm40_det,
         }
+        if (mm40_det or {}).get('texte'):
+            rec['decomp']['texte'] = rec['ligne'] + ' · ' + mm40_det['texte']
+            rec['ligne'] = rec['decomp']['texte']
     return rec
+
+
+def mm40_from_instruments(items):
+    """MM40 hebdo du comptant, pour la décomposition de la ligne métal."""
+    items = [x for x in items if x]
+    spot = next((x for x in items if x.get('kind') == 'spot'), None)
+    if not spot:
+        return None, None
+    dec = (spot.get('apex10') or {}).get('decomp') or {}
+    pts = dec.get('points') or {}
+    return pts.get('mm40'), dec.get('mm40')
 
 
 def hype_from_instruments(items):
@@ -66,6 +81,35 @@ def hype_from_instruments(items):
     hy = pts.get('hype')
     att = pts.get('attention')
     return hy, att
+
+
+
+def recalc_moyennes_metaux(M=None):
+    """Recalcule les moyennes de lignes à partir des notes déjà posées sur les instruments.
+
+    À appeler après apply_sentiment, pour que la moyenne intègre le F&G sectoriel
+    (le scoring initial utilise encore le CNN global).
+    """
+    close = False
+    if M is None:
+        M = load('metaux.json')
+        close = True
+    for r in M.get('rows') or []:
+        ml = r.get('mlist') or {}
+        items = [ml.get('head')] + list(ml.get('items') or [])
+        notes = [float(x['apex10']['note']) for x in items if x and (x.get('apex10') or {}).get('note') is not None]
+        if not notes:
+            continue
+        hy, att = hype_from_instruments(items)
+        mm, mmdet = mm40_from_instruments(items)
+        r['apex10'] = avg_rec(
+            notes,
+            'Moyenne des notes −50 à 250 des instruments visibles (ETC retenu, métal au comptant, minières), hors titres sans note.',
+            'instruments', hype=hy, attention=att, mm40=mm, mm40_det=mmdet,
+        )
+    if close:
+        save('metaux.json', M)
+    return M
 
 
 # ------------------------------------------------------------------ métaux
@@ -115,7 +159,8 @@ def metaux():
         if notes:
             ml2 = r.get('mlist') or {}
             hy, att = hype_from_instruments([ml2.get('head')] + list(ml2.get('items') or []))
-            r['apex10'] = avg_rec(notes, 'Moyenne des notes −50 à 250 des instruments visibles (ETC retenu, métal au comptant, minières), hors titres sans note.', 'instruments', hype=hy, attention=att)
+            mm, mmdet = mm40_from_instruments([ml2.get('head')] + list(ml2.get('items') or []))
+            r['apex10'] = avg_rec(notes, 'Moyenne des notes −50 à 250 des instruments visibles (ETC retenu, métal au comptant, minières), hors titres sans note.', 'instruments', hype=hy, attention=att, mm40=mm, mm40_det=mmdet)
     save('metaux.json', M)
 
 

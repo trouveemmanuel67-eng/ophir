@@ -16,7 +16,7 @@ import charte as CH
 import fibo as FB
 from technique_apex import score_structure
 
-from .score import load_cnn_fg, metaux_band, metaux_cfg, divergence_haussiere, fmt10, round_half
+from .score import load_cnn_fg, metaux_band, metaux_cfg, divergence_haussiere, fmt10, round_half, mm40_hebdo_points, mm40_hebdo_texte
 
 FUT = {'Or': 'GC=F', 'Argent': 'SI=F', 'Platine': 'PL=F', 'Palladium': 'PA=F'}
 
@@ -120,6 +120,9 @@ def _ligne(parts, total):
     for lab, pts in parts:
         if pts is None:
             continue
+        if isinstance(pts, str) and pts.startswith('MM40'):
+            bits.append(pts)
+            continue
         if lab == 'F&G':
             bits.append(f"F&G {pts:+d}".replace('+', '+').replace('+-', '−').replace('-', '−') if pts < 0 else f"F&G +{pts}")
         else:
@@ -215,7 +218,10 @@ def score_instrument(obj, metal=None, av=None, fg=None):
         from .long250 import etc_quality
         qual_pts, qual_nc, qual_el = etc_quality(obj.get('isin'))
         extra += int(qual_pts)
-    brut = int(rsi_pts + macd_pts + fibo_pts + cci_pts + extra + fg_pts + (hype_pts or 0))
+    mm40_pts, mm40_det = (None, None)
+    if kind == 'spot':
+        mm40_pts, mm40_det = mm40_hebdo_points(c)
+    brut = int(rsi_pts + macd_pts + fibo_pts + cci_pts + extra + fg_pts + (hype_pts or 0) + (mm40_pts or 0))
     n = max(int(cfg['min']), min(int(cfg['max']), int(round_half(brut))))
     # APE-25 (t503u) : portail cyan retiré, la note peut atteindre 250.
     cap = [c for c in cap if c]
@@ -226,6 +232,7 @@ def score_instrument(obj, metal=None, av=None, fg=None):
         *( [('Qualité ETC', qual_pts)] if kind == 'etc' else [] ),
         ('F&G', fg_pts if fg and fg.get('ok') else None),
         *( [('Hype', hype_pts if hype_pts is not None else '—')] if kind in ('spot', 'etc') else [] ),
+        *( [('MM40 hebdo', (mm40_det or {}).get('texte') or mm40_hebdo_texte((mm40_det or {}).get('ecart'), mm40_pts))] if kind == 'spot' else [] ),
     ]
     texte = _ligne(parts, n)
     return {
@@ -245,6 +252,7 @@ def score_instrument(obj, metal=None, av=None, fg=None):
                 'rsi': rsi_pts, 'macd': macd_pts, 'fibonacci': fibo_pts, 'cci': cci_pts,
                 'fondamental': fond_total, 'structure': struct_pts,
                 'hype': hype_pts, 'attention': att_val,
+                'mm40': mm40_pts,
                 'fear_greed': fg_pts if fg and fg.get('ok') else None, 'total': n,
             },
             'rsi': {'valeur': None if rsi_val is None else round(float(rsi_val), 1), 'points': rsi_pts, 'conditions': rsi_det},
@@ -254,6 +262,7 @@ def score_instrument(obj, metal=None, av=None, fg=None):
             'fondamental': {'points': fond_total, 'elements': fond_elems} if has_fond else None,
             'structure': struct_det,
             'hype': {'points': hype_pts, 'attention': att_val, 'grille': ('0–9→+90 … 100→0' if kind == 'spot' else '0–9→+45, −4 par tranche jusqu’à 40–49 (29), puis 25 − 5 par tranche (grille crypto)'), 'etat': 'applique' if kind in ('spot', 'etc') else 'hors_comptant'},
+            'mm40': None if kind != 'spot' else mm40_det,
             'qualite_etc': None if kind != 'etc' else {'points': qual_pts, 'max': 45, 'elements': qual_el, 'nc': qual_nc,
                             'regle': '5 × 9 : TER ≤ 0,25 % ; TER ≤ 0,15 % ; encours ≥ 1 Md€ ; ancienneté ≥ 5 ans ; réplication physique (justETF)'},
             'echelle': 250,
@@ -273,7 +282,7 @@ def score_instrument(obj, metal=None, av=None, fg=None):
     }
 
 
-def moyenne_ligne(notes, hype=None, attention=None):
+def moyenne_ligne(notes, hype=None, attention=None, mm40=None, mm40_det=None):
     cfg = metaux_cfg()
     if not notes:
         return None
@@ -289,13 +298,17 @@ def moyenne_ligne(notes, hype=None, attention=None):
         'scale': 250, 'total': avg, 'total_min': cfg['min'], 'total_max': cfg['max'],
         'ligne': 'moyenne de %d instrument%s  →  %s / 250' % (len(notes), 's' if len(notes) > 1 else '', fmt10(avg)),
     }
-    if hype is not None or attention is not None:
-        rec['points'] = {'hype': hype, 'attention': attention, 'total': avg}
+    if hype is not None or attention is not None or mm40 is not None or mm40_det:
+        rec['points'] = {'hype': hype, 'attention': attention, 'mm40': mm40, 'total': avg}
         rec['attention'] = None if attention is None else {'valeur': attention, 'H': hype}
         rec['decomp'] = {
             'texte': rec['ligne'],
             'points': rec['points'],
             'hype': {'points': hype, 'attention': attention,
                      'grille': '0–9→+90 … 100→0 (comptant)', 'etat': 'applique' if hype is not None else 'n.c.'},
+            'mm40': mm40_det,
         }
+        if (mm40_det or {}).get('texte'):
+            rec['decomp']['texte'] = rec['ligne'] + ' · ' + mm40_det['texte']
+            rec['ligne'] = rec['decomp']['texte']
     return rec

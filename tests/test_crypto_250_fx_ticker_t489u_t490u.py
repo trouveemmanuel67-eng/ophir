@@ -21,7 +21,7 @@ def test_hype_45_grille():
 
 def test_notes_crypto_echelle_250_sans_hype():
     data = json.loads((ROOT / "data" / "crypto_fiches.json").read_text(encoding="utf-8"))
-    want = {"btc": 153, "eth": 173, "sol": 137, "mstr": 143}
+    want = {"btc": 250, "eth": 250, "sol": 250, "mstr": 250}
     for a in data["assets"]:
         rec = a.get("apex10") or {}
         assert rec.get("scale") == 250

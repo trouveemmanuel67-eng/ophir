@@ -49,6 +49,84 @@ def fmt10(n):
     return str(x).replace('.', ',')
 
 
+# MM40 hebdo (équivalent de la MM200 jours), à contre-courant.
+# Même maximum que le fondamental des actions sur la grille 250 : +125.
+MM40_HEBDO_MAX = 125
+MM40_HEBDO_PLAFOND = 0.15
+MM40_HEBDO_REGLE = (
+    "MM40 hebdo, à contre-courant, sur les clôtures hebdomadaires confirmées "
+    "(équivalent de la MM200 jours). 0 point si le cours est au-dessus de la MM40 ; "
+    "montée linéaire de 0 à +125 entre 0 % et −15 % ; plafonné à +125 au-delà. "
+    "Les points s’ajoutent au total, borné à −50…250."
+)
+
+
+def fmt_ecart_pct(ecart):
+    """Pourcentage d’écart au format français : −20,4 / +1,2 / 0."""
+    if ecart is None:
+        return '—'
+    pct = float(ecart) * 100.0
+    txt = f"{pct:.1f}".replace(".", ",")
+    if txt in ("-0,0", "0,0", "+0,0") or abs(pct) < 0.05:
+        return "0"
+    if pct > 0 and not txt.startswith("+"):
+        txt = "+" + txt
+    return txt.replace("-", "−")
+
+
+def mm40_hebdo_texte(ecart, pts):
+    """Libellé de décomposition : « MM40 hebdo : écart −20,4 %, +125 pts »."""
+    if ecart is None or pts is None:
+        return "MM40 hebdo : —"
+    pts_txt = f"+{int(pts)}" if pts > 0 else str(int(pts))
+    return f"MM40 hebdo : écart {fmt_ecart_pct(ecart)} %, {pts_txt} pts"
+
+
+def mm40_hebdo_points(closes):
+    """Écart à la MM40 semaines, à contre-courant (0 à +125).
+
+    écart = (cours − MM40) / MM40. Au-dessus → 0 ; de 0 à −15 % → 0…+125
+    linéairement ; au-delà de −15 % → +125. Historique < 40 semaines → n.c.
+
+    Retourne (points:int|None, détail:dict).
+    """
+    base = {
+        'max': MM40_HEBDO_MAX,
+        'periode': '40 semaines',
+        'regle': MM40_HEBDO_REGLE,
+    }
+    if not closes:
+        d = dict(base, etat='n.c.', points=None, raison='série hebdomadaire absente')
+        return None, d
+    series = [float(x) for x in closes if x is not None]
+    if len(series) < 40:
+        d = dict(base, etat='n.c.', points=None,
+                 raison=f'historique insuffisant ({len(series)} semaines)')
+        return None, d
+    cours = series[-1]
+    mm = sum(series[-40:]) / 40.0
+    if mm <= 0:
+        d = dict(base, etat='n.c.', points=None, raison='MM40 nulle ou négative', cours=cours, mm40=mm)
+        return None, d
+    ecart = (cours - mm) / mm
+    if ecart >= 0:
+        pts = 0
+    else:
+        pts = int(round_half(min(MM40_HEBDO_MAX, (-ecart / MM40_HEBDO_PLAFOND) * MM40_HEBDO_MAX)))
+        pts = max(0, min(MM40_HEBDO_MAX, pts))
+    det = dict(
+        base,
+        etat='applique',
+        points=pts,
+        ecart=round(ecart, 6),
+        ecart_pct=round(ecart * 100.0, 2),
+        cours=cours,
+        mm40=round(mm, 6),
+        texte=mm40_hebdo_texte(ecart, pts),
+    )
+    return pts, det
+
+
 def elliott_key_of(ell):
     if not ell:
         return None
@@ -245,6 +323,9 @@ def compute(av, fond=None, elliott=None, divergence=None, parts=None, classe=Non
             from .metaux_points import score_instrument
             return score_instrument(obj, metal=metal, av=av, fg=fg)
         return compute_metaux(av, fond, elliott, divergence, parts)
+    if classe == 'crypto' and obj is not None:
+        from .crypto_points import score_asset
+        return score_asset(obj)
     r = _R()
     na = r['note_apex']
     ell_r = r['elliott']

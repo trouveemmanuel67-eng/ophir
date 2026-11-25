@@ -468,12 +468,13 @@ if ONLY:
             out['retrieved'] = merged
 
 json.dump(out, open(B + 'crypto_fiches.json', 'w'), ensure_ascii=False)
-# Fusion dans tabs_data.json si déjà construit
-tp = B + 'tabs_data.json'
-if os.path.exists(tp):
-    tabs = json.load(open(tp))
-    tabs.setdefault('crypto', {})['fiches'] = out
-    json.dump(tabs, open(tp, 'w'), ensure_ascii=False)
+# Note APEX −50..250 (Hype, liquidité, MM40 hebdo) : durable après chaque reconstruction des fiches.
+import sys as _sys
+_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+if _root not in _sys.path:
+    _sys.path.insert(0, _root)
+from apex.crypto_points import apply_notes as _apply_crypto_notes
+_apply_crypto_notes(B + 'crypto_fiches.json', B + 'tabs_data.json' if os.path.exists(B + 'tabs_data.json') else None)
 
 for s in fiches:
     if not s.get('ok'):

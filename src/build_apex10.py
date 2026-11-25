@@ -428,41 +428,30 @@ def main():
                 if rec and rec.get('note') is not None:
                     notes.append(float(rec['note']))
             if notes:
-                import apex.score as SC
-                cfg = SC.metaux_cfg()
-                avg = N.round_half(sum(notes)/len(notes))
-                avg = max(cfg['min'], min(cfg['max'], avg))
-                band = SC.metaux_band(avg)
-                r['apex10'] = {
-                    'note': avg, 'display': N.fmt10(avg),
-                    'hex': band['hex'], 'flag': band['flag'], 'band': band['id'],
-                    'pos': avg,
-                    'cap': 'moyenne', 'timing': rec_fut.get('timing'),
-                    'fond': None, 'brut': rec_fut.get('brut'),
-                    'n_moy': len(notes),
-                    'detail': 'Moyenne des notes −50 à 250 des instruments visibles (ETC, métal au comptant, minières), hors titres sans note.',
-                    'scale': 250, 'total': avg, 'total_min': cfg['min'], 'total_max': cfg['max'],
-                    'ligne': 'moyenne de %d instrument%s  →  %s / 250' % (len(notes), 's' if len(notes)>1 else '', N.fmt10(avg)),
-                }
+                from apex.metaux_points import moyenne_ligne
+                items = [ml.get('head')] + list(ml.get('items') or [])
+                spot = next((x for x in items if x and x.get('kind') == 'spot'), None)
+                dec = ((spot or {}).get('apex10') or {}).get('decomp') or {}
+                pts = dec.get('points') or {}
+                rec_avg = moyenne_ligne(notes, hype=pts.get('hype'), attention=pts.get('attention'),
+                                        mm40=pts.get('mm40'), mm40_det=dec.get('mm40'))
+                rec_avg['timing'] = rec_fut.get('timing')
+                rec_avg['brut'] = rec_fut.get('brut')
+                r['apex10'] = rec_avg
             else:
                 r['apex10'] = rec_fut
             count(r['apex10'])
         save('metaux.json', MT)
 
-    # --- crypto : le fondamental est remplacé par le score de liquidité 0-100 ---
+    # --- crypto : note −50..250 via apex.crypto_points (liquidité CoinAnk + MM40 hebdo) ---
     CF = load('crypto_fiches.json')
     if CF:
         for a in CF.get('assets') or []:
-            liq = LQ.for_asset(a)
-            a['liquidite'] = liq
-            fond = liq.get('score')  # None si pas de carte (SOL, MSTR, saisie manquante)
-            rec = attach(a, (a.get('av') or {}).get('score'), fond, a.get('elliott'), classe='crypto')
-            count(rec)
+            a['liquidite'] = LQ.for_asset(a)
         save('crypto_fiches.json', CF)
-        tabs = load('tabs_data.json')
-        if tabs is not None:
-            tabs.setdefault('crypto', {})['fiches'] = CF
-            save('tabs_data.json', tabs)
+        from apex.crypto_points import apply_notes
+        for _k, n in apply_notes().items():
+            count({'note': n} if n is not None else {})
 
     # --- énergie ---
     EN = load('energie.json')

@@ -3,8 +3,9 @@
 Barème : Liquidité 45 (CoinAnk, 1 an 70 % / 1 mois 30 %) + Technique 110
 (RSI 30, MACD 30, Fibo 30, CCI/Stoch 20, sans Elliott ni Structure)
 + Fear & Greed ±50 (même grille que les actions, source alternative.me déjà
-sur les fiches). HYPE 45 : non comptée jusqu'au 25/11 (pas même un 0 noté).
-Sans carte de liquidité : 0 point, pas de redistribution.
+sur les fiches). HYPE 45 : Attention Long Swing, à contre-courant.
+MM40 hebdo 0 à +125, à contre-courant (0 au-dessus, linéaire jusqu’à −15 %,
+puis plafond ; total borné à 250). Sans carte de liquidité : 0 point, pas de redistribution.
 """
 from __future__ import annotations
 
@@ -21,7 +22,7 @@ if str(ROOT / 'src') not in sys.path:
 import ind_core as K
 import charte as CH
 import fibo as FB
-from .score import metaux_band, fmt10, round_half, fg_points, divergence_haussiere
+from .score import metaux_band, fmt10, round_half, fg_points, divergence_haussiere, mm40_hebdo_points, mm40_hebdo_texte
 
 
 def crypto_data_dir() -> Path:
@@ -95,6 +96,9 @@ def _ligne(parts, n):
             continue
         if pts == '—':
             bits.append('%s —' % lab)
+            continue
+        if isinstance(pts, str) and pts.startswith('MM40'):
+            bits.append(pts)
             continue
         if isinstance(pts, (int, float)) and pts > 0:
             bits.append('%s +%s' % (lab, pts if pts == int(pts) else pts))
@@ -237,7 +241,8 @@ def score_asset(obj, fg_value=None):
     att_val = attention_of((key or '').upper(), obj.get('tv'), obj.get('yahoo'), obj.get('ticker'), obj.get('nom'))
     hype_pts = hype_points_45(att_val)
 
-    brut = int(rsi_pts + macd_pts + fibo_pts + cci_pts + liq_pts + fg_pts + (hype_pts or 0))
+    mm40_pts, mm40_det = mm40_hebdo_points(c)
+    brut = int(rsi_pts + macd_pts + fibo_pts + cci_pts + liq_pts + fg_pts + (hype_pts or 0) + (mm40_pts or 0))
     n = max(-50, min(250, int(round_half(brut))))
     band = metaux_band(n)
     cap = []
@@ -251,6 +256,7 @@ def score_asset(obj, fg_value=None):
         ('Liq.', liq_pts if liq_det.get('present') else '—'),
         ('F&G', fg_pts if fg_value is not None else '—'),
         ('Hype', hype_pts if hype_pts is not None else '—'),
+        ('MM40 hebdo', (mm40_det or {}).get('texte') or mm40_hebdo_texte((mm40_det or {}).get('ecart'), mm40_pts)),
     ]
     texte = _ligne(parts, n)
 
@@ -271,6 +277,7 @@ def score_asset(obj, fg_value=None):
                 'rsi': rsi_pts, 'macd': macd_pts, 'fibonacci': fibo_pts, 'cci': cci_pts,
                 'liquidite': liq_pts if liq_det.get('present') else None,
                 'hype': hype_pts,
+                'mm40': mm40_pts,
                 'fear_greed': fg_pts if fg_value is not None else None,
                 'total': n,
             },
@@ -280,6 +287,7 @@ def score_asset(obj, fg_value=None):
             'cci': {**cci_det, 'points': cci_pts},
             'liquidite': liq_det,
             'hype': {'points': hype_pts, 'attention': att_val, 'grille': '0→45, 10→41, 20→37, 30→33, 40→29, 50→25, 60→20, 70→15, 80→10, 90→5, 100→0', 'etat': 'applique' if hype_pts is not None else 'n.c.'},
+            'mm40': mm40_det,
             'fear_greed': {'valeur': fg_value, 'points': fg_pts if fg_value is not None else None, 'source': 'alternative.me'},
             'echelle': 250,
         },

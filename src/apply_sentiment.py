@@ -99,7 +99,7 @@ def patch(rec, key, where):
     if isinstance(p, dict) and 'fear_greed' in p and all(x in p for x in ('rsi', 'macd', 'fondamental')):
         p['fear_greed'] = new
         base = sum(int(p.get(x) or 0) for x in ('rsi', 'macd', 'fibonacci', 'cci', 'fondamental', 'fear_greed'))
-        total = max(MIN, min(MAX, base + int(p.get('hype') or 0)))
+        total = max(MIN, min(MAX, base + int(p.get('hype') or 0) + int(p.get('mm40') or 0)))
         p['total'] = total
     else:
         total = max(MIN, min(MAX, int(round(float(before))) - old + new))
@@ -217,6 +217,9 @@ def main(dry=False):
         if f == 'liquidites_etf_devises.json':
             ctx['classe'] = 'devises'
         walk(doc, ctx, 'root', f)
+        if f == 'metaux.json':
+            from build_long250 import recalc_moyennes_metaux
+            recalc_moyennes_metaux(doc)
         print(f'{f}: {STATS["notes"] - n0} notes')
         if not dry:
             if raw.startswith('{\n'):
@@ -227,6 +230,28 @@ def main(dry=False):
             else:
                 out = json.dumps(doc, ensure_ascii=False)
             p.write_text(out + ('\n' if raw.endswith('\n') else ''), encoding='utf-8')
+    if not dry:
+        mp, bp = D / 'metaux.json', D / 'apex_bars.json'
+        if mp.exists() and bp.exists():
+            M = json.loads(mp.read_text(encoding='utf-8'))
+            B = json.loads(bp.read_text(encoding='utf-8'))
+            n = 0
+            for r in M.get('rows') or []:
+                tv, rec = r.get('tv'), r.get('apex10')
+                if tv and rec and isinstance(B.get('bars'), dict) and tv in B['bars']:
+                    B['bars'][tv]['apex10'] = rec
+                    n += 1
+            if n:
+                raw_b = bp.read_text(encoding='utf-8')
+                if raw_b.startswith('{' + chr(10)):
+                    out_b = json.dumps(B, ensure_ascii=False, indent=2)
+                elif raw_b[:200].count('": ') == 0:
+                    out_b = json.dumps(B, ensure_ascii=False, separators=(',', ':'))
+                else:
+                    out_b = json.dumps(B, ensure_ascii=False)
+                nl = chr(10) if raw_b.endswith(chr(10)) else ''
+                bp.write_text(out_b + nl, encoding='utf-8')
+                print('apex_bars : moyennes métaux recopiées', n)
     print('total', dict(STATS))
     print('repli CNN', sum(FALLBACK.values()), dict(list(FALLBACK.items())[:30]))
     return 0
