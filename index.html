@@ -6,18 +6,18 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<meta name="ophir-build" content="aa450c0-20261125-141425">
+<meta name="ophir-build" content="dbb4784-20261125-141556">
 <title>APEX INDICATOR INVESTMENT</title>
 <meta name="description" content="APEX Indicator Investment — notes et indicateurs de marché.">
 <meta name="theme-color" content="#0a1128">
 <meta name="apple-mobile-web-app-title" content="APEX">
 <meta name="application-name" content="APEX">
-<link rel="icon" href="favicon.ico?v=aa450c0-20261125-141425" sizes="any">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=aa450c0-20261125-141425">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=aa450c0-20261125-141425">
-<link rel="icon" type="image/png" sizes="64x64" href="favicon.png?v=aa450c0-20261125-141425">
-<link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png?v=aa450c0-20261125-141425">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=aa450c0-20261125-141425">
+<link rel="icon" href="favicon.ico?v=dbb4784-20261125-141556" sizes="any">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=dbb4784-20261125-141556">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=dbb4784-20261125-141556">
+<link rel="icon" type="image/png" sizes="64x64" href="favicon.png?v=dbb4784-20261125-141556">
+<link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png?v=dbb4784-20261125-141556">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=dbb4784-20261125-141556">
 <meta property="og:type" content="website">
 <meta property="og:title" content="APEX INDICATOR INVESTMENT">
 <meta property="og:description" content="APEX Indicator Investment — notes et indicateurs de marché.">
@@ -3178,6 +3178,1468 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
       "montant_usd_an": 204.08,
       "total_mois_usd": null,
       "total_mois_eur": null
+    },
+    "frais_octobre": {
+      "id": "frais_courtage_2026-10",
+      "titre": "Frais de courtage, octobre 2026",
+      "compte": "56HF6NCA06C6",
+      "periode": {
+        "debut": "2026-10-01",
+        "fin": "2026-10-31",
+        "libelle": "octobre 2026"
+      },
+      "fx": 1.0944,
+      "sources": [
+        {
+          "fichier": "actions_et_obligations",
+          "intitule": "Account Statement — actions et obligations",
+          "etablissement": "Revolut Securities Europe UAB",
+          "compte": "56HF6NCA06C6",
+          "periode": "01 Oct 2026 - 31 Oct 2026",
+          "genere_le": "2026-11-25",
+          "devises": [
+            "USD",
+            "EUR"
+          ],
+          "extraction": "pdftotext -layout, le 25/11/2026 (Europe/Paris). Aucun montant inventé.",
+          "fourni_par": "Emmanuel Trouvé, 25/11/2026"
+        },
+        {
+          "fichier": "cfd",
+          "intitule": "CFDs Statement",
+          "etablissement": "Revolut Securities Europe UAB",
+          "compte": "56HF6NCA06C6",
+          "periode": "01 Oct 2026 - 31 Oct 2026",
+          "genere_le": "2026-11-25",
+          "devises": [
+            "USD"
+          ],
+          "extraction": "pdftotext -layout, le 25/11/2026 (Europe/Paris). Aucun montant inventé.",
+          "fourni_par": "Emmanuel Trouvé, 25/11/2026"
+        }
+      ],
+      "categories": [
+        {
+          "id": "entree",
+          "poste": "Entrée",
+          "observe_usd": 28.63,
+          "observe_eur": 26.16,
+          "projection_usd": 28.63,
+          "projection_eur": 26.16,
+          "objectif_eur": null,
+          "depasse_objectif": null,
+          "n_operations": 15,
+          "detail": "Commissions d'achat titres et trading fees CFD à l'ouverture (Buy).",
+          "operations": [
+            {
+              "date": "2026-10-01",
+              "heure_gmt": "18:33:03",
+              "compte": "titres_usd",
+              "symbole": "STLA",
+              "nom": "Stellantis",
+              "type": "commission",
+              "sens": "entree",
+              "categorie": "entree",
+              "quantite": 150.02914798,
+              "prix": 4.46,
+              "prix_devise": "USD",
+              "notionnel_usd": 670.25,
+              "montant_signe_usd": -1.12,
+              "montant_signe_eur": -1.02,
+              "montant_usd": 1.12,
+              "montant_eur": 1.02,
+              "devise_releve": "USD",
+              "montant_releve": -1.12,
+              "libelle_releve": "Trade - Market Buy, Commission US$1.12, Fees US$0",
+              "source": "Relevé actions et obligations, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+            },
+            {
+              "date": "2026-10-13",
+              "heure_gmt": "13:00:54",
+              "compte": "cfd_usd",
+              "symbole": "MU:CFD",
+              "type": "trading_fee",
+              "sens": "entree",
+              "categorie": "entree",
+              "quantite": 3.5,
+              "prix": 940.75,
+              "prix_devise": "USD",
+              "notionnel_usd": 3292.63,
+              "montant_signe_usd": -8.23,
+              "montant_signe_eur": -7.52,
+              "montant_usd": 8.23,
+              "montant_eur": 7.52,
+              "devise_releve": "USD",
+              "montant_releve": -8.23,
+              "libelle_releve": "Trade - Market Buy, Trading fee -US$8.23",
+              "note": "Frais CFD listé séparément, soit 0.25 % de la valeur notionnelle US$3,292.63 (glossaire : 0,25 % à l'ouverture et à la clôture si le sous-jacent est une action).",
+              "source": "Relevé CFD, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026.",
+              "nom": "Micron Technology"
+            },
+            {
+              "date": "2026-10-14",
+              "heure_gmt": "17:21:00",
+              "compte": "cfd_usd",
+              "symbole": "DELL:CFD",
+              "type": "trading_fee",
+              "sens": "entree",
+              "categorie": "entree",
+              "quantite": 0.8,
+              "prix": 503.14,
+              "prix_devise": "USD",
+              "notionnel_usd": 402.51,
+              "montant_signe_usd": -1.01,
+              "montant_signe_eur": -0.92,
+              "montant_usd": 1.01,
+              "montant_eur": 0.92,
+              "devise_releve": "USD",
+              "montant_releve": -1.01,
+              "libelle_releve": "Trade - Market Buy, Trading fee -US$1.01",
+              "note": "Frais CFD listé séparément, soit 0.251 % de la valeur notionnelle US$402.51 (glossaire : 0,25 % à l'ouverture et à la clôture si le sous-jacent est une action).",
+              "source": "Relevé CFD, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+            },
+            {
+              "date": "2026-10-14",
+              "heure_gmt": "17:21:12",
+              "compte": "cfd_usd",
+              "symbole": "DELL:CFD",
+              "type": "trading_fee",
+              "sens": "entree",
+              "categorie": "entree",
+              "quantite": 0.54,
+              "prix": 503.57,
+              "prix_devise": "USD",
+              "notionnel_usd": 271.93,
+              "montant_signe_usd": -0.68,
+              "montant_signe_eur": -0.62,
+              "montant_usd": 0.68,
+              "montant_eur": 0.62,
+              "devise_releve": "USD",
+              "montant_releve": -0.68,
+              "libelle_releve": "Trade - Market Buy, Trading fee -US$0.68",
+              "note": "Frais CFD listé séparément, soit 0.25 % de la valeur notionnelle US$271.93 (glossaire : 0,25 % à l'ouverture et à la clôture si le sous-jacent est une action).",
+              "source": "Relevé CFD, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+            },
+            {
+              "date": "2026-10-14",
+              "heure_gmt": "19:49:15",
+              "compte": "cfd_usd",
+              "symbole": "SMR:CFD",
+              "nom": "Nuscale Power Corp",
+              "type": "trading_fee",
+              "sens": "entree",
+              "categorie": "entree",
+              "quantite": 30,
+              "prix": 5.81,
+              "prix_devise": "USD",
+              "notionnel_usd": 174.3,
+              "montant_signe_usd": -0.44,
+              "montant_signe_eur": -0.4,
+              "montant_usd": 0.44,
+              "montant_eur": 0.4,
+              "devise_releve": "USD",
+              "montant_releve": -0.44,
+              "libelle_releve": "Trade - Market Buy, Trading fee -US$0.44",
+              "note": "Frais CFD listé séparément, soit 0.252 % de la valeur notionnelle US$174.30 (glossaire : 0,25 % à l'ouverture et à la clôture si le sous-jacent est une action).",
+              "source": "Relevé CFD, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+            },
+            {
+              "date": "2026-10-14",
+              "heure_gmt": "19:56:27",
+              "compte": "cfd_usd",
+              "symbole": "SMR:CFD",
+              "nom": "Nuscale Power Corp",
+              "type": "trading_fee",
+              "sens": "entree",
+              "categorie": "entree",
+              "quantite": 200,
+              "prix": 5.81,
+              "prix_devise": "USD",
+              "notionnel_usd": 1162.0,
+              "montant_signe_usd": -2.9,
+              "montant_signe_eur": -2.65,
+              "montant_usd": 2.9,
+              "montant_eur": 2.65,
+              "devise_releve": "USD",
+              "montant_releve": -2.9,
+              "libelle_releve": "Trade - Market Buy, Trading fee -US$2.90",
+              "note": "Frais CFD listé séparément, soit 0.25 % de la valeur notionnelle US$1,162.00 (glossaire : 0,25 % à l'ouverture et à la clôture si le sous-jacent est une action).",
+              "source": "Relevé CFD, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+            },
+            {
+              "date": "2026-10-15",
+              "heure_gmt": "07:09:54",
+              "compte": "cfd_usd",
+              "symbole": "NKE:CFD",
+              "nom": "Nike",
+              "type": "trading_fee",
+              "sens": "entree",
+              "categorie": "entree",
+              "quantite": 12,
+              "prix": 35.18,
+              "prix_devise": "USD",
+              "notionnel_usd": 422.16,
+              "montant_signe_usd": -1.06,
+              "montant_signe_eur": -0.97,
+              "montant_usd": 1.06,
+              "montant_eur": 0.97,
+              "devise_releve": "USD",
+              "montant_releve": -1.06,
+              "libelle_releve": "Trade - Market Buy, Trading fee -US$1.06",
+              "note": "Frais CFD listé séparément, soit 0.251 % de la valeur notionnelle US$422.16 (glossaire : 0,25 % à l'ouverture et à la clôture si le sous-jacent est une action).",
+              "source": "Relevé CFD, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+            },
+            {
+              "date": "2026-10-15",
+              "heure_gmt": "14:18:56",
+              "compte": "cfd_usd",
+              "symbole": "SPCX:CFD",
+              "type": "trading_fee",
+              "sens": "entree",
+              "categorie": "entree",
+              "quantite": 9.4,
+              "prix": 144.85,
+              "prix_devise": "USD",
+              "notionnel_usd": 1361.59,
+              "montant_signe_usd": -3.4,
+              "montant_signe_eur": -3.11,
+              "montant_usd": 3.4,
+              "montant_eur": 3.11,
+              "devise_releve": "USD",
+              "montant_releve": -3.4,
+              "libelle_releve": "Trade - Market Buy, Trading fee -US$3.40",
+              "note": "Frais CFD listé séparément, soit 0.25 % de la valeur notionnelle US$1,361.59 (glossaire : 0,25 % à l'ouverture et à la clôture si le sous-jacent est une action).",
+              "source": "Relevé CFD, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+            },
+            {
+              "date": "2026-10-15",
+              "heure_gmt": "18:55:41",
+              "compte": "cfd_usd",
+              "symbole": "SMCI:CFD",
+              "type": "trading_fee",
+              "sens": "entree",
+              "categorie": "entree",
+              "quantite": 15,
+              "prix": 34.35,
+              "prix_devise": "USD",
+              "notionnel_usd": 515.25,
+              "montant_signe_usd": -1.29,
+              "montant_signe_eur": -1.18,
+              "montant_usd": 1.29,
+              "montant_eur": 1.18,
+              "devise_releve": "USD",
+              "montant_releve": -1.29,
+              "libelle_releve": "Trade - Market Buy, Trading fee -US$1.29",
+              "note": "Frais CFD listé séparément, soit 0.25 % de la valeur notionnelle US$515.25 (glossaire : 0,25 % à l'ouverture et à la clôture si le sous-jacent est une action).",
+              "source": "Relevé CFD, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+            },
+            {
+              "date": "2026-10-19",
+              "heure_gmt": "19:25:29",
+              "compte": "cfd_usd",
+              "symbole": "CRWD:CFD",
+              "type": "trading_fee",
+              "sens": "entree",
+              "categorie": "entree",
+              "quantite": 1.8,
+              "prix": 229.6,
+              "prix_devise": "USD",
+              "notionnel_usd": 413.28,
+              "montant_signe_usd": -1.03,
+              "montant_signe_eur": -0.94,
+              "montant_usd": 1.03,
+              "montant_eur": 0.94,
+              "devise_releve": "USD",
+              "montant_releve": -1.03,
+              "libelle_releve": "Trade - Market Buy, Trading fee -US$1.03",
+              "note": "Frais CFD listé séparément, soit 0.249 % de la valeur notionnelle US$413.28 (glossaire : 0,25 % à l'ouverture et à la clôture si le sous-jacent est une action).",
+              "source": "Relevé CFD, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+            },
+            {
+              "date": "2026-10-19",
+              "heure_gmt": "19:28:19",
+              "compte": "cfd_usd",
+              "symbole": "MPC:CFD",
+              "nom": "Marathon Petroleum",
+              "type": "trading_fee",
+              "sens": "entree",
+              "categorie": "entree",
+              "quantite": 2.7,
+              "prix": 473.66,
+              "prix_devise": "USD",
+              "notionnel_usd": 1278.89,
+              "montant_signe_usd": -3.2,
+              "montant_signe_eur": -2.92,
+              "montant_usd": 3.2,
+              "montant_eur": 2.92,
+              "devise_releve": "USD",
+              "montant_releve": -3.2,
+              "libelle_releve": "Trade - Market Buy, Trading fee -US$3.20",
+              "note": "Frais CFD listé séparément, soit 0.25 % de la valeur notionnelle US$1,278.89 (glossaire : 0,25 % à l'ouverture et à la clôture si le sous-jacent est une action).",
+              "source": "Relevé CFD, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+            },
+            {
+              "date": "2026-10-19",
+              "heure_gmt": "19:28:29",
+              "compte": "cfd_usd",
+              "symbole": "MPC:CFD",
+              "nom": "Marathon Petroleum",
+              "type": "trading_fee",
+              "sens": "entree",
+              "categorie": "entree",
+              "quantite": 0.4,
+              "prix": 473.68,
+              "prix_devise": "USD",
+              "notionnel_usd": 189.47,
+              "montant_signe_usd": -0.47,
+              "montant_signe_eur": -0.43,
+              "montant_usd": 0.47,
+              "montant_eur": 0.43,
+              "devise_releve": "USD",
+              "montant_releve": -0.47,
+              "libelle_releve": "Trade - Market Buy, Trading fee -US$0.47",
+              "note": "Frais CFD listé séparément, soit 0.248 % de la valeur notionnelle US$189.47 (glossaire : 0,25 % à l'ouverture et à la clôture si le sous-jacent est une action).",
+              "source": "Relevé CFD, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+            },
+            {
+              "date": "2026-10-19",
+              "heure_gmt": "19:28:39",
+              "compte": "cfd_usd",
+              "symbole": "MPC:CFD",
+              "nom": "Marathon Petroleum",
+              "type": "trading_fee",
+              "sens": "entree",
+              "categorie": "entree",
+              "quantite": 1.3,
+              "prix": 473.66,
+              "prix_devise": "USD",
+              "notionnel_usd": 615.76,
+              "montant_signe_usd": -1.54,
+              "montant_signe_eur": -1.41,
+              "montant_usd": 1.54,
+              "montant_eur": 1.41,
+              "devise_releve": "USD",
+              "montant_releve": -1.54,
+              "libelle_releve": "Trade - Market Buy, Trading fee -US$1.54",
+              "note": "Frais CFD listé séparément, soit 0.25 % de la valeur notionnelle US$615.76 (glossaire : 0,25 % à l'ouverture et à la clôture si le sous-jacent est une action).",
+              "source": "Relevé CFD, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+            },
+            {
+              "date": "2026-10-22",
+              "heure_gmt": "15:07:01",
+              "compte": "cfd_usd",
+              "symbole": "SPCX:CFD",
+              "type": "trading_fee",
+              "sens": "entree",
+              "categorie": "entree",
+              "quantite": 3.8,
+              "prix": 149.54,
+              "prix_devise": "USD",
+              "notionnel_usd": 568.26,
+              "montant_signe_usd": -1.42,
+              "montant_signe_eur": -1.3,
+              "montant_usd": 1.42,
+              "montant_eur": 1.3,
+              "devise_releve": "USD",
+              "montant_releve": -1.42,
+              "libelle_releve": "Trade - Market Buy, Trading fee -US$1.42",
+              "note": "Frais CFD listé séparément, soit 0.25 % de la valeur notionnelle US$568.26 (glossaire : 0,25 % à l'ouverture et à la clôture si le sous-jacent est une action).",
+              "source": "Relevé CFD, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+            },
+            {
+              "date": "2026-10-22",
+              "heure_gmt": "17:47:49",
+              "compte": "cfd_usd",
+              "symbole": "SPCX:CFD",
+              "type": "trading_fee",
+              "sens": "entree",
+              "categorie": "entree",
+              "quantite": 2.3,
+              "prix": 146.4,
+              "prix_devise": "USD",
+              "notionnel_usd": 336.72,
+              "montant_signe_usd": -0.84,
+              "montant_signe_eur": -0.77,
+              "montant_usd": 0.84,
+              "montant_eur": 0.77,
+              "devise_releve": "USD",
+              "montant_releve": -0.84,
+              "libelle_releve": "Trade - Market Buy, Trading fee -US$0.84",
+              "note": "Frais CFD listé séparément, soit 0.249 % de la valeur notionnelle US$336.72 (glossaire : 0,25 % à l'ouverture et à la clôture si le sous-jacent est une action).",
+              "source": "Relevé CFD, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+            }
+          ]
+        },
+        {
+          "id": "sortie",
+          "poste": "Sortie",
+          "observe_usd": 16.82,
+          "observe_eur": 15.37,
+          "projection_usd": 16.82,
+          "projection_eur": 15.37,
+          "objectif_eur": null,
+          "depasse_objectif": null,
+          "n_operations": 11,
+          "detail": "Commissions de vente titres et trading fees CFD à la clôture (Sell).",
+          "operations": [
+            {
+              "date": "2026-10-06",
+              "heure_gmt": "14:16:30",
+              "compte": "titres_usd",
+              "symbole": "LAND",
+              "type": "commission",
+              "sens": "sortie",
+              "categorie": "sortie",
+              "quantite": 85.92996778,
+              "prix": 9.67,
+              "prix_devise": "USD",
+              "notionnel_usd": 829.92,
+              "montant_signe_usd": -1.12,
+              "montant_signe_eur": -1.02,
+              "montant_usd": 1.12,
+              "montant_eur": 1.02,
+              "devise_releve": "USD",
+              "montant_releve": -1.12,
+              "libelle_releve": "Trade - Market Sell, Commission US$1.12, Fees US$0.02",
+              "source": "Relevé actions et obligations, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+            },
+            {
+              "date": "2026-10-06",
+              "heure_gmt": "14:16:53",
+              "compte": "titres_usd",
+              "symbole": "BSBR",
+              "type": "commission",
+              "sens": "sortie",
+              "categorie": "sortie",
+              "quantite": 111.22872159,
+              "prix": 5.83,
+              "prix_devise": "USD",
+              "notionnel_usd": 647.49,
+              "montant_signe_usd": -1.12,
+              "montant_signe_eur": -1.02,
+              "montant_usd": 1.12,
+              "montant_eur": 1.02,
+              "devise_releve": "USD",
+              "montant_releve": -1.12,
+              "libelle_releve": "Trade - Market Sell, Commission US$1.12, Fees US$0.01",
+              "source": "Relevé actions et obligations, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+            },
+            {
+              "date": "2026-10-06",
+              "heure_gmt": "14:17:06",
+              "compte": "titres_eur",
+              "symbole": "JGPI",
+              "type": "commission",
+              "sens": "sortie",
+              "categorie": "sortie",
+              "quantite": 22.47897033,
+              "prix": 22.98,
+              "prix_devise": "EUR",
+              "notionnel_eur": 515.57,
+              "montant_signe_usd": -1.09,
+              "montant_signe_eur": -1.0,
+              "montant_usd": 1.09,
+              "montant_eur": 1.0,
+              "devise_releve": "EUR",
+              "montant_releve": -1.0,
+              "libelle_releve": "Trade - Market Sell, Commission €1, Fees €0",
+              "source": "Relevé actions et obligations, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+            },
+            {
+              "date": "2026-10-15",
+              "heure_gmt": "01:19:11",
+              "compte": "cfd_usd",
+              "symbole": "MPC:CFD",
+              "nom": "Marathon Petroleum",
+              "type": "trading_fee",
+              "sens": "sortie",
+              "categorie": "sortie",
+              "quantite": 1.3,
+              "prix": 486.98,
+              "prix_devise": "USD",
+              "notionnel_usd": 633.07,
+              "montant_signe_usd": -1.58,
+              "montant_signe_eur": -1.44,
+              "montant_usd": 1.58,
+              "montant_eur": 1.44,
+              "devise_releve": "USD",
+              "montant_releve": -1.58,
+              "libelle_releve": "Trade - Market Sell, Trading fee -US$1.58",
+              "note": "Frais CFD listé séparément, soit 0.25 % de la valeur notionnelle US$633.07 (glossaire : 0,25 % à l'ouverture et à la clôture si le sous-jacent est une action).",
+              "source": "Relevé CFD, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+            },
+            {
+              "date": "2026-10-15",
+              "heure_gmt": "10:40:26",
+              "compte": "cfd_usd",
+              "symbole": "MPC:CFD",
+              "nom": "Marathon Petroleum",
+              "type": "trading_fee",
+              "sens": "sortie",
+              "categorie": "sortie",
+              "quantite": 0.4,
+              "prix": 487.7,
+              "prix_devise": "USD",
+              "notionnel_usd": 195.08,
+              "montant_signe_usd": -0.49,
+              "montant_signe_eur": -0.45,
+              "montant_usd": 0.49,
+              "montant_eur": 0.45,
+              "devise_releve": "USD",
+              "montant_releve": -0.49,
+              "libelle_releve": "Trade - Market Sell, Trading fee -US$0.49",
+              "note": "Frais CFD listé séparément, soit 0.251 % de la valeur notionnelle US$195.08 (glossaire : 0,25 % à l'ouverture et à la clôture si le sous-jacent est une action).",
+              "source": "Relevé CFD, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+            },
+            {
+              "date": "2026-10-15",
+              "heure_gmt": "11:22:03",
+              "compte": "cfd_usd",
+              "symbole": "MPC:CFD",
+              "nom": "Marathon Petroleum",
+              "type": "trading_fee",
+              "sens": "sortie",
+              "categorie": "sortie",
+              "quantite": 2.7,
+              "prix": 487.85,
+              "prix_devise": "USD",
+              "notionnel_usd": 1317.19,
+              "montant_signe_usd": -3.29,
+              "montant_signe_eur": -3.01,
+              "montant_usd": 3.29,
+              "montant_eur": 3.01,
+              "devise_releve": "USD",
+              "montant_releve": -3.29,
+              "libelle_releve": "Trade - Market Sell, Trading fee -US$3.29",
+              "note": "Frais CFD listé séparément, soit 0.25 % de la valeur notionnelle US$1,317.19 (glossaire : 0,25 % à l'ouverture et à la clôture si le sous-jacent est une action).",
+              "source": "Relevé CFD, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+            },
+            {
+              "date": "2026-10-15",
+              "heure_gmt": "18:48:24",
+              "compte": "cfd_usd",
+              "symbole": "CRWD:CFD",
+              "type": "trading_fee",
+              "sens": "sortie",
+              "categorie": "sortie",
+              "quantite": 1.8,
+              "prix": 242.05,
+              "prix_devise": "USD",
+              "notionnel_usd": 435.69,
+              "montant_signe_usd": -1.09,
+              "montant_signe_eur": -1.0,
+              "montant_usd": 1.09,
+              "montant_eur": 1.0,
+              "devise_releve": "USD",
+              "montant_releve": -1.09,
+              "libelle_releve": "Trade - Market Sell, Trading fee -US$1.09",
+              "note": "Frais CFD listé séparément, soit 0.25 % de la valeur notionnelle US$435.69 (glossaire : 0,25 % à l'ouverture et à la clôture si le sous-jacent est une action).",
+              "source": "Relevé CFD, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+            },
+            {
+              "date": "2026-10-19",
+              "heure_gmt": "19:24:50",
+              "compte": "cfd_usd",
+              "symbole": "SPCX:CFD",
+              "type": "trading_fee",
+              "sens": "sortie",
+              "categorie": "sortie",
+              "quantite": 9.4,
+              "prix": 147.46,
+              "prix_devise": "USD",
+              "notionnel_usd": 1386.12,
+              "montant_signe_usd": -3.47,
+              "montant_signe_eur": -3.17,
+              "montant_usd": 3.47,
+              "montant_eur": 3.17,
+              "devise_releve": "USD",
+              "montant_releve": -3.47,
+              "libelle_releve": "Trade - Market Sell, Trading fee -US$3.47",
+              "note": "Frais CFD listé séparément, soit 0.25 % de la valeur notionnelle US$1,386.12 (glossaire : 0,25 % à l'ouverture et à la clôture si le sous-jacent est une action).",
+              "source": "Relevé CFD, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+            },
+            {
+              "date": "2026-10-27",
+              "heure_gmt": "14:37:59",
+              "compte": "cfd_usd",
+              "symbole": "SMCI:CFD",
+              "type": "trading_fee",
+              "sens": "sortie",
+              "categorie": "sortie",
+              "quantite": 15,
+              "prix": 34.38,
+              "prix_devise": "USD",
+              "notionnel_usd": 515.7,
+              "montant_signe_usd": -1.29,
+              "montant_signe_eur": -1.18,
+              "montant_usd": 1.29,
+              "montant_eur": 1.18,
+              "devise_releve": "USD",
+              "montant_releve": -1.29,
+              "libelle_releve": "Trade - Market Sell, Trading fee -US$1.29",
+              "note": "Frais CFD listé séparément, soit 0.25 % de la valeur notionnelle US$515.70 (glossaire : 0,25 % à l'ouverture et à la clôture si le sous-jacent est une action).",
+              "source": "Relevé CFD, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+            },
+            {
+              "date": "2026-10-27",
+              "heure_gmt": "14:38:11",
+              "compte": "cfd_usd",
+              "symbole": "SPCX:CFD",
+              "type": "trading_fee",
+              "sens": "sortie",
+              "categorie": "sortie",
+              "quantite": 2.3,
+              "prix": 149.56,
+              "prix_devise": "USD",
+              "notionnel_usd": 343.98,
+              "montant_signe_usd": -0.86,
+              "montant_signe_eur": -0.79,
+              "montant_usd": 0.86,
+              "montant_eur": 0.79,
+              "devise_releve": "USD",
+              "montant_releve": -0.86,
+              "libelle_releve": "Trade - Market Sell, Trading fee -US$0.86",
+              "note": "Frais CFD listé séparément, soit 0.25 % de la valeur notionnelle US$343.98 (glossaire : 0,25 % à l'ouverture et à la clôture si le sous-jacent est une action).",
+              "source": "Relevé CFD, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+            },
+            {
+              "date": "2026-10-27",
+              "heure_gmt": "14:38:18",
+              "compte": "cfd_usd",
+              "symbole": "SPCX:CFD",
+              "type": "trading_fee",
+              "sens": "sortie",
+              "categorie": "sortie",
+              "quantite": 3.8,
+              "prix": 149.53,
+              "prix_devise": "USD",
+              "notionnel_usd": 568.21,
+              "montant_signe_usd": -1.42,
+              "montant_signe_eur": -1.3,
+              "montant_usd": 1.42,
+              "montant_eur": 1.3,
+              "devise_releve": "USD",
+              "montant_releve": -1.42,
+              "libelle_releve": "Trade - Market Sell, Trading fee -US$1.42",
+              "note": "Frais CFD listé séparément, soit 0.25 % de la valeur notionnelle US$568.21 (glossaire : 0,25 % à l'ouverture et à la clôture si le sous-jacent est une action).",
+              "source": "Relevé CFD, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+            }
+          ]
+        },
+        {
+          "id": "change",
+          "poste": "Change",
+          "observe_usd": null,
+          "observe_eur": null,
+          "projection_usd": null,
+          "projection_eur": null,
+          "objectif_eur": null,
+          "depasse_objectif": null,
+          "n_operations": 0,
+          "detail": "Aucun frais de change (FX) n'apparaît sur les deux relevés d'octobre 2026.",
+          "operations": []
+        },
+        {
+          "id": "ovn",
+          "poste": "OVN octobre",
+          "observe_usd": 63.31,
+          "observe_eur": 57.85,
+          "projection_usd": 63.31,
+          "projection_eur": 57.85,
+          "objectif_eur": 20,
+          "depasse_objectif": true,
+          "n_operations": 22,
+          "detail": "22 overnight fees CFD, sans symbole. Objectif : moins de 20 € par mois.",
+          "operations": [
+            {
+              "date": "2026-10-01",
+              "heure_gmt": "22:51:32",
+              "compte": "cfd_usd",
+              "symbole": null,
+              "type": "overnight_fee",
+              "sens": null,
+              "categorie": "ovn",
+              "montant_signe_usd": -0.99,
+              "montant_signe_eur": -0.9,
+              "montant_usd": 0.99,
+              "montant_eur": 0.9,
+              "devise_releve": "USD",
+              "montant_releve": -0.99,
+              "libelle_releve": "Overnight fee -US$0.99",
+              "note": "Le relevé n'attribue pas ce frais overnight à un symbole.",
+              "source": "Relevé CFD, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+            },
+            {
+              "date": "2026-10-02",
+              "heure_gmt": "22:00:18",
+              "compte": "cfd_usd",
+              "symbole": null,
+              "type": "overnight_fee",
+              "sens": null,
+              "categorie": "ovn",
+              "montant_signe_usd": -4.87,
+              "montant_signe_eur": -4.45,
+              "montant_usd": 4.87,
+              "montant_eur": 4.45,
+              "devise_releve": "USD",
+              "montant_releve": -4.87,
+              "libelle_releve": "Overnight fee -US$4.87",
+              "note": "Le relevé n'attribue pas ce frais overnight à un symbole.",
+              "source": "Relevé CFD, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+            },
+            {
+              "date": "2026-10-06",
+              "heure_gmt": "15:51:55",
+              "compte": "cfd_usd",
+              "symbole": null,
+              "type": "overnight_fee",
+              "sens": null,
+              "categorie": "ovn",
+              "montant_signe_usd": -1.62,
+              "montant_signe_eur": -1.48,
+              "montant_usd": 1.62,
+              "montant_eur": 1.48,
+              "devise_releve": "USD",
+              "montant_releve": -1.62,
+              "libelle_releve": "Overnight fee -US$1.62",
+              "note": "Le relevé n'attribue pas ce frais overnight à un symbole.",
+              "source": "Relevé CFD, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+            },
+            {
+              "date": "2026-10-06",
+              "heure_gmt": "21:47:11",
+              "compte": "cfd_usd",
+              "symbole": null,
+              "type": "overnight_fee",
+              "sens": null,
+              "categorie": "ovn",
+              "montant_signe_usd": -1.66,
+              "montant_signe_eur": -1.52,
+              "montant_usd": 1.66,
+              "montant_eur": 1.52,
+              "devise_releve": "USD",
+              "montant_releve": -1.66,
+              "libelle_releve": "Overnight fee -US$1.66",
+              "note": "Le relevé n'attribue pas ce frais overnight à un symbole.",
+              "source": "Relevé CFD, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+            },
+            {
+              "date": "2026-10-07",
+              "heure_gmt": "21:49:13",
+              "compte": "cfd_usd",
+              "symbole": null,
+              "type": "overnight_fee",
+              "sens": null,
+              "categorie": "ovn",
+              "montant_signe_usd": -0.63,
+              "montant_signe_eur": -0.58,
+              "montant_usd": 0.63,
+              "montant_eur": 0.58,
+              "devise_releve": "USD",
+              "montant_releve": -0.63,
+              "libelle_releve": "Overnight fee -US$0.63",
+              "note": "Le relevé n'attribue pas ce frais overnight à un symbole.",
+              "source": "Relevé CFD, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+            },
+            {
+              "date": "2026-10-08",
+              "heure_gmt": "22:01:27",
+              "compte": "cfd_usd",
+              "symbole": null,
+              "type": "overnight_fee",
+              "sens": null,
+              "categorie": "ovn",
+              "montant_signe_usd": -0.65,
+              "montant_signe_eur": -0.59,
+              "montant_usd": 0.65,
+              "montant_eur": 0.59,
+              "devise_releve": "USD",
+              "montant_releve": -0.65,
+              "libelle_releve": "Overnight fee -US$0.65",
+              "note": "Le relevé n'attribue pas ce frais overnight à un symbole.",
+              "source": "Relevé CFD, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+            },
+            {
+              "date": "2026-10-09",
+              "heure_gmt": "21:50:55",
+              "compte": "cfd_usd",
+              "symbole": null,
+              "type": "overnight_fee",
+              "sens": null,
+              "categorie": "ovn",
+              "montant_signe_usd": -4.94,
+              "montant_signe_eur": -4.51,
+              "montant_usd": 4.94,
+              "montant_eur": 4.51,
+              "devise_releve": "USD",
+              "montant_releve": -4.94,
+              "libelle_releve": "Overnight fee -US$4.94",
+              "note": "Le relevé n'attribue pas ce frais overnight à un symbole.",
+              "source": "Relevé CFD, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+            },
+            {
+              "date": "2026-10-12",
+              "heure_gmt": "21:50:35",
+              "compte": "cfd_usd",
+              "symbole": null,
+              "type": "overnight_fee",
+              "sens": null,
+              "categorie": "ovn",
+              "montant_signe_usd": -1.66,
+              "montant_signe_eur": -1.52,
+              "montant_usd": 1.66,
+              "montant_eur": 1.52,
+              "devise_releve": "USD",
+              "montant_releve": -1.66,
+              "libelle_releve": "Overnight fee -US$1.66",
+              "note": "Le relevé n'attribue pas ce frais overnight à un symbole.",
+              "source": "Relevé CFD, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+            },
+            {
+              "date": "2026-10-13",
+              "heure_gmt": "21:47:18",
+              "compte": "cfd_usd",
+              "symbole": null,
+              "type": "overnight_fee",
+              "sens": null,
+              "categorie": "ovn",
+              "montant_signe_usd": -1.68,
+              "montant_signe_eur": -1.54,
+              "montant_usd": 1.68,
+              "montant_eur": 1.54,
+              "devise_releve": "USD",
+              "montant_releve": -1.68,
+              "libelle_releve": "Overnight fee -US$1.68",
+              "note": "Le relevé n'attribue pas ce frais overnight à un symbole.",
+              "source": "Relevé CFD, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+            },
+            {
+              "date": "2026-10-14",
+              "heure_gmt": "21:46:30",
+              "compte": "cfd_usd",
+              "symbole": null,
+              "type": "overnight_fee",
+              "sens": null,
+              "categorie": "ovn",
+              "montant_signe_usd": -1.89,
+              "montant_signe_eur": -1.73,
+              "montant_usd": 1.89,
+              "montant_eur": 1.73,
+              "devise_releve": "USD",
+              "montant_releve": -1.89,
+              "libelle_releve": "Overnight fee -US$1.89",
+              "note": "Le relevé n'attribue pas ce frais overnight à un symbole.",
+              "source": "Relevé CFD, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+            },
+            {
+              "date": "2026-10-16",
+              "heure_gmt": "21:42:52",
+              "compte": "cfd_usd",
+              "symbole": null,
+              "type": "overnight_fee",
+              "sens": null,
+              "categorie": "ovn",
+              "montant_signe_usd": -7.12,
+              "montant_signe_eur": -6.51,
+              "montant_usd": 7.12,
+              "montant_eur": 6.51,
+              "devise_releve": "USD",
+              "montant_releve": -7.12,
+              "libelle_releve": "Overnight fee -US$7.12",
+              "note": "Le relevé n'attribue pas ce frais overnight à un symbole.",
+              "source": "Relevé CFD, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+            },
+            {
+              "date": "2026-10-19",
+              "heure_gmt": "21:42:54",
+              "compte": "cfd_usd",
+              "symbole": null,
+              "type": "overnight_fee",
+              "sens": null,
+              "categorie": "ovn",
+              "montant_signe_usd": -2.14,
+              "montant_signe_eur": -1.96,
+              "montant_usd": 2.14,
+              "montant_eur": 1.96,
+              "devise_releve": "USD",
+              "montant_releve": -2.14,
+              "libelle_releve": "Overnight fee -US$2.14",
+              "note": "Le relevé n'attribue pas ce frais overnight à un symbole.",
+              "source": "Relevé CFD, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+            },
+            {
+              "date": "2026-10-20",
+              "heure_gmt": "14:37:14",
+              "compte": "cfd_usd",
+              "symbole": null,
+              "type": "overnight_fee",
+              "sens": null,
+              "categorie": "ovn",
+              "montant_signe_usd": -2.4,
+              "montant_signe_eur": -2.19,
+              "montant_usd": 2.4,
+              "montant_eur": 2.19,
+              "devise_releve": "USD",
+              "montant_releve": -2.4,
+              "libelle_releve": "Overnight fee -US$2.40",
+              "note": "Le relevé n'attribue pas ce frais overnight à un symbole.",
+              "source": "Relevé CFD, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+            },
+            {
+              "date": "2026-10-21",
+              "heure_gmt": "11:41:15",
+              "compte": "cfd_usd",
+              "symbole": null,
+              "type": "overnight_fee",
+              "sens": null,
+              "categorie": "ovn",
+              "montant_signe_usd": -2.15,
+              "montant_signe_eur": -1.96,
+              "montant_usd": 2.15,
+              "montant_eur": 1.96,
+              "devise_releve": "USD",
+              "montant_releve": -2.15,
+              "libelle_releve": "Overnight fee -US$2.15",
+              "note": "Le relevé n'attribue pas ce frais overnight à un symbole.",
+              "source": "Relevé CFD, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+            },
+            {
+              "date": "2026-10-22",
+              "heure_gmt": "08:10:56",
+              "compte": "cfd_usd",
+              "symbole": null,
+              "type": "overnight_fee",
+              "sens": null,
+              "categorie": "ovn",
+              "montant_signe_usd": -2.14,
+              "montant_signe_eur": -1.96,
+              "montant_usd": 2.14,
+              "montant_eur": 1.96,
+              "devise_releve": "USD",
+              "montant_releve": -2.14,
+              "libelle_releve": "Overnight fee -US$2.14",
+              "note": "Le relevé n'attribue pas ce frais overnight à un symbole.",
+              "source": "Relevé CFD, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+            },
+            {
+              "date": "2026-10-22",
+              "heure_gmt": "21:49:36",
+              "compte": "cfd_usd",
+              "symbole": null,
+              "type": "overnight_fee",
+              "sens": null,
+              "categorie": "ovn",
+              "montant_signe_usd": -2.3,
+              "montant_signe_eur": -2.1,
+              "montant_usd": 2.3,
+              "montant_eur": 2.1,
+              "devise_releve": "USD",
+              "montant_releve": -2.3,
+              "libelle_releve": "Overnight fee -US$2.30",
+              "note": "Le relevé n'attribue pas ce frais overnight à un symbole.",
+              "source": "Relevé CFD, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+            },
+            {
+              "date": "2026-10-23",
+              "heure_gmt": "21:40:47",
+              "compte": "cfd_usd",
+              "symbole": null,
+              "type": "overnight_fee",
+              "sens": null,
+              "categorie": "ovn",
+              "montant_signe_usd": -6.84,
+              "montant_signe_eur": -6.25,
+              "montant_usd": 6.84,
+              "montant_eur": 6.25,
+              "devise_releve": "USD",
+              "montant_releve": -6.84,
+              "libelle_releve": "Overnight fee -US$6.84",
+              "note": "Le relevé n'attribue pas ce frais overnight à un symbole.",
+              "source": "Relevé CFD, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+            },
+            {
+              "date": "2026-10-26",
+              "heure_gmt": "21:40:20",
+              "compte": "cfd_usd",
+              "symbole": null,
+              "type": "overnight_fee",
+              "sens": null,
+              "categorie": "ovn",
+              "montant_signe_usd": -2.27,
+              "montant_signe_eur": -2.07,
+              "montant_usd": 2.27,
+              "montant_eur": 2.07,
+              "devise_releve": "USD",
+              "montant_releve": -2.27,
+              "libelle_releve": "Overnight fee -US$2.27",
+              "note": "Le relevé n'attribue pas ce frais overnight à un symbole.",
+              "source": "Relevé CFD, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+            },
+            {
+              "date": "2026-10-27",
+              "heure_gmt": "21:43:43",
+              "compte": "cfd_usd",
+              "symbole": null,
+              "type": "overnight_fee",
+              "sens": null,
+              "categorie": "ovn",
+              "montant_signe_usd": -2.02,
+              "montant_signe_eur": -1.85,
+              "montant_usd": 2.02,
+              "montant_eur": 1.85,
+              "devise_releve": "USD",
+              "montant_releve": -2.02,
+              "libelle_releve": "Overnight fee -US$2.02",
+              "note": "Le relevé n'attribue pas ce frais overnight à un symbole.",
+              "source": "Relevé CFD, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+            },
+            {
+              "date": "2026-10-28",
+              "heure_gmt": "21:42:16",
+              "compte": "cfd_usd",
+              "symbole": null,
+              "type": "overnight_fee",
+              "sens": null,
+              "categorie": "ovn",
+              "montant_signe_usd": -2.01,
+              "montant_signe_eur": -1.84,
+              "montant_usd": 2.01,
+              "montant_eur": 1.84,
+              "devise_releve": "USD",
+              "montant_releve": -2.01,
+              "libelle_releve": "Overnight fee -US$2.01",
+              "note": "Le relevé n'attribue pas ce frais overnight à un symbole.",
+              "source": "Relevé CFD, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+            },
+            {
+              "date": "2026-10-29",
+              "heure_gmt": "21:47:46",
+              "compte": "cfd_usd",
+              "symbole": null,
+              "type": "overnight_fee",
+              "sens": null,
+              "categorie": "ovn",
+              "montant_signe_usd": -2.05,
+              "montant_signe_eur": -1.87,
+              "montant_usd": 2.05,
+              "montant_eur": 1.87,
+              "devise_releve": "USD",
+              "montant_releve": -2.05,
+              "libelle_releve": "Overnight fee -US$2.05",
+              "note": "Le relevé n'attribue pas ce frais overnight à un symbole.",
+              "source": "Relevé CFD, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+            },
+            {
+              "date": "2026-10-30",
+              "heure_gmt": "21:52:31",
+              "compte": "cfd_usd",
+              "symbole": null,
+              "type": "overnight_fee",
+              "sens": null,
+              "categorie": "ovn",
+              "montant_signe_usd": -9.28,
+              "montant_signe_eur": -8.48,
+              "montant_usd": 9.28,
+              "montant_eur": 8.48,
+              "devise_releve": "USD",
+              "montant_releve": -9.28,
+              "libelle_releve": "Overnight fee -US$9.28",
+              "note": "Le relevé n'attribue pas ce frais overnight à un symbole.",
+              "source": "Relevé CFD, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+            }
+          ]
+        },
+        {
+          "id": "autres",
+          "poste": "Autres",
+          "observe_usd": 0.03,
+          "observe_eur": 0.03,
+          "projection_usd": 0.03,
+          "projection_eur": 0.03,
+          "objectif_eur": null,
+          "depasse_objectif": null,
+          "n_operations": 2,
+          "detail": "Colonne « Fees » des ventes LAND et BSBR (0,02 $ et 0,01 $), distincte de la commission. Pas de custody, d'abonnement courtage ni de TTF sur les relevés.",
+          "operations": [
+            {
+              "date": "2026-10-06",
+              "heure_gmt": "14:16:30",
+              "compte": "titres_usd",
+              "symbole": "LAND",
+              "type": "frais_reglementaire",
+              "sens": "sortie",
+              "categorie": "autres",
+              "quantite": 85.92996778,
+              "prix": 9.67,
+              "prix_devise": "USD",
+              "notionnel_usd": 829.92,
+              "montant_signe_usd": -0.02,
+              "montant_signe_eur": -0.02,
+              "montant_usd": 0.02,
+              "montant_eur": 0.02,
+              "devise_releve": "USD",
+              "montant_releve": -0.02,
+              "libelle_releve": "Trade - Market Sell, colonne Fees US$0.02 (distincte de Commission)",
+              "note": "Frais de la colonne « Fees » du relevé titres, distinct de la commission. Nature exacte non précisée sur le relevé (souvent un frais réglementaire de vente).",
+              "source": "Relevé actions et obligations, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+            },
+            {
+              "date": "2026-10-06",
+              "heure_gmt": "14:16:53",
+              "compte": "titres_usd",
+              "symbole": "BSBR",
+              "type": "frais_reglementaire",
+              "sens": "sortie",
+              "categorie": "autres",
+              "quantite": 111.22872159,
+              "prix": 5.83,
+              "prix_devise": "USD",
+              "notionnel_usd": 647.49,
+              "montant_signe_usd": -0.01,
+              "montant_signe_eur": -0.01,
+              "montant_usd": 0.01,
+              "montant_eur": 0.01,
+              "devise_releve": "USD",
+              "montant_releve": -0.01,
+              "libelle_releve": "Trade - Market Sell, colonne Fees US$0.01 (distincte de Commission)",
+              "note": "Frais de la colonne « Fees » du relevé titres, distinct de la commission. Nature exacte non précisée sur le relevé.",
+              "source": "Relevé actions et obligations, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+            }
+          ]
+        }
+      ],
+      "totaux": {
+        "frais_usd": 108.79,
+        "frais_eur": 99.41,
+        "entree_usd": 28.63,
+        "entree_eur": 26.16,
+        "sortie_usd": 16.82,
+        "sortie_eur": 15.37,
+        "change_usd": null,
+        "change_eur": null,
+        "ovn_usd": 63.31,
+        "ovn_eur": 57.85,
+        "autres_usd": 0.03,
+        "autres_eur": 0.03,
+        "objectif_ovn_eur": 20,
+        "ovn_depasse_objectif": true
+      },
+      "dividendes_et_coupons": {
+        "operations": [
+          {
+            "date": "2026-10-01",
+            "heure_gmt": "13:03:48",
+            "compte": "titres_usd",
+            "symbole": "NKE",
+            "nom": "Nike",
+            "type": "Dividend",
+            "sens": null,
+            "categorie": "dividende",
+            "montant_signe_usd": 10.44,
+            "montant_signe_eur": 9.54,
+            "montant_usd": 10.44,
+            "montant_eur": 9.54,
+            "devise_releve": "USD",
+            "montant_releve": 10.44,
+            "libelle_releve": "Dividend US$10.44, Fees US$0, Commission US$0",
+            "note": "Colonnes Fees et Commission à 0. Aucune retenue à la source n'apparaît.",
+            "source": "Relevé actions et obligations, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+          },
+          {
+            "date": "2026-10-02",
+            "heure_gmt": "07:30:08",
+            "compte": "titres_usd",
+            "symbole": "US37045VAT70",
+            "nom": "General Motors Company 5.95% Apr 2049",
+            "type": "Bond coupon",
+            "sens": null,
+            "categorie": "coupon",
+            "montant_signe_usd": 3.06,
+            "montant_signe_eur": 2.8,
+            "montant_usd": 3.06,
+            "montant_eur": 2.8,
+            "devise_releve": "USD",
+            "montant_releve": 3.06,
+            "libelle_releve": "Bond coupon US$3.06, Fees US$0, Commission US$0",
+            "note": "Colonnes Fees et Commission à 0. Aucune retenue à la source n'apparaît.",
+            "source": "Relevé actions et obligations, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+          },
+          {
+            "date": "2026-10-06",
+            "heure_gmt": "08:17:15",
+            "compte": "titres_usd",
+            "symbole": "US731011AW25",
+            "type": "Bond coupon",
+            "sens": null,
+            "categorie": "coupon",
+            "montant_signe_usd": 7.45,
+            "montant_signe_eur": 6.81,
+            "montant_usd": 7.45,
+            "montant_eur": 6.81,
+            "devise_releve": "USD",
+            "montant_releve": 7.45,
+            "libelle_releve": "Bond coupon US$7.45, Fees US$0, Commission US$0",
+            "note": "Colonnes Fees et Commission à 0. Aucune retenue à la source n'apparaît.",
+            "source": "Relevé actions et obligations, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+          },
+          {
+            "date": "2026-10-12",
+            "heure_gmt": "11:52:52",
+            "compte": "titres_usd",
+            "symbole": "AGNC",
+            "nom": "AGNC Investment",
+            "type": "Dividend",
+            "sens": null,
+            "categorie": "dividende",
+            "montant_signe_usd": 5.36,
+            "montant_signe_eur": 4.9,
+            "montant_usd": 5.36,
+            "montant_eur": 4.9,
+            "devise_releve": "USD",
+            "montant_releve": 5.36,
+            "libelle_releve": "Dividend US$5.36, Fees US$0, Commission US$0",
+            "note": "Colonnes Fees et Commission à 0. Aucune retenue à la source n'apparaît.",
+            "source": "Relevé actions et obligations, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+          },
+          {
+            "date": "2026-10-08",
+            "heure_gmt": "17:11:46",
+            "compte": "titres_eur",
+            "symbole": "JGPI",
+            "type": "Dividend",
+            "sens": null,
+            "categorie": "dividende",
+            "montant_signe_usd": 3.2,
+            "montant_signe_eur": 2.92,
+            "montant_usd": 3.2,
+            "montant_eur": 2.92,
+            "devise_releve": "EUR",
+            "montant_releve": 2.92,
+            "libelle_releve": "Dividend €2.92, Fees €0, Commission €0",
+            "note": "Colonnes Fees et Commission à 0. Aucune retenue à la source n'apparaît.",
+            "source": "Relevé actions et obligations, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+          },
+          {
+            "date": "2026-10-28",
+            "heure_gmt": "15:43:49",
+            "compte": "titres_eur",
+            "symbole": "VGEM",
+            "nom": "Vanguard USD Emerging Markets Government Bond Dist ETF",
+            "type": "Dividend",
+            "sens": null,
+            "categorie": "dividende",
+            "montant_signe_usd": 1.13,
+            "montant_signe_eur": 1.03,
+            "montant_usd": 1.13,
+            "montant_eur": 1.03,
+            "devise_releve": "EUR",
+            "montant_releve": 1.03,
+            "libelle_releve": "Dividend €1.03, Fees €0, Commission €0",
+            "note": "Colonnes Fees et Commission à 0. Aucune retenue à la source n'apparaît.",
+            "source": "Relevé actions et obligations, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+          }
+        ],
+        "dividendes_usd": 20.12,
+        "dividendes_eur": 18.39,
+        "coupons_usd": 10.51,
+        "coupons_eur": 9.6,
+        "net_usd": 30.63,
+        "net_eur": 27.99,
+        "retenue_a_la_source_usd": null,
+        "retenue_a_la_source_eur": null,
+        "retenue_note": "Aucune retenue à la source n'apparaît sur le relevé : pour chaque dividende et coupon, les colonnes Fees et Commission sont à 0 (USD ou EUR). Le montant indiqué est celui du relevé, sans retenue visible. Rien n'a été inventé."
+      },
+      "operations_sans_frais": [
+        {
+          "date": "2026-10-26",
+          "heure_gmt": "07:04:00",
+          "compte": "titres_usd",
+          "symbole": "US91086QAS75",
+          "type": "Trade - Market",
+          "sens": "sortie",
+          "commission_releve": 0,
+          "fees_releve": 0,
+          "devise_releve": "USD",
+          "quantite": 0.53,
+          "prix": 1011.72,
+          "notionnel_usd": 536.21,
+          "source": "Relevé actions et obligations, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+        },
+        {
+          "date": "2026-10-26",
+          "heure_gmt": "07:04:00",
+          "compte": "titres_usd",
+          "symbole": "US195325BB02",
+          "type": "Trade - Market",
+          "sens": "sortie",
+          "commission_releve": 0,
+          "fees_releve": 0,
+          "devise_releve": "USD",
+          "quantite": 0.564,
+          "prix": 1202.45,
+          "notionnel_usd": 678.18,
+          "source": "Relevé actions et obligations, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+        },
+        {
+          "date": "2026-10-26",
+          "heure_gmt": "07:04:00",
+          "compte": "titres_usd",
+          "symbole": "US731011AZ55",
+          "type": "Trade - Market",
+          "sens": "sortie",
+          "commission_releve": 0,
+          "fees_releve": 0,
+          "devise_releve": "USD",
+          "quantite": 1.469,
+          "prix": 862.85,
+          "notionnel_usd": 1267.53,
+          "source": "Relevé actions et obligations, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+        },
+        {
+          "date": "2026-10-26",
+          "heure_gmt": "07:04:00",
+          "compte": "titres_usd",
+          "symbole": "XS2201851685",
+          "type": "Trade - Market",
+          "sens": "sortie",
+          "commission_releve": 0,
+          "fees_releve": 0,
+          "devise_releve": "USD",
+          "quantite": 0.1425,
+          "prix": 1250.6,
+          "notionnel_usd": 178.21,
+          "source": "Relevé actions et obligations, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+        },
+        {
+          "date": "2026-10-26",
+          "heure_gmt": "07:04:00",
+          "compte": "titres_usd",
+          "symbole": "US731011AW25",
+          "type": "Trade - Market",
+          "sens": "sortie",
+          "commission_releve": 0,
+          "fees_releve": 0,
+          "devise_releve": "USD",
+          "quantite": 0.271,
+          "prix": 859.45,
+          "notionnel_usd": 232.91,
+          "source": "Relevé actions et obligations, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+        },
+        {
+          "date": "2026-10-26",
+          "heure_gmt": "07:04:00",
+          "compte": "titres_usd",
+          "symbole": "USF2893TAL01",
+          "type": "Trade - Market",
+          "sens": "sortie",
+          "commission_releve": 0,
+          "fees_releve": 0,
+          "devise_releve": "USD",
+          "quantite": 0.953,
+          "prix": 874.97,
+          "notionnel_usd": 833.85,
+          "source": "Relevé actions et obligations, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+        },
+        {
+          "date": "2026-10-22",
+          "heure_gmt": "18:00:59",
+          "compte": "titres_eur",
+          "symbole": "BNQ9",
+          "nom": "BNP Paribas Issuance B.V. Henry Hub Natural ETC",
+          "type": "Trade - Market",
+          "sens": "entree",
+          "commission_releve": 0,
+          "fees_releve": 0,
+          "devise_releve": "EUR",
+          "quantite": 451.46726862,
+          "prix": 2.22,
+          "notionnel_eur": 1000.0,
+          "source": "Relevé actions et obligations, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+        },
+        {
+          "date": "2026-10-27",
+          "heure_gmt": "07:01:00",
+          "compte": "titres_eur",
+          "symbole": "BNQ9",
+          "nom": "BNP Paribas Issuance B.V. Henry Hub Natural ETC",
+          "type": "Trade - Market",
+          "sens": "entree",
+          "commission_releve": 0,
+          "fees_releve": 0,
+          "devise_releve": "EUR",
+          "quantite": 478.24007651,
+          "prix": 2.09,
+          "notionnel_eur": 1000.0,
+          "source": "Relevé actions et obligations, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026."
+        },
+        {
+          "date": "2026-10-30",
+          "heure_gmt": "15:30:47",
+          "compte": "cfd_usd",
+          "symbole": "XPD:CFD",
+          "nom": "Palladium",
+          "type": "Trade - Market",
+          "sens": "entree",
+          "commission_releve": 0,
+          "fees_releve": 0,
+          "devise_releve": "USD",
+          "quantite": 4.4,
+          "prix": 971.05,
+          "notionnel_usd": 4272.61,
+          "source": "Relevé CFD, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026.",
+          "note": "Aucun « Trading fee » n'apparaît sur cette ligne. Le glossaire du relevé CFD indique que le trading fee (0,25 % de la valeur notionnelle) s'applique lorsque le sous-jacent est une action ; XPD (Palladium) n'en a pas sur ce relevé. Aucun montant n'a été inventé."
+        },
+        {
+          "date": "2026-10-30",
+          "heure_gmt": "18:12:20",
+          "compte": "cfd_usd",
+          "symbole": "XPD:CFD",
+          "nom": "Palladium",
+          "type": "Trade - Market",
+          "sens": "entree",
+          "commission_releve": 0,
+          "fees_releve": 0,
+          "devise_releve": "USD",
+          "quantite": 0.6,
+          "prix": 971.55,
+          "notionnel_usd": 582.93,
+          "source": "Relevé CFD, compte 56HF6NCA06C6, période 01/10/2026–31/10/2026, généré le 25/11/2026.",
+          "note": "Aucun « Trading fee » n'apparaît sur cette ligne. Le glossaire du relevé CFD indique que le trading fee (0,25 % de la valeur notionnelle) s'applique lorsque le sous-jacent est une action ; XPD (Palladium) n'en a pas sur ce relevé. Aucun montant n'a été inventé."
+        }
+      ],
+      "absents": [
+        {
+          "type": "change",
+          "note": "Aucun frais de change (FX) n'apparaît dans les transactions USD ou EUR des deux relevés."
+        },
+        {
+          "type": "spread",
+          "note": "Aucun spread n'est indiqué sur les lignes d'ordres (ni titres, ni CFD)."
+        },
+        {
+          "type": "custody",
+          "note": "Aucun frais de custody n'apparaît."
+        },
+        {
+          "type": "abonnement_courtage",
+          "note": "Aucun frais d'abonnement de courtage n'apparaît sur ces relevés (l'abonnement TradingView est suivi à part sur le Budget)."
+        },
+        {
+          "type": "ttf",
+          "note": "Aucune taxe TTF (ou équivalent) n'apparaît."
+        },
+        {
+          "type": "retenue_a_la_source",
+          "note": "Aucune ligne de withholding / retenue à la source n'apparaît."
+        }
+      ],
+      "notes": [
+        "Période strictement du 1 au 31 octobre 2026 sur les deux relevés (compte 56HF6NCA06C6). Pas de transactions de novembre.",
+        "Les frais overnight CFD ne sont pas ventilés par symbole sur le relevé.",
+        "Les deux achats XPD:CFD (Palladium) du 30/10 n'ont pas de ligne Trading fee. Le glossaire du relevé CFD précise que le trading fee de 0,25 % s'applique lorsque le sous-jacent est une action.",
+        "Les 6 ventes d'obligations du 26/10 et les 2 achats BNQ9 (ETC) sont à commission et fees nuls sur le relevé.",
+        "Les apports et retraits de cash (Cash top-up / Cash withdrawal) sont à frais 0 ; ce ne sont pas des frais d'ordre."
+      ]
     },
     "compte_joint": {
       "id": "compte_joint_famille_2026-10",
@@ -40313,8 +41775,8 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
   }
 }
 </script>
-<script type="application/json" id="dataBuild">{"version":"aa450c0-20261125-141425"}</script>
-<link rel="preload" href="config/regles.json?v=aa450c0-20261125-141425" as="fetch" crossorigin>
+<script type="application/json" id="dataBuild">{"version":"dbb4784-20261125-141556"}</script>
+<link rel="preload" href="config/regles.json?v=dbb4784-20261125-141556" as="fetch" crossorigin>
 
 <script type="application/json" id="dataMaj">{
   "at": "2026-11-23T21:45:22.168885+01:00",
@@ -53195,6 +54657,51 @@ function bdgBindFolds(scope){
     });
   });
 }
+function bdgOctOf(b){ return (b&&b.frais_octobre)||null; }
+function bdgDateGmt(o){
+  const d=bdgDate(o&&o.date);
+  const h=o&&o.heure_gmt?String(o.heure_gmt).slice(0,5):'';
+  return (d+(h?(' '+h):'')).trim();
+}
+function bdgFeeQty(n){
+  if(n==null||n==='') return '';
+  const v=Number(n);
+  if(!Number.isFinite(v)) return String(n);
+  const d=Math.abs(v-Math.round(v))<1e-9?0:(Math.abs(v*100-Math.round(v*100))<1e-9?2:8);
+  return v.toLocaleString('fr-FR',{maximumFractionDigits:d,minimumFractionDigits:0});
+}
+function bdgFeeOpLine(o){
+  const when=bdgDateGmt(o);
+  const sym=o.symbole||'';
+  const nom=o.nom&&o.nom!==sym?(' '+o.nom):'';
+  const side=o.sens==='entree'?'achat':(o.sens==='sortie'?'vente':'');
+  const typ=o.type==='overnight_fee'?'Overnight fee':(o.type==='trading_fee'?'trading fee':(o.type==='commission'?'commission':(o.type==='frais_reglementaire'?'frais (Fees)':(o.type==='Dividend'?'dividende':(o.type==='Bond coupon'?'coupon':(o.type||''))))));
+  let mid='';
+  if(o.quantite!=null&&o.prix!=null){
+    const unit=(o.prix_devise==='EUR'?'EUR':'USD');
+    mid=bdgFeeQty(o.quantite)+' @ '+bdgAmt(o.prix,unit);
+    if(o.notionnel_usd!=null) mid+=' ('+bdgAmt(o.notionnel_usd,'USD')+')';
+    else if(o.notionnel_eur!=null) mid+=' ('+bdgAmt(o.notionnel_eur,'EUR')+')';
+  }
+  const bits=[when,sym+nom,side,typ,mid].filter(Boolean).join(' · ');
+  const amt=bdgPair(o.montant_usd,o.montant_eur);
+  return `<li><span class="bdg-op-l">${bdgEsc(bits)}</span><span class="bdg-op-m">${amt}</span></li>`;
+}
+function bdgFeeOpsDetails(ops, summary, extra){
+  const list=(ops&&ops.length)?(`<ul class="bdg-op-list">${ops.map(bdgFeeOpLine).join('')}</ul>`):'<p class="desc">Aucune opération.</p>';
+  return `<details class="bdg-ops"><summary>${bdgEsc(summary)}</summary>${list}${extra||''}</details>`;
+}
+function bdgOctCatRow(c, opts){
+  opts=opts||{};
+  const absent=c.observe_usd==null&&c.observe_eur==null&&!(c.operations&&c.operations.length);
+  const n=c.n_operations!=null?c.n_operations:((c.operations&&c.operations.length)||0);
+  const sum=absent?(c.detail||'Aucun montant sur le relevé'):((n? (n+' opération'+(n>1?'s':'')):'')+(c.detail?((n?' · ':'')+c.detail):''));
+  const det=absent?(`<div class="bdg-det">${bdgEsc(c.detail||'—')}</div>`):bdgFeeOpsDetails(c.operations||[], sum||'octobre 2026');
+  const cls=opts.cls||((c.id==='ovn'&&c.depasse_objectif)?['is-over']:[]);
+  const obj=opts.objectif!=null?opts.objectif:(c.objectif_eur!=null?('&lt; '+String(c.objectif_eur).replace('.', ',')+'\u00a0€'):'—');
+  return bdgRow({id:opts.id||('bdg-oct-'+c.id),cls:cls,poste:c.poste||c.id,detailsHtml:det,obsUsd:absent?'—':bdgAmt(c.observe_usd,'USD'),obsEur:absent?'—':bdgAmt(c.observe_eur,'EUR'),projUsd:absent?'—':bdgAmt(c.projection_usd,'USD'),projEur:absent?'—':bdgAmt(c.projection_eur,'EUR'),objectif:obj});
+}
+
 function bdgCourtHtml(b){
   const o=bdgOvnOf(b);
   const t=(b&&b.trading)||{};
@@ -53221,8 +54728,50 @@ function bdgCourtHtml(b){
     srcParts.push('TradingView Essential annuel le '+(whenTv+(h?(' à '+h):''))+(tv.souscription.zone?(' ('+tv.souscription.zone+')'):''));
   }
   if(fx) srcParts.push('change '+fx);
+  const fo=bdgOctOf(b);
+  if(fo) srcParts.push('frais octobre 2026, relevés Revolut 56HF6NCA06C6 (pdftotext)');
   const src=srcParts.length?('Source : '+srcParts.join(' · ')+'.'):'';
   const mois=b.mois_libelle||'';
+  const totOct=(fo&&fo.totaux)||{};
+  const catsOct=(fo&&fo.categories)||[];
+  const byOct={};
+  catsOct.forEach(c=>{ if(c&&c.id) byOct[c.id]=c; });
+  const fallbackTrading=bdgRow({id:'bdg-trading',poste:'Frais trading',detail:trDet,obsUsd:pending?'—':bdgAmt(t.total_mois_usd,'USD'),obsEur:pending?'—':bdgAmt(t.total_mois_eur,'EUR'),projUsd:pending?'—':bdgAmt(t.projection_usd,'USD'),projEur:pending?'—':bdgAmt(t.projection_eur,'EUR'),objectif:'—'});
+  const octOrder=['entree','sortie','change','ovn','autres'];
+  const OCT_POSTES={entree:'Entrée',sortie:'Sortie',change:'Change',ovn:'OVN octobre',autres:'Autres'};
+  let octRows=fallbackTrading;
+  if(fo){
+    const rows=octOrder.map((id,i)=>{
+      const c=Object.assign({id:id,poste:OCT_POSTES[id]||id,operations:[],observe_usd:null,observe_eur:null}, byOct[id]||{});
+      if(!c.poste) c.poste=OCT_POSTES[id]||id;
+      const opts={};
+      if(id==='entree') opts.id='bdg-trading';
+      if(id==='ovn'){ opts.cls=(c.depasse_objectif||(c.observe_eur!=null&&Number(c.observe_eur)>20))?['is-over']:[]; opts.objectif=objTxt; }
+      return bdgOctCatRow(c, opts);
+    });
+    const totU=totOct.frais_usd, totE=totOct.frais_eur;
+    const sans=fo.operations_sans_frais||[];
+    const sansHtml=sans.length?bdgFeeOpsDetails(sans.map(s=>({
+      date:s.date,heure_gmt:s.heure_gmt,symbole:s.symbole,nom:s.nom,sens:s.sens,type:s.type,quantite:s.quantite,prix:s.prix,prix_devise:s.devise_releve,notionnel_usd:s.notionnel_usd,notionnel_eur:s.notionnel_eur,montant_usd:0,montant_eur:0
+    })), sans.length+' ordre'+(sans.length>1?'s':'')+' à commission et fees nuls'):'';
+    rows.push(`<div class="bdg-foot" id="bdg-oct-total">
+          <div class="bdg-poste"><h2>Total frais octobre</h2></div>
+          <div class="bdg-detail bdg-wrap">${sansHtml||'<div class="bdg-det">Octobre 2026 · relevés actions/obligations et CFD</div>'}</div>
+          <div class="bdg-num">${bdgAmt(totU,'USD')}</div>
+          <div class="bdg-num">${bdgAmt(totE,'EUR')}</div>
+          <div class="bdg-num">${bdgAmt(totU,'USD')}</div>
+          <div class="bdg-num">${bdgAmt(totE,'EUR')}</div>
+          <div class="bdg-obj">—</div>
+        </div>`);
+    const inc=fo.dividendes_et_coupons||{};
+    const incOps=inc.operations||[];
+    if(incOps.length){
+      const note=inc.retenue_note||"Aucune retenue à la source n'apparaît sur le relevé.";
+      rows.push(bdgRow({id:'bdg-oct-revenu',cls:['bdg-annexe'],poste:'Dividendes et coupons (oct.)',detailsHtml:bdgFeeOpsDetails(incOps, (incOps.length+' encaissement'+(incOps.length>1?'s':'')+' nets · '+note), ''),obsUsd:bdgAmt(inc.net_usd,'USD'),obsEur:bdgAmt(inc.net_eur,'EUR'),projUsd:bdgAmt(inc.net_usd,'USD'),projEur:bdgAmt(inc.net_eur,'EUR'),objectif:'—'}));
+    }
+    octRows=rows.join('\n        ');
+  }
+  const octKv=fo?`<div class="home-kv"><span class="l">Frais octobre</span><b>${bdgAmt(totOct.frais_eur,'EUR')}</b><small>${bdgAmt(totOct.frais_usd,'USD')}</small></div>`:'';
   return `<section class="card home-hero bdg-hero" id="bdg-courtage" data-bdg-fold="courtage">
     <div class="home-hero-top">
       <h2>${bdgFoldTitle('courtage','Frais de courtage et abonnements','bdg-courtage-body')}</h2>
@@ -53231,13 +54780,14 @@ function bdgCourtHtml(b){
     <div class="home-strip bdg-kvs bdg-fold-banner">
       <div class="home-kv"><span class="l">Total observé</span><b>${bdgAmt(b.total_observe_eur,'EUR')}</b><small>${bdgAmt(b.total_observe_usd,'USD')}</small></div>
       <div class="home-kv"><span class="l">Projection</span><b>${bdgAmt(b.projection_eur,'EUR')}</b><small>${bdgAmt(b.projection_usd,'USD')}</small></div>
+      ${octKv}
     </div>
     <div class="bdg-fold-body" id="bdg-courtage-body">
     <div class="home-table-scroll">
       <div class="home-table bdg-table" id="bdg-table">
         ${bdgHead()}
         ${bdgRow({id:'bdg-ovn',cls:over?['is-over']:['is-ok'],poste:'OVN',detail:detail,obsUsd:bdgAmt(o.total_mois_usd,'USD'),obsEur:bdgAmt(o.total_mois_eur,'EUR'),projUsd:bdgAmt(o.projection_usd,'USD'),projEur:bdgAmt(o.projection_eur,'EUR'),objectif:objTxt})}
-        ${bdgRow({id:'bdg-trading',poste:'Frais trading',detail:trDet,obsUsd:pending?'—':bdgAmt(t.total_mois_usd,'USD'),obsEur:pending?'—':bdgAmt(t.total_mois_eur,'EUR'),projUsd:pending?'—':bdgAmt(t.projection_usd,'USD'),projEur:pending?'—':bdgAmt(t.projection_eur,'EUR'),objectif:'—'})}
+        ${octRows}
         ${bdgRow({id:'bdg-tv',cls:tvOk?['is-ok']:[],poste:'Abonnement TradingView',detailsHtml:`<div class="bdg-det">${bdgEsc(tvDet)}</div>`,obsUsd:bdgAmt(tv.total_mois_usd,'USD'),obsEur:bdgAmt(tv.total_mois_eur,'EUR'),projUsd:bdgAmt(tv.projection_usd,'USD'),projEur:bdgAmt(tv.projection_eur,'EUR'),objectif:bdgTvObjectif(tv)})}
         <div class="bdg-foot" id="bdg-general">
           <div class="bdg-poste"><h2>Total général</h2></div>

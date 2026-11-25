@@ -306,6 +306,24 @@ def test_ordres_traites_comme_positions_actives_dans_le_js():
     # moyenne ETF / âge : les dates d'ordre d'achat comptent
     assert "date_achat||p.date_ouverture" in ACC
 
+    fo = bud["frais_octobre"]
+    tot = fo["totaux"]
+    assert tot["frais_usd"] == 108.79 and tot["frais_eur"] == 99.41
+    assert tot["entree_usd"] == 28.63 and tot["entree_eur"] == 26.16
+    assert tot["sortie_usd"] == 16.82 and tot["sortie_eur"] == 15.37
+    assert tot["change_usd"] is None and tot["change_eur"] is None
+    assert tot["ovn_usd"] == 63.31 and tot["ovn_eur"] == 57.85
+    assert tot["autres_usd"] == 0.03 and tot["autres_eur"] == 0.03
+    assert tot["ovn_depasse_objectif"] is True
+    inc = fo["dividendes_et_coupons"]
+    assert inc["net_usd"] == 30.63 and inc["net_eur"] == 27.99
+    assert inc["dividendes_usd"] == 20.12 and inc["coupons_usd"] == 10.51
+    assert inc["retenue_a_la_source_usd"] is None
+    assert "Entrée" in BDG and "Sortie" in BDG and "OVN octobre" in BDG
+    assert "Total frais octobre" in BDG
+    assert "function bdgOctOf" in BDG
+    assert bud["projection_usd"] == 87.21 and bud["projection_eur"] == 79.68
+
 
 def test_source_dashboard_presente():
     src = ROOT / "data" / "revolut" / "releve_courtiers_2026-11-25.json"

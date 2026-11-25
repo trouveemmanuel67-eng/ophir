@@ -22,6 +22,7 @@ COMPTE_JOINT = DATA / "budget" / "compte_joint_2026-10.json"
 LIDL_TICKETS = DATA / "budget" / "lidl_tickets_2026-10_11.json"
 COMPTES = DATA / "budget" / "comptes_2026-10_11.json"
 BUDGET_MENSUEL = DATA / "budget" / "budget_mensuel_moyen.json"
+FRAIS_OCTOBRE = DATA / "budget" / "frais_courtage_2026-10.json"
 PARIS = ZoneInfo("Europe/Paris")
 
 # Métadonnées APEX (tickers TV, onglets, dates d'achat déjà connues).
@@ -961,10 +962,97 @@ def build_budget_mensuel():
     return json.loads(BUDGET_MENSUEL.read_text(encoding="utf-8"))
 
 
+
+def build_frais_octobre(fx):
+    """Frais de courtage octobre 2026, sourcés (data/budget/frais_courtage_2026-10.json)."""
+    if not FRAIS_OCTOBRE.exists():
+        return None
+    raw = json.loads(FRAIS_OCTOBRE.read_text(encoding="utf-8"))
+    # Recalcule les USD/EUR des totaux à partir des montants natifs, au fx du site.
+    def conv_ops(ops):
+        out = []
+        for o in ops or []:
+            rec = dict(o)
+            dev = rec.get("devise_releve")
+            native = rec.get("montant_releve")
+            if native not in (None, "") and dev in ("USD", "EUR") and fx:
+                amt = abs(float(native))
+                if dev == "USD":
+                    rec["montant_usd"] = r2(amt)
+                    rec["montant_eur"] = r2(amt / fx)
+                else:
+                    rec["montant_eur"] = r2(amt)
+                    rec["montant_usd"] = r2(amt * fx)
+                sign = -1 if rec.get("categorie") in ("entree", "sortie", "ovn", "autres", "change") or rec.get("type") in ("commission", "trading_fee", "overnight_fee", "frais_reglementaire") else 1
+                # income positive: montant_releve already positive
+                if rec.get("categorie") in ("dividende", "coupon") or rec.get("type") in ("Dividend", "Bond coupon"):
+                    sign = 1
+                rec["montant_signe_usd"] = r2(sign * rec["montant_usd"])
+                rec["montant_signe_eur"] = r2(sign * rec["montant_eur"])
+            out.append(rec)
+        return out
+
+    def cat_tot(ops):
+        usd_n = r2(sum(o.get("montant_usd") or 0 for o in ops if o.get("devise_releve") == "USD"))
+        eur_n = r2(sum(o.get("montant_eur") or 0 for o in ops if o.get("devise_releve") == "EUR"))
+        return r2(usd_n + (r2(eur_n * fx) if eur_n and fx else 0)), r2((r2(usd_n / fx) if usd_n and fx else 0) + eur_n)
+
+    cats = []
+    for c in raw.get("categories") or []:
+        rec = {k: v for k, v in c.items() if k != "operations"}
+        ops = conv_ops(c.get("operations") or [])
+        rec["operations"] = ops
+        if c.get("id") == "change" or (c.get("observe_usd") is None and not ops):
+            rec["observe_usd"] = rec["observe_eur"] = rec["projection_usd"] = rec["projection_eur"] = None
+        else:
+            u, e = cat_tot(ops)
+            rec["observe_usd"] = rec["projection_usd"] = u
+            rec["observe_eur"] = rec["projection_eur"] = e
+        cats.append(rec)
+    by = {c["id"]: c for c in cats}
+    tot = dict(raw.get("totaux") or {})
+    tot["entree_usd"], tot["entree_eur"] = by["entree"]["observe_usd"], by["entree"]["observe_eur"]
+    tot["sortie_usd"], tot["sortie_eur"] = by["sortie"]["observe_usd"], by["sortie"]["observe_eur"]
+    tot["ovn_usd"], tot["ovn_eur"] = by["ovn"]["observe_usd"], by["ovn"]["observe_eur"]
+    tot["autres_usd"], tot["autres_eur"] = by["autres"]["observe_usd"], by["autres"]["observe_eur"]
+    tot["change_usd"] = tot["change_eur"] = None
+    tot["frais_usd"] = r2(sum(x or 0 for x in (tot["entree_usd"], tot["sortie_usd"], tot["ovn_usd"], tot["autres_usd"])))
+    tot["frais_eur"] = r2(sum(x or 0 for x in (tot["entree_eur"], tot["sortie_eur"], tot["ovn_eur"], tot["autres_eur"])))
+    tot["objectif_ovn_eur"] = 20
+    tot["ovn_depasse_objectif"] = (tot["ovn_eur"] or 0) > 20
+    inc_raw = dict(raw.get("dividendes_et_coupons") or {})
+    inc_ops = conv_ops(inc_raw.get("operations") or [])
+    divs = [o for o in inc_ops if o.get("type") == "Dividend" or o.get("categorie") == "dividende"]
+    coups = [o for o in inc_ops if o.get("type") == "Bond coupon" or o.get("categorie") == "coupon"]
+    du, de = cat_tot(divs) if divs else (0, 0)
+    cu, ce = cat_tot(coups) if coups else (0, 0)
+    iu, ie = cat_tot(inc_ops) if inc_ops else (0, 0)
+    inc = dict(inc_raw)
+    inc["operations"] = inc_ops
+    inc["dividendes_usd"], inc["dividendes_eur"] = du, de
+    inc["coupons_usd"], inc["coupons_eur"] = cu, ce
+    inc["net_usd"], inc["net_eur"] = iu, ie
+    return {
+        "id": raw.get("id"),
+        "titre": raw.get("titre") or "Frais de courtage, octobre 2026",
+        "compte": raw.get("compte"),
+        "periode": raw.get("periode"),
+        "fx": fx,
+        "sources": raw.get("sources"),
+        "categories": cats,
+        "totaux": tot,
+        "dividendes_et_coupons": inc,
+        "operations_sans_frais": raw.get("operations_sans_frais") or [],
+        "absents": raw.get("absents") or [],
+        "notes": raw.get("notes") or [],
+    }
+
+
 def build_budget(fx, now):
     """Agrège OVN, frais d'ordres, TradingView et le compte joint sourcé, sans inventer un montant manquant."""
     ovn = build_frais_cfd(fx)
     tv = build_abonnement_tv(fx)
+    fo = build_frais_octobre(fx)
     cj = build_compte_joint(fx)
     comptes = build_comptes(fx)
     raw_t = json.loads(FRAIS_TRADING.read_text()) if FRAIS_TRADING.exists() else {"ordres": []}
@@ -1008,6 +1096,7 @@ def build_budget(fx, now):
             "projection_note": "à relever" if a_relever else None,
         },
         "tradingview": tv,
+        "frais_octobre": fo,
         "compte_joint": cj,
         "comptes": comptes,
         "budget_mensuel": build_budget_mensuel(),
