@@ -6,18 +6,18 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<meta name="ophir-build" content="53dbaf4-20261125-135745">
+<meta name="ophir-build" content="aa450c0-20261125-141425">
 <title>APEX INDICATOR INVESTMENT</title>
 <meta name="description" content="APEX Indicator Investment — notes et indicateurs de marché.">
 <meta name="theme-color" content="#0a1128">
 <meta name="apple-mobile-web-app-title" content="APEX">
 <meta name="application-name" content="APEX">
-<link rel="icon" href="favicon.ico?v=53dbaf4-20261125-135745" sizes="any">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=53dbaf4-20261125-135745">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=53dbaf4-20261125-135745">
-<link rel="icon" type="image/png" sizes="64x64" href="favicon.png?v=53dbaf4-20261125-135745">
-<link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png?v=53dbaf4-20261125-135745">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=53dbaf4-20261125-135745">
+<link rel="icon" href="favicon.ico?v=aa450c0-20261125-141425" sizes="any">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=aa450c0-20261125-141425">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=aa450c0-20261125-141425">
+<link rel="icon" type="image/png" sizes="64x64" href="favicon.png?v=aa450c0-20261125-141425">
+<link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png?v=aa450c0-20261125-141425">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=aa450c0-20261125-141425">
 <meta property="og:type" content="website">
 <meta property="og:title" content="APEX INDICATOR INVESTMENT">
 <meta property="og:description" content="APEX Indicator Investment — notes et indicateurs de marché.">
@@ -894,6 +894,10 @@ body.bdg-on .rg-btn[aria-expanded="true"],#bdgBtn.rg-btn[aria-expanded="true"],b
 .bdg-moy-abo{margin:8px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:3px}
 .bdg-moy-abo li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;font-size:12px;color:#fff;padding:2px 0;border-bottom:1px solid rgba(255,255,255,.06)}
 .bdg-moy-abo small{display:block;color:var(--mut);font-size:11px;font-weight:400}
+
+.bdg-moy-note{margin:6px 0 0;color:#e6c27a;font-size:13px;font-weight:650;line-height:1.45}
+.bdg-moy-alerte{margin:0 0 12px;padding:10px 12px;border:1px solid rgba(232,143,143,.55);border-radius:8px;background:rgba(232,143,143,.12);color:#e88f8f;font-size:13px;line-height:1.45;font-weight:650}
+.bdg-moy.is-deficitaire .bdg-moy-kvs .home-kv.is-down b{color:#e88f8f}
 @media(max-width:800px){
   .bdg-moy-th,.bdg-moy-row{grid-template-columns:minmax(0,1.1fr) minmax(0,1.4fr) auto;gap:4px 8px}
   .bdg-moy-th span:nth-child(3),.bdg-moy-row > :nth-child(3){display:none}
@@ -26325,10 +26329,14 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
     "budget_mensuel": {
       "id": "budget_mensuel_moyen",
       "titre": "Budget mensuel moyen",
+      "note_haut": "Base prudente : 2 800 € net + prime 4 000 €/an, sans commissions, Priscilla sans revenu",
+      "deficitaire": true,
+      "mois_reference": "2026-10",
+      "mois_reference_libelle": "Mois de référence : octobre 2026",
       "periode": {
         "debut": "2026-10-01",
-        "fin": "2026-11-25",
-        "libelle": "1er octobre – 25 novembre 2026"
+        "fin": "2026-10-31",
+        "libelle": "Mois de référence : octobre 2026"
       },
       "fx": {
         "taux": 1.0944,
@@ -26336,122 +26344,145 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
         "source": "Taux déjà utilisé sur le site APEX (1,0944)."
       },
       "methode": {
+        "mois_reference": "2026-10",
+        "mois_reference_libelle": "Mois de référence : octobre 2026",
         "jours_octobre": 31,
-        "jours_novembre_observes": 25,
-        "jours_novembre_complets": 30,
-        "coefficient_novembre_variables": 1.2,
-        "formule_variables": "(octobre + novembre × 30/25) / 2",
-        "formule_fixes": "(octobre + novembre observé) / 2, ou mensualité contractuelle",
-        "en_attente_inclus_eur": 364.1,
+        "novembre_exclu": true,
+        "novembre_note": "Novembre 2026 est partiel (1–25) et n'entre pas dans la moyenne. Les montants de novembre sont indiqués pour information seulement.",
+        "formule": "montant d'octobre, après sortie des exceptionnels d'octobre lissés / 12",
+        "en_attente_inclus_eur": 0,
         "hypotheses": [
-          "Période source : 1er octobre – 25 novembre 2026 (56 jours), comptes perso et joint fusionnés, change 1,0944.",
-          "Les charges fixes (loyer, LOA, crédit, assurances, télécom, abonnements mensuels identifiés) ne sont pas ramenées : si l'échéance de novembre est déjà passée avant le 25, le mois est complet.",
-          "Les postes variables et discrétionnaires de novembre (25 jours sur 30) sont ramenés à un mois entier : novembre × 30/25, puis moyenne avec octobre : (octobre + novembre ramené) / 2.",
-          "Les 6 opérations « en attente » des 23–24/11 (364.10 €), hors soldes du relevé, sont intégrées aux postes variables de novembre pour ne pas sous-estimer le rythme (Amazon 264.71 €, courses 65.39 €, La Poste 18.00 €, pharmacie 16.00 €).",
-          "Les dépenses exceptionnelles identifiées sont sorties du courant et lissées sur 12 mois dans « Provisions annuelles » (dentiste Koch, Decathlon de novembre, Amazon ≥ 200 €, Salomon, déco de Noël Lidl, séjour Ramatuelle, pot de naissance, solde IR 2025, TradingView annuel, WordPress, Grok Heavy, INPI + CCI).",
-          "Règle des achats exceptionnels : tout paiement unitaire ≥ 200 € dans Achats, plus les pics nommément identifiés (Decathlon de novembre, déco de Noël).",
-          "Le salaire Tesla n'est pas ramené (paiement mensuel déjà reçu en novembre). Moyenne = moyenne arithmétique des deux bulletins (4 169,59 € en octobre, 6 315,41 € en novembre). Échantillon de deux mois seulement : novembre est supérieur de 51 % à octobre (heures, prime ou rattrapage possibles). Une variante conservative utilise le seul salaire d'octobre.",
-          "France Travail : 876,60 € les 1/10 et 2/11. Revenu qui peut s'arrêter. Une variante de capacité d'épargne l'exclut.",
-          "Grok Heavy : périodicité inconnue. Hypothèse retenue = lissage annuel. La variante « mensuel » est chiffrée à part.",
-          "Free Mobile : retenu à 45,97 €/mois alors qu'il n'apparaît que le 8/11.",
-          "Les virements vers l'investissement ne sont pas des dépenses. Ils sont affichés à part comme épargne réalisée. Le crédit Revolut 23 500 € n'est ni un revenu ni une dépense ; sa mensualité est une charge fixe.",
+          "Mois de référence : octobre 2026. Novembre est un mois partiel (arrêté au 25) et ne compte pas dans la moyenne.",
+          "Base prudente des revenus (consigne Emmanuel) : 2 800 € net par mois + prime de participation 4 000 €/an, soit 333,33 €/mois lissés, total 3 133,33 €/mois, sans commissions. Priscilla n'a aucun revenu.",
+          "France Travail (876,60 € en octobre) n'entre pas dans cette base : c'est un bonus temporaire, car ce revenu peut s'arrêter. Affiché à part.",
+          "Les revenus réels d'octobre restent affichés pour comparer : salaire Tesla 4 169,59 € (22/10, réf. Salary 102026) + France Travail 876,60 € (1/10) = 5 046,19 €. Le salaire de novembre (6 315,41 € le 24/11) est différent et hors moyenne.",
+          "Chaque poste de dépense retenu est le montant d'octobre, après sortie des exceptionnels d'octobre. Rien n'est ramené ni lissé avec novembre.",
+          "Les dépenses exceptionnelles d'octobre sont sorties du courant et lissées sur 12 mois dans « Provisions annuelles » (dentiste Koch du 27/10, Salomon, déco de Noël Lidl d'octobre, séjour Ramatuelle, pot de naissance, solde IR 2025, Grok via Apple d'octobre, WordPress d'octobre, INPI + CCI). TradingView Essential annuel (186,48 € / 12) est aussi provisionné, à la place du Premium encore prélevé en octobre.",
+          "Les pics de novembre (Decathlon, gros Amazon, déco de Noël, Grok Heavy, Free Mobile, second paiement Koch, WordPress de novembre, opérations en attente des 23–24/11) sont hors mois de référence : ils n'entrent ni dans le courant ni dans les provisions.",
+          "Aucun OVN n'a été relevé en octobre (0 € dans le budget de référence). Une projection existe à partir d'une nuit de novembre, indiquée dans les trous, hors moyenne.",
+          "Les virements vers l'investissement ne sont pas des dépenses. L'épargne réalisée de référence est celle d'octobre. Le flux de novembre, très supérieur, est hors moyenne et a pu être alimenté par le crédit Revolut de 23 500 €.",
+          "Le crédit Revolut n'est ni un revenu ni une dépense ; sa mensualité d'octobre (169,60 €) est une charge fixe, comme la LOA Tesla (486,32 €).",
           "Air Glow pub (Facebook, MailPoet, Dualhook) reste hors des dépenses personnelles, comme dans le bloc Comptes.",
-          "Tous les montants viennent des fichiers data/budget et de l'abonnement TradingView / de la projection OVN déjà suivis sur le site. Rien n'est inventé."
+          "Tous les montants viennent des fichiers data/budget et de l'abonnement TradingView déjà suivi sur le site. Rien n'est inventé."
         ]
       },
       "revenus": {
+        "note_base": "Base prudente : 2 800 € net + prime 4 000 €/an, sans commissions, Priscilla sans revenu",
+        "base_prudente": {
+          "salaire_net_eur": 2800.0,
+          "salaire_net_usd": 3064.32,
+          "prime_participation_an_eur": 4000.0,
+          "prime_mensuelle_eur": 333.33,
+          "prime_mensuelle_usd": 364.8,
+          "total_eur": 3133.33,
+          "total_usd": 3429.12,
+          "priscilla_revenu_eur": 0,
+          "sans_commissions": true,
+          "note": "Base prudente : 2 800 € net + prime 4 000 €/an, sans commissions, Priscilla sans revenu. C'est la base retenue pour la capacité d'épargne."
+        },
+        "france_travail_bonus": {
+          "octobre_eur": 876.6,
+          "octobre_usd": 959.35,
+          "moyenne_eur": 876.6,
+          "moyenne_usd": 959.35,
+          "note": "Bonus temporaire : 876,60 € le 1/10 (France Travail Grand Est). N'entre pas dans la base prudente, car ce revenu peut s'arrêter. Si on l'ajoute, les revenus passent à 4 009,93 €/mois."
+        },
         "salaire_tesla": {
           "octobre_eur": 4169.59,
           "octobre_usd": 4563.2,
           "novembre_eur": 6315.41,
           "novembre_usd": 6911.58,
-          "moyenne_eur": 5242.5,
-          "moyenne_usd": 5737.39,
-          "note": "Salaire Tesla France, réf. Salary 102026 (22/10, 4 169,59 €) et Salary 112026 (24/11, 6 315,41 €). Moyenne arithmétique des deux bulletins : 5242.50 €. Novembre est supérieur de 51 % à octobre. Échantillon court : la moyenne peut être trop haute si novembre inclut un rattrapage ou des heures exceptionnelles."
+          "moyenne_eur": 4169.59,
+          "moyenne_usd": 4563.2,
+          "note": "Salaire Tesla réellement perçu en octobre : 4 169,59 € le 22/10 (réf. Salary 102026), affiché pour comparer à la base prudente de 2 800 € net. Le salaire de novembre est différent : 6 315,41 € le 24/11 (réf. Salary 112026), hors moyenne."
         },
         "france_travail": {
           "octobre_eur": 876.6,
           "novembre_eur": 876.6,
           "moyenne_eur": 876.6,
           "moyenne_usd": 959.35,
-          "note": "876,60 € le 1/10 et le 2/11 (France Travail Grand Est). Revenu mensuel régulier sur la période, qui peut s'arrêter."
+          "note": "876,60 € le 1/10, observé en octobre, affiché pour comparer. Traité comme bonus temporaire, pas dans la base."
         },
         "interets_epargne": {
           "periode_eur": 0.48,
-          "moyenne_eur": 0.24,
-          "moyenne_usd": 0.26,
-          "note": "0.48 € d'intérêts du dépôt Revolut en novembre, soit 0.24 €/mois en moyenne. Montant négligeable."
+          "moyenne_eur": 0.0,
+          "moyenne_usd": 0.0,
+          "note": "Aucun intérêt d'épargne en octobre (0 €)."
         },
-        "total_moyenne_eur": 6119.34,
-        "total_moyenne_usd": 6697.01,
-        "variante_salaire_octobre_eur": 5046.43,
-        "variante_salaire_octobre_usd": 5522.81,
-        "variante_sans_france_travail_eur": 5242.74,
-        "variante_sans_france_travail_usd": 5737.65
+        "octobre_observe": {
+          "salaire_eur": 4169.59,
+          "france_travail_eur": 876.6,
+          "total_eur": 5046.19,
+          "total_usd": 5522.55,
+          "note": "Revenus réels d'octobre (salaire 4 169,59 € + France Travail 876,60 € = 5 046,19 €), pour comparer à la base prudente de 3 133,33 €."
+        },
+        "total_moyenne_eur": 3133.33,
+        "total_moyenne_usd": 3429.12,
+        "variante_avec_france_travail_eur": 4009.93,
+        "variante_avec_france_travail_usd": 4388.47,
+        "variante_salaire_novembre_eur": 7192.01,
+        "variante_salaire_novembre_usd": 7870.94,
+        "variante_sans_france_travail_eur": 3133.33,
+        "variante_sans_france_travail_usd": 3429.12
       },
       "groupes": [
         {
           "id": "fixes",
           "libelle": "Charges fixes",
-          "note": "Loyer, LOA, crédit, assurances, télécom, abonnements mensuels, projection OVN. Novembre non ramené.",
+          "note": "Loyer, LOA, crédit, assurances, télécom et abonnements mensuels d'octobre. L'OVN n'a pas été relevé en octobre (0 €).",
           "postes": [
             {
               "id": "logement",
               "libelle": "Logement / loyer",
               "moyenne_eur": 900.18,
               "moyenne_usd": 985.16,
-              "detail": "Fonds Logement Intermédiaire : 900.18 € le 5/10 et le 3/11. Charge fixe, novembre non ramené.",
+              "detail": "Fonds Logement Intermédiaire : 900.18 € le 5/10. Mois de référence octobre (le même montant reparaît le 3/11, hors moyenne).",
               "octobre_eur": 900.18,
-              "novembre_eur": 900.18,
-              "novembre_ramene_eur": 900.18
+              "novembre_eur": 900.18
             },
             {
               "id": "loa_tesla",
               "libelle": "LOA Tesla (Cofica Bail)",
               "moyenne_eur": 486.32,
               "moyenne_usd": 532.23,
-              "detail": "486,32 € les 5/10 et 5/11. Confirmé par Emmanuel le 25/11. Charge fixe, dans Transport au relevé, isolée ici.",
+              "detail": "486,32 € le 5/10. Confirmé par Emmanuel le 25/11. Charge fixe, isolée ici. Même mensualité le 5/11, hors moyenne.",
               "octobre_eur": 486.32,
-              "novembre_eur": 486.32,
-              "novembre_ramene_eur": 486.32
+              "novembre_eur": 486.32
             },
             {
               "id": "credit_revolut",
               "libelle": "Crédit Revolut 23 500 €",
               "moyenne_eur": 169.6,
               "moyenne_usd": 185.61,
-              "detail": "Mensualité 169,60 € les 9/10 et 9/11. Confirmé par Emmanuel. Charge fixe. Le capital n'est ni un revenu ni une dépense.",
+              "detail": "Mensualité 169,60 € le 9/10. Confirmé par Emmanuel. Charge fixe. Le capital n'est ni un revenu ni une dépense. Même échéance le 9/11, hors moyenne.",
               "octobre_eur": 169.6,
-              "novembre_eur": 169.6,
-              "novembre_ramene_eur": 169.6
+              "novembre_eur": 169.6
             },
             {
               "id": "assurances",
               "libelle": "Assurances / mutuelle (AXA)",
               "moyenne_eur": 86.96,
               "moyenne_usd": 95.17,
-              "detail": "Trois prélèvements AXA chaque 5 du mois, total 86.96 €/mois.",
+              "detail": "Trois prélèvements AXA le 5/10, total 86.96 €. Même trio le 5/11, hors moyenne.",
               "octobre_eur": 86.96,
-              "novembre_eur": 86.96,
-              "novembre_ramene_eur": 86.96
+              "novembre_eur": 86.96
             },
             {
               "id": "telecom",
               "libelle": "Télécom / internet",
-              "moyenne_eur": 85.96,
-              "moyenne_usd": 94.07,
-              "detail": "Free Haut Débit 39.99 €/mois (6/10 et 5/11). Free Mobile 45.97 € observés seulement le 8/11 (19,99 € + 25,98 €, probablement deux lignes). Hypothèse : ces lignes sont mensuelles et le prélèvement d'octobre est hors période, ou elles ont démarré en novembre. Budget récurrent retenu : 85.96 €. Moyenne brute observée sans cette hypothèse : 62.98 €.",
+              "moyenne_eur": 39.99,
+              "moyenne_usd": 43.77,
+              "detail": "Mois de référence octobre : Free Haut Débit 39.99 € le 6/10. Free Mobile 45.97 € (19,99 € + 25,98 €) n'apparaît que le 8/11 : hors mois de référence, non inclus ici.",
               "octobre_eur": 39.99,
               "novembre_eur": 85.96,
-              "novembre_ramene_eur": 85.96,
-              "hypothese": "Free Mobile retenu à 45,97 €/mois alors qu'il n'apparaît qu'en novembre."
+              "hypothese": "Free Mobile constaté en novembre seulement, donc absent du budget d'octobre."
             },
             {
               "id": "abonnements",
               "libelle": "Abonnements récurrents",
               "moyenne_eur": 149.4,
               "moyenne_usd": 163.5,
-              "detail": "Somme des abonnements identifiés comme mensuels (voir la liste dans « Trous dans la raquette »). TradingView, WordPress et Grok Heavy sont dans les provisions annuelles, pas ici. Grok (via Apple) 114,99 € d'octobre n'est pas reconduit (crédit Apple 85,20 € le 4/11, probable changement de formule).",
+              "detail": "Somme des abonnements mensuels identifiés en octobre (voir la liste dans « Trous dans la raquette »). TradingView Essential, WordPress d'octobre et Grok (via Apple) 114,99 € sont dans les provisions annuelles. Grok Heavy (219,99 € le 4/11) est hors mois de référence.",
               "octobre_eur": null,
               "novembre_eur": null,
               "abonnements": [
@@ -26558,11 +26589,14 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
             },
             {
               "id": "ovn",
-              "libelle": "Frais overnight CFD (projection)",
-              "moyenne_eur": 64.14,
-              "moyenne_usd": 70.19,
-              "detail": "Une seule nuit relevée : 2.34 $ (2.14 €) le 24/11 à 23 h 45. Projection = dernier OVN × 30 jours = 64.14 €. Objectif affiché sur le Budget : < 20 €/mois. Ce n'est pas un total mensuel mesuré. Aucun frais bancaire classique n'apparaît sur les relevés (0 €).",
-              "hypothese": "Projection à partir d'une seule observation."
+              "libelle": "Frais overnight CFD",
+              "moyenne_eur": 0.0,
+              "moyenne_usd": 0.0,
+              "detail": "Aucun OVN relevé en octobre, donc 0 € dans le mois de référence. Une projection de 64.14 €/mois existe à partir d'une seule nuit du 24/11 (2.34 $), hors mois de référence. Objectif affiché sur le Budget : < 20 €/mois. Aucun frais bancaire classique sur les relevés d'octobre (0 €).",
+              "hypothese": "L'OVN de novembre n'entre pas dans le budget d'octobre.",
+              "octobre_eur": 0.0,
+              "novembre_eur": null,
+              "projection_hors_reference_eur": 64.14
             },
             {
               "id": "impots_recurrents",
@@ -26583,129 +26617,104 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
               "novembre_eur": 0.0
             }
           ],
-          "total_moyenne_eur": 1942.56,
-          "total_moyenne_usd": 2125.94
+          "total_moyenne_eur": 1832.45,
+          "total_moyenne_usd": 2005.43
         },
         {
           "id": "variables",
           "libelle": "Variables courantes",
-          "note": "Courses, transport hors LOA, santé courante, enfant. Novembre ramené à 30 jours. Exceptionnels sortis.",
+          "note": "Courses, transport hors LOA, santé courante et enfant d'octobre, après sortie des exceptionnels lissés en provisions.",
           "postes": [
             {
               "id": "courses",
               "libelle": "Courses",
-              "moyenne_eur": 1045.71,
-              "moyenne_usd": 1144.43,
-              "detail": "Octobre observé 1001.54 € − déco Noël 20.97 € = 980.57 €. Novembre observé 1049.06 € (dont 65.39 € en attente Lidl/Carrefour des 23–24/11) − déco Noël 123.35 € = 925.71 €, ramené à un mois : 1110.85 €. Moyenne = (octobre + novembre ramené) / 2. 115 paiements carte sur 49 jours distincts (plus les tickets encore en attente).",
+              "moyenne_eur": 980.57,
+              "moyenne_usd": 1073.14,
+              "detail": "Mois de référence octobre : 1001.54 € observés − déco Noël 20.97 € = 980.57 €. Novembre (partiel) ne compte pas dans cette moyenne.",
               "octobre_eur": 980.57,
-              "novembre_eur": 925.71,
-              "novembre_ramene_eur": 1110.85
+              "novembre_eur": 983.67
             },
             {
               "id": "transport_hors_loa",
               "libelle": "Transport hors LOA",
-              "moyenne_eur": 66.72,
-              "moyenne_usd": 73.02,
-              "detail": "Péages, CTS, stationnement, carburant et recharges Tesla, hors LOA et hors trajet du séjour Ramatuelle (239.07 € lissés en provisions). Octobre 115.19 €, novembre 15.20 € (surtout CTS), ramené 18.24 €.",
+              "moyenne_eur": 115.19,
+              "moyenne_usd": 126.06,
+              "detail": "Péages, CTS, stationnement, carburant et recharges Tesla d'octobre, hors LOA et hors trajet du séjour Ramatuelle (239.07 € lissés en provisions) : 115.19 €.",
               "octobre_eur": 115.19,
-              "novembre_eur": 15.2,
-              "novembre_ramene_eur": 18.24
+              "novembre_eur": 15.2
             },
             {
               "id": "sante",
               "libelle": "Santé courante",
-              "moyenne_eur": 24.18,
-              "moyenne_usd": 26.46,
-              "detail": "Pharmacies et Dr Werth, hors dentiste Koch. Octobre 29.16 €, novembre 16.00 € (dont pharmacie Pasteur 16,00 € en attente le 24/11).",
+              "moyenne_eur": 29.16,
+              "moyenne_usd": 31.91,
+              "detail": "Pharmacies et Dr Werth d'octobre, hors dentiste Koch : 29.16 €.",
               "octobre_eur": 29.16,
-              "novembre_eur": 16.0,
-              "novembre_ramene_eur": 19.2
+              "novembre_eur": 0.0
             },
             {
               "id": "enfant",
               "libelle": "Enfant / école",
-              "moyenne_eur": 32.78,
-              "moyenne_usd": 35.87,
-              "detail": "Octobre net 65.55 € : 10 paiements Roblox (101,90 €) moins le crédit DGFIP de 36,35 € le 1/10, confirmé comme photo de classe (Collège Foch) — ce crédit réduit le poste Enfant. Rien d'autre sur les relevés en novembre au 25. Le virement de 80 € vers la poche Shana n'est pas une dépense (transfert interne).",
+              "moyenne_eur": 65.55,
+              "moyenne_usd": 71.74,
+              "detail": "Octobre net 65.55 € : 10 paiements Roblox (101,90 €) moins le crédit DGFIP de 36,35 € le 1/10, confirmé comme photo de classe (Collège Foch) — ce crédit réduit le poste Enfant. Le virement de 80 € vers la poche Shana n'est pas une dépense (transfert interne).",
               "octobre_eur": 65.55,
-              "novembre_eur": 0.0,
-              "novembre_ramene_eur": 0.0
+              "novembre_eur": 0.0
             }
           ],
-          "total_moyenne_eur": 1169.39,
-          "total_moyenne_usd": 1279.78
+          "total_moyenne_eur": 1190.47,
+          "total_moyenne_usd": 1302.85
         },
         {
           "id": "discretionnaires",
           "libelle": "Discrétionnaires",
-          "note": "Achats, loisirs et autres courants, après sortie des pics. Novembre ramené à 30 jours.",
+          "note": "Achats, loisirs et autres courants d'octobre, après sortie des exceptionnels.",
           "postes": [
             {
               "id": "achats",
               "libelle": "Achats courants",
-              "moyenne_eur": 693.68,
-              "moyenne_usd": 759.16,
-              "detail": "Hors Decathlon de novembre, Amazon ≥ 200 € et Salomon. Octobre 700.25 €, novembre 572.59 €, ramené 687.11 €. Reste notamment Temu, Shein, North Face, Karl Lagerfeld, petits Amazon, Normal, librairie.",
+              "moyenne_eur": 700.25,
+              "moyenne_usd": 766.35,
+              "detail": "Achats d'octobre hors Salomon (234,70 €, en provisions) : 700.25 €. Les pics de novembre (Decathlon, gros Amazon) sont hors mois de référence et n'entrent ni dans ce courant ni dans les provisions.",
               "octobre_eur": 700.25,
-              "novembre_eur": 572.59,
-              "novembre_ramene_eur": 687.11
+              "novembre_eur": 572.59
             },
             {
               "id": "loisirs",
               "libelle": "Loisirs / restaurants courants",
-              "moyenne_eur": 112.44,
-              "moyenne_usd": 123.05,
-              "detail": "Hors séjour Ramatuelle et pot de naissance. Octobre 36.15 €, novembre 157.28 €, ramené 188.74 €. Restauration courante seule : 76.44 €/mois.",
+              "moyenne_eur": 36.15,
+              "moyenne_usd": 39.56,
+              "detail": "Octobre hors séjour Ramatuelle et pot de naissance : 36.15 €. Restauration courante seule : 30.15 €.",
               "octobre_eur": 36.15,
               "novembre_eur": 157.28,
-              "novembre_ramene_eur": 188.74,
-              "restauration_courante_eur": 76.44
+              "restauration_courante_eur": 30.15
             },
             {
               "id": "autres",
               "libelle": "Autres (courant)",
-              "moyenne_eur": 47.59,
-              "moyenne_usd": 52.08,
-              "detail": "Hors INPI et CCI (provisions). Octobre 38.95 € (MaxiZoo, X Ads), novembre 46.85 € (Cb Nx000018 et La Poste 18 € en attente). X Ads, MaxiZoo et le libellé tronqué restent à confirmer.",
+              "moyenne_eur": 38.95,
+              "moyenne_usd": 42.63,
+              "detail": "Octobre hors INPI et CCI (provisions) : 38.95 € (MaxiZoo, X Ads). X Ads et MaxiZoo restent à confirmer.",
               "octobre_eur": 38.95,
-              "novembre_eur": 46.85,
-              "novembre_ramene_eur": 56.22
+              "novembre_eur": 28.85
             }
           ],
-          "total_moyenne_eur": 853.71,
-          "total_moyenne_usd": 934.3
+          "total_moyenne_eur": 775.35,
+          "total_moyenne_usd": 848.54
         }
       ],
       "provisions": {
         "libelle": "Provisions annuelles",
-        "note": "Dépenses exceptionnelles ou annuelles de la période, lissées sur 12 mois, pour ne pas les laisser gonfler le budget récurrent ni les oublier.",
+        "note": "Dépenses exceptionnelles d'octobre, lissées sur 12 mois, pour ne pas les laisser gonfler le budget récurrent ni les oublier. Les pics de novembre ne sont pas lissés ici.",
         "lignes": [
           {
             "id": "dentiste_koch",
             "libelle": "Dentiste (Dr Koch)",
-            "total_periode_eur": 949.36,
-            "total_periode_usd": 1038.98,
-            "moyenne_eur": 79.11,
-            "moyenne_usd": 86.58,
-            "detail": "822,99 € le 27/10 + 126,37 € le 17/11 = 949.36 €. Remboursements Aon déjà reçus : 423.44 € (reste net 525.92 €, à vérifier). Lissé sur 12 mois, sorti du courant Santé."
-          },
-          {
-            "id": "decathlon_nov",
-            "libelle": "Decathlon (pic de novembre)",
-            "total_periode_eur": 1809.94,
-            "total_periode_usd": 1980.8,
-            "moyenne_eur": 150.83,
-            "moyenne_usd": 165.07,
-            "detail": "1 109,97 € le 14/11 + 699,97 € le 18/11. L'achat d'octobre (103,53 €) reste dans les achats courants."
-          },
-          {
-            "id": "amazon_gros",
-            "libelle": "Amazon (paiements ≥ 200 €)",
-            "total_periode_eur": 1350.69,
-            "total_periode_usd": 1478.2,
-            "moyenne_eur": 112.56,
-            "moyenne_usd": 123.19,
-            "detail": "Dont 1 085,98 € le 13/11 et l'Amazon 264,71 € en attente du 24/11. Seuil retenu : tout paiement Amazon unitaire ≥ 200 € est traité comme exceptionnel."
+            "total_periode_eur": 822.99,
+            "total_periode_usd": 900.68,
+            "moyenne_eur": 68.58,
+            "moyenne_usd": 75.05,
+            "detail": "822.99 € le 27/10, sorti du courant Santé et lissé sur 12 mois. Un second paiement de 126.37 € le 17/11 est hors mois de référence. Remboursements Aon reçus en novembre : 423.44 € (à rapprocher ; le net n'est pas déduit d'octobre)."
           },
           {
             "id": "salomon",
@@ -26718,12 +26727,12 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
           },
           {
             "id": "deco_noel",
-            "libelle": "Déco de Noël Lidl",
-            "total_periode_eur": 144.32,
-            "total_periode_usd": 157.94,
-            "moyenne_eur": 12.03,
-            "moyenne_usd": 13.17,
-            "detail": "Rayon « Maison & déco (dont Noël) » des tickets Lidl : 20.97 € en octobre et 123.35 € en novembre. Sorti des courses courantes."
+            "libelle": "Déco de Noël Lidl (octobre)",
+            "total_periode_eur": 20.97,
+            "total_periode_usd": 22.95,
+            "moyenne_eur": 1.75,
+            "moyenne_usd": 1.92,
+            "detail": "Rayon « Maison & déco (dont Noël) » des tickets Lidl d'octobre : 20.97 €, sorti des courses courantes. Le pic de novembre (123.35 €) est hors mois de référence."
           },
           {
             "id": "sejour_ramatuelle_loisirs",
@@ -26759,7 +26768,16 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
             "total_periode_usd": 315.19,
             "moyenne_eur": 24.0,
             "moyenne_usd": 26.27,
-            "detail": "288,00 € le 26/10 (DGFIP, facture 2667005282776). Le prélèvement à la source est déjà dans le salaire net Tesla. Aucune autre échéance d'impôt n'apparaît sur la période."
+            "detail": "288,00 € le 26/10 (DGFIP, facture 2667005282776). Le prélèvement à la source est déjà dans le salaire net Tesla."
+          },
+          {
+            "id": "grok_apple",
+            "libelle": "Grok (via Apple) — octobre",
+            "total_periode_eur": 114.99,
+            "total_periode_usd": 125.85,
+            "moyenne_eur": 9.58,
+            "moyenne_usd": 10.48,
+            "detail": "114.99 € le 26/10. Sorti des abonnements courants : la formule a été remplacée en novembre par Grok Heavy (219,99 € le 4/11, hors mois de référence)."
           },
           {
             "id": "tradingview",
@@ -26768,25 +26786,16 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
             "total_periode_usd": 204.08,
             "moyenne_eur": 15.54,
             "moyenne_usd": 17.01,
-            "detail": "186,48 €/an déjà souscrits le 25/11 (prélèvement le 6/12). Coût mensuel 15.54 €. Les 83,94 € Premium encore prélevés les 7/10 et 7/11 (total 167.88 €) ne sont pas reconduits."
+            "detail": "Formule retenue pour le budget récurrent : Essential annuel 186,48 €/an, soit 15.54 €/mois (prélèvement le 6/12). En octobre, le Premium mensuel de 83.94 € a encore été prélevé ; il n'est pas reconduit."
           },
           {
             "id": "wordpress",
-            "libelle": "WordPress (3 paiements rapprochés)",
-            "total_periode_eur": 156.2,
-            "total_periode_usd": 170.95,
-            "moyenne_eur": 13.02,
-            "moyenne_usd": 14.25,
-            "detail": "21,60 € le 30/10, 26,40 € le 1/11 et 108,20 € le 6/11. Pas un rythme mensuel clair. Note du relevé : probable activité pro Air Glow — à confirmer. Lissé sur 12 mois."
-          },
-          {
-            "id": "grok_heavy",
-            "libelle": "Grok Heavy (via Apple)",
-            "total_periode_eur": 219.99,
-            "total_periode_usd": 240.76,
-            "moyenne_eur": 18.33,
-            "moyenne_usd": 20.06,
-            "detail": "219,99 € le 4/11. Périodicité non confirmée. Hypothèse retenue : paiement à lisser sur 12 mois (18.33 €/mois). Variante si l'abonnement est mensuel : +201.66 €/mois sur le budget récurrent (voir ci-dessous)."
+            "libelle": "WordPress (octobre)",
+            "total_periode_eur": 21.6,
+            "total_periode_usd": 23.64,
+            "moyenne_eur": 1.8,
+            "moyenne_usd": 1.97,
+            "detail": "21.60 € le 30/10. Pas un rythme mensuel clair. Note du relevé : probable activité pro Air Glow — à confirmer. Les paiements de novembre (134.60 €) sont hors mois de référence."
           },
           {
             "id": "inpi_cci",
@@ -26795,16 +26804,16 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
             "total_periode_usd": 380.45,
             "moyenne_eur": 28.97,
             "moyenne_usd": 31.7,
-            "detail": "INPI 230,00 € le 7/10 et CCI Alsace Eurométropole 117,63 € le 17/10. Démarches ponctuelles, probable activité pro — toujours à confirmer. Lissées ici pour ne pas gonfler les « Autres » mensuels. Si c'est confirmé pro, les sortir du budget perso."
+            "detail": "INPI 230,00 € le 7/10 et CCI Alsace Eurométropole 117,63 € le 17/10. Démarches ponctuelles d'octobre, probable activité pro — toujours à confirmer. Lissées ici pour ne pas gonfler les « Autres » mensuels. Si c'est confirmé pro, les sortir du budget perso."
           }
         ],
-        "total_moyenne_eur": 511.68,
-        "total_moyenne_usd": 559.98
+        "total_moyenne_eur": 207.51,
+        "total_moyenne_usd": 227.1
       },
       "depenses_recurrentes": {
-        "moyenne_eur": 4477.34,
-        "moyenne_usd": 4900.0,
-        "detail": "Somme des charges fixes, variables courantes, discrétionnaires et provisions annuelles / 12."
+        "moyenne_eur": 4005.78,
+        "moyenne_usd": 4383.93,
+        "detail": "Somme des charges fixes, variables courantes et discrétionnaires d'octobre, plus les provisions sur exceptionnels d'octobre / 12 (et TradingView Essential annuel)."
       },
       "epargne_realisee": {
         "libelle": "Vers l'investissement (épargne réalisée, pas une dépense)",
@@ -26812,8 +26821,8 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
         "periode_usd": 17388.63,
         "octobre_eur": 2589.34,
         "novembre_eur": 13299.39,
-        "moyenne_eur": 7944.37,
-        "moyenne_usd": 8694.32,
+        "moyenne_eur": 2589.34,
+        "moyenne_usd": 2833.77,
         "n": 41,
         "note": "Flux sortants vers les courtiers et les métaux, exclus des dépenses. Investissement XTB (Apple Pay): 1006.0 € (Recharges Apple Pay 86 € + 650 € + 270 € = 1 006 €, confirmées par Emmanuel le 25/11/2026 : transferts de Revolut vers XTB pour acheter des actions. Virements internes / investissement (XTB), exclus des dépenses et des revenus. Montant constaté en entrées sur les comptes Revolut, non additionné aux virements sortants déjà partis vers les courtiers.)",
         "lignes": [
@@ -26837,13 +26846,18 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
         "alerte": "Le flux de novembre est très supérieur à celui d'octobre et au reste du budget (revenus − dépenses). Il a pu être alimenté par le crédit Revolut de 23 500 € (capital viré le 6/11, compte destinataire clôturé le 16/11), pas seulement par un excédent mensuel. Ce n'est donc pas une capacité d'épargne récurrente."
       },
       "capacite_actuelle": {
-        "eur": 1642.0,
-        "usd": 1797.0,
-        "formule": "Revenus mensuels moyens (salaire moyen + France Travail + intérêts) − dépenses récurrentes moyennes (y compris provisions / 12).",
-        "variante_salaire_octobre_eur": 569.09,
-        "variante_salaire_octobre_usd": 622.81,
-        "variante_sans_france_travail_eur": 765.4,
-        "variante_sans_france_travail_usd": 837.65
+        "eur": -872.45,
+        "usd": -954.81,
+        "deficitaire": true,
+        "formule": "Base prudente 3 133,33 € (2 800 € net + 333,33 € de prime lissée) − dépenses récurrentes d'octobre (y compris provisions / 12).",
+        "variante_avec_france_travail_eur": 4.15,
+        "variante_avec_france_travail_usd": 4.54,
+        "variante_octobre_observe_eur": 1040.41,
+        "variante_octobre_observe_usd": 1138.62,
+        "variante_salaire_novembre_eur": 3186.23,
+        "variante_salaire_novembre_usd": 3487.01,
+        "variante_sans_france_travail_eur": -872.45,
+        "variante_sans_france_travail_usd": -954.81
       },
       "trous": [
         {
@@ -26858,8 +26872,8 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
         },
         {
           "id": "frequence_courses",
-          "titre": "Fréquence des courses : 116 paiements carte, 49 jours distincts sur 56",
-          "detail": "Octobre : 27 jours / 58 paiements. Novembre au 25 : 22 jours / 58 paiements, plus les tickets encore en attente. Panier Lidl moyen 23–26 €, beaucoup de petits passages. Carrefour 54× (708.16 €) · Lidl 43× (964.64 €) · IKA 7× (31.20 €) · Magasin U 5× (136.00 €) · E.Leclerc 2× (64.88 €) · Monoprix 2× (30.70 €) · MaxiCoffee 1× (3.60 €) · Auchan 1× (22.83 €) · Vin, confiture, tire-bouchon (Fritz Schmitt) 1× (23.20 €)"
+          "titre": "Fréquence des courses en octobre : 58 paiements, 27 jours distincts",
+          "detail": "Mois de référence octobre : 27 jours / 58 paiements carte. Novembre au 25 (hors moyenne) : 22 jours / 58 paiements. Beaucoup de petits passages. Carrefour 29× (476.32 €) · Lidl 16× (326.02 €) · IKA 5× (19.70 €) · Magasin U 5× (136.00 €) · E.Leclerc 1× (17.07 €) · MaxiCoffee 1× (3.60 €) · Auchan 1× (22.83 €)"
         },
         {
           "id": "non_alim_lidl",
@@ -26990,8 +27004,8 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
           "economie_eur_mois": 44.14,
           "economie_usd_mois": 48.31,
           "source": "Projection actuelle 64.14 € (2,34 $ × 30 jours, une seule nuit le 24/11) − objectif 20 €.",
-          "note": "Proposition, pas une décision. La projection repose sur une seule observation ; elle sera affinée quand d'autres nuits seront relevées. Réduire l'exposition overnight (ou fermer avant la clôture) est le levier.",
-          "dans_panier_cible": true
+          "note": "Hors mois de référence : aucun OVN relevé en octobre. Cette piste ne s'applique que si tu laisses des positions ouvertes la nuit, comme la projection de novembre le suggère. Proposition, pas une décision.",
+          "dans_panier_cible": false
         },
         {
           "id": "revolut_ultra",
@@ -27014,18 +27028,18 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
         {
           "id": "textile_lidl",
           "libelle": "Réduire de moitié le textile Lidl (hors déco déjà lissée)",
-          "economie_eur_mois": 25.36,
-          "economie_usd_mois": 27.75,
-          "source": "Textile Lidl 19.98 € en octobre et 67.88 € en novembre, moyenne ramenée 50.72 €/mois (tickets Lidl).",
-          "note": "Proposition : moitié du rythme observé, sans viser zéro. Le non-alimentaire Lidl de novembre dépasse déjà l'alimentaire.",
+          "economie_eur_mois": 9.99,
+          "economie_usd_mois": 10.93,
+          "source": "Textile Lidl 19.98 € en octobre et 67.88 € en novembre, moyenne ramenée 19.98 €/mois (tickets Lidl).",
+          "note": "Proposition : moitié du textile Lidl d'octobre, sans viser zéro. Le pic non-alimentaire de novembre (déco, vêtements) est hors mois de référence.",
           "dans_panier_cible": true
         },
         {
           "id": "restauration",
           "libelle": "Réduire de moitié la restauration courante",
-          "economie_eur_mois": 38.22,
-          "economie_usd_mois": 41.83,
-          "source": "McDonald's, snacks, cafés, restaurants hors séjour Ramatuelle : 76.44 €/mois après ramener novembre.",
+          "economie_eur_mois": 15.08,
+          "economie_usd_mois": 16.5,
+          "source": "McDonald's, snacks, cafés, restaurants hors séjour Ramatuelle : 30.15 €/mois après ramener novembre.",
           "note": "Proposition : moitié du rythme observé. Le séjour est déjà sorti du courant et lissé en provisions.",
           "dans_panier_cible": true
         },
@@ -27042,8 +27056,8 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
         {
           "id": "pro_airglow",
           "libelle": "Sortir du budget perso les formalités et pubs encore floues si elles sont pour Air Glow",
-          "economie_eur_mois": 97.12,
-          "economie_usd_mois": 106.29,
+          "economie_eur_mois": 97.03,
+          "economie_usd_mois": 106.19,
           "source": "INPI 230 €, CCI 117,63 €, X Ads 22,27 €, Envato 87,97 €, WordPress 156,20 €.",
           "note": "À confirmer une par une. INPI et CCI sont déjà lissés en provisions (et sortiraient complètement si c'est pro). X Ads et Envato sont encore dans le courant. WordPress est en provisions, noté « probable pro ».",
           "dans_panier_cible": false
@@ -27051,14 +27065,8 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
       ],
       "panier_cible": {
         "libelle": "Panier de propositions retenu pour la capacité cible",
-        "note": "Ce n'est pas une décision. Cinq leviers chiffrés à partir des relevés : OVN sous l'objectif, résiliation Revolut Ultra, résiliation YouTube, moitié du textile Lidl, moitié de la restauration courante. Grok Heavy et le reclassement pro sont chiffrés à part, faute de confirmation.",
+        "note": "Ce n'est pas une décision. Panier retenu à partir d'octobre : résiliation Revolut Ultra, résiliation YouTube, moitié du textile Lidl d'octobre, moitié de la restauration courante d'octobre. L'OVN et Grok Heavy, constatés en novembre, sont chiffrés à part (hors mois de référence).",
         "lignes": [
-          {
-            "id": "ovn",
-            "libelle": "Tenir l'objectif de frais overnight CFD (< 20 €/mois)",
-            "economie_eur_mois": 44.14,
-            "economie_usd_mois": 48.31
-          },
           {
             "id": "revolut_ultra",
             "libelle": "Revoir ou résilier Revolut Ultra",
@@ -27074,42 +27082,51 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
           {
             "id": "textile_lidl",
             "libelle": "Réduire de moitié le textile Lidl (hors déco déjà lissée)",
-            "economie_eur_mois": 25.36,
-            "economie_usd_mois": 27.75
+            "economie_eur_mois": 9.99,
+            "economie_usd_mois": 10.93
           },
           {
             "id": "restauration",
             "libelle": "Réduire de moitié la restauration courante",
-            "economie_eur_mois": 38.22,
-            "economie_usd_mois": 41.83
+            "economie_eur_mois": 15.08,
+            "economie_usd_mois": 16.5
           }
         ],
-        "total_economie_eur": 180.71,
-        "total_economie_usd": 197.77
+        "total_economie_eur": 98.06,
+        "total_economie_usd": 107.32
       },
       "capacite_cible": {
-        "eur": 1822.71,
-        "usd": 1994.77,
+        "eur": -774.39,
+        "usd": -847.49,
         "formule": "Capacité actuelle + somme du panier de propositions.",
-        "variante_grok_heavy_mensuel_eur": 1440.34,
-        "variante_grok_heavy_mensuel_cible_eur": 1841.04,
-        "variante_grok_heavy_mensuel_note": "Si Grok Heavy est mensuel, la capacité actuelle baisse de 201.66 € (on remplace le lissage annuel par 219,99 €/mois). La résiliation de Heavy devient alors le premier levier (219.99 €/mois) et la cible après panier + résiliation serait 1841.04 €."
+        "variante_grok_heavy_mensuel_eur": -1092.44,
+        "variante_grok_heavy_mensuel_cible_eur": -774.39,
+        "variante_grok_heavy_mensuel_note": "Grok Heavy (219.99 € le 4/11) est hors mois de référence. S'il est mensuel, il faudrait l'ajouter au budget récurrent : la capacité d'octobre baisserait de 219.99 €, à -1092.44 €. Sa résiliation redeviendrait alors le premier levier. Sa périodicité n'est pas confirmée."
       },
       "objectif_epargne": {
-        "propose_eur": 500,
-        "propose_usd": 547.2,
-        "note": "Objectif proposé : 500 €/mois, arrondi inférieur à 100 € de la capacité calculée avec le seul salaire d'octobre (569.09 €). C'est volontairement prudent tant que le salaire de novembre (6 315,41 €) n'est pas confirmé comme un rythme normal, et tant que France Travail peut s'arrêter. Si le salaire moyen se confirme et si le panier de réductions est suivi, la cible calculée est 1822.71 €/mois (objectif arrondi 1800 €).",
-        "cible_si_reductions_eur": 1800
+        "propose_eur": 0,
+        "propose_usd": 0.0,
+        "ecart_equilibre_eur": 872.45,
+        "ecart_apres_panier_eur": 774.39,
+        "note": "Sur la base prudente de 3 133,33 €, le budget d'octobre est déficitaire de 872.45 €/mois. L'objectif immédiat proposé n'est pas d'épargner, mais de revenir à l'équilibre (combler 872.45 €/mois). Le panier de propositions (98.06 €) ne suffit pas : il resterait un déficit de 774.39 €/mois. Avec le bonus temporaire France Travail, la capacité passerait à 4.15 €/mois. Si l'on comparait aux revenus réellement perçus en octobre (5 046,19 €), la capacité serait de 1040.41 €/mois — cet écart montre le poids des commissions / heures au-delà de 2 800 € net.",
+        "cible_si_reductions_eur": 0
       },
       "reserve_securite": {
-        "charges_fixes_eur": 1878.42,
-        "charges_fixes_usd": 2055.74,
-        "detail": "Loyer + LOA Tesla + crédit Revolut + assurances + télécom + abonnements mensuels identifiés, hors OVN (réductible en fermant les positions) et hors provisions.",
-        "mois_3_eur": 5635.26,
-        "mois_3_usd": 6167.23,
-        "mois_6_eur": 11270.52,
-        "mois_6_usd": 12334.46,
-        "note": "Réserve conseillée : 3 à 6 mois de charges fixes, soit 5635.26 € à 11270.52 €. Ce n'est pas un ordre de virement. Les soldes actuels des deux comptes sont bien en dessous de ce niveau ; le crédit de 23 500 € n'est pas une réserve."
+        "charges_fixes_eur": 1832.45,
+        "charges_fixes_usd": 2005.43,
+        "detail": "Loyer + LOA Tesla + crédit Revolut + assurances + télécom + abonnements mensuels identifiés, hors OVN et hors provisions.",
+        "epargne_disponible_eur": 1603.4,
+        "epargne_disponible_usd": 1754.76,
+        "epargne_disponible_date": "2026-11-25",
+        "epargne_disponible_note": "Soldes des deux comptes Revolut au 25/11/2026 : joint 1287.51 € + perso 315.89 € = 1603.40 € (courant, dépôt et poche Shana inclus). Le solde du joint en fin octobre était 1640.41 €. Les positions d'investissement et le capital du crédit Revolut ne sont pas une réserve disponible.",
+        "mois_securite": 0.88,
+        "mois_couverture_deficit": 1.84,
+        "sous_reserve_3_mois": true,
+        "mois_3_eur": 5497.35,
+        "mois_3_usd": 6016.3,
+        "mois_6_eur": 10994.7,
+        "mois_6_usd": 12032.6,
+        "note": "Indicateur « mois de sécurité » : 0.88 mois de charges fixes (1832.45 €/mois) couverts par l'épargne disponible (1603.40 € au 25/11). La réserve conseillée est de 3 à 6 mois, soit 5497.35 € à 10994.70 €. Le budget est déficitaire de 872.45 €/mois sur la base prudente : à ce rythme, les soldes couvriraient environ 1.84 mois de déficit. Ce n'est pas un ordre de virement. Le crédit de 23 500 € n'est pas une réserve."
       },
       "lignes_floues": [
         {
@@ -27184,8 +27201,8 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
         },
         {
           "sujet": "WordPress 21,60 + 26,40 + 108,20 €",
-          "montant_eur": 156.2,
-          "montant_usd": 170.95,
+          "montant_eur": 21.6,
+          "montant_usd": 23.64,
           "classification": "abonnements",
           "question": "Activité pro Air Glow ? Ponctuel ou abonnement ?"
         },
@@ -40296,8 +40313,8 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
   }
 }
 </script>
-<script type="application/json" id="dataBuild">{"version":"53dbaf4-20261125-135745"}</script>
-<link rel="preload" href="config/regles.json?v=53dbaf4-20261125-135745" as="fetch" crossorigin>
+<script type="application/json" id="dataBuild">{"version":"aa450c0-20261125-141425"}</script>
+<link rel="preload" href="config/regles.json?v=aa450c0-20261125-141425" as="fetch" crossorigin>
 
 <script type="application/json" id="dataMaj">{
   "at": "2026-11-23T21:45:22.168885+01:00",
@@ -53550,9 +53567,11 @@ function bdgMoyKv(label, eur, usd, extraCls, tone){
 function bdgMensuelHtml(b){
   const m=bdgMoy(b);
   if(!m) return '';
-  const per=(m.periode&&m.periode.libelle)||'1er octobre – 25 novembre 2026';
   const fx=(m.fx&&m.fx.taux!=null)?String(m.fx.taux).replace('.',','):'1,0944';
   const rev=m.revenus||{};
+  const base=rev.base_prudente||{};
+  const bonus=rev.france_travail_bonus||{};
+  const obs=rev.octobre_observe||{};
   const dep=m.depenses_recurrentes||{};
   const act=m.capacite_actuelle||{};
   const cib=m.capacite_cible||{};
@@ -53562,27 +53581,37 @@ function bdgMensuelHtml(b){
   const epar=m.epargne_realisee||{};
   const met=m.methode||{};
   const hyps=met.hypotheses||[];
-  const actTone=Number(act.eur)<0?'down':'up';
+  const defic=!!(m.deficitaire||act.deficitaire||Number(act.eur)<0);
+  const actTone=defic?'down':'up';
   const cibTone=Number(cib.eur)<0?'down':'up';
+  const noteHaut=m.note_haut||rev.note_base||'Base prudente : 2 800 € net + prime 4 000 €/an, sans commissions, Priscilla sans revenu';
+  const refLib=m.mois_reference_libelle||'Mois de référence : octobre 2026';
+  const moisSec=res.mois_securite;
+  const moisSecTxt=(moisSec==null||moisSec==='')?'—':(Number(moisSec).toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+'\u00a0mois');
+  const alerte=defic?`<div class="bdg-moy-alerte" role="status">Budget déficitaire sur la base prudente : ${bdgAmt(act.eur,'EUR')} / mois (revenus 3 133,33 € − dépenses récurrentes d'octobre). Le panier de propositions ne suffit pas à revenir à l'équilibre.</div>`:'';
   const kv=`<div class="home-strip bdg-kvs bdg-moy-kvs">
-      ${bdgMoyKv('Revenus moyens', rev.total_moyenne_eur, rev.total_moyenne_usd)}
-      ${bdgMoyKv('Dépenses récurrentes', dep.moyenne_eur, dep.moyenne_usd)}
+      ${bdgMoyKv('Base prudente', rev.total_moyenne_eur, rev.total_moyenne_usd)}
+      ${bdgMoyKv('Dépenses récurrentes (octobre)', dep.moyenne_eur, dep.moyenne_usd)}
       ${bdgMoyKv("Capacité d'épargne actuelle", act.eur, act.usd, [], actTone)}
       ${bdgMoyKv('Capacité cible (propositions)', cib.eur, cib.usd, ['bdg-kv-fixe'], cibTone)}
+      <div class="home-kv${(moisSec!=null&&moisSec<3)?' is-down':''}"><span class="l">Mois de sécurité</span><b class="${(moisSec!=null&&moisSec<3)?'down':''}">${moisSecTxt}</b><small>${bdgAmt(res.epargne_disponible_eur,'EUR')} d'épargne dispo</small></div>
+      ${bdgMoyKv('Bonus France Travail (hors base)', bonus.octobre_eur, bonus.octobre_usd)}
+      ${bdgMoyKv('Revenus réels d\'octobre (comparaison)', obs.total_eur, obs.total_usd)}
     </div>`;
   const hypHtml=hyps.length?(`<div class="bdg-moy-hyp"><h3 class="bdg-moy-h">Hypothèses de calcul</h3><ol>${hyps.map(h=>`<li>${bdgEsc(h)}</li>`).join('')}</ol></div>`):'';
   const sal=rev.salaire_tesla||{};
   const ft=rev.france_travail||{};
-  const inter=rev.interets_epargne||{};
   const revRows=[
-    {libelle:'Salaire Tesla (moyenne)', moyenne_eur:sal.moyenne_eur, moyenne_usd:sal.moyenne_usd, detail:sal.note},
-    {libelle:'France Travail', moyenne_eur:ft.moyenne_eur, moyenne_usd:ft.moyenne_usd, detail:ft.note},
-    {libelle:"Intérêts d'épargne", moyenne_eur:inter.moyenne_eur, moyenne_usd:inter.moyenne_usd, detail:inter.note}
+    {libelle:'Salaire net (base prudente)', moyenne_eur:base.salaire_net_eur, moyenne_usd:base.salaire_net_usd, detail:'2 800 € net par mois, sans commissions. Priscilla n\'a aucun revenu.'},
+    {libelle:'Prime de participation (lissée)', moyenne_eur:base.prime_mensuelle_eur, moyenne_usd:base.prime_mensuelle_usd, detail:'4 000 € par an, soit 333,33 € / mois lissés sur 12 mois.'},
+    {libelle:'France Travail (bonus temporaire, hors base)', moyenne_eur:bonus.moyenne_eur, moyenne_usd:bonus.moyenne_usd, detail:bonus.note},
+    {libelle:'Salaire Tesla réellement perçu en octobre (comparaison)', moyenne_eur:sal.octobre_eur, moyenne_usd:sal.octobre_usd, detail:sal.note},
+    {libelle:'France Travail observé en octobre (comparaison)', moyenne_eur:ft.octobre_eur, moyenne_usd:usdSafe(ft.octobre_eur), detail:ft.note}
   ].map(p=>bdgMoyRow(p)).join('');
   const revBlock=`<div class="bdg-moy-block" id="bdg-moy-revenus">
-      <h3 class="bdg-moy-h">Revenus mensuels moyens</h3>
-      <div class="bdg-moy-table">${bdgMoyHead()}${revRows}${bdgMoyFoot('Total revenus moyens', rev.total_moyenne_eur, rev.total_moyenne_usd)}</div>
-      <p class="bdg-moy-p">Variante conservative (salaire d'octobre seulement + France Travail) : ${bdgAmt(rev.variante_salaire_octobre_eur,'EUR')} / ${bdgAmt(rev.variante_salaire_octobre_usd,'USD')}. Variante sans France Travail (ce revenu peut s'arrêter) : ${bdgAmt(rev.variante_sans_france_travail_eur,'EUR')} / ${bdgAmt(rev.variante_sans_france_travail_usd,'USD')}.</p>
+      <h3 class="bdg-moy-h">Revenus mensuels</h3>
+      <div class="bdg-moy-table">${bdgMoyHead()}${revRows}${bdgMoyFoot('Total base prudente (retenue)', rev.total_moyenne_eur, rev.total_moyenne_usd)}</div>
+      <p class="bdg-moy-p">Comparaison : revenus réellement perçus en octobre ${bdgAmt(obs.total_eur,'EUR')} / ${bdgAmt(obs.total_usd,'USD')}. Avec le bonus France Travail en plus de la base prudente : ${bdgAmt(rev.variante_avec_france_travail_eur,'EUR')} / ${bdgAmt(rev.variante_avec_france_travail_usd,'USD')}.</p>
     </div>`;
   const groupes=(m.groupes||[]).map(g=>{
     const cls='bdg-moy-grp-'+g.id;
@@ -53608,9 +53637,9 @@ function bdgMensuelHtml(b){
       <h3 class="bdg-moy-h">${bdgEsc(epar.libelle||"Vers l'investissement")}</h3>
       <p class="bdg-moy-p">${bdgEsc(epar.note||'')}</p>
       <div class="bdg-moy-table">${bdgMoyHead()}
-        ${bdgMoyRow({libelle:'Octobre', moyenne_eur:epar.octobre_eur, moyenne_usd:null, detail:'Flux observés, non ramenés.'})}
-        ${bdgMoyRow({libelle:'Novembre (au 25)', moyenne_eur:epar.novembre_eur, moyenne_usd:null, detail:'Y compris les recharges Apple Pay reclassées vers XTB, le cas échéant.'})}
-        ${bdgMoyFoot('Moyenne sur la période (pas une capacité récurrente)', epar.moyenne_eur, epar.moyenne_usd)}
+        ${bdgMoyRow({libelle:'Octobre (référence)', moyenne_eur:epar.octobre_eur, moyenne_usd:epar.octobre_usd, detail:"Épargne réalisée en octobre, ce n'est pas une dépense."})}
+        ${bdgMoyRow({libelle:'Novembre au 25 (hors moyenne)', moyenne_eur:epar.novembre_eur, moyenne_usd:epar.novembre_usd, detail:'Hors mois de référence. Vague importante, éventuellement alimentée par le crédit Revolut.'})}
+        ${bdgMoyFoot('Épargne réalisée d\'octobre (pas une capacité récurrente)', epar.moyenne_eur, epar.moyenne_usd)}
       </div>
       ${epar.alerte?`<p class="bdg-src bdg-moy-flag">${bdgEsc(epar.alerte)}</p>`:''}
     </div>`;
@@ -53618,7 +53647,7 @@ function bdgMensuelHtml(b){
   const trousHtml=`<div class="bdg-moy-block" id="bdg-moy-trous">
       <h3 class="bdg-moy-h">Trous dans la raquette</h3>
       <ul class="bdg-moy-list">${(m.trous||[]).map(t=>`<li><h3>${bdgEsc(t.titre||t.id||'')}</h3><p>${bdgEsc(t.detail||'')}</p></li>`).join('')}</ul>
-      <h3 class="bdg-moy-h" style="margin-top:14px">Abonnements mensuels retenus</h3>
+      <h3 class="bdg-moy-h" style="margin-top:14px">Abonnements mensuels retenus (octobre)</h3>
       <ul class="bdg-moy-abo">${aboList}</ul>
     </div>`;
   const pistesHtml=`<div class="bdg-moy-block" id="bdg-moy-pistes">
@@ -53632,26 +53661,30 @@ function bdgMensuelHtml(b){
   const synt=`<div class="bdg-moy-block" id="bdg-moy-synthese">
       <h3 class="bdg-moy-h">Synthèse</h3>
       <div class="bdg-moy-table">${bdgMoyHead()}
-        ${bdgMoyRow({libelle:'Revenus moyens', moyenne_eur:rev.total_moyenne_eur, moyenne_usd:rev.total_moyenne_usd, detail:'Salaire Tesla (moyenne des deux bulletins) + France Travail + intérêts.'})}
-        ${bdgMoyRow({libelle:'Dépenses récurrentes', moyenne_eur:dep.moyenne_eur, moyenne_usd:dep.moyenne_usd, detail:dep.detail})}
-        ${bdgMoyRow({libelle:"Capacité d'épargne actuelle", moyenne_eur:act.eur, moyenne_usd:act.usd, detail:act.formule})}
+        ${bdgMoyRow({libelle:'Base prudente de revenus', moyenne_eur:rev.total_moyenne_eur, moyenne_usd:rev.total_moyenne_usd, detail:noteHaut})}
+        ${bdgMoyRow({libelle:'Dépenses récurrentes d\'octobre', moyenne_eur:dep.moyenne_eur, moyenne_usd:dep.moyenne_usd, detail:dep.detail})}
+        ${bdgMoyRow({libelle:"Capacité d'épargne actuelle", moyenne_eur:act.eur, moyenne_usd:act.usd, detail:act.formule+(defic?' Budget déficitaire sur cette base.':'')})}
         ${bdgMoyRow({libelle:'Capacité cible après propositions', moyenne_eur:cib.eur, moyenne_usd:cib.usd, detail:cib.formule})}
-        ${bdgMoyRow({libelle:"Objectif d'épargne proposé", moyenne_eur:obj.propose_eur, moyenne_usd:obj.propose_usd, detail:obj.note})}
+        ${bdgMoyRow({libelle:"Objectif proposé", moyenne_eur:obj.propose_eur, moyenne_usd:obj.propose_usd, detail:obj.note})}
+        ${bdgMoyRow({libelle:'Épargne disponible (25/11)', moyenne_eur:res.epargne_disponible_eur, moyenne_usd:res.epargne_disponible_usd, detail:res.epargne_disponible_note})}
+        ${bdgMoyRow({libelle:'Mois de sécurité : '+moisSecTxt, moyenne_eur:null, moyenne_usd:null, detail:'Nombre de mois de charges fixes couverts par l\'épargne disponible. '+(res.note||'')})}
         ${bdgMoyRow({libelle:'Réserve 3 mois de charges fixes', moyenne_eur:res.mois_3_eur, moyenne_usd:res.mois_3_usd, detail:res.detail})}
         ${bdgMoyRow({libelle:'Réserve 6 mois de charges fixes', moyenne_eur:res.mois_6_eur, moyenne_usd:res.mois_6_usd, detail:res.note})}
       </div>
-      <p class="bdg-moy-p">Variante capacité actuelle avec le seul salaire d'octobre : ${bdgAmt(act.variante_salaire_octobre_eur,'EUR')}. Sans France Travail : ${bdgAmt(act.variante_sans_france_travail_eur,'EUR')}. ${bdgEsc(cib.variante_grok_heavy_mensuel_note||'')}</p>
+      <p class="bdg-moy-p">Comparaison : avec les revenus réellement perçus en octobre, la capacité serait de ${bdgAmt(act.variante_octobre_observe_eur,'EUR')}. Avec le bonus France Travail en plus de la base prudente : ${bdgAmt(act.variante_avec_france_travail_eur,'EUR')}. ${bdgEsc(cib.variante_grok_heavy_mensuel_note||'')}</p>
     </div>`;
   const floues=`<div class="bdg-moy-block" id="bdg-moy-flou">
       <h3 class="bdg-moy-h">Lignes encore floues</h3>
       <ul class="bdg-moy-list">${(m.lignes_floues||[]).map(t=>`<li><h3>${bdgEsc(t.sujet||'')} ${t.montant_eur!=null?('<span class="bdg-moy-eco">'+bdgAmt(t.montant_eur,'EUR')+'</span>'):''}</h3><p>${bdgEsc((t.classification?('Classé aujourd’hui : '+t.classification+'. '):'')+(t.question||''))}</p></li>`).join('')}</ul>
     </div>`;
-  const src=(m.source&&(m.source.comptes||''))?'Source : relevés data/budget (comptes fusionnés + tickets Lidl), abonnement TradingView Essential, projection OVN. Change '+fx+'.':'';
-  return `<section class="card home-hero bdg-hero bdg-moy" id="bdg-mensuel" data-bdg-fold="mensuel">
+  const src=(m.source&&(m.source.comptes||''))?'Source : relevés data/budget (comptes fusionnés + tickets Lidl), abonnement TradingView Essential. Change '+fx+'. Soldes au 25/11/2026.':'';
+  return `<section class="card home-hero bdg-hero bdg-moy${defic?' is-deficitaire':''}" id="bdg-mensuel" data-bdg-fold="mensuel">
     <div class="home-hero-top">
       <h2>${bdgFoldTitle('mensuel', m.titre||'Budget mensuel moyen', 'bdg-mensuel-body')}</h2>
-      <p class="desc">${bdgEsc(per+' · charges fixes au réel, postes variables de novembre ramenés × 30/25 · change '+fx)}</p>
+      <p class="desc">${bdgEsc(refLib)}</p>
+      <p class="bdg-moy-note">${bdgEsc(noteHaut)}</p>
     </div>
+    ${alerte}
     ${kv}
     <div class="bdg-fold-body" id="bdg-mensuel-body">
       ${hypHtml}
@@ -53666,6 +53699,11 @@ function bdgMensuelHtml(b){
       ${src?`<p class="bdg-src">${bdgEsc(src)}</p>`:''}
     </div>
   </section>`;
+}
+function usdSafe(eur){
+  const n=Number(eur);
+  if(!Number.isFinite(n)) return null;
+  return Math.round((n*1.0944+1e-12)*100)/100;
 }
 function bdgTableHTML(b){
   return bdgMensuelHtml(b)+bdgCourtHtml(b)+bdgComptesHtml(b);

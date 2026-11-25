@@ -571,9 +571,11 @@ function bdgMoyKv(label, eur, usd, extraCls, tone){
 function bdgMensuelHtml(b){
   const m=bdgMoy(b);
   if(!m) return '';
-  const per=(m.periode&&m.periode.libelle)||'1er octobre – 25 novembre 2026';
   const fx=(m.fx&&m.fx.taux!=null)?String(m.fx.taux).replace('.',','):'1,0944';
   const rev=m.revenus||{};
+  const base=rev.base_prudente||{};
+  const bonus=rev.france_travail_bonus||{};
+  const obs=rev.octobre_observe||{};
   const dep=m.depenses_recurrentes||{};
   const act=m.capacite_actuelle||{};
   const cib=m.capacite_cible||{};
@@ -583,27 +585,37 @@ function bdgMensuelHtml(b){
   const epar=m.epargne_realisee||{};
   const met=m.methode||{};
   const hyps=met.hypotheses||[];
-  const actTone=Number(act.eur)<0?'down':'up';
+  const defic=!!(m.deficitaire||act.deficitaire||Number(act.eur)<0);
+  const actTone=defic?'down':'up';
   const cibTone=Number(cib.eur)<0?'down':'up';
+  const noteHaut=m.note_haut||rev.note_base||'Base prudente : 2 800 € net + prime 4 000 €/an, sans commissions, Priscilla sans revenu';
+  const refLib=m.mois_reference_libelle||'Mois de référence : octobre 2026';
+  const moisSec=res.mois_securite;
+  const moisSecTxt=(moisSec==null||moisSec==='')?'—':(Number(moisSec).toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+'\u00a0mois');
+  const alerte=defic?`<div class="bdg-moy-alerte" role="status">Budget déficitaire sur la base prudente : ${bdgAmt(act.eur,'EUR')} / mois (revenus 3 133,33 € − dépenses récurrentes d'octobre). Le panier de propositions ne suffit pas à revenir à l'équilibre.</div>`:'';
   const kv=`<div class="home-strip bdg-kvs bdg-moy-kvs">
-      ${bdgMoyKv('Revenus moyens', rev.total_moyenne_eur, rev.total_moyenne_usd)}
-      ${bdgMoyKv('Dépenses récurrentes', dep.moyenne_eur, dep.moyenne_usd)}
+      ${bdgMoyKv('Base prudente', rev.total_moyenne_eur, rev.total_moyenne_usd)}
+      ${bdgMoyKv('Dépenses récurrentes (octobre)', dep.moyenne_eur, dep.moyenne_usd)}
       ${bdgMoyKv("Capacité d'épargne actuelle", act.eur, act.usd, [], actTone)}
       ${bdgMoyKv('Capacité cible (propositions)', cib.eur, cib.usd, ['bdg-kv-fixe'], cibTone)}
+      <div class="home-kv${(moisSec!=null&&moisSec<3)?' is-down':''}"><span class="l">Mois de sécurité</span><b class="${(moisSec!=null&&moisSec<3)?'down':''}">${moisSecTxt}</b><small>${bdgAmt(res.epargne_disponible_eur,'EUR')} d'épargne dispo</small></div>
+      ${bdgMoyKv('Bonus France Travail (hors base)', bonus.octobre_eur, bonus.octobre_usd)}
+      ${bdgMoyKv('Revenus réels d\'octobre (comparaison)', obs.total_eur, obs.total_usd)}
     </div>`;
   const hypHtml=hyps.length?(`<div class="bdg-moy-hyp"><h3 class="bdg-moy-h">Hypothèses de calcul</h3><ol>${hyps.map(h=>`<li>${bdgEsc(h)}</li>`).join('')}</ol></div>`):'';
   const sal=rev.salaire_tesla||{};
   const ft=rev.france_travail||{};
-  const inter=rev.interets_epargne||{};
   const revRows=[
-    {libelle:'Salaire Tesla (moyenne)', moyenne_eur:sal.moyenne_eur, moyenne_usd:sal.moyenne_usd, detail:sal.note},
-    {libelle:'France Travail', moyenne_eur:ft.moyenne_eur, moyenne_usd:ft.moyenne_usd, detail:ft.note},
-    {libelle:"Intérêts d'épargne", moyenne_eur:inter.moyenne_eur, moyenne_usd:inter.moyenne_usd, detail:inter.note}
+    {libelle:'Salaire net (base prudente)', moyenne_eur:base.salaire_net_eur, moyenne_usd:base.salaire_net_usd, detail:'2 800 € net par mois, sans commissions. Priscilla n\'a aucun revenu.'},
+    {libelle:'Prime de participation (lissée)', moyenne_eur:base.prime_mensuelle_eur, moyenne_usd:base.prime_mensuelle_usd, detail:'4 000 € par an, soit 333,33 € / mois lissés sur 12 mois.'},
+    {libelle:'France Travail (bonus temporaire, hors base)', moyenne_eur:bonus.moyenne_eur, moyenne_usd:bonus.moyenne_usd, detail:bonus.note},
+    {libelle:'Salaire Tesla réellement perçu en octobre (comparaison)', moyenne_eur:sal.octobre_eur, moyenne_usd:sal.octobre_usd, detail:sal.note},
+    {libelle:'France Travail observé en octobre (comparaison)', moyenne_eur:ft.octobre_eur, moyenne_usd:usdSafe(ft.octobre_eur), detail:ft.note}
   ].map(p=>bdgMoyRow(p)).join('');
   const revBlock=`<div class="bdg-moy-block" id="bdg-moy-revenus">
-      <h3 class="bdg-moy-h">Revenus mensuels moyens</h3>
-      <div class="bdg-moy-table">${bdgMoyHead()}${revRows}${bdgMoyFoot('Total revenus moyens', rev.total_moyenne_eur, rev.total_moyenne_usd)}</div>
-      <p class="bdg-moy-p">Variante conservative (salaire d'octobre seulement + France Travail) : ${bdgAmt(rev.variante_salaire_octobre_eur,'EUR')} / ${bdgAmt(rev.variante_salaire_octobre_usd,'USD')}. Variante sans France Travail (ce revenu peut s'arrêter) : ${bdgAmt(rev.variante_sans_france_travail_eur,'EUR')} / ${bdgAmt(rev.variante_sans_france_travail_usd,'USD')}.</p>
+      <h3 class="bdg-moy-h">Revenus mensuels</h3>
+      <div class="bdg-moy-table">${bdgMoyHead()}${revRows}${bdgMoyFoot('Total base prudente (retenue)', rev.total_moyenne_eur, rev.total_moyenne_usd)}</div>
+      <p class="bdg-moy-p">Comparaison : revenus réellement perçus en octobre ${bdgAmt(obs.total_eur,'EUR')} / ${bdgAmt(obs.total_usd,'USD')}. Avec le bonus France Travail en plus de la base prudente : ${bdgAmt(rev.variante_avec_france_travail_eur,'EUR')} / ${bdgAmt(rev.variante_avec_france_travail_usd,'USD')}.</p>
     </div>`;
   const groupes=(m.groupes||[]).map(g=>{
     const cls='bdg-moy-grp-'+g.id;
@@ -629,9 +641,9 @@ function bdgMensuelHtml(b){
       <h3 class="bdg-moy-h">${bdgEsc(epar.libelle||"Vers l'investissement")}</h3>
       <p class="bdg-moy-p">${bdgEsc(epar.note||'')}</p>
       <div class="bdg-moy-table">${bdgMoyHead()}
-        ${bdgMoyRow({libelle:'Octobre', moyenne_eur:epar.octobre_eur, moyenne_usd:null, detail:'Flux observés, non ramenés.'})}
-        ${bdgMoyRow({libelle:'Novembre (au 25)', moyenne_eur:epar.novembre_eur, moyenne_usd:null, detail:'Y compris les recharges Apple Pay reclassées vers XTB, le cas échéant.'})}
-        ${bdgMoyFoot('Moyenne sur la période (pas une capacité récurrente)', epar.moyenne_eur, epar.moyenne_usd)}
+        ${bdgMoyRow({libelle:'Octobre (référence)', moyenne_eur:epar.octobre_eur, moyenne_usd:epar.octobre_usd, detail:"Épargne réalisée en octobre, ce n'est pas une dépense."})}
+        ${bdgMoyRow({libelle:'Novembre au 25 (hors moyenne)', moyenne_eur:epar.novembre_eur, moyenne_usd:epar.novembre_usd, detail:'Hors mois de référence. Vague importante, éventuellement alimentée par le crédit Revolut.'})}
+        ${bdgMoyFoot('Épargne réalisée d\'octobre (pas une capacité récurrente)', epar.moyenne_eur, epar.moyenne_usd)}
       </div>
       ${epar.alerte?`<p class="bdg-src bdg-moy-flag">${bdgEsc(epar.alerte)}</p>`:''}
     </div>`;
@@ -639,7 +651,7 @@ function bdgMensuelHtml(b){
   const trousHtml=`<div class="bdg-moy-block" id="bdg-moy-trous">
       <h3 class="bdg-moy-h">Trous dans la raquette</h3>
       <ul class="bdg-moy-list">${(m.trous||[]).map(t=>`<li><h3>${bdgEsc(t.titre||t.id||'')}</h3><p>${bdgEsc(t.detail||'')}</p></li>`).join('')}</ul>
-      <h3 class="bdg-moy-h" style="margin-top:14px">Abonnements mensuels retenus</h3>
+      <h3 class="bdg-moy-h" style="margin-top:14px">Abonnements mensuels retenus (octobre)</h3>
       <ul class="bdg-moy-abo">${aboList}</ul>
     </div>`;
   const pistesHtml=`<div class="bdg-moy-block" id="bdg-moy-pistes">
@@ -653,26 +665,30 @@ function bdgMensuelHtml(b){
   const synt=`<div class="bdg-moy-block" id="bdg-moy-synthese">
       <h3 class="bdg-moy-h">Synthèse</h3>
       <div class="bdg-moy-table">${bdgMoyHead()}
-        ${bdgMoyRow({libelle:'Revenus moyens', moyenne_eur:rev.total_moyenne_eur, moyenne_usd:rev.total_moyenne_usd, detail:'Salaire Tesla (moyenne des deux bulletins) + France Travail + intérêts.'})}
-        ${bdgMoyRow({libelle:'Dépenses récurrentes', moyenne_eur:dep.moyenne_eur, moyenne_usd:dep.moyenne_usd, detail:dep.detail})}
-        ${bdgMoyRow({libelle:"Capacité d'épargne actuelle", moyenne_eur:act.eur, moyenne_usd:act.usd, detail:act.formule})}
+        ${bdgMoyRow({libelle:'Base prudente de revenus', moyenne_eur:rev.total_moyenne_eur, moyenne_usd:rev.total_moyenne_usd, detail:noteHaut})}
+        ${bdgMoyRow({libelle:'Dépenses récurrentes d\'octobre', moyenne_eur:dep.moyenne_eur, moyenne_usd:dep.moyenne_usd, detail:dep.detail})}
+        ${bdgMoyRow({libelle:"Capacité d'épargne actuelle", moyenne_eur:act.eur, moyenne_usd:act.usd, detail:act.formule+(defic?' Budget déficitaire sur cette base.':'')})}
         ${bdgMoyRow({libelle:'Capacité cible après propositions', moyenne_eur:cib.eur, moyenne_usd:cib.usd, detail:cib.formule})}
-        ${bdgMoyRow({libelle:"Objectif d'épargne proposé", moyenne_eur:obj.propose_eur, moyenne_usd:obj.propose_usd, detail:obj.note})}
+        ${bdgMoyRow({libelle:"Objectif proposé", moyenne_eur:obj.propose_eur, moyenne_usd:obj.propose_usd, detail:obj.note})}
+        ${bdgMoyRow({libelle:'Épargne disponible (25/11)', moyenne_eur:res.epargne_disponible_eur, moyenne_usd:res.epargne_disponible_usd, detail:res.epargne_disponible_note})}
+        ${bdgMoyRow({libelle:'Mois de sécurité : '+moisSecTxt, moyenne_eur:null, moyenne_usd:null, detail:'Nombre de mois de charges fixes couverts par l\'épargne disponible. '+(res.note||'')})}
         ${bdgMoyRow({libelle:'Réserve 3 mois de charges fixes', moyenne_eur:res.mois_3_eur, moyenne_usd:res.mois_3_usd, detail:res.detail})}
         ${bdgMoyRow({libelle:'Réserve 6 mois de charges fixes', moyenne_eur:res.mois_6_eur, moyenne_usd:res.mois_6_usd, detail:res.note})}
       </div>
-      <p class="bdg-moy-p">Variante capacité actuelle avec le seul salaire d'octobre : ${bdgAmt(act.variante_salaire_octobre_eur,'EUR')}. Sans France Travail : ${bdgAmt(act.variante_sans_france_travail_eur,'EUR')}. ${bdgEsc(cib.variante_grok_heavy_mensuel_note||'')}</p>
+      <p class="bdg-moy-p">Comparaison : avec les revenus réellement perçus en octobre, la capacité serait de ${bdgAmt(act.variante_octobre_observe_eur,'EUR')}. Avec le bonus France Travail en plus de la base prudente : ${bdgAmt(act.variante_avec_france_travail_eur,'EUR')}. ${bdgEsc(cib.variante_grok_heavy_mensuel_note||'')}</p>
     </div>`;
   const floues=`<div class="bdg-moy-block" id="bdg-moy-flou">
       <h3 class="bdg-moy-h">Lignes encore floues</h3>
       <ul class="bdg-moy-list">${(m.lignes_floues||[]).map(t=>`<li><h3>${bdgEsc(t.sujet||'')} ${t.montant_eur!=null?('<span class="bdg-moy-eco">'+bdgAmt(t.montant_eur,'EUR')+'</span>'):''}</h3><p>${bdgEsc((t.classification?('Classé aujourd’hui : '+t.classification+'. '):'')+(t.question||''))}</p></li>`).join('')}</ul>
     </div>`;
-  const src=(m.source&&(m.source.comptes||''))?'Source : relevés data/budget (comptes fusionnés + tickets Lidl), abonnement TradingView Essential, projection OVN. Change '+fx+'.':'';
-  return `<section class="card home-hero bdg-hero bdg-moy" id="bdg-mensuel" data-bdg-fold="mensuel">
+  const src=(m.source&&(m.source.comptes||''))?'Source : relevés data/budget (comptes fusionnés + tickets Lidl), abonnement TradingView Essential. Change '+fx+'. Soldes au 25/11/2026.':'';
+  return `<section class="card home-hero bdg-hero bdg-moy${defic?' is-deficitaire':''}" id="bdg-mensuel" data-bdg-fold="mensuel">
     <div class="home-hero-top">
       <h2>${bdgFoldTitle('mensuel', m.titre||'Budget mensuel moyen', 'bdg-mensuel-body')}</h2>
-      <p class="desc">${bdgEsc(per+' · charges fixes au réel, postes variables de novembre ramenés × 30/25 · change '+fx)}</p>
+      <p class="desc">${bdgEsc(refLib)}</p>
+      <p class="bdg-moy-note">${bdgEsc(noteHaut)}</p>
     </div>
+    ${alerte}
     ${kv}
     <div class="bdg-fold-body" id="bdg-mensuel-body">
       ${hypHtml}
@@ -687,6 +703,11 @@ function bdgMensuelHtml(b){
       ${src?`<p class="bdg-src">${bdgEsc(src)}</p>`:''}
     </div>
   </section>`;
+}
+function usdSafe(eur){
+  const n=Number(eur);
+  if(!Number.isFinite(n)) return null;
+  return Math.round((n*1.0944+1e-12)*100)/100;
 }
 function bdgTableHTML(b){
   return bdgMensuelHtml(b)+bdgCourtHtml(b)+bdgComptesHtml(b);

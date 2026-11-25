@@ -36,12 +36,14 @@ def usd(eur):
     return r2(eur * FX) if eur is not None else None
 
 
-def moy_fixe(oct_e, nov_e):
-    return r2((oct_e + nov_e) / 2)
+def moy_fixe(oct_e, nov_e=0):
+    """Mois de référence : octobre 2026. Novembre (partiel) n'entre pas dans la moyenne."""
+    return r2(oct_e)
 
 
-def moy_var(oct_e, nov_e):
-    return r2((oct_e + nov_e * SCALE_NOV) / 2)
+def moy_var(oct_e, nov_e=0):
+    """Mois de référence : octobre 2026. Novembre (partiel) n'entre pas dans la moyenne."""
+    return r2(oct_e)
 
 
 def amt(o):
@@ -296,12 +298,25 @@ def build():
     ft_oct = r2(sum(credit_amt(o) for o in ft_ops if month(o) == "2026-10"))
     ft_nov = r2(sum(credit_amt(o) for o in ft_ops if month(o) == "2026-11"))
     int_tot = r2(sum(credit_amt(o) for o in int_ops))
-    int_moy = r2(int_tot / 2)
-    sal_moy = moy_fixe(sal_oct, sal_nov)
-    ft_moy = moy_fixe(ft_oct, ft_nov)
-    rev_moy = r2(sal_moy + ft_moy + int_moy)
-    rev_conservateur = r2(sal_oct + ft_moy + int_moy)  # salaire d'octobre seulement
-    rev_sans_ft = r2(sal_moy + int_moy)
+    int_oct = r2(sum(credit_amt(o) for o in int_ops if month(o) == "2026-10"))
+    int_moy = int_oct  # aucun intérêt en octobre
+    sal_moy = sal_oct
+    ft_moy = ft_oct
+    # Revenus observés d'octobre, pour comparaison seulement
+    rev_observe_oct = r2(sal_oct + ft_oct + int_oct)
+    rev_si_salaire_nov = r2(sal_nov + ft_oct + int_oct)
+    # Base prudente (consigne Emmanuel) : 2 800 € net + prime 4 000 €/an lissée, sans commissions.
+    # Priscilla n'a aucun revenu. France Travail n'entre pas dans la base (bonus temporaire).
+    BASE_SALAIRE_NET = 2800.0
+    PRIME_PARTICIPATION_AN = 4000.0
+    PRIME_MENSUELLE = r2(PRIME_PARTICIPATION_AN / 12)  # 333,33
+    BASE_PRUDENTE = r2(BASE_SALAIRE_NET + PRIME_MENSUELLE)  # 3 133,33
+    FT_BONUS = ft_oct
+    NOTE_BASE_PRUDENTE = "Base prudente : 2 800 € net + prime 4 000 €/an, sans commissions, Priscilla sans revenu"
+    rev_moy = BASE_PRUDENTE
+    rev_conservateur = BASE_PRUDENTE
+    rev_avec_ft = r2(BASE_PRUDENTE + FT_BONUS)
+    rev_sans_ft = BASE_PRUDENTE
 
     # ----- collect ops -----
     logement_ops, _ = cat_ops(d, "logement")
@@ -319,23 +334,25 @@ def build():
     impot_ops, _ = cat_ops(d, "impots")
     vi_ops, vi_cat = cat_ops(d, "virements_internes")
 
-    # pending added to November variable categories
-    def with_pending(ops, cid):
-        extra = [o for o in pending_by.get(cid, [])]
-        return ops + extra, extra
+    # Opérations « en attente » des 23–24/11 : hors mois de référence, non intégrées à la moyenne.
+    def pend_of(cid):
+        return [o for o in pending_by.get(cid, [])]
 
-    courses_ops, courses_pend = with_pending(courses_ops, "courses")
-    sante_ops, sante_pend = with_pending(sante_ops, "sante")
-    achats_ops, achats_pend = with_pending(achats_ops, "achats")
-    autres_ops, autres_pend = with_pending(autres_ops, "autres")
-    loisirs_ops, _ = with_pending(loisirs_ops, "loisirs")
+    courses_pend = pend_of("courses")
+    sante_pend = pend_of("sante")
+    achats_pend = pend_of("achats")
+    autres_pend = pend_of("autres")
 
     deco_tot, deco_par = lidl_deco(lidl)
     tex_tot, tex_par = lidl_textile(lidl)
 
-    # ===== exceptionnels =====
-    koch_ops = [o for o in sante_ops if is_koch(o)]
+    def oct_only(ops):
+        return [o for o in ops if month(o) == "2026-10"]
+
+    # ===== exceptionnels d'octobre uniquement =====
+    koch_ops = oct_only([o for o in sante_ops if is_koch(o)])
     koch_tot = r2(sum(amt(o) for o in koch_ops))
+    koch_nov = r2(sum(amt(o) for o in sante_ops if is_koch(o) and month(o) == "2026-11"))
     remb = d.get("remboursements_operations") or []
     aon = r2(sum(credit_amt(o) for o in remb if "aon" in lib_l(o)))
     koch_net = r2(koch_tot - aon)
@@ -344,7 +361,7 @@ def build():
     decath_tot = r2(sum(amt(o) for o in decath_ops))
     amz_exc_ops = [o for o in achats_ops if is_amazon_exceptionnel(o)]
     amz_exc_tot = r2(sum(amt(o) for o in amz_exc_ops))
-    salomon_ops = [o for o in achats_ops if is_salomon(o)]
+    salomon_ops = oct_only([o for o in achats_ops if is_salomon(o)])
     salomon_tot = r2(sum(amt(o) for o in salomon_ops))
 
     trip_loisir_ops = [o for o in loisirs_ops if is_trip_loisir(o)]
@@ -361,13 +378,17 @@ def build():
     cci_ops = [o for o in autres_ops if is_cci(o)]
     inpi_cci_tot = r2(sum(amt(o) for o in inpi_ops + cci_ops))
 
-    wp_ops = [o for o in abo_ops if is_wordpress(o)]
+    wp_ops = oct_only([o for o in abo_ops if is_wordpress(o)])
     wp_tot = r2(sum(amt(o) for o in wp_ops))
+    wp_nov = r2(sum(amt(o) for o in abo_ops if is_wordpress(o) and month(o) == "2026-11"))
     heavy_ops = [o for o in abo_ops if is_grok_heavy(o)]
     heavy_tot = r2(sum(amt(o) for o in heavy_ops))
-    grok_ap_ops = [o for o in abo_ops if is_grok_apple(o)]
+    grok_ap_ops = oct_only([o for o in abo_ops if is_grok_apple(o)])
     grok_ap_tot = r2(sum(amt(o) for o in grok_ap_ops))
+    tv_paid_oct = r2(sum(amt(o) for o in abo_ops if is_tradingview(o) and month(o) == "2026-10"))
     tv_paid = r2(sum(amt(o) for o in abo_ops if is_tradingview(o)))
+    deco_oct = r2(deco_par.get("2026-10") or 0)
+    deco_nov = r2(deco_par.get("2026-11") or 0)
 
     tv_mois = r2((tv.get("montant_eur_mois") if tv.get("montant_eur_mois") is not None else 15.54))
     tv_an = r2((tv.get("montant_eur_an") if tv.get("montant_eur_an") is not None else 186.48))
@@ -386,20 +407,14 @@ def build():
 
     provisions = [
         prov("dentiste_koch", "Dentiste (Dr Koch)", koch_tot,
-             f"822,99 € le 27/10 + 126,37 € le 17/11 = {koch_tot:.2f} €. "
-             f"Remboursements Aon déjà reçus : {aon:.2f} € (reste net {koch_net:.2f} €, à vérifier). "
-             f"Lissé sur 12 mois, sorti du courant Santé."),
-        prov("decathlon_nov", "Decathlon (pic de novembre)", decath_tot,
-             "1 109,97 € le 14/11 + 699,97 € le 18/11. L'achat d'octobre (103,53 €) reste dans les achats courants."),
-        prov("amazon_gros", "Amazon (paiements ≥ 200 €)", amz_exc_tot,
-             "Dont 1 085,98 € le 13/11 et l'Amazon 264,71 € en attente du 24/11. "
-             "Seuil retenu : tout paiement Amazon unitaire ≥ 200 € est traité comme exceptionnel."),
+             f"{koch_tot:.2f} € le 27/10, sorti du courant Santé et lissé sur 12 mois. "
+             f"Un second paiement de {koch_nov:.2f} € le 17/11 est hors mois de référence. "
+             f"Remboursements Aon reçus en novembre : {aon:.2f} € (à rapprocher ; le net n'est pas déduit d'octobre)."),
         prov("salomon", "Salomon Roppenheim", salomon_tot,
              "234,70 € le 28/10, outlet de Roppenheim. Seuil ≥ 200 €."),
-        prov("deco_noel", "Déco de Noël Lidl", deco_tot,
-             f"Rayon « Maison & déco (dont Noël) » des tickets Lidl : "
-             f"{deco_par.get('2026-10', 0):.2f} € en octobre et {deco_par.get('2026-11', 0):.2f} € en novembre. "
-             "Sorti des courses courantes."),
+        prov("deco_noel", "Déco de Noël Lidl (octobre)", deco_oct,
+             f"Rayon « Maison & déco (dont Noël) » des tickets Lidl d'octobre : {deco_oct:.2f} €, sorti des courses courantes. "
+             f"Le pic de novembre ({deco_nov:.2f} €) est hors mois de référence."),
         prov("sejour_ramatuelle_loisirs", "Séjour Ramatuelle — loisirs", trip_loisir_tot,
              "Le Jardin des Pins 142,80 € + Yelloh ! Village 38,00 € + Le Glacier du Vin 12,00 € (20–24/10)."),
         prov("sejour_ramatuelle_transport", "Séjour Ramatuelle — transport", trip_tr_tot,
@@ -407,21 +422,18 @@ def build():
         prov("pot_naissance", "Pot de naissance (travail)", pot_tot,
              "Bastos 67, 20,93 € le 16/10. Ponctuel, confirmé par Emmanuel."),
         prov("impot_solde", "Solde impôt sur les revenus 2025", ir_tot,
-             "288,00 € le 26/10 (DGFIP, facture 2667005282776). Le prélèvement à la source est déjà dans le salaire net Tesla. "
-             "Aucune autre échéance d'impôt n'apparaît sur la période."),
+             "288,00 € le 26/10 (DGFIP, facture 2667005282776). Le prélèvement à la source est déjà dans le salaire net Tesla."),
+        prov("grok_apple", "Grok (via Apple) — octobre", grok_ap_tot,
+             f"{grok_ap_tot:.2f} € le 26/10. Sorti des abonnements courants : la formule a été remplacée en novembre par Grok Heavy (219,99 € le 4/11, hors mois de référence)."),
         prov("tradingview", "TradingView Essential annuel", tv_an,
-             f"186,48 €/an déjà souscrits le 25/11 (prélèvement le 6/12). Coût mensuel {tv_mois:.2f} €. "
-             f"Les 83,94 € Premium encore prélevés les 7/10 et 7/11 (total {tv_paid:.2f} €) ne sont pas reconduits."),
-        prov("wordpress", "WordPress (3 paiements rapprochés)", wp_tot,
-             "21,60 € le 30/10, 26,40 € le 1/11 et 108,20 € le 6/11. Pas un rythme mensuel clair. "
-             "Note du relevé : probable activité pro Air Glow — à confirmer. Lissé sur 12 mois."),
-        prov("grok_heavy", "Grok Heavy (via Apple)", heavy_tot,
-             "219,99 € le 4/11. Périodicité non confirmée. Hypothèse retenue : paiement à lisser sur 12 mois "
-             f"({r2(heavy_tot/12):.2f} €/mois). Variante si l'abonnement est mensuel : +{r2(heavy_tot - heavy_tot/12):.2f} €/mois "
-             "sur le budget récurrent (voir ci-dessous)."),
+             f"Formule retenue pour le budget récurrent : Essential annuel 186,48 €/an, soit {tv_mois:.2f} €/mois (prélèvement le 6/12). "
+             f"En octobre, le Premium mensuel de {tv_paid_oct:.2f} € a encore été prélevé ; il n'est pas reconduit."),
+        prov("wordpress", "WordPress (octobre)", wp_tot,
+             f"{wp_tot:.2f} € le 30/10. Pas un rythme mensuel clair. Note du relevé : probable activité pro Air Glow — à confirmer. "
+             f"Les paiements de novembre ({wp_nov:.2f} €) sont hors mois de référence."),
         prov("inpi_cci", "INPI + CCI Alsace (formalités, à confirmer)", inpi_cci_tot,
              "INPI 230,00 € le 7/10 et CCI Alsace Eurométropole 117,63 € le 17/10. "
-             "Démarches ponctuelles, probable activité pro — toujours à confirmer. "
+             "Démarches ponctuelles d'octobre, probable activité pro — toujours à confirmer. "
              "Lissées ici pour ne pas gonfler les « Autres » mensuels. Si c'est confirmé pro, les sortir du budget perso."),
     ]
     prov_total = r2(sum(p["moyenne_eur"] for p in provisions))
@@ -448,11 +460,12 @@ def build():
         hd_ops = [o for o in tel_ops if "telecom" in lib_l(o)]
     if not mob_ops:
         mob_ops = [o for o in tel_ops if o not in hd_ops]
-    hd_m = r2(sum(amt(o) for o in hd_ops) / max(1, len({month(o) for o in hd_ops}))) if hd_ops else 0.0
+    hd_oct, hd_nov = by_month(hd_ops)
+    hd_m = hd_oct
     mob_tot_nov = r2(sum(amt(o) for o in mob_ops))
-    tel_retenu = r2(hd_m + mob_tot_nov)  # 39.99+45.97 if mobiles only in nov
     tel_obs_oct, tel_obs_nov = by_month(tel_ops)
-    tel_obs_moy = moy_fixe(tel_obs_oct, tel_obs_nov)
+    tel_retenu = tel_obs_oct  # octobre uniquement (Free Haut Débit)
+    tel_obs_moy = tel_obs_oct
 
     # abonnements récurrents identifiés
     def monthly_if(pred):
@@ -471,8 +484,8 @@ def build():
         if typ == "both":
             m = moy_fixe(o, n) if (o or n) else 0.0
         elif typ == "once_probable":
-            # appear in one month only, keep that amount as probable monthly
-            m = r2(o or n)
+            # mois de référence octobre : on ne retient le montant que s'il apparaît en octobre
+            m = r2(o)
         else:
             m = moy_fixe(o, n)
         rec_abos.append({
@@ -581,34 +594,33 @@ def build():
     # groupes
     fixes_postes = [
         poste("logement", "Logement / loyer", log_m,
-              f"Fonds Logement Intermédiaire : {log_oct:.2f} € le 5/10 et le 3/11. Charge fixe, novembre non ramené.",
-              octobre_eur=log_oct, novembre_eur=log_nov, novembre_ramene_eur=log_nov),
+              f"Fonds Logement Intermédiaire : {log_oct:.2f} € le 5/10. Mois de référence octobre (le même montant reparaît le 3/11, hors moyenne).",
+              octobre_eur=log_oct, novembre_eur=log_nov),
         poste("loa_tesla", "LOA Tesla (Cofica Bail)", loa_m,
-              f"486,32 € les 5/10 et 5/11. Confirmé par Emmanuel le 25/11. Charge fixe, dans Transport au relevé, isolée ici.",
-              octobre_eur=loa_oct, novembre_eur=loa_nov, novembre_ramene_eur=loa_nov),
+              f"486,32 € le 5/10. Confirmé par Emmanuel le 25/11. Charge fixe, isolée ici. Même mensualité le 5/11, hors moyenne.",
+              octobre_eur=loa_oct, novembre_eur=loa_nov),
         poste("credit_revolut", "Crédit Revolut 23 500 €", cr_m,
-              f"Mensualité 169,60 € les 9/10 et 9/11. Confirmé par Emmanuel. Charge fixe. Le capital n'est ni un revenu ni une dépense.",
-              octobre_eur=cr_oct, novembre_eur=cr_nov, novembre_ramene_eur=cr_nov),
+              f"Mensualité 169,60 € le 9/10. Confirmé par Emmanuel. Charge fixe. Le capital n'est ni un revenu ni une dépense. Même échéance le 9/11, hors moyenne.",
+              octobre_eur=cr_oct, novembre_eur=cr_nov),
         poste("assurances", "Assurances / mutuelle (AXA)", as_m,
-              f"Trois prélèvements AXA chaque 5 du mois, total {as_m:.2f} €/mois.",
-              octobre_eur=as_oct, novembre_eur=as_nov, novembre_ramene_eur=as_nov),
+              f"Trois prélèvements AXA le 5/10, total {as_m:.2f} €. Même trio le 5/11, hors moyenne.",
+              octobre_eur=as_oct, novembre_eur=as_nov),
         poste("telecom", "Télécom / internet", tel_retenu,
-              f"Free Haut Débit {hd_m:.2f} €/mois (6/10 et 5/11). Free Mobile {mob_tot_nov:.2f} € observés seulement le 8/11 "
-              f"(19,99 € + 25,98 €, probablement deux lignes). Hypothèse : ces lignes sont mensuelles et le prélèvement d'octobre "
-              f"est hors période, ou elles ont démarré en novembre. Budget récurrent retenu : {tel_retenu:.2f} €. "
-              f"Moyenne brute observée sans cette hypothèse : {tel_obs_moy:.2f} €.",
-              octobre_eur=tel_obs_oct, novembre_eur=tel_obs_nov, novembre_ramene_eur=tel_obs_nov,
-              hypothese="Free Mobile retenu à 45,97 €/mois alors qu'il n'apparaît qu'en novembre."),
+              f"Mois de référence octobre : Free Haut Débit {tel_retenu:.2f} € le 6/10. "
+              f"Free Mobile {mob_tot_nov:.2f} € (19,99 € + 25,98 €) n'apparaît que le 8/11 : hors mois de référence, non inclus ici.",
+              octobre_eur=tel_obs_oct, novembre_eur=tel_obs_nov,
+              hypothese="Free Mobile constaté en novembre seulement, donc absent du budget d'octobre."),
         poste("abonnements", "Abonnements récurrents", abo_recurrent,
-              "Somme des abonnements identifiés comme mensuels (voir la liste dans « Trous dans la raquette »). "
-              "TradingView, WordPress et Grok Heavy sont dans les provisions annuelles, pas ici. "
-              "Grok (via Apple) 114,99 € d'octobre n'est pas reconduit (crédit Apple 85,20 € le 4/11, probable changement de formule).",
+              "Somme des abonnements mensuels identifiés en octobre (voir la liste dans « Trous dans la raquette »). "
+              "TradingView Essential, WordPress d'octobre et Grok (via Apple) 114,99 € sont dans les provisions annuelles. "
+              "Grok Heavy (219,99 € le 4/11) est hors mois de référence.",
               octobre_eur=None, novembre_eur=None, abonnements=rec_abos),
-        poste("ovn", "Frais overnight CFD (projection)", ovn_proj,
-              f"Une seule nuit relevée : {ovn_dernier_usd} $ ({ovn_dernier_eur} €) le 24/11 à 23 h 45. "
-              f"Projection = dernier OVN × 30 jours = {ovn_proj:.2f} €. Objectif affiché sur le Budget : < {ovn_obj:.0f} €/mois. "
-              "Ce n'est pas un total mensuel mesuré. Aucun frais bancaire classique n'apparaît sur les relevés (0 €).",
-              hypothese="Projection à partir d'une seule observation."),
+        poste("ovn", "Frais overnight CFD", 0.0,
+              f"Aucun OVN relevé en octobre, donc 0 € dans le mois de référence. "
+              f"Une projection de {ovn_proj:.2f} €/mois existe à partir d'une seule nuit du 24/11 ({ovn_dernier_usd} $), hors mois de référence. "
+              f"Objectif affiché sur le Budget : < {ovn_obj:.0f} €/mois. Aucun frais bancaire classique sur les relevés d'octobre (0 €).",
+              hypothese="L'OVN de novembre n'entre pas dans le budget d'octobre.",
+              octobre_eur=0.0, novembre_eur=None, projection_hors_reference_eur=ovn_proj),
         poste("impots_recurrents", "Impôts récurrents", 0.0,
               "Le solde IR 2025 (288 €) est en provisions. Aucun autre prélèvement d'impôt sur la période ; le PAS est déjà dans le salaire net Tesla.",
               octobre_eur=0.0, novembre_eur=0.0),
@@ -626,52 +638,48 @@ def build():
 
     var_postes = [
         poste("courses", "Courses", courses_m,
-              f"Octobre observé {c_oct:.2f} € − déco Noël {deco_par.get('2026-10', 0):.2f} € = {c_oct_r:.2f} €. "
-              f"Novembre observé {c_nov:.2f} € (dont {pend_courses:.2f} € en attente Lidl/Carrefour des 23–24/11) "
-              f"− déco Noël {deco_par.get('2026-11', 0):.2f} € = {c_nov_r:.2f} €, ramené à un mois : {r2(c_nov_r * SCALE_NOV):.2f} €. "
-              f"Moyenne = (octobre + novembre ramené) / 2. "
-              "115 paiements carte sur 49 jours distincts (plus les tickets encore en attente).",
-              octobre_eur=c_oct_r, novembre_eur=c_nov_r, novembre_ramene_eur=r2(c_nov_r * SCALE_NOV)),
+              f"Mois de référence octobre : {c_oct:.2f} € observés − déco Noël {deco_oct:.2f} € = {c_oct_r:.2f} €. "
+              "Novembre (partiel) ne compte pas dans cette moyenne.",
+              octobre_eur=c_oct_r, novembre_eur=c_nov),
         poste("transport_hors_loa", "Transport hors LOA", tr_m,
-              f"Péages, CTS, stationnement, carburant et recharges Tesla, hors LOA et hors trajet du séjour Ramatuelle "
-              f"({trip_tr_tot:.2f} € lissés en provisions). "
-              f"Octobre {tr_oct:.2f} €, novembre {tr_nov:.2f} € (surtout CTS), ramené {r2(tr_nov * SCALE_NOV):.2f} €.",
-              octobre_eur=tr_oct, novembre_eur=tr_nov, novembre_ramene_eur=r2(tr_nov * SCALE_NOV)),
+              f"Péages, CTS, stationnement, carburant et recharges Tesla d'octobre, hors LOA et hors trajet du séjour Ramatuelle "
+              f"({trip_tr_tot:.2f} € lissés en provisions) : {tr_oct:.2f} €.",
+              octobre_eur=tr_oct, novembre_eur=tr_nov),
         poste("sante", "Santé courante", sante_m,
-              f"Pharmacies et Dr Werth, hors dentiste Koch. Octobre {sa_oct:.2f} €, novembre {sa_nov:.2f} € "
-              f"(dont pharmacie Pasteur 16,00 € en attente le 24/11).",
-              octobre_eur=sa_oct, novembre_eur=sa_nov, novembre_ramene_eur=r2(sa_nov * SCALE_NOV)),
+              f"Pharmacies et Dr Werth d'octobre, hors dentiste Koch : {sa_oct:.2f} €.",
+              octobre_eur=sa_oct, novembre_eur=sa_nov),
         poste("enfant", "Enfant / école", enfant_m,
               f"Octobre net {en_oct:.2f} € : 10 paiements Roblox (101,90 €) moins le crédit DGFIP de 36,35 € le 1/10, "
               "confirmé comme photo de classe (Collège Foch) — ce crédit réduit le poste Enfant. "
-              "Rien d'autre sur les relevés en novembre au 25. Le virement de 80 € vers la poche Shana n'est pas une dépense (transfert interne).",
-              octobre_eur=en_oct, novembre_eur=en_nov, novembre_ramene_eur=r2(en_nov * SCALE_NOV)),
+              "Le virement de 80 € vers la poche Shana n'est pas une dépense (transfert interne).",
+              octobre_eur=en_oct, novembre_eur=en_nov),
     ]
     var_tot = r2(sum(p["moyenne_eur"] for p in var_postes))
 
     disc_postes = [
         poste("achats", "Achats courants", achats_m,
-              f"Hors Decathlon de novembre, Amazon ≥ 200 € et Salomon. "
-              f"Octobre {ac_oct:.2f} €, novembre {ac_nov:.2f} €, ramené {r2(ac_nov * SCALE_NOV):.2f} €. "
-              "Reste notamment Temu, Shein, North Face, Karl Lagerfeld, petits Amazon, Normal, librairie.",
-              octobre_eur=ac_oct, novembre_eur=ac_nov, novembre_ramene_eur=r2(ac_nov * SCALE_NOV)),
+              f"Achats d'octobre hors Salomon (234,70 €, en provisions) : {ac_oct:.2f} €. "
+              "Les pics de novembre (Decathlon, gros Amazon) sont hors mois de référence et n'entrent ni dans ce courant ni dans les provisions.",
+              octobre_eur=ac_oct, novembre_eur=ac_nov),
         poste("loisirs", "Loisirs / restaurants courants", loisirs_m,
-              f"Hors séjour Ramatuelle et pot de naissance. Octobre {lo_oct:.2f} €, novembre {lo_nov:.2f} €, "
-              f"ramené {r2(lo_nov * SCALE_NOV):.2f} €. Restauration courante seule : {resto_m:.2f} €/mois.",
-              octobre_eur=lo_oct, novembre_eur=lo_nov, novembre_ramene_eur=r2(lo_nov * SCALE_NOV),
+              f"Octobre hors séjour Ramatuelle et pot de naissance : {lo_oct:.2f} €. Restauration courante seule : {resto_m:.2f} €.",
+              octobre_eur=lo_oct, novembre_eur=lo_nov,
               restauration_courante_eur=resto_m),
         poste("autres", "Autres (courant)", autres_m,
-              f"Hors INPI et CCI (provisions). Octobre {au_oct:.2f} € (MaxiZoo, X Ads), "
-              f"novembre {au_nov:.2f} € (Cb Nx000018 et La Poste 18 € en attente). "
-              "X Ads, MaxiZoo et le libellé tronqué restent à confirmer.",
-              octobre_eur=au_oct, novembre_eur=au_nov, novembre_ramene_eur=r2(au_nov * SCALE_NOV)),
+              f"Octobre hors INPI et CCI (provisions) : {au_oct:.2f} € (MaxiZoo, X Ads). X Ads et MaxiZoo restent à confirmer.",
+              octobre_eur=au_oct, novembre_eur=au_nov),
     ]
+
     disc_tot = r2(sum(p["moyenne_eur"] for p in disc_postes))
 
     dep_rec = r2(fixes_tot + var_tot + disc_tot + prov_total)
-    capa_actuelle = r2(rev_moy - dep_rec)
-    capa_conserv = r2(rev_conservateur - dep_rec)
-    capa_sans_ft = r2(rev_sans_ft - dep_rec)
+    capa_actuelle = r2(rev_moy - dep_rec)  # base prudente − dépenses d'octobre
+    capa_conserv = capa_actuelle
+    capa_si_salaire_nov = r2(rev_si_salaire_nov - dep_rec)
+    capa_sans_ft = capa_actuelle  # la base est déjà sans France Travail
+    capa_avec_ft = r2(rev_avec_ft - dep_rec)
+    capa_si_observe_oct = r2(rev_observe_oct - dep_rec)
+    deficitaire = capa_actuelle < 0
 
     # investissement
     inv_dets = [x for x in (d.get("totaux") or {}).get("virements_internes_detail") or [] if "investissement" in (x.get("id") or "")]
@@ -694,7 +702,7 @@ def build():
             rec["sens"] = "debit"
             apple_xtb.append(rec)
     inv_oct, inv_nov = by_month(inv_ops + apple_xtb)
-    inv_moy = r2(inv_tot / 2)
+    inv_moy = inv_oct  # mois de référence octobre
     inv_note_bits = [((inv_det or {}).get("note") or "Flux vers XTB, Revolut X, marge, métaux, Deblock, compte-titres.")]
     for x in inv_dets:
         if x is not inv_det:
@@ -717,8 +725,8 @@ def build():
             "economie_eur_mois": eco_ovn,
             "economie_usd_mois": usd(eco_ovn),
             "source": f"Projection actuelle {ovn_proj:.2f} € (2,34 $ × 30 jours, une seule nuit le 24/11) − objectif 20 €.",
-            "note": "Proposition, pas une décision. La projection repose sur une seule observation ; elle sera affinée quand d'autres nuits seront relevées. Réduire l'exposition overnight (ou fermer avant la clôture) est le levier.",
-            "dans_panier_cible": True,
+            "note": "Hors mois de référence : aucun OVN relevé en octobre. Cette piste ne s'applique que si tu laisses des positions ouvertes la nuit, comme la projection de novembre le suggère. Proposition, pas une décision.",
+            "dans_panier_cible": False,
         },
         {
             "id": "revolut_ultra",
@@ -744,7 +752,7 @@ def build():
             "economie_eur_mois": eco_tex_half,
             "economie_usd_mois": usd(eco_tex_half),
             "source": f"Textile Lidl {tex_par.get('2026-10', 0):.2f} € en octobre et {tex_par.get('2026-11', 0):.2f} € en novembre, moyenne ramenée {tex_m:.2f} €/mois (tickets Lidl).",
-            "note": "Proposition : moitié du rythme observé, sans viser zéro. Le non-alimentaire Lidl de novembre dépasse déjà l'alimentaire.",
+            "note": "Proposition : moitié du textile Lidl d'octobre, sans viser zéro. Le pic non-alimentaire de novembre (déco, vêtements) est hors mois de référence.",
             "dans_panier_cible": True,
         },
         {
@@ -802,7 +810,7 @@ def build():
     panier = [p for p in pistes if p.get("dans_panier_cible")]
     eco_panier = r2(sum(p["economie_eur_mois"] for p in panier))
     capa_cible = r2(capa_actuelle + eco_panier)
-    capa_cible_heavy_mensuel = r2(capa_actuelle - r2(heavy_tot - heavy_tot / 12) + eco_panier + eco_heavy_mensuel)
+    capa_cible_heavy_mensuel = r2(capa_actuelle + eco_panier)  # Heavy est hors octobre : l'annuler ne change la cible d'octobre que s'il est ajouté d'abord
     # If heavy is monthly: current recurring should add (219.99-18.33), capacity decreases, then cancelling adds 219.99
     # net vs our baseline current: -201.66 + 219.99 + panier = +18.33 + panier, i.e. capa_actuelle + panier + 18.33
     # Wait: if heavy is monthly, capa_actuelle_true = capa_actuelle - (219.99-18.33)
@@ -815,12 +823,21 @@ def build():
     def floor100(x):
         return int(x // 100 * 100)
 
-    obj_souple = floor100(max(0, capa_conserv))  # based on October salary
-    obj_cible = floor100(max(0, capa_cible))
+    obj_souple = 0 if deficitaire else floor100(max(0, capa_actuelle))
+    obj_cible = 0 if (capa_cible < 0) else floor100(max(0, capa_cible))
+    ecart_equilibre = r2(abs(min(0, capa_actuelle)))
+    ecart_apres_panier = r2(abs(min(0, capa_cible)))
 
     charges_fixes_reserve = r2(log_m + loa_m + cr_m + as_m + tel_retenu + abo_recurrent)  # without OVN (stoppable)
     reserve_3 = r2(charges_fixes_reserve * 3)
     reserve_6 = r2(charges_fixes_reserve * 6)
+    soldes_foyer = d.get("soldes") or {}
+    epargne_joint = soldes_foyer.get("joint_cloture_releve_eur")
+    epargne_perso = soldes_foyer.get("perso_cloture_releve_eur")
+    epargne_dispo = r2((epargne_joint or 0) + (epargne_perso or 0))
+    epargne_joint_oct = soldes_foyer.get("joint_cloture_octobre_eur")
+    mois_securite = r2(epargne_dispo / charges_fixes_reserve) if charges_fixes_reserve else None
+    mois_couverture_deficit = r2(epargne_dispo / abs(capa_actuelle)) if (deficitaire and capa_actuelle) else None
 
     # courses frequency
     courses_bank = [o for o in courses_ops if not o.get("statut") == "en_attente"]
@@ -828,10 +845,11 @@ def build():
     jours_oct = {o.get("date") for o in courses_bank if month(o) == "2026-10"}
     jours_nov = {o.get("date") for o in courses_bank if month(o) == "2026-11"}
     from collections import Counter
-    merch = Counter(lib(o) for o in courses_bank)
+    merch = Counter(lib(o) for o in courses_bank if month(o)=="2026-10")
     merch_amt = defaultdict(float)
     for o in courses_bank:
-        merch_amt[lib(o)] += amt(o)
+        if month(o)=="2026-10":
+            merch_amt[lib(o)] += amt(o)
 
     # trous
     trous = [
@@ -848,10 +866,10 @@ def build():
         },
         {
             "id": "frequence_courses",
-            "titre": f"Fréquence des courses : {len(courses_bank)} paiements carte, {len(jours)} jours distincts sur 56",
-            "detail": f"Octobre : {len(jours_oct)} jours / {sum(1 for o in courses_bank if month(o)=='2026-10')} paiements. "
-                      f"Novembre au 25 : {len(jours_nov)} jours / {sum(1 for o in courses_bank if month(o)=='2026-11')} paiements, "
-                      "plus les tickets encore en attente. Panier Lidl moyen 23–26 €, beaucoup de petits passages. "
+            "titre": f"Fréquence des courses en octobre : {sum(1 for o in courses_bank if month(o)=='2026-10')} paiements, {len(jours_oct)} jours distincts",
+            "detail": f"Mois de référence octobre : {len(jours_oct)} jours / {sum(1 for o in courses_bank if month(o)=='2026-10')} paiements carte. "
+                      f"Novembre au 25 (hors moyenne) : {len(jours_nov)} jours / {sum(1 for o in courses_bank if month(o)=='2026-11')} paiements. "
+                      "Beaucoup de petits passages. "
                       + " · ".join(f"{k} {v}× ({r2(merch_amt[k]):.2f} €)" for k, v in merch.most_common()),
         },
         {
@@ -914,73 +932,100 @@ def build():
             floues.append(e)
 
     methodes = [
-        "Période source : 1er octobre – 25 novembre 2026 (56 jours), comptes perso et joint fusionnés, change 1,0944.",
-        "Les charges fixes (loyer, LOA, crédit, assurances, télécom, abonnements mensuels identifiés) ne sont pas ramenées : si l'échéance de novembre est déjà passée avant le 25, le mois est complet.",
-        "Les postes variables et discrétionnaires de novembre (25 jours sur 30) sont ramenés à un mois entier : novembre × 30/25, puis moyenne avec octobre : (octobre + novembre ramené) / 2.",
-        f"Les 6 opérations « en attente » des 23–24/11 ({pend_tot:.2f} €), hors soldes du relevé, sont intégrées aux postes variables de novembre pour ne pas sous-estimer le rythme "
-        f"(Amazon {pend_achats:.2f} €, courses {pend_courses:.2f} €, La Poste {pend_autres:.2f} €, pharmacie {pend_sante:.2f} €).",
-        "Les dépenses exceptionnelles identifiées sont sorties du courant et lissées sur 12 mois dans « Provisions annuelles » "
-        "(dentiste Koch, Decathlon de novembre, Amazon ≥ 200 €, Salomon, déco de Noël Lidl, séjour Ramatuelle, pot de naissance, solde IR 2025, TradingView annuel, WordPress, Grok Heavy, INPI + CCI).",
-        "Règle des achats exceptionnels : tout paiement unitaire ≥ 200 € dans Achats, plus les pics nommément identifiés (Decathlon de novembre, déco de Noël).",
-        "Le salaire Tesla n'est pas ramené (paiement mensuel déjà reçu en novembre). Moyenne = moyenne arithmétique des deux bulletins (4 169,59 € en octobre, 6 315,41 € en novembre). "
-        "Échantillon de deux mois seulement : novembre est supérieur de 51 % à octobre (heures, prime ou rattrapage possibles). Une variante conservative utilise le seul salaire d'octobre.",
-        "France Travail : 876,60 € les 1/10 et 2/11. Revenu qui peut s'arrêter. Une variante de capacité d'épargne l'exclut.",
-        "Grok Heavy : périodicité inconnue. Hypothèse retenue = lissage annuel. La variante « mensuel » est chiffrée à part.",
-        "Free Mobile : retenu à 45,97 €/mois alors qu'il n'apparaît que le 8/11.",
-        "Les virements vers l'investissement ne sont pas des dépenses. Ils sont affichés à part comme épargne réalisée. "
-        "Le crédit Revolut 23 500 € n'est ni un revenu ni une dépense ; sa mensualité est une charge fixe.",
+        "Mois de référence : octobre 2026. Novembre est un mois partiel (arrêté au 25) et ne compte pas dans la moyenne.",
+        "Base prudente des revenus (consigne Emmanuel) : 2 800 € net par mois + prime de participation 4 000 €/an, soit 333,33 €/mois lissés, total 3 133,33 €/mois, sans commissions. Priscilla n'a aucun revenu.",
+        "France Travail (876,60 € en octobre) n'entre pas dans cette base : c'est un bonus temporaire, car ce revenu peut s'arrêter. Affiché à part.",
+        "Les revenus réels d'octobre restent affichés pour comparer : salaire Tesla 4 169,59 € (22/10, réf. Salary 102026) + France Travail 876,60 € (1/10) = 5 046,19 €. Le salaire de novembre (6 315,41 € le 24/11) est différent et hors moyenne.",
+        "Chaque poste de dépense retenu est le montant d'octobre, après sortie des exceptionnels d'octobre. Rien n'est ramené ni lissé avec novembre.",
+        "Les dépenses exceptionnelles d'octobre sont sorties du courant et lissées sur 12 mois dans « Provisions annuelles » "
+        "(dentiste Koch du 27/10, Salomon, déco de Noël Lidl d'octobre, séjour Ramatuelle, pot de naissance, solde IR 2025, Grok via Apple d'octobre, WordPress d'octobre, INPI + CCI). "
+        "TradingView Essential annuel (186,48 € / 12) est aussi provisionné, à la place du Premium encore prélevé en octobre.",
+        "Les pics de novembre (Decathlon, gros Amazon, déco de Noël, Grok Heavy, Free Mobile, second paiement Koch, WordPress de novembre, opérations en attente des 23–24/11) sont hors mois de référence : ils n'entrent ni dans le courant ni dans les provisions.",
+        "Aucun OVN n'a été relevé en octobre (0 € dans le budget de référence). Une projection existe à partir d'une nuit de novembre, indiquée dans les trous, hors moyenne.",
+        "Les virements vers l'investissement ne sont pas des dépenses. L'épargne réalisée de référence est celle d'octobre. Le flux de novembre, très supérieur, est hors moyenne et a pu être alimenté par le crédit Revolut de 23 500 €.",
+        "Le crédit Revolut n'est ni un revenu ni une dépense ; sa mensualité d'octobre (169,60 €) est une charge fixe, comme la LOA Tesla (486,32 €).",
         "Air Glow pub (Facebook, MailPoet, Dualhook) reste hors des dépenses personnelles, comme dans le bloc Comptes.",
-        "Tous les montants viennent des fichiers data/budget et de l'abonnement TradingView / de la projection OVN déjà suivis sur le site. Rien n'est inventé.",
+        "Tous les montants viennent des fichiers data/budget et de l'abonnement TradingView déjà suivi sur le site. Rien n'est inventé.",
     ]
 
     out = {
         "id": "budget_mensuel_moyen",
         "titre": "Budget mensuel moyen",
-        "periode": d.get("periode") or {"debut": "2026-10-01", "fin": "2026-11-25", "libelle": "1er octobre – 25 novembre 2026"},
+        "note_haut": NOTE_BASE_PRUDENTE,
+        "deficitaire": deficitaire,
+        "mois_reference": "2026-10",
+        "mois_reference_libelle": "Mois de référence : octobre 2026",
+        "periode": {"debut": "2026-10-01", "fin": "2026-10-31", "libelle": "Mois de référence : octobre 2026"},
         "fx": {"taux": FX, "paire": "EURUSD", "source": "Taux déjà utilisé sur le site APEX (1,0944)."},
         "methode": {
+            "mois_reference": "2026-10",
+            "mois_reference_libelle": "Mois de référence : octobre 2026",
             "jours_octobre": 31,
-            "jours_novembre_observes": JOURS_NOV_OBSERVES,
-            "jours_novembre_complets": JOURS_NOV_COMPLETS,
-            "coefficient_novembre_variables": SCALE_NOV,
-            "formule_variables": "(octobre + novembre × 30/25) / 2",
-            "formule_fixes": "(octobre + novembre observé) / 2, ou mensualité contractuelle",
-            "en_attente_inclus_eur": pend_tot,
+            "novembre_exclu": True,
+            "novembre_note": "Novembre 2026 est partiel (1–25) et n'entre pas dans la moyenne. Les montants de novembre sont indiqués pour information seulement.",
+            "formule": "montant d'octobre, après sortie des exceptionnels d'octobre lissés / 12",
+            "en_attente_inclus_eur": 0,
             "hypotheses": methodes,
         },
         "revenus": {
+            "note_base": NOTE_BASE_PRUDENTE,
+            "base_prudente": {
+                "salaire_net_eur": BASE_SALAIRE_NET,
+                "salaire_net_usd": usd(BASE_SALAIRE_NET),
+                "prime_participation_an_eur": PRIME_PARTICIPATION_AN,
+                "prime_mensuelle_eur": PRIME_MENSUELLE,
+                "prime_mensuelle_usd": usd(PRIME_MENSUELLE),
+                "total_eur": BASE_PRUDENTE,
+                "total_usd": usd(BASE_PRUDENTE),
+                "priscilla_revenu_eur": 0,
+                "sans_commissions": True,
+                "note": NOTE_BASE_PRUDENTE + ". C'est la base retenue pour la capacité d'épargne.",
+            },
+            "france_travail_bonus": {
+                "octobre_eur": FT_BONUS,
+                "octobre_usd": usd(FT_BONUS),
+                "moyenne_eur": FT_BONUS,
+                "moyenne_usd": usd(FT_BONUS),
+                "note": "Bonus temporaire : 876,60 € le 1/10 (France Travail Grand Est). N'entre pas dans la base prudente, car ce revenu peut s'arrêter. Si on l'ajoute, les revenus passent à 4 009,93 €/mois.",
+            },
             "salaire_tesla": {
                 "octobre_eur": sal_oct, "octobre_usd": usd(sal_oct),
                 "novembre_eur": sal_nov, "novembre_usd": usd(sal_nov),
-                "moyenne_eur": sal_moy, "moyenne_usd": usd(sal_moy),
-                "note": "Salaire Tesla France, réf. Salary 102026 (22/10, 4 169,59 €) et Salary 112026 (24/11, 6 315,41 €). "
-                        f"Moyenne arithmétique des deux bulletins : {sal_moy:.2f} €. Novembre est supérieur de 51 % à octobre. "
-                        "Échantillon court : la moyenne peut être trop haute si novembre inclut un rattrapage ou des heures exceptionnelles.",
+                "moyenne_eur": sal_oct, "moyenne_usd": usd(sal_oct),
+                "note": "Salaire Tesla réellement perçu en octobre : 4 169,59 € le 22/10 (réf. Salary 102026), affiché pour comparer à la base prudente de 2 800 € net. "
+                        "Le salaire de novembre est différent : 6 315,41 € le 24/11 (réf. Salary 112026), hors moyenne.",
             },
             "france_travail": {
                 "octobre_eur": ft_oct, "novembre_eur": ft_nov,
-                "moyenne_eur": ft_moy, "moyenne_usd": usd(ft_moy),
-                "note": "876,60 € le 1/10 et le 2/11 (France Travail Grand Est). Revenu mensuel régulier sur la période, qui peut s'arrêter.",
+                "moyenne_eur": ft_oct, "moyenne_usd": usd(ft_oct),
+                "note": "876,60 € le 1/10, observé en octobre, affiché pour comparer. Traité comme bonus temporaire, pas dans la base.",
             },
             "interets_epargne": {
                 "periode_eur": int_tot, "moyenne_eur": int_moy, "moyenne_usd": usd(int_moy),
-                "note": f"{int_tot:.2f} € d'intérêts du dépôt Revolut en novembre, soit {int_moy:.2f} €/mois en moyenne. Montant négligeable.",
+                "note": "Aucun intérêt d'épargne en octobre (0 €).",
             },
-            "total_moyenne_eur": rev_moy,
-            "total_moyenne_usd": usd(rev_moy),
-            "variante_salaire_octobre_eur": rev_conservateur,
-            "variante_salaire_octobre_usd": usd(rev_conservateur),
-            "variante_sans_france_travail_eur": rev_sans_ft,
-            "variante_sans_france_travail_usd": usd(rev_sans_ft),
+            "octobre_observe": {
+                "salaire_eur": sal_oct, "france_travail_eur": ft_oct,
+                "total_eur": rev_observe_oct, "total_usd": usd(rev_observe_oct),
+                "note": "Revenus réels d'octobre (salaire 4 169,59 € + France Travail 876,60 € = 5 046,19 €), pour comparer à la base prudente de 3 133,33 €.",
+            },
+            "total_moyenne_eur": BASE_PRUDENTE,
+            "total_moyenne_usd": usd(BASE_PRUDENTE),
+            "variante_avec_france_travail_eur": rev_avec_ft,
+            "variante_avec_france_travail_usd": usd(rev_avec_ft),
+            "variante_salaire_novembre_eur": rev_si_salaire_nov,
+            "variante_salaire_novembre_usd": usd(rev_si_salaire_nov),
+            "variante_sans_france_travail_eur": BASE_PRUDENTE,
+            "variante_sans_france_travail_usd": usd(BASE_PRUDENTE),
         },
         "groupes": [
-            {"id": "fixes", "libelle": "Charges fixes", "note": "Loyer, LOA, crédit, assurances, télécom, abonnements mensuels, projection OVN. Novembre non ramené.", "postes": fixes_postes, "total_moyenne_eur": fixes_tot, "total_moyenne_usd": usd(fixes_tot)},
-            {"id": "variables", "libelle": "Variables courantes", "note": "Courses, transport hors LOA, santé courante, enfant. Novembre ramené à 30 jours. Exceptionnels sortis.", "postes": var_postes, "total_moyenne_eur": var_tot, "total_moyenne_usd": usd(var_tot)},
-            {"id": "discretionnaires", "libelle": "Discrétionnaires", "note": "Achats, loisirs et autres courants, après sortie des pics. Novembre ramené à 30 jours.", "postes": disc_postes, "total_moyenne_eur": disc_tot, "total_moyenne_usd": usd(disc_tot)},
+            {"id": "fixes", "libelle": "Charges fixes", "note": "Loyer, LOA, crédit, assurances, télécom et abonnements mensuels d'octobre. L'OVN n'a pas été relevé en octobre (0 €).", "postes": fixes_postes, "total_moyenne_eur": fixes_tot, "total_moyenne_usd": usd(fixes_tot)},
+            {"id": "variables", "libelle": "Variables courantes", "note": "Courses, transport hors LOA, santé courante et enfant d'octobre, après sortie des exceptionnels lissés en provisions.", "postes": var_postes, "total_moyenne_eur": var_tot, "total_moyenne_usd": usd(var_tot)},
+            {"id": "discretionnaires", "libelle": "Discrétionnaires", "note": "Achats, loisirs et autres courants d'octobre, après sortie des exceptionnels.", "postes": disc_postes, "total_moyenne_eur": disc_tot, "total_moyenne_usd": usd(disc_tot)},
         ],
         "provisions": {
             "libelle": "Provisions annuelles",
-            "note": "Dépenses exceptionnelles ou annuelles de la période, lissées sur 12 mois, pour ne pas les laisser gonfler le budget récurrent ni les oublier.",
+            "note": "Dépenses exceptionnelles d'octobre, lissées sur 12 mois, pour ne pas les laisser gonfler le budget récurrent ni les oublier. Les pics de novembre ne sont pas lissés ici.",
             "lignes": provisions,
             "total_moyenne_eur": prov_total,
             "total_moyenne_usd": usd(prov_total),
@@ -988,7 +1033,7 @@ def build():
         "depenses_recurrentes": {
             "moyenne_eur": dep_rec,
             "moyenne_usd": usd(dep_rec),
-            "detail": "Somme des charges fixes, variables courantes, discrétionnaires et provisions annuelles / 12.",
+            "detail": "Somme des charges fixes, variables courantes et discrétionnaires d'octobre, plus les provisions sur exceptionnels d'octobre / 12 (et TradingView Essential annuel).",
         },
         "epargne_realisee": {
             "libelle": "Vers l'investissement (épargne réalisée, pas une dépense)",
@@ -1008,9 +1053,14 @@ def build():
         "capacite_actuelle": {
             "eur": capa_actuelle,
             "usd": usd(capa_actuelle),
-            "formule": "Revenus mensuels moyens (salaire moyen + France Travail + intérêts) − dépenses récurrentes moyennes (y compris provisions / 12).",
-            "variante_salaire_octobre_eur": capa_conserv,
-            "variante_salaire_octobre_usd": usd(capa_conserv),
+            "deficitaire": deficitaire,
+            "formule": "Base prudente 3 133,33 € (2 800 € net + 333,33 € de prime lissée) − dépenses récurrentes d'octobre (y compris provisions / 12).",
+            "variante_avec_france_travail_eur": capa_avec_ft,
+            "variante_avec_france_travail_usd": usd(capa_avec_ft),
+            "variante_octobre_observe_eur": capa_si_observe_oct,
+            "variante_octobre_observe_usd": usd(capa_si_observe_oct),
+            "variante_salaire_novembre_eur": capa_si_salaire_nov,
+            "variante_salaire_novembre_usd": usd(capa_si_salaire_nov),
             "variante_sans_france_travail_eur": capa_sans_ft,
             "variante_sans_france_travail_usd": usd(capa_sans_ft),
         },
@@ -1019,7 +1069,7 @@ def build():
         "pistes": pistes,
         "panier_cible": {
             "libelle": "Panier de propositions retenu pour la capacité cible",
-            "note": "Ce n'est pas une décision. Cinq leviers chiffrés à partir des relevés : OVN sous l'objectif, résiliation Revolut Ultra, résiliation YouTube, moitié du textile Lidl, moitié de la restauration courante. Grok Heavy et le reclassement pro sont chiffrés à part, faute de confirmation.",
+            "note": "Ce n'est pas une décision. Panier retenu à partir d'octobre : résiliation Revolut Ultra, résiliation YouTube, moitié du textile Lidl d'octobre, moitié de la restauration courante d'octobre. L'OVN et Grok Heavy, constatés en novembre, sont chiffrés à part (hors mois de référence).",
             "lignes": [{"id": p["id"], "libelle": p["libelle"], "economie_eur_mois": p["economie_eur_mois"], "economie_usd_mois": p["economie_usd_mois"]} for p in panier],
             "total_economie_eur": eco_panier,
             "total_economie_usd": usd(eco_panier),
@@ -1028,30 +1078,46 @@ def build():
             "eur": capa_cible,
             "usd": usd(capa_cible),
             "formule": "Capacité actuelle + somme du panier de propositions.",
-            "variante_grok_heavy_mensuel_eur": r2(capa_actuelle - r2(heavy_tot - heavy_tot / 12)),
-            "variante_grok_heavy_mensuel_cible_eur": capa_cible_heavy_mensuel,
-            "variante_grok_heavy_mensuel_note": f"Si Grok Heavy est mensuel, la capacité actuelle baisse de {r2(heavy_tot - heavy_tot/12):.2f} € "
-                                               f"(on remplace le lissage annuel par 219,99 €/mois). La résiliation de Heavy devient alors le premier levier "
-                                               f"({heavy_tot:.2f} €/mois) et la cible après panier + résiliation serait {capa_cible_heavy_mensuel:.2f} €.",
+            "variante_grok_heavy_mensuel_eur": r2(capa_actuelle - heavy_tot),
+            "variante_grok_heavy_mensuel_cible_eur": r2(capa_actuelle - heavy_tot + eco_panier + heavy_tot),
+            "variante_grok_heavy_mensuel_note": f"Grok Heavy ({heavy_tot:.2f} € le 4/11) est hors mois de référence. "
+                                               f"S'il est mensuel, il faudrait l'ajouter au budget récurrent : la capacité d'octobre baisserait de {heavy_tot:.2f} €, à {r2(capa_actuelle - heavy_tot):.2f} €. "
+                                               "Sa résiliation redeviendrait alors le premier levier. Sa périodicité n'est pas confirmée.",
         },
         "objectif_epargne": {
             "propose_eur": obj_souple,
             "propose_usd": usd(obj_souple),
-            "note": f"Objectif proposé : {obj_souple} €/mois, arrondi inférieur à 100 € de la capacité calculée avec le seul salaire d'octobre "
-                    f"({capa_conserv:.2f} €). C'est volontairement prudent tant que le salaire de novembre (6 315,41 €) n'est pas confirmé comme un rythme normal, "
-                    f"et tant que France Travail peut s'arrêter. Si le salaire moyen se confirme et si le panier de réductions est suivi, "
-                    f"la cible calculée est {capa_cible:.2f} €/mois (objectif arrondi {obj_cible} €).",
+            "ecart_equilibre_eur": ecart_equilibre,
+            "ecart_apres_panier_eur": ecart_apres_panier,
+            "note": (
+                f"Sur la base prudente de 3 133,33 €, le budget d'octobre est déficitaire de {ecart_equilibre:.2f} €/mois. "
+                f"L'objectif immédiat proposé n'est pas d'épargner, mais de revenir à l'équilibre (combler {ecart_equilibre:.2f} €/mois). "
+                f"Le panier de propositions ({eco_panier:.2f} €) ne suffit pas : il resterait un déficit de {ecart_apres_panier:.2f} €/mois. "
+                f"Avec le bonus temporaire France Travail, la capacité passerait à {capa_avec_ft:.2f} €/mois. "
+                f"Si l'on comparait aux revenus réellement perçus en octobre (5 046,19 €), la capacité serait de {capa_si_observe_oct:.2f} €/mois — cet écart montre le poids des commissions / heures au-delà de 2 800 € net."
+                if deficitaire else
+                f"Objectif proposé : {obj_souple} €/mois, arrondi inférieur à 100 € de la capacité sur base prudente ({capa_actuelle:.2f} €)."
+            ),
             "cible_si_reductions_eur": obj_cible,
         },
         "reserve_securite": {
             "charges_fixes_eur": charges_fixes_reserve,
             "charges_fixes_usd": usd(charges_fixes_reserve),
-            "detail": "Loyer + LOA Tesla + crédit Revolut + assurances + télécom + abonnements mensuels identifiés, hors OVN (réductible en fermant les positions) et hors provisions.",
+            "detail": "Loyer + LOA Tesla + crédit Revolut + assurances + télécom + abonnements mensuels identifiés, hors OVN et hors provisions.",
+            "epargne_disponible_eur": epargne_dispo,
+            "epargne_disponible_usd": usd(epargne_dispo),
+            "epargne_disponible_date": "2026-11-25",
+            "epargne_disponible_note": f"Soldes des deux comptes Revolut au 25/11/2026 : joint {epargne_joint:.2f} € + perso {epargne_perso:.2f} € = {epargne_dispo:.2f} € (courant, dépôt et poche Shana inclus). "
+                                       f"Le solde du joint en fin octobre était {epargne_joint_oct:.2f} €. Les positions d'investissement et le capital du crédit Revolut ne sont pas une réserve disponible.",
+            "mois_securite": mois_securite,
+            "mois_couverture_deficit": mois_couverture_deficit,
+            "sous_reserve_3_mois": True if (epargne_dispo < reserve_3) else False,
             "mois_3_eur": reserve_3, "mois_3_usd": usd(reserve_3),
             "mois_6_eur": reserve_6, "mois_6_usd": usd(reserve_6),
-            "note": "Réserve conseillée : 3 à 6 mois de charges fixes, soit "
-                    f"{reserve_3:.2f} € à {reserve_6:.2f} €. Ce n'est pas un ordre de virement. Les soldes actuels des deux comptes sont bien en dessous de ce niveau ; "
-                    "le crédit de 23 500 € n'est pas une réserve.",
+            "note": f"Indicateur « mois de sécurité » : {mois_securite:.2f} mois de charges fixes ({charges_fixes_reserve:.2f} €/mois) couverts par l'épargne disponible ({epargne_dispo:.2f} € au 25/11). "
+                    f"La réserve conseillée est de 3 à 6 mois, soit {reserve_3:.2f} € à {reserve_6:.2f} €. "
+                    + (f"Le budget est déficitaire de {ecart_equilibre:.2f} €/mois sur la base prudente : à ce rythme, les soldes couvriraient environ {mois_couverture_deficit:.2f} mois de déficit. " if deficitaire else "")
+                    + "Ce n'est pas un ordre de virement. Le crédit de 23 500 € n'est pas une réserve.",
         },
         "lignes_floues": floues,
         "source": {
