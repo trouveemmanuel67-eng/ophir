@@ -107,12 +107,12 @@ def test_lignes_du_releve_et_ordres():
     assert cfds["ABBV-CFD"]["tab"] == "actions"
     assert cfds["ABBV-CFD"]["frais_ouverture_usd"] == 1.86
     assert cfds["SPCX-CFD"]["cfd_badge"] == "CFD L x4"
-    assert cfds["SPCX-CFD"]["valeur"] == 695.50
-    assert cfds["SPCX-CFD"]["investi"] == 695.50
-    assert cfds["SPCX-CFD"]["quantite"] == 5.5
-    assert cfds["SPCX-CFD"]["cours"] == 126.45
-    assert cfds["SPCX-CFD"]["prix_moyen"] == 126.45
-    assert cfds["SPCX-CFD"]["marge_usd"] == 173.88
+    assert cfds["SPCX-CFD"]["valeur"] == 1076.95
+    assert cfds["SPCX-CFD"]["investi"] == 1076.95
+    assert cfds["SPCX-CFD"]["quantite"] == 8.5
+    assert cfds["SPCX-CFD"]["cours"] == 126.70
+    assert cfds["SPCX-CFD"]["prix_moyen"] == 126.70
+    assert cfds["SPCX-CFD"]["marge_usd"] == 269.25
     assert cfds["SPCX-CFD"]["sens"] == "long"
     assert cfds["SPCX-CFD"]["tab"] == "actions"
     assert cfds["SPCX-CFD"]["levier"] == 4
@@ -124,18 +124,18 @@ def test_lignes_du_releve_et_ordres():
     al = POS["cfd_alerte"]
     assert al["afficher_encadre"] is True
     assert al["valeur_usd"] == 2614.02
-    assert al["exposition_usd"] == 18789.18
+    assert al["exposition_usd"] == 19170.63
     assert al["n"] == 10
     assert "COST" in al["tickers"] and "BDX" in al["tickers"] and "EG" in al["tickers"] and "ABBV" in al["tickers"] and "SPCX" in al["tickers"]
     assert al.get("a_confirmer") in (None, [], ())
     assert al["marge_maintenance_pct"] == 98
     assert al["seuil_fermeture_usd"] == 1336.40
     assert "2 614,02" in al["libelle"]
-    assert "18 789,18" in al["libelle"]
-    assert POS["totaux"]["courtiers"]["revolut"]["valeur_usd"] == 34098.03
-    assert POS["totaux"]["courtiers"]["revolut"]["cfd_exposition_usd"] == 18789.18
-    assert POS["totaux"]["total_usd"] == 49702.28
-    assert POS["totaux"]["liquide_usd"] == 36238.48
+    assert "19 170,63" in al["libelle"]
+    assert POS["totaux"]["courtiers"]["revolut"]["valeur_usd"] == 34479.48
+    assert POS["totaux"]["courtiers"]["revolut"]["cfd_exposition_usd"] == 19170.63
+    assert POS["totaux"]["total_usd"] == 50083.73
+    assert POS["totaux"]["liquide_usd"] == 36619.93
     tes=next(x for x in POS["positions"] if x["ticker"]=="TSLA-RSU")
     assert tes["valeur"] == 12302.45
     assert tes["valeur_usd"] == 13463.8
