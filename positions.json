@@ -25021,6 +25021,903 @@
         "note": "Section « Renvoyé de 1 octobre 2026 à 25 novembre 2026 ». Paiements carte annulés / renvoyés, non repris dans les totaux comptables ni dans le Budget octobre.",
         "n": 2
       }
+    },
+    "budget_mensuel": {
+      "id": "budget_mensuel_moyen",
+      "titre": "Budget mensuel moyen",
+      "periode": {
+        "debut": "2026-10-01",
+        "fin": "2026-11-25",
+        "libelle": "1er octobre – 25 novembre 2026"
+      },
+      "fx": {
+        "taux": 1.0944,
+        "paire": "EURUSD",
+        "source": "Taux déjà utilisé sur le site APEX (1,0944)."
+      },
+      "methode": {
+        "jours_octobre": 31,
+        "jours_novembre_observes": 25,
+        "jours_novembre_complets": 30,
+        "coefficient_novembre_variables": 1.2,
+        "formule_variables": "(octobre + novembre × 30/25) / 2",
+        "formule_fixes": "(octobre + novembre observé) / 2, ou mensualité contractuelle",
+        "en_attente_inclus_eur": 364.1,
+        "hypotheses": [
+          "Période source : 1er octobre – 25 novembre 2026 (56 jours), comptes perso et joint fusionnés, change 1,0944.",
+          "Les charges fixes (loyer, LOA, crédit, assurances, télécom, abonnements mensuels identifiés) ne sont pas ramenées : si l'échéance de novembre est déjà passée avant le 25, le mois est complet.",
+          "Les postes variables et discrétionnaires de novembre (25 jours sur 30) sont ramenés à un mois entier : novembre × 30/25, puis moyenne avec octobre : (octobre + novembre ramené) / 2.",
+          "Les 6 opérations « en attente » des 23–24/11 (364.10 €), hors soldes du relevé, sont intégrées aux postes variables de novembre pour ne pas sous-estimer le rythme (Amazon 264.71 €, courses 65.39 €, La Poste 18.00 €, pharmacie 16.00 €).",
+          "Les dépenses exceptionnelles identifiées sont sorties du courant et lissées sur 12 mois dans « Provisions annuelles » (dentiste Koch, Decathlon de novembre, Amazon ≥ 200 €, Salomon, déco de Noël Lidl, séjour Ramatuelle, pot de naissance, solde IR 2025, TradingView annuel, WordPress, Grok Heavy, INPI + CCI).",
+          "Règle des achats exceptionnels : tout paiement unitaire ≥ 200 € dans Achats, plus les pics nommément identifiés (Decathlon de novembre, déco de Noël).",
+          "Le salaire Tesla n'est pas ramené (paiement mensuel déjà reçu en novembre). Moyenne = moyenne arithmétique des deux bulletins (4 169,59 € en octobre, 6 315,41 € en novembre). Échantillon de deux mois seulement : novembre est supérieur de 51 % à octobre (heures, prime ou rattrapage possibles). Une variante conservative utilise le seul salaire d'octobre.",
+          "France Travail : 876,60 € les 1/10 et 2/11. Revenu qui peut s'arrêter. Une variante de capacité d'épargne l'exclut.",
+          "Grok Heavy : périodicité inconnue. Hypothèse retenue = lissage annuel. La variante « mensuel » est chiffrée à part.",
+          "Free Mobile : retenu à 45,97 €/mois alors qu'il n'apparaît que le 8/11.",
+          "Les virements vers l'investissement ne sont pas des dépenses. Ils sont affichés à part comme épargne réalisée. Le crédit Revolut 23 500 € n'est ni un revenu ni une dépense ; sa mensualité est une charge fixe.",
+          "Air Glow pub (Facebook, MailPoet, Dualhook) reste hors des dépenses personnelles, comme dans le bloc Comptes.",
+          "Tous les montants viennent des fichiers data/budget et de l'abonnement TradingView / de la projection OVN déjà suivis sur le site. Rien n'est inventé."
+        ]
+      },
+      "revenus": {
+        "salaire_tesla": {
+          "octobre_eur": 4169.59,
+          "octobre_usd": 4563.2,
+          "novembre_eur": 6315.41,
+          "novembre_usd": 6911.58,
+          "moyenne_eur": 5242.5,
+          "moyenne_usd": 5737.39,
+          "note": "Salaire Tesla France, réf. Salary 102026 (22/10, 4 169,59 €) et Salary 112026 (24/11, 6 315,41 €). Moyenne arithmétique des deux bulletins : 5242.50 €. Novembre est supérieur de 51 % à octobre. Échantillon court : la moyenne peut être trop haute si novembre inclut un rattrapage ou des heures exceptionnelles."
+        },
+        "france_travail": {
+          "octobre_eur": 876.6,
+          "novembre_eur": 876.6,
+          "moyenne_eur": 876.6,
+          "moyenne_usd": 959.35,
+          "note": "876,60 € le 1/10 et le 2/11 (France Travail Grand Est). Revenu mensuel régulier sur la période, qui peut s'arrêter."
+        },
+        "interets_epargne": {
+          "periode_eur": 0.48,
+          "moyenne_eur": 0.24,
+          "moyenne_usd": 0.26,
+          "note": "0.48 € d'intérêts du dépôt Revolut en novembre, soit 0.24 €/mois en moyenne. Montant négligeable."
+        },
+        "total_moyenne_eur": 6119.34,
+        "total_moyenne_usd": 6697.01,
+        "variante_salaire_octobre_eur": 5046.43,
+        "variante_salaire_octobre_usd": 5522.81,
+        "variante_sans_france_travail_eur": 5242.74,
+        "variante_sans_france_travail_usd": 5737.65
+      },
+      "groupes": [
+        {
+          "id": "fixes",
+          "libelle": "Charges fixes",
+          "note": "Loyer, LOA, crédit, assurances, télécom, abonnements mensuels, projection OVN. Novembre non ramené.",
+          "postes": [
+            {
+              "id": "logement",
+              "libelle": "Logement / loyer",
+              "moyenne_eur": 900.18,
+              "moyenne_usd": 985.16,
+              "detail": "Fonds Logement Intermédiaire : 900.18 € le 5/10 et le 3/11. Charge fixe, novembre non ramené.",
+              "octobre_eur": 900.18,
+              "novembre_eur": 900.18,
+              "novembre_ramene_eur": 900.18
+            },
+            {
+              "id": "loa_tesla",
+              "libelle": "LOA Tesla (Cofica Bail)",
+              "moyenne_eur": 486.32,
+              "moyenne_usd": 532.23,
+              "detail": "486,32 € les 5/10 et 5/11. Confirmé par Emmanuel le 25/11. Charge fixe, dans Transport au relevé, isolée ici.",
+              "octobre_eur": 486.32,
+              "novembre_eur": 486.32,
+              "novembre_ramene_eur": 486.32
+            },
+            {
+              "id": "credit_revolut",
+              "libelle": "Crédit Revolut 23 500 €",
+              "moyenne_eur": 169.6,
+              "moyenne_usd": 185.61,
+              "detail": "Mensualité 169,60 € les 9/10 et 9/11. Confirmé par Emmanuel. Charge fixe. Le capital n'est ni un revenu ni une dépense.",
+              "octobre_eur": 169.6,
+              "novembre_eur": 169.6,
+              "novembre_ramene_eur": 169.6
+            },
+            {
+              "id": "assurances",
+              "libelle": "Assurances / mutuelle (AXA)",
+              "moyenne_eur": 86.96,
+              "moyenne_usd": 95.17,
+              "detail": "Trois prélèvements AXA chaque 5 du mois, total 86.96 €/mois.",
+              "octobre_eur": 86.96,
+              "novembre_eur": 86.96,
+              "novembre_ramene_eur": 86.96
+            },
+            {
+              "id": "telecom",
+              "libelle": "Télécom / internet",
+              "moyenne_eur": 85.96,
+              "moyenne_usd": 94.07,
+              "detail": "Free Haut Débit 39.99 €/mois (6/10 et 5/11). Free Mobile 45.97 € observés seulement le 8/11 (19,99 € + 25,98 €, probablement deux lignes). Hypothèse : ces lignes sont mensuelles et le prélèvement d'octobre est hors période, ou elles ont démarré en novembre. Budget récurrent retenu : 85.96 €. Moyenne brute observée sans cette hypothèse : 62.98 €.",
+              "octobre_eur": 39.99,
+              "novembre_eur": 85.96,
+              "novembre_ramene_eur": 85.96,
+              "hypothese": "Free Mobile retenu à 45,97 €/mois alors qu'il n'apparaît qu'en novembre."
+            },
+            {
+              "id": "abonnements",
+              "libelle": "Abonnements récurrents",
+              "moyenne_eur": 149.4,
+              "moyenne_usd": 163.5,
+              "detail": "Somme des abonnements identifiés comme mensuels (voir la liste dans « Trous dans la raquette »). TradingView, WordPress et Grok Heavy sont dans les provisions annuelles, pas ici. Grok (via Apple) 114,99 € d'octobre n'est pas reconduit (crédit Apple 85,20 € le 4/11, probable changement de formule).",
+              "octobre_eur": null,
+              "novembre_eur": null,
+              "abonnements": [
+                {
+                  "id": "microsoft",
+                  "libelle": "Microsoft",
+                  "octobre_eur": 10.0,
+                  "novembre_eur": 10.0,
+                  "moyenne_eur": 10.0,
+                  "moyenne_usd": 10.94,
+                  "n": 2,
+                  "detail": "10,00 € les 2/10 et 3/11.",
+                  "type": "both"
+                },
+                {
+                  "id": "netflix",
+                  "libelle": "Netflix",
+                  "octobre_eur": 7.99,
+                  "novembre_eur": 7.99,
+                  "moyenne_eur": 7.99,
+                  "moyenne_usd": 8.74,
+                  "n": 2,
+                  "detail": "7,99 € les 15/10 et 15/11.",
+                  "type": "both"
+                },
+                {
+                  "id": "disney",
+                  "libelle": "Disney+",
+                  "octobre_eur": 6.99,
+                  "novembre_eur": 6.99,
+                  "moyenne_eur": 6.99,
+                  "moyenne_usd": 7.65,
+                  "n": 2,
+                  "detail": "6,99 € les 16/10 et 16/11.",
+                  "type": "both"
+                },
+                {
+                  "id": "youtube",
+                  "libelle": "YouTube",
+                  "octobre_eur": 12.99,
+                  "novembre_eur": 12.99,
+                  "moyenne_eur": 12.99,
+                  "moyenne_usd": 14.22,
+                  "n": 2,
+                  "detail": "12,99 € les 18/10 et 18/11.",
+                  "type": "both"
+                },
+                {
+                  "id": "revolut_ultra",
+                  "libelle": "Revolut Ultra",
+                  "octobre_eur": 60.0,
+                  "novembre_eur": 60.0,
+                  "moyenne_eur": 60.0,
+                  "moyenne_usd": 65.66,
+                  "n": 2,
+                  "detail": "60,00 € les 7/10 et 7/11.",
+                  "type": "both"
+                },
+                {
+                  "id": "apple_3495",
+                  "libelle": "Apple 34,95 €",
+                  "octobre_eur": 34.95,
+                  "novembre_eur": 34.95,
+                  "moyenne_eur": 34.95,
+                  "moyenne_usd": 38.25,
+                  "n": 2,
+                  "detail": "Prélèvement Apple.com/bill de 34,95 € les 20/10 et 20/11 (formule non identifiée : iCloud / Apple One / autre).",
+                  "type": "both"
+                },
+                {
+                  "id": "apple_499",
+                  "libelle": "Apple 4,99 €",
+                  "octobre_eur": 4.99,
+                  "novembre_eur": 4.99,
+                  "moyenne_eur": 4.99,
+                  "moyenne_usd": 5.46,
+                  "n": 2,
+                  "detail": "Prélèvement Apple.com/bill de 4,99 € les 22/10 et 22/11.",
+                  "type": "both"
+                },
+                {
+                  "id": "prime_video",
+                  "libelle": "Prime Video (Amazon Digital)",
+                  "octobre_eur": 6.99,
+                  "novembre_eur": 0.0,
+                  "moyenne_eur": 6.99,
+                  "moyenne_usd": 7.65,
+                  "n": 1,
+                  "detail": "Une seule échéance dans la période (6,99 € le 29/10). Retenu comme mensuel probable ; la prochaine tombée peut être après le 25/11.",
+                  "type": "once_probable"
+                },
+                {
+                  "id": "grok_direct",
+                  "libelle": "Grok direct (grok.com)",
+                  "octobre_eur": 4.5,
+                  "novembre_eur": 0.0,
+                  "moyenne_eur": 4.5,
+                  "moyenne_usd": 4.92,
+                  "n": 1,
+                  "detail": "Une seule échéance (4,50 € / 5,00 $ le 26/10, SpaceXSI). Retenu comme mensuel probable, à confirmer s'il est toujours actif à côté de Grok Heavy.",
+                  "type": "once_probable"
+                }
+              ]
+            },
+            {
+              "id": "ovn",
+              "libelle": "Frais overnight CFD (projection)",
+              "moyenne_eur": 64.14,
+              "moyenne_usd": 70.19,
+              "detail": "Une seule nuit relevée : 2.34 $ (2.14 €) le 24/11 à 23 h 45. Projection = dernier OVN × 30 jours = 64.14 €. Objectif affiché sur le Budget : < 20 €/mois. Ce n'est pas un total mensuel mesuré. Aucun frais bancaire classique n'apparaît sur les relevés (0 €).",
+              "hypothese": "Projection à partir d'une seule observation."
+            },
+            {
+              "id": "impots_recurrents",
+              "libelle": "Impôts récurrents",
+              "moyenne_eur": 0.0,
+              "moyenne_usd": 0.0,
+              "detail": "Le solde IR 2025 (288 €) est en provisions. Aucun autre prélèvement d'impôt sur la période ; le PAS est déjà dans le salaire net Tesla.",
+              "octobre_eur": 0.0,
+              "novembre_eur": 0.0
+            },
+            {
+              "id": "energie",
+              "libelle": "Énergie",
+              "moyenne_eur": 0.0,
+              "moyenne_usd": 0.0,
+              "detail": "Aucune facture d'électricité ou de gaz sur les 56 jours. Possible inclusion dans le loyer, facturation trimestrielle, ou paiement hors de ces comptes — trou à vérifier.",
+              "octobre_eur": 0.0,
+              "novembre_eur": 0.0
+            }
+          ],
+          "total_moyenne_eur": 1942.56,
+          "total_moyenne_usd": 2125.94
+        },
+        {
+          "id": "variables",
+          "libelle": "Variables courantes",
+          "note": "Courses, transport hors LOA, santé courante, enfant. Novembre ramené à 30 jours. Exceptionnels sortis.",
+          "postes": [
+            {
+              "id": "courses",
+              "libelle": "Courses",
+              "moyenne_eur": 1045.71,
+              "moyenne_usd": 1144.43,
+              "detail": "Octobre observé 1001.54 € − déco Noël 20.97 € = 980.57 €. Novembre observé 1049.06 € (dont 65.39 € en attente Lidl/Carrefour des 23–24/11) − déco Noël 123.35 € = 925.71 €, ramené à un mois : 1110.85 €. Moyenne = (octobre + novembre ramené) / 2. 115 paiements carte sur 49 jours distincts (plus les tickets encore en attente).",
+              "octobre_eur": 980.57,
+              "novembre_eur": 925.71,
+              "novembre_ramene_eur": 1110.85
+            },
+            {
+              "id": "transport_hors_loa",
+              "libelle": "Transport hors LOA",
+              "moyenne_eur": 66.72,
+              "moyenne_usd": 73.02,
+              "detail": "Péages, CTS, stationnement, carburant et recharges Tesla, hors LOA et hors trajet du séjour Ramatuelle (239.07 € lissés en provisions). Octobre 115.19 €, novembre 15.20 € (surtout CTS), ramené 18.24 €.",
+              "octobre_eur": 115.19,
+              "novembre_eur": 15.2,
+              "novembre_ramene_eur": 18.24
+            },
+            {
+              "id": "sante",
+              "libelle": "Santé courante",
+              "moyenne_eur": 24.18,
+              "moyenne_usd": 26.46,
+              "detail": "Pharmacies et Dr Werth, hors dentiste Koch. Octobre 29.16 €, novembre 16.00 € (dont pharmacie Pasteur 16,00 € en attente le 24/11).",
+              "octobre_eur": 29.16,
+              "novembre_eur": 16.0,
+              "novembre_ramene_eur": 19.2
+            },
+            {
+              "id": "enfant",
+              "libelle": "Enfant / école",
+              "moyenne_eur": 32.78,
+              "moyenne_usd": 35.87,
+              "detail": "Octobre net 65.55 € : 10 paiements Roblox (101,90 €) moins le crédit DGFIP de 36,35 € le 1/10, confirmé comme photo de classe (Collège Foch) — ce crédit réduit le poste Enfant. Rien d'autre sur les relevés en novembre au 25. Le virement de 80 € vers la poche Shana n'est pas une dépense (transfert interne).",
+              "octobre_eur": 65.55,
+              "novembre_eur": 0.0,
+              "novembre_ramene_eur": 0.0
+            }
+          ],
+          "total_moyenne_eur": 1169.39,
+          "total_moyenne_usd": 1279.78
+        },
+        {
+          "id": "discretionnaires",
+          "libelle": "Discrétionnaires",
+          "note": "Achats, loisirs et autres courants, après sortie des pics. Novembre ramené à 30 jours.",
+          "postes": [
+            {
+              "id": "achats",
+              "libelle": "Achats courants",
+              "moyenne_eur": 693.68,
+              "moyenne_usd": 759.16,
+              "detail": "Hors Decathlon de novembre, Amazon ≥ 200 € et Salomon. Octobre 700.25 €, novembre 572.59 €, ramené 687.11 €. Reste notamment Temu, Shein, North Face, Karl Lagerfeld, petits Amazon, Normal, librairie.",
+              "octobre_eur": 700.25,
+              "novembre_eur": 572.59,
+              "novembre_ramene_eur": 687.11
+            },
+            {
+              "id": "loisirs",
+              "libelle": "Loisirs / restaurants courants",
+              "moyenne_eur": 112.44,
+              "moyenne_usd": 123.05,
+              "detail": "Hors séjour Ramatuelle et pot de naissance. Octobre 36.15 €, novembre 157.28 €, ramené 188.74 €. Restauration courante seule : 76.44 €/mois.",
+              "octobre_eur": 36.15,
+              "novembre_eur": 157.28,
+              "novembre_ramene_eur": 188.74,
+              "restauration_courante_eur": 76.44
+            },
+            {
+              "id": "autres",
+              "libelle": "Autres (courant)",
+              "moyenne_eur": 47.59,
+              "moyenne_usd": 52.08,
+              "detail": "Hors INPI et CCI (provisions). Octobre 38.95 € (MaxiZoo, X Ads), novembre 46.85 € (Cb Nx000018 et La Poste 18 € en attente). X Ads, MaxiZoo et le libellé tronqué restent à confirmer.",
+              "octobre_eur": 38.95,
+              "novembre_eur": 46.85,
+              "novembre_ramene_eur": 56.22
+            }
+          ],
+          "total_moyenne_eur": 853.71,
+          "total_moyenne_usd": 934.3
+        }
+      ],
+      "provisions": {
+        "libelle": "Provisions annuelles",
+        "note": "Dépenses exceptionnelles ou annuelles de la période, lissées sur 12 mois, pour ne pas les laisser gonfler le budget récurrent ni les oublier.",
+        "lignes": [
+          {
+            "id": "dentiste_koch",
+            "libelle": "Dentiste (Dr Koch)",
+            "total_periode_eur": 949.36,
+            "total_periode_usd": 1038.98,
+            "moyenne_eur": 79.11,
+            "moyenne_usd": 86.58,
+            "detail": "822,99 € le 27/10 + 126,37 € le 17/11 = 949.36 €. Remboursements Aon déjà reçus : 423.44 € (reste net 525.92 €, à vérifier). Lissé sur 12 mois, sorti du courant Santé."
+          },
+          {
+            "id": "decathlon_nov",
+            "libelle": "Decathlon (pic de novembre)",
+            "total_periode_eur": 1809.94,
+            "total_periode_usd": 1980.8,
+            "moyenne_eur": 150.83,
+            "moyenne_usd": 165.07,
+            "detail": "1 109,97 € le 14/11 + 699,97 € le 18/11. L'achat d'octobre (103,53 €) reste dans les achats courants."
+          },
+          {
+            "id": "amazon_gros",
+            "libelle": "Amazon (paiements ≥ 200 €)",
+            "total_periode_eur": 1350.69,
+            "total_periode_usd": 1478.2,
+            "moyenne_eur": 112.56,
+            "moyenne_usd": 123.19,
+            "detail": "Dont 1 085,98 € le 13/11 et l'Amazon 264,71 € en attente du 24/11. Seuil retenu : tout paiement Amazon unitaire ≥ 200 € est traité comme exceptionnel."
+          },
+          {
+            "id": "salomon",
+            "libelle": "Salomon Roppenheim",
+            "total_periode_eur": 234.7,
+            "total_periode_usd": 256.86,
+            "moyenne_eur": 19.56,
+            "moyenne_usd": 21.41,
+            "detail": "234,70 € le 28/10, outlet de Roppenheim. Seuil ≥ 200 €."
+          },
+          {
+            "id": "deco_noel",
+            "libelle": "Déco de Noël Lidl",
+            "total_periode_eur": 144.32,
+            "total_periode_usd": 157.94,
+            "moyenne_eur": 12.03,
+            "moyenne_usd": 13.17,
+            "detail": "Rayon « Maison & déco (dont Noël) » des tickets Lidl : 20.97 € en octobre et 123.35 € en novembre. Sorti des courses courantes."
+          },
+          {
+            "id": "sejour_ramatuelle_loisirs",
+            "libelle": "Séjour Ramatuelle — loisirs",
+            "total_periode_eur": 192.8,
+            "total_periode_usd": 211.0,
+            "moyenne_eur": 16.07,
+            "moyenne_usd": 17.59,
+            "detail": "Le Jardin des Pins 142,80 € + Yelloh ! Village 38,00 € + Le Glacier du Vin 12,00 € (20–24/10)."
+          },
+          {
+            "id": "sejour_ramatuelle_transport",
+            "libelle": "Séjour Ramatuelle — transport",
+            "total_periode_eur": 239.07,
+            "total_periode_usd": 261.64,
+            "moyenne_eur": 19.92,
+            "moyenne_usd": 21.8,
+            "detail": "Péages APRR / VINCI, Eni Arlay, Avia et recharges Tesla du 20 au 26/10, hors Parking Foch (Strasbourg) et hors LOA."
+          },
+          {
+            "id": "pot_naissance",
+            "libelle": "Pot de naissance (travail)",
+            "total_periode_eur": 20.93,
+            "total_periode_usd": 22.91,
+            "moyenne_eur": 1.74,
+            "moyenne_usd": 1.9,
+            "detail": "Bastos 67, 20,93 € le 16/10. Ponctuel, confirmé par Emmanuel."
+          },
+          {
+            "id": "impot_solde",
+            "libelle": "Solde impôt sur les revenus 2025",
+            "total_periode_eur": 288.0,
+            "total_periode_usd": 315.19,
+            "moyenne_eur": 24.0,
+            "moyenne_usd": 26.27,
+            "detail": "288,00 € le 26/10 (DGFIP, facture 2667005282776). Le prélèvement à la source est déjà dans le salaire net Tesla. Aucune autre échéance d'impôt n'apparaît sur la période."
+          },
+          {
+            "id": "tradingview",
+            "libelle": "TradingView Essential annuel",
+            "total_periode_eur": 186.48,
+            "total_periode_usd": 204.08,
+            "moyenne_eur": 15.54,
+            "moyenne_usd": 17.01,
+            "detail": "186,48 €/an déjà souscrits le 25/11 (prélèvement le 6/12). Coût mensuel 15.54 €. Les 83,94 € Premium encore prélevés les 7/10 et 7/11 (total 167.88 €) ne sont pas reconduits."
+          },
+          {
+            "id": "wordpress",
+            "libelle": "WordPress (3 paiements rapprochés)",
+            "total_periode_eur": 156.2,
+            "total_periode_usd": 170.95,
+            "moyenne_eur": 13.02,
+            "moyenne_usd": 14.25,
+            "detail": "21,60 € le 30/10, 26,40 € le 1/11 et 108,20 € le 6/11. Pas un rythme mensuel clair. Note du relevé : probable activité pro Air Glow — à confirmer. Lissé sur 12 mois."
+          },
+          {
+            "id": "grok_heavy",
+            "libelle": "Grok Heavy (via Apple)",
+            "total_periode_eur": 219.99,
+            "total_periode_usd": 240.76,
+            "moyenne_eur": 18.33,
+            "moyenne_usd": 20.06,
+            "detail": "219,99 € le 4/11. Périodicité non confirmée. Hypothèse retenue : paiement à lisser sur 12 mois (18.33 €/mois). Variante si l'abonnement est mensuel : +201.66 €/mois sur le budget récurrent (voir ci-dessous)."
+          },
+          {
+            "id": "inpi_cci",
+            "libelle": "INPI + CCI Alsace (formalités, à confirmer)",
+            "total_periode_eur": 347.63,
+            "total_periode_usd": 380.45,
+            "moyenne_eur": 28.97,
+            "moyenne_usd": 31.7,
+            "detail": "INPI 230,00 € le 7/10 et CCI Alsace Eurométropole 117,63 € le 17/10. Démarches ponctuelles, probable activité pro — toujours à confirmer. Lissées ici pour ne pas gonfler les « Autres » mensuels. Si c'est confirmé pro, les sortir du budget perso."
+          }
+        ],
+        "total_moyenne_eur": 511.68,
+        "total_moyenne_usd": 559.98
+      },
+      "depenses_recurrentes": {
+        "moyenne_eur": 4477.34,
+        "moyenne_usd": 4900.0,
+        "detail": "Somme des charges fixes, variables courantes, discrétionnaires et provisions annuelles / 12."
+      },
+      "epargne_realisee": {
+        "libelle": "Vers l'investissement (épargne réalisée, pas une dépense)",
+        "periode_eur": 15888.73,
+        "periode_usd": 17388.63,
+        "octobre_eur": 2589.34,
+        "novembre_eur": 13299.39,
+        "moyenne_eur": 7944.37,
+        "moyenne_usd": 8694.32,
+        "n": 41,
+        "note": "Flux sortants vers les courtiers et les métaux, exclus des dépenses. Investissement XTB (Apple Pay): 1006.0 € (Recharges Apple Pay 86 € + 650 € + 270 € = 1 006 €, confirmées par Emmanuel le 25/11/2026 : transferts de Revolut vers XTB pour acheter des actions. Virements internes / investissement (XTB), exclus des dépenses et des revenus. Montant constaté en entrées sur les comptes Revolut, non additionné aux virements sortants déjà partis vers les courtiers.)",
+        "lignes": [
+          {
+            "id": "investissement",
+            "libelle": "Vers l'investissement (XTB, Revolut X, marge, métaux, Deblock, compte-titres)",
+            "montant_eur": 14882.73,
+            "montant_usd": 16287.66,
+            "n": 38,
+            "note": "Flux sortants vers les courtiers et les métaux, exclus des dépenses."
+          },
+          {
+            "id": "investissement_xtb_apple_pay",
+            "libelle": "Investissement XTB (Apple Pay)",
+            "montant_eur": 1006.0,
+            "montant_usd": 1100.97,
+            "n": 3,
+            "note": "Recharges Apple Pay 86 € + 650 € + 270 € = 1 006 €, confirmées par Emmanuel le 25/11/2026 : transferts de Revolut vers XTB pour acheter des actions. Virements internes / investissement (XTB), exclus des dépenses et des revenus. Montant constaté en entrées sur les comptes Revolut, non additionné aux virements sortants déjà partis vers les courtiers."
+          }
+        ],
+        "alerte": "Le flux de novembre est très supérieur à celui d'octobre et au reste du budget (revenus − dépenses). Il a pu être alimenté par le crédit Revolut de 23 500 € (capital viré le 6/11, compte destinataire clôturé le 16/11), pas seulement par un excédent mensuel. Ce n'est donc pas une capacité d'épargne récurrente."
+      },
+      "capacite_actuelle": {
+        "eur": 1642.0,
+        "usd": 1797.0,
+        "formule": "Revenus mensuels moyens (salaire moyen + France Travail + intérêts) − dépenses récurrentes moyennes (y compris provisions / 12).",
+        "variante_salaire_octobre_eur": 569.09,
+        "variante_salaire_octobre_usd": 622.81,
+        "variante_sans_france_travail_eur": 765.4,
+        "variante_sans_france_travail_usd": 837.65
+      },
+      "trous": [
+        {
+          "id": "abonnements",
+          "titre": "Abonnements récurrents identifiés",
+          "detail": "Liste ci-dessous, avec les formules Grok empilées et TradingView déjà baissé à Essential."
+        },
+        {
+          "id": "grok_stack",
+          "titre": "Stack Grok potentiellement en double",
+          "detail": "Grok (via Apple) 114.99 € le 26/10, Grok direct 4,50 € le 26/10, Grok Heavy 219.99 € le 4/11. Crédit Apple 85,20 € le 4/11 : probable ajustement de formule, à confirmer. Trois libellés pour un même outil."
+        },
+        {
+          "id": "frequence_courses",
+          "titre": "Fréquence des courses : 116 paiements carte, 49 jours distincts sur 56",
+          "detail": "Octobre : 27 jours / 58 paiements. Novembre au 25 : 22 jours / 58 paiements, plus les tickets encore en attente. Panier Lidl moyen 23–26 €, beaucoup de petits passages. Carrefour 54× (708.16 €) · Lidl 43× (964.64 €) · IKA 7× (31.20 €) · Magasin U 5× (136.00 €) · E.Leclerc 2× (64.88 €) · Monoprix 2× (30.70 €) · MaxiCoffee 1× (3.60 €) · Auchan 1× (22.83 €) · Vin, confiture, tire-bouchon (Fritz Schmitt) 1× (23.20 €)"
+        },
+        {
+          "id": "non_alim_lidl",
+          "titre": "Non-alimentaire Lidl, surtout en novembre",
+          "detail": "Novembre : non-alimentaire 262,76 € > alimentaire 224,04 € (tickets au 24). Dont déco Noël 123.35 € (déjà lissée) et textile 67.88 €."
+        },
+        {
+          "id": "ovn_frais",
+          "titre": "Frais overnight CFD au-dessus de l'objectif",
+          "detail": "Projection 64.14 €/mois vs objectif 20 € (ratio observé sur une nuit). Aucun frais bancaire classique sur les relevés. Les frais d'ordres restent à relever (APE-38)."
+        },
+        {
+          "id": "energie",
+          "titre": "Pas de facture d'énergie sur 56 jours",
+          "detail": "À vérifier : incluse dans le loyer, prélevée ailleurs, ou trimestrielle hors période."
+        },
+        {
+          "id": "pret",
+          "titre": "Crédit Revolut 23 500 € et vague d'investissement de novembre",
+          "detail": "Mensualité 169,60 € déjà dans les charges fixes. Le capital a été viré le 6/11 vers FR76…20176 (clôturé le 16/11). Les versements vers l'investissement atteignent 15888.73 € sur la période (octobre 2589.34 €, novembre 13299.39 €), soit bien plus que le reste du budget. Une partie de l'épargne de novembre a pu être financée par le prêt, pas par un excédent mensuel. Ce prêt a un coût : il s'ajoute à un budget qui, en flux observé (non lissé), était dans le rouge en octobre."
+        }
+      ],
+      "abonnements": [
+        {
+          "id": "microsoft",
+          "libelle": "Microsoft",
+          "octobre_eur": 10.0,
+          "novembre_eur": 10.0,
+          "moyenne_eur": 10.0,
+          "moyenne_usd": 10.94,
+          "n": 2,
+          "detail": "10,00 € les 2/10 et 3/11.",
+          "type": "both"
+        },
+        {
+          "id": "netflix",
+          "libelle": "Netflix",
+          "octobre_eur": 7.99,
+          "novembre_eur": 7.99,
+          "moyenne_eur": 7.99,
+          "moyenne_usd": 8.74,
+          "n": 2,
+          "detail": "7,99 € les 15/10 et 15/11.",
+          "type": "both"
+        },
+        {
+          "id": "disney",
+          "libelle": "Disney+",
+          "octobre_eur": 6.99,
+          "novembre_eur": 6.99,
+          "moyenne_eur": 6.99,
+          "moyenne_usd": 7.65,
+          "n": 2,
+          "detail": "6,99 € les 16/10 et 16/11.",
+          "type": "both"
+        },
+        {
+          "id": "youtube",
+          "libelle": "YouTube",
+          "octobre_eur": 12.99,
+          "novembre_eur": 12.99,
+          "moyenne_eur": 12.99,
+          "moyenne_usd": 14.22,
+          "n": 2,
+          "detail": "12,99 € les 18/10 et 18/11.",
+          "type": "both"
+        },
+        {
+          "id": "revolut_ultra",
+          "libelle": "Revolut Ultra",
+          "octobre_eur": 60.0,
+          "novembre_eur": 60.0,
+          "moyenne_eur": 60.0,
+          "moyenne_usd": 65.66,
+          "n": 2,
+          "detail": "60,00 € les 7/10 et 7/11.",
+          "type": "both"
+        },
+        {
+          "id": "apple_3495",
+          "libelle": "Apple 34,95 €",
+          "octobre_eur": 34.95,
+          "novembre_eur": 34.95,
+          "moyenne_eur": 34.95,
+          "moyenne_usd": 38.25,
+          "n": 2,
+          "detail": "Prélèvement Apple.com/bill de 34,95 € les 20/10 et 20/11 (formule non identifiée : iCloud / Apple One / autre).",
+          "type": "both"
+        },
+        {
+          "id": "apple_499",
+          "libelle": "Apple 4,99 €",
+          "octobre_eur": 4.99,
+          "novembre_eur": 4.99,
+          "moyenne_eur": 4.99,
+          "moyenne_usd": 5.46,
+          "n": 2,
+          "detail": "Prélèvement Apple.com/bill de 4,99 € les 22/10 et 22/11.",
+          "type": "both"
+        },
+        {
+          "id": "prime_video",
+          "libelle": "Prime Video (Amazon Digital)",
+          "octobre_eur": 6.99,
+          "novembre_eur": 0.0,
+          "moyenne_eur": 6.99,
+          "moyenne_usd": 7.65,
+          "n": 1,
+          "detail": "Une seule échéance dans la période (6,99 € le 29/10). Retenu comme mensuel probable ; la prochaine tombée peut être après le 25/11.",
+          "type": "once_probable"
+        },
+        {
+          "id": "grok_direct",
+          "libelle": "Grok direct (grok.com)",
+          "octobre_eur": 4.5,
+          "novembre_eur": 0.0,
+          "moyenne_eur": 4.5,
+          "moyenne_usd": 4.92,
+          "n": 1,
+          "detail": "Une seule échéance (4,50 € / 5,00 $ le 26/10, SpaceXSI). Retenu comme mensuel probable, à confirmer s'il est toujours actif à côté de Grok Heavy.",
+          "type": "once_probable"
+        }
+      ],
+      "pistes": [
+        {
+          "id": "ovn",
+          "libelle": "Tenir l'objectif de frais overnight CFD (< 20 €/mois)",
+          "economie_eur_mois": 44.14,
+          "economie_usd_mois": 48.31,
+          "source": "Projection actuelle 64.14 € (2,34 $ × 30 jours, une seule nuit le 24/11) − objectif 20 €.",
+          "note": "Proposition, pas une décision. La projection repose sur une seule observation ; elle sera affinée quand d'autres nuits seront relevées. Réduire l'exposition overnight (ou fermer avant la clôture) est le levier.",
+          "dans_panier_cible": true
+        },
+        {
+          "id": "revolut_ultra",
+          "libelle": "Revoir ou résilier Revolut Ultra",
+          "economie_eur_mois": 60.0,
+          "economie_usd_mois": 65.66,
+          "source": "Deux prélèvements de 60,00 € les 7/10 et 7/11.",
+          "note": "Proposition. L'économie maximale est 60 €/mois en cas de résiliation. Une formule inférieure n'est pas chiffrée ici (tarif non sourcé dans les relevés).",
+          "dans_panier_cible": true
+        },
+        {
+          "id": "youtube",
+          "libelle": "Revoir le stack vidéo (YouTube, Netflix, Disney+, Prime Video)",
+          "economie_eur_mois": 12.99,
+          "economie_usd_mois": 14.22,
+          "source": "YouTube 12,99 € + Netflix 7,99 € + Disney+ 6,99 € + Prime Video 6,99 € = 34.96 €/mois.",
+          "note": "Proposition : l'économie retenue dans la cible est celle de YouTube seul (le plus cher, 12,99 €), si tu conserves les autres. Économie maximale si un seul abonnement vidéo est gardé : à calculer selon celui que tu gardes.",
+          "dans_panier_cible": true
+        },
+        {
+          "id": "textile_lidl",
+          "libelle": "Réduire de moitié le textile Lidl (hors déco déjà lissée)",
+          "economie_eur_mois": 25.36,
+          "economie_usd_mois": 27.75,
+          "source": "Textile Lidl 19.98 € en octobre et 67.88 € en novembre, moyenne ramenée 50.72 €/mois (tickets Lidl).",
+          "note": "Proposition : moitié du rythme observé, sans viser zéro. Le non-alimentaire Lidl de novembre dépasse déjà l'alimentaire.",
+          "dans_panier_cible": true
+        },
+        {
+          "id": "restauration",
+          "libelle": "Réduire de moitié la restauration courante",
+          "economie_eur_mois": 38.22,
+          "economie_usd_mois": 41.83,
+          "source": "McDonald's, snacks, cafés, restaurants hors séjour Ramatuelle : 76.44 €/mois après ramener novembre.",
+          "note": "Proposition : moitié du rythme observé. Le séjour est déjà sorti du courant et lissé en provisions.",
+          "dans_panier_cible": true
+        },
+        {
+          "id": "grok_heavy",
+          "libelle": "Clarifier puis éventuellement résilier Grok Heavy",
+          "economie_eur_mois": 18.33,
+          "economie_usd_mois": 20.06,
+          "economie_si_mensuel_eur": 219.99,
+          "source": "Apple.com/bill 219,99 € le 4/11, confirmé « Grok Heavy ».",
+          "note": "Si l'abonnement est annuel (hypothèse du budget récurrent), il est déjà lissé à 18.33 €/mois : le résilier ne change la cible qu'à la prochaine échéance. S'il est mensuel, l'économie est 219.99 €/mois — c'est alors le premier levier. Les trois formules Grok (114,99 € via Apple en octobre, 4,50 € grok.com, 219,99 € Heavy) sont un doublon possible.",
+          "dans_panier_cible": false
+        },
+        {
+          "id": "pro_airglow",
+          "libelle": "Sortir du budget perso les formalités et pubs encore floues si elles sont pour Air Glow",
+          "economie_eur_mois": 97.12,
+          "economie_usd_mois": 106.29,
+          "source": "INPI 230 €, CCI 117,63 €, X Ads 22,27 €, Envato 87,97 €, WordPress 156,20 €.",
+          "note": "À confirmer une par une. INPI et CCI sont déjà lissés en provisions (et sortiraient complètement si c'est pro). X Ads et Envato sont encore dans le courant. WordPress est en provisions, noté « probable pro ».",
+          "dans_panier_cible": false
+        }
+      ],
+      "panier_cible": {
+        "libelle": "Panier de propositions retenu pour la capacité cible",
+        "note": "Ce n'est pas une décision. Cinq leviers chiffrés à partir des relevés : OVN sous l'objectif, résiliation Revolut Ultra, résiliation YouTube, moitié du textile Lidl, moitié de la restauration courante. Grok Heavy et le reclassement pro sont chiffrés à part, faute de confirmation.",
+        "lignes": [
+          {
+            "id": "ovn",
+            "libelle": "Tenir l'objectif de frais overnight CFD (< 20 €/mois)",
+            "economie_eur_mois": 44.14,
+            "economie_usd_mois": 48.31
+          },
+          {
+            "id": "revolut_ultra",
+            "libelle": "Revoir ou résilier Revolut Ultra",
+            "economie_eur_mois": 60.0,
+            "economie_usd_mois": 65.66
+          },
+          {
+            "id": "youtube",
+            "libelle": "Revoir le stack vidéo (YouTube, Netflix, Disney+, Prime Video)",
+            "economie_eur_mois": 12.99,
+            "economie_usd_mois": 14.22
+          },
+          {
+            "id": "textile_lidl",
+            "libelle": "Réduire de moitié le textile Lidl (hors déco déjà lissée)",
+            "economie_eur_mois": 25.36,
+            "economie_usd_mois": 27.75
+          },
+          {
+            "id": "restauration",
+            "libelle": "Réduire de moitié la restauration courante",
+            "economie_eur_mois": 38.22,
+            "economie_usd_mois": 41.83
+          }
+        ],
+        "total_economie_eur": 180.71,
+        "total_economie_usd": 197.77
+      },
+      "capacite_cible": {
+        "eur": 1822.71,
+        "usd": 1994.77,
+        "formule": "Capacité actuelle + somme du panier de propositions.",
+        "variante_grok_heavy_mensuel_eur": 1440.34,
+        "variante_grok_heavy_mensuel_cible_eur": 1841.04,
+        "variante_grok_heavy_mensuel_note": "Si Grok Heavy est mensuel, la capacité actuelle baisse de 201.66 € (on remplace le lissage annuel par 219,99 €/mois). La résiliation de Heavy devient alors le premier levier (219.99 €/mois) et la cible après panier + résiliation serait 1841.04 €."
+      },
+      "objectif_epargne": {
+        "propose_eur": 500,
+        "propose_usd": 547.2,
+        "note": "Objectif proposé : 500 €/mois, arrondi inférieur à 100 € de la capacité calculée avec le seul salaire d'octobre (569.09 €). C'est volontairement prudent tant que le salaire de novembre (6 315,41 €) n'est pas confirmé comme un rythme normal, et tant que France Travail peut s'arrêter. Si le salaire moyen se confirme et si le panier de réductions est suivi, la cible calculée est 1822.71 €/mois (objectif arrondi 1800 €).",
+        "cible_si_reductions_eur": 1800
+      },
+      "reserve_securite": {
+        "charges_fixes_eur": 1878.42,
+        "charges_fixes_usd": 2055.74,
+        "detail": "Loyer + LOA Tesla + crédit Revolut + assurances + télécom + abonnements mensuels identifiés, hors OVN (réductible en fermant les positions) et hors provisions.",
+        "mois_3_eur": 5635.26,
+        "mois_3_usd": 6167.23,
+        "mois_6_eur": 11270.52,
+        "mois_6_usd": 12334.46,
+        "note": "Réserve conseillée : 3 à 6 mois de charges fixes, soit 5635.26 € à 11270.52 €. Ce n'est pas un ordre de virement. Les soldes actuels des deux comptes sont bien en dessous de ce niveau ; le crédit de 23 500 € n'est pas une réserve."
+      },
+      "lignes_floues": [
+        {
+          "sujet": "Cb Nx000018 28,85 € (Strasbourg, 15/11)",
+          "montant_eur": 28.85,
+          "montant_usd": 31.57,
+          "classification": "autres",
+          "question": "Commerçant exact ?"
+        },
+        {
+          "sujet": "Le Jardin des Pins, Ramatuelle",
+          "montant_eur": 142.8,
+          "montant_usd": 156.28,
+          "classification": "loisirs",
+          "question": "Restaurant ou hébergement pendant le séjour à Ramatuelle / Saint-Tropez (6 paiements carte) ?"
+        },
+        {
+          "sujet": "Tesla France / Tesla Inc., Chambourcy",
+          "montant_eur": 131.69,
+          "montant_usd": 144.12,
+          "classification": "transport",
+          "question": "Recharge Supercharger, SAV ou accessoires ? Le 81,00 € du 30/10 surtout."
+        },
+        {
+          "sujet": "X Corp Advertising",
+          "montant_eur": 22.27,
+          "montant_usd": 24.37,
+          "classification": "autres",
+          "question": "Publicité professionnelle, ou dépense personnelle ?"
+        },
+        {
+          "sujet": "INPI (Institut national de la propriété industrielle)",
+          "montant_eur": 230.0,
+          "montant_usd": 251.71,
+          "classification": "autres",
+          "question": "Confirmer la démarche (marque / titre) et le rattachement à l’activité pro."
+        },
+        {
+          "sujet": "CCI Alsace Eurométropole",
+          "montant_eur": 117.63,
+          "montant_usd": 128.73,
+          "classification": "autres",
+          "question": "Cotisation / formalité professionnelle ?"
+        },
+        {
+          "sujet": "Envato",
+          "montant_eur": 87.97,
+          "montant_usd": 96.27,
+          "classification": "achats",
+          "question": "Licence ponctuelle ou abonnement ? Activité pro ?"
+        },
+        {
+          "sujet": "Mollie *thood Franc..., Roppenheim",
+          "montant_eur": 23.0,
+          "montant_usd": 25.17,
+          "classification": "achats",
+          "question": "Commerçant exact (libellé tronqué sur le relevé) ?"
+        },
+        {
+          "sujet": "MaxiZoo Vendenheim 16,68 €",
+          "montant_eur": 16.68,
+          "montant_usd": 18.25,
+          "classification": "autres",
+          "question": "Laisser en Autres (animalerie) ou rattacher à Courses ?"
+        },
+        {
+          "sujet": "Périodicité de Grok Heavy (219,99 € le 4/11)",
+          "montant_eur": 219.99,
+          "montant_usd": 240.76,
+          "classification": "abonnements",
+          "question": "Abonnement mensuel ou annuel ? Cela change le budget récurrent de près de 200 €/mois."
+        },
+        {
+          "sujet": "WordPress 21,60 + 26,40 + 108,20 €",
+          "montant_eur": 156.2,
+          "montant_usd": 170.95,
+          "classification": "abonnements",
+          "question": "Activité pro Air Glow ? Ponctuel ou abonnement ?"
+        },
+        {
+          "sujet": "Apple 34,95 € et 4,99 € / mois",
+          "montant_eur": 39.94,
+          "montant_usd": 43.71,
+          "classification": "abonnements",
+          "question": "Quelles formules exactes (iCloud, Apple One, apps) ?"
+        },
+        {
+          "sujet": "Free Mobile 19,99 € + 25,98 € (8/11 seulement)",
+          "montant_eur": 45.97,
+          "montant_usd": 50.31,
+          "classification": "telecom",
+          "question": "Deux lignes mensuelles déjà en cours en octobre (prélèvement hors période) ou nouvelles lignes ?"
+        },
+        {
+          "sujet": "Facture d'énergie absente",
+          "montant_eur": 0,
+          "montant_usd": 0,
+          "classification": "energie",
+          "question": "Où est payée l'électricité / le gaz ?"
+        }
+      ],
+      "source": {
+        "comptes": "data/budget/comptes_2026-10_11.json",
+        "lidl": "data/budget/lidl_tickets_2026-10_11.json",
+        "tradingview": "data/abonnement_tradingview.json et budget.tradingview",
+        "ovn": "budget.ovn (positions.json)",
+        "genere_par": "src/build_budget_mensuel.py"
+      }
     }
   }
 }

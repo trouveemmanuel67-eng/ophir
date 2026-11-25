@@ -538,8 +538,158 @@ function bdgComptesHtml(b){
     </div>
   </section>`;
 }
+
+function bdgMoy(b){ return (b&&b.budget_mensuel)||null; }
+function bdgMoyHead(){
+  return `<div class="home-table-h bdg-moy-th" aria-hidden="true">
+    <span>Poste</span><span>Détail / hypothèse</span><span>Moyenne $</span><span>Moyenne €</span>
+  </div>`;
+}
+function bdgMoyRow(p, cls){
+  const c=['bdg-moy-row'].concat(cls||[]).join(' ');
+  return `<div class="${c}">
+    <div class="bdg-poste"><h2>${bdgEsc(p.libelle||p.id||'')}</h2></div>
+    <div class="bdg-det">${bdgEsc(p.detail||'—')}</div>
+    <div class="bdg-num">${bdgAmt(p.moyenne_usd,'USD')}</div>
+    <div class="bdg-num">${bdgAmt(p.moyenne_eur,'EUR')}</div>
+  </div>`;
+}
+function bdgMoyFoot(lab, eur, usd){
+  return `<div class="bdg-moy-row bdg-moy-foot">
+    <div class="bdg-poste"><h2>${bdgEsc(lab)}</h2></div>
+    <div class="bdg-det"></div>
+    <div class="bdg-num">${bdgAmt(usd,'USD')}</div>
+    <div class="bdg-num">${bdgAmt(eur,'EUR')}</div>
+  </div>`;
+}
+function bdgMoyKv(label, eur, usd, extraCls, tone){
+  const cls=['home-kv'].concat(extraCls||[]).filter(Boolean).join(' ');
+  const t=tone||'';
+  const bCls=t==='down'?'down':(t==='up'?'up':'');
+  return `<div class="${cls}${t==='down'?' is-down':''}"><span class="l">${bdgEsc(label)}</span><b class="${bCls}">${bdgAmt(eur,'EUR')}</b><small class="${bCls}">${bdgAmt(usd,'USD')}</small></div>`;
+}
+function bdgMensuelHtml(b){
+  const m=bdgMoy(b);
+  if(!m) return '';
+  const per=(m.periode&&m.periode.libelle)||'1er octobre – 25 novembre 2026';
+  const fx=(m.fx&&m.fx.taux!=null)?String(m.fx.taux).replace('.',','):'1,0944';
+  const rev=m.revenus||{};
+  const dep=m.depenses_recurrentes||{};
+  const act=m.capacite_actuelle||{};
+  const cib=m.capacite_cible||{};
+  const pan=m.panier_cible||{};
+  const obj=m.objectif_epargne||{};
+  const res=m.reserve_securite||{};
+  const epar=m.epargne_realisee||{};
+  const met=m.methode||{};
+  const hyps=met.hypotheses||[];
+  const actTone=Number(act.eur)<0?'down':'up';
+  const cibTone=Number(cib.eur)<0?'down':'up';
+  const kv=`<div class="home-strip bdg-kvs bdg-moy-kvs">
+      ${bdgMoyKv('Revenus moyens', rev.total_moyenne_eur, rev.total_moyenne_usd)}
+      ${bdgMoyKv('Dépenses récurrentes', dep.moyenne_eur, dep.moyenne_usd)}
+      ${bdgMoyKv("Capacité d'épargne actuelle", act.eur, act.usd, [], actTone)}
+      ${bdgMoyKv('Capacité cible (propositions)', cib.eur, cib.usd, ['bdg-kv-fixe'], cibTone)}
+    </div>`;
+  const hypHtml=hyps.length?(`<div class="bdg-moy-hyp"><h3 class="bdg-moy-h">Hypothèses de calcul</h3><ol>${hyps.map(h=>`<li>${bdgEsc(h)}</li>`).join('')}</ol></div>`):'';
+  const sal=rev.salaire_tesla||{};
+  const ft=rev.france_travail||{};
+  const inter=rev.interets_epargne||{};
+  const revRows=[
+    {libelle:'Salaire Tesla (moyenne)', moyenne_eur:sal.moyenne_eur, moyenne_usd:sal.moyenne_usd, detail:sal.note},
+    {libelle:'France Travail', moyenne_eur:ft.moyenne_eur, moyenne_usd:ft.moyenne_usd, detail:ft.note},
+    {libelle:"Intérêts d'épargne", moyenne_eur:inter.moyenne_eur, moyenne_usd:inter.moyenne_usd, detail:inter.note}
+  ].map(p=>bdgMoyRow(p)).join('');
+  const revBlock=`<div class="bdg-moy-block" id="bdg-moy-revenus">
+      <h3 class="bdg-moy-h">Revenus mensuels moyens</h3>
+      <div class="bdg-moy-table">${bdgMoyHead()}${revRows}${bdgMoyFoot('Total revenus moyens', rev.total_moyenne_eur, rev.total_moyenne_usd)}</div>
+      <p class="bdg-moy-p">Variante conservative (salaire d'octobre seulement + France Travail) : ${bdgAmt(rev.variante_salaire_octobre_eur,'EUR')} / ${bdgAmt(rev.variante_salaire_octobre_usd,'USD')}. Variante sans France Travail (ce revenu peut s'arrêter) : ${bdgAmt(rev.variante_sans_france_travail_eur,'EUR')} / ${bdgAmt(rev.variante_sans_france_travail_usd,'USD')}.</p>
+    </div>`;
+  const groupes=(m.groupes||[]).map(g=>{
+    const cls='bdg-moy-grp-'+g.id;
+    const rows=(g.postes||[]).map(p=>bdgMoyRow(p,[cls])).join('');
+    return `<div class="bdg-moy-block" id="bdg-moy-${bdgEsc(g.id)}">
+      <h3 class="bdg-moy-h">${bdgEsc(g.libelle||g.id)}</h3>
+      <p class="bdg-moy-p">${bdgEsc(g.note||'')}</p>
+      <div class="bdg-moy-table">${bdgMoyHead()}${rows}${bdgMoyFoot('Sous-total '+ (g.libelle||''), g.total_moyenne_eur, g.total_moyenne_usd)}</div>
+    </div>`;
+  }).join('');
+  const prov=m.provisions||{};
+  const provRows=(prov.lignes||[]).map(p=>{
+    const rec={libelle:p.libelle, moyenne_eur:p.moyenne_eur, moyenne_usd:p.moyenne_usd,
+      detail:(p.detail||'')+(p.total_periode_eur!=null?(' Total période : '+String(p.total_periode_eur).replace('.',',')+' €.'):'')};
+    return bdgMoyRow(rec);
+  }).join('');
+  const provBlock=`<div class="bdg-moy-block" id="bdg-moy-provisions">
+      <h3 class="bdg-moy-h">${bdgEsc(prov.libelle||'Provisions annuelles')}</h3>
+      <p class="bdg-moy-p">${bdgEsc(prov.note||'')}</p>
+      <div class="bdg-moy-table">${bdgMoyHead()}${provRows}${bdgMoyFoot('Sous-total provisions / 12', prov.total_moyenne_eur, prov.total_moyenne_usd)}</div>
+    </div>`;
+  const eparBlock=`<div class="bdg-moy-block" id="bdg-moy-epargne">
+      <h3 class="bdg-moy-h">${bdgEsc(epar.libelle||"Vers l'investissement")}</h3>
+      <p class="bdg-moy-p">${bdgEsc(epar.note||'')}</p>
+      <div class="bdg-moy-table">${bdgMoyHead()}
+        ${bdgMoyRow({libelle:'Octobre', moyenne_eur:epar.octobre_eur, moyenne_usd:null, detail:'Flux observés, non ramenés.'})}
+        ${bdgMoyRow({libelle:'Novembre (au 25)', moyenne_eur:epar.novembre_eur, moyenne_usd:null, detail:'Y compris les recharges Apple Pay reclassées vers XTB, le cas échéant.'})}
+        ${bdgMoyFoot('Moyenne sur la période (pas une capacité récurrente)', epar.moyenne_eur, epar.moyenne_usd)}
+      </div>
+      ${epar.alerte?`<p class="bdg-src bdg-moy-flag">${bdgEsc(epar.alerte)}</p>`:''}
+    </div>`;
+  const aboList=(m.abonnements||[]).map(a=>`<li><span>${bdgEsc(a.libelle||'')}<small>${bdgEsc(a.detail||'')}</small></span><span class="bdg-moy-eco">${bdgAmt(a.moyenne_eur,'EUR')}</span></li>`).join('');
+  const trousHtml=`<div class="bdg-moy-block" id="bdg-moy-trous">
+      <h3 class="bdg-moy-h">Trous dans la raquette</h3>
+      <ul class="bdg-moy-list">${(m.trous||[]).map(t=>`<li><h3>${bdgEsc(t.titre||t.id||'')}</h3><p>${bdgEsc(t.detail||'')}</p></li>`).join('')}</ul>
+      <h3 class="bdg-moy-h" style="margin-top:14px">Abonnements mensuels retenus</h3>
+      <ul class="bdg-moy-abo">${aboList}</ul>
+    </div>`;
+  const pistesHtml=`<div class="bdg-moy-block" id="bdg-moy-pistes">
+      <h3 class="bdg-moy-h">Pistes de réduction (propositions, pas des décisions)</h3>
+      <ul class="bdg-moy-list">${(m.pistes||[]).map(t=>{
+        const flag=t.dans_panier_cible?' · retenue dans la capacité cible':'';
+        return `<li><h3>${bdgEsc(t.libelle||'')} <span class="bdg-moy-eco">${bdgAmt(t.economie_eur_mois,'EUR')}/mois</span></h3><p>${bdgEsc((t.source||'')+' '+(t.note||'')+flag)}</p></li>`;
+      }).join('')}</ul>
+      <p class="bdg-moy-p">${bdgEsc(pan.note||'')} Total du panier : ${bdgAmt(pan.total_economie_eur,'EUR')} / ${bdgAmt(pan.total_economie_usd,'USD')}.</p>
+    </div>`;
+  const synt=`<div class="bdg-moy-block" id="bdg-moy-synthese">
+      <h3 class="bdg-moy-h">Synthèse</h3>
+      <div class="bdg-moy-table">${bdgMoyHead()}
+        ${bdgMoyRow({libelle:'Revenus moyens', moyenne_eur:rev.total_moyenne_eur, moyenne_usd:rev.total_moyenne_usd, detail:'Salaire Tesla (moyenne des deux bulletins) + France Travail + intérêts.'})}
+        ${bdgMoyRow({libelle:'Dépenses récurrentes', moyenne_eur:dep.moyenne_eur, moyenne_usd:dep.moyenne_usd, detail:dep.detail})}
+        ${bdgMoyRow({libelle:"Capacité d'épargne actuelle", moyenne_eur:act.eur, moyenne_usd:act.usd, detail:act.formule})}
+        ${bdgMoyRow({libelle:'Capacité cible après propositions', moyenne_eur:cib.eur, moyenne_usd:cib.usd, detail:cib.formule})}
+        ${bdgMoyRow({libelle:"Objectif d'épargne proposé", moyenne_eur:obj.propose_eur, moyenne_usd:obj.propose_usd, detail:obj.note})}
+        ${bdgMoyRow({libelle:'Réserve 3 mois de charges fixes', moyenne_eur:res.mois_3_eur, moyenne_usd:res.mois_3_usd, detail:res.detail})}
+        ${bdgMoyRow({libelle:'Réserve 6 mois de charges fixes', moyenne_eur:res.mois_6_eur, moyenne_usd:res.mois_6_usd, detail:res.note})}
+      </div>
+      <p class="bdg-moy-p">Variante capacité actuelle avec le seul salaire d'octobre : ${bdgAmt(act.variante_salaire_octobre_eur,'EUR')}. Sans France Travail : ${bdgAmt(act.variante_sans_france_travail_eur,'EUR')}. ${bdgEsc(cib.variante_grok_heavy_mensuel_note||'')}</p>
+    </div>`;
+  const floues=`<div class="bdg-moy-block" id="bdg-moy-flou">
+      <h3 class="bdg-moy-h">Lignes encore floues</h3>
+      <ul class="bdg-moy-list">${(m.lignes_floues||[]).map(t=>`<li><h3>${bdgEsc(t.sujet||'')} ${t.montant_eur!=null?('<span class="bdg-moy-eco">'+bdgAmt(t.montant_eur,'EUR')+'</span>'):''}</h3><p>${bdgEsc((t.classification?('Classé aujourd’hui : '+t.classification+'. '):'')+(t.question||''))}</p></li>`).join('')}</ul>
+    </div>`;
+  const src=(m.source&&(m.source.comptes||''))?'Source : relevés data/budget (comptes fusionnés + tickets Lidl), abonnement TradingView Essential, projection OVN. Change '+fx+'.':'';
+  return `<section class="card home-hero bdg-hero bdg-moy" id="bdg-mensuel" data-bdg-fold="mensuel">
+    <div class="home-hero-top">
+      <h2>${bdgFoldTitle('mensuel', m.titre||'Budget mensuel moyen', 'bdg-mensuel-body')}</h2>
+      <p class="desc">${bdgEsc(per+' · charges fixes au réel, postes variables de novembre ramenés × 30/25 · change '+fx)}</p>
+    </div>
+    ${kv}
+    <div class="bdg-fold-body" id="bdg-mensuel-body">
+      ${hypHtml}
+      ${revBlock}
+      ${groupes}
+      ${provBlock}
+      ${eparBlock}
+      ${synt}
+      ${trousHtml}
+      ${pistesHtml}
+      ${floues}
+      ${src?`<p class="bdg-src">${bdgEsc(src)}</p>`:''}
+    </div>
+  </section>`;
+}
 function bdgTableHTML(b){
-  return bdgCourtHtml(b)+bdgComptesHtml(b);
+  return bdgMensuelHtml(b)+bdgCourtHtml(b)+bdgComptesHtml(b);
 }
 function bdgPageHTML(){
   const b=bdgData()||{};

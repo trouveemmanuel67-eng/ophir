@@ -21,6 +21,7 @@ ABO_TV = DATA / "abonnement_tradingview.json"
 COMPTE_JOINT = DATA / "budget" / "compte_joint_2026-10.json"
 LIDL_TICKETS = DATA / "budget" / "lidl_tickets_2026-10_11.json"
 COMPTES = DATA / "budget" / "comptes_2026-10_11.json"
+BUDGET_MENSUEL = DATA / "budget" / "budget_mensuel_moyen.json"
 PARIS = ZoneInfo("Europe/Paris")
 
 # Métadonnées APEX (tickers TV, onglets, dates d'achat déjà connues).
@@ -952,6 +953,14 @@ def build_comptes(fx):
     }
 
 
+
+def build_budget_mensuel():
+    """Budget mensuel moyen, sourcé (data/budget/budget_mensuel_moyen.json). Ne recalcule rien ici."""
+    if not BUDGET_MENSUEL.exists():
+        return None
+    return json.loads(BUDGET_MENSUEL.read_text(encoding="utf-8"))
+
+
 def build_budget(fx, now):
     """Agrège OVN, frais d'ordres, TradingView et le compte joint sourcé, sans inventer un montant manquant."""
     ovn = build_frais_cfd(fx)
@@ -1001,6 +1010,7 @@ def build_budget(fx, now):
         "tradingview": tv,
         "compte_joint": cj,
         "comptes": comptes,
+        "budget_mensuel": build_budget_mensuel(),
         "total_observe_usd": observe_usd,
         "total_observe_eur": r2(observe_usd / fx) if fx else None,
         "projection_usd": r2((ovn.get("projection_usd") or 0) + ((tv or {}).get("projection_usd") or 0)),

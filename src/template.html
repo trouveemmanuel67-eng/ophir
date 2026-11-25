@@ -861,6 +861,44 @@ body.bdg-on .rg-btn[aria-expanded="true"],#bdgBtn.rg-btn[aria-expanded="true"],b
 .is-folded>.bdg-fold-banner{display:flex}
 .is-folded>.bdg-fold-body{display:none}
 
+
+/* Budget mensuel moyen — en tête de page, style Accueil APEX. */
+.bdg-moy{border-color:rgba(230,194,122,.42);background:linear-gradient(180deg,rgba(230,194,122,.09),transparent 42%),var(--card)}
+.bdg-moy > .home-hero-top h2{color:#e6c27a}
+.bdg-moy-kvs{margin-bottom:12px}
+.bdg-moy-kvs .home-kv b{font-size:18px}
+.bdg-moy-block{margin:14px 0 0;padding:0}
+.bdg-moy-h{margin:0 0 8px;padding:0 2px 6px;border-bottom:1px solid rgba(230,194,122,.28);color:#e6c27a;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.bdg-moy-p{margin:0 0 10px;font-size:12px;color:#d8d0c2;line-height:1.45}
+.bdg-moy-hyp{margin:0 0 14px;padding:10px 12px;border:1px dashed rgba(230,194,122,.35);border-radius:8px;background:rgba(230,194,122,.05)}
+.bdg-moy-hyp ol{margin:6px 0 0;padding:0 0 0 1.2rem;color:#d8d0c2;font-size:11.5px;line-height:1.45}
+.bdg-moy-hyp li{margin:0 0 4px}
+.bdg-moy-table{display:flex;flex-direction:column;gap:3px;width:100%;font-variant-numeric:tabular-nums}
+.bdg-moy-th,.bdg-moy-row{display:grid;grid-template-columns:minmax(8.2rem,0.95fr) minmax(12rem,2fr) 6.2rem 6.2rem;align-items:start;gap:0 8px;min-width:0}
+.bdg-moy-th{padding:2px 12px 4px;font-size:9.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--mut);font-weight:650}
+.bdg-moy-th span:nth-child(n+3){text-align:right}
+.bdg-moy-row{padding:7px 12px;border-radius:8px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06)}
+.bdg-moy-row .bdg-num{text-align:right}
+.bdg-moy-foot{margin-top:2px;background:rgba(255,255,255,.05);border-color:rgba(230,194,122,.22)}
+.bdg-moy-foot .bdg-poste h2{font-size:13px;color:#e6c27a}
+.bdg-moy-foot .bdg-num{color:#e6c27a}
+.bdg-moy-grp-fixes .bdg-poste h2{color:#e6c27a}
+.bdg-moy-grp-variables .bdg-poste h2{color:#fff}
+.bdg-moy-grp-discretionnaires .bdg-poste h2{color:#d8d0c2}
+.bdg-moy-list{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px}
+.bdg-moy-list>li{padding:8px 12px;border-radius:8px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06)}
+.bdg-moy-list h3{margin:0 0 4px;font-size:13px;color:#fff;font-weight:700}
+.bdg-moy-list p{margin:0;font-size:12px;color:#d8d0c2;line-height:1.4}
+.bdg-moy-eco{color:#7fd1a8;font-variant-numeric:tabular-nums;font-weight:700;white-space:nowrap}
+.bdg-moy-flag{margin-top:8px;color:#e6c27a}
+.bdg-moy-abo{margin:8px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:3px}
+.bdg-moy-abo li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;font-size:12px;color:#fff;padding:2px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.bdg-moy-abo small{display:block;color:var(--mut);font-size:11px;font-weight:400}
+@media(max-width:800px){
+  .bdg-moy-th,.bdg-moy-row{grid-template-columns:minmax(0,1.1fr) minmax(0,1.4fr) auto;gap:4px 8px}
+  .bdg-moy-th span:nth-child(3),.bdg-moy-row > :nth-child(3){display:none}
+}
+
 #rg-page{display:none;position:fixed;inset:0;z-index:240;flex-direction:column;background:#0c1016;color:#fff;overflow:hidden}
 body.rg-on{overflow:hidden}
 body.rg-on #rg-page{display:flex}
