@@ -36,7 +36,7 @@ CAT_DEFS = [
     ("virements_internes", "Virements internes / épargne / investissement", False),
     ("retraits", "Retraits", True),
     ("autres", "Autres", True),
-    ("air_glow_pub", "Air Glow, pub (pro)", False),
+    ("air_glow", "Air Glow, frais de fonctionnement", False),
 ]
 CAT_LIB = {i: p for i, p, _ in CAT_DEFS}
 IN_DEP = {i: d for i, _, d in CAT_DEFS}
@@ -299,16 +299,16 @@ NOV_JOINT_MAP = {
     "Apple": ("abonnements", "depense", None, None, "Facture Apple.com/bill. Les crédits Apple du même mois sont déduits du net Abonnements.", None),
     "Carrefour": ("courses", "depense", None, None, None, None),
     "Temu": ("achats", "depense", None, None, None, None),
-    "WordPress": ("abonnements", "depense", None, None, "Wp*wordpress — abonnement site (probable activité pro Air Glow).", None),
+    "WordPress": ("air_glow", "depense_pro", None, None, "WordPress — frais de fonctionnement Air Glow, regroupé sur la ligne unique, hors dépenses personnelles.", None),
     "Dr Eric Koch": ("sante", "depense", "Dentiste (Dr Koch)", "dentaire", "Dentiste (Dr Eric Koch, Strasbourg). Remboursement mutuelle Aon à vérifier (des versements Aon « complément sécurité sociale » apparaissent sur le compte perso en novembre).", None),
     "Karllagerfeld Outletro": ("achats", "depense", None, None, "Karl Lagerfeld outlet, Roppenheim.", None),
     "Axa": ("assurances", "depense", None, None, None, None),
-    "MailPoet": ("air_glow_pub", "depense_pro", None, None, "MailPoet — abonnement annuel pour la publicité Air Glow. Confirmé par Emmanuel le 25/11/2026. Catégorie « Air Glow, pub (pro) », exclu des dépenses personnelles.", None),
+    "MailPoet": ("air_glow", "depense_pro", None, None, "MailPoet — abonnement annuel pour la publicité Air Glow. Confirmé par Emmanuel le 25/11/2026. Catégorie « Air Glow, frais de fonctionnement », exclu des dépenses personnelles.", None),
     "Tradingview": ("abonnements", "depense", None, None, "Prélèvement TradingView (Premium 83,94 €). Déjà suivi à part dans le bloc courtage (objectif Essential annuel).", None),
     "Free": ("telecom", "depense", None, None, "Free Mobile.", None),
     "L'Onglery des Tanneurs": ("loisirs", "depense", None, None, "Institut d'ongles, Strasbourg.", None),
     "McDonald's": ("loisirs", "depense", None, None, None, None),
-    "Facebook": ("air_glow_pub", "depense_pro", None, None, "Publicité Facebook / Meta, Air Glow (pro). Exclue des dépenses personnelles, comme en octobre.", None),
+    "Facebook": ("air_glow", "depense_pro", None, None, "Publicité Facebook / Meta — frais de fonctionnement Air Glow, hors dépenses personnelles.", None),
     "Monoprix": ("courses", "depense", None, None, None, None),
     "Cb Nx000018": ("autres", "depense", None, None, "Libellé tronqué (Cb Nx000018, Strasbourg).",
                     {"sujet": "Cb Nx000018 28,85 € (Strasbourg, 15/11)", "montant_eur": 28.85, "classification": "autres", "question": "Commerçant exact ?",}),
@@ -319,7 +319,7 @@ NOV_JOINT_MAP = {
     "Normal": ("achats", "depense", None, None, "Normal Strasbourg (hygiène / bazar).", None),
     "CTS": ("transport", "depense", None, None, None, None),
     "Virement à : Shana Trouve": ("virements_internes", "virement_interne", None, None, "Virement vers la poche Shana. Les dépenses carte de Shana sont comptées à part (pas de double compte).", None),
-    "Dualhook": ("air_glow_pub", "depense_pro", None, None, "Dualhook.com — publicité Air Glow. Confirmé par Emmanuel le 25/11/2026. Catégorie « Air Glow, pub (pro) », exclu des dépenses personnelles.", None),
+    "Dualhook": ("air_glow", "depense_pro", None, None, "Dualhook.com — publicité Air Glow. Confirmé par Emmanuel le 25/11/2026. Catégorie « Air Glow, frais de fonctionnement », exclu des dépenses personnelles.", None),
     "IKA": ("courses", "depense", None, None, None, None),
     "Microsoft": ("abonnements", "depense", None, None, None, None),
     "Les Ciseaux D Or": ("loisirs", "depense", None, None, "Coiffeur, Strasbourg.", None),
@@ -458,7 +458,7 @@ def build():
         for o in c.get("operations") or []:
             oo = deepcopy(o)
             cat = c["id"]
-            typ = oo.get("type") or ("virement_interne" if cat == "virements_internes" else ("depense_pro" if cat == "air_glow_pub" else "depense"))
+            typ = oo.get("type") or ("virement_interne" if cat == "virements_internes" else ("depense_pro" if cat == "air_glow" else "depense"))
             if oo["libelle"].startswith("Virement à : Shana"):
                 cat, typ = "virements_internes", "virement_interne"
                 oo["note_classification"] = (
@@ -627,7 +627,7 @@ def build():
     dep = r2(sum(c["observe_eur"] for c in cats if c["compte_dans_total_depenses"])) or 0.0
     rev = r2(sum(o["montant_eur"] for o in revenus_ops if o["sens"] == "credit")) or 0.0
     remb = r2(sum(o["montant_eur"] for o in remb_ops if o["sens"] == "credit")) or 0.0
-    glow = next(c for c in cats if c["id"] == "air_glow_pub")
+    glow = next(c for c in cats if c["id"] == "air_glow")
     intern_out = next(c for c in cats if c["id"] == "virements_internes")
     vin_tot = r2(sum(o["montant_eur"] for o in vin_ops if o["sens"] == "credit")) or 0.0
     reste = r2(rev - dep)
@@ -732,7 +732,7 @@ def build():
         "depenses_usd": usd(dep),
         "depenses_note": (
             "Somme nette des catégories de dépenses personnelles des deux comptes "
-            "(virements internes, épargne, investissement, capital du crédit Revolut, remboursements d'assurance et dépenses pro Air Glow pub exclus). "
+            "(virements internes, épargne, investissement, capital du crédit Revolut, remboursements d'assurance et la ligne Air Glow, frais de fonctionnement exclus). "
             "Les virements perso → joint (et l'inverse) ne sont comptés qu'une fois, et uniquement en transferts internes. "
             "Les crédits Apple.com/bill du même mois sont déduits des Abonnements."
         ),
@@ -760,18 +760,27 @@ def build():
         ),
         "reste_eur": reste,
         "reste_usd": usd(reste),
-        "reste_formule": "revenus réels (salaire Tesla + France Travail + intérêts d'épargne) − dépenses personnelles (hors virements internes / épargne / investissement, hors Air Glow pub pro, hors capital du crédit Revolut, hors remboursements d'assurance)",
+        "reste_formule": "revenus réels (salaire Tesla + France Travail + intérêts d'épargne) − dépenses personnelles (hors virements internes / épargne / investissement, hors Air Glow, frais de fonctionnement, hors capital du crédit Revolut, hors remboursements d'assurance)",
         "virements_internes_entrants_eur": vin_tot,
         "virements_internes_entrants_usd": usd(vin_tot),
         "virements_internes_sortants_eur": intern_out["observe_eur"],
         "virements_internes_sortants_usd": intern_out["observe_usd"],
+        "air_glow_eur": glow["observe_eur"],
+        "air_glow_usd": glow["observe_usd"],
+        "air_glow_note": (
+            f"Ligne unique « Air Glow, frais de fonctionnement » : {glow['observe_eur']:.2f} €, {glow['n_operations']} opérations "
+            "(WordPress, publicité Facebook, MailPoet, Dualhook, X Ads, Envato, INPI, CCI). "
+            "Exclue des dépenses personnelles. Mollie « Thood Franc… » à Roppenheim reste dans les Achats "
+            "(commerçant physique non identifié comme frais pro Air Glow)."
+        ),
         "air_glow_pub_eur": glow["observe_eur"],
         "air_glow_pub_usd": glow["observe_usd"],
         "air_glow_pub_note": (
-            f"Sous-total publicité Air Glow ({glow['observe_eur']:.2f} €, {glow['n_operations']} opérations) : "
-            "paiements Facebook / Meta, MailPoet (abonnement annuel) et Dualhook. "
-            "Exclu du total des dépenses personnelles, sur confirmation d'Emmanuel le 25/11/2026."
+            f"Ligne unique « Air Glow, frais de fonctionnement » : {glow['observe_eur']:.2f} €, {glow['n_operations']} opérations "
+            "(WordPress, publicité Facebook, MailPoet, Dualhook, X Ads, Envato, INPI, CCI). "
+            "Exclue des dépenses personnelles."
         ),
+
         "emprunt_entrant_eur": pret,
         "emprunt_entrant_usd": usd(pret),
         "remboursements_emprunt_eur": remb_emp,
@@ -963,7 +972,7 @@ def build():
             "extraction": (
                 "Fusion des opérations du compte joint (data/budget/compte_joint_2026-10.json, y compris les 134 opérations "
                 "du 1–25/11 précédemment hors bloc octobre) et du compte perso (même période). "
-                "Les corrections déjà faites sur le joint sont conservées : Air Glow pub (pro), Grok (via Apple), "
+                "Les corrections déjà faites sur le joint sont conservées : ligne unique Air Glow, frais de fonctionnement, Grok (via Apple), "
                 "Dentiste (Dr Koch), Deblock en virement interne. "
                 "Les virements perso → joint (et l'inverse) et les virements vers l'épargne / les courtiers / les métaux "
                 "sont exclus des dépenses et des revenus, et dédoublonnés lorsqu'ils apparaissent sur les deux relevés. "
@@ -1008,7 +1017,7 @@ def build():
             "doublons": "Un virement vu sur les deux relevés n'est listé qu'une fois, avec la mention de source « perso / joint » (ou équivalent).",
             "salaire": "Le salaire Tesla reçu sur le perso est un revenu. Son virement ultérieur vers le joint ou l'investissement est un transfert interne, pas une dépense, et pas un revenu du joint.",
             "france_travail": "Les allocations France Travail du joint sont des revenus du foyer.",
-            "air_glow": "Tous les paiements Facebook / Meta restent dans « Air Glow, pub (pro) », hors dépenses perso.",
+            "air_glow": "Tout ce qui relève d'Air Glow (WordPress, pubs Facebook, MailPoet, Dualhook, X Ads, Envato, INPI, CCI) est regroupé sur une seule ligne « Air Glow, frais de fonctionnement », hors dépenses personnelles.",
             "corrections_joint": "Grok (via Apple), Dentiste (Dr Koch), Deblock interne : inchangés.",
         },
     }
@@ -1026,7 +1035,7 @@ def build():
     print(f"dépenses perso {dep:.2f} €")
     print(f"reste {reste:.2f} €")
     print(f"virements intern sortants {intern_out['observe_eur']:.2f}  entrants {vin_tot:.2f}")
-    print(f"Air Glow pub {glow['observe_eur']:.2f}  n={glow['n_operations']}")
+    print(f"Air Glow, frais de fonctionnement {glow['observe_eur']:.2f}  n={glow['n_operations']}")
     print(f"emprunt {pret:.2f}  repayment {remb_emp:.2f}")
     print(f"remboursements {remb:.2f}")
     print(f"octobre {totaux['octobre']}")
@@ -1053,8 +1062,8 @@ def detail_cat(cid, ops, debit, credit, observe):
         k = o.get("compte_libelle") or o.get("compte") or "?"
         srcs[k] = srcs.get(k, 0) + 1
     bits.append(", ".join(f"{v} {k}" for k, v in sorted(srcs.items(), key=lambda x: -x[1])))
-    if cid == "air_glow_pub":
-        bits.append("Facebook / Meta, MailPoet (annuel) et Dualhook — exclus des dépenses personnelles")
+    if cid == "air_glow":
+        bits.append("WordPress, Facebook, MailPoet, Dualhook, X Ads, Envato, INPI et CCI — frais de fonctionnement, exclus des dépenses personnelles")
     if cid == "credit_revolut":
         bits.append("mensualité 169,60 € du crédit Revolut 23 500 € — charge fixe")
     if cid == "virements_internes":

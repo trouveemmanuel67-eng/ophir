@@ -68,7 +68,7 @@
       "objectif": null,
       "compte_dans_total_depenses": true,
       "operations": [],
-      "detail": "Aucune opération sur le compte perso."
+      "detail": "Aucune opération sur cette période."
     },
     {
       "id": "energie",
@@ -83,7 +83,7 @@
       "objectif": null,
       "compte_dans_total_depenses": true,
       "operations": [],
-      "detail": "Aucune opération sur le compte perso."
+      "detail": "Aucune opération sur cette période."
     },
     {
       "id": "courses",
@@ -330,7 +330,7 @@
           "produit": "shana"
         }
       ],
-      "detail": "11 opérations"
+      "detail": "11 opérations · 11 Shana · Carrefour"
     },
     {
       "id": "transport",
@@ -390,7 +390,7 @@
           "produit": "compte_courant"
         }
       ],
-      "detail": "2 opérations"
+      "detail": "2 opérations · 2 perso · LOA Tesla (Cofica Bail)"
     },
     {
       "id": "credit_revolut",
@@ -446,7 +446,7 @@
           "produit": "compte_courant"
         }
       ],
-      "detail": "2 opérations"
+      "detail": "2 opérations · 2 perso · Crédit Revolut (remboursement)"
     },
     {
       "id": "assurances",
@@ -461,7 +461,7 @@
       "objectif": null,
       "compte_dans_total_depenses": true,
       "operations": [],
-      "detail": "Aucune opération sur le compte perso."
+      "detail": "Aucune opération sur cette période."
     },
     {
       "id": "telecom",
@@ -519,7 +519,7 @@
           "produit": "compte_courant"
         }
       ],
-      "detail": "2 opérations"
+      "detail": "2 opérations · 2 perso · Free Telecom"
     },
     {
       "id": "abonnements",
@@ -699,7 +699,7 @@
           "produit": "compte_courant"
         }
       ],
-      "detail": "8 opérations"
+      "detail": "8 opérations · 8 perso · Frais d'abonnement Ultra, Netflix, Disney+, YouTube"
     },
     {
       "id": "sante",
@@ -714,7 +714,7 @@
       "objectif": null,
       "compte_dans_total_depenses": true,
       "operations": [],
-      "detail": "Aucune opération sur le compte perso."
+      "detail": "Aucune opération sur cette période."
     },
     {
       "id": "enfant",
@@ -805,7 +805,7 @@
           "sens": "debit",
           "montant_eur": 5.99,
           "montant_usd": 6.56,
-          "solde_apres_eur": 54.71,
+          "solde_apres_eur": 48.72,
           "categorie": "enfant",
           "categorie_libelle": "Enfant / école",
           "type": "depense",
@@ -826,7 +826,7 @@
           "sens": "debit",
           "montant_eur": 5.99,
           "montant_usd": 6.56,
-          "solde_apres_eur": 48.72,
+          "solde_apres_eur": 54.71,
           "categorie": "enfant",
           "categorie_libelle": "Enfant / école",
           "type": "depense",
@@ -929,9 +929,9 @@
             "Carte : 542402******5719"
           ],
           "sens": "debit",
-          "montant_eur": 23.99,
-          "montant_usd": 26.25,
-          "solde_apres_eur": 57.22,
+          "montant_eur": 5.99,
+          "montant_usd": 6.56,
+          "solde_apres_eur": 51.23,
           "categorie": "enfant",
           "categorie_libelle": "Enfant / école",
           "type": "depense",
@@ -950,9 +950,9 @@
             "Carte : 542402******5719"
           ],
           "sens": "debit",
-          "montant_eur": 5.99,
-          "montant_usd": 6.56,
-          "solde_apres_eur": 51.23,
+          "montant_eur": 23.99,
+          "montant_usd": 26.25,
+          "solde_apres_eur": 57.22,
           "categorie": "enfant",
           "categorie_libelle": "Enfant / école",
           "type": "depense",
@@ -963,7 +963,7 @@
           "produit": "shana"
         }
       ],
-      "detail": "11 opérations"
+      "detail": "11 opérations · 10 Shana, 1 perso · Photo de classe (Collège Foch), Roblox"
     },
     {
       "id": "loisirs",
@@ -1007,7 +1007,7 @@
           "produit": "compte_courant"
         }
       ],
-      "detail": "1 opération"
+      "detail": "1 opération · 1 perso · Cadeau / pot de naissance (travail)"
     },
     {
       "id": "achats",
@@ -1067,7 +1067,7 @@
           "produit": "shana"
         }
       ],
-      "detail": "2 opérations"
+      "detail": "2 opérations · 2 Shana · Shein"
     },
     {
       "id": "banque",
@@ -1082,7 +1082,7 @@
       "objectif": null,
       "compte_dans_total_depenses": true,
       "operations": [],
-      "detail": "Aucune opération sur le compte perso."
+      "detail": "Aucune opération sur cette période."
     },
     {
       "id": "impots",
@@ -1097,7 +1097,7 @@
       "objectif": null,
       "compte_dans_total_depenses": true,
       "operations": [],
-      "detail": "Aucune opération sur le compte perso."
+      "detail": "Aucune opération sur cette période."
     },
     {
       "id": "virements_internes",
@@ -1115,16 +1115,14 @@
         {
           "date": "2026-10-01",
           "date_libelle": "1 oct. 2026",
-          "libelle": "Virement à : EMMANUEL TROUVE & PRISCILLA AURORE",
+          "libelle": "To margin trading account",
           "details": [
-            "MOONIEN",
-            "Référence : To EMMANUEL TROUVE & PRISCILLA AURORE MOONIEN",
-            "À : EMMANUEL TROUVE & PRISCILLA AURORE MOONIEN"
+            "100,00$"
           ],
           "sens": "debit",
-          "montant_eur": 1000.0,
-          "montant_usd": 1094.4,
-          "solde_apres_eur": 1302.21,
+          "montant_eur": 89.34,
+          "montant_usd": 97.77,
+          "solde_apres_eur": 612.87,
           "categorie": "virements_internes",
           "categorie_libelle": "Virements internes / épargne / investissement",
           "type": "virement_interne",
@@ -1132,7 +1130,11 @@
           "statut": "comptable",
           "compte": "perso",
           "compte_libelle": "perso",
-          "note_classification": "Virement vers le compte joint. Exclu des dépenses ; n'est pas un revenu du joint.",
+          "devise_origine": {
+            "montant": 100.0,
+            "devise": "USD"
+          },
+          "note_classification": "Vers le compte de trading / marge Revolut (investissement).",
           "produit": "compte_courant"
         },
         {
@@ -1161,14 +1163,16 @@
         {
           "date": "2026-10-01",
           "date_libelle": "1 oct. 2026",
-          "libelle": "To margin trading account",
+          "libelle": "Virement à : EMMANUEL TROUVE & PRISCILLA AURORE",
           "details": [
-            "100,00$"
+            "MOONIEN",
+            "Référence : To EMMANUEL TROUVE & PRISCILLA AURORE MOONIEN",
+            "À : EMMANUEL TROUVE & PRISCILLA AURORE MOONIEN"
           ],
           "sens": "debit",
-          "montant_eur": 89.34,
-          "montant_usd": 97.77,
-          "solde_apres_eur": 612.87,
+          "montant_eur": 1000.0,
+          "montant_usd": 1094.4,
+          "solde_apres_eur": 1302.21,
           "categorie": "virements_internes",
           "categorie_libelle": "Virements internes / épargne / investissement",
           "type": "virement_interne",
@@ -1176,11 +1180,7 @@
           "statut": "comptable",
           "compte": "perso",
           "compte_libelle": "perso",
-          "devise_origine": {
-            "montant": 100.0,
-            "devise": "USD"
-          },
-          "note_classification": "Vers le compte de trading / marge Revolut (investissement).",
+          "note_classification": "Virement vers le compte joint. Exclu des dépenses ; n'est pas un revenu du joint.",
           "produit": "compte_courant"
         },
         {
@@ -1318,15 +1318,14 @@
         {
           "date": "2026-10-23",
           "date_libelle": "23 oct. 2026",
-          "libelle": "To Xtb",
+          "libelle": "Change en USD",
           "details": [
-            "Référence : Envoyé depuis Revolut",
-            "À : Xtb, LT353981800000873873"
+            "1400,00$"
           ],
           "sens": "debit",
-          "montant_eur": 100.0,
-          "montant_usd": 109.44,
-          "solde_apres_eur": 3129.44,
+          "montant_eur": 1251.06,
+          "montant_usd": 1369.16,
+          "solde_apres_eur": 1078.38,
           "categorie": "virements_internes",
           "categorie_libelle": "Virements internes / épargne / investissement",
           "type": "virement_interne",
@@ -1334,7 +1333,11 @@
           "statut": "comptable",
           "compte": "perso",
           "compte_libelle": "perso",
-          "note_classification": "Vers le courtier XTB (investissement).",
+          "devise_origine": {
+            "montant": 1400.0,
+            "devise": "USD"
+          },
+          "note_classification": "Change de devise (poche interne Revolut). Pas une dépense de consommation.",
           "produit": "compte_courant"
         },
         {
@@ -1362,14 +1365,15 @@
         {
           "date": "2026-10-23",
           "date_libelle": "23 oct. 2026",
-          "libelle": "Change en USD",
+          "libelle": "To Xtb",
           "details": [
-            "1400,00$"
+            "Référence : Envoyé depuis Revolut",
+            "À : Xtb, LT353981800000873873"
           ],
           "sens": "debit",
-          "montant_eur": 1251.06,
-          "montant_usd": 1369.16,
-          "solde_apres_eur": 1078.38,
+          "montant_eur": 100.0,
+          "montant_usd": 109.44,
+          "solde_apres_eur": 3129.44,
           "categorie": "virements_internes",
           "categorie_libelle": "Virements internes / épargne / investissement",
           "type": "virement_interne",
@@ -1377,11 +1381,7 @@
           "statut": "comptable",
           "compte": "perso",
           "compte_libelle": "perso",
-          "devise_origine": {
-            "montant": 1400.0,
-            "devise": "USD"
-          },
-          "note_classification": "Change de devise (poche interne Revolut). Pas une dépense de consommation.",
+          "note_classification": "Vers le courtier XTB (investissement).",
           "produit": "compte_courant"
         },
         {
@@ -1528,11 +1528,11 @@
           "sens": "debit",
           "montant_eur": 179.47,
           "montant_usd": 196.41,
-          "solde_apres_eur": 615.43,
+          "solde_apres_eur": 435.96,
           "categorie": "virements_internes",
           "categorie_libelle": "Virements internes / épargne / investissement",
           "type": "virement_interne",
-          "page": 3,
+          "page": 4,
           "statut": "comptable",
           "compte": "perso",
           "compte_libelle": "perso",
@@ -1553,11 +1553,11 @@
           "sens": "debit",
           "montant_eur": 179.47,
           "montant_usd": 196.41,
-          "solde_apres_eur": 435.96,
+          "solde_apres_eur": 615.43,
           "categorie": "virements_internes",
           "categorie_libelle": "Virements internes / épargne / investissement",
           "type": "virement_interne",
-          "page": 4,
+          "page": 3,
           "statut": "comptable",
           "compte": "perso",
           "compte_libelle": "perso",
@@ -1593,34 +1593,15 @@
         {
           "date": "2026-11-06",
           "date_libelle": "6 nov. 2026",
-          "libelle": "À EUR Compte d'épargne",
-          "details": [],
-          "sens": "debit",
-          "montant_eur": 1000.0,
-          "montant_usd": 1094.4,
-          "solde_apres_eur": 498.15,
-          "categorie": "virements_internes",
-          "categorie_libelle": "Virements internes / épargne / investissement",
-          "type": "virement_interne",
-          "page": 4,
-          "statut": "comptable",
-          "compte": "perso",
-          "compte_libelle": "perso",
-          "note_classification": "Vers le compte d'épargne Revolut.",
-          "produit": "compte_courant"
-        },
-        {
-          "date": "2026-11-06",
-          "date_libelle": "6 nov. 2026",
           "libelle": "To Emmanuel Trouvé",
           "details": [
             "Référence : Envoyé depuis Revolut",
             "À : Emmanuel Trouvé, FR7610278010100002262220176"
           ],
           "sens": "debit",
-          "montant_eur": 23430.0,
-          "montant_usd": 25641.79,
-          "solde_apres_eur": 568.15,
+          "montant_eur": 4.34,
+          "montant_usd": 4.75,
+          "solde_apres_eur": 563.81,
           "categorie": "virements_internes",
           "categorie_libelle": "Virements internes / épargne / investissement",
           "type": "virement_interne",
@@ -1640,9 +1621,9 @@
             "À : Emmanuel Trouvé, FR7610278010100002262220176"
           ],
           "sens": "debit",
-          "montant_eur": 4.34,
-          "montant_usd": 4.75,
-          "solde_apres_eur": 563.81,
+          "montant_eur": 23430.0,
+          "montant_usd": 25641.79,
+          "solde_apres_eur": 568.15,
           "categorie": "virements_internes",
           "categorie_libelle": "Virements internes / épargne / investissement",
           "type": "virement_interne",
@@ -1673,6 +1654,25 @@
           "compte": "perso",
           "compte_libelle": "perso",
           "note_classification": "Virement vers la poche Shana. Les dépenses carte de Shana sont comptées à part (pas de double compte).",
+          "produit": "compte_courant"
+        },
+        {
+          "date": "2026-11-06",
+          "date_libelle": "6 nov. 2026",
+          "libelle": "À EUR Compte d'épargne",
+          "details": [],
+          "sens": "debit",
+          "montant_eur": 1000.0,
+          "montant_usd": 1094.4,
+          "solde_apres_eur": 498.15,
+          "categorie": "virements_internes",
+          "categorie_libelle": "Virements internes / épargne / investissement",
+          "type": "virement_interne",
+          "page": 4,
+          "statut": "comptable",
+          "compte": "perso",
+          "compte_libelle": "perso",
+          "note_classification": "Vers le compte d'épargne Revolut.",
           "produit": "compte_courant"
         },
         {
@@ -1716,6 +1716,25 @@
           "compte_libelle": "perso",
           "note_classification": "Virement vers le compte joint. Exclu des dépenses ; n'est pas un revenu du joint.",
           "produit": "compte_courant"
+        },
+        {
+          "date": "2026-11-11",
+          "date_libelle": "11 nov. 2026",
+          "libelle": "À partir de EUR Compte d'épargne",
+          "details": [],
+          "sens": "debit",
+          "montant_eur": 1100.0,
+          "montant_usd": 1203.84,
+          "solde_apres_eur": 900.38,
+          "categorie": "virements_internes",
+          "categorie_libelle": "Virements internes / épargne / investissement",
+          "type": "virement_interne",
+          "page": 8,
+          "statut": "comptable",
+          "compte": "depot",
+          "compte_libelle": "dépôt",
+          "note_classification": "Mouvement entre le compte courant perso et le dépôt / épargne Revolut.",
+          "produit": "depot"
         },
         {
           "date": "2026-11-13",
@@ -1762,6 +1781,25 @@
           "compte_libelle": "perso",
           "note_classification": "Virement vers le compte joint. Exclu des dépenses ; n'est pas un revenu du joint.",
           "produit": "compte_courant"
+        },
+        {
+          "date": "2026-11-13",
+          "date_libelle": "13 nov. 2026",
+          "libelle": "À partir de EUR Compte d'épargne",
+          "details": [],
+          "sens": "debit",
+          "montant_eur": 900.0,
+          "montant_usd": 984.96,
+          "solde_apres_eur": 0.48,
+          "categorie": "virements_internes",
+          "categorie_libelle": "Virements internes / épargne / investissement",
+          "type": "virement_interne",
+          "page": 8,
+          "statut": "comptable",
+          "compte": "depot",
+          "compte_libelle": "dépôt",
+          "note_classification": "Mouvement entre le compte courant perso et le dépôt / épargne Revolut.",
+          "produit": "depot"
         },
         {
           "date": "2026-11-15",
@@ -1866,31 +1904,6 @@
         {
           "date": "2026-11-20",
           "date_libelle": "20 nov. 2026",
-          "libelle": "To margin trading account",
-          "details": [
-            "500,00$"
-          ],
-          "sens": "debit",
-          "montant_eur": 457.79,
-          "montant_usd": 501.01,
-          "solde_apres_eur": 983.81,
-          "categorie": "virements_internes",
-          "categorie_libelle": "Virements internes / épargne / investissement",
-          "type": "virement_interne",
-          "page": 5,
-          "statut": "comptable",
-          "compte": "perso",
-          "compte_libelle": "perso",
-          "devise_origine": {
-            "montant": 500.0,
-            "devise": "USD"
-          },
-          "note_classification": "Vers le compte de trading / marge Revolut (investissement).",
-          "produit": "compte_courant"
-        },
-        {
-          "date": "2026-11-20",
-          "date_libelle": "20 nov. 2026",
           "libelle": "EUR Revolut X",
           "details": [
             "127,00$"
@@ -1916,16 +1929,14 @@
         {
           "date": "2026-11-20",
           "date_libelle": "20 nov. 2026",
-          "libelle": "Virement à : EMMANUEL TROUVE & PRISCILLA AURORE",
+          "libelle": "EUR Revolut X",
           "details": [
-            "MOONIEN",
-            "Référence : To EMMANUEL TROUVE & PRISCILLA AURORE MOONIEN",
-            "À : EMMANUEL TROUVE & PRISCILLA AURORE MOONIEN"
+            "250,00$"
           ],
           "sens": "debit",
-          "montant_eur": 500.0,
-          "montant_usd": 547.2,
-          "solde_apres_eur": 367.52,
+          "montant_eur": 228.88,
+          "montant_usd": 250.49,
+          "solde_apres_eur": 22.81,
           "categorie": "virements_internes",
           "categorie_libelle": "Virements internes / épargne / investissement",
           "type": "virement_interne",
@@ -1933,7 +1944,11 @@
           "statut": "comptable",
           "compte": "perso",
           "compte_libelle": "perso",
-          "note_classification": "Virement vers le compte joint. Exclu des dépenses ; n'est pas un revenu du joint.",
+          "devise_origine": {
+            "montant": 250.0,
+            "devise": "USD"
+          },
+          "note_classification": "Vers Revolut X (investissement / crypto).",
           "produit": "compte_courant"
         },
         {
@@ -1964,14 +1979,41 @@
         {
           "date": "2026-11-20",
           "date_libelle": "20 nov. 2026",
-          "libelle": "EUR Revolut X",
+          "libelle": "To margin trading account",
           "details": [
-            "250,00$"
+            "500,00$"
           ],
           "sens": "debit",
-          "montant_eur": 228.88,
-          "montant_usd": 250.49,
-          "solde_apres_eur": 22.81,
+          "montant_eur": 457.79,
+          "montant_usd": 501.01,
+          "solde_apres_eur": 983.81,
+          "categorie": "virements_internes",
+          "categorie_libelle": "Virements internes / épargne / investissement",
+          "type": "virement_interne",
+          "page": 5,
+          "statut": "comptable",
+          "compte": "perso",
+          "compte_libelle": "perso",
+          "devise_origine": {
+            "montant": 500.0,
+            "devise": "USD"
+          },
+          "note_classification": "Vers le compte de trading / marge Revolut (investissement).",
+          "produit": "compte_courant"
+        },
+        {
+          "date": "2026-11-20",
+          "date_libelle": "20 nov. 2026",
+          "libelle": "Virement à : EMMANUEL TROUVE & PRISCILLA AURORE",
+          "details": [
+            "MOONIEN",
+            "Référence : To EMMANUEL TROUVE & PRISCILLA AURORE MOONIEN",
+            "À : EMMANUEL TROUVE & PRISCILLA AURORE MOONIEN"
+          ],
+          "sens": "debit",
+          "montant_eur": 500.0,
+          "montant_usd": 547.2,
+          "solde_apres_eur": 367.52,
           "categorie": "virements_internes",
           "categorie_libelle": "Virements internes / épargne / investissement",
           "type": "virement_interne",
@@ -1979,11 +2021,7 @@
           "statut": "comptable",
           "compte": "perso",
           "compte_libelle": "perso",
-          "devise_origine": {
-            "montant": 250.0,
-            "devise": "USD"
-          },
-          "note_classification": "Vers Revolut X (investissement / crypto).",
+          "note_classification": "Virement vers le compte joint. Exclu des dépenses ; n'est pas un revenu du joint.",
           "produit": "compte_courant"
         },
         {
@@ -2033,69 +2071,6 @@
         {
           "date": "2026-11-24",
           "date_libelle": "24 nov. 2026",
-          "libelle": "Vers le compte d'investissement",
-          "details": [],
-          "sens": "debit",
-          "montant_eur": 500.0,
-          "montant_usd": 547.2,
-          "solde_apres_eur": 0.45,
-          "categorie": "virements_internes",
-          "categorie_libelle": "Virements internes / épargne / investissement",
-          "type": "virement_interne",
-          "page": 6,
-          "statut": "comptable",
-          "compte": "perso",
-          "compte_libelle": "perso",
-          "note_classification": "Vers le compte d'investissement Revolut.",
-          "produit": "compte_courant"
-        },
-        {
-          "date": "2026-11-24",
-          "date_libelle": "24 nov. 2026",
-          "libelle": "Virement à : EMMANUEL TROUVE & PRISCILLA AURORE",
-          "details": [
-            "MOONIEN",
-            "Référence : To EMMANUEL TROUVE & PRISCILLA AURORE MOONIEN",
-            "À : EMMANUEL TROUVE & PRISCILLA AURORE MOONIEN"
-          ],
-          "sens": "debit",
-          "montant_eur": 500.0,
-          "montant_usd": 547.2,
-          "solde_apres_eur": 405.32,
-          "categorie": "virements_internes",
-          "categorie_libelle": "Virements internes / épargne / investissement",
-          "type": "virement_interne",
-          "page": 6,
-          "statut": "comptable",
-          "compte": "perso",
-          "compte_libelle": "perso",
-          "note_classification": "Virement vers le compte joint. Exclu des dépenses ; n'est pas un revenu du joint.",
-          "produit": "compte_courant"
-        },
-        {
-          "date": "2026-11-24",
-          "date_libelle": "24 nov. 2026",
-          "libelle": "Change en XPT",
-          "details": [
-            "0,416536 XPT"
-          ],
-          "sens": "debit",
-          "montant_eur": 500.0,
-          "montant_usd": 547.2,
-          "solde_apres_eur": 2813.29,
-          "categorie": "virements_internes",
-          "categorie_libelle": "Virements internes / épargne / investissement",
-          "type": "virement_interne",
-          "page": 6,
-          "statut": "comptable",
-          "compte": "perso",
-          "compte_libelle": "perso",
-          "note_classification": "Achat de platine (métaux Revolut). Investissement, exclu des dépenses personnelles.",
-          "produit": "compte_courant"
-        },
-        {
-          "date": "2026-11-24",
-          "date_libelle": "24 nov. 2026",
           "libelle": "Change en XAG",
           "details": [
             "12,806823 XAG"
@@ -2112,27 +2087,6 @@
           "compte": "perso",
           "compte_libelle": "perso",
           "note_classification": "Achat de argent (métaux Revolut). Investissement, exclu des dépenses personnelles.",
-          "produit": "compte_courant"
-        },
-        {
-          "date": "2026-11-24",
-          "date_libelle": "24 nov. 2026",
-          "libelle": "Change en XPD",
-          "details": [
-            "0,610684 XPD"
-          ],
-          "sens": "debit",
-          "montant_eur": 500.0,
-          "montant_usd": 547.2,
-          "solde_apres_eur": 1813.29,
-          "categorie": "virements_internes",
-          "categorie_libelle": "Virements internes / épargne / investissement",
-          "type": "virement_interne",
-          "page": 6,
-          "statut": "comptable",
-          "compte": "perso",
-          "compte_libelle": "perso",
-          "note_classification": "Achat de palladium (métaux Revolut). Investissement, exclu des dépenses personnelles.",
           "produit": "compte_courant"
         },
         {
@@ -2159,39 +2113,75 @@
         {
           "date": "2026-11-24",
           "date_libelle": "24 nov. 2026",
-          "libelle": "Vers le compte d'investissement",
+          "libelle": "Change en XPD",
           "details": [
-            "547,25$"
+            "0,610684 XPD"
           ],
           "sens": "debit",
-          "montant_eur": 499.98,
-          "montant_usd": 547.18,
-          "solde_apres_eur": 1063.31,
+          "montant_eur": 500.0,
+          "montant_usd": 547.2,
+          "solde_apres_eur": 1813.29,
           "categorie": "virements_internes",
           "categorie_libelle": "Virements internes / épargne / investissement",
           "type": "virement_interne",
-          "page": 7,
+          "page": 6,
           "statut": "comptable",
           "compte": "perso",
           "compte_libelle": "perso",
-          "devise_origine": {
-            "montant": 547.25,
-            "devise": "USD"
-          },
-          "note_classification": "Vers le compte d'investissement Revolut.",
+          "note_classification": "Achat de palladium (métaux Revolut). Investissement, exclu des dépenses personnelles.",
           "produit": "compte_courant"
         },
         {
           "date": "2026-11-24",
           "date_libelle": "24 nov. 2026",
-          "libelle": "Vers le compte d'investissement",
+          "libelle": "Change en XPT",
           "details": [
-            "580,12$"
+            "0,416536 XPT"
           ],
           "sens": "debit",
-          "montant_eur": 529.98,
-          "montant_usd": 580.01,
-          "solde_apres_eur": 533.33,
+          "montant_eur": 500.0,
+          "montant_usd": 547.2,
+          "solde_apres_eur": 2813.29,
+          "categorie": "virements_internes",
+          "categorie_libelle": "Virements internes / épargne / investissement",
+          "type": "virement_interne",
+          "page": 6,
+          "statut": "comptable",
+          "compte": "perso",
+          "compte_libelle": "perso",
+          "note_classification": "Achat de platine (métaux Revolut). Investissement, exclu des dépenses personnelles.",
+          "produit": "compte_courant"
+        },
+        {
+          "date": "2026-11-24",
+          "date_libelle": "24 nov. 2026",
+          "libelle": "EUR Revolut X",
+          "details": [],
+          "sens": "debit",
+          "montant_eur": 1000.0,
+          "montant_usd": 1094.4,
+          "solde_apres_eur": 4846.57,
+          "categorie": "virements_internes",
+          "categorie_libelle": "Virements internes / épargne / investissement",
+          "type": "virement_interne",
+          "page": 7,
+          "statut": "comptable",
+          "compte": "perso",
+          "compte_libelle": "perso",
+          "note_classification": "Vers Revolut X (investissement / crypto).",
+          "produit": "compte_courant"
+        },
+        {
+          "date": "2026-11-24",
+          "date_libelle": "24 nov. 2026",
+          "libelle": "To margin trading account",
+          "details": [
+            "15,00$"
+          ],
+          "sens": "debit",
+          "montant_eur": 13.75,
+          "montant_usd": 15.05,
+          "solde_apres_eur": 531.57,
           "categorie": "virements_internes",
           "categorie_libelle": "Virements internes / épargne / investissement",
           "type": "virement_interne",
@@ -2200,10 +2190,60 @@
           "compte": "perso",
           "compte_libelle": "perso",
           "devise_origine": {
-            "montant": 580.12,
+            "montant": 15.0,
             "devise": "USD"
           },
-          "note_classification": "Vers le compte d'investissement Revolut.",
+          "note_classification": "Vers le compte de trading / marge Revolut (investissement).",
+          "produit": "compte_courant"
+        },
+        {
+          "date": "2026-11-24",
+          "date_libelle": "24 nov. 2026",
+          "libelle": "To margin trading account",
+          "details": [
+            "150,00$"
+          ],
+          "sens": "debit",
+          "montant_eur": 137.43,
+          "montant_usd": 150.4,
+          "solde_apres_eur": 545.32,
+          "categorie": "virements_internes",
+          "categorie_libelle": "Virements internes / épargne / investissement",
+          "type": "virement_interne",
+          "page": 7,
+          "statut": "comptable",
+          "compte": "perso",
+          "compte_libelle": "perso",
+          "devise_origine": {
+            "montant": 150.0,
+            "devise": "USD"
+          },
+          "note_classification": "Vers le compte de trading / marge Revolut (investissement).",
+          "produit": "compte_courant"
+        },
+        {
+          "date": "2026-11-24",
+          "date_libelle": "24 nov. 2026",
+          "libelle": "To margin trading account",
+          "details": [
+            "300,00$"
+          ],
+          "sens": "debit",
+          "montant_eur": 274.84,
+          "montant_usd": 300.78,
+          "solde_apres_eur": 556.73,
+          "categorie": "virements_internes",
+          "categorie_libelle": "Virements internes / épargne / investissement",
+          "type": "virement_interne",
+          "page": 7,
+          "statut": "comptable",
+          "compte": "perso",
+          "compte_libelle": "perso",
+          "devise_origine": {
+            "montant": 300.0,
+            "devise": "USD"
+          },
+          "note_classification": "Vers le compte de trading / marge Revolut (investissement).",
           "produit": "compte_courant"
         },
         {
@@ -2229,148 +2269,6 @@
             "devise": "USD"
           },
           "note_classification": "Vers le compte de trading / marge Revolut (investissement).",
-          "produit": "compte_courant"
-        },
-        {
-          "date": "2026-11-24",
-          "date_libelle": "24 nov. 2026",
-          "libelle": "Virement à : EMMANUEL TROUVE & PRISCILLA AURORE",
-          "details": [
-            "MOONIEN",
-            "Référence : To EMMANUEL TROUVE & PRISCILLA AURORE MOONIEN",
-            "À : EMMANUEL TROUVE & PRISCILLA AURORE MOONIEN"
-          ],
-          "sens": "debit",
-          "montant_eur": 1000.0,
-          "montant_usd": 1094.4,
-          "solde_apres_eur": 5846.57,
-          "categorie": "virements_internes",
-          "categorie_libelle": "Virements internes / épargne / investissement",
-          "type": "virement_interne",
-          "page": 7,
-          "statut": "comptable",
-          "compte": "perso",
-          "compte_libelle": "perso",
-          "note_classification": "Virement vers le compte joint. Exclu des dépenses ; n'est pas un revenu du joint.",
-          "produit": "compte_courant"
-        },
-        {
-          "date": "2026-11-24",
-          "date_libelle": "24 nov. 2026",
-          "libelle": "EUR Revolut X",
-          "details": [],
-          "sens": "debit",
-          "montant_eur": 1000.0,
-          "montant_usd": 1094.4,
-          "solde_apres_eur": 4846.57,
-          "categorie": "virements_internes",
-          "categorie_libelle": "Virements internes / épargne / investissement",
-          "type": "virement_interne",
-          "page": 7,
-          "statut": "comptable",
-          "compte": "perso",
-          "compte_libelle": "perso",
-          "note_classification": "Vers Revolut X (investissement / crypto).",
-          "produit": "compte_courant"
-        },
-        {
-          "date": "2026-11-24",
-          "date_libelle": "24 nov. 2026",
-          "libelle": "Vers le compte d'investissement",
-          "details": [
-            "547,14$"
-          ],
-          "sens": "debit",
-          "montant_eur": 499.99,
-          "montant_usd": 547.19,
-          "solde_apres_eur": 4346.58,
-          "categorie": "virements_internes",
-          "categorie_libelle": "Virements internes / épargne / investissement",
-          "type": "virement_interne",
-          "page": 7,
-          "statut": "comptable",
-          "compte": "perso",
-          "compte_libelle": "perso",
-          "devise_origine": {
-            "montant": 547.14,
-            "devise": "USD"
-          },
-          "note_classification": "Vers le compte d'investissement Revolut.",
-          "produit": "compte_courant"
-        },
-        {
-          "date": "2026-11-24",
-          "date_libelle": "24 nov. 2026",
-          "libelle": "Vers le compte d'investissement",
-          "details": [
-            "547,16$"
-          ],
-          "sens": "debit",
-          "montant_eur": 499.98,
-          "montant_usd": 547.18,
-          "solde_apres_eur": 3846.6,
-          "categorie": "virements_internes",
-          "categorie_libelle": "Virements internes / épargne / investissement",
-          "type": "virement_interne",
-          "page": 7,
-          "statut": "comptable",
-          "compte": "perso",
-          "compte_libelle": "perso",
-          "devise_origine": {
-            "montant": 547.16,
-            "devise": "USD"
-          },
-          "note_classification": "Vers le compte d'investissement Revolut.",
-          "produit": "compte_courant"
-        },
-        {
-          "date": "2026-11-24",
-          "date_libelle": "24 nov. 2026",
-          "libelle": "Vers le compte d'investissement",
-          "details": [
-            "547,14$"
-          ],
-          "sens": "debit",
-          "montant_eur": 499.98,
-          "montant_usd": 547.18,
-          "solde_apres_eur": 3346.62,
-          "categorie": "virements_internes",
-          "categorie_libelle": "Virements internes / épargne / investissement",
-          "type": "virement_interne",
-          "page": 7,
-          "statut": "comptable",
-          "compte": "perso",
-          "compte_libelle": "perso",
-          "devise_origine": {
-            "montant": 547.14,
-            "devise": "USD"
-          },
-          "note_classification": "Vers le compte d'investissement Revolut.",
-          "produit": "compte_courant"
-        },
-        {
-          "date": "2026-11-24",
-          "date_libelle": "24 nov. 2026",
-          "libelle": "Vers le compte d'investissement",
-          "details": [
-            "547,15$"
-          ],
-          "sens": "debit",
-          "montant_eur": 499.98,
-          "montant_usd": 547.18,
-          "solde_apres_eur": 2846.64,
-          "categorie": "virements_internes",
-          "categorie_libelle": "Virements internes / épargne / investissement",
-          "type": "virement_interne",
-          "page": 7,
-          "statut": "comptable",
-          "compte": "perso",
-          "compte_libelle": "perso",
-          "devise_origine": {
-            "montant": 547.15,
-            "devise": "USD"
-          },
-          "note_classification": "Vers le compte d'investissement Revolut.",
           "produit": "compte_courant"
         },
         {
@@ -2421,6 +2319,175 @@
           "date": "2026-11-24",
           "date_libelle": "24 nov. 2026",
           "libelle": "Vers le compte d'investissement",
+          "details": [
+            "547,25$"
+          ],
+          "sens": "debit",
+          "montant_eur": 499.98,
+          "montant_usd": 547.18,
+          "solde_apres_eur": 1063.31,
+          "categorie": "virements_internes",
+          "categorie_libelle": "Virements internes / épargne / investissement",
+          "type": "virement_interne",
+          "page": 7,
+          "statut": "comptable",
+          "compte": "perso",
+          "compte_libelle": "perso",
+          "devise_origine": {
+            "montant": 547.25,
+            "devise": "USD"
+          },
+          "note_classification": "Vers le compte d'investissement Revolut.",
+          "produit": "compte_courant"
+        },
+        {
+          "date": "2026-11-24",
+          "date_libelle": "24 nov. 2026",
+          "libelle": "Vers le compte d'investissement",
+          "details": [
+            "547,15$"
+          ],
+          "sens": "debit",
+          "montant_eur": 499.98,
+          "montant_usd": 547.18,
+          "solde_apres_eur": 2846.64,
+          "categorie": "virements_internes",
+          "categorie_libelle": "Virements internes / épargne / investissement",
+          "type": "virement_interne",
+          "page": 7,
+          "statut": "comptable",
+          "compte": "perso",
+          "compte_libelle": "perso",
+          "devise_origine": {
+            "montant": 547.15,
+            "devise": "USD"
+          },
+          "note_classification": "Vers le compte d'investissement Revolut.",
+          "produit": "compte_courant"
+        },
+        {
+          "date": "2026-11-24",
+          "date_libelle": "24 nov. 2026",
+          "libelle": "Vers le compte d'investissement",
+          "details": [
+            "547,14$"
+          ],
+          "sens": "debit",
+          "montant_eur": 499.98,
+          "montant_usd": 547.18,
+          "solde_apres_eur": 3346.62,
+          "categorie": "virements_internes",
+          "categorie_libelle": "Virements internes / épargne / investissement",
+          "type": "virement_interne",
+          "page": 7,
+          "statut": "comptable",
+          "compte": "perso",
+          "compte_libelle": "perso",
+          "devise_origine": {
+            "montant": 547.14,
+            "devise": "USD"
+          },
+          "note_classification": "Vers le compte d'investissement Revolut.",
+          "produit": "compte_courant"
+        },
+        {
+          "date": "2026-11-24",
+          "date_libelle": "24 nov. 2026",
+          "libelle": "Vers le compte d'investissement",
+          "details": [
+            "547,16$"
+          ],
+          "sens": "debit",
+          "montant_eur": 499.98,
+          "montant_usd": 547.18,
+          "solde_apres_eur": 3846.6,
+          "categorie": "virements_internes",
+          "categorie_libelle": "Virements internes / épargne / investissement",
+          "type": "virement_interne",
+          "page": 7,
+          "statut": "comptable",
+          "compte": "perso",
+          "compte_libelle": "perso",
+          "devise_origine": {
+            "montant": 547.16,
+            "devise": "USD"
+          },
+          "note_classification": "Vers le compte d'investissement Revolut.",
+          "produit": "compte_courant"
+        },
+        {
+          "date": "2026-11-24",
+          "date_libelle": "24 nov. 2026",
+          "libelle": "Vers le compte d'investissement",
+          "details": [
+            "547,14$"
+          ],
+          "sens": "debit",
+          "montant_eur": 499.99,
+          "montant_usd": 547.19,
+          "solde_apres_eur": 4346.58,
+          "categorie": "virements_internes",
+          "categorie_libelle": "Virements internes / épargne / investissement",
+          "type": "virement_interne",
+          "page": 7,
+          "statut": "comptable",
+          "compte": "perso",
+          "compte_libelle": "perso",
+          "devise_origine": {
+            "montant": 547.14,
+            "devise": "USD"
+          },
+          "note_classification": "Vers le compte d'investissement Revolut.",
+          "produit": "compte_courant"
+        },
+        {
+          "date": "2026-11-24",
+          "date_libelle": "24 nov. 2026",
+          "libelle": "Vers le compte d'investissement",
+          "details": [],
+          "sens": "debit",
+          "montant_eur": 500.0,
+          "montant_usd": 547.2,
+          "solde_apres_eur": 0.45,
+          "categorie": "virements_internes",
+          "categorie_libelle": "Virements internes / épargne / investissement",
+          "type": "virement_interne",
+          "page": 6,
+          "statut": "comptable",
+          "compte": "perso",
+          "compte_libelle": "perso",
+          "note_classification": "Vers le compte d'investissement Revolut.",
+          "produit": "compte_courant"
+        },
+        {
+          "date": "2026-11-24",
+          "date_libelle": "24 nov. 2026",
+          "libelle": "Vers le compte d'investissement",
+          "details": [
+            "580,12$"
+          ],
+          "sens": "debit",
+          "montant_eur": 529.98,
+          "montant_usd": 580.01,
+          "solde_apres_eur": 533.33,
+          "categorie": "virements_internes",
+          "categorie_libelle": "Virements internes / épargne / investissement",
+          "type": "virement_interne",
+          "page": 7,
+          "statut": "comptable",
+          "compte": "perso",
+          "compte_libelle": "perso",
+          "devise_origine": {
+            "montant": 580.12,
+            "devise": "USD"
+          },
+          "note_classification": "Vers le compte d'investissement Revolut.",
+          "produit": "compte_courant"
+        },
+        {
+          "date": "2026-11-24",
+          "date_libelle": "24 nov. 2026",
+          "libelle": "Vers le compte d'investissement",
           "details": [],
           "sens": "debit",
           "montant_eur": 1000.0,
@@ -2439,39 +2506,39 @@
         {
           "date": "2026-11-24",
           "date_libelle": "24 nov. 2026",
-          "libelle": "To margin trading account",
+          "libelle": "Virement à : EMMANUEL TROUVE & PRISCILLA AURORE",
           "details": [
-            "150,00$"
+            "MOONIEN",
+            "Référence : To EMMANUEL TROUVE & PRISCILLA AURORE MOONIEN",
+            "À : EMMANUEL TROUVE & PRISCILLA AURORE MOONIEN"
           ],
           "sens": "debit",
-          "montant_eur": 137.43,
-          "montant_usd": 150.4,
-          "solde_apres_eur": 545.32,
+          "montant_eur": 500.0,
+          "montant_usd": 547.2,
+          "solde_apres_eur": 405.32,
           "categorie": "virements_internes",
           "categorie_libelle": "Virements internes / épargne / investissement",
           "type": "virement_interne",
-          "page": 7,
+          "page": 6,
           "statut": "comptable",
           "compte": "perso",
           "compte_libelle": "perso",
-          "devise_origine": {
-            "montant": 150.0,
-            "devise": "USD"
-          },
-          "note_classification": "Vers le compte de trading / marge Revolut (investissement).",
+          "note_classification": "Virement vers le compte joint. Exclu des dépenses ; n'est pas un revenu du joint.",
           "produit": "compte_courant"
         },
         {
           "date": "2026-11-24",
           "date_libelle": "24 nov. 2026",
-          "libelle": "To margin trading account",
+          "libelle": "Virement à : EMMANUEL TROUVE & PRISCILLA AURORE",
           "details": [
-            "15,00$"
+            "MOONIEN",
+            "Référence : To EMMANUEL TROUVE & PRISCILLA AURORE MOONIEN",
+            "À : EMMANUEL TROUVE & PRISCILLA AURORE MOONIEN"
           ],
           "sens": "debit",
-          "montant_eur": 13.75,
-          "montant_usd": 15.05,
-          "solde_apres_eur": 531.57,
+          "montant_eur": 1000.0,
+          "montant_usd": 1094.4,
+          "solde_apres_eur": 5846.57,
           "categorie": "virements_internes",
           "categorie_libelle": "Virements internes / épargne / investissement",
           "type": "virement_interne",
@@ -2479,36 +2546,7 @@
           "statut": "comptable",
           "compte": "perso",
           "compte_libelle": "perso",
-          "devise_origine": {
-            "montant": 15.0,
-            "devise": "USD"
-          },
-          "note_classification": "Vers le compte de trading / marge Revolut (investissement).",
-          "produit": "compte_courant"
-        },
-        {
-          "date": "2026-11-24",
-          "date_libelle": "24 nov. 2026",
-          "libelle": "To margin trading account",
-          "details": [
-            "300,00$"
-          ],
-          "sens": "debit",
-          "montant_eur": 274.84,
-          "montant_usd": 300.78,
-          "solde_apres_eur": 556.73,
-          "categorie": "virements_internes",
-          "categorie_libelle": "Virements internes / épargne / investissement",
-          "type": "virement_interne",
-          "page": 7,
-          "statut": "comptable",
-          "compte": "perso",
-          "compte_libelle": "perso",
-          "devise_origine": {
-            "montant": 300.0,
-            "devise": "USD"
-          },
-          "note_classification": "Vers le compte de trading / marge Revolut (investissement).",
+          "note_classification": "Virement vers le compte joint. Exclu des dépenses ; n'est pas un revenu du joint.",
           "produit": "compte_courant"
         },
         {
@@ -2532,47 +2570,9 @@
           "compte_libelle": "perso",
           "note_classification": "Vers le courtier XTB (investissement).",
           "produit": "compte_courant"
-        },
-        {
-          "date": "2026-11-11",
-          "date_libelle": "11 nov. 2026",
-          "libelle": "À partir de EUR Compte d'épargne",
-          "details": [],
-          "sens": "debit",
-          "montant_eur": 1100.0,
-          "montant_usd": 1203.84,
-          "solde_apres_eur": 900.38,
-          "categorie": "virements_internes",
-          "categorie_libelle": "Virements internes / épargne / investissement",
-          "type": "virement_interne",
-          "page": 8,
-          "statut": "comptable",
-          "compte": "depot",
-          "compte_libelle": "dépôt",
-          "note_classification": "Mouvement entre le compte courant perso et le dépôt / épargne Revolut.",
-          "produit": "depot"
-        },
-        {
-          "date": "2026-11-13",
-          "date_libelle": "13 nov. 2026",
-          "libelle": "À partir de EUR Compte d'épargne",
-          "details": [],
-          "sens": "debit",
-          "montant_eur": 900.0,
-          "montant_usd": 984.96,
-          "solde_apres_eur": 0.48,
-          "categorie": "virements_internes",
-          "categorie_libelle": "Virements internes / épargne / investissement",
-          "type": "virement_interne",
-          "page": 8,
-          "statut": "comptable",
-          "compte": "depot",
-          "compte_libelle": "dépôt",
-          "note_classification": "Mouvement entre le compte courant perso et le dépôt / épargne Revolut.",
-          "produit": "depot"
         }
       ],
-      "detail": "64 opérations"
+      "detail": "64 opérations · 62 perso, 2 dépôt · To margin trading account, Virement à : EMMANUEL TROUVE & PRISCILLA AURORE, Virement à : Shana Trouve, Vers le compte d'investissement…"
     },
     {
       "id": "retraits",
@@ -2587,7 +2587,7 @@
       "objectif": null,
       "compte_dans_total_depenses": true,
       "operations": [],
-      "detail": "Aucune opération sur le compte perso."
+      "detail": "Aucune opération sur cette période."
     },
     {
       "id": "autres",
@@ -2602,11 +2602,11 @@
       "objectif": null,
       "compte_dans_total_depenses": true,
       "operations": [],
-      "detail": "Aucune opération sur le compte perso."
+      "detail": "Aucune opération sur cette période."
     },
     {
-      "id": "air_glow_pub",
-      "poste": "Air Glow, pub (pro)",
+      "id": "air_glow",
+      "poste": "Air Glow, frais de fonctionnement",
       "n_operations": 0,
       "debit_eur": 0.0,
       "credit_eur": 0.0,
@@ -2617,7 +2617,7 @@
       "objectif": null,
       "compte_dans_total_depenses": false,
       "operations": [],
-      "detail": "Aucune opération sur le compte perso."
+      "detail": "Aucune opération sur cette période."
     }
   ],
   "totaux": {
@@ -2627,7 +2627,15 @@
     "revenus_usd": 11475.31,
     "reste_eur": 8743.04,
     "reste_usd": 9568.38,
-    "salaire_eur": 10485.0
+    "salaire_eur": 10485.0,
+    "depenses_note": "Somme nette des catégories de dépenses personnelles des deux comptes (virements internes, épargne, investissement, capital du crédit Revolut, remboursements d'assurance et la ligne Air Glow, frais de fonctionnement exclus). Les virements perso → joint (et l'inverse) ne sont comptés qu'une fois, et uniquement en transferts internes. Les crédits Apple.com/bill du même mois sont déduits des Abonnements.",
+    "reste_formule": "revenus réels (salaire Tesla + France Travail + intérêts d'épargne) − dépenses personnelles (hors virements internes / épargne / investissement, hors Air Glow, frais de fonctionnement, hors capital du crédit Revolut, hors remboursements d'assurance)",
+    "air_glow_eur": 0.0,
+    "air_glow_usd": 0.0,
+    "air_glow_note": "Ligne unique « Air Glow, frais de fonctionnement » : 0.00 €, 0 opérations (WordPress, publicité Facebook, MailPoet, Dualhook, X Ads, Envato, INPI, CCI). Exclue des dépenses personnelles. Mollie « Thood Franc… » à Roppenheim reste dans les Achats (commerçant physique non identifié comme frais pro Air Glow).",
+    "air_glow_pub_eur": 0.0,
+    "air_glow_pub_usd": 0.0,
+    "air_glow_pub_note": "Ligne unique « Air Glow, frais de fonctionnement » : 0.00 €, 0 opérations (WordPress, publicité Facebook, MailPoet, Dualhook, X Ads, Envato, INPI, CCI). Exclue des dépenses personnelles. Mollie « Thood Franc… » à Roppenheim reste dans les Achats (commerçant physique non identifié comme frais pro Air Glow)."
   },
   "revenus_operations": [
     {

@@ -492,6 +492,16 @@ function bdgBindEnsFilt(scope){
     });
   });
 }
+function bdgIsAirGlow(c){ return !!(c&&(c.id==='air_glow'||c.id==='air_glow_pub')); }
+function bdgAirGlowOf(cats){ return (cats||[]).find(bdgIsAirGlow)||null; }
+function bdgAirGlowAmt(tot, glow, key){
+  const k=key||'eur';
+  if(tot){
+    if(tot['air_glow_'+k]!=null) return tot['air_glow_'+k];
+    if(tot['air_glow_pub_'+k]!=null) return tot['air_glow_pub_'+k];
+  }
+  return glow?glow['observe_'+k]:null;
+}
 function bdgJointHtml(b){
 
   const j=bdgJoint(b);
@@ -500,7 +510,7 @@ function bdgJointHtml(b){
   const per=(j.periode&&j.periode.libelle)||'octobre 2026';
   const fx=j.fx!=null?String(j.fx).replace('.', ','):(bdgFx(b)||'1,0944');
   const cats=j.categories||[];
-  const rows=cats.filter(c=>c.id!=='air_glow_pub').map(c=>{
+  const rows=cats.filter(c=>!bdgIsAirGlow(c)).map(c=>{
     const empty=!c.n_operations;
     const obsU=empty&&!(c.observe_eur)? '—' : bdgAmt(c.observe_usd,'USD');
     const obsE=empty&&!(c.observe_eur)? '—' : bdgAmt(c.observe_eur,'EUR');
@@ -515,7 +525,7 @@ function bdgJointHtml(b){
     if(c.id==='courses') cls.push('bdg-cat-courses');
     if(c.id==='virements_internes') cls.push('bdg-cat-interne');
     if(c.id==='credit_revolut') cls.push('bdg-cat-fixe');
-    if(c.id==='air_glow_pub') cls.push('bdg-cat-pro');
+    if(bdgIsAirGlow(c)) cls.push('bdg-cat-pro');
     if(zeroEmpty) cls.push('is-empty');
     const row=bdgRow({
       id:'bdg-cat-'+c.id,
@@ -531,8 +541,8 @@ function bdgJointHtml(b){
     return c.id==='courses'? (row+bdgLidlBlock(c)) : row;
   }).join('');
   const resteNeg=Number(tot.reste_eur)<0;
-  const depNote=tot.depenses_note||'Hors virements internes, épargne, investissement et dépenses pro Air Glow (pub)';
-  const depRow=bdgRow({id:'bdg-joint-depenses',cls:['bdg-foot','bdg-tot-dep'],poste:'Total dépenses personnelles',detail:'Hors virements internes, épargne, investissement et Air Glow pub (pro)',obsUsd:bdgAmt(tot.depenses_usd,'USD'),obsEur:bdgAmt(tot.depenses_eur,'EUR'),projUsd:bdgAmt(tot.depenses_usd,'USD'),projEur:bdgAmt(tot.depenses_eur,'EUR'),objectif:'—'});
+  const depNote=tot.depenses_note||'Hors virements internes, épargne, investissement et Air Glow, frais de fonctionnement';
+  const depRow=bdgRow({id:'bdg-joint-depenses',cls:['bdg-foot','bdg-tot-dep'],poste:'Total dépenses personnelles',detail:'Hors virements internes, épargne, investissement et Air Glow, frais de fonctionnement',obsUsd:bdgAmt(tot.depenses_usd,'USD'),obsEur:bdgAmt(tot.depenses_eur,'EUR'),projUsd:bdgAmt(tot.depenses_usd,'USD'),projEur:bdgAmt(tot.depenses_eur,'EUR'),objectif:'—'});
   const revDet=bdgOpsDetails(j.revenus_operations||[], tot.revenus_detail||'Revenus d’octobre');
   const revRow=bdgRow({id:'bdg-joint-revenus',cls:['bdg-foot','bdg-tot-rev'],poste:'Total revenus',detailsHtml:revDet,obsUsd:bdgAmt(tot.revenus_usd,'USD'),obsEur:bdgAmt(tot.revenus_eur,'EUR'),projUsd:bdgAmt(tot.revenus_usd,'USD'),projEur:bdgAmt(tot.revenus_eur,'EUR'),objectif:'—'});
   const resteRow=bdgRow({id:'bdg-joint-reste',cls:['bdg-foot','bdg-tot-reste',resteNeg?'is-over':'is-ok'],poste:'Reste (revenus − dépenses)',detail:tot.reste_formule||'Revenus − dépenses',obsUsd:bdgAmt(tot.reste_usd,'USD'),obsEur:bdgAmt(tot.reste_eur,'EUR'),projUsd:bdgAmt(tot.reste_usd,'USD'),projEur:bdgAmt(tot.reste_eur,'EUR'),objectif:'—'});
@@ -540,8 +550,8 @@ function bdgJointHtml(b){
   const rembRow=remb.length?bdgRow({id:'bdg-joint-remb',cls:['bdg-annexe'],poste:'Remboursements (à part)',detailsHtml:bdgOpsDetails(remb, tot.remboursements_note||'Remboursements, non inclus dans les revenus'),obsUsd:bdgAmt(tot.remboursements_usd,'USD'),obsEur:bdgAmt(tot.remboursements_eur,'EUR'),projUsd:'—',projEur:'—',objectif:'—'}):'';
   const vin=j.virements_internes_entrants||[];
   const vinRow=bdgRow({id:'bdg-joint-vin',cls:['bdg-annexe','bdg-cat-interne'],poste:'Virements internes entrants',detailsHtml:bdgOpsDetails(vin, 'Alimentations du compte joint (non revenus) · '+((vin.length)||0)+' opération'+(vin.length>1?'s':'')),obsUsd:bdgAmt(tot.virements_internes_entrants_usd,'USD'),obsEur:bdgAmt(tot.virements_internes_entrants_eur,'EUR'),projUsd:'—',projEur:'—',objectif:'—'});
-  const glow=cats.find(c=>c.id==='air_glow_pub');
-  const glowRow=glow?bdgRow({id:'bdg-joint-airglow',cls:['bdg-foot','bdg-annexe','bdg-cat-pro'],poste:'Sous-total Air Glow, pub (pro)',detailsHtml:bdgOpsDetails(glow.operations||[], glow.detail||(tot.air_glow_pub_note||'Publicité Air Glow, exclue des dépenses personnelles')),obsUsd:bdgAmt(tot.air_glow_pub_usd!=null?tot.air_glow_pub_usd:glow.observe_usd,'USD'),obsEur:bdgAmt(tot.air_glow_pub_eur!=null?tot.air_glow_pub_eur:glow.observe_eur,'EUR'),projUsd:bdgAmt(glow.projection_usd,'USD'),projEur:bdgAmt(glow.projection_eur,'EUR'),objectif:'—' }):'';
+  const glow=bdgAirGlowOf(cats);
+  const glowRow=glow?bdgRow({id:'bdg-joint-airglow',cls:['bdg-foot','bdg-annexe','bdg-cat-pro'],poste:'Air Glow, frais de fonctionnement',detailsHtml:bdgOpsDetails(glow.operations||[], glow.detail||(tot.air_glow_note||tot.air_glow_pub_note||'Frais de fonctionnement Air Glow, exclus des dépenses personnelles')),obsUsd:bdgAmt(bdgAirGlowAmt(tot,glow,'usd'),'USD'),obsEur:bdgAmt(bdgAirGlowAmt(tot,glow,'eur'),'EUR'),projUsd:bdgAmt(glow.projection_usd,'USD'),projEur:bdgAmt(glow.projection_eur,'EUR'),objectif:'—' }):'';
   const tvFlag=j.tradingview_sur_le_releve||{};
   const tvNote=tvFlag.present_sur_le_releve?(tvFlag.note||'Un prélèvement TradingView figure sur le relevé ; non recopié en seconde ligne d’abonnement.'):'';
   const srcBits=[];
@@ -563,7 +573,7 @@ function bdgJointHtml(b){
       <div class="home-kv"><span class="l">Dépenses perso</span><b>${bdgAmt(tot.depenses_eur,'EUR')}</b><small>${bdgAmt(tot.depenses_usd,'USD')}</small></div>
       <div class="home-kv"><span class="l">Revenus</span><b>${bdgAmt(tot.revenus_eur,'EUR')}</b><small>${bdgAmt(tot.revenus_usd,'USD')}</small></div>
       <div class="home-kv ${resteNeg?'is-down':''}"><span class="l">Reste</span><b class="${resteNeg?'down':'up'}">${bdgAmt(tot.reste_eur,'EUR')}</b><small class="${resteNeg?'down':'up'}">${bdgAmt(tot.reste_usd,'USD')}</small></div>
-      <div class="home-kv bdg-kv-pro"><span class="l">Air Glow pub (pro)</span><b>${bdgAmt(tot.air_glow_pub_eur,'EUR')}</b><small>${bdgAmt(tot.air_glow_pub_usd,'USD')}</small></div>
+      <div class="home-kv bdg-kv-pro"><span class="l">Air Glow, frais de fonctionnement</span><b>${bdgAmt((tot.air_glow_eur!=null?tot.air_glow_eur:tot.air_glow_pub_eur),'EUR')}</b><small>${bdgAmt((tot.air_glow_usd!=null?tot.air_glow_usd:tot.air_glow_pub_usd),'USD')}</small></div>
     </div>
     <div class="home-table-scroll">
       <div class="home-table bdg-table" id="bdg-table-joint">
@@ -591,7 +601,7 @@ function bdgComptesHtml(b){
   const fx=fxVal!=null?String(fxVal).replace('.',','):(bdgFx(b)||'1,0944');
   const cats=j.categories||[];
   const viDet=(tot.virements_internes_detail||[]).map(d=>`${d.libelle} : ${bdgAmt(d.montant_eur,'EUR')}`).join(' · ');
-  const rows=cats.filter(c=>c.id!=='air_glow_pub').map(c=>{
+  const rows=cats.filter(c=>!bdgIsAirGlow(c)).map(c=>{
     const empty=!c.n_operations;
     const obsU=empty&&!(c.observe_eur)? '—' : bdgAmt(c.observe_usd,'USD');
     const obsE=empty&&!(c.observe_eur)? '—' : bdgAmt(c.observe_eur,'EUR');
@@ -606,7 +616,7 @@ function bdgComptesHtml(b){
     if(c.id==='courses') cls.push('bdg-cat-courses');
     if(c.id==='virements_internes') cls.push('bdg-cat-interne');
     if(c.id==='credit_revolut') cls.push('bdg-cat-fixe');
-    if(c.id==='air_glow_pub') cls.push('bdg-cat-pro');
+    if(bdgIsAirGlow(c)) cls.push('bdg-cat-pro');
     if(zeroEmpty) cls.push('is-empty');
     const row=bdgRow({
       id:'bdg-cat-'+c.id,
@@ -622,7 +632,7 @@ function bdgComptesHtml(b){
     return c.id==='courses'? (row+bdgLidlBlock(c)) : row;
   }).join('');
   const resteNeg=Number(tot.reste_eur)<0;
-  const depRow=bdgRow({id:'bdg-comptes-depenses',cls:['bdg-foot','bdg-tot-dep'],poste:'Total dépenses personnelles',detail:'Hors virements internes, épargne, investissement, capital du crédit Revolut et Air Glow pub (pro)',obsUsd:bdgAmt(tot.depenses_usd,'USD'),obsEur:bdgAmt(tot.depenses_eur,'EUR'),projUsd:bdgAmt(tot.depenses_usd,'USD'),projEur:bdgAmt(tot.depenses_eur,'EUR'),objectif:'—'});
+  const depRow=bdgRow({id:'bdg-comptes-depenses',cls:['bdg-foot','bdg-tot-dep'],poste:'Total dépenses personnelles',detail:'Hors virements internes, épargne, investissement, capital du crédit Revolut et Air Glow, frais de fonctionnement',obsUsd:bdgAmt(tot.depenses_usd,'USD'),obsEur:bdgAmt(tot.depenses_eur,'EUR'),projUsd:bdgAmt(tot.depenses_usd,'USD'),projEur:bdgAmt(tot.depenses_eur,'EUR'),objectif:'—'});
   const revDet=bdgOpsDetails(j.revenus_operations||[], tot.revenus_detail||'Revenus réels du foyer (salaire Tesla + France Travail)');
   const revRow=bdgRow({id:'bdg-comptes-revenus',cls:['bdg-foot','bdg-tot-rev'],poste:'Total revenus',detailsHtml:revDet,obsUsd:bdgAmt(tot.revenus_usd,'USD'),obsEur:bdgAmt(tot.revenus_eur,'EUR'),projUsd:bdgAmt(tot.revenus_usd,'USD'),projEur:bdgAmt(tot.revenus_eur,'EUR'),objectif:'—'});
   const resteRow=bdgRow({id:'bdg-comptes-reste',cls:['bdg-foot','bdg-tot-reste',resteNeg?'is-over':'is-ok'],poste:'Reste (revenus − dépenses)',detail:tot.reste_formule||'Revenus − dépenses personnelles',obsUsd:bdgAmt(tot.reste_usd,'USD'),obsEur:bdgAmt(tot.reste_eur,'EUR'),projUsd:bdgAmt(tot.reste_usd,'USD'),projEur:bdgAmt(tot.reste_eur,'EUR'),objectif:'—'});
@@ -635,8 +645,8 @@ function bdgComptesHtml(b){
   const finNote=cr.note||tot.financement_note||'Crédit Revolut : ni un revenu ni une dépense. Mensualité 169,60 €.';
   const finDet=bdgOpsDetails(fin, finNote+(cr.mensualite_eur!=null?(' Mensualité : '+bdgAmt(cr.mensualite_eur,'EUR')+' / '+bdgAmt(cr.mensualite_usd,'USD')+'.'):'' ));
   const finRow=(fin.length||cr.capital_eur)?bdgRow({id:'bdg-comptes-credit-revolut',cls:['bdg-annexe','bdg-cat-fixe'],poste:cr.libelle||'Crédit Revolut 23 500 €',detailsHtml:finDet,obsUsd:bdgAmt(cr.mensualite_usd,'USD'),obsEur:bdgAmt(cr.mensualite_eur,'EUR'),projUsd:bdgAmt(cr.mensualite_usd,'USD'),projEur:bdgAmt(cr.mensualite_eur,'EUR'),objectif:'mensualité'}):'';
-  const glow=cats.find(c=>c.id==='air_glow_pub');
-  const glowRow=glow?bdgRow({id:'bdg-comptes-airglow',cls:['bdg-foot','bdg-annexe','bdg-cat-pro'],poste:'Sous-total Air Glow, pub (pro)',detailsHtml:bdgOpsDetails(glow.operations||[], glow.detail||(tot.air_glow_pub_note||'Publicité Air Glow, exclue des dépenses personnelles')),obsUsd:bdgAmt(tot.air_glow_pub_usd!=null?tot.air_glow_pub_usd:glow.observe_usd,'USD'),obsEur:bdgAmt(tot.air_glow_pub_eur!=null?tot.air_glow_pub_eur:glow.observe_eur,'EUR'),projUsd:bdgAmt(glow.projection_usd,'USD'),projEur:bdgAmt(glow.projection_eur,'EUR'),objectif:'—' }):'';
+  const glow=bdgAirGlowOf(cats);
+  const glowRow=glow?bdgRow({id:'bdg-comptes-airglow',cls:['bdg-foot','bdg-annexe','bdg-cat-pro'],poste:'Air Glow, frais de fonctionnement',detailsHtml:bdgOpsDetails(glow.operations||[], glow.detail||(tot.air_glow_note||tot.air_glow_pub_note||'Frais de fonctionnement Air Glow, exclus des dépenses personnelles')),obsUsd:bdgAmt(bdgAirGlowAmt(tot,glow,'usd'),'USD'),obsEur:bdgAmt(bdgAirGlowAmt(tot,glow,'eur'),'EUR'),projUsd:bdgAmt(glow.projection_usd,'USD'),projEur:bdgAmt(glow.projection_eur,'EUR'),objectif:'—' }):'';
   const tvFlag=j.tradingview_sur_le_releve||{};
   const tvNote=tvFlag.present_sur_le_releve?(tvFlag.note||'Un prélèvement TradingView figure sur le relevé ; non recopié en seconde ligne d’abonnement.'):'';
   const srcBits=[];
@@ -661,7 +671,7 @@ function bdgComptesHtml(b){
       <div class="home-kv"><span class="l">Salaire Tesla</span><b>${bdgAmt(tot.salaire_eur,'EUR')}</b><small>${bdgAmt(tot.salaire_usd,'USD')}</small></div>
       <div class="home-kv bdg-kv-fixe"><span class="l">Crédit Revolut 23 500 €</span><b>${bdgAmt((tot.credit_revolut||{}).mensualite_eur,'EUR')}</b><small>mensualité · ${bdgAmt((tot.credit_revolut||{}).mensualite_usd,'USD')}</small></div>
       <div class="home-kv bdg-kv-fixe"><span class="l">Charges fixes crédit</span><b>${bdgAmt(tot.charges_fixes_credit_mensuel_eur,'EUR')}</b><small>LOA Tesla + Revolut / mois · ${bdgAmt(tot.charges_fixes_credit_mensuel_usd,'USD')}</small></div>
-      <div class="home-kv bdg-kv-pro"><span class="l">Air Glow pub (pro)</span><b>${bdgAmt(tot.air_glow_pub_eur,'EUR')}</b><small>${bdgAmt(tot.air_glow_pub_usd,'USD')}</small></div>
+      <div class="home-kv bdg-kv-pro"><span class="l">Air Glow, frais de fonctionnement</span><b>${bdgAmt((tot.air_glow_eur!=null?tot.air_glow_eur:tot.air_glow_pub_eur),'EUR')}</b><small>${bdgAmt((tot.air_glow_usd!=null?tot.air_glow_usd:tot.air_glow_pub_usd),'USD')}</small></div>
     </div>
     <div class="bdg-fold-body" id="bdg-comptes-body">
     <div class="home-table-scroll">
@@ -743,13 +753,19 @@ function bdgMensuelHtml(b){
   const moisSec=res.mois_securite;
   const moisSecTxt=(moisSec==null||moisSec==='')?'—':(Number(moisSec).toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+'\u00a0mois');
   const red=m.objectif_reduction_autres_postes||{};
-  const alerte=defic?`<div class="bdg-moy-alerte" role="status">Budget déficitaire sur la base prudente : ${bdgAmt(act.eur,'EUR')} / mois (revenus 3 133,33 € − dépenses récurrentes d'octobre). Grok Heavy est conservé (outil de pilotage). Objectif de réduction sur les autres postes pour atteindre l'équilibre : ${bdgAmt(red.eur,'EUR')} / mois (déficit actuel − panier).</div>`:'';
+  const ag=m.air_glow||{};
+  const actAgTone=Number(act.avec_air_glow_eur)<0?'down':'up';
+  const cibAgTone=Number(cib.avec_air_glow_eur)<0?'down':'up';
+  const alerte=defic?`<div class="bdg-moy-alerte" role="status">Capacité personnelle (hors Air Glow) déficitaire : ${bdgAmt(act.eur,'EUR')} / mois (base prudente 3 133,33 € − dépenses personnelles d'octobre). Y compris Air Glow : ${bdgAmt(act.avec_air_glow_eur,'EUR')} / mois. Grok Heavy est conservé (outil de pilotage). Le panier d'économies est inchangé. Objectif de réduction personnel pour l'équilibre : ${bdgAmt(red.eur,'EUR')} / mois (y compris Air Glow : ${bdgAmt(red.avec_air_glow_eur,'EUR')}).</div>`:'';
   const kv=`<div class="home-strip bdg-kvs bdg-moy-kvs">
       ${bdgMoyKv('Base prudente', rev.total_moyenne_eur, rev.total_moyenne_usd)}
-      ${bdgMoyKv('Dépenses récurrentes (octobre)', dep.moyenne_eur, dep.moyenne_usd)}
-      ${bdgMoyKv("Capacité d'épargne actuelle", act.eur, act.usd, [], actTone)}
-      ${bdgMoyKv('Capacité cible (propositions)', cib.eur, cib.usd, ['bdg-kv-fixe'], cibTone)}
-      ${bdgMoyKv("Objectif de réduction sur les autres postes pour l'équilibre", red.eur, red.usd, [], 'down')}
+      ${bdgMoyKv('Dépenses personnelles (octobre, hors Air Glow)', dep.moyenne_eur, dep.moyenne_usd)}
+      ${bdgMoyKv('Air Glow, frais de fonctionnement (moyenne d\'octobre)', ag.moyenne_octobre_eur, ag.moyenne_octobre_usd, ['bdg-kv-pro'])}
+      ${bdgMoyKv("Capacité personnelle (hors Air Glow)", act.eur, act.usd, [], actTone)}
+      ${bdgMoyKv('Capacité y compris Air Glow', act.avec_air_glow_eur, act.avec_air_glow_usd, ['bdg-kv-pro'], actAgTone)}
+      ${bdgMoyKv('Capacité cible personnelle (panier inchangé)', cib.eur, cib.usd, ['bdg-kv-fixe'], cibTone)}
+      ${bdgMoyKv('Capacité cible y compris Air Glow', cib.avec_air_glow_eur, cib.avec_air_glow_usd, ['bdg-kv-pro'], cibAgTone)}
+      ${bdgMoyKv("Objectif de réduction personnel pour l'équilibre", red.eur, red.usd, [], 'down')}
       <div class="home-kv${(moisSec!=null&&moisSec<3)?' is-down':''}"><span class="l">Mois de sécurité</span><b class="${(moisSec!=null&&moisSec<3)?'down':''}">${moisSecTxt}</b><small>${bdgAmt(res.epargne_disponible_eur,'EUR')} d'épargne dispo</small></div>
       ${bdgMoyKv('Bonus France Travail (hors base)', bonus.octobre_eur, bonus.octobre_usd)}
       ${bdgMoyKv('Revenus réels d\'octobre (comparaison)', obs.total_eur, obs.total_usd)}
@@ -790,7 +806,19 @@ function bdgMensuelHtml(b){
       <p class="bdg-moy-p">${bdgEsc(prov.note||'')}</p>
       <div class="bdg-moy-table">${bdgMoyHead()}${provRows}${bdgMoyFoot('Sous-total provisions / 12', prov.total_moyenne_eur, prov.total_moyenne_usd)}</div>
     </div>`;
-  const eparBlock=`<div class="bdg-moy-block" id="bdg-moy-epargne">
+    const agLignes=(ag.lignes||[]).map(p=>bdgMoyRow({
+    libelle:p.libelle, moyenne_eur:p.moyenne_eur, moyenne_usd:p.moyenne_usd,
+    detail:(p.detail||'')+(p.total_periode_eur!=null?(' Total période : '+String(p.total_periode_eur).replace('.',',')+' €.'):'')
+  },['bdg-moy-airglow'])).join('');
+  const agBlock=ag.moyenne_octobre_eur!=null||(ag.lignes||[]).length?`<div class="bdg-moy-block bdg-moy-airglow" id="bdg-moy-airglow" data-bdg-fold="airglow">
+      <h3 class="bdg-moy-h">${bdgFoldTitle('airglow', ag.libelle||'Air Glow, frais de fonctionnement', 'bdg-moy-airglow-body')}</h3>
+      <div class="bdg-fold-body" id="bdg-moy-airglow-body">
+      <p class="bdg-moy-p">${bdgEsc(ag.note||'')}</p>
+      <div class="bdg-moy-table">${bdgMoyHead()}${agLignes}${bdgMoyFoot('Moyenne d’octobre (ligne unique)', ag.moyenne_octobre_eur, ag.moyenne_octobre_usd)}</div>
+      <p class="bdg-moy-p">Caisse d'octobre (non lissée) : ${bdgAmt(ag.caisse_octobre_eur,'EUR')} / ${bdgAmt(ag.caisse_octobre_usd,'USD')}. Novembre, pour information seulement (hors moyenne) : ${bdgAmt(ag.novembre_info_eur,'EUR')} / ${bdgAmt(ag.novembre_info_usd,'USD')} (WordPress 134,60 €, MailPoet, Dualhook et Facebook de novembre).</p>
+      </div>
+    </div>`:'';
+const eparBlock=`<div class="bdg-moy-block" id="bdg-moy-epargne">
       <h3 class="bdg-moy-h">${bdgEsc(epar.libelle||"Vers l'investissement")}</h3>
       <p class="bdg-moy-p">${bdgEsc(epar.note||'')}</p>
       <div class="bdg-moy-table">${bdgMoyHead()}
@@ -829,17 +857,20 @@ function bdgMensuelHtml(b){
       <h3 class="bdg-moy-h">Synthèse</h3>
       <div class="bdg-moy-table">${bdgMoyHead()}
         ${bdgMoyRow({libelle:'Base prudente de revenus', moyenne_eur:rev.total_moyenne_eur, moyenne_usd:rev.total_moyenne_usd, detail:noteHaut})}
-        ${bdgMoyRow({libelle:'Dépenses récurrentes d\'octobre', moyenne_eur:dep.moyenne_eur, moyenne_usd:dep.moyenne_usd, detail:dep.detail})}
-        ${bdgMoyRow({libelle:"Capacité d'épargne actuelle", moyenne_eur:act.eur, moyenne_usd:act.usd, detail:act.formule+(defic?' Budget déficitaire sur cette base.':'')})}
-        ${bdgMoyRow({libelle:'Capacité cible après propositions', moyenne_eur:cib.eur, moyenne_usd:cib.usd, detail:cib.formule})}
-        ${bdgMoyRow({libelle:(red.libelle||"Objectif de réduction sur les autres postes pour atteindre l'équilibre"), moyenne_eur:red.eur, moyenne_usd:red.usd, detail:red.formule+' '+(red.note||'')})}
+        ${bdgMoyRow({libelle:'Dépenses personnelles d\'octobre (hors Air Glow)', moyenne_eur:dep.moyenne_eur, moyenne_usd:dep.moyenne_usd, detail:dep.detail})}
+        ${bdgMoyRow({libelle:'Air Glow, frais de fonctionnement (moyenne d\'octobre)', moyenne_eur:ag.moyenne_octobre_eur, moyenne_usd:ag.moyenne_octobre_usd, detail:ag.note||''})}
+        ${bdgMoyRow({libelle:"Capacité personnelle (hors Air Glow)", moyenne_eur:act.eur, moyenne_usd:act.usd, detail:(act.formule||'')+' '+(act.note||'')+(defic?' Budget personnel déficitaire sur cette base.':'')})}
+        ${bdgMoyRow({libelle:'Capacité y compris Air Glow', moyenne_eur:act.avec_air_glow_eur, moyenne_usd:act.avec_air_glow_usd, detail:act.avec_air_glow_formule||''})}
+        ${bdgMoyRow({libelle:'Capacité cible personnelle (panier inchangé)', moyenne_eur:cib.eur, moyenne_usd:cib.usd, detail:cib.formule})}
+        ${bdgMoyRow({libelle:'Capacité cible y compris Air Glow', moyenne_eur:cib.avec_air_glow_eur, moyenne_usd:cib.avec_air_glow_usd, detail:cib.avec_air_glow_formule||''})}
+        ${bdgMoyRow({libelle:(red.libelle||"Objectif de réduction personnel pour l'équilibre"), moyenne_eur:red.eur, moyenne_usd:red.usd, detail:(red.formule||'')+' '+(red.note||'')})}
         ${bdgMoyRow({libelle:"Objectif proposé", moyenne_eur:obj.propose_eur, moyenne_usd:obj.propose_usd, detail:obj.note})}
         ${bdgMoyRow({libelle:'Épargne disponible (25/11)', moyenne_eur:res.epargne_disponible_eur, moyenne_usd:res.epargne_disponible_usd, detail:res.epargne_disponible_note})}
         ${bdgMoyRow({libelle:'Mois de sécurité : '+moisSecTxt, moyenne_eur:null, moyenne_usd:null, detail:'Nombre de mois de charges fixes couverts par l\'épargne disponible. '+(res.note||'')})}
         ${bdgMoyRow({libelle:'Réserve 3 mois de charges fixes', moyenne_eur:res.mois_3_eur, moyenne_usd:res.mois_3_usd, detail:res.detail})}
         ${bdgMoyRow({libelle:'Réserve 6 mois de charges fixes', moyenne_eur:res.mois_6_eur, moyenne_usd:res.mois_6_usd, detail:res.note})}
       </div>
-      <p class="bdg-moy-p">Comparaison : avec les revenus réellement perçus en octobre, la capacité serait de ${bdgAmt(act.variante_octobre_observe_eur,'EUR')}. Avec le bonus France Travail en plus de la base prudente : ${bdgAmt(act.variante_avec_france_travail_eur,'EUR')}. ${bdgEsc(cib.variante_grok_heavy_mensuel_note||'')}</p>
+      <p class="bdg-moy-p">Comparaison (capacité personnelle, hors Air Glow) : avec les revenus réellement perçus en octobre, ${bdgAmt(act.variante_octobre_observe_eur,'EUR')} (y compris Air Glow : ${bdgAmt(act.variante_octobre_observe_avec_air_glow_eur,'EUR')}). Avec le bonus France Travail en plus de la base prudente : ${bdgAmt(act.variante_avec_france_travail_eur,'EUR')} (y compris Air Glow : ${bdgAmt(act.variante_avec_france_travail_avec_air_glow_eur,'EUR')}). ${bdgEsc(cib.variante_grok_heavy_mensuel_note||'')}</p>
     </div>`;
   const floues=`<div class="bdg-moy-block" id="bdg-moy-flou">
       <h3 class="bdg-moy-h">Lignes encore floues</h3>
@@ -859,6 +890,7 @@ function bdgMensuelHtml(b){
       ${revBlock}
       ${groupes}
       ${provBlock}
+      ${agBlock}
       ${eparBlock}
       ${synt}
       ${trousHtml}

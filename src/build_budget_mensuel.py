@@ -139,6 +139,36 @@ def is_wordpress(o):
     return "wordpress" in lib_l(o)
 
 
+def is_xcorp(o):
+    return "x corp" in lib_l(o)
+
+
+def is_envato(o):
+    return "envato" in lib_l(o)
+
+
+def is_facebook(o):
+    return "facebook" in lib_l(o)
+
+
+def is_mailpoet(o):
+    return "mailpoet" in lib_l(o)
+
+
+def is_dualhook(o):
+    return "dualhook" in lib_l(o)
+
+
+def is_air_glow_frais(o):
+    """Frais de fonctionnement Air Glow. Mollie « Thood Franc… » à Roppenheim est exclu (commerçant physique non identifié)."""
+    if (o.get("categorie") in ("air_glow", "air_glow_pub") or o.get("type") == "depense_pro"):
+        return True
+    return (
+        is_wordpress(o) or is_inpi(o) or is_cci(o) or is_envato(o) or is_xcorp(o)
+        or is_facebook(o) or is_mailpoet(o) or is_dualhook(o)
+    )
+
+
 def is_grok_heavy(o):
     return "grok heavy" in lib_l(o)
 
@@ -333,6 +363,10 @@ def build():
     autres_ops, _ = cat_ops(d, "autres")
     impot_ops, _ = cat_ops(d, "impots")
     vi_ops, vi_cat = cat_ops(d, "virements_internes")
+    all_ops = []
+    for c in d.get("categories") or []:
+        all_ops.extend(c.get("operations") or [])
+    glow_ops = [o for o in all_ops if is_air_glow_frais(o)]
 
     # Opérations « en attente » des 23–24/11 : hors mois de référence, non intégrées à la moyenne.
     def pend_of(cid):
@@ -374,13 +408,29 @@ def build():
     ir_ops = [o for o in impot_ops if is_ir_solde(o)]
     ir_tot = r2(sum(amt(o) for o in ir_ops))
 
-    inpi_ops = [o for o in autres_ops if is_inpi(o)]
-    cci_ops = [o for o in autres_ops if is_cci(o)]
+    inpi_ops = [o for o in glow_ops if is_inpi(o)]
+    cci_ops = [o for o in glow_ops if is_cci(o)]
     inpi_cci_tot = r2(sum(amt(o) for o in inpi_ops + cci_ops))
+    inpi_cci_oct, inpi_cci_nov = by_month(inpi_ops + cci_ops)
 
-    wp_ops = oct_only([o for o in abo_ops if is_wordpress(o)])
+    wp_ops = oct_only([o for o in glow_ops if is_wordpress(o)])
     wp_tot = r2(sum(amt(o) for o in wp_ops))
-    wp_nov = r2(sum(amt(o) for o in abo_ops if is_wordpress(o) and month(o) == "2026-11"))
+    wp_nov = r2(sum(amt(o) for o in glow_ops if is_wordpress(o) and month(o) == "2026-11"))
+    fb_oct, fb_nov = by_month([o for o in glow_ops if is_facebook(o)])
+    xads_oct, xads_nov = by_month([o for o in glow_ops if is_xcorp(o)])
+    xads_m = moy_var(xads_oct, xads_nov)
+    envato_oct, envato_nov = by_month([o for o in glow_ops if is_envato(o)])
+    envato_tot = r2(envato_oct)
+    mp_oct, mp_nov = by_month([o for o in glow_ops if is_mailpoet(o)])
+    dh_oct, dh_nov = by_month([o for o in glow_ops if is_dualhook(o)])
+    # Moyenne d'octobre de la ligne Air Glow : montants d'octobre pour le courant
+    # (Facebook, X Ads, Envato), exceptionnels d'octobre lissés / 12 (WordPress, INPI + CCI).
+    # MailPoet, Dualhook et WordPress de novembre restent hors mois de référence.
+    wp_m = r2(wp_tot / 12)
+    inpi_cci_m = r2(inpi_cci_tot / 12)
+    airglow_m = r2(fb_oct + xads_m + envato_oct + wp_m + inpi_cci_m)
+    airglow_oct_caisse = r2(fb_oct + xads_oct + envato_oct + wp_tot + inpi_cci_oct)
+    airglow_nov = r2(fb_nov + xads_nov + envato_nov + wp_nov + inpi_cci_nov + mp_nov + dh_nov)
     heavy_ops = [o for o in abo_ops if is_grok_heavy(o)]
     heavy_tot = r2(sum(amt(o) for o in heavy_ops))
     grok_ap_ops = oct_only([o for o in abo_ops if is_grok_apple(o)])
@@ -429,13 +479,6 @@ def build():
         prov("tradingview", "TradingView Essential annuel", tv_an,
              f"Formule retenue pour le budget récurrent : Essential annuel 186,48 €/an, soit {tv_mois:.2f} €/mois (prélèvement le 6/12). "
              f"En octobre, le Premium mensuel de {tv_paid_oct:.2f} € a encore été prélevé ; il n'est pas reconduit."),
-        prov("wordpress", "WordPress (octobre)", wp_tot,
-             f"{wp_tot:.2f} € le 30/10. Pas un rythme mensuel clair. Note du relevé : probable activité pro Air Glow — à confirmer. "
-             f"Les paiements de novembre ({wp_nov:.2f} €) sont hors mois de référence."),
-        prov("inpi_cci", "INPI + CCI Alsace (formalités, à confirmer)", inpi_cci_tot,
-             "INPI 230,00 € le 7/10 et CCI Alsace Eurométropole 117,63 € le 17/10. "
-             "Démarches ponctuelles d'octobre, probable activité pro — toujours à confirmer. "
-             "Lissées ici pour ne pas gonfler les « Autres » mensuels. Si c'est confirmé pro, les sortir du budget perso."),
     ]
     prov_total = r2(sum(p["moyenne_eur"] for p in provisions))
 
@@ -630,7 +673,7 @@ def build():
     def is_achat_exc(o):
         return is_decathlon_nov(o) or is_amazon_exceptionnel(o) or is_salomon(o)
 
-    ach_rec = [o for o in achats_ops if not is_achat_exc(o)]
+    ach_rec = [o for o in achats_ops if not is_achat_exc(o) and not is_envato(o)]
     ac_oct, ac_nov = by_month(ach_rec)
     achats_m = moy_var(ac_oct, ac_nov)
 
@@ -638,7 +681,7 @@ def build():
     lo_oct, lo_nov = by_month(loi_rec)
     loisirs_m = moy_var(lo_oct, lo_nov)
 
-    aut_rec = [o for o in autres_ops if not is_inpi(o) and not is_cci(o)]
+    aut_rec = [o for o in autres_ops if not is_inpi(o) and not is_cci(o) and not is_xcorp(o) and not is_air_glow_frais(o)]
     au_oct, au_nov = by_month(aut_rec)
     autres_m = moy_var(au_oct, au_nov)
 
@@ -684,7 +727,7 @@ def build():
         poste("abonnements", "Abonnements récurrents", abo_recurrent,
               f"Somme des abonnements mensuels retenus, dont Grok Heavy {m_heavy:.2f} € (confirmé mensuel, conservé comme outil de pilotage "
               f"pour réduire les autres dépenses, apparu le 4/11). Voir l'encart des abonnements pour les trois formules Grok. "
-              "TradingView Essential, WordPress d'octobre et Grok (via Apple) 114,99 € d'octobre restent dans les provisions annuelles.",
+              "TradingView Essential et Grok (via Apple) 114,99 € d'octobre restent dans les provisions annuelles. WordPress est sur la ligne Air Glow.",
               octobre_eur=None, novembre_eur=None, abonnements=rec_abos),
         poste("impots_recurrents", "Impôts récurrents", 0.0,
               "Le solde IR 2025 (288 €) est en provisions. Aucun autre prélèvement d'impôt sur la période ; le PAS est déjà dans le salaire net Tesla.",
@@ -738,7 +781,7 @@ def build():
 
     disc_postes = [
         poste("achats", "Achats courants", achats_m,
-              f"Achats d'octobre hors Salomon (234,70 €, en provisions) : {ac_oct:.2f} €. "
+              f"Achats d'octobre hors Salomon (234,70 €, en provisions) et hors Envato (87,97 €, ligne Air Glow) : {ac_oct:.2f} €. "
               "Les pics de novembre (Decathlon, gros Amazon) sont hors mois de référence et n'entrent ni dans ce courant ni dans les provisions.",
               octobre_eur=ac_oct, novembre_eur=ac_nov),
         poste("loisirs", "Loisirs / restaurants courants", loisirs_m,
@@ -746,19 +789,24 @@ def build():
               octobre_eur=lo_oct, novembre_eur=lo_nov,
               restauration_courante_eur=resto_m),
         poste("autres", "Autres (courant)", autres_m,
-              f"Octobre hors INPI et CCI (provisions) : {au_oct:.2f} € (MaxiZoo, X Ads). X Ads et MaxiZoo restent à confirmer.",
+              f"Octobre hors INPI, CCI et X Ads (ligne Air Glow) : {au_oct:.2f} € (MaxiZoo). MaxiZoo reste à confirmer (animalerie, ou Courses).",
               octobre_eur=au_oct, novembre_eur=au_nov),
     ]
 
     disc_tot = r2(sum(p["moyenne_eur"] for p in disc_postes))
 
-    dep_rec = r2(fixes_tot + var_tot + disc_tot + prov_total)
-    capa_actuelle = r2(rev_moy - dep_rec)  # base prudente − dépenses d'octobre
+    dep_rec = r2(fixes_tot + var_tot + disc_tot + prov_total)  # dépenses personnelles, hors Air Glow
+    dep_rec_avec_ag = r2(dep_rec + airglow_m)
+    capa_actuelle = r2(rev_moy - dep_rec)  # capacité personnelle, hors Air Glow
+    capa_avec_ag = r2(rev_moy - dep_rec_avec_ag)
     capa_conserv = capa_actuelle
     capa_si_salaire_nov = r2(rev_si_salaire_nov - dep_rec)
+    capa_si_salaire_nov_ag = r2(rev_si_salaire_nov - dep_rec_avec_ag)
     capa_sans_ft = capa_actuelle  # la base est déjà sans France Travail
     capa_avec_ft = r2(rev_avec_ft - dep_rec)
+    capa_avec_ft_ag = r2(rev_avec_ft - dep_rec_avec_ag)
     capa_si_observe_oct = r2(rev_observe_oct - dep_rec)
+    capa_si_observe_oct_ag = r2(rev_observe_oct - dep_rec_avec_ag)
     deficitaire = capa_actuelle < 0
 
     # investissement
@@ -846,39 +894,11 @@ def build():
             "note": "Proposition : moitié du rythme observé. Le séjour est déjà sorti du courant et lissé en provisions.",
             "dans_panier_cible": True,
         },
-        {
-            "id": "pro_airglow",
-            "libelle": "Sortir du budget perso les formalités et pubs encore floues si elles sont pour Air Glow",
-            "economie_eur_mois": r2(inpi_cci_tot / 12 + 22.27 / 2),  # rough, refined below
-            "economie_usd_mois": None,
-            "source": "INPI 230 €, CCI 117,63 €, X Ads 22,27 €, Envato 87,97 €, WordPress 156,20 €.",
-            "note": "À confirmer une par une. INPI et CCI sont déjà lissés en provisions (et sortiraient complètement si c'est pro). "
-                    "X Ads et Envato sont encore dans le courant. WordPress est en provisions, noté « probable pro ».",
-            "dans_panier_cible": False,
-        },
     ]
-    # refine pro Air Glow saving if confirmed: provisions inpi/cci + wp + envato left in achats + x ads in autres
-    xads = r2(sum(amt(o) for o in aut_rec if "x corp" in lib_l(o)))
-    xads_oct, xads_nov = by_month([o for o in aut_rec if "x corp" in lib_l(o)])
-    xads_m = moy_var(xads_oct, xads_nov)
-    envato_tot = r2(sum(amt(o) for o in ach_rec if "envato" in lib_l(o)))
-    envato_m = r2(envato_tot / 2)  # one-off in period, observed monthly avg without scaling much
-    # actually envato is in oct achats recurring. If we remove it as pro one-off, courses... it's in achats_m.
-    # For the piste, if all confirmed pro: inpi_cci already in provisions (28.97) would leave personal budget,
-    # wp provision 13.02 would leave, xads_m leave autres, envato leave achats.
-    eco_pro = r2(inpi_cci_tot / 12 + (wp_tot / 12) + xads_m + r2(envato_tot * SCALE_NOV / 2 if False else envato_tot / 2))
-    # envato only in October, it's in ac_oct. Removing it would change achats_m by envato_tot/2 (not scaled, it's oct).
-    # Use: inpi_cci/12 + wp/12 + xads_m + envato contribution to achats_m
-    # envato is only oct 87.97, contribution to moy_var is 87.97/2 = 43.985
-    eco_pro = r2(inpi_cci_tot / 12 + wp_tot / 12 + xads_m + r2(envato_tot / 2))
-    for p in pistes:
-        if p["id"] == "pro_airglow":
-            p["economie_eur_mois"] = eco_pro
-            p["economie_usd_mois"] = usd(eco_pro)
-
     panier = [p for p in pistes if p.get("dans_panier_cible")]
     eco_panier = r2(sum(p["economie_eur_mois"] for p in panier))
     capa_cible = r2(capa_actuelle + eco_panier)
+    capa_cible_avec_ag = r2(capa_avec_ag + eco_panier)
     capa_cible_heavy_mensuel = r2(capa_actuelle + eco_panier)  # Heavy est hors octobre : l'annuler ne change la cible d'octobre que s'il est ajouté d'abord
     # If heavy is monthly: current recurring should add (219.99-18.33), capacity decreases, then cancelling adds 219.99
     # net vs our baseline current: -201.66 + 219.99 + panier = +18.33 + panier, i.e. capa_actuelle + panier + 18.33
@@ -897,6 +917,9 @@ def build():
     ecart_equilibre = r2(abs(min(0, capa_actuelle)))
     ecart_apres_panier = r2(abs(min(0, capa_cible)))
     objectif_reduction_autres = r2(max(0.0, ecart_equilibre - eco_panier))
+    ecart_equilibre_ag = r2(abs(min(0, capa_avec_ag)))
+    ecart_apres_panier_ag = r2(abs(min(0, capa_cible_avec_ag)))
+    objectif_reduction_autres_ag = r2(max(0.0, ecart_equilibre_ag - eco_panier))
 
     charges_fixes_reserve = r2(log_m + loa_m + cr_m + as_m + tel_retenu + abo_recurrent)  # without OVN (stoppable)
     reserve_3 = r2(charges_fixes_reserve * 3)
@@ -984,10 +1007,10 @@ def build():
         })
     # always useful extras
     extra_floues_ids = {f.get("sujet") for f in floues}
+    # Air Glow n'est plus flou : déjà regroupé sur la ligne unique.
+    _ag_flou = ("x corp", "inpi", "cci alsace", "envato", "wordpress", "facebook", "mailpoet", "dualhook")
+    floues = [f for f in floues if not any(k in (f.get("sujet") or "").lower() for k in _ag_flou)]
     extras = [
-        {"sujet": "WordPress 21,60 + 26,40 + 108,20 €", "montant_eur": wp_tot,
-         "montant_usd": usd(wp_tot), "classification": "abonnements",
-         "question": "Activité pro Air Glow ? Ponctuel ou abonnement ?"},
         {"sujet": "Apple 34,95 € et 4,99 € / mois", "montant_eur": r2(m_a3495 + m_a499),
          "montant_usd": usd(m_a3495 + m_a499), "classification": "abonnements",
          "question": "Quelles formules exactes (iCloud, Apple One, apps) ?"},
@@ -1008,15 +1031,24 @@ def build():
         "Les revenus réels d'octobre restent affichés pour comparer : salaire Tesla 4 169,59 € (22/10, réf. Salary 102026) + France Travail 876,60 € (1/10) = 5 046,19 €. Le salaire de novembre (6 315,41 € le 24/11) est différent et hors moyenne.",
         "Chaque poste de dépense retenu est le montant d'octobre, après sortie des exceptionnels d'octobre. Rien n'est ramené ni lissé avec novembre.",
         "Les dépenses exceptionnelles d'octobre sont sorties du courant et lissées sur 12 mois dans « Provisions annuelles » "
-        "(dentiste Koch du 27/10, Salomon, déco de Noël Lidl d'octobre, séjour Ramatuelle, pot de naissance, solde IR 2025, Grok via Apple d'octobre, WordPress d'octobre, INPI + CCI). "
+        "(dentiste Koch du 27/10, Salomon, déco de Noël Lidl d'octobre, séjour Ramatuelle, pot de naissance, solde IR 2025, Grok via Apple d'octobre). "
         "TradingView Essential annuel (186,48 € / 12) est aussi provisionné, à la place du Premium encore prélevé en octobre.",
         "Grok Heavy (219,99 € le 4/11 via Apple) est confirmé comme abonnement mensuel et conservé (outil de pilotage) : il reste dans les charges fixes, hors du panier de réductions. L'équilibre doit être trouvé en réduisant les autres postes. "
-        "Les autres pics de novembre (Decathlon, gros Amazon, déco de Noël, Free Mobile, second paiement Koch, WordPress de novembre, opérations en attente des 23–24/11) restent hors mois de référence : ils n'entrent ni dans le courant ni dans les provisions.",
+        "Les autres pics de novembre (Decathlon, gros Amazon, déco de Noël, Free Mobile, second paiement Koch, WordPress / MailPoet / Dualhook de novembre, opérations en attente des 23–24/11) restent hors mois de référence : ils n'entrent ni dans le courant personnel ni dans les provisions. WordPress, MailPoet et Dualhook de novembre figurent seulement en information sur la ligne Air Glow.",
         "Les frais de courtage et overnight d'octobre, relevés sur les relevés Revolut Securities (99,41 € : entrée 26,16 €, sortie 15,37 €, overnight 57,85 €, autres 0,03 €), "
         "sont une charge variable du mois de référence. Les dividendes et coupons nets d'octobre (27,99 €) sont affichés en face, sans être ajoutés à la base prudente.",
         "Les virements vers l'investissement ne sont pas des dépenses. L'épargne réalisée de référence est celle d'octobre. Le flux de novembre, très supérieur, est hors moyenne et a pu être alimenté par le crédit Revolut de 23 500 €.",
         "Le crédit Revolut n'est ni un revenu ni une dépense ; sa mensualité d'octobre (169,60 €) est une charge fixe, comme la LOA Tesla (486,32 €).",
-        "Air Glow pub (Facebook, MailPoet, Dualhook) reste hors des dépenses personnelles, comme dans le bloc Comptes.",
+        (
+            f"Tout ce qui relève d'Air Glow est regroupé sur une seule ligne « Air Glow, frais de fonctionnement », "
+            f"hors des dépenses personnelles et du panier d'économies (inchangé). Moyenne d'octobre {airglow_m:.2f} € : "
+            f"publicité Facebook {fb_oct:.2f} €, X Ads {xads_oct:.2f} € et Envato {envato_oct:.2f} € au montant d'octobre, "
+            f"plus WordPress d'octobre {wp_tot:.2f} € et INPI + CCI {inpi_cci_tot:.2f} € lissés / 12 "
+            f"({wp_m:.2f} € et {inpi_cci_m:.2f} €). Les 134,60 € de WordPress, MailPoet et Dualhook de novembre "
+            f"sont hors référence. Mollie « Thood Franc… » à Roppenheim (23 €) reste dans les achats, non identifié comme frais pro. "
+            f"La capacité personnelle (hors Air Glow) est {capa_actuelle:.2f} €/mois ; y compris Air Glow, elle est de {capa_avec_ag:.2f} €/mois. "
+            "Le futur gestionnaire de budget famille traitera le détail ; APEX n'affiche Air Glow que sur cette ligne."
+        ),
         "Tous les montants viennent des fichiers data/budget et de l'abonnement TradingView déjà suivi sur le site. Rien n'est inventé.",
     ]
 
@@ -1107,15 +1139,54 @@ def build():
         ],
         "provisions": {
             "libelle": "Provisions annuelles",
-            "note": "Dépenses exceptionnelles d'octobre, lissées sur 12 mois, pour ne pas les laisser gonfler le budget récurrent ni les oublier. Les pics de novembre ne sont pas lissés ici.",
+            "note": "Dépenses exceptionnelles d'octobre, lissées sur 12 mois, pour ne pas les laisser gonfler le budget récurrent ni les oublier. WordPress d'octobre et INPI + CCI sont sortis d'ici et figurent sur la ligne Air Glow. Les pics de novembre ne sont pas lissés ici.",
             "lignes": provisions,
             "total_moyenne_eur": prov_total,
             "total_moyenne_usd": usd(prov_total),
         },
+        "air_glow": {
+            "id": "air_glow",
+            "libelle": "Air Glow, frais de fonctionnement",
+            "note": (
+                "Ligne unique, hors dépenses personnelles. Moyenne d'octobre : montants d'octobre pour Facebook, X Ads et Envato ; "
+                "WordPress d'octobre et INPI + CCI lissés / 12. MailPoet, Dualhook et WordPress de novembre (134,60 €) sont hors référence, "
+                "indiqués pour information. Mollie « Thood Franc… » à Roppenheim (23 €) n'est pas inclus. "
+                "Le panier d'économies et les abonnements personnels restent inchangés. "
+                "Le futur gestionnaire de budget famille traitera le détail ; APEX n'affiche Air Glow que sur cette ligne."
+            ),
+            "moyenne_octobre_eur": airglow_m,
+            "moyenne_octobre_usd": usd(airglow_m),
+            "caisse_octobre_eur": airglow_oct_caisse,
+            "caisse_octobre_usd": usd(airglow_oct_caisse),
+            "novembre_info_eur": airglow_nov,
+            "novembre_info_usd": usd(airglow_nov),
+            "hors_capacite_personnelle": True,
+            "lignes": [
+                {"id": "pub_facebook", "libelle": "Publicité Facebook (octobre)", "total_periode_eur": fb_oct, "total_periode_usd": usd(fb_oct),
+                 "moyenne_eur": fb_oct, "moyenne_usd": usd(fb_oct),
+                 "detail": f"{fb_oct:.2f} € en octobre (déjà hors dépenses perso). Novembre {fb_nov:.2f} €, hors référence."},
+                {"id": "pub_xads", "libelle": "Publicité X Ads (octobre)", "total_periode_eur": xads_oct, "total_periode_usd": usd(xads_oct),
+                 "moyenne_eur": xads_m, "moyenne_usd": usd(xads_m),
+                 "detail": f"{xads_oct:.2f} € en octobre, sortis des « Autres » courants et portés au montant d'octobre."},
+                {"id": "envato", "libelle": "Envato (octobre)", "total_periode_eur": envato_oct, "total_periode_usd": usd(envato_oct),
+                 "moyenne_eur": envato_oct, "moyenne_usd": usd(envato_oct),
+                 "detail": f"{envato_oct:.2f} € le 5/10, sortis des « Achats » courants et portés au montant d'octobre."},
+                {"id": "wordpress", "libelle": "WordPress (octobre, lissé / 12)", "total_periode_eur": wp_tot, "total_periode_usd": usd(wp_tot),
+                 "moyenne_eur": wp_m, "moyenne_usd": usd(wp_m),
+                 "detail": f"{wp_tot:.2f} € le 30/10, sortis des provisions, lissés sur 12 mois ({wp_m:.2f} €). Les {wp_nov:.2f} € de novembre sont hors référence."},
+                {"id": "inpi_cci", "libelle": "INPI + CCI Alsace (octobre, lissé / 12)", "total_periode_eur": inpi_cci_tot, "total_periode_usd": usd(inpi_cci_tot),
+                 "moyenne_eur": inpi_cci_m, "moyenne_usd": usd(inpi_cci_m),
+                 "detail": f"INPI 230,00 € le 7/10 et CCI 117,63 € le 17/10, sortis des provisions, lissés sur 12 mois ({inpi_cci_m:.2f} €)."},
+            ],
+        },
         "depenses_recurrentes": {
             "moyenne_eur": dep_rec,
             "moyenne_usd": usd(dep_rec),
-            "detail": "Somme des charges fixes, variables courantes et discrétionnaires d'octobre, plus les provisions sur exceptionnels d'octobre / 12 (et TradingView Essential annuel).",
+            "detail": "Somme des charges fixes, variables courantes et discrétionnaires d'octobre, plus les provisions sur exceptionnels d'octobre / 12 (et TradingView Essential annuel). Hors ligne Air Glow, présentée à part.",
+            "hors_air_glow": True,
+            "avec_air_glow_eur": dep_rec_avec_ag,
+            "avec_air_glow_usd": usd(dep_rec_avec_ag),
+            "avec_air_glow_detail": "Dépenses personnelles récurrentes + moyenne d'octobre de la ligne Air Glow, frais de fonctionnement.",
         },
         "epargne_realisee": {
             "libelle": "Vers l'investissement (épargne réalisée, pas une dépense)",
@@ -1136,13 +1207,27 @@ def build():
             "eur": capa_actuelle,
             "usd": usd(capa_actuelle),
             "deficitaire": deficitaire,
-            "formule": "Base prudente 3 133,33 € (2 800 € net + 333,33 € de prime lissée) − dépenses récurrentes d'octobre (y compris provisions / 12).",
+            "perimetre": "personnelle_hors_air_glow",
+            "formule": "Base prudente 3 133,33 € (2 800 € net + 333,33 € de prime lissée) − dépenses personnelles récurrentes d'octobre (hors Air Glow, y compris provisions / 12).",
+            "note": (
+                f"Capacité personnelle, hors ligne Air Glow. Y compris Air Glow (moyenne d'octobre {airglow_m:.2f} €), "
+                f"la capacité est de {capa_avec_ag:.2f} €/mois."
+            ),
+            "avec_air_glow_eur": capa_avec_ag,
+            "avec_air_glow_usd": usd(capa_avec_ag),
+            "avec_air_glow_formule": f"Base prudente 3 133,33 € − (dépenses personnelles {dep_rec:.2f} € + moyenne d'octobre Air Glow {airglow_m:.2f} €).",
             "variante_avec_france_travail_eur": capa_avec_ft,
             "variante_avec_france_travail_usd": usd(capa_avec_ft),
+            "variante_avec_france_travail_avec_air_glow_eur": capa_avec_ft_ag,
+            "variante_avec_france_travail_avec_air_glow_usd": usd(capa_avec_ft_ag),
             "variante_octobre_observe_eur": capa_si_observe_oct,
             "variante_octobre_observe_usd": usd(capa_si_observe_oct),
+            "variante_octobre_observe_avec_air_glow_eur": capa_si_observe_oct_ag,
+            "variante_octobre_observe_avec_air_glow_usd": usd(capa_si_observe_oct_ag),
             "variante_salaire_novembre_eur": capa_si_salaire_nov,
             "variante_salaire_novembre_usd": usd(capa_si_salaire_nov),
+            "variante_salaire_novembre_avec_air_glow_eur": capa_si_salaire_nov_ag,
+            "variante_salaire_novembre_avec_air_glow_usd": usd(capa_si_salaire_nov_ag),
             "variante_sans_france_travail_eur": capa_sans_ft,
             "variante_sans_france_travail_usd": usd(capa_sans_ft),
         },
@@ -1159,7 +1244,11 @@ def build():
         "capacite_cible": {
             "eur": capa_cible,
             "usd": usd(capa_cible),
-            "formule": "Capacité actuelle + somme du panier de propositions.",
+            "perimetre": "personnelle_hors_air_glow",
+            "formule": "Capacité personnelle (hors Air Glow) + somme du panier de propositions (inchangé).",
+            "avec_air_glow_eur": capa_cible_avec_ag,
+            "avec_air_glow_usd": usd(capa_cible_avec_ag),
+            "avec_air_glow_formule": "Capacité y compris Air Glow + somme du panier de propositions (inchangé).",
             "variante_grok_heavy_mensuel_eur": capa_actuelle,
             "variante_grok_heavy_mensuel_cible_eur": capa_cible,
             "variante_grok_heavy_mensuel_note": "Grok Heavy (219,99 € le 4/11) est confirmé mensuel, conservé comme outil de pilotage, et reste dans les charges fixes. Il n'entre pas dans le panier : l'équilibre doit venir des autres postes.",
@@ -1168,8 +1257,15 @@ def build():
             "libelle": "Objectif de réduction sur les autres postes pour atteindre l'équilibre",
             "eur": objectif_reduction_autres,
             "usd": usd(objectif_reduction_autres),
-            "formule": "Déficit actuel − panier de propositions (Grok Heavy conservé, hors panier).",
-            "note": f"Grok Heavy reste dans les charges fixes. Pour revenir à l'équilibre, il faut encore trouver {objectif_reduction_autres:.2f} €/mois sur les autres postes, après le panier de {eco_panier:.2f} €.",
+            "perimetre": "personnelle_hors_air_glow",
+            "formule": "Déficit personnel (hors Air Glow) − panier de propositions (Grok Heavy conservé, hors panier).",
+            "note": (
+                f"Grok Heavy reste dans les charges fixes. Pour l'équilibre personnel (hors Air Glow), il faut encore trouver "
+                f"{objectif_reduction_autres:.2f} €/mois sur les autres postes, après le panier de {eco_panier:.2f} €. "
+                f"Y compris Air Glow, l'objectif serait de {objectif_reduction_autres_ag:.2f} €/mois."
+            ),
+            "avec_air_glow_eur": objectif_reduction_autres_ag,
+            "avec_air_glow_usd": usd(objectif_reduction_autres_ag),
         },
         "objectif_epargne": {
             "propose_eur": obj_souple,
@@ -1181,15 +1277,21 @@ def build():
             "objectif_reduction_autres_postes_libelle": "Objectif de réduction sur les autres postes pour atteindre l'équilibre",
             "objectif_reduction_autres_postes_formule": "Déficit actuel − panier de propositions (Grok Heavy conservé, hors panier).",
             "note": (
-                f"Sur la base prudente de 3 133,33 €, le budget d'octobre est déficitaire de {ecart_equilibre:.2f} €/mois. "
-                f"Grok Heavy est conservé (outil de pilotage) et n'entre pas dans le panier. "
-                f"L'objectif de réduction sur les autres postes pour atteindre l'équilibre est de {objectif_reduction_autres:.2f} €/mois "
-                f"(déficit actuel {ecart_equilibre:.2f} € − panier {eco_panier:.2f} €). "
-                f"Avec le bonus temporaire France Travail, la capacité passerait à {capa_avec_ft:.2f} €/mois. "
-                f"Si l'on comparait aux revenus réellement perçus en octobre (5 046,19 €), la capacité serait de {capa_si_observe_oct:.2f} €/mois — cet écart montre le poids des commissions / heures au-delà de 2 800 € net."
+                f"Sur la base prudente de 3 133,33 €, la capacité personnelle (hors Air Glow) est déficitaire de {ecart_equilibre:.2f} €/mois. "
+                f"Y compris la ligne Air Glow ({airglow_m:.2f} € en moyenne d'octobre), le déficit est de {ecart_equilibre_ag:.2f} €/mois. "
+                f"Grok Heavy est conservé (outil de pilotage) et n'entre pas dans le panier, qui reste inchangé ({eco_panier:.2f} €). "
+                f"L'objectif de réduction personnel (hors Air Glow) pour l'équilibre est de {objectif_reduction_autres:.2f} €/mois "
+                f"(déficit {ecart_equilibre:.2f} € − panier {eco_panier:.2f} €) ; y compris Air Glow, {objectif_reduction_autres_ag:.2f} €/mois. "
+                f"Avec le bonus temporaire France Travail, la capacité personnelle passerait à {capa_avec_ft:.2f} €/mois "
+                f"(y compris Air Glow : {capa_avec_ft_ag:.2f} €). "
+                f"Si l'on comparait aux revenus réellement perçus en octobre (5 046,19 €), la capacité personnelle serait de {capa_si_observe_oct:.2f} €/mois "
+                f"(y compris Air Glow : {capa_si_observe_oct_ag:.2f} €) — cet écart montre le poids des commissions / heures au-delà de 2 800 € net."
                 if deficitaire else
-                f"Objectif proposé : {obj_souple} €/mois, arrondi inférieur à 100 € de la capacité sur base prudente ({capa_actuelle:.2f} €)."
+                f"Objectif proposé : {obj_souple} €/mois, arrondi inférieur à 100 € de la capacité personnelle sur base prudente ({capa_actuelle:.2f} €)."
             ),
+            "ecart_equilibre_avec_air_glow_eur": ecart_equilibre_ag,
+            "ecart_apres_panier_avec_air_glow_eur": ecart_apres_panier_ag,
+            "objectif_reduction_autres_postes_avec_air_glow_eur": objectif_reduction_autres_ag,
             "cible_si_reductions_eur": obj_cible,
         },
         "reserve_securite": {
@@ -1208,7 +1310,7 @@ def build():
             "mois_6_eur": reserve_6, "mois_6_usd": usd(reserve_6),
             "note": f"Indicateur « mois de sécurité » : {mois_securite:.2f} mois de charges fixes ({charges_fixes_reserve:.2f} €/mois) couverts par l'épargne disponible ({epargne_dispo:.2f} € au 25/11). "
                     f"La réserve conseillée est de 3 à 6 mois, soit {reserve_3:.2f} € à {reserve_6:.2f} €. "
-                    + (f"Le budget est déficitaire de {ecart_equilibre:.2f} €/mois sur la base prudente : à ce rythme, les soldes couvriraient environ {mois_couverture_deficit:.2f} mois de déficit. " if deficitaire else "")
+                    + (f"La capacité personnelle (hors Air Glow) est déficitaire de {ecart_equilibre:.2f} €/mois sur la base prudente : à ce rythme, les soldes couvriraient environ {mois_couverture_deficit:.2f} mois de déficit personnel. Y compris Air Glow, le déficit est de {ecart_equilibre_ag:.2f} €/mois. " if deficitaire else "")
                     + "Ce n'est pas un ordre de virement. Le crédit de 23 500 € n'est pas une réserve.",
         },
         "lignes_floues": floues,
@@ -1250,8 +1352,9 @@ def main():
         for p in g["postes"]:
             print("  ", p["id"], p["moyenne_eur"])
     print("provisions", payload["provisions"]["total_moyenne_eur"])
-    print("depenses recurrentes", payload["depenses_recurrentes"]["moyenne_eur"])
-    print("capacite actuelle", payload["capacite_actuelle"]["eur"])
+    print("depenses perso", payload["depenses_recurrentes"]["moyenne_eur"], "avec AG", payload["depenses_recurrentes"]["avec_air_glow_eur"])
+    print("capacite perso", payload["capacite_actuelle"]["eur"], "avec AG", payload["capacite_actuelle"]["avec_air_glow_eur"])
+    print("air glow moy", payload["air_glow"]["moyenne_octobre_eur"])
     print("panier", payload["panier_cible"]["total_economie_eur"])
     print("capacite cible", payload["capacite_cible"]["eur"])
     print("investissement", payload["epargne_realisee"]["periode_eur"], "oct", payload["epargne_realisee"]["octobre_eur"], "nov", payload["epargne_realisee"]["novembre_eur"])
