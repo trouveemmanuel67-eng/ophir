@@ -4,7 +4,7 @@ Barème : Liquidité 45 (CoinAnk, 1 an 70 % / 1 mois 30 %) + Technique 110
 (RSI 30, MACD 30, Fibo 30, CCI/Stoch 20, sans Elliott ni Structure)
 + Fear & Greed ±50 (même grille que les actions, source alternative.me déjà
 sur les fiches). HYPE 45 : Attention Long Swing, à contre-courant.
-MM40 hebdo 0 à +125, à contre-courant (0 au-dessus, linéaire jusqu’à −15 %,
+MM40 hebdo 0 à +125, à contre-courant (0 au-dessus, linéaire jusqu’à −40 %,
 puis plafond ; total borné à 250). Sans carte de liquidité : 0 point, pas de redistribution.
 """
 from __future__ import annotations

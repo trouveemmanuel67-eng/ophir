@@ -719,7 +719,7 @@ function rgMetauxRulesShort(){
     structure: cfg.structure||'À la place du fondamental s’il est absent. Paliers de 10, plafond 90.',
     fear_greed: cfg.fear_greed||'Milieu 50 = 0. Tranche de 10 : peur 40 → +10 … 0 → +50 ; avidité 60 → −10 … 100 → −50.',
     hype: 'Comptant : 9 pts/tranche, 0 → +90 ; 10 → +81 ; 50 → +45 ; 100 → 0. ETC : HYPE 45 du métal sous-jacent (grille crypto : 0–9 → +45, −4 par tranche jusqu’à 40–49, puis 25 − 5 par tranche). Minières : pas de HYPE (fondamental 90). Attention Long Swing W48.',
-    mm40: cfg.mm40||'Comptant seulement, hors ETC et minières. Écart à la MM40 semaines (clôtures hebdomadaires, équivalent de la MM200 jours), à contre-courant : 0 point au-dessus de la MM40 ; montée linéaire de 0 à +125 entre 0 % et −15 % ; plafonné à +125 au-delà. Les points s’ajoutent au total, borné à 250.',
+    mm40: cfg.mm40||'Comptant seulement, hors ETC et minières. Écart à la MM40 semaines (clôtures hebdomadaires, équivalent de la MM200 jours), à contre-courant : 0 point au-dessus de la MM40 ; montée linéaire de 0 à +125 entre 0 % et −40 % ; plafonné à +125 au-delà. Les points s’ajoutent au total, borné à 250.',
     gi: '≥ '+rgNum(giSeuil)+' /250, hors portefeuille, même seuil que les actions. '+rgNum(mx.gi_base_note!=null?mx.gi_base_note:130)+' = '+rgNum(mx.gi_base_montant!=null?mx.gi_base_montant:500)+'\u00a0'+unite+' ; +'+rgNum(mx.gi_pas_montant!=null?mx.gi_pas_montant:100)+'\u00a0'+unite+' tous les '+rgNum(mx.gi_pas_note!=null?mx.gi_pas_note:24)+' points, jusqu’à '+rgNum(mx.gi_max_note!=null?mx.gi_max_note:250)+' = '+rgNum(mx.gi_max_montant!=null?mx.gi_max_montant:1000)+'\u00a0'+unite+'.',
     cyan: 'Note ≥ '+rgNum(cyMin)+' : AV ≥ +'+rgNum(avFort!=null?avFort:60)+' et divergence haussière hebdo ; sinon plafond '+rgNum(cyPlafond)
   };
@@ -749,7 +749,7 @@ function rgMetauxGrid(){
   ].join('');
   const note=rgMetauxChamp();
   const noteHtml=note?`<p class="rg-p rg-app">${rgEsc(note)}</p>`:'';
-  const foot=`<p class="rg-p rg-app">Technique ${rgNum(techSum)} + Fondamental ${rgNum(pts.fond)} (minières). Sans fondamental, la Structure n’est plus comptée (pas de redistribution). F&G ±${rgNum(pts.fg)}. HYPE ${rgNum(pts.hype)} au comptant ; ETC : HYPE 45 + Qualité ETC 45. MM40 hebdo 0 à +${rgNum(pts.mm40)} au comptant seulement (à contre-courant, linéaire jusqu’à −15 %, puis plafonné). Comptant 110 + 90 + 50 + 125, ETC 110 + 45 + 45 + 50, minières 110 + 90 + 50 : le total est borné à 250. Points entiers.</p>`;
+  const foot=`<p class="rg-p rg-app">Technique ${rgNum(techSum)} + Fondamental ${rgNum(pts.fond)} (minières). Sans fondamental, la Structure n’est plus comptée (pas de redistribution). F&G ±${rgNum(pts.fg)}. HYPE ${rgNum(pts.hype)} au comptant ; ETC : HYPE 45 + Qualité ETC 45. MM40 hebdo 0 à +${rgNum(pts.mm40)} au comptant seulement (à contre-courant, linéaire jusqu’à −40 %, puis plafonné). Comptant 110 + 90 + 50 + 125, ETC 110 + 45 + 45 + 50, minières 110 + 90 + 50 : le total est borné à 250. Points entiers.</p>`;
   return `${noteHtml}<div class="rg-board" id="rg-table-metaux">
     <section class="rg-block" data-group="technique">
       <header class="rg-block-h">
@@ -831,7 +831,7 @@ function rgCryptoRulesShort(){
     cci: cfg.cci||'+20 si le CCI Stochastic Daveatt (ligne D) est sous 20. Maximum 20.',
     fear_greed: cfg.fear_greed||'Même grille que les actions (50 = 0, tranches de 10, cap ±50). Source : alternative.me, déjà sur les fiches.',
     hype: cfg.hype||'Toutes les cryptos APEX (BTC, ETH, SOL, MSTR). Attention Long Swing 0–100, à contre-courant : 0–9 → +45 ; 10 → +41 ; 20 → +37 ; 30 → +33 ; 40 → +29 ; 50 → +25 ; 60 → +20 ; 70 → +15 ; 80 → +10 ; 90 → +5 ; 100 → 0. Comptée depuis le 24/11 (attention W48).',
-    mm40: cfg.mm40||'Toutes les cryptos notées. Écart à la MM40 semaines (clôtures hebdomadaires, équivalent de la MM200 jours), à contre-courant : 0 point au-dessus ; linéaire de 0 à +125 entre 0 % et −15 % ; plafonné à +125 au-delà. Total borné à 250.',
+    mm40: cfg.mm40||'Toutes les cryptos notées. Écart à la MM40 semaines (clôtures hebdomadaires, équivalent de la MM200 jours), à contre-courant : 0 point au-dessus ; linéaire de 0 à +125 entre 0 % et −40 % ; plafonné à +125 au-delà. Total borné à 250.',
     gi: cfg.gi||'Dès 130/250 : 500 $, puis +100 $ tous les 24 points, jusqu’à 1 000 $ à 250.'
   };
 }
@@ -856,7 +856,7 @@ function rgCryptoGrid(){
   const entreesCards=rgCard('gi','Meilleures entrées',rgEsc(rules.gi||''), '≥ '+rgNum(giSeuil));
   const note=rgCryptoChamp();
   const noteHtml=note?`<p class="rg-p rg-app">${rgEsc(note)}</p>`:'';
-  const foot=`<p class="rg-p rg-app">Technique ${rgNum(techSum)} + Liquidité ${rgNum(pts.liquidite)} + F&G ±${rgNum(pts.fg)}. HYPE ${rgNum(pts.hype)} : comptée depuis le 24/11 (attention W48). MM40 hebdo 0 à +${rgNum(pts.mm40)}, à contre-courant (linéaire jusqu’à −15 %, puis plafonné). Total affiché borné à −50 à 250, points entiers. Sans carte CoinAnk, liquidité 0 (pas de redistribution).</p>`;
+  const foot=`<p class="rg-p rg-app">Technique ${rgNum(techSum)} + Liquidité ${rgNum(pts.liquidite)} + F&G ±${rgNum(pts.fg)}. HYPE ${rgNum(pts.hype)} : comptée depuis le 24/11 (attention W48). MM40 hebdo 0 à +${rgNum(pts.mm40)}, à contre-courant (linéaire jusqu’à −40 %, puis plafonné). Total affiché borné à −50 à 250, points entiers. Sans carte CoinAnk, liquidité 0 (pas de redistribution).</p>`;
   return `${noteHtml}<div class="rg-board" id="rg-table-crypto">
     <section class="rg-block" data-group="technique">
       <header class="rg-block-h">

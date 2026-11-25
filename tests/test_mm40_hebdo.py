@@ -33,21 +33,25 @@ def test_barème_lineaire_et_plafond():
     assert pts == 0 and det["ecart_pct"] == 15.0
     pts, det = mm40_hebdo_points(_closes(100, 100))
     assert pts == 0 and abs(det["ecart"]) < 1e-12
-    # −6 % : 125 × 6/15 = 50 pile
-    pts, det = mm40_hebdo_points(_closes(94, 100))
-    assert abs(det["ecart"] + 0.06) < 1e-9
+    # −16 % : 125 × 16/40 = 50 pile
+    pts, det = mm40_hebdo_points(_closes(84, 100))
+    assert abs(det["ecart"] + 0.16) < 1e-9
     assert pts == 50
-    # −12 % : 100 pile
-    pts, det = mm40_hebdo_points(_closes(88, 100))
-    assert abs(det["ecart"] + 0.12) < 1e-9
+    # −32 % : 100 pile
+    pts, det = mm40_hebdo_points(_closes(68, 100))
+    assert abs(det["ecart"] + 0.32) < 1e-9
     assert pts == 100
-    # −15 % : plafond 125
-    pts, det = mm40_hebdo_points(_closes(85, 100))
-    assert abs(det["ecart"] + 0.15) < 1e-9
+    # −20 % : 125 × 20/40 = 62,5 → arrondi Python (banker's) 62
+    pts, det = mm40_hebdo_points(_closes(80, 100))
+    assert abs(det["ecart"] + 0.20) < 1e-9
+    assert pts == int(round_half(62.5))
+    # −40 % : plafond 125
+    pts, det = mm40_hebdo_points(_closes(60, 100))
+    assert abs(det["ecart"] + 0.40) < 1e-9
     assert pts == 125
-    # au-delà de −15 % : toujours 125
-    pts, det = mm40_hebdo_points(_closes(70, 100))
-    assert det["ecart"] < -0.15 and pts == 125
+    # au-delà de −40 % : toujours 125
+    pts, det = mm40_hebdo_points(_closes(50, 100))
+    assert det["ecart"] < -0.40 and pts == 125
     # historique trop court
     pts, det = mm40_hebdo_points([1, 2, 3])
     assert pts is None and det["etat"] == "n.c."
@@ -56,7 +60,7 @@ def test_barème_lineaire_et_plafond():
 def test_texte_decomposition():
     assert mm40_hebdo_texte(-0.2044, 125) == "MM40 hebdo : écart −20,4 %, +125 pts"
     assert mm40_hebdo_texte(0.032, 0) == "MM40 hebdo : écart +3,2 %, 0 pts"
-    assert "MM40 hebdo" in mm40_hebdo_texte(-0.15, 125)
+    assert "MM40 hebdo" in mm40_hebdo_texte(-0.40, 125)
 
 
 def test_regles_et_page():
