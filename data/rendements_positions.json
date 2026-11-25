@@ -1,0 +1,171 @@
+{
+  "date": "2026-11-25",
+  "zone": "Europe/Paris",
+  "consulte": "2026-11-25T09:20:00+01:00",
+  "note": "Rendement de dividende ou de coupon retenu pour la colonne Rdt de l'accueil. Priorité au rendement trailing 12 mois, à défaut le forward. 0 % pour les titres sans dividende, les ETF capitalisants, les métaux au comptant et l'ether. Aucune donnée n'est inventée. Les liquidités Revolut n'ont pas de rendement documenté (colonne laissée à —).",
+  "lignes": {
+    "NFLX": {
+      "rendement_pct": 0.0,
+      "type": "sans_dividende",
+      "source": "Yahoo Finance, trailingAnnualDividendYield 0,00 % et Forward Dividend & Yield -- (0,00 %), page https://finance.yahoo.com/quote/NFLX/",
+      "date": "2026-11-25"
+    },
+    "RDDT": {
+      "rendement_pct": 0.0,
+      "type": "sans_dividende",
+      "source": "Yahoo Finance, trailingAnnualDividendYield 0,00 % et Forward Dividend & Yield -- (0,00 %), page https://finance.yahoo.com/quote/RDDT/",
+      "date": "2026-11-25"
+    },
+    "CAT": {
+      "rendement_pct": 1.15,
+      "type": "dividende_trailing_12m",
+      "forward_pct": 1.21,
+      "source": "Yahoo Finance, trailingAnnualDividendYield 1,15 % (forward 1,21 %, taux 6,52 $), page https://finance.yahoo.com/quote/CAT/",
+      "date": "2026-11-25"
+    },
+    "PPX": {
+      "rendement_pct": 0.97,
+      "type": "dividende_trailing_12m",
+      "forward_pct": 1.68,
+      "source": "Yahoo Finance (KER.PA), trailingAnnualDividendYield 0,97 % (forward 1,68 %, taux 3,00 €), page https://finance.yahoo.com/quote/KER.PA/",
+      "date": "2026-11-25"
+    },
+    "HMI": {
+      "rendement_pct": 1.04,
+      "type": "dividende_trailing_12m",
+      "forward_pct": 1.45,
+      "source": "Yahoo Finance (RMS.PA), trailingAnnualDividendYield 1,04 % (forward 1,45 %, taux 18,00 €), page https://finance.yahoo.com/quote/RMS.PA/",
+      "date": "2026-11-25"
+    },
+    "FUC": {
+      "rendement_pct": 2.4,
+      "type": "dividende_trailing_12m",
+      "forward_pct": 2.4,
+      "source": "Yahoo Finance (6954.T), trailingAnnualDividendYield 2,40 % (forward 128,30 JPY / 2,40 %), page https://finance.yahoo.com/quote/6954.T/",
+      "date": "2026-11-25"
+    },
+    "BKNG": {
+      "rendement_pct": 1.14,
+      "type": "dividende_trailing_12m",
+      "forward_pct": 1.15,
+      "source": "Yahoo Finance, trailingAnnualDividendYield 1,14 % (forward 1,15 %, taux 1,68 $), page https://finance.yahoo.com/quote/BKNG/",
+      "date": "2026-11-25"
+    },
+    "GOOGL": {
+      "rendement_pct": 0.3,
+      "type": "dividende_trailing_12m",
+      "forward_pct": 0.32,
+      "source": "Yahoo Finance, trailingAnnualDividendYield 0,30 % (forward 0,32 %, taux 0,88 $), page https://finance.yahoo.com/quote/GOOGL/",
+      "date": "2026-11-25"
+    },
+    "AVGO": {
+      "rendement_pct": 0.83,
+      "type": "dividende_trailing_12m",
+      "forward_pct": 0.86,
+      "source": "Yahoo Finance, trailingAnnualDividendYield 0,83 % (forward 0,86 %, taux 2,60 $), page https://finance.yahoo.com/quote/AVGO/",
+      "date": "2026-11-25"
+    },
+    "HWM": {
+      "rendement_pct": 0.23,
+      "type": "dividende_trailing_12m",
+      "forward_pct": 0.27,
+      "source": "Yahoo Finance, trailingAnnualDividendYield 0,23 % (forward 0,27 %, taux 0,56 $), page https://finance.yahoo.com/quote/HWM/",
+      "date": "2026-11-25"
+    },
+    "DASH": {
+      "rendement_pct": 0.0,
+      "type": "sans_dividende",
+      "source": "Yahoo Finance, trailingAnnualDividendYield 0,00 % et Forward Dividend & Yield -- (0,00 %), page https://finance.yahoo.com/quote/DASH/",
+      "date": "2026-11-25"
+    },
+    "ENPH": {
+      "rendement_pct": 0.0,
+      "type": "sans_dividende",
+      "source": "Yahoo Finance, trailingAnnualDividendYield 0,00 % et Forward Dividend & Yield -- (0,00 %), page https://finance.yahoo.com/quote/ENPH/",
+      "date": "2026-11-25"
+    },
+    "MU": {
+      "rendement_pct": 0.08,
+      "type": "dividende_trailing_12m",
+      "forward_pct": 0.1,
+      "source": "Yahoo Finance, trailingAnnualDividendYield 0,08 % (forward 0,10 %, taux 0,60 $), page https://finance.yahoo.com/quote/MU/",
+      "date": "2026-11-25"
+    },
+    "LRCX": {
+      "rendement_pct": 0.53,
+      "type": "dividende_trailing_12m",
+      "forward_pct": 0.67,
+      "source": "Yahoo Finance, trailingAnnualDividendYield 0,53 % (forward 0,67 %, taux 1,32 $), page https://finance.yahoo.com/quote/LRCX/",
+      "date": "2026-11-25"
+    },
+    "VACD": {
+      "rendement_pct": 0.0,
+      "type": "sans_dividende_ordinaire",
+      "source": "Vallourec, page officielle Actions et dividendes (https://www.vallourec.com/fr/investisseurs/informations-boursieres/actions-et-dividendes/) : l'AG du 21/05/2026 a décidé qu'il ne serait pas distribué de dividende au titre de l'exercice 2025. Un dividende intérimaire exceptionnel de 2,05 € par action, décidé par le conseil et mis en paiement le 05/08/2026, n'est pas retenu dans le rendement récurrent. Yahoo Finance (VK.PA) affiche aussi trailingAnnualDividendYield 0,00 %.",
+      "date": "2026-11-25",
+      "note": "Dividende intérimaire exceptionnel 2,05 € (paiement 05/08/2026) exclu du rendement retenu."
+    },
+    "MC": {
+      "rendement_pct": 3.29,
+      "type": "dividende_trailing_12m",
+      "forward_pct": 3.34,
+      "source": "Yahoo Finance (MC.PA), trailingAnnualDividendYield 3,29 % (forward 3,34 %, taux 13,00 €), page https://finance.yahoo.com/quote/MC.PA/",
+      "date": "2026-11-25"
+    },
+    "URNU": {
+      "rendement_pct": 0.0,
+      "type": "etf_capitalisant",
+      "source": "Global X (https://globalxetfs.eu/funds/urnu) et JustETF (https://www.justetf.com/en/etf-profile.html?isin=IE000NDWFGA5) : compartiment USD Accumulating, ISIN IE000NDWFGA5, politique de distribution accumulating (dividendes réinvestis, non versés).",
+      "date": "2026-11-25"
+    },
+    "XHYG": {
+      "rendement_pct": 5.39,
+      "type": "distribution_etf_trailing",
+      "source": "JustETF, current dividend yield 5,39 %, dividendes des 12 derniers mois 0,82 €, ISIN LU1109942653, page https://www.justetf.com/en/etf-profile.html?isin=LU1109942653 (consultée le 25/11/2026).",
+      "date": "2026-11-25"
+    },
+    "XUTL": {
+      "rendement_pct": 3.96,
+      "type": "distribution_etf_trailing",
+      "source": "JustETF, current dividend yield 3,96 %, dividendes des 12 derniers mois 1,06 €, ISIN LU2662649412, page https://www.justetf.com/en/etf-profile.html?isin=LU2662649412 (consultée le 25/11/2026).",
+      "date": "2026-11-25"
+    },
+    "XAU": {
+      "rendement_pct": 0.0,
+      "type": "metal",
+      "source": "Métal au comptant (or) : aucun dividende ni coupon.",
+      "date": "2026-11-25"
+    },
+    "XAG": {
+      "rendement_pct": 0.0,
+      "type": "metal",
+      "source": "Métal au comptant (argent) : aucun dividende ni coupon.",
+      "date": "2026-11-25"
+    },
+    "XPT": {
+      "rendement_pct": 0.0,
+      "type": "metal",
+      "source": "Métal au comptant (platine) : aucun dividende ni coupon.",
+      "date": "2026-11-25"
+    },
+    "XPD": {
+      "rendement_pct": 0.0,
+      "type": "metal",
+      "source": "Métal au comptant (palladium) : aucun dividende ni coupon.",
+      "date": "2026-11-25"
+    },
+    "MAU": {
+      "rendement_pct": 6.9,
+      "type": "dividende_trailing_12m",
+      "forward_pct": 5.88,
+      "source": "Yahoo Finance (MAU.PA), trailingAnnualDividendYield 6,90 % (forward 5,88 %, taux 0,38 €), page https://finance.yahoo.com/quote/MAU.PA/",
+      "date": "2026-11-25"
+    },
+    "ETH": {
+      "rendement_pct": 0.0,
+      "type": "crypto",
+      "source": "Ether : crypto-actif, aucun dividende.",
+      "date": "2026-11-25"
+    }
+  }
+}

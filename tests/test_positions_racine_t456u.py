@@ -1,11 +1,11 @@
-"""t456u / t510u : les JSON à la racine suivent le relevé Revolut du 24/11 à 20 h 31."""
+"""t456u / t545u : les JSON à la racine suivent le pointage Revolut du 25/11 à 08 h 15."""
 import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 FILES = ('positions.json', 'positions_revolut.json', 'positions_revolutx.json')
 STALE = {'NKE', 'STLA', 'PKX', 'BTC', 'AGNC', 'NLY', 'PDSE', 'MBG', 'PAH3'}
-NEED = {'XAU', 'XAG', 'XPT', 'XPD', 'BKNG', 'CAT', 'AVGO', 'MU', 'HWM', 'GOOGL', 'ENPH', 'LRCX'}
+NEED = {'XAU', 'XAG', 'XPT', 'XPD', 'BKNG', 'CAT', 'AVGO', 'MU', 'HWM', 'GOOGL', 'ENPH', 'LRCX', 'MC'}
 
 
 def _ticks(path):
@@ -22,7 +22,7 @@ def test_racine_identique_a_data():
         assert racine.read_bytes() == data.read_bytes(), f'{fn} racine ≠ data/'
 
 
-def test_releve_24_11_dans_le_json_fethe():
+def test_releve_25_11_dans_le_json_fethe():
     ticks = _ticks(ROOT / 'positions.json')
     stale = STALE.intersection(ticks)
     assert not stale, f'lignes obsolètes encore présentes : {sorted(stale)}'

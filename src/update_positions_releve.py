@@ -13,7 +13,8 @@ from zoneinfo import ZoneInfo
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
-RELEVE = DATA / "revolut" / "releve_courtiers_2026-11-24.json"
+RELEVE = DATA / "revolut" / "releve_courtiers_2026-11-25.json"
+YIELDS = DATA / "rendements_positions.json"
 PARIS = ZoneInfo("Europe/Paris")
 
 # Métadonnées APEX (tickers TV, onglets, dates d'achat déjà connues).
@@ -95,6 +96,11 @@ META = {
     "LRCX": {"nom": "Lam Research Corporation", "type": "equity", "tab": "actions",
              "tv_note": "NASDAQ:LRCX", "fiche_tv": "NASDAQ:LRCX", "fiche_nom": "Lam Research Corporation",
              "fiche_proxy": False, "note_tv_ok": True, "date_achat": "2026-11-24"},
+    "MC": {"nom": "LVMH", "type": "equity", "tab": "actions",
+           "tv_note": "EURONEXT:MC", "fiche_tv": "EURONEXT:MC",
+           "fiche_nom": "LVMH Moët Hennessy Louis Vuitton SE",
+           "fiche_proxy": False, "note_tv_ok": True,
+           "fiche_note": "Ouverte entre le relevé du 24/11/2026 20 h 31 et le pointage du 25/11/2026 vers 08 h 15. 2,50761088 titres, 1 000 € investis, P/L −0,16 %, prix indiqué 396,80 €."},
     "XAU": {"nom": "Or", "type": "metal", "tab": "metaux",
             "tv_note": "XAU", "fiche_tv": "XAU", "fiche_nom": "Or au comptant Revolut (XAU)",
             "fiche_proxy": False, "note_tv_ok": False,
@@ -248,7 +254,7 @@ def from_invest_line(p, fx):
     if p.get("nom") and ticker not in ("FUC", "PPX", "HMI", "URNU", "XUTL", "XHYG"):
         # garder les libellés APEX déjà soignés pour les titres déjà en base
         pass
-    if ticker in ("NFLX", "DASH", "RDDT", "VACD"):
+    if ticker in ("NFLX", "DASH", "RDDT", "VACD", "MC"):
         out["nom"] = META[ticker]["nom"]
     qty = float(p["quantite"])
     cours = float(p["prix_actuel"])
@@ -387,7 +393,7 @@ def from_cash(usd, fx):
     out["fiche_nom"] = None
     out["fiche_proxy"] = False
     out["note_tv_ok"] = False
-    out["fiche_note"] = "Liquidités du compte-titres Revolut Invest, relevé du 24/11/2026."
+    out["fiche_note"] = ("Liquidités du compte-titres Revolut Invest, non relues le 25/11/2026 à 08 h 15 ""(conservées du relevé du 24/11/2026 à 20 h 31).")
     out["quantite"] = 1
     out["prix_moyen"] = r2(usd)
     out["cours"] = r2(usd)
@@ -429,8 +435,29 @@ def infer_fx(titres):
 
 
 def cfd_stats(rows):
-    pl = sum(float(x["pl_usd"]) for x in rows)
-    return r2(pl), len(rows)
+    pls = [x.get("pl_usd") for x in (rows or [])]
+    if any(v is None or v == "" for v in pls) or not rows:
+        return None, len(rows or [])
+    return r2(sum(float(v) for v in pls)), len(rows)
+
+def apply_yields(rows):
+    """Attache le rendement de dividende/coupon sourcé, sans l'inventer."""
+    if not YIELDS.exists():
+        return
+    data = json.loads(YIELDS.read_text())
+    table = data.get("lignes") or {}
+    for p in rows:
+        rec = table.get(p.get("ticker")) or table.get(p.get("id"))
+        if not rec or rec.get("rendement_pct") is None:
+            continue
+        p["rendement_pct"] = rec["rendement_pct"]
+        p["rendement_type"] = rec.get("type")
+        p["rendement_source"] = rec.get("source")
+        p["rendement_date"] = rec.get("date") or data.get("date")
+        if rec.get("forward_pct") is not None:
+            p["rendement_forward_pct"] = rec["forward_pct"]
+        if rec.get("note"):
+            p["rendement_note"] = rec["note"]
 
 
 def totaux(rows, courtier=None):
@@ -473,7 +500,9 @@ def main():
     print("EURUSD implicite", fx)
 
     cfd_pl, cfd_n = cfd_stats(rv["cfd"]["positions"])
-    cfd_val = float(rv["cfd"]["valeur_usd"])
+    raw_cfd_val = rv["cfd"].get("valeur_usd")
+    cfd_val = float(raw_cfd_val) if raw_cfd_val not in (None, "") else None
+    cfd_names = [x.get("ticker") for x in (rv["cfd"].get("positions") or []) if x.get("ticker")]
 
     liv = []
     for p in titres:
@@ -492,6 +521,10 @@ def main():
     eth_p = rv["revolut_x"]["positions"][0]
     rx_rows = [from_eth(eth_p, fx)]
 
+    apply_yields(liv)
+    apply_yields(xtb_rows)
+    apply_yields(rx_rows)
+
     book_rows = liv + xtb_rows  # revolutx fusionné au chargement
 
     t_all = totaux(book_rows + rx_rows)
@@ -504,48 +537,44 @@ def main():
     tot_usd = t_all["valeur_usd"]
     for p in book_rows + rx_rows:
         v = p.get("valeur_usd") or 0
-        p["poids_pct"] = r2(1000 * v / tot_usd, 1) / 10 if tot_usd else None  # 1 décimale via r2? wait
         p["poids_pct"] = round(100 * v / tot_usd + 1e-9, 1) if tot_usd else None
 
-    now = datetime(2026, 11, 24, 20, 31, tzinfo=PARIS)
+    now = datetime(2026, 11, 25, 8, 15, tzinfo=PARIS)
+    eur_ticks = [p["ticker"] for p in titres if (p.get("devise_prix") or p.get("devise")) == "EUR"]
     fx_obj = {
         "paire": "EURUSD",
         "taux": fx,
         "date": "2026-11-24",
         "source": (
-            f"Taux implicite du relevé Revolut du 24/11/2026 vers 20 h 31 (Europe/Paris) : "
+            "Taux implicite du relevé Revolut du 24/11/2026 vers 20 h 31 (Europe/Paris), "
+            "conservé le 25/11/2026 à 08 h 15 faute de nouveau taux implicite Revolut : "
             f"EURUSD {str(fx).replace('.', ',')} d'après les lignes en euros "
-            f"(FUC, PPX, HMI, URNU, VACD, XHYG, XUTL)."
+            f"({', '.join(eur_ticks)})."
         ),
-        "source_court": "Relevé 24/11/2026 20:31, taux implicite",
+        "source_court": "Relevé 24/11/2026 20:31, taux implicite conservé",
         "zone": "Europe/Paris",
     }
 
-    desc = (
-        "Relevé du 24/11/2026 vers 20 h 31 (Europe/Paris). "
-        "Les ordres d'achat en cours comptent comme des positions déjà actives "
-        f"(coût total prévu). CFD exclus de Mes positions (valeur {cfd_val:,.2f} $, "
-        f"P/L latent {cfd_pl:,.2f} $). "
-        f"{cash_usd:,.2f} $ de liquidités sur le compte-titres Revolut."
-    ).replace(",", " ").replace(".", ",") if False else (
-        f"Relevé du 24/11/2026 vers 20 h 31 (Europe/Paris). "
-        f"Les ordres d'achat en cours comptent comme des positions déjà actives "
-        f"(coût total prévu). CFD exclus de Mes positions "
-        f"(valeur {cfd_val:.2f} $, P/L latent {cfd_pl:.2f} $). "
-        f"{cash_usd:.2f} $ de liquidités sur le compte-titres Revolut."
-    )
-
-    # French typography in desc
     def fr_money(n, d=2):
         s = f"{n:,.{d}f}"
         return s.replace(",", "X").replace(".", ",").replace("X", " ")
 
+    if cfd_val is not None and cfd_pl is not None:
+        cfd_txt = f"valeur {fr_money(cfd_val)} $, P/L latent {fr_money(cfd_pl)} $"
+        cfd_lib = f"CFD Revolut : valeur {fr_money(cfd_val, 0)} $, P/L latent ≈ {fr_money(cfd_pl, 0).replace('-', '−')} $"
+    else:
+        cfd_txt = f"{cfd_n} positions ({', '.join(cfd_names)}), P/L non relu"
+        cfd_lib = f"CFD Revolut : {cfd_n} positions ({', '.join(cfd_names)}), P/L non relu"
+
     desc = (
-        f"Relevé du 24/11/2026 vers 20 h 31 (Europe/Paris). "
+        f"Pointage Revolut spot du 25/11/2026 vers 08 h 15 (Europe/Paris) : "
+        f"P/L et cours d'après les notes TradingView, quantités et prix de revient "
+        f"du relevé du 24/11 à 20 h 31, LVMH ajouté. "
         f"Les ordres d'achat en cours comptent comme des positions déjà actives "
-        f"(coût total prévu). CFD exclus de Mes positions "
-        f"(valeur {fr_money(cfd_val)} $, P/L latent {fr_money(cfd_pl)} $). "
-        f"{fr_money(cash_usd)} $ de liquidités sur le compte-titres Revolut."
+        f"(coût total prévu). CFD exclus de Mes positions ({cfd_txt}). "
+        f"{fr_money(cash_usd)} $ de liquidités sur le compte-titres Revolut "
+        f"(non relues, conservées du 24/11 20 h 31). "
+        f"XTB conservé du 24/11 à 12 h 31, Revolut X du 24/11 vers 12 h 35."
     )
 
     pea_xtb = {
@@ -558,7 +587,7 @@ def main():
         "pnl_eur": r2(pea["pl"]),
         "valeur_usd": r2(float(pea["valeur"]) * fx),
         "note": (
-            f"PEA XTB #54086450 relevé le 24/11/2026 vers 12 h 31 (Europe/Paris) : "
+            f"PEA XTB #54086450 relevé le 24/11/2026 vers 12 h 31 (Europe/Paris), non relu le 25/11 : "
             f"{fr_money(float(pea['valeur']))} € (valeur de marché {fr_money(float(pea['valeur_marche']))} €, "
             f"cash {fr_money(float(pea['fonds_dispo']))} €, résultat {fr_money(float(pea['pl']))} €). "
             f"Lignes visibles seulement sur mobile, non détaillées : aucun titre inventé. "
@@ -580,7 +609,8 @@ def main():
             {"compte": "54351187", "devise": "CAD", "valeur": 0.0, "note": "aucune position (ENPH et PKX retirés)"},
         ],
         "note": (
-            "Compte réel EUR #54086450 relevé le 24/11/2026 vers 12 h 31 (xStation 5) : "
+            "Compte réel EUR #54086450 relevé le 24/11/2026 vers 12 h 31 (xStation 5), "
+            "non relu le 25/11/2026 à 08 h 15 : "
             "Maurel & Prom (81 titres) et PEA. Comptes USD et CAD à 0 : ENPH et PKX ne sont plus détenus. "
             "Deutsche Bank clôturée le 16/11/2026. Aucun ordre XTB en attente."
         ),
@@ -588,21 +618,29 @@ def main():
 
     cfd_alert = {
         "courtier": "revolut",
-        "valeur_usd": r2(cfd_val),
+        "valeur_usd": r2(cfd_val) if cfd_val is not None else None,
         "pnl_usd": cfd_pl,
         "n": cfd_n,
-        "libelle": f"CFD Revolut : valeur {fr_money(cfd_val, 0)} $, P/L latent ≈ {fr_money(cfd_pl, 0).replace('-', '−')} $",
-        "note": "Les 5 positions CFD (MSTR, XPD et SMR en long, AMD et MPC en short) restent exclues de Mes positions (règle en vigueur). Alerte compacte uniquement. Cash CFD 818,90 $ non inclus dans Mes positions.",
+        "tickers": cfd_names,
+        "libelle": cfd_lib,
+        "note": (
+            "Les 4 positions CFD (XPD et MSTR et SMR en long, COST en short) restent exclues "
+            "de Mes positions (règle en vigueur). Composition relevée le 25/11/2026 vers 08 h 15 "
+            "(marges et cours d'entrée). P/L, valeur de marché, liquidités CFD et levier non relus : "
+            "non inventés. Alerte compacte uniquement."
+        ),
     }
 
     book = {
         "releve": now.isoformat(),
-        "releve_libelle": "Revolut 24/11/2026 à 20 h 31 · XTB 24/11/2026 à 12 h 31 (Europe/Paris)",
+        "releve_libelle": "Revolut 25/11/2026 à 08 h 15 · XTB 24/11/2026 à 12 h 31 (Europe/Paris)",
         "xtb_releve_libelle": "XTB 24/11/2026 à 12 h 31 (Europe/Paris)",
         "source": (
-            "Relevés navigateur Revolut Invest / Revolut X / XTB xStation 5 du 24/11/2026 "
-            "vers 20 h 31 (Europe/Paris). CFD exclus de Mes positions. Revolut X non relu. "
-            f"{fr_money(cash_usd)} $ de liquidités sur le compte-titres (incluses)."
+            "Pointage Revolut Invest (titres et métaux) du 25/11/2026 vers 08 h 15 (Europe/Paris) : "
+            "P/L d'après les notes TradingView, quantités et prix de revient du relevé du 24/11 20 h 31, "
+            "LVMH ajouté. CFD exclus de Mes positions, P/L CFD non relu. "
+            "XTB non relu (24/11 12 h 31). Revolut X non relu (24/11 12 h 35). "
+            f"{fr_money(cash_usd)} $ de liquidités sur le compte-titres (incluses, non relues)."
         ),
         "compte": "Revolut Invest, Revolut X et XTB",
         "n_actives": sum(1 for p in book_rows if p["statut"] == "active"),
@@ -641,11 +679,12 @@ def main():
 
     rv_json = {
         "releve": now.isoformat(),
-        "releve_libelle": "Revolut 24/11/2026 à 20 h 31 (Europe/Paris)",
+        "releve_libelle": "Revolut 25/11/2026 à 08 h 15 (Europe/Paris)",
         "source": (
-            "Lecture navigateur Revolut Invest (compte-titres, matières premières, ordres) "
-            "le 24/11/2026 vers 20 h 31. CFD exclus. Revolut X non relu. "
-            f"Liquidités ({fr_money(cash_usd)} $) incluses dans Mes positions (secteur Liquidités)."
+            "Pointage Revolut Invest (compte-titres et matières premières) le 25/11/2026 vers 08 h 15 : "
+            "P/L d'après les notes TradingView, LVMH ajouté, quantités et prix de revient du 24/11 20 h 31. "
+            "CFD exclus, P/L CFD non relu. Revolut X non relu. "
+            f"Liquidités ({fr_money(cash_usd)} $) incluses dans Mes positions (secteur Liquidités), non relues."
         ),
         "compte": "Revolut Invest",
         "n_actives": sum(1 for p in liv if p["statut"] == "active"),
@@ -655,40 +694,34 @@ def main():
         "liquidites": {
             "usd": r2(cash_usd),
             "eur": r2(cash_usd / fx),
-            "source": "Revolut Invest, cash au 24/11/2026 20:31",
+            "source": "Revolut Invest, cash au 24/11/2026 20:31, non relu le 25/11 08:15",
             "inclus_dans_total": True,
         },
         "totaux": t_rev,
         "positions_json_sha256": sha,
         "cfd_alerte": cfd_alert,
         "desc": (
-            f"Relevé Revolut Invest du 24/11/2026 à 20 h 31 (Europe/Paris). "
-            f"CFD exclus. Ordres d'achat en cours inclus. "
-            f"{fr_money(cash_usd)} $ de liquidités incluses."
+            f"Pointage Revolut Invest du 25/11/2026 à 08 h 15 (Europe/Paris). "
+            f"CFD exclus (P/L non relu). Ordres d'achat en cours inclus. "
+            f"{fr_money(cash_usd)} $ de liquidités incluses (non relues)."
         ),
     }
     (DATA / "positions_revolut.json").write_text(json.dumps(rv_json, ensure_ascii=False, indent=2) + "\n")
     _mirror_site_root(DATA / "positions_revolut.json")
 
-    rx_json = {
-        "releve": now.isoformat(),
-        "releve_libelle": "Revolut X 24/11/2026 vers 12 h 35 (Europe/Paris)",
-        "source": "Lecture navigateur Revolut X le 24/11/2026 vers 12 h 35 (Europe/Paris). BTC n'est plus détenu.",
-        "compte": "Revolut X",
-        "n_actives": 1,
-        "n_en_attente": 0,
-        "positions": rx_rows,
-        "fx": fx_obj,
-        "totaux": t_rx,
-        "desc": f"Relevé Revolut X du 24/11/2026 : ETH 0,28 ({fr_money(float(eth_p['valeur_usd']))} $).",
-    }
-    # Revolut X non relevé à 20 h 31 : on ne réécrit pas positions_revolutx.json
-    # (lignes, horodatage et cours conservés du 12 h 35).
+    # Revolut X non relu le 25/11 : on conserve horodatage et cours du 24/11 12 h 35,
+    # on n'y attache que le rendement sourcé (colonne Rdt).
+    rx_path = DATA / "positions_revolutx.json"
+    if rx_path.exists():
+        rx_json = json.loads(rx_path.read_text())
+        apply_yields(rx_json.get("positions") or [])
+        rx_path.write_text(json.dumps(rx_json, ensure_ascii=False, indent=2) + "\n")
+        _mirror_site_root(rx_path)
 
     print("wrote", book_path, "n", len(book_rows), "actives", book["n_actives"], "ordres", book["n_en_attente"])
     print("tickers", [p["ticker"] + ("*" if p["statut"] == "en_attente" else "") for p in book_rows])
     print("totaux USD", t_all["valeur_usd"], "EUR", t_all["valeur_eur"], "perf", t_all["perf_debut_pct"])
-    print("cfd", cfd_val, cfd_pl, cfd_n)
+    print("cfd", cfd_val, cfd_pl, cfd_n, cfd_names)
     return 0
 
 

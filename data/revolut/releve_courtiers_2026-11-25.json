@@ -1,0 +1,474 @@
+{
+  "date": "2026-11-25",
+  "xtb": {
+    "valeur_totale": {
+      "montant": 591.91,
+      "devise": "USD",
+      "note": "EUR 540.66 affiché après sélection du compte EUR"
+    },
+    "carte_xtb": {
+      "montant": 2.05,
+      "devise": "USD"
+    },
+    "comptes": [
+      {
+        "id": "54086450",
+        "devise": "EUR",
+        "solde": 538.78,
+        "gain": -11.22,
+        "fonds_disponibles": 5.93,
+        "positions": [
+          {
+            "nom": "Etablissements Maurel et Prom",
+            "type": "Action",
+            "volume": 81,
+            "prix_ouverture": 6.47,
+            "prix_actuel": 6.45,
+            "valeur": 522.45,
+            "pl": -1.62,
+            "pl_pct": -0.31,
+            "devise": "EUR"
+          }
+        ],
+        "ordres": [],
+        "resume_accueil": {
+          "mes_transactions": {
+            "valeur": 528.38,
+            "pl": -1.62,
+            "instrument_pl_pct": -0.31
+          },
+          "PEA": {
+            "valeur": 10.4,
+            "pl": -9.6,
+            "instrument_pl_pct": -50.1
+          }
+        },
+        "note": "Positions relues 24/11 12:31. Aucun ordre en attente. PEA (10.40 EUR, perte -9.60, valeur marché 9.57, dispo 0.83) non détaillé : gestion PEA mobile uniquement. Historique 25/10-24/11: Deutsche Bank x17 ouvert 23/10 à 28.035, clôturé 16/11 à 33.315 (fermée).",
+        "historique": [
+          {
+            "nom": "Deutsche Bank",
+            "volume": 17,
+            "ouverture": "2026-10-23",
+            "prix_ouverture": 28.035,
+            "cloture": "2026-11-16",
+            "prix_cloture": 33.315
+          }
+        ],
+        "pea": {
+          "valeur": 10.4,
+          "pl": -9.6,
+          "valeur_marche": 9.57,
+          "fonds_dispo": 0.83,
+          "devise": "EUR",
+          "positions": "non lisible (app mobile)"
+        }
+      },
+      {
+        "id": "54128907",
+        "devise": "USD",
+        "solde": 0.01,
+        "gain": 0.0,
+        "fonds_disponibles": 0.01,
+        "positions": [],
+        "ordres": [],
+        "note": "Soldes confirmés dans le sélecteur de comptes; aucune position lue (non ouverts un par un)"
+      },
+      {
+        "id": "54351185",
+        "devise": "USD",
+        "solde": 0.0,
+        "gain": 0.0,
+        "fonds_disponibles": 0.0,
+        "positions": [],
+        "ordres": [],
+        "note": "Soldes confirmés dans le sélecteur de comptes; aucune position lue (non ouverts un par un)"
+      },
+      {
+        "id": "54351187",
+        "devise": "CAD",
+        "solde": 0.0,
+        "gain": 0.0,
+        "fonds_disponibles": 0.0,
+        "positions": [],
+        "ordres": [],
+        "note": "Soldes confirmés dans le sélecteur de comptes; aucune position lue (non ouverts un par un)"
+      }
+    ],
+    "note_maj": "Non relu le 25/11/2026 à 08 h 15 ; conservé du relevé du 24/11/2026 vers 12 h 31 (Europe/Paris)."
+  },
+  "revolut": {
+    "statut": "maj P/L notes TV 25/11 ~08:15 ; XTB / Revolut X / cash non relus",
+    "total_invest_usd": 14589.5,
+    "total_invest_affiche_usd": null,
+    "comptes": {
+      "compte_titres": {
+        "valeur_usd": 12515.39,
+        "liquidites_usd": 5.5,
+        "disponible_pour_investir_usd": 5.5,
+        "positions": [
+          {
+            "nom": "Netflix",
+            "ticker": "NFLX",
+            "quantite": 18.25354269,
+            "prix_moyen": 58.33,
+            "prix_actuel": 58.76722224380433,
+            "devise_prix": "USD",
+            "valeur_usd": 1072.71,
+            "pl_usd": 7.99,
+            "pl_pct": 0.75,
+            "type": "Action"
+          },
+          {
+            "nom": "Reddit",
+            "ticker": "RDDT",
+            "quantite": 11.9341,
+            "prix_moyen": 89.16,
+            "prix_actuel": 89.97075606874418,
+            "devise_prix": "USD",
+            "valeur_usd": 1073.72,
+            "pl_usd": 9.68,
+            "pl_pct": 0.91,
+            "type": "Action"
+          },
+          {
+            "nom": "Caterpillar Inc.",
+            "ticker": "CAT",
+            "quantite": 1.3852,
+            "prix_moyen": 539.98,
+            "prix_actuel": 544.8021946289344,
+            "devise_prix": "USD",
+            "valeur_usd": 754.66,
+            "pl_usd": 6.66,
+            "pl_pct": 0.89,
+            "type": "Action"
+          },
+          {
+            "nom": "Kering S.A.",
+            "ticker": "PPX",
+            "quantite": 3.81716432,
+            "prix_moyen": 177.25,
+            "prix_actuel": 180.65242734952528,
+            "devise_prix": "EUR",
+            "valeur_usd": 754.55,
+            "pl_usd": 14.21,
+            "pl_pct": 1.92,
+            "type": "Action",
+            "valeur_eur": 689.58
+          },
+          {
+            "nom": "Fanuc Ltd.",
+            "ticker": "FUC",
+            "quantite": 22.59053425,
+            "prix_moyen": 30.07,
+            "prix_actuel": 29.140966420482062,
+            "devise_prix": "EUR",
+            "valeur_usd": 720.33,
+            "pl_usd": -22.97,
+            "pl_pct": -3.09,
+            "type": "Action",
+            "valeur_eur": 658.31
+          },
+          {
+            "nom": "Hermes International S.A.",
+            "ticker": "HMI",
+            "quantite": 0.53251224,
+            "prix_moyen": 1272.48,
+            "prix_actuel": 1250.4876883205538,
+            "devise_prix": "EUR",
+            "valeur_usd": 728.64,
+            "pl_usd": -12.82,
+            "pl_pct": -1.73,
+            "type": "Action",
+            "valeur_eur": 665.9
+          },
+          {
+            "nom": "Global X Uranium UCITS ETF USD (Acc)",
+            "ticker": "URNU",
+            "quantite": 43.39691628,
+            "prix_moyen": 15.68,
+            "prix_actuel": 14.519695269002188,
+            "devise_prix": "EUR",
+            "valeur_usd": 689.48,
+            "pl_usd": -55.09,
+            "pl_pct": -7.4,
+            "type": "ETF",
+            "valeur_eur": 630.11
+          },
+          {
+            "nom": "Booking Holdings",
+            "ticker": "BKNG",
+            "quantite": 3.9873,
+            "prix_moyen": 144.55,
+            "prix_actuel": 147.84440598901512,
+            "devise_prix": "USD",
+            "valeur_usd": 589.5,
+            "pl_usd": 13.14,
+            "pl_pct": 2.28,
+            "type": "Action"
+          },
+          {
+            "nom": "Broadcom Inc.",
+            "ticker": "AVGO",
+            "quantite": 1.8012,
+            "prix_moyen": 301.13,
+            "prix_actuel": 302.0541860981568,
+            "devise_prix": "USD",
+            "valeur_usd": 544.06,
+            "pl_usd": 1.68,
+            "pl_pct": 0.31,
+            "type": "Action"
+          },
+          {
+            "nom": "Micron Technology, Inc.",
+            "ticker": "MU",
+            "quantite": 0.8611,
+            "prix_moyen": 632.66,
+            "prix_actuel": 620.0092904424573,
+            "devise_prix": "USD",
+            "valeur_usd": 533.89,
+            "pl_usd": -10.9,
+            "pl_pct": -2.0,
+            "type": "Action"
+          },
+          {
+            "nom": "Howmet Aerospace Inc.",
+            "ticker": "HWM",
+            "quantite": 2.5927,
+            "prix_moyen": 210.13,
+            "prix_actuel": 208.01095383191267,
+            "devise_prix": "USD",
+            "valeur_usd": 539.31,
+            "pl_usd": -5.5,
+            "pl_pct": -1.01,
+            "type": "Action"
+          },
+          {
+            "nom": "Alphabet Inc.",
+            "ticker": "GOOGL",
+            "quantite": 1.9562,
+            "prix_moyen": 278.49,
+            "prix_actuel": 278.9080871076577,
+            "devise_prix": "USD",
+            "valeur_usd": 545.6,
+            "pl_usd": 0.82,
+            "pl_pct": 0.15,
+            "type": "Action"
+          },
+          {
+            "nom": "Enphase Energy",
+            "ticker": "ENPH",
+            "quantite": 26.2297,
+            "prix_moyen": 20.77,
+            "prix_actuel": 20.3605073637899,
+            "devise_prix": "USD",
+            "valeur_usd": 534.05,
+            "pl_usd": -10.73,
+            "pl_pct": -1.97,
+            "type": "Action"
+          },
+          {
+            "nom": "DoorDash Inc",
+            "ticker": "DASH",
+            "quantite": 3.35174849,
+            "prix_moyen": 161.91,
+            "prix_actuel": 159.8866984199044,
+            "devise_prix": "USD",
+            "valeur_usd": 535.9,
+            "pl_usd": -6.78,
+            "pl_pct": -1.25,
+            "type": "Action"
+          },
+          {
+            "nom": "Lam Research Corporation",
+            "ticker": "LRCX",
+            "quantite": 2.6933,
+            "prix_moyen": 202.15,
+            "prix_actuel": 194.58656666542905,
+            "devise_prix": "USD",
+            "valeur_usd": 524.08,
+            "pl_usd": -20.36,
+            "pl_pct": -3.74,
+            "type": "Action"
+          },
+          {
+            "nom": "Vallourec S.A.",
+            "ticker": "VACD",
+            "quantite": 33.04587765,
+            "prix_moyen": 15.04,
+            "prix_actuel": 14.760388728849511,
+            "devise_prix": "EUR",
+            "valeur_usd": 533.73,
+            "pl_usd": -10.11,
+            "pl_pct": -1.86,
+            "type": "Action",
+            "valeur_eur": 487.77
+          },
+          {
+            "nom": "LVMH",
+            "ticker": "MC",
+            "quantite": 2.50761088,
+            "prix_moyen": 396.8,
+            "prix_actuel": 398.14789765148885,
+            "devise_prix": "EUR",
+            "valeur_usd": 1092.47,
+            "pl_usd": -1.75,
+            "pl_pct": -0.16,
+            "valeur_eur": 998.4,
+            "type": "Action",
+            "note": "Ouverte entre le relevé du 24/11/2026 20 h 31 et le pointage du 25/11/2026 vers 08 h 15. 2,50761088 titres, 1 000 € investis, P/L −0,16 %, prix indiqué 396,80 € (qty × prix indiqué = 995,02 € ; l'écart avec 1 000 € n'est pas ventilé, frais possibles). Fiche APEX : EURONEXT:MC."
+          },
+          {
+            "nom": "Xtrackers Euro High Yield Corporate Bond Dist ETF",
+            "ticker": "XHYG",
+            "quantite": 29.71322239,
+            "prix_moyen": 15.25,
+            "prix_actuel": 15.199967007011656,
+            "devise_prix": "EUR",
+            "valeur_usd": 494.19,
+            "pl_usd": -1.64,
+            "pl_pct": -0.33,
+            "type": "ETF",
+            "valeur_eur": 451.64
+          },
+          {
+            "nom": "Xtrackers II US Treasuries 10+ UCITS ETF 1D",
+            "ticker": "XUTL",
+            "quantite": 8.51700169,
+            "prix_moyen": 26.62,
+            "prix_actuel": 26.720670992375958,
+            "devise_prix": "EUR",
+            "valeur_usd": 249.02,
+            "pl_usd": 0.94,
+            "pl_pct": 0.38,
+            "type": "ETF",
+            "valeur_eur": 227.58
+          }
+        ],
+        "ordres": [],
+        "obligations": "aucune ligne obligation directe (XHYG, XUTL = ETF obligataires)"
+      },
+      "cfd": {
+        "valeur_usd": null,
+        "liquidites_usd": null,
+        "positions": [
+          {
+            "ticker": "XPD",
+            "sens": "Buy",
+            "prix_ouverture": 841.81,
+            "marge_usd": 303,
+            "devise": "USD",
+            "note": "Long, marge 303 $. P/L et quantité non relus le 25/11 vers 08 h 15."
+          },
+          {
+            "ticker": "COST",
+            "sens": "Sell",
+            "prix_ouverture": 1091.02,
+            "marge_usd": 120,
+            "devise": "USD",
+            "note": "Short, marge 120 $. P/L et quantité non relus le 25/11 vers 08 h 15."
+          },
+          {
+            "ticker": "MSTR",
+            "sens": "Buy",
+            "prix_ouverture": 79.55,
+            "marge_usd": 764,
+            "devise": "USD",
+            "note": "Long, marge 764 $. P/L et quantité non relus le 25/11 vers 08 h 15."
+          },
+          {
+            "ticker": "SMR",
+            "sens": "Buy",
+            "prix_ouverture": 3.35,
+            "marge_usd": 251,
+            "devise": "USD",
+            "note": "Long, marge 251 $. P/L et quantité non relus le 25/11 vers 08 h 15."
+          }
+        ],
+        "note": "Composition au 25/11/2026 vers 08 h 15 d'après les notes de position (XPD long, COST short, MSTR long, SMR long : marges et cours d'entrée). P/L, valeur de marché, liquidités CFD et levier non relus : non inventés. Les 4 CFD restent exclus de Mes positions. Le détail chiffré du 24/11 20 h 31 (5 CFD, dont AMD et MPC) n'est plus à jour."
+      },
+      "matieres_premieres": {
+        "valeur_usd": 2074.11,
+        "positions": [
+          {
+            "ticker": "XPD",
+            "nom": "Palladium",
+            "quantite": 0.607692,
+            "prix_actuel": 850.7434687308703,
+            "valeur_usd": 516.99,
+            "pl_usd": -26.18,
+            "pl_pct": -4.82,
+            "devise": "USD"
+          },
+          {
+            "ticker": "XAU",
+            "nom": "Gold",
+            "quantite": 0.147866,
+            "prix_actuel": 3519.6055888439532,
+            "valeur_usd": 520.43,
+            "pl_usd": -22.53,
+            "pl_pct": -4.15,
+            "devise": "USD"
+          },
+          {
+            "ticker": "XPT",
+            "nom": "Platinum",
+            "quantite": 0.414495,
+            "prix_actuel": 1260.0393249617002,
+            "valeur_usd": 522.28,
+            "pl_usd": -20.74,
+            "pl_pct": -3.82,
+            "devise": "USD"
+          },
+          {
+            "ticker": "XAG",
+            "nom": "Silver",
+            "quantite": 12.74407,
+            "prix_actuel": 40.36465587524236,
+            "valeur_usd": 514.41,
+            "pl_usd": -28.62,
+            "pl_pct": -5.27,
+            "devise": "USD"
+          }
+        ]
+      },
+      "revolut_x": {
+        "valeur_usd": 478.31,
+        "positions": [
+          {
+            "ticker": "ETH",
+            "nom": "Ether",
+            "quantite": 0.28,
+            "prix_usd": 1685.86,
+            "valeur_usd": 478.24,
+            "pl_usd": -28.3,
+            "pl_pct": -5.59
+          }
+        ],
+        "ordres": [],
+        "note_maj": "Non relu le 25/11/2026 à 08 h 15 ; conservé du relevé du 24/11/2026 vers 12 h 35 (Europe/Paris)."
+      },
+      "compte_courant": {
+        "solde_eur": 253.31,
+        "transferts_en_attente": [
+          {
+            "libelle": "To investment account",
+            "montant_eur": -529.98,
+            "montant_usd": -577.44,
+            "statut": "Pending",
+            "date": "24/11 12:07"
+          },
+          {
+            "libelle": "Xtb",
+            "montant_eur": -530,
+            "statut": "Pending",
+            "date": "24/11 12:04"
+          }
+        ],
+        "non_relu_a": "2026-11-24T20:31:00+01:00",
+        "note": "Compte courant non relu à 20 h 31 ; soldes et virements conservés du relevé de 12 h 35. Les virements alors en attente ont probablement été exécutés (liquidités du compte-titres passées de 1 388,40 $ à 5,50 $)."
+      }
+    },
+    "note": "Mise à jour du 25/11/2026 vers 08 h 15 (Europe/Paris). P/L et cours des lignes Revolut spot (titres et métaux) recalculés à partir des notes TradingView, en conservant les quantités et les prix de revient du relevé du 24/11/2026 à 20 h 31. LVMH (EURONEXT:MC) ajouté : 2,50761088 titres, 1 000 € investis, −0,16 %, prix indiqué 396,80 €. XTB, Revolut X et liquidités du compte-titres non relus (conservés du 24/11). Taux EURUSD 1,094217 conservé du relevé du 24/11 20 h 31 (pas de nouveau taux implicite Revolut). CFD exclus de Mes positions ; composition du 25/11 08 h 15 (marges et cours d'entrée), P/L non relu donc non inventé."
+  },
+  "note_maj": "Mise à jour du 25/11/2026 vers 08 h 15 (Europe/Paris). P/L et cours des lignes Revolut spot (titres et métaux) recalculés à partir des notes TradingView, en conservant les quantités et les prix de revient du relevé du 24/11/2026 à 20 h 31. LVMH (EURONEXT:MC) ajouté : 2,50761088 titres, 1 000 € investis, −0,16 %, prix indiqué 396,80 €. XTB, Revolut X et liquidités du compte-titres non relus (conservés du 24/11). Taux EURUSD 1,094217 conservé du relevé du 24/11 20 h 31 (pas de nouveau taux implicite Revolut). CFD exclus de Mes positions ; composition du 25/11 08 h 15 (marges et cours d'entrée), P/L non relu donc non inventé."
+}

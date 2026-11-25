@@ -43,7 +43,11 @@
       "investi_usd": 506.54,
       "valeur_eur": 437.74,
       "investi_eur": 463.64,
-      "poids_pct": 3.6
+      "poids_pct": 3.6,
+      "rendement_pct": 0.0,
+      "rendement_type": "crypto",
+      "rendement_source": "Ether : crypto-actif, aucun dividende.",
+      "rendement_date": "2026-11-25"
     }
   ],
   "fx": {
