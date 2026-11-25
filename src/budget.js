@@ -123,7 +123,9 @@ function bdgOpLine(o){
   const when=bdgDateShort(o.date);
   const amt=bdgAmt(o.montant_eur,'EUR');
   const fx=o.devise_origine&&o.devise_origine.montant!=null?(' · '+bdgAmt(o.devise_origine.montant,o.devise_origine.devise==='USD'?'USD':'EUR').replace('\u00a0$',' $')):'';
-  return `<li><span class="bdg-op-d">${bdgEsc(when)}</span><span class="bdg-op-l">${bdgEsc(o.libelle||'')}</span><span class="bdg-op-m">${sens}${amt}</span></li>`;
+  const src=o.compte_libelle||'';
+  const srcHtml=src?`<span class="bdg-op-src">${bdgEsc(src)}</span>`:'';
+  return `<li><span class="bdg-op-d">${bdgEsc(when)}</span><span class="bdg-op-l">${bdgEsc(o.libelle||'')}${srcHtml}</span><span class="bdg-op-m">${sens}${amt}</span></li>`;
 }
 function bdgOpsDetails(ops, summary, extra){
   const list=(ops&&ops.length)?(`<ul class="bdg-op-list">${ops.map(bdgOpLine).join('')}</ul>`):'<p class="desc">Aucune opération.</p>';
@@ -376,8 +378,102 @@ function bdgJointHtml(b){
     <p class="bdg-src">${bdgEsc(src)}</p>
   </section>`;
 }
+function bdgComptes(b){ return (b&&b.comptes)||null; }
+function bdgComptesHtml(b){
+  const j=bdgComptes(b);
+  if(!j) return '';
+  const tot=j.totaux||{};
+  const per=(j.periode&&j.periode.libelle)||'1er octobre – 25 novembre 2026';
+  const fxVal=(j.fx&&(j.fx.taux!=null?j.fx.taux:j.fx));
+  const fx=fxVal!=null?String(fxVal).replace('.',','):(bdgFx(b)||'1,0944');
+  const cats=j.categories||[];
+  const viDet=(tot.virements_internes_detail||[]).map(d=>`${d.libelle} : ${bdgAmt(d.montant_eur,'EUR')}`).join(' · ');
+  const rows=cats.filter(c=>c.id!=='air_glow_pub').map(c=>{
+    const empty=!c.n_operations;
+    const obsU=empty&&!(c.observe_eur)? '—' : bdgAmt(c.observe_usd,'USD');
+    const obsE=empty&&!(c.observe_eur)? '—' : bdgAmt(c.observe_eur,'EUR');
+    const zeroEmpty=empty && !(Number(c.observe_eur));
+    let extra='';
+    if(c.id==='courses'){
+      extra='';
+    }
+    const sum=(c.id==='virements_internes'&&viDet)?viDet:(c.detail||(c.n_operations? (c.n_operations+' opération'+(c.n_operations>1?'s':'')) : 'Aucune opération sur la période.'));
+    const det=empty?`<div class="bdg-det">${bdgEsc(c.detail||'Aucune opération sur la période.')}</div>`:bdgOpsDetails(c.operations,sum,extra);
+    const cls=['bdg-cat'];
+    if(c.id==='courses') cls.push('bdg-cat-courses');
+    if(c.id==='virements_internes') cls.push('bdg-cat-interne');
+    if(c.id==='air_glow_pub') cls.push('bdg-cat-pro');
+    if(zeroEmpty) cls.push('is-empty');
+    const row=bdgRow({
+      id:'bdg-cat-'+c.id,
+      cls:cls,
+      poste:c.poste||c.id,
+      detailsHtml:det,
+      obsUsd:zeroEmpty?'—':obsU,
+      obsEur:zeroEmpty?'—':obsE,
+      projUsd:zeroEmpty?'—':bdgAmt(c.projection_usd,'USD'),
+      projEur:zeroEmpty?'—':bdgAmt(c.projection_eur,'EUR'),
+      objectif:'—'
+    });
+    return c.id==='courses'? (row+bdgLidlBlock(c)) : row;
+  }).join('');
+  const resteNeg=Number(tot.reste_eur)<0;
+  const depRow=bdgRow({id:'bdg-comptes-depenses',cls:['bdg-foot','bdg-tot-dep'],poste:'Total dépenses personnelles',detail:'Hors virements internes, épargne, investissement, financement et Air Glow pub (pro)',obsUsd:bdgAmt(tot.depenses_usd,'USD'),obsEur:bdgAmt(tot.depenses_eur,'EUR'),projUsd:bdgAmt(tot.depenses_usd,'USD'),projEur:bdgAmt(tot.depenses_eur,'EUR'),objectif:'—'});
+  const revDet=bdgOpsDetails(j.revenus_operations||[], tot.revenus_detail||'Revenus réels du foyer (salaire Tesla + France Travail)');
+  const revRow=bdgRow({id:'bdg-comptes-revenus',cls:['bdg-foot','bdg-tot-rev'],poste:'Total revenus',detailsHtml:revDet,obsUsd:bdgAmt(tot.revenus_usd,'USD'),obsEur:bdgAmt(tot.revenus_eur,'EUR'),projUsd:bdgAmt(tot.revenus_usd,'USD'),projEur:bdgAmt(tot.revenus_eur,'EUR'),objectif:'—'});
+  const resteRow=bdgRow({id:'bdg-comptes-reste',cls:['bdg-foot','bdg-tot-reste',resteNeg?'is-over':'is-ok'],poste:'Reste (revenus − dépenses)',detail:tot.reste_formule||'Revenus − dépenses personnelles',obsUsd:bdgAmt(tot.reste_usd,'USD'),obsEur:bdgAmt(tot.reste_eur,'EUR'),projUsd:bdgAmt(tot.reste_usd,'USD'),projEur:bdgAmt(tot.reste_eur,'EUR'),objectif:'—'});
+  const remb=j.remboursements_operations||[];
+  const rembRow=remb.length?bdgRow({id:'bdg-comptes-remb',cls:['bdg-annexe'],poste:'Remboursements (à part)',detailsHtml:bdgOpsDetails(remb, tot.remboursements_note||'Remboursements, non inclus dans les revenus'),obsUsd:bdgAmt(tot.remboursements_usd,'USD'),obsEur:bdgAmt(tot.remboursements_eur,'EUR'),projUsd:'—',projEur:'—',objectif:'—'}):'';
+  const vin=j.virements_internes_entrants||[];
+  const vinRow=bdgRow({id:'bdg-comptes-vin',cls:['bdg-annexe','bdg-cat-interne'],poste:'Virements internes entrants',detailsHtml:bdgOpsDetails(vin, 'Alimentations internes (non revenus) · '+((vin.length)||0)+' opération'+(vin.length>1?'s':'')),obsUsd:bdgAmt(tot.virements_internes_entrants_usd,'USD'),obsEur:bdgAmt(tot.virements_internes_entrants_eur,'EUR'),projUsd:'—',projEur:'—',objectif:'—'});
+  const fin=j.financement_operations||[];
+  const finRow=fin.length?bdgRow({id:'bdg-comptes-fin',cls:['bdg-annexe','bdg-cat-interne'],poste:'Emprunts / financement (à part)',detailsHtml:bdgOpsDetails(fin, tot.financement_note||'Prêt et remboursements d’emprunt, non inclus dans les revenus ni dans les dépenses de consommation'),obsUsd:bdgAmt(tot.emprunt_entrant_usd,'USD'),obsEur:bdgAmt(tot.emprunt_entrant_eur,'EUR'),projUsd:'—',projEur:'—',objectif:'—'}):'';
+  const glow=cats.find(c=>c.id==='air_glow_pub');
+  const glowRow=glow?bdgRow({id:'bdg-comptes-airglow',cls:['bdg-foot','bdg-annexe','bdg-cat-pro'],poste:'Sous-total Air Glow, pub (pro)',detailsHtml:bdgOpsDetails(glow.operations||[], glow.detail||(tot.air_glow_pub_note||'Publicité Air Glow, exclue des dépenses personnelles')),obsUsd:bdgAmt(tot.air_glow_pub_usd!=null?tot.air_glow_pub_usd:glow.observe_usd,'USD'),obsEur:bdgAmt(tot.air_glow_pub_eur!=null?tot.air_glow_pub_eur:glow.observe_eur,'EUR'),projUsd:bdgAmt(glow.projection_usd,'USD'),projEur:bdgAmt(glow.projection_eur,'EUR'),objectif:'—' }):'';
+  const tvFlag=j.tradingview_sur_le_releve||{};
+  const tvNote=tvFlag.present_sur_le_releve?(tvFlag.note||'Un prélèvement TradingView figure sur le relevé ; non recopié en seconde ligne d’abonnement.'):'';
+  const srcBits=[];
+  const s=j.source||{};
+  if(s.intitule) srcBits.push(s.intitule);
+  if(s.periode_releve&&s.periode_releve.libelle) srcBits.push('période '+s.periode_releve.libelle);
+  if(s.genere_le_libelle) srcBits.push('généré le '+s.genere_le_libelle);
+  srcBits.push('change '+fx);
+  const src='Source : '+srcBits.join(' · ')+'.';
+  const cptes=(j.comptes||[]).map(x=>x.libelle+(x.titulaires?(' ('+x.titulaires+')'):'')).join(' · ');
+  const oct=tot.octobre||{}, nov=tot.novembre_1_25||{};
+  const moisNote=(oct.depenses_eur!=null)?(`Octobre : dépenses ${bdgAmt(oct.depenses_eur,'EUR')} / revenus ${bdgAmt(oct.revenus_eur,'EUR')} / reste ${bdgAmt(oct.reste_eur,'EUR')}. 1–25 novembre : dépenses ${bdgAmt(nov.depenses_eur,'EUR')} / revenus ${bdgAmt(nov.revenus_eur,'EUR')} / reste ${bdgAmt(nov.reste_eur,'EUR')}.`):'';
+  return `<section class="card home-hero bdg-hero" id="bdg-comptes">
+    <div class="home-hero-top">
+      <h2>${bdgEsc(j.titre||'Comptes')}</h2>
+      <p class="desc">${bdgEsc(per+(cptes?(' · '+cptes):''))}</p>
+    </div>
+    <div class="home-strip bdg-kvs">
+      <div class="home-kv"><span class="l">Dépenses perso</span><b>${bdgAmt(tot.depenses_eur,'EUR')}</b><small>${bdgAmt(tot.depenses_usd,'USD')}</small></div>
+      <div class="home-kv"><span class="l">Revenus</span><b>${bdgAmt(tot.revenus_eur,'EUR')}</b><small>${bdgAmt(tot.revenus_usd,'USD')}</small></div>
+      <div class="home-kv ${resteNeg?'is-down':''}"><span class="l">Reste</span><b class="${resteNeg?'down':'up'}">${bdgAmt(tot.reste_eur,'EUR')}</b><small class="${resteNeg?'down':'up'}">${bdgAmt(tot.reste_usd,'USD')}</small></div>
+      <div class="home-kv"><span class="l">Salaire Tesla</span><b>${bdgAmt(tot.salaire_eur,'EUR')}</b><small>${bdgAmt(tot.salaire_usd,'USD')}</small></div>
+      <div class="home-kv bdg-kv-pro"><span class="l">Air Glow pub (pro)</span><b>${bdgAmt(tot.air_glow_pub_eur,'EUR')}</b><small>${bdgAmt(tot.air_glow_pub_usd,'USD')}</small></div>
+    </div>
+    <div class="home-table-scroll">
+      <div class="home-table bdg-table" id="bdg-table-comptes">
+        ${bdgHead()}
+        ${rows}
+        ${depRow}
+        ${revRow}
+        ${resteRow}
+        ${rembRow}
+        ${vinRow}
+        ${finRow}
+        ${glowRow}
+      </div>
+    </div>
+    ${tvNote?`<p class="bdg-src bdg-tv-flag">${bdgEsc(tvNote)}</p>`:''}
+    <p class="bdg-src">${bdgEsc(src)}</p>
+    ${moisNote?`<p class="bdg-src">${moisNote}</p>`:''}
+  </section>`;
+}
 function bdgTableHTML(b){
-  return bdgCourtHtml(b)+bdgJointHtml(b);
+  return bdgCourtHtml(b)+bdgComptesHtml(b);
 }
 function bdgPageHTML(){
   const b=bdgData()||{};

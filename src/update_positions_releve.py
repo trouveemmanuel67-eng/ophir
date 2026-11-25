@@ -20,6 +20,7 @@ FRAIS_TRADING = DATA / "revolut" / "frais_trading_ordres.json"
 ABO_TV = DATA / "abonnement_tradingview.json"
 COMPTE_JOINT = DATA / "budget" / "compte_joint_2026-10.json"
 LIDL_TICKETS = DATA / "budget" / "lidl_tickets_2026-10_11.json"
+COMPTES = DATA / "budget" / "comptes_2026-10_11.json"
 PARIS = ZoneInfo("Europe/Paris")
 
 # Métadonnées APEX (tickers TV, onglets, dates d'achat déjà connues).
@@ -882,11 +883,81 @@ def build_compte_joint(fx):
     }
 
 
+
+def build_comptes(fx):
+    """Bloc fusionné « Comptes » (joint + perso), sourcé (data/budget/comptes_2026-10_11.json)."""
+    if not COMPTES.exists():
+        return None
+    raw = json.loads(COMPTES.read_text(encoding="utf-8"))
+    cats = []
+    for c in raw.get("categories") or []:
+        rec = {k: v for k, v in c.items() if k not in ("operations", "sous_categories", "commercants")}
+        rec["observe_usd"] = _cj_usd(rec.get("observe_eur"), fx)
+        rec["projection_eur"] = rec.get("observe_eur")
+        rec["projection_usd"] = rec["observe_usd"]
+        rec["operations"] = _cj_ops(c.get("operations"), fx)
+        if c.get("id") == "courses":
+            rec["commercants"] = []
+            for m in c.get("commercants") or []:
+                mm = dict(m)
+                mm["total_usd"] = _cj_usd(mm.get("total_eur"), fx)
+                rec["commercants"].append(mm)
+            rec["sous_categories"] = _attach_lidl_tickets(c.get("sous_categories") or [], fx)
+        cats.append(rec)
+    tot = dict(raw.get("totaux") or {})
+    for k in list(tot):
+        if k.endswith("_eur") and isinstance(tot.get(k), (int, float)):
+            tot[k[:-4] + "_usd"] = _cj_usd(tot.get(k), fx)
+    if isinstance(tot.get("virements_internes_detail"), list):
+        det = []
+        for d in tot["virements_internes_detail"]:
+            dd = dict(d)
+            if dd.get("montant_usd") is None:
+                dd["montant_usd"] = _cj_usd(dd.get("montant_eur"), fx)
+            det.append(dd)
+        tot["virements_internes_detail"] = det
+    soldes = dict(raw.get("soldes") or {})
+    for k in list(soldes):
+        if k.endswith("_eur") and isinstance(soldes.get(k), (int, float)):
+            soldes[k[:-4] + "_usd"] = _cj_usd(soldes.get(k), fx)
+    att = raw.get("en_attente") or {}
+    ren = raw.get("renvoyes") or {}
+    return {
+        "id": raw.get("id"),
+        "titre": raw.get("titre") or "Comptes",
+        "periode": raw.get("periode"),
+        "comptes": raw.get("comptes"),
+        "source": raw.get("source"),
+        "soldes": soldes,
+        "fx": {"taux": fx, "paire": "EURUSD"} if not isinstance(raw.get("fx"), dict) else {**raw.get("fx"), "taux": fx},
+        "categories": cats,
+        "totaux": tot,
+        "revenus_operations": _cj_ops(raw.get("revenus_operations"), fx),
+        "remboursements_operations": _cj_ops(raw.get("remboursements_operations"), fx),
+        "virements_internes_entrants": _cj_ops(raw.get("virements_internes_entrants"), fx),
+        "financement_operations": _cj_ops(raw.get("financement_operations"), fx),
+        "credits_a_confirmer": _cj_ops(raw.get("credits_a_confirmer"), fx),
+        "operations_ambigues": raw.get("operations_ambigues") or [],
+        "tradingview_sur_le_releve": raw.get("tradingview_sur_le_releve"),
+        "regles": raw.get("regles"),
+        "en_attente": {
+            "note": att.get("note"),
+            "n": att.get("n") if att.get("n") is not None else len(att.get("operations") or []),
+            "total_sortant_eur": att.get("total_sortant_eur"),
+        },
+        "renvoyes": {
+            "note": ren.get("note"),
+            "n": ren.get("n") if ren.get("n") is not None else len(ren.get("operations") or []),
+        },
+    }
+
+
 def build_budget(fx, now):
     """Agrège OVN, frais d'ordres, TradingView et le compte joint sourcé, sans inventer un montant manquant."""
     ovn = build_frais_cfd(fx)
     tv = build_abonnement_tv(fx)
     cj = build_compte_joint(fx)
+    comptes = build_comptes(fx)
     raw_t = json.loads(FRAIS_TRADING.read_text()) if FRAIS_TRADING.exists() else {"ordres": []}
     ym = f"{now.year:04d}-{now.month:02d}"
     mois_lib = f"{MOIS_FR[now.month]} {now.year}"
@@ -929,6 +1000,7 @@ def build_budget(fx, now):
         },
         "tradingview": tv,
         "compte_joint": cj,
+        "comptes": comptes,
         "total_observe_usd": observe_usd,
         "total_observe_eur": r2(observe_usd / fx) if fx else None,
         "projection_usd": r2((ovn.get("projection_usd") or 0) + ((tv or {}).get("projection_usd") or 0)),

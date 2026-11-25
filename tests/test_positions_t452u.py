@@ -220,13 +220,41 @@ def test_ordres_traites_comme_positions_actives_dans_le_js():
     courses = next(c for c in cj["categories"] if c["id"] == "courses")
     assert courses["observe_eur"] == 984.83
     assert courses["sous_categories"][0]["id"] == "tickets_lidl"
-    assert courses["sous_categories"][0]["statut"] == "a_venir"
+    assert courses["sous_categories"][0]["statut"] == "complet"
+    assert "mois" in courses["sous_categories"][0]
     assert cj["tradingview_sur_le_releve"]["present_sur_le_releve"] is True
     assert cj["tradingview_sur_le_releve"]["total_eur"] == 83.94
     assert "Compte joint famille" in BDG
     assert "Tickets Lidl" in BDG
     assert "bdg-courses-sous" in BDG
     assert "bdg-hero" in BDG and "bdg-hero" in CSS
+    # Bloc fusionné « Comptes » (joint + perso), sans doublon des virements
+    comptes = bud["comptes"]
+    assert comptes["titre"] == "Comptes"
+    assert comptes["periode"]["debut"] == "2026-10-01"
+    assert comptes["periode"]["fin"] == "2026-11-25"
+    assert comptes["totaux"]["salaire_eur"] == 10485.0
+    assert comptes["totaux"]["france_travail_eur"] == 1753.2
+    assert comptes["totaux"]["revenus_eur"] == 12238.68
+    assert comptes["totaux"]["depenses_eur"] == 13040.15
+    assert comptes["totaux"]["reste_eur"] == -801.47
+    assert comptes["totaux"]["air_glow_pub_eur"] == 159.92
+    assert comptes["totaux"]["n_transferts_dedoublonnes"] == 36
+    abo_c = next(c for c in comptes["categories"] if c["id"] == "abonnements")
+    assert any(o["libelle"] == "Grok (via Apple)" and o["montant_eur"] == 114.99 for o in abo_c["operations"])
+    san_c = next(c for c in comptes["categories"] if c["id"] == "sante")
+    koch_c = [o for o in san_c["operations"] if o["libelle"] == "Dentiste (Dr Koch)"]
+    assert len(koch_c) == 2
+    assert all(o.get("sous_categorie") == "dentaire" for o in koch_c)
+    deblock_c = [o for c in comptes["categories"] if c["id"]=="virements_internes" for o in c["operations"] if o["libelle"]=="Deblock"]
+    assert round(sum(o["montant_eur"] for o in deblock_c), 2) == 150.0
+    courses_c = next(c for c in comptes["categories"] if c["id"] == "courses")
+    assert courses_c["sous_categories"][0]["id"] == "tickets_lidl"
+    assert courses_c["sous_categories"][0]["statut"] == "complet"
+    assert "mois" in courses_c["sous_categories"][0]
+    assert "function bdgComptesHtml" in BDG
+    assert "bdg-comptes" in BDG
+    assert "bdg-op-src" in BDG and "bdg-op-src" in CSS
     assert "home-hero" in CSS
     assert (ROOT / "data" / "revolut" / "frais_trading_ordres.json").exists()
     assert "19/11/2026 à 21 h" not in JS
