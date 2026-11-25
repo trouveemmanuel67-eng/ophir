@@ -9,6 +9,49 @@ function irData(){
     return j&&j.officiel?j:null;
   }catch(e){ return null; }
 }
+
+function irCapData(){
+  try{
+    const el=document.getElementById('dataRotationCapitaux');
+    if(!el) return null;
+    const j=JSON.parse(el.textContent||'null');
+    return j&&j.affichage?j:null;
+  }catch(e){ return null; }
+}
+function irCapHead(RC){
+  if(!RC||!RC.affichage) return '';
+  const a=RC.affichage;
+  const conf=a.confiance||'';
+  const tip=irEsc(a.infobulle||'');
+  return `<div class="ir-rcap ir-conf-${irEsc(conf)}" title="${tip}">
+    <span class="ir-rcap-from">${irEsc(a.from_label)}</span>
+    <span class="ir-rcap-arrow" aria-hidden="true">→</span>
+    <span class="ir-rcap-to">${irEsc(a.to_label)}</span>
+    <span class="ir-rcap-conf">· confiance ${irEsc(conf)}</span>
+  </div>`;
+}
+function irCapBody(RC){
+  if(!RC||!RC.classes||!RC.classes.paire) return '';
+  const p=RC.classes.paire;
+  const alt=RC.classes.alternative;
+  const sec=RC.secteurs_actions_us;
+  let html=`<div class="ir-rcap-box">
+    <p class="ir-src-title">Rotation de capitaux la plus probable</p>
+    ${irCapHead(RC)}
+    ${alt?`<p class="ir-rcap-alt">Alternative : <b>${irEsc(alt.affichage)}</b>${alt.score_combine!=null?' (score combiné '+irNum(alt.score_combine,1)+')':''}.</p>`:''}
+    <p class="ir-rcap-why">${irEsc(p.pourquoi)}</p>`;
+  if(sec&&sec.ok&&sec.paire){
+    const sp=sec.paire, sa=sec.alternative;
+    html+=`<p class="ir-rcap-sec">Secteurs d’actions US : <b>${irEsc(sp.affichage)}</b> · confiance ${irEsc(sp.confiance)}.${sa?' Alternative : '+irEsc(sa.affichage)+'.':''}</p>`;
+  }
+  if(RC.flux_etf&&RC.flux_etf.disponibles===false){
+    html+=`<p class="ir-rcap-miss">${irEsc(RC.flux_etf.note)}</p>`;
+  }
+  html+=`<p class="ir-rcap-meth">${irEsc(RC.methode||'')}</p>
+    <p class="ir-maj">Mise à jour de la rotation de capitaux : ${irEsc(irUpdated(RC.updated))}.</p>
+  </div>`;
+  return html;
+}
 function irListIsOpen(){
   const c=document.getElementById('indiceRotationCard');
   return !!(c&&!c.classList.contains('pos-collapsed'));
@@ -154,13 +197,19 @@ function irRender(){
         <p class="ir-warn">${irEsc(IR.avertissement||'')}</p>
       </div>`;
   }
+  const RC=irCapData();
   const html=`<div class="card no-group" id="indiceRotationCard">
     <div class="pos-rail-h" role="button" tabindex="0" aria-expanded="false" aria-controls="irBody">
       <span class="pos-chev" aria-hidden="true">▸</span>
-      <h2>INDICE ROTATION</h2>
-      <span class="pos-head-tot ${headClass}">${irEsc(headVal)}</span>
+      <div class="ir-head-main">
+        <div class="ir-head-row">
+          <h2>INDICE ROTATION</h2>
+          <span class="pos-head-tot ${headClass}">${irEsc(headVal)}</span>
+        </div>
+        ${irCapHead(RC)}
+      </div>
     </div>
-    <div class="pos-body gi-body ir-body" id="irBody">${body}</div>
+    <div class="pos-body gi-body ir-body" id="irBody">${irCapBody(RC)}${body}</div>
   </div>`;
   const wasOpen=irListIsOpen();
   let saved=null;

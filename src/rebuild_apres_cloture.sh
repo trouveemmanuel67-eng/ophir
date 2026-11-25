@@ -18,6 +18,8 @@ for s in \
   build_apex_bars.py \
   build_indicateur.py \
   build_sentiment_secteurs.py \
+  build_rotation.py \
+  build_rotation_capitaux.py \
   build_achatvente.py \
   build_data_tabs.py \
   build_obpays.py \

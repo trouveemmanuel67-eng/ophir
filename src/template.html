@@ -678,6 +678,28 @@ body{display:flex;flex-direction:column;min-height:100vh}
 .ir-src a{color:#a9cdf5}
 .ir-maj{margin:8px 0 4px;color:#d4d0c8}
 .ir-warn{margin:0;color:#e6c27a}
+
+#indiceRotationCard .ir-head-main{flex:1;min-width:0}
+#indiceRotationCard .ir-head-row{display:flex;align-items:baseline;gap:8px}
+#indiceRotationCard .ir-head-row .pos-head-tot{margin-left:auto}
+#indiceRotationCard .pos-rail-h{align-items:flex-start}
+.ir-rcap{margin-top:3px;font-size:11px;font-weight:650;color:#d4d0c8;display:flex;align-items:center;flex-wrap:wrap;gap:4px;line-height:1.35;cursor:help}
+.ir-rcap-arrow{color:#e6c27a;font-weight:800;font-size:13px;line-height:1}
+.ir-rcap-from{color:#e88f8f}
+.ir-rcap-to{color:#7fd1a8}
+.ir-rcap-conf{color:#b5b5b5;font-weight:600}
+.ir-rcap.ir-conf-forte .ir-rcap-conf{color:#7fd1a8}
+.ir-rcap.ir-conf-moyenne .ir-rcap-conf{color:#e6c27a}
+.ir-rcap.ir-conf-faible .ir-rcap-conf{color:#b5b5b5}
+.ir-rcap-box{margin:0 0 10px;padding:8px 10px;border-radius:8px;border:1px solid rgba(230,194,122,.28);background:rgba(230,194,122,.06)}
+.ir-rcap-box .ir-src-title{margin-top:0}
+.ir-rcap-box .ir-rcap{margin-top:0;cursor:default;font-size:13px}
+.ir-rcap-alt,.ir-rcap-why,.ir-rcap-sec,.ir-rcap-miss,.ir-rcap-meth{margin:6px 0 0;font-size:11px;line-height:1.4;color:#d4d0c8}
+.ir-rcap-meth,.ir-rcap-miss{color:var(--mut,#b5b5b5)}
+@media(max-width:1099px){
+  #mes-pos:not(.is-expanded) #indiceRotationCard.pos-collapsed{border-radius:16px}
+}
+
 @media(max-width:1099px){
   #mes-pos:not(.is-expanded) #indiceRotationCard{margin-top:0}
   #mes-pos:not(.is-expanded) #indiceRotationCard.pos-collapsed{background:#141414;border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:8px 14px;box-shadow:0 4px 16px rgba(0,0,0,.35)}
@@ -1119,6 +1141,7 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
 <script type="application/json" id="dataShort">__DATA_SHORT__</script>
 <script type="application/json" id="dataEtfRef">__DATA_ETF__</script>
 <script type="application/json" id="dataRotation">__DATA_ROTATION__</script>
+<script type="application/json" id="dataRotationCapitaux">__DATA_ROTATION_CAPITAUX__</script>
 <script type="application/json" id="dataEvenements">__DATA_EVT__</script>
 <script>
 "use strict";
