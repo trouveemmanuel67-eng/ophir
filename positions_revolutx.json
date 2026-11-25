@@ -48,7 +48,7 @@
       "rendement_type": "crypto",
       "rendement_source": "Bitcoin : crypto-actif, aucun dividende.",
       "rendement_date": "2026-11-25",
-      "poids_pct": 3.4
+      "poids_pct": 2.3
     },
     {
       "id": "RX-ETH",
@@ -91,7 +91,7 @@
       "rendement_type": "crypto",
       "rendement_source": "Ether : crypto-actif, aucun dividende.",
       "rendement_date": "2026-11-25",
-      "poids_pct": 1.5
+      "poids_pct": 1.0
     }
   ],
   "fx": {

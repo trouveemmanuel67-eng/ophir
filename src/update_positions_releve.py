@@ -591,6 +591,49 @@ def from_cfd(p, fx):
     return out
 
 
+def from_tesla(plan, fx):
+    """Ligne Tesla RSU / plan d'actions : avantage potentiel, non liquide, P/L non inventé."""
+    out = rec_base("TSLA-RSU", "tesla")
+    out["id"] = "TSLA-RSU"
+    out["ticker"] = "TSLA-RSU"
+    out["nom"] = plan.get("nom") or "Tesla RSU"
+    out["type"] = "rsu"
+    out["tab"] = None
+    out["exclus_secteur"] = True
+    out["non_liquide"] = True
+    out["statut"] = "active"
+    out["fiche_tv"] = "NASDAQ:TSLA"
+    out["tv_note"] = "NASDAQ:TSLA"
+    out["fiche_nom"] = "Plan d'actions Tesla (RSU)"
+    out["note_tv_ok"] = True
+    out["rsu_badge"] = "RSU"
+    eur = float(plan.get("avantage_potentiel_eur") or 0)
+    fill_money(out, eur, None, "EUR", fx, pl=None, pnl_pct=None)
+    out["investi"] = None
+    out["investi_usd"] = None
+    out["investi_eur"] = None
+    out["investi_arrondi"] = None
+    out["pnl_valeur"] = None
+    out["pnl_pct"] = None
+    out["perf_debut_pct"] = None
+    out["perf_1an_libelle"] = "non liquide"
+    out["perf_1an_note"] = (
+        "Avantage potentiel du plan d'actions Tesla, relevé le 25/11/2026 à 03 h 51 EDT "
+        "(09 h 51 Europe/Paris). Valeur actuelle du compte 0 €. Aucun prix de revient ni P/L "
+        "n'est inventé. Inclus dans le total de Mes positions, exclu du tableau sectoriel."
+    )
+    usd = out["valeur_usd"]
+    def fr(n):
+        return f"{n:,.2f}".replace(",", "X").replace(".", ",").replace("X", " ")
+    bits = [
+        f"Tesla RSU / plan d'actions : {fr(eur)} € ({fr(usd)} $ au taux {str(fx).replace('.', ',')}). Non liquide.",
+        plan.get("note") or "",
+    ]
+    out["fiche_note"] = " ".join(b for b in bits if b).strip()
+    return out
+
+
+
 def infer_fx(titres):
     ratios = []
     for p in titres:
@@ -872,6 +915,7 @@ def main():
     patrimoine_eur = r2(liquide_eur + tesla_eur)
     patrimoine_usd = r2(liquide_usd + tesla_usd)
 
+
     t_rev = {
         "valeur_eur": r2(off_rev_usd / fx),
         "valeur_usd": off_rev_usd,
@@ -933,9 +977,11 @@ def main():
         "releve_libelle": tesla.get("releve_libelle"),
         "note": tesla.get("note"),
     }
+    tesla_row = from_tesla(tesla_plan, fx)
+    book_rows = book_rows + [tesla_row]
 
     officiels = {
-        "source": "Captures Revolut / Revolut X / XTB et plan Tesla du 25/11/2026 vers 09 h 50 (Europe/Paris) ; CFD relus vers 10 h 11–10 h 14. Tesla à 03 h 51 EDT (09 h 51 Europe/Paris).",
+        "source": "Captures Revolut / Revolut X / XTB et plan Tesla du 25/11/2026 vers 09 h 50 (Europe/Paris) ; CFD vers 10 h 11–10 h 14, short COST relu à 11 h 01. Tesla à 03 h 51 EDT (09 h 51 Europe/Paris).",
         "fx": fx,
         "revolut": t_rev,
         "revolutx": t_rx,
@@ -951,11 +997,22 @@ def main():
             f"CFD au 25/11 vers 10 h 14 : exposition {fr_money(expo_cfd)} $ incluse dans les totaux, "
             f"alors que la valeur du compte (capital) n'est que {fr_money(off_cfd_compte)} $ "
             f"(affiché {fr_money(off_cfd_affiche)} $, P&L {fr_money(off_cfd_pl).replace('-', '−')} $, −61,56 %). "
-            "COST short conservé à confirmer, hors exposition."
+            "Short COST relu à 11 h 01, inclus dans l'exposition. Tesla RSU inclus dans le total de Mes positions, pas en double compte."
         ),
     }
 
-    tot_usd = liquide_usd
+    tot_usd = patrimoine_usd
+    entete_detail = (
+        f"Total {fr_money(patrimoine_usd)} $ = courtage Revolut {fr_money(off_ct_usd)} $ + "
+        f"métaux {fr_money(off_met_usd)} $ + exposition CFD {fr_money(expo_cfd)} $ + "
+        f"Revolut X {fr_money(off_rx_usd)} $ + XTB {fr_money(off_xtb_eur)} € ({fr_money(off_xtb_usd)} $) + "
+        f"Tesla RSU {fr_money(tesla_eur)} € ({fr_money(tesla_usd)} $). "
+        "Sans double compte : le capital du compte CFD n'est pas ajouté en plus de l'exposition ; "
+        "les liquidités sont déjà dans le courtage Revolut et le compte XTB. "
+        "Le % porte sur les positions avec prix de revient connu (Tesla non liquide, P/L non calculé)."
+    )
+    officiels["entete_detail"] = entete_detail
+    officiels["total_affiche_usd"] = patrimoine_usd
     for p in book_rows + rx_rows:
         v = p.get("valeur_usd") or 0
         p["poids_pct"] = round(100 * v / tot_usd + 1e-9, 1) if tot_usd else None
@@ -977,7 +1034,7 @@ def main():
 
     cfd_note = cfd_acc.get("note") or ""
     cfd_txt = (
-        f"exposition {fr_money(expo_cfd)} $ (somme quantité × cours des 5 lignes relues), "
+        f"exposition {fr_money(expo_cfd)} $ (somme quantité × cours des 6 lignes relues, COST inclus à 11 h 01), "
         f"P&L lignes {fr_money(pl_cfd_lignes).replace('-', '−')} $, "
         f"valeur du compte {fr_money(off_cfd_compte)} $ (affiché {fr_money(off_cfd_affiche)} $, "
         f"{fr_money(off_cfd_pl).replace('-', '−')} $, −61,56 %), "
@@ -991,11 +1048,11 @@ def main():
         f"(−0,38 %) + métaux {fr_money(off_met_usd)} $ (−4,12 %) + exposition CFD {fr_money(expo_cfd)} $. "
         f"Attention : l'exposition CFD dépasse le capital du compte ({fr_money(off_cfd_compte)} $ ; {cfd_txt}). "
         f"Les CFD sont des positions normales dans Mes positions, les totaux, le tableau sectoriel et le patrimoine "
-        f"(montant = exposition, pas la marge). COST short à confirmer, hors exposition. "
+        f"(montant = exposition, pas la marge). Short COST relu à 11 h 01, inclus dans l'exposition. "
         f"Lignes titres et métaux : cours et P/L du pointage 08 h 15 (notes TradingView). "
         f"Revolut X {fr_money(off_rx_usd)} $ (−47,69 $, −2,98 %). "
         f"XTB {fr_money(off_xtb_eur)} € (fonds disponibles 5,93 €, gain −14,65 €). "
-        f"Plan Tesla : avantage potentiel {fr_money(tesla_eur)} €, compte 0 €, non liquide. "
+        f"Plan Tesla (RSU) : avantage potentiel {fr_money(tesla_eur)} € ({fr_money(tesla_usd)} $), compte 0 €, non liquide, inclus dans le total de Mes positions. "
         f"Taux EURUSD {str(fx).replace('.', ',')}."
     )
 
@@ -1072,7 +1129,7 @@ def main():
 
     book = {
         "releve": now.isoformat(),
-        "releve_libelle": "Revolut CFD 25/11/2026 à 10 h 14 · autres comptes 09 h 50 (Europe/Paris)",
+        "releve_libelle": "COST CFD 25/11/2026 à 11 h 01 · autres CFD 10 h 14 · autres comptes 09 h 50 (Europe/Paris)",
         "xtb_releve_libelle": "XTB 25/11/2026 à 09 h 50 (Europe/Paris)",
         "source": desc,
         "compte": "Revolut Invest, Revolut X, XTB et plan Tesla (non liquide)",
@@ -1081,8 +1138,9 @@ def main():
         "positions": book_rows,
         "fx": fx_obj,
         "totaux": {
-            "total_usd": liquide_usd,
-            "total_eur": liquide_eur,
+            "total_usd": patrimoine_usd,
+            "total_eur": patrimoine_eur,
+            "entete_detail": entete_detail,
             "investi_usd": r2(t_rev["investi_usd"] + t_rx["investi_usd"] + t_xtb["investi_usd"]),
             "investi_eur": r2(t_rev["investi_eur"] + t_rx["investi_eur"] + t_xtb["investi_eur"]),
             "perf_debut_pct": r2(

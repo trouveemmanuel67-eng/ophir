@@ -46,7 +46,7 @@
       "rendement_type": "sans_dividende",
       "rendement_source": "Yahoo Finance, trailingAnnualDividendYield 0,00 % et Forward Dividend & Yield -- (0,00 %), page https://finance.yahoo.com/quote/NFLX/",
       "rendement_date": "2026-11-25",
-      "poids_pct": 3.3
+      "poids_pct": 2.3
     },
     {
       "id": "RDDT",
@@ -88,7 +88,7 @@
       "rendement_type": "sans_dividende",
       "rendement_source": "Yahoo Finance, trailingAnnualDividendYield 0,00 % et Forward Dividend & Yield -- (0,00 %), page https://finance.yahoo.com/quote/RDDT/",
       "rendement_date": "2026-11-25",
-      "poids_pct": 3.3
+      "poids_pct": 2.3
     },
     {
       "id": "CAT",
@@ -133,7 +133,7 @@
       "rendement_source": "Yahoo Finance, trailingAnnualDividendYield 1,15 % (forward 1,21 %, taux 6,52 $), page https://finance.yahoo.com/quote/CAT/",
       "rendement_date": "2026-11-25",
       "rendement_forward_pct": 1.21,
-      "poids_pct": 2.3
+      "poids_pct": 1.6
     },
     {
       "id": "PPX",
@@ -178,7 +178,7 @@
       "rendement_source": "Yahoo Finance (KER.PA), trailingAnnualDividendYield 0,97 % (forward 1,68 %, taux 3,00 €), page https://finance.yahoo.com/quote/KER.PA/",
       "rendement_date": "2026-11-25",
       "rendement_forward_pct": 1.68,
-      "poids_pct": 2.3
+      "poids_pct": 1.6
     },
     {
       "id": "FUC",
@@ -223,7 +223,7 @@
       "rendement_source": "Yahoo Finance (6954.T), trailingAnnualDividendYield 2,40 % (forward 128,30 JPY / 2,40 %), page https://finance.yahoo.com/quote/6954.T/",
       "rendement_date": "2026-11-25",
       "rendement_forward_pct": 2.4,
-      "poids_pct": 2.2
+      "poids_pct": 1.6
     },
     {
       "id": "HMI",
@@ -268,7 +268,7 @@
       "rendement_source": "Yahoo Finance (RMS.PA), trailingAnnualDividendYield 1,04 % (forward 1,45 %, taux 18,00 €), page https://finance.yahoo.com/quote/RMS.PA/",
       "rendement_date": "2026-11-25",
       "rendement_forward_pct": 1.45,
-      "poids_pct": 2.3
+      "poids_pct": 1.6
     },
     {
       "id": "URNU",
@@ -312,7 +312,7 @@
       "rendement_type": "etf_capitalisant",
       "rendement_source": "Global X (https://globalxetfs.eu/funds/urnu) et JustETF (https://www.justetf.com/en/etf-profile.html?isin=IE000NDWFGA5) : compartiment USD Accumulating, ISIN IE000NDWFGA5, politique de distribution accumulating (dividendes réinvestis, non versés).",
       "rendement_date": "2026-11-25",
-      "poids_pct": 2.1
+      "poids_pct": 1.5
     },
     {
       "id": "BKNG",
@@ -357,7 +357,7 @@
       "rendement_source": "Yahoo Finance, trailingAnnualDividendYield 1,14 % (forward 1,15 %, taux 1,68 $), page https://finance.yahoo.com/quote/BKNG/",
       "rendement_date": "2026-11-25",
       "rendement_forward_pct": 1.15,
-      "poids_pct": 1.8
+      "poids_pct": 1.3
     },
     {
       "id": "AVGO",
@@ -402,7 +402,7 @@
       "rendement_source": "Yahoo Finance, trailingAnnualDividendYield 0,83 % (forward 0,86 %, taux 2,60 $), page https://finance.yahoo.com/quote/AVGO/",
       "rendement_date": "2026-11-25",
       "rendement_forward_pct": 0.86,
-      "poids_pct": 1.7
+      "poids_pct": 1.2
     },
     {
       "id": "MU",
@@ -446,7 +446,7 @@
       "rendement_source": "Yahoo Finance, trailingAnnualDividendYield 0,08 % (forward 0,10 %, taux 0,60 $), page https://finance.yahoo.com/quote/MU/",
       "rendement_date": "2026-11-25",
       "rendement_forward_pct": 0.1,
-      "poids_pct": 1.7
+      "poids_pct": 1.2
     },
     {
       "id": "HWM",
@@ -490,7 +490,7 @@
       "rendement_source": "Yahoo Finance, trailingAnnualDividendYield 0,23 % (forward 0,27 %, taux 0,56 $), page https://finance.yahoo.com/quote/HWM/",
       "rendement_date": "2026-11-25",
       "rendement_forward_pct": 0.27,
-      "poids_pct": 1.7
+      "poids_pct": 1.2
     },
     {
       "id": "GOOGL",
@@ -534,7 +534,7 @@
       "rendement_source": "Yahoo Finance, trailingAnnualDividendYield 0,30 % (forward 0,32 %, taux 0,88 $), page https://finance.yahoo.com/quote/GOOGL/",
       "rendement_date": "2026-11-25",
       "rendement_forward_pct": 0.32,
-      "poids_pct": 1.7
+      "poids_pct": 1.2
     },
     {
       "id": "ENPH",
@@ -577,7 +577,7 @@
       "rendement_type": "sans_dividende",
       "rendement_source": "Yahoo Finance, trailingAnnualDividendYield 0,00 % et Forward Dividend & Yield -- (0,00 %), page https://finance.yahoo.com/quote/ENPH/",
       "rendement_date": "2026-11-25",
-      "poids_pct": 1.7
+      "poids_pct": 1.2
     },
     {
       "id": "DASH",
@@ -619,7 +619,7 @@
       "rendement_type": "sans_dividende",
       "rendement_source": "Yahoo Finance, trailingAnnualDividendYield 0,00 % et Forward Dividend & Yield -- (0,00 %), page https://finance.yahoo.com/quote/DASH/",
       "rendement_date": "2026-11-25",
-      "poids_pct": 1.7
+      "poids_pct": 1.2
     },
     {
       "id": "LRCX",
@@ -663,7 +663,7 @@
       "rendement_source": "Yahoo Finance, trailingAnnualDividendYield 0,53 % (forward 0,67 %, taux 1,32 $), page https://finance.yahoo.com/quote/LRCX/",
       "rendement_date": "2026-11-25",
       "rendement_forward_pct": 0.67,
-      "poids_pct": 1.6
+      "poids_pct": 1.1
     },
     {
       "id": "VACD",
@@ -706,7 +706,7 @@
       "rendement_source": "Vallourec, page officielle Actions et dividendes (https://www.vallourec.com/fr/investisseurs/informations-boursieres/actions-et-dividendes/) : l'AG du 21/05/2026 a décidé qu'il ne serait pas distribué de dividende au titre de l'exercice 2025. Un dividende intérimaire exceptionnel de 2,05 € par action, décidé par le conseil et mis en paiement le 05/08/2026, n'est pas retenu dans le rendement récurrent. Yahoo Finance (VK.PA) affiche aussi trailingAnnualDividendYield 0,00 %.",
       "rendement_date": "2026-11-25",
       "rendement_note": "Dividende intérimaire exceptionnel 2,05 € (paiement 05/08/2026) exclu du rendement retenu.",
-      "poids_pct": 1.7
+      "poids_pct": 1.2
     },
     {
       "id": "MC",
@@ -749,7 +749,7 @@
       "rendement_source": "Yahoo Finance (MC.PA), trailingAnnualDividendYield 3,29 % (forward 3,34 %, taux 13,00 €), page https://finance.yahoo.com/quote/MC.PA/",
       "rendement_date": "2026-11-25",
       "rendement_forward_pct": 3.34,
-      "poids_pct": 3.4
+      "poids_pct": 2.4
     },
     {
       "id": "XHYG",
@@ -791,7 +791,7 @@
       "rendement_type": "distribution_etf_trailing",
       "rendement_source": "JustETF, current dividend yield 5,39 %, dividendes des 12 derniers mois 0,82 €, ISIN LU1109942653, page https://www.justetf.com/en/etf-profile.html?isin=LU1109942653 (consultée le 25/11/2026).",
       "rendement_date": "2026-11-25",
-      "poids_pct": 1.5
+      "poids_pct": 1.1
     },
     {
       "id": "XUTL",
@@ -833,7 +833,7 @@
       "rendement_type": "distribution_etf_trailing",
       "rendement_source": "JustETF, current dividend yield 3,96 %, dividendes des 12 derniers mois 1,06 €, ISIN LU2662649412, page https://www.justetf.com/en/etf-profile.html?isin=LU2662649412 (consultée le 25/11/2026).",
       "rendement_date": "2026-11-25",
-      "poids_pct": 0.8
+      "poids_pct": 0.5
     },
     {
       "id": "XPD",
@@ -876,7 +876,7 @@
       "rendement_type": "metal",
       "rendement_source": "Métal au comptant (palladium) : aucun dividende ni coupon.",
       "rendement_date": "2026-11-25",
-      "poids_pct": 1.6
+      "poids_pct": 1.1
     },
     {
       "id": "XAU",
@@ -919,7 +919,7 @@
       "rendement_type": "metal",
       "rendement_source": "Métal au comptant (or) : aucun dividende ni coupon.",
       "rendement_date": "2026-11-25",
-      "poids_pct": 1.6
+      "poids_pct": 1.1
     },
     {
       "id": "XPT",
@@ -962,7 +962,7 @@
       "rendement_type": "metal",
       "rendement_source": "Métal au comptant (platine) : aucun dividende ni coupon.",
       "rendement_date": "2026-11-25",
-      "poids_pct": 1.6
+      "poids_pct": 1.1
     },
     {
       "id": "XAG",
@@ -1005,7 +1005,7 @@
       "rendement_type": "metal",
       "rendement_source": "Métal au comptant (argent) : aucun dividende ni coupon.",
       "rendement_date": "2026-11-25",
-      "poids_pct": 1.6
+      "poids_pct": 1.1
     },
     {
       "id": "CASH-REV",
@@ -1089,7 +1089,7 @@
       "valeur_eur": 4667.47,
       "investi_eur": 5126.83,
       "pnl_relu": true,
-      "poids_pct": 15.8
+      "poids_pct": 11.0
     },
     {
       "id": "CFD-XPD",
@@ -1135,7 +1135,7 @@
       "valeur_eur": 5813.4,
       "investi_eur": 7679.08,
       "pnl_relu": true,
-      "poids_pct": 19.7
+      "poids_pct": 13.7
     },
     {
       "id": "CFD-SMR",
@@ -1181,7 +1181,7 @@
       "valeur_eur": 1733.98,
       "investi_eur": 2785.08,
       "pnl_relu": true,
-      "poids_pct": 5.9
+      "poids_pct": 4.1
     },
     {
       "id": "CFD-MPC",
@@ -1227,7 +1227,7 @@
       "valeur_eur": 974.45,
       "investi_eur": 747.96,
       "pnl_relu": true,
-      "poids_pct": 3.3
+      "poids_pct": 2.3
     },
     {
       "id": "CFD-AMD",
@@ -1273,7 +1273,7 @@
       "valeur_eur": 949.87,
       "investi_eur": 685.64,
       "pnl_relu": true,
-      "poids_pct": 3.2
+      "poids_pct": 2.2
     },
     {
       "id": "CFD-COST",
@@ -1286,7 +1286,7 @@
       "fiche_tv": "NASDAQ:COST",
       "fiche_nom": "Costco Wholesale Corporation",
       "fiche_proxy": false,
-      "fiche_note": "Non visible parmi les 5 lignes de la capture 10 h 11–10 h 14 (bouton « Afficher plus »). Conservé car confirmé dans les notes et le relevé du 25/11 vers 08 h 15 (short, marge 120 $, cours d'entrée 1 091,02 $) ; 0,55 titre × 1 091,02 $ = 600,06 $ d'entrée, soit ×5. Cours actuel et P&L à 10 h 14 non lus : non inventés, ligne à confirmer, exclue des totaux d'exposition.",
+      "fiche_note": "Capture du 25/11/2026 vers 11 h 01 (Europe/Paris) : short COST:CFD toujours ouvert, 0,55 titre, Vendre ×5, marge 120,62 $, cours 1 097,51 $, entrée 1 091,02 $, P&L non réalisé −3,58 $. Exposition retenue = quantité × cours = 0,55 × 1 097,51 = 603,63 $ (la capture indique aussi 603,09 $, écart 0,54 $ non ventilé, non substitué à la règle quantité × cours). Coût d'entrée 0,55 × 1 091,02 = 600,06 $ ; P&L % = −3,58 / 600,06 = −0,60 %. Les totaux du compte CFD (valeur 2 614,02 $, marge de maintenance 98 %, seuil 1 336,40 $) restent ceux de 10 h 14 : pas de nouveau total de compte à 11 h 01.",
       "tab": "actions",
       "apex_score": null,
       "apex_label": null,
@@ -1294,31 +1294,33 @@
       "drapeau_code": null,
       "courtier": "revolut",
       "perf_1an_pct": null,
-      "perf_1an_libelle": "à confirmer",
-      "perf_1an_note": "Cours actuel et/ou P&L non lus à 10 h 14 : le montant d'exposition et le P/L de cette ligne ne sont pas inventés. Ligne à confirmer (non visible sur la capture, présente dans le relevé du matin).",
+      "perf_1an_libelle": "à venir",
+      "perf_1an_note": "Le relevé ne donne pas d'historique de la ligne ; le rendement 1 an n'est pas inventé.",
       "sous_jacent": "COST",
       "sens": "short",
       "levier": 5,
       "cfd_badge": "CFD S x5",
-      "marge_usd": 120.0,
+      "marge_usd": 120.62,
       "prix_moyen": 1091.02,
-      "cours": null,
+      "cours": 1097.51,
       "valeur_affichee_usd": null,
       "quantite": 0.55,
-      "a_confirmer": true,
-      "pnl_relu": false,
-      "exposition_usd": null,
+      "a_confirmer": false,
+      "exposition_usd": 603.63,
       "devise": "USD",
-      "valeur": null,
-      "valeur_usd": null,
-      "valeur_eur": null,
-      "investi": null,
-      "investi_usd": null,
-      "investi_eur": null,
-      "pnl_valeur": null,
-      "pnl_pct": null,
-      "perf_debut_pct": null,
-      "poids_pct": 0.0
+      "valeur": 603.63,
+      "valeur_arrondie": 604,
+      "investi": 600.06,
+      "investi_arrondi": 600,
+      "pnl_valeur": -3.58,
+      "pnl_pct": -0.6,
+      "perf_debut_pct": -0.6,
+      "valeur_usd": 603.63,
+      "investi_usd": 600.06,
+      "valeur_eur": 551.56,
+      "investi_eur": 548.3,
+      "pnl_relu": true,
+      "poids_pct": 1.3
     }
   ],
   "fx": {
@@ -1336,29 +1338,29 @@
     "inclus_dans_total": true
   },
   "totaux": {
-    "valeur_eur": 27509.08,
-    "valeur_usd": 30105.94,
-    "investi_usd": 33401.08,
-    "investi_eur": 30519.99,
-    "perf_debut_pct": -9.9,
+    "valeur_eur": 28060.65,
+    "valeur_usd": 30709.57,
+    "investi_usd": 34001.14,
+    "investi_eur": 31068.29,
+    "perf_debut_pct": -9.7,
     "statut": "ok",
     "n": 30,
     "compte_courtage_usd": 12549.34,
     "compte_courtage_pct": -0.38,
     "matieres_usd": 2082.68,
     "matieres_pct": -4.12,
-    "cfd_exposition_usd": 15473.92,
-    "cfd_entree_usd": 18631.7,
+    "cfd_exposition_usd": 16077.55,
+    "cfd_entree_usd": 19231.76,
     "cfd_compte_usd": 2614.02,
     "cfd_compte_affiche_usd": 2644.26,
-    "cfd_usd": 15473.92,
+    "cfd_usd": 16077.55,
     "cfd_pct": -61.56,
     "cfd_pl_usd": -4264.65,
-    "cfd_pl_lignes_usd": -4231.88,
-    "somme_lignes_usd": 30064.29,
-    "note": "Total Revolut = courtage 12549.34 $ + métaux 2082.68 $ (captures 09 h 50) + exposition CFD 15473.92 $ (10 h 14). Le capital du compte CFD n'est que 2614.02 $ : l'exposition dépasse le capital."
+    "cfd_pl_lignes_usd": -4235.46,
+    "somme_lignes_usd": 30667.92,
+    "note": "Total Revolut = courtage 12549.34 $ + métaux 2082.68 $ (captures 09 h 50) + exposition CFD 16077.55 $ (10 h 14). Le capital du compte CFD n'est que 2614.02 $ : l'exposition dépasse le capital."
   },
-  "positions_json_sha256": "f321fdac4552e24a09d82c7f40691de4c07a6a2ae5794f5367f0c025c9893361",
+  "positions_json_sha256": "09429dadc5ab22928e286e45c67b221c311ed82c52a25445893b461fcf2ab46d",
   "cfd_alerte": {
     "courtier": "revolut",
     "inclus": true,
@@ -1367,26 +1369,25 @@
     "valeur_affichee_usd": 2644.26,
     "pnl_usd": -4264.65,
     "pnl_pct": -61.56,
-    "exposition_usd": 15473.92,
-    "pl_lignes_usd": -4231.88,
+    "exposition_usd": 16077.55,
+    "pl_lignes_usd": -4235.46,
     "marge_reservee_usd": 2672.8,
     "solde_pret_a_investir_usd": 0,
     "liquidites_usd": 0,
     "marge_maintenance_pct": 98,
     "seuil_fermeture_usd": 1336.4,
-    "n": 5,
+    "n": 6,
     "tickers": [
       "MSTR",
       "XPD",
       "SMR",
       "MPC",
-      "AMD"
-    ],
-    "a_confirmer": [
+      "AMD",
       "COST"
     ],
-    "libelle": "Alerte CFD : l'exposition 15 473,92 $ dépasse le capital du compte (2 614,02 $, affiché 2 644,26 $, P&L −4 264,65 $, −61,56 %). Marge de maintenance 98 % — fermeture forcée si la valeur passe sous 1 336,40 $. Marge réservée 2 672,80 $, solde prêt à investir 0 $, cash USD 0 $.",
-    "note": "Compte CFD relevé le 25/11/2026 vers 10 h 11–10 h 14 (Europe/Paris) : valeur 2 614 02 $ (affiché 2 644 26 $  −61 56 %)  P&L −4 264 65 $  marge réservée 2 672 80 $  solde prêt à investir 0 $  cash USD 0 $  marge de maintenance 98 % (fermeture forcée si valeur < 1 336 40 $). Cinq lignes lues (MSTR ×5  XPD ×5  SMR ×7  MPC ×2  AMD ×3). Exposition retenue (quantité × cours) 15 473.92 $. Somme des P&L lignes −4 231,88 $ contre P&L du compte −4 264,65 $ (écart 32,77 $ non ventilé : peut inclure COST non relu, d'autres lignes sous « Afficher plus », ou des frais). COST short conservé à confirmer (notes du 25/11 08 h 15), hors totaux d'exposition."
+    "a_confirmer": [],
+    "libelle": "Alerte CFD : l'exposition 16 077,55 $ dépasse le capital du compte (2 614,02 $, affiché 2 644,26 $, P&L −4 264,65 $, −61,56 %). Marge de maintenance 98 % — fermeture forcée si la valeur passe sous 1 336,40 $. Marge réservée 2 672,80 $, solde prêt à investir 0 $, cash USD 0 $.",
+    "note": "Compte CFD relevé le 25/11/2026 vers 10 h 11–10 h 14 (Europe/Paris) : valeur 2 614 02 $ (affiché 2 644 26 $  −61 56 %)  P&L −4 264 65 $  marge réservée 2 672 80 $  solde prêt à investir 0 $  cash USD 0 $  marge de maintenance 98 % (fermeture forcée si valeur < 1 336 40 $). Cinq lignes lues (MSTR ×5  XPD ×5  SMR ×7  MPC ×2  AMD ×3). Exposition retenue (quantité × cours) 15 473.92 $. Somme des P&L lignes −4 231,88 $ contre P&L du compte −4 264,65 $ (écart 32,77 $ non ventilé : peut inclure COST non relu, d'autres lignes sous « Afficher plus », ou des frais). Addendum 25/11 vers 11 h 01 : short COST confirmé (0,55 @ 1 097,51 $, levier ×5, marge 120,62 $, P&L −3,58 $). Exposition COST retenue 603,63 $ (quantité × cours) ; la capture affiche 603,09 $ (écart 0,54 $). Somme des expositions des 6 lignes 16 077,55 $. P&L lignes −4 235,46 $ contre P&L du compte à 10 h 14 (−4 264,65 $), écart 29,19 $ non ventilé. Totaux du compte CFD non relus à 11 h 01."
   },
   "frais_cfd": {
     "objectif_eur_mois": 20,
@@ -1511,5 +1512,5 @@
     "projection_eur": 64.14,
     "projection_note": "Projection mensuelle = OVN projeté (dernier jour relu × ~30 jours). Les frais d'ordres n'y sont pas inclus tant qu'aucun montant n'est sourcé."
   },
-  "desc": "Captures Revolut Invest du 25/11/2026 (CFD 10 h 14, reste 09 h 50). Total retenu 30 105,94 $ dont exposition CFD 15 473,92 $ (capital du compte CFD 2 614,02 $). 5,50 $ de liquidités du compte-titres (non relues)."
+  "desc": "Captures Revolut Invest du 25/11/2026 (CFD 10 h 14, reste 09 h 50). Total retenu 30 709,57 $ dont exposition CFD 16 077,55 $ (capital du compte CFD 2 614,02 $). 5,50 $ de liquidités du compte-titres (non relues)."
 }

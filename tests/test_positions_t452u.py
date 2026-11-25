@@ -47,7 +47,7 @@ def test_lignes_du_releve_et_ordres():
     assert by[("MAU", "active")]["valeur"] == 519.21
     assert by[("PEA", "active")]["nom"] == "ligne PEA non identifiée"
     assert POS["n_en_attente"] == 0
-    assert POS["n_actives"] == 33
+    assert POS["n_actives"] == 34
     assert {p["ticker"] for p in RX["positions"]} == {"BTC", "ETH"}
     eth=next(p for p in RX["positions"] if p["ticker"]=="ETH")
     btc=next(p for p in RX["positions"] if p["ticker"]=="BTC")
@@ -75,18 +75,38 @@ def test_lignes_du_releve_et_ordres():
     assert cfds["MPC-CFD"]["pnl_pct"] == -30.28
     assert cfds["AMD-CFD"]["valeur"] == 1039.54
     assert cfds["AMD-CFD"]["pnl_pct"] == -38.54
-    assert cfds["COST-CFD"].get("a_confirmer") is True
-    assert cfds["COST-CFD"]["valeur"] is None
-    assert cfds["COST-CFD"].get("pnl_relu") is False
+    assert cfds["COST-CFD"].get("a_confirmer") is False
+    assert cfds["COST-CFD"]["valeur"] == 603.63
+    assert cfds["COST-CFD"]["pnl_pct"] == -0.6
+    assert cfds["COST-CFD"]["pnl_valeur"] == -3.58
+    assert cfds["COST-CFD"]["quantite"] == 0.55
+    assert cfds["COST-CFD"]["cours"] == 1097.51
+    assert cfds["COST-CFD"]["marge_usd"] == 120.62
+    assert cfds["COST-CFD"].get("pnl_relu") is True
     al = POS["cfd_alerte"]
     assert al["afficher_encadre"] is True
     assert al["valeur_usd"] == 2614.02
-    assert al["exposition_usd"] == 15473.92
+    assert al["exposition_usd"] == 16077.55
+    assert al["n"] == 6
+    assert "COST" in al["tickers"]
+    assert al.get("a_confirmer") in (None, [], ())
     assert al["marge_maintenance_pct"] == 98
     assert al["seuil_fermeture_usd"] == 1336.40
     assert "2 614,02" in al["libelle"]
-    assert POS["totaux"]["courtiers"]["revolut"]["valeur_usd"] == 30105.94
-    assert POS["totaux"]["courtiers"]["revolut"]["cfd_exposition_usd"] == 15473.92
+    assert "16 077,55" in al["libelle"]
+    assert POS["totaux"]["courtiers"]["revolut"]["valeur_usd"] == 30709.57
+    assert POS["totaux"]["courtiers"]["revolut"]["cfd_exposition_usd"] == 16077.55
+    assert POS["totaux"]["total_usd"] == 46313.82
+    assert POS["totaux"]["liquide_usd"] == 32850.02
+    tes=next(x for x in POS["positions"] if x["ticker"]=="TSLA-RSU")
+    assert tes["valeur"] == 12302.45
+    assert tes["valeur_usd"] == 13463.8
+    assert tes["non_liquide"] is True
+    assert tes["rsu_badge"] == "RSU"
+    assert tes.get("tab") in (None, "")
+    assert tes.get("pnl_pct") is None
+    assert "entete_detail" in POS["totaux"]
+    assert "13 463,80" in POS["totaux"]["entete_detail"]
     fr = POS["frais_cfd"]
     assert fr["dernier_usd"] == 2.34
     assert fr["projection_usd"] == 70.2
@@ -114,6 +134,9 @@ def test_ordres_traites_comme_positions_actives_dans_le_js():
     assert "function posFraisCfdHTML" in JS
     assert "${posCfdAlertHTML()}${posFraisCfdHTML()}" not in JS
     assert "dont Tesla non liquide" not in JS
+    assert "pos-mark-rsu" in JS
+    assert "rsu_badge" in JS and "pos-mark-rsu" in CSS
+    assert "homeIsHorsSecteur" in ACC
     assert "pos-total-strip" not in JS
     assert "posAmt(T.total_eur" not in JS
 

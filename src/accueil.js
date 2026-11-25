@@ -1,6 +1,10 @@
 /* ===== Accueil : patrimoine + lignes de secteurs (données déjà présentes, lecture seule) ===== */
 const ETF_REF=(()=>{try{const el=document.getElementById('dataEtfRef');return el?JSON.parse(el.textContent):{};}catch(e){return {};}})();
+function homeIsHorsSecteur(p){
+  return !!(p&&(p.non_liquide||p.exclus_secteur||p.type==='rsu'||p.type==='tesla_plan'||p.ticker==='TSLA-RSU'));
+}
 function homeTabOf(p){
+  if(p&&(p.non_liquide||p.exclus_secteur||p.type==='rsu'||p.type==='tesla_plan'||p.ticker==='TSLA-RSU')) return null;
   const tab=p&&p.tab;
   if(tab==='obligations'||tab==='energie'||tab==='crypto'||tab==='metaux'||tab==='liquidites'||tab==='immobilier'||tab==='actions') return tab;
   if(tab==='pays') return 'actions';

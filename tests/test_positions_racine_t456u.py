@@ -37,8 +37,10 @@ def test_releve_25_11_dans_le_json_fethe():
     assert len(metals) == 4
     cfds = [p for p in book['positions'] if (p.get('type') or '').lower() == 'cfd']
     assert {p['ticker'] for p in cfds} == {'XPD-CFD', 'COST-CFD', 'MSTR-CFD', 'SMR-CFD', 'MPC-CFD', 'AMD-CFD'}
-    assert book['totaux']['courtiers']['revolut']['cfd_usd'] == 15473.92
-    assert book['totaux']['courtiers']['revolut']['cfd_exposition_usd'] == 15473.92
+    assert book['totaux']['courtiers']['revolut']['cfd_usd'] == 16077.55
+    assert book['totaux']['courtiers']['revolut']['cfd_exposition_usd'] == 16077.55
+    assert book['totaux']['total_usd'] == 46313.82
+    assert any(p.get('ticker')=='TSLA-RSU' for p in book['positions'])
 
 
 def test_build_py_publie_la_racine():

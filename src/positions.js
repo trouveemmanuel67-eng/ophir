@@ -54,10 +54,11 @@ function posRecompute(){
      (lignes titres/métaux encore au pointage 08 h 15, CFD affichés pour leur marge). */
   const off=T.officiels||POS.totaux&&POS.totaux.officiels;
   if(off){
-    if(off.liquide_usd!=null) T.total_usd=off.liquide_usd;
-    if(off.liquide_eur!=null) T.total_eur=off.liquide_eur;
-    if(off.patrimoine_usd!=null) T.patrimoine_usd=off.patrimoine_usd;
-    if(off.patrimoine_eur!=null) T.patrimoine_eur=off.patrimoine_eur;
+    if(off.liquide_usd!=null) T.liquide_usd=off.liquide_usd;
+    if(off.liquide_eur!=null) T.liquide_eur=off.liquide_eur;
+    if(off.patrimoine_usd!=null){ T.patrimoine_usd=off.patrimoine_usd; T.total_usd=off.patrimoine_usd; }
+    if(off.patrimoine_eur!=null){ T.patrimoine_eur=off.patrimoine_eur; T.total_eur=off.patrimoine_eur; }
+    if(off.entete_detail) T.entete_detail=off.entete_detail;
     if(off.tesla_plan) T.tesla_plan=off.tesla_plan;
     ['revolut','xtb','revolutx'].forEach(k=>{
       if(!off[k]) return;
@@ -135,7 +136,7 @@ const posPct=p=>{
   return t+'\u00a0%';
 };
 const posFlagCol={green:'#22c55e',orange:'#ff9a1f',red:'#ff2d2d',cyan:'#00e5ff',none:'#888'};
-const posCourtNom={revolut:'Revolut',xtb:'XTB',revolutx:'Revolut X'};
+const posCourtNom={revolut:'Revolut',xtb:'XTB',revolutx:'Revolut X',tesla:'Tesla'};
 posApplyOverlays();
 function posOfTv(tv){
   if(!tv||!POS.positions) return [];
@@ -389,6 +390,9 @@ function posLinePerf(p, kind){
     const lab=p.a_confirmer?'à confirmer':'P/L non relu';
     return `<span class="pos-na" title="${(p.fiche_note||'P/L de cette ligne CFD non relu : cours actuel et/ou quantité manquants, non inventés.').replace(/"/g,'&quot;')}">${lab}</span>`;
   }
+  if(kind==='debut'&&(p.non_liquide||p.type==='rsu')&&p.perf_debut_pct==null){
+    return `<span class="pos-na" title="${(p.perf_1an_note||p.fiche_note||'Non liquide, P/L non calculé.').replace(/"/g,'&quot;')}">${p.perf_1an_libelle||'non liquide'}</span>`;
+  }
   if(kind==='debut') return p.perf_debut_pct==null?'—':`<span class="${p.perf_debut_pct>=0?'up':'down'}">${posPct(p.perf_debut_pct)}</span>`;
   if(p.perf_1an_pct==null){
     const lab=p.perf_1an_libelle||'à venir';
@@ -520,7 +524,7 @@ function renderMesPositions(){
       ? (p.a_confirmer?'à confirmer':'—')
       : posAmt(p.valeur,p.devise);
     const court=posCourtNom[p.courtier]||p.courtier||'';
-    const cx=p.courtier==='revolutx'?'RX':p.courtier==='xtb'?'X':'R';
+    const cx=p.courtier==='revolutx'?'RX':p.courtier==='xtb'?'X':p.courtier==='tesla'?'T':'R';
     const abbr=posTickerCourt(p);
     const nom=p.nom||abbr;
     const tipNom=String(nom).replace(/"/g,'&quot;');
@@ -534,11 +538,12 @@ function renderMesPositions(){
     const ordre=''; /* t478u : plus de badge ORDRE dans Mes positions ; les en_attente restent dans la liste */
     const stale=p.non_reverifie?`<span class="pos-mark pos-mark-stale" title="Non revérifié le ${String(p.non_reverifie).replace(/"/g,'&quot;')}"></span>`:'';
     const cfd=p.cfd_badge?`<span class="pos-mark pos-mark-cfd" title="${(p.fiche_note||p.cfd_badge).replace(/"/g,'&quot;')}">${String(p.cfd_badge).replace(/</g,'')}</span>`:'';
+    const rsu=p.rsu_badge?`<span class="pos-mark pos-mark-rsu" title="${(p.fiche_note||'Tesla RSU, non liquide').replace(/"/g,'&quot;')}">${String(p.rsu_badge).replace(/</g,'')}</span>`:'';
     const tip=[p.nom,p.ticker&&p.ticker!==p.nom?p.ticker:'',court,p.vente_en_attente_note||'',p.non_reverifie_note||'',p.fiche_note||''].filter(Boolean).join(' \u00b7 ');
     const posTv=p.fiche_tv||p.tv_note||p.ticker||'';
     return `<article class="pos-row pos-row-c ${p.statut==='en_attente'?'is-pend':''}${p.vente_en_attente?' is-sell':''}${p.fiche_tv?' has-fiche':''}"${posTv?` data-pos-tv="${String(posTv).replace(/"/g,'&quot;')}"`:''} title="${tip.replace(/"/g,'&quot;')}">
       <span class="pos-cx pos-cx-${cx.toLowerCase()}" title="${court}">${cx}</span>
-      <span class="pos-id">${go}${cp}${cfd}${sell}${ordre}${stale}</span>
+      <span class="pos-id">${go}${cp}${cfd}${rsu}${sell}${ordre}${stale}</span>
       <b class="pos-m">${mon}</b>
       <span class="pos-p">${poids}</span>
       <span class="pos-d">${posLinePerf(p,'debut')}</span>
@@ -556,7 +561,7 @@ function renderMesPositions(){
     if(!bits.length) return '';
     return 'Conversion '+bits.join(', ')+' au '+fx.date+' ('+(fx.source_court||fx.source||'Yahoo')+', Europe/Paris).';
   })();
-  const headTip=[POS.desc||('Relevé '+(POS.releve_libelle||'')),fxNote,xtbPending?'XTB n\u2019est pas encore intégré.':'',T.perf_1an_note||'',tesla.note||''].filter(Boolean).join(' ');
+  const headTip=[T.entete_detail||((POS.totaux&&POS.totaux.officiels&&POS.totaux.officiels.entete_detail)||''),POS.desc||('Relevé '+(POS.releve_libelle||'')),fxNote,xtbPending?'XTB n\u2019est pas encore intégré.':'',T.perf_1an_note||'',tesla.note||''].filter(Boolean).join(' ');
   const revTip=(()=>{
     const bits=[];
     if(rev.compte_courtage_usd!=null) bits.push('Courtage '+posAmt(rev.compte_courtage_usd,'USD')+' ('+posPct(rev.compte_courtage_pct)+').');
@@ -581,7 +586,7 @@ function renderMesPositions(){
     </div>
     <div class="pos-body" id="posBody">
       <div class="pos-total">
-        <div class="pos-total-v" title="${('Total en dollars de toutes les positions, CFD en exposition compris. Tesla (non liquide) exclu. '+headTip+' '+revTip).replace(/"/g,'&quot;')}">${posAmt(T.total_usd||0,'USD')} <small>${totDeb}</small></div>
+        <div class="pos-total-v" title="${((T.entete_detail||((POS.totaux&&POS.totaux.officiels&&POS.totaux.officiels.entete_detail)||'Total en dollars de toutes les positions, CFD en exposition et Tesla RSU compris, sans double compte.'))+' '+headTip).replace(/"/g,'&quot;')}">${posAmt(T.total_usd||0,'USD')} <small>${totDeb}</small></div>
       </div>
       ${posCfdAlertHTML()}
       <div class="pos-list">${act.map(row).join('')||'<div class="note">—</div>'}</div>
