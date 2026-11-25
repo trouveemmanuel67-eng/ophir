@@ -16,7 +16,10 @@ Plus la note est haute, plus l'actif est un bon candidat short. Points entiers.
   Filtre technique       : au moins signal_tech_min (1) bloc RSI / MACD / CCI à ≥ 10 points (surachat).
   Fibonacci              : aucun point ; FILTRE d'entrée dans Meilleurs SHORT (note ≥ 70) : cours ≥ niveau 38,2 %
                            (retracement r ≤ 0,382 depuis l'ATH, corps hebdo ; ATH et au-delà autorisés).
-Total borné −50..250. Catégories : Actions (hors banque), Actions bancaires, Énergie.
+  MM40 hebdo (max 30)    : inversée par rapport au LONG. 0 point sous la MM40 semaines ; montée linéaire
+                           de 0 à +30 entre 0 % et +40 % au-dessus ; plafonnée à +30 au-delà.
+                           N'entre pas dans les filtres d'entrée (seuil, Fibonacci, signal de surachat).
+Total borné −50..250 (le barème théorique dépasse 250, le total affiché est plafonné). Catégories : Actions (hors banque), Actions bancaires, Énergie.
 La note LONG n'est ni lue pour le calcul technique ni modifiée.
 """
 from __future__ import annotations
@@ -31,6 +34,7 @@ D = ROOT / 'data'
 import ind_core as K  # noqa: E402
 import fibo as FB  # noqa: E402
 import build_apex_achat_v2_pilot as P  # noqa: E402
+from apex.score import mm40_hebdo_points, mm40_hebdo_texte, MM40_HEBDO_MAX_AUTRES  # noqa: E402
 
 SEUIL = 70
 SIG_MIN = 1  # t528u : nb minimal de blocs RSI / MACD / CCI à ≥ 10 points (surachat) pour entrer dans la liste
@@ -146,6 +150,7 @@ def tech_from_closed(closed, used, tv, ticker=None):
     fib = FB.analyse(o, c, ds, adjust_splits=True, sym=used, syms=[x for x in (used, tv, ticker) if x], combine=False)
     fr = fib.get('r') if fib.get('ok') else None
     niv = (fib.get('niveaux') or {}).get('38,2 %') if fib.get('ok') else None
+    mm40_pts, mm40_det = mm40_hebdo_points(c, max_pts=MM40_HEBDO_MAX_AUTRES, sens='short')
     return {
         'date_cloture': ds[-1], 'close': c[-1], 'symbole': used,
         'rsi': {'valeur': None if r[-1] is None else round(r[-1], 1), 'semaines_sup_70': rs, 'points': rsi_pts},
@@ -153,6 +158,8 @@ def tech_from_closed(closed, used, tv, ticker=None):
         'cci': {'d': None if not d_s or d_s[-1] is None else round(d_s[-1], 1), 'semaines_sup_80': cs, 'points': cci_pts},
         'fibo': {'r': fr, 'niveau_382': None if niv is None else round(niv, 4), 'ath': fib.get('ath'),
                  'ok': (fr is not None and fr <= FIB_MAX_R)},
+        'mm40': mm40_det,
+        'mm40_points': mm40_pts,
     }
 
 
@@ -178,7 +185,11 @@ def assemble(base, t, fond, fgv, att, sent=None):
     flab = 'F&G' if not sent else f"Sentiment {sent[1]} {int(round(fgv))} :" if fgv is not None else 'F&G'
     hp = h_short(att)
     fpts, n_ko, n_nc, fdet = fond
-    tot = t['rsi']['points'] + t['macd']['points'] + t['cci']['points'] + fpts + (fgp or 0) + (hp or 0)
+    mm40_det = t.get('mm40') or {}
+    mm40_pts = t.get('mm40_points')
+    if mm40_pts is None and isinstance(mm40_det, dict) and isinstance(mm40_det.get('points'), int):
+        mm40_pts = mm40_det['points']
+    tot = t['rsi']['points'] + t['macd']['points'] + t['cci']['points'] + fpts + (fgp or 0) + (hp or 0) + (mm40_pts or 0)
     note = max(-50, min(250, int(tot)))
     manq = []
     if att is None:
@@ -189,21 +200,26 @@ def assemble(base, t, fond, fgv, att, sent=None):
         manq.append(f'{n_nc} critère(s) fondamental n.c. (≈ 6,9 pts chacun)')
     if t['fibo']['r'] is None:
         manq.append('Fibonacci')
+    if mm40_pts is None:
+        manq.append('MM40 hebdo (historique insuffisant)')
     n_sig = sum(1 for k in ('rsi', 'macd', 'cci') if t[k]['points'] >= 10)
     tech_ok = n_sig >= SIG_MIN
     entre = note >= SEUIL and t['fibo']['ok'] and tech_ok
+    mm40_txt = (mm40_det or {}).get('texte') or mm40_hebdo_texte((mm40_det or {}).get('ecart'), mm40_pts)
     ligne = (f"RSI +{t['rsi']['points']} · MACD +{t['macd']['points']} · CCI +{t['cci']['points']} · Fond +{fpts}"
-             f" · {flab} {(fgp or 0):+d} · H {(hp or 0):+d}  →  {note} / 250").replace('+-', '−').replace('-', '−')
+             f" · {flab} {(fgp or 0):+d} · H {(hp or 0):+d} · {mm40_txt}"
+             f"  →  {note} / 250").replace('+-', '−').replace('-', '−')
     base.update({
         'note': note, 'scale': 250,
         'points': {'rsi': t['rsi']['points'], 'macd': t['macd']['points'], 'cci': t['cci']['points'],
-                   'fondamental': fpts, 'fear_greed': fgp, 'hype': hp},
+                   'fondamental': fpts, 'fear_greed': fgp, 'hype': hp, 'mm40': mm40_pts},
         'sentiment': (None if not sent else {'cle': sent[2], 'nom': sent[1], 'valeur': None if fgv is None else round(fgv, 1),
                                              'points': fgp, 'repli_cnn': sent[2] == 'cnn'}),
         'ligne': ligne, 'date_cloture': t['date_cloture'], 'close': t['close'],
         'tech': {k: t[k] for k in ('rsi', 'macd', 'cci')}, 'fibo': t['fibo'],
         'fond': {'criteres_non_remplis': n_ko, 'nc': n_nc, 'elements': fdet},
         'attention': att, 'manquants': manq,
+        'mm40': mm40_det,
         'fibo_ok': t['fibo']['ok'], 'signaux_tech': n_sig, 'tech_ok': tech_ok, 'au_seuil': note >= SEUIL, 'liste': entre,
         'mise': mise(note) if entre else None,
     })

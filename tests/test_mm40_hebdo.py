@@ -73,6 +73,23 @@ def test_bareme_autres_30():
     assert pts == 0
 
 
+def test_bareme_short_inversee():
+    # sous la MM40 et sur la moyenne : 0
+    pts, det = mm40_hebdo_points(_closes(85, 100), max_pts=30, sens="short")
+    assert pts == 0 and det["ecart_pct"] == -15.0 and det["sens"] == "short"
+    pts, _ = mm40_hebdo_points(_closes(100, 100), max_pts=30, sens="short")
+    assert pts == 0
+    # +16 % : 30 × 16/40 = 12
+    pts, det = mm40_hebdo_points(_closes(116, 100), max_pts=30, sens="short")
+    assert abs(det["ecart"] - 0.16) < 1e-9
+    assert pts == 12
+    # +40 % et au-delà : plafond 30
+    pts, det = mm40_hebdo_points(_closes(140, 100), max_pts=30, sens="short")
+    assert abs(det["ecart"] - 0.40) < 1e-9 and pts == 30
+    pts, det = mm40_hebdo_points(_closes(160, 100), max_pts=30, sens="short")
+    assert det["ecart"] > 0.40 and pts == 30
+
+
 def test_texte_decomposition():
     assert mm40_hebdo_texte(-0.2044, 125) == "MM40 hebdo : écart −20,4 %, +125 pts"
     assert mm40_hebdo_texte(0.032, 0) == "MM40 hebdo : écart +3,2 %, 0 pts"
@@ -93,7 +110,10 @@ def test_regles_et_page():
             assert bloc["mm40"]["max"] == 30
         else:
             assert bloc["points"]["mm40"] == 30
-    assert regles()["apex_short"]["mm40"]["applique"] is False
+    sh = regles()["apex_short"]
+    assert sh["mm40"]["applique"] is True and sh["mm40"]["max"] == 30
+    assert sh["grille"]["mm40"]["max"] == 30
+    assert "sous la MM40" in sh["grille"]["mm40"]["regle"] or "sous la MM40" in sh["mm40"]["precision"]
     js = (ROOT / "src" / "regles.js").read_text(encoding="utf-8")
     grid_m = js.split("function rgMetauxGrid")[1].split("function rgCryptoChamp")[0]
     grid_c = js.split("function rgCryptoGrid")[1].split("function rgLiquidites")[0] if "function rgLiquidites" in js.split("function rgCryptoGrid")[1] else js.split("function rgCryptoGrid")[1][:4000]

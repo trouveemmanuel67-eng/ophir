@@ -56,7 +56,10 @@ def test_regles_short_grille():
     assert g["rsi"]["max"] == 25 and g["macd"]["max"] == 25 and g["cci"]["max"] == 25
     assert g["fondamental"]["max"] == 125 and g["fear_greed"]["max"] == 30 and g["hype"]["max"] == 20
     assert g["fibonacci"]["max"] == 0
+    assert g["mm40"]["max"] == 30
     assert sum(g[k]["max"] for k in ("rsi", "macd", "cci", "fondamental", "fear_greed", "hype")) == 250
+    # MM40 inversée s'ajoute, le total affiché reste borné à 250
+    assert "MM40" in (s.get("total") or "")
     assert "marge commune Revolut" in s["avertissement"]
     assert "function rgShortGrid" in RG and "rg-table-short-grille" in RG
 

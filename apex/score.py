@@ -57,8 +57,15 @@ MM40_HEBDO_MAX_AUTRES = 30
 MM40_HEBDO_PLAFOND = 0.40
 
 
-def mm40_hebdo_regle(max_pts=None):
+def mm40_hebdo_regle(max_pts=None, sens='long'):
     m = MM40_HEBDO_MAX if max_pts is None else int(max_pts)
+    if sens == 'short':
+        return (
+            "MM40 hebdo inversée pour la grille SHORT, sur les clôtures hebdomadaires confirmées "
+            "(équivalent de la MM200 jours). 0 point si le cours est sous la MM40 ; "
+            f"montée linéaire de 0 à +{m} entre 0 % et +40 % au-dessus de la MM40 ; "
+            f"plafonné à +{m} au-delà. Les points s’ajoutent au total, borné à −50…250."
+        )
     return (
         "MM40 hebdo, à contre-courant, sur les clôtures hebdomadaires confirmées "
         "(équivalent de la MM200 jours). 0 point si le cours est au-dessus de la MM40 ; "
@@ -91,11 +98,13 @@ def mm40_hebdo_texte(ecart, pts):
     return f"MM40 hebdo : écart {fmt_ecart_pct(ecart)} %, {pts_txt} pts"
 
 
-def mm40_hebdo_points(closes, max_pts=None):
-    """Écart à la MM40 semaines, à contre-courant (0 à +max_pts, défaut 125).
+def mm40_hebdo_points(closes, max_pts=None, sens='long'):
+    """Écart à la MM40 semaines (0 à +max_pts).
 
-    écart = (cours − MM40) / MM40. Au-dessus → 0 ; de 0 à −40 % → 0…+max
-    linéairement ; au-delà de −40 % → +max. Historique < 40 semaines → n.c.
+    écart = (cours − MM40) / MM40.
+    LONG (défaut) : au-dessus → 0 ; de 0 à −40 % → 0…+max ; au-delà de −40 % → +max.
+    SHORT : sous la MM40 → 0 ; de 0 à +40 % au-dessus → 0…+max ; au-delà de +40 % → +max.
+    Historique < 40 semaines → n.c.
 
     Retourne (points:int|None, détail:dict).
     """
@@ -103,7 +112,8 @@ def mm40_hebdo_points(closes, max_pts=None):
     base = {
         'max': cap,
         'periode': '40 semaines',
-        'regle': mm40_hebdo_regle(cap),
+        'sens': sens,
+        'regle': mm40_hebdo_regle(cap, sens=sens),
     }
     if not closes:
         d = dict(base, etat='n.c.', points=None, raison='série hebdomadaire absente')
@@ -119,11 +129,18 @@ def mm40_hebdo_points(closes, max_pts=None):
         d = dict(base, etat='n.c.', points=None, raison='MM40 nulle ou négative', cours=cours, mm40=mm)
         return None, d
     ecart = (cours - mm) / mm
-    if ecart >= 0:
-        pts = 0
+    if sens == 'short':
+        if ecart <= 0:
+            pts = 0
+        else:
+            pts = int(round_half(min(cap, (ecart / MM40_HEBDO_PLAFOND) * cap)))
+            pts = max(0, min(cap, pts))
     else:
-        pts = int(round_half(min(cap, (-ecart / MM40_HEBDO_PLAFOND) * cap)))
-        pts = max(0, min(cap, pts))
+        if ecart >= 0:
+            pts = 0
+        else:
+            pts = int(round_half(min(cap, (-ecart / MM40_HEBDO_PLAFOND) * cap)))
+            pts = max(0, min(cap, pts))
     det = dict(
         base,
         etat='applique',

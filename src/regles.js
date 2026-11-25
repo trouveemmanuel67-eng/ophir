@@ -1132,6 +1132,7 @@ function rgShortBoard(kind, boardId){
     ${block('fondamental',f.label||'Fondamental inversé',rgNum(f.max!=null?f.max:125),`${f.regle?`<p class="rg-p">${rgEsc(f.regle)}</p>`:''}<div class="rg-cards rg-cards-span">${fondCards}</div>`)}
     ${block('sentiment','Sentiment',fg.max_affiche||'±30',`<div class="rg-cards rg-cards-span">${card('fear_greed_short',fg.label||'Fear & Greed, inversé',fg.regle||'',fg.max_affiche||'±30')}</div>`,'inversé par rapport au LONG · secteur de l’action')}
     ${block('hype','Hype / attention (H)',hy.max_affiche||'±20',`<div class="rg-cards rg-cards-span">${card('hype_short',hy.label||'Hype inversée',hy.regle||'',hy.max_affiche||'±20')}</div>`,'inversée par rapport au LONG')}
+    ${(g.mm40)?block('mm40','MM40 hebdo',g.mm40.max_affiche||'0 à +30',`<div class="rg-cards rg-cards-span">${card('mm40_short',g.mm40.label||'MM40 hebdo, inversée',g.mm40.regle||'','0 à +'+rgNum(g.mm40.max||30))}</div>`,'inversée par rapport au LONG · 0 sous la MM40, linéaire jusqu’à +40 %'):''}
     ${g.signal_tech?block('signal-tech-filtre','Filtre technique',"filtre",`<div class="rg-cards rg-cards-span">${card('signal_tech_filtre',g.signal_tech.label,g.signal_tech.regle||'','0')}</div>`,'au moins un signal de surachat'):''}
     ${block('fibonacci-filtre','Fibonacci',"filtre",`<div class="rg-cards rg-cards-span">${card('fibonacci_filtre',fb.label||'Fibonacci : filtre',fb.regle||'','0')}</div>`,'aucun point, condition d’entrée')}
   </div>`;
@@ -1139,7 +1140,7 @@ function rgShortBoard(kind, boardId){
 function rgShortTable(){
   /* Tableau récapitulatif de la grille SHORT pour les 3 catégories. */
   const g=rgShortCfg().grille||{};
-  const rows=[['rsi','RSI'],['macd','MACD'],['cci','CCI'],['fondamental','Fondamental inversé'],['fear_greed','Sentiment du secteur inversé'],['hype','Hype H inversée'],['signal_tech','Filtre : au moins un signal technique de surachat'],['fibonacci','Fibonacci']];
+  const rows=[['rsi','RSI'],['macd','MACD'],['cci','CCI'],['fondamental','Fondamental inversé'],['fear_greed','Sentiment du secteur inversé'],['hype','Hype H inversée'],['mm40','MM40 hebdo inversée'],['signal_tech','Filtre : au moins un signal technique de surachat'],['fibonacci','Fibonacci']];
   const tr=rows.map(([k,l])=>{
     const c=g[k]||{};
     const pts=(k==='fibonacci'||k==='signal_tech')?'filtre':(c.max_affiche||rgNum(c.max));
