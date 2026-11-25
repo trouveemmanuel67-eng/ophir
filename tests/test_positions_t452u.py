@@ -152,16 +152,34 @@ def test_ordres_traites_comme_positions_actives_dans_le_js():
     assert "pos-frais-bar" not in BDG
     assert "FRAIS CFD" not in BDG
     assert "Frais trading" in BDG
+    assert "Abonnement TradingView" in BDG
+    assert 'id="bdg-tv"' in BDG
+    assert "Objectif atteint" in BDG
     assert 'id="bdg-wrap"' in CSS
     assert "function bdgSetOpen" in BDG
     bud = POS["budget"]
     assert bud["mois"] == "2026-11"
     assert bud["ovn"]["total_mois_usd"] == 2.34
+    assert bud["ovn"]["projection_usd"] == 70.2
     assert any(abs(float(j["montant_usd"])) == 2.34 for j in bud["ovn"]["lignes_mois"])
     assert bud["trading"]["a_relever"] is True
     assert bud["trading"]["ordres"] == []
+    tv = bud["tradingview"]
+    assert tv["poste"] == "Abonnement TradingView"
+    assert tv["montant_eur_mois"] == 15.54
+    assert tv["montant_eur_an"] == 186.48
+    assert tv["projection_eur"] == 15.54
+    assert tv["projection_usd"] == 17.01
+    assert tv["total_mois_usd"] is None
+    assert tv["objectif"]["atteint"] is True
+    assert tv["objectif"]["libelle"] == "Passer à Essential annuel"
+    assert tv["objectif"]["date_atteint"] == "2026-11-25"
+    assert tv["objectif"]["economie_eur_mois"] == 68.4
+    assert tv["objectif"]["economie_eur_an"] == 820.8
+    assert "Essential annuel Black Friday, 186,48 €/an prélevé le 6/12/2026 (Premium 83,94 €/mois résilié)" in tv["detail"]
     assert bud["total_observe_usd"] == 2.34
-    assert bud["projection_usd"] == 70.2
+    assert bud["projection_usd"] == 87.21
+    assert bud["projection_eur"] == 79.68
     assert (ROOT / "data" / "revolut" / "frais_trading_ordres.json").exists()
     assert "19/11/2026 à 21 h" not in JS
     assert "XTB 23/11/2026 à 13 h 48" not in JS

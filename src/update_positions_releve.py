@@ -17,6 +17,7 @@ RELEVE = DATA / "revolut" / "releve_courtiers_2026-11-25.json"
 YIELDS = DATA / "rendements_positions.json"
 FRAIS_CFD = DATA / "revolut" / "frais_cfd_ovn.json"
 FRAIS_TRADING = DATA / "revolut" / "frais_trading_ordres.json"
+ABO_TV = DATA / "abonnement_tradingview.json"
 PARIS = ZoneInfo("Europe/Paris")
 
 # Métadonnées APEX (tickers TV, onglets, dates d'achat déjà connues).
@@ -753,9 +754,34 @@ def _fee_usd(row, fx):
     return None
 
 
+
+def build_abonnement_tv(fx):
+    """Abonnement TradingView sourcé (data/abonnement_tradingview.json). Pas de montant inventé."""
+    if not ABO_TV.exists():
+        return None
+    raw = json.loads(ABO_TV.read_text(encoding="utf-8"))
+    eur_mois = raw.get("montant_eur_mois")
+    eur_an = raw.get("montant_eur_an")
+    out = dict(raw)
+    out["projection_eur"] = r2(eur_mois) if eur_mois not in (None, "") else None
+    out["projection_usd"] = r2(float(eur_mois) * fx) if (eur_mois not in (None, "") and fx) else None
+    out["montant_usd_an"] = r2(float(eur_an) * fx) if (eur_an not in (None, "") and fx) else None
+    # Le prélèvement Essential (186,48 €) est au 6/12/2026 : rien d'observé en novembre.
+    out["total_mois_usd"] = None
+    out["total_mois_eur"] = None
+    obj = dict(out.get("objectif") or {})
+    if obj.get("economie_eur_mois") not in (None, "") and fx:
+        obj["economie_usd_mois"] = r2(float(obj["economie_eur_mois"]) * fx)
+    if obj.get("economie_eur_an") not in (None, "") and fx:
+        obj["economie_usd_an"] = r2(float(obj["economie_eur_an"]) * fx)
+    out["objectif"] = obj
+    return out
+
+
 def build_budget(fx, now):
     """Agrège OVN et frais d'ordres sourcés, sans inventer un montant manquant."""
     ovn = build_frais_cfd(fx)
+    tv = build_abonnement_tv(fx)
     raw_t = json.loads(FRAIS_TRADING.read_text()) if FRAIS_TRADING.exists() else {"ordres": []}
     ym = f"{now.year:04d}-{now.month:02d}"
     mois_lib = f"{MOIS_FR[now.month]} {now.year}"
@@ -796,12 +822,14 @@ def build_budget(fx, now):
             "projection_eur": None,
             "projection_note": "à relever" if a_relever else None,
         },
+        "tradingview": tv,
         "total_observe_usd": observe_usd,
         "total_observe_eur": r2(observe_usd / fx) if fx else None,
-        "projection_usd": ovn.get("projection_usd"),
-        "projection_eur": ovn.get("projection_eur"),
+        "projection_usd": r2((ovn.get("projection_usd") or 0) + ((tv or {}).get("projection_usd") or 0)),
+        "projection_eur": r2((ovn.get("projection_eur") or 0) + ((tv or {}).get("projection_eur") or 0)),
         "projection_note": (
-            "Projection mensuelle = OVN projeté (dernier jour relu × ~30 jours). "
+            "Projection mensuelle = OVN projeté (dernier jour relu × ~30 jours) "
+            "et abonnement TradingView (Essential annuel / 12). "
             "Les frais d'ordres n'y sont pas inclus tant qu'aucun montant n'est sourcé."
             if a_relever else None
         ),

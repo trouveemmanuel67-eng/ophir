@@ -1,0 +1,35 @@
+{
+  "id": "tradingview",
+  "poste": "Abonnement TradingView",
+  "formule": "Essential",
+  "periodicite": "annuel",
+  "offre": "Black Friday",
+  "montant_eur_an": 186.48,
+  "tva_eur": 31.08,
+  "montant_eur_mois": 15.54,
+  "prelevement": {
+    "date": "2026-12-06",
+    "moyen": "Visa ..7711"
+  },
+  "souscription": {
+    "date": "2026-11-25",
+    "heure": "12:41",
+    "zone": "Europe/Paris"
+  },
+  "avant": {
+    "formule": "Premium",
+    "periodicite": "mensuel",
+    "montant_eur_mois": 83.94,
+    "auto_renouvellement": "annulé",
+    "actif_jusquau": "2026-12-06"
+  },
+  "objectif": {
+    "libelle": "Passer à Essential annuel",
+    "atteint": true,
+    "date_atteint": "2026-11-25",
+    "economie_eur_mois": 68.4,
+    "economie_eur_an": 820.8
+  },
+  "detail": "Essential annuel Black Friday, 186,48 €/an prélevé le 6/12/2026 (Premium 83,94 €/mois résilié)",
+  "source": "Changement d'abonnement TradingView le 25/11/2026 à 12 h 41 (Europe/Paris) : Premium mensuel 83,94 €/mois, auto-renouvellement annulé, actif jusqu'au 6/12/2026 ; Essential annuel Black Friday 186,48 € TTC/an (TVA 31,08 € incluse), prélevé le 6/12/2026 sur Visa ..7711. Coût mensuel = 186,48 / 12 = 15,54 €. Économie = 83,94 − 15,54 = 68,40 €/mois, soit 820,80 €/an."
+}

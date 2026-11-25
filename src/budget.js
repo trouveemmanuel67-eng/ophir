@@ -98,6 +98,21 @@ function bdgOvnOver(o){
   return !!o.depasse_objectif||(mois!=null&&Number.isFinite(Number(mois))&&Number(mois)>Number(obj));
 }
 function bdgTd(s){ return `<td>${s}</td>`; }
+function bdgTvOf(b){ return (b&&b.tradingview)||{}; }
+function bdgTvObjectif(tv){
+  const o=tv.objectif||{};
+  if(!o||!o.libelle) return '—';
+  if(o.atteint){
+    const d=String(o.date_atteint||'');
+    const m=d.match(/^(\d{4})-(\d{2})-(\d{2})/);
+    const jour=m?(m[3]+'/'+m[2]):d;
+    const ecoM=o.economie_eur_mois!=null?bdgAmt(o.economie_eur_mois,'EUR')+'/mois':'';
+    const ecoA=o.economie_eur_an!=null?bdgAmt(o.economie_eur_an,'EUR')+'/an':'';
+    const eco=[ecoM,ecoA].filter(Boolean).join(' · ');
+    return '✓ Objectif atteint'+(jour?(' '+jour):'')+' — '+bdgEsc(o.libelle)+(eco?(' (économie '+eco+' vs Premium)'):'');
+  }
+  return bdgEsc(o.libelle);
+}
 function bdgTableHTML(b){
   const o=bdgOvnOf(b);
   const t=(b&&b.trading)||{};
@@ -112,11 +127,20 @@ function bdgTableHTML(b){
   const trEur=pending?'—':bdgAmt(t.total_mois_eur,'EUR');
   const trPusd=pending?'—':bdgAmt(t.projection_usd,'USD');
   const trPeur=pending?'—':bdgAmt(t.projection_eur,'EUR');
+  const tv=bdgTvOf(b);
+  const tvOk=!!(tv.objectif&&tv.objectif.atteint);
+  const tvDet=tv.detail||'—';
   const der=o.dernier||((o.jours&&o.jours.length)?o.jours[o.jours.length-1]:null);
   const when=bdgWhen(der);
   const fx=bdgFx(b);
   const srcParts=[];
   if(when) srcParts.push('OVN relu le '+when);
+  if(tv&&tv.souscription&&tv.souscription.date){
+    const h=tv.souscription.heure?String(tv.souscription.heure).replace(/^(\d{1,2}):(\d{2})/, (_,a,c)=>String(a).padStart(2,'0')+' h '+c):'';
+    const dm=(String(tv.souscription.date).match(/^(\d{4})-(\d{2})-(\d{2})/)||[]);
+    const whenTv=dm.length?(dm[3]+'/'+dm[2]+'/'+dm[1]):tv.souscription.date;
+    srcParts.push('TradingView Essential annuel le '+(whenTv+(h?(' à '+h):''))+(tv.souscription.zone?(' ('+tv.souscription.zone+')'):''));
+  }
   if(fx) srcParts.push('change '+fx);
   const src=srcParts.length?('Source : '+srcParts.join(' · ')+'.'):'';
   return `<div class="bdg-table-wrap">
@@ -150,6 +174,15 @@ function bdgTableHTML(b){
           ${bdgTd(trPusd)}
           ${bdgTd(trPeur)}
           <td>—</td>
+        </tr>
+        <tr id="bdg-tv" class="${tvOk?'is-ok':''}">
+          <td>Abonnement TradingView</td>
+          <td class="bdg-wrap">${bdgEsc(tvDet)}</td>
+          ${bdgTd(bdgAmt(tv.total_mois_usd,'USD'))}
+          ${bdgTd(bdgAmt(tv.total_mois_eur,'EUR'))}
+          ${bdgTd(bdgAmt(tv.projection_usd,'USD'))}
+          ${bdgTd(bdgAmt(tv.projection_eur,'EUR'))}
+          <td class="bdg-obj">${bdgTvObjectif(tv)}</td>
         </tr>
       </tbody>
       <tfoot>

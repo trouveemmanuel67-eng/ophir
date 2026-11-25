@@ -6,18 +6,18 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<meta name="ophir-build" content="5749e6d-20261125-121651">
+<meta name="ophir-build" content="cf247d4-20261125-124847">
 <title>APEX INDICATOR INVESTMENT</title>
 <meta name="description" content="APEX Indicator Investment — notes et indicateurs de marché.">
 <meta name="theme-color" content="#0a1128">
 <meta name="apple-mobile-web-app-title" content="APEX">
 <meta name="application-name" content="APEX">
-<link rel="icon" href="favicon.ico?v=5749e6d-20261125-121651" sizes="any">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=5749e6d-20261125-121651">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=5749e6d-20261125-121651">
-<link rel="icon" type="image/png" sizes="64x64" href="favicon.png?v=5749e6d-20261125-121651">
-<link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png?v=5749e6d-20261125-121651">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=5749e6d-20261125-121651">
+<link rel="icon" href="favicon.ico?v=cf247d4-20261125-124847" sizes="any">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=cf247d4-20261125-124847">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=cf247d4-20261125-124847">
+<link rel="icon" type="image/png" sizes="64x64" href="favicon.png?v=cf247d4-20261125-124847">
+<link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png?v=cf247d4-20261125-124847">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=cf247d4-20261125-124847">
 <meta property="og:type" content="website">
 <meta property="og:title" content="APEX INDICATOR INVESTMENT">
 <meta property="og:description" content="APEX Indicator Investment — notes et indicateurs de marché.">
@@ -773,6 +773,8 @@ body.bdg-on .rg-btn[aria-expanded="true"],#bdgBtn.rg-btn[aria-expanded="true"],b
 .bdg-table tfoot td{border-bottom:0;border-top:1px solid rgba(255,255,255,.22);font-weight:750}
 .bdg-table tr.is-over td{color:#f87171}
 .bdg-table tr.is-ok td{color:#4ade80}
+.bdg-table td.bdg-wrap,.bdg-table td.bdg-obj{white-space:normal;text-align:left;line-height:1.35;max-width:28em}
+.bdg-table th:last-child,.bdg-table td:last-child{text-align:left}
 .bdg-src{margin:14px 2px 0;font-size:11px;color:var(--mut);line-height:1.4}
 @media(max-width:800px){
   .bdg-main{padding:12px 12px 40px}
@@ -3015,9 +3017,51 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
     },
     "total_observe_usd": 2.34,
     "total_observe_eur": 2.14,
-    "projection_usd": 70.2,
-    "projection_eur": 64.14,
-    "projection_note": "Projection mensuelle = OVN projeté (dernier jour relu × ~30 jours). Les frais d'ordres n'y sont pas inclus tant qu'aucun montant n'est sourcé."
+    "projection_usd": 87.21,
+    "projection_eur": 79.68,
+    "projection_note": "Projection mensuelle = OVN projeté (dernier jour relu × ~30 jours) et abonnement TradingView (Essential annuel / 12). Les frais d'ordres n'y sont pas inclus tant qu'aucun montant n'est sourcé.",
+    "tradingview": {
+      "id": "tradingview",
+      "poste": "Abonnement TradingView",
+      "formule": "Essential",
+      "periodicite": "annuel",
+      "offre": "Black Friday",
+      "montant_eur_an": 186.48,
+      "tva_eur": 31.08,
+      "montant_eur_mois": 15.54,
+      "prelevement": {
+        "date": "2026-12-06",
+        "moyen": "Visa ..7711"
+      },
+      "souscription": {
+        "date": "2026-11-25",
+        "heure": "12:41",
+        "zone": "Europe/Paris"
+      },
+      "avant": {
+        "formule": "Premium",
+        "periodicite": "mensuel",
+        "montant_eur_mois": 83.94,
+        "auto_renouvellement": "annulé",
+        "actif_jusquau": "2026-12-06"
+      },
+      "objectif": {
+        "libelle": "Passer à Essential annuel",
+        "atteint": true,
+        "date_atteint": "2026-11-25",
+        "economie_eur_mois": 68.4,
+        "economie_eur_an": 820.8,
+        "economie_usd_mois": 74.86,
+        "economie_usd_an": 898.28
+      },
+      "detail": "Essential annuel Black Friday, 186,48 €/an prélevé le 6/12/2026 (Premium 83,94 €/mois résilié)",
+      "source": "Changement d'abonnement TradingView le 25/11/2026 à 12 h 41 (Europe/Paris) : Premium mensuel 83,94 €/mois, auto-renouvellement annulé, actif jusqu'au 6/12/2026 ; Essential annuel Black Friday 186,48 € TTC/an (TVA 31,08 € incluse), prélevé le 6/12/2026 sur Visa ..7711. Coût mensuel = 186,48 / 12 = 15,54 €. Économie = 83,94 − 15,54 = 68,40 €/mois, soit 820,80 €/an.",
+      "projection_eur": 15.54,
+      "projection_usd": 17.01,
+      "montant_usd_an": 204.08,
+      "total_mois_usd": null,
+      "total_mois_eur": null
+    }
   }
 }
 </script>
@@ -7496,8 +7540,8 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
   }
 }
 </script>
-<script type="application/json" id="dataBuild">{"version":"5749e6d-20261125-121651"}</script>
-<link rel="preload" href="config/regles.json?v=5749e6d-20261125-121651" as="fetch" crossorigin>
+<script type="application/json" id="dataBuild">{"version":"cf247d4-20261125-124847"}</script>
+<link rel="preload" href="config/regles.json?v=cf247d4-20261125-124847" as="fetch" crossorigin>
 
 <script type="application/json" id="dataMaj">{
   "at": "2026-11-23T21:45:22.168885+01:00",
@@ -20277,6 +20321,21 @@ function bdgOvnOver(o){
   return !!o.depasse_objectif||(mois!=null&&Number.isFinite(Number(mois))&&Number(mois)>Number(obj));
 }
 function bdgTd(s){ return `<td>${s}</td>`; }
+function bdgTvOf(b){ return (b&&b.tradingview)||{}; }
+function bdgTvObjectif(tv){
+  const o=tv.objectif||{};
+  if(!o||!o.libelle) return '—';
+  if(o.atteint){
+    const d=String(o.date_atteint||'');
+    const m=d.match(/^(\d{4})-(\d{2})-(\d{2})/);
+    const jour=m?(m[3]+'/'+m[2]):d;
+    const ecoM=o.economie_eur_mois!=null?bdgAmt(o.economie_eur_mois,'EUR')+'/mois':'';
+    const ecoA=o.economie_eur_an!=null?bdgAmt(o.economie_eur_an,'EUR')+'/an':'';
+    const eco=[ecoM,ecoA].filter(Boolean).join(' · ');
+    return '✓ Objectif atteint'+(jour?(' '+jour):'')+' — '+bdgEsc(o.libelle)+(eco?(' (économie '+eco+' vs Premium)'):'');
+  }
+  return bdgEsc(o.libelle);
+}
 function bdgTableHTML(b){
   const o=bdgOvnOf(b);
   const t=(b&&b.trading)||{};
@@ -20291,11 +20350,20 @@ function bdgTableHTML(b){
   const trEur=pending?'—':bdgAmt(t.total_mois_eur,'EUR');
   const trPusd=pending?'—':bdgAmt(t.projection_usd,'USD');
   const trPeur=pending?'—':bdgAmt(t.projection_eur,'EUR');
+  const tv=bdgTvOf(b);
+  const tvOk=!!(tv.objectif&&tv.objectif.atteint);
+  const tvDet=tv.detail||'—';
   const der=o.dernier||((o.jours&&o.jours.length)?o.jours[o.jours.length-1]:null);
   const when=bdgWhen(der);
   const fx=bdgFx(b);
   const srcParts=[];
   if(when) srcParts.push('OVN relu le '+when);
+  if(tv&&tv.souscription&&tv.souscription.date){
+    const h=tv.souscription.heure?String(tv.souscription.heure).replace(/^(\d{1,2}):(\d{2})/, (_,a,c)=>String(a).padStart(2,'0')+' h '+c):'';
+    const dm=(String(tv.souscription.date).match(/^(\d{4})-(\d{2})-(\d{2})/)||[]);
+    const whenTv=dm.length?(dm[3]+'/'+dm[2]+'/'+dm[1]):tv.souscription.date;
+    srcParts.push('TradingView Essential annuel le '+(whenTv+(h?(' à '+h):''))+(tv.souscription.zone?(' ('+tv.souscription.zone+')'):''));
+  }
   if(fx) srcParts.push('change '+fx);
   const src=srcParts.length?('Source : '+srcParts.join(' · ')+'.'):'';
   return `<div class="bdg-table-wrap">
@@ -20329,6 +20397,15 @@ function bdgTableHTML(b){
           ${bdgTd(trPusd)}
           ${bdgTd(trPeur)}
           <td>—</td>
+        </tr>
+        <tr id="bdg-tv" class="${tvOk?'is-ok':''}">
+          <td>Abonnement TradingView</td>
+          <td class="bdg-wrap">${bdgEsc(tvDet)}</td>
+          ${bdgTd(bdgAmt(tv.total_mois_usd,'USD'))}
+          ${bdgTd(bdgAmt(tv.total_mois_eur,'EUR'))}
+          ${bdgTd(bdgAmt(tv.projection_usd,'USD'))}
+          ${bdgTd(bdgAmt(tv.projection_eur,'EUR'))}
+          <td class="bdg-obj">${bdgTvObjectif(tv)}</td>
         </tr>
       </tbody>
       <tfoot>
