@@ -99,7 +99,7 @@ function renderMetaux(el){
   const c=document.createElement('div');c.className='card no-group met-card';
   c.innerHTML=`<h2>Métaux · sentiment et achat / vente</h2>
    <div class="desc acc-sum">${apexTag}4 métaux · au ${dshort(d)} · <i>Achat</i> <b>${cnt('Achat')}</b> · <i>Neutre</i> <b>${cnt('Neutre')}</b> · <i>Vente</i> <b>${cnt('Vente')}</b> · <i>sentiment max</i> <b>${hi.nom} ${fmt(hi.sent.value,0)}</b> · <i>min</i> <b>${lo.nom} ${fmt(lo.sent.value,0)}</b></div>
-   <div class="sec-grid">${srHead('Métal · contrat de référence', 250)}${S.map(s=>pTile(MET_C,s,MT.rows.indexOf(s))).join('')}</div>
+   <div class="sec-grid">${srHead('Métal · contrat de référence', 'metaux')}${S.map(s=>pTile(MET_C,s,MT.rows.indexOf(s))).join('')}</div>
    <details class="ind-meth"><summary>Méthode et pondérations</summary>
     <p><b>Sentiment Peur / Euphorie (0-100).</b> ${apexPlain(SEC.method_sent.replace(/S&P 500/g,'DBC'))}</p>
     <p><b>Achat / Vente (−100 à +100).</b> ${apexPlain(SEC.method_av.replace(/S&P 500/g,'DBC'))}</p>

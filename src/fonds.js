@@ -8,7 +8,13 @@ const APEX_BARS=(function(){
 function apex250Rec(a){
   if(!a||a.note==null||a.display==='–') return null;
   const tot=a.total!=null?a.total:a.note;
-  return {total:tot, total_max:a.total_max!=null?a.total_max:250, total_min:a.total_min!=null?a.total_min:-50, ligne:a.ligne||((a.decomp&&a.decomp.texte)||''), hex:a.hex, band:a.band};
+  const pts=a.points||(a.decomp&&a.decomp.points)||null;
+  const hy=a.decomp&&a.decomp.hype;
+  const att=a.attention||(hy&&hy.attention!=null?{valeur:hy.attention,H:hy.points}:null)||(pts&&pts.attention!=null?{valeur:pts.attention,H:pts.hype}:null);
+  const rec={total:tot, total_max:a.total_max!=null?a.total_max:250, total_min:a.total_min!=null?a.total_min:-50, ligne:a.ligne||((a.decomp&&a.decomp.texte)||''), hex:a.hex, band:a.band};
+  if(pts) rec.points=pts;
+  if(att) rec.attention=att;
+  return rec;
 }
 function listApexBar(r){
   const a250=r&&r.apex10&&(r.apex10.scale===250||r.apex10.total_max===250||r.forceApex250);

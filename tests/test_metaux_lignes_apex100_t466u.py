@@ -26,7 +26,7 @@ def test_ptile_metaux_echelle_250():
 
 
 def test_entete_onglet_compteurs_et_echelle_250():
-    assert "srHead('Métal · contrat de référence', true)" in MET
+    assert "srHead('Métal · contrat de référence', 'metaux')" in MET
     assert 'data-scale="250"' in MET
     assert "cnt('Achat')" in MET
     assert "cnt('Neutre')" in MET

@@ -241,6 +241,24 @@ function sectionApexAvg(tabId){
     const metaSc={scale:250,total_max:250,total_min:-50};
     const b=(typeof pilotBand==='function')?pilotBand(n, metaSc):{hex:'#e6c27a',id:''};
     const apex={v2:true, total:n, total_min:-50, total_max:250, scale:250, display:String(n)+' / 250', hex:b.hex, band:b.id, n_moy:notes.length, ok:true, note:n};
+    if(tabId==='metaux'&&typeof MT!=='undefined'){
+      const atts=[],hyps=[];
+      (MT.rows||[]).forEach(r=>{
+        const ml=r&&r.mlist||{};
+        const items=[ml.head].concat(ml.items||[]).filter(Boolean);
+        const spot=items.find(i=>i.kind==='spot')||items.find(i=>((i.apex10||{}).decomp||{}).points&&((i.apex10.decomp.points.attention!=null)||(i.apex10.decomp.points.hype!=null)));
+        const P=spot&&spot.apex10&&spot.apex10.decomp&&spot.apex10.decomp.points;
+        if(!P) return;
+        if(P.attention!=null&&Number.isFinite(Number(P.attention))) atts.push(Number(P.attention));
+        if(P.hype!=null&&Number.isFinite(Number(P.hype))) hyps.push(Number(P.hype));
+      });
+      if(hyps.length||atts.length){
+        const h=hyps.length?Math.round(hyps.reduce((a,c)=>a+c,0)/hyps.length):null;
+        const att=atts.length?atts.reduce((a,c)=>a+c,0)/atts.length:null;
+        apex.points={hype:h};
+        apex.attention=att==null?null:{valeur:att,H:h,n:atts.length};
+      }
+    }
     return {
       apexV2:apex, apex10:apex,
       av:av==null?null:{score:av,label:labAv(av)},

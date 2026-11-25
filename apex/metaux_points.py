@@ -273,14 +273,14 @@ def score_instrument(obj, metal=None, av=None, fg=None):
     }
 
 
-def moyenne_ligne(notes):
+def moyenne_ligne(notes, hype=None, attention=None):
     cfg = metaux_cfg()
     if not notes:
         return None
     avg = int(round_half(sum(notes) / len(notes)))
     avg = max(int(cfg['min']), min(int(cfg['max']), avg))
     band = metaux_band(avg)
-    return {
+    rec = {
         'note': avg, 'display': fmt10(avg),
         'hex': band['hex'], 'flag': band['flag'], 'band': band['id'],
         'pos': avg, 'cap': 'moyenne',
@@ -289,3 +289,13 @@ def moyenne_ligne(notes):
         'scale': 250, 'total': avg, 'total_min': cfg['min'], 'total_max': cfg['max'],
         'ligne': 'moyenne de %d instrument%s  →  %s / 250' % (len(notes), 's' if len(notes) > 1 else '', fmt10(avg)),
     }
+    if hype is not None or attention is not None:
+        rec['points'] = {'hype': hype, 'attention': attention, 'total': avg}
+        rec['attention'] = None if attention is None else {'valeur': attention, 'H': hype}
+        rec['decomp'] = {
+            'texte': rec['ligne'],
+            'points': rec['points'],
+            'hype': {'points': hype, 'attention': attention,
+                     'grille': '0–9→+90 … 100→0 (comptant)', 'etat': 'applique' if hype is not None else 'n.c.'},
+        }
+    return rec

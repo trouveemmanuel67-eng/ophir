@@ -17,7 +17,9 @@ function srCells(s){
   return `<div class="sr-c sr-d">${typeof v2Placeholder==='function'?v2Placeholder():'<div class="apex10 apex10-na"><b>–</b><small>/ 250</small></div>'}</div>`;
 }
 function srHead(first,v2){
-  const mid=(!v2||v2===100||v2==='100'||v2===250||v2==='250'||v2==='metaux')
+  const mid=(v2==='metaux')
+    ? `<i class="db-dot db-a">AV</i>Score APEX (−50 à 250, échelle du haut) · <i class="db-dot db-s">S</i>Fear &amp; Greed et <i class="db-dot db-h">H</i>Hype / attention (0 à 100, échelle du bas ; H à contre-courant, comptant 0→+90 … 100→0)`
+    : (!v2||v2===100||v2==='100'||v2===250||v2==='250')
     ? `<i class="db-dot db-a">AV</i>Score APEX (−50 à 250, échelle du haut) · <i class="db-dot db-s">S</i>Fear &amp; Greed (0 à 100, échelle du bas)`
     : v2
     ? `<i class="db-dot db-a">AV</i>Score APEX (−50 à 250, échelle du haut) · <i class="db-dot db-s">S</i>Fear &amp; Greed et <i class="db-dot db-h">H</i>Hype / attention (0 à 100, échelle du bas ; H à contre-courant, ±27)`
