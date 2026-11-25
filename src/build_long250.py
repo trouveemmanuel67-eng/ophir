@@ -364,10 +364,17 @@ def epargne(T, PL):
                           'liquide': True, 'liquide_txt': 'accès instantané, aucun frais de retrait', 'src_liquide': help_url,
                           'frais': True, 'frais_txt': 'aucun frais de retrait ni montant minimum', 'src_frais': help_url, 'src_taux': PL.get('source')})
         elif ln['id'] == 'revolut-mmf-usd':
+            # Caractéristiques lues dans placements.json (pas en dur dans l'affichage) pour survivre au rebuild nocturne.
             prods.append({'id': ln['id'], 'nom': 'Revolut, fonds monétaires flexibles USD', 'taux': ln['taux'], 'ccy': 'USD', 'impose': True,
-                          'garantie': 'non', 'src_garantie': fcf_url + ' (capital non garanti ; protection des investisseurs 22 000 € seulement en cas de faillite)',
-                          'liquide': False, 'liquide_txt': 'vente à tout moment, fonds sous 2 jours ouvrés', 'src_liquide': fcf_url,
-                          'frais': False, 'frais_txt': 'frais de service annuels selon l’abonnement', 'src_frais': fcf_url, 'src_taux': PL.get('source')})
+                          'garantie': ln.get('garantie') or 'non',
+                          'src_garantie': ln.get('src_garantie') or (fcf_url + ' (capital non garanti ; protection des investisseurs 22 000 € seulement en cas de faillite)'),
+                          'liquide': True if ln.get('liquide') is None else bool(ln['liquide']),
+                          'liquide_txt': ln.get('liquide_txt') or 'retrait instantané, sans latence',
+                          'src_liquide': ln.get('src_liquide') or 'Emmanuel, 25/11/2026 (Europe/Paris) : retrait instantané, sans latence.',
+                          'frais': True if ln.get('frais') is None else bool(ln['frais']),
+                          'frais_txt': ln.get('frais_txt') or 'aucun frais réel (abonnement couvert par cartes cadeaux Amazon)',
+                          'src_frais': ln.get('src_frais') or 'Emmanuel, 25/11/2026 (Europe/Paris) : abonnement couvert par cartes cadeaux Amazon, aucun frais réel.',
+                          'src_taux': PL.get('source')})
     ipc = (T['liquidites'].get('ipc') or {})
     for p in prods:
         p['ipc'] = ipc.get('series'); p['ipc_id'] = ipc.get('idbank')

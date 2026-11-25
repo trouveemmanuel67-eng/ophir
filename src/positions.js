@@ -485,7 +485,7 @@ function posCfdAlertHTML(){
   return `<div class="pos-cfd-alert" role="alert" title="${tip}">${a.libelle||'CFD Revolut'}</div>`;
 }
 function posFraisCfdHTML(){
-  /* Encart détaillé retiré : la ligne unique vit dans le panneau Budget (bdgOvnHTML). */
+  /* Encart détaillé retiré : le tableau des frais vit dans le panneau Budget. */
   return '';
 }
 function renderMesPositions(){

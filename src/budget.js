@@ -72,63 +72,113 @@ function bdgSetOpen(on, opts){
     if(!fromHash) bdgSetHash(false);
   }
 }
-function bdgOvnHTML(b){
-  /* Une ligne, valeurs depuis data/revolut/frais_cfd_ovn.json (via budget.ovn / frais_cfd). */
-  const o=(b&&b.ovn)||(typeof POS!=='undefined'&&POS&&POS.frais_cfd)||{};
-  const jour=o.dernier_usd!=null?Number(o.dernier_usd):(o.jours&&o.jours.length&&o.jours[o.jours.length-1].montant_usd!=null?Math.abs(Number(o.jours[o.jours.length-1].montant_usd)):null);
+function bdgFx(b){
+  if(!b||b.fx==null||b.fx==='') return '';
+  return String(b.fx).replace('.', ',');
+}
+function bdgWhen(rec){
+  if(!rec) return '';
+  const d=String(rec.date||'');
+  const m=d.match(/^(\d{4})-(\d{2})-(\d{2})/);
+  const day=m?(m[3]+'/'+m[2]+'/'+m[1]):d;
+  let h=String(rec.heure||'');
+  if(h){
+    const hm=h.match(/^(\d{1,2}):(\d{2})/);
+    h=hm?(hm[1].padStart(2,'0')+' h '+hm[2]):h;
+  }
+  const z=rec.zone||'Europe/Paris';
+  return (day+(h?(' à '+h):'')+(z?(' ('+z+')'):'')).trim();
+}
+function bdgOvnOf(b){
+  return (b&&b.ovn)||(typeof POS!=='undefined'&&POS&&POS.frais_cfd)||{};
+}
+function bdgOvnOver(o){
   const mois=o.projection_eur;
   const obj=o.objectif_eur_mois!=null?o.objectif_eur_mois:20;
-  const over=!!o.depasse_objectif||(mois!=null&&Number.isFinite(Number(mois))&&Number(mois)>Number(obj));
-  const jourTxt=(jour==null||!Number.isFinite(Number(jour)))?'—':(bdgAmt(jour,'USD')+'/j');
-  const moisTxt=(mois==null||!Number.isFinite(Number(mois)))?'—':bdgAmt(mois,'EUR');
-  const objTxt='Objectif &lt; '+String(obj).replace('.',',')+'\u00a0€';
-  return `<p class="bdg-ovn-line ${over?'is-over':'is-ok'}" id="bdg-ovn">OVN ${jourTxt} · Coût mensuel ${moisTxt} · ${objTxt}</p>`;
+  return !!o.depasse_objectif||(mois!=null&&Number.isFinite(Number(mois))&&Number(mois)>Number(obj));
 }
-function bdgTradingHTML(b){
-  const t=b&&b.trading||{};
-  const lignes=t.lignes_mois||t.ordres||[];
-  let rows;
-  if(t.a_relever||!lignes.length){
-    const tip=t.recherche_repo&&t.recherche_repo.resultat?t.recherche_repo.resultat:'Aucun frais d’ordre sourcé dans le dépôt.';
-    rows=`<li class="bdg-empty" title="${bdgEsc(tip)}">à relever</li>`;
-  }else{
-    rows=lignes.map(o=>{
-      const when=bdgDate(o.date)+(o.heure?(' · '+o.heure):'');
-      const act=[o.actif||o.ticker||'', o.courtier||'', o.type||''].filter(Boolean).join(' · ');
-      return `<li class="bdg-row"><span>${bdgEsc(when)} — ${bdgEsc(act||'Ordre')}</span><b>${bdgPair(o.montant_usd,o.montant_eur)}</b></li>`;
-    }).join('');
-  }
-  const proj=t.a_relever||t.projection_note==='à relever'
-    ? 'à relever'
-    : bdgPair(t.projection_usd,t.projection_eur);
-  const tot=t.a_relever?'à relever':bdgPair(t.total_mois_usd,t.total_mois_eur);
-  return `<section class="bdg-sec" id="bdg-trading">
-    <h2>Frais trading <small>commissions, change, exécution</small></h2>
-    <ul class="bdg-list">${rows}</ul>
-    <div class="bdg-tot"><span>Total du mois${b.mois_libelle?(' ('+bdgEsc(b.mois_libelle)+')'):''}</span><b>${tot}</b></div>
-    <div class="bdg-tot"><span>Projection mensuelle</span><b>${proj}</b></div>
-    <p class="bdg-note">Fichier à compléter : data/revolut/frais_trading_ordres.json. Aucun montant n’est inventé.</p>
-  </section>`;
+function bdgTd(s){ return `<td>${s}</td>`; }
+function bdgTableHTML(b){
+  const o=bdgOvnOf(b);
+  const t=(b&&b.trading)||{};
+  const jour=o.dernier_usd!=null?Number(o.dernier_usd):(o.jours&&o.jours.length&&o.jours[o.jours.length-1].montant_usd!=null?Math.abs(Number(o.jours[o.jours.length-1].montant_usd)):null);
+  const obj=o.objectif_eur_mois!=null?o.objectif_eur_mois:20;
+  const over=bdgOvnOver(o);
+  const detail= (jour==null||!Number.isFinite(Number(jour)))?'—':(bdgAmt(jour,'USD')+'/j');
+  const objTxt='&lt; '+String(obj).replace('.', ',')+'\u00a0€';
+  const pending=!!(t.a_relever||t.projection_note==='à relever'||!(t.lignes_mois||t.ordres||[]).length);
+  const trDet=pending?'à relever':'—';
+  const trUsd=pending?'—':bdgAmt(t.total_mois_usd,'USD');
+  const trEur=pending?'—':bdgAmt(t.total_mois_eur,'EUR');
+  const trPusd=pending?'—':bdgAmt(t.projection_usd,'USD');
+  const trPeur=pending?'—':bdgAmt(t.projection_eur,'EUR');
+  const der=o.dernier||((o.jours&&o.jours.length)?o.jours[o.jours.length-1]:null);
+  const when=bdgWhen(der);
+  const fx=bdgFx(b);
+  const srcParts=[];
+  if(when) srcParts.push('OVN relu le '+when);
+  if(fx) srcParts.push('change '+fx);
+  const src=srcParts.length?('Source : '+srcParts.join(' · ')+'.'):'';
+  return `<div class="bdg-table-wrap">
+    <table class="bdg-table" id="bdg-table">
+      <thead>
+        <tr>
+          <th>Poste</th>
+          <th>Détail</th>
+          <th>Observé ce mois $</th>
+          <th>€</th>
+          <th>Projection mensuelle $</th>
+          <th>€</th>
+          <th>Objectif</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr id="bdg-ovn" class="${over?'is-over':'is-ok'}">
+          <td>OVN</td>
+          ${bdgTd(detail)}
+          ${bdgTd(bdgAmt(o.total_mois_usd,'USD'))}
+          ${bdgTd(bdgAmt(o.total_mois_eur,'EUR'))}
+          ${bdgTd(bdgAmt(o.projection_usd,'USD'))}
+          ${bdgTd(bdgAmt(o.projection_eur,'EUR'))}
+          ${bdgTd(objTxt)}
+        </tr>
+        <tr id="bdg-trading">
+          <td>Frais trading</td>
+          ${bdgTd(trDet)}
+          ${bdgTd(trUsd)}
+          ${bdgTd(trEur)}
+          ${bdgTd(trPusd)}
+          ${bdgTd(trPeur)}
+          <td>—</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr id="bdg-general">
+          <td>Total général</td>
+          <td></td>
+          ${bdgTd(bdgAmt(b.total_observe_usd,'USD'))}
+          ${bdgTd(bdgAmt(b.total_observe_eur,'EUR'))}
+          ${bdgTd(bdgAmt(b.projection_usd,'USD'))}
+          ${bdgTd(bdgAmt(b.projection_eur,'EUR'))}
+          <td>—</td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  ${src?`<p class="bdg-src">${bdgEsc(src)}</p>`:''}`;
 }
 function bdgPageHTML(){
   const b=bdgData()||{};
-  const mois=b.mois_libelle||'mois en cours';
+  const mois=b.mois_libelle||'';
+  const title=mois?('Budget — '+mois):'Budget';
   return `<div class="rg-top">
       <button type="button" id="bdgBack" class="rg-back">← Retour</button>
-      <h1 id="bdgPageTitle">Budget</h1>
+      <h1 id="bdgPageTitle">${bdgEsc(title)}</h1>
       <button type="button" id="bdgClose" class="rg-close">Fermer</button>
     </div>
     <div class="rg-page-body">
       <div class="bdg-main">
-        <p class="bdg-lead">Frais mensualisés — ${bdgEsc(mois)}. Montants en $ et en € (taux ${b.fx!=null?String(b.fx).replace('.',','):'—'}).</p>
-        ${bdgOvnHTML(b)}
-        ${bdgTradingHTML(b)}
-        <section class="bdg-sec bdg-sec-tot" id="bdg-general">
-          <h2>Total général des frais</h2>
-          <div class="bdg-tot"><span>Observé ce mois</span><b>${bdgPair(b.total_observe_usd,b.total_observe_eur)}</b></div>
-          <div class="bdg-tot"><span>Projection mensuelle</span><b>${bdgPair(b.projection_usd,b.projection_eur)}</b></div>
-          ${b.projection_note?`<p class="bdg-note">${bdgEsc(b.projection_note)}</p>`:''}
-        </section>
+        ${bdgTableHTML(b)}
       </div>
     </div>`;
 }

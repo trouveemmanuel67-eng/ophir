@@ -143,9 +143,12 @@ def test_ordres_traites_comme_positions_actives_dans_le_js():
     BDG = (ROOT / "src" / "budget.js").read_text()
     assert "function bdgInit" in BDG
     assert "à relever" in BDG
-    assert "Coût mensuel" in BDG
-    assert "bdg-ovn-line" in BDG and "bdg-ovn-line" in CSS
+    assert "bdg-table" in BDG and "bdg-table" in CSS
+    assert "Observé ce mois" in BDG
+    assert "Projection mensuelle" in BDG
     assert "Objectif" in BDG
+    assert "bdg-ovn-line" not in BDG and "bdg-ovn-line" not in CSS
+    assert "max-width:1720px" in CSS
     assert "pos-frais-bar" not in BDG
     assert "FRAIS CFD" not in BDG
     assert "Frais trading" in BDG
