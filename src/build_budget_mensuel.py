@@ -424,7 +424,8 @@ def build():
         prov("impot_solde", "Solde impôt sur les revenus 2025", ir_tot,
              "288,00 € le 26/10 (DGFIP, facture 2667005282776). Le prélèvement à la source est déjà dans le salaire net Tesla."),
         prov("grok_apple", "Grok (via Apple) — octobre", grok_ap_tot,
-             f"{grok_ap_tot:.2f} € le 26/10. Sorti des abonnements courants : la formule a été remplacée en novembre par Grok Heavy (219,99 € le 4/11, hors mois de référence)."),
+             f"{grok_ap_tot:.2f} € le 26/10. Formule remplacée par Grok Heavy, désormais retenu comme abonnement mensuel "
+             f"de {heavy_tot:.2f} € dans les charges fixes. Ce paiement d'octobre reste lissé en provision, pas dans le récurrent."),
         prov("tradingview", "TradingView Essential annuel", tv_an,
              f"Formule retenue pour le budget récurrent : Essential annuel 186,48 €/an, soit {tv_mois:.2f} €/mois (prélèvement le 6/12). "
              f"En octobre, le Premium mensuel de {tv_paid_oct:.2f} € a encore été prélevé ; il n'est pas reconduit."),
@@ -511,10 +512,46 @@ def build():
 
     m_pv = add_abo("prime_video", "Prime Video (Amazon Digital)", is_prime_video, "once_probable",
                    "Une seule échéance dans la période (6,99 € le 29/10). Retenu comme mensuel probable ; la prochaine tombée peut être après le 25/11.")
+    # Formules Grok réunies dans l'encart. Heavy est confirmé mensuel (Emmanuel, 25/11/2026)
+    # et entre dans les charges fixes, même s'il n'est apparu que le 4/11.
+    m_heavy = r2(heavy_tot) if heavy_tot else 219.99
+    rec_abos.append({
+        "id": "grok_heavy",
+        "libelle": "Grok Heavy (via Apple)",
+        "octobre_eur": 0.0,
+        "novembre_eur": m_heavy,
+        "moyenne_eur": m_heavy,
+        "moyenne_usd": usd(m_heavy),
+        "n": len(heavy_ops),
+        "detail": "219,99 € le 4/11 via Apple.com/bill. Confirmé par Emmanuel comme abonnement mensuel : "
+                  "retenu dans les charges fixes, même s'il n'est apparu qu'en novembre.",
+        "type": "mensuel_confirme",
+        "famille": "grok",
+        "inclus_dans_recurrent": True,
+    })
+    rec_abos.append({
+        "id": "grok_apple",
+        "libelle": "Grok (via Apple) — octobre, remplacé",
+        "octobre_eur": grok_ap_tot,
+        "novembre_eur": 0.0,
+        "moyenne_eur": 0.0,
+        "moyenne_usd": usd(0.0),
+        "affichage_eur": grok_ap_tot,
+        "affichage_usd": usd(grok_ap_tot),
+        "n": len(grok_ap_ops),
+        "detail": f"{grok_ap_tot:.2f} € le 26/10, remplacé par Grok Heavy. Conservé en provisions annuelles "
+                  f"({r2(grok_ap_tot / 12):.2f} €/mois), pas dans les abonnements récurrents.",
+        "type": "remplace",
+        "famille": "grok",
+        "inclus_dans_recurrent": False,
+    })
     m_gd = add_abo("grok_direct", "Grok direct (grok.com)", is_grok_direct, "once_probable",
-                   "Une seule échéance (4,50 € / 5,00 $ le 26/10, SpaceXSI). Retenu comme mensuel probable, à confirmer s'il est toujours actif à côté de Grok Heavy.")
+                   "Une seule échéance (4,50 € / 5,00 $ le 26/10, SpaceXSI). Retenu comme mensuel probable, "
+                   "à confirmer s'il est toujours actif à côté de Grok Heavy.")
+    rec_abos[-1]["famille"] = "grok"
+    rec_abos[-1]["inclus_dans_recurrent"] = True
 
-    abo_recurrent = r2(sum(a["moyenne_eur"] for a in rec_abos))
+    abo_recurrent = r2(sum(a["moyenne_eur"] for a in rec_abos if a.get("inclus_dans_recurrent", True)))
 
     # Frais de courtage et overnight d'octobre (relevés Revolut, budget.frais_octobre)
     # et projection OVN de novembre, conservée hors référence.
@@ -643,9 +680,9 @@ def build():
               octobre_eur=tel_obs_oct, novembre_eur=tel_obs_nov,
               hypothese="Free Mobile constaté en novembre seulement, donc absent du budget d'octobre."),
         poste("abonnements", "Abonnements récurrents", abo_recurrent,
-              "Somme des abonnements mensuels identifiés en octobre (voir la liste dans « Trous dans la raquette »). "
-              "TradingView Essential, WordPress d'octobre et Grok (via Apple) 114,99 € sont dans les provisions annuelles. "
-              "Grok Heavy (219,99 € le 4/11) est hors mois de référence.",
+              f"Somme des abonnements mensuels retenus, dont Grok Heavy {m_heavy:.2f} € (confirmé mensuel par Emmanuel, "
+              f"apparu le 4/11, inclus dans les charges fixes). Voir l'encart des abonnements pour les trois formules Grok. "
+              "TradingView Essential, WordPress d'octobre et Grok (via Apple) 114,99 € d'octobre restent dans les provisions annuelles.",
               octobre_eur=None, novembre_eur=None, abonnements=rec_abos),
         poste("impots_recurrents", "Impôts récurrents", 0.0,
               "Le solde IR 2025 (288 €) est en provisions. Aucun autre prélèvement d'impôt sur la période ; le PAS est déjà dans le salaire net Tesla.",
@@ -809,16 +846,14 @@ def build():
         },
         {
             "id": "grok_heavy",
-            "libelle": "Clarifier puis éventuellement résilier Grok Heavy",
-            "economie_eur_mois": eco_heavy_annuel,
-            "economie_usd_mois": usd(eco_heavy_annuel),
-            "economie_si_mensuel_eur": eco_heavy_mensuel,
-            "source": "Apple.com/bill 219,99 € le 4/11, confirmé « Grok Heavy ».",
-            "note": "Si l'abonnement est annuel (hypothèse du budget récurrent), il est déjà lissé à "
-                    f"{eco_heavy_annuel:.2f} €/mois : le résilier ne change la cible qu'à la prochaine échéance. "
-                    f"S'il est mensuel, l'économie est {eco_heavy_mensuel:.2f} €/mois — c'est alors le premier levier. "
-                    "Les trois formules Grok (114,99 € via Apple en octobre, 4,50 € grok.com, 219,99 € Heavy) sont un doublon possible.",
-            "dans_panier_cible": False,
+            "libelle": "Grok Heavy → formule inférieure ou résiliation",
+            "economie_eur_mois": eco_heavy_mensuel,
+            "economie_usd_mois": usd(eco_heavy_mensuel),
+            "source": "Apple.com/bill 219,99 € le 4/11, confirmé par Emmanuel comme abonnement mensuel.",
+            "note": "Proposition, pas une décision. L'économie maximale est 219,99 €/mois en cas de résiliation. "
+                    "Une formule inférieure n'est pas chiffrée ici (tarif non sourcé dans les relevés). "
+                    "Les autres formules Grok (114,99 € via Apple en octobre, déjà remplacée ; 4,50 € en direct) restent affichées dans l'encart.",
+            "dans_panier_cible": True,
         },
         {
             "id": "pro_airglow",
@@ -904,8 +939,9 @@ def build():
         {
             "id": "grok_stack",
             "titre": "Stack Grok potentiellement en double",
-            "detail": f"Grok (via Apple) {grok_ap_tot:.2f} € le 26/10, Grok direct 4,50 € le 26/10, Grok Heavy {heavy_tot:.2f} € le 4/11. "
-                      "Crédit Apple 85,20 € le 4/11 : probable ajustement de formule, à confirmer. Trois libellés pour un même outil.",
+            "detail": f"Les trois formules sont réunies dans l'encart des abonnements : Grok Heavy {m_heavy:.2f} €/mois (confirmé mensuel, retenu dans les charges fixes), "
+                      f"Grok (via Apple) {grok_ap_tot:.2f} € le 26/10 (remplacé, en provisions), Grok direct 4,50 € le 26/10 (mensuel probable). "
+                      "Crédit Apple 85,20 € le 4/11 : probable ajustement de formule, à confirmer.",
         },
         {
             "id": "frequence_courses",
@@ -957,9 +993,6 @@ def build():
     # always useful extras
     extra_floues_ids = {f.get("sujet") for f in floues}
     extras = [
-        {"sujet": "Périodicité de Grok Heavy (219,99 € le 4/11)", "montant_eur": heavy_tot,
-         "montant_usd": usd(heavy_tot), "classification": "abonnements",
-         "question": "Abonnement mensuel ou annuel ? Cela change le budget récurrent de près de 200 €/mois."},
         {"sujet": "WordPress 21,60 + 26,40 + 108,20 €", "montant_eur": wp_tot,
          "montant_usd": usd(wp_tot), "classification": "abonnements",
          "question": "Activité pro Air Glow ? Ponctuel ou abonnement ?"},
@@ -985,7 +1018,8 @@ def build():
         "Les dépenses exceptionnelles d'octobre sont sorties du courant et lissées sur 12 mois dans « Provisions annuelles » "
         "(dentiste Koch du 27/10, Salomon, déco de Noël Lidl d'octobre, séjour Ramatuelle, pot de naissance, solde IR 2025, Grok via Apple d'octobre, WordPress d'octobre, INPI + CCI). "
         "TradingView Essential annuel (186,48 € / 12) est aussi provisionné, à la place du Premium encore prélevé en octobre.",
-        "Les pics de novembre (Decathlon, gros Amazon, déco de Noël, Grok Heavy, Free Mobile, second paiement Koch, WordPress de novembre, opérations en attente des 23–24/11) sont hors mois de référence : ils n'entrent ni dans le courant ni dans les provisions.",
+        "Grok Heavy (219,99 € le 4/11 via Apple) est confirmé comme abonnement mensuel : il entre dans les charges fixes et l'encart des abonnements, même s'il n'est apparu qu'en novembre. "
+        "Les autres pics de novembre (Decathlon, gros Amazon, déco de Noël, Free Mobile, second paiement Koch, WordPress de novembre, opérations en attente des 23–24/11) restent hors mois de référence : ils n'entrent ni dans le courant ni dans les provisions.",
         "Les frais de courtage et overnight d'octobre, relevés sur les relevés Revolut Securities (99,41 € : entrée 26,16 €, sortie 15,37 €, overnight 57,85 €, autres 0,03 €), "
         "sont une charge variable du mois de référence. Les dividendes et coupons nets d'octobre (27,99 €) sont affichés en face, sans être ajoutés à la base prudente.",
         "Les virements vers l'investissement ne sont pas des dépenses. L'épargne réalisée de référence est celle d'octobre. Le flux de novembre, très supérieur, est hors moyenne et a pu être alimenté par le crédit Revolut de 23 500 €.",
@@ -1125,7 +1159,7 @@ def build():
         "pistes": pistes,
         "panier_cible": {
             "libelle": "Panier de propositions retenu pour la capacité cible",
-            "note": "Ce n'est pas une décision. Panier retenu à partir d'octobre : OVN ramené sous 20 € (37,85 €), résiliation Revolut Ultra, résiliation YouTube, moitié du textile Lidl d'octobre, moitié de la restauration courante d'octobre. Grok Heavy, constaté en novembre, reste chiffré à part (hors mois de référence).",
+            "note": "Ce n'est pas une décision. Panier retenu : Grok Heavy → formule inférieure ou résiliation (219,99 €), OVN ramené sous 20 € (37,85 €), résiliation Revolut Ultra, résiliation YouTube, moitié du textile Lidl d'octobre, moitié de la restauration courante d'octobre.",
             "lignes": [{"id": p["id"], "libelle": p["libelle"], "economie_eur_mois": p["economie_eur_mois"], "economie_usd_mois": p["economie_usd_mois"]} for p in panier],
             "total_economie_eur": eco_panier,
             "total_economie_usd": usd(eco_panier),
@@ -1134,11 +1168,9 @@ def build():
             "eur": capa_cible,
             "usd": usd(capa_cible),
             "formule": "Capacité actuelle + somme du panier de propositions.",
-            "variante_grok_heavy_mensuel_eur": r2(capa_actuelle - heavy_tot),
-            "variante_grok_heavy_mensuel_cible_eur": r2(capa_actuelle - heavy_tot + eco_panier + heavy_tot),
-            "variante_grok_heavy_mensuel_note": f"Grok Heavy ({heavy_tot:.2f} € le 4/11) est hors mois de référence. "
-                                               f"S'il est mensuel, il faudrait l'ajouter au budget récurrent : la capacité d'octobre baisserait de {heavy_tot:.2f} €, à {r2(capa_actuelle - heavy_tot):.2f} €. "
-                                               "Sa résiliation redeviendrait alors le premier levier. Sa périodicité n'est pas confirmée.",
+            "variante_grok_heavy_mensuel_eur": capa_actuelle,
+            "variante_grok_heavy_mensuel_cible_eur": capa_cible,
+            "variante_grok_heavy_mensuel_note": "Grok Heavy (219,99 € le 4/11) est confirmé mensuel et déjà inclus dans les charges fixes et dans le panier (levier de 219,99 €/mois, proposition, pas une décision).",
         },
         "objectif_epargne": {
             "propose_eur": obj_souple,

@@ -740,11 +740,20 @@ function bdgMensuelHtml(b){
       </div>
       ${epar.alerte?`<p class="bdg-src bdg-moy-flag">${bdgEsc(epar.alerte)}</p>`:''}
     </div>`;
-  const aboList=(m.abonnements||[]).map(a=>`<li><span>${bdgEsc(a.libelle||'')}<small>${bdgEsc(a.detail||'')}</small></span><span class="bdg-moy-eco">${bdgAmt(a.moyenne_eur,'EUR')}</span></li>`).join('');
+  const aboLi=a=>{
+    const hors=a.inclus_dans_recurrent===false;
+    const amt=hors&&a.affichage_eur!=null?bdgAmt(a.affichage_eur,'EUR'):bdgAmt(a.moyenne_eur,'EUR');
+    const flag=hors?' <small class="bdg-moy-hors">hors récurrent</small>':'';
+    return `<li class="${hors?'is-hors':''}"><span>${bdgEsc(a.libelle||'')}<small>${bdgEsc(a.detail||'')}</small></span><span class="bdg-moy-eco">${amt}${flag}</span></li>`;
+  };
+  const abos=m.abonnements||[];
+  const grokAbos=abos.filter(a=>a.famille==='grok');
+  const autresAbos=abos.filter(a=>a.famille!=='grok');
+  const aboList=(grokAbos.length?(`<li class="bdg-moy-abo-grp">Formules Grok</li>`+grokAbos.map(aboLi).join('')):'')+autresAbos.map(aboLi).join('');
   const trousHtml=`<div class="bdg-moy-block" id="bdg-moy-trous">
       <h3 class="bdg-moy-h">Trous dans la raquette</h3>
       <ul class="bdg-moy-list">${(m.trous||[]).map(t=>`<li><h3>${bdgEsc(t.titre||t.id||'')}</h3><p>${bdgEsc(t.detail||'')}</p></li>`).join('')}</ul>
-      <h3 class="bdg-moy-h" style="margin-top:14px">Abonnements mensuels retenus (octobre)</h3>
+      <h3 class="bdg-moy-h" style="margin-top:14px">Abonnements mensuels retenus</h3>
       <ul class="bdg-moy-abo">${aboList}</ul>
     </div>`;
   const pistesHtml=`<div class="bdg-moy-block" id="bdg-moy-pistes">

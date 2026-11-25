@@ -6,18 +6,18 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<meta name="ophir-build" content="320cc87-20261125-142040">
+<meta name="ophir-build" content="a6d736c-20261125-143819">
 <title>APEX INDICATOR INVESTMENT</title>
 <meta name="description" content="APEX Indicator Investment — notes et indicateurs de marché.">
 <meta name="theme-color" content="#0a1128">
 <meta name="apple-mobile-web-app-title" content="APEX">
 <meta name="application-name" content="APEX">
-<link rel="icon" href="favicon.ico?v=320cc87-20261125-142040" sizes="any">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=320cc87-20261125-142040">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=320cc87-20261125-142040">
-<link rel="icon" type="image/png" sizes="64x64" href="favicon.png?v=320cc87-20261125-142040">
-<link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png?v=320cc87-20261125-142040">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=320cc87-20261125-142040">
+<link rel="icon" href="favicon.ico?v=a6d736c-20261125-143819" sizes="any">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=a6d736c-20261125-143819">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=a6d736c-20261125-143819">
+<link rel="icon" type="image/png" sizes="64x64" href="favicon.png?v=a6d736c-20261125-143819">
+<link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png?v=a6d736c-20261125-143819">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=a6d736c-20261125-143819">
 <meta property="og:type" content="website">
 <meta property="og:title" content="APEX INDICATOR INVESTMENT">
 <meta property="og:description" content="APEX Indicator Investment — notes et indicateurs de marché.">
@@ -895,6 +895,9 @@ body.bdg-on .rg-btn[aria-expanded="true"],#bdgBtn.rg-btn[aria-expanded="true"],b
 .bdg-moy-abo li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;font-size:12px;color:#fff;padding:2px 0;border-bottom:1px solid rgba(255,255,255,.06)}
 .bdg-moy-abo small{display:block;color:var(--mut);font-size:11px;font-weight:400}
 
+.bdg-moy-abo-grp{display:block;grid-column:1/-1;margin:8px 0 2px;padding:0;border-bottom:none;color:#e6c27a;font-size:11px;font-weight:650;letter-spacing:.04em;text-transform:uppercase}
+.bdg-moy-hors{color:var(--mut);font-weight:400;font-size:11px}
+.bdg-moy-abo li.is-hors{opacity:.85}
 .bdg-moy-side{margin-top:6px;color:#e6c27a;font-size:12px;font-weight:650;line-height:1.4}
 .bdg-moy-side small{color:var(--mut);font-weight:400}
 .bdg-moy-note{margin:6px 0 0;color:#e6c27a;font-size:13px;font-weight:650;line-height:1.45}
@@ -27822,7 +27825,7 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
           "Les revenus réels d'octobre restent affichés pour comparer : salaire Tesla 4 169,59 € (22/10, réf. Salary 102026) + France Travail 876,60 € (1/10) = 5 046,19 €. Le salaire de novembre (6 315,41 € le 24/11) est différent et hors moyenne.",
           "Chaque poste de dépense retenu est le montant d'octobre, après sortie des exceptionnels d'octobre. Rien n'est ramené ni lissé avec novembre.",
           "Les dépenses exceptionnelles d'octobre sont sorties du courant et lissées sur 12 mois dans « Provisions annuelles » (dentiste Koch du 27/10, Salomon, déco de Noël Lidl d'octobre, séjour Ramatuelle, pot de naissance, solde IR 2025, Grok via Apple d'octobre, WordPress d'octobre, INPI + CCI). TradingView Essential annuel (186,48 € / 12) est aussi provisionné, à la place du Premium encore prélevé en octobre.",
-          "Les pics de novembre (Decathlon, gros Amazon, déco de Noël, Grok Heavy, Free Mobile, second paiement Koch, WordPress de novembre, opérations en attente des 23–24/11) sont hors mois de référence : ils n'entrent ni dans le courant ni dans les provisions.",
+          "Grok Heavy (219,99 € le 4/11 via Apple) est confirmé comme abonnement mensuel : il entre dans les charges fixes et l'encart des abonnements, même s'il n'est apparu qu'en novembre. Les autres pics de novembre (Decathlon, gros Amazon, déco de Noël, Free Mobile, second paiement Koch, WordPress de novembre, opérations en attente des 23–24/11) restent hors mois de référence : ils n'entrent ni dans le courant ni dans les provisions.",
           "Les frais de courtage et overnight d'octobre, relevés sur les relevés Revolut Securities (99,41 € : entrée 26,16 €, sortie 15,37 €, overnight 57,85 €, autres 0,03 €), sont une charge variable du mois de référence. Les dividendes et coupons nets d'octobre (27,99 €) sont affichés en face, sans être ajoutés à la base prudente.",
           "Les virements vers l'investissement ne sont pas des dépenses. L'épargne réalisée de référence est celle d'octobre. Le flux de novembre, très supérieur, est hors moyenne et a pu être alimenté par le crédit Revolut de 23 500 €.",
           "Le crédit Revolut n'est ni un revenu ni une dépense ; sa mensualité d'octobre (169,60 €) est une charge fixe, comme la LOA Tesla (486,32 €).",
@@ -27952,9 +27955,9 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
             {
               "id": "abonnements",
               "libelle": "Abonnements récurrents",
-              "moyenne_eur": 149.4,
-              "moyenne_usd": 163.5,
-              "detail": "Somme des abonnements mensuels identifiés en octobre (voir la liste dans « Trous dans la raquette »). TradingView Essential, WordPress d'octobre et Grok (via Apple) 114,99 € sont dans les provisions annuelles. Grok Heavy (219,99 € le 4/11) est hors mois de référence.",
+              "moyenne_eur": 369.39,
+              "moyenne_usd": 404.26,
+              "detail": "Somme des abonnements mensuels retenus, dont Grok Heavy 219.99 € (confirmé mensuel par Emmanuel, apparu le 4/11, inclus dans les charges fixes). Voir l'encart des abonnements pour les trois formules Grok. TradingView Essential, WordPress d'octobre et Grok (via Apple) 114,99 € d'octobre restent dans les provisions annuelles.",
               "octobre_eur": null,
               "novembre_eur": null,
               "abonnements": [
@@ -28047,6 +28050,34 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
                   "type": "once_probable"
                 },
                 {
+                  "id": "grok_heavy",
+                  "libelle": "Grok Heavy (via Apple)",
+                  "octobre_eur": 0.0,
+                  "novembre_eur": 219.99,
+                  "moyenne_eur": 219.99,
+                  "moyenne_usd": 240.76,
+                  "n": 1,
+                  "detail": "219,99 € le 4/11 via Apple.com/bill. Confirmé par Emmanuel comme abonnement mensuel : retenu dans les charges fixes, même s'il n'est apparu qu'en novembre.",
+                  "type": "mensuel_confirme",
+                  "famille": "grok",
+                  "inclus_dans_recurrent": true
+                },
+                {
+                  "id": "grok_apple",
+                  "libelle": "Grok (via Apple) — octobre, remplacé",
+                  "octobre_eur": 114.99,
+                  "novembre_eur": 0.0,
+                  "moyenne_eur": 0.0,
+                  "moyenne_usd": 0.0,
+                  "affichage_eur": 114.99,
+                  "affichage_usd": 125.85,
+                  "n": 1,
+                  "detail": "114.99 € le 26/10, remplacé par Grok Heavy. Conservé en provisions annuelles (9.58 €/mois), pas dans les abonnements récurrents.",
+                  "type": "remplace",
+                  "famille": "grok",
+                  "inclus_dans_recurrent": false
+                },
+                {
                   "id": "grok_direct",
                   "libelle": "Grok direct (grok.com)",
                   "octobre_eur": 4.5,
@@ -28055,7 +28086,9 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
                   "moyenne_usd": 4.92,
                   "n": 1,
                   "detail": "Une seule échéance (4,50 € / 5,00 $ le 26/10, SpaceXSI). Retenu comme mensuel probable, à confirmer s'il est toujours actif à côté de Grok Heavy.",
-                  "type": "once_probable"
+                  "type": "once_probable",
+                  "famille": "grok",
+                  "inclus_dans_recurrent": true
                 }
               ]
             },
@@ -28078,8 +28111,8 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
               "novembre_eur": 0.0
             }
           ],
-          "total_moyenne_eur": 1832.45,
-          "total_moyenne_usd": 2005.43
+          "total_moyenne_eur": 2052.44,
+          "total_moyenne_usd": 2246.19
         },
         {
           "id": "variables",
@@ -28254,7 +28287,7 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
             "total_periode_usd": 125.85,
             "moyenne_eur": 9.58,
             "moyenne_usd": 10.48,
-            "detail": "114.99 € le 26/10. Sorti des abonnements courants : la formule a été remplacée en novembre par Grok Heavy (219,99 € le 4/11, hors mois de référence)."
+            "detail": "114.99 € le 26/10. Formule remplacée par Grok Heavy, désormais retenu comme abonnement mensuel de 219.99 € dans les charges fixes. Ce paiement d'octobre reste lissé en provision, pas dans le récurrent."
           },
           {
             "id": "tradingview",
@@ -28288,8 +28321,8 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
         "total_moyenne_usd": 227.1
       },
       "depenses_recurrentes": {
-        "moyenne_eur": 4105.19,
-        "moyenne_usd": 4492.72,
+        "moyenne_eur": 4325.18,
+        "moyenne_usd": 4733.48,
         "detail": "Somme des charges fixes, variables courantes et discrétionnaires d'octobre, plus les provisions sur exceptionnels d'octobre / 12 (et TradingView Essential annuel)."
       },
       "epargne_realisee": {
@@ -28323,18 +28356,18 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
         "alerte": "Le flux de novembre est très supérieur à celui d'octobre et au reste du budget (revenus − dépenses). Il a pu être alimenté par le crédit Revolut de 23 500 € (capital viré le 6/11, compte destinataire clôturé le 16/11), pas seulement par un excédent mensuel. Ce n'est donc pas une capacité d'épargne récurrente."
       },
       "capacite_actuelle": {
-        "eur": -971.86,
-        "usd": -1063.6,
+        "eur": -1191.85,
+        "usd": -1304.36,
         "deficitaire": true,
         "formule": "Base prudente 3 133,33 € (2 800 € net + 333,33 € de prime lissée) − dépenses récurrentes d'octobre (y compris provisions / 12).",
-        "variante_avec_france_travail_eur": -95.26,
-        "variante_avec_france_travail_usd": -104.25,
-        "variante_octobre_observe_eur": 941.0,
-        "variante_octobre_observe_usd": 1029.83,
-        "variante_salaire_novembre_eur": 3086.82,
-        "variante_salaire_novembre_usd": 3378.22,
-        "variante_sans_france_travail_eur": -971.86,
-        "variante_sans_france_travail_usd": -1063.6
+        "variante_avec_france_travail_eur": -315.25,
+        "variante_avec_france_travail_usd": -345.01,
+        "variante_octobre_observe_eur": 721.01,
+        "variante_octobre_observe_usd": 789.07,
+        "variante_salaire_novembre_eur": 2866.83,
+        "variante_salaire_novembre_usd": 3137.46,
+        "variante_sans_france_travail_eur": -1191.85,
+        "variante_sans_france_travail_usd": -1304.36
       },
       "trous": [
         {
@@ -28345,7 +28378,7 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
         {
           "id": "grok_stack",
           "titre": "Stack Grok potentiellement en double",
-          "detail": "Grok (via Apple) 114.99 € le 26/10, Grok direct 4,50 € le 26/10, Grok Heavy 219.99 € le 4/11. Crédit Apple 85,20 € le 4/11 : probable ajustement de formule, à confirmer. Trois libellés pour un même outil."
+          "detail": "Les trois formules sont réunies dans l'encart des abonnements : Grok Heavy 219.99 €/mois (confirmé mensuel, retenu dans les charges fixes), Grok (via Apple) 114.99 € le 26/10 (remplacé, en provisions), Grok direct 4,50 € le 26/10 (mensuel probable). Crédit Apple 85,20 € le 4/11 : probable ajustement de formule, à confirmer."
         },
         {
           "id": "frequence_courses",
@@ -28463,6 +28496,34 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
           "type": "once_probable"
         },
         {
+          "id": "grok_heavy",
+          "libelle": "Grok Heavy (via Apple)",
+          "octobre_eur": 0.0,
+          "novembre_eur": 219.99,
+          "moyenne_eur": 219.99,
+          "moyenne_usd": 240.76,
+          "n": 1,
+          "detail": "219,99 € le 4/11 via Apple.com/bill. Confirmé par Emmanuel comme abonnement mensuel : retenu dans les charges fixes, même s'il n'est apparu qu'en novembre.",
+          "type": "mensuel_confirme",
+          "famille": "grok",
+          "inclus_dans_recurrent": true
+        },
+        {
+          "id": "grok_apple",
+          "libelle": "Grok (via Apple) — octobre, remplacé",
+          "octobre_eur": 114.99,
+          "novembre_eur": 0.0,
+          "moyenne_eur": 0.0,
+          "moyenne_usd": 0.0,
+          "affichage_eur": 114.99,
+          "affichage_usd": 125.85,
+          "n": 1,
+          "detail": "114.99 € le 26/10, remplacé par Grok Heavy. Conservé en provisions annuelles (9.58 €/mois), pas dans les abonnements récurrents.",
+          "type": "remplace",
+          "famille": "grok",
+          "inclus_dans_recurrent": false
+        },
+        {
           "id": "grok_direct",
           "libelle": "Grok direct (grok.com)",
           "octobre_eur": 4.5,
@@ -28471,7 +28532,9 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
           "moyenne_usd": 4.92,
           "n": 1,
           "detail": "Une seule échéance (4,50 € / 5,00 $ le 26/10, SpaceXSI). Retenu comme mensuel probable, à confirmer s'il est toujours actif à côté de Grok Heavy.",
-          "type": "once_probable"
+          "type": "once_probable",
+          "famille": "grok",
+          "inclus_dans_recurrent": true
         }
       ],
       "pistes": [
@@ -28522,13 +28585,12 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
         },
         {
           "id": "grok_heavy",
-          "libelle": "Clarifier puis éventuellement résilier Grok Heavy",
-          "economie_eur_mois": 18.33,
-          "economie_usd_mois": 20.06,
-          "economie_si_mensuel_eur": 219.99,
-          "source": "Apple.com/bill 219,99 € le 4/11, confirmé « Grok Heavy ».",
-          "note": "Si l'abonnement est annuel (hypothèse du budget récurrent), il est déjà lissé à 18.33 €/mois : le résilier ne change la cible qu'à la prochaine échéance. S'il est mensuel, l'économie est 219.99 €/mois — c'est alors le premier levier. Les trois formules Grok (114,99 € via Apple en octobre, 4,50 € grok.com, 219,99 € Heavy) sont un doublon possible.",
-          "dans_panier_cible": false
+          "libelle": "Grok Heavy → formule inférieure ou résiliation",
+          "economie_eur_mois": 219.99,
+          "economie_usd_mois": 240.76,
+          "source": "Apple.com/bill 219,99 € le 4/11, confirmé par Emmanuel comme abonnement mensuel.",
+          "note": "Proposition, pas une décision. L'économie maximale est 219,99 €/mois en cas de résiliation. Une formule inférieure n'est pas chiffrée ici (tarif non sourcé dans les relevés). Les autres formules Grok (114,99 € via Apple en octobre, déjà remplacée ; 4,50 € en direct) restent affichées dans l'encart.",
+          "dans_panier_cible": true
         },
         {
           "id": "pro_airglow",
@@ -28542,7 +28604,7 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
       ],
       "panier_cible": {
         "libelle": "Panier de propositions retenu pour la capacité cible",
-        "note": "Ce n'est pas une décision. Panier retenu à partir d'octobre : OVN ramené sous 20 € (37,85 €), résiliation Revolut Ultra, résiliation YouTube, moitié du textile Lidl d'octobre, moitié de la restauration courante d'octobre. Grok Heavy, constaté en novembre, reste chiffré à part (hors mois de référence).",
+        "note": "Ce n'est pas une décision. Panier retenu : Grok Heavy → formule inférieure ou résiliation (219,99 €), OVN ramené sous 20 € (37,85 €), résiliation Revolut Ultra, résiliation YouTube, moitié du textile Lidl d'octobre, moitié de la restauration courante d'octobre.",
         "lignes": [
           {
             "id": "ovn",
@@ -28573,10 +28635,16 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
             "libelle": "Réduire de moitié la restauration courante",
             "economie_eur_mois": 15.08,
             "economie_usd_mois": 16.5
+          },
+          {
+            "id": "grok_heavy",
+            "libelle": "Grok Heavy → formule inférieure ou résiliation",
+            "economie_eur_mois": 219.99,
+            "economie_usd_mois": 240.76
           }
         ],
-        "total_economie_eur": 135.91,
-        "total_economie_usd": 148.74
+        "total_economie_eur": 355.9,
+        "total_economie_usd": 389.5
       },
       "capacite_cible": {
         "eur": -835.95,
@@ -28584,32 +28652,32 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
         "formule": "Capacité actuelle + somme du panier de propositions.",
         "variante_grok_heavy_mensuel_eur": -1191.85,
         "variante_grok_heavy_mensuel_cible_eur": -835.95,
-        "variante_grok_heavy_mensuel_note": "Grok Heavy (219.99 € le 4/11) est hors mois de référence. S'il est mensuel, il faudrait l'ajouter au budget récurrent : la capacité d'octobre baisserait de 219.99 €, à -1191.85 €. Sa résiliation redeviendrait alors le premier levier. Sa périodicité n'est pas confirmée."
+        "variante_grok_heavy_mensuel_note": "Grok Heavy (219,99 € le 4/11) est confirmé mensuel et déjà inclus dans les charges fixes et dans le panier (levier de 219,99 €/mois, proposition, pas une décision)."
       },
       "objectif_epargne": {
         "propose_eur": 0,
         "propose_usd": 0.0,
-        "ecart_equilibre_eur": 971.86,
+        "ecart_equilibre_eur": 1191.85,
         "ecart_apres_panier_eur": 835.95,
-        "note": "Sur la base prudente de 3 133,33 €, le budget d'octobre est déficitaire de 971.86 €/mois. L'objectif immédiat proposé n'est pas d'épargner, mais de revenir à l'équilibre (combler 971.86 €/mois). Le panier de propositions (135.91 €) ne suffit pas : il resterait un déficit de 835.95 €/mois. Avec le bonus temporaire France Travail, la capacité passerait à -95.26 €/mois. Si l'on comparait aux revenus réellement perçus en octobre (5 046,19 €), la capacité serait de 941.00 €/mois — cet écart montre le poids des commissions / heures au-delà de 2 800 € net.",
+        "note": "Sur la base prudente de 3 133,33 €, le budget d'octobre est déficitaire de 1191.85 €/mois. L'objectif immédiat proposé n'est pas d'épargner, mais de revenir à l'équilibre (combler 1191.85 €/mois). Le panier de propositions (355.90 €) ne suffit pas : il resterait un déficit de 835.95 €/mois. Avec le bonus temporaire France Travail, la capacité passerait à -315.25 €/mois. Si l'on comparait aux revenus réellement perçus en octobre (5 046,19 €), la capacité serait de 721.01 €/mois — cet écart montre le poids des commissions / heures au-delà de 2 800 € net.",
         "cible_si_reductions_eur": 0
       },
       "reserve_securite": {
-        "charges_fixes_eur": 1832.45,
-        "charges_fixes_usd": 2005.43,
+        "charges_fixes_eur": 2052.44,
+        "charges_fixes_usd": 2246.19,
         "detail": "Loyer + LOA Tesla + crédit Revolut + assurances + télécom + abonnements mensuels identifiés. Les frais de courtage et overnight sont des variables, hors de cette réserve, tout comme les provisions.",
         "epargne_disponible_eur": 1603.4,
         "epargne_disponible_usd": 1754.76,
         "epargne_disponible_date": "2026-11-25",
         "epargne_disponible_note": "Soldes des deux comptes Revolut au 25/11/2026 : joint 1287.51 € + perso 315.89 € = 1603.40 € (courant, dépôt et poche Shana inclus). Le solde du joint en fin octobre était 1640.41 €. Les positions d'investissement et le capital du crédit Revolut ne sont pas une réserve disponible.",
-        "mois_securite": 0.88,
-        "mois_couverture_deficit": 1.65,
+        "mois_securite": 0.78,
+        "mois_couverture_deficit": 1.35,
         "sous_reserve_3_mois": true,
-        "mois_3_eur": 5497.35,
-        "mois_3_usd": 6016.3,
-        "mois_6_eur": 10994.7,
-        "mois_6_usd": 12032.6,
-        "note": "Indicateur « mois de sécurité » : 0.88 mois de charges fixes (1832.45 €/mois) couverts par l'épargne disponible (1603.40 € au 25/11). La réserve conseillée est de 3 à 6 mois, soit 5497.35 € à 10994.70 €. Le budget est déficitaire de 971.86 €/mois sur la base prudente : à ce rythme, les soldes couvriraient environ 1.65 mois de déficit. Ce n'est pas un ordre de virement. Le crédit de 23 500 € n'est pas une réserve."
+        "mois_3_eur": 6157.32,
+        "mois_3_usd": 6738.57,
+        "mois_6_eur": 12314.64,
+        "mois_6_usd": 13477.14,
+        "note": "Indicateur « mois de sécurité » : 0.78 mois de charges fixes (2052.44 €/mois) couverts par l'épargne disponible (1603.40 € au 25/11). La réserve conseillée est de 3 à 6 mois, soit 6157.32 € à 12314.64 €. Le budget est déficitaire de 1191.85 €/mois sur la base prudente : à ce rythme, les soldes couvriraient environ 1.35 mois de déficit. Ce n'est pas un ordre de virement. Le crédit de 23 500 € n'est pas une réserve."
       },
       "lignes_floues": [
         {
@@ -28674,13 +28742,6 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
           "montant_usd": 18.25,
           "classification": "autres",
           "question": "Laisser en Autres (animalerie) ou rattacher à Courses ?"
-        },
-        {
-          "sujet": "Périodicité de Grok Heavy (219,99 € le 4/11)",
-          "montant_eur": 219.99,
-          "montant_usd": 240.76,
-          "classification": "abonnements",
-          "question": "Abonnement mensuel ou annuel ? Cela change le budget récurrent de près de 200 €/mois."
         },
         {
           "sujet": "WordPress 21,60 + 26,40 + 108,20 €",
@@ -41797,8 +41858,8 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
   }
 }
 </script>
-<script type="application/json" id="dataBuild">{"version":"320cc87-20261125-142040"}</script>
-<link rel="preload" href="config/regles.json?v=320cc87-20261125-142040" as="fetch" crossorigin>
+<script type="application/json" id="dataBuild">{"version":"a6d736c-20261125-143819"}</script>
+<link rel="preload" href="config/regles.json?v=a6d736c-20261125-143819" as="fetch" crossorigin>
 
 <script type="application/json" id="dataMaj">{
   "at": "2026-11-23T21:45:22.168885+01:00",
@@ -55220,11 +55281,20 @@ function bdgMensuelHtml(b){
       </div>
       ${epar.alerte?`<p class="bdg-src bdg-moy-flag">${bdgEsc(epar.alerte)}</p>`:''}
     </div>`;
-  const aboList=(m.abonnements||[]).map(a=>`<li><span>${bdgEsc(a.libelle||'')}<small>${bdgEsc(a.detail||'')}</small></span><span class="bdg-moy-eco">${bdgAmt(a.moyenne_eur,'EUR')}</span></li>`).join('');
+  const aboLi=a=>{
+    const hors=a.inclus_dans_recurrent===false;
+    const amt=hors&&a.affichage_eur!=null?bdgAmt(a.affichage_eur,'EUR'):bdgAmt(a.moyenne_eur,'EUR');
+    const flag=hors?' <small class="bdg-moy-hors">hors récurrent</small>':'';
+    return `<li class="${hors?'is-hors':''}"><span>${bdgEsc(a.libelle||'')}<small>${bdgEsc(a.detail||'')}</small></span><span class="bdg-moy-eco">${amt}${flag}</span></li>`;
+  };
+  const abos=m.abonnements||[];
+  const grokAbos=abos.filter(a=>a.famille==='grok');
+  const autresAbos=abos.filter(a=>a.famille!=='grok');
+  const aboList=(grokAbos.length?(`<li class="bdg-moy-abo-grp">Formules Grok</li>`+grokAbos.map(aboLi).join('')):'')+autresAbos.map(aboLi).join('');
   const trousHtml=`<div class="bdg-moy-block" id="bdg-moy-trous">
       <h3 class="bdg-moy-h">Trous dans la raquette</h3>
       <ul class="bdg-moy-list">${(m.trous||[]).map(t=>`<li><h3>${bdgEsc(t.titre||t.id||'')}</h3><p>${bdgEsc(t.detail||'')}</p></li>`).join('')}</ul>
-      <h3 class="bdg-moy-h" style="margin-top:14px">Abonnements mensuels retenus (octobre)</h3>
+      <h3 class="bdg-moy-h" style="margin-top:14px">Abonnements mensuels retenus</h3>
       <ul class="bdg-moy-abo">${aboList}</ul>
     </div>`;
   const pistesHtml=`<div class="bdg-moy-block" id="bdg-moy-pistes">
