@@ -58,6 +58,7 @@ ENERGIE_TV = {  # actifs énergie hors règle de groupe (secteur GICS réel)
 }
 ETF_DEVISE_TV = {'ASX:SEMI': 'us:XLK', 'TSX:XCHP': 'us:XLK', 'NASDAQ:RING': 'metaux', 'LSE:AUCP': 'metaux',
                  'SIX:AUCO': 'metaux', 'TSE:1631': 'us:XLF'}
+HELD_EQUITY_TV = {'NASDAQ:MSTR': 'us:XLK', 'NYSE:SMR': 'us:XLE'}
 
 
 def fg_long(v):
@@ -158,6 +159,7 @@ def tables():
             key = 'eu:EXH1' if eur else 'us:XLE'
         T[tv] = key
     T.update(ETF_DEVISE_TV)
+    T.update(HELD_EQUITY_TV)
     # ETF sectoriels US et leurs équivalents UCITS
     s = _load('secteurs.json')
     for x in s.get('sectors') or []:

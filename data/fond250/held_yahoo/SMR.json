@@ -1,0 +1,19 @@
+{
+ "m": {
+  "nd_ebitda": -3.71,
+  "op_margin": null,
+  "fcf_margin": -8492.95,
+  "roe": -17.12,
+  "current": 24.402,
+  "eps_0y": null,
+  "eps_1y": null,
+  "rev_0y": -92.03,
+  "rev_1y": 3744.94
+ },
+ "industry": "Specialty Industrial Machinery",
+ "sector": "Industrials",
+ "source": "Yahoo Finance key-statistics + earnings/revenue estimate",
+ "url": "https://finance.yahoo.com/quote/SMR/key-statistics/",
+ "retrieved": "2026-11-25 20:03 Europe/Paris",
+ "yahoo": "SMR"
+}

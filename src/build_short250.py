@@ -334,6 +334,10 @@ def main():
         'univers': ({'fichier': 'config/univers_short.json', 'genere': U.get('genere'), 'stats': U.get('stats'), 'regle': U.get('regle')} if U else 'watchlist APEX'),
         'by_tv': out,
     }
+    import score_held_shorts as HS  # noqa: WPS433
+    held = HS.score_missing(doc.get('by_tv') or {}, fgv=fgv, fg=fg)
+    if held:
+        HS.inject(doc, held)
     (D / 'apex_short.json').write_text(json.dumps(doc, ensure_ascii=False, separators=(',', ':')) + '\n', encoding='utf-8')
     print('notes SHORT', len(out), 'liste', len(liste), 'exclus fibo', len(exclus_fibo), 'sans série', sans_serie)
     top = sorted(out.values(), key=lambda x: -x['note'])[:15]

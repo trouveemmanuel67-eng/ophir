@@ -268,19 +268,61 @@ function posIsEquity(p){
   if(p.tab==='actions'||p.tab==='pays') return true;
   return false;
 }
+function posTvKeys(p){
+  /* fiche, ticker, symbole nu et alias métaux — pour CFD (MSTR-CFD, NASDAQ:MSTR) et XAU. */
+  const raw=[p&&p.fiche_tv,p&&p.tv_note,p&&p.tv,p&&p.ticker].filter(k=>k&&k!=='pas de note');
+  const out=[];
+  const add=x=>{ if(x&&out.indexOf(x)<0) out.push(x); };
+  const MET={XAU:'OANDA:XAUUSD',XAG:'OANDA:XAGUSD',XPT:'OANDA:XPTUSD',XPD:'OANDA:XPDUSD'};
+  raw.forEach(k=>{
+    const s=String(k);
+    add(s);
+    const base=s.replace(/-CFD$/i,'');
+    add(base);
+    const bare=base.indexOf(':')>=0?base.split(':').pop():base;
+    add(bare);
+    const met=MET[String(bare).toUpperCase()];
+    if(met) add(met);
+  });
+  return out;
+}
 function posPilotRec(p){
   if(!p||typeof pilotRec!=='function') return null;
-  const keys=[p.fiche_tv,p.tv_note,p.tv,p.ticker].filter(k=>k&&k!=='pas de note');
-  for(const k of keys){
+  for(const k of posTvKeys(p)){
     const r=pilotRec(k);
     if(r&&r.total!=null) return r;
   }
   return null;
 }
+function posShortRec(p){
+  const by=(typeof SHORT!=='undefined'&&SHORT&&SHORT.by_tv)||{};
+  for(const k of posTvKeys(p)){
+    if(by[k]&&by[k].note!=null) return by[k];
+  }
+  return null;
+}
+function posApexRec(p){
+  /* SHORT : uniquement la note SHORT. LONG : note d'achat PILOT, sinon apex10 (crypto, métaux, etc.). */
+  if(!p) return null;
+  if(posBlocOf(p)==='short'){
+    const s=posShortRec(p);
+    if(s&&s.note!=null){
+      return {total:s.note,total_max:250,scale:250,ligne:s.ligne||'',kind:'short',display:String(s.note)};
+    }
+    return null;
+  }
+  const rec=posPilotRec(p);
+  if(rec&&rec.total!=null) return Object.assign({kind:'achat'}, rec);
+  const a=posApex10Of(p);
+  if(a&&a.note!=null&&(a.scale===250||a.total_max===250||a.v2)){
+    const tot=a.total!=null?a.total:a.note;
+    return {total:tot,total_max:250,scale:250,ligne:a.ligne||'',kind:'achat',hex:a.hex,display:a.display||String(tot)};
+  }
+  return null;
+}
 function posApex10Of(p){
   if(p&&p.apex10&&p.apex10.note!=null) return p.apex10;
-  const keys=[p&&p.fiche_tv,p&&p.tv_note,p&&p.tv,p&&p.ticker].filter(k=>k&&k!=='pas de note');
-  for(const key of keys){
+  for(const key of posTvKeys(p)){
     const rec=apex10FromKnown(key);
     if(rec) return rec;
   }
@@ -302,20 +344,12 @@ function posFlagHTML(p){
   return `<span class="pos-flag pos-${code}"><i style="background:${col}"></i></span>`;
 }
 function posNoteHTML(p){
-  const rec=posPilotRec(p);
+  const rec=posApexRec(p);
   if(rec&&rec.total!=null){
     const col=(typeof pilotHex==='function')?pilotHex(rec):(rec.hex||'#e6c27a');
     const mx=rec.total_max!=null?rec.total_max:250;
-    return `<span class="apex10 apex10-pilot" style="color:${col}"><b>${rec.total}</b><small>/ ${mx}</small></span>`;
-  }
-  if(posIsEquity(p)) return '–';
-  const a=posApex10Of(p);
-  if(a&&a.note!=null){
-    if(a.scale===250||a.total_max===250||a.v2){
-      const col=(typeof pilotHex==='function')?pilotHex(a):(a.hex||'#e6c27a');
-      return `<span class="apex10 apex10-pilot" style="color:${col}"><b>${a.total!=null?a.total:a.note}</b><small>/ 250</small></span>`;
-    }
-    return `<span class="apex10 apex10-pilot apex10-na" title="Note APEX −50 à 250 non disponible"><b>–</b><small>/ 250</small></span>`;
+    const tip=((rec.kind==='short'?'Note SHORT ':'Note APEX ')+rec.total+'/'+mx+(rec.ligne?(' · '+rec.ligne):'')).replace(/"/g,'&quot;');
+    return `<span class="apex10 apex10-pilot" style="color:${col}" title="${tip}"><b>${rec.total}</b><small>/ ${mx}</small></span>`;
   }
   if(p.apex_score==null) return '–';
   const lab=p.apex_label?` ${p.apex_label}`:'';
@@ -442,19 +476,13 @@ function posShortName(p){
   return n;
 }
 function posApexChip(p){
-  const rec=posPilotRec(p);
+  const rec=posApexRec(p);
   if(rec&&rec.total!=null){
     const col=(typeof pilotHex==='function')?pilotHex(rec):(rec.hex||'#e6c27a');
     const mx=rec.total_max!=null?rec.total_max:250;
-    return `<span class="pos-chip apex10 apex10-pilot" style="color:${col};border-color:${col}" title="Note APEX ${rec.total}/${mx}">${rec.total}<small>/${mx}</small></span>`;
-  }
-  if(posIsEquity(p)) return '';
-  const a=posApex10Of(p);
-  if(a&&a.note!=null){
-    const mx=(a.scale===250||a.total_max===250)?250:100;
-    const col=(mx===250&&typeof pilotHex==='function')?pilotHex({total:a.total!=null?a.total:a.note, hex:a.hex, scale:250, total_max:250}):((typeof apex10Col==='function')?apex10Col(a):(a.hex||'#e6c27a'));
-    const col2=a.hex||col;
-    return `<span class="pos-chip apex10${mx===250?' apex10-pilot':''}" style="color:${col2};border-color:${col2}" title="Note APEX ${a.display}/${mx}">${a.display}<small>/${mx}</small></span>`;
+    const lab=rec.kind==='short'?'Note SHORT':'Note APEX';
+    const tip=(lab+' '+rec.total+'/'+mx+(rec.ligne?(' · '+rec.ligne):'')).replace(/"/g,'&quot;');
+    return `<span class="pos-chip apex10 apex10-pilot" style="color:${col};border-color:${col}" title="${tip}">${rec.total}<small>/${mx}</small></span>`;
   }
   if(p.apex_score==null||p.apex_score==='') return '';
   const col=(typeof avCol==='function')?avCol(p.apex_score):(posFlagCol[p.drapeau_code]||'#e6c27a');

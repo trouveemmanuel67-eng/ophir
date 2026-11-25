@@ -1,0 +1,19 @@
+{
+ "m": {
+  "nd_ebitda": 0.88,
+  "op_margin": 11.65,
+  "fcf_margin": 9.26,
+  "roe": 60.46,
+  "current": 1.446,
+  "eps_0y": 531.11,
+  "eps_1y": -14.64,
+  "rev_0y": 36.32,
+  "rev_1y": -16.42
+ },
+ "industry": "Oil & Gas Refining & Marketing",
+ "sector": "Energy",
+ "source": "Yahoo Finance key-statistics + earnings/revenue estimate",
+ "url": "https://finance.yahoo.com/quote/MPC/key-statistics/",
+ "retrieved": "2026-11-25 20:02 Europe/Paris",
+ "yahoo": "MPC"
+}

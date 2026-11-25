@@ -41,16 +41,29 @@ def _pos_files():
             yield p
 
 
+# MicroStrategy : note officielle du panier crypto (240/250), pas la grille Actions.
+SKIP_CRYPTO_TV = frozenset({'NASDAQ:MSTR', 'MSTR'})
+SKIP_TABS_CFD = frozenset({'metaux', 'liquidites', 'obligations', 'crypto'})
+
+
 def iter_held_equities():
-    """Actions détenues (type equity), clés TradingView de fiche."""
+    """Actions détenues (equity ou CFD long sur action), clés TradingView de fiche."""
     seen = set()
     for path in _pos_files():
         doc = json.loads(path.read_text(encoding='utf-8'))
         for p in doc.get('positions') or []:
             typ = (p.get('type') or '').lower()
-            if typ and typ != 'equity':
+            tab = (p.get('tab') or '').lower()
+            if typ in ('cash', 'rsu', 'etf', 'metal'):
                 continue
-            if typ != 'equity' and p.get('tab') not in ('actions', 'pays'):
+            if typ == 'cfd':
+                if (p.get('sens') or '').lower() == 'short':
+                    continue
+                if tab in SKIP_TABS_CFD:
+                    continue
+            elif typ and typ != 'equity':
+                continue
+            elif typ != 'equity' and p.get('tab') not in ('actions', 'pays'):
                 continue
             tvs = [p.get('fiche_tv'), p.get('tv_note'), p.get('tv')]
             tvs = [t for t in tvs if t and t != 'pas de note']
@@ -58,6 +71,9 @@ def iter_held_equities():
                 continue
             key = tvs[0]
             if key in seen or key in SKIP_TV:
+                continue
+            tick = (p.get('ticker') or '').upper().replace('-CFD', '')
+            if key in SKIP_CRYPTO_TV or tick in SKIP_CRYPTO_TV or any(x.split(':')[-1] in SKIP_CRYPTO_TV for x in tvs):
                 continue
             seen.add(key)
             ticker = p.get('ticker') or (key.split(':')[-1] if ':' in key else key)
@@ -69,7 +85,7 @@ def iter_held_equities():
                 'aliases': [t for t in tvs if t != key],
                 'ticker': yahoo,
                 'yahoo': yahoo,
-                'nom': p.get('nom') or ticker,
+                'nom': (p.get('nom') or ticker).replace(' CFD', '').strip(),
                 'kind': 'action',
                 'tab': p.get('tab'),
                 'source': path.name,
@@ -204,6 +220,9 @@ def metrics_from_yahoo(yahoo, ticker=None):
         'rev_0y': growth_rev('0y'),
         'rev_1y': growth_rev('+1y'),
     }
+    # Marge opérationnelle > 100 % : artefact Yahoo, traitée comme donnée manquante (pas inventée).
+    if m.get('op_margin') is not None and m['op_margin'] > 100:
+        m['op_margin'] = None
     if m['eps_0y'] is not None:
         m['eps_0y'] = round(m['eps_0y'], 2)
     if m['eps_1y'] is not None:
@@ -264,6 +283,12 @@ def score_asset_held(asset, fg=None):
     from apex import sentiment as SENT
     tv = rec.get('tv') or asset.get('tv')
     skey = SENT.key_for_tv(tv)
+    # Si le CNN n'a pas été fourni, F&G est n.d. : on pose 0 pour que le sentiment maison puisse le remplacer.
+    pts = rec.get('points')
+    if isinstance(pts, dict) and pts.get('fear_greed') is None:
+        pts['fear_greed'] = 0
+    if isinstance(rec.get('ligne'), str):
+        rec['ligne'] = rec['ligne'].replace('F&G n.d.', 'F&G +0')
     AS.patch(rec, skey, 'held')
     return rec
 

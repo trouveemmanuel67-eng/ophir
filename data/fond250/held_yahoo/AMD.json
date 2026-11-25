@@ -1,0 +1,19 @@
+{
+ "m": {
+  "nd_ebitda": -0.59,
+  "op_margin": 17.82,
+  "fcf_margin": 16.19,
+  "roe": 11.96,
+  "current": 2.725,
+  "eps_0y": 93.93,
+  "eps_1y": 117.72,
+  "rev_0y": 50.8,
+  "rev_1y": 83.35
+ },
+ "industry": "Semiconductors",
+ "sector": "Technology",
+ "source": "Yahoo Finance key-statistics + earnings/revenue estimate",
+ "url": "https://finance.yahoo.com/quote/AMD/key-statistics/",
+ "retrieved": "2026-11-25 20:02 Europe/Paris",
+ "yahoo": "AMD"
+}

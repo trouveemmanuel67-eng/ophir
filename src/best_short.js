@@ -95,7 +95,7 @@ function gsSetValide(tv, on){
 
 function gsCollect(){
   const by=(SHORT&&SHORT.by_tv)||{};
-  return Object.keys(by).map(tv=>by[tv]).filter(r=>r&&r.tv&&r.note!=null&&r.fibo_ok===true&&r.tech_ok!==false&&gsAuSeuil(r.note)).map(r=>{
+  return Object.keys(by).map(tv=>by[tv]).filter(r=>r&&r.tv&&r.note!=null&&r.fibo_ok===true&&r.tech_ok!==false&&gsAuSeuil(r.note)&&!r.held_position).map(r=>{
     const note=Number(r.note);
     const mise=gsMontant(note);
     const hex=(typeof pilotHex==='function')?pilotHex({total:note, scale:250, total_max:250}):'#22c55e';

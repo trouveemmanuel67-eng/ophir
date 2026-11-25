@@ -124,7 +124,7 @@ def _slim_pilot(raw):
     try:
         pos=_json.loads(_P(B+'data/positions.json').read_text())
         for item in (pos.get('positions') or []):
-            if item.get('type') not in ('equity',):
+            if item.get('type') not in ('equity', 'cfd'):
                 continue
             for k in (item.get('fiche_tv'), item.get('tv_note'), item.get('tv')):
                 if k and k!='pas de note':
@@ -138,7 +138,7 @@ def _slim_pilot(raw):
     try:
         pos=_json.loads(_P(B+'data/positions.json').read_text())
         for item in (pos.get('positions') or []):
-            if item.get('type') not in ('equity',):
+            if item.get('type') not in ('equity', 'cfd'):
                 continue
             keys=[k for k in (item.get('fiche_tv'), item.get('tv_note'), item.get('tv')) if k and k!='pas de note']
             hit=next((by[k] for k in keys if k in by), None)
