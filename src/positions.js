@@ -485,28 +485,8 @@ function posCfdAlertHTML(){
   return `<div class="pos-cfd-alert" role="alert" title="${tip}">${a.libelle||'CFD Revolut'}</div>`;
 }
 function posFraisCfdHTML(){
-  const f=POS.frais_cfd||(POS_RV&&POS_RV.frais_cfd);
-  if(!f||(f.dernier_usd==null&&!(f.jours&&f.jours.length))) return '';
-  const last=f.dernier||((f.jours&&f.jours.length)?f.jours[f.jours.length-1]:null);
-  const d=last&&last.date?String(last.date).slice(8,10)+'/'+String(last.date).slice(5,7):'';
-  const jour=posMoneyUsdEur(f.dernier_usd,f.dernier_eur);
-  const mois=posMoneyUsdEur(f.projection_usd,f.projection_eur);
-  const obj=f.objectif_eur_mois!=null?f.objectif_eur_mois:20;
-  const proj=Number(f.projection_eur);
-  const ratio=obj?(proj/obj):0;
-  const pct=Math.max(0,Math.min(100,Math.round(ratio*100)));
-  const over=!!f.depasse_objectif||(proj>obj);
-  const hyp=((f.projection&&f.projection.hypothese)||'').replace(/"/g,'&quot;');
-  const fact=((f.facturation&&f.facturation.taux_par_instrument_note)||'').replace(/"/g,'&quot;');
-  const jourTip=((last&&(last.libelle||''))||'Frais overnight CFD')+' du '+(d||'jour relu')+(last&&last.heure?(' à '+last.heure):'')+' (Europe/Paris).';
-  return `<div class="pos-frais-cfd${over?' is-over':''}" title="${hyp||jourTip}">
-    <div class="pos-frais-h">FRAIS CFD</div>
-    <div class="pos-frais-row"><span>OVN ${d||'jour'}</span><b>${jour}</b></div>
-    <div class="pos-frais-row" title="${hyp}"><span>Projection / mois</span><b>${mois}</b></div>
-    <div class="pos-frais-obj">Objectif &lt; ${String(obj).replace('.',',')}\u00a0€ / mois</div>
-    <div class="pos-frais-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${pct}" aria-label="Projection par rapport à l’objectif"><i style="width:${pct}%"></i></div>
-    <div class="pos-frais-note">${over?'Au-dessus de l’objectif. ':''}Projection = dernier OVN observé × ~${f.projection_jours||30} jours calendaires (facturé chaque nuit ; un triple le vendredi, s’il s’applique, couvre le week-end et aboutit au même ordre de grandeur). ${fact||'Aucun OVN théorique par position n’est inventé : les taux exacts ne sont pas publiés hors de l’app Revolut.'}</div>
-  </div>`;
+  /* Encart détaillé retiré : la ligne unique vit dans le panneau Budget (bdgOvnHTML). */
+  return '';
 }
 function renderMesPositions(){
   const host=document.getElementById('mes-pos'); if(!host) return;

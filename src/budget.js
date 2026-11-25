@@ -73,24 +73,16 @@ function bdgSetOpen(on, opts){
   }
 }
 function bdgOvnHTML(b){
-  const o=b&&b.ovn||{};
-  const lignes=o.lignes_mois||o.jours||[];
-  const rows=lignes.length
-    ? lignes.map(j=>{
-        const usd=j.montant_usd!=null?Math.abs(Number(j.montant_usd)):null;
-        const eur=(usd!=null&&b.fx)?usd/Number(b.fx):null;
-        const when=bdgDate(j.date)+(j.heure?(' · '+j.heure):'');
-        return `<li class="bdg-row"><span>${bdgEsc(when||'jour')} — ${bdgEsc(j.libelle||'Frais overnight CFD')}</span><b>${bdgPair(usd,eur)}</b></li>`;
-      }).join('')
-    : `<li class="bdg-empty">Aucun OVN relu ce mois-ci.</li>`;
-  const fraisBox=(typeof posFraisCfdHTML==='function')?posFraisCfdHTML():'';
-  return `<section class="bdg-sec" id="bdg-ovn">
-    <h2>Frais OVN <small>overnight CFD</small></h2>
-    <ul class="bdg-list">${rows}</ul>
-    <div class="bdg-tot"><span>Total du mois${b.mois_libelle?(' ('+bdgEsc(b.mois_libelle)+')'):''}</span><b>${bdgPair(o.total_mois_usd,o.total_mois_eur)}</b></div>
-    <div class="bdg-tot"><span>Projection mensuelle</span><b>${bdgPair(o.projection_usd,o.projection_eur)}</b></div>
-    ${fraisBox}
-  </section>`;
+  /* Une ligne, valeurs depuis data/revolut/frais_cfd_ovn.json (via budget.ovn / frais_cfd). */
+  const o=(b&&b.ovn)||(typeof POS!=='undefined'&&POS&&POS.frais_cfd)||{};
+  const jour=o.dernier_usd!=null?Number(o.dernier_usd):(o.jours&&o.jours.length&&o.jours[o.jours.length-1].montant_usd!=null?Math.abs(Number(o.jours[o.jours.length-1].montant_usd)):null);
+  const mois=o.projection_eur;
+  const obj=o.objectif_eur_mois!=null?o.objectif_eur_mois:20;
+  const over=!!o.depasse_objectif||(mois!=null&&Number.isFinite(Number(mois))&&Number(mois)>Number(obj));
+  const jourTxt=(jour==null||!Number.isFinite(Number(jour)))?'—':(bdgAmt(jour,'USD')+'/j');
+  const moisTxt=(mois==null||!Number.isFinite(Number(mois)))?'—':bdgAmt(mois,'EUR');
+  const objTxt='Objectif &lt; '+String(obj).replace('.',',')+'\u00a0€';
+  return `<p class="bdg-ovn-line ${over?'is-over':'is-ok'}" id="bdg-ovn">OVN ${jourTxt} · Coût mensuel ${moisTxt} · ${objTxt}</p>`;
 }
 function bdgTradingHTML(b){
   const t=b&&b.trading||{};

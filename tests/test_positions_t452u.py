@@ -129,10 +129,10 @@ def test_ordres_traites_comme_positions_actives_dans_le_js():
     assert "p.statut==='active'||p.statut==='en_attente'" in ACC
     assert "pos-mark-ordre" in JS and "pos-mark-ordre" in CSS
     assert "pos-cfd-alert" in JS and "pos-cfd-alert" in CSS
-    assert "pos-frais-cfd" in JS and "pos-frais-cfd" in CSS
-    assert "FRAIS CFD" in JS
     assert "function posFraisCfdHTML" in JS
     assert "${posCfdAlertHTML()}${posFraisCfdHTML()}" not in JS
+    assert "FRAIS CFD" not in JS
+    assert "pos-frais-bar" not in JS
     assert "dont Tesla non liquide" not in JS
     assert "pos-mark-rsu" in JS
     assert "rsu_badge" in JS and "pos-mark-rsu" in CSS
@@ -143,7 +143,11 @@ def test_ordres_traites_comme_positions_actives_dans_le_js():
     BDG = (ROOT / "src" / "budget.js").read_text()
     assert "function bdgInit" in BDG
     assert "à relever" in BDG
-    assert "Frais OVN" in BDG
+    assert "Coût mensuel" in BDG
+    assert "bdg-ovn-line" in BDG and "bdg-ovn-line" in CSS
+    assert "Objectif" in BDG
+    assert "pos-frais-bar" not in BDG
+    assert "FRAIS CFD" not in BDG
     assert "Frais trading" in BDG
     assert 'id="bdg-wrap"' in CSS
     assert "function bdgSetOpen" in BDG

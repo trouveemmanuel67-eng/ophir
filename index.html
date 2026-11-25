@@ -6,18 +6,18 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<meta name="ophir-build" content="12ae3ec-20261125-110626">
+<meta name="ophir-build" content="8f1189b-20261125-114333">
 <title>APEX INDICATOR INVESTMENT</title>
 <meta name="description" content="APEX Indicator Investment — notes et indicateurs de marché.">
 <meta name="theme-color" content="#0a1128">
 <meta name="apple-mobile-web-app-title" content="APEX">
 <meta name="application-name" content="APEX">
-<link rel="icon" href="favicon.ico?v=12ae3ec-20261125-110626" sizes="any">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=12ae3ec-20261125-110626">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=12ae3ec-20261125-110626">
-<link rel="icon" type="image/png" sizes="64x64" href="favicon.png?v=12ae3ec-20261125-110626">
-<link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png?v=12ae3ec-20261125-110626">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=12ae3ec-20261125-110626">
+<link rel="icon" href="favicon.ico?v=8f1189b-20261125-114333" sizes="any">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=8f1189b-20261125-114333">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=8f1189b-20261125-114333">
+<link rel="icon" type="image/png" sizes="64x64" href="favicon.png?v=8f1189b-20261125-114333">
+<link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png?v=8f1189b-20261125-114333">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=8f1189b-20261125-114333">
 <meta property="og:type" content="website">
 <meta property="og:title" content="APEX INDICATOR INVESTMENT">
 <meta property="og:description" content="APEX Indicator Investment — notes et indicateurs de marché.">
@@ -769,7 +769,9 @@ body.bdg-on .rg-btn[aria-expanded="true"],#bdgBtn.rg-btn[aria-expanded="true"],b
 .bdg-empty{padding:8px 0;color:var(--mut);font-style:italic;font-weight:600}
 .bdg-note{margin:8px 0 0;font-size:11px;color:var(--mut);line-height:1.4}
 .bdg-sec-tot{border-color:rgba(230,194,122,.45);background:rgba(230,194,122,.07)}
-.bdg-main .pos-frais-cfd{margin:12px 0 0}
+.bdg-ovn-line{margin:0 0 22px;padding:12px 16px;border-radius:12px;font-size:15px;font-weight:750;letter-spacing:.01em;line-height:1.45;text-align:center}
+.bdg-ovn-line.is-over{color:#f87171;border:1px solid rgba(248,113,113,.55);background:rgba(80,28,20,.28)}
+.bdg-ovn-line.is-ok{color:#4ade80;border:1px solid rgba(74,222,128,.4);background:rgba(20,64,32,.25)}
 
 #rg-page{display:none;position:fixed;inset:0;z-index:240;flex-direction:column;background:#0c1016;color:#fff;overflow:hidden}
 body.rg-on{overflow:hidden}
@@ -7488,8 +7490,8 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
   }
 }
 </script>
-<script type="application/json" id="dataBuild">{"version":"12ae3ec-20261125-110626"}</script>
-<link rel="preload" href="config/regles.json?v=12ae3ec-20261125-110626" as="fetch" crossorigin>
+<script type="application/json" id="dataBuild">{"version":"8f1189b-20261125-114333"}</script>
+<link rel="preload" href="config/regles.json?v=8f1189b-20261125-114333" as="fetch" crossorigin>
 
 <script type="application/json" id="dataMaj">{
   "at": "2026-11-23T21:45:22.168885+01:00",
@@ -17954,28 +17956,8 @@ function posCfdAlertHTML(){
   return `<div class="pos-cfd-alert" role="alert" title="${tip}">${a.libelle||'CFD Revolut'}</div>`;
 }
 function posFraisCfdHTML(){
-  const f=POS.frais_cfd||(POS_RV&&POS_RV.frais_cfd);
-  if(!f||(f.dernier_usd==null&&!(f.jours&&f.jours.length))) return '';
-  const last=f.dernier||((f.jours&&f.jours.length)?f.jours[f.jours.length-1]:null);
-  const d=last&&last.date?String(last.date).slice(8,10)+'/'+String(last.date).slice(5,7):'';
-  const jour=posMoneyUsdEur(f.dernier_usd,f.dernier_eur);
-  const mois=posMoneyUsdEur(f.projection_usd,f.projection_eur);
-  const obj=f.objectif_eur_mois!=null?f.objectif_eur_mois:20;
-  const proj=Number(f.projection_eur);
-  const ratio=obj?(proj/obj):0;
-  const pct=Math.max(0,Math.min(100,Math.round(ratio*100)));
-  const over=!!f.depasse_objectif||(proj>obj);
-  const hyp=((f.projection&&f.projection.hypothese)||'').replace(/"/g,'&quot;');
-  const fact=((f.facturation&&f.facturation.taux_par_instrument_note)||'').replace(/"/g,'&quot;');
-  const jourTip=((last&&(last.libelle||''))||'Frais overnight CFD')+' du '+(d||'jour relu')+(last&&last.heure?(' à '+last.heure):'')+' (Europe/Paris).';
-  return `<div class="pos-frais-cfd${over?' is-over':''}" title="${hyp||jourTip}">
-    <div class="pos-frais-h">FRAIS CFD</div>
-    <div class="pos-frais-row"><span>OVN ${d||'jour'}</span><b>${jour}</b></div>
-    <div class="pos-frais-row" title="${hyp}"><span>Projection / mois</span><b>${mois}</b></div>
-    <div class="pos-frais-obj">Objectif &lt; ${String(obj).replace('.',',')}\u00a0€ / mois</div>
-    <div class="pos-frais-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${pct}" aria-label="Projection par rapport à l’objectif"><i style="width:${pct}%"></i></div>
-    <div class="pos-frais-note">${over?'Au-dessus de l’objectif. ':''}Projection = dernier OVN observé × ~${f.projection_jours||30} jours calendaires (facturé chaque nuit ; un triple le vendredi, s’il s’applique, couvre le week-end et aboutit au même ordre de grandeur). ${fact||'Aucun OVN théorique par position n’est inventé : les taux exacts ne sont pas publiés hors de l’app Revolut.'}</div>
-  </div>`;
+  /* Encart détaillé retiré : la ligne unique vit dans le panneau Budget (bdgOvnHTML). */
+  return '';
 }
 function renderMesPositions(){
   const host=document.getElementById('mes-pos'); if(!host) return;
@@ -20164,24 +20146,16 @@ function bdgSetOpen(on, opts){
   }
 }
 function bdgOvnHTML(b){
-  const o=b&&b.ovn||{};
-  const lignes=o.lignes_mois||o.jours||[];
-  const rows=lignes.length
-    ? lignes.map(j=>{
-        const usd=j.montant_usd!=null?Math.abs(Number(j.montant_usd)):null;
-        const eur=(usd!=null&&b.fx)?usd/Number(b.fx):null;
-        const when=bdgDate(j.date)+(j.heure?(' · '+j.heure):'');
-        return `<li class="bdg-row"><span>${bdgEsc(when||'jour')} — ${bdgEsc(j.libelle||'Frais overnight CFD')}</span><b>${bdgPair(usd,eur)}</b></li>`;
-      }).join('')
-    : `<li class="bdg-empty">Aucun OVN relu ce mois-ci.</li>`;
-  const fraisBox=(typeof posFraisCfdHTML==='function')?posFraisCfdHTML():'';
-  return `<section class="bdg-sec" id="bdg-ovn">
-    <h2>Frais OVN <small>overnight CFD</small></h2>
-    <ul class="bdg-list">${rows}</ul>
-    <div class="bdg-tot"><span>Total du mois${b.mois_libelle?(' ('+bdgEsc(b.mois_libelle)+')'):''}</span><b>${bdgPair(o.total_mois_usd,o.total_mois_eur)}</b></div>
-    <div class="bdg-tot"><span>Projection mensuelle</span><b>${bdgPair(o.projection_usd,o.projection_eur)}</b></div>
-    ${fraisBox}
-  </section>`;
+  /* Une ligne, valeurs depuis data/revolut/frais_cfd_ovn.json (via budget.ovn / frais_cfd). */
+  const o=(b&&b.ovn)||(typeof POS!=='undefined'&&POS&&POS.frais_cfd)||{};
+  const jour=o.dernier_usd!=null?Number(o.dernier_usd):(o.jours&&o.jours.length&&o.jours[o.jours.length-1].montant_usd!=null?Math.abs(Number(o.jours[o.jours.length-1].montant_usd)):null);
+  const mois=o.projection_eur;
+  const obj=o.objectif_eur_mois!=null?o.objectif_eur_mois:20;
+  const over=!!o.depasse_objectif||(mois!=null&&Number.isFinite(Number(mois))&&Number(mois)>Number(obj));
+  const jourTxt=(jour==null||!Number.isFinite(Number(jour)))?'—':(bdgAmt(jour,'USD')+'/j');
+  const moisTxt=(mois==null||!Number.isFinite(Number(mois)))?'—':bdgAmt(mois,'EUR');
+  const objTxt='Objectif &lt; '+String(obj).replace('.',',')+'\u00a0€';
+  return `<p class="bdg-ovn-line ${over?'is-over':'is-ok'}" id="bdg-ovn">OVN ${jourTxt} · Coût mensuel ${moisTxt} · ${objTxt}</p>`;
 }
 function bdgTradingHTML(b){
   const t=b&&b.trading||{};
