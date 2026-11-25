@@ -853,6 +853,14 @@ body.bdg-on .rg-btn[aria-expanded="true"],#bdgBtn.rg-btn[aria-expanded="true"],b
 }
 
 
+/* Repli des blocs Budget (Comptes, courtage, tickets Lidl) : le bandeau des totaux reste visible. */
+.bdg-fold-btn{display:inline-flex;align-items:center;gap:6px;margin:0;padding:0;border:0;background:transparent;color:inherit;font:inherit;letter-spacing:inherit;text-transform:inherit;font-weight:inherit;cursor:pointer;text-align:left}
+.bdg-fold-btn:hover{color:#fff}
+.bdg-fold-arr{color:#e6c27a;font-size:11px;width:.95em;flex:0 0 auto;line-height:1}
+.bdg-fold-banner{display:none}
+.is-folded>.bdg-fold-banner{display:flex}
+.is-folded>.bdg-fold-body{display:none}
+
 #rg-page{display:none;position:fixed;inset:0;z-index:240;flex-direction:column;background:#0c1016;color:#fff;overflow:hidden}
 body.rg-on{overflow:hidden}
 body.rg-on #rg-page{display:flex}

@@ -151,6 +151,54 @@ function bdgHead(){
     <span>Poste</span><span>Détail</span><span>Observé ce mois $</span><span>€</span><span>Projection mensuelle $</span><span>€</span><span>Objectif</span>
   </div>`;
 }
+function bdgFoldKey(id){
+  return 'apex-bdg-fold-'+id;
+}
+function bdgFoldGet(id, defOpen){
+  try{
+    const v=localStorage.getItem(bdgFoldKey(id));
+    if(v==='0') return false;
+    if(v==='1') return true;
+  }catch(e){}
+  return defOpen!==false;
+}
+function bdgFoldSet(id, open){
+  try{ localStorage.setItem(bdgFoldKey(id), open?'1':'0'); }catch(e){}
+}
+function bdgFoldApply(root, open){
+  if(!root) return;
+  root.classList.toggle('is-folded', !open);
+  const btn=root.querySelector(':scope > .home-hero-top .bdg-fold-btn, :scope > .bdg-fold-btn');
+  const found=btn||root.querySelector('.bdg-fold-btn');
+  if(found){
+    found.setAttribute('aria-expanded', open?'true':'false');
+    const arr=found.querySelector('.bdg-fold-arr');
+    if(arr) arr.textContent=open?'\u25be':'\u25b8';
+  }
+}
+function bdgFoldTitle(id, label, bodyId){
+  return `<button type="button" class="bdg-fold-btn" aria-expanded="true" aria-controls="${bodyId}">`
+    +`<span class="bdg-fold-arr" aria-hidden="true">\u25be</span> ${bdgEsc(label)}`
+    +`</button>`;
+}
+function bdgBindFolds(scope){
+  (scope||document).querySelectorAll('[data-bdg-fold]').forEach(el=>{
+    const id=el.getAttribute('data-bdg-fold');
+    if(!id) return;
+    const def=el.getAttribute('data-bdg-fold-default')!=='closed';
+    bdgFoldApply(el, bdgFoldGet(id, def));
+    const btn=el.querySelector('.bdg-fold-btn');
+    if(!btn || btn.dataset.bdgFoldBound) return;
+    btn.dataset.bdgFoldBound='1';
+    btn.addEventListener('click',e=>{
+      e.preventDefault();
+      e.stopPropagation();
+      const open=el.classList.contains('is-folded');
+      bdgFoldSet(id, open);
+      bdgFoldApply(el, open);
+    });
+  });
+}
 function bdgCourtHtml(b){
   const o=bdgOvnOf(b);
   const t=(b&&b.trading)||{};
@@ -179,11 +227,16 @@ function bdgCourtHtml(b){
   if(fx) srcParts.push('change '+fx);
   const src=srcParts.length?('Source : '+srcParts.join(' · ')+'.'):'';
   const mois=b.mois_libelle||'';
-  return `<section class="card home-hero bdg-hero" id="bdg-courtage">
+  return `<section class="card home-hero bdg-hero" id="bdg-courtage" data-bdg-fold="courtage">
     <div class="home-hero-top">
-      <h2>Frais de courtage et abonnements</h2>
+      <h2>${bdgFoldTitle('courtage','Frais de courtage et abonnements','bdg-courtage-body')}</h2>
       <p class="desc">${bdgEsc(mois?(mois+' · flux courants'):'Flux courants')}</p>
     </div>
+    <div class="home-strip bdg-kvs bdg-fold-banner">
+      <div class="home-kv"><span class="l">Total observé</span><b>${bdgAmt(b.total_observe_eur,'EUR')}</b><small>${bdgAmt(b.total_observe_usd,'USD')}</small></div>
+      <div class="home-kv"><span class="l">Projection</span><b>${bdgAmt(b.projection_eur,'EUR')}</b><small>${bdgAmt(b.projection_usd,'USD')}</small></div>
+    </div>
+    <div class="bdg-fold-body" id="bdg-courtage-body">
     <div class="home-table-scroll">
       <div class="home-table bdg-table" id="bdg-table">
         ${bdgHead()}
@@ -202,6 +255,7 @@ function bdgCourtHtml(b){
       </div>
     </div>
     ${src?`<p class="bdg-src">${bdgEsc(src)}</p>`:''}
+    </div>
   </section>`;
 }
 function bdgLidlOf(c){
@@ -264,12 +318,13 @@ function bdgLidlBlock(c){
   const part=s.courses_releve_octobre||{};
   const note=part.note||'Les Courses du relevé incluent aussi d’autres enseignes.';
   const partLine=part.lidl_releve_eur!=null?(`Part Lidl d’octobre au relevé : ${bdgAmt(part.lidl_releve_eur,'EUR')} sur ${bdgAmt(part.observe_eur,'EUR')} de Courses (${bdgLidlPct(part.lidl_part_releve_pct)}), pour ${part.lidl_releve_n||'—'} paiements carte. Les tickets Lidl d’octobre totalisent ${bdgAmt(part.lidl_tickets_eur,'EUR')}.`):'';
-  return `<div class="bdg-sous bdg-lidl" id="bdg-courses-sous">
+  return `<div class="bdg-sous bdg-lidl" id="bdg-courses-sous" data-bdg-fold="lidl">
     <div class="home-hero-top">
-      <h3>${bdgEsc(s.libelle||'Tickets Lidl — détail par rayons')}</h3>
+      <h3>${bdgFoldTitle('lidl', s.libelle||'Tickets Lidl — détail par rayons', 'bdg-lidl-body')}</h3>
       <p class="desc">Octobre et novembre 2026 (au 24) · change 1,0944 · objectif —</p>
     </div>
     ${kvs}
+    <div class="bdg-fold-body" id="bdg-lidl-body">
     <div class="home-table-scroll">
       <div class="bdg-lidl-table">
         <div class="bdg-lidl-row bdg-lidl-th" aria-hidden="true">
@@ -287,6 +342,7 @@ function bdgLidlBlock(c){
     <div class="bdg-lidl-lists">
       ${ticketList(oct,oct.tickets)}
       ${ticketList(nov,nov.tickets)}
+    </div>
     </div>
   </div>`;
 }
@@ -447,9 +503,9 @@ function bdgComptesHtml(b){
   const cptes=(j.comptes||[]).map(x=>x.libelle+(x.titulaires?(' ('+x.titulaires+')'):'')).join(' · ');
   const oct=tot.octobre||{}, nov=tot.novembre_1_25||{};
   const moisNote=(oct.depenses_eur!=null)?(`Octobre : dépenses ${bdgAmt(oct.depenses_eur,'EUR')} / revenus ${bdgAmt(oct.revenus_eur,'EUR')} / reste ${bdgAmt(oct.reste_eur,'EUR')}. 1–25 novembre : dépenses ${bdgAmt(nov.depenses_eur,'EUR')} / revenus ${bdgAmt(nov.revenus_eur,'EUR')} / reste ${bdgAmt(nov.reste_eur,'EUR')}.`):'';
-  return `<section class="card home-hero bdg-hero" id="bdg-comptes">
+  return `<section class="card home-hero bdg-hero" id="bdg-comptes" data-bdg-fold="comptes">
     <div class="home-hero-top">
-      <h2>${bdgEsc(j.titre||'Comptes')}</h2>
+      <h2>${bdgFoldTitle('comptes', j.titre||'Comptes', 'bdg-comptes-body')}</h2>
       <p class="desc">${bdgEsc(per+(cptes?(' · '+cptes):''))}</p>
     </div>
     <div class="home-strip bdg-kvs">
@@ -461,6 +517,7 @@ function bdgComptesHtml(b){
       <div class="home-kv bdg-kv-fixe"><span class="l">Charges fixes crédit</span><b>${bdgAmt(tot.charges_fixes_credit_mensuel_eur,'EUR')}</b><small>LOA Tesla + Revolut / mois · ${bdgAmt(tot.charges_fixes_credit_mensuel_usd,'USD')}</small></div>
       <div class="home-kv bdg-kv-pro"><span class="l">Air Glow pub (pro)</span><b>${bdgAmt(tot.air_glow_pub_eur,'EUR')}</b><small>${bdgAmt(tot.air_glow_pub_usd,'USD')}</small></div>
     </div>
+    <div class="bdg-fold-body" id="bdg-comptes-body">
     <div class="home-table-scroll">
       <div class="home-table bdg-table" id="bdg-table-comptes">
         ${bdgHead()}
@@ -478,6 +535,7 @@ function bdgComptesHtml(b){
     <p class="bdg-src">${bdgEsc(src)}</p>
     ${moisNote?`<p class="bdg-src">${moisNote}</p>`:''}
     ${tot.charges_fixes_credit_note?`<p class="bdg-src bdg-tv-flag">${bdgEsc(tot.charges_fixes_credit_note)}</p>`:''}
+    </div>
   </section>`;
 }
 function bdgTableHTML(b){
@@ -521,6 +579,7 @@ function bdgRender(){
     document.body.appendChild(page);
   }
   page.innerHTML=bdgPageHTML();
+  bdgBindFolds(page);
   const btn=document.getElementById('bdgBtn');
   if(btn) btn.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();bdgSetOpen(!bdgIsOpen());});
   const close=()=>{bdgSetOpen(false);};

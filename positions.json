@@ -10596,16 +10596,16 @@
         {
           "id": "courses",
           "poste": "Courses",
-          "n_operations": 115,
-          "debit_eur": 1962.01,
+          "n_operations": 116,
+          "debit_eur": 1985.21,
           "credit_eur": 0.0,
-          "observe_eur": 1962.01,
-          "observe_usd": 2147.22,
-          "projection_eur": 1962.01,
-          "projection_usd": 2147.22,
+          "observe_eur": 1985.21,
+          "observe_usd": 2172.61,
+          "projection_eur": 1985.21,
+          "projection_usd": 2172.61,
           "objectif": null,
           "compte_dans_total_depenses": true,
-          "detail": "115 opérations · 104 joint, 11 Shana",
+          "detail": "116 opérations · 105 joint, 11 Shana",
           "operations": [
             {
               "date": "2026-10-02",
@@ -12923,6 +12923,28 @@
               "statut": "comptable",
               "compte": "joint",
               "compte_libelle": "joint"
+            },
+            {
+              "date": "2026-11-24",
+              "date_libelle": "24 nov. 2026",
+              "libelle": "Vin, confiture, tire-bouchon (Fritz Schmitt)",
+              "details": [
+                "À : Fritz-schmitt, Ottrott",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 23.2,
+              "montant_usd": 25.39,
+              "solde_apres_eur": 1164.67,
+              "categorie": "courses",
+              "categorie_libelle": "Courses",
+              "type": "depense",
+              "page": 18,
+              "statut": "comptable",
+              "compte": "joint",
+              "compte_libelle": "joint",
+              "note_classification": "Vin, confiture et tire-bouchon chez Fritz Schmitt, Ottrott. Confirmé par Emmanuel le 25/11/2026. Catégorie Courses.",
+              "libelle_releve": "Fritz Schmitt"
             }
           ],
           "commercants": [],
@@ -19203,17 +19225,40 @@
         {
           "id": "enfant",
           "poste": "Enfant / école",
-          "n_operations": 10,
+          "n_operations": 11,
           "debit_eur": 101.9,
-          "credit_eur": 0.0,
-          "observe_eur": 101.9,
-          "observe_usd": 111.52,
-          "projection_eur": 101.9,
-          "projection_usd": 111.52,
+          "credit_eur": 36.35,
+          "observe_eur": 65.55,
+          "observe_usd": 71.74,
+          "projection_eur": 65.55,
+          "projection_usd": 71.74,
           "objectif": null,
           "compte_dans_total_depenses": true,
-          "detail": "10 opérations · 10 Shana",
+          "detail": "11 opérations · 10 Shana, 1 perso",
           "operations": [
+            {
+              "date": "2026-10-01",
+              "date_libelle": "1 oct. 2026",
+              "libelle": "Photo de classe (Collège Foch)",
+              "details": [
+                "Référence : COLLEGE FOCH-2500394",
+                "De : DGFIP FINANCES PUBLIQUES, FR353000100806A674000000088"
+              ],
+              "sens": "credit",
+              "montant_eur": 36.35,
+              "montant_usd": 39.78,
+              "solde_apres_eur": 82.21,
+              "categorie": "enfant",
+              "categorie_libelle": "Enfant / école",
+              "type": "remboursement_categorie",
+              "page": 1,
+              "statut": "comptable",
+              "compte": "perso",
+              "compte_libelle": "perso",
+              "note_classification": "Versement DGFIP (réf. COLLEGE FOCH), confirmé par Emmanuel le 25/11/2026 : photo de classe. Classé dans Enfant, libellé « Photo de classe (Collège Foch) ». Crédit sur le relevé (36,35 €) : il réduit le net de la catégorie Enfant ; ce n'est pas un revenu.",
+              "libelle_releve": "Paiement envoyé par DGFIP FINANCES PUBLIQUES",
+              "produit": "compte_courant"
+            },
             {
               "date": "2026-10-04",
               "date_libelle": "4 oct. 2026",
@@ -19429,16 +19474,16 @@
         {
           "id": "loisirs",
           "poste": "Loisirs / restaurants",
-          "n_operations": 23,
-          "debit_eur": 430.36,
+          "n_operations": 22,
+          "debit_eur": 407.16,
           "credit_eur": 0.0,
-          "observe_eur": 430.36,
-          "observe_usd": 470.99,
-          "projection_eur": 430.36,
-          "projection_usd": 470.99,
+          "observe_eur": 407.16,
+          "observe_usd": 445.6,
+          "projection_eur": 407.16,
+          "projection_usd": 445.6,
           "objectif": null,
           "compte_dans_total_depenses": true,
-          "detail": "23 opérations · 22 joint, 1 perso",
+          "detail": "22 opérations · 21 joint, 1 perso",
           "operations": [
             {
               "date": "2026-10-11",
@@ -19901,27 +19946,6 @@
               "statut": "comptable",
               "compte": "joint",
               "compte_libelle": "joint"
-            },
-            {
-              "date": "2026-11-24",
-              "date_libelle": "24 nov. 2026",
-              "libelle": "Fritz Schmitt",
-              "details": [
-                "À : Fritz-schmitt, Ottrott",
-                "Carte : 416598******7711"
-              ],
-              "sens": "debit",
-              "montant_eur": 23.2,
-              "montant_usd": 25.39,
-              "solde_apres_eur": 1164.67,
-              "categorie": "loisirs",
-              "categorie_libelle": "Loisirs / restaurants",
-              "type": "depense",
-              "page": 18,
-              "statut": "comptable",
-              "compte": "joint",
-              "compte_libelle": "joint",
-              "note_classification": "Fritz Schmitt, Ottrott — probable restaurant ou cave."
             }
           ]
         },
@@ -23541,23 +23565,23 @@
         }
       ],
       "totaux": {
-        "depenses_eur": 13279.0,
-        "depenses_usd": 14532.54,
+        "depenses_eur": 13242.65,
+        "depenses_usd": 14492.76,
         "depenses_note": "Somme nette des catégories de dépenses personnelles des deux comptes (virements internes, épargne, investissement, capital du crédit Revolut, remboursements d'assurance et dépenses pro Air Glow pub exclus). Les virements perso → joint (et l'inverse) ne sont comptés qu'une fois, et uniquement en transferts internes. Les crédits Apple.com/bill du même mois sont déduits des Abonnements.",
         "revenus_eur": 12238.68,
         "revenus_usd": 13394.01,
-        "revenus_detail": "Salaire Tesla France 10 485,00 € (4 169,59 € le 22/10, réf. Salary 102026 ; 6 315,41 € le 24/11, réf. Salary 112026) + France Travail Grand Est 1 753,20 € (876,60 € le 1/10 et 876,60 € le 2/11) + intérêts d'épargne Revolut 0,48 €. Les virements entre comptes, le prêt personnel, les recharges Apple Pay et les remboursements Aon / AXA / DGFIP ne sont pas des revenus.",
+        "revenus_detail": "Salaire Tesla France 10 485,00 € (4 169,59 € le 22/10, réf. Salary 102026 ; 6 315,41 € le 24/11, réf. Salary 112026) + France Travail Grand Est 1 753,20 € (876,60 € le 1/10 et 876,60 € le 2/11) + intérêts d'épargne Revolut 0,48 €. Les virements entre comptes, le prêt personnel, les alimentations Apple Pay destinées à l'investissement XTB et les remboursements Aon / AXA / Francky Vetsch ne sont pas des revenus.",
         "salaire_eur": 10485.0,
         "salaire_usd": 11474.78,
         "france_travail_eur": 1753.2,
         "france_travail_usd": 1918.7,
         "interets_epargne_eur": 0.48,
         "interets_epargne_usd": 0.53,
-        "remboursements_eur": 586.65,
-        "remboursements_usd": 642.03,
-        "remboursements_note": "Remboursements présentés à part, non inclus dans les revenus ni déduits des cotisations du mois : AXA 126,86 € (joint, 30/10, période 26/06–26/08) ; Aon France complément sécurité sociale 423,44 € (perso, novembre, à rapprocher des soins Dr Koch) ; DGFIP 36,35 € (perso, 1/10, réf. COLLEGE FOCH, à confirmer).",
-        "reste_eur": -1040.32,
-        "reste_usd": -1138.53,
+        "remboursements_eur": 552.3,
+        "remboursements_usd": 604.44,
+        "remboursements_note": "Remboursements présentés à part, non inclus dans les revenus ni déduits des cotisations du mois : AXA 126,86 € (joint, 30/10, période 26/06–26/08) ; Aon France complément sécurité sociale 423,44 € (perso, novembre, à rapprocher des soins Dr Koch) ; Francky Vetsch 2,00 € (perso, 9/11, remboursement d'un Red Bull par un collègue, confirmé le 25/11/2026).",
+        "reste_eur": -1003.97,
+        "reste_usd": -1098.74,
         "reste_formule": "revenus réels (salaire Tesla + France Travail + intérêts d'épargne) − dépenses personnelles (hors virements internes / épargne / investissement, hors Air Glow pub pro, hors capital du crédit Revolut, hors remboursements d'assurance)",
         "virements_internes_entrants_eur": 22629.09,
         "virements_internes_entrants_usd": 24765.28,
@@ -23572,12 +23596,12 @@
         "remboursements_emprunt_usd": 0.0,
         "financement_note": "Crédit Revolut 23 500 € le 6/11 (confirmé par Emmanuel le 25/11/2026) : ce n'est ni un revenu ni une dépense. Le capital (23 434,34 €) est viré le jour même vers FR7610278010100002262220176 (transfert interne). La mensualité de 169,60 € figure dans la catégorie « Crédit Revolut (remboursement) ».",
         "octobre": {
-          "depenses_eur": 6251.87,
-          "depenses_usd": 6842.05,
+          "depenses_eur": 6215.52,
+          "depenses_usd": 6802.27,
           "revenus_eur": 5046.19,
           "revenus_usd": 5522.55,
-          "reste_eur": -1205.68,
-          "reste_usd": -1319.5
+          "reste_eur": -1169.33,
+          "reste_usd": -1279.71
         },
         "novembre_1_25": {
           "depenses_eur": 7027.13,
@@ -23637,8 +23661,21 @@
             "n": 6,
             "montant_eur": 133.28,
             "montant_usd": 145.86
+          },
+          {
+            "id": "investissement_xtb_apple_pay",
+            "libelle": "Investissement XTB (Apple Pay)",
+            "note": "Recharges Apple Pay 86 € + 650 € + 270 € = 1 006 €, confirmées par Emmanuel le 25/11/2026 : transferts de Revolut vers XTB pour acheter des actions. Virements internes / investissement (XTB), exclus des dépenses et des revenus. Montant constaté en entrées sur les comptes Revolut, non additionné aux virements sortants déjà partis vers les courtiers.",
+            "n": 3,
+            "montant_eur": 1006.0,
+            "montant_usd": 1100.97
           }
         ],
+        "investissement_eur": 14882.73,
+        "investissement_usd": 16287.66,
+        "investissement_xtb_apple_pay_eur": 1006.0,
+        "investissement_xtb_apple_pay_usd": 1100.97,
+        "investissement_note": "Vers l'investissement (XTB, Revolut X, marge, métaux, Deblock, compte-titres) : 14 882,73 € sortants, exclus des dépenses. Les recharges Apple Pay 1 006,00 € (86 + 650 + 270) sont classées en virements internes / investissement XTB (confirmé le 25/11/2026) ; elles ne sont ni une dépense ni un revenu, et ne sont pas additionnées aux sortants courtiers.",
         "credit_revolut": {
           "libelle": "Crédit Revolut 23 500 €",
           "capital_eur": 23500.0,
@@ -23895,28 +23932,6 @@
       ],
       "remboursements_operations": [
         {
-          "date": "2026-10-01",
-          "date_libelle": "1 oct. 2026",
-          "libelle": "Paiement envoyé par DGFIP FINANCES PUBLIQUES",
-          "details": [
-            "Référence : COLLEGE FOCH-2500394",
-            "De : DGFIP FINANCES PUBLIQUES, FR353000100806A674000000088"
-          ],
-          "sens": "credit",
-          "montant_eur": 36.35,
-          "montant_usd": 39.78,
-          "solde_apres_eur": 82.21,
-          "categorie": "remboursements",
-          "categorie_libelle": "remboursements",
-          "type": "remboursements",
-          "page": 1,
-          "statut": "comptable",
-          "compte": "perso",
-          "compte_libelle": "perso",
-          "note_classification": "DGFIP, référence COLLEGE FOCH — probable remboursement (impôt / frais scolaires). Non compté en salaire.",
-          "produit": "compte_courant"
-        },
-        {
           "date": "2026-10-30",
           "date_libelle": "30 oct. 2026",
           "libelle": "Paiement envoyé par AXA FRANCE IARD",
@@ -24002,6 +24017,28 @@
           "compte": "perso",
           "compte_libelle": "perso",
           "note_classification": "Aon France, complément sécurité sociale (mutuelle). À rapprocher des soins dentaires Dr Koch. Non inclus dans les revenus.",
+          "produit": "compte_courant"
+        },
+        {
+          "date": "2026-11-09",
+          "date_libelle": "9 nov. 2026",
+          "libelle": "Remboursement Red Bull (Francky Vetsch)",
+          "details": [
+            "De : M FRANCKY VETSCH"
+          ],
+          "sens": "credit",
+          "montant_eur": 2.0,
+          "montant_usd": 2.19,
+          "solde_apres_eur": 330.17,
+          "categorie": "remboursements",
+          "categorie_libelle": "remboursements",
+          "type": "remboursements",
+          "page": 4,
+          "statut": "comptable",
+          "compte": "perso",
+          "compte_libelle": "perso",
+          "note_classification": "Virement de 2,00 € d'un collègue, remboursement d'un Red Bull. Confirmé par Emmanuel le 25/11/2026. Classé en remboursement : ce n'est ni une dépense ni un revenu.",
+          "libelle_releve": "Paiement envoyé par M FRANCKY VETSCH",
           "produit": "compte_courant"
         },
         {
@@ -24594,6 +24631,48 @@
         {
           "date": "2026-11-16",
           "date_libelle": "16 nov. 2026",
+          "libelle": "Investissement XTB (Apple Pay *0225)",
+          "details": [
+            "De : *0225"
+          ],
+          "sens": "credit",
+          "montant_eur": 270.0,
+          "montant_usd": 295.49,
+          "solde_apres_eur": 1356.83,
+          "categorie": "virements_internes_entrants",
+          "categorie_libelle": "virement_interne",
+          "type": "virement_interne",
+          "page": 16,
+          "statut": "comptable",
+          "compte": "joint",
+          "compte_libelle": "joint",
+          "note_classification": "Recharge Apple Pay, confirmée par Emmanuel le 25/11/2026 : transfert de Revolut vers XTB pour acheter des actions. Virement interne / investissement (XTB), exclu des dépenses et des revenus.",
+          "libelle_releve": "Recharge sur Apple Pay via *0225"
+        },
+        {
+          "date": "2026-11-16",
+          "date_libelle": "16 nov. 2026",
+          "libelle": "Investissement XTB (Apple Pay *0225)",
+          "details": [
+            "De : *0225"
+          ],
+          "sens": "credit",
+          "montant_eur": 650.0,
+          "montant_usd": 711.36,
+          "solde_apres_eur": 1362.63,
+          "categorie": "virements_internes_entrants",
+          "categorie_libelle": "virement_interne",
+          "type": "virement_interne",
+          "page": 16,
+          "statut": "comptable",
+          "compte": "joint",
+          "compte_libelle": "joint",
+          "note_classification": "Recharge Apple Pay, confirmée par Emmanuel le 25/11/2026 : transfert de Revolut vers XTB pour acheter des actions. Virement interne / investissement (XTB), exclu des dépenses et des revenus.",
+          "libelle_releve": "Recharge sur Apple Pay via *0225"
+        },
+        {
+          "date": "2026-11-16",
+          "date_libelle": "16 nov. 2026",
           "libelle": "Paiement envoyé par M OU MME EMMANUEL TROUVE",
           "details": [
             "Référence : CTR CLT 102780101000022622201 CLOTURE 102780101000022622201",
@@ -24613,49 +24692,9 @@
           "note_classification": "Solde de clôture du compte FR7610278010100002262220176. Transfert interne, pas un revenu."
         },
         {
-          "date": "2026-11-16",
-          "date_libelle": "16 nov. 2026",
-          "libelle": "Recharge sur Apple Pay via *0225",
-          "details": [
-            "De : *0225"
-          ],
-          "sens": "credit",
-          "montant_eur": 270.0,
-          "montant_usd": 295.49,
-          "solde_apres_eur": 1356.83,
-          "categorie": "virements_internes_entrants",
-          "categorie_libelle": "virement_interne",
-          "type": "virement_interne",
-          "page": 16,
-          "statut": "comptable",
-          "compte": "joint",
-          "compte_libelle": "joint",
-          "note_classification": "Recharge Apple Pay. Probable alimentation depuis une carte à son nom — pas un revenu."
-        },
-        {
-          "date": "2026-11-16",
-          "date_libelle": "16 nov. 2026",
-          "libelle": "Recharge sur Apple Pay via *0225",
-          "details": [
-            "De : *0225"
-          ],
-          "sens": "credit",
-          "montant_eur": 650.0,
-          "montant_usd": 711.36,
-          "solde_apres_eur": 1362.63,
-          "categorie": "virements_internes_entrants",
-          "categorie_libelle": "virement_interne",
-          "type": "virement_interne",
-          "page": 16,
-          "statut": "comptable",
-          "compte": "joint",
-          "compte_libelle": "joint",
-          "note_classification": "Recharge Apple Pay. Probable alimentation depuis une carte à son nom — pas un revenu."
-        },
-        {
           "date": "2026-11-17",
           "date_libelle": "17 nov. 2026",
-          "libelle": "Recharge sur Apple Pay via *3356",
+          "libelle": "Investissement XTB (Apple Pay *3356)",
           "details": [
             "De : *3356"
           ],
@@ -24670,7 +24709,8 @@
           "statut": "comptable",
           "compte": "perso",
           "compte_libelle": "perso",
-          "note_classification": "Recharge Apple Pay. Probable alimentation depuis une carte à son nom — pas un revenu. À confirmer.",
+          "note_classification": "Recharge Apple Pay, confirmée par Emmanuel le 25/11/2026 : transfert de Revolut vers XTB pour acheter des actions. Virement interne / investissement (XTB), exclu des dépenses et des revenus.",
+          "libelle_releve": "Recharge sur Apple Pay via *3356",
           "produit": "compte_courant"
         },
         {
@@ -24903,65 +24943,13 @@
           "produit": "compte_courant"
         }
       ],
-      "credits_a_confirmer": [
-        {
-          "date": "2026-11-09",
-          "date_libelle": "9 nov. 2026",
-          "libelle": "Paiement envoyé par M FRANCKY VETSCH",
-          "details": [
-            "De : M FRANCKY VETSCH"
-          ],
-          "sens": "credit",
-          "montant_eur": 2.0,
-          "montant_usd": 2.19,
-          "solde_apres_eur": 330.17,
-          "categorie": "a_confirmer_credit",
-          "categorie_libelle": "a_confirmer",
-          "type": "a_confirmer",
-          "page": 4,
-          "statut": "comptable",
-          "compte": "perso",
-          "compte_libelle": "perso",
-          "note_classification": "Petit virement reçu (2,00 €). Non compté en revenu en attendant confirmation.",
-          "produit": "compte_courant"
-        }
-      ],
+      "credits_a_confirmer": [],
       "operations_ambigues": [
-        {
-          "sujet": "DGFIP FINANCES PUBLIQUES 36,35 € (COLLEGE FOCH)",
-          "montant_eur": 36.35,
-          "classification": "remboursements",
-          "question": "Remboursement d'impôt, de frais scolaires, ou autre versement de la DGFIP ?"
-        },
-        {
-          "sujet": "Paiement envoyé par M FRANCKY VETSCH 2,00 €",
-          "montant_eur": 2.0,
-          "classification": "à confirmer (non inclus dans les revenus)",
-          "question": "Remboursement, cadeau, ou autre ? À classer ?"
-        },
-        {
-          "sujet": "Recharge sur Apple Pay via *3356 86.00 €",
-          "montant_eur": 86.0,
-          "classification": "virements_internes_entrants",
-          "question": "Recharge depuis une carte personnelle (*3356) ? Ce n'est pas compté en revenu."
-        },
         {
           "sujet": "Cb Nx000018 28,85 € (Strasbourg, 15/11)",
           "montant_eur": 28.85,
           "classification": "autres",
           "question": "Commerçant exact ?"
-        },
-        {
-          "sujet": "Recharges Apple Pay *0225 650 € + 270 € (16/11, compte joint)",
-          "montant_eur": 920.0,
-          "classification": "virements_internes_entrants",
-          "question": "Recharges depuis une carte personnelle (*0225) ? Ce n'est pas compté en revenu."
-        },
-        {
-          "sujet": "Fritz Schmitt 23,20 € (Ottrott, 24/11)",
-          "montant_eur": 23.2,
-          "classification": "loisirs",
-          "question": "Restaurant, cave, ou autre ?"
         },
         {
           "sujet": "Le Jardin des Pins, Ramatuelle",

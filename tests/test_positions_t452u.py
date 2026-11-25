@@ -236,8 +236,13 @@ def test_ordres_traites_comme_positions_actives_dans_le_js():
     assert comptes["totaux"]["salaire_eur"] == 10485.0
     assert comptes["totaux"]["france_travail_eur"] == 1753.2
     assert comptes["totaux"]["revenus_eur"] == 12238.68
-    assert comptes["totaux"]["depenses_eur"] == 13279.0
-    assert comptes["totaux"]["reste_eur"] == -1040.32
+    assert comptes["totaux"]["depenses_eur"] == 13242.65
+    assert comptes["totaux"]["reste_eur"] == -1003.97
+    assert comptes["totaux"]["investissement_eur"] == 14882.73
+    assert comptes["totaux"]["investissement_xtb_apple_pay_eur"] == 1006.0
+    assert comptes["totaux"]["octobre"]["depenses_eur"] == 6215.52
+    assert comptes["totaux"]["novembre_1_25"]["depenses_eur"] == 7027.13
+    assert comptes["totaux"]["remboursements_eur"] == 552.3
     assert comptes["totaux"]["air_glow_pub_eur"] == 260.27
     assert comptes["totaux"]["n_transferts_dedoublonnes"] == 36
     assert comptes["totaux"]["charges_fixes_credit_mensuel_eur"] == 655.92
@@ -255,14 +260,31 @@ def test_ordres_traites_comme_positions_actives_dans_le_js():
     assert cred["compte_dans_total_depenses"] is True
     lois = next(c for c in comptes["categories"] if c["id"] == "loisirs")
     assert any(o["libelle"] == "Cadeau / pot de naissance (travail)" and o["montant_eur"] == 20.93 for o in lois["operations"])
+    assert all(o["libelle"] != "Fritz Schmitt" for o in lois["operations"])
+    courses_ops = next(c for c in comptes["categories"] if c["id"] == "courses")["operations"]
+    assert any(o["libelle"] == "Vin, confiture, tire-bouchon (Fritz Schmitt)" and o["montant_eur"] == 23.2 for o in courses_ops)
+    enf = next(c for c in comptes["categories"] if c["id"] == "enfant")
+    assert any(o["libelle"] == "Photo de classe (Collège Foch)" and o["montant_eur"] == 36.35 and o["sens"] == "credit" for o in enf["operations"])
+    remb_ops = comptes.get("remboursements_operations") or []
+    assert any(o["libelle"] == "Remboursement Red Bull (Francky Vetsch)" and o["montant_eur"] == 2.0 for o in remb_ops)
+    vin_ops = comptes.get("virements_internes_entrants") or []
+    assert any(o["libelle"] == "Investissement XTB (Apple Pay *3356)" and o["montant_eur"] == 86.0 for o in vin_ops)
+    assert sum(o["montant_eur"] for o in vin_ops if o["libelle"] == "Investissement XTB (Apple Pay *0225)") == 920.0
+    assert not (comptes.get("credits_a_confirmer") or [])
     glow_c = next(c for c in comptes["categories"] if c["id"] == "air_glow_pub")
     assert any(o["libelle"] == "MailPoet" and o["montant_eur"] == 85.95 for o in glow_c["operations"])
     assert any(o["libelle"] == "Dualhook" and o["montant_eur"] == 14.4 for o in glow_c["operations"])
     amb = " ".join((a.get("sujet") or "") for a in (comptes.get("operations_ambigues") or []))
     assert "Cofica" not in amb and "repayment" not in amb and "Bastos" not in amb
     assert "219,99" not in amb and "MailPoet" not in amb and "Dualhook" not in amb and "Personal loan" not in amb
+    assert "Fritz Schmitt" not in amb and "DGFIP" not in amb and "FRANCKY" not in amb and "Francky" not in amb
+    assert "Apple Pay" not in amb and "*3356" not in amb and "*0225" not in amb and "Collège Foch" not in amb and "College Foch" not in amb
     assert "Crédit Revolut 23 500" in BDG
     assert "bdg-cat-fixe" in BDG and "bdg-cat-fixe" in CSS
+    assert "bdg-fold-btn" in BDG and "data-bdg-fold" in BDG
+    assert "apex-bdg-fold" in BDG and "localStorage" in BDG
+    assert "bdg-fold-body" in BDG and "bdg-fold-banner" in BDG
+    assert "is-folded" in CSS and ".bdg-fold-btn" in CSS
     san_c = next(c for c in comptes["categories"] if c["id"] == "sante")
     koch_c = [o for o in san_c["operations"] if o["libelle"] == "Dentiste (Dr Koch)"]
     assert len(koch_c) == 2

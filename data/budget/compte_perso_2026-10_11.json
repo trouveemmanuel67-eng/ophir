@@ -719,16 +719,39 @@
     {
       "id": "enfant",
       "poste": "Enfant / école",
-      "n_operations": 10,
+      "n_operations": 11,
       "debit_eur": 101.9,
-      "credit_eur": 0.0,
-      "observe_eur": 101.9,
-      "observe_usd": 111.52,
-      "projection_eur": 101.9,
-      "projection_usd": 111.52,
+      "credit_eur": 36.35,
+      "observe_eur": 65.55,
+      "observe_usd": 71.74,
+      "projection_eur": 65.55,
+      "projection_usd": 71.74,
       "objectif": null,
       "compte_dans_total_depenses": true,
       "operations": [
+        {
+          "date": "2026-10-01",
+          "date_libelle": "1 oct. 2026",
+          "libelle": "Photo de classe (Collège Foch)",
+          "details": [
+            "Référence : COLLEGE FOCH-2500394",
+            "De : DGFIP FINANCES PUBLIQUES, FR353000100806A674000000088"
+          ],
+          "sens": "credit",
+          "montant_eur": 36.35,
+          "montant_usd": 39.78,
+          "solde_apres_eur": 82.21,
+          "categorie": "enfant",
+          "categorie_libelle": "Enfant / école",
+          "type": "remboursement_categorie",
+          "page": 1,
+          "statut": "comptable",
+          "compte": "perso",
+          "compte_libelle": "perso",
+          "note_classification": "Versement DGFIP (réf. COLLEGE FOCH), confirmé par Emmanuel le 25/11/2026 : photo de classe. Classé dans Enfant, libellé « Photo de classe (Collège Foch) ». Crédit sur le relevé (36,35 €) : il réduit le net de la catégorie Enfant ; ce n'est pas un revenu.",
+          "libelle_releve": "Paiement envoyé par DGFIP FINANCES PUBLIQUES",
+          "produit": "compte_courant"
+        },
         {
           "date": "2026-10-04",
           "date_libelle": "4 oct. 2026",
@@ -940,7 +963,7 @@
           "produit": "shana"
         }
       ],
-      "detail": "10 opérations"
+      "detail": "11 opérations"
     },
     {
       "id": "loisirs",
@@ -2598,12 +2621,12 @@
     }
   ],
   "totaux": {
-    "depenses_eur": 1778.79,
-    "depenses_usd": 1946.71,
+    "depenses_eur": 1742.44,
+    "depenses_usd": 1906.93,
     "revenus_eur": 10485.48,
     "revenus_usd": 11475.31,
-    "reste_eur": 8706.69,
-    "reste_usd": 9528.6,
+    "reste_eur": 8743.04,
+    "reste_usd": 9568.38,
     "salaire_eur": 10485.0
   },
   "revenus_operations": [
@@ -2801,28 +2824,6 @@
   ],
   "remboursements_operations": [
     {
-      "date": "2026-10-01",
-      "date_libelle": "1 oct. 2026",
-      "libelle": "Paiement envoyé par DGFIP FINANCES PUBLIQUES",
-      "details": [
-        "Référence : COLLEGE FOCH-2500394",
-        "De : DGFIP FINANCES PUBLIQUES, FR353000100806A674000000088"
-      ],
-      "sens": "credit",
-      "montant_eur": 36.35,
-      "montant_usd": 39.78,
-      "solde_apres_eur": 82.21,
-      "categorie": "remboursements",
-      "categorie_libelle": "remboursements",
-      "type": "remboursements",
-      "page": 1,
-      "statut": "comptable",
-      "compte": "perso",
-      "compte_libelle": "perso",
-      "note_classification": "DGFIP, référence COLLEGE FOCH — probable remboursement (impôt / frais scolaires). Non compté en salaire.",
-      "produit": "compte_courant"
-    },
-    {
       "date": "2026-11-02",
       "date_libelle": "2 nov. 2026",
       "libelle": "Paiement envoyé par AON FRANCE-H B-EUR-SINISTRES",
@@ -2886,6 +2887,28 @@
       "compte": "perso",
       "compte_libelle": "perso",
       "note_classification": "Aon France, complément sécurité sociale (mutuelle). À rapprocher des soins dentaires Dr Koch. Non inclus dans les revenus.",
+      "produit": "compte_courant"
+    },
+    {
+      "date": "2026-11-09",
+      "date_libelle": "9 nov. 2026",
+      "libelle": "Remboursement Red Bull (Francky Vetsch)",
+      "details": [
+        "De : M FRANCKY VETSCH"
+      ],
+      "sens": "credit",
+      "montant_eur": 2.0,
+      "montant_usd": 2.19,
+      "solde_apres_eur": 330.17,
+      "categorie": "remboursements",
+      "categorie_libelle": "remboursements",
+      "type": "remboursements",
+      "page": 4,
+      "statut": "comptable",
+      "compte": "perso",
+      "compte_libelle": "perso",
+      "note_classification": "Virement de 2,00 € d'un collègue, remboursement d'un Red Bull. Confirmé par Emmanuel le 25/11/2026. Classé en remboursement : ce n'est ni une dépense ni un revenu.",
+      "libelle_releve": "Paiement envoyé par M FRANCKY VETSCH",
       "produit": "compte_courant"
     },
     {
@@ -3392,7 +3415,7 @@
     {
       "date": "2026-11-17",
       "date_libelle": "17 nov. 2026",
-      "libelle": "Recharge sur Apple Pay via *3356",
+      "libelle": "Investissement XTB (Apple Pay *3356)",
       "details": [
         "De : *3356"
       ],
@@ -3407,7 +3430,8 @@
       "statut": "comptable",
       "compte": "perso",
       "compte_libelle": "perso",
-      "note_classification": "Recharge Apple Pay. Probable alimentation depuis une carte à son nom — pas un revenu. À confirmer.",
+      "note_classification": "Recharge Apple Pay, confirmée par Emmanuel le 25/11/2026 : transfert de Revolut vers XTB pour acheter des actions. Virement interne / investissement (XTB), exclu des dépenses et des revenus.",
+      "libelle_releve": "Recharge sur Apple Pay via *3356",
       "produit": "compte_courant"
     },
     {
@@ -3861,31 +3885,12 @@
       "produit": "compte_courant"
     }
   ],
-  "operations_ambigues": [
-    {
-      "sujet": "DGFIP FINANCES PUBLIQUES 36,35 € (COLLEGE FOCH)",
-      "montant_eur": 36.35,
-      "classification": "remboursements",
-      "question": "Remboursement d'impôt, de frais scolaires, ou autre versement de la DGFIP ?"
-    },
-    {
-      "sujet": "Paiement envoyé par M FRANCKY VETSCH 2,00 €",
-      "montant_eur": 2.0,
-      "classification": "à confirmer (non inclus dans les revenus)",
-      "question": "Remboursement, cadeau, ou autre ? À classer ?"
-    },
-    {
-      "sujet": "Recharge sur Apple Pay via *3356 86.00 €",
-      "montant_eur": 86.0,
-      "classification": "virements_internes_entrants",
-      "question": "Recharge depuis une carte personnelle (*3356) ? Ce n'est pas compté en revenu."
-    }
-  ],
+  "operations_ambigues": [],
   "operations": [
     {
       "date": "2026-10-01",
       "date_libelle": "1 oct. 2026",
-      "libelle": "Paiement envoyé par DGFIP FINANCES PUBLIQUES",
+      "libelle": "Photo de classe (Collège Foch)",
       "details": [
         "Référence : COLLEGE FOCH-2500394",
         "De : DGFIP FINANCES PUBLIQUES, FR353000100806A674000000088"
@@ -3894,14 +3899,15 @@
       "montant_eur": 36.35,
       "montant_usd": 39.78,
       "solde_apres_eur": 82.21,
-      "categorie": "remboursements",
-      "categorie_libelle": "remboursements",
-      "type": "remboursements",
+      "categorie": "enfant",
+      "categorie_libelle": "Enfant / école",
+      "type": "remboursement_categorie",
       "page": 1,
       "statut": "comptable",
       "compte": "perso",
       "compte_libelle": "perso",
-      "note_classification": "DGFIP, référence COLLEGE FOCH — probable remboursement (impôt / frais scolaires). Non compté en salaire.",
+      "note_classification": "Versement DGFIP (réf. COLLEGE FOCH), confirmé par Emmanuel le 25/11/2026 : photo de classe. Classé dans Enfant, libellé « Photo de classe (Collège Foch) ». Crédit sur le relevé (36,35 €) : il réduit le net de la catégorie Enfant ; ce n'est pas un revenu.",
+      "libelle_releve": "Paiement envoyé par DGFIP FINANCES PUBLIQUES",
       "produit": "compte_courant"
     },
     {
@@ -5181,7 +5187,7 @@
     {
       "date": "2026-11-09",
       "date_libelle": "9 nov. 2026",
-      "libelle": "Paiement envoyé par M FRANCKY VETSCH",
+      "libelle": "Remboursement Red Bull (Francky Vetsch)",
       "details": [
         "De : M FRANCKY VETSCH"
       ],
@@ -5189,14 +5195,15 @@
       "montant_eur": 2.0,
       "montant_usd": 2.19,
       "solde_apres_eur": 330.17,
-      "categorie": "a_confirmer_credit",
-      "categorie_libelle": "a_confirmer",
-      "type": "a_confirmer",
+      "categorie": "remboursements",
+      "categorie_libelle": "remboursements",
+      "type": "remboursements",
       "page": 4,
       "statut": "comptable",
       "compte": "perso",
       "compte_libelle": "perso",
-      "note_classification": "Petit virement reçu (2,00 €). Non compté en revenu en attendant confirmation.",
+      "note_classification": "Virement de 2,00 € d'un collègue, remboursement d'un Red Bull. Confirmé par Emmanuel le 25/11/2026. Classé en remboursement : ce n'est ni une dépense ni un revenu.",
+      "libelle_releve": "Paiement envoyé par M FRANCKY VETSCH",
       "produit": "compte_courant"
     },
     {
@@ -5510,7 +5517,7 @@
     {
       "date": "2026-11-17",
       "date_libelle": "17 nov. 2026",
-      "libelle": "Recharge sur Apple Pay via *3356",
+      "libelle": "Investissement XTB (Apple Pay *3356)",
       "details": [
         "De : *3356"
       ],
@@ -5525,7 +5532,8 @@
       "statut": "comptable",
       "compte": "perso",
       "compte_libelle": "perso",
-      "note_classification": "Recharge Apple Pay. Probable alimentation depuis une carte à son nom — pas un revenu. À confirmer.",
+      "note_classification": "Recharge Apple Pay, confirmée par Emmanuel le 25/11/2026 : transfert de Revolut vers XTB pour acheter des actions. Virement interne / investissement (XTB), exclu des dépenses et des revenus.",
+      "libelle_releve": "Recharge sur Apple Pay via *3356",
       "produit": "compte_courant"
     },
     {

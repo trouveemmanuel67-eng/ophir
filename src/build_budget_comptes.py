@@ -151,14 +151,13 @@ def classify_perso(raw):
         elif "FRANCE TRAVAIL" in lib:
             cat, typ = "revenus", "revenus"
         elif "DGFIP" in lib:
-            cat, typ = "remboursements", "remboursements"
-            notes.append("DGFIP, référence COLLEGE FOCH — probable remboursement (impôt / frais scolaires). Non compté en salaire.")
-            ambigu = {
-                "sujet": "DGFIP FINANCES PUBLIQUES 36,35 € (COLLEGE FOCH)",
-                "montant_eur": amt,
-                "classification": "remboursements",
-                "question": "Remboursement d'impôt, de frais scolaires, ou autre versement de la DGFIP ?",
-            }
+            cat, typ = "enfant", "remboursement_categorie"
+            rename = "Photo de classe (Collège Foch)"
+            notes.append(
+                "Versement DGFIP (réf. COLLEGE FOCH), confirmé par Emmanuel le 25/11/2026 : photo de classe. "
+                "Classé dans Enfant, libellé « Photo de classe (Collège Foch) ». "
+                "Crédit sur le relevé (36,35 €) : il réduit le net de la catégorie Enfant ; ce n'est pas un revenu."
+            )
         elif "AON FRANCE" in lib:
             cat, typ = "remboursements", "remboursements"
             notes.append("Aon France, complément sécurité sociale (mutuelle). À rapprocher des soins dentaires Dr Koch. Non inclus dans les revenus.")
@@ -170,23 +169,22 @@ def classify_perso(raw):
                 "Le jour même, 23 434,34 € sont virés vers FR7610278010100002262220176 (transfert interne, pas une dépense)."
             )
         elif "FRANCKY VETSCH" in lib:
-            cat, typ = "a_confirmer_credit", "a_confirmer"
-            notes.append("Petit virement reçu (2,00 €). Non compté en revenu en attendant confirmation.")
-            ambigu = {
-                "sujet": "Paiement envoyé par M FRANCKY VETSCH 2,00 €",
-                "montant_eur": amt,
-                "classification": "à confirmer (non inclus dans les revenus)",
-                "question": "Remboursement, cadeau, ou autre ? À classer ?",
-            }
+            cat, typ = "remboursements", "remboursements"
+            rename = "Remboursement Red Bull (Francky Vetsch)"
+            notes.append(
+                "Virement de 2,00 € d'un collègue, remboursement d'un Red Bull. "
+                "Confirmé par Emmanuel le 25/11/2026. Classé en remboursement : ce n'est ni une dépense ni un revenu."
+            )
         elif "Apple Pay" in lib:
             cat, typ = "virements_internes_entrants", "virement_interne"
-            notes.append("Recharge Apple Pay. Probable alimentation depuis une carte à son nom — pas un revenu. À confirmer.")
-            ambigu = {
-                "sujet": f"{lib} {amt:.2f} €",
-                "montant_eur": amt,
-                "classification": "virements_internes_entrants",
-                "question": "Recharge depuis une carte personnelle (*3356) ? Ce n'est pas compté en revenu.",
-            }
+            m_card = re.search(r"\*(\d+)", lib)
+            suffix = m_card.group(0) if m_card else ""
+            rename = f"Investissement XTB (Apple Pay {suffix})".replace("  ", " ").strip()
+            notes.append(
+                "Recharge Apple Pay, confirmée par Emmanuel le 25/11/2026 : "
+                "transfert de Revolut vers XTB pour acheter des actions. "
+                "Virement interne / investissement (XTB), exclu des dépenses et des revenus."
+            )
         elif "XTB" in lib:
             cat, typ = "virements_internes_entrants", "virement_interne"
             notes.append("Retour depuis XTB (courtier). Transfert interne, pas un revenu.")
@@ -315,8 +313,8 @@ NOV_JOINT_MAP = {
     "Cb Nx000018": ("autres", "depense", None, None, "Libellé tronqué (Cb Nx000018, Strasbourg).",
                     {"sujet": "Cb Nx000018 28,85 € (Strasbourg, 15/11)", "montant_eur": 28.85, "classification": "autres", "question": "Commerçant exact ?",}),
     "Thai S": ("loisirs", "depense", None, None, "Restaurant.", None),
-    "Fritz Schmitt": ("loisirs", "depense", None, None, "Fritz Schmitt, Ottrott — probable restaurant ou cave.",
-                      {"sujet": "Fritz Schmitt 23,20 € (Ottrott, 24/11)", "montant_eur": 23.20, "classification": "loisirs", "question": "Restaurant, cave, ou autre ?",}),
+    "Fritz Schmitt": ("courses", "depense", "Vin, confiture, tire-bouchon (Fritz Schmitt)", None,
+                      "Vin, confiture et tire-bouchon chez Fritz Schmitt, Ottrott. Confirmé par Emmanuel le 25/11/2026. Catégorie Courses.", None),
     "Snack Cicek": ("loisirs", "depense", None, None, None, None),
     "Normal": ("achats", "depense", None, None, "Normal Strasbourg (hygiène / bazar).", None),
     "CTS": ("transport", "depense", None, None, None, None),
@@ -329,8 +327,8 @@ NOV_JOINT_MAP = {
     "Stein Pâtisseries & Café": ("loisirs", "depense", None, None, None, None),
     "Librairie Kléber": ("achats", "depense", None, None, None, None),
     "Paiement envoyé par FRANCE TRAVAIL GRAND EST": ("revenus", "revenus", None, None, "Allocation France Travail Grand Est. Revenu réel du foyer.", None),
-    "Recharge sur Apple Pay via *0225": ("virements_internes_entrants", "virement_interne", None, None, "Recharge Apple Pay. Probable alimentation depuis une carte à son nom — pas un revenu.",
-                                         {"sujet": "Recharges Apple Pay *0225 650 € + 270 € (16/11, compte joint)", "montant_eur": 920.0, "classification": "virements_internes_entrants", "question": "Recharges depuis une carte personnelle (*0225) ? Ce n'est pas compté en revenu.",}),
+    "Recharge sur Apple Pay via *0225": ("virements_internes_entrants", "virement_interne", "Investissement XTB (Apple Pay *0225)", None,
+                                         "Recharge Apple Pay, confirmée par Emmanuel le 25/11/2026 : transfert de Revolut vers XTB pour acheter des actions. Virement interne / investissement (XTB), exclu des dépenses et des revenus.", None),
     "Paiement envoyé par M OU MME EMMANUEL TROUVE": ("virements_internes_entrants", "virement_interne", None, None, "Solde de clôture du compte FR7610278010100002262220176. Transfert interne, pas un revenu.", None),
     "E.Leclerc": ("courses", "depense", None, None, None, None),
 }
@@ -707,6 +705,28 @@ def build():
     loa_mens = 486.32
     cred_mens = 169.60
     charges_fixes_mens = r2(loa_mens + cred_mens)
+
+    apple_xtb_ops = [
+        o for o in vin_ops
+        if "Apple Pay" in (o.get("libelle") or "") or "Apple Pay" in (o.get("libelle_releve") or "")
+    ]
+    apple_xtb_eur = r2(sum(o["montant_eur"] for o in apple_xtb_ops if o.get("sens") == "credit")) or 0.0
+    if apple_xtb_ops:
+        vi_break.append({
+            "id": "investissement_xtb_apple_pay",
+            "libelle": "Investissement XTB (Apple Pay)",
+            "note": (
+                "Recharges Apple Pay 86 € + 650 € + 270 € = 1 006 €, confirmées par Emmanuel le 25/11/2026 : "
+                "transferts de Revolut vers XTB pour acheter des actions. "
+                "Virements internes / investissement (XTB), exclus des dépenses et des revenus. "
+                "Montant constaté en entrées sur les comptes Revolut, non additionné aux virements sortants déjà partis vers les courtiers."
+            ),
+            "n": len(apple_xtb_ops),
+            "montant_eur": apple_xtb_eur,
+            "montant_usd": usd(apple_xtb_eur),
+        })
+    inv_out_eur = next((d["montant_eur"] for d in vi_break if d["id"] == "investissement"), 0.0) or 0.0
+
     totaux = {
         "depenses_eur": dep,
         "depenses_usd": usd(dep),
@@ -722,7 +742,7 @@ def build():
             "Salaire Tesla France 10 485,00 € (4 169,59 € le 22/10, réf. Salary 102026 ; "
             "6 315,41 € le 24/11, réf. Salary 112026) + France Travail Grand Est 1 753,20 € "
             "(876,60 € le 1/10 et 876,60 € le 2/11) + intérêts d'épargne Revolut 0,48 €. "
-            "Les virements entre comptes, le prêt personnel, les recharges Apple Pay et les remboursements Aon / AXA / DGFIP ne sont pas des revenus."
+            "Les virements entre comptes, le prêt personnel, les alimentations Apple Pay destinées à l'investissement XTB et les remboursements Aon / AXA / Francky Vetsch ne sont pas des revenus."
         ),
         "salaire_eur": salaire,
         "salaire_usd": usd(salaire),
@@ -736,7 +756,7 @@ def build():
             "Remboursements présentés à part, non inclus dans les revenus ni déduits des cotisations du mois : "
             "AXA 126,86 € (joint, 30/10, période 26/06–26/08) ; "
             "Aon France complément sécurité sociale 423,44 € (perso, novembre, à rapprocher des soins Dr Koch) ; "
-            "DGFIP 36,35 € (perso, 1/10, réf. COLLEGE FOCH, à confirmer)."
+            "Francky Vetsch 2,00 € (perso, 9/11, remboursement d'un Red Bull par un collègue, confirmé le 25/11/2026)."
         ),
         "reste_eur": reste,
         "reste_usd": usd(reste),
@@ -766,6 +786,17 @@ def build():
         "n_operations_fusionnees": len(fused),
         "n_transferts_dedoublonnes": matched_n,
         "virements_internes_detail": vi_break,
+        "investissement_eur": inv_out_eur,
+        "investissement_usd": usd(inv_out_eur),
+        "investissement_xtb_apple_pay_eur": apple_xtb_eur,
+        "investissement_xtb_apple_pay_usd": usd(apple_xtb_eur),
+        "investissement_note": (
+            "Vers l'investissement (XTB, Revolut X, marge, métaux, Deblock, compte-titres) : "
+            + f"{inv_out_eur:,.2f}".replace(",", "§").replace(".", ",").replace("§", " ")
+            + " € sortants, exclus des dépenses. "
+            "Les recharges Apple Pay 1 006,00 € (86 + 650 + 270) sont classées en virements internes / investissement XTB "
+            "(confirmé le 25/11/2026) ; elles ne sont ni une dépense ni un revenu, et ne sont pas additionnées aux sortants courtiers."
+        ),
         "credit_revolut": {
             "libelle": "Crédit Revolut 23 500 €",
             "capital_eur": 23500.0,
