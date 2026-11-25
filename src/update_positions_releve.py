@@ -15,6 +15,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
 RELEVE = DATA / "revolut" / "releve_courtiers_2026-11-25.json"
 YIELDS = DATA / "rendements_positions.json"
+FRAIS_CFD = DATA / "revolut" / "frais_cfd_ovn.json"
 PARIS = ZoneInfo("Europe/Paris")
 
 # Métadonnées APEX (tickers TV, onglets, dates d'achat déjà connues).
@@ -142,6 +143,14 @@ META = {
     "CFD-SMR": {"nom": "NuScale Power CFD", "type": "cfd", "tab": "energie",
                 "tv_note": "NYSE:SMR", "fiche_tv": "NYSE:SMR",
                 "fiche_nom": "NuScale Power Corporation (nucléaire)",
+                "fiche_proxy": False, "note_tv_ok": True},
+    "CFD-MPC": {"nom": "Marathon Petroleum CFD", "type": "cfd", "tab": "energie",
+                "tv_note": "NYSE:MPC", "fiche_tv": "NYSE:MPC",
+                "fiche_nom": "Marathon Petroleum Corporation",
+                "fiche_proxy": False, "note_tv_ok": True},
+    "CFD-AMD": {"nom": "AMD CFD", "type": "cfd", "tab": "actions",
+                "tv_note": "NASDAQ:AMD", "fiche_tv": "NASDAQ:AMD",
+                "fiche_nom": "Advanced Micro Devices, Inc.",
                 "fiche_proxy": False, "note_tv_ok": True},
 }
 
@@ -504,43 +513,77 @@ def from_xtb_cash(eur, fx):
 
 
 def from_cfd(p, fx):
-    """Une ligne CFD : montant = marge connue. P/L ligne seulement si cours et quantité sont connus."""
+    """Ligne CFD : montant = exposition (quantité × cours actuel), pas la marge.
+    P/L % long = P/L / (exposition − P/L) ; short = P/L / coût d'entrée.
+    """
     ticker = p["ticker"]
     key = f"CFD-{ticker}"
     out = rec_base(key, "revolut")
     sens_raw = (p.get("sens") or "Buy").strip()
     long_ = sens_raw.lower() in ("buy", "long", "l")
+    levier = p.get("levier")
+    levier = int(levier) if levier not in (None, "") else None
     out["id"] = key
     out["ticker"] = f"{ticker}-CFD"
     out["sous_jacent"] = ticker
     out["type"] = "cfd"
     out["sens"] = "long" if long_ else "short"
-    out["levier"] = 5
-    out["cfd_badge"] = "CFD L x5" if long_ else "CFD S x5"
-    out["marge_usd"] = r2(p["marge_usd"])
+    out["levier"] = levier
+    out["cfd_badge"] = (
+        f"CFD {'L' if long_ else 'S'} x{levier}" if levier else f"CFD {'L' if long_ else 'S'}"
+    )
+    if p.get("marge_usd") not in (None, ""):
+        out["marge_usd"] = r2(p["marge_usd"])
     out["prix_moyen"] = p.get("prix_ouverture")
     out["cours"] = p.get("prix_actuel")
+    out["valeur_affichee_usd"] = p.get("valeur_affichee_usd")
     qty = p.get("quantite")
     out["quantite"] = float(qty) if qty not in (None, "") else None
     out["statut"] = "active"
+    out["a_confirmer"] = bool(p.get("a_confirmer"))
     if p.get("note"):
         out["fiche_note"] = ((out.get("fiche_note") or "") + " " + p["note"]).strip()
-    # P/L ligne : seulement avec quantité ET cours actuel, sinon non relu (aucun cours inventé).
-    pl = None
-    pnl_pct = None
-    if out["quantite"] and out["cours"] not in (None, "") and out["prix_moyen"] not in (None, ""):
-        q, c, o = float(out["quantite"]), float(out["cours"]), float(out["prix_moyen"])
-        pl = q * (c - o) if long_ else q * (o - c)
-        notional = q * o
-        pnl_pct = (100.0 * pl / notional) if notional else None
+
+    expo = None
+    if out["quantite"] and out["cours"] not in (None, ""):
+        expo = r2(float(out["quantite"]) * float(out["cours"]))
+        out["exposition_usd"] = expo
+
+    pl = p.get("pl_usd")
+    if expo is not None and pl not in (None, ""):
+        pl = float(pl)
+        if long_:
+            entry = expo - pl  # P/L % = P/L / (exposition − P/L)
+        else:
+            if out["prix_moyen"] not in (None, "") and out["quantite"]:
+                entry = float(out["quantite"]) * float(out["prix_moyen"])
+            else:
+                entry = expo + pl  # P/L short = entrée − exposition
+        pnl_pct = (100.0 * pl / entry) if entry else None
+        fill_money(out, expo, entry, "USD", fx, pl=pl, pnl_pct=pnl_pct)
+        if pnl_pct is not None:
+            out["pnl_pct"] = r2(pnl_pct)
+            out["perf_debut_pct"] = out["pnl_pct"]
         out["pnl_relu"] = True
+        if out["prix_moyen"] is None and entry and out["quantite"]:
+            out["prix_moyen"] = r2(entry / out["quantite"], 4)
     else:
         out["pnl_relu"] = False
-        out["perf_1an_libelle"] = "P/L non relu"
-        out["perf_1an_note"] = "Cours actuel et/ou quantité manquants à 09 h 50 : le P/L de cette ligne n'est pas inventé."
-    # Montant affiché = marge connue (seule valeur ligne sûre). Pas d'investi, pour ne pas afficher un latent à 0 %.
-    fill_money(out, out["marge_usd"], None, "USD", fx, pl=pl, pnl_pct=pnl_pct)
-    if pl is None:
+        out["exposition_usd"] = expo
+        out["perf_1an_libelle"] = "à confirmer" if out["a_confirmer"] else "P/L non relu"
+        out["perf_1an_note"] = (
+            "Cours actuel et/ou P&L non lus à 10 h 14 : le montant d'exposition et le P/L "
+            "de cette ligne ne sont pas inventés. Ligne à confirmer (non visible sur la capture, "
+            "présente dans le relevé du matin)."
+        )
+        # Pas de montant inventé : la ligne n'entre pas dans les totaux d'exposition.
+        out["devise"] = "USD"
+        out["valeur"] = None
+        out["valeur_usd"] = None
+        out["valeur_eur"] = None
+        out["investi"] = None
+        out["investi_usd"] = None
+        out["investi_eur"] = None
         out["pnl_valeur"] = None
         out["pnl_pct"] = None
         out["perf_debut_pct"] = None
@@ -616,6 +659,32 @@ def _mirror_site_root(data_file: Path):
     dest.write_bytes(data_file.read_bytes())
     print("mirrored", dest)
 
+def build_frais_cfd(fx):
+    """Lit data/revolut/frais_cfd_ovn.json et calcule la projection mensuelle (sans inventer de jour)."""
+    raw = json.loads(FRAIS_CFD.read_text()) if FRAIS_CFD.exists() else {}
+    jours = list(raw.get("jours") or [])
+    obj_eur = raw.get("objectif_eur_mois") if raw.get("objectif_eur_mois") is not None else 20
+    last = jours[-1] if jours else None
+    last_usd = abs(float(last["montant_usd"])) if last and last.get("montant_usd") is not None else None
+    jours_n = int((raw.get("projection") or {}).get("jours_calendaires") or 30)
+    proj_usd = r2(last_usd * jours_n) if last_usd is not None else None
+    proj_eur = r2(proj_usd / fx) if proj_usd is not None else None
+    last_eur = r2(last_usd / fx) if last_usd is not None else None
+    out = dict(raw)
+    out.update({
+        "dernier": last,
+        "dernier_usd": last_usd,
+        "dernier_eur": last_eur,
+        "projection_jours": jours_n,
+        "projection_usd": proj_usd,
+        "projection_eur": proj_eur,
+        "objectif_eur_mois": obj_eur,
+        "ratio_objectif": r2(proj_eur / obj_eur, 2) if (proj_eur and obj_eur) else None,
+        "depasse_objectif": bool(proj_eur is not None and proj_eur > obj_eur),
+    })
+    return out
+
+
 def main():
     rel = json.loads(RELEVE.read_text())
     rv = rel["revolut"]["comptes"]
@@ -688,14 +757,28 @@ def main():
         s = f"{n:,.{d}f}"
         return s.replace(",", "X").replace(".", ",").replace("X", " ")
 
-    # Totaux officiels des captures 09 h 50 (prenant le pas sur la somme des lignes
-    # spot restées au pointage 08 h 15, et sur la somme des marges CFD).
-    off_rev_usd = 17312.37
-    off_rev_pl = -4335.96
-    off_rev_pct = -20.03
+    # Courtage et métaux : totaux officiels des captures 09 h 50.
+    # CFD : exposition (quantité × cours) des lignes relues à 10 h 14, pas la marge
+    # ni la seule valeur du compte.
     off_ct_usd = 12549.34
     off_met_usd = 2082.68
-    off_cfd_usd = 2680.35
+    off_cfd_compte = 2614.02
+    off_cfd_affiche = 2644.26
+    off_cfd_pl = -4264.65 if cfd_pl is None else r2(cfd_pl)
+    off_cfd_pct = -61.56
+    cfd_relu = [p for p in cfd_rows if p.get("pnl_relu") and p.get("valeur_usd") is not None]
+    expo_cfd = r2(sum(p["valeur_usd"] for p in cfd_relu))
+    entry_cfd = r2(sum((p.get("investi_usd") or 0) for p in cfd_relu))
+    pl_cfd_lignes = r2(sum((p.get("pnl_valeur") or 0) for p in cfd_relu))
+    off_cfd_usd = expo_cfd  # montant retenu dans les totaux = exposition
+    off_spot_usd = r2(off_ct_usd + off_met_usd)
+    inv_ct = off_ct_usd / (1 - 0.0038)
+    inv_met = off_met_usd / (1 - 0.0412)
+    inv_spot = r2(inv_ct + inv_met)
+    off_rev_usd = r2(off_spot_usd + expo_cfd)
+    off_rev_investi = r2(inv_spot + entry_cfd)
+    off_rev_pl = r2(off_rev_usd - off_rev_investi)
+    off_rev_pct = r2(100.0 * off_rev_pl / off_rev_investi, 1) if off_rev_investi else None
     off_rx_usd = 1554.56
     off_rx_pl = -47.69
     off_rx_pct = -2.98
@@ -712,8 +795,8 @@ def main():
     t_rev = {
         "valeur_eur": r2(off_rev_usd / fx),
         "valeur_usd": off_rev_usd,
-        "investi_usd": r2(off_rev_usd - off_rev_pl),
-        "investi_eur": r2((off_rev_usd - off_rev_pl) / fx),
+        "investi_usd": off_rev_investi,
+        "investi_eur": r2(off_rev_investi / fx),
         "perf_debut_pct": off_rev_pct,
         "statut": "ok",
         "n": sum(1 for p in liv if p.get("statut") in ("active", "en_attente")),
@@ -721,10 +804,20 @@ def main():
         "compte_courtage_pct": -0.38,
         "matieres_usd": off_met_usd,
         "matieres_pct": -4.12,
-        "cfd_usd": off_cfd_usd,
-        "cfd_pct": -61.03,
-        "cfd_pl_usd": r2(cfd_pl) if cfd_pl is not None else None,
-        "somme_lignes_usd": t_liv_spot["valeur_usd"] + r2(sum(p.get("valeur_usd") or 0 for p in cfd_rows)),
+        "cfd_exposition_usd": expo_cfd,
+        "cfd_entree_usd": entry_cfd,
+        "cfd_compte_usd": off_cfd_compte,
+        "cfd_compte_affiche_usd": off_cfd_affiche,
+        "cfd_usd": expo_cfd,
+        "cfd_pct": off_cfd_pct,
+        "cfd_pl_usd": off_cfd_pl,
+        "cfd_pl_lignes_usd": pl_cfd_lignes,
+        "somme_lignes_usd": t_liv_spot["valeur_usd"] + expo_cfd,
+        "note": (
+            f"Total Revolut = courtage {off_ct_usd} $ + métaux {off_met_usd} $ (captures 09 h 50) "
+            f"+ exposition CFD {expo_cfd} $ (10 h 14). Le capital du compte CFD n'est que "
+            f"{off_cfd_compte} $ : l'exposition dépasse le capital."
+        ),
     }
     t_rx.update({
         "valeur_usd": off_rx_usd,
@@ -762,7 +855,7 @@ def main():
     }
 
     officiels = {
-        "source": "Captures Revolut, Revolut X, XTB et plan Tesla du 25/11/2026 vers 09 h 50 (Europe/Paris). Tesla à 03 h 51 EDT (09 h 51 Europe/Paris).",
+        "source": "Captures Revolut / Revolut X / XTB et plan Tesla du 25/11/2026 vers 09 h 50 (Europe/Paris) ; CFD relus vers 10 h 11–10 h 14. Tesla à 03 h 51 EDT (09 h 51 Europe/Paris).",
         "fx": fx,
         "revolut": t_rev,
         "revolutx": t_rx,
@@ -773,13 +866,12 @@ def main():
         "patrimoine_eur": patrimoine_eur,
         "tesla_plan": tesla_plan,
         "note": (
-            "Les totaux de comptes (Revolut 17 312,37 $, Revolut X 1 554,56 $, XTB 535,35 €) "
-            "sont ceux des captures de 09 h 50. Les lignes titres et métaux Revolut restent au "
-            "pointage 08 h 15 (notes TradingView) : leur somme diffère légèrement des sous-totaux "
-            "officiels (courtage +33,95 $, métaux +8,57 $), écart non ventilé. "
-            f"Les 4 CFD sont inclus ; la valeur du compte CFD est {fr_money(off_cfd_usd)} $, "
-            f"la somme des marges affichées sur les lignes est {fr_money(sum(p['marge_usd'] for p in cfd_rows))} $ "
-            f"(écart {fr_money(cfd_acc.get('ecart_valeur_moins_marges_usd') or (off_cfd_usd - sum(p['marge_usd'] for p in cfd_rows)))} $ non ventilé)."
+            "Courtage 12 549,34 $ et métaux 2 082,68 $ : captures du 25/11 à 09 h 50. "
+            "Lignes titres et métaux encore au pointage 08 h 15 (notes TradingView). "
+            f"CFD au 25/11 vers 10 h 14 : exposition {fr_money(expo_cfd)} $ incluse dans les totaux, "
+            f"alors que la valeur du compte (capital) n'est que {fr_money(off_cfd_compte)} $ "
+            f"(affiché {fr_money(off_cfd_affiche)} $, P&L {fr_money(off_cfd_pl).replace('-', '−')} $, −61,56 %). "
+            "COST short conservé à confirmer, hors exposition."
         ),
     }
 
@@ -788,7 +880,8 @@ def main():
         v = p.get("valeur_usd") or 0
         p["poids_pct"] = round(100 * v / tot_usd + 1e-9, 1) if tot_usd else None
 
-    now = datetime(2026, 11, 25, 9, 50, tzinfo=PARIS)
+    now = datetime(2026, 11, 25, 10, 14, tzinfo=PARIS)
+    frais_cfd = build_frais_cfd(fx)
     fx_obj = {
         "paire": "EURUSD",
         "taux": fx,
@@ -801,26 +894,25 @@ def main():
         "zone": "Europe/Paris",
     }
 
-    marges_cfd = r2(sum(p["marge_usd"] for p in cfd_rows))
-    cfd_txt = (
-        f"valeur du compte {fr_money(off_cfd_usd)} $ (−61,03 %, P/L implicite "
-        f"{fr_money(cfd_pl).replace('-', '−')} $), {cfd_n} lignes (XPD long, COST short, MSTR long, SMR long), "
-        f"marges {fr_money(marges_cfd)} $, P/L ligne non relu"
-    )
     cfd_note = cfd_acc.get("note") or ""
+    cfd_txt = (
+        f"exposition {fr_money(expo_cfd)} $ (somme quantité × cours des 5 lignes relues), "
+        f"P&L lignes {fr_money(pl_cfd_lignes).replace('-', '−')} $, "
+        f"valeur du compte {fr_money(off_cfd_compte)} $ (affiché {fr_money(off_cfd_affiche)} $, "
+        f"{fr_money(off_cfd_pl).replace('-', '−')} $, −61,56 %), "
+        f"marge de maintenance 98 % / seuil de fermeture 1 336,40 $"
+    )
 
     desc = (
-        f"Captures du 25/11/2026 vers 09 h 50 (Europe/Paris). "
-        f"Revolut Invest {fr_money(off_rev_usd)} $ ({fr_money(off_rev_pl).replace('-', '−')} $, −20,03 %) : "
-        f"courtage {fr_money(off_ct_usd)} $ (−0,38 %), matières premières {fr_money(off_met_usd)} $ (−4,12 %), "
-        f"CFD {fr_money(off_cfd_usd)} $ (−61,03 %). "
-        f"Les CFD sont comptés dans Mes positions, les totaux, le tableau sectoriel et le patrimoine "
-        f"({cfd_txt}). "
-        f"Lignes titres et métaux : cours et P/L du pointage 08 h 15 (notes TradingView), "
-        f"quantités du 24/11 20 h 31 ; {fr_money(cash_usd)} $ de liquidités du compte-titres "
-        f"(non relues, déjà dans le total courtage). "
-        f"Revolut X {fr_money(off_rx_usd)} $ (−47,69 $, −2,98 %) : Bitcoin 0,018 = {fr_money(1086.14)} $ "
-        f"(−0,87 %) et Ether 0,28 = {fr_money(468.35)} $ (−7,54 %). "
+        f"Captures du 25/11/2026 : courtage, métaux, Revolut X, XTB et Tesla vers 09 h 50 ; "
+        f"CFD vers 10 h 11–10 h 14 (Europe/Paris). "
+        f"Revolut Invest, montant retenu {fr_money(off_rev_usd)} $ = courtage {fr_money(off_ct_usd)} $ "
+        f"(−0,38 %) + métaux {fr_money(off_met_usd)} $ (−4,12 %) + exposition CFD {fr_money(expo_cfd)} $. "
+        f"Attention : l'exposition CFD dépasse le capital du compte ({fr_money(off_cfd_compte)} $ ; {cfd_txt}). "
+        f"Les CFD sont des positions normales dans Mes positions, les totaux, le tableau sectoriel et le patrimoine "
+        f"(montant = exposition, pas la marge). COST short à confirmer, hors exposition. "
+        f"Lignes titres et métaux : cours et P/L du pointage 08 h 15 (notes TradingView). "
+        f"Revolut X {fr_money(off_rx_usd)} $ (−47,69 $, −2,98 %). "
         f"XTB {fr_money(off_xtb_eur)} € (fonds disponibles 5,93 €, gain −14,65 €). "
         f"Plan Tesla : avantage potentiel {fr_money(tesla_eur)} €, compte 0 €, non liquide. "
         f"Taux EURUSD {str(fx).replace('.', ',')}."
@@ -868,30 +960,38 @@ def main():
         ),
     }
 
-    # Plus d'encadré rouge « CFD exclus » : les lignes sont dans Mes positions.
-    # On conserve une note d'incohérence (P/L ligne, écart marges / valeur du compte).
+    # Alerte rouge : l'exposition dépasse le capital, marge de maintenance 98 %.
     cfd_alert = {
         "courtier": "revolut",
         "inclus": True,
-        "valeur_usd": r2(cfd_val) if cfd_val is not None else None,
-        "pnl_usd": r2(cfd_pl) if cfd_pl is not None else None,
-        "pnl_pct": cfd_pct,
-        "n": cfd_n,
-        "tickers": cfd_names,
-        "marges_usd": marges_cfd,
-        "ecart_usd": r2((cfd_val or 0) - marges_cfd) if cfd_val is not None else None,
+        "afficher_encadre": True,
+        "valeur_usd": off_cfd_compte,
+        "valeur_affichee_usd": off_cfd_affiche,
+        "pnl_usd": off_cfd_pl,
+        "pnl_pct": off_cfd_pct,
+        "exposition_usd": expo_cfd,
+        "pl_lignes_usd": pl_cfd_lignes,
+        "marge_reservee_usd": 2672.80,
+        "solde_pret_a_investir_usd": 0,
+        "liquidites_usd": 0,
+        "marge_maintenance_pct": 98,
+        "seuil_fermeture_usd": 1336.40,
+        "n": len(cfd_relu),
+        "tickers": [p["sous_jacent"] for p in cfd_relu],
+        "a_confirmer": [p["sous_jacent"] for p in cfd_rows if p.get("a_confirmer")],
         "libelle": (
-            f"CFD inclus : compte {fr_money(off_cfd_usd)} $ (−61,03 %). "
-            f"P/L de chaque ligne non relu. Écart compte − marges : "
-            f"{fr_money((cfd_val or 0) - marges_cfd)} $ non ventilé."
+            f"Alerte CFD : l'exposition {fr_money(expo_cfd)} $ dépasse le capital du compte "
+            f"({fr_money(off_cfd_compte)} $, affiché {fr_money(off_cfd_affiche)} $, "
+            f"P&L {fr_money(off_cfd_pl).replace('-', '−')} $, −61,56 %). "
+            f"Marge de maintenance 98 % — fermeture forcée si la valeur passe sous 1 336,40 $. "
+            f"Marge réservée 2 672,80 $, solde prêt à investir 0 $, cash USD 0 $."
         ),
-        "afficher_encadre": False,
         "note": cfd_note,
     }
 
     book = {
         "releve": now.isoformat(),
-        "releve_libelle": "Revolut, Revolut X et XTB 25/11/2026 à 09 h 50 (Europe/Paris)",
+        "releve_libelle": "Revolut CFD 25/11/2026 à 10 h 14 · autres comptes 09 h 50 (Europe/Paris)",
         "xtb_releve_libelle": "XTB 25/11/2026 à 09 h 50 (Europe/Paris)",
         "source": desc,
         "compte": "Revolut Invest, Revolut X, XTB et plan Tesla (non liquide)",
@@ -935,6 +1035,7 @@ def main():
         "pea_xtb": pea_xtb,
         "xtb_identification": xtb_id,
         "cfd_alerte": cfd_alert,
+        "frais_cfd": frais_cfd,
     }
 
     book_path = DATA / "positions.json"
@@ -944,10 +1045,10 @@ def main():
 
     rv_json = {
         "releve": now.isoformat(),
-        "releve_libelle": "Revolut 25/11/2026 à 09 h 50 (Europe/Paris)",
+        "releve_libelle": "Revolut 25/11/2026 : CFD 10 h 14 · courtage et métaux 09 h 50 (Europe/Paris)",
         "source": (
-            "Captures Revolut Invest du 25/11/2026 vers 09 h 50 : totaux officiels du compte, "
-            "CFD inclus (XPD, COST, MSTR, SMR). Lignes titres et métaux au pointage 08 h 15 "
+            "Captures Revolut Invest : CFD du 25/11/2026 vers 10 h 11–10 h 14 (exposition, pas la marge) ; "
+            "courtage et métaux à 09 h 50. Lignes titres et métaux au pointage 08 h 15 "
             f"(notes TradingView). Liquidités ({fr_money(cash_usd)} $) incluses (non relues)."
         ),
         "compte": "Revolut Invest",
@@ -964,9 +1065,11 @@ def main():
         "totaux": t_rev,
         "positions_json_sha256": sha,
         "cfd_alerte": cfd_alert,
+        "frais_cfd": frais_cfd,
         "desc": (
-            f"Captures Revolut Invest du 25/11/2026 à 09 h 50 (Europe/Paris). "
-            f"Total {fr_money(off_rev_usd)} $ (−20,03 %), CFD inclus. "
+            f"Captures Revolut Invest du 25/11/2026 (CFD 10 h 14, reste 09 h 50). "
+            f"Total retenu {fr_money(off_rev_usd)} $ dont exposition CFD {fr_money(expo_cfd)} $ "
+            f"(capital du compte CFD {fr_money(off_cfd_compte)} $). "
             f"{fr_money(cash_usd)} $ de liquidités du compte-titres (non relues)."
         ),
     }
@@ -999,7 +1102,7 @@ def main():
     print("tickers", [p["ticker"] + ("*" if p["statut"] == "en_attente" else "") for p in book_rows])
     print("rx", [p["ticker"] for p in rx_rows])
     print("totaux USD", liquide_usd, "EUR", liquide_eur, "patrimoine EUR", patrimoine_eur)
-    print("cfd", cfd_val, cfd_pl, cfd_n, cfd_names, "marges", marges_cfd)
+    print("cfd compte", off_cfd_compte, "expo", expo_cfd, "pl", off_cfd_pl, "lignes", [p["ticker"] for p in cfd_rows])
     return 0
 
 

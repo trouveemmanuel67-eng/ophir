@@ -1,0 +1,25 @@
+{
+  "objectif_eur_mois": 20,
+  "devise_frais": "USD",
+  "mode_emploi": "Ajouter une entrée dans « jours » pour chaque nuit où le frais overnight (OVN) CFD est lu dans Revolut (date, heure, montant_usd signé, source). Ne pas inventer un jour manquant. Le site recalcule la projection mensuelle à partir des observations.",
+  "facturation": {
+    "source": "Conditions Revolut « Contract for Difference Trading Terms » et page d'aide « Fees for trading CFDs » (consultées le 25/11/2026).",
+    "resume": "L'OVN est calculé sur la valeur notionnelle (exposition) de chaque position, chaque jour où elle reste ouverte après la clôture, y compris week-ends et jours fériés. Formule publique : (taille de la position × (taux interbancaire applicable + majoration Revolut)) / nombre de jours dans l'année. Majoration standard : 3 % l'an (1 % pour les CFD FX, or et argent). Le taux indicatif exact n'est affiché que dans l'application, avant l'ordre : il n'est pas repris ici. Un triple peut s'appliquer une fois par semaine (souvent le mercredi ou le vendredi selon la classe d'actifs) pour couvrir le week-end.",
+    "taux_par_instrument": null,
+    "taux_par_instrument_note": "Les taux de financement exacts par sous-jacent ne sont pas publiés de façon utilisable hors de l'app. Aucun OVN théorique par position n'est inventé."
+  },
+  "projection": {
+    "jours_calendaires": 30,
+    "hypothese": "Le 2,34 $ relevé le mardi 24/11/2026 à 23 h 45 (Europe/Paris) est traité comme une nuit simple. Projection = dernier OVN observé × 30 jours calendaires. Si un triple s'applique le vendredi pour couvrir samedi et dimanche (sans facturation séparée le week-end), cela fait aussi 7 nuits par semaine, donc le même ordre de grandeur. Une seule observation : la projection sera affinée quand d'autres jours seront ajoutés. Objectif : rester sous 20 € par mois."
+  },
+  "jours": [
+    {
+      "date": "2026-11-24",
+      "heure": "23:45",
+      "zone": "Europe/Paris",
+      "montant_usd": -2.34,
+      "libelle": "Frais overnight CFD",
+      "source": "Capture Revolut (transactions) du 25/11/2026 vers 10 h 11–10 h 14 (Europe/Paris)."
+    }
+  ]
+}

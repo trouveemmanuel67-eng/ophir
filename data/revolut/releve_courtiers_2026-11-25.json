@@ -351,50 +351,108 @@
         "note": "Valeur officielle du compte de courtage 12 549,34 $ (−0,38 %) au 25/11/2026 vers 09 h 50. Les 19 lignes et les 5,50 $ de liquidités conservent les cours / P/L du pointage 08 h 15 (somme alors 12 515,39 $). Écart +33,95 $ non ventilé ligne à ligne (aucun cours inventé)."
       },
       "cfd": {
-        "valeur_usd": 2680.35,
-        "liquidites_usd": null,
+        "valeur_usd": 2614.02,
+        "liquidites_usd": 0,
         "positions": [
-          {
-            "ticker": "XPD",
-            "sens": "Buy",
-            "prix_ouverture": 841.81,
-            "marge_usd": 303,
-            "devise": "USD",
-            "note": "Long, marge 303 $, cours d'entrée 841,81 $. Quantité et P/L non relus à 09 h 50 : non inventés. Levier ×5 supposé."
-          },
-          {
-            "ticker": "COST",
-            "sens": "Sell",
-            "prix_ouverture": 1091.02,
-            "marge_usd": 120,
-            "devise": "USD",
-            "note": "Short, marge 120 $, cours d'entrée 1 091,02 $. Quantité et P/L non relus à 09 h 50 : non inventés. Levier ×5 supposé."
-          },
           {
             "ticker": "MSTR",
             "sens": "Buy",
-            "prix_ouverture": 79.55,
-            "marge_usd": 764,
-            "quantite": 48,
+            "levier": 5,
+            "quantite": 67,
+            "prix_actuel": 76.24,
+            "valeur_affichee_usd": 1022.31,
+            "pl_usd": -502.72,
             "devise": "USD",
-            "note": "Long, 48 titres, marge 764 $, cours d'entrée 79,55 $ (48×79,55=3 818,40 $ = marge ×5). Cours actuel et P/L non relus à 09 h 50 : non inventés."
+            "note": "Capture 25/11 vers 10 h 11–10 h 14 : Acheter ×5, 67 titres à 76,24 $, valeur affichée 1 022,31 $, P&L −502,72 $. Montant retenu = exposition 67×76,24 = 5 108,08 $ (la marge n'est pas le montant)."
+          },
+          {
+            "ticker": "XPD",
+            "sens": "Buy",
+            "levier": 5,
+            "quantite": 7.6,
+            "prix_actuel": 837.13,
+            "valeur_affichee_usd": 637.48,
+            "pl_usd": -2041.79,
+            "devise": "USD",
+            "note": "Capture 25/11 vers 10 h 11–10 h 14 : Acheter ×5, 7,6 XPD à 837,13 $, valeur affichée 637,48 $, P&L −2 041,79 $. Exposition 7,6×837,13 = 6 362,19 $. Transaction du 24/11 à 22 h 41 : achat de 3,6 unités à 841,81 $ (−3 030,53 $), qui porte la quantité de 4 (relevé 24/11 20 h 31) à 7,6."
           },
           {
             "ticker": "SMR",
             "sens": "Buy",
-            "prix_ouverture": 3.35,
-            "marge_usd": 251,
-            "quantite": 300,
+            "levier": 7,
+            "quantite": 576.8,
+            "prix_actuel": 3.29,
+            "valeur_affichee_usd": 476.6,
+            "pl_usd": -1150.32,
             "devise": "USD",
-            "note": "Long, 300 titres, marge 251 $, cours d'entrée 3,35 $ (300×3,35=1 005 $ ≈ marge ×4,00, pas ×5). Cours actuel et P/L non relus à 09 h 50 : non inventés. Incohérence de levier signalée ; badge « CFD L x5 » selon la consigne (levier du profil, non confirmé sur cette ligne)."
+            "note": "Capture 25/11 vers 10 h 11–10 h 14 : Acheter ×7 (levier lu sur le logo, pas ×5), 576,8 titres à 3,29 $, valeur affichée 476,60 $, P&L −1 150,32 $. Exposition 576,8×3,29 = 1 897,67 $."
+          },
+          {
+            "ticker": "MPC",
+            "sens": "Sell",
+            "levier": 2,
+            "quantite": 3,
+            "prix_actuel": 355.48,
+            "valeur_affichee_usd": 212.84,
+            "pl_usd": -247.87,
+            "devise": "USD",
+            "note": "Capture 25/11 vers 10 h 11–10 h 14 : Vendre ×2, 3 titres à 355,48 $, valeur affichée 212,84 $, P&L −247,87 $. Exposition 3×355,48 = 1 066,44 $. Déjà ouvert au relevé du 24/11 20 h 31 (3 titres, PRU 272,86 $)."
+          },
+          {
+            "ticker": "AMD",
+            "sens": "Sell",
+            "levier": 3,
+            "quantite": 2.65,
+            "prix_actuel": 392.28,
+            "valeur_affichee_usd": 207.69,
+            "pl_usd": -289.18,
+            "devise": "USD",
+            "note": "Capture 25/11 vers 10 h 11–10 h 14 : Vendre ×3, 2,65 titres à 392,28 $, valeur affichée 207,69 $, P&L −289,18 $. Exposition 2,65×392,28 = 1 039,54 $. Déjà ouvert au relevé du 24/11 20 h 31 (2,65 titres, PRU 283,16 $)."
+          },
+          {
+            "ticker": "COST",
+            "sens": "Sell",
+            "levier": 5,
+            "quantite": 0.55,
+            "prix_ouverture": 1091.02,
+            "marge_usd": 120,
+            "devise": "USD",
+            "a_confirmer": true,
+            "note": "Non visible parmi les 5 lignes de la capture 10 h 11–10 h 14 (bouton « Afficher plus »). Conservé car confirmé dans les notes et le relevé du 25/11 vers 08 h 15 (short, marge 120 $, cours d'entrée 1 091,02 $) ; 0,55 titre × 1 091,02 $ = 600,06 $ d'entrée, soit ×5. Cours actuel et P&L à 10 h 14 non lus : non inventés, ligne à confirmer, exclue des totaux d'exposition."
           }
         ],
-        "note": "Compte CFD 2 680,35 $ (−61,03 %, P/L implicite -4197.63 $) au 25/11/2026 vers 09 h 50. Quatre sous-jacents relevés (notes TradingView et consignes) : XPD long, COST short, MSTR long, SMR long. Somme des marges connues 1438 $ ; écart 1242.35 $ non ventilé (peut inclure des liquidités après P/L et/ou d'autres sous-jacents). AMD short et MPC short figuraient au relevé du 24/11 à 20 h 31 (P/L alors −4 082,91 $, valeur 2 344 $) mais n'ont pas été confirmés ouverts le 25/11 : non réinscrits. P/L de chaque ligne non calculé (cours actuel manquant, quantité manquante pour XPD et COST).",
-        "pl_pct": -61.03,
-        "investi_implicite_usd": 6877.98,
-        "pl_usd": -4197.63,
-        "marges_connues_usd": 1438,
-        "ecart_valeur_moins_marges_usd": 1242.35
+        "note": "Compte CFD relevé le 25/11/2026 vers 10 h 11–10 h 14 (Europe/Paris) : valeur 2 614 02 $ (affiché 2 644 26 $  −61 56 %)  P&L −4 264 65 $  marge réservée 2 672 80 $  solde prêt à investir 0 $  cash USD 0 $  marge de maintenance 98 % (fermeture forcée si valeur < 1 336 40 $). Cinq lignes lues (MSTR ×5  XPD ×5  SMR ×7  MPC ×2  AMD ×3). Exposition retenue (quantité × cours) 15 473.92 $. Somme des P&L lignes −4 231,88 $ contre P&L du compte −4 264,65 $ (écart 32,77 $ non ventilé : peut inclure COST non relu, d'autres lignes sous « Afficher plus », ou des frais). COST short conservé à confirmer (notes du 25/11 08 h 15), hors totaux d'exposition.",
+        "pl_pct": -61.56,
+        "pl_usd": -4264.65,
+        "releve": "2026-11-25T10:14:00+01:00",
+        "releve_libelle": "25/11/2026 vers 10 h 11–10 h 14 (Europe/Paris)",
+        "valeur_affichee_usd": 2644.26,
+        "marge_reservee_usd": 2672.8,
+        "solde_pret_a_investir_usd": 0,
+        "marge_maintenance_pct": 98,
+        "seuil_fermeture_usd": 1336.4,
+        "transactions": [
+          {
+            "date": "2026-11-24",
+            "heure": "22:41",
+            "zone": "Europe/Paris",
+            "libelle": "Acheter XPD:CFD",
+            "quantite": 3.6,
+            "prix": 841.81,
+            "montant_usd": -3030.53,
+            "source": "Capture Revolut 25/11 10 h 11–10 h 14."
+          },
+          {
+            "date": "2026-11-24",
+            "heure": "23:45",
+            "zone": "Europe/Paris",
+            "libelle": "Frais overnight CFD",
+            "montant_usd": -2.34,
+            "source": "Capture Revolut 25/11 10 h 11–10 h 14."
+          }
+        ],
+        "exposition_usd": 15473.92,
+        "pl_lignes_usd": -4231.88
       },
       "matieres_premieres": {
         "valeur_usd": 2082.68,
@@ -521,5 +579,6 @@
     "releve": "2026-11-25T03:51:00-04:00",
     "releve_libelle": "25/11/2026 à 03 h 51 EDT (09 h 51 Europe/Paris)",
     "note": "Avantage potentiel 12 302,45 €, valeur actuelle du compte 0 €, cours TSLA 384,68 $, EURUSD 1,0944. Non liquide : inclus dans le patrimoine total, exclu du tableau sectoriel et des totaux liquides."
-  }
+  },
+  "heure_cfd": "10:14"
 }

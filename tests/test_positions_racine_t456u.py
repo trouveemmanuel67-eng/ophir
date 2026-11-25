@@ -1,4 +1,4 @@
-"""t456u / t549u : les JSON à la racine suivent les captures du 25/11 à 09 h 50."""
+"""t456u / t549u : JSON racine = captures 25/11 09 h 50 + CFD 10 h 14."""
 import json
 from pathlib import Path
 
@@ -36,8 +36,9 @@ def test_releve_25_11_dans_le_json_fethe():
     metals = [p['ticker'] for p in book['positions'] if p.get('ticker') in {'XAU', 'XAG', 'XPT', 'XPD'}]
     assert len(metals) == 4
     cfds = [p for p in book['positions'] if (p.get('type') or '').lower() == 'cfd']
-    assert {p['ticker'] for p in cfds} == {'XPD-CFD', 'COST-CFD', 'MSTR-CFD', 'SMR-CFD'}
-    assert book['totaux']['courtiers']['revolut']['cfd_usd'] == 2680.35
+    assert {p['ticker'] for p in cfds} == {'XPD-CFD', 'COST-CFD', 'MSTR-CFD', 'SMR-CFD', 'MPC-CFD', 'AMD-CFD'}
+    assert book['totaux']['courtiers']['revolut']['cfd_usd'] == 15473.92
+    assert book['totaux']['courtiers']['revolut']['cfd_exposition_usd'] == 15473.92
 
 
 def test_build_py_publie_la_racine():

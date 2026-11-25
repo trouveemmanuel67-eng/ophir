@@ -1,4 +1,4 @@
-"""t452u / t549u : captures courtiers du 25/11/2026 à 09 h 50 ; CFD inclus ; Bitcoin ajouté."""
+"""t452u / t549u : captures 25/11 09 h 50 + CFD 10 h 14 (exposition, pas la marge)."""
 from __future__ import annotations
 import json
 from pathlib import Path
@@ -47,7 +47,7 @@ def test_lignes_du_releve_et_ordres():
     assert by[("MAU", "active")]["valeur"] == 519.21
     assert by[("PEA", "active")]["nom"] == "ligne PEA non identifiée"
     assert POS["n_en_attente"] == 0
-    assert POS["n_actives"] == 31
+    assert POS["n_actives"] == 33
     assert {p["ticker"] for p in RX["positions"]} == {"BTC", "ETH"}
     eth=next(p for p in RX["positions"] if p["ticker"]=="ETH")
     btc=next(p for p in RX["positions"] if p["ticker"]=="BTC")
@@ -56,16 +56,43 @@ def test_lignes_du_releve_et_ordres():
     assert btc["valeur"] == 1086.14
     assert btc["quantite"] == 0.018
     assert "09 h 50" in RX["releve_libelle"]
-    # CFD inclus dans Mes positions (une ligne par sous-jacent)
-    cfds = [p for p in POS["positions"] if p.get("type") == "cfd"]
-    assert {p["ticker"] for p in cfds} == {"XPD-CFD", "COST-CFD", "MSTR-CFD", "SMR-CFD"}
-    assert {p["cfd_badge"] for p in cfds if p["ticker"]=="COST-CFD"} == {"CFD S x5"}
-    assert all(p["cfd_badge"].startswith("CFD L") for p in cfds if p["ticker"]!="COST-CFD")
-    assert all(p.get("pnl_relu") is False for p in cfds)
-    assert POS["cfd_alerte"]["n"] == 4
-    assert POS["cfd_alerte"]["valeur_usd"] == 2680.35
-    assert POS["cfd_alerte"].get("afficher_encadre") is False
-    assert POS["totaux"]["courtiers"]["revolut"]["valeur_usd"] == 17312.37
+    # CFD : montant = exposition (quantité × cours), levier lu par ligne
+    cfds = {p["ticker"]: p for p in POS["positions"] if p.get("type") == "cfd"}
+    assert set(cfds) == {"XPD-CFD", "COST-CFD", "MSTR-CFD", "SMR-CFD", "MPC-CFD", "AMD-CFD"}
+    assert cfds["MSTR-CFD"]["cfd_badge"] == "CFD L x5"
+    assert cfds["XPD-CFD"]["cfd_badge"] == "CFD L x5"
+    assert cfds["SMR-CFD"]["cfd_badge"] == "CFD L x7"
+    assert cfds["MPC-CFD"]["cfd_badge"] == "CFD S x2"
+    assert cfds["AMD-CFD"]["cfd_badge"] == "CFD S x3"
+    assert cfds["COST-CFD"]["cfd_badge"] == "CFD S x5"
+    assert cfds["MSTR-CFD"]["valeur"] == 5108.08
+    assert cfds["MSTR-CFD"]["pnl_pct"] == -8.96
+    assert cfds["XPD-CFD"]["valeur"] == 6362.19
+    assert cfds["XPD-CFD"]["pnl_pct"] == -24.3
+    assert cfds["SMR-CFD"]["valeur"] == 1897.67
+    assert cfds["SMR-CFD"]["pnl_pct"] == -37.74
+    assert cfds["MPC-CFD"]["valeur"] == 1066.44
+    assert cfds["MPC-CFD"]["pnl_pct"] == -30.28
+    assert cfds["AMD-CFD"]["valeur"] == 1039.54
+    assert cfds["AMD-CFD"]["pnl_pct"] == -38.54
+    assert cfds["COST-CFD"].get("a_confirmer") is True
+    assert cfds["COST-CFD"]["valeur"] is None
+    assert cfds["COST-CFD"].get("pnl_relu") is False
+    al = POS["cfd_alerte"]
+    assert al["afficher_encadre"] is True
+    assert al["valeur_usd"] == 2614.02
+    assert al["exposition_usd"] == 15473.92
+    assert al["marge_maintenance_pct"] == 98
+    assert al["seuil_fermeture_usd"] == 1336.40
+    assert "2 614,02" in al["libelle"]
+    assert POS["totaux"]["courtiers"]["revolut"]["valeur_usd"] == 30105.94
+    assert POS["totaux"]["courtiers"]["revolut"]["cfd_exposition_usd"] == 15473.92
+    fr = POS["frais_cfd"]
+    assert fr["dernier_usd"] == 2.34
+    assert fr["projection_usd"] == 70.2
+    assert fr["projection_eur"] == 64.14
+    assert fr["objectif_eur_mois"] == 20
+    assert fr["depasse_objectif"] is True
     assert POS["totaux"]["tesla_plan"]["avantage_potentiel_eur"] == 12302.45
     assert POS["totaux"]["tesla_plan"]["non_liquide"] is True
     assert ("MC", "active") in by
@@ -82,6 +109,9 @@ def test_ordres_traites_comme_positions_actives_dans_le_js():
     assert "p.statut==='active'||p.statut==='en_attente'" in ACC
     assert "pos-mark-ordre" in JS and "pos-mark-ordre" in CSS
     assert "pos-cfd-alert" in JS and "pos-cfd-alert" in CSS
+    assert "pos-frais-cfd" in JS and "pos-frais-cfd" in CSS
+    assert "FRAIS CFD" in JS
+    assert "function posFraisCfdHTML" in JS
     assert "19/11/2026 à 21 h" not in JS
     assert "XTB 23/11/2026 à 13 h 48" not in JS
     assert "st!=='active'&&st!=='en_attente'" in ACC

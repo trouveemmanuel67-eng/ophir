@@ -1,5 +1,5 @@
 {
-  "releve": "2026-11-25T09:50:00+01:00",
+  "releve": "2026-11-25T10:14:00+01:00",
   "releve_libelle": "Revolut X 25/11/2026 à 09 h 50 (Europe/Paris)",
   "source": "Capture Revolut X du 25/11/2026 vers 09 h 50 (Europe/Paris). Bitcoin ajouté (0,018 BTC). Ether conservé (0,28 ETH), cours mis à jour.",
   "compte": "Revolut X",
@@ -48,7 +48,7 @@
       "rendement_type": "crypto",
       "rendement_source": "Bitcoin : crypto-actif, aucun dividende.",
       "rendement_date": "2026-11-25",
-      "poids_pct": 5.6
+      "poids_pct": 3.4
     },
     {
       "id": "RX-ETH",
@@ -91,7 +91,7 @@
       "rendement_type": "crypto",
       "rendement_source": "Ether : crypto-actif, aucun dividende.",
       "rendement_date": "2026-11-25",
-      "poids_pct": 2.4
+      "poids_pct": 1.5
     }
   ],
   "fx": {

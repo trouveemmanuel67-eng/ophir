@@ -386,7 +386,8 @@ function posSetListOpen(on,persist){
 function posLinePerf(p, kind){
   if(p.statut==='en_attente') return `<span class="pos-na" title="Ordre en cours : le pourcentage vaut 0 jusqu’à l’exécution">+0,0 %</span>`;
   if(kind==='debut'&&(p.type==='cfd'||p.cfd_badge)&&p.perf_debut_pct==null){
-    return `<span class="pos-na" title="${(p.fiche_note||'P/L de cette ligne CFD non relu : cours actuel et/ou quantité manquants, non inventés.').replace(/"/g,'&quot;')}">P/L non relu</span>`;
+    const lab=p.a_confirmer?'à confirmer':'P/L non relu';
+    return `<span class="pos-na" title="${(p.fiche_note||'P/L de cette ligne CFD non relu : cours actuel et/ou quantité manquants, non inventés.').replace(/"/g,'&quot;')}">${lab}</span>`;
   }
   if(kind==='debut') return p.perf_debut_pct==null?'—':`<span class="${p.perf_debut_pct>=0?'up':'down'}">${posPct(p.perf_debut_pct)}</span>`;
   if(p.perf_1an_pct==null){
@@ -459,6 +460,43 @@ function posApexChip(p){
   const tip=[txt,lab,p.drapeau].filter(Boolean).join(' \u00b7 ');
   return `<span class="pos-chip" style="color:${col};border-color:${col}" title="${tip.replace(/"/g,'&quot;')}">${txt}</span>`;
 }
+
+function posMoneyUsdEur(usd,eur){
+  const a=(usd==null||usd==='')?'':posAmt(usd,'USD');
+  const b=(eur==null||eur==='')?'':posAmt(eur,'EUR');
+  if(a&&b) return a+' / '+b;
+  return a||b||'—';
+}
+function posCfdAlertHTML(){
+  const a=POS.cfd_alerte||(POS_RV&&POS_RV.cfd_alerte);
+  if(!a||a.afficher_encadre!==true) return '';
+  const tip=(a.note||'').replace(/"/g,'&quot;');
+  return `<div class="pos-cfd-alert" role="alert" title="${tip}">${a.libelle||'CFD Revolut'}</div>`;
+}
+function posFraisCfdHTML(){
+  const f=POS.frais_cfd||(POS_RV&&POS_RV.frais_cfd);
+  if(!f||(f.dernier_usd==null&&!(f.jours&&f.jours.length))) return '';
+  const last=f.dernier||((f.jours&&f.jours.length)?f.jours[f.jours.length-1]:null);
+  const d=last&&last.date?String(last.date).slice(8,10)+'/'+String(last.date).slice(5,7):'';
+  const jour=posMoneyUsdEur(f.dernier_usd,f.dernier_eur);
+  const mois=posMoneyUsdEur(f.projection_usd,f.projection_eur);
+  const obj=f.objectif_eur_mois!=null?f.objectif_eur_mois:20;
+  const proj=Number(f.projection_eur);
+  const ratio=obj?(proj/obj):0;
+  const pct=Math.max(0,Math.min(100,Math.round(ratio*100)));
+  const over=!!f.depasse_objectif||(proj>obj);
+  const hyp=((f.projection&&f.projection.hypothese)||'').replace(/"/g,'&quot;');
+  const fact=((f.facturation&&f.facturation.taux_par_instrument_note)||'').replace(/"/g,'&quot;');
+  const jourTip=((last&&(last.libelle||''))||'Frais overnight CFD')+' du '+(d||'jour relu')+(last&&last.heure?(' à '+last.heure):'')+' (Europe/Paris).';
+  return `<div class="pos-frais-cfd${over?' is-over':''}" title="${hyp||jourTip}">
+    <div class="pos-frais-h">FRAIS CFD</div>
+    <div class="pos-frais-row"><span>OVN ${d||'jour'}</span><b>${jour}</b></div>
+    <div class="pos-frais-row" title="${hyp}"><span>Projection / mois</span><b>${mois}</b></div>
+    <div class="pos-frais-obj">Objectif &lt; ${String(obj).replace('.',',')}\u00a0€ / mois</div>
+    <div class="pos-frais-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${pct}" aria-label="Projection par rapport à l’objectif"><i style="width:${pct}%"></i></div>
+    <div class="pos-frais-note">${over?'Au-dessus de l’objectif. ':''}Projection = dernier OVN observé × ~${f.projection_jours||30} jours calendaires (facturé chaque nuit ; un triple le vendredi, s’il s’applique, couvre le week-end et aboutit au même ordre de grandeur). ${fact||'Aucun OVN théorique par position n’est inventé : les taux exacts ne sont pas publiés hors de l’app Revolut.'}</div>
+  </div>`;
+}
 function renderMesPositions(){
   const host=document.getElementById('mes-pos'); if(!host) return;
   const L=POS.positions||[];
@@ -471,7 +509,9 @@ function renderMesPositions(){
   const rxC=C.revolutx||{};
   const fx=POS.fx||{};
   const row=p=>{
-    const mon=posAmt(p.valeur,p.devise);
+    const mon=(p.valeur==null||p.valeur==='')
+      ? (p.a_confirmer?'à confirmer':'—')
+      : posAmt(p.valeur,p.devise);
     const court=posCourtNom[p.courtier]||p.courtier||'';
     const cx=p.courtier==='revolutx'?'RX':p.courtier==='xtb'?'X':'R';
     const abbr=posTickerCourt(p);
@@ -518,6 +558,22 @@ function renderMesPositions(){
     return 'Conversion '+bits.join(', ')+' au '+fx.date+' ('+(fx.source_court||fx.source||'Yahoo')+', Europe/Paris).';
   })();
   const headTip=[POS.desc||('Relevé '+(POS.releve_libelle||'')),fxNote,xtbPending?'XTB n\u2019est pas encore intégré.':'',T.perf_1an_note||'',tesla.note||''].filter(Boolean).join(' ');
+  const revTip=(()=>{
+    const bits=[];
+    if(rev.compte_courtage_usd!=null) bits.push('Courtage '+posAmt(rev.compte_courtage_usd,'USD')+' ('+posPct(rev.compte_courtage_pct)+').');
+    if(rev.matieres_usd!=null) bits.push('Métaux '+posAmt(rev.matieres_usd,'USD')+' ('+posPct(rev.matieres_pct)+').');
+    const expo=rev.cfd_exposition_usd!=null?rev.cfd_exposition_usd:rev.cfd_usd;
+    if(expo!=null){
+      let s='Exposition CFD '+posAmt(expo,'USD');
+      if(rev.cfd_compte_usd!=null){
+        s+=' — capital du compte '+posAmt(rev.cfd_compte_usd,'USD');
+        if(rev.cfd_pct!=null) s+=' ('+posPct(rev.cfd_pct)+')';
+      }
+      bits.push(s+'.');
+    }
+    bits.push("L'exposition CFD est incluse dans le total Revolut (pas la marge).");
+    return bits.join(' ');
+  })();
   const html=`<div class="card no-group" id="mesPosCard">
     <div class="pos-rail-h" role="button" tabindex="0" aria-expanded="false" aria-controls="posBody" title="${headTip.replace(/"/g,'&quot;')}">
       <span class="pos-chev" aria-hidden="true">▸</span>
@@ -529,14 +585,14 @@ function renderMesPositions(){
         <div class="pos-total-v" title="${headTip.replace(/"/g,'&quot;')}">${posAmt(T.total_usd||0,'USD')} <small>/ ${posAmt(T.total_eur||0,'EUR')}</small>${T.patrimoine_eur!=null?`<div class="pos-patrim" title="Patrimoine y compris le plan Tesla (non liquide / avantage potentiel)">${posAmt(T.patrimoine_eur,'EUR')} <small>dont Tesla non liquide</small></div>`:''}</div>
         <div class="pos-total-strip">
           <span class="pos-kv"><span class="l">Début</span><b>${totDeb}</b></span>
-          <span class="pos-kv" title="${((rev.compte_courtage_usd!=null?('Courtage '+posAmt(rev.compte_courtage_usd,'USD')+' ('+posPct(rev.compte_courtage_pct)+'). '):'')+(rev.matieres_usd!=null?('Métaux '+posAmt(rev.matieres_usd,'USD')+' ('+posPct(rev.matieres_pct)+'). '):'')+(rev.cfd_usd!=null?('CFD '+posAmt(rev.cfd_usd,'USD')+' ('+posPct(rev.cfd_pct)+'). '):'')+'CFD inclus dans le total Revolut.').replace(/"/g,'&quot;')}"><span class="l">R</span><b>${posAmt(rev.valeur_usd||0,'USD')}</b>${rev.perf_debut_pct!=null?`<small class="${rev.perf_debut_pct>=0?'up':'down'}">${posPct(rev.perf_debut_pct)}</small>`:''}</span>
+          <span class="pos-kv" title="${revTip.replace(/"/g,'&quot;')}"><span class="l">R</span><b>${posAmt(rev.valeur_usd||0,'USD')}</b>${rev.perf_debut_pct!=null?`<small class="${rev.perf_debut_pct>=0?'up':'down'}">${posPct(rev.perf_debut_pct)}</small>`:''}</span>
           <span class="pos-kv"><span class="l">X</span><b>${xtbTxt}</b></span>
           ${rxKv}
           ${teslaKv}
         </div>
       </div>
+      ${posCfdAlertHTML()}${posFraisCfdHTML()}
       <div class="pos-list">${act.map(row).join('')||'<div class="note">—</div>'}</div>
-      ${(()=>{const a=POS.cfd_alerte||(POS_RV&&POS_RV.cfd_alerte); if(!a||a.afficher_encadre!==true) return ''; const tip=(a.note||'').replace(/"/g,'&quot;'); return `<div class="pos-cfd-alert" title="${tip}">${a.libelle||'CFD Revolut'}</div>`;})()}
     </div>
   </div>`;
   const prev=document.getElementById('mesPosCard');
