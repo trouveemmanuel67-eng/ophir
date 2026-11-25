@@ -184,10 +184,26 @@ def test_ordres_traites_comme_positions_actives_dans_le_js():
     cj = bud["compte_joint"]
     assert cj["titre"] == "Compte joint famille, octobre 2026"
     assert cj["periode"]["mois"] == "2026-10"
-    assert cj["totaux"]["depenses_eur"] == 5517.61
+    assert cj["totaux"]["depenses_eur"] == 5389.33
     assert cj["totaux"]["revenus_eur"] == 876.6
-    assert cj["totaux"]["reste_eur"] == -4641.01
+    assert cj["totaux"]["reste_eur"] == -4512.73
     assert cj["totaux"]["virements_internes_sortants_eur"] == 3773.46
+    assert cj["totaux"]["air_glow_pub_eur"] == 128.28
+    glow = next(c for c in cj["categories"] if c["id"] == "air_glow_pub")
+    assert glow["poste"] == "Air Glow, pub (pro)"
+    assert glow["n_operations"] == 24
+    assert glow["observe_eur"] == 128.28
+    assert glow["compte_dans_total_depenses"] is False
+    autres = next(c for c in cj["categories"] if c["id"] == "autres")
+    assert autres["observe_eur"] == 386.58
+    assert autres["n_operations"] == 5
+    assert all(o["libelle"] != "Facebook" for o in autres["operations"])
+    deblock = [o for c in cj["categories"] if c["id"]=="virements_internes" for o in c["operations"] if o["libelle"]=="Deblock"]
+    assert len(deblock) == 2
+    assert round(sum(o["montant_eur"] for o in deblock), 2) == 150.0
+    assert not any("Facebook" in (a.get("sujet") or "") or "Deblock" in (a.get("sujet") or "") for a in (cj.get("operations_ambigues") or []))
+    assert "Air Glow, pub (pro)" in BDG
+    assert "bdg-joint-airglow" in BDG
     courses = next(c for c in cj["categories"] if c["id"] == "courses")
     assert courses["observe_eur"] == 984.83
     assert courses["sous_categories"][0]["id"] == "tickets_lidl"

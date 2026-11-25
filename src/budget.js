@@ -209,7 +209,7 @@ function bdgJointHtml(b){
   const per=(j.periode&&j.periode.libelle)||'octobre 2026';
   const fx=j.fx!=null?String(j.fx).replace('.', ','):(bdgFx(b)||'1,0944');
   const cats=j.categories||[];
-  const rows=cats.map(c=>{
+  const rows=cats.filter(c=>c.id!=='air_glow_pub').map(c=>{
     const empty=!c.n_operations;
     const obsU=empty&&!(c.observe_eur)? '—' : bdgAmt(c.observe_usd,'USD');
     const obsE=empty&&!(c.observe_eur)? '—' : bdgAmt(c.observe_eur,'EUR');
@@ -227,6 +227,7 @@ function bdgJointHtml(b){
     const cls=['bdg-cat'];
     if(c.id==='courses') cls.push('bdg-cat-courses');
     if(c.id==='virements_internes') cls.push('bdg-cat-interne');
+    if(c.id==='air_glow_pub') cls.push('bdg-cat-pro');
     if(zeroEmpty) cls.push('is-empty');
     return bdgRow({
       id:'bdg-cat-'+c.id,
@@ -241,7 +242,8 @@ function bdgJointHtml(b){
     });
   }).join('');
   const resteNeg=Number(tot.reste_eur)<0;
-  const depRow=bdgRow({id:'bdg-joint-depenses',cls:['bdg-foot','bdg-tot-dep'],poste:'Total dépenses',detail:'Hors virements internes, épargne et investissement',obsUsd:bdgAmt(tot.depenses_usd,'USD'),obsEur:bdgAmt(tot.depenses_eur,'EUR'),projUsd:bdgAmt(tot.depenses_usd,'USD'),projEur:bdgAmt(tot.depenses_eur,'EUR'),objectif:'—'});
+  const depNote=tot.depenses_note||'Hors virements internes, épargne, investissement et dépenses pro Air Glow (pub)';
+  const depRow=bdgRow({id:'bdg-joint-depenses',cls:['bdg-foot','bdg-tot-dep'],poste:'Total dépenses personnelles',detail:'Hors virements internes, épargne, investissement et Air Glow pub (pro)',obsUsd:bdgAmt(tot.depenses_usd,'USD'),obsEur:bdgAmt(tot.depenses_eur,'EUR'),projUsd:bdgAmt(tot.depenses_usd,'USD'),projEur:bdgAmt(tot.depenses_eur,'EUR'),objectif:'—'});
   const revDet=bdgOpsDetails(j.revenus_operations||[], tot.revenus_detail||'Revenus d’octobre');
   const revRow=bdgRow({id:'bdg-joint-revenus',cls:['bdg-foot','bdg-tot-rev'],poste:'Total revenus',detailsHtml:revDet,obsUsd:bdgAmt(tot.revenus_usd,'USD'),obsEur:bdgAmt(tot.revenus_eur,'EUR'),projUsd:bdgAmt(tot.revenus_usd,'USD'),projEur:bdgAmt(tot.revenus_eur,'EUR'),objectif:'—'});
   const resteRow=bdgRow({id:'bdg-joint-reste',cls:['bdg-foot','bdg-tot-reste',resteNeg?'is-over':'is-ok'],poste:'Reste (revenus − dépenses)',detail:tot.reste_formule||'Revenus − dépenses',obsUsd:bdgAmt(tot.reste_usd,'USD'),obsEur:bdgAmt(tot.reste_eur,'EUR'),projUsd:bdgAmt(tot.reste_usd,'USD'),projEur:bdgAmt(tot.reste_eur,'EUR'),objectif:'—'});
@@ -249,6 +251,8 @@ function bdgJointHtml(b){
   const rembRow=remb.length?bdgRow({id:'bdg-joint-remb',cls:['bdg-annexe'],poste:'Remboursements (à part)',detailsHtml:bdgOpsDetails(remb, tot.remboursements_note||'Remboursements, non inclus dans les revenus'),obsUsd:bdgAmt(tot.remboursements_usd,'USD'),obsEur:bdgAmt(tot.remboursements_eur,'EUR'),projUsd:'—',projEur:'—',objectif:'—'}):'';
   const vin=j.virements_internes_entrants||[];
   const vinRow=bdgRow({id:'bdg-joint-vin',cls:['bdg-annexe','bdg-cat-interne'],poste:'Virements internes entrants',detailsHtml:bdgOpsDetails(vin, 'Alimentations du compte joint (non revenus) · '+((vin.length)||0)+' opération'+(vin.length>1?'s':'')),obsUsd:bdgAmt(tot.virements_internes_entrants_usd,'USD'),obsEur:bdgAmt(tot.virements_internes_entrants_eur,'EUR'),projUsd:'—',projEur:'—',objectif:'—'});
+  const glow=cats.find(c=>c.id==='air_glow_pub');
+  const glowRow=glow?bdgRow({id:'bdg-joint-airglow',cls:['bdg-foot','bdg-annexe','bdg-cat-pro'],poste:'Sous-total Air Glow, pub (pro)',detailsHtml:bdgOpsDetails(glow.operations||[], glow.detail||(tot.air_glow_pub_note||'Publicité Air Glow, exclue des dépenses personnelles')),obsUsd:bdgAmt(tot.air_glow_pub_usd!=null?tot.air_glow_pub_usd:glow.observe_usd,'USD'),obsEur:bdgAmt(tot.air_glow_pub_eur!=null?tot.air_glow_pub_eur:glow.observe_eur,'EUR'),projUsd:bdgAmt(glow.projection_usd,'USD'),projEur:bdgAmt(glow.projection_eur,'EUR'),objectif:'—' }):'';
   const tvFlag=j.tradingview_sur_le_releve||{};
   const tvNote=tvFlag.present_sur_le_releve?(tvFlag.note||'Un prélèvement TradingView figure sur le relevé ; non recopié en seconde ligne d’abonnement.'):'';
   const srcBits=[];
@@ -267,9 +271,10 @@ function bdgJointHtml(b){
       <p class="desc">${bdgEsc(per+(cpt.banque?(' · '+cpt.banque):'')+bank)}</p>
     </div>
     <div class="home-strip bdg-kvs">
-      <div class="home-kv"><span class="l">Dépenses</span><b>${bdgAmt(tot.depenses_eur,'EUR')}</b><small>${bdgAmt(tot.depenses_usd,'USD')}</small></div>
+      <div class="home-kv"><span class="l">Dépenses perso</span><b>${bdgAmt(tot.depenses_eur,'EUR')}</b><small>${bdgAmt(tot.depenses_usd,'USD')}</small></div>
       <div class="home-kv"><span class="l">Revenus</span><b>${bdgAmt(tot.revenus_eur,'EUR')}</b><small>${bdgAmt(tot.revenus_usd,'USD')}</small></div>
       <div class="home-kv ${resteNeg?'is-down':''}"><span class="l">Reste</span><b class="${resteNeg?'down':'up'}">${bdgAmt(tot.reste_eur,'EUR')}</b><small class="${resteNeg?'down':'up'}">${bdgAmt(tot.reste_usd,'USD')}</small></div>
+      <div class="home-kv bdg-kv-pro"><span class="l">Air Glow pub (pro)</span><b>${bdgAmt(tot.air_glow_pub_eur,'EUR')}</b><small>${bdgAmt(tot.air_glow_pub_usd,'USD')}</small></div>
     </div>
     <div class="home-table-scroll">
       <div class="home-table bdg-table" id="bdg-table-joint">
@@ -280,6 +285,7 @@ function bdgJointHtml(b){
         ${resteRow}
         ${rembRow}
         ${vinRow}
+        ${glowRow}
       </div>
     </div>
     ${tvNote?`<p class="bdg-src bdg-tv-flag">${bdgEsc(tvNote)}</p>`:''}

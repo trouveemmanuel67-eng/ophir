@@ -4854,7 +4854,7 @@
               "type": "virement_interne",
               "page": 7,
               "statut": "comptable",
-              "note_classification": "Deblock SAS (Lille) 50 € + 100 € — classé épargne / investissement (crypto) ; à confirmer. Ce n’est pas une dépense de consommation."
+              "note_classification": "Deblock SAS (Lille) 50 € + 100 € — épargne / investissement (crypto). Confirmé par Emmanuel le 25/11/2026 à 13 h 10 (Europe/Paris) : ce n’est pas une dépense. Reste dans virements internes / épargne / investissement, exclu du total des dépenses personnelles."
             },
             {
               "date": "2026-10-21",
@@ -4873,7 +4873,7 @@
               "type": "virement_interne",
               "page": 7,
               "statut": "comptable",
-              "note_classification": "Deblock SAS (Lille) 50 € + 100 € — classé épargne / investissement (crypto) ; à confirmer. Ce n’est pas une dépense de consommation."
+              "note_classification": "Deblock SAS (Lille) 50 € + 100 € — épargne / investissement (crypto). Confirmé par Emmanuel le 25/11/2026 à 13 h 10 (Europe/Paris) : ce n’est pas une dépense. Reste dans virements internes / épargne / investissement, exclu du total des dépenses personnelles."
             },
             {
               "date": "2026-10-29",
@@ -4937,16 +4937,16 @@
         {
           "id": "autres",
           "poste": "Autres",
-          "n_operations": 29,
-          "debit_eur": 514.86,
+          "n_operations": 5,
+          "debit_eur": 386.58,
           "credit_eur": 0.0,
-          "observe_eur": 514.86,
-          "observe_usd": 563.46,
-          "projection_eur": 514.86,
-          "projection_usd": 563.46,
+          "observe_eur": 386.58,
+          "observe_usd": 423.07,
+          "projection_eur": 386.58,
+          "projection_usd": 423.07,
           "objectif": null,
           "compte_dans_total_depenses": true,
-          "detail": "29 opérations · l'Institut national de la propriété industrielle, Facebook, Cci Alsace Eurom, X Corp…",
+          "detail": "5 opérations · l'Institut national de la propriété industrielle, Cci Alsace Eurom, X Corp, MaxiZoo",
           "operations": [
             {
               "date": "2026-10-07",
@@ -4987,54 +4987,6 @@
               "note_classification": "MaxiZoo Vendenheim — animalerie (pas de catégorie dédiée)."
             },
             {
-              "date": "2026-10-08",
-              "date_libelle": "8 oct. 2026",
-              "libelle": "Facebook",
-              "details": [
-                "Taux Revolut : 1,00 € = 1,11 $",
-                "À : Facebk *62uce5aga4, Facebook.com",
-                "Carte : 416598******7711"
-              ],
-              "sens": "debit",
-              "montant_eur": 1.85,
-              "montant_usd": 2.02,
-              "solde_apres_eur": 1260.85,
-              "devise_origine": {
-                "montant": 2.06,
-                "devise": "USD"
-              },
-              "categorie": "autres",
-              "categorie_libelle": "Autres",
-              "type": "depense",
-              "page": 3,
-              "statut": "comptable",
-              "note_classification": "24 paiements Facebk *… (publicité). Probable dépense professionnelle Air Glow — à confirmer."
-            },
-            {
-              "date": "2026-10-09",
-              "date_libelle": "9 oct. 2026",
-              "libelle": "Facebook",
-              "details": [
-                "Taux Revolut : 1,00 € = 1,12 $",
-                "À : Facebk *a5mzx5aha4, Facebook.com",
-                "Carte : 416598******7711"
-              ],
-              "sens": "debit",
-              "montant_eur": 1.84,
-              "montant_usd": 2.01,
-              "solde_apres_eur": 1236.82,
-              "devise_origine": {
-                "montant": 2.05,
-                "devise": "USD"
-              },
-              "categorie": "autres",
-              "categorie_libelle": "Autres",
-              "type": "depense",
-              "page": 3,
-              "statut": "comptable",
-              "note_classification": "24 paiements Facebk *… (publicité). Probable dépense professionnelle Air Glow — à confirmer."
-            },
-            {
               "date": "2026-10-10",
               "date_libelle": "10 oct. 2026",
               "libelle": "X Corp",
@@ -5052,294 +5004,6 @@
               "page": 3,
               "statut": "comptable",
               "note_classification": "X Corp Advertising, Dublin — publicité. Probable dépense professionnelle — à confirmer."
-            },
-            {
-              "date": "2026-10-10",
-              "date_libelle": "10 oct. 2026",
-              "libelle": "Facebook",
-              "details": [
-                "Taux Revolut : 1,00 € = 1,12 $",
-                "À : Facebk *qbytc76ha4, Facebook.com",
-                "Carte : 416598******7711"
-              ],
-              "sens": "debit",
-              "montant_eur": 1.84,
-              "montant_usd": 2.01,
-              "solde_apres_eur": 1186.19,
-              "devise_origine": {
-                "montant": 2.05,
-                "devise": "USD"
-              },
-              "categorie": "autres",
-              "categorie_libelle": "Autres",
-              "type": "depense",
-              "page": 3,
-              "statut": "comptable",
-              "note_classification": "24 paiements Facebk *… (publicité). Probable dépense professionnelle Air Glow — à confirmer."
-            },
-            {
-              "date": "2026-10-10",
-              "date_libelle": "10 oct. 2026",
-              "libelle": "Facebook",
-              "details": [
-                "Taux Revolut : 1,00 € = 1,12 $",
-                "À : Facebk *2sk7y6ega4, Facebook.com",
-                "Carte : 416598******7711"
-              ],
-              "sens": "debit",
-              "montant_eur": 1.85,
-              "montant_usd": 2.02,
-              "solde_apres_eur": 1184.34,
-              "devise_origine": {
-                "montant": 2.06,
-                "devise": "USD"
-              },
-              "categorie": "autres",
-              "categorie_libelle": "Autres",
-              "type": "depense",
-              "page": 3,
-              "statut": "comptable",
-              "note_classification": "24 paiements Facebk *… (publicité). Probable dépense professionnelle Air Glow — à confirmer."
-            },
-            {
-              "date": "2026-10-10",
-              "date_libelle": "10 oct. 2026",
-              "libelle": "Facebook",
-              "details": [
-                "Taux Revolut : 1,00 € = 1,12 $",
-                "À : Facebk *z5eln5aga4, Facebook.com",
-                "Carte : 416598******7711"
-              ],
-              "sens": "debit",
-              "montant_eur": 1.85,
-              "montant_usd": 2.02,
-              "solde_apres_eur": 1182.49,
-              "devise_origine": {
-                "montant": 2.06,
-                "devise": "USD"
-              },
-              "categorie": "autres",
-              "categorie_libelle": "Autres",
-              "type": "depense",
-              "page": 3,
-              "statut": "comptable",
-              "note_classification": "24 paiements Facebk *… (publicité). Probable dépense professionnelle Air Glow — à confirmer."
-            },
-            {
-              "date": "2026-10-10",
-              "date_libelle": "10 oct. 2026",
-              "libelle": "Facebook",
-              "details": [
-                "Taux Revolut : 1,00 € = 1,12 $",
-                "À : Facebk *xwl9z6ega4, Facebook.com",
-                "Carte : 416598******7711"
-              ],
-              "sens": "debit",
-              "montant_eur": 1.85,
-              "montant_usd": 2.02,
-              "solde_apres_eur": 1180.64,
-              "devise_origine": {
-                "montant": 2.06,
-                "devise": "USD"
-              },
-              "categorie": "autres",
-              "categorie_libelle": "Autres",
-              "type": "depense",
-              "page": 4,
-              "statut": "comptable",
-              "note_classification": "24 paiements Facebk *… (publicité). Probable dépense professionnelle Air Glow — à confirmer."
-            },
-            {
-              "date": "2026-10-10",
-              "date_libelle": "10 oct. 2026",
-              "libelle": "Facebook",
-              "details": [
-                "Taux Revolut : 1,00 € = 1,12 $",
-                "À : Facebk *rrl737nga4, Facebook.com",
-                "Carte : 416598******7711"
-              ],
-              "sens": "debit",
-              "montant_eur": 1.84,
-              "montant_usd": 2.01,
-              "solde_apres_eur": 1178.8,
-              "devise_origine": {
-                "montant": 2.05,
-                "devise": "USD"
-              },
-              "categorie": "autres",
-              "categorie_libelle": "Autres",
-              "type": "depense",
-              "page": 4,
-              "statut": "comptable",
-              "note_classification": "24 paiements Facebk *… (publicité). Probable dépense professionnelle Air Glow — à confirmer."
-            },
-            {
-              "date": "2026-10-11",
-              "date_libelle": "11 oct. 2026",
-              "libelle": "Facebook",
-              "details": [
-                "Taux Revolut : 1,00 € = 1,12 $",
-                "À : Facebk *n8uxr5aga4, Facebook.com",
-                "Carte : 416598******7711"
-              ],
-              "sens": "debit",
-              "montant_eur": 1.86,
-              "montant_usd": 2.04,
-              "solde_apres_eur": 1125.53,
-              "devise_origine": {
-                "montant": 2.07,
-                "devise": "USD"
-              },
-              "categorie": "autres",
-              "categorie_libelle": "Autres",
-              "type": "depense",
-              "page": 4,
-              "statut": "comptable",
-              "note_classification": "24 paiements Facebk *… (publicité). Probable dépense professionnelle Air Glow — à confirmer."
-            },
-            {
-              "date": "2026-10-11",
-              "date_libelle": "11 oct. 2026",
-              "libelle": "Facebook",
-              "details": [
-                "Taux Revolut : 1,00 € = 1,12 $",
-                "À : Facebk *dp38j76ha4, Facebook.com",
-                "Carte : 416598******7711"
-              ],
-              "sens": "debit",
-              "montant_eur": 1.85,
-              "montant_usd": 2.02,
-              "solde_apres_eur": 1123.68,
-              "devise_origine": {
-                "montant": 2.06,
-                "devise": "USD"
-              },
-              "categorie": "autres",
-              "categorie_libelle": "Autres",
-              "type": "depense",
-              "page": 4,
-              "statut": "comptable",
-              "note_classification": "24 paiements Facebk *… (publicité). Probable dépense professionnelle Air Glow — à confirmer."
-            },
-            {
-              "date": "2026-10-11",
-              "date_libelle": "11 oct. 2026",
-              "libelle": "Facebook",
-              "details": [
-                "Taux Revolut : 1,00 € = 1,12 $",
-                "À : Facebk *53gyj76ha4, Facebook.com",
-                "Carte : 416598******7711"
-              ],
-              "sens": "debit",
-              "montant_eur": 1.85,
-              "montant_usd": 2.02,
-              "solde_apres_eur": 1121.83,
-              "devise_origine": {
-                "montant": 2.06,
-                "devise": "USD"
-              },
-              "categorie": "autres",
-              "categorie_libelle": "Autres",
-              "type": "depense",
-              "page": 4,
-              "statut": "comptable",
-              "note_classification": "24 paiements Facebk *… (publicité). Probable dépense professionnelle Air Glow — à confirmer."
-            },
-            {
-              "date": "2026-10-11",
-              "date_libelle": "11 oct. 2026",
-              "libelle": "Facebook",
-              "details": [
-                "Taux Revolut : 1,00 € = 1,12 $",
-                "À : Facebk *zla467ega4, Facebook.com",
-                "Carte : 416598******7711"
-              ],
-              "sens": "debit",
-              "montant_eur": 1.85,
-              "montant_usd": 2.02,
-              "solde_apres_eur": 1119.98,
-              "devise_origine": {
-                "montant": 2.06,
-                "devise": "USD"
-              },
-              "categorie": "autres",
-              "categorie_libelle": "Autres",
-              "type": "depense",
-              "page": 4,
-              "statut": "comptable",
-              "note_classification": "24 paiements Facebk *… (publicité). Probable dépense professionnelle Air Glow — à confirmer."
-            },
-            {
-              "date": "2026-10-11",
-              "date_libelle": "11 oct. 2026",
-              "libelle": "Facebook",
-              "details": [
-                "Taux Revolut : 1,00 € = 1,12 $",
-                "À : Facebk *r8etf82ha4, Facebook.com",
-                "Carte : 416598******7711"
-              ],
-              "sens": "debit",
-              "montant_eur": 1.83,
-              "montant_usd": 2.0,
-              "solde_apres_eur": 1118.15,
-              "devise_origine": {
-                "montant": 2.04,
-                "devise": "USD"
-              },
-              "categorie": "autres",
-              "categorie_libelle": "Autres",
-              "type": "depense",
-              "page": 4,
-              "statut": "comptable",
-              "note_classification": "24 paiements Facebk *… (publicité). Probable dépense professionnelle Air Glow — à confirmer."
-            },
-            {
-              "date": "2026-10-12",
-              "date_libelle": "12 oct. 2026",
-              "libelle": "Facebook",
-              "details": [
-                "Taux Revolut : 1,00 € = 1,11 $",
-                "À : Facebk *pujb58sga4, Facebook.com",
-                "Carte : 416598******7711"
-              ],
-              "sens": "debit",
-              "montant_eur": 3.7,
-              "montant_usd": 4.05,
-              "solde_apres_eur": 1096.45,
-              "devise_origine": {
-                "montant": 4.12,
-                "devise": "USD"
-              },
-              "categorie": "autres",
-              "categorie_libelle": "Autres",
-              "type": "depense",
-              "page": 4,
-              "statut": "comptable",
-              "note_classification": "24 paiements Facebk *… (publicité). Probable dépense professionnelle Air Glow — à confirmer."
-            },
-            {
-              "date": "2026-10-12",
-              "date_libelle": "12 oct. 2026",
-              "libelle": "Facebook",
-              "details": [
-                "Taux Revolut : 1,00 € = 1,11 $",
-                "À : Facebk *nwy5k82ha4, Facebook.com",
-                "Carte : 416598******7711"
-              ],
-              "sens": "debit",
-              "montant_eur": 3.7,
-              "montant_usd": 4.05,
-              "solde_apres_eur": 1092.75,
-              "devise_origine": {
-                "montant": 4.12,
-                "devise": "USD"
-              },
-              "categorie": "autres",
-              "categorie_libelle": "Autres",
-              "type": "depense",
-              "page": 4,
-              "statut": "comptable",
-              "note_classification": "24 paiements Facebk *… (publicité). Probable dépense professionnelle Air Glow — à confirmer."
             },
             {
               "date": "2026-10-13",
@@ -5361,6 +5025,377 @@
               "note_classification": "X Corp Advertising, Dublin — publicité. Probable dépense professionnelle — à confirmer."
             },
             {
+              "date": "2026-10-17",
+              "date_libelle": "17 oct. 2026",
+              "libelle": "Cci Alsace Eurom",
+              "details": [
+                "À : Cci Alsace Eurom, Schiltigheim",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 117.63,
+              "montant_usd": 128.73,
+              "solde_apres_eur": 977.64,
+              "categorie": "autres",
+              "categorie_libelle": "Autres",
+              "type": "depense",
+              "page": 6,
+              "statut": "comptable",
+              "note_classification": "CCI Alsace Eurométropole 117,63 € — cotisation / formalité professionnelle. À confirmer."
+            }
+          ]
+        },
+        {
+          "id": "air_glow_pub",
+          "poste": "Air Glow, pub (pro)",
+          "n_operations": 24,
+          "debit_eur": 128.28,
+          "credit_eur": 0.0,
+          "observe_eur": 128.28,
+          "observe_usd": 140.39,
+          "projection_eur": 128.28,
+          "projection_usd": 140.39,
+          "objectif": null,
+          "compte_dans_total_depenses": false,
+          "detail": "24 paiements Facebook (publicité Air Glow), confirmés le 25/11/2026. Sous-total pro, exclu du total des dépenses personnelles.",
+          "operations": [
+            {
+              "date": "2026-10-08",
+              "date_libelle": "8 oct. 2026",
+              "libelle": "Facebook",
+              "details": [
+                "Taux Revolut : 1,00 € = 1,11 $",
+                "À : Facebk *62uce5aga4, Facebook.com",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 1.85,
+              "montant_usd": 2.02,
+              "solde_apres_eur": 1260.85,
+              "devise_origine": {
+                "montant": 2.06,
+                "devise": "USD"
+              },
+              "categorie": "air_glow_pub",
+              "categorie_libelle": "Air Glow, pub (pro)",
+              "type": "depense_pro",
+              "page": 3,
+              "statut": "comptable",
+              "note_classification": "24 paiements Facebk *… (publicité Air Glow). Confirmé par Emmanuel le 25/11/2026 à 13 h 07 (Europe/Paris) : dépenses de pub professionnelles. Catégorie « Air Glow, pub (pro) », exclue du total des dépenses personnelles."
+            },
+            {
+              "date": "2026-10-09",
+              "date_libelle": "9 oct. 2026",
+              "libelle": "Facebook",
+              "details": [
+                "Taux Revolut : 1,00 € = 1,12 $",
+                "À : Facebk *a5mzx5aha4, Facebook.com",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 1.84,
+              "montant_usd": 2.01,
+              "solde_apres_eur": 1236.82,
+              "devise_origine": {
+                "montant": 2.05,
+                "devise": "USD"
+              },
+              "categorie": "air_glow_pub",
+              "categorie_libelle": "Air Glow, pub (pro)",
+              "type": "depense_pro",
+              "page": 3,
+              "statut": "comptable",
+              "note_classification": "24 paiements Facebk *… (publicité Air Glow). Confirmé par Emmanuel le 25/11/2026 à 13 h 07 (Europe/Paris) : dépenses de pub professionnelles. Catégorie « Air Glow, pub (pro) », exclue du total des dépenses personnelles."
+            },
+            {
+              "date": "2026-10-10",
+              "date_libelle": "10 oct. 2026",
+              "libelle": "Facebook",
+              "details": [
+                "Taux Revolut : 1,00 € = 1,12 $",
+                "À : Facebk *qbytc76ha4, Facebook.com",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 1.84,
+              "montant_usd": 2.01,
+              "solde_apres_eur": 1186.19,
+              "devise_origine": {
+                "montant": 2.05,
+                "devise": "USD"
+              },
+              "categorie": "air_glow_pub",
+              "categorie_libelle": "Air Glow, pub (pro)",
+              "type": "depense_pro",
+              "page": 3,
+              "statut": "comptable",
+              "note_classification": "24 paiements Facebk *… (publicité Air Glow). Confirmé par Emmanuel le 25/11/2026 à 13 h 07 (Europe/Paris) : dépenses de pub professionnelles. Catégorie « Air Glow, pub (pro) », exclue du total des dépenses personnelles."
+            },
+            {
+              "date": "2026-10-10",
+              "date_libelle": "10 oct. 2026",
+              "libelle": "Facebook",
+              "details": [
+                "Taux Revolut : 1,00 € = 1,12 $",
+                "À : Facebk *2sk7y6ega4, Facebook.com",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 1.85,
+              "montant_usd": 2.02,
+              "solde_apres_eur": 1184.34,
+              "devise_origine": {
+                "montant": 2.06,
+                "devise": "USD"
+              },
+              "categorie": "air_glow_pub",
+              "categorie_libelle": "Air Glow, pub (pro)",
+              "type": "depense_pro",
+              "page": 3,
+              "statut": "comptable",
+              "note_classification": "24 paiements Facebk *… (publicité Air Glow). Confirmé par Emmanuel le 25/11/2026 à 13 h 07 (Europe/Paris) : dépenses de pub professionnelles. Catégorie « Air Glow, pub (pro) », exclue du total des dépenses personnelles."
+            },
+            {
+              "date": "2026-10-10",
+              "date_libelle": "10 oct. 2026",
+              "libelle": "Facebook",
+              "details": [
+                "Taux Revolut : 1,00 € = 1,12 $",
+                "À : Facebk *z5eln5aga4, Facebook.com",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 1.85,
+              "montant_usd": 2.02,
+              "solde_apres_eur": 1182.49,
+              "devise_origine": {
+                "montant": 2.06,
+                "devise": "USD"
+              },
+              "categorie": "air_glow_pub",
+              "categorie_libelle": "Air Glow, pub (pro)",
+              "type": "depense_pro",
+              "page": 3,
+              "statut": "comptable",
+              "note_classification": "24 paiements Facebk *… (publicité Air Glow). Confirmé par Emmanuel le 25/11/2026 à 13 h 07 (Europe/Paris) : dépenses de pub professionnelles. Catégorie « Air Glow, pub (pro) », exclue du total des dépenses personnelles."
+            },
+            {
+              "date": "2026-10-10",
+              "date_libelle": "10 oct. 2026",
+              "libelle": "Facebook",
+              "details": [
+                "Taux Revolut : 1,00 € = 1,12 $",
+                "À : Facebk *xwl9z6ega4, Facebook.com",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 1.85,
+              "montant_usd": 2.02,
+              "solde_apres_eur": 1180.64,
+              "devise_origine": {
+                "montant": 2.06,
+                "devise": "USD"
+              },
+              "categorie": "air_glow_pub",
+              "categorie_libelle": "Air Glow, pub (pro)",
+              "type": "depense_pro",
+              "page": 4,
+              "statut": "comptable",
+              "note_classification": "24 paiements Facebk *… (publicité Air Glow). Confirmé par Emmanuel le 25/11/2026 à 13 h 07 (Europe/Paris) : dépenses de pub professionnelles. Catégorie « Air Glow, pub (pro) », exclue du total des dépenses personnelles."
+            },
+            {
+              "date": "2026-10-10",
+              "date_libelle": "10 oct. 2026",
+              "libelle": "Facebook",
+              "details": [
+                "Taux Revolut : 1,00 € = 1,12 $",
+                "À : Facebk *rrl737nga4, Facebook.com",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 1.84,
+              "montant_usd": 2.01,
+              "solde_apres_eur": 1178.8,
+              "devise_origine": {
+                "montant": 2.05,
+                "devise": "USD"
+              },
+              "categorie": "air_glow_pub",
+              "categorie_libelle": "Air Glow, pub (pro)",
+              "type": "depense_pro",
+              "page": 4,
+              "statut": "comptable",
+              "note_classification": "24 paiements Facebk *… (publicité Air Glow). Confirmé par Emmanuel le 25/11/2026 à 13 h 07 (Europe/Paris) : dépenses de pub professionnelles. Catégorie « Air Glow, pub (pro) », exclue du total des dépenses personnelles."
+            },
+            {
+              "date": "2026-10-11",
+              "date_libelle": "11 oct. 2026",
+              "libelle": "Facebook",
+              "details": [
+                "Taux Revolut : 1,00 € = 1,12 $",
+                "À : Facebk *n8uxr5aga4, Facebook.com",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 1.86,
+              "montant_usd": 2.04,
+              "solde_apres_eur": 1125.53,
+              "devise_origine": {
+                "montant": 2.07,
+                "devise": "USD"
+              },
+              "categorie": "air_glow_pub",
+              "categorie_libelle": "Air Glow, pub (pro)",
+              "type": "depense_pro",
+              "page": 4,
+              "statut": "comptable",
+              "note_classification": "24 paiements Facebk *… (publicité Air Glow). Confirmé par Emmanuel le 25/11/2026 à 13 h 07 (Europe/Paris) : dépenses de pub professionnelles. Catégorie « Air Glow, pub (pro) », exclue du total des dépenses personnelles."
+            },
+            {
+              "date": "2026-10-11",
+              "date_libelle": "11 oct. 2026",
+              "libelle": "Facebook",
+              "details": [
+                "Taux Revolut : 1,00 € = 1,12 $",
+                "À : Facebk *dp38j76ha4, Facebook.com",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 1.85,
+              "montant_usd": 2.02,
+              "solde_apres_eur": 1123.68,
+              "devise_origine": {
+                "montant": 2.06,
+                "devise": "USD"
+              },
+              "categorie": "air_glow_pub",
+              "categorie_libelle": "Air Glow, pub (pro)",
+              "type": "depense_pro",
+              "page": 4,
+              "statut": "comptable",
+              "note_classification": "24 paiements Facebk *… (publicité Air Glow). Confirmé par Emmanuel le 25/11/2026 à 13 h 07 (Europe/Paris) : dépenses de pub professionnelles. Catégorie « Air Glow, pub (pro) », exclue du total des dépenses personnelles."
+            },
+            {
+              "date": "2026-10-11",
+              "date_libelle": "11 oct. 2026",
+              "libelle": "Facebook",
+              "details": [
+                "Taux Revolut : 1,00 € = 1,12 $",
+                "À : Facebk *53gyj76ha4, Facebook.com",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 1.85,
+              "montant_usd": 2.02,
+              "solde_apres_eur": 1121.83,
+              "devise_origine": {
+                "montant": 2.06,
+                "devise": "USD"
+              },
+              "categorie": "air_glow_pub",
+              "categorie_libelle": "Air Glow, pub (pro)",
+              "type": "depense_pro",
+              "page": 4,
+              "statut": "comptable",
+              "note_classification": "24 paiements Facebk *… (publicité Air Glow). Confirmé par Emmanuel le 25/11/2026 à 13 h 07 (Europe/Paris) : dépenses de pub professionnelles. Catégorie « Air Glow, pub (pro) », exclue du total des dépenses personnelles."
+            },
+            {
+              "date": "2026-10-11",
+              "date_libelle": "11 oct. 2026",
+              "libelle": "Facebook",
+              "details": [
+                "Taux Revolut : 1,00 € = 1,12 $",
+                "À : Facebk *zla467ega4, Facebook.com",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 1.85,
+              "montant_usd": 2.02,
+              "solde_apres_eur": 1119.98,
+              "devise_origine": {
+                "montant": 2.06,
+                "devise": "USD"
+              },
+              "categorie": "air_glow_pub",
+              "categorie_libelle": "Air Glow, pub (pro)",
+              "type": "depense_pro",
+              "page": 4,
+              "statut": "comptable",
+              "note_classification": "24 paiements Facebk *… (publicité Air Glow). Confirmé par Emmanuel le 25/11/2026 à 13 h 07 (Europe/Paris) : dépenses de pub professionnelles. Catégorie « Air Glow, pub (pro) », exclue du total des dépenses personnelles."
+            },
+            {
+              "date": "2026-10-11",
+              "date_libelle": "11 oct. 2026",
+              "libelle": "Facebook",
+              "details": [
+                "Taux Revolut : 1,00 € = 1,12 $",
+                "À : Facebk *r8etf82ha4, Facebook.com",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 1.83,
+              "montant_usd": 2.0,
+              "solde_apres_eur": 1118.15,
+              "devise_origine": {
+                "montant": 2.04,
+                "devise": "USD"
+              },
+              "categorie": "air_glow_pub",
+              "categorie_libelle": "Air Glow, pub (pro)",
+              "type": "depense_pro",
+              "page": 4,
+              "statut": "comptable",
+              "note_classification": "24 paiements Facebk *… (publicité Air Glow). Confirmé par Emmanuel le 25/11/2026 à 13 h 07 (Europe/Paris) : dépenses de pub professionnelles. Catégorie « Air Glow, pub (pro) », exclue du total des dépenses personnelles."
+            },
+            {
+              "date": "2026-10-12",
+              "date_libelle": "12 oct. 2026",
+              "libelle": "Facebook",
+              "details": [
+                "Taux Revolut : 1,00 € = 1,11 $",
+                "À : Facebk *pujb58sga4, Facebook.com",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 3.7,
+              "montant_usd": 4.05,
+              "solde_apres_eur": 1096.45,
+              "devise_origine": {
+                "montant": 4.12,
+                "devise": "USD"
+              },
+              "categorie": "air_glow_pub",
+              "categorie_libelle": "Air Glow, pub (pro)",
+              "type": "depense_pro",
+              "page": 4,
+              "statut": "comptable",
+              "note_classification": "24 paiements Facebk *… (publicité Air Glow). Confirmé par Emmanuel le 25/11/2026 à 13 h 07 (Europe/Paris) : dépenses de pub professionnelles. Catégorie « Air Glow, pub (pro) », exclue du total des dépenses personnelles."
+            },
+            {
+              "date": "2026-10-12",
+              "date_libelle": "12 oct. 2026",
+              "libelle": "Facebook",
+              "details": [
+                "Taux Revolut : 1,00 € = 1,11 $",
+                "À : Facebk *nwy5k82ha4, Facebook.com",
+                "Carte : 416598******7711"
+              ],
+              "sens": "debit",
+              "montant_eur": 3.7,
+              "montant_usd": 4.05,
+              "solde_apres_eur": 1092.75,
+              "devise_origine": {
+                "montant": 4.12,
+                "devise": "USD"
+              },
+              "categorie": "air_glow_pub",
+              "categorie_libelle": "Air Glow, pub (pro)",
+              "type": "depense_pro",
+              "page": 4,
+              "statut": "comptable",
+              "note_classification": "24 paiements Facebk *… (publicité Air Glow). Confirmé par Emmanuel le 25/11/2026 à 13 h 07 (Europe/Paris) : dépenses de pub professionnelles. Catégorie « Air Glow, pub (pro) », exclue du total des dépenses personnelles."
+            },
+            {
               "date": "2026-10-13",
               "date_libelle": "13 oct. 2026",
               "libelle": "Facebook",
@@ -5377,12 +5412,12 @@
                 "montant": 4.12,
                 "devise": "USD"
               },
-              "categorie": "autres",
-              "categorie_libelle": "Autres",
-              "type": "depense",
+              "categorie": "air_glow_pub",
+              "categorie_libelle": "Air Glow, pub (pro)",
+              "type": "depense_pro",
               "page": 5,
               "statut": "comptable",
-              "note_classification": "24 paiements Facebk *… (publicité). Probable dépense professionnelle Air Glow — à confirmer."
+              "note_classification": "24 paiements Facebk *… (publicité Air Glow). Confirmé par Emmanuel le 25/11/2026 à 13 h 07 (Europe/Paris) : dépenses de pub professionnelles. Catégorie « Air Glow, pub (pro) », exclue du total des dépenses personnelles."
             },
             {
               "date": "2026-10-14",
@@ -5401,12 +5436,12 @@
                 "montant": 7.19,
                 "devise": "USD"
               },
-              "categorie": "autres",
-              "categorie_libelle": "Autres",
-              "type": "depense",
+              "categorie": "air_glow_pub",
+              "categorie_libelle": "Air Glow, pub (pro)",
+              "type": "depense_pro",
               "page": 5,
               "statut": "comptable",
-              "note_classification": "24 paiements Facebk *… (publicité). Probable dépense professionnelle Air Glow — à confirmer."
+              "note_classification": "24 paiements Facebk *… (publicité Air Glow). Confirmé par Emmanuel le 25/11/2026 à 13 h 07 (Europe/Paris) : dépenses de pub professionnelles. Catégorie « Air Glow, pub (pro) », exclue du total des dépenses personnelles."
             },
             {
               "date": "2026-10-15",
@@ -5425,12 +5460,12 @@
                 "montant": 12.35,
                 "devise": "USD"
               },
-              "categorie": "autres",
-              "categorie_libelle": "Autres",
-              "type": "depense",
+              "categorie": "air_glow_pub",
+              "categorie_libelle": "Air Glow, pub (pro)",
+              "type": "depense_pro",
               "page": 5,
               "statut": "comptable",
-              "note_classification": "24 paiements Facebk *… (publicité). Probable dépense professionnelle Air Glow — à confirmer."
+              "note_classification": "24 paiements Facebk *… (publicité Air Glow). Confirmé par Emmanuel le 25/11/2026 à 13 h 07 (Europe/Paris) : dépenses de pub professionnelles. Catégorie « Air Glow, pub (pro) », exclue du total des dépenses personnelles."
             },
             {
               "date": "2026-10-16",
@@ -5449,31 +5484,12 @@
                 "montant": 12.31,
                 "devise": "USD"
               },
-              "categorie": "autres",
-              "categorie_libelle": "Autres",
-              "type": "depense",
+              "categorie": "air_glow_pub",
+              "categorie_libelle": "Air Glow, pub (pro)",
+              "type": "depense_pro",
               "page": 6,
               "statut": "comptable",
-              "note_classification": "24 paiements Facebk *… (publicité). Probable dépense professionnelle Air Glow — à confirmer."
-            },
-            {
-              "date": "2026-10-17",
-              "date_libelle": "17 oct. 2026",
-              "libelle": "Cci Alsace Eurom",
-              "details": [
-                "À : Cci Alsace Eurom, Schiltigheim",
-                "Carte : 416598******7711"
-              ],
-              "sens": "debit",
-              "montant_eur": 117.63,
-              "montant_usd": 128.73,
-              "solde_apres_eur": 977.64,
-              "categorie": "autres",
-              "categorie_libelle": "Autres",
-              "type": "depense",
-              "page": 6,
-              "statut": "comptable",
-              "note_classification": "CCI Alsace Eurométropole 117,63 € — cotisation / formalité professionnelle. À confirmer."
+              "note_classification": "24 paiements Facebk *… (publicité Air Glow). Confirmé par Emmanuel le 25/11/2026 à 13 h 07 (Europe/Paris) : dépenses de pub professionnelles. Catégorie « Air Glow, pub (pro) », exclue du total des dépenses personnelles."
             },
             {
               "date": "2026-10-17",
@@ -5492,12 +5508,12 @@
                 "montant": 9.26,
                 "devise": "USD"
               },
-              "categorie": "autres",
-              "categorie_libelle": "Autres",
-              "type": "depense",
+              "categorie": "air_glow_pub",
+              "categorie_libelle": "Air Glow, pub (pro)",
+              "type": "depense_pro",
               "page": 6,
               "statut": "comptable",
-              "note_classification": "24 paiements Facebk *… (publicité). Probable dépense professionnelle Air Glow — à confirmer."
+              "note_classification": "24 paiements Facebk *… (publicité Air Glow). Confirmé par Emmanuel le 25/11/2026 à 13 h 07 (Europe/Paris) : dépenses de pub professionnelles. Catégorie « Air Glow, pub (pro) », exclue du total des dépenses personnelles."
             },
             {
               "date": "2026-10-17",
@@ -5516,12 +5532,12 @@
                 "montant": 9.26,
                 "devise": "USD"
               },
-              "categorie": "autres",
-              "categorie_libelle": "Autres",
-              "type": "depense",
+              "categorie": "air_glow_pub",
+              "categorie_libelle": "Air Glow, pub (pro)",
+              "type": "depense_pro",
               "page": 6,
               "statut": "comptable",
-              "note_classification": "24 paiements Facebk *… (publicité). Probable dépense professionnelle Air Glow — à confirmer."
+              "note_classification": "24 paiements Facebk *… (publicité Air Glow). Confirmé par Emmanuel le 25/11/2026 à 13 h 07 (Europe/Paris) : dépenses de pub professionnelles. Catégorie « Air Glow, pub (pro) », exclue du total des dépenses personnelles."
             },
             {
               "date": "2026-10-18",
@@ -5540,12 +5556,12 @@
                 "montant": 9.26,
                 "devise": "USD"
               },
-              "categorie": "autres",
-              "categorie_libelle": "Autres",
-              "type": "depense",
+              "categorie": "air_glow_pub",
+              "categorie_libelle": "Air Glow, pub (pro)",
+              "type": "depense_pro",
               "page": 6,
               "statut": "comptable",
-              "note_classification": "24 paiements Facebk *… (publicité). Probable dépense professionnelle Air Glow — à confirmer."
+              "note_classification": "24 paiements Facebk *… (publicité Air Glow). Confirmé par Emmanuel le 25/11/2026 à 13 h 07 (Europe/Paris) : dépenses de pub professionnelles. Catégorie « Air Glow, pub (pro) », exclue du total des dépenses personnelles."
             },
             {
               "date": "2026-10-20",
@@ -5564,12 +5580,12 @@
                 "montant": 9.26,
                 "devise": "USD"
               },
-              "categorie": "autres",
-              "categorie_libelle": "Autres",
-              "type": "depense",
+              "categorie": "air_glow_pub",
+              "categorie_libelle": "Air Glow, pub (pro)",
+              "type": "depense_pro",
               "page": 7,
               "statut": "comptable",
-              "note_classification": "24 paiements Facebk *… (publicité). Probable dépense professionnelle Air Glow — à confirmer."
+              "note_classification": "24 paiements Facebk *… (publicité Air Glow). Confirmé par Emmanuel le 25/11/2026 à 13 h 07 (Europe/Paris) : dépenses de pub professionnelles. Catégorie « Air Glow, pub (pro) », exclue du total des dépenses personnelles."
             },
             {
               "date": "2026-10-25",
@@ -5588,12 +5604,12 @@
                 "montant": 18.5,
                 "devise": "USD"
               },
-              "categorie": "autres",
-              "categorie_libelle": "Autres",
-              "type": "depense",
+              "categorie": "air_glow_pub",
+              "categorie_libelle": "Air Glow, pub (pro)",
+              "type": "depense_pro",
               "page": 9,
               "statut": "comptable",
-              "note_classification": "24 paiements Facebk *… (publicité). Probable dépense professionnelle Air Glow — à confirmer."
+              "note_classification": "24 paiements Facebk *… (publicité Air Glow). Confirmé par Emmanuel le 25/11/2026 à 13 h 07 (Europe/Paris) : dépenses de pub professionnelles. Catégorie « Air Glow, pub (pro) », exclue du total des dépenses personnelles."
             },
             {
               "date": "2026-10-27",
@@ -5612,35 +5628,38 @@
                 "montant": 18.5,
                 "devise": "USD"
               },
-              "categorie": "autres",
-              "categorie_libelle": "Autres",
-              "type": "depense",
+              "categorie": "air_glow_pub",
+              "categorie_libelle": "Air Glow, pub (pro)",
+              "type": "depense_pro",
               "page": 10,
               "statut": "comptable",
-              "note_classification": "24 paiements Facebk *… (publicité). Probable dépense professionnelle Air Glow — à confirmer."
+              "note_classification": "24 paiements Facebk *… (publicité Air Glow). Confirmé par Emmanuel le 25/11/2026 à 13 h 07 (Europe/Paris) : dépenses de pub professionnelles. Catégorie « Air Glow, pub (pro) », exclue du total des dépenses personnelles."
             }
           ]
         }
       ],
       "totaux": {
-        "depenses_eur": 5517.61,
-        "depenses_usd": 6038.47,
-        "depenses_note": "Somme nette des catégories de dépenses (virements internes, épargne et investissement exclus). Les crédits Apple.com/bill du même mois sont déduits des Abonnements.",
+        "depenses_eur": 5389.33,
+        "depenses_usd": 5898.08,
+        "depenses_note": "Somme nette des catégories de dépenses personnelles (virements internes, épargne, investissement et dépenses pro Air Glow pub exclus). Les crédits Apple.com/bill du même mois sont déduits des Abonnements.",
         "revenus_eur": 876.6,
         "revenus_usd": 959.35,
         "revenus_detail": "France Travail Grand Est 876,60 €. Aucun salaire d’employeur sur le relevé d’octobre.",
         "remboursements_eur": 126.86,
         "remboursements_usd": 138.84,
         "remboursements_note": "Remboursement AXA 126,86 € (période 26/06–26/08/2026), présenté à part, non inclus dans les revenus d’octobre ni déduit des cotisations d’octobre.",
-        "reste_eur": -4641.01,
-        "reste_usd": -5079.12,
-        "reste_formule": "revenus − dépenses (hors virements internes / épargne / investissement ; hors remboursement AXA)",
+        "reste_eur": -4512.73,
+        "reste_usd": -4938.73,
+        "reste_formule": "revenus − dépenses personnelles (hors virements internes / épargne / investissement et hors Air Glow pub pro ; hors remboursement AXA)",
         "virements_internes_entrants_eur": 8707.64,
         "virements_internes_entrants_usd": 9529.64,
         "virements_internes_sortants_eur": 3773.46,
         "virements_internes_sortants_usd": 4129.67,
         "argent_sortant_octobre_eur": 9338.43,
         "argent_entrant_octobre_eur": 9758.46,
+        "air_glow_pub_eur": 128.28,
+        "air_glow_pub_usd": 140.39,
+        "air_glow_pub_note": "Sous-total des 24 paiements Facebook de publicité Air Glow (128,28 €). Exclu du total des dépenses personnelles, sur confirmation d’Emmanuel le 25/11/2026 à 13 h 07.",
         "argent_sortant_octobre_usd": 10219.98,
         "argent_entrant_octobre_usd": 10679.66
       },
@@ -5963,12 +5982,6 @@
           "question": "Objet du virement (argent de poche, frais scolaires, autre) ?"
         },
         {
-          "sujet": "Facebook (Facebk *)",
-          "montant_eur": 128.28,
-          "classification": "autres",
-          "question": "Publicité professionnelle Air Glow, ou dépense personnelle ?"
-        },
-        {
           "sujet": "X Corp Advertising",
           "montant_eur": 22.27,
           "classification": "autres",
@@ -5997,12 +6010,6 @@
           "montant_eur": 114.99,
           "classification": "abonnements",
           "question": "Abonnement annuel / pack, ou achat App Store ponctuel ?"
-        },
-        {
-          "sujet": "Deblock SAS",
-          "montant_eur": 150.0,
-          "classification": "virements_internes",
-          "question": "Confirmer qu’il s’agit d’un investissement crypto (non dépense)."
         },
         {
           "sujet": "Mollie *thood Franc..., Roppenheim",
