@@ -172,6 +172,10 @@ META = {
                  "tv_note": "NYSE:ABBV", "fiche_tv": "NYSE:ABBV",
                  "fiche_nom": "AbbVie Inc.",
                  "fiche_proxy": False, "note_tv_ok": True},
+    "CFD-SPCX": {"nom": "SpaceX CFD", "type": "cfd", "tab": "actions",
+                 "tv_note": "NASDAQ:SPCX", "fiche_tv": "NASDAQ:SPCX",
+                 "fiche_nom": "Space Exploration Technologies Corp",
+                 "fiche_proxy": False, "note_tv_ok": True},
 }
 
 

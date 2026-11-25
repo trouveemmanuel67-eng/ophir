@@ -4,7 +4,7 @@
   "recherche_repo": {
     "date": "2026-11-25",
     "zone": "Europe/Paris",
-    "resultat": "Frais d'ordres du 25/11/2026 sourcés sur les captures d'Emmanuel (6 ventes spot + ouverture short BDX:CFD + ouverture short ABBV:CFD). 4 × 1,00 € + 2 × 1,09 $ + 1,95 $ + 1,86 $. Frais d'ouverture EG:CFD non communiqués : non inventés. Aucun frais d'achat URNU n'a été communiqué : non inventé.",
+    "resultat": "Frais d'ordres du 25/11/2026 sourcés sur les captures d'Emmanuel (6 ventes spot + ouverture short BDX:CFD + ouverture short ABBV:CFD + renfort long SPCX:CFD à 20 h 08). 4 × 1,00 € + 2 × 1,09 $ + 1,95 $ + 1,86 $ + 0,48 $. Frais d'ouverture des 4 premières unités SPCX:CFD (20 h 04) et d'EG:CFD non communiqués : non inventés. Aucun frais d'achat URNU n'a été communiqué : non inventé.",
     "fichiers_lus": [
       "captures Emmanuel 25/11/2026",
       "data/revolut/ventes_2026-11-25.json"
@@ -159,6 +159,23 @@
       "valeur_brute": 742.12,
       "valeur_retenue": 742.1,
       "source": "Capture Emmanuel 25/11/2026 à 19 h 41 (Europe/Paris) : « Vendre ABBV:CFD », statut Exécuté, 2,5 @ 296,84 $, levier ×5, exposition 742,12 $, marge 148,42 $, frais 1,86 $. Exposition retenue = quantité × cours = 2,5 × 296,84 = 742,10 $ (écart 0,02 $ avec la capture)."
+    },
+    {
+      "date": "2026-11-25",
+      "heure": "20:08",
+      "zone": "Europe/Paris",
+      "courtier": "revolut",
+      "actif": "SPCX",
+      "nom": "Space Exploration Technologies Corp (CFD)",
+      "type": "trading_fee",
+      "sens": "entree",
+      "montant": -0.48,
+      "devise": "USD",
+      "ordre": "achat_cfd",
+      "quantite": 1.5,
+      "prix": 126.97,
+      "valeur_brute": 190.46,
+      "source": "Capture Emmanuel 25/11/2026 à 20 h 08 (Europe/Paris) : renfort SPCX:CFD, 1,5 @ 126,97 $, levier ×4, exposition 190,46 $, marge 47,62 $, frais 0,48 $. Les frais d'ouverture des 4 unités de 20 h 04 n'étaient pas visibles : non inventés."
     }
   ]
 }

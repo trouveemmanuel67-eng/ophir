@@ -1,9 +1,9 @@
 {
   "releve": "2026-11-25T10:14:00+01:00",
-  "releve_libelle": "ABBV CFD 25/11/2026 à 19 h 41 · EG CFD 25/11 · BDX CFD 19 h 25 · COST CFD 11 h 01 · autres CFD 10 h 14 · ventes spot 15 h 49–16 h 07 et pointage URNU · autres comptes 09 h 50 (Europe/Paris)",
-  "source": "Captures du 25/11/2026 : courtage, métaux, Revolut X, XTB et Tesla vers 09 h 50 ; CFD vers 10 h 11–10 h 14 (Europe/Paris). Revolut Invest, montant retenu 33 402,53 $ = courtage 13 226,17 $ + métaux 2 082,68 $ (−4,12 %) + exposition CFD 18 093,68 $. Attention : l'exposition CFD dépasse le capital du compte (2 614,02 $ ; exposition 18 093,68 $ (somme quantité × cours des 9 lignes relues, COST à 11 h 01, BDX à 19 h 25, EG le 25/11 et ABBV à 19 h 41 inclus), P&L lignes −4 235,46 $, valeur du compte 2 614,02 $ (affiché 2 644,26 $, −4 264,65 $, −61,56 %), marge de maintenance 98 % / seuil de fermeture 1 336,40 $). Les CFD sont des positions normales dans Mes positions, les totaux, le tableau sectoriel et le patrimoine (montant = exposition, pas la marge). Après-midi et soir 25/11/2026 : six ventes spot exécutées (PPX, BKNG, HMI, DASH, LVMH, XUTL), liquidités en règlement le 27/11 (2 569,08 € et 1 112,72 $), URNU relu à 92,34519963 parts, et ouverture du short BDX:CFD à 19 h 25 (3,5 @ 222,56 $, ×5, exposition 778,96 $, marge 155,79 $, frais 1,95 $). Ouverture des shorts EG:CFD (1,14 @ 434,27 $, ×5, exposition 495,07 $) et ABBV:CFD (2,5 @ 296,84 $, ×5, exposition retenue 742,10 $, frais 1,86 $ à 19 h 41).",
+  "releve_libelle": "SPCX CFD 25/11/2026 vers 20 h 04, renfort 20 h 08 · ABBV CFD 19 h 41 · EG CFD 25/11 · BDX CFD 19 h 25 · COST CFD 11 h 01 · autres CFD 10 h 14 · ventes spot 15 h 49–16 h 07 et pointage URNU · autres comptes 09 h 50 (Europe/Paris)",
+  "source": "Captures du 25/11/2026 : courtage, métaux, Revolut X, XTB et Tesla vers 09 h 50 ; CFD vers 10 h 11–10 h 14 (Europe/Paris). Revolut Invest, montant retenu 34 098,03 $ = courtage 13 226,17 $ + métaux 2 082,68 $ (−4,12 %) + exposition CFD 18 789,18 $. Attention : l'exposition CFD dépasse le capital du compte (2 614,02 $ ; exposition 18 789,18 $ (somme quantité × cours des 10 lignes relues, COST à 11 h 01, BDX à 19 h 25, EG le 25/11, ABBV à 19 h 41 et SPCX à 20 h 04 inclus), P&L lignes −4 235,46 $, valeur du compte 2 614,02 $ (affiché 2 644,26 $, −4 264,65 $, −61,56 %), marge de maintenance 98 % / seuil de fermeture 1 336,40 $). Les CFD sont des positions normales dans Mes positions, les totaux, le tableau sectoriel et le patrimoine (montant = exposition, pas la marge). Après-midi et soir 25/11/2026 : six ventes spot exécutées (PPX, BKNG, HMI, DASH, LVMH, XUTL), liquidités en règlement le 27/11 (2 569,08 € et 1 112,72 $), URNU relu à 92,34519963 parts, et ouverture du short BDX:CFD à 19 h 25 (3,5 @ 222,56 $, ×5, exposition 778,96 $, marge 155,79 $, frais 1,95 $). Ouverture des shorts EG:CFD (1,14 @ 434,27 $, ×5, exposition 495,07 $) et ABBV:CFD (2,5 @ 296,84 $, ×5, exposition retenue 742,10 $, frais 1,86 $ à 19 h 41). Ouverture du long SPCX:CFD vers 20 h 04 (4 @ 126,26 $, ×4, cours actuel 126,24 $, exposition retenue 504,96 $, P&L −0,08 $ ; frais d'ouverture non visibles, non inventés). Renfort SPCX:CFD à 20 h 08 (1,5 @ 126,97 $) inclus dans l'exposition 695,50 $.",
   "compte": "Revolut Invest",
-  "n_actives": 29,
+  "n_actives": 30,
   "n_en_attente": 0,
   "positions": [
     {
@@ -178,7 +178,7 @@
       "rendement_source": "Yahoo Finance (6954.T), trailingAnnualDividendYield 2,40 % (forward 128,30 JPY / 2,40 %), page https://finance.yahoo.com/quote/6954.T/",
       "rendement_date": "2026-11-25",
       "rendement_forward_pct": 2.4,
-      "poids_pct": 1.5
+      "poids_pct": 1.4
     },
     {
       "id": "URNU",
@@ -614,7 +614,7 @@
       "rendement_type": "metal",
       "rendement_source": "Métal au comptant (palladium) : aucun dividende ni coupon.",
       "rendement_date": "2026-11-25",
-      "poids_pct": 1.1
+      "poids_pct": 1.0
     },
     {
       "id": "XAU",
@@ -657,7 +657,7 @@
       "rendement_type": "metal",
       "rendement_source": "Métal au comptant (or) : aucun dividende ni coupon.",
       "rendement_date": "2026-11-25",
-      "poids_pct": 1.1
+      "poids_pct": 1.0
     },
     {
       "id": "XPT",
@@ -859,7 +859,7 @@
       "valeur_eur": 1016.74,
       "investi_eur": 1016.74,
       "reglement": "2026-11-27",
-      "poids_pct": 2.3
+      "poids_pct": 2.2
     },
     {
       "id": "CFD-MSTR",
@@ -905,7 +905,7 @@
       "valeur_eur": 4667.47,
       "investi_eur": 5126.83,
       "pnl_relu": true,
-      "poids_pct": 10.4
+      "poids_pct": 10.3
     },
     {
       "id": "CFD-XPD",
@@ -951,7 +951,7 @@
       "valeur_eur": 5813.4,
       "investi_eur": 7679.08,
       "pnl_relu": true,
-      "poids_pct": 13.0
+      "poids_pct": 12.8
     },
     {
       "id": "CFD-SMR",
@@ -997,7 +997,58 @@
       "valeur_eur": 1733.98,
       "investi_eur": 2785.08,
       "pnl_relu": true,
-      "poids_pct": 3.9
+      "poids_pct": 3.8
+    },
+    {
+      "id": "CFD-SPCX",
+      "nom": "SpaceX CFD",
+      "ticker": "SPCX-CFD",
+      "type": "cfd",
+      "statut": "active",
+      "tv_note": "NASDAQ:SPCX",
+      "note_tv_ok": true,
+      "fiche_tv": "NASDAQ:SPCX",
+      "fiche_nom": "Space Exploration Technologies Corp",
+      "fiche_proxy": false,
+      "fiche_note": "Ouverture du 25/11/2026 vers 20 h 04 (Europe/Paris) : SPCX:CFD (SpaceX), sens Acheter / LONG, 4 unités à 126,26 $, levier ×4, exposition 505,04 $, marge 126,26 $. Frais d'ouverture de cette première exécution non visibles : non inventés. Renfort exécuté le 25/11/2026 à 20 h 08 (Europe/Paris) : 1,5 unité à 126,97 $, ×4, exposition 190,46 $, marge 47,62 $, frais 0,48 $ (ajoutés aux frais d'ordres de novembre). Ligne consolidée : 5,5 unités, prix moyen pondéré (4 × 126,26 + 1,5 × 126,97) / 5,5 = 695,50 / 5,5 = 126,4545… $ (environ 126,45 $). Exposition retenue = somme des notionnels d'entrée 505,04 + 190,46 = 695,50 $ (5,5 × 126,45 = 695,48 $, écart d'arrondi 0,02 $). Marge 126,26 + 47,62 = 173,88 $ (également 695,50 / 4). P&L latent 0,00 $ (0,00 %) sur cette base : pas de nouveau cours unique relu pour l'ensemble après 20 h 08. Les totaux du compte CFD (valeur 2 614,02 $, marge de maintenance 98 %, seuil 1 336,40 $) restent ceux de 10 h 14. Pas de note APEX ni de fiche pour SpaceX : ligne sans note inventée. Symbole TradingView vérifié : NASDAQ:SPCX (Space Exploration Technologies Corp).",
+      "tab": "actions",
+      "apex_score": null,
+      "apex_label": null,
+      "drapeau": null,
+      "drapeau_code": null,
+      "courtier": "revolut",
+      "perf_1an_pct": null,
+      "perf_1an_libelle": "à venir",
+      "perf_1an_note": "Le relevé ne donne pas d'historique de la ligne ; le rendement 1 an n'est pas inventé.",
+      "sous_jacent": "SPCX",
+      "sens": "long",
+      "levier": 4,
+      "cfd_badge": "CFD L x4",
+      "marge_usd": 173.88,
+      "prix_moyen": 126.45,
+      "cours": 126.45,
+      "valeur_affichee_usd": null,
+      "quantite": 5.5,
+      "a_confirmer": false,
+      "exposition_usd": 695.5,
+      "devise": "USD",
+      "valeur": 695.5,
+      "valeur_arrondie": 696,
+      "investi": 695.5,
+      "investi_arrondi": 696,
+      "pnl_valeur": 0.0,
+      "pnl_pct": 0.0,
+      "perf_debut_pct": 0.0,
+      "valeur_usd": 695.5,
+      "investi_usd": 695.5,
+      "valeur_eur": 635.51,
+      "investi_eur": 635.51,
+      "pnl_relu": true,
+      "date_achat": "2026-11-25",
+      "date_execution": "2026-11-25T20:04:00+01:00",
+      "poids_pct": 1.4,
+      "frais_ouverture_usd": 0.48,
+      "date_renfort": "2026-11-25T20:08:00+01:00"
     },
     {
       "id": "CFD-MPC",
@@ -1043,7 +1094,7 @@
       "valeur_eur": 974.45,
       "investi_eur": 747.96,
       "pnl_relu": true,
-      "poids_pct": 2.2
+      "poids_pct": 2.1
     },
     {
       "id": "CFD-AMD",
@@ -1302,27 +1353,27 @@
     "inclus_dans_total": true
   },
   "totaux": {
-    "valeur_eur": 30521.32,
-    "valeur_usd": 33402.53,
-    "investi_usd": 36737.45,
-    "investi_eur": 33568.58,
-    "perf_debut_pct": -9.1,
+    "valeur_eur": 31156.83,
+    "valeur_usd": 34098.03,
+    "investi_usd": 37432.95,
+    "investi_eur": 34204.08,
+    "perf_debut_pct": -8.9,
     "statut": "ok",
-    "n": 29,
+    "n": 30,
     "compte_courtage_usd": 13226.17,
     "compte_courtage_pct": -1.1,
     "matieres_usd": 2082.68,
     "matieres_pct": -4.12,
-    "cfd_exposition_usd": 18093.68,
-    "cfd_entree_usd": 21247.89,
+    "cfd_exposition_usd": 18789.18,
+    "cfd_entree_usd": 21943.39,
     "cfd_compte_usd": 2614.02,
     "cfd_compte_affiche_usd": 2644.26,
-    "cfd_usd": 18093.68,
+    "cfd_usd": 18789.18,
     "cfd_pct": -61.56,
     "cfd_pl_usd": -4264.65,
     "cfd_pl_lignes_usd": -4235.46,
-    "somme_lignes_usd": 33360.88,
-    "note": "Total Revolut = courtage 13226.17 $ (officiel 09 h 50 de 12549.34 $ ajusté des 6 ventes du 25/11 15 h 49–16 h 07, du nouveau pointage URNU et des liquidités en règlement le 27/11) + métaux 2082.68 $ (captures 09 h 50) + exposition CFD 18093.68 $ (10 h 14, COST 11 h 01, BDX 19 h 25, EG le 25/11, ABBV 19 h 41). Le capital du compte CFD n'est que 2614.02 $ : l'exposition dépasse le capital. Le % du courtage est recalculé sur les lignes restantes (pas de nouveau total officiel Revolut pour l'après-midi). Shorts EG:CFD et ABBV:CFD ajoutés le 25/11/2026 au soir (expositions 495,07 $ et 742,10 $)."
+    "somme_lignes_usd": 34056.38,
+    "note": "Total Revolut = courtage 13226.17 $ (officiel 09 h 50 de 12549.34 $ ajusté des 6 ventes du 25/11 15 h 49–16 h 07, du nouveau pointage URNU et des liquidités en règlement le 27/11) + métaux 2082.68 $ (captures 09 h 50) + exposition CFD 18789.18 $ (10 h 14, COST 11 h 01, BDX 19 h 25, EG le 25/11, ABBV 19 h 41, SPCX 20 h 04). Le capital du compte CFD n'est que 2614.02 $ : l'exposition dépasse le capital. Le % du courtage est recalculé sur les lignes restantes (pas de nouveau total officiel Revolut pour l'après-midi). Shorts EG:CFD et ABBV:CFD ajoutés le 25/11/2026 au soir (expositions 495,07 $ et 742,10 $). Long SPCX:CFD ajouté le 25/11/2026 vers 20 h 04 (4 @ 126,26 $, ×4, exposition retenue 504,96 $). Renfort SPCX:CFD à 20 h 08 (1,5 @ 126,97 $) : ligne consolidée 5,5 u, exposition 695,50 $."
   },
   "cfd_alerte": {
     "courtier": "revolut",
@@ -1332,18 +1383,19 @@
     "valeur_affichee_usd": 2644.26,
     "pnl_usd": -4264.65,
     "pnl_pct": -61.56,
-    "exposition_usd": 18093.68,
+    "exposition_usd": 18789.18,
     "pl_lignes_usd": -4235.46,
     "marge_reservee_usd": 2672.8,
     "solde_pret_a_investir_usd": 0,
     "liquidites_usd": 0,
     "marge_maintenance_pct": 98,
     "seuil_fermeture_usd": 1336.4,
-    "n": 9,
+    "n": 10,
     "tickers": [
       "MSTR",
       "XPD",
       "SMR",
+      "SPCX",
       "MPC",
       "AMD",
       "COST",
@@ -1352,8 +1404,8 @@
       "ABBV"
     ],
     "a_confirmer": [],
-    "libelle": "Alerte CFD : l'exposition 18 093,68 $ dépasse le capital du compte (2 614,02 $, affiché 2 644,26 $, P&L −4 264,65 $, −61,56 %). Marge de maintenance 98 % — fermeture forcée si la valeur passe sous 1 336,40 $. Marge réservée 2 672,80 $, solde prêt à investir 0 $, cash USD 0 $.",
-    "note": "Compte CFD relevé le 25/11/2026 vers 10 h 11–10 h 14 (Europe/Paris) : valeur 2 614 02 $ (affiché 2 644 26 $  −61 56 %)  P&L −4 264 65 $  marge réservée 2 672 80 $  solde prêt à investir 0 $  cash USD 0 $  marge de maintenance 98 % (fermeture forcée si valeur < 1 336 40 $). Cinq lignes lues (MSTR ×5  XPD ×5  SMR ×7  MPC ×2  AMD ×3). Exposition retenue (quantité × cours) 15 473.92 $. Somme des P&L lignes −4 231,88 $ contre P&L du compte −4 264,65 $ (écart 32,77 $ non ventilé : peut inclure COST non relu, d'autres lignes sous « Afficher plus », ou des frais). Addendum 25/11 vers 11 h 01 : short COST confirmé (0,55 @ 1 097,51 $, levier ×5, marge 120,62 $, P&L −3,58 $). Exposition COST retenue 603,63 $ (quantité × cours) ; la capture affiche 603,09 $ (écart 0,54 $). Somme des expositions des 6 lignes 16 077,55 $. P&L lignes −4 235,46 $ contre P&L du compte à 10 h 14 (−4 264,65 $), écart 29,19 $ non ventilé. Totaux du compte CFD non relus à 11 h 01. Addendum 25/11 à 19 h 25 : nouveau short BDX:CFD exécuté (3,5 @ 222,56 $, levier ×5, exposition 778,96 $, marge 155,79 $, frais 1,95 $). Somme des expositions des 7 lignes 16 856,51 $. Totaux du compte CFD non relus à 19 h 25. Addendum 25/11 soir : shorts EG:CFD (1,14 @ 434,27 $, ×5, exposition 495,07 $, marge implicite 99,01 $, frais d'ouverture non communiqués) et ABBV:CFD (2,5 @ 296,84 $, ×5, exposition retenue 742,10 $, capture 742,12 $, marge 148,42 $, frais 1,86 $ à 19 h 41). Somme des expositions des 9 lignes 18 093,68 $. Totaux du compte CFD non relus le soir."
+    "libelle": "Alerte CFD : l'exposition 18 789,18 $ dépasse le capital du compte (2 614,02 $, affiché 2 644,26 $, P&L −4 264,65 $, −61,56 %). Marge de maintenance 98 % — fermeture forcée si la valeur passe sous 1 336,40 $. Marge réservée 2 672,80 $, solde prêt à investir 0 $, cash USD 0 $.",
+    "note": "Compte CFD relevé le 25/11/2026 vers 10 h 11–10 h 14 (Europe/Paris) : valeur 2 614 02 $ (affiché 2 644 26 $  −61 56 %)  P&L −4 264 65 $  marge réservée 2 672 80 $  solde prêt à investir 0 $  cash USD 0 $  marge de maintenance 98 % (fermeture forcée si valeur < 1 336 40 $). Cinq lignes lues (MSTR ×5  XPD ×5  SMR ×7  MPC ×2  AMD ×3). Exposition retenue (quantité × cours) 15 473.92 $. Somme des P&L lignes −4 231,88 $ contre P&L du compte −4 264,65 $ (écart 32,77 $ non ventilé : peut inclure COST non relu, d'autres lignes sous « Afficher plus », ou des frais). Addendum 25/11 vers 11 h 01 : short COST confirmé (0,55 @ 1 097,51 $, levier ×5, marge 120,62 $, P&L −3,58 $). Exposition COST retenue 603,63 $ (quantité × cours) ; la capture affiche 603,09 $ (écart 0,54 $). Somme des expositions des 6 lignes 16 077,55 $. P&L lignes −4 235,46 $ contre P&L du compte à 10 h 14 (−4 264,65 $), écart 29,19 $ non ventilé. Totaux du compte CFD non relus à 11 h 01. Addendum 25/11 à 19 h 25 : nouveau short BDX:CFD exécuté (3,5 @ 222,56 $, levier ×5, exposition 778,96 $, marge 155,79 $, frais 1,95 $). Somme des expositions des 7 lignes 16 856,51 $. Totaux du compte CFD non relus à 19 h 25. Addendum 25/11 soir : shorts EG:CFD (1,14 @ 434,27 $, ×5, exposition 495,07 $, marge implicite 99,01 $, frais d'ouverture non communiqués) et ABBV:CFD (2,5 @ 296,84 $, ×5, exposition retenue 742,10 $, capture 742,12 $, marge 148,42 $, frais 1,86 $ à 19 h 41). Somme des expositions des 10 lignes 18 789,18 $. Totaux du compte CFD non relus le soir. Addendum 25/11 vers 20 h 04 : long SPCX:CFD (4 @ 126,26 $, ×4, cours 126,24 $, exposition retenue 504,96 $, P&L −0,08 $). Somme des expositions des 10 lignes 18 789,18 $. Totaux du compte CFD non relus à 20 h 04. Frais d'ouverture non visibles, non inventés. Addendum 25/11 à 20 h 08 : renfort long SPCX:CFD (1,5 @ 126,97 $, ×4, exposition 190,46 $, marge 47,62 $, frais 0,48 $). Ligne consolidée 5,5 u, PM 126,45 $, exposition 695,50 $, marge 173,88 $. Somme des expositions des 10 lignes 18 789,18 $. Totaux du compte CFD non relus à 20 h 08."
   },
   "frais_cfd": {
     "objectif_eur_mois": 20,
@@ -1456,7 +1508,7 @@
       "recherche_repo": {
         "date": "2026-11-25",
         "zone": "Europe/Paris",
-        "resultat": "Frais d'ordres du 25/11/2026 sourcés sur les captures d'Emmanuel (6 ventes spot + ouverture short BDX:CFD + ouverture short ABBV:CFD). 4 × 1,00 € + 2 × 1,09 $ + 1,95 $ + 1,86 $. Frais d'ouverture EG:CFD non communiqués : non inventés. Aucun frais d'achat URNU n'a été communiqué : non inventé.",
+        "resultat": "Frais d'ordres du 25/11/2026 sourcés sur les captures d'Emmanuel (6 ventes spot + ouverture short BDX:CFD + ouverture short ABBV:CFD + renfort long SPCX:CFD à 20 h 08). 4 × 1,00 € + 2 × 1,09 $ + 1,95 $ + 1,86 $ + 0,48 $. Frais d'ouverture des 4 premières unités SPCX:CFD (20 h 04) et d'EG:CFD non communiqués : non inventés. Aucun frais d'achat URNU n'a été communiqué : non inventé.",
         "fichiers_lus": [
           "captures Emmanuel 25/11/2026",
           "data/revolut/ventes_2026-11-25.json"
@@ -1627,6 +1679,25 @@
           "source": "Capture Emmanuel 25/11/2026 à 19 h 41 (Europe/Paris) : « Vendre ABBV:CFD », statut Exécuté, 2,5 @ 296,84 $, levier ×5, exposition 742,12 $, marge 148,42 $, frais 1,86 $. Exposition retenue = quantité × cours = 2,5 × 296,84 = 742,10 $ (écart 0,02 $ avec la capture).",
           "montant_usd": 1.86,
           "montant_eur": 1.7
+        },
+        {
+          "date": "2026-11-25",
+          "heure": "20:08",
+          "zone": "Europe/Paris",
+          "courtier": "revolut",
+          "actif": "SPCX",
+          "nom": "Space Exploration Technologies Corp (CFD)",
+          "type": "trading_fee",
+          "sens": "entree",
+          "montant": -0.48,
+          "devise": "USD",
+          "ordre": "achat_cfd",
+          "quantite": 1.5,
+          "prix": 126.97,
+          "valeur_brute": 190.46,
+          "source": "Capture Emmanuel 25/11/2026 à 20 h 08 (Europe/Paris) : renfort SPCX:CFD, 1,5 @ 126,97 $, levier ×4, exposition 190,46 $, marge 47,62 $, frais 0,48 $. Les frais d'ouverture des 4 unités de 20 h 04 n'étaient pas visibles : non inventés.",
+          "montant_usd": 0.48,
+          "montant_eur": 0.44
         }
       ],
       "lignes_mois": [
@@ -1794,13 +1865,32 @@
           "source": "Capture Emmanuel 25/11/2026 à 19 h 41 (Europe/Paris) : « Vendre ABBV:CFD », statut Exécuté, 2,5 @ 296,84 $, levier ×5, exposition 742,12 $, marge 148,42 $, frais 1,86 $. Exposition retenue = quantité × cours = 2,5 × 296,84 = 742,10 $ (écart 0,02 $ avec la capture).",
           "montant_usd": 1.86,
           "montant_eur": 1.7
+        },
+        {
+          "date": "2026-11-25",
+          "heure": "20:08",
+          "zone": "Europe/Paris",
+          "courtier": "revolut",
+          "actif": "SPCX",
+          "nom": "Space Exploration Technologies Corp (CFD)",
+          "type": "trading_fee",
+          "sens": "entree",
+          "montant": -0.48,
+          "devise": "USD",
+          "ordre": "achat_cfd",
+          "quantite": 1.5,
+          "prix": 126.97,
+          "valeur_brute": 190.46,
+          "source": "Capture Emmanuel 25/11/2026 à 20 h 08 (Europe/Paris) : renfort SPCX:CFD, 1,5 @ 126,97 $, levier ×4, exposition 190,46 $, marge 47,62 $, frais 0,48 $. Les frais d'ouverture des 4 unités de 20 h 04 n'étaient pas visibles : non inventés.",
+          "montant_usd": 0.48,
+          "montant_eur": 0.44
         }
       ],
       "a_relever": false,
-      "total_mois_usd": 10.37,
-      "total_mois_eur": 9.47,
-      "projection_usd": 10.37,
-      "projection_eur": 9.47,
+      "total_mois_usd": 10.85,
+      "total_mois_eur": 9.91,
+      "projection_usd": 10.85,
+      "projection_eur": 9.91,
       "projection_note": "Transactions sans commission épuisées jusqu'au 7 décembre 2026 (indiqué par Emmanuel le 25/11/2026).",
       "note": "Transactions sans commission épuisées jusqu'au 7 décembre 2026 (indiqué par Emmanuel le 25/11/2026)."
     },
@@ -49050,13 +49140,13 @@
         "genere_par": "src/build_budget_mensuel.py"
       }
     },
-    "total_observe_usd": 12.71,
-    "total_observe_eur": 11.61,
-    "projection_usd": 97.58,
-    "projection_eur": 89.15,
+    "total_observe_usd": 13.19,
+    "total_observe_eur": 12.05,
+    "projection_usd": 98.06,
+    "projection_eur": 89.59,
     "projection_note": "Projection mensuelle = OVN projeté (dernier jour relu × ~30 jours), abonnement TradingView (Essential annuel / 12) et frais d'ordres déjà sourcés en novembre. Les transactions sans commission sont épuisées jusqu'au 7 décembre 2026."
   },
-  "desc": "Captures du 25/11/2026 : courtage, métaux, Revolut X, XTB et Tesla vers 09 h 50 ; CFD vers 10 h 11–10 h 14 (Europe/Paris). Revolut Invest, montant retenu 33 402,53 $ = courtage 13 226,17 $ + métaux 2 082,68 $ (−4,12 %) + exposition CFD 18 093,68 $. Attention : l'exposition CFD dépasse le capital du compte (2 614,02 $ ; exposition 18 093,68 $ (somme quantité × cours des 9 lignes relues, COST à 11 h 01, BDX à 19 h 25, EG le 25/11 et ABBV à 19 h 41 inclus), P&L lignes −4 235,46 $, valeur du compte 2 614,02 $ (affiché 2 644,26 $, −4 264,65 $, −61,56 %), marge de maintenance 98 % / seuil de fermeture 1 336,40 $). Les CFD sont des positions normales dans Mes positions, les totaux, le tableau sectoriel et le patrimoine (montant = exposition, pas la marge). Après-midi et soir 25/11/2026 : six ventes spot exécutées (PPX, BKNG, HMI, DASH, LVMH, XUTL), liquidités en règlement le 27/11 (2 569,08 € et 1 112,72 $), URNU relu à 92,34519963 parts, et ouverture du short BDX:CFD à 19 h 25 (3,5 @ 222,56 $, ×5, exposition 778,96 $, marge 155,79 $, frais 1,95 $). Ouverture des shorts EG:CFD (1,14 @ 434,27 $, ×5, exposition 495,07 $) et ABBV:CFD (2,5 @ 296,84 $, ×5, exposition retenue 742,10 $, frais 1,86 $ à 19 h 41).",
+  "desc": "Captures du 25/11/2026 : courtage, métaux, Revolut X, XTB et Tesla vers 09 h 50 ; CFD vers 10 h 11–10 h 14 (Europe/Paris). Revolut Invest, montant retenu 34 098,03 $ = courtage 13 226,17 $ + métaux 2 082,68 $ (−4,12 %) + exposition CFD 18 789,18 $. Attention : l'exposition CFD dépasse le capital du compte (2 614,02 $ ; exposition 18 789,18 $ (somme quantité × cours des 10 lignes relues, COST à 11 h 01, BDX à 19 h 25, EG le 25/11, ABBV à 19 h 41 et SPCX à 20 h 04 inclus), P&L lignes −4 235,46 $, valeur du compte 2 614,02 $ (affiché 2 644,26 $, −4 264,65 $, −61,56 %), marge de maintenance 98 % / seuil de fermeture 1 336,40 $). Les CFD sont des positions normales dans Mes positions, les totaux, le tableau sectoriel et le patrimoine (montant = exposition, pas la marge). Après-midi et soir 25/11/2026 : six ventes spot exécutées (PPX, BKNG, HMI, DASH, LVMH, XUTL), liquidités en règlement le 27/11 (2 569,08 € et 1 112,72 $), URNU relu à 92,34519963 parts, et ouverture du short BDX:CFD à 19 h 25 (3,5 @ 222,56 $, ×5, exposition 778,96 $, marge 155,79 $, frais 1,95 $). Ouverture des shorts EG:CFD (1,14 @ 434,27 $, ×5, exposition 495,07 $) et ABBV:CFD (2,5 @ 296,84 $, ×5, exposition retenue 742,10 $, frais 1,86 $ à 19 h 41). Ouverture du long SPCX:CFD vers 20 h 04 (4 @ 126,26 $, ×4, cours actuel 126,24 $, exposition retenue 504,96 $, P&L −0,08 $ ; frais d'ouverture non visibles, non inventés). Renfort SPCX:CFD à 20 h 08 (1,5 @ 126,97 $, ×4, frais 0,48 $) : ligne 5,5 u, PM 126,45 $, exposition 695,50 $, marge 173,88 $.",
   "ventes_2026_11_25": {
     "titre": "Ventes du 25/11/2026, règlement le 27/11",
     "source": "Captures d'Emmanuel Trouvé, 25/11/2026. Tous les ordres sont exécutés ; règlement le 27/11/2026.",

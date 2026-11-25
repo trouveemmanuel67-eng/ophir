@@ -36,10 +36,10 @@ def test_releve_25_11_dans_le_json_fethe():
     metals = [p['ticker'] for p in book['positions'] if p.get('ticker') in {'XAU', 'XAG', 'XPT', 'XPD'}]
     assert len(metals) == 4
     cfds = [p for p in book['positions'] if (p.get('type') or '').lower() == 'cfd']
-    assert {p['ticker'] for p in cfds} == {'XPD-CFD', 'COST-CFD', 'MSTR-CFD', 'SMR-CFD', 'MPC-CFD', 'AMD-CFD', 'BDX-CFD', 'EG-CFD', 'ABBV-CFD'}
-    assert book['totaux']['courtiers']['revolut']['cfd_usd'] == 18093.68
-    assert book['totaux']['courtiers']['revolut']['cfd_exposition_usd'] == 18093.68
-    assert book['totaux']['total_usd'] == 49006.78
+    assert {p['ticker'] for p in cfds} == {'XPD-CFD', 'COST-CFD', 'MSTR-CFD', 'SMR-CFD', 'MPC-CFD', 'AMD-CFD', 'BDX-CFD', 'EG-CFD', 'ABBV-CFD', 'SPCX-CFD'}
+    assert book['totaux']['courtiers']['revolut']['cfd_usd'] == 18789.18
+    assert book['totaux']['courtiers']['revolut']['cfd_exposition_usd'] == 18789.18
+    assert book['totaux']['total_usd'] == 49702.28
     assert any(p.get('ticker')=='TSLA-RSU' for p in book['positions'])
 
 
