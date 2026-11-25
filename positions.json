@@ -1713,5 +1713,88 @@
     "projection_eur": 64.14,
     "ratio_objectif": 3.21,
     "depasse_objectif": true
+  },
+  "budget": {
+    "mois": "2026-11",
+    "mois_libelle": "novembre 2026",
+    "fx": 1.0944,
+    "ovn": {
+      "objectif_eur_mois": 20,
+      "devise_frais": "USD",
+      "mode_emploi": "Ajouter une entrée dans « jours » pour chaque nuit où le frais overnight (OVN) CFD est lu dans Revolut (date, heure, montant_usd signé, source). Ne pas inventer un jour manquant. Le site recalcule la projection mensuelle à partir des observations.",
+      "facturation": {
+        "source": "Conditions Revolut « Contract for Difference Trading Terms » et page d'aide « Fees for trading CFDs » (consultées le 25/11/2026).",
+        "resume": "L'OVN est calculé sur la valeur notionnelle (exposition) de chaque position, chaque jour où elle reste ouverte après la clôture, y compris week-ends et jours fériés. Formule publique : (taille de la position × (taux interbancaire applicable + majoration Revolut)) / nombre de jours dans l'année. Majoration standard : 3 % l'an (1 % pour les CFD FX, or et argent). Le taux indicatif exact n'est affiché que dans l'application, avant l'ordre : il n'est pas repris ici. Un triple peut s'appliquer une fois par semaine (souvent le mercredi ou le vendredi selon la classe d'actifs) pour couvrir le week-end.",
+        "taux_par_instrument": null,
+        "taux_par_instrument_note": "Les taux de financement exacts par sous-jacent ne sont pas publiés de façon utilisable hors de l'app. Aucun OVN théorique par position n'est inventé."
+      },
+      "projection": {
+        "jours_calendaires": 30,
+        "hypothese": "Le 2,34 $ relevé le mardi 24/11/2026 à 23 h 45 (Europe/Paris) est traité comme une nuit simple. Projection = dernier OVN observé × 30 jours calendaires. Si un triple s'applique le vendredi pour couvrir samedi et dimanche (sans facturation séparée le week-end), cela fait aussi 7 nuits par semaine, donc le même ordre de grandeur. Une seule observation : la projection sera affinée quand d'autres jours seront ajoutés. Objectif : rester sous 20 € par mois."
+      },
+      "jours": [
+        {
+          "date": "2026-11-24",
+          "heure": "23:45",
+          "zone": "Europe/Paris",
+          "montant_usd": -2.34,
+          "libelle": "Frais overnight CFD",
+          "source": "Capture Revolut (transactions) du 25/11/2026 vers 10 h 11–10 h 14 (Europe/Paris)."
+        }
+      ],
+      "dernier": {
+        "date": "2026-11-24",
+        "heure": "23:45",
+        "zone": "Europe/Paris",
+        "montant_usd": -2.34,
+        "libelle": "Frais overnight CFD",
+        "source": "Capture Revolut (transactions) du 25/11/2026 vers 10 h 11–10 h 14 (Europe/Paris)."
+      },
+      "dernier_usd": 2.34,
+      "dernier_eur": 2.14,
+      "projection_jours": 30,
+      "projection_usd": 70.2,
+      "projection_eur": 64.14,
+      "ratio_objectif": 3.21,
+      "depasse_objectif": true,
+      "lignes_mois": [
+        {
+          "date": "2026-11-24",
+          "heure": "23:45",
+          "zone": "Europe/Paris",
+          "montant_usd": -2.34,
+          "libelle": "Frais overnight CFD",
+          "source": "Capture Revolut (transactions) du 25/11/2026 vers 10 h 11–10 h 14 (Europe/Paris)."
+        }
+      ],
+      "total_mois_usd": 2.34,
+      "total_mois_eur": 2.14
+    },
+    "trading": {
+      "mode_emploi": "Ajouter une entrée dans « ordres » pour chaque frais d'ordre relu (commission, frais de change ou frais d'exécution) chez Revolut, XTB ou Revolut X : date, heure, zone, courtier, actif, type (commission / change / exécution), montant signé, devise, source. Ne pas inventer un frais non relu. Le site recalcule le total du mois et le total général.",
+      "recherche_repo": {
+        "date": "2026-11-25",
+        "zone": "Europe/Paris",
+        "resultat": "aucun montant de frais d'ordre sourcé dans les relevés Revolut, XTB et Revolut X, ni dans les historiques d'ordres du dépôt. Le seul frais relu est l'overnight CFD de 2,34 $ le 24/11/2026 à 23 h 45, classé dans Frais OVN et non ici. Des notes mentionnent des frais possibles (écart LVMH, écart P&L CFD) sans montant isolé : non inventés.",
+        "fichiers_lus": [
+          "data/revolut/releve_courtiers_2026-11-25.json",
+          "data/revolut/releve_courtiers_2026-11-24.json",
+          "data/revolut/frais_cfd_ovn.json"
+        ]
+      },
+      "ordres": [],
+      "lignes_mois": [],
+      "a_relever": true,
+      "total_mois_usd": null,
+      "total_mois_eur": null,
+      "projection_usd": null,
+      "projection_eur": null,
+      "projection_note": "à relever"
+    },
+    "total_observe_usd": 2.34,
+    "total_observe_eur": 2.14,
+    "projection_usd": 70.2,
+    "projection_eur": 64.14,
+    "projection_note": "Projection mensuelle = OVN projeté (dernier jour relu × ~30 jours). Les frais d'ordres n'y sont pas inclus tant qu'aucun montant n'est sourcé."
   }
 }

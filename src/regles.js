@@ -135,6 +135,7 @@ function rgSetOpen(on, opts){
     page.setAttribute('aria-hidden','false');
     if(btn) btn.setAttribute('aria-expanded','true');
     if(typeof ttSetOpen==='function') ttSetOpen(false);
+    if(typeof bdgSetOpen==='function'&&typeof bdgIsOpen==='function'&&bdgIsOpen()) bdgSetOpen(false,{fromHash:true});
     if(!fromHash) rgSetHash(true);
     const back=document.getElementById('rgBack');
     if(back) try{back.focus();}catch(e){}

@@ -16,6 +16,7 @@ DATA = ROOT / "data"
 RELEVE = DATA / "revolut" / "releve_courtiers_2026-11-25.json"
 YIELDS = DATA / "rendements_positions.json"
 FRAIS_CFD = DATA / "revolut" / "frais_cfd_ovn.json"
+FRAIS_TRADING = DATA / "revolut" / "frais_trading_ordres.json"
 PARIS = ZoneInfo("Europe/Paris")
 
 # Métadonnées APEX (tickers TV, onglets, dates d'achat déjà connues).
@@ -685,6 +686,85 @@ def build_frais_cfd(fx):
     return out
 
 
+MOIS_FR = {
+    1: "janvier", 2: "février", 3: "mars", 4: "avril", 5: "mai", 6: "juin",
+    7: "juillet", 8: "août", 9: "septembre", 10: "octobre", 11: "novembre", 12: "décembre",
+}
+
+
+def _in_month(date_str, ym):
+    return str(date_str or "").startswith(ym)
+
+
+def _fee_usd(row, fx):
+    if row.get("montant_usd") not in (None, ""):
+        return r2(abs(float(row["montant_usd"])))
+    if row.get("montant") in (None, ""):
+        return None
+    d = str(row.get("devise") or "USD").upper()
+    m = abs(float(row["montant"]))
+    if d == "USD":
+        return r2(m)
+    if d == "EUR" and fx:
+        return r2(m * fx)
+    return None
+
+
+def build_budget(fx, now):
+    """Agrège OVN et frais d'ordres sourcés, sans inventer un montant manquant."""
+    ovn = build_frais_cfd(fx)
+    raw_t = json.loads(FRAIS_TRADING.read_text()) if FRAIS_TRADING.exists() else {"ordres": []}
+    ym = f"{now.year:04d}-{now.month:02d}"
+    mois_lib = f"{MOIS_FR[now.month]} {now.year}"
+    jours_mois = [j for j in (ovn.get("jours") or []) if _in_month(j.get("date"), ym)]
+    tot_ovn_usd = r2(sum(abs(float(j["montant_usd"])) for j in jours_mois if j.get("montant_usd") not in (None, "")))
+    tot_ovn_eur = r2(tot_ovn_usd / fx) if fx else None
+    lignes = []
+    for o in list(raw_t.get("ordres") or []):
+        usd = _fee_usd(o, fx)
+        rec = dict(o)
+        rec["montant_usd"] = usd
+        rec["montant_eur"] = r2(usd / fx) if (usd is not None and fx) else None
+        lignes.append(rec)
+    lignes_mois = [x for x in lignes if _in_month(x.get("date"), ym)]
+    a_relever = not lignes
+    tot_tr_usd = None if a_relever else r2(sum((x.get("montant_usd") or 0) for x in lignes_mois))
+    tot_tr_eur = r2(tot_tr_usd / fx) if (tot_tr_usd is not None and fx) else None
+    observe_usd = r2(tot_ovn_usd + (tot_tr_usd or 0))
+    return {
+        "mois": ym,
+        "mois_libelle": mois_lib,
+        "fx": fx,
+        "ovn": {
+            **ovn,
+            "lignes_mois": jours_mois,
+            "total_mois_usd": tot_ovn_usd,
+            "total_mois_eur": tot_ovn_eur,
+        },
+        "trading": {
+            "mode_emploi": raw_t.get("mode_emploi"),
+            "recherche_repo": raw_t.get("recherche_repo"),
+            "ordres": lignes,
+            "lignes_mois": lignes_mois,
+            "a_relever": a_relever,
+            "total_mois_usd": tot_tr_usd,
+            "total_mois_eur": tot_tr_eur,
+            "projection_usd": None,
+            "projection_eur": None,
+            "projection_note": "à relever" if a_relever else None,
+        },
+        "total_observe_usd": observe_usd,
+        "total_observe_eur": r2(observe_usd / fx) if fx else None,
+        "projection_usd": ovn.get("projection_usd"),
+        "projection_eur": ovn.get("projection_eur"),
+        "projection_note": (
+            "Projection mensuelle = OVN projeté (dernier jour relu × ~30 jours). "
+            "Les frais d'ordres n'y sont pas inclus tant qu'aucun montant n'est sourcé."
+            if a_relever else None
+        ),
+    }
+
+
 def main():
     rel = json.loads(RELEVE.read_text())
     rv = rel["revolut"]["comptes"]
@@ -882,6 +962,7 @@ def main():
 
     now = datetime(2026, 11, 25, 10, 14, tzinfo=PARIS)
     frais_cfd = build_frais_cfd(fx)
+    budget = build_budget(fx, now)
     fx_obj = {
         "paire": "EURUSD",
         "taux": fx,
@@ -1036,6 +1117,7 @@ def main():
         "xtb_identification": xtb_id,
         "cfd_alerte": cfd_alert,
         "frais_cfd": frais_cfd,
+        "budget": budget,
     }
 
     book_path = DATA / "positions.json"
@@ -1066,6 +1148,7 @@ def main():
         "positions_json_sha256": sha,
         "cfd_alerte": cfd_alert,
         "frais_cfd": frais_cfd,
+        "budget": budget,
         "desc": (
             f"Captures Revolut Invest du 25/11/2026 (CFD 10 h 14, reste 09 h 50). "
             f"Total retenu {fr_money(off_rev_usd)} $ dont exposition CFD {fr_money(expo_cfd)} $ "

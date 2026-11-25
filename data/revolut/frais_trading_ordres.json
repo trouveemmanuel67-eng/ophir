@@ -1,0 +1,14 @@
+{
+  "mode_emploi": "Ajouter une entrée dans « ordres » pour chaque frais d'ordre relu (commission, frais de change ou frais d'exécution) chez Revolut, XTB ou Revolut X : date, heure, zone, courtier, actif, type (commission / change / exécution), montant signé, devise, source. Ne pas inventer un frais non relu. Le site recalcule le total du mois et le total général.",
+  "recherche_repo": {
+    "date": "2026-11-25",
+    "zone": "Europe/Paris",
+    "resultat": "aucun montant de frais d'ordre sourcé dans les relevés Revolut, XTB et Revolut X, ni dans les historiques d'ordres du dépôt. Le seul frais relu est l'overnight CFD de 2,34 $ le 24/11/2026 à 23 h 45, classé dans Frais OVN et non ici. Des notes mentionnent des frais possibles (écart LVMH, écart P&L CFD) sans montant isolé : non inventés.",
+    "fichiers_lus": [
+      "data/revolut/releve_courtiers_2026-11-25.json",
+      "data/revolut/releve_courtiers_2026-11-24.json",
+      "data/revolut/frais_cfd_ovn.json"
+    ]
+  },
+  "ordres": []
+}

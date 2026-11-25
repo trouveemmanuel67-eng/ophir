@@ -745,10 +745,32 @@ body{display:flex;flex-direction:column;min-height:100vh}
 
 /* ===== RÈGLES (au-dessus de TEMPLATE TRADE) : page plein écran ===== */
 #hh-tools{position:absolute;top:50%;right:0;transform:translateY(-50%);z-index:45;display:flex;flex-direction:column;align-items:flex-end;gap:6px}
-#rg-wrap,#tt-wrap{position:relative;top:auto;right:auto;transform:none;z-index:45;flex:none}
+#hh-tools .hh-btns{display:flex;flex-direction:row;align-items:center;gap:6px}
+#rg-wrap,#bdg-wrap,#tt-wrap{position:relative;top:auto;right:auto;transform:none;z-index:45;flex:none}
 .rg-btn{appearance:none;-webkit-appearance:none;display:inline-flex;align-items:center;margin:0;padding:6px 12px;font-family:inherit;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#d8d0c2;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.22);border-radius:999px;cursor:pointer;white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,.25)}
 .rg-btn:hover,body.rg-on .rg-btn{background:rgba(255,255,255,.12);color:#fff;box-shadow:0 0 0 1px rgba(255,255,255,.28)}
 .rg-btn:focus-visible{outline:1px solid rgba(255,255,255,.7);outline-offset:2px}
+
+#bdg-page{display:none;position:fixed;inset:0;z-index:241;flex-direction:column;background:#0c1016;color:#fff;overflow:hidden}
+body.bdg-on{overflow:hidden}
+body.bdg-on #bdg-page{display:flex}
+body.bdg-on #bdg-page[hidden]{display:flex}
+#bdg-page[hidden]{display:none !important}
+body.bdg-on .rg-btn[aria-expanded="true"],#bdgBtn.rg-btn[aria-expanded="true"],body.bdg-on #bdgBtn{background:rgba(255,255,255,.12);color:#fff;box-shadow:0 0 0 1px rgba(255,255,255,.28)}
+.bdg-main{max-width:720px;margin:0 auto;padding:22px 20px 64px}
+.bdg-lead{margin:0 0 18px;font-size:13px;color:#c8c4bc;line-height:1.4}
+.bdg-sec{margin:0 0 22px;padding:14px 16px;border:1px solid rgba(230,194,122,.28);border-radius:12px;background:rgba(255,255,255,.03)}
+.bdg-sec h2{margin:0 0 10px;font-size:15px;font-weight:750;letter-spacing:.04em}
+.bdg-sec h2 small{display:block;font-size:11px;font-weight:600;letter-spacing:.02em;color:var(--mut);margin-top:2px}
+.bdg-list{list-style:none;margin:0 0 10px;padding:0}
+.bdg-row,.bdg-tot{display:flex;justify-content:space-between;gap:12px;align-items:baseline;font-size:13px;line-height:1.45;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.bdg-row b,.bdg-tot b{font-weight:750;white-space:nowrap;color:#f5efe4}
+.bdg-tot{border-bottom:0;font-weight:650;margin-top:2px}
+.bdg-empty{padding:8px 0;color:var(--mut);font-style:italic;font-weight:600}
+.bdg-note{margin:8px 0 0;font-size:11px;color:var(--mut);line-height:1.4}
+.bdg-sec-tot{border-color:rgba(230,194,122,.45);background:rgba(230,194,122,.07)}
+.bdg-main .pos-frais-cfd{margin:12px 0 0}
+
 #rg-page{display:none;position:fixed;inset:0;z-index:240;flex-direction:column;background:#0c1016;color:#fff;overflow:hidden}
 body.rg-on{overflow:hidden}
 body.rg-on #rg-page{display:flex}
@@ -1121,7 +1143,7 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
       <nav id="nav"></nav>
       <div class="acc-tools"><button id="accAll" type="button" onclick="accAll(this.dataset.open==='1')">▾ Tout déplier</button></div>
     </div>
-    <div id="hh-tools"><div id="rg-wrap"></div><div id="tt-wrap"></div></div>
+    <div id="hh-tools"><div class="hh-btns"><div id="rg-wrap"></div><div id="bdg-wrap"></div></div><div id="tt-wrap"></div></div>
   </div>
 </header>
 <div class="page">
@@ -1233,7 +1255,9 @@ function show(){
   if(!location.hash){try{history.replaceState(null,'',location.pathname+location.search+'#accueil');}catch(e){location.hash='accueil';}}
   let id=location.hash.slice(1);
   const isRegles=id==='regles'||id.indexOf('regles-')===0||id.indexOf('regles/')===0;
-  if(isRegles) id=(typeof rgPrevTab==='string'&&rgPrevTab&&rgPrevTab!=='regles')?rgPrevTab:'accueil';
+  const isBudget=id==='budget'||id.indexOf('budget/')===0;
+  if(isRegles) id=(typeof rgPrevTab==='string'&&rgPrevTab&&rgPrevTab!=='regles'&&rgPrevTab!=='budget')?rgPrevTab:'accueil';
+  if(isBudget) id=(typeof bdgPrevTab==='string'&&bdgPrevTab&&bdgPrevTab!=='budget'&&bdgPrevTab!=='regles')?bdgPrevTab:'accueil';
   let t=TABS.find(x=>x.id===id&&x.enabled)||TABS.find(x=>x.enabled);
   TABS.forEach(x=>{document.getElementById('t'+x.id).classList.toggle('on',x===t);document.getElementById('p'+x.id).classList.toggle('on',x===t);});
   document.body.classList.toggle('home-on',t.id==='accueil');
@@ -1246,6 +1270,10 @@ function show(){
   if(typeof rgSetOpen==='function'){
     if(isRegles) rgSetOpen(true,{fromHash:true});
     else if(typeof rgIsOpen==='function'&&rgIsOpen()) rgSetOpen(false,{fromHash:true});
+  }
+  if(typeof bdgSetOpen==='function'){
+    if(isBudget) bdgSetOpen(true,{fromHash:true});
+    else if(typeof bdgIsOpen==='function'&&bdgIsOpen()) bdgSetOpen(false,{fromHash:true});
   }
 }
 
@@ -1369,6 +1397,7 @@ function chartTrends(){
 /*__PLCJS__*/
 /*__TTJS__*/
 /*__RGJS__*/
+/*__BDGJS__*/
 /*__GIJS__*/
 /*__GSJS__*/
 /*__IRJS__*/
@@ -1377,6 +1406,7 @@ function chartTrends(){
 buildTabs();
 if(typeof ttInit==='function') ttInit();
 if(typeof rgInit==='function') rgInit();
+if(typeof bdgInit==='function') bdgInit();
 if(typeof posInit==='function') posInit();
 if(typeof giInit==='function') giInit();
 if(typeof gsInit==='function') gsInit();

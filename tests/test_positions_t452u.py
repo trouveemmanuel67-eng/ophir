@@ -112,6 +112,27 @@ def test_ordres_traites_comme_positions_actives_dans_le_js():
     assert "pos-frais-cfd" in JS and "pos-frais-cfd" in CSS
     assert "FRAIS CFD" in JS
     assert "function posFraisCfdHTML" in JS
+    assert "${posCfdAlertHTML()}${posFraisCfdHTML()}" not in JS
+    assert "dont Tesla non liquide" not in JS
+    assert "pos-total-strip" not in JS
+    assert "posAmt(T.total_eur" not in JS
+
+    BDG = (ROOT / "src" / "budget.js").read_text()
+    assert "function bdgInit" in BDG
+    assert "à relever" in BDG
+    assert "Frais OVN" in BDG
+    assert "Frais trading" in BDG
+    assert 'id="bdg-wrap"' in CSS
+    assert "function bdgSetOpen" in BDG
+    bud = POS["budget"]
+    assert bud["mois"] == "2026-11"
+    assert bud["ovn"]["total_mois_usd"] == 2.34
+    assert any(abs(float(j["montant_usd"])) == 2.34 for j in bud["ovn"]["lignes_mois"])
+    assert bud["trading"]["a_relever"] is True
+    assert bud["trading"]["ordres"] == []
+    assert bud["total_observe_usd"] == 2.34
+    assert bud["projection_usd"] == 70.2
+    assert (ROOT / "data" / "revolut" / "frais_trading_ordres.json").exists()
     assert "19/11/2026 à 21 h" not in JS
     assert "XTB 23/11/2026 à 13 h 48" not in JS
     assert "st!=='active'&&st!=='en_attente'" in ACC
