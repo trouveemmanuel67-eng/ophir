@@ -6,18 +6,18 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<meta name="ophir-build" content="dbb4784-20261125-141556">
+<meta name="ophir-build" content="320cc87-20261125-142040">
 <title>APEX INDICATOR INVESTMENT</title>
 <meta name="description" content="APEX Indicator Investment — notes et indicateurs de marché.">
 <meta name="theme-color" content="#0a1128">
 <meta name="apple-mobile-web-app-title" content="APEX">
 <meta name="application-name" content="APEX">
-<link rel="icon" href="favicon.ico?v=dbb4784-20261125-141556" sizes="any">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=dbb4784-20261125-141556">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=dbb4784-20261125-141556">
-<link rel="icon" type="image/png" sizes="64x64" href="favicon.png?v=dbb4784-20261125-141556">
-<link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png?v=dbb4784-20261125-141556">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=dbb4784-20261125-141556">
+<link rel="icon" href="favicon.ico?v=320cc87-20261125-142040" sizes="any">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=320cc87-20261125-142040">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=320cc87-20261125-142040">
+<link rel="icon" type="image/png" sizes="64x64" href="favicon.png?v=320cc87-20261125-142040">
+<link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png?v=320cc87-20261125-142040">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=320cc87-20261125-142040">
 <meta property="og:type" content="website">
 <meta property="og:title" content="APEX INDICATOR INVESTMENT">
 <meta property="og:description" content="APEX Indicator Investment — notes et indicateurs de marché.">
@@ -895,6 +895,8 @@ body.bdg-on .rg-btn[aria-expanded="true"],#bdgBtn.rg-btn[aria-expanded="true"],b
 .bdg-moy-abo li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;font-size:12px;color:#fff;padding:2px 0;border-bottom:1px solid rgba(255,255,255,.06)}
 .bdg-moy-abo small{display:block;color:var(--mut);font-size:11px;font-weight:400}
 
+.bdg-moy-side{margin-top:6px;color:#e6c27a;font-size:12px;font-weight:650;line-height:1.4}
+.bdg-moy-side small{color:var(--mut);font-weight:400}
 .bdg-moy-note{margin:6px 0 0;color:#e6c27a;font-size:13px;font-weight:650;line-height:1.45}
 .bdg-moy-alerte{margin:0 0 12px;padding:10px 12px;border:1px solid rgba(232,143,143,.55);border-radius:8px;background:rgba(232,143,143,.12);color:#e88f8f;font-size:13px;line-height:1.45;font-weight:650}
 .bdg-moy.is-deficitaire .bdg-moy-kvs .home-kv.is-down b{color:#e88f8f}
@@ -27821,7 +27823,7 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
           "Chaque poste de dépense retenu est le montant d'octobre, après sortie des exceptionnels d'octobre. Rien n'est ramené ni lissé avec novembre.",
           "Les dépenses exceptionnelles d'octobre sont sorties du courant et lissées sur 12 mois dans « Provisions annuelles » (dentiste Koch du 27/10, Salomon, déco de Noël Lidl d'octobre, séjour Ramatuelle, pot de naissance, solde IR 2025, Grok via Apple d'octobre, WordPress d'octobre, INPI + CCI). TradingView Essential annuel (186,48 € / 12) est aussi provisionné, à la place du Premium encore prélevé en octobre.",
           "Les pics de novembre (Decathlon, gros Amazon, déco de Noël, Grok Heavy, Free Mobile, second paiement Koch, WordPress de novembre, opérations en attente des 23–24/11) sont hors mois de référence : ils n'entrent ni dans le courant ni dans les provisions.",
-          "Aucun OVN n'a été relevé en octobre (0 € dans le budget de référence). Une projection existe à partir d'une nuit de novembre, indiquée dans les trous, hors moyenne.",
+          "Les frais de courtage et overnight d'octobre, relevés sur les relevés Revolut Securities (99,41 € : entrée 26,16 €, sortie 15,37 €, overnight 57,85 €, autres 0,03 €), sont une charge variable du mois de référence. Les dividendes et coupons nets d'octobre (27,99 €) sont affichés en face, sans être ajoutés à la base prudente.",
           "Les virements vers l'investissement ne sont pas des dépenses. L'épargne réalisée de référence est celle d'octobre. Le flux de novembre, très supérieur, est hors moyenne et a pu être alimenté par le crédit Revolut de 23 500 €.",
           "Le crédit Revolut n'est ni un revenu ni une dépense ; sa mensualité d'octobre (169,60 €) est une charge fixe, comme la LOA Tesla (486,32 €).",
           "Air Glow pub (Facebook, MailPoet, Dualhook) reste hors des dépenses personnelles, comme dans le bloc Comptes.",
@@ -27848,6 +27850,14 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
           "moyenne_eur": 876.6,
           "moyenne_usd": 959.35,
           "note": "Bonus temporaire : 876,60 € le 1/10 (France Travail Grand Est). N'entre pas dans la base prudente, car ce revenu peut s'arrêter. Si on l'ajoute, les revenus passent à 4 009,93 €/mois."
+        },
+        "dividendes_coupons_octobre": {
+          "net_eur": 27.99,
+          "net_usd": 30.63,
+          "dividendes_eur": 18.39,
+          "coupons_eur": 9.6,
+          "hors_base": true,
+          "note": "Dividendes et coupons nets d'octobre : 27.99 € (dividendes 18.39 € + coupons 9.60 €), relevés Revolut Securities. Affichés en face des frais de courtage (99.41 €), sans être ajoutés à la base prudente de 3 133,33 €."
         },
         "salaire_tesla": {
           "octobre_eur": 4169.59,
@@ -27891,7 +27901,7 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
         {
           "id": "fixes",
           "libelle": "Charges fixes",
-          "note": "Loyer, LOA, crédit, assurances, télécom et abonnements mensuels d'octobre. L'OVN n'a pas été relevé en octobre (0 €).",
+          "note": "Loyer, LOA, crédit, assurances, télécom et abonnements mensuels d'octobre. Les frais de courtage et overnight sont classés en variables.",
           "postes": [
             {
               "id": "logement",
@@ -28050,17 +28060,6 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
               ]
             },
             {
-              "id": "ovn",
-              "libelle": "Frais overnight CFD",
-              "moyenne_eur": 0.0,
-              "moyenne_usd": 0.0,
-              "detail": "Aucun OVN relevé en octobre, donc 0 € dans le mois de référence. Une projection de 64.14 €/mois existe à partir d'une seule nuit du 24/11 (2.34 $), hors mois de référence. Objectif affiché sur le Budget : < 20 €/mois. Aucun frais bancaire classique sur les relevés d'octobre (0 €).",
-              "hypothese": "L'OVN de novembre n'entre pas dans le budget d'octobre.",
-              "octobre_eur": 0.0,
-              "novembre_eur": null,
-              "projection_hors_reference_eur": 64.14
-            },
-            {
               "id": "impots_recurrents",
               "libelle": "Impôts récurrents",
               "moyenne_eur": 0.0,
@@ -28085,8 +28084,24 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
         {
           "id": "variables",
           "libelle": "Variables courantes",
-          "note": "Courses, transport hors LOA, santé courante et enfant d'octobre, après sortie des exceptionnels lissés en provisions.",
+          "note": "Frais de courtage et overnight Revolut, courses, transport hors LOA, santé courante et enfant d'octobre, après sortie des exceptionnels lissés en provisions.",
           "postes": [
+            {
+              "id": "frais_courtage",
+              "libelle": "Frais de courtage et overnight (Revolut)",
+              "moyenne_eur": 99.41,
+              "moyenne_usd": 108.79,
+              "detail": "Relevés Revolut Securities d'octobre 2026 : entrée 26.16 €, sortie 15.37 €, overnight 57.85 €, autres 0.03 €, soit 99.41 € au total. En face, dividendes et coupons nets 27.99 € (dividendes 18.39 € + coupons 9.60 €) : affichés pour comparer, non ajoutés à la base prudente de 3 133,33 €. Objectif overnight : 20 €/mois.",
+              "octobre_eur": 99.41,
+              "entree_eur": 26.16,
+              "sortie_eur": 15.37,
+              "ovn_eur": 57.85,
+              "autres_eur": 0.03,
+              "dividendes_coupons_nets_eur": 27.99,
+              "dividendes_coupons_nets_usd": 30.63,
+              "dividendes_hors_base": true,
+              "source": "budget.frais_octobre, relevés Revolut octobre 2026 (commit 320cc87)"
+            },
             {
               "id": "courses",
               "libelle": "Courses",
@@ -28124,8 +28139,8 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
               "novembre_eur": 0.0
             }
           ],
-          "total_moyenne_eur": 1190.47,
-          "total_moyenne_usd": 1302.85
+          "total_moyenne_eur": 1289.88,
+          "total_moyenne_usd": 1411.64
         },
         {
           "id": "discretionnaires",
@@ -28273,8 +28288,8 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
         "total_moyenne_usd": 227.1
       },
       "depenses_recurrentes": {
-        "moyenne_eur": 4005.78,
-        "moyenne_usd": 4383.93,
+        "moyenne_eur": 4105.19,
+        "moyenne_usd": 4492.72,
         "detail": "Somme des charges fixes, variables courantes et discrétionnaires d'octobre, plus les provisions sur exceptionnels d'octobre / 12 (et TradingView Essential annuel)."
       },
       "epargne_realisee": {
@@ -28308,18 +28323,18 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
         "alerte": "Le flux de novembre est très supérieur à celui d'octobre et au reste du budget (revenus − dépenses). Il a pu être alimenté par le crédit Revolut de 23 500 € (capital viré le 6/11, compte destinataire clôturé le 16/11), pas seulement par un excédent mensuel. Ce n'est donc pas une capacité d'épargne récurrente."
       },
       "capacite_actuelle": {
-        "eur": -872.45,
-        "usd": -954.81,
+        "eur": -971.86,
+        "usd": -1063.6,
         "deficitaire": true,
         "formule": "Base prudente 3 133,33 € (2 800 € net + 333,33 € de prime lissée) − dépenses récurrentes d'octobre (y compris provisions / 12).",
-        "variante_avec_france_travail_eur": 4.15,
-        "variante_avec_france_travail_usd": 4.54,
-        "variante_octobre_observe_eur": 1040.41,
-        "variante_octobre_observe_usd": 1138.62,
-        "variante_salaire_novembre_eur": 3186.23,
-        "variante_salaire_novembre_usd": 3487.01,
-        "variante_sans_france_travail_eur": -872.45,
-        "variante_sans_france_travail_usd": -954.81
+        "variante_avec_france_travail_eur": -95.26,
+        "variante_avec_france_travail_usd": -104.25,
+        "variante_octobre_observe_eur": 941.0,
+        "variante_octobre_observe_usd": 1029.83,
+        "variante_salaire_novembre_eur": 3086.82,
+        "variante_salaire_novembre_usd": 3378.22,
+        "variante_sans_france_travail_eur": -971.86,
+        "variante_sans_france_travail_usd": -1063.6
       },
       "trous": [
         {
@@ -28344,8 +28359,8 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
         },
         {
           "id": "ovn_frais",
-          "titre": "Frais overnight CFD au-dessus de l'objectif",
-          "detail": "Projection 64.14 €/mois vs objectif 20 € (ratio observé sur une nuit). Aucun frais bancaire classique sur les relevés. Les frais d'ordres restent à relever (APE-38)."
+          "titre": "Frais de courtage et overnight d'octobre au-dessus de l'objectif",
+          "detail": "Relevés Revolut d'octobre : 99.41 € de frais (entrée 26.16 €, sortie 15.37 €, overnight 57.85 €, autres 0.03 €). L'overnight dépasse l'objectif de 20 €/mois. Dividendes et coupons nets en face : 27.99 €, hors base prudente. Une projection de novembre (64.14 €/mois à partir d'une nuit du 24/11) reste hors mois de référence."
         },
         {
           "id": "energie",
@@ -28462,12 +28477,12 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
       "pistes": [
         {
           "id": "ovn",
-          "libelle": "Tenir l'objectif de frais overnight CFD (< 20 €/mois)",
-          "economie_eur_mois": 44.14,
-          "economie_usd_mois": 48.31,
-          "source": "Projection actuelle 64.14 € (2,34 $ × 30 jours, une seule nuit le 24/11) − objectif 20 €.",
-          "note": "Hors mois de référence : aucun OVN relevé en octobre. Cette piste ne s'applique que si tu laisses des positions ouvertes la nuit, comme la projection de novembre le suggère. Proposition, pas une décision.",
-          "dans_panier_cible": false
+          "libelle": "OVN ramené sous 20 €",
+          "economie_eur_mois": 37.85,
+          "economie_usd_mois": 41.42,
+          "source": "Overnight d'octobre 57.85 € (relevé Revolut) − objectif 20 € = 37.85 €. Les commissions d'entrée (26.16 €) et de sortie (15.37 €) restent dans les dépenses, hors de ce levier.",
+          "note": "Proposition, pas une décision. Ramener les frais overnight sous 20 €/mois. Les 27,99 € de dividendes et coupons nets sont affichés en face des frais, sans être ajoutés à la base prudente.",
+          "dans_panier_cible": true
         },
         {
           "id": "revolut_ultra",
@@ -28527,8 +28542,14 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
       ],
       "panier_cible": {
         "libelle": "Panier de propositions retenu pour la capacité cible",
-        "note": "Ce n'est pas une décision. Panier retenu à partir d'octobre : résiliation Revolut Ultra, résiliation YouTube, moitié du textile Lidl d'octobre, moitié de la restauration courante d'octobre. L'OVN et Grok Heavy, constatés en novembre, sont chiffrés à part (hors mois de référence).",
+        "note": "Ce n'est pas une décision. Panier retenu à partir d'octobre : OVN ramené sous 20 € (37,85 €), résiliation Revolut Ultra, résiliation YouTube, moitié du textile Lidl d'octobre, moitié de la restauration courante d'octobre. Grok Heavy, constaté en novembre, reste chiffré à part (hors mois de référence).",
         "lignes": [
+          {
+            "id": "ovn",
+            "libelle": "OVN ramené sous 20 €",
+            "economie_eur_mois": 37.85,
+            "economie_usd_mois": 41.42
+          },
           {
             "id": "revolut_ultra",
             "libelle": "Revoir ou résilier Revolut Ultra",
@@ -28554,41 +28575,41 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
             "economie_usd_mois": 16.5
           }
         ],
-        "total_economie_eur": 98.06,
-        "total_economie_usd": 107.32
+        "total_economie_eur": 135.91,
+        "total_economie_usd": 148.74
       },
       "capacite_cible": {
-        "eur": -774.39,
-        "usd": -847.49,
+        "eur": -835.95,
+        "usd": -914.86,
         "formule": "Capacité actuelle + somme du panier de propositions.",
-        "variante_grok_heavy_mensuel_eur": -1092.44,
-        "variante_grok_heavy_mensuel_cible_eur": -774.39,
-        "variante_grok_heavy_mensuel_note": "Grok Heavy (219.99 € le 4/11) est hors mois de référence. S'il est mensuel, il faudrait l'ajouter au budget récurrent : la capacité d'octobre baisserait de 219.99 €, à -1092.44 €. Sa résiliation redeviendrait alors le premier levier. Sa périodicité n'est pas confirmée."
+        "variante_grok_heavy_mensuel_eur": -1191.85,
+        "variante_grok_heavy_mensuel_cible_eur": -835.95,
+        "variante_grok_heavy_mensuel_note": "Grok Heavy (219.99 € le 4/11) est hors mois de référence. S'il est mensuel, il faudrait l'ajouter au budget récurrent : la capacité d'octobre baisserait de 219.99 €, à -1191.85 €. Sa résiliation redeviendrait alors le premier levier. Sa périodicité n'est pas confirmée."
       },
       "objectif_epargne": {
         "propose_eur": 0,
         "propose_usd": 0.0,
-        "ecart_equilibre_eur": 872.45,
-        "ecart_apres_panier_eur": 774.39,
-        "note": "Sur la base prudente de 3 133,33 €, le budget d'octobre est déficitaire de 872.45 €/mois. L'objectif immédiat proposé n'est pas d'épargner, mais de revenir à l'équilibre (combler 872.45 €/mois). Le panier de propositions (98.06 €) ne suffit pas : il resterait un déficit de 774.39 €/mois. Avec le bonus temporaire France Travail, la capacité passerait à 4.15 €/mois. Si l'on comparait aux revenus réellement perçus en octobre (5 046,19 €), la capacité serait de 1040.41 €/mois — cet écart montre le poids des commissions / heures au-delà de 2 800 € net.",
+        "ecart_equilibre_eur": 971.86,
+        "ecart_apres_panier_eur": 835.95,
+        "note": "Sur la base prudente de 3 133,33 €, le budget d'octobre est déficitaire de 971.86 €/mois. L'objectif immédiat proposé n'est pas d'épargner, mais de revenir à l'équilibre (combler 971.86 €/mois). Le panier de propositions (135.91 €) ne suffit pas : il resterait un déficit de 835.95 €/mois. Avec le bonus temporaire France Travail, la capacité passerait à -95.26 €/mois. Si l'on comparait aux revenus réellement perçus en octobre (5 046,19 €), la capacité serait de 941.00 €/mois — cet écart montre le poids des commissions / heures au-delà de 2 800 € net.",
         "cible_si_reductions_eur": 0
       },
       "reserve_securite": {
         "charges_fixes_eur": 1832.45,
         "charges_fixes_usd": 2005.43,
-        "detail": "Loyer + LOA Tesla + crédit Revolut + assurances + télécom + abonnements mensuels identifiés, hors OVN et hors provisions.",
+        "detail": "Loyer + LOA Tesla + crédit Revolut + assurances + télécom + abonnements mensuels identifiés. Les frais de courtage et overnight sont des variables, hors de cette réserve, tout comme les provisions.",
         "epargne_disponible_eur": 1603.4,
         "epargne_disponible_usd": 1754.76,
         "epargne_disponible_date": "2026-11-25",
         "epargne_disponible_note": "Soldes des deux comptes Revolut au 25/11/2026 : joint 1287.51 € + perso 315.89 € = 1603.40 € (courant, dépôt et poche Shana inclus). Le solde du joint en fin octobre était 1640.41 €. Les positions d'investissement et le capital du crédit Revolut ne sont pas une réserve disponible.",
         "mois_securite": 0.88,
-        "mois_couverture_deficit": 1.84,
+        "mois_couverture_deficit": 1.65,
         "sous_reserve_3_mois": true,
         "mois_3_eur": 5497.35,
         "mois_3_usd": 6016.3,
         "mois_6_eur": 10994.7,
         "mois_6_usd": 12032.6,
-        "note": "Indicateur « mois de sécurité » : 0.88 mois de charges fixes (1832.45 €/mois) couverts par l'épargne disponible (1603.40 € au 25/11). La réserve conseillée est de 3 à 6 mois, soit 5497.35 € à 10994.70 €. Le budget est déficitaire de 872.45 €/mois sur la base prudente : à ce rythme, les soldes couvriraient environ 1.84 mois de déficit. Ce n'est pas un ordre de virement. Le crédit de 23 500 € n'est pas une réserve."
+        "note": "Indicateur « mois de sécurité » : 0.88 mois de charges fixes (1832.45 €/mois) couverts par l'épargne disponible (1603.40 € au 25/11). La réserve conseillée est de 3 à 6 mois, soit 5497.35 € à 10994.70 €. Le budget est déficitaire de 971.86 €/mois sur la base prudente : à ce rythme, les soldes couvriraient environ 1.65 mois de déficit. Ce n'est pas un ordre de virement. Le crédit de 23 500 € n'est pas une réserve."
       },
       "lignes_floues": [
         {
@@ -28695,6 +28716,7 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
         "lidl": "data/budget/lidl_tickets_2026-10_11.json",
         "tradingview": "data/abonnement_tradingview.json et budget.tradingview",
         "ovn": "budget.ovn (positions.json)",
+        "frais_octobre": "budget.frais_octobre (relevés Revolut Securities octobre 2026, commit 320cc87)",
         "genere_par": "src/build_budget_mensuel.py"
       }
     }
@@ -41775,8 +41797,8 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
   }
 }
 </script>
-<script type="application/json" id="dataBuild">{"version":"dbb4784-20261125-141556"}</script>
-<link rel="preload" href="config/regles.json?v=dbb4784-20261125-141556" as="fetch" crossorigin>
+<script type="application/json" id="dataBuild">{"version":"320cc87-20261125-142040"}</script>
+<link rel="preload" href="config/regles.json?v=320cc87-20261125-142040" as="fetch" crossorigin>
 
 <script type="application/json" id="dataMaj">{
   "at": "2026-11-23T21:45:22.168885+01:00",
@@ -55093,9 +55115,13 @@ function bdgMoyHead(){
 }
 function bdgMoyRow(p, cls){
   const c=['bdg-moy-row'].concat(cls||[]).join(' ');
+  const divNet=p.dividendes_coupons_nets_eur;
+  const side=(divNet!=null&&divNet!=='')
+    ? `<div class="bdg-moy-side">En face : dividendes et coupons nets ${bdgAmt(divNet,'EUR')}${p.dividendes_coupons_nets_usd!=null?(' / '+bdgAmt(p.dividendes_coupons_nets_usd,'USD')):''} <small>(hors base prudente)</small></div>`
+    : '';
   return `<div class="${c}">
     <div class="bdg-poste"><h2>${bdgEsc(p.libelle||p.id||'')}</h2></div>
-    <div class="bdg-det">${bdgEsc(p.detail||'—')}</div>
+    <div class="bdg-det">${bdgEsc(p.detail||'—')}${side}</div>
     <div class="bdg-num">${bdgAmt(p.moyenne_usd,'USD')}</div>
     <div class="bdg-num">${bdgAmt(p.moyenne_eur,'EUR')}</div>
   </div>`;
@@ -55156,12 +55182,13 @@ function bdgMensuelHtml(b){
     {libelle:'Prime de participation (lissée)', moyenne_eur:base.prime_mensuelle_eur, moyenne_usd:base.prime_mensuelle_usd, detail:'4 000 € par an, soit 333,33 € / mois lissés sur 12 mois.'},
     {libelle:'France Travail (bonus temporaire, hors base)', moyenne_eur:bonus.moyenne_eur, moyenne_usd:bonus.moyenne_usd, detail:bonus.note},
     {libelle:'Salaire Tesla réellement perçu en octobre (comparaison)', moyenne_eur:sal.octobre_eur, moyenne_usd:sal.octobre_usd, detail:sal.note},
-    {libelle:'France Travail observé en octobre (comparaison)', moyenne_eur:ft.octobre_eur, moyenne_usd:usdSafe(ft.octobre_eur), detail:ft.note}
+    {libelle:'France Travail observé en octobre (comparaison)', moyenne_eur:ft.octobre_eur, moyenne_usd:usdSafe(ft.octobre_eur), detail:ft.note},
+    {libelle:'Dividendes et coupons nets d\'octobre (hors base)', moyenne_eur:(rev.dividendes_coupons_octobre||{}).net_eur, moyenne_usd:(rev.dividendes_coupons_octobre||{}).net_usd, detail:(rev.dividendes_coupons_octobre||{}).note}
   ].map(p=>bdgMoyRow(p)).join('');
   const revBlock=`<div class="bdg-moy-block" id="bdg-moy-revenus">
       <h3 class="bdg-moy-h">Revenus mensuels</h3>
       <div class="bdg-moy-table">${bdgMoyHead()}${revRows}${bdgMoyFoot('Total base prudente (retenue)', rev.total_moyenne_eur, rev.total_moyenne_usd)}</div>
-      <p class="bdg-moy-p">Comparaison : revenus réellement perçus en octobre ${bdgAmt(obs.total_eur,'EUR')} / ${bdgAmt(obs.total_usd,'USD')}. Avec le bonus France Travail en plus de la base prudente : ${bdgAmt(rev.variante_avec_france_travail_eur,'EUR')} / ${bdgAmt(rev.variante_avec_france_travail_usd,'USD')}.</p>
+      <p class="bdg-moy-p">Comparaison : revenus réellement perçus en octobre ${bdgAmt(obs.total_eur,'EUR')} / ${bdgAmt(obs.total_usd,'USD')}. Avec le bonus France Travail en plus de la base prudente : ${bdgAmt(rev.variante_avec_france_travail_eur,'EUR')} / ${bdgAmt(rev.variante_avec_france_travail_usd,'USD')}. Les dividendes et coupons nets d'octobre (${bdgAmt((rev.dividendes_coupons_octobre||{}).net_eur,'EUR')}) sont affichés en face des frais de courtage, sans entrer dans la base prudente.</p>
     </div>`;
   const groupes=(m.groupes||[]).map(g=>{
     const cls='bdg-moy-grp-'+g.id;

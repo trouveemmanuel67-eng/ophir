@@ -516,10 +516,19 @@ def build():
 
     abo_recurrent = r2(sum(a["moyenne_eur"] for a in rec_abos))
 
-    # OVN projection (single observation)
+    # Frais de courtage et overnight d'octobre (relevés Revolut, budget.frais_octobre)
+    # et projection OVN de novembre, conservée hors référence.
     ovn_proj = 64.14
     ovn_obj = 20.0
-    # Prefer live figure from positions if present, else known projection
+    ovn_dernier_usd, ovn_dernier_eur = 2.34, 2.14
+    frais_oct_eur = 99.41
+    frais_entree_eur = 26.16
+    frais_sortie_eur = 15.37
+    frais_ovn_eur = 57.85
+    frais_autres_eur = 0.03
+    div_net_eur = 27.99
+    div_div_eur = 18.39
+    div_coupons_eur = 9.60
     try:
         pos = json.loads((DATA / "positions.json").read_text(encoding="utf-8"))
         ovn = ((pos.get("budget") or {}).get("ovn") or {})
@@ -527,10 +536,33 @@ def build():
             ovn_proj = r2(ovn["projection_eur"])
         if ovn.get("objectif_eur_mois") is not None:
             ovn_obj = r2(ovn["objectif_eur_mois"])
-        ovn_dernier_usd = ovn.get("dernier_usd")
-        ovn_dernier_eur = ovn.get("dernier_eur")
+        if ovn.get("dernier_usd") is not None:
+            ovn_dernier_usd = ovn.get("dernier_usd")
+        if ovn.get("dernier_eur") is not None:
+            ovn_dernier_eur = ovn.get("dernier_eur")
+        fo = (pos.get("budget") or {}).get("frais_octobre") or {}
+        tot = fo.get("totaux") or {}
+        inc = fo.get("dividendes_et_coupons") or {}
+        if tot.get("frais_eur") is not None:
+            frais_oct_eur = r2(tot["frais_eur"])
+        if tot.get("entree_eur") is not None:
+            frais_entree_eur = r2(tot["entree_eur"])
+        if tot.get("sortie_eur") is not None:
+            frais_sortie_eur = r2(tot["sortie_eur"])
+        if tot.get("ovn_eur") is not None:
+            frais_ovn_eur = r2(tot["ovn_eur"])
+        if tot.get("autres_eur") is not None:
+            frais_autres_eur = r2(tot["autres_eur"])
+        if tot.get("objectif_ovn_eur") is not None:
+            ovn_obj = r2(tot["objectif_ovn_eur"])
+        if inc.get("net_eur") is not None:
+            div_net_eur = r2(inc["net_eur"])
+        if inc.get("dividendes_eur") is not None:
+            div_div_eur = r2(inc["dividendes_eur"])
+        if inc.get("coupons_eur") is not None:
+            div_coupons_eur = r2(inc["coupons_eur"])
     except Exception:
-        ovn_dernier_usd, ovn_dernier_eur = 2.34, 2.14
+        pass
 
     # ===== variables =====
     def rec_month(ops, exclude_pred, pending_extra_already_in_ops=True):
@@ -615,12 +647,6 @@ def build():
               "TradingView Essential, WordPress d'octobre et Grok (via Apple) 114,99 € sont dans les provisions annuelles. "
               "Grok Heavy (219,99 € le 4/11) est hors mois de référence.",
               octobre_eur=None, novembre_eur=None, abonnements=rec_abos),
-        poste("ovn", "Frais overnight CFD", 0.0,
-              f"Aucun OVN relevé en octobre, donc 0 € dans le mois de référence. "
-              f"Une projection de {ovn_proj:.2f} €/mois existe à partir d'une seule nuit du 24/11 ({ovn_dernier_usd} $), hors mois de référence. "
-              f"Objectif affiché sur le Budget : < {ovn_obj:.0f} €/mois. Aucun frais bancaire classique sur les relevés d'octobre (0 €).",
-              hypothese="L'OVN de novembre n'entre pas dans le budget d'octobre.",
-              octobre_eur=0.0, novembre_eur=None, projection_hors_reference_eur=ovn_proj),
         poste("impots_recurrents", "Impôts récurrents", 0.0,
               "Le solde IR 2025 (288 €) est en provisions. Aucun autre prélèvement d'impôt sur la période ; le PAS est déjà dans le salaire net Tesla.",
               octobre_eur=0.0, novembre_eur=0.0),
@@ -637,6 +663,21 @@ def build():
     pend_tot = r2(sum(amt(o) for o in pending))
 
     var_postes = [
+        poste("frais_courtage", "Frais de courtage et overnight (Revolut)", frais_oct_eur,
+              f"Relevés Revolut Securities d'octobre 2026 : entrée {frais_entree_eur:.2f} €, sortie {frais_sortie_eur:.2f} €, "
+              f"overnight {frais_ovn_eur:.2f} €, autres {frais_autres_eur:.2f} €, soit {frais_oct_eur:.2f} € au total. "
+              f"En face, dividendes et coupons nets {div_net_eur:.2f} € (dividendes {div_div_eur:.2f} € + coupons {div_coupons_eur:.2f} €) : "
+              f"affichés pour comparer, non ajoutés à la base prudente de 3 133,33 €. "
+              f"Objectif overnight : {ovn_obj:.0f} €/mois.",
+              octobre_eur=frais_oct_eur,
+              entree_eur=frais_entree_eur,
+              sortie_eur=frais_sortie_eur,
+              ovn_eur=frais_ovn_eur,
+              autres_eur=frais_autres_eur,
+              dividendes_coupons_nets_eur=div_net_eur,
+              dividendes_coupons_nets_usd=usd(div_net_eur),
+              dividendes_hors_base=True,
+              source="budget.frais_octobre, relevés Revolut octobre 2026 (commit 320cc87)"),
         poste("courses", "Courses", courses_m,
               f"Mois de référence octobre : {c_oct:.2f} € observés − déco Noël {deco_oct:.2f} € = {c_oct_r:.2f} €. "
               "Novembre (partiel) ne compte pas dans cette moyenne.",
@@ -709,7 +750,7 @@ def build():
             inv_note_bits.append(f"{x.get('libelle')}: {x.get('montant_eur')} € ({x.get('note') or ''})")
 
     # ===== pistes =====
-    eco_ovn = r2(max(0.0, ovn_proj - ovn_obj))
+    eco_ovn = r2(max(0.0, frais_ovn_eur - ovn_obj))
     eco_ultra = m_ul
     eco_tex_half = r2(tex_m / 2)
     eco_resto_half = r2(resto_m / 2)
@@ -721,12 +762,14 @@ def build():
     pistes = [
         {
             "id": "ovn",
-            "libelle": "Tenir l'objectif de frais overnight CFD (< 20 €/mois)",
+            "libelle": "OVN ramené sous 20 €",
             "economie_eur_mois": eco_ovn,
             "economie_usd_mois": usd(eco_ovn),
-            "source": f"Projection actuelle {ovn_proj:.2f} € (2,34 $ × 30 jours, une seule nuit le 24/11) − objectif 20 €.",
-            "note": "Hors mois de référence : aucun OVN relevé en octobre. Cette piste ne s'applique que si tu laisses des positions ouvertes la nuit, comme la projection de novembre le suggère. Proposition, pas une décision.",
-            "dans_panier_cible": False,
+            "source": f"Overnight d'octobre {frais_ovn_eur:.2f} € (relevé Revolut) − objectif {ovn_obj:.0f} € = {eco_ovn:.2f} €. "
+                      f"Les commissions d'entrée ({frais_entree_eur:.2f} €) et de sortie ({frais_sortie_eur:.2f} €) restent dans les dépenses, hors de ce levier.",
+            "note": "Proposition, pas une décision. Ramener les frais overnight sous 20 €/mois. "
+                    "Les 27,99 € de dividendes et coupons nets sont affichés en face des frais, sans être ajoutés à la base prudente.",
+            "dans_panier_cible": True,
         },
         {
             "id": "revolut_ultra",
@@ -880,9 +923,11 @@ def build():
         },
         {
             "id": "ovn_frais",
-            "titre": "Frais overnight CFD au-dessus de l'objectif",
-            "detail": f"Projection {ovn_proj:.2f} €/mois vs objectif {ovn_obj:.0f} € (ratio observé sur une nuit). "
-                      "Aucun frais bancaire classique sur les relevés. Les frais d'ordres restent à relever (APE-38).",
+            "titre": "Frais de courtage et overnight d'octobre au-dessus de l'objectif",
+            "detail": f"Relevés Revolut d'octobre : {frais_oct_eur:.2f} € de frais (entrée {frais_entree_eur:.2f} €, sortie {frais_sortie_eur:.2f} €, "
+                      f"overnight {frais_ovn_eur:.2f} €, autres {frais_autres_eur:.2f} €). L'overnight dépasse l'objectif de {ovn_obj:.0f} €/mois. "
+                      f"Dividendes et coupons nets en face : {div_net_eur:.2f} €, hors base prudente. "
+                      f"Une projection de novembre ({ovn_proj:.2f} €/mois à partir d'une nuit du 24/11) reste hors mois de référence.",
         },
         {
             "id": "energie",
@@ -941,7 +986,8 @@ def build():
         "(dentiste Koch du 27/10, Salomon, déco de Noël Lidl d'octobre, séjour Ramatuelle, pot de naissance, solde IR 2025, Grok via Apple d'octobre, WordPress d'octobre, INPI + CCI). "
         "TradingView Essential annuel (186,48 € / 12) est aussi provisionné, à la place du Premium encore prélevé en octobre.",
         "Les pics de novembre (Decathlon, gros Amazon, déco de Noël, Grok Heavy, Free Mobile, second paiement Koch, WordPress de novembre, opérations en attente des 23–24/11) sont hors mois de référence : ils n'entrent ni dans le courant ni dans les provisions.",
-        "Aucun OVN n'a été relevé en octobre (0 € dans le budget de référence). Une projection existe à partir d'une nuit de novembre, indiquée dans les trous, hors moyenne.",
+        "Les frais de courtage et overnight d'octobre, relevés sur les relevés Revolut Securities (99,41 € : entrée 26,16 €, sortie 15,37 €, overnight 57,85 €, autres 0,03 €), "
+        "sont une charge variable du mois de référence. Les dividendes et coupons nets d'octobre (27,99 €) sont affichés en face, sans être ajoutés à la base prudente.",
         "Les virements vers l'investissement ne sont pas des dépenses. L'épargne réalisée de référence est celle d'octobre. Le flux de novembre, très supérieur, est hors moyenne et a pu être alimenté par le crédit Revolut de 23 500 €.",
         "Le crédit Revolut n'est ni un revenu ni une dépense ; sa mensualité d'octobre (169,60 €) est une charge fixe, comme la LOA Tesla (486,32 €).",
         "Air Glow pub (Facebook, MailPoet, Dualhook) reste hors des dépenses personnelles, comme dans le bloc Comptes.",
@@ -988,6 +1034,16 @@ def build():
                 "moyenne_usd": usd(FT_BONUS),
                 "note": "Bonus temporaire : 876,60 € le 1/10 (France Travail Grand Est). N'entre pas dans la base prudente, car ce revenu peut s'arrêter. Si on l'ajoute, les revenus passent à 4 009,93 €/mois.",
             },
+            "dividendes_coupons_octobre": {
+                "net_eur": div_net_eur,
+                "net_usd": usd(div_net_eur),
+                "dividendes_eur": div_div_eur,
+                "coupons_eur": div_coupons_eur,
+                "hors_base": True,
+                "note": f"Dividendes et coupons nets d'octobre : {div_net_eur:.2f} € (dividendes {div_div_eur:.2f} € + coupons {div_coupons_eur:.2f} €), "
+                        f"relevés Revolut Securities. Affichés en face des frais de courtage ({frais_oct_eur:.2f} €), "
+                        f"sans être ajoutés à la base prudente de 3 133,33 €.",
+            },
             "salaire_tesla": {
                 "octobre_eur": sal_oct, "octobre_usd": usd(sal_oct),
                 "novembre_eur": sal_nov, "novembre_usd": usd(sal_nov),
@@ -1019,8 +1075,8 @@ def build():
             "variante_sans_france_travail_usd": usd(BASE_PRUDENTE),
         },
         "groupes": [
-            {"id": "fixes", "libelle": "Charges fixes", "note": "Loyer, LOA, crédit, assurances, télécom et abonnements mensuels d'octobre. L'OVN n'a pas été relevé en octobre (0 €).", "postes": fixes_postes, "total_moyenne_eur": fixes_tot, "total_moyenne_usd": usd(fixes_tot)},
-            {"id": "variables", "libelle": "Variables courantes", "note": "Courses, transport hors LOA, santé courante et enfant d'octobre, après sortie des exceptionnels lissés en provisions.", "postes": var_postes, "total_moyenne_eur": var_tot, "total_moyenne_usd": usd(var_tot)},
+            {"id": "fixes", "libelle": "Charges fixes", "note": "Loyer, LOA, crédit, assurances, télécom et abonnements mensuels d'octobre. Les frais de courtage et overnight sont classés en variables.", "postes": fixes_postes, "total_moyenne_eur": fixes_tot, "total_moyenne_usd": usd(fixes_tot)},
+            {"id": "variables", "libelle": "Variables courantes", "note": "Frais de courtage et overnight Revolut, courses, transport hors LOA, santé courante et enfant d'octobre, après sortie des exceptionnels lissés en provisions.", "postes": var_postes, "total_moyenne_eur": var_tot, "total_moyenne_usd": usd(var_tot)},
             {"id": "discretionnaires", "libelle": "Discrétionnaires", "note": "Achats, loisirs et autres courants d'octobre, après sortie des exceptionnels.", "postes": disc_postes, "total_moyenne_eur": disc_tot, "total_moyenne_usd": usd(disc_tot)},
         ],
         "provisions": {
@@ -1069,7 +1125,7 @@ def build():
         "pistes": pistes,
         "panier_cible": {
             "libelle": "Panier de propositions retenu pour la capacité cible",
-            "note": "Ce n'est pas une décision. Panier retenu à partir d'octobre : résiliation Revolut Ultra, résiliation YouTube, moitié du textile Lidl d'octobre, moitié de la restauration courante d'octobre. L'OVN et Grok Heavy, constatés en novembre, sont chiffrés à part (hors mois de référence).",
+            "note": "Ce n'est pas une décision. Panier retenu à partir d'octobre : OVN ramené sous 20 € (37,85 €), résiliation Revolut Ultra, résiliation YouTube, moitié du textile Lidl d'octobre, moitié de la restauration courante d'octobre. Grok Heavy, constaté en novembre, reste chiffré à part (hors mois de référence).",
             "lignes": [{"id": p["id"], "libelle": p["libelle"], "economie_eur_mois": p["economie_eur_mois"], "economie_usd_mois": p["economie_usd_mois"]} for p in panier],
             "total_economie_eur": eco_panier,
             "total_economie_usd": usd(eco_panier),
@@ -1103,7 +1159,7 @@ def build():
         "reserve_securite": {
             "charges_fixes_eur": charges_fixes_reserve,
             "charges_fixes_usd": usd(charges_fixes_reserve),
-            "detail": "Loyer + LOA Tesla + crédit Revolut + assurances + télécom + abonnements mensuels identifiés, hors OVN et hors provisions.",
+            "detail": "Loyer + LOA Tesla + crédit Revolut + assurances + télécom + abonnements mensuels identifiés. Les frais de courtage et overnight sont des variables, hors de cette réserve, tout comme les provisions.",
             "epargne_disponible_eur": epargne_dispo,
             "epargne_disponible_usd": usd(epargne_dispo),
             "epargne_disponible_date": "2026-11-25",
@@ -1125,6 +1181,7 @@ def build():
             "lidl": "data/budget/lidl_tickets_2026-10_11.json",
             "tradingview": "data/abonnement_tradingview.json et budget.tradingview",
             "ovn": "budget.ovn (positions.json)",
+            "frais_octobre": "budget.frais_octobre (relevés Revolut Securities octobre 2026, commit 320cc87)",
             "genere_par": "src/build_budget_mensuel.py",
         },
     }

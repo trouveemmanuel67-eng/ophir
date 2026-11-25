@@ -635,9 +635,13 @@ function bdgMoyHead(){
 }
 function bdgMoyRow(p, cls){
   const c=['bdg-moy-row'].concat(cls||[]).join(' ');
+  const divNet=p.dividendes_coupons_nets_eur;
+  const side=(divNet!=null&&divNet!=='')
+    ? `<div class="bdg-moy-side">En face : dividendes et coupons nets ${bdgAmt(divNet,'EUR')}${p.dividendes_coupons_nets_usd!=null?(' / '+bdgAmt(p.dividendes_coupons_nets_usd,'USD')):''} <small>(hors base prudente)</small></div>`
+    : '';
   return `<div class="${c}">
     <div class="bdg-poste"><h2>${bdgEsc(p.libelle||p.id||'')}</h2></div>
-    <div class="bdg-det">${bdgEsc(p.detail||'—')}</div>
+    <div class="bdg-det">${bdgEsc(p.detail||'—')}${side}</div>
     <div class="bdg-num">${bdgAmt(p.moyenne_usd,'USD')}</div>
     <div class="bdg-num">${bdgAmt(p.moyenne_eur,'EUR')}</div>
   </div>`;
@@ -698,12 +702,13 @@ function bdgMensuelHtml(b){
     {libelle:'Prime de participation (lissée)', moyenne_eur:base.prime_mensuelle_eur, moyenne_usd:base.prime_mensuelle_usd, detail:'4 000 € par an, soit 333,33 € / mois lissés sur 12 mois.'},
     {libelle:'France Travail (bonus temporaire, hors base)', moyenne_eur:bonus.moyenne_eur, moyenne_usd:bonus.moyenne_usd, detail:bonus.note},
     {libelle:'Salaire Tesla réellement perçu en octobre (comparaison)', moyenne_eur:sal.octobre_eur, moyenne_usd:sal.octobre_usd, detail:sal.note},
-    {libelle:'France Travail observé en octobre (comparaison)', moyenne_eur:ft.octobre_eur, moyenne_usd:usdSafe(ft.octobre_eur), detail:ft.note}
+    {libelle:'France Travail observé en octobre (comparaison)', moyenne_eur:ft.octobre_eur, moyenne_usd:usdSafe(ft.octobre_eur), detail:ft.note},
+    {libelle:'Dividendes et coupons nets d\'octobre (hors base)', moyenne_eur:(rev.dividendes_coupons_octobre||{}).net_eur, moyenne_usd:(rev.dividendes_coupons_octobre||{}).net_usd, detail:(rev.dividendes_coupons_octobre||{}).note}
   ].map(p=>bdgMoyRow(p)).join('');
   const revBlock=`<div class="bdg-moy-block" id="bdg-moy-revenus">
       <h3 class="bdg-moy-h">Revenus mensuels</h3>
       <div class="bdg-moy-table">${bdgMoyHead()}${revRows}${bdgMoyFoot('Total base prudente (retenue)', rev.total_moyenne_eur, rev.total_moyenne_usd)}</div>
-      <p class="bdg-moy-p">Comparaison : revenus réellement perçus en octobre ${bdgAmt(obs.total_eur,'EUR')} / ${bdgAmt(obs.total_usd,'USD')}. Avec le bonus France Travail en plus de la base prudente : ${bdgAmt(rev.variante_avec_france_travail_eur,'EUR')} / ${bdgAmt(rev.variante_avec_france_travail_usd,'USD')}.</p>
+      <p class="bdg-moy-p">Comparaison : revenus réellement perçus en octobre ${bdgAmt(obs.total_eur,'EUR')} / ${bdgAmt(obs.total_usd,'USD')}. Avec le bonus France Travail en plus de la base prudente : ${bdgAmt(rev.variante_avec_france_travail_eur,'EUR')} / ${bdgAmt(rev.variante_avec_france_travail_usd,'USD')}. Les dividendes et coupons nets d'octobre (${bdgAmt((rev.dividendes_coupons_octobre||{}).net_eur,'EUR')}) sont affichés en face des frais de courtage, sans entrer dans la base prudente.</p>
     </div>`;
   const groupes=(m.groupes||[]).map(g=>{
     const cls='bdg-moy-grp-'+g.id;
