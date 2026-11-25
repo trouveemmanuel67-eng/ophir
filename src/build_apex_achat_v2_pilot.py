@@ -57,6 +57,7 @@ ROOTS = [
     str(ROOT / 'data/pays/yahoo_1wk_{enc}.json'),
     str(ROOT / 'data/actions/yahoo_1wk_{enc}.json'),
     str(ROOT / 'data/energie/yahoo_1wk_{enc}.json'),
+    str(ROOT / 'data/short_cache/yahoo_1wk_{enc}.json'),
     str(ROOT / 'data/pays/wk/{sym}.json'),
 ]
 

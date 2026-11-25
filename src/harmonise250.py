@@ -2,7 +2,7 @@
 """t506u : plus aucune note hors de l'échelle unique −50..250 dans les données du site.
 
 1. Note 250 réelle (grille actions) pour la tête « Marché France » (ETF CAC 40, EURONEXT:CAC)
-   et pour Fanuc (TSE:6954, position FUC hors univers) : apex_achat_v2_pilot.json et scores_full, by_tv.
+   et pour Fanuc (TSE:6954, position FUC hors univers) ainsi que les autres actions détenues hors univers (ex. ENPH) : apex_achat_v2_pilot.json et scores_full, by_tv.
    CAC : technique de l'ETF ; fondamental et H = moyenne des actions France affichées (même règle
    que les ETF et paniers de section). Fanuc : ratios Yahoo déjà en base (data/pays/qs), H n.c.
 2. Remplace chaque ancienne note /100 encore stockée (secteurs.json, pays.json France,
@@ -17,6 +17,7 @@ sys.path[:0] = [str(ROOT), str(ROOT / 'src')]
 D = ROOT / 'data'
 import build_apex_achat_v2_pilot as P  # noqa: E402
 import apply_attention as AA  # noqa: E402
+import score_held_equities as HE  # noqa: E402
 from apex.score import metaux_band  # noqa: E402
 
 LOG = []
@@ -128,6 +129,13 @@ def score_special(pil):
         LOG.append(('FUC', rec['ligne']))
     else:
         LOG.append(('FUC', 'n.c. : ' + str(rec.get('erreur'))))
+    # Autres actions détenues hors univers (ex. ENPH, onglet Énergie)
+    already = dict(pil.get('by_tv') or {})
+    already.update(out)
+    held = HE.score_missing(already, fg=fg)
+    for tv, rec in held.items():
+        out[tv] = rec
+        LOG.append((tv, rec.get('ligne') or rec.get('erreur') or 'n.c.'))
     return out
 
 

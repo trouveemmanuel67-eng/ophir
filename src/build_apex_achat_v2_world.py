@@ -2,6 +2,8 @@
 """APEX ACHAT −50 à 250 sur toutes les sections Actions du site
 (USA 11 secteurs + France, Allemagne, Canada, Suisse).
 
+Les actions détenues absentes de ces tops (Mes positions) sont aussi notées, même barème, et ajoutées à by_tv.
+
 Hors banque : apex_achat_v2.
 Banques (industries Banks*, Savings Institutions) : apex_achat_v2_banque.
 Assurances et autres financières : règles hors banque.
@@ -22,6 +24,7 @@ sys.path.insert(0, str(ROOT))
 import build_apex_achat_v2_pilot as P
 import yahoo_week as YW
 import apply_attention as AA
+import score_held_equities as HE
 
 BANK_PREFIX = 'banks'
 SAVINGS = ('savings institutions', 'savings & loans', 'savings and loans')
@@ -68,6 +71,7 @@ def compact_rec(rec):
         'date_cloture', 'close', 'points', 'ligne', 'total', 'total_max',
         'total_min', 'display', 'band', 'hex', 'av_label', 'regles',
         'industry', 'is_bank', 'watchlist_tv', 'attention',
+        'sentiment', 'hors_univers_position', 'fond_source',
     )
     out = {k: rec[k] for k in keep if k in rec}
     # éléments fondamentaux résumés (utiles au contrôle, peu volumineux)
@@ -387,6 +391,12 @@ def main():
     # apport H (attention / hype, à contre-courant), actions USA et France ; échelle −80 à 280
     _att = AA.load_attention()
     AA.apply_doc(full, _att.get('by_tv') or {}, _att)
+    # Actions détenues hors tops secteur / pays (ex. ENPH) : même grille, injectées dans by_tv.
+    held = HE.score_missing(full.get('by_tv') or {}, fg=fg)
+    if held:
+        full.setdefault('by_tv', {}).update({k: HE.compact_held(v) for k, v in held.items()})
+        n_ok += sum(1 for r in held.values() if r.get('ok'))
+        n_fail += sum(1 for r in held.values() if not r.get('ok'))
     (ROOT / 'data' / 'apex_achat_v2_scores_full.json').write_text(
         json.dumps(full, ensure_ascii=False) + '\n'
     )
@@ -402,6 +412,9 @@ def main():
         for rec in [p['etf']] + p['actions']:
             if rec.get('tv'):
                 compact_tv[rec['tv']] = compact_rec(rec)
+    if held:
+        for tv, rec in held.items():
+            compact_tv[tv] = HE.compact_held(rec)
     site = {
         'generated': full['generated'],
         'pilot': True,

@@ -91,6 +91,24 @@ def universe():
                 term, geo, ape = FR_TERM.get(t, a.get('nom') or t), 'FR', FR_ADR.get(t)
             out.append({'tv': tv, 'ticker': t, 'yahoo': yahoo, 'nom': a.get('nom'), 'pays': pays,
                         'section': sid, 'term': term, 'geo': geo, 'ape': ape})
+    # Actions détenues hors univers (Mes positions) : même collecte d'attention
+    try:
+        import score_held_equities as HE
+        for a in HE.iter_held_equities():
+            tv = a.get('tv')
+            if not tv or tv in seen:
+                continue
+            seen.add(tv)
+            t = a.get('ticker') or tv.split(':')[-1]
+            yahoo = a.get('yahoo') or t
+            if t == 'ENPH':
+                term, geo, ape = 'Enphase stock', '', 'ENPH'
+            else:
+                term, geo, ape = (US_TERM.get(t, a.get('nom') or t) + ' stock'), '', t
+            out.append({'tv': tv, 'ticker': t, 'yahoo': yahoo, 'nom': a.get('nom'), 'pays': 'USA',
+                        'section': 'held', 'term': term, 'geo': geo, 'ape': ape})
+    except Exception:
+        pass
     return out
 
 
