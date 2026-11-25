@@ -280,7 +280,8 @@ def obligations():
             rec = L.assemble(blocks, fgp, 'F&G', {
                 'fondamental': {'points': fpts, 'max': 90, 'elements': fel, 'nc': fnc},
                 'technique': {'symbole': used, 'date_cloture': t and t['date_cloture'], 'detail': t and t['detail']} if t else {'erreur': 'série hebdomadaire introuvable'},
-                'fear_greed': {'valeur': g.get('value'), 'source': 'CNN Fear & Greed, à contre-courant'}})
+                'fear_greed': {'valeur': g.get('value'), 'source': 'CNN Fear & Greed, à contre-courant'}},
+                mm40=L.mm40_of(tv, yahoo, None))
             rec['fond'] = fpts
             if not t:
                 rec['cap'] = 'sans_technique'
@@ -328,7 +329,8 @@ def energie(T):
         rec = L.assemble(blocks, fgp, 'F&G', {
             'fondamental': {'points': fpts, 'max': 90, 'elements': fel, 'nc': fnc},
             'technique': {'symbole': used, 'date_cloture': t and t['date_cloture'], 'detail': t and t['detail']} if t else {'erreur': 'série hebdomadaire introuvable'},
-            'fear_greed': {'valeur': g.get('value'), 'source': 'CNN Fear & Greed, à contre-courant'}})
+            'fear_greed': {'valeur': g.get('value'), 'source': 'CNN Fear & Greed, à contre-courant'}},
+            mm40=L.mm40_of(a.get('tv'), a.get('yahoo'), None))
         rec['fond'] = fpts
         log('energie', a.get('tv'), note(a.get('apex10')), rec['note'], fnc)
         a['apex10'] = rec
@@ -358,7 +360,8 @@ def energie_contrat(a, g, fgp):
     rec = L.assemble(blocks, fgp, 'F&G', {
         'fondamental': {'points': fpts, 'max': 90, 'elements': fel, 'nc': fnc, 'regle': regle},
         'technique': {'symbole': used, 'date_cloture': t and t['date_cloture'], 'detail': t and t['detail']} if t else {'erreur': 'série hebdomadaire introuvable'},
-        'fear_greed': {'valeur': g.get('value'), 'source': 'CNN Fear & Greed, à contre-courant'}})
+        'fear_greed': {'valeur': g.get('value'), 'source': 'CNN Fear & Greed, à contre-courant'}},
+        mm40=L.mm40_of(a.get('tv'), a.get('yahoo'), None))
     rec['fond'] = fpts
     if not t:
         rec.update({'note': None, 'display': '–', 'total': None, 'erreur': 'série hebdomadaire introuvable'})
@@ -405,7 +408,8 @@ def devises(T):
         new = L.assemble(blocks, fgp, 'F&G', {
             'fondamental': {'points': fpts, 'max': 30, 'elements': E, 'nc': fnc},
             'devise': {'points': dev, 'note_devise_250': rec['note'], 'regle': 'floor((note devise + 50) / 30) × 3, max 30'},
-            'hype': {'points': hp, 'attention': att, 'grille': '0–9→+30, 10→+27, 50→+15, 100→0'}})
+            'hype': {'points': hp, 'attention': att, 'grille': '0–9→+30, 10→+27, 50→+15, 100→0'}},
+            mm40=L.mm40_of(e.get('tv'), e.get('yahoo'), e.get('ticker')))
         new['decomp']['points'].update({'rsi': P.get('rsi'), 'macd': P.get('macd'), 'fibonacci': P.get('fibonacci'), 'cci': P.get('cci'),
                                         'devise': dev, 'fondamental': fpts, 'hype': hp, 'fear_greed': fgp, 'total': new['note']})
         for k in ('fg_value',):

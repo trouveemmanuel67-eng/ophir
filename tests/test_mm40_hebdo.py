@@ -9,7 +9,7 @@ sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "src"))
 
 from apex.score import (  # noqa: E402
-    mm40_hebdo_points, mm40_hebdo_texte, MM40_HEBDO_MAX, round_half,
+    mm40_hebdo_points, mm40_hebdo_texte, MM40_HEBDO_MAX, MM40_HEBDO_MAX_AUTRES, round_half,
 )
 from apex.config import regles  # noqa: E402
 from apex import metaux_points as MP  # noqa: E402
@@ -57,6 +57,22 @@ def test_barème_lineaire_et_plafond():
     assert pts is None and det["etat"] == "n.c."
 
 
+def test_bareme_autres_30():
+    assert MM40_HEBDO_MAX_AUTRES == 30
+    # −16 % : 30 × 16/40 = 12
+    pts, det = mm40_hebdo_points(_closes(84, 100), max_pts=30)
+    assert abs(det["ecart"] + 0.16) < 1e-9
+    assert pts == 12 and det["max"] == 30
+    # −40 % et au-delà : plafond 30
+    pts, det = mm40_hebdo_points(_closes(60, 100), max_pts=30)
+    assert pts == 30
+    pts, det = mm40_hebdo_points(_closes(50, 100), max_pts=30)
+    assert det["ecart"] < -0.40 and pts == 30
+    # au-dessus : 0
+    pts, _ = mm40_hebdo_points(_closes(110, 100), max_pts=30)
+    assert pts == 0
+
+
 def test_texte_decomposition():
     assert mm40_hebdo_texte(-0.2044, 125) == "MM40 hebdo : écart −20,4 %, +125 pts"
     assert mm40_hebdo_texte(0.032, 0) == "MM40 hebdo : écart +3,2 %, 0 pts"
@@ -68,7 +84,16 @@ def test_regles_et_page():
     cx = regles()["apex_crypto"]
     assert mx["points"]["mm40"] == 125 and cx["points"]["mm40"] == 125
     assert "125" in mx["regles_courtes"]["mm40"] and "comptant" in mx["regles_courtes"]["mm40"].lower()
+    assert "30" in mx["regles_courtes"]["mm40"]
+    assert mx["points"].get("mm40_autres") == 30
     assert "125" in cx["regles_courtes"]["mm40"]
+    for key in ("apex_obligations", "apex_energie", "apex_achat_v2"):
+        bloc = regles()[key]
+        if key == "apex_achat_v2":
+            assert bloc["mm40"]["max"] == 30
+        else:
+            assert bloc["points"]["mm40"] == 30
+    assert regles()["apex_short"]["mm40"]["applique"] is False
     js = (ROOT / "src" / "regles.js").read_text(encoding="utf-8")
     grid_m = js.split("function rgMetauxGrid")[1].split("function rgCryptoChamp")[0]
     grid_c = js.split("function rgCryptoGrid")[1].split("function rgLiquidites")[0] if "function rgLiquidites" in js.split("function rgCryptoGrid")[1] else js.split("function rgCryptoGrid")[1][:4000]
@@ -77,11 +102,11 @@ def test_regles_et_page():
     assert "pts.mm40" in grid_m and "pts.mm40" in grid_c
 
 
-def test_spot_seulement_pas_etc_ni_minieres():
+def test_spot_125_etc_et_minieres_30():
     import inspect
     src = inspect.getsource(MP.score_instrument)
     assert "mm40_hebdo_points" in src
-    assert "kind == 'spot'" in src
+    assert "max_pts=mm40_max" in src or "max_pts = mm40_max" in src or "max_pts=mm40_max" in src.replace(" ", "")
     mt = json.loads((ROOT / "data" / "metaux.json").read_text(encoding="utf-8"))
     for r in mt["rows"]:
         items = [(r.get("mlist") or {}).get("head")] + list(((r.get("mlist") or {}).get("items") or []))
@@ -90,15 +115,15 @@ def test_spot_seulement_pas_etc_ni_minieres():
                 continue
             dec = (it["apex10"].get("decomp") or {})
             pts = dec.get("points") or {}
-            ligne = it["apex10"].get("ligne") or ""
+            ligne = it["apex10"].get("ligne") or dec.get("texte") or ""
+            assert pts.get("mm40") is not None or (dec.get("mm40") or {}).get("etat") == "n.c."
+            assert "MM40 hebdo" in ligne
+            mx = (dec.get("mm40") or {}).get("max")
             if it.get("kind") == "spot":
-                assert pts.get("mm40") is not None
-                assert "MM40 hebdo" in ligne
-                assert "écart" in ligne
-                assert dec.get("mm40", {}).get("periode") == "40 semaines"
+                assert mx == 125
+                assert "écart" in ligne or (dec.get("mm40") or {}).get("etat") == "n.c."
             else:
-                assert pts.get("mm40") is None
-                assert "MM40 hebdo" not in ligne
+                assert mx == 30 or (dec.get("mm40") or {}).get("etat") == "n.c."
 
 
 def test_crypto_toutes_notees():

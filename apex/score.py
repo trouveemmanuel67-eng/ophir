@@ -50,15 +50,24 @@ def fmt10(n):
 
 
 # MM40 hebdo (équivalent de la MM200 jours), à contre-courant.
-# Même maximum que le fondamental des actions sur la grille 250 : +125.
+# Métaux au comptant et cryptos : +125 (même maximum que le fondamental actions).
+# Tous les autres actifs notés sur 250 qui ont un historique hebdo : +30.
 MM40_HEBDO_MAX = 125
+MM40_HEBDO_MAX_AUTRES = 30
 MM40_HEBDO_PLAFOND = 0.40
-MM40_HEBDO_REGLE = (
-    "MM40 hebdo, à contre-courant, sur les clôtures hebdomadaires confirmées "
-    "(équivalent de la MM200 jours). 0 point si le cours est au-dessus de la MM40 ; "
-    "montée linéaire de 0 à +125 entre 0 % et −40 % ; plafonné à +125 au-delà. "
-    "Les points s’ajoutent au total, borné à −50…250."
-)
+
+
+def mm40_hebdo_regle(max_pts=None):
+    m = MM40_HEBDO_MAX if max_pts is None else int(max_pts)
+    return (
+        "MM40 hebdo, à contre-courant, sur les clôtures hebdomadaires confirmées "
+        "(équivalent de la MM200 jours). 0 point si le cours est au-dessus de la MM40 ; "
+        f"montée linéaire de 0 à +{m} entre 0 % et −40 % ; plafonné à +{m} au-delà. "
+        "Les points s’ajoutent au total, borné à −50…250."
+    )
+
+
+MM40_HEBDO_REGLE = mm40_hebdo_regle(MM40_HEBDO_MAX)
 
 
 def fmt_ecart_pct(ecart):
@@ -82,18 +91,19 @@ def mm40_hebdo_texte(ecart, pts):
     return f"MM40 hebdo : écart {fmt_ecart_pct(ecart)} %, {pts_txt} pts"
 
 
-def mm40_hebdo_points(closes):
-    """Écart à la MM40 semaines, à contre-courant (0 à +125).
+def mm40_hebdo_points(closes, max_pts=None):
+    """Écart à la MM40 semaines, à contre-courant (0 à +max_pts, défaut 125).
 
-    écart = (cours − MM40) / MM40. Au-dessus → 0 ; de 0 à −40 % → 0…+125
-    linéairement ; au-delà de −40 % → +125. Historique < 40 semaines → n.c.
+    écart = (cours − MM40) / MM40. Au-dessus → 0 ; de 0 à −40 % → 0…+max
+    linéairement ; au-delà de −40 % → +max. Historique < 40 semaines → n.c.
 
     Retourne (points:int|None, détail:dict).
     """
+    cap = MM40_HEBDO_MAX if max_pts is None else int(max_pts)
     base = {
-        'max': MM40_HEBDO_MAX,
+        'max': cap,
         'periode': '40 semaines',
-        'regle': MM40_HEBDO_REGLE,
+        'regle': mm40_hebdo_regle(cap),
     }
     if not closes:
         d = dict(base, etat='n.c.', points=None, raison='série hebdomadaire absente')
@@ -112,8 +122,8 @@ def mm40_hebdo_points(closes):
     if ecart >= 0:
         pts = 0
     else:
-        pts = int(round_half(min(MM40_HEBDO_MAX, (-ecart / MM40_HEBDO_PLAFOND) * MM40_HEBDO_MAX)))
-        pts = max(0, min(MM40_HEBDO_MAX, pts))
+        pts = int(round_half(min(cap, (-ecart / MM40_HEBDO_PLAFOND) * cap)))
+        pts = max(0, min(cap, pts))
     det = dict(
         base,
         etat='applique',

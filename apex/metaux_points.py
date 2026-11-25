@@ -219,8 +219,9 @@ def score_instrument(obj, metal=None, av=None, fg=None):
         qual_pts, qual_nc, qual_el = etc_quality(obj.get('isin'))
         extra += int(qual_pts)
     mm40_pts, mm40_det = (None, None)
-    if kind == 'spot':
-        mm40_pts, mm40_det = mm40_hebdo_points(c)
+    if c:
+        mm40_max = 125 if kind == 'spot' else 30
+        mm40_pts, mm40_det = mm40_hebdo_points(c, max_pts=mm40_max)
     brut = int(rsi_pts + macd_pts + fibo_pts + cci_pts + extra + fg_pts + (hype_pts or 0) + (mm40_pts or 0))
     n = max(int(cfg['min']), min(int(cfg['max']), int(round_half(brut))))
     # APE-25 (t503u) : portail cyan retiré, la note peut atteindre 250.
@@ -232,7 +233,7 @@ def score_instrument(obj, metal=None, av=None, fg=None):
         *( [('Qualité ETC', qual_pts)] if kind == 'etc' else [] ),
         ('F&G', fg_pts if fg and fg.get('ok') else None),
         *( [('Hype', hype_pts if hype_pts is not None else '—')] if kind in ('spot', 'etc') else [] ),
-        *( [('MM40 hebdo', (mm40_det or {}).get('texte') or mm40_hebdo_texte((mm40_det or {}).get('ecart'), mm40_pts))] if kind == 'spot' else [] ),
+        *( [('MM40 hebdo', (mm40_det or {}).get('texte') or mm40_hebdo_texte((mm40_det or {}).get('ecart'), mm40_pts))] if mm40_det else [] ),
     ]
     texte = _ligne(parts, n)
     return {
@@ -262,7 +263,7 @@ def score_instrument(obj, metal=None, av=None, fg=None):
             'fondamental': {'points': fond_total, 'elements': fond_elems} if has_fond else None,
             'structure': struct_det,
             'hype': {'points': hype_pts, 'attention': att_val, 'grille': ('0–9→+90 … 100→0' if kind == 'spot' else '0–9→+45, −4 par tranche jusqu’à 40–49 (29), puis 25 − 5 par tranche (grille crypto)'), 'etat': 'applique' if kind in ('spot', 'etc') else 'hors_comptant'},
-            'mm40': None if kind != 'spot' else mm40_det,
+            'mm40': mm40_det,
             'qualite_etc': None if kind != 'etc' else {'points': qual_pts, 'max': 45, 'elements': qual_el, 'nc': qual_nc,
                             'regle': '5 × 9 : TER ≤ 0,25 % ; TER ≤ 0,15 % ; encours ≥ 1 Md€ ; ancienneté ≥ 5 ans ; réplication physique (justETF)'},
             'echelle': 250,

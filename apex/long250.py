@@ -24,7 +24,8 @@ import ind_core as K  # noqa: E402
 import charte as CH  # noqa: E402
 import fibo as FB  # noqa: E402
 from build_apex_achat_v2_pilot import rsi_points, macd_points, fibo_points, cci_points, load_closed_weekly  # noqa: E402
-from .score import load_cnn_fg, metaux_band, fmt10, fg_points  # noqa: E402
+from .score import load_cnn_fg, metaux_band, fmt10, fg_points, mm40_hebdo_points, mm40_hebdo_texte, MM40_HEBDO_MAX_AUTRES  # noqa: E402
+from .weekly_closes import weekly_closes  # noqa: E402
 from .metaux_points import yahoo_cands_metaux, find_wk_metaux  # noqa: E402
 
 F = ROOT / 'data' / 'fond250'
@@ -175,18 +176,53 @@ def _fmt(lab, v):
     return f'{lab} {v}'
 
 
-def assemble(blocks, fg_pts, fg_label='F&G', meta=None):
-    """blocks : [(label, points|None)] ; fg_pts : points sentiment signés (±50)."""
-    brut = int(sum(v or 0 for _l, v in blocks) + (fg_pts or 0))
+def mm40_of(tv=None, yahoo=None, ticker=None, closes=None, path=None, max_pts=None):
+    """Points MM40 hebdo (barème +30 par défaut) et détail, à partir d'une série ou d'un symbole."""
+    cap = MM40_HEBDO_MAX_AUTRES if max_pts is None else int(max_pts)
+    if closes is None:
+        closes = weekly_closes(tv, yahoo, ticker, path)
+    return mm40_hebdo_points(closes, max_pts=cap)
+
+
+def assemble(blocks, fg_pts, fg_label='F&G', meta=None, mm40=None):
+    """blocks : [(label, points|None)] ; fg_pts : points sentiment signés (±50).
+
+    mm40 : (points, détail) déjà calculé, ou None pour ne pas ajouter le critère
+    (épargne, immobilier). Les points None (n.c.) n'entrent pas dans le total.
+    """
+    blocks = list(blocks)
+    if mm40 is not None:
+        pts, det = mm40
+        label = (det or {}).get('texte') or mm40_hebdo_texte((det or {}).get('ecart'), pts)
+        blocks.append(('MM40 hebdo', pts if pts is not None else None))
+        # On remplace le libellé brut par le texte complet dans _fmt via meta, et
+        # on pose le texte après coup si pts est un int.
+        if meta is None:
+            meta = {}
+        else:
+            meta = dict(meta)
+        meta['mm40'] = det
+        meta.setdefault('points_mm40', pts)
+    brut = int(sum((v or 0) for _l, v in blocks if not isinstance(v, str)) + (fg_pts or 0))
     n = max(MIN, min(MAX, brut))
     band = metaux_band(n)
-    texte = ' · '.join(_fmt(l, v) for l, v in blocks + [(fg_label, fg_pts)]) + f'  →  {n} / 250'
+    bits = []
+    for l, v in blocks + [(fg_label, fg_pts)]:
+        if l == 'MM40 hebdo' and meta and isinstance(meta.get('mm40'), dict) and meta['mm40'].get('texte'):
+            bits.append(meta['mm40']['texte'])
+        else:
+            bits.append(_fmt(l, v))
+    texte = ' · '.join(bits) + f'  →  {n} / 250'
     out = {'note': n, 'display': fmt10(n), 'hex': band['hex'], 'flag': band['flag'], 'band': band['id'], 'pos': n,
            'scale': 250, 'total_max': MAX, 'total_min': MIN, 'total': n, 'v2': True, 'cap': '',
            'decomp': {'texte': texte, 'points': {l: v for l, v in blocks}, 'echelle': 250}}
     out['decomp']['points'][fg_label] = fg_pts
+    if meta and meta.get('points_mm40') is not None:
+        out['decomp']['points']['mm40'] = meta['points_mm40']
+        out['decomp']['points']['MM40 hebdo'] = meta['points_mm40']
     if meta:
         out['decomp'].update(meta)
+    out['ligne'] = texte
     return out
 
 
@@ -565,10 +601,12 @@ def score_devise(ccy):
     fpts, fnc, fel = devise_fond(ccy)
     g = fg()
     blocks = [('RSI', t and t['rsi']), ('MACD', t and t['macd']), ('Fibo', t and t['fibonacci']), ('CCI', t and t['cci']), ('Fond. devise', fpts)]
+    closes = [b['close'] for b in bars] if bars else []
     out = assemble(blocks, g['points'] if g.get('ok') else None, 'F&G',
                    {'fondamental': {'points': fpts, 'max': 90, 'elements': fel, 'nc': fnc},
                     'technique': {'source': path, 'date_cloture': t and t['date_cloture'], 'detail': t and t['detail']},
-                    'fear_greed': {'valeur': g.get('value'), 'source': 'CNN Fear & Greed, à contre-courant'}})
+                    'fear_greed': {'valeur': g.get('value'), 'source': 'CNN Fear & Greed, à contre-courant'}},
+                   mm40=mm40_of(closes=closes, path=path))
     return out
 
 

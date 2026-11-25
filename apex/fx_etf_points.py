@@ -21,7 +21,7 @@ if str(ROOT / 'src') not in sys.path:
 import ind_core as K
 import charte as CH
 import fibo as FB
-from .score import metaux_band, fmt10, round_half, fg_points, load_cnn_fg
+from .score import metaux_band, fmt10, round_half, fg_points, load_cnn_fg, mm40_hebdo_points, mm40_hebdo_texte, MM40_HEBDO_MAX_AUTRES
 
 DATA = ROOT / 'data' / 'liquidites_etf'
 
@@ -78,6 +78,9 @@ def _yahoo_weeks(path, close_after='friday'):
 def _ligne(parts, n):
     bits = []
     for lab, pts in parts:
+        if isinstance(pts, str) and pts not in ('—', '-'):
+            bits.append(pts if pts.startswith(lab) else '%s %s' % (lab, pts))
+            continue
         if pts is None or pts == '—':
             bits.append('%s —' % lab)
             continue
@@ -131,7 +134,8 @@ def score_etf(obj, note_devise_100, fg_value=None):
     att_val = attention_of(obj.get('tv'), obj.get('yahoo'), obj.get('ticker'), obj.get('nom'))
     hype_pts = hype_points_30(att_val)
 
-    brut = int(rsi_pts + macd_pts + fibo_pts + cci_pts + (dev_pts or 0) + (fg_pts or 0) + (hype_pts or 0))
+    mm40_pts, mm40_det = mm40_hebdo_points(c, max_pts=MM40_HEBDO_MAX_AUTRES)
+    brut = int(rsi_pts + macd_pts + fibo_pts + cci_pts + (dev_pts or 0) + (fg_pts or 0) + (hype_pts or 0) + (mm40_pts or 0))
     n = max(-50, min(250, int(round_half(brut))))
     band = metaux_band(n)
     parts = [
@@ -140,6 +144,7 @@ def score_etf(obj, note_devise_100, fg_value=None):
         ('Fond.', '—'),
         ('F&G', fg_pts if fg_value is not None else '—'),
         ('Hype', hype_pts if hype_pts is not None else '—'),
+        ('MM40 hebdo', (mm40_det or {}).get('texte') or mm40_hebdo_texte((mm40_det or {}).get('ecart'), mm40_pts)),
     ]
     texte = _ligne(parts, n)
     return {
@@ -156,6 +161,7 @@ def score_etf(obj, note_devise_100, fg_value=None):
             'points': {
                 'rsi': rsi_pts, 'macd': macd_pts, 'fibonacci': fibo_pts, 'cci': cci_pts,
                 'devise': dev_pts, 'fondamental': None, 'hype': hype_pts,
+                'mm40': mm40_pts,
                 'fear_greed': fg_pts if fg_value is not None else None, 'total': n,
             },
             'rsi': {'valeur': None if rsi_val is None else round(float(rsi_val), 1), 'points': rsi_pts, 'conditions': rsi_det},
@@ -165,6 +171,7 @@ def score_etf(obj, note_devise_100, fg_value=None):
             'devise': {'note_100': note_devise_100, 'points': dev_pts, 'grille': '0–9→0, 10→3, … 100→30'},
             'fondamental': {'points': None, 'etat': 'n.c.'},
             'hype': {'points': hype_pts, 'attention': att_val, 'etat': 'applique' if hype_pts is not None else 'n.c.', 'grille': '0–9→+30, 10→+27, 50→+15, 100→0'},
+            'mm40': mm40_det,
             'fear_greed': {'valeur': fg_value, 'points': fg_pts if fg_value is not None else None, 'source': 'CNN'},
             'echelle': 250,
         },

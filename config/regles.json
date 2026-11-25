@@ -766,7 +766,7 @@
           "note_renormalise": "Sans fondamental, le technique est renormalisé à 100 % sur les composantes restantes en conservant le poids d'Elliott comme un trou (pas de redistribution)."
         },
         "fondamental": null,
-        "precision": "Note −50 à 250, points entiers comme les actions (t475u). Technique 110 : RSI 30, MACD 30, Fibonacci 30, CCI Stochastic 20, mêmes paliers que les actions ; RSI et MACD à contre-courant. Fondamental minières 90 (9 × 10, même grille). Sans fondamental, la Structure n'est plus comptée (pas de redistribution). Les vagues d'Elliott ne font plus partie de la note. F&G du métal ±50, grille identique. Meilleures entrées alignées sur les actions : seuil 130/250 (le seuil 175, équivalent de l'ancien 75/100, laissait presque toutes les lignes hors liste avec le nouveau barème additif). Portail cyan : note ≥ 190, divergence haussière hebdo et AV ≥ +60, sinon plafond 175. Bandeau Achat / Vente inchangé (Elliott 15 % retiré sans redistribution). HYPE 90 : métaux purs (comptant) seulement, hors ETC/ETF et minières, comptée depuis le 24/11 (attention W48). MM40 hebdo 0 à +125 au métal au comptant seulement (équivalent de la MM200 jours, à contre-courant : 0 au-dessus, linéaire jusqu’à −40 %, puis plafonné ; total borné à 250).",
+        "precision": "Note −50 à 250, points entiers comme les actions (t475u). Technique 110 : RSI 30, MACD 30, Fibonacci 30, CCI Stochastic 20, mêmes paliers que les actions ; RSI et MACD à contre-courant. Fondamental minières 90 (9 × 10, même grille). Sans fondamental, la Structure n'est plus comptée (pas de redistribution). Les vagues d'Elliott ne font plus partie de la note. F&G du métal ±50, grille identique. Meilleures entrées alignées sur les actions : seuil 130/250 (le seuil 175, équivalent de l'ancien 75/100, laissait presque toutes les lignes hors liste avec le nouveau barème additif). Portail cyan : note ≥ 190, divergence haussière hebdo et AV ≥ +60, sinon plafond 175. Bandeau Achat / Vente inchangé (Elliott 15 % retiré sans redistribution). HYPE 90 : métaux purs (comptant) seulement, hors ETC/ETF et minières, comptée depuis le 24/11 (attention W48). MM40 hebdo 0 à +125 au métal au comptant, 0 à +30 aux ETC et aux minières (équivalent de la MM200 jours, à contre-courant : 0 au-dessus, linéaire jusqu’à −40 %, puis plafonné ; total borné à 250).",
         "technique": {
           "source": "config/regles.json · apex/score.py · src/technique_apex.py",
           "fixes": [
@@ -1573,7 +1573,7 @@
     "date_validation": "23/11/2026",
     "reglage_valide": true,
     "section_titre": "Actions (hors banque)",
-    "champ_application": "Ce règlement s’applique aux actions hors banques des USA et de la France, y compris les financières qui ne sont pas des banques (assurances, cartes, gestions d’actifs, bourses, capital markets). Les positions détenues hors de cet univers restent visibles dans Mes positions.",
+    "champ_application": "Ce règlement s’applique aux actions hors banques des USA et de la France, y compris les financières qui ne sont pas des banques (assurances, cartes, gestions d’actifs, bourses, capital markets). Les positions détenues hors de cet univers restent visibles dans Mes positions. MM40 hebdo 0 à +30, à contre-courant (0 au-dessus de la MM40 semaines, linéaire jusqu’à −40 %, puis plafonné ; total borné à 250).",
     "validation": {
       "date": "23/11/2026",
       "date_iso": "2026-11-23",
@@ -1677,13 +1677,32 @@
     },
     "echelle": "−50 à 250",
     "note_min": -50,
-    "note_max": 250
+    "note_max": 250,
+    "mm40": {
+      "id": "mm40",
+      "label": "MM40 hebdo",
+      "max": 30,
+      "max_affiche": "0 à +30",
+      "min": 0,
+      "utilise_par_le_calcul": true,
+      "a_contre_courant": true,
+      "precision": "Écart à la MM40 semaines (clôtures hebdomadaires confirmées, équivalent de la MM200 jours), à contre-courant : 0 point au-dessus de la MM40 ; montée linéaire de 0 à +30 entre 0 % et −40 % ; plafonné à +30 au-delà. Les points s’ajoutent au total, borné à 250. Historique insuffisant (< 40 semaines) : n.c. = 0 point, affiché « — ».",
+      "criteres": [
+        {
+          "id": "mm40_hebdo",
+          "label": "Écart à la MM40 hebdo (à contre-courant)",
+          "points_max": "0 à +30",
+          "regle": "Écart à la MM40 semaines (clôtures hebdomadaires confirmées, équivalent de la MM200 jours), à contre-courant : 0 point au-dessus de la MM40 ; montée linéaire de 0 à +30 entre 0 % et −40 % ; plafonné à +30 au-delà. Les points s’ajoutent au total, borné à 250. Historique insuffisant (< 40 semaines) : n.c. = 0 point, affiché « — ».",
+          "regle_courte": "0 au-dessus ; linéaire 0 à +30 jusqu’à −40 % ; plafonné au-delà."
+        }
+      ]
+    }
   },
   "apex_achat_v2_banque": {
     "titre": "Actions bancaires",
     "section_titre": "Actions bancaires",
     "intro": "Même technique (Technique 99 : RSI 27, MACD 27, Fibo 27, CCI 18) et même Fear & Greed (±50) que les actions hors banque. Fondamental bancaire validé le 23/11/2026, compressé le 24/11 (APE-25) : 81 points, 9 critères à +9 chacun (0 si le seuil n’est pas atteint ou si la donnée manque). Échelle −50 à 250 (H hype / attention ±27, à contre-courant, en plus). Les vagues d’Elliott ne font plus partie de la note. Ce règlement s’applique aux banques des USA et de la France.",
-    "champ_application": "Ce règlement s’applique aux banques (industries Yahoo Banks, Banks - Diversified, Banks - Regional, Savings Institutions) des USA et de la France. Les assurances et les autres financières relèvent des règles Actions (hors banque). Les positions détenues hors de cet univers restent visibles dans Mes positions.",
+    "champ_application": "Ce règlement s’applique aux banques (industries Yahoo Banks, Banks - Diversified, Banks - Regional, Savings Institutions) des USA et de la France. Les assurances et les autres financières relèvent des règles Actions (hors banque). Les positions détenues hors de cet univers restent visibles dans Mes positions. MM40 hebdo 0 à +30, à contre-courant (0 au-dessus de la MM40 semaines, linéaire jusqu’à −40 %, puis plafonné ; total borné à 250).",
     "utilise_par_le_calcul": true,
     "affichage_seulement": false,
     "applique_au_calcul": true,
@@ -2042,7 +2061,26 @@
     },
     "echelle": "−50 à 250",
     "note_min": -50,
-    "note_max": 250
+    "note_max": 250,
+    "mm40": {
+      "id": "mm40",
+      "label": "MM40 hebdo",
+      "max": 30,
+      "max_affiche": "0 à +30",
+      "min": 0,
+      "utilise_par_le_calcul": true,
+      "a_contre_courant": true,
+      "precision": "Écart à la MM40 semaines (clôtures hebdomadaires confirmées, équivalent de la MM200 jours), à contre-courant : 0 point au-dessus de la MM40 ; montée linéaire de 0 à +30 entre 0 % et −40 % ; plafonné à +30 au-delà. Les points s’ajoutent au total, borné à 250. Historique insuffisant (< 40 semaines) : n.c. = 0 point, affiché « — ».",
+      "criteres": [
+        {
+          "id": "mm40_hebdo",
+          "label": "Écart à la MM40 hebdo (à contre-courant)",
+          "points_max": "0 à +30",
+          "regle": "Écart à la MM40 semaines (clôtures hebdomadaires confirmées, équivalent de la MM200 jours), à contre-courant : 0 point au-dessus de la MM40 ; montée linéaire de 0 à +30 entre 0 % et −40 % ; plafonné à +30 au-delà. Les points s’ajoutent au total, borné à 250. Historique insuffisant (< 40 semaines) : n.c. = 0 point, affiché « — ».",
+          "regle_courte": "0 au-dessus ; linéaire 0 à +30 jusqu’à −40 % ; plafonné au-delà."
+        }
+      ]
+    }
   },
   "apex_metaux": {
     "section_titre": "Métaux précieux",
@@ -2055,12 +2093,12 @@
     "av_rsi_macd_contrarien": true,
     "cci_toujours_compte": true,
     "champ_application": "Ce règlement s'applique à l'or, l'argent, le platine, le palladium, à leurs ETC et ETF physiques, et aux métaux au comptant. La note APEX utilise la même échelle et les mêmes paliers entiers que les actions (−50 à 250). Technique : RSI 30, MACD 30, Fibonacci 30, CCI Stochastic 20 (Daveatt), soit 110 points. RSI et MACD sont lus à contre-courant, avec exactement la grille actions (RSI < 40 : +10, divergence haussière hebdo : +20, cumulables ; MACD < 0 : +10, ≥ 4 barres d'histogramme rouges sous 0 : +20, cumulables). Fibonacci : paliers non cumulables, retracement depuis le plus haut historique (sous 38,2 % : +10 ; 61,8 % : +20 ; 78,6 % : +30). CCI/Stoch : +20 si la ligne D de Daveatt est sous 20. Fondamental des minières : même grille actions, 9 critères de +10, maximum 90. Sans fondamental (ETC, contrat, métal au comptant, ou minière sans données), la Structure n'est plus comptée dans la note, sans redistribution des points (comme les vagues d'Elliott). Le Fear & Greed Index CNN (le même que pour les actions) ajoute ±50, à contre-courant (milieu 50 = 0, tranche de 10). Total borné à −50…250, uniquement des entiers. La note d'une ligne (Or, Argent, Platine, Palladium) est la moyenne des notes des instruments visibles, hors titres sans note. Les signaux du bandeau Achat / Vente restent ceux du contrat à terme continu Yahoo, avec DBC comme référence ; ce bandeau n'est pas modifié. APE-25 (24/11/2026) : portail cyan retiré, la note peut atteindre 250. Comptant : Technique 110 + HYPE 90 + F&G ±50 + MM40 hebdo 0 à +125 (à contre-courant, linéaire jusqu’à −40 %, puis plafonné ; total borné à 250). ETC : Technique 110 + HYPE 45 du métal (grille crypto) + Qualité ETC 45 (5 × 9 : TER ≤ 0,25 % ; TER ≤ 0,15 % ; encours ≥ 1 Md€ ; ancienneté ≥ 5 ans ; réplication physique — justETF) + F&G ±50. Minières : Technique 110 + Fondamental 90 + F&G ±50.",
-    "effet_echelle": "Technique 110 (RSI 30 · MACD 30 · Fibonacci 30 · CCI 20) + Fondamental 90 (minières seulement). Sans fondamental, la Structure n'est plus comptée (pas de redistribution). F&G ±50. MM40 hebdo 0 à +125 au comptant seulement (à contre-courant, linéaire jusqu’à −40 %, puis plafonné). Total borné à −50 à 250.",
+    "effet_echelle": "Technique 110 (RSI 30 · MACD 30 · Fibonacci 30 · CCI 20) + Fondamental 90 (minières seulement). Sans fondamental, la Structure n'est plus comptée (pas de redistribution). F&G ±50. MM40 hebdo 0 à +125 au comptant, 0 à +30 aux ETC et aux minières (à contre-courant, linéaire jusqu’à −40 %, puis plafonné). Total borné à −50 à 250.",
     "av_sans_elliott": true,
     "av_ne_pas_redistribuer_elliott": true,
     "av_pas_plafond_zone_rouge": true,
     "effet_echelle_av": "Le retrait des vagues d'Elliott (15 %) du bandeau Achat / Vente, sans redistribution, ramène l'amplitude typique de ±100 à ±85 lorsque toutes les autres composantes (y compris la divergence 10 %) sont comptées. Si la divergence est absente (elle n'est déjà pas comptée, et son poids est alors hors du dénominateur, comme avant), le plafond typique est ±83,3. Le seuil +60 du portail cyan reste atteignable : il faut un score moyen d'environ +70,6 sur les 85 % restants (ou +72 sur les 75 % restants si la divergence n'est pas comptée). L'échelle affichée du bandeau reste −100 à +100.",
-    "intro_courte": "Or, argent, platine, palladium, leurs ETC et ETF. Note −50 à 250, points entiers comme les actions, avec MM40 hebdo 0 à +125 au comptant, à contre-courant.",
+    "intro_courte": "Or, argent, platine, palladium, leurs ETC et ETF. Note −50 à 250, points entiers comme les actions, avec MM40 hebdo 0 à +125 au comptant et 0 à +30 aux ETC et aux minières, à contre-courant.",
     "regles_courtes": {
       "structure": "Retirée de la note, sans redistribution (comme Elliott).",
       "fibonacci": "Plus bas → plus haut (corps hebdo). Sous 38,2 % : +10 ; 61,8 % : +20 ; 78,6 % : +30. Non cumulables.",
@@ -2071,7 +2109,7 @@
       "fear_greed": "Milieu 50 = 0. Tranche de 10 : peur 40 → +10 … 0 → +50 ; avidité 60 → −10 … 100 → −50. Valeur d’entrée (t537u, 24/11/2026) : sentiment APEX 0–100 du métal (or, argent, platine, palladium ; ETC et minières suivent leur métal, panier pondéré + CFTC pour les fonds multi-métaux), à la place du CNN global.",
       "gi": "",
       "hype": "Comptant seulement, hors ETC/ETF et minières. Attention Long Swing 0–100, à contre-courant, 9 pts/tranche : 0 → +90 ; 10 → +81 ; 50 → +45 ; 100 → 0. Comptée depuis le 24/11 (attention W48).",
-      "mm40": "Comptant seulement, hors ETC et minières. Écart à la MM40 semaines (clôtures hebdomadaires, équivalent de la MM200 jours), à contre-courant : 0 point si le cours est au-dessus de la MM40 ; montée linéaire de 0 à +125 entre 0 % et −40 % ; plafonné à +125 au-delà. Même maximum que le fondamental des actions (125). Les points s’ajoutent au total, borné à 250."
+      "mm40": "Comptant : 0 à +125, à contre-courant (0 au-dessus de la MM40 semaines, linéaire jusqu’à −40 %, puis plafonné). ETC et minières : même règle, barème 0 à +30. Total borné à 250."
     },
     "note_min": -50,
     "note_max": 250,
@@ -2098,7 +2136,8 @@
       "structure": 0,
       "fear_greed": 50,
       "hype": 90,
-      "mm40": 125
+      "mm40": 125,
+      "mm40_autres": 30
     },
     "retirer_structure": true,
     "ne_pas_redistribuer_structure": true,
@@ -2154,22 +2193,24 @@
     "calcul_aligne": true,
     "has_technique": true,
     "note_actuelle": "notes publiées dans l’onglet, sur 250",
-    "intro_courte": "ETF obligataires UCITS (référence de segment et liste). Technique 110 + Fondamental obligataire 90 + sentiment du segment ±50 = −50 à 250, points entiers, sans Elliott. La note d'un segment est la moyenne des ETF affichés.",
-    "champ_application": "Fondamental selon les standards des gérants obligataires : rendement réel, prime de terme ou de crédit, duration et cycle des taux, notation, frais, encours, ancienneté, risque de change. Sources : FRED (Treasuries, TIPS, spreads OAS ICE BofA, taux longs OCDE, HICP), BCE (taux de dépôt), justETF (TER, encours, date de création, couverture), Yahoo Finance (répartition des notations). n.c. = 0 point, sans redistribution.",
+    "intro_courte": "ETF obligataires UCITS (référence de segment et liste). Technique 110 + Fondamental obligataire 90 + sentiment du segment ±50 = −50 à 250, points entiers, sans Elliott. La note d'un segment est la moyenne des ETF affichés. MM40 hebdo 0 à +30, à contre-courant (total borné à 250).",
+    "champ_application": "Fondamental selon les standards des gérants obligataires : rendement réel, prime de terme ou de crédit, duration et cycle des taux, notation, frais, encours, ancienneté, risque de change. Sources : FRED (Treasuries, TIPS, spreads OAS ICE BofA, taux longs OCDE, HICP), BCE (taux de dépôt), justETF (TER, encours, date de création, couverture), Yahoo Finance (répartition des notations). n.c. = 0 point, sans redistribution. MM40 hebdo 0 à +30, à contre-courant (0 au-dessus, linéaire jusqu’à −40 %, puis plafonné ; total borné à 250).",
     "points": {
       "rsi": 30,
       "macd": 30,
       "fibonacci": 30,
       "cci": 20,
       "fondamental": 90,
-      "fear_greed": 50
+      "fear_greed": 50,
+      "mm40": 30
     },
     "regles_courtes": {
       "rsi": "RSI < 40 : +10 ; divergence haussière hebdo : +20 ; cumulables.",
       "macd": "MACD < 0 : +10 ; MACD < 0 et 4 barres rouges d'histogramme consécutives (histogramme < 0 ou en baisse) : +20 ; cumulables, plafond 30.",
       "fibonacci": "Plus bas → plus haut (corps hebdo). Sous 38,2 % : +10 ; 61,8 % : +20 ; 78,6 % : +30. Non cumulables.",
       "cci": "+20 si le CCI Stochastic Daveatt (ligne D) est sous 20.",
-      "fear_greed": "Milieu 50 = 0. Tranche de 10 : peur 40 → +10 … 0 → +50 ; avidité 60 → −10 … 100 → −50. Valeur d’entrée (t537u, 24/11/2026) : sentiment APEX 0–100 du segment (SHY, TLT, LQD, HYG, TIP, EMB, EUNH, EUN5, EXX6…), à la place du CNN global."
+      "fear_greed": "Milieu 50 = 0. Tranche de 10 : peur 40 → +10 … 0 → +50 ; avidité 60 → −10 … 100 → −50. Valeur d’entrée (t537u, 24/11/2026) : sentiment APEX 0–100 du segment (SHY, TLT, LQD, HYG, TIP, EMB, EUNH, EUN5, EXX6…), à la place du CNN global.",
+      "mm40": "Écart à la MM40 semaines (clôtures hebdomadaires confirmées, équivalent de la MM200 jours), à contre-courant : 0 point au-dessus de la MM40 ; montée linéaire de 0 à +30 entre 0 % et −40 % ; plafonné à +30 au-delà. Les points s’ajoutent au total, borné à 250. Historique insuffisant (< 40 semaines) : n.c. = 0 point, affiché « — »."
     },
     "fond_criteres": [
       {
@@ -2241,22 +2282,24 @@
     "section_titre": "Liquidités",
     "echelle": "−50 à 250",
     "calcul_aligne": true,
-    "intro_courte": "Trois parties sur la même échelle −50 à 250 : épargne et monétaire (contexte de taux à la place de la technique), devises (cours hebdo BCE/Yahoo), ETF par devise.",
-    "champ_application": "L'onglet Liquidités mélange l'épargne et les devises. Les barèmes cibles sont donc distincts. Calcul non encore aligné. Sous chaque devise, un ETF/ETC coté en monnaie locale (meilleure performance annualisée sur 3 ans, dividendes inclus, encours > 100 M, bourse principale ; exclus : levier/inverse, contrats à terme, produits complexes, historique de moins de 3 ans). Barème ETF : Technique 110 + F&G ±50 + devise 30 + Fondamental 30 (n.c. si absent) + HYPE 30 (comptée depuis le 24/11).",
+    "intro_courte": "Trois parties sur la même échelle −50 à 250 : épargne et monétaire (contexte de taux à la place de la technique), devises (cours hebdo BCE/Yahoo), ETF par devise. MM40 hebdo 0 à +30 sur les devises et ETF locaux (pas l’épargne).",
+    "champ_application": "L'onglet Liquidités mélange l'épargne et les devises. Les barèmes cibles sont donc distincts. Calcul non encore aligné. Sous chaque devise, un ETF/ETC coté en monnaie locale (meilleure performance annualisée sur 3 ans, dividendes inclus, encours > 100 M, bourse principale ; exclus : levier/inverse, contrats à terme, produits complexes, historique de moins de 3 ans). Barème ETF : Technique 110 + F&G ±50 + devise 30 + Fondamental 30 (n.c. si absent) + HYPE 30 (comptée depuis le 24/11). MM40 hebdo 0 à +30, à contre-courant, pour les devises et les ETF locaux qui ont un historique hebdomadaire (pas les livrets ni les fonds monétaires).",
     "points": {
       "rsi": 30,
       "macd": 30,
       "fibonacci": 30,
       "cci": 20,
       "fondamental": 90,
-      "fear_greed": 50
+      "fear_greed": 50,
+      "mm40": 30
     },
     "regles_courtes": {
       "rsi": "RSI < 40 : +10 ; divergence haussière hebdo : +20 ; cumulables.",
       "macd": "MACD < 0 : +10 ; MACD < 0 et 4 barres rouges d'histogramme consécutives (histogramme < 0 ou en baisse) : +20 ; cumulables, plafond 30.",
       "fibonacci": "Plus bas → plus haut (corps hebdo). Sous 38,2 % : +10 ; 61,8 % : +20 ; 78,6 % : +30. Non cumulables.",
       "cci": "+20 si le CCI Stochastic Daveatt (ligne D) est sous 20.",
-      "fear_greed": "Milieu 50 = 0. Tranche de 10 : peur 40 → +10 … 0 → +50 ; avidité 60 → −10 … 100 → −50. Valeur d’entrée (t537u, 24/11/2026) : devises : sentiment devises APEX (DXY inversé et AUD/JPY) ; épargne : sentiment Liquidités APEX, inversé ; ETF locaux : secteur ou métal de l’ETF. Remplace le CNN global."
+      "fear_greed": "Milieu 50 = 0. Tranche de 10 : peur 40 → +10 … 0 → +50 ; avidité 60 → −10 … 100 → −50. Valeur d’entrée (t537u, 24/11/2026) : devises : sentiment devises APEX (DXY inversé et AUD/JPY) ; épargne : sentiment Liquidités APEX, inversé ; ETF locaux : secteur ou métal de l’ETF. Remplace le CNN global.",
+      "mm40": "Devises et ETF/ETC cotés dans la monnaie locale, s’ils ont un historique hebdomadaire suffisant. Écart à la MM40 semaines (clôtures hebdomadaires confirmées, équivalent de la MM200 jours), à contre-courant : 0 point au-dessus de la MM40 ; montée linéaire de 0 à +30 entre 0 % et −40 % ; plafonné à +30 au-delà. Les points s’ajoutent au total, borné à 250. Historique insuffisant (< 40 semaines) : n.c. = 0 point, affiché « — ». Les livrets et placements monétaires n’ont pas de cours hebdomadaire : le critère ne s’applique pas."
     },
     "parties": [
       {
@@ -2386,7 +2429,13 @@
             "regle": "n.c. : FMI DataMapper bloqué (403), indicateur Banque mondiale archivé",
             "statut": "non_calcule"
           }
-        ]
+        ],
+        "points": {
+          "mm40": 30
+        },
+        "regles_courtes": {
+          "mm40": "Écart à la MM40 semaines (clôtures hebdomadaires confirmées, équivalent de la MM200 jours), à contre-courant : 0 point au-dessus de la MM40 ; montée linéaire de 0 à +30 entre 0 % et −40 % ; plafonné à +30 au-delà. Les points s’ajoutent au total, borné à 250. Historique insuffisant (< 40 semaines) : n.c. = 0 point, affiché « — »."
+        }
       },
       {
         "id": "etf_par_devise",
@@ -2405,7 +2454,8 @@
           "devise": 30,
           "fondamental": 30,
           "hype": 30,
-          "fear_greed": 50
+          "fear_greed": 50,
+          "mm40": 30
         },
         "fond_criteres": [
           {
@@ -2429,7 +2479,10 @@
             "statut": "non_calcule",
             "regle": "Attention Long Swing 0–100, à contre-courant : 0–9 → +30 ; 10 → +27 ; 50 → +15 ; 100 → 0. Comptée depuis le 24/11 (attention W48)."
           }
-        ]
+        ],
+        "regles_courtes": {
+          "mm40": "Écart à la MM40 semaines (clôtures hebdomadaires confirmées, équivalent de la MM200 jours), à contre-courant : 0 point au-dessus de la MM40 ; montée linéaire de 0 à +30 entre 0 % et −40 % ; plafonné à +30 au-delà. Les points s’ajoutent au total, borné à 250. Historique insuffisant (< 40 semaines) : n.c. = 0 point, affiché « — »."
+        }
       }
     ]
   },
@@ -2442,7 +2495,7 @@
     "has_technique": false,
     "note_actuelle": "notes publiées dans l’onglet, sur 250",
     "intro_courte": "Compte d’épargne EUR et fonds monétaire USD Revolut : même grille que l’épargne (onglet Liquidités).",
-    "champ_application": "Pas de bougies hebdomadaires : la Technique est remplacée par un Contexte de taux 110 (taux du produit vs taux directeur, taux directeur sur 6 mois, inflation sur 6 mois, pente 10 ans − taux directeur ; sources BCE, Fed via FRED, INSEE). Fondamental épargne 90, sentiment Liquidités APEX inversé ±50. Échelle −50 à 250, points entiers, sans Elliott.",
+    "champ_application": "Pas de bougies hebdomadaires : la Technique est remplacée par un Contexte de taux 110 (taux du produit vs taux directeur, taux directeur sur 6 mois, inflation sur 6 mois, pente 10 ans − taux directeur ; sources BCE, Fed via FRED, INSEE). Fondamental épargne 90, sentiment Liquidités APEX inversé ±50. Échelle −50 à 250, points entiers, sans Elliott. Le critère MM40 hebdo ne s’applique pas aux livrets et placements monétaires : pas d’historique de cours hebdomadaire pertinent.",
     "points": {
       "rsi": 30,
       "macd": 30,
@@ -2515,7 +2568,7 @@
     "has_technique": false,
     "note_actuelle": "notes publiées dans l’onglet, sur 250",
     "intro_courte": "Marché résidentiel français (onglet). Contexte marché 110 + Fondamental immobilier 90 + sentiment immobilier APEX à contre-courant ±50. Aucune SCPI n’est suivie sur le site.",
-    "champ_application": "L’onglet Immobilier n’a pas de cours hebdomadaire négocié : Contexte marché 110 à la place de la technique, Fondamental immobilier 90, sentiment immobilier APEX à contre-courant ±50 = −50 à 250. Les foncières cotées restent notées dans l’onglet Actions (profil REIT). Sans Elliott.",
+    "champ_application": "L’onglet Immobilier n’a pas de cours hebdomadaire négocié : Contexte marché 110 à la place de la technique, Fondamental immobilier 90, sentiment immobilier APEX à contre-courant ±50 = −50 à 250. Les foncières cotées restent notées dans l’onglet Actions (profil REIT). Sans Elliott. Le critère MM40 hebdo ne s’applique pas au marché résidentiel (pas un cours hebdomadaire d’actif) : pas d’historique de cours hebdomadaire pertinent.",
     "points": {
       "rsi": 30,
       "macd": 30,
@@ -2581,22 +2634,24 @@
     "calcul_aligne": true,
     "has_technique": true,
     "note_actuelle": "notes publiées dans l’onglet, sur 250",
-    "intro_courte": "Actions et proxies énergétiques, ETF énergie : Technique 110 + Fondamental 90 + sentiment du produit ou du secteur ±50 = −50 à 250. Contrats à terme et ETC gaz : repères sans note.",
-    "champ_application": "Actions : 9 ratios × 10 (Yahoo Finance). ETF énergie : TER ≤ 0,40 % (+10) et ≤ 0,20 % (+10), encours ≥ 300 M€ (+10) et ≥ 1 Md€ (+10), ancienneté ≥ 3 ans (+10) et ≥ 5 ans (+10), réplication physique (+10), ≥ 30 lignes (+10), cycle du secteur (+10) — justETF. Cycle : pétrole, gaz et charbon = WTI sous sa moyenne 5 ans (FRED DCOILWTICO) ; électricité, renouvelables, hydrogène = taux 10 ans US en baisse sur 6 mois (FRED DGS10) ; uranium = n.c. (pas de série publique gratuite du prix spot).",
+    "intro_courte": "Actions et proxies énergétiques, ETF énergie : Technique 110 + Fondamental 90 + sentiment du produit ou du secteur ±50 = −50 à 250. Contrats à terme et ETC gaz : repères sans note. MM40 hebdo 0 à +30, à contre-courant (total borné à 250).",
+    "champ_application": "Actions : 9 ratios × 10 (Yahoo Finance). ETF énergie : TER ≤ 0,40 % (+10) et ≤ 0,20 % (+10), encours ≥ 300 M€ (+10) et ≥ 1 Md€ (+10), ancienneté ≥ 3 ans (+10) et ≥ 5 ans (+10), réplication physique (+10), ≥ 30 lignes (+10), cycle du secteur (+10) — justETF. Cycle : pétrole, gaz et charbon = WTI sous sa moyenne 5 ans (FRED DCOILWTICO) ; électricité, renouvelables, hydrogène = taux 10 ans US en baisse sur 6 mois (FRED DGS10) ; uranium = n.c. (pas de série publique gratuite du prix spot). MM40 hebdo 0 à +30, à contre-courant (0 au-dessus, linéaire jusqu’à −40 %, puis plafonné ; total borné à 250).",
     "points": {
       "rsi": 30,
       "macd": 30,
       "fibonacci": 30,
       "cci": 20,
       "fondamental": 90,
-      "fear_greed": 50
+      "fear_greed": 50,
+      "mm40": 30
     },
     "regles_courtes": {
       "rsi": "RSI < 40 : +10 ; divergence haussière hebdo : +20 ; cumulables.",
       "macd": "MACD < 0 : +10 ; MACD < 0 et 4 barres rouges d'histogramme consécutives (histogramme < 0 ou en baisse) : +20 ; cumulables, plafond 30.",
       "fibonacci": "Plus bas → plus haut (corps hebdo). Sous 38,2 % : +10 ; 61,8 % : +20 ; 78,6 % : +30. Non cumulables.",
       "cci": "+20 si le CCI Stochastic Daveatt (ligne D) est sous 20.",
-      "fear_greed": "Milieu 50 = 0. Tranche de 10 : peur 40 → +10 … 0 → +50 ; avidité 60 → −10 … 100 → −50. Valeur d’entrée (t537u, 24/11/2026) : sentiment APEX 0–100 du produit (pétrole WTI / Brent, gaz) ou du secteur de l’action (Énergie XLE / EXH1, Services aux collectivités XLU / XS6R…), à la place du CNN global."
+      "fear_greed": "Milieu 50 = 0. Tranche de 10 : peur 40 → +10 … 0 → +50 ; avidité 60 → −10 … 100 → −50. Valeur d’entrée (t537u, 24/11/2026) : sentiment APEX 0–100 du produit (pétrole WTI / Brent, gaz) ou du secteur de l’action (Énergie XLE / EXH1, Services aux collectivités XLU / XS6R…), à la place du CNN global.",
+      "mm40": "Écart à la MM40 semaines (clôtures hebdomadaires confirmées, équivalent de la MM200 jours), à contre-courant : 0 point au-dessus de la MM40 ; montée linéaire de 0 à +30 entre 0 % et −40 % ; plafonné à +30 au-delà. Les points s’ajoutent au total, borné à 250. Historique insuffisant (< 40 semaines) : n.c. = 0 point, affiché « — »."
     },
     "fond_criteres": [
       {
@@ -2669,7 +2724,7 @@
     "regles": "apex_short_250",
     "tache": "APE-32 (t514u–t521u)",
     "date_validation": "24/11/2026 (répartition t524u)",
-    "origine": "Note SHORT propre, sur 250 points entiers, distincte de la note LONG (qui n’est pas modifiée). Plus la note est haute, meilleur est le candidat short. Calcul : src/build_short250.py → data/apex_short.json.",
+    "origine": "Note SHORT propre, sur 250 points entiers, distincte de la note LONG (qui n’est pas modifiée). Plus la note est haute, meilleur est le candidat short. Calcul : src/build_short250.py → data/apex_short.json Le critère MM40 hebdo n’est pas appliqué à la note SHORT. Une version inversée (points lorsque le cours est au-dessus de la MM40, cohérente avec la grille SHORT à contre-sens du LONG) serait justifiée, mais elle n’est pas retenue pour le moment.",
     "echelle": "−50 à 250",
     "note_min": -50,
     "note_max": 250,
@@ -2736,6 +2791,11 @@
     "signal_tech_min": 1,
     "univers_fichier": "config/univers_short.json",
     "univers_tache": "t534u",
-    "rsi_hebdo_min": 65
+    "rsi_hebdo_min": 65,
+    "mm40": {
+      "applique": false,
+      "justification_inversee": true,
+      "precision": "Le critère MM40 hebdo n’est pas appliqué à la note SHORT. Une version inversée (points lorsque le cours est au-dessus de la MM40, cohérente avec la grille SHORT à contre-sens du LONG) serait justifiée, mais elle n’est pas retenue pour le moment."
+    }
   }
 }

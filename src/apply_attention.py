@@ -11,6 +11,8 @@ Ne touche à aucune autre section (Métaux, Oblig., Liq., Immo, Crypto, Énergie
 from __future__ import annotations
 import json, math, sys
 from pathlib import Path
+from apex.score import mm40_hebdo_points, mm40_hebdo_texte, MM40_HEBDO_MAX_AUTRES
+from apex.weekly_closes import weekly_closes
 import os
 
 ROOT = Path(os.environ.get('APEX_ROOT') or Path(__file__).resolve().parent.parent)
@@ -76,6 +78,8 @@ def scale_obj(old=None):
 
 
 def _fmt(k, v):
+    if isinstance(v, str):
+        return v
     if v is None:
         return f'{k} –' if k == 'H' else f'{k} n.d.'
     return f"{k} {'+' if v > 0 else ''}{v}"
@@ -141,11 +145,23 @@ def apply_rec(rec, h, att=None, fond_override=None):
     rescale_rec(rec, fond_override)
     p = rec['points']
     p['hype'] = h
+    if p.get('mm40') is None and (p.get('mm40_max') or 0) != 125:
+        closes = weekly_closes(rec.get('tv'), rec.get('yahoo'), rec.get('ticker'), rec.get('weekly_path'))
+        mm40_pts, mm40_det = mm40_hebdo_points(closes, max_pts=MM40_HEBDO_MAX_AUTRES)
+        p['mm40'] = mm40_pts
+        rec.setdefault('detail', {})['mm40'] = mm40_det
+    mm40 = p.get('mm40')
+    # Ne pas toucher au barème +125 (métaux comptant / crypto) s'il était déjà posé.
+    if isinstance((rec.get('detail') or {}).get('mm40'), dict) and (rec['detail']['mm40'] or {}).get('max') == 125:
+        mm40 = p.get('mm40')
     base = sum(int(p.get(k) or 0) for k in ('rsi', 'macd', 'fibonacci', 'cci', 'fondamental', 'fear_greed'))
-    total = max(SCALE_MIN, min(SCALE_MAX, base + (h or 0)))
+    total = max(SCALE_MIN, min(SCALE_MAX, base + (h or 0) + (mm40 or 0)))
     p['total'] = total
+    det40 = (rec.get('detail') or {}).get('mm40') or {}
+    mm40_lab = det40.get('texte') or mm40_hebdo_texte(det40.get('ecart'), mm40)
     parts = [('RSI', p.get('rsi')), ('MACD', p.get('macd')), ('Fibo', p.get('fibonacci')), ('CCI', p.get('cci')),
-             ('Fond', p.get('fondamental')), ('F&G', p.get('fear_greed')), ('H', h)]
+             ('Fond', p.get('fondamental')), ('F&G', p.get('fear_greed')), ('H', h),
+             ('MM40 hebdo', mm40_lab if mm40_lab else mm40)]
     b = band_of(total)
     rec.update({'total': total, 'total_max': SCALE_MAX, 'total_min': SCALE_MIN,
                 'display': f'{total} / {SCALE_MAX}', 'band': b, 'hex': HEX[b], 'av_label': LABEL[b],

@@ -25,6 +25,7 @@ import charte as CH
 import elliott_zones as EZ
 import elliott as E
 from note_apex import divergence_haussiere
+from apex.score import mm40_hebdo_points, mm40_hebdo_texte, MM40_HEBDO_MAX_AUTRES
 
 PARIS = ZoneInfo('Europe/Paris')
 NOW = datetime.now(PARIS)
@@ -616,13 +617,15 @@ def score_asset(asset, fg, elliott_key=None, fond_rules=None, closed_bars=None):
         fond_mode = 'ratios de l’émetteur (Yahoo Finance, fondamentaux déjà en base)'
 
     fg_pts = fg['points'] if fg.get('ok') else 0
-    total = rsi_pts + macd_pts + fibo_pts + cci_pts + int(round(fond_total or 0)) + (fg_pts or 0)
+    mm40_pts, mm40_det = mm40_hebdo_points(c, max_pts=MM40_HEBDO_MAX_AUTRES)
+    total = rsi_pts + macd_pts + fibo_pts + cci_pts + int(round(fond_total or 0)) + (fg_pts or 0) + (mm40_pts or 0)
     band = band_of(total)
     parts = [
         ('RSI', rsi_pts), ('MACD', macd_pts), ('Fibo', fibo_pts),
         ('CCI', cci_pts),
         ('Fond', int(round(fond_total or 0))),
         ('F&G', fg_pts if fg.get('ok') else None),
+        ('MM40 hebdo', mm40_pts),
     ]
     out.update({
         'ok': True,
@@ -635,6 +638,7 @@ def score_asset(asset, fg, elliott_key=None, fond_rules=None, closed_bars=None):
             'cci': cci_pts,
             'fondamental': int(round(fond_total or 0)),
             'fear_greed': fg_pts if fg.get('ok') else None,
+            'mm40': mm40_pts,
             'total': total,
         },
         'detail': {
@@ -650,6 +654,7 @@ def score_asset(asset, fg, elliott_key=None, fond_rules=None, closed_bars=None):
             )},
             'cci': {**cci_det, 'seuil': 20, 'precision': 'CCI Stochastic Daveatt (CCI 28, stoch 28, lissages SMA 3 et 3, ligne D) ; +20 si < 20'},
             'fondamental': {'points': int(round(fond_total or 0)), 'max': 90, 'elements': fond_elems, 'mode': fond_mode},
+            'mm40': mm40_det,
         },
         'ligne': compact_line(parts, total),
         'total': total,

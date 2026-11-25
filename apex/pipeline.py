@@ -37,7 +37,7 @@ REBUILD = [
     'build_secteurs.py', 'build_pays.py', 'build_energie.py', 'build_metaux.py',
     'build_obligations.py', 'build_crypto_fiches.py',
     'build_apex_bars.py', 'build_indicateur.py', 'build_sentiment_secteurs.py', 'build_achatvente.py',
-    'build_data_tabs.py', 'build_fx_apex.py', 'build_obpays.py', 'build_apex10.py', 'apply_sentiment.py', 'build.py',
+    'build_data_tabs.py', 'build_fx_apex.py', 'build_obpays.py', 'build_apex10.py', 'apply_sentiment.py', 'apply_mm40.py', 'build.py',
 ]
 
 
