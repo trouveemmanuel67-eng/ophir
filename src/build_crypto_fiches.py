@@ -1,4 +1,4 @@
-"""Onglet Crypto · fiches APEX Achat / Vente pour BTC, ETH, XRP, SOL et MSTR (proxy bitcoin).
+"""Onglet Crypto · fiches APEX Achat / Vente pour BTC, ETH, SOL et MSTR (proxy bitcoin).
 
 Même méthode et pondérations que l'onglet Actions (src/ind_core.py, 17/11/2026) : Elliott 15 %,
 Fibonacci 15 %, Charte graphique 20 % (src/charte.py), Divergence RSI / MACD weekly 10 % (seulement si
@@ -7,8 +7,8 @@ force relative vs S&P 500 6 et sentiment technique contrarien 4 sur les 40 % res
 Indicateurs hebdomadaires sur bougies clôturées. Fibonacci lu sur les corps ; structure d'Elliott
 de la Charte graphique lue sur les mèches. CCI 20 : en zone ±100, critère facultatif 6 % (même formule et mêmes seuils que CCI_S, ligne violette = +100).
 
-Sources : Binance (BTC/USDT, ETH/USDT, bougies 1w) ; Yahoo Finance (XRP-USD, SOL-USD, MSTR, S&P 500) ;
-CoinMetrics (préfixe Fibonacci BTC/ETH/XRP, historique plus long que Binance / Yahoo) ;
+Sources : Binance (BTC/USDT, ETH/USDT, bougies 1w) ; Yahoo Finance (SOL-USD, MSTR, S&P 500) ;
+CoinMetrics (préfixe Fibonacci BTC/ETH, historique plus long que Binance / Yahoo) ;
 alternative.me (Fear & Greed, contexte, hors note).
 
 -> data/crypto_fiches.json  (inclus ensuite dans tabs_data.json)
@@ -284,23 +284,6 @@ ASSETS = [
         'risks': [RISK_COMMON, RISK_CRYPTO],
     },
     {
-        'key': 'xrp', 'sym': 'XRP', 'nom': 'XRP',
-        'sous': 'XRP/USD · Yahoo Finance',
-        'kind': 'crypto',
-        'src_name': 'Yahoo Finance · XRP-USD',
-        'url': 'https://finance.yahoo.com/quote/XRP-USD/history/',
-        'currency': 'USD',
-        'unit': '$',
-        'loader': 'yahoo', 'yahoo': 'crypto/yahoo_1wk_XRP-USD.json',
-        'cm': 'xrp',
-        'fsym': 'XRP-USD', 'syms': ['CRYPTO:XRPUSD', 'XRP'],
-        'tv': 'CRYPTO:XRPUSD',
-        'close_after': 'sunday',
-        'fibo_adjust_splits': False,
-        'retrieved_key': 'crypto/yahoo_1wk_XRP-USD.json',
-        'risks': [RISK_COMMON, RISK_CRYPTO],
-    },
-    {
         'key': 'sol', 'sym': 'SOL', 'nom': 'Solana',
         'sous': 'SOL/USD · Yahoo Finance',
         'kind': 'crypto',
@@ -428,16 +411,14 @@ out = {
         "Le CCI 20 (corps, mêmes seuils que CCI_S de la vue APEX, ligne violette = +100) entre dans la note lorsqu'il est en surachat ou en survente (6 % facultatif, pris sur le panier de 40 %). L'histogramme MACD est plafonné dès 4 barres hebdomadaires de même signe. "
         "Score = Σ (poids × note) ÷ Σ (poids disponibles). Zones : ≤ −60 vente forte · −60 à −20 vente · "
         "−20 à +20 neutre · +20 à +60 achat · ≥ +60 achat fort. BTC et ETH : cours Binance (USDT). "
-        "XRP et SOL : cours Yahoo Finance (XRP-USD, SOL-USD). "
+        "SOL : cours Yahoo Finance (SOL-USD). "
         "MSTR : cours Yahoo Finance (action, hors dividendes). Aucun rendement n'est promis."
     ),
     'retrieved': {
         'binance_btc': mtime('crypto/binance_BTCUSDT_1w.json'),
         'binance_eth': mtime('crypto/binance_ETHUSDT_1w.json'),
-        'yahoo_xrp': mtime('crypto/yahoo_1wk_XRP-USD.json'),
         'yahoo_sol': mtime('crypto/yahoo_1wk_SOL-USD.json'),
         'yahoo_mstr': mtime('crypto/yahoo_1wk_MSTR.json'),
-        'coinmetrics_xrp': mtime('crypto/coinmetrics_xrp_daily.json'),
         'spx': mtime('actions/yahoo_1wk_%5EGSPC.json'),
         'fng': mtime('crypto/alternative_fng.json'),
         'coinmetrics_btc': mtime('crypto/coinmetrics_btc_daily.json'),
@@ -445,7 +426,7 @@ out = {
     },
 }
 
-# APEX_ONLY=xrp,sol : injecte uniquement les nouveaux actifs et conserve les fiches BTC / ETH / MSTR déjà publiées
+# APEX_ONLY=sol : injecte uniquement les actifs listés et conserve les fiches déjà publiées
 ONLY = {k.strip() for k in os.environ.get('APEX_ONLY', '').split(',') if k.strip()}
 if ONLY:
     prev_path = B + 'crypto_fiches.json'
@@ -454,7 +435,7 @@ if ONLY:
         fresh = {s['key']: s for s in fiches if s['key'] in ONLY}
         oldmap = {s['key']: s for s in prev.get('assets') or []}
         oldmap.update(fresh)
-        order = ['btc', 'eth', 'xrp', 'sol', 'mstr']
+        order = ['btc', 'eth', 'sol', 'mstr']
         assets = [oldmap[k] for k in order if k in oldmap]
         seen = {s['key'] for s in assets}
         for s in (prev.get('assets') or []) + fiches:
@@ -464,7 +445,7 @@ if ONLY:
         # garder les textes de méthode à jour, mais ne pas écraser les timestamps des sources inchangées
         if isinstance(out.get('retrieved'), dict) and isinstance(prev.get('retrieved'), dict):
             merged = dict(prev['retrieved'])
-            merged.update({k: v for k, v in out['retrieved'].items() if k in ('yahoo_xrp', 'yahoo_sol', 'coinmetrics_xrp') or k not in merged})
+            merged.update({k: v for k, v in out['retrieved'].items() if k in ('yahoo_sol',) or k not in merged})
             out['retrieved'] = merged
 
 json.dump(out, open(B + 'crypto_fiches.json', 'w'), ensure_ascii=False)

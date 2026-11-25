@@ -114,14 +114,14 @@ crypto['btc_tech']=binance('BTCUSDT')
 g=json.load(open(B+'crypto/coingecko_global.json'))['data']
 crypto['global']={'total_cap_usd':g['total_market_cap']['usd'],'btc_dom':round(g['market_cap_percentage']['btc'],2),'eth_dom':round(g['market_cap_percentage']['eth'],2),
   'chg24h':round(g['market_cap_change_percentage_24h_usd'],2),'updated':D.datetime.fromtimestamp(g['updated_at'],D.timezone.utc).strftime('%Y-%m-%d %H:%M UTC'),
-  'top':sorted([[k,round(v,2)] for k,v in g['market_cap_percentage'].items()],key=lambda x:-x[1])[:8]}
+  'top':sorted([[k,round(v,2)] for k,v in g['market_cap_percentage'].items() if k.lower() in ('btc','eth','usdt','bnb','usdc','sol','trx','ada','doge','ton','avax')],key=lambda x:-x[1])[:8]}
 f=json.load(open(B+'crypto/alternative_fng.json'))['data']
 fng=sorted([(D.datetime.fromtimestamp(int(x['timestamp']),D.timezone.utc).date().isoformat(),int(x['value']),x['value_classification']) for x in f])
 fv=[v for d,v,c in fng]
 crypto['fng']={'series':[[d,v] for d,v,c in fng],'last':fng[-1],'avg30':round(sum(fv[-30:])/30,1),'avg365':round(sum(fv[-365:])/365,1),'first':fng[0][0],
   'days_extreme_fear_30':sum(1 for v in fv[-30:] if v<25)}
 crypto['retrieved']={'coinmetrics':mtime('crypto/coinmetrics_btc_daily.json'),'binance':mtime('crypto/binance_BTCUSDT_1w.json'),'coingecko':mtime('crypto/coingecko_global.json'),'alt':mtime('crypto/alternative_fng.json')}
-# Fiches APEX BTC / ETH / XRP / SOL / MSTR (construites par src/build_crypto_fiches.py)
+# Fiches APEX BTC / ETH / SOL / MSTR (construites par src/build_crypto_fiches.py)
 _fp=B+'crypto_fiches.json'
 if os.path.exists(_fp):
     crypto['fiches']=json.load(open(_fp))

@@ -115,7 +115,6 @@ WEEKLY_FILES = {
     'eth':  ('binance', 'binance_ETHUSDT_1w.json', None),
     'sol':  ('yahoo',   'yahoo_1wk_SOL-USD.json', 'sunday'),
     'mstr': ('yahoo',   'yahoo_1wk_MSTR.json',    'friday'),
-    'xrp':  ('yahoo',   'yahoo_1wk_XRP-USD.json', 'sunday'),
 }
 
 
@@ -168,7 +167,7 @@ def _yahoo_weeks_safe(path, close_after='friday'):
 
 
 def _closed_weekly(key):
-    """Clôtures hebdomadaires confirmées + opens, pour un actif (btc/eth/sol/mstr/xrp)."""
+    """Clôtures hebdomadaires confirmées + opens, pour un actif (btc/eth/sol/mstr)."""
     cfg = WEEKLY_FILES.get(key)
     if not cfg:
         return None
@@ -314,7 +313,7 @@ def apply_notes(fiches_path=None, tabs_path=None):
     for a in data.get('assets') or []:
         rec = score_asset(a)
         a['apex10'] = rec
-        if (a.get('key') or '').lower() != 'xrp' and rec.get('note') is not None:
+        if rec.get('note') is not None:
             notes.append(int(rec['note']))
     if notes:
         n = int(sum(notes) / len(notes) + 0.5)  # half-up, comme Math.round JS

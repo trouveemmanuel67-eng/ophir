@@ -25,26 +25,6 @@
         "78,6 %": 26435
       }
     },
-    "CRYPTO:XRPUSD": {
-      "alias": [
-        "XRP",
-        "XRP-USD",
-        "XRPUSDT",
-        "XRPUSD"
-      ],
-      "date": "23 nov. 2026",
-      "key": "fin_a",
-      "zone": "rouge",
-      "texte": "Fin de vague A (A à 1,369 = 0,85963). Vague B attendue vers 1,93 à 2,26. Zone rouge : aucune entrée. Comptage manuel d'Emmanuel, 23/11/2026.",
-      "A": {
-        "ratio": "1,369",
-        "prix": 0.85963
-      },
-      "B_attendue": {
-        "bas": 1.93,
-        "haut": 2.26
-      }
-    },
     "NYSE:NEM": {
       "alias": [
         "NEM",

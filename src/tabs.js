@@ -97,16 +97,7 @@ function renderActions(el){
   if(typeof renderPays==='function') renderPays(el);
 }
 
-/* ================= CRYPTO · fiches APEX BTC / ETH / SOL / MSTR (XRP retiré, t482u) ================= */
-function cxIsXrp(s){
-  if(!s) return false;
-  if(String(s.key||'').toLowerCase()==='xrp') return true;
-  const blob=[s.sym,s.tv,s.yahoo,s.ticker,s.nom].map(x=>String(x||'').toUpperCase());
-  return blob.some(v=>v==='XRP'||v==='XRP-USD'||v==='XRPUSD'||v==='CRYPTO:XRPUSD'||v.endsWith(':XRPUSD'));
-}
-function cxApexAssets(list){
-  return (list||[]).filter(s=>!cxIsXrp(s));
-}
+/* ================= CRYPTO · fiches APEX BTC / ETH / SOL / MSTR ================= */
 function cxLiqTitle(s){
   const L=s&&s.liquidite;
   if(!L) return '';
@@ -303,7 +294,7 @@ function cxFichesHTML(){
   const F=T2.crypto&&T2.crypto.fiches;
   if(!F||!F.assets||!F.assets.length) return '';
   const all=F.assets;
-  const S=cxApexAssets(all);
+  const S=all;
   const ok=S.filter(s=>s.ok),d=ok[0]&&ok[0].date;
   const cnt=z=>ok.filter(s=>s.av&&s.av.label&&s.av.label.includes(z)).length;
   const ordered=apexSortByNote(S);
@@ -316,7 +307,7 @@ function cxFichesHTML(){
      <p>Le S&amp;P 500 sert de référence pour la force relative, comme sur l'onglet Actions. MSTR n'est pas du bitcoin au comptant. Calcul reproductible avec <code>src/build_crypto_fiches.py</code>.</p>
      <p><b>Note APEX −50 à 250 et liquidité.</b> Technique 110 (RSI 30, MACD 30, Fibonacci 30, CCI 20) + Liquidité 45 + Hype 45 + Fear &amp; Greed ±50 + MM40 hebdo 0 à +125. La liquidité est lue sur les cartes CoinAnk de liquidités accumulées non encore liquidées : la part au-dessus du prix (plus au-dessus = achat, plus en dessous = vente ; carte 1 an 70 %, carte 1 mois 30 %) est convertie en 0 à 45 points. Sans carte saisie (ex. SOL, MSTR), la liquidité compte 0, sans redistribution. <b>MM40 hebdo</b> : écart à la moyenne mobile 40 semaines des clôtures hebdomadaires (équivalent de la MM200 jours), à contre-courant — 0 point si le cours est au-dessus, montée linéaire de 0 à +125 entre 0 % et −40 %, plafonnée à +125 au-delà ; le total reste borné à 250. Grille détaillée : page Règles, Crypto.</p>
    </details>
-   <div class="src">Sources : ${lnk('https://www.binance.com/fr/trade/BTC_USDT','Binance (BTC/USDT et ETH/USDT, klines 1w)')} · ${lnk('https://finance.yahoo.com/quote/XRP-USD/history/','Yahoo Finance (XRP-USD, SOL-USD, MSTR et S&P 500)')} · ${lnk('https://coinmetrics.io/community-network-data/','CoinMetrics')} (préfixe de l'historique Fibonacci BTC, ETH et XRP) · ${lnk('https://alternative.me/crypto/fear-and-greed-index/','alternative.me')} (Fear &amp; Greed, contexte) · ${lnk('https://coinank.com/liqHeatMap','CoinAnk Liquidation Heatmap')} (liquidité accumulée, saisie manuelle des captures d'Emmanuel, 23/11/2026). Récupéré le ${(F.retrieved&&F.retrieved.binance_btc||'').replace(' ',' à ')} (heure de Paris).</div></div>`;
+   <div class="src">Sources : ${lnk('https://www.binance.com/fr/trade/BTC_USDT','Binance (BTC/USDT et ETH/USDT, klines 1w)')} · ${lnk('https://finance.yahoo.com/quote/SOL-USD/history/','Yahoo Finance (SOL-USD, MSTR et S&P 500)')} · ${lnk('https://coinmetrics.io/community-network-data/','CoinMetrics')} (préfixe de l'historique Fibonacci BTC et ETH) · ${lnk('https://alternative.me/crypto/fear-and-greed-index/','alternative.me')} (Fear &amp; Greed, contexte) · ${lnk('https://coinank.com/liqHeatMap','CoinAnk Liquidation Heatmap')} (liquidité accumulée, saisie manuelle des captures d'Emmanuel, 23/11/2026). Récupéré le ${(F.retrieved&&F.retrieved.binance_btc||'').replace(' ',' à ')} (heure de Paris).</div></div>`;
 }
 
 /* ================= CRYPTO ================= */

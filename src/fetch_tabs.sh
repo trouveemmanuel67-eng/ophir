@@ -12,13 +12,13 @@ curl -sf -m 60 "https://data-api.ecb.europa.eu/service/data/IRS/M.FR.L.L40.CI.00
 curl -sfL -m 60 -A "$UA" "https://www.multpl.com/shiller-pe/table/by-month" -o $D/actions/multpl_cape.html
 python3 - <<'P'
 import json,urllib.request
-for a in ['btc','eth','xrp']:
+for a in ['btc','eth']:
     url=f"https://community-api.coinmetrics.io/v4/timeseries/asset-metrics?assets={a}&metrics=PriceUSD,CapMrktCurUSD&frequency=1d&page_size=10000&start_time=2010-01-01"; r=[]
     while url: d=json.load(urllib.request.urlopen(url,timeout=60)); r+=d['data']; url=d.get('next_page_url')
     json.dump(r,open(f'${APEX_ROOT}/data/crypto/coinmetrics_{a}_daily.json','w'))
 P
 for s in BTCUSDT ETHUSDT; do curl -sf -m 30 "https://api.binance.com/api/v3/klines?symbol=$s&interval=1w&limit=1000" -o $D/crypto/binance_${s}_1w.json; done
-for s in XRP-USD SOL-USD; do curl -sf -m 30 -A "$UA" "https://query2.finance.yahoo.com/v8/finance/chart/$s?period1=-2208988800&period2=$P2&interval=1wk&events=history" -o $D/crypto/yahoo_1wk_$s.json; cp -f $D/crypto/yahoo_1wk_$s.json $D/fibo_max/$s.json; sleep 2; done
+for s in SOL-USD; do curl -sf -m 30 -A "$UA" "https://query2.finance.yahoo.com/v8/finance/chart/$s?period1=-2208988800&period2=$P2&interval=1wk&events=history" -o $D/crypto/yahoo_1wk_$s.json; cp -f $D/crypto/yahoo_1wk_$s.json $D/fibo_max/$s.json; sleep 2; done
 curl -sf -m 30 -A "$UA" "https://api.coingecko.com/api/v3/global" -o $D/crypto/coingecko_global.json
 curl -sf -m 30 "https://api.alternative.me/fng/?limit=0&format=json" -o $D/crypto/alternative_fng.json
 for k in "FM/D.U2.EUR.4F.KR.DFR.LEV" "EST/B.EU000A2X2A25.WT" "FM/M.U2.EUR.RT.MM.EURIBOR3MD_.HSTA" "EXR/D.USD.EUR.SP00.A" "EXR/D.JPY.EUR.SP00.A" "EXR/D.GBP.EUR.SP00.A" "EXR/D.CHF.EUR.SP00.A" "EXR/D.AUD.EUR.SP00.A" "EXR/D.CAD.EUR.SP00.A" "EXR/D.KRW.EUR.SP00.A"; do

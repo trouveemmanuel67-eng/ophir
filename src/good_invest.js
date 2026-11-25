@@ -332,7 +332,7 @@ function giCollect(){
   // Crypto
   const CF=(typeof T2!=='undefined'&&T2&&T2.crypto&&T2.crypto.fiches)?T2.crypto.fiches:null;
   const assets=CF&&CF.assets||(typeof T2!=='undefined'&&T2&&T2.crypto&&T2.crypto.assets)||[];
-  (typeof cxApexAssets==='function'?cxApexAssets(assets):assets.filter(a=>String((a&&a.key)||'').toLowerCase()!=='xrp')).forEach(a=>{
+  assets.forEach(a=>{
     take(a.tv||a.sym, a.nom||a.name, 'Crypto', a.apex10, a.av, 'crypto', a.yahoo, a.ticker||a.sym);
   });
   // Obligations (lignes affichées, pas le benchmark de segment)

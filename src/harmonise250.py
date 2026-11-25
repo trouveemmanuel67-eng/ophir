@@ -257,11 +257,11 @@ def harmonise(pil):
     AV = load('achatvente.json')
     us = [M['__sid__' + k]['note'] for k in pilotes if str(k).startswith('XL') and '__sid__' + k in M]
     cr = [a['apex10']['note'] for a in (((T.get('crypto') or {}).get('fiches') or {}).get('assets') or [])
-          if is250(a.get('apex10')) and a['apex10'].get('note') is not None and str(a.get('key')).lower() != 'xrp']
+          if is250(a.get('apex10')) and a['apex10'].get('note') is not None]
     fx = [a['apex10']['note'] for a in (((T.get('liquidites') or {}).get('fx') or {}).get('assets') or [])
           if is250(a.get('apex10')) and a['apex10'].get('note') is not None and not a.get('repere')]
     src = {'actions': (us, 'Moyenne des notes −50 à 250 des ETF de secteur USA.', 'secteurs'),
-           'crypto': (cr, 'Moyenne des notes −50 à 250 des cryptos affichées (hors XRP).', 'cryptos'),
+           'crypto': (cr, 'Moyenne des notes −50 à 250 des cryptos affichées.', 'cryptos'),
            'liquidites': (fx, 'Moyenne des notes −50 à 250 des devises affichées.', 'devises')}
     for k, v in AV.items():
         if isinstance(v, dict) and v.get('apex10') is not None and not is250(v.get('apex10')):

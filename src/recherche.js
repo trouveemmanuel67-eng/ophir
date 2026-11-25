@@ -74,7 +74,7 @@ function apxBuildIndex(){
       add({tv:a.tv||a.sym, ticker:a.sym, nom:a.nom, tab:'energie', section:'Énergie'});
     });
     const cx=T2.crypto&&T2.crypto.fiches;
-    const cxAssets=typeof cxApexAssets==='function'?cxApexAssets((cx&&cx.assets)||[]):((cx&&cx.assets)||[]).filter(a=>String((a&&a.key)||'').toLowerCase()!=='xrp');
+    const cxAssets=(cx&&cx.assets)||[];
     cxAssets.forEach(a=>{
       add({tv:a.tv||a.sym||a.key, ticker:a.sym, nom:a.nom, tab:'crypto', section:'Crypto'});
     });

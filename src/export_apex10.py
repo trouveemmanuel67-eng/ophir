@@ -37,14 +37,14 @@ def watchlist():
         wl=cur+tail
         exp=old[:]
         i=exp.index('BITSTAMP:ETHUSD')
-        if 'CRYPTO:XRPUSD' not in exp:
-            exp=exp[:i+1]+['CRYPTO:XRPUSD','CRYPTO:SOLUSD']+exp[i+1:]
+        if 'CRYPTO:SOLUSD' not in exp:
+            exp=exp[:i+1]+['CRYPTO:SOLUSD']+exp[i+1:]
         if cur==exp[:len(cur)]:
             return wl if wl==exp else exp
-    # fallback snapshot + XRP/SOL
+    # fallback snapshot + SOL (ne pas ajouter ni retirer d'autres cryptos de la watchlist)
     i=old.index('BITSTAMP:ETHUSD')
-    if 'CRYPTO:XRPUSD' not in old:
-        return old[:i+1]+['CRYPTO:XRPUSD','CRYPTO:SOLUSD']+old[i+1:]
+    if 'CRYPTO:SOLUSD' not in old:
+        return old[:i+1]+['CRYPTO:SOLUSD']+old[i+1:]
     return old
 
 
@@ -109,7 +109,7 @@ def collect_notes():
                 # if top has apex10
                 if t.get('apex10'):
                     add(t.get('tv') or t.get('ticker'), t, 'pays_top')
-    CRY={'BTC':'BITSTAMP:BTCUSD','ETH':'BITSTAMP:ETHUSD','XRP':'CRYPTO:XRPUSD','SOL':'CRYPTO:SOLUSD','MSTR':'NASDAQ:MSTR'}
+    CRY={'BTC':'BITSTAMP:BTCUSD','ETH':'BITSTAMP:ETHUSD','SOL':'CRYPTO:SOLUSD','MSTR':'NASDAQ:MSTR'}
     for fn, src, getter in [
         ('crypto_fiches.json','crypto', lambda d: d.get('assets') or []),
         ('energie.json','energie', lambda d: d.get('assets') or []),

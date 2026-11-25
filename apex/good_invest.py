@@ -110,16 +110,14 @@ def build() -> dict:
         is_crypto = (
             (classe == 'crypto')
             or str(sec).startswith('Crypto')
-            or str(tv).upper() in {'BTC', 'ETH', 'SOL', 'MSTR', 'XRP'}
-            or (classe != 'etf_devise' and 'hype_attente' in str(note_rec.get('cap') or '') and str(tv).upper() in {'BTC','ETH','SOL','MSTR','XRP'})
+            or str(tv).upper() in {'BTC', 'ETH', 'SOL', 'MSTR'}
+            or (classe != 'etf_devise' and 'hype_attente' in str(note_rec.get('cap') or '') and str(tv).upper() in {'BTC','ETH','SOL','MSTR'})
         )
         is_etf_devise = (
             (classe == 'etf_devise') or str(sec).startswith('Liquidités – ETF')
             or note_rec.get('devise_points') is not None
             or str(note_rec.get('cap') or '').startswith('fond_nc')
         )
-        if (str(tv).upper() == 'XRP') or (str(nom or '').lower() in ('ripple', 'xrp')):
-            return
         if is_metaux and note_rec.get('scale') != 250:
             # laisser metaux.json fournir la note −50..250
             return

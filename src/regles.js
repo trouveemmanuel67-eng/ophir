@@ -797,7 +797,7 @@ function rgMetauxGrid(){
 function rgCryptoChamp(){
   const cx=(RG&&RG.apex_crypto)||{};
   if(cx.intro_courte) return String(cx.intro_courte);
-  return 'BTC, ETH, SOL et MSTR. Note −50 à 250 (points entiers). XRP n’entre plus dans APEX. HYPE 45 comptée depuis le 24/11.';
+  return 'BTC, ETH, SOL et MSTR. Note −50 à 250 (points entiers). HYPE 45 comptée depuis le 24/11.';
 }
 function rgCryptoScale(){
   const cx=(RG&&RG.apex_crypto)||{};
@@ -831,7 +831,7 @@ function rgCryptoRulesShort(){
     cci: cfg.cci||'+20 si le CCI Stochastic Daveatt (ligne D) est sous 20. Maximum 20.',
     fear_greed: cfg.fear_greed||'Même grille que les actions (50 = 0, tranches de 10, cap ±50). Source : alternative.me, déjà sur les fiches.',
     hype: cfg.hype||'Toutes les cryptos APEX (BTC, ETH, SOL, MSTR). Attention Long Swing 0–100, à contre-courant : 0–9 → +45 ; 10 → +41 ; 20 → +37 ; 30 → +33 ; 40 → +29 ; 50 → +25 ; 60 → +20 ; 70 → +15 ; 80 → +10 ; 90 → +5 ; 100 → 0. Comptée depuis le 24/11 (attention W48).',
-    mm40: cfg.mm40||'Toutes les cryptos notées. Écart à la MM40 semaines (clôtures hebdomadaires, équivalent de la MM200 jours), à contre-courant : 0 point au-dessus ; linéaire de 0 à +125 entre 0 % et −40 % ; plafonné à +125 au-delà. Total borné à 250.',
+    mm40: cfg.mm40||'Toutes les cryptos notées (BTC, ETH, SOL, MSTR). Écart à la MM40 semaines (clôtures hebdomadaires, équivalent de la MM200 jours), à contre-courant : 0 point au-dessus ; linéaire de 0 à +125 entre 0 % et −40 % ; plafonné à +125 au-delà. Total borné à 250.',
     gi: cfg.gi||'Dès 130/250 : 500 $, puis +100 $ tous les 24 points, jusqu’à 1 000 $ à 250.'
   };
 }

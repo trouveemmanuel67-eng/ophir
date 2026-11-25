@@ -157,7 +157,7 @@ def stale(capture_price, ref_price, pct=STALE_PCT):
 
 
 def for_asset(asset, db=None):
-    """Calcule le bloc liquidite d'une fiche (clé btc/eth/xrp/sol/mstr)."""
+    """Calcule le bloc liquidite d'une fiche (clé btc/eth/sol/mstr)."""
     key = (asset or {}).get('key')
     price = (asset or {}).get('close')
     base = {
@@ -298,7 +298,6 @@ if __name__ == '__main__':
         demo = [
             {'key': 'btc', 'close': 61271.08},
             {'key': 'eth', 'close': 1724.33},
-            {'key': 'xrp', 'close': 0.9274},
             {'key': 'sol', 'close': 70.57},
             {'key': 'mstr', 'close': 77.8},
         ]

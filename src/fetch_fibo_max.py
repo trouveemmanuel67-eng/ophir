@@ -13,7 +13,7 @@ for f in glob.glob(R+'obligations/w_*.json'):
     try: S.add(json.load(open(f))['symbol'])
     except Exception: pass
 for o in json.load(open('/workspace/invest/indiv/map.json')): S.add(o['yahoo']); S.add(o['bench'])
-S|={'BTC-USD','ETH-USD','XRP-USD','SOL-USD'}
+S|={'BTC-USD','ETH-USD','SOL-USD'}
 S={s for s in S if s}
 P2=int(time.time()); force='--force' in sys.argv
 from zoneinfo import ZoneInfo

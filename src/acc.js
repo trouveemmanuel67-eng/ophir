@@ -21,7 +21,6 @@ function accAbbrevTitle(full){
   t=t.replace(/^CHIFFRES ET CHARTES GRAPHIQUES$/i,'Chiffres');
   t=t.replace(/^zone euro, crédit et émergents$/i,'Zone euro');
   t=t.replace(/^Corée du Sud$/i,'Corée');
-  t=t.replace(/^BTC, ETH, XRP, SOL et MSTR$/i,'BTC–MSTR');
   t=t.replace(/^Métaux$/i,'Métaux');
   return t;
 }

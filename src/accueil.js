@@ -376,7 +376,7 @@ function sectionHypeAvg(id){
       Object.keys(PILOT.by_tv).forEach(tv=>{const r=PILOT.by_tv[tv]; if(r&&r.ok!==false&&r.kind==='action'&&r.attention) add(r.attention.valeur);});
     }else if(id==='crypto'&&typeof T2!=='undefined'){
       const F=T2.crypto&&T2.crypto.fiches;
-      ((F&&F.assets)||[]).filter(s=>String((s&&s.key)||'').toLowerCase()!=='xrp').forEach(s=>{const h=s&&s.apex10&&s.apex10.decomp&&s.apex10.decomp.hype; if(h) add(h.attention);});
+      ((F&&F.assets)||[]).forEach(s=>{const h=s&&s.apex10&&s.apex10.decomp&&s.apex10.decomp.hype; if(h) add(h.attention);});
     }else if(id==='metaux'&&typeof MT!=='undefined'){
       (MT.rows||[]).forEach(r=>(((r&&r.mlist)||{}).items||[]).forEach(i=>{if(i&&i.kind==='spot'){const P=i.apex10&&i.apex10.decomp&&i.apex10.decomp.points; if(P) add(P.attention);}}));
     }else if(id==='liquidites'&&typeof T2!=='undefined'){
@@ -499,7 +499,7 @@ function renderAccueil(el){
     {id:'obligations',label:'Obligations',short:'Oblig.',counts:homeCount(homeScoresOf((typeof OB!=='undefined'&&OB.segments)||[]))},
     {id:'metaux',label:'Métaux précieux',short:'Métaux',counts:(()=>{const c=homeCount(homeScoresOf((typeof MT!=='undefined'&&MT.rows)||[]));c.v2=true;c.scale=250;return c;})()},
     {id:'energie',label:'Énergie',short:'Énergie',counts:homeCount(homeScoresOf((typeof T2!=='undefined'&&T2.energie&&T2.energie.assets)||[]))},
-    {id:'crypto',label:'Crypto',short:'Crypto',counts:(()=>{const c=homeCount(homeScoresOf((typeof cxApexAssets==='function'?cxApexAssets: (xs=>xs.filter(s=>String((s&&s.key)||'').toLowerCase()!=='xrp')))((typeof T2!=='undefined'&&T2.crypto&&T2.crypto.fiches&&T2.crypto.fiches.assets)||[])));c.v2=true;return c;})()},
+    {id:'crypto',label:'Crypto',short:'Crypto',counts:(()=>{const c=homeCount(homeScoresOf((typeof T2!=='undefined'&&T2.crypto&&T2.crypto.fiches&&T2.crypto.fiches.assets)||[]));c.v2=true;return c;})()},
     {id:'liquidites',label:'Liquidités',short:'Liq.',counts:homeCount(homeScoresOf((typeof T2!=='undefined'&&T2.liquidites&&T2.liquidites.fx&&(T2.liquidites.fx.assets||T2.liquidites.fx.pairs))||[]))},
     {id:'immobilier',label:'Immobilier',short:'Immo',counts:homeCount(homeScoresOf([(typeof AV!=='undefined'&&AV.immobilier)||null]))}
   ];

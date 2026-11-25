@@ -119,46 +119,6 @@
           ]
         }
       }
-    },
-    "xrp": {
-      "horizons": {
-        "1m": {
-          "capture_price": 0.94,
-          "capture_price_note": "Prix d'environ 0,94 $ sur la carte, cohérent avec la clôture hebdo APEX 0,9274 $ du 20/11/2026 (cours live ~0,94 $).",
-          "bands": [
-            {
-              "lo": 0.98,
-              "hi": 1.0,
-              "kind": "visible",
-              "label": "0,98–1,00 $"
-            },
-            {
-              "lo": 1.07,
-              "hi": 1.1,
-              "kind": "visible",
-              "label": "1,07–1,10 $"
-            },
-            {
-              "lo": 1.15,
-              "hi": 1.25,
-              "kind": "visible",
-              "label": "1,15–1,25 $"
-            },
-            {
-              "lo": 1.33,
-              "hi": 1.37,
-              "usd": 126000000,
-              "label": "1,35 $, jusqu'à ~126 M$"
-            },
-            {
-              "lo": 0.7,
-              "hi": 0.85,
-              "kind": "presque_rien",
-              "label": "en dessous, presque rien"
-            }
-          ]
-        }
-      }
     }
   }
 }
