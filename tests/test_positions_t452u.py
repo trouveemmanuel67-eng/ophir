@@ -202,6 +202,19 @@ def test_ordres_traites_comme_positions_actives_dans_le_js():
     assert len(deblock) == 2
     assert round(sum(o["montant_eur"] for o in deblock), 2) == 150.0
     assert not any("Facebook" in (a.get("sujet") or "") or "Deblock" in (a.get("sujet") or "") for a in (cj.get("operations_ambigues") or []))
+    assert not any("114,99" in (a.get("sujet") or "") or "Dr Eric Koch" in (a.get("sujet") or "") for a in (cj.get("operations_ambigues") or []))
+    abo = next(c for c in cj["categories"] if c["id"] == "abonnements")
+    assert abo["observe_eur"] == 311.59
+    assert abo["observe_usd"] == 341.0
+    grok = [o for o in abo["operations"] if o["libelle"] == "Grok (via Apple)"]
+    assert len(grok) == 1 and grok[0]["montant_eur"] == 114.99
+    san = next(c for c in cj["categories"] if c["id"] == "sante")
+    assert san["observe_eur"] == 852.15
+    assert san["observe_usd"] == 932.59
+    koch = [o for o in san["operations"] if o["libelle"] == "Dentiste (Dr Koch)"]
+    assert len(koch) == 1 and koch[0]["montant_eur"] == 822.99
+    assert koch[0]["sous_categorie"] == "dentaire"
+    assert "mutuelle Aon" in (koch[0].get("note_classification") or "")
     assert "Air Glow, pub (pro)" in BDG
     assert "bdg-joint-airglow" in BDG
     courses = next(c for c in cj["categories"] if c["id"] == "courses")

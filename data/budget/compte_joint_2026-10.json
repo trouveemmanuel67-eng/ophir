@@ -1857,7 +1857,7 @@
           "type": "depense",
           "page": null,
           "statut": "comptable",
-          "note_classification": "Factures Apple.com/bill ; le 114,99 € du 26/10 est atypique pour un abonnement mensuel — à confirmer s’il s’agit d’un achat App Store. Les crédits Apple du mois (13,53 € et 33,83 €) sont déduits du net de la catégorie."
+          "note_classification": "Factures Apple.com/bill. Les crédits Apple du mois (13,53 € et 33,83 €) sont déduits du net de la catégorie Abonnements. Le 114,99 € du 26/10 est l’abonnement Grok (via Apple), confirmé le 25/11/2026."
         },
         {
           "date": "2026-10-07",
@@ -1895,7 +1895,7 @@
           "type": "depense",
           "page": 7,
           "statut": "comptable",
-          "note_classification": "Factures Apple.com/bill ; le 114,99 € du 26/10 est atypique pour un abonnement mensuel — à confirmer s’il s’agit d’un achat App Store. Les crédits Apple du mois (13,53 € et 33,83 €) sont déduits du net de la catégorie."
+          "note_classification": "Factures Apple.com/bill. Les crédits Apple du mois (13,53 € et 33,83 €) sont déduits du net de la catégorie Abonnements. Le 114,99 € du 26/10 est l’abonnement Grok (via Apple), confirmé le 25/11/2026."
         },
         {
           "date": "2026-10-22",
@@ -1914,7 +1914,7 @@
           "type": "depense",
           "page": 8,
           "statut": "comptable",
-          "note_classification": "Factures Apple.com/bill ; le 114,99 € du 26/10 est atypique pour un abonnement mensuel — à confirmer s’il s’agit d’un achat App Store. Les crédits Apple du mois (13,53 € et 33,83 €) sont déduits du net de la catégorie."
+          "note_classification": "Factures Apple.com/bill. Les crédits Apple du mois (13,53 € et 33,83 €) sont déduits du net de la catégorie Abonnements. Le 114,99 € du 26/10 est l’abonnement Grok (via Apple), confirmé le 25/11/2026."
         },
         {
           "date": "2026-10-25",
@@ -1933,7 +1933,7 @@
           "type": "depense",
           "page": 9,
           "statut": "comptable",
-          "note_classification": "Factures Apple.com/bill ; le 114,99 € du 26/10 est atypique pour un abonnement mensuel — à confirmer s’il s’agit d’un achat App Store. Les crédits Apple du mois (13,53 € et 33,83 €) sont déduits du net de la catégorie."
+          "note_classification": "Factures Apple.com/bill. Les crédits Apple du mois (13,53 € et 33,83 €) sont déduits du net de la catégorie Abonnements. Le 114,99 € du 26/10 est l’abonnement Grok (via Apple), confirmé le 25/11/2026."
         },
         {
           "date": "2026-10-25",
@@ -1957,7 +1957,7 @@
         {
           "date": "2026-10-26",
           "date_libelle": "26 oct. 2026",
-          "libelle": "Apple",
+          "libelle": "Grok (via Apple)",
           "details": [
             "À : Apple.com/bill, Itunes.com",
             "Carte : 416598******7711"
@@ -1971,7 +1971,8 @@
           "type": "depense",
           "page": 9,
           "statut": "comptable",
-          "note_classification": "Factures Apple.com/bill ; le 114,99 € du 26/10 est atypique pour un abonnement mensuel — à confirmer s’il s’agit d’un achat App Store. Les crédits Apple du mois (13,53 € et 33,83 €) sont déduits du net de la catégorie."
+          "note_classification": "Abonnement Grok prélevé via Apple.com/bill (114,99 € le 26/10/2026). Confirmé par Emmanuel le 25/11/2026 : libellé « Grok (via Apple) », catégorie Abonnements.",
+          "libelle_releve": "Apple"
         },
         {
           "date": "2026-10-26",
@@ -2033,7 +2034,7 @@
           "type": "depense",
           "page": 10,
           "statut": "comptable",
-          "note_classification": "Factures Apple.com/bill ; le 114,99 € du 26/10 est atypique pour un abonnement mensuel — à confirmer s’il s’agit d’un achat App Store. Les crédits Apple du mois (13,53 € et 33,83 €) sont déduits du net de la catégorie."
+          "note_classification": "Factures Apple.com/bill. Les crédits Apple du mois (13,53 € et 33,83 €) sont déduits du net de la catégorie Abonnements. Le 114,99 € du 26/10 est l’abonnement Grok (via Apple), confirmé le 25/11/2026."
         },
         {
           "date": "2026-10-29",
@@ -2073,7 +2074,7 @@
           "note_classification": "Wp*wordpress — abonnement site (probable activité pro Air Glow)."
         }
       ],
-      "detail": "13 opérations · Apple, Tradingview, WordPress, Microsoft…"
+      "detail": "13 opérations · Grok (via Apple), Tradingview, Apple, WordPress…"
     },
     {
       "id": "sante",
@@ -2109,7 +2110,7 @@
         {
           "date": "2026-10-27",
           "date_libelle": "27 oct. 2026",
-          "libelle": "Dr Eric Koch",
+          "libelle": "Dentiste (Dr Koch)",
           "details": [
             "À : Dr Eric Koch, Strasbourg",
             "Carte : 416598******7711"
@@ -2119,11 +2120,13 @@
           "montant_usd": 900.68,
           "solde_apres_eur": 2891.68,
           "categorie": "sante",
-          "categorie_libelle": "Santé",
+          "categorie_libelle": "Santé / dentaire",
           "type": "depense",
           "page": 10,
           "statut": "comptable",
-          "note_classification": "Honoraire / soin 822,99 € — montant élevé, à confirmer la nature (dentaire ?)."
+          "note_classification": "Dentiste (Dr Eric Koch, Strasbourg). Remboursement mutuelle Aon à vérifier. Confirmé par Emmanuel le 25/11/2026.",
+          "libelle_releve": "Dr Eric Koch",
+          "sous_categorie": "dentaire"
         },
         {
           "date": "2026-10-28",
@@ -2180,7 +2183,7 @@
           "statut": "comptable"
         }
       ],
-      "detail": "5 opérations · Dr Eric Koch, Phie Pasteur, Pharmacie Du Port, Pharmacie…"
+      "detail": "5 opérations · Dentiste (Dr Koch), Phie Pasteur, Pharmacie Du Port, Pharmacie…"
     },
     {
       "id": "enfant",
@@ -4122,12 +4125,6 @@
       "question": "Licence ponctuelle ou abonnement ? Activité pro ?"
     },
     {
-      "sujet": "Apple.com/bill 114,99 € le 26/10",
-      "montant_eur": 114.99,
-      "classification": "abonnements",
-      "question": "Abonnement annuel / pack, ou achat App Store ponctuel ?"
-    },
-    {
       "sujet": "Mollie *thood Franc..., Roppenheim",
       "montant_eur": 23.0,
       "classification": "achats",
@@ -4138,12 +4135,6 @@
       "montant_eur": 16.68,
       "classification": "autres",
       "question": "Laisser en Autres (animalerie) ou rattacher à Courses ?"
-    },
-    {
-      "sujet": "Dr Eric Koch 822,99 €",
-      "montant_eur": 822.99,
-      "classification": "sante",
-      "question": "Nature du soin (montant élevé) ?"
     }
   ],
   "operations": [
@@ -4474,7 +4465,7 @@
       "type": "depense",
       "page": null,
       "statut": "comptable",
-      "note_classification": "Factures Apple.com/bill ; le 114,99 € du 26/10 est atypique pour un abonnement mensuel — à confirmer s’il s’agit d’un achat App Store. Les crédits Apple du mois (13,53 € et 33,83 €) sont déduits du net de la catégorie."
+      "note_classification": "Factures Apple.com/bill. Les crédits Apple du mois (13,53 € et 33,83 €) sont déduits du net de la catégorie Abonnements. Le 114,99 € du 26/10 est l’abonnement Grok (via Apple), confirmé le 25/11/2026."
     },
     {
       "date": "2026-10-05",
@@ -6264,7 +6255,7 @@
       "type": "depense",
       "page": 7,
       "statut": "comptable",
-      "note_classification": "Factures Apple.com/bill ; le 114,99 € du 26/10 est atypique pour un abonnement mensuel — à confirmer s’il s’agit d’un achat App Store. Les crédits Apple du mois (13,53 € et 33,83 €) sont déduits du net de la catégorie."
+      "note_classification": "Factures Apple.com/bill. Les crédits Apple du mois (13,53 € et 33,83 €) sont déduits du net de la catégorie Abonnements. Le 114,99 € du 26/10 est l’abonnement Grok (via Apple), confirmé le 25/11/2026."
     },
     {
       "date": "2026-10-20",
@@ -6568,7 +6559,7 @@
       "type": "depense",
       "page": 8,
       "statut": "comptable",
-      "note_classification": "Factures Apple.com/bill ; le 114,99 € du 26/10 est atypique pour un abonnement mensuel — à confirmer s’il s’agit d’un achat App Store. Les crédits Apple du mois (13,53 € et 33,83 €) sont déduits du net de la catégorie."
+      "note_classification": "Factures Apple.com/bill. Les crédits Apple du mois (13,53 € et 33,83 €) sont déduits du net de la catégorie Abonnements. Le 114,99 € du 26/10 est l’abonnement Grok (via Apple), confirmé le 25/11/2026."
     },
     {
       "date": "2026-10-22",
@@ -6899,7 +6890,7 @@
       "type": "depense",
       "page": 9,
       "statut": "comptable",
-      "note_classification": "Factures Apple.com/bill ; le 114,99 € du 26/10 est atypique pour un abonnement mensuel — à confirmer s’il s’agit d’un achat App Store. Les crédits Apple du mois (13,53 € et 33,83 €) sont déduits du net de la catégorie."
+      "note_classification": "Factures Apple.com/bill. Les crédits Apple du mois (13,53 € et 33,83 €) sont déduits du net de la catégorie Abonnements. Le 114,99 € du 26/10 est l’abonnement Grok (via Apple), confirmé le 25/11/2026."
     },
     {
       "date": "2026-10-25",
@@ -7039,7 +7030,7 @@
     {
       "date": "2026-10-26",
       "date_libelle": "26 oct. 2026",
-      "libelle": "Apple",
+      "libelle": "Grok (via Apple)",
       "details": [
         "À : Apple.com/bill, Itunes.com",
         "Carte : 416598******7711"
@@ -7053,7 +7044,8 @@
       "type": "depense",
       "page": 9,
       "statut": "comptable",
-      "note_classification": "Factures Apple.com/bill ; le 114,99 € du 26/10 est atypique pour un abonnement mensuel — à confirmer s’il s’agit d’un achat App Store. Les crédits Apple du mois (13,53 € et 33,83 €) sont déduits du net de la catégorie."
+      "note_classification": "Abonnement Grok prélevé via Apple.com/bill (114,99 € le 26/10/2026). Confirmé par Emmanuel le 25/11/2026 : libellé « Grok (via Apple) », catégorie Abonnements.",
+      "libelle_releve": "Apple"
     },
     {
       "date": "2026-10-26",
@@ -7284,7 +7276,7 @@
     {
       "date": "2026-10-27",
       "date_libelle": "27 oct. 2026",
-      "libelle": "Dr Eric Koch",
+      "libelle": "Dentiste (Dr Koch)",
       "details": [
         "À : Dr Eric Koch, Strasbourg",
         "Carte : 416598******7711"
@@ -7294,11 +7286,13 @@
       "montant_usd": 900.68,
       "solde_apres_eur": 2891.68,
       "categorie": "sante",
-      "categorie_libelle": "Santé",
+      "categorie_libelle": "Santé / dentaire",
       "type": "depense",
       "page": 10,
       "statut": "comptable",
-      "note_classification": "Honoraire / soin 822,99 € — montant élevé, à confirmer la nature (dentaire ?)."
+      "note_classification": "Dentiste (Dr Eric Koch, Strasbourg). Remboursement mutuelle Aon à vérifier. Confirmé par Emmanuel le 25/11/2026.",
+      "libelle_releve": "Dr Eric Koch",
+      "sous_categorie": "dentaire"
     },
     {
       "date": "2026-10-27",
@@ -7526,7 +7520,7 @@
       "type": "depense",
       "page": 10,
       "statut": "comptable",
-      "note_classification": "Factures Apple.com/bill ; le 114,99 € du 26/10 est atypique pour un abonnement mensuel — à confirmer s’il s’agit d’un achat App Store. Les crédits Apple du mois (13,53 € et 33,83 €) sont déduits du net de la catégorie."
+      "note_classification": "Factures Apple.com/bill. Les crédits Apple du mois (13,53 € et 33,83 €) sont déduits du net de la catégorie Abonnements. Le 114,99 € du 26/10 est l’abonnement Grok (via Apple), confirmé le 25/11/2026."
     },
     {
       "date": "2026-10-29",
