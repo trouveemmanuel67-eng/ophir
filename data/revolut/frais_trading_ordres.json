@@ -4,7 +4,7 @@
   "recherche_repo": {
     "date": "2026-11-25",
     "zone": "Europe/Paris",
-    "resultat": "Frais d'ordres du 25/11/2026 sourcés sur les captures d'Emmanuel (6 ventes spot + ouverture short BDX:CFD). 4 × 1,00 € + 2 × 1,09 $ + 1,95 $. Aucun frais d'achat URNU n'a été communiqué : non inventé.",
+    "resultat": "Frais d'ordres du 25/11/2026 sourcés sur les captures d'Emmanuel (6 ventes spot + ouverture short BDX:CFD + ouverture short ABBV:CFD). 4 × 1,00 € + 2 × 1,09 $ + 1,95 $ + 1,86 $. Frais d'ouverture EG:CFD non communiqués : non inventés. Aucun frais d'achat URNU n'a été communiqué : non inventé.",
     "fichiers_lus": [
       "captures Emmanuel 25/11/2026",
       "data/revolut/ventes_2026-11-25.json"
@@ -141,6 +141,24 @@
       "prix": 222.56,
       "valeur_brute": 778.96,
       "source": "Capture Emmanuel 25/11/2026 à 19 h 25 (Europe/Paris) : « Vendre BDX:CFD », statut Exécuté, 3,5 @ 222,56 $, levier ×5, marge 155,79 $, frais 1,95 $."
+    },
+    {
+      "date": "2026-11-25",
+      "heure": "19:41",
+      "zone": "Europe/Paris",
+      "courtier": "revolut",
+      "actif": "ABBV",
+      "nom": "AbbVie Inc. (CFD)",
+      "type": "trading_fee",
+      "sens": "sortie",
+      "montant": -1.86,
+      "devise": "USD",
+      "ordre": "vente_cfd",
+      "quantite": 2.5,
+      "prix": 296.84,
+      "valeur_brute": 742.12,
+      "valeur_retenue": 742.1,
+      "source": "Capture Emmanuel 25/11/2026 à 19 h 41 (Europe/Paris) : « Vendre ABBV:CFD », statut Exécuté, 2,5 @ 296,84 $, levier ×5, exposition 742,12 $, marge 148,42 $, frais 1,86 $. Exposition retenue = quantité × cours = 2,5 × 296,84 = 742,10 $ (écart 0,02 $ avec la capture)."
     }
   ]
 }

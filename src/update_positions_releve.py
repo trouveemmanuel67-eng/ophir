@@ -164,6 +164,14 @@ META = {
                 "tv_note": "NYSE:BDX", "fiche_tv": "NYSE:BDX",
                 "fiche_nom": "Becton, Dickinson and Company",
                 "fiche_proxy": False, "note_tv_ok": True},
+    "CFD-EG": {"nom": "Everest Group CFD", "type": "cfd", "tab": "actions",
+               "tv_note": "NYSE:EG", "fiche_tv": "NYSE:EG",
+               "fiche_nom": "Everest Group, Ltd.",
+               "fiche_proxy": False, "note_tv_ok": True},
+    "CFD-ABBV": {"nom": "AbbVie CFD", "type": "cfd", "tab": "actions",
+                 "tv_note": "NYSE:ABBV", "fiche_tv": "NYSE:ABBV",
+                 "fiche_nom": "AbbVie Inc.",
+                 "fiche_proxy": False, "note_tv_ok": True},
 }
 
 

@@ -438,9 +438,39 @@
             "valeur_affichee_usd": null,
             "exposition_capturee_usd": 778.96,
             "pl_usd": 0.0
+          },
+          {
+            "ticker": "EG",
+            "sens": "Sell",
+            "levier": 5,
+            "quantite": 1.14,
+            "prix_ouverture": 434.27,
+            "marge_usd": 99.01,
+            "devise": "USD",
+            "a_confirmer": false,
+            "note": "Note de position APEX (Price Note) posée le 25/11/2026 sur le graphique NYSE:EG, layout APEX habituel : « 1,14 u @ 434,27 $ - 25/11 ». Short EG:CFD, 1,14 unités à 434,27 $, levier ×5 (comme les autres shorts Revolut). Exposition retenue = quantité × cours = 1,14 × 434,27 = 495,07 $. Marge implicite au levier ×5 : 495,07 / 5 = 99,01 $ (non relue sur une capture d'ordre). Frais d'ouverture non communiqués : non inventés. P&L latent à l'ouverture 0,00 $ (0,00 %). Les totaux du compte CFD (valeur 2 614,02 $, marge de maintenance 98 %, seuil 1 336,40 $) restent ceux de 10 h 14 : pas de nouveau total de compte.",
+            "prix_actuel": 434.27,
+            "valeur_affichee_usd": null,
+            "exposition_capturee_usd": 495.07,
+            "pl_usd": 0.0
+          },
+          {
+            "ticker": "ABBV",
+            "sens": "Sell",
+            "levier": 5,
+            "quantite": 2.5,
+            "prix_ouverture": 296.84,
+            "marge_usd": 148.42,
+            "devise": "USD",
+            "a_confirmer": false,
+            "note": "Capture du 25/11/2026 à 19 h 41 (Europe/Paris) : « Vendre ABBV:CFD », statut Exécuté, 2,5 unités à 296,84 $, levier ×5, exposition 742,12 $, frais 1,86 $, marge 148,42 $. Exposition retenue = quantité × cours = 2,5 × 296,84 = 742,10 $ (écart 0,02 $ avec la capture). Coût d'entrée 742,10 $ ; P&L latent à l'ouverture 0,00 $ (0,00 %). Les totaux du compte CFD (valeur 2 614,02 $, marge de maintenance 98 %, seuil 1 336,40 $) restent ceux de 10 h 14 : pas de nouveau total de compte à 19 h 41.",
+            "prix_actuel": 296.84,
+            "valeur_affichee_usd": null,
+            "exposition_capturee_usd": 742.12,
+            "pl_usd": 0.0
           }
         ],
-        "note": "Compte CFD relevé le 25/11/2026 vers 10 h 11–10 h 14 (Europe/Paris) : valeur 2 614 02 $ (affiché 2 644 26 $  −61 56 %)  P&L −4 264 65 $  marge réservée 2 672 80 $  solde prêt à investir 0 $  cash USD 0 $  marge de maintenance 98 % (fermeture forcée si valeur < 1 336 40 $). Cinq lignes lues (MSTR ×5  XPD ×5  SMR ×7  MPC ×2  AMD ×3). Exposition retenue (quantité × cours) 15 473.92 $. Somme des P&L lignes −4 231,88 $ contre P&L du compte −4 264,65 $ (écart 32,77 $ non ventilé : peut inclure COST non relu, d'autres lignes sous « Afficher plus », ou des frais). Addendum 25/11 vers 11 h 01 : short COST confirmé (0,55 @ 1 097,51 $, levier ×5, marge 120,62 $, P&L −3,58 $). Exposition COST retenue 603,63 $ (quantité × cours) ; la capture affiche 603,09 $ (écart 0,54 $). Somme des expositions des 6 lignes 16 077,55 $. P&L lignes −4 235,46 $ contre P&L du compte à 10 h 14 (−4 264,65 $), écart 29,19 $ non ventilé. Totaux du compte CFD non relus à 11 h 01. Addendum 25/11 à 19 h 25 : nouveau short BDX:CFD exécuté (3,5 @ 222,56 $, levier ×5, exposition 778,96 $, marge 155,79 $, frais 1,95 $). Somme des expositions des 7 lignes 16 856,51 $. Totaux du compte CFD non relus à 19 h 25.",
+        "note": "Compte CFD relevé le 25/11/2026 vers 10 h 11–10 h 14 (Europe/Paris) : valeur 2 614 02 $ (affiché 2 644 26 $  −61 56 %)  P&L −4 264 65 $  marge réservée 2 672 80 $  solde prêt à investir 0 $  cash USD 0 $  marge de maintenance 98 % (fermeture forcée si valeur < 1 336 40 $). Cinq lignes lues (MSTR ×5  XPD ×5  SMR ×7  MPC ×2  AMD ×3). Exposition retenue (quantité × cours) 15 473.92 $. Somme des P&L lignes −4 231,88 $ contre P&L du compte −4 264,65 $ (écart 32,77 $ non ventilé : peut inclure COST non relu, d'autres lignes sous « Afficher plus », ou des frais). Addendum 25/11 vers 11 h 01 : short COST confirmé (0,55 @ 1 097,51 $, levier ×5, marge 120,62 $, P&L −3,58 $). Exposition COST retenue 603,63 $ (quantité × cours) ; la capture affiche 603,09 $ (écart 0,54 $). Somme des expositions des 6 lignes 16 077,55 $. P&L lignes −4 235,46 $ contre P&L du compte à 10 h 14 (−4 264,65 $), écart 29,19 $ non ventilé. Totaux du compte CFD non relus à 11 h 01. Addendum 25/11 à 19 h 25 : nouveau short BDX:CFD exécuté (3,5 @ 222,56 $, levier ×5, exposition 778,96 $, marge 155,79 $, frais 1,95 $). Somme des expositions des 7 lignes 16 856,51 $. Totaux du compte CFD non relus à 19 h 25. Addendum 25/11 soir : shorts EG:CFD (1,14 @ 434,27 $, ×5, exposition 495,07 $, marge implicite 99,01 $, frais d'ouverture non communiqués) et ABBV:CFD (2,5 @ 296,84 $, ×5, exposition retenue 742,10 $, capture 742,12 $, marge 148,42 $, frais 1,86 $ à 19 h 41). Somme des expositions des 9 lignes 18 093,68 $. Totaux du compte CFD non relus le soir.",
         "pl_pct": -61.56,
         "pl_usd": -4264.65,
         "releve": "2026-11-25T10:14:00+01:00",
@@ -470,7 +500,7 @@
             "source": "Capture Revolut 25/11 10 h 11–10 h 14."
           }
         ],
-        "exposition_usd": 16856.51,
+        "exposition_usd": 18093.68,
         "pl_lignes_usd": -4235.46
       },
       "matieres_premieres": {
