@@ -104,7 +104,7 @@ function peaRow(e,i){
     'XTB '+xtb,
     e.encours_meur!=null?(Number(e.encours_meur).toLocaleString('fr-FR')+'\u00a0M€'):null
   ].filter(Boolean).join(' · ');
-  const tv=e.tv?(` · <span class="pea-tv" title="Symbole TradingView">${peaEsc(e.tv)}</span><button type="button" class="pea-cp" data-c="${peaEsc(e.tv)}" aria-label="Copier ${peaEsc(e.tv)}" title="Copier">${PEA_CP_SVG}</button>`):'';
+  const tv=e.tv?(` · <span class="pea-tvwrap"><span class="pea-tv" title="Symbole TradingView">${peaEsc(e.tv)}</span><button type="button" class="pea-cp" data-c="${peaEsc(e.tv)}" aria-label="Copier ${peaEsc(e.tv)}" title="Copier">${PEA_CP_SVG}</button></span>`):'';
   const tip=e.note||(e.apex10&&(e.apex10.ligne||(e.apex10.decomp&&e.apex10.decomp.texte)))||'';
   return `<article class="pea-row"${tip?(' title="'+peaEsc(tip)+'"'):''}>
     <span class="pea-rk">${i+1}</span>
