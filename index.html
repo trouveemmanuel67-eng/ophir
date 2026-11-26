@@ -6,18 +6,18 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<meta name="ophir-build" content="59e0c6a-20261126-111922">
+<meta name="ophir-build" content="50f4880-20261126-114545">
 <title>APEX INDICATOR INVESTMENT</title>
 <meta name="description" content="APEX Indicator Investment — notes et indicateurs de marché.">
 <meta name="theme-color" content="#0a1128">
 <meta name="apple-mobile-web-app-title" content="APEX">
 <meta name="application-name" content="APEX">
-<link rel="icon" href="favicon.ico?v=59e0c6a-20261126-111922" sizes="any">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=59e0c6a-20261126-111922">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=59e0c6a-20261126-111922">
-<link rel="icon" type="image/png" sizes="64x64" href="favicon.png?v=59e0c6a-20261126-111922">
-<link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png?v=59e0c6a-20261126-111922">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=59e0c6a-20261126-111922">
+<link rel="icon" href="favicon.ico?v=50f4880-20261126-114545" sizes="any">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=50f4880-20261126-114545">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=50f4880-20261126-114545">
+<link rel="icon" type="image/png" sizes="64x64" href="favicon.png?v=50f4880-20261126-114545">
+<link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png?v=50f4880-20261126-114545">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=50f4880-20261126-114545">
 <meta property="og:type" content="website">
 <meta property="og:title" content="APEX INDICATOR INVESTMENT">
 <meta property="og:description" content="APEX Indicator Investment — notes et indicateurs de marché.">
@@ -48,9 +48,9 @@ body{color:var(--txt);font-family:Inter,"Helvetica Neue",Helvetica,Arial,system-
 *::-webkit-scrollbar-thumb:active{background-color:var(--scroll-thumb-active)}
 *::-webkit-scrollbar-button,*::-webkit-scrollbar-button:single-button,*::-webkit-scrollbar-button:start:decrement,*::-webkit-scrollbar-button:end:increment,*::-webkit-scrollbar-button:vertical:start:increment,*::-webkit-scrollbar-button:vertical:end:decrement{display:none;width:0;height:0}
 *::-webkit-scrollbar-corner{background:transparent}
-#hbg{position:fixed;inset:0;z-index:-1;background-color:#0c1016;background-position:center center;background-size:cover;background-repeat:no-repeat;background-image:url("assets/bg/accueil.jpg?v=59e0c6a-20261126-111922");background-image:image-set(url("assets/bg/accueil.webp?v=59e0c6a-20261126-111922") type("image/webp"),url("assets/bg/accueil.jpg?v=59e0c6a-20261126-111922") type("image/jpeg"))}
-body.bg-analyse #hbg{background-image:url("assets/bg/analyse.jpg?v=59e0c6a-20261126-111922");background-image:image-set(url("assets/bg/analyse.webp?v=59e0c6a-20261126-111922") type("image/webp"),url("assets/bg/analyse.jpg?v=59e0c6a-20261126-111922") type("image/jpeg"))}
-body.bg-outils #hbg{background-image:url("assets/bg/outils.jpg?v=59e0c6a-20261126-111922");background-image:image-set(url("assets/bg/outils.webp?v=59e0c6a-20261126-111922") type("image/webp"),url("assets/bg/outils.jpg?v=59e0c6a-20261126-111922") type("image/jpeg"))}
+#hbg{position:fixed;inset:0;z-index:-1;background-color:#0c1016;background-position:center center;background-size:cover;background-repeat:no-repeat;background-image:url("assets/bg/accueil.jpg?v=50f4880-20261126-114545");background-image:image-set(url("assets/bg/accueil.webp?v=50f4880-20261126-114545") type("image/webp"),url("assets/bg/accueil.jpg?v=50f4880-20261126-114545") type("image/jpeg"))}
+body.bg-analyse #hbg{background-image:url("assets/bg/analyse.jpg?v=50f4880-20261126-114545");background-image:image-set(url("assets/bg/analyse.webp?v=50f4880-20261126-114545") type("image/webp"),url("assets/bg/analyse.jpg?v=50f4880-20261126-114545") type("image/jpeg"))}
+body.bg-outils #hbg{background-image:url("assets/bg/outils.jpg?v=50f4880-20261126-114545");background-image:image-set(url("assets/bg/outils.webp?v=50f4880-20261126-114545") type("image/webp"),url("assets/bg/outils.jpg?v=50f4880-20261126-114545") type("image/jpeg"))}
 #hbg:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(8,10,12,.58),rgba(8,10,12,.40) 42%,rgba(8,10,12,.62))}
 #hh{text-align:left;padding:8px 12px 4px;position:relative}
 #hh .hh-top{display:flex;align-items:center;gap:10px 22px;flex-wrap:wrap;position:relative}
@@ -518,43 +518,42 @@ body{display:flex;flex-direction:column;min-height:100vh}
 
 
 /* ===== Onglet PEA ===== */
-.pea-intro,.pea-class,.pea-just,.pea-warn{margin:8px 0 0;font-size:13px;line-height:1.45;color:var(--mut)}
+.pea-intro,.pea-class,.pea-legende,.pea-warn{margin:8px 0 0;font-size:13px;line-height:1.45;color:var(--mut)}
+.pea-legende{font-size:12px}
 .pea-warn{color:#e6c27a}
-.pea-colh{display:grid;grid-template-columns:28px minmax(0,1.8fr) auto auto auto;gap:8px 12px;padding:8px 12px 6px;font-size:11px;color:var(--mut);letter-spacing:.06em;text-transform:uppercase}
+.pea-colh{display:grid;grid-template-columns:28px minmax(0,1.8fr) auto auto auto 86px;gap:8px 12px;padding:8px 12px 6px;font-size:11px;color:var(--mut);letter-spacing:.06em;text-transform:uppercase}
 .pea-list{display:flex;flex-direction:column;gap:6px}
-.pea-row{display:grid;grid-template-columns:28px minmax(0,1.8fr) auto auto auto;gap:4px 12px;align-items:baseline;padding:8px 12px;border:1px solid rgba(255,255,255,.14);border-radius:10px;background:rgba(255,255,255,.03);font-variant-numeric:tabular-nums}
+.pea-row{display:grid;grid-template-columns:28px minmax(0,1.8fr) auto auto auto 86px;gap:4px 12px;align-items:baseline;padding:8px 12px;border:1px solid rgba(255,255,255,.14);border-radius:10px;background:rgba(255,255,255,.03);font-variant-numeric:tabular-nums}
 .pea-rk{color:var(--mut);font-size:12px}
 .pea-nm{font-weight:650;min-width:0}
 .pea-yld{justify-self:end;font-size:16px;font-weight:700;color:var(--acc2,#e6c27a);white-space:nowrap}
 .pea-ter,.pea-pol{justify-self:end;font-size:12px;color:var(--mut);white-space:nowrap}
+.pea-apex{justify-self:end}
+.pea-apex .apex10{margin:0}
+.pea-apex .apex10 b{font-size:22px}
+.pea-apex .apex10 small{font-size:11px}
 .pea-meta{grid-column:1/-1;font-size:11px;color:var(--mut);line-height:1.4}
-.pea-kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:10px 0}
-.pea-kpis div{border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:8px 10px;background:rgba(255,255,255,.03)}
-.pea-kpis span{display:block;font-size:10px;color:var(--mut);text-transform:uppercase;letter-spacing:.05em}
-.pea-kpis b{display:block;font-size:22px;font-weight:750;letter-spacing:-.03em;font-variant-numeric:tabular-nums;margin-top:2px}
-.pea-kpis small{display:block;font-size:11px;color:var(--mut)}
-.pea-scs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:8px 0 12px}
-.pea-sc{border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:10px 12px;background:rgba(255,255,255,.03)}
-.pea-sc-nom{display:block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--mut)}
-.pea-sc-cap{display:block;font-size:26px;font-weight:750;letter-spacing:-.03em;font-variant-numeric:tabular-nums;margin:4px 0 2px}
-.pea-sc-tx{display:block;font-size:13px;color:var(--acc2,#e6c27a)}
-.pea-sc-why{display:block;margin-top:6px;font-size:11px;color:var(--mut);line-height:1.35}
-.pea-taux{display:flex;align-items:center;gap:8px;font-size:13px;margin:8px 0}
-.pea-taux input{width:5.5rem;padding:6px 8px;border:1px solid rgba(255,255,255,.2);border-radius:8px;background:rgba(0,0,0,.25);color:#fff;font:inherit;font-variant-numeric:tabular-nums}
-.pea-custom{font-size:15px;margin:4px 0 8px}
+.pea-vers,.pea-rates,.pea-horiz{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:10px 0}
+.pea-vers div,.pea-rates div,.pea-horiz div{border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:8px 10px;background:rgba(255,255,255,.03)}
+.pea-vers span,.pea-rates span,.pea-horiz span{display:block;font-size:10px;color:var(--mut);text-transform:uppercase;letter-spacing:.05em}
+.pea-vers b,.pea-horiz b,.pea-rates b{display:block;font-size:26px;font-weight:750;letter-spacing:-.03em;font-variant-numeric:tabular-nums;margin-top:2px}
+.pea-rates b{font-size:22px}
+.pea-horiz small,.pea-rates small{display:block;font-size:12px;color:var(--mut);margin-top:4px;line-height:1.35}
+.pea-taux{display:flex;align-items:baseline;gap:6px;margin:4px 0 0;font-size:26px;font-weight:750;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.pea-taux input{width:5.5rem;padding:2px 6px;border:1px solid rgba(255,255,255,.2);border-radius:8px;background:rgba(0,0,0,.25);color:#fff;font:inherit;font-variant-numeric:tabular-nums}
 @media(max-width:640px){
   .pea-colh{display:none}
-  .pea-row{grid-template-columns:auto 1fr auto;grid-template-areas:"rk nm yld" "ter ter pol" "meta meta meta";gap:2px 8px;padding:8px 10px}
+  .pea-row{grid-template-columns:auto 1fr auto;grid-template-areas:"rk nm note" "yld ter pol" "meta meta meta";gap:2px 8px;padding:8px 10px}
   .pea-rk{grid-area:rk}
   .pea-nm{grid-area:nm}
-  .pea-yld{grid-area:yld;font-size:18px}
-  .pea-ter{grid-area:ter;justify-self:start}
+  .pea-apex{grid-area:note}
+  .pea-yld{grid-area:yld;justify-self:start;font-size:16px}
+  .pea-ter{grid-area:ter;justify-self:center}
   .pea-pol{grid-area:pol}
   .pea-meta{grid-area:meta}
-  .pea-kpis{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
-  .pea-kpis b{font-size:15px}
-  .pea-scs{grid-template-columns:1fr;gap:6px}
-  .pea-sc-cap{font-size:28px}
+  .pea-apex .apex10 b{font-size:20px}
+  .pea-vers b,.pea-horiz b,.pea-taux{font-size:22px}
+  .pea-rates b{font-size:20px}
 }
 
 /* ===== En-têtes et jauge compactés (tous les onglets) ===== */
@@ -798,7 +797,7 @@ body{display:flex;flex-direction:column;min-height:100vh}
 .rg-btn:hover,body.rg-on .rg-btn{background:rgba(255,255,255,.12);color:#fff;box-shadow:0 0 0 1px rgba(255,255,255,.28)}
 .rg-btn:focus-visible{outline:1px solid rgba(255,255,255,.7);outline-offset:2px}
 
-#bdg-page{display:none;position:fixed;inset:0;z-index:241;flex-direction:column;color:#fff;overflow:hidden;background-color:#0c1016;background-position:center center;background-size:cover;background-repeat:no-repeat;background-image:url("assets/bg/outils.jpg?v=59e0c6a-20261126-111922");background-image:image-set(url("assets/bg/outils.webp?v=59e0c6a-20261126-111922") type("image/webp"),url("assets/bg/outils.jpg?v=59e0c6a-20261126-111922") type("image/jpeg"))}
+#bdg-page{display:none;position:fixed;inset:0;z-index:241;flex-direction:column;color:#fff;overflow:hidden;background-color:#0c1016;background-position:center center;background-size:cover;background-repeat:no-repeat;background-image:url("assets/bg/outils.jpg?v=50f4880-20261126-114545");background-image:image-set(url("assets/bg/outils.webp?v=50f4880-20261126-114545") type("image/webp"),url("assets/bg/outils.jpg?v=50f4880-20261126-114545") type("image/jpeg"))}
 #bdg-page:before,#rg-page:before{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;background:linear-gradient(180deg,rgba(8,10,12,.58),rgba(8,10,12,.40) 42%,rgba(8,10,12,.62))}
 #bdg-page>*,#rg-page>*{position:relative;z-index:1}
 body.bdg-on{overflow:hidden}
@@ -969,7 +968,7 @@ body.bdg-on .rg-btn[aria-expanded="true"],#bdgBtn.rg-btn[aria-expanded="true"],b
   .bdg-moy-th span:nth-child(3),.bdg-moy-row > :nth-child(3){display:none}
 }
 
-#rg-page{display:none;position:fixed;inset:0;z-index:240;flex-direction:column;color:#fff;overflow:hidden;background-color:#0c1016;background-position:center center;background-size:cover;background-repeat:no-repeat;background-image:url("assets/bg/outils.jpg?v=59e0c6a-20261126-111922");background-image:image-set(url("assets/bg/outils.webp?v=59e0c6a-20261126-111922") type("image/webp"),url("assets/bg/outils.jpg?v=59e0c6a-20261126-111922") type("image/jpeg"))}
+#rg-page{display:none;position:fixed;inset:0;z-index:240;flex-direction:column;color:#fff;overflow:hidden;background-color:#0c1016;background-position:center center;background-size:cover;background-repeat:no-repeat;background-image:url("assets/bg/outils.jpg?v=50f4880-20261126-114545");background-image:image-set(url("assets/bg/outils.webp?v=50f4880-20261126-114545") type("image/webp"),url("assets/bg/outils.jpg?v=50f4880-20261126-114545") type("image/jpeg"))}
 body.rg-on{overflow:hidden}
 body.rg-on #rg-page{display:flex}
 body.rg-on #rg-page[hidden]{display:flex}
@@ -1618,8 +1617,8 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
   <div class="hh-top">
     <h1>
       <picture>
-        <source type="image/webp" srcset="apex-logo.webp?v=59e0c6a-20261126-111922 1x, apex-logo@2x.webp?v=59e0c6a-20261126-111922 2x">
-        <img class="brand" src="apex-logo.png?v=59e0c6a-20261126-111922" srcset="apex-logo.png?v=59e0c6a-20261126-111922 1x, apex-logo@2x.png?v=59e0c6a-20261126-111922 2x" width="233" height="256" alt="APEX">
+        <source type="image/webp" srcset="apex-logo.webp?v=50f4880-20261126-114545 1x, apex-logo@2x.webp?v=50f4880-20261126-114545 2x">
+        <img class="brand" src="apex-logo.png?v=50f4880-20261126-114545" srcset="apex-logo.png?v=50f4880-20261126-114545 1x, apex-logo@2x.png?v=50f4880-20261126-114545 2x" width="233" height="256" alt="APEX">
       </picture>
       <span class="brand-sub">Indicator<br>Investment</span>
     </h1>
@@ -76707,7 +76706,7 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
   }
 }
 </script>
-<script type="application/json" id="dataBuild">{"version":"59e0c6a-20261126-111922"}</script>
+<script type="application/json" id="dataBuild">{"version":"50f4880-20261126-114545"}</script>
 <script>
 /* Cache iOS / Pages : le bloc Meilleurs short est embarqué dans index.html.
    Meta no-cache seules ne suffisent pas ; on casse le cache avec ?v= et on recharge si la version distante a changé. */
@@ -76764,7 +76763,7 @@ if(navigator.serviceWorker){
 })();
 </script>
 
-<link rel="preload" href="config/regles.json?v=59e0c6a-20261126-111922" as="fetch" crossorigin>
+<link rel="preload" href="config/regles.json?v=50f4880-20261126-114545" as="fetch" crossorigin>
 
 <script type="application/json" id="dataMaj">{
   "at": "2026-11-23T21:45:22.168885+01:00",
@@ -84521,8 +84520,8 @@ if(navigator.serviceWorker){
   "zone": "Europe/Paris",
   "titre": "PEA",
   "intro": "Les meilleurs ETF à rendement éligibles au PEA, présents chez XTB. Classés par rendement de distribution, puis par frais et encours.",
-  "classement": "rendement_qualite",
-  "classement_libelle": "Classement par rendement de distribution actuel, puis par frais (TER) et encours. La note APEX sur 250 n'est pas calculée : le moteur actuel couvre les actions US et France, pas ces ETF européens.",
+  "classement": "note_apex",
+  "classement_libelle": "Classés par note APEX sur 250. Sentiment maison des secteurs Europe, lu à contre-courant (pas le Fear & Greed CNN), MM40 hebdo à contre-courant (0 à +30), RSI, MACD, Fibonacci et CCI comme les autres ETF du site. Fondamental adapté aux ETF dividendes : rendement, frais, encours, ancienneté, stabilité du dividende, valorisation si une source d'émetteur la donne. Critère manquant = 0, sans redistribution.",
   "xtb_avertissement": "Chaque fonds est dans la table OMI XTB France du 24/09/2026 (compte-titres). L'éligibilité PEA vient de justETF. Vérifie dans ton PEA XTB avant d'acheter : un ETF chez XTB n'est pas forcément achetable dans le PEA.",
   "pea_regles": "Avantage fiscal après 5 ans (impôt sur le revenu exonéré, prélèvements sociaux dus). Plafond de versements : 150 000 €.",
   "sources": [
@@ -84554,18 +84553,253 @@ if(navigator.serviceWorker){
   ],
   "etfs": [
     {
+      "id": "SPYW",
+      "nom": "SPDR Euro Div. Aristocrats",
+      "nom_long": "State Street SPDR S&P Euro Dividend Aristocrats UCITS ETF EUR",
+      "isin": "IE00B5M1WJ87",
+      "ticker": "SPYW",
+      "xtb": "SPYW.DE",
+      "ticker_alt": "EUDV",
+      "ter_pct": 0.3,
+      "encours_meur": 1838,
+      "politique": "distribution",
+      "frequence": "semestrielle",
+      "rendement_actuel_pct": 3.66,
+      "rendement_12m_pct": 4.17,
+      "replication": "physique",
+      "indice": "S&P Euro High Yield Dividend Aristocrats",
+      "lancement": "2012-02-28",
+      "pea": true,
+      "xtb_omi": true,
+      "xtb_page": false,
+      "note": "Plus gros encours. Entreprises de la zone euro avec dividendes stables ou en hausse depuis 10 ans. Rendement plus bas, panier plus exigeant.",
+      "meme_indice": null,
+      "perf_5a_pct": 59.4,
+      "perf_5a_pa_pct": 9.78,
+      "perf_5a_source": "Yahoo Finance, cours ajustés au 26/11/2026 (SPYW.DE)",
+      "perf_10a_pa_pct": 7.26,
+      "sources_fiche": [
+        "https://www.justetf.com/fr/etf-profile.html?isin=IE00B5M1WJ87"
+      ],
+      "apex10": {
+        "note": 90,
+        "display": "90",
+        "hex": "#ff8c1a",
+        "flag": "orange",
+        "band": "orange",
+        "scale": 250,
+        "total": 90,
+        "total_min": -50,
+        "total_max": 250,
+        "v2": true,
+        "ligne": "RSI 0 · MACD 0 · Fibo 0 · CCI 0 · Sentiment 20 · Fond. 70 · MM40 hebdo : écart +4,5 %, 0 pts  →  90 / 250",
+        "brut": 90,
+        "technique": 0,
+        "yahoo": "SPYW.DE",
+        "n_semaines": 521,
+        "dernier_vendredi": "2026-11-20",
+        "decomp": {
+          "texte": "RSI 0 · MACD 0 · Fibo 0 · CCI 0 · Sentiment 20 · Fond. 70 · MM40 hebdo : écart +4,5 %, 0 pts  →  90 / 250",
+          "points": {
+            "rsi": 0,
+            "macd": 0,
+            "fibonacci": 0,
+            "cci": 0,
+            "sentiment": 20,
+            "fondamental": 70,
+            "mm40": 0,
+            "total": 90
+          },
+          "rsi": {
+            "valeur": 55.8,
+            "points": 0,
+            "conditions": [
+              {
+                "id": "rsi_sous_40",
+                "ok": false,
+                "points": 0,
+                "valeur": 55.8
+              },
+              {
+                "id": "divergence_rsi_haussiere_hebdo",
+                "ok": false,
+                "points": 0,
+                "texte": null
+              }
+            ]
+          },
+          "macd": {
+            "points": 0,
+            "conditions": [
+              {
+                "id": "macd_sous_0",
+                "ok": false,
+                "points": 0,
+                "valeur": 0.6897
+              },
+              {
+                "id": "histo_4_barres_rouges_sous_0",
+                "ok": false,
+                "points": 0,
+                "streak": 0,
+                "streak_rouge_pente": 1,
+                "macd_sous_0": false
+              }
+            ]
+          },
+          "fibonacci": {
+            "ok": true,
+            "r": 0.082,
+            "r_pct": 8.2,
+            "points": 0,
+            "palier": null
+          },
+          "cci": {
+            "ok": false,
+            "valeur": 56.47,
+            "points": 0
+          },
+          "sentiment": {
+            "valeur": 29.0,
+            "points": 20,
+            "source": "sentiment maison secteurs Europe, pondéré, pas le CNN",
+            "date_composition": "2026-09-30",
+            "detail": [
+              {
+                "secteur": "Finance",
+                "poids_pct": 31.23,
+                "cle": "XS7R",
+                "valeur": 24.9,
+                "label": "Peur extrême",
+                "date": "2026-11-24"
+              },
+              {
+                "secteur": "Services aux collectivités",
+                "poids_pct": 14.07,
+                "cle": "XS6R",
+                "valeur": 52.4,
+                "label": "Neutre",
+                "date": "2026-11-24"
+              },
+              {
+                "secteur": "Industrie",
+                "poids_pct": 13.57,
+                "cle": "DXSL",
+                "valeur": 24.8,
+                "label": "Peur extrême",
+                "date": "2026-11-24"
+              },
+              {
+                "secteur": "Matériaux",
+                "poids_pct": 11.37,
+                "cle": "DXSC",
+                "valeur": 19.6,
+                "label": "Peur extrême",
+                "date": "2026-11-24"
+              },
+              {
+                "secteur": "Autre",
+                "poids_pct": 29.76,
+                "cle": "pays:EU",
+                "valeur": 27.8,
+                "label": "Peur",
+                "date": "2026-11-24"
+              }
+            ],
+            "erreur": null
+          },
+          "fondamental": {
+            "points": 70,
+            "max": 90,
+            "criteres": [
+              {
+                "id": "rendement",
+                "label": "Rendement de distribution",
+                "max": 20,
+                "points": 10,
+                "etat": "ok",
+                "valeur": 3.66,
+                "seuil": "≥ 3,0 %"
+              },
+              {
+                "id": "ter",
+                "label": "Frais TER",
+                "max": 15,
+                "points": 10,
+                "etat": "ok",
+                "valeur": 0.3,
+                "seuil": "≤ 0,30 %"
+              },
+              {
+                "id": "encours",
+                "label": "Encours",
+                "max": 15,
+                "points": 15,
+                "etat": "ok",
+                "valeur": 1838,
+                "seuil": "≥ 1 000 M€"
+              },
+              {
+                "id": "anciennete",
+                "label": "Ancienneté",
+                "max": 15,
+                "points": 10,
+                "etat": "ok",
+                "valeur_ans": 14.74,
+                "seuil": "≥ 10 ans"
+              },
+              {
+                "id": "dividende",
+                "label": "Stabilité du dividende",
+                "max": 15,
+                "points": 15,
+                "etat": "ok",
+                "raison": "Indice S&P Euro High Yield Dividend Aristocrats : dividendes stables ou en hausse depuis 10 ans. Distributions EUR 2023–2025 également en hausse (justETF)."
+              },
+              {
+                "id": "valorisation",
+                "label": "Valorisation (PER)",
+                "max": 10,
+                "points": 10,
+                "etat": "ok",
+                "per": 11.95,
+                "pb": 1.76,
+                "seuil": "PER ≤ 12",
+                "source": "Fiche State Street SPDR, caractéristiques au 24/11/2026 (PER de l'année en cours 11,95 ; P/B moyen 1,76).",
+                "date": "2026-11-24"
+              }
+            ]
+          },
+          "mm40": {
+            "max": 30,
+            "periode": "40 semaines",
+            "sens": "long",
+            "regle": "MM40 hebdo, à contre-courant, sur les clôtures hebdomadaires confirmées (équivalent de la MM200 jours). 0 point si le cours est au-dessus de la MM40 ; montée linéaire de 0 à +30 entre 0 % et −40 % ; plafonné à +30 au-delà. Les points s’ajoutent au total, borné à −50…250.",
+            "etat": "applique",
+            "points": 0,
+            "ecart": 0.045435,
+            "ecart_pct": 4.54,
+            "cours": 30.315000534057617,
+            "mm40": 28.997497,
+            "texte": "MM40 hebdo : écart +4,5 %, 0 pts"
+          },
+          "echelle": 250
+        }
+      }
+    },
+    {
       "id": "SEL",
       "nom": "Amundi Europe Select Div. 30",
       "nom_long": "Amundi Stoxx Europe Select Dividend 30 UCITS ETF Dist",
       "isin": "LU1812092168",
       "ticker": "SEL",
       "xtb": "SEL.FR",
-      "ter_pct": 0.30,
+      "ter_pct": 0.3,
       "encours_meur": 549,
       "politique": "distribution",
       "frequence": "annuelle",
       "rendement_actuel_pct": 5.56,
-      "rendement_12m_pct": 6.50,
+      "rendement_12m_pct": 6.5,
       "replication": "synthétique",
       "indice": "STOXX Europe Select Dividend 30",
       "lancement": "2006-10-25",
@@ -84578,7 +84812,209 @@ if(navigator.serviceWorker){
       "perf_5a_pa_pct": 12.35,
       "perf_5a_source": "justETF, au 26/11/2026",
       "perf_10a_pa_pct": null,
-      "sources_fiche": ["https://www.justetf.com/fr/etf-profile.html?isin=LU1812092168", "https://www.xtb.com/fr/etfs/sel-fr"]
+      "sources_fiche": [
+        "https://www.justetf.com/fr/etf-profile.html?isin=LU1812092168",
+        "https://www.xtb.com/fr/etfs/sel-fr"
+      ],
+      "apex10": {
+        "note": 85,
+        "display": "85",
+        "hex": "#ff8c1a",
+        "flag": "orange",
+        "band": "orange",
+        "scale": 250,
+        "total": 85,
+        "total_min": -50,
+        "total_max": 250,
+        "v2": true,
+        "ligne": "RSI 0 · MACD 0 · Fibo 0 · CCI 0 · Sentiment 20 · Fond. 65 · MM40 hebdo : écart +1,7 %, 0 pts  →  85 / 250",
+        "brut": 85,
+        "technique": 0,
+        "yahoo": "SEL.PA",
+        "n_semaines": 144,
+        "dernier_vendredi": "2026-11-20",
+        "decomp": {
+          "texte": "RSI 0 · MACD 0 · Fibo 0 · CCI 0 · Sentiment 20 · Fond. 65 · MM40 hebdo : écart +1,7 %, 0 pts  →  85 / 250",
+          "points": {
+            "rsi": 0,
+            "macd": 0,
+            "fibonacci": 0,
+            "cci": 0,
+            "sentiment": 20,
+            "fondamental": 65,
+            "mm40": 0,
+            "total": 85
+          },
+          "rsi": {
+            "valeur": 48.5,
+            "points": 0,
+            "conditions": [
+              {
+                "id": "rsi_sous_40",
+                "ok": false,
+                "points": 0,
+                "valeur": 48.5
+              },
+              {
+                "id": "divergence_rsi_haussiere_hebdo",
+                "ok": false,
+                "points": 0,
+                "texte": null
+              }
+            ]
+          },
+          "macd": {
+            "points": 0,
+            "conditions": [
+              {
+                "id": "macd_sous_0",
+                "ok": false,
+                "points": 0,
+                "valeur": 0.477
+              },
+              {
+                "id": "histo_4_barres_rouges_sous_0",
+                "ok": false,
+                "points": 0,
+                "streak": 10,
+                "streak_rouge_pente": 1,
+                "macd_sous_0": false
+              }
+            ]
+          },
+          "fibonacci": {
+            "ok": true,
+            "r": 0.1262,
+            "r_pct": 12.6,
+            "points": 0,
+            "palier": null
+          },
+          "cci": {
+            "ok": false,
+            "valeur": 30.45,
+            "points": 0
+          },
+          "sentiment": {
+            "valeur": 26.7,
+            "points": 20,
+            "source": "sentiment maison secteurs Europe, pondéré, pas le CNN",
+            "date_composition": "2026-09-30",
+            "detail": [
+              {
+                "secteur": "Finance",
+                "poids_pct": 59.44,
+                "cle": "XS7R",
+                "valeur": 24.9,
+                "label": "Peur extrême",
+                "date": "2026-11-24"
+              },
+              {
+                "secteur": "Consommation discrétionnaire",
+                "poids_pct": 12.12,
+                "cle": "SPYR",
+                "valeur": 39.3,
+                "label": "Peur",
+                "date": "2026-11-24"
+              },
+              {
+                "secteur": "Énergie",
+                "poids_pct": 9.79,
+                "cle": "EXH1",
+                "valeur": 20.1,
+                "label": "Peur extrême",
+                "date": "2026-11-24"
+              },
+              {
+                "secteur": "Autre",
+                "poids_pct": 18.65,
+                "cle": "pays:EU",
+                "valeur": 27.8,
+                "label": "Peur",
+                "date": "2026-11-24"
+              }
+            ],
+            "erreur": null
+          },
+          "fondamental": {
+            "points": 65,
+            "max": 90,
+            "criteres": [
+              {
+                "id": "rendement",
+                "label": "Rendement de distribution",
+                "max": 20,
+                "points": 20,
+                "etat": "ok",
+                "valeur": 5.56,
+                "seuil": "≥ 5,0 %"
+              },
+              {
+                "id": "ter",
+                "label": "Frais TER",
+                "max": 15,
+                "points": 10,
+                "etat": "ok",
+                "valeur": 0.3,
+                "seuil": "≤ 0,30 %"
+              },
+              {
+                "id": "encours",
+                "label": "Encours",
+                "max": 15,
+                "points": 10,
+                "etat": "ok",
+                "valeur": 549,
+                "seuil": "≥ 500 M€"
+              },
+              {
+                "id": "anciennete",
+                "label": "Ancienneté",
+                "max": 15,
+                "points": 15,
+                "etat": "ok",
+                "valeur_ans": 20.09,
+                "seuil": "≥ 15 ans"
+              },
+              {
+                "id": "dividende",
+                "label": "Stabilité du dividende",
+                "max": 15,
+                "points": 10,
+                "etat": "ok",
+                "valeur": [
+                  1.13,
+                  0.91,
+                  0.98,
+                  1.33
+                ],
+                "raison": "Distributions en EUR en hausse sur 2023, 2024 et 2025 (justETF, 26/11/2026)."
+              },
+              {
+                "id": "valorisation",
+                "label": "Valorisation (PER)",
+                "max": 10,
+                "points": 0,
+                "etat": "n.c.",
+                "raison": "Pas de PER ou P/B d'émetteur vérifié au 26/11/2026."
+              }
+            ]
+          },
+          "mm40": {
+            "max": 30,
+            "periode": "40 semaines",
+            "sens": "long",
+            "regle": "MM40 hebdo, à contre-courant, sur les clôtures hebdomadaires confirmées (équivalent de la MM200 jours). 0 point si le cours est au-dessus de la MM40 ; montée linéaire de 0 à +30 entre 0 % et −40 % ; plafonné à +30 au-delà. Les points s’ajoutent au total, borné à −50…250.",
+            "etat": "applique",
+            "points": 0,
+            "ecart": 0.016973,
+            "ecart_pct": 1.7,
+            "cours": 23.954999923706055,
+            "mm40": 23.5552,
+            "texte": "MM40 hebdo : écart +1,7 %, 0 pts"
+          },
+          "echelle": 250
+        }
+      }
     },
     {
       "id": "EXSG",
@@ -84605,7 +85041,208 @@ if(navigator.serviceWorker){
       "perf_5a_pa_pct": 9.98,
       "perf_5a_source": "Yahoo Finance, cours ajustés au 26/11/2026 (EXSG.DE)",
       "perf_10a_pa_pct": 6.96,
-      "sources_fiche": ["https://www.justetf.com/fr/etf-profile.html?isin=DE0002635281"]
+      "sources_fiche": [
+        "https://www.justetf.com/fr/etf-profile.html?isin=DE0002635281"
+      ],
+      "apex10": {
+        "note": 75,
+        "display": "75",
+        "hex": "#ff8c1a",
+        "flag": "orange",
+        "band": "orange",
+        "scale": 250,
+        "total": 75,
+        "total_min": -50,
+        "total_max": 250,
+        "v2": true,
+        "ligne": "RSI 0 · MACD 0 · Fibo 0 · CCI 0 · Sentiment 20 · Fond. 55 · MM40 hebdo : écart +3,3 %, 0 pts  →  75 / 250",
+        "brut": 75,
+        "technique": 0,
+        "yahoo": "EXSG.DE",
+        "n_semaines": 521,
+        "dernier_vendredi": "2026-11-20",
+        "decomp": {
+          "texte": "RSI 0 · MACD 0 · Fibo 0 · CCI 0 · Sentiment 20 · Fond. 55 · MM40 hebdo : écart +3,3 %, 0 pts  →  75 / 250",
+          "points": {
+            "rsi": 0,
+            "macd": 0,
+            "fibonacci": 0,
+            "cci": 0,
+            "sentiment": 20,
+            "fondamental": 55,
+            "mm40": 0,
+            "total": 75
+          },
+          "rsi": {
+            "valeur": 51.7,
+            "points": 0,
+            "conditions": [
+              {
+                "id": "rsi_sous_40",
+                "ok": false,
+                "points": 0,
+                "valeur": 51.7
+              },
+              {
+                "id": "divergence_rsi_haussiere_hebdo",
+                "ok": false,
+                "points": 0,
+                "texte": null
+              }
+            ]
+          },
+          "macd": {
+            "points": 0,
+            "conditions": [
+              {
+                "id": "macd_sous_0",
+                "ok": false,
+                "points": 0,
+                "valeur": 0.4522
+              },
+              {
+                "id": "histo_4_barres_rouges_sous_0",
+                "ok": false,
+                "points": 0,
+                "streak": 9,
+                "streak_rouge_pente": 1,
+                "macd_sous_0": false
+              }
+            ]
+          },
+          "fibonacci": {
+            "ok": true,
+            "r": 0.0859,
+            "r_pct": 8.6,
+            "points": 0,
+            "palier": null
+          },
+          "cci": {
+            "ok": false,
+            "valeur": 43.76,
+            "points": 0
+          },
+          "sentiment": {
+            "valeur": 26.5,
+            "points": 20,
+            "source": "sentiment maison secteurs Europe, pondéré, pas le CNN",
+            "date_composition": "2026-09-30",
+            "detail": [
+              {
+                "secteur": "Finance",
+                "poids_pct": 53.64,
+                "cle": "XS7R",
+                "valeur": 24.9,
+                "label": "Peur extrême",
+                "date": "2026-11-24"
+              },
+              {
+                "secteur": "Énergie",
+                "poids_pct": 7.87,
+                "cle": "EXH1",
+                "valeur": 20.1,
+                "label": "Peur extrême",
+                "date": "2026-11-24"
+              },
+              {
+                "secteur": "Consommation discrétionnaire",
+                "poids_pct": 7.16,
+                "cle": "SPYR",
+                "valeur": 39.3,
+                "label": "Peur",
+                "date": "2026-11-24"
+              },
+              {
+                "secteur": "Autre",
+                "poids_pct": 31.33,
+                "cle": "pays:EU",
+                "valeur": 27.8,
+                "label": "Peur",
+                "date": "2026-11-24"
+              }
+            ],
+            "erreur": null
+          },
+          "fondamental": {
+            "points": 55,
+            "max": 90,
+            "criteres": [
+              {
+                "id": "rendement",
+                "label": "Rendement de distribution",
+                "max": 20,
+                "points": 15,
+                "etat": "ok",
+                "valeur": 4.47,
+                "seuil": "≥ 4,0 %"
+              },
+              {
+                "id": "ter",
+                "label": "Frais TER",
+                "max": 15,
+                "points": 5,
+                "etat": "ok",
+                "valeur": 0.32,
+                "seuil": "≤ 0,35 %"
+              },
+              {
+                "id": "encours",
+                "label": "Encours",
+                "max": 15,
+                "points": 10,
+                "etat": "ok",
+                "valeur": 591,
+                "seuil": "≥ 500 M€"
+              },
+              {
+                "id": "anciennete",
+                "label": "Ancienneté",
+                "max": 15,
+                "points": 15,
+                "etat": "ok",
+                "valeur_ans": 21.57,
+                "seuil": "≥ 15 ans"
+              },
+              {
+                "id": "dividende",
+                "label": "Stabilité du dividende",
+                "max": 15,
+                "points": 10,
+                "etat": "ok",
+                "valeur": [
+                  0.83,
+                  0.88,
+                  0.93,
+                  0.96
+                ],
+                "raison": "Distributions en EUR en hausse sur 2023, 2024 et 2025 (justETF, 26/11/2026)."
+              },
+              {
+                "id": "valorisation",
+                "label": "Valorisation (PER)",
+                "max": 10,
+                "points": 0,
+                "etat": "n.c.",
+                "raison": "Pas de PER ou P/B d'émetteur vérifié au 26/11/2026."
+              }
+            ]
+          },
+          "mm40": {
+            "max": 30,
+            "periode": "40 semaines",
+            "sens": "long",
+            "regle": "MM40 hebdo, à contre-courant, sur les clôtures hebdomadaires confirmées (équivalent de la MM200 jours). 0 point si le cours est au-dessus de la MM40 ; montée linéaire de 0 à +30 entre 0 % et −40 % ; plafonné à +30 au-delà. Les points s’ajoutent au total, borné à −50…250.",
+            "etat": "applique",
+            "points": 0,
+            "ecart": 0.033326,
+            "ecart_pct": 3.33,
+            "cours": 23.239999771118164,
+            "mm40": 22.490479,
+            "texte": "MM40 hebdo : écart +3,3 %, 0 pts"
+          },
+          "echelle": 250
+        }
+      }
     },
     {
       "id": "IQQA",
@@ -84615,7 +85252,7 @@ if(navigator.serviceWorker){
       "ticker": "IQQA",
       "xtb": "IQQA.DE",
       "xtb_alt": "IDVY.NL",
-      "ter_pct": 0.40,
+      "ter_pct": 0.4,
       "encours_meur": 1603,
       "politique": "distribution",
       "frequence": "trimestrielle",
@@ -84633,7 +85270,209 @@ if(navigator.serviceWorker){
       "perf_5a_pa_pct": 9.98,
       "perf_5a_source": "Yahoo Finance, cours ajustés au 26/11/2026 (IQQA.DE)",
       "perf_10a_pa_pct": 6.91,
-      "sources_fiche": ["https://www.justetf.com/fr/etf-profile.html?isin=IE00B0M62S72", "https://www.xtb.com/fr/etfs/iqqa-de"]
+      "sources_fiche": [
+        "https://www.justetf.com/fr/etf-profile.html?isin=IE00B0M62S72",
+        "https://www.xtb.com/fr/etfs/iqqa-de"
+      ],
+      "apex10": {
+        "note": 75,
+        "display": "75",
+        "hex": "#ff8c1a",
+        "flag": "orange",
+        "band": "orange",
+        "scale": 250,
+        "total": 75,
+        "total_min": -50,
+        "total_max": 250,
+        "v2": true,
+        "ligne": "RSI 0 · MACD 0 · Fibo 0 · CCI 0 · Sentiment 20 · Fond. 55 · MM40 hebdo : écart +3,5 %, 0 pts  →  75 / 250",
+        "brut": 75,
+        "technique": 0,
+        "yahoo": "IQQA.DE",
+        "n_semaines": 521,
+        "dernier_vendredi": "2026-11-20",
+        "decomp": {
+          "texte": "RSI 0 · MACD 0 · Fibo 0 · CCI 0 · Sentiment 20 · Fond. 55 · MM40 hebdo : écart +3,5 %, 0 pts  →  75 / 250",
+          "points": {
+            "rsi": 0,
+            "macd": 0,
+            "fibonacci": 0,
+            "cci": 0,
+            "sentiment": 20,
+            "fondamental": 55,
+            "mm40": 0,
+            "total": 75
+          },
+          "rsi": {
+            "valeur": 52.1,
+            "points": 0,
+            "conditions": [
+              {
+                "id": "rsi_sous_40",
+                "ok": false,
+                "points": 0,
+                "valeur": 52.1
+              },
+              {
+                "id": "divergence_rsi_haussiere_hebdo",
+                "ok": false,
+                "points": 0,
+                "texte": null
+              }
+            ]
+          },
+          "macd": {
+            "points": 0,
+            "conditions": [
+              {
+                "id": "macd_sous_0",
+                "ok": false,
+                "points": 0,
+                "valeur": 0.5062
+              },
+              {
+                "id": "histo_4_barres_rouges_sous_0",
+                "ok": false,
+                "points": 0,
+                "streak": 9,
+                "streak_rouge_pente": 1,
+                "macd_sous_0": false
+              }
+            ]
+          },
+          "fibonacci": {
+            "ok": true,
+            "r": 0.0835,
+            "r_pct": 8.3,
+            "points": 0,
+            "palier": null
+          },
+          "cci": {
+            "ok": false,
+            "valeur": 44.51,
+            "points": 0
+          },
+          "sentiment": {
+            "valeur": 26.5,
+            "points": 20,
+            "source": "sentiment maison secteurs Europe, pondéré, pas le CNN",
+            "date_composition": "2026-09-30",
+            "detail": [
+              {
+                "secteur": "Finance",
+                "poids_pct": 53.64,
+                "cle": "XS7R",
+                "valeur": 24.9,
+                "label": "Peur extrême",
+                "date": "2026-11-24"
+              },
+              {
+                "secteur": "Énergie",
+                "poids_pct": 7.87,
+                "cle": "EXH1",
+                "valeur": 20.1,
+                "label": "Peur extrême",
+                "date": "2026-11-24"
+              },
+              {
+                "secteur": "Consommation discrétionnaire",
+                "poids_pct": 7.16,
+                "cle": "SPYR",
+                "valeur": 39.3,
+                "label": "Peur",
+                "date": "2026-11-24"
+              },
+              {
+                "secteur": "Autre",
+                "poids_pct": 31.33,
+                "cle": "pays:EU",
+                "valeur": 27.8,
+                "label": "Peur",
+                "date": "2026-11-24"
+              }
+            ],
+            "erreur": null
+          },
+          "fondamental": {
+            "points": 55,
+            "max": 90,
+            "criteres": [
+              {
+                "id": "rendement",
+                "label": "Rendement de distribution",
+                "max": 20,
+                "points": 15,
+                "etat": "ok",
+                "valeur": 4.41,
+                "seuil": "≥ 4,0 %"
+              },
+              {
+                "id": "ter",
+                "label": "Frais TER",
+                "max": 15,
+                "points": 0,
+                "etat": "ok",
+                "valeur": 0.4,
+                "seuil": "> 0,35 %"
+              },
+              {
+                "id": "encours",
+                "label": "Encours",
+                "max": 15,
+                "points": 15,
+                "etat": "ok",
+                "valeur": 1603,
+                "seuil": "≥ 1 000 M€"
+              },
+              {
+                "id": "anciennete",
+                "label": "Ancienneté",
+                "max": 15,
+                "points": 15,
+                "etat": "ok",
+                "valeur_ans": 21.08,
+                "seuil": "≥ 15 ans"
+              },
+              {
+                "id": "dividende",
+                "label": "Stabilité du dividende",
+                "max": 15,
+                "points": 10,
+                "etat": "ok",
+                "valeur": [
+                  0.92,
+                  1.0,
+                  1.03,
+                  1.04
+                ],
+                "raison": "Distributions en EUR en hausse sur 2023, 2024 et 2025 (justETF, 26/11/2026)."
+              },
+              {
+                "id": "valorisation",
+                "label": "Valorisation (PER)",
+                "max": 10,
+                "points": 0,
+                "etat": "n.c.",
+                "raison": "Pas de PER ou P/B d'émetteur vérifié au 26/11/2026."
+              }
+            ]
+          },
+          "mm40": {
+            "max": 30,
+            "periode": "40 semaines",
+            "sens": "long",
+            "regle": "MM40 hebdo, à contre-courant, sur les clôtures hebdomadaires confirmées (équivalent de la MM200 jours). 0 point si le cours est au-dessus de la MM40 ; montée linéaire de 0 à +30 entre 0 % et −40 % ; plafonné à +30 au-delà. Les points s’ajoutent au total, borné à −50…250.",
+            "etat": "applique",
+            "points": 0,
+            "ecart": 0.034669,
+            "ecart_pct": 3.47,
+            "cours": 26.024999618530273,
+            "mm40": 25.152969,
+            "texte": "MM40 hebdo : écart +3,5 %, 0 pts"
+          },
+          "echelle": 250
+        }
+      }
     },
     {
       "id": "XD3E",
@@ -84642,7 +85481,7 @@ if(navigator.serviceWorker){
       "isin": "LU0292095535",
       "ticker": "DXSA",
       "xtb": "XD3E.DE",
-      "ter_pct": 0.30,
+      "ter_pct": 0.3,
       "encours_meur": 776,
       "politique": "distribution",
       "frequence": "trimestrielle",
@@ -84659,36 +85498,217 @@ if(navigator.serviceWorker){
       "perf_5a_pct": 82.9,
       "perf_5a_pa_pct": 12.83,
       "perf_5a_source": "Yahoo Finance, cours ajustés au 26/11/2026 (DXSA.DE)",
-      "perf_10a_pa_pct": 8.80,
-      "sources_fiche": ["https://www.justetf.com/fr/etf-profile.html?isin=LU0292095535"]
-    },
-    {
-      "id": "SPYW",
-      "nom": "SPDR Euro Div. Aristocrats",
-      "nom_long": "State Street SPDR S&P Euro Dividend Aristocrats UCITS ETF EUR",
-      "isin": "IE00B5M1WJ87",
-      "ticker": "SPYW",
-      "xtb": "SPYW.DE",
-      "ticker_alt": "EUDV",
-      "ter_pct": 0.30,
-      "encours_meur": 1838,
-      "politique": "distribution",
-      "frequence": "semestrielle",
-      "rendement_actuel_pct": 3.66,
-      "rendement_12m_pct": 4.17,
-      "replication": "physique",
-      "indice": "S&P Euro High Yield Dividend Aristocrats",
-      "lancement": "2012-02-28",
-      "pea": true,
-      "xtb_omi": true,
-      "xtb_page": false,
-      "note": "Plus gros encours. Entreprises de la zone euro avec dividendes stables ou en hausse depuis 10 ans. Rendement plus bas, panier plus exigeant.",
-      "meme_indice": null,
-      "perf_5a_pct": 59.4,
-      "perf_5a_pa_pct": 9.78,
-      "perf_5a_source": "Yahoo Finance, cours ajustés au 26/11/2026 (SPYW.DE)",
-      "perf_10a_pa_pct": 7.26,
-      "sources_fiche": ["https://www.justetf.com/fr/etf-profile.html?isin=IE00B5M1WJ87"]
+      "perf_10a_pa_pct": 8.8,
+      "sources_fiche": [
+        "https://www.justetf.com/fr/etf-profile.html?isin=LU0292095535"
+      ],
+      "apex10": {
+        "note": 70,
+        "display": "70",
+        "hex": "#ff8c1a",
+        "flag": "orange",
+        "band": "orange",
+        "scale": 250,
+        "total": 70,
+        "total_min": -50,
+        "total_max": 250,
+        "v2": true,
+        "ligne": "RSI 0 · MACD 0 · Fibo 0 · CCI 0 · Sentiment 10 · Fond. 60 · MM40 hebdo : écart +3,6 %, 0 pts  →  70 / 250",
+        "brut": 70,
+        "technique": 0,
+        "yahoo": "DXSA.DE",
+        "n_semaines": 521,
+        "dernier_vendredi": "2026-11-20",
+        "decomp": {
+          "texte": "RSI 0 · MACD 0 · Fibo 0 · CCI 0 · Sentiment 10 · Fond. 60 · MM40 hebdo : écart +3,6 %, 0 pts  →  70 / 250",
+          "points": {
+            "rsi": 0,
+            "macd": 0,
+            "fibonacci": 0,
+            "cci": 0,
+            "sentiment": 10,
+            "fondamental": 60,
+            "mm40": 0,
+            "total": 70
+          },
+          "rsi": {
+            "valeur": 54.8,
+            "points": 0,
+            "conditions": [
+              {
+                "id": "rsi_sous_40",
+                "ok": false,
+                "points": 0,
+                "valeur": 54.8
+              },
+              {
+                "id": "divergence_rsi_haussiere_hebdo",
+                "ok": false,
+                "points": 0,
+                "texte": null
+              }
+            ]
+          },
+          "macd": {
+            "points": 0,
+            "conditions": [
+              {
+                "id": "macd_sous_0",
+                "ok": false,
+                "points": 0,
+                "valeur": 0.4927
+              },
+              {
+                "id": "histo_4_barres_rouges_sous_0",
+                "ok": false,
+                "points": 0,
+                "streak": 13,
+                "streak_rouge_pente": 1,
+                "macd_sous_0": false
+              }
+            ]
+          },
+          "fibonacci": {
+            "ok": true,
+            "r": 0.0801,
+            "r_pct": 8.0,
+            "points": 0,
+            "palier": null
+          },
+          "cci": {
+            "ok": false,
+            "valeur": 58.51,
+            "points": 0
+          },
+          "sentiment": {
+            "valeur": 32.5,
+            "points": 10,
+            "source": "sentiment maison secteurs Europe, pondéré, pas le CNN",
+            "date_composition": "2026-09-29",
+            "detail": [
+              {
+                "secteur": "Finance",
+                "poids_pct": 42.23,
+                "cle": "XS7R",
+                "valeur": 24.9,
+                "label": "Peur extrême",
+                "date": "2026-11-24"
+              },
+              {
+                "secteur": "Services aux collectivités",
+                "poids_pct": 11.76,
+                "cle": "XS6R",
+                "valeur": 52.4,
+                "label": "Neutre",
+                "date": "2026-11-24"
+              },
+              {
+                "secteur": "Industrie",
+                "poids_pct": 9.08,
+                "cle": "DXSL",
+                "valeur": 24.8,
+                "label": "Peur extrême",
+                "date": "2026-11-24"
+              },
+              {
+                "secteur": "Consommation de base",
+                "poids_pct": 8.33,
+                "cle": "DXSK",
+                "valeur": 67.5,
+                "label": "Avidité",
+                "date": "2026-11-24"
+              },
+              {
+                "secteur": "Autre",
+                "poids_pct": 28.6,
+                "cle": "pays:EU",
+                "valeur": 27.8,
+                "label": "Peur",
+                "date": "2026-11-24"
+              }
+            ],
+            "erreur": null
+          },
+          "fondamental": {
+            "points": 60,
+            "max": 90,
+            "criteres": [
+              {
+                "id": "rendement",
+                "label": "Rendement de distribution",
+                "max": 20,
+                "points": 15,
+                "etat": "ok",
+                "valeur": 4.37,
+                "seuil": "≥ 4,0 %"
+              },
+              {
+                "id": "ter",
+                "label": "Frais TER",
+                "max": 15,
+                "points": 10,
+                "etat": "ok",
+                "valeur": 0.3,
+                "seuil": "≤ 0,30 %"
+              },
+              {
+                "id": "encours",
+                "label": "Encours",
+                "max": 15,
+                "points": 10,
+                "etat": "ok",
+                "valeur": 776,
+                "seuil": "≥ 500 M€"
+              },
+              {
+                "id": "anciennete",
+                "label": "Ancienneté",
+                "max": 15,
+                "points": 15,
+                "etat": "ok",
+                "valeur_ans": 19.49,
+                "seuil": "≥ 15 ans"
+              },
+              {
+                "id": "dividende",
+                "label": "Stabilité du dividende",
+                "max": 15,
+                "points": 10,
+                "etat": "ok",
+                "valeur": [
+                  0.85,
+                  0.9,
+                  1.17,
+                  1.37
+                ],
+                "raison": "Distributions en EUR en hausse sur 2023, 2024 et 2025 (justETF, 26/11/2026)."
+              },
+              {
+                "id": "valorisation",
+                "label": "Valorisation (PER)",
+                "max": 10,
+                "points": 0,
+                "etat": "n.c.",
+                "raison": "Pas de PER ou P/B d'émetteur vérifié au 26/11/2026."
+              }
+            ]
+          },
+          "mm40": {
+            "max": 30,
+            "periode": "40 semaines",
+            "sens": "long",
+            "regle": "MM40 hebdo, à contre-courant, sur les clôtures hebdomadaires confirmées (équivalent de la MM200 jours). 0 point si le cours est au-dessus de la MM40 ; montée linéaire de 0 à +30 entre 0 % et −40 % ; plafonné à +30 au-delà. Les points s’ajoutent au total, borné à −50…250.",
+            "etat": "applique",
+            "points": 0,
+            "ecart": 0.036273,
+            "ecart_pct": 3.63,
+            "cours": 30.3799991607666,
+            "mm40": 29.316589,
+            "texte": "MM40 hebdo : écart +3,6 %, 0 pts"
+          },
+          "echelle": 250
+        }
+      }
     },
     {
       "id": "CD8",
@@ -84697,7 +85717,7 @@ if(navigator.serviceWorker){
       "isin": "FR0010717090",
       "ticker": "CD8",
       "xtb": "18M2.DE",
-      "ter_pct": 0.30,
+      "ter_pct": 0.3,
       "encours_meur": 391,
       "politique": "capitalisation",
       "frequence": null,
@@ -84712,10 +85732,212 @@ if(navigator.serviceWorker){
       "note": "Capitalisant : les dividendes sont réinvestis automatiquement, pratique pour 200 €/mois. Pas de rendement versé à afficher.",
       "meme_indice": null,
       "perf_5a_pct": 61.0,
-      "perf_5a_pa_pct": 10.00,
+      "perf_5a_pa_pct": 10.0,
       "perf_5a_source": "Yahoo Finance, cours ajustés au 26/11/2026 (CD8.PA)",
       "perf_10a_pa_pct": 8.42,
-      "sources_fiche": ["https://www.justetf.com/fr/etf-profile.html?isin=FR0010717090"]
+      "sources_fiche": [
+        "https://www.justetf.com/fr/etf-profile.html?isin=FR0010717090"
+      ],
+      "apex10": {
+        "note": 50,
+        "display": "50",
+        "hex": "#ff2d2d",
+        "flag": "red",
+        "band": "rouge",
+        "scale": 250,
+        "total": 50,
+        "total_min": -50,
+        "total_max": 250,
+        "v2": true,
+        "ligne": "RSI 0 · MACD 0 · Fibo 0 · CCI 0 · Sentiment 20 · Fond. 30 · MM40 hebdo : écart +5,0 %, 0 pts  →  50 / 250",
+        "brut": 50,
+        "technique": 0,
+        "yahoo": "CD8.PA",
+        "n_semaines": 521,
+        "dernier_vendredi": "2026-11-20",
+        "decomp": {
+          "texte": "RSI 0 · MACD 0 · Fibo 0 · CCI 0 · Sentiment 20 · Fond. 30 · MM40 hebdo : écart +5,0 %, 0 pts  →  50 / 250",
+          "points": {
+            "rsi": 0,
+            "macd": 0,
+            "fibonacci": 0,
+            "cci": 0,
+            "sentiment": 20,
+            "fondamental": 30,
+            "mm40": 0,
+            "total": 50
+          },
+          "rsi": {
+            "valeur": 57.0,
+            "points": 0,
+            "conditions": [
+              {
+                "id": "rsi_sous_40",
+                "ok": false,
+                "points": 0,
+                "valeur": 57.0
+              },
+              {
+                "id": "divergence_rsi_haussiere_hebdo",
+                "ok": false,
+                "points": 0,
+                "texte": null
+              }
+            ]
+          },
+          "macd": {
+            "points": 0,
+            "conditions": [
+              {
+                "id": "macd_sous_0",
+                "ok": false,
+                "points": 0,
+                "valeur": 4.5433
+              },
+              {
+                "id": "histo_4_barres_rouges_sous_0",
+                "ok": false,
+                "points": 0,
+                "streak": 0,
+                "streak_rouge_pente": 1,
+                "macd_sous_0": false
+              }
+            ]
+          },
+          "fibonacci": {
+            "ok": true,
+            "r": 0.0765,
+            "r_pct": 7.6,
+            "points": 0,
+            "palier": null
+          },
+          "cci": {
+            "ok": false,
+            "valeur": 72.79,
+            "points": 0
+          },
+          "sentiment": {
+            "valeur": 27.1,
+            "points": 20,
+            "source": "sentiment maison secteurs Europe, pondéré, pas le CNN",
+            "date_composition": "2026-09-24",
+            "detail": [
+              {
+                "secteur": "Finance",
+                "poids_pct": 40.52,
+                "cle": "XS7R",
+                "valeur": 24.9,
+                "label": "Peur extrême",
+                "date": "2026-11-24"
+              },
+              {
+                "secteur": "Industrie",
+                "poids_pct": 16.3,
+                "cle": "DXSL",
+                "valeur": 24.8,
+                "label": "Peur extrême",
+                "date": "2026-11-24"
+              },
+              {
+                "secteur": "Énergie",
+                "poids_pct": 11.21,
+                "cle": "EXH1",
+                "valeur": 20.1,
+                "label": "Peur extrême",
+                "date": "2026-11-24"
+              },
+              {
+                "secteur": "Services aux collectivités",
+                "poids_pct": 7.61,
+                "cle": "XS6R",
+                "valeur": 52.4,
+                "label": "Neutre",
+                "date": "2026-11-24"
+              },
+              {
+                "secteur": "Autre",
+                "poids_pct": 24.36,
+                "cle": "pays:EU",
+                "valeur": 27.8,
+                "label": "Peur",
+                "date": "2026-11-24"
+              }
+            ],
+            "erreur": null
+          },
+          "fondamental": {
+            "points": 30,
+            "max": 90,
+            "criteres": [
+              {
+                "id": "rendement",
+                "label": "Rendement de distribution",
+                "max": 20,
+                "points": 0,
+                "etat": "n.c.",
+                "raison": "ETF capitalisant, pas de rendement versé à afficher."
+              },
+              {
+                "id": "ter",
+                "label": "Frais TER",
+                "max": 15,
+                "points": 10,
+                "etat": "ok",
+                "valeur": 0.3,
+                "seuil": "≤ 0,30 %"
+              },
+              {
+                "id": "encours",
+                "label": "Encours",
+                "max": 15,
+                "points": 5,
+                "etat": "ok",
+                "valeur": 391,
+                "seuil": "≥ 200 M€"
+              },
+              {
+                "id": "anciennete",
+                "label": "Ancienneté",
+                "max": 15,
+                "points": 15,
+                "etat": "ok",
+                "valeur_ans": 17.75,
+                "seuil": "≥ 15 ans"
+              },
+              {
+                "id": "dividende",
+                "label": "Stabilité du dividende",
+                "max": 15,
+                "points": 0,
+                "etat": "n.c.",
+                "raison": "ETF capitalisant, pas d'historique de distribution."
+              },
+              {
+                "id": "valorisation",
+                "label": "Valorisation (PER)",
+                "max": 10,
+                "points": 0,
+                "etat": "n.c.",
+                "raison": "Pas de PER ou P/B d'émetteur vérifié au 26/11/2026."
+              }
+            ]
+          },
+          "mm40": {
+            "max": 30,
+            "periode": "40 semaines",
+            "sens": "long",
+            "regle": "MM40 hebdo, à contre-courant, sur les clôtures hebdomadaires confirmées (équivalent de la MM200 jours). 0 point si le cours est au-dessus de la MM40 ; montée linéaire de 0 à +30 entre 0 % et −40 % ; plafonné à +30 au-delà. Les points s’ajoutent au total, borné à −50…250.",
+            "etat": "applique",
+            "points": 0,
+            "ecart": 0.050083,
+            "ecart_pct": 5.01,
+            "cours": 217.75,
+            "mm40": 207.3645,
+            "texte": "MM40 hebdo : écart +5,0 %, 0 pts"
+          },
+          "echelle": 250
+        }
+      }
     },
     {
       "id": "IDVA",
@@ -84742,7 +85964,202 @@ if(navigator.serviceWorker){
       "perf_5a_pa_pct": 9.95,
       "perf_5a_source": "Yahoo Finance, cours ajustés au 26/11/2026 (IDVA.AS), historique depuis le 31/12/2021 (presque 5 ans)",
       "perf_10a_pa_pct": null,
-      "sources_fiche": ["https://www.justetf.com/fr/etf-profile.html?isin=DE000A2QP380", "https://www.xtb.com/fr/etfs/idva-nl"]
+      "sources_fiche": [
+        "https://www.justetf.com/fr/etf-profile.html?isin=DE000A2QP380",
+        "https://www.xtb.com/fr/etfs/idva-nl"
+      ],
+      "apex10": {
+        "note": 25,
+        "display": "25",
+        "hex": "#ff2d2d",
+        "flag": "red",
+        "band": "rouge",
+        "scale": 250,
+        "total": 25,
+        "total_min": -50,
+        "total_max": 250,
+        "v2": true,
+        "ligne": "RSI 0 · MACD 0 · Fibo 0 · CCI 0 · Sentiment 20 · Fond. 5 · MM40 hebdo : écart +3,4 %, 0 pts  →  25 / 250",
+        "brut": 25,
+        "technique": 0,
+        "yahoo": "IDVA.AS",
+        "n_semaines": 259,
+        "dernier_vendredi": "2026-11-20",
+        "decomp": {
+          "texte": "RSI 0 · MACD 0 · Fibo 0 · CCI 0 · Sentiment 20 · Fond. 5 · MM40 hebdo : écart +3,4 %, 0 pts  →  25 / 250",
+          "points": {
+            "rsi": 0,
+            "macd": 0,
+            "fibonacci": 0,
+            "cci": 0,
+            "sentiment": 20,
+            "fondamental": 5,
+            "mm40": 0,
+            "total": 25
+          },
+          "rsi": {
+            "valeur": 51.9,
+            "points": 0,
+            "conditions": [
+              {
+                "id": "rsi_sous_40",
+                "ok": false,
+                "points": 0,
+                "valeur": 51.9
+              },
+              {
+                "id": "divergence_rsi_haussiere_hebdo",
+                "ok": false,
+                "points": 0,
+                "texte": null
+              }
+            ]
+          },
+          "macd": {
+            "points": 0,
+            "conditions": [
+              {
+                "id": "macd_sous_0",
+                "ok": false,
+                "points": 0,
+                "valeur": 0.1585
+              },
+              {
+                "id": "histo_4_barres_rouges_sous_0",
+                "ok": false,
+                "points": 0,
+                "streak": 9,
+                "streak_rouge_pente": 1,
+                "macd_sous_0": false
+              }
+            ]
+          },
+          "fibonacci": {
+            "ok": true,
+            "r": 0.1027,
+            "r_pct": 10.3,
+            "points": 0,
+            "palier": null
+          },
+          "cci": {
+            "ok": false,
+            "valeur": 40.85,
+            "points": 0
+          },
+          "sentiment": {
+            "valeur": 26.5,
+            "points": 20,
+            "source": "sentiment maison secteurs Europe, pondéré, pas le CNN",
+            "date_composition": "2026-09-30",
+            "detail": [
+              {
+                "secteur": "Finance",
+                "poids_pct": 53.64,
+                "cle": "XS7R",
+                "valeur": 24.9,
+                "label": "Peur extrême",
+                "date": "2026-11-24"
+              },
+              {
+                "secteur": "Énergie",
+                "poids_pct": 7.87,
+                "cle": "EXH1",
+                "valeur": 20.1,
+                "label": "Peur extrême",
+                "date": "2026-11-24"
+              },
+              {
+                "secteur": "Consommation discrétionnaire",
+                "poids_pct": 7.16,
+                "cle": "SPYR",
+                "valeur": 39.3,
+                "label": "Peur",
+                "date": "2026-11-24"
+              },
+              {
+                "secteur": "Autre",
+                "poids_pct": 31.33,
+                "cle": "pays:EU",
+                "valeur": 27.8,
+                "label": "Peur",
+                "date": "2026-11-24"
+              }
+            ],
+            "erreur": null
+          },
+          "fondamental": {
+            "points": 5,
+            "max": 90,
+            "criteres": [
+              {
+                "id": "rendement",
+                "label": "Rendement de distribution",
+                "max": 20,
+                "points": 0,
+                "etat": "n.c.",
+                "raison": "ETF capitalisant, pas de rendement versé à afficher."
+              },
+              {
+                "id": "ter",
+                "label": "Frais TER",
+                "max": 15,
+                "points": 5,
+                "etat": "ok",
+                "valeur": 0.32,
+                "seuil": "≤ 0,35 %"
+              },
+              {
+                "id": "encours",
+                "label": "Encours",
+                "max": 15,
+                "points": 0,
+                "etat": "ok",
+                "valeur": 96,
+                "seuil": "< 200 M€"
+              },
+              {
+                "id": "anciennete",
+                "label": "Ancienneté",
+                "max": 15,
+                "points": 0,
+                "etat": "ok",
+                "valeur_ans": 4.98,
+                "seuil": "< 5 ans"
+              },
+              {
+                "id": "dividende",
+                "label": "Stabilité du dividende",
+                "max": 15,
+                "points": 0,
+                "etat": "n.c.",
+                "raison": "ETF capitalisant, pas d'historique de distribution."
+              },
+              {
+                "id": "valorisation",
+                "label": "Valorisation (PER)",
+                "max": 10,
+                "points": 0,
+                "etat": "n.c.",
+                "raison": "Pas de PER ou P/B d'émetteur vérifié au 26/11/2026."
+              }
+            ]
+          },
+          "mm40": {
+            "max": 30,
+            "periode": "40 semaines",
+            "sens": "long",
+            "regle": "MM40 hebdo, à contre-courant, sur les clôtures hebdomadaires confirmées (équivalent de la MM200 jours). 0 point si le cours est au-dessus de la MM40 ; montée linéaire de 0 à +30 entre 0 % et −40 % ; plafonné à +30 au-delà. Les points s’ajoutent au total, borné à −50…250.",
+            "etat": "applique",
+            "points": 0,
+            "ecart": 0.033805,
+            "ecart_pct": 3.38,
+            "cours": 8.23900032043457,
+            "mm40": 7.96959,
+            "texte": "MM40 hebdo : écart +3,4 %, 0 pts"
+          },
+          "echelle": 250
+        }
+      }
     }
   ],
   "exclus": [
@@ -84769,19 +86186,38 @@ if(navigator.serviceWorker){
   ],
   "projection": {
     "versement_mensuel_eur": 200,
+    "versement_annuel_eur": 2400,
     "duree_ans": 5,
     "n_versements": 60,
     "total_verse_eur": 12000,
     "mode": "fin_de_mois",
-    "mode_libelle": "Versements en fin de mois, dividendes supposés réinvestis. Formule de la valeur future d'une annuité ordinaire.",
-    "avertissement": "Estimation. Aucun rendement n'est garanti. Risque de perte en capital.",
+    "taux_defaut_pct": 7.0,
+    "taux_convention": "mensuel_equivalent",
+    "mode_libelle": "Versements en fin de mois. Taux mensuel équivalent i = (1 + r)^(1/12) − 1. Valeur future d'une annuité ordinaire.",
+    "avertissement": "Estimation, aucun rendement garanti, risque de perte en capital.",
+    "defaut": {
+      "taux_pa_pct": 7.0,
+      "taux_mensuel_equivalent_pct": 0.565415,
+      "an1": {
+        "verse": 2400,
+        "estime": 2476.06,
+        "gain": 76.06,
+        "gain_pct": 3.17
+      },
+      "an5": {
+        "verse": 12000,
+        "estime": 14239.17,
+        "gain": 2239.17,
+        "gain_pct": 18.66
+      }
+    },
     "justification": "Les ETF zone euro de cette liste ont fait environ 7 à 8,8 % par an sur 10 ans et 10 à 13 % sur 5 ans (dividendes réinvestis, Yahoo 26/11/2026 ; SEL : +78,97 % sur 5 ans selon justETF, soit environ 12,3 % par an). Les 5 dernières années ont été exceptionnelles. Le cas central reprend plutôt le rythme sur 10 ans. Le cas prudent reprend surtout le dividende, sans hausse des cours. Le cas favorable reste sous le rythme des 5 dernières années.",
     "scenarios": [
       {
         "id": "prudent",
         "nom": "Prudent",
         "taux_pa_pct": 4.0,
-        "capital_eur": 13259.80,
+        "capital_eur": 13259.8,
         "justification": "Autour du rendement de dividende actuel du panier (3,7 à 5,6 %), sans hausse des cours."
       },
       {
@@ -84799,6 +86235,41 @@ if(navigator.serviceWorker){
         "justification": "Proche du rythme sur 5 ans (environ 10 à 13 %), période exceptionnelle, non retenue comme cas de base."
       }
     ]
+  },
+  "note_legende": "Note APEX −50 à 250 : violet < 10, rouge 10–69, orange 70–129, vert 130–189, cyan ≥ 190. Technique 110 (RSI, MACD, Fibo, CCI) + sentiment ±50 + fondamental 90 + MM40 30, total plafonné à 250.",
+  "note_grille": {
+    "echelle": "−50 à 250",
+    "points": {
+      "rsi": 30,
+      "macd": 30,
+      "fibonacci": 30,
+      "cci": 20,
+      "sentiment": 50,
+      "fondamental": 90,
+      "mm40": 30
+    },
+    "technique_somme": 110,
+    "borne": "total ramené dans [−50, 250]",
+    "regles": {
+      "rsi": "RSI 14 hebdo à contre-courant : +10 si RSI < 40 ; +20 si divergence haussière hebdo ; cumulables, plafond 30.",
+      "macd": "MACD 12/26/9 hebdo à contre-courant : +10 si la ligne < 0 ; +20 si ligne < 0 et 4 barres rouges d'histogramme ; cumulables, plafond 30.",
+      "fibonacci": "Retracement historique des corps hebdo : ≥ 38,2 % +10 ; ≥ 61,8 % +20 ; ≥ 78,6 % +30. Non cumulables.",
+      "cci": "CCI Stochastic Daveatt : +20 si la ligne D est sous 20.",
+      "sentiment": "Sentiment maison des secteurs Europe (fiches justETF), pondéré par la composition, résidu = Europe (STOXX 600). Barème officiel : floor(|50 − valeur| / 10) × 10, signé, max ±50. Pas le CNN Fear & Greed.",
+      "mm40": "MM40 hebdo à contre-courant, 0 à +30 : 0 point au-dessus de la MM40 ; linéaire jusqu'à −40 % ; plafonné ensuite. Moins de 40 semaines : n.c. = 0.",
+      "fondamental": "90 points : rendement de distribution 20, TER 15, encours 15, ancienneté 15, stabilité du dividende 15, valorisation PER 10. n.c. = 0, sans redistribution."
+    },
+    "fond_paliers": {
+      "rendement": "≥ 5,0 % → 20 ; ≥ 4,0 % → 15 ; ≥ 3,0 % → 10 ; sinon ou capitalisant (n.c.) → 0. Source : rendement actuel justETF, 26/11/2026.",
+      "ter": "≤ 0,25 % → 15 ; ≤ 0,30 % → 10 ; ≤ 0,35 % → 5 ; sinon → 0. Source : justETF, 26/11/2026.",
+      "encours": "≥ 1 000 M€ → 15 ; ≥ 500 M€ → 10 ; ≥ 200 M€ → 5 ; sinon → 0. Source : justETF, 26/11/2026.",
+      "anciennete": "≥ 15 ans → 15 ; ≥ 10 ans → 10 ; ≥ 5 ans → 5 ; sinon → 0. Date de lancement justETF, au 26/11/2026.",
+      "dividende": "Indice aristocrates (10 ans de dividendes stables ou en hausse) → 15 ; distributions en EUR en hausse sur 2023, 2024 et 2025 → 10 ; capitalisant ou historique non croissant → 0. Source : justETF, 26/11/2026.",
+      "valorisation": "PER émetteur ≤ 12 → 10 ; ≤ 15 → 5 ; sinon ou n.c. → 0. Seul SPYW a un PER d'émetteur vérifié (State Street, 24/11/2026)."
+    },
+    "cours": "Yahoo Finance, clôtures hebdomadaires confirmées (vendredi), jusqu'au 20/11/2026 inclus (semaine en cours exclue).",
+    "calcule_le": "2026-11-26",
+    "zone": "Europe/Paris"
   }
 }
 </script>
@@ -92689,8 +94160,8 @@ function evtInit(){
   evtMount();
 }
 
-/* ===== Onglet PEA : ETF à rendement éligibles, projection 200 €/mois ===== */
-const PEA=(()=>{try{return JSON.parse(document.getElementById('dataPea').textContent);}catch(e){return {etfs:[],projection:{scenarios:[]}};} })();
+/* ===== Onglet PEA : ETF à rendement éligibles, note APEX, projection 200 €/mois ===== */
+const PEA=(()=>{try{return JSON.parse(document.getElementById('dataPea').textContent);}catch(e){return {etfs:[],projection:{}};} })();
 
 function peaEsc(s){
   return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
@@ -92707,12 +94178,32 @@ function peaPct(v,dec){
   const d=dec==null?2:dec;
   return n.toLocaleString('fr-FR',{minimumFractionDigits:d,maximumFractionDigits:d})+'\u00a0%';
 }
+function peaSigneEur(v,dec){
+  const n=Number(v);
+  if(!Number.isFinite(n)) return '—';
+  const d=dec==null?0:dec;
+  const s=(n>0?'+':(n<0?'−':''));
+  return s+Math.abs(n).toLocaleString('fr-FR',{minimumFractionDigits:d,maximumFractionDigits:d})+'\u00a0€';
+}
+function peaSignePct(v,dec){
+  const n=Number(v);
+  if(!Number.isFinite(n)) return '—';
+  const d=dec==null?1:dec;
+  const s=(n>0?'+':(n<0?'−':''));
+  return s+Math.abs(n).toLocaleString('fr-FR',{minimumFractionDigits:d,maximumFractionDigits:d})+'\u00a0%';
+}
+/* Taux mensuel équivalent au taux annuel : i = (1+r)^(1/12) − 1. Annuité de fin de mois. */
 function peaFv(monthly, ratePa, months){
   const p=Number(monthly), r=Number(ratePa), n=Number(months);
   if(!Number.isFinite(p)||!Number.isFinite(r)||!Number.isFinite(n)||n<=0) return NaN;
-  const i=r/12;
+  const i=Math.pow(1+r,1/12)-1;
   if(Math.abs(i)<1e-15) return p*n;
   return p*((Math.pow(1+i,n)-1)/i);
+}
+function peaIMensuel(ratePa){
+  const r=Number(ratePa);
+  if(!Number.isFinite(r)) return NaN;
+  return Math.pow(1+r,1/12)-1;
 }
 function peaPol(e){
   if(e.politique==='capitalisation') return 'Cap.';
@@ -92724,6 +94215,12 @@ function peaPol(e){
   }
   return '—';
 }
+function peaNote(e){
+  const a=e&&e.apex10;
+  const tip=a&&(a.ligne||(a.decomp&&a.decomp.texte))?peaEsc(a.ligne||a.decomp.texte):'Note APEX non calculée';
+  const html=(typeof apexNoteHTML==='function')?apexNoteHTML(a):'<div class="apex10 apex10-pilot apex10-na"><b>–</b><small>/ 250</small></div>';
+  return `<span class="pea-apex" title="${tip}">${html}</span>`;
+}
 function peaRow(e,i){
   const yld=e.rendement_actuel_pct==null?'Cap.':peaPct(e.rendement_actuel_pct);
   const xtb=e.xtb+(e.xtb_alt?(' ou '+e.xtb_alt):'');
@@ -92732,40 +94229,47 @@ function peaRow(e,i){
     'XTB '+xtb,
     e.encours_meur!=null?(Number(e.encours_meur).toLocaleString('fr-FR')+'\u00a0M€'):null
   ].filter(Boolean).join(' · ');
-  return `<article class="pea-row"${e.note?(' title="'+peaEsc(e.note)+'"'):''}>
+  const tip=e.note||(e.apex10&&(e.apex10.ligne||(e.apex10.decomp&&e.apex10.decomp.texte)))||'';
+  return `<article class="pea-row"${tip?(' title="'+peaEsc(tip)+'"'):''}>
     <span class="pea-rk">${i+1}</span>
     <span class="pea-nm">${peaEsc(e.nom)}</span>
     <b class="pea-yld" title="Rendement de distribution actuel (justETF)">${peaEsc(yld)}</b>
     <span class="pea-ter">TER ${peaPct(e.ter_pct)}</span>
     <span class="pea-pol">${peaEsc(peaPol(e))}</span>
+    ${peaNote(e)}
     <span class="pea-meta">${peaEsc(meta)}</span>
   </article>`;
 }
-function peaScenCard(s, capital){
-  const cap=capital!=null?capital:s.capital_eur;
-  return `<div class="pea-sc" data-id="${peaEsc(s.id)}">
-    <span class="pea-sc-nom">${peaEsc(s.nom)}</span>
-    <b class="pea-sc-cap">${peaEur(cap)}</b>
-    <span class="pea-sc-tx">${peaPct(s.taux_pa_pct,1)} / an</span>
-    <span class="pea-sc-why">${peaEsc(s.justification||'')}</span>
-  </div>`;
+function peaSet(el,id,text){
+  const n=el.querySelector('#'+id);
+  if(n) n.textContent=text;
 }
 function peaBind(el){
   const P=PEA.projection||{};
   const inp=el.querySelector('#peaTaux');
-  const out=el.querySelector('#peaCustom');
   const monthly=Number(P.versement_mensuel_eur||200);
-  const months=Number(P.n_versements||60);
   const upd=()=>{
-    if(!inp||!out) return;
+    if(!inp) return;
     const raw=String(inp.value||'').replace(',','.');
-    const r=Number(raw)/100;
+    const rPct=Number(raw);
+    const r=rPct/100;
     if(!Number.isFinite(r)||r<=-1||r>0.5){
-      out.textContent='Taux invalide';
+      peaSet(el,'peaIm','—');
+      peaSet(el,'peaC1','—');
+      peaSet(el,'peaC5','—');
+      peaSet(el,'peaG1','Taux invalide');
+      peaSet(el,'peaG5','Taux invalide');
       return;
     }
-    const cap=peaFv(monthly,r,months);
-    out.innerHTML='À <b>'+peaPct(r*100,1)+'</b> / an : <b>'+peaEur(cap)+'</b>';
+    const i=peaIMensuel(r);
+    const c1=peaFv(monthly,r,12);
+    const c5=peaFv(monthly,r,60);
+    const v1=monthly*12, v5=monthly*60;
+    peaSet(el,'peaIm',peaPct(i*100,2));
+    peaSet(el,'peaC1',peaEur(c1,0));
+    peaSet(el,'peaC5',peaEur(c5,0));
+    peaSet(el,'peaG1',peaSigneEur(c1-v1,0)+' · '+peaSignePct(100*(c1-v1)/v1,1)+'  ·  versé '+peaEur(v1,0));
+    peaSet(el,'peaG5',peaSigneEur(c5-v5,0)+' · '+peaSignePct(100*(c5-v5)/v5,1)+'  ·  versé '+peaEur(v5,0));
   };
   if(inp){
     inp.addEventListener('input',upd);
@@ -92776,31 +94280,33 @@ function peaBind(el){
 function renderPea(el){
   const L=Array.isArray(PEA.etfs)?PEA.etfs.slice(0,10):[];
   const P=PEA.projection||{};
-  const sc=Array.isArray(P.scenarios)?P.scenarios:[];
-  const defTx=(sc.find(s=>s.id==='central')||sc[0]||{}).taux_pa_pct;
+  const defTx=P.taux_defaut_pct!=null?P.taux_defaut_pct:7;
   el.innerHTML=`<div class="card pea-card no-acc">
     <h2>ETF à rendement · PEA XTB</h2>
     <p class="pea-intro">${peaEsc(PEA.intro||'')}</p>
-    <div class="pea-colh" aria-hidden="true"><span>#</span><span>Fonds</span><span>Rendement</span><span>Frais</span><span>Versement</span></div>
+    <div class="pea-colh" aria-hidden="true"><span>#</span><span>Fonds</span><span>Rendement</span><span>Frais</span><span>Versement</span><span>Note</span></div>
     <div class="pea-list">${L.map(peaRow).join('')}</div>
-    <p class="pea-class">${peaEsc(PEA.classement_libelle||'')}</p>
+    <p class="pea-legende">${peaEsc(PEA.note_legende||'')}</p>
     <div class="src">${peaEsc(PEA.xtb_avertissement||'')}</div>
   </div>
   <div class="card pea-card pea-proj no-acc">
     <h2>Projection ${peaEur(P.versement_mensuel_eur||200)}/mois sur ${P.duree_ans||5}\u00a0ans</h2>
-    <div class="pea-kpis">
-      <div><span>Versé</span><b>${peaEur(P.total_verse_eur||12000)}</b><small>${P.n_versements||60} versements</small></div>
-      <div><span>PEA</span><b>5\u00a0ans</b><small>Avantage fiscal</small></div>
-      <div><span>Plafond</span><b>150\u00a0000\u00a0€</b><small>versements</small></div>
+    <div class="pea-vers">
+      <div><span>Mensuel</span><b>${peaEur(P.versement_mensuel_eur||200)}</b></div>
+      <div><span>Annualisé</span><b>${peaEur(P.versement_annuel_eur||2400)}</b></div>
     </div>
-    <div class="pea-scs">${sc.map(s=>peaScenCard(s)).join('')}</div>
-    <label class="pea-taux">Taux annuel
-      <input id="peaTaux" type="number" inputmode="decimal" min="-20" max="50" step="0.1" value="${peaEsc(defTx==null?7:defTx)}"> %
-    </label>
-    <div id="peaCustom" class="pea-custom"></div>
-    <p class="pea-just">${peaEsc(P.justification||'')}</p>
-    <p class="pea-warn">${peaEsc(P.avertissement||'')} ${peaEsc(PEA.pea_regles||'')}</p>
-    <div class="src">Sources : justETF (26/11/2026) · table OMI XTB France (24/09/2026) · Yahoo Finance pour les rythmes 5 ans et 10 ans (26/11/2026). ${peaEsc(P.mode_libelle||'')}</div>
+    <div class="pea-rates">
+      <div>
+        <span>Rendement annuel</span>
+        <label class="pea-taux"><input id="peaTaux" type="number" inputmode="decimal" min="-20" max="50" step="0.1" value="${peaEsc(defTx)}"> %</label>
+      </div>
+      <div><span>Rendement mensuel équivalent</span><b id="peaIm"></b></div>
+    </div>
+    <div class="pea-horiz">
+      <div><span>Capital à 1 an</span><b id="peaC1"></b><small id="peaG1"></small></div>
+      <div><span>Capital à 5 ans</span><b id="peaC5"></b><small id="peaG5"></small></div>
+    </div>
+    <p class="pea-warn">${peaEsc(P.avertissement||'Estimation, aucun rendement garanti, risque de perte en capital')}</p>
   </div>`;
   peaBind(el);
 }
