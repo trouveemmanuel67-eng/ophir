@@ -85,6 +85,12 @@ t=t.replace('__DATA_EVT__', esc(evt) if evt else 'null')
 _evtjs=_P(B+'src/evenements.js')
 t=t.replace('/*__EVTJS__*/', _evtjs.read_text() if _evtjs.exists() else '')
 
+_pea=_P(B+'data/pea.json')
+pea=_pea.read_text() if _pea.exists() else ''
+t=t.replace('__DATA_PEA__', esc(pea) if pea else 'null')
+_peajs=_P(B+'src/pea.js')
+t=t.replace('/*__PEAJS__*/', _peajs.read_text() if _peajs.exists() else '')
+
 
 def _slim_pilot(raw):
     import json as _json

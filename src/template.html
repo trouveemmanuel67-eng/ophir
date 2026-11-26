@@ -516,6 +516,47 @@ body{display:flex;flex-direction:column;min-height:100vh}
   .plc-taux{grid-area:taux;font-size:12px}
 }
 
+
+/* ===== Onglet PEA ===== */
+.pea-intro,.pea-class,.pea-just,.pea-warn{margin:8px 0 0;font-size:13px;line-height:1.45;color:var(--mut)}
+.pea-warn{color:#e6c27a}
+.pea-colh{display:grid;grid-template-columns:28px minmax(0,1.8fr) auto auto auto;gap:8px 12px;padding:8px 12px 6px;font-size:11px;color:var(--mut);letter-spacing:.06em;text-transform:uppercase}
+.pea-list{display:flex;flex-direction:column;gap:6px}
+.pea-row{display:grid;grid-template-columns:28px minmax(0,1.8fr) auto auto auto;gap:4px 12px;align-items:baseline;padding:8px 12px;border:1px solid rgba(255,255,255,.14);border-radius:10px;background:rgba(255,255,255,.03);font-variant-numeric:tabular-nums}
+.pea-rk{color:var(--mut);font-size:12px}
+.pea-nm{font-weight:650;min-width:0}
+.pea-yld{justify-self:end;font-size:16px;font-weight:700;color:var(--acc2,#e6c27a);white-space:nowrap}
+.pea-ter,.pea-pol{justify-self:end;font-size:12px;color:var(--mut);white-space:nowrap}
+.pea-meta{grid-column:1/-1;font-size:11px;color:var(--mut);line-height:1.4}
+.pea-kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:10px 0}
+.pea-kpis div{border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:8px 10px;background:rgba(255,255,255,.03)}
+.pea-kpis span{display:block;font-size:10px;color:var(--mut);text-transform:uppercase;letter-spacing:.05em}
+.pea-kpis b{display:block;font-size:22px;font-weight:750;letter-spacing:-.03em;font-variant-numeric:tabular-nums;margin-top:2px}
+.pea-kpis small{display:block;font-size:11px;color:var(--mut)}
+.pea-scs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:8px 0 12px}
+.pea-sc{border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:10px 12px;background:rgba(255,255,255,.03)}
+.pea-sc-nom{display:block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--mut)}
+.pea-sc-cap{display:block;font-size:26px;font-weight:750;letter-spacing:-.03em;font-variant-numeric:tabular-nums;margin:4px 0 2px}
+.pea-sc-tx{display:block;font-size:13px;color:var(--acc2,#e6c27a)}
+.pea-sc-why{display:block;margin-top:6px;font-size:11px;color:var(--mut);line-height:1.35}
+.pea-taux{display:flex;align-items:center;gap:8px;font-size:13px;margin:8px 0}
+.pea-taux input{width:5.5rem;padding:6px 8px;border:1px solid rgba(255,255,255,.2);border-radius:8px;background:rgba(0,0,0,.25);color:#fff;font:inherit;font-variant-numeric:tabular-nums}
+.pea-custom{font-size:15px;margin:4px 0 8px}
+@media(max-width:640px){
+  .pea-colh{display:none}
+  .pea-row{grid-template-columns:auto 1fr auto;grid-template-areas:"rk nm yld" "ter ter pol" "meta meta meta";gap:2px 8px;padding:8px 10px}
+  .pea-rk{grid-area:rk}
+  .pea-nm{grid-area:nm}
+  .pea-yld{grid-area:yld;font-size:18px}
+  .pea-ter{grid-area:ter;justify-self:start}
+  .pea-pol{grid-area:pol}
+  .pea-meta{grid-area:meta}
+  .pea-kpis{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+  .pea-kpis b{font-size:15px}
+  .pea-scs{grid-template-columns:1fr;gap:6px}
+  .pea-sc-cap{font-size:28px}
+}
+
 /* ===== En-têtes et jauge compactés (tous les onglets) ===== */
 .card.acc{padding:4px 10px;margin-bottom:2px;border-radius:8px;transition:border-color .15s,background-color .15s,transform .15s,padding .15s}
 .card.acc.acc-open{padding:12px 16px;margin-bottom:10px}
@@ -1682,6 +1723,7 @@ if(navigator.serviceWorker){
 <script type="application/json" id="dataRotation">__DATA_ROTATION__</script>
 <script type="application/json" id="dataRotationCapitaux">__DATA_ROTATION_CAPITAUX__</script>
 <script type="application/json" id="dataEvenements">__DATA_EVT__</script>
+<script type="application/json" id="dataPea">__DATA_PEA__</script>
 <script>
 "use strict";
 const DATA = JSON.parse(document.getElementById('data').textContent);
@@ -1736,6 +1778,7 @@ const TABS=[
   {id:'liquidites',label:'Liquidités',enabled:true,render:el=>renderLiquidites(el)},
   {id:'placements',label:'Placements',enabled:true,render:el=>renderPlacements(el)},
   {id:'immobilier',label:'Immobilier',enabled:true,render:renderImmobilier},
+  {id:'pea',label:'PEA',enabled:true,render:renderPea},
 ];
 
 function buildTabs(){
@@ -1902,6 +1945,7 @@ function chartTrends(){
 /*__GSJS__*/
 /*__IRJS__*/
 /*__EVTJS__*/
+/*__PEAJS__*/
 /*__SEARCHJS__*/
 buildTabs();
 if(typeof ttInit==='function') ttInit();
