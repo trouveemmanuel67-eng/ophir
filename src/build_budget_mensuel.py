@@ -860,17 +860,7 @@ def build():
               objectif_usd=obj_courses["total_usd_mois"],
               economie_visee_eur=eco_courses,
               economie_visee_usd=obj_courses["economie_visee_usd"],
-              objectif_detail=(
-                  f"Leclerc {obj_courses['leclerc_eur_mois']} €/mois ({obj_courses['leclerc_eur_semaine']:.0f} € par semaine, "
-                  f"livré le {obj_courses['leclerc_jour']}, livraison comprise). "
-                  f"Picard {obj_courses['picard_eur_mois']} €/mois ({obj_courses['picard_eur_par_passage']:.0f} € "
-                  f"{obj_courses['picard_frequence'].replace('_', ' ')}, livraison de "
-                  f"{obj_courses['picard_livraison_eur'] or 6} € comprise ; fréquence à confirmer). "
-                  f"Octobre : {c_oct_r:.2f} € hors déco Noël ({c_oct:.2f} € observés, toutes enseignes). "
-                  f"Économie visée : {eco_courses:.2f} €/mois. "
-                  "Hygiène, entretien et litière sont déjà dans Courses, pas un poste à part. "
-                  "Hors périmètre : Lidl d'appoint, marché et boulangerie (non chiffrés) ; déco, textile et bricolage exclus."
-              )),
+              objectif_detail=obj_courses["objectif_detail"]),
         poste("transport_hors_loa", "Transport hors LOA", tr_m,
               f"Péages, CTS, stationnement, carburant et recharges Tesla d'octobre, hors LOA et hors trajet du séjour Ramatuelle "
               f"({trip_tr_tot:.2f} € lissés en provisions) : {tr_oct:.2f} €.",
