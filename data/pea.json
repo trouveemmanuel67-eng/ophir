@@ -2,7 +2,7 @@
   "generated": "2026-11-26",
   "zone": "Europe/Paris",
   "titre": "PEA",
-  "intro": "Les meilleurs ETF à rendement éligibles au PEA, présents chez XTB. Classés par rendement de distribution, puis par frais et encours.",
+  "intro": "Les meilleurs ETF à rendement éligibles au PEA, présents chez XTB. Classés par note APEX sur 250.",
   "classement": "note_apex",
   "classement_libelle": "Classés par note APEX sur 250. Sentiment maison des secteurs Europe, lu à contre-courant (pas le Fear & Greed CNN), MM40 hebdo à contre-courant (0 à +30), RSI, MACD, Fibonacci et CCI comme les autres ETF du site. Fondamental adapté aux ETF dividendes : rendement, frais, encours, ancienneté, stabilité du dividende, valorisation si une source d'émetteur la donne. Critère manquant = 0, sans redistribution.",
   "xtb_avertissement": "Chaque fonds est dans la table OMI XTB France du 24/09/2026 (compte-titres). L'éligibilité PEA vient de justETF. Vérifie dans ton PEA XTB avant d'acheter : un ETF chez XTB n'est pas forcément achetable dans le PEA.",
