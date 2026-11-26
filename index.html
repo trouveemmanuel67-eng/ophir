@@ -6,18 +6,18 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<meta name="ophir-build" content="37ae85e-20261126-123408">
+<meta name="ophir-build" content="1cb7e97-20261126-131039">
 <title>APEX INDICATOR INVESTMENT</title>
 <meta name="description" content="APEX Indicator Investment — notes et indicateurs de marché.">
 <meta name="theme-color" content="#0a1128">
 <meta name="apple-mobile-web-app-title" content="APEX">
 <meta name="application-name" content="APEX">
-<link rel="icon" href="favicon.ico?v=37ae85e-20261126-123408" sizes="any">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=37ae85e-20261126-123408">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=37ae85e-20261126-123408">
-<link rel="icon" type="image/png" sizes="64x64" href="favicon.png?v=37ae85e-20261126-123408">
-<link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png?v=37ae85e-20261126-123408">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=37ae85e-20261126-123408">
+<link rel="icon" href="favicon.ico?v=1cb7e97-20261126-131039" sizes="any">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=1cb7e97-20261126-131039">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=1cb7e97-20261126-131039">
+<link rel="icon" type="image/png" sizes="64x64" href="favicon.png?v=1cb7e97-20261126-131039">
+<link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png?v=1cb7e97-20261126-131039">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=1cb7e97-20261126-131039">
 <meta property="og:type" content="website">
 <meta property="og:title" content="APEX INDICATOR INVESTMENT">
 <meta property="og:description" content="APEX Indicator Investment — notes et indicateurs de marché.">
@@ -48,9 +48,9 @@ body{color:var(--txt);font-family:Inter,"Helvetica Neue",Helvetica,Arial,system-
 *::-webkit-scrollbar-thumb:active{background-color:var(--scroll-thumb-active)}
 *::-webkit-scrollbar-button,*::-webkit-scrollbar-button:single-button,*::-webkit-scrollbar-button:start:decrement,*::-webkit-scrollbar-button:end:increment,*::-webkit-scrollbar-button:vertical:start:increment,*::-webkit-scrollbar-button:vertical:end:decrement{display:none;width:0;height:0}
 *::-webkit-scrollbar-corner{background:transparent}
-#hbg{position:fixed;inset:0;z-index:-1;background-color:#0c1016;background-position:center center;background-size:cover;background-repeat:no-repeat;background-image:url("assets/bg/accueil.jpg?v=37ae85e-20261126-123408");background-image:image-set(url("assets/bg/accueil.webp?v=37ae85e-20261126-123408") type("image/webp"),url("assets/bg/accueil.jpg?v=37ae85e-20261126-123408") type("image/jpeg"))}
-body.bg-analyse #hbg{background-image:url("assets/bg/analyse.jpg?v=37ae85e-20261126-123408");background-image:image-set(url("assets/bg/analyse.webp?v=37ae85e-20261126-123408") type("image/webp"),url("assets/bg/analyse.jpg?v=37ae85e-20261126-123408") type("image/jpeg"))}
-body.bg-outils #hbg{background-image:url("assets/bg/outils.jpg?v=37ae85e-20261126-123408");background-image:image-set(url("assets/bg/outils.webp?v=37ae85e-20261126-123408") type("image/webp"),url("assets/bg/outils.jpg?v=37ae85e-20261126-123408") type("image/jpeg"))}
+#hbg{position:fixed;inset:0;z-index:-1;background-color:#0c1016;background-position:center center;background-size:cover;background-repeat:no-repeat;background-image:url("assets/bg/accueil.jpg?v=1cb7e97-20261126-131039");background-image:image-set(url("assets/bg/accueil.webp?v=1cb7e97-20261126-131039") type("image/webp"),url("assets/bg/accueil.jpg?v=1cb7e97-20261126-131039") type("image/jpeg"))}
+body.bg-analyse #hbg{background-image:url("assets/bg/analyse.jpg?v=1cb7e97-20261126-131039");background-image:image-set(url("assets/bg/analyse.webp?v=1cb7e97-20261126-131039") type("image/webp"),url("assets/bg/analyse.jpg?v=1cb7e97-20261126-131039") type("image/jpeg"))}
+body.bg-outils #hbg{background-image:url("assets/bg/outils.jpg?v=1cb7e97-20261126-131039");background-image:image-set(url("assets/bg/outils.webp?v=1cb7e97-20261126-131039") type("image/webp"),url("assets/bg/outils.jpg?v=1cb7e97-20261126-131039") type("image/jpeg"))}
 #hbg:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(8,10,12,.58),rgba(8,10,12,.40) 42%,rgba(8,10,12,.62))}
 #hh{text-align:left;padding:8px 12px 4px;position:relative}
 #hh .hh-top{display:flex;align-items:center;gap:10px 22px;flex-wrap:wrap;position:relative}
@@ -565,6 +565,52 @@ body{display:flex;flex-direction:column;min-height:100vh}
   .pea-rates b{font-size:20px}
 }
 
+
+/* ===== Prévisionnel Immobilier ===== */
+.immo-prev h2{margin-bottom:6px}
+.immo-intro,.immo-saison,.immo-resume{margin:6px 0 0;font-size:13px;line-height:1.45;color:var(--mut)}
+.immo-saison{font-size:12px}
+.immo-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:10px}
+.immo-card{border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:10px 12px;background:rgba(255,255,255,.03);min-width:0}
+.immo-top{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+.immo-card h3{margin:0;font-size:15px;font-weight:750;color:#fff;line-height:1.25}
+.immo-note{flex:none;font-size:20px;font-weight:800;font-variant-numeric:tabular-nums;color:var(--immo,#22c55e);letter-spacing:-.03em}
+.immo-note small{font-size:11px;font-weight:650;color:var(--mut);margin-left:2px}
+.immo-fig{appearance:none;-webkit-appearance:none;display:block;width:100%;margin:8px 0 6px;padding:6px 4px;border:0;border-radius:8px;background:transparent;color:inherit;font:inherit;cursor:pointer;text-align:left}
+.immo-fig:hover,.immo-fig:focus-visible,.immo-fig[aria-expanded="true"]{background:rgba(255,255,255,.07)}
+.immo-fig:focus-visible{outline:1px solid rgba(230,194,122,.8);outline-offset:1px}
+.immo-win{display:block;font-size:26px;font-weight:800;letter-spacing:-.03em;color:#fff;line-height:1.1}
+.immo-proba{display:block;font-size:32px;font-weight:800;letter-spacing:-.04em;line-height:1.05;font-variant-numeric:tabular-nums;margin-top:2px}
+.immo-fig-l{display:block;font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--mut);margin-top:2px}
+.immo-frise{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:3px;margin:8px 0}
+.immo-frise-i{display:block;height:22px;border-radius:4px;position:relative;min-width:0;opacity:.92}
+.immo-frise-i.on{outline:2px solid #fff;outline-offset:1px;opacity:1}
+.immo-frise-i i{display:block;font-style:normal;font-size:8px;font-weight:700;letter-spacing:.02em;color:#0b0f14;text-align:center;line-height:22px;white-space:nowrap;overflow:hidden}
+.immo-kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:8px}
+.immo-kpis div{border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:6px 8px;min-width:0}
+.immo-kpis span{display:block;font-size:10px;color:var(--mut);text-transform:uppercase;letter-spacing:.05em}
+.immo-kpis b{display:block;font-size:16px;font-weight:750;letter-spacing:-.03em;font-variant-numeric:tabular-nums;margin-top:2px;white-space:nowrap}
+.immo-pop{position:fixed;z-index:9999;box-sizing:border-box;min-width:0;padding:10px 12px;background:#14181f;border:1px solid rgba(230,194,122,.45);border-radius:10px;box-shadow:0 12px 32px rgba(0,0,0,.5);color:#e8e8e8;overflow-x:hidden;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.immo-pop[hidden]{display:none !important}
+.immo-pop-h{margin:0 0 6px;font-size:13px;font-weight:800;color:#fff}
+.immo-k{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mut,#bababa);margin:8px 0 3px}
+.immo-t{font-size:11.5px;line-height:1.4;color:#d8d8d8;margin:0 0 4px;overflow-wrap:anywhere}
+.immo-ul{margin:0;padding-left:16px}
+.immo-ul li{font-size:11.5px;line-height:1.4;color:#d8d8d8;margin:0 0 3px;overflow-wrap:anywhere}
+.immo-ul a{color:var(--acc,#a9cdf5);text-decoration:none}
+.immo-ul a:hover{text-decoration:underline}
+.immo-tab{width:100%;border-collapse:collapse;font-size:11.5px;font-variant-numeric:tabular-nums;margin:4px 0 6px}
+.immo-tab th,.immo-tab td{text-align:left;padding:3px 6px 3px 0;border-bottom:1px solid rgba(255,255,255,.08)}
+.immo-tab th{color:var(--mut);font-size:10px;text-transform:uppercase;letter-spacing:.05em;font-weight:700}
+@media(max-width:800px){
+  .immo-grid{grid-template-columns:1fr}
+  .immo-win{font-size:22px}
+  .immo-proba{font-size:28px}
+  .immo-kpis b{font-size:14px}
+  .immo-frise-i{height:20px}
+  .immo-frise-i i{line-height:20px;font-size:7px}
+}
+
 /* ===== En-têtes et jauge compactés (tous les onglets) ===== */
 .card.acc{padding:4px 10px;margin-bottom:2px;border-radius:8px;transition:border-color .15s,background-color .15s,transform .15s,padding .15s}
 .card.acc.acc-open{padding:12px 16px;margin-bottom:10px}
@@ -806,7 +852,7 @@ body{display:flex;flex-direction:column;min-height:100vh}
 .rg-btn:hover,body.rg-on .rg-btn{background:rgba(255,255,255,.12);color:#fff;box-shadow:0 0 0 1px rgba(255,255,255,.28)}
 .rg-btn:focus-visible{outline:1px solid rgba(255,255,255,.7);outline-offset:2px}
 
-#bdg-page{display:none;position:fixed;inset:0;z-index:241;flex-direction:column;color:#fff;overflow:hidden;background-color:#0c1016;background-position:center center;background-size:cover;background-repeat:no-repeat;background-image:url("assets/bg/outils.jpg?v=37ae85e-20261126-123408");background-image:image-set(url("assets/bg/outils.webp?v=37ae85e-20261126-123408") type("image/webp"),url("assets/bg/outils.jpg?v=37ae85e-20261126-123408") type("image/jpeg"))}
+#bdg-page{display:none;position:fixed;inset:0;z-index:241;flex-direction:column;color:#fff;overflow:hidden;background-color:#0c1016;background-position:center center;background-size:cover;background-repeat:no-repeat;background-image:url("assets/bg/outils.jpg?v=1cb7e97-20261126-131039");background-image:image-set(url("assets/bg/outils.webp?v=1cb7e97-20261126-131039") type("image/webp"),url("assets/bg/outils.jpg?v=1cb7e97-20261126-131039") type("image/jpeg"))}
 #bdg-page:before,#rg-page:before{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;background:linear-gradient(180deg,rgba(8,10,12,.58),rgba(8,10,12,.40) 42%,rgba(8,10,12,.62))}
 #bdg-page>*,#rg-page>*{position:relative;z-index:1}
 body.bdg-on{overflow:hidden}
@@ -977,7 +1023,7 @@ body.bdg-on .rg-btn[aria-expanded="true"],#bdgBtn.rg-btn[aria-expanded="true"],b
   .bdg-moy-th span:nth-child(3),.bdg-moy-row > :nth-child(3){display:none}
 }
 
-#rg-page{display:none;position:fixed;inset:0;z-index:240;flex-direction:column;color:#fff;overflow:hidden;background-color:#0c1016;background-position:center center;background-size:cover;background-repeat:no-repeat;background-image:url("assets/bg/outils.jpg?v=37ae85e-20261126-123408");background-image:image-set(url("assets/bg/outils.webp?v=37ae85e-20261126-123408") type("image/webp"),url("assets/bg/outils.jpg?v=37ae85e-20261126-123408") type("image/jpeg"))}
+#rg-page{display:none;position:fixed;inset:0;z-index:240;flex-direction:column;color:#fff;overflow:hidden;background-color:#0c1016;background-position:center center;background-size:cover;background-repeat:no-repeat;background-image:url("assets/bg/outils.jpg?v=1cb7e97-20261126-131039");background-image:image-set(url("assets/bg/outils.webp?v=1cb7e97-20261126-131039") type("image/webp"),url("assets/bg/outils.jpg?v=1cb7e97-20261126-131039") type("image/jpeg"))}
 body.rg-on{overflow:hidden}
 body.rg-on #rg-page{display:flex}
 body.rg-on #rg-page[hidden]{display:flex}
@@ -1626,8 +1672,8 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
   <div class="hh-top">
     <h1>
       <picture>
-        <source type="image/webp" srcset="apex-logo.webp?v=37ae85e-20261126-123408 1x, apex-logo@2x.webp?v=37ae85e-20261126-123408 2x">
-        <img class="brand" src="apex-logo.png?v=37ae85e-20261126-123408" srcset="apex-logo.png?v=37ae85e-20261126-123408 1x, apex-logo@2x.png?v=37ae85e-20261126-123408 2x" width="233" height="256" alt="APEX">
+        <source type="image/webp" srcset="apex-logo.webp?v=1cb7e97-20261126-131039 1x, apex-logo@2x.webp?v=1cb7e97-20261126-131039 2x">
+        <img class="brand" src="apex-logo.png?v=1cb7e97-20261126-131039" srcset="apex-logo.png?v=1cb7e97-20261126-131039 1x, apex-logo@2x.png?v=1cb7e97-20261126-131039 2x" width="233" height="256" alt="APEX">
       </picture>
       <span class="brand-sub">Indicator<br>Investment</span>
     </h1>
@@ -76715,7 +76761,7 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
   }
 }
 </script>
-<script type="application/json" id="dataBuild">{"version":"37ae85e-20261126-123408"}</script>
+<script type="application/json" id="dataBuild">{"version":"1cb7e97-20261126-131039"}</script>
 <script>
 /* Cache iOS / Pages : le bloc Meilleurs short est embarqué dans index.html.
    Meta no-cache seules ne suffisent pas ; on casse le cache avec ?v= et on recharge si la version distante a changé. */
@@ -76772,7 +76818,7 @@ if(navigator.serviceWorker){
 })();
 </script>
 
-<link rel="preload" href="config/regles.json?v=37ae85e-20261126-123408" as="fetch" crossorigin>
+<link rel="preload" href="config/regles.json?v=1cb7e97-20261126-131039" as="fetch" crossorigin>
 
 <script type="application/json" id="dataMaj">{
   "at": "2026-11-23T21:45:22.168885+01:00",
@@ -86309,6 +86355,2027 @@ if(navigator.serviceWorker){
   ]
 }
 </script>
+<script type="application/json" id="dataImmo">{
+  "date": "2026-11-26",
+  "generated": "2026-11-26",
+  "avertissement": "Estimation indicative, pas une prévision certaine. Les chemins de taux et de prix sont des scénarios transparents, pas des rendements ni des prix promis. Un achat peut se faire plus tôt ou plus tard selon l’apport, l’état du bien et les travaux.",
+  "horizon": {
+    "debut": "2027-S1",
+    "fin": "2031-S2",
+    "pas": "semestre"
+  },
+  "contrainte": {
+    "mensualite_max": 1500,
+    "duree_ans": 25,
+    "hors_assurance": true,
+    "frais_ancien_pct": 8,
+    "note_frais": "Budget = capital empruntable à 1 500 €/mois sur 25 ans, hors assurance. L’assurance (souvent 0,25 à 0,40 % du capital par an) réduit la capacité. Les frais d’achat en ancien (environ 7 à 8 %) et les travaux se paient en plus, typiquement avec l’apport.",
+    "apport": "L’apport est prévu d’ici 2 à 3 ans (vers 2028-2029). Cela recoupe la fenêtre de marché la plus probable, mais le montant d’apport n’est pas chiffré ici."
+  },
+  "taux_actuel": {
+    "cl_csa_25a": 3.57,
+    "cl_csa_moyen": 3.49,
+    "cl_csa_20a": 3.54,
+    "cl_csa_15a": 3.32,
+    "bdf_tese": 3.19,
+    "bdf_periode": "2026-09",
+    "cl_periode": "2026-10"
+  },
+  "methode": {
+    "score_max": 250,
+    "echelle": "violet <10, rouge 10–69, orange 70–129, vert 130–189, cyan ≥190",
+    "lecture": "à contre-courant : plus de points quand les prix sont bas, les taux rendent le crédit lourd pour les autres, les volumes sont faibles, les marges de négociation sont hautes, et la pression DPE alimente l’offre.",
+    "poids": {
+      "prix": 70,
+      "accessibilite": 60,
+      "volume": 50,
+      "marge": 40,
+      "dpe": 30
+    },
+    "probabilite": "Pour chaque scénario, la probabilité qu’un semestre soit la meilleure fenêtre est un softmax des notes (température 20 points). Le mélange affiché donne le même poids aux trois scénarios. Crédit Logement/CSA (octobre 2026) penche plutôt vers une remontée des taux en 2027.",
+    "formules": {
+      "capital": "C = M × (1 − (1+i)^(−n)) / i, i = taux annuel / 12, n = 300, M = 1 500 €",
+      "prix": "points = base (25 appartements / 15 fermes) + jusqu’à 45 pts pour 8 % de baisse supplémentaire depuis fin 2026",
+      "accessibilite": "60 pts si mensualité typique ≤ 65 % de 1 500 €, 0 si elle atteint ou dépasse 1 500 €",
+      "volume": "10 pts à un indice 115, 50 pts à un indice 75 (100 = niveau fin 2026)",
+      "marge": "0 pt à 2 % de marge, 40 pts à 10 % ou plus",
+      "dpe": "barème fixe par semestre, pic au 1er semestre 2028 (interdiction de louer les F)"
+    },
+    "saison": "Dans l’année, l’hiver (novembre à février) est en général le moment où l’on négocie le mieux : moins d’acheteurs, vendeurs parfois plus pressés. Ce n’est pas une règle locale garantie."
+  },
+  "biens": {
+    "ferme": {
+      "id": "ferme",
+      "titre": "Corps de ferme",
+      "prix_m2_actuel": 2000,
+      "prix_typique_actuel": 230000,
+      "mensualite_typique_actuelle": 1160,
+      "taux_actuel_25a": 3.57,
+      "budget_accessible_actuel": 297392,
+      "meilleure_periode": "2028-S1",
+      "meilleure_label": "2028 1er sem.",
+      "meilleure_proba_pct": 60.1,
+      "meilleure_note": 218,
+      "meilleure_bande": "cyan",
+      "meilleure_hex": "#00e5ff",
+      "budget_accessible_fenetre": 300506,
+      "budget_accessible_fenetre_min": 287174,
+      "budget_accessible_fenetre_max": 316315,
+      "note_fenetre_par_scenario": {
+        "baisse": 199,
+        "statu_quo": 222,
+        "remontee": 233
+      },
+      "meilleure_saison": "novembre à février",
+      "frise": [
+        {
+          "periode": "2027-S1",
+          "label": "2027 1er sem.",
+          "proba_pct": 1.4,
+          "note": 141,
+          "bande": "vert",
+          "hex": "#22c55e",
+          "taux_par_scenario": {
+            "baisse": 3.4,
+            "statu_quo": 3.57,
+            "remontee": 3.85
+          },
+          "budget_par_scenario": {
+            "baisse": 302861,
+            "statu_quo": 297392,
+            "remontee": 288689
+          }
+        },
+        {
+          "periode": "2027-S2",
+          "label": "2027 2e sem.",
+          "proba_pct": 12.9,
+          "note": 187,
+          "bande": "vert",
+          "hex": "#22c55e",
+          "taux_par_scenario": {
+            "baisse": 3.2,
+            "statu_quo": 3.57,
+            "remontee": 4.0
+          },
+          "budget_par_scenario": {
+            "baisse": 309483,
+            "statu_quo": 297392,
+            "remontee": 284179
+          }
+        },
+        {
+          "periode": "2028-S1",
+          "label": "2028 1er sem.",
+          "proba_pct": 60.1,
+          "note": 218,
+          "bande": "cyan",
+          "hex": "#00e5ff",
+          "taux_par_scenario": {
+            "baisse": 3.0,
+            "statu_quo": 3.55,
+            "remontee": 3.9
+          },
+          "budget_par_scenario": {
+            "baisse": 316315,
+            "statu_quo": 298028,
+            "remontee": 287174
+          }
+        },
+        {
+          "periode": "2028-S2",
+          "label": "2028 2e sem.",
+          "proba_pct": 20.0,
+          "note": 195,
+          "bande": "cyan",
+          "hex": "#00e5ff",
+          "taux_par_scenario": {
+            "baisse": 2.9,
+            "statu_quo": 3.55,
+            "remontee": 3.8
+          },
+          "budget_par_scenario": {
+            "baisse": 319811,
+            "statu_quo": 298028,
+            "remontee": 290216
+          }
+        },
+        {
+          "periode": "2029-S1",
+          "label": "2029 1er sem.",
+          "proba_pct": 3.5,
+          "note": 160,
+          "bande": "vert",
+          "hex": "#22c55e",
+          "taux_par_scenario": {
+            "baisse": 2.8,
+            "statu_quo": 3.55,
+            "remontee": 3.7
+          },
+          "budget_par_scenario": {
+            "baisse": 323363,
+            "statu_quo": 298028,
+            "remontee": 293305
+          }
+        },
+        {
+          "periode": "2029-S2",
+          "label": "2029 2e sem.",
+          "proba_pct": 1.0,
+          "note": 134,
+          "bande": "vert",
+          "hex": "#22c55e",
+          "taux_par_scenario": {
+            "baisse": 2.75,
+            "statu_quo": 3.55,
+            "remontee": 3.6
+          },
+          "budget_par_scenario": {
+            "baisse": 325160,
+            "statu_quo": 298028,
+            "remontee": 296441
+          }
+        },
+        {
+          "periode": "2030-S1",
+          "label": "2030 1er sem.",
+          "proba_pct": 0.5,
+          "note": 121,
+          "bande": "orange",
+          "hex": "#ff8c1a",
+          "taux_par_scenario": {
+            "baisse": 2.7,
+            "statu_quo": 3.55,
+            "remontee": 3.55
+          },
+          "budget_par_scenario": {
+            "baisse": 326972,
+            "statu_quo": 298028,
+            "remontee": 298028
+          }
+        },
+        {
+          "periode": "2030-S2",
+          "label": "2030 2e sem.",
+          "proba_pct": 0.3,
+          "note": 109,
+          "bande": "orange",
+          "hex": "#ff8c1a",
+          "taux_par_scenario": {
+            "baisse": 2.7,
+            "statu_quo": 3.55,
+            "remontee": 3.5
+          },
+          "budget_par_scenario": {
+            "baisse": 326972,
+            "statu_quo": 298028,
+            "remontee": 299626
+          }
+        },
+        {
+          "periode": "2031-S1",
+          "label": "2031 1er sem.",
+          "proba_pct": 0.2,
+          "note": 100,
+          "bande": "orange",
+          "hex": "#ff8c1a",
+          "taux_par_scenario": {
+            "baisse": 2.75,
+            "statu_quo": 3.55,
+            "remontee": 3.5
+          },
+          "budget_par_scenario": {
+            "baisse": 325160,
+            "statu_quo": 298028,
+            "remontee": 299626
+          }
+        },
+        {
+          "periode": "2031-S2",
+          "label": "2031 2e sem.",
+          "proba_pct": 0.1,
+          "note": 94,
+          "bande": "orange",
+          "hex": "#ff8c1a",
+          "taux_par_scenario": {
+            "baisse": 2.8,
+            "statu_quo": 3.55,
+            "remontee": 3.45
+          },
+          "budget_par_scenario": {
+            "baisse": 323363,
+            "statu_quo": 298028,
+            "remontee": 301237
+          }
+        }
+      ],
+      "scenarios": {
+        "baisse": {
+          "label": "Baisse des taux",
+          "meilleure_periode": "2028-S1",
+          "meilleure_label": "2028 1er sem.",
+          "meilleure_proba_pct": 65.4,
+          "meilleure_note": 199,
+          "periodes": [
+            {
+              "periode": "2027-S1",
+              "label": "2027 1er sem.",
+              "taux_25a": 3.4,
+              "prix_delta_pct": -1.0,
+              "prix_typique": 227700,
+              "mensualite_typique": 1128,
+              "budget_accessible": 302861,
+              "volume_index": 96,
+              "marge_pct": 7.0,
+              "points": {
+                "prix": 22,
+                "accessibilite": 43,
+                "volume": 29,
+                "marge": 25,
+                "dpe": 12,
+                "total": 131
+              },
+              "note": 131,
+              "bande": "vert",
+              "hex": "#22c55e",
+              "proba_pct": 2.2
+            },
+            {
+              "periode": "2027-S2",
+              "label": "2027 2e sem.",
+              "taux_25a": 3.2,
+              "prix_delta_pct": -3.0,
+              "prix_typique": 223100,
+              "mensualite_typique": 1081,
+              "budget_accessible": 309483,
+              "volume_index": 92,
+              "marge_pct": 8.0,
+              "points": {
+                "prix": 36,
+                "accessibilite": 48,
+                "volume": 33,
+                "marge": 30,
+                "dpe": 25,
+                "total": 172
+              },
+              "note": 172,
+              "bande": "vert",
+              "hex": "#22c55e",
+              "proba_pct": 17.0
+            },
+            {
+              "periode": "2028-S1",
+              "label": "2028 1er sem.",
+              "taux_25a": 3.0,
+              "prix_delta_pct": -5.0,
+              "prix_typique": 218500,
+              "mensualite_typique": 1036,
+              "budget_accessible": 316315,
+              "volume_index": 90,
+              "marge_pct": 8.5,
+              "points": {
+                "prix": 49,
+                "accessibilite": 53,
+                "volume": 35,
+                "marge": 32,
+                "dpe": 30,
+                "total": 199
+              },
+              "note": 199,
+              "bande": "cyan",
+              "hex": "#00e5ff",
+              "proba_pct": 65.4
+            },
+            {
+              "periode": "2028-S2",
+              "label": "2028 2e sem.",
+              "taux_25a": 2.9,
+              "prix_delta_pct": -3.0,
+              "prix_typique": 223100,
+              "mensualite_typique": 1046,
+              "budget_accessible": 319811,
+              "volume_index": 96,
+              "marge_pct": 7.0,
+              "points": {
+                "prix": 36,
+                "accessibilite": 52,
+                "volume": 29,
+                "marge": 25,
+                "dpe": 22,
+                "total": 164
+              },
+              "note": 164,
+              "bande": "vert",
+              "hex": "#22c55e",
+              "proba_pct": 11.4
+            },
+            {
+              "periode": "2029-S1",
+              "label": "2029 1er sem.",
+              "taux_25a": 2.8,
+              "prix_delta_pct": -1.0,
+              "prix_typique": 227700,
+              "mensualite_typique": 1056,
+              "budget_accessible": 323363,
+              "volume_index": 102,
+              "marge_pct": 6.0,
+              "points": {
+                "prix": 22,
+                "accessibilite": 51,
+                "volume": 23,
+                "marge": 20,
+                "dpe": 15,
+                "total": 131
+              },
+              "note": 131,
+              "bande": "vert",
+              "hex": "#22c55e",
+              "proba_pct": 2.2
+            },
+            {
+              "periode": "2029-S2",
+              "label": "2029 2e sem.",
+              "taux_25a": 2.75,
+              "prix_delta_pct": 1.0,
+              "prix_typique": 232300,
+              "mensualite_typique": 1072,
+              "budget_accessible": 325160,
+              "volume_index": 106,
+              "marge_pct": 5.2,
+              "points": {
+                "prix": 13,
+                "accessibilite": 49,
+                "volume": 19,
+                "marge": 16,
+                "dpe": 10,
+                "total": 107
+              },
+              "note": 107,
+              "bande": "orange",
+              "hex": "#ff8c1a",
+              "proba_pct": 0.7
+            },
+            {
+              "periode": "2030-S1",
+              "label": "2030 1er sem.",
+              "taux_25a": 2.7,
+              "prix_delta_pct": 2.0,
+              "prix_typique": 234600,
+              "mensualite_typique": 1076,
+              "budget_accessible": 326972,
+              "volume_index": 108,
+              "marge_pct": 4.8,
+              "points": {
+                "prix": 11,
+                "accessibilite": 48,
+                "volume": 17,
+                "marge": 14,
+                "dpe": 8,
+                "total": 98
+              },
+              "note": 98,
+              "bande": "orange",
+              "hex": "#ff8c1a",
+              "proba_pct": 0.4
+            },
+            {
+              "periode": "2030-S2",
+              "label": "2030 2e sem.",
+              "taux_25a": 2.7,
+              "prix_delta_pct": 3.0,
+              "prix_typique": 236900,
+              "mensualite_typique": 1087,
+              "budget_accessible": 326972,
+              "volume_index": 108,
+              "marge_pct": 4.6,
+              "points": {
+                "prix": 9,
+                "accessibilite": 47,
+                "volume": 17,
+                "marge": 13,
+                "dpe": 6,
+                "total": 92
+              },
+              "note": 92,
+              "bande": "orange",
+              "hex": "#ff8c1a",
+              "proba_pct": 0.3
+            },
+            {
+              "periode": "2031-S1",
+              "label": "2031 1er sem.",
+              "taux_25a": 2.75,
+              "prix_delta_pct": 4.0,
+              "prix_typique": 239200,
+              "mensualite_typique": 1103,
+              "budget_accessible": 325160,
+              "volume_index": 106,
+              "marge_pct": 4.5,
+              "points": {
+                "prix": 8,
+                "accessibilite": 45,
+                "volume": 19,
+                "marge": 12,
+                "dpe": 5,
+                "total": 89
+              },
+              "note": 89,
+              "bande": "orange",
+              "hex": "#ff8c1a",
+              "proba_pct": 0.3
+            },
+            {
+              "periode": "2031-S2",
+              "label": "2031 2e sem.",
+              "taux_25a": 2.8,
+              "prix_delta_pct": 5.0,
+              "prix_typique": 241500,
+              "mensualite_typique": 1120,
+              "budget_accessible": 323363,
+              "volume_index": 106,
+              "marge_pct": 4.5,
+              "points": {
+                "prix": 6,
+                "accessibilite": 43,
+                "volume": 19,
+                "marge": 12,
+                "dpe": 5,
+                "total": 85
+              },
+              "note": 85,
+              "bande": "orange",
+              "hex": "#ff8c1a",
+              "proba_pct": 0.2
+            }
+          ]
+        },
+        "statu_quo": {
+          "label": "Statu quo",
+          "meilleure_periode": "2028-S1",
+          "meilleure_label": "2028 1er sem.",
+          "meilleure_proba_pct": 63.8,
+          "meilleure_note": 222,
+          "periodes": [
+            {
+              "periode": "2027-S1",
+              "label": "2027 1er sem.",
+              "taux_25a": 3.57,
+              "prix_delta_pct": -2.0,
+              "prix_typique": 225400,
+              "mensualite_typique": 1137,
+              "budget_accessible": 297392,
+              "volume_index": 94,
+              "marge_pct": 7.5,
+              "points": {
+                "prix": 29,
+                "accessibilite": 41,
+                "volume": 31,
+                "marge": 28,
+                "dpe": 12,
+                "total": 141
+              },
+              "note": 141,
+              "bande": "vert",
+              "hex": "#22c55e",
+              "proba_pct": 1.1
+            },
+            {
+              "periode": "2027-S2",
+              "label": "2027 2e sem.",
+              "taux_25a": 3.57,
+              "prix_delta_pct": -4.0,
+              "prix_typique": 220800,
+              "mensualite_typique": 1114,
+              "budget_accessible": 297392,
+              "volume_index": 88,
+              "marge_pct": 9.0,
+              "points": {
+                "prix": 42,
+                "accessibilite": 44,
+                "volume": 37,
+                "marge": 35,
+                "dpe": 25,
+                "total": 183
+              },
+              "note": 183,
+              "bande": "vert",
+              "hex": "#22c55e",
+              "proba_pct": 9.1
+            },
+            {
+              "periode": "2028-S1",
+              "label": "2028 1er sem.",
+              "taux_25a": 3.55,
+              "prix_delta_pct": -7.0,
+              "prix_typique": 213900,
+              "mensualite_typique": 1077,
+              "budget_accessible": 298028,
+              "volume_index": 84,
+              "marge_pct": 10.0,
+              "points": {
+                "prix": 63,
+                "accessibilite": 48,
+                "volume": 41,
+                "marge": 40,
+                "dpe": 30,
+                "total": 222
+              },
+              "note": 222,
+              "bande": "cyan",
+              "hex": "#00e5ff",
+              "proba_pct": 63.8
+            },
+            {
+              "periode": "2028-S2",
+              "label": "2028 2e sem.",
+              "taux_25a": 3.55,
+              "prix_delta_pct": -6.0,
+              "prix_typique": 216200,
+              "mensualite_typique": 1088,
+              "budget_accessible": 298028,
+              "volume_index": 86,
+              "marge_pct": 9.0,
+              "points": {
+                "prix": 56,
+                "accessibilite": 47,
+                "volume": 39,
+                "marge": 35,
+                "dpe": 22,
+                "total": 199
+              },
+              "note": 199,
+              "bande": "cyan",
+              "hex": "#00e5ff",
+              "proba_pct": 20.2
+            },
+            {
+              "periode": "2029-S1",
+              "label": "2029 1er sem.",
+              "taux_25a": 3.55,
+              "prix_delta_pct": -4.0,
+              "prix_typique": 220800,
+              "mensualite_typique": 1111,
+              "budget_accessible": 298028,
+              "volume_index": 90,
+              "marge_pct": 7.5,
+              "points": {
+                "prix": 42,
+                "accessibilite": 44,
+                "volume": 35,
+                "marge": 28,
+                "dpe": 15,
+                "total": 164
+              },
+              "note": 164,
+              "bande": "vert",
+              "hex": "#22c55e",
+              "proba_pct": 3.5
+            },
+            {
+              "periode": "2029-S2",
+              "label": "2029 2e sem.",
+              "taux_25a": 3.55,
+              "prix_delta_pct": -3.0,
+              "prix_typique": 223100,
+              "mensualite_typique": 1123,
+              "budget_accessible": 298028,
+              "volume_index": 94,
+              "marge_pct": 6.5,
+              "points": {
+                "prix": 36,
+                "accessibilite": 43,
+                "volume": 31,
+                "marge": 22,
+                "dpe": 10,
+                "total": 142
+              },
+              "note": 142,
+              "bande": "vert",
+              "hex": "#22c55e",
+              "proba_pct": 1.2
+            },
+            {
+              "periode": "2030-S1",
+              "label": "2030 1er sem.",
+              "taux_25a": 3.55,
+              "prix_delta_pct": -2.0,
+              "prix_typique": 225400,
+              "mensualite_typique": 1134,
+              "budget_accessible": 298028,
+              "volume_index": 96,
+              "marge_pct": 5.8,
+              "points": {
+                "prix": 29,
+                "accessibilite": 42,
+                "volume": 29,
+                "marge": 19,
+                "dpe": 8,
+                "total": 127
+              },
+              "note": 127,
+              "bande": "orange",
+              "hex": "#ff8c1a",
+              "proba_pct": 0.6
+            },
+            {
+              "periode": "2030-S2",
+              "label": "2030 2e sem.",
+              "taux_25a": 3.55,
+              "prix_delta_pct": -1.0,
+              "prix_typique": 227700,
+              "mensualite_typique": 1146,
+              "budget_accessible": 298028,
+              "volume_index": 98,
+              "marge_pct": 5.4,
+              "points": {
+                "prix": 22,
+                "accessibilite": 40,
+                "volume": 27,
+                "marge": 17,
+                "dpe": 6,
+                "total": 112
+              },
+              "note": 112,
+              "bande": "orange",
+              "hex": "#ff8c1a",
+              "proba_pct": 0.3
+            },
+            {
+              "periode": "2031-S1",
+              "label": "2031 1er sem.",
+              "taux_25a": 3.55,
+              "prix_delta_pct": 0.0,
+              "prix_typique": 230000,
+              "mensualite_typique": 1158,
+              "budget_accessible": 298028,
+              "volume_index": 99,
+              "marge_pct": 5.2,
+              "points": {
+                "prix": 15,
+                "accessibilite": 39,
+                "volume": 26,
+                "marge": 16,
+                "dpe": 5,
+                "total": 101
+              },
+              "note": 101,
+              "bande": "orange",
+              "hex": "#ff8c1a",
+              "proba_pct": 0.2
+            },
+            {
+              "periode": "2031-S2",
+              "label": "2031 2e sem.",
+              "taux_25a": 3.55,
+              "prix_delta_pct": 1.0,
+              "prix_typique": 232300,
+              "mensualite_typique": 1169,
+              "budget_accessible": 298028,
+              "volume_index": 100,
+              "marge_pct": 5.1,
+              "points": {
+                "prix": 13,
+                "accessibilite": 38,
+                "volume": 25,
+                "marge": 15,
+                "dpe": 5,
+                "total": 96
+              },
+              "note": 96,
+              "bande": "orange",
+              "hex": "#ff8c1a",
+              "proba_pct": 0.1
+            }
+          ]
+        },
+        "remontee": {
+          "label": "Remontée des taux",
+          "meilleure_periode": "2028-S1",
+          "meilleure_label": "2028 1er sem.",
+          "meilleure_proba_pct": 51.6,
+          "meilleure_note": 233,
+          "periodes": [
+            {
+              "periode": "2027-S1",
+              "label": "2027 1er sem.",
+              "taux_25a": 3.85,
+              "prix_delta_pct": -3.0,
+              "prix_typique": 223100,
+              "mensualite_typique": 1159,
+              "budget_accessible": 288689,
+              "volume_index": 90,
+              "marge_pct": 8.0,
+              "points": {
+                "prix": 36,
+                "accessibilite": 39,
+                "volume": 35,
+                "marge": 30,
+                "dpe": 12,
+                "total": 152
+              },
+              "note": 152,
+              "bande": "vert",
+              "hex": "#22c55e",
+              "proba_pct": 0.9
+            },
+            {
+              "periode": "2027-S2",
+              "label": "2027 2e sem.",
+              "taux_25a": 4.0,
+              "prix_delta_pct": -6.0,
+              "prix_typique": 216200,
+              "mensualite_typique": 1141,
+              "budget_accessible": 284179,
+              "volume_index": 82,
+              "marge_pct": 10.0,
+              "points": {
+                "prix": 56,
+                "accessibilite": 41,
+                "volume": 43,
+                "marge": 40,
+                "dpe": 25,
+                "total": 205
+              },
+              "note": 205,
+              "bande": "cyan",
+              "hex": "#00e5ff",
+              "proba_pct": 12.7
+            },
+            {
+              "periode": "2028-S1",
+              "label": "2028 1er sem.",
+              "taux_25a": 3.9,
+              "prix_delta_pct": -9.0,
+              "prix_typique": 209300,
+              "mensualite_typique": 1093,
+              "budget_accessible": 287174,
+              "volume_index": 78,
+              "marge_pct": 11.0,
+              "points": {
+                "prix": 70,
+                "accessibilite": 46,
+                "volume": 47,
+                "marge": 40,
+                "dpe": 30,
+                "total": 233
+              },
+              "note": 233,
+              "bande": "cyan",
+              "hex": "#00e5ff",
+              "proba_pct": 51.6
+            },
+            {
+              "periode": "2028-S2",
+              "label": "2028 2e sem.",
+              "taux_25a": 3.8,
+              "prix_delta_pct": -8.0,
+              "prix_typique": 211600,
+              "mensualite_typique": 1094,
+              "budget_accessible": 290216,
+              "volume_index": 82,
+              "marge_pct": 10.0,
+              "points": {
+                "prix": 70,
+                "accessibilite": 46,
+                "volume": 43,
+                "marge": 40,
+                "dpe": 22,
+                "total": 221
+              },
+              "note": 221,
+              "bande": "cyan",
+              "hex": "#00e5ff",
+              "proba_pct": 28.3
+            },
+            {
+              "periode": "2029-S1",
+              "label": "2029 1er sem.",
+              "taux_25a": 3.7,
+              "prix_delta_pct": -6.0,
+              "prix_typique": 216200,
+              "mensualite_typique": 1106,
+              "budget_accessible": 293305,
+              "volume_index": 88,
+              "marge_pct": 8.5,
+              "points": {
+                "prix": 56,
+                "accessibilite": 45,
+                "volume": 37,
+                "marge": 32,
+                "dpe": 15,
+                "total": 185
+              },
+              "note": 185,
+              "bande": "vert",
+              "hex": "#22c55e",
+              "proba_pct": 4.7
+            },
+            {
+              "periode": "2029-S2",
+              "label": "2029 2e sem.",
+              "taux_25a": 3.6,
+              "prix_delta_pct": -4.0,
+              "prix_typique": 220800,
+              "mensualite_typique": 1117,
+              "budget_accessible": 296441,
+              "volume_index": 92,
+              "marge_pct": 7.0,
+              "points": {
+                "prix": 42,
+                "accessibilite": 44,
+                "volume": 33,
+                "marge": 25,
+                "dpe": 10,
+                "total": 154
+              },
+              "note": 154,
+              "bande": "vert",
+              "hex": "#22c55e",
+              "proba_pct": 1.0
+            },
+            {
+              "periode": "2030-S1",
+              "label": "2030 1er sem.",
+              "taux_25a": 3.55,
+              "prix_delta_pct": -3.0,
+              "prix_typique": 223100,
+              "mensualite_typique": 1123,
+              "budget_accessible": 298028,
+              "volume_index": 95,
+              "marge_pct": 6.0,
+              "points": {
+                "prix": 36,
+                "accessibilite": 43,
+                "volume": 30,
+                "marge": 20,
+                "dpe": 8,
+                "total": 137
+              },
+              "note": 137,
+              "bande": "vert",
+              "hex": "#22c55e",
+              "proba_pct": 0.4
+            },
+            {
+              "periode": "2030-S2",
+              "label": "2030 2e sem.",
+              "taux_25a": 3.5,
+              "prix_delta_pct": -2.0,
+              "prix_typique": 225400,
+              "mensualite_typique": 1128,
+              "budget_accessible": 299626,
+              "volume_index": 97,
+              "marge_pct": 5.5,
+              "points": {
+                "prix": 29,
+                "accessibilite": 42,
+                "volume": 28,
+                "marge": 18,
+                "dpe": 6,
+                "total": 123
+              },
+              "note": 123,
+              "bande": "orange",
+              "hex": "#ff8c1a",
+              "proba_pct": 0.2
+            },
+            {
+              "periode": "2031-S1",
+              "label": "2031 1er sem.",
+              "taux_25a": 3.5,
+              "prix_delta_pct": -1.0,
+              "prix_typique": 227700,
+              "mensualite_typique": 1140,
+              "budget_accessible": 299626,
+              "volume_index": 99,
+              "marge_pct": 5.2,
+              "points": {
+                "prix": 22,
+                "accessibilite": 41,
+                "volume": 26,
+                "marge": 16,
+                "dpe": 5,
+                "total": 110
+              },
+              "note": 110,
+              "bande": "orange",
+              "hex": "#ff8c1a",
+              "proba_pct": 0.1
+            },
+            {
+              "periode": "2031-S2",
+              "label": "2031 2e sem.",
+              "taux_25a": 3.45,
+              "prix_delta_pct": 0.0,
+              "prix_typique": 230000,
+              "mensualite_typique": 1145,
+              "budget_accessible": 301237,
+              "volume_index": 100,
+              "marge_pct": 5.0,
+              "points": {
+                "prix": 15,
+                "accessibilite": 41,
+                "volume": 25,
+                "marge": 15,
+                "dpe": 5,
+                "total": 101
+              },
+              "note": 101,
+              "bande": "orange",
+              "hex": "#ff8c1a",
+              "proba_pct": 0.1
+            }
+          ]
+        }
+      },
+      "resume_contexte": "Référence : maison ancienne médiane du secteur Haguenau / Niederbronn en 2025.",
+      "resume": "La fenêtre la plus favorable se dessine au 2028 1er sem. (environ 60 % de chance d’être la meilleure). C’est autour de l’interdiction de louer les F, avec des taux encore hauts. Estimation, pas une certitude."
+    },
+    "appart": {
+      "id": "appart",
+      "titre": "4 pièces Strasbourg Nord",
+      "prix_m2_actuel": 2724,
+      "prix_typique_actuel": 231540,
+      "mensualite_typique_actuelle": 1168,
+      "taux_actuel_25a": 3.57,
+      "budget_accessible_actuel": 297392,
+      "meilleure_periode": "2028-S1",
+      "meilleure_label": "2028 1er sem.",
+      "meilleure_proba_pct": 26.2,
+      "meilleure_note": 144,
+      "meilleure_bande": "vert",
+      "meilleure_hex": "#22c55e",
+      "budget_accessible_fenetre": 300506,
+      "budget_accessible_fenetre_min": 287174,
+      "budget_accessible_fenetre_max": 316315,
+      "note_fenetre_par_scenario": {
+        "baisse": 111,
+        "statu_quo": 142,
+        "remontee": 179
+      },
+      "meilleure_saison": "novembre à février",
+      "frise": [
+        {
+          "periode": "2027-S1",
+          "label": "2027 1er sem.",
+          "proba_pct": 11.5,
+          "note": 121,
+          "bande": "orange",
+          "hex": "#ff8c1a",
+          "taux_par_scenario": {
+            "baisse": 3.4,
+            "statu_quo": 3.57,
+            "remontee": 3.85
+          },
+          "budget_par_scenario": {
+            "baisse": 302861,
+            "statu_quo": 297392,
+            "remontee": 288689
+          }
+        },
+        {
+          "periode": "2027-S2",
+          "label": "2027 2e sem.",
+          "proba_pct": 16.2,
+          "note": 134,
+          "bande": "vert",
+          "hex": "#22c55e",
+          "taux_par_scenario": {
+            "baisse": 3.2,
+            "statu_quo": 3.57,
+            "remontee": 4.0
+          },
+          "budget_par_scenario": {
+            "baisse": 309483,
+            "statu_quo": 297392,
+            "remontee": 284179
+          }
+        },
+        {
+          "periode": "2028-S1",
+          "label": "2028 1er sem.",
+          "proba_pct": 26.2,
+          "note": 144,
+          "bande": "vert",
+          "hex": "#22c55e",
+          "taux_par_scenario": {
+            "baisse": 3.0,
+            "statu_quo": 3.55,
+            "remontee": 3.9
+          },
+          "budget_par_scenario": {
+            "baisse": 316315,
+            "statu_quo": 298028,
+            "remontee": 287174
+          }
+        },
+        {
+          "periode": "2028-S2",
+          "label": "2028 2e sem.",
+          "proba_pct": 17.7,
+          "note": 136,
+          "bande": "vert",
+          "hex": "#22c55e",
+          "taux_par_scenario": {
+            "baisse": 2.9,
+            "statu_quo": 3.55,
+            "remontee": 3.8
+          },
+          "budget_par_scenario": {
+            "baisse": 319811,
+            "statu_quo": 298028,
+            "remontee": 290216
+          }
+        },
+        {
+          "periode": "2029-S1",
+          "label": "2029 1er sem.",
+          "proba_pct": 9.8,
+          "note": 124,
+          "bande": "orange",
+          "hex": "#ff8c1a",
+          "taux_par_scenario": {
+            "baisse": 2.8,
+            "statu_quo": 3.55,
+            "remontee": 3.7
+          },
+          "budget_par_scenario": {
+            "baisse": 323363,
+            "statu_quo": 298028,
+            "remontee": 293305
+          }
+        },
+        {
+          "periode": "2029-S2",
+          "label": "2029 2e sem.",
+          "proba_pct": 5.9,
+          "note": 114,
+          "bande": "orange",
+          "hex": "#ff8c1a",
+          "taux_par_scenario": {
+            "baisse": 2.75,
+            "statu_quo": 3.55,
+            "remontee": 3.6
+          },
+          "budget_par_scenario": {
+            "baisse": 325160,
+            "statu_quo": 298028,
+            "remontee": 296441
+          }
+        },
+        {
+          "periode": "2030-S1",
+          "label": "2030 1er sem.",
+          "proba_pct": 4.4,
+          "note": 108,
+          "bande": "orange",
+          "hex": "#ff8c1a",
+          "taux_par_scenario": {
+            "baisse": 2.7,
+            "statu_quo": 3.55,
+            "remontee": 3.55
+          },
+          "budget_par_scenario": {
+            "baisse": 326972,
+            "statu_quo": 298028,
+            "remontee": 298028
+          }
+        },
+        {
+          "periode": "2030-S2",
+          "label": "2030 2e sem.",
+          "proba_pct": 3.3,
+          "note": 103,
+          "bande": "orange",
+          "hex": "#ff8c1a",
+          "taux_par_scenario": {
+            "baisse": 2.7,
+            "statu_quo": 3.55,
+            "remontee": 3.5
+          },
+          "budget_par_scenario": {
+            "baisse": 326972,
+            "statu_quo": 298028,
+            "remontee": 299626
+          }
+        },
+        {
+          "periode": "2031-S1",
+          "label": "2031 1er sem.",
+          "proba_pct": 2.6,
+          "note": 98,
+          "bande": "orange",
+          "hex": "#ff8c1a",
+          "taux_par_scenario": {
+            "baisse": 2.75,
+            "statu_quo": 3.55,
+            "remontee": 3.5
+          },
+          "budget_par_scenario": {
+            "baisse": 325160,
+            "statu_quo": 298028,
+            "remontee": 299626
+          }
+        },
+        {
+          "periode": "2031-S2",
+          "label": "2031 2e sem.",
+          "proba_pct": 2.4,
+          "note": 96,
+          "bande": "orange",
+          "hex": "#ff8c1a",
+          "taux_par_scenario": {
+            "baisse": 2.8,
+            "statu_quo": 3.55,
+            "remontee": 3.45
+          },
+          "budget_par_scenario": {
+            "baisse": 323363,
+            "statu_quo": 298028,
+            "remontee": 301237
+          }
+        }
+      ],
+      "scenarios": {
+        "baisse": {
+          "label": "Baisse des taux",
+          "meilleure_periode": "2027-S1",
+          "meilleure_label": "2027 1er sem.",
+          "meilleure_proba_pct": 24.5,
+          "meilleure_note": 115,
+          "periodes": [
+            {
+              "periode": "2027-S1",
+              "label": "2027 1er sem.",
+              "taux_25a": 3.4,
+              "prix_delta_pct": -0.5,
+              "prix_typique": 230382,
+              "mensualite_typique": 1141,
+              "budget_accessible": 302861,
+              "volume_index": 98,
+              "marge_pct": 5.0,
+              "points": {
+                "prix": 28,
+                "accessibilite": 41,
+                "volume": 27,
+                "marge": 15,
+                "dpe": 4,
+                "total": 115
+              },
+              "note": 115,
+              "bande": "orange",
+              "hex": "#ff8c1a",
+              "proba_pct": 24.5
+            },
+            {
+              "periode": "2027-S2",
+              "label": "2027 2e sem.",
+              "taux_25a": 3.2,
+              "prix_delta_pct": 0.0,
+              "prix_typique": 231540,
+              "mensualite_typique": 1122,
+              "budget_accessible": 309483,
+              "volume_index": 100,
+              "marge_pct": 4.6,
+              "points": {
+                "prix": 25,
+                "accessibilite": 43,
+                "volume": 25,
+                "marge": 13,
+                "dpe": 8,
+                "total": 114
+              },
+              "note": 114,
+              "bande": "orange",
+              "hex": "#ff8c1a",
+              "proba_pct": 23.3
+            },
+            {
+              "periode": "2028-S1",
+              "label": "2028 1er sem.",
+              "taux_25a": 3.0,
+              "prix_delta_pct": 1.0,
+              "prix_typique": 233855,
+              "mensualite_typique": 1109,
+              "budget_accessible": 316315,
+              "volume_index": 104,
+              "marge_pct": 4.2,
+              "points": {
+                "prix": 22,
+                "accessibilite": 45,
+                "volume": 21,
+                "marge": 11,
+                "dpe": 12,
+                "total": 111
+              },
+              "note": 111,
+              "bande": "orange",
+              "hex": "#ff8c1a",
+              "proba_pct": 20.1
+            },
+            {
+              "periode": "2028-S2",
+              "label": "2028 2e sem.",
+              "taux_25a": 2.9,
+              "prix_delta_pct": 2.0,
+              "prix_typique": 236171,
+              "mensualite_typique": 1108,
+              "budget_accessible": 319811,
+              "volume_index": 108,
+              "marge_pct": 4.0,
+              "points": {
+                "prix": 19,
+                "accessibilite": 45,
+                "volume": 17,
+                "marge": 10,
+                "dpe": 10,
+                "total": 101
+              },
+              "note": 101,
+              "bande": "orange",
+              "hex": "#ff8c1a",
+              "proba_pct": 12.2
+            },
+            {
+              "periode": "2029-S1",
+              "label": "2029 1er sem.",
+              "taux_25a": 2.8,
+              "prix_delta_pct": 3.5,
+              "prix_typique": 239644,
+              "mensualite_typique": 1112,
+              "budget_accessible": 323363,
+              "volume_index": 110,
+              "marge_pct": 3.8,
+              "points": {
+                "prix": 14,
+                "accessibilite": 44,
+                "volume": 15,
+                "marge": 9,
+                "dpe": 6,
+                "total": 88
+              },
+              "note": 88,
+              "bande": "orange",
+              "hex": "#ff8c1a",
+              "proba_pct": 6.4
+            },
+            {
+              "periode": "2029-S2",
+              "label": "2029 2e sem.",
+              "taux_25a": 2.75,
+              "prix_delta_pct": 5.0,
+              "prix_typique": 243117,
+              "mensualite_typique": 1122,
+              "budget_accessible": 325160,
+              "volume_index": 112,
+              "marge_pct": 3.6,
+              "points": {
+                "prix": 9,
+                "accessibilite": 43,
+                "volume": 13,
+                "marge": 8,
+                "dpe": 4,
+                "total": 77
+              },
+              "note": 77,
+              "bande": "orange",
+              "hex": "#ff8c1a",
+              "proba_pct": 3.7
+            },
+            {
+              "periode": "2030-S1",
+              "label": "2030 1er sem.",
+              "taux_25a": 2.7,
+              "prix_delta_pct": 6.0,
+              "prix_typique": 245432,
+              "mensualite_typique": 1126,
+              "budget_accessible": 326972,
+              "volume_index": 112,
+              "marge_pct": 3.5,
+              "points": {
+                "prix": 6,
+                "accessibilite": 43,
+                "volume": 13,
+                "marge": 8,
+                "dpe": 3,
+                "total": 73
+              },
+              "note": 73,
+              "bande": "orange",
+              "hex": "#ff8c1a",
+              "proba_pct": 3.0
+            },
+            {
+              "periode": "2030-S2",
+              "label": "2030 2e sem.",
+              "taux_25a": 2.7,
+              "prix_delta_pct": 7.0,
+              "prix_typique": 247748,
+              "mensualite_typique": 1137,
+              "budget_accessible": 326972,
+              "volume_index": 110,
+              "marge_pct": 3.5,
+              "points": {
+                "prix": 3,
+                "accessibilite": 42,
+                "volume": 15,
+                "marge": 8,
+                "dpe": 2,
+                "total": 70
+              },
+              "note": 70,
+              "bande": "orange",
+              "hex": "#ff8c1a",
+              "proba_pct": 2.6
+            },
+            {
+              "periode": "2031-S1",
+              "label": "2031 1er sem.",
+              "taux_25a": 2.75,
+              "prix_delta_pct": 8.0,
+              "prix_typique": 250063,
+              "mensualite_typique": 1154,
+              "budget_accessible": 325160,
+              "volume_index": 108,
+              "marge_pct": 3.6,
+              "points": {
+                "prix": 0,
+                "accessibilite": 40,
+                "volume": 17,
+                "marge": 8,
+                "dpe": 2,
+                "total": 67
+              },
+              "note": 67,
+              "bande": "rouge",
+              "hex": "#ff2d2d",
+              "proba_pct": 2.2
+            },
+            {
+              "periode": "2031-S2",
+              "label": "2031 2e sem.",
+              "taux_25a": 2.8,
+              "prix_delta_pct": 9.0,
+              "prix_typique": 252379,
+              "mensualite_typique": 1171,
+              "budget_accessible": 323363,
+              "volume_index": 108,
+              "marge_pct": 3.6,
+              "points": {
+                "prix": 0,
+                "accessibilite": 38,
+                "volume": 17,
+                "marge": 8,
+                "dpe": 2,
+                "total": 65
+              },
+              "note": 65,
+              "bande": "rouge",
+              "hex": "#ff2d2d",
+              "proba_pct": 2.0
+            }
+          ]
+        },
+        "statu_quo": {
+          "label": "Statu quo",
+          "meilleure_periode": "2028-S1",
+          "meilleure_label": "2028 1er sem.",
+          "meilleure_proba_pct": 22.4,
+          "meilleure_note": 142,
+          "periodes": [
+            {
+              "periode": "2027-S1",
+              "label": "2027 1er sem.",
+              "taux_25a": 3.57,
+              "prix_delta_pct": -1.0,
+              "prix_typique": 229225,
+              "mensualite_typique": 1156,
+              "budget_accessible": 297392,
+              "volume_index": 96,
+              "marge_pct": 5.2,
+              "points": {
+                "prix": 31,
+                "accessibilite": 39,
+                "volume": 29,
+                "marge": 16,
+                "dpe": 4,
+                "total": 119
+              },
+              "note": 119,
+              "bande": "orange",
+              "hex": "#ff8c1a",
+              "proba_pct": 7.1
+            },
+            {
+              "periode": "2027-S2",
+              "label": "2027 2e sem.",
+              "taux_25a": 3.57,
+              "prix_delta_pct": -2.0,
+              "prix_typique": 226909,
+              "mensualite_typique": 1144,
+              "budget_accessible": 297392,
+              "volume_index": 94,
+              "marge_pct": 5.5,
+              "points": {
+                "prix": 36,
+                "accessibilite": 41,
+                "volume": 31,
+                "marge": 18,
+                "dpe": 8,
+                "total": 134
+              },
+              "note": 134,
+              "bande": "vert",
+              "hex": "#22c55e",
+              "proba_pct": 15.0
+            },
+            {
+              "periode": "2028-S1",
+              "label": "2028 1er sem.",
+              "taux_25a": 3.55,
+              "prix_delta_pct": -2.5,
+              "prix_typique": 225752,
+              "mensualite_typique": 1136,
+              "budget_accessible": 298028,
+              "volume_index": 94,
+              "marge_pct": 5.7,
+              "points": {
+                "prix": 39,
+                "accessibilite": 42,
+                "volume": 31,
+                "marge": 18,
+                "dpe": 12,
+                "total": 142
+              },
+              "note": 142,
+              "bande": "vert",
+              "hex": "#22c55e",
+              "proba_pct": 22.4
+            },
+            {
+              "periode": "2028-S2",
+              "label": "2028 2e sem.",
+              "taux_25a": 3.55,
+              "prix_delta_pct": -2.5,
+              "prix_typique": 225752,
+              "mensualite_typique": 1136,
+              "budget_accessible": 298028,
+              "volume_index": 95,
+              "marge_pct": 5.5,
+              "points": {
+                "prix": 39,
+                "accessibilite": 42,
+                "volume": 30,
+                "marge": 18,
+                "dpe": 10,
+                "total": 139
+              },
+              "note": 139,
+              "bande": "vert",
+              "hex": "#22c55e",
+              "proba_pct": 19.3
+            },
+            {
+              "periode": "2029-S1",
+              "label": "2029 1er sem.",
+              "taux_25a": 3.55,
+              "prix_delta_pct": -2.0,
+              "prix_typique": 226909,
+              "mensualite_typique": 1142,
+              "budget_accessible": 298028,
+              "volume_index": 96,
+              "marge_pct": 5.3,
+              "points": {
+                "prix": 36,
+                "accessibilite": 41,
+                "volume": 29,
+                "marge": 16,
+                "dpe": 6,
+                "total": 128
+              },
+              "note": 128,
+              "bande": "orange",
+              "hex": "#ff8c1a",
+              "proba_pct": 11.1
+            },
+            {
+              "periode": "2029-S2",
+              "label": "2029 2e sem.",
+              "taux_25a": 3.55,
+              "prix_delta_pct": -1.5,
+              "prix_typique": 228067,
+              "mensualite_typique": 1148,
+              "budget_accessible": 298028,
+              "volume_index": 97,
+              "marge_pct": 5.2,
+              "points": {
+                "prix": 33,
+                "accessibilite": 40,
+                "volume": 28,
+                "marge": 16,
+                "dpe": 4,
+                "total": 121
+              },
+              "note": 121,
+              "bande": "orange",
+              "hex": "#ff8c1a",
+              "proba_pct": 7.8
+            },
+            {
+              "periode": "2030-S1",
+              "label": "2030 1er sem.",
+              "taux_25a": 3.55,
+              "prix_delta_pct": -1.0,
+              "prix_typique": 229225,
+              "mensualite_typique": 1154,
+              "budget_accessible": 298028,
+              "volume_index": 98,
+              "marge_pct": 5.1,
+              "points": {
+                "prix": 31,
+                "accessibilite": 40,
+                "volume": 27,
+                "marge": 15,
+                "dpe": 3,
+                "total": 116
+              },
+              "note": 116,
+              "bande": "orange",
+              "hex": "#ff8c1a",
+              "proba_pct": 6.1
+            },
+            {
+              "periode": "2030-S2",
+              "label": "2030 2e sem.",
+              "taux_25a": 3.55,
+              "prix_delta_pct": -0.5,
+              "prix_typique": 230382,
+              "mensualite_typique": 1160,
+              "budget_accessible": 298028,
+              "volume_index": 99,
+              "marge_pct": 5.1,
+              "points": {
+                "prix": 28,
+                "accessibilite": 39,
+                "volume": 26,
+                "marge": 15,
+                "dpe": 2,
+                "total": 110
+              },
+              "note": 110,
+              "bande": "orange",
+              "hex": "#ff8c1a",
+              "proba_pct": 4.5
+            },
+            {
+              "periode": "2031-S1",
+              "label": "2031 1er sem.",
+              "taux_25a": 3.55,
+              "prix_delta_pct": 0.0,
+              "prix_typique": 231540,
+              "mensualite_typique": 1165,
+              "budget_accessible": 298028,
+              "volume_index": 100,
+              "marge_pct": 5.0,
+              "points": {
+                "prix": 25,
+                "accessibilite": 38,
+                "volume": 25,
+                "marge": 15,
+                "dpe": 2,
+                "total": 105
+              },
+              "note": 105,
+              "bande": "orange",
+              "hex": "#ff8c1a",
+              "proba_pct": 3.5
+            },
+            {
+              "periode": "2031-S2",
+              "label": "2031 2e sem.",
+              "taux_25a": 3.55,
+              "prix_delta_pct": 0.5,
+              "prix_typique": 232698,
+              "mensualite_typique": 1171,
+              "budget_accessible": 298028,
+              "volume_index": 100,
+              "marge_pct": 5.0,
+              "points": {
+                "prix": 23,
+                "accessibilite": 38,
+                "volume": 25,
+                "marge": 15,
+                "dpe": 2,
+                "total": 103
+              },
+              "note": 103,
+              "bande": "orange",
+              "hex": "#ff8c1a",
+              "proba_pct": 3.2
+            }
+          ]
+        },
+        "remontee": {
+          "label": "Remontée des taux",
+          "meilleure_periode": "2028-S1",
+          "meilleure_label": "2028 1er sem.",
+          "meilleure_proba_pct": 35.8,
+          "meilleure_note": 179,
+          "periodes": [
+            {
+              "periode": "2027-S1",
+              "label": "2027 1er sem.",
+              "taux_25a": 3.85,
+              "prix_delta_pct": -2.0,
+              "prix_typique": 226909,
+              "mensualite_typique": 1179,
+              "budget_accessible": 288689,
+              "volume_index": 92,
+              "marge_pct": 5.5,
+              "points": {
+                "prix": 36,
+                "accessibilite": 37,
+                "volume": 33,
+                "marge": 18,
+                "dpe": 4,
+                "total": 128
+              },
+              "note": 128,
+              "bande": "orange",
+              "hex": "#ff8c1a",
+              "proba_pct": 2.8
+            },
+            {
+              "periode": "2027-S2",
+              "label": "2027 2e sem.",
+              "taux_25a": 4.0,
+              "prix_delta_pct": -4.0,
+              "prix_typique": 222278,
+              "mensualite_typique": 1173,
+              "budget_accessible": 284179,
+              "volume_index": 86,
+              "marge_pct": 6.5,
+              "points": {
+                "prix": 48,
+                "accessibilite": 37,
+                "volume": 39,
+                "marge": 22,
+                "dpe": 8,
+                "total": 154
+              },
+              "note": 154,
+              "bande": "vert",
+              "hex": "#22c55e",
+              "proba_pct": 10.3
+            },
+            {
+              "periode": "2028-S1",
+              "label": "2028 1er sem.",
+              "taux_25a": 3.9,
+              "prix_delta_pct": -6.0,
+              "prix_typique": 217648,
+              "mensualite_typique": 1137,
+              "budget_accessible": 287174,
+              "volume_index": 84,
+              "marge_pct": 7.0,
+              "points": {
+                "prix": 59,
+                "accessibilite": 42,
+                "volume": 41,
+                "marge": 25,
+                "dpe": 12,
+                "total": 179
+              },
+              "note": 179,
+              "bande": "vert",
+              "hex": "#22c55e",
+              "proba_pct": 35.8
+            },
+            {
+              "periode": "2028-S2",
+              "label": "2028 2e sem.",
+              "taux_25a": 3.8,
+              "prix_delta_pct": -5.5,
+              "prix_typique": 218805,
+              "mensualite_typique": 1131,
+              "budget_accessible": 290216,
+              "volume_index": 86,
+              "marge_pct": 6.5,
+              "points": {
+                "prix": 56,
+                "accessibilite": 42,
+                "volume": 39,
+                "marge": 22,
+                "dpe": 10,
+                "total": 169
+              },
+              "note": 169,
+              "bande": "vert",
+              "hex": "#22c55e",
+              "proba_pct": 21.7
+            },
+            {
+              "periode": "2029-S1",
+              "label": "2029 1er sem.",
+              "taux_25a": 3.7,
+              "prix_delta_pct": -5.0,
+              "prix_typique": 219963,
+              "mensualite_typique": 1125,
+              "budget_accessible": 293305,
+              "volume_index": 90,
+              "marge_pct": 6.0,
+              "points": {
+                "prix": 53,
+                "accessibilite": 43,
+                "volume": 35,
+                "marge": 20,
+                "dpe": 6,
+                "total": 157
+              },
+              "note": 157,
+              "bande": "vert",
+              "hex": "#22c55e",
+              "proba_pct": 11.9
+            },
+            {
+              "periode": "2029-S2",
+              "label": "2029 2e sem.",
+              "taux_25a": 3.6,
+              "prix_delta_pct": -4.0,
+              "prix_typique": 222278,
+              "mensualite_typique": 1125,
+              "budget_accessible": 296441,
+              "volume_index": 94,
+              "marge_pct": 5.5,
+              "points": {
+                "prix": 48,
+                "accessibilite": 43,
+                "volume": 31,
+                "marge": 18,
+                "dpe": 4,
+                "total": 144
+              },
+              "note": 144,
+              "bande": "vert",
+              "hex": "#22c55e",
+              "proba_pct": 6.2
+            },
+            {
+              "periode": "2030-S1",
+              "label": "2030 1er sem.",
+              "taux_25a": 3.55,
+              "prix_delta_pct": -3.5,
+              "prix_typique": 223436,
+              "mensualite_typique": 1125,
+              "budget_accessible": 298028,
+              "volume_index": 96,
+              "marge_pct": 5.2,
+              "points": {
+                "prix": 45,
+                "accessibilite": 43,
+                "volume": 29,
+                "marge": 16,
+                "dpe": 3,
+                "total": 136
+              },
+              "note": 136,
+              "bande": "vert",
+              "hex": "#22c55e",
+              "proba_pct": 4.2
+            },
+            {
+              "periode": "2030-S2",
+              "label": "2030 2e sem.",
+              "taux_25a": 3.5,
+              "prix_delta_pct": -3.0,
+              "prix_typique": 224594,
+              "mensualite_typique": 1124,
+              "budget_accessible": 299626,
+              "volume_index": 98,
+              "marge_pct": 5.0,
+              "points": {
+                "prix": 42,
+                "accessibilite": 43,
+                "volume": 27,
+                "marge": 15,
+                "dpe": 2,
+                "total": 129
+              },
+              "note": 129,
+              "bande": "orange",
+              "hex": "#ff8c1a",
+              "proba_pct": 2.9
+            },
+            {
+              "periode": "2031-S1",
+              "label": "2031 1er sem.",
+              "taux_25a": 3.5,
+              "prix_delta_pct": -2.5,
+              "prix_typique": 225752,
+              "mensualite_typique": 1130,
+              "budget_accessible": 299626,
+              "volume_index": 100,
+              "marge_pct": 5.0,
+              "points": {
+                "prix": 39,
+                "accessibilite": 42,
+                "volume": 25,
+                "marge": 15,
+                "dpe": 2,
+                "total": 123
+              },
+              "note": 123,
+              "bande": "orange",
+              "hex": "#ff8c1a",
+              "proba_pct": 2.2
+            },
+            {
+              "periode": "2031-S2",
+              "label": "2031 2e sem.",
+              "taux_25a": 3.45,
+              "prix_delta_pct": -2.0,
+              "prix_typique": 226909,
+              "mensualite_typique": 1130,
+              "budget_accessible": 301237,
+              "volume_index": 100,
+              "marge_pct": 5.0,
+              "points": {
+                "prix": 36,
+                "accessibilite": 42,
+                "volume": 25,
+                "marge": 15,
+                "dpe": 2,
+                "total": 120
+              },
+              "note": 120,
+              "bande": "orange",
+              "hex": "#ff8c1a",
+              "proba_pct": 1.9
+            }
+          ]
+        }
+      },
+      "resume_contexte": "Référence : moyenne des appartements 4 pièces anciens (6 communes à 15 km au nord).",
+      "resume": "La fenêtre la plus favorable se dessine au 2028 1er sem. (environ 26 % de chance d’être la meilleure). Les 4 pièces du nord ont déjà baissé ; des taux encore hauts peuvent creuser un peu plus le prix. Estimation, pas une certitude."
+    }
+  },
+  "references": {
+    "appart_4p": {
+      "communes_m2": {
+        "Schiltigheim": 2688,
+        "Bischheim": 2488,
+        "Hoenheim": 2159,
+        "Souffelweyersheim": 3051,
+        "Vendenheim": 3016,
+        "La Wantzenau": 2940
+      },
+      "moyenne_zone_m2": 2724,
+      "moyenne_coeur_m2": 2445,
+      "coeur": [
+        "Schiltigheim",
+        "Bischheim",
+        "Hoenheim"
+      ],
+      "surface_typique_m2": 85,
+      "prix_typique": 231540,
+      "source": "Figaro Immobilier, estimations au 01/10/2026, appartement 4 pièces ancien"
+    },
+    "ferme": {
+      "secteur": "Haguenau / Niederbronn",
+      "prix_median_2025": 230000,
+      "surface_m2": 115,
+      "terrain_m2": 580,
+      "prix_m2": 2000,
+      "note": "Il n’existe pas de série officielle « corps de ferme ». La référence est la maison ancienne médiane du secteur nord (notaires, 2025). Le terrain médian (5,8 ares) est sous les 10 ares visés : un vrai corps de ferme à rénover peut coûter plus cher (plus de terrain, plusieurs bâtiments) ou moins cher (gros travaux). Les bases DVF de la DGFiP ne couvrent pas l’Alsace-Moselle (livre foncier)."
+    }
+  },
+  "constats": {
+    "prix_france": "Indice Notaires-INSEE, France, T2 2026 : 125,7 (provisoire), −6,2 % sous le pic de T4 2022. T3 2026 : −0,3 % sur le trimestre, −1,2 % sur un an (publié le 24/11/2026).",
+    "prix_province": "Province T3 2026 : prix stables sur le trimestre, −1,1 % sur un an (maisons −1,2 %, appartements −0,8 %).",
+    "prix_strasbourg": "Appartements anciens à Strasbourg : −4,4 % sur un an au T2 2026 (bases notariales, cité par les Notaires de France / Europe 1, 16/11/2026).",
+    "prix_strasbourg_m2": "Strasbourg, appartements anciens : 3 333 €/m² en médiane, 1 216 ventes, 01/10/2025–30/09/2026 (notaires de France).",
+    "notaires_schiltigheim": "Schiltigheim, appartements anciens : 2 900 €/m², 160 ventes (bases notariales, citées en septembre 2026).",
+    "notaires_bischheim": "Bischheim, appartements anciens : 2 417 €/m², 78 ventes (mêmes sources, septembre 2026).",
+    "maisons_67": "Bas-Rhin, maisons anciennes : 2 212 €/m² en médiane sur 12 mois à fin juin 2026 (notaires). Année 2025 : prix de vente médian 257 900 €, 119 m², terrain 590 m², +2,3 %.",
+    "volumes": "956 000 ventes sur 12 mois à fin septembre 2026 (INSEE, T3 2026). Les notaires anticipaient ~920 000 à la fin 2026 (note de conjoncture sur le T2 2026, données à fin août : 951 000, +3,6 % sur un an).",
+    "delais_marges": "Délai moyen 101 jours en régions, marge de négociation 5,1 % en régions et 4,8 % au national (Laforêt, septembre 2026). 9 acquisitions sur 10 sont négociées. Décotes souvent > 10 % pour les logements F ou G.",
+    "dpe": "Interdiction de mettre à la location (nouveaux baux, renouvellements, reconductions) : G depuis le 01/01/2025, F à partir du 01/01/2028, E à partir du 01/01/2034 (service-public.fr, vérifié le 01/01/2026).",
+    "demographie": "Eurométropole de Strasbourg : 522 596 habitants au recensement 2023, contre 494 089 en 2017, soit +0,9 % par an (INSEE). Cela soutient la demande d’appartements familiaux dans le premier ring ; le marché rural du nord (Wissembourg) est plus fragile.",
+    "zfe": "ZFE de l’Eurométropole : report envisagé de l’interdiction des Crit’Air 3 au 01/01/2028 (phase pédagogique en 2026, consultation fin 2026). Facteur secondaire pour un corps de ferme à 50 km si le trajet domicile-travail se fait avec un véhicule ancien."
+  },
+  "sources": [
+    {
+      "titre": "INSEE, Indices Notaires-INSEE T3 2026 (IR n°284, 24/11/2026)",
+      "url": "https://www.insee.fr/fr/statistiques/9149846"
+    },
+    {
+      "titre": "INSEE, série des prix des logements anciens (idbank 010567059)",
+      "url": "https://www.insee.fr/fr/statistiques/serie/010567059"
+    },
+    {
+      "titre": "Notaires de France, tendances et prix au T2 2026",
+      "url": "https://www.notaires.fr/fr/article/tendances-et-evolutions-des-prix-de-limmobilier-au-2e-trimestre-2026"
+    },
+    {
+      "titre": "Chambre des notaires du Bas-Rhin, conjoncture 2025 (CID, mars 2026)",
+      "url": "https://chambre-bas-rhin.notaires.fr/storage/file_manager_files/2026/04/cid-light67-2025t4.pdf"
+    },
+    {
+      "titre": "Observatoire Crédit Logement/CSA, tableau de bord octobre 2026",
+      "url": "https://lobservatoire.creditlogement.fr/wp-content/uploads/sites/2/2026/11/TDB_L_Observatoire_Credit_Logement_CSA_octobre2026.pdf"
+    },
+    {
+      "titre": "Banque de France / BCE, taux des crédits habitat (MIR, fixe > 10 ans)",
+      "url": "https://data.ecb.europa.eu/data/datasets/MIR/MIR.M.FR.B.A2C.P.R.A.2250.EUR.N"
+    },
+    {
+      "titre": "Journal de l’Agence, perspectives de taux 2027 (15/10/2026, d’après CL/CSA)",
+      "url": "https://www.journaldelagence.com/1414220-credits-immobiliers-taux-en-hausse-marches-en-panne-quelles-perspectives-pour-2027"
+    },
+    {
+      "titre": "Laforêt, billet de tendances septembre 2026 (délais et marges)",
+      "url": "https://www.laforet.com/storage/media/82711/LAFORET-BILLET-SEPTEMBRE-2026.pdf"
+    },
+    {
+      "titre": "Service-Public, DPE et interdiction de location G/F/E",
+      "url": "https://www.service-public.gouv.fr/particuliers/vosdroits/F16096"
+    },
+    {
+      "titre": "INSEE, dossier complet Eurométropole de Strasbourg",
+      "url": "https://www.insee.fr/fr/statistiques/2011101?geo=EPCI-246700488"
+    },
+    {
+      "titre": "Eurométropole de Strasbourg, ZFE-m",
+      "url": "https://www.strasbourg.eu/la-zfe-m"
+    },
+    {
+      "titre": "Figaro Immobilier, prix au m² par commune (estimations au 01/10/2026)",
+      "url": "https://immobilier.lefigaro.fr/prix-immobilier/schiltigheim/ville-67447"
+    },
+    {
+      "titre": "ERA Immobilier Schiltigheim, baromètre septembre 2026 (prix notariaux communaux)",
+      "url": "https://www.eraimmobilier.com/agence-immobiliere-schiltigheim-377/blog-immobilier/article/9387"
+    },
+    {
+      "titre": "data.gouv, Demandes de valeurs foncières (absentes en Alsace-Moselle)",
+      "url": "https://www.data.gouv.fr/fr/datasets/demandes-de-valeurs-foncieres/"
+    },
+    {
+      "titre": "Crédit Agricole e-immobilier / MoneyVox, saisonnalité de la négociation",
+      "url": "https://e-immobilier.credit-agricole.fr/conseils/1er-achat/y-t-il-une-bonne-saison-pour-acheter-son-logement"
+    }
+  ],
+  "limites": [
+    "Pas de série officielle « corps de ferme » : le modèle s’appuie sur les maisons anciennes des secteurs Haguenau / Niederbronn et Wissembourg. Les transactions de fermes à rénover avec 10 ares ou plus sont trop peu nombreuses pour une médiane robuste.",
+    "Les bases DVF publiques ne couvrent pas le Bas-Rhin (livre foncier d’Alsace-Moselle). Les prix signés viennent des notaires, avec un décalage de quelques mois.",
+    "Les prix au m² des 4 pièces par commune sont des estimations Figaro Immobilier (représentativité variable, parfois 1/5), pas des médianes notariales de 4 pièces. Les médianes notariales portent sur l’ensemble des appartements.",
+    "Les chemins de taux après 2027 et tous les chemins de prix sont des hypothèses de scénarios, pas des prévisions d’un institut. Crédit Logement/CSA n’a publié une anticipation que jusqu’à fin 2027.",
+    "Le budget de 1 500 €/mois est hors assurance, hors frais d’achat et hors travaux. Pour un corps de ferme, le coût de rénovation (surtout DPE) peut dépasser l’écart de prix.",
+    "La surface de 85 m² pour un 4 pièces est une hypothèse de travail (la médiane de tous les appartements de la CUS est 68 m² en 2025).",
+    "La ZFE et la démographie sont rappelées comme contexte, elles n’entrent pas dans le score."
+  ]
+}
+</script>
 <script>
 "use strict";
 const DATA = JSON.parse(document.getElementById('data').textContent);
@@ -86407,7 +88474,9 @@ function show(){
 
 /* ===== Onglet IMMOBILIER ===== */
 function renderImmobilier(el){
-  el.innerHTML=blocPrix()+blocTaux()+blocTrends();
+  const prev=(typeof blocImmoPrev==='function')?blocImmoPrev():'';
+  el.innerHTML=prev+blocPrix()+blocTaux()+blocTrends();
+  if(typeof immoInit==='function') immoInit(el);
   chartPrix();chartTaux();chartTrends();
 }
 
@@ -94194,6 +96263,208 @@ function evtMount(){
 }
 function evtInit(){
   evtMount();
+}
+
+/* ===== Onglet Immobilier : prévisionnel d'achat à contre-courant ===== */
+const IMMO=(()=>{try{return JSON.parse(document.getElementById('dataImmo').textContent);}catch(e){return null;}})();
+
+function immoEsc(s){
+  return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function immoEur(v){
+  const n=Number(v);
+  if(!Number.isFinite(n)) return '—';
+  return Math.round(n).toLocaleString('fr-FR')+'\u00a0€';
+}
+function immoPct(v,dec){
+  const n=Number(v);
+  if(!Number.isFinite(n)) return '—';
+  const d=dec==null?0:dec;
+  return n.toLocaleString('fr-FR',{minimumFractionDigits:d,maximumFractionDigits:d})+'\u00a0%';
+}
+function immoTaux(v){
+  const n=Number(v);
+  if(!Number.isFinite(n)) return '—';
+  return n.toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+'\u00a0%';
+}
+function immoCourt(periode){
+  const m=/^(\d{4})-S([12])$/.exec(periode||'');
+  if(!m) return periode||'';
+  return m[1].slice(2)+'\u00a0S'+m[2];
+}
+
+function immoFrise(bien){
+  const best=bien.meilleure_periode;
+  return `<div class="immo-frise" role="img" aria-label="Note d'opportunité par semestre, de 2027 à 2031.">${(bien.frise||[]).map(p=>{
+    const on=p.periode===best?' on':'';
+    const tip=immoEsc(`${p.label} · note ${p.note}/250 · ${immoPct(p.proba_pct,1)} de chance d’être la meilleure fenêtre`);
+    return `<span class="immo-frise-i${on}" style="background:${p.hex||'#ff8c1a'}" title="${tip}"><i>${immoEsc(immoCourt(p.periode))}</i></span>`;
+  }).join('')}</div>`;
+}
+
+function immoCarte(bien){
+  if(!bien) return '';
+  const id=immoEsc(bien.id);
+  const proba=immoPct(bien.meilleure_proba_pct,0);
+  return `<article class="immo-card" data-immo-id="${id}" style="--immo:${bien.meilleure_hex||'#22c55e'}">
+    <div class="immo-top">
+      <h3>${immoEsc(bien.titre)}</h3>
+      <span class="immo-note" title="Note d'opportunité APEX à la meilleure fenêtre (mélange des 3 scénarios)">${bien.meilleure_note}<small>/250</small></span>
+    </div>
+    <button type="button" class="immo-fig" data-immo-id="${id}" aria-expanded="false" aria-label="Meilleure fenêtre ${immoEsc(bien.meilleure_label)}, ${proba}. Afficher les hypothèses.">
+      <span class="immo-win">${immoEsc(bien.meilleure_label)}</span>
+      <span class="immo-proba" style="color:${bien.meilleure_hex||'#22c55e'}">${proba}</span>
+      <span class="immo-fig-l">Meilleure fenêtre · probabilité</span>
+    </button>
+    ${immoFrise(bien)}
+    <div class="immo-kpis">
+      <div><span>Prix au m²</span><b>${immoEur(bien.prix_m2_actuel)}</b></div>
+      <div><span>Taux 25 ans</span><b>${immoTaux(bien.taux_actuel_25a)}</b></div>
+      <div><span>Budget max</span><b>${immoEur(bien.budget_accessible_actuel)}</b></div>
+    </div>
+    <p class="immo-resume">${immoEsc(bien.resume)}</p>
+  </article>`;
+}
+
+function immoPopHtml(bien){
+  if(!bien||!IMMO) return '';
+  const scens=bien.scenarios||{};
+  const ordre=['baisse','statu_quo','remontee'];
+  const lignes=ordre.map(k=>{
+    const s=scens[k]; if(!s) return '';
+    return `<tr><td>${immoEsc(s.label)}</td><td>${immoEsc(s.meilleure_label)}</td><td>${immoPct(s.meilleure_proba_pct,1)}</td><td>${s.meilleure_note}/250</td></tr>`;
+  }).join('');
+  const pts=(IMMO.methode&&IMMO.methode.poids)||{};
+  const refs=bien.id==='ferme'?(IMMO.references||{}).ferme:(IMMO.references||{}).appart_4p;
+  let refLigne='';
+  if(bien.id==='ferme'&&refs){
+    refLigne=`Bien typique : ${immoEur(refs.prix_median_2025)} (maison ancienne médiane, ${refs.surface_m2}\u00a0m², terrain ${refs.terrain_m2}\u00a0m², secteur ${immoEsc(refs.secteur)}, 2025). Mensualité actuelle : ${immoEur(bien.mensualite_typique_actuelle)} hors assurance.`;
+  }else if(refs){
+    refLigne=`Bien typique : ${immoEur(refs.prix_typique)} pour ${refs.surface_typique_m2}\u00a0m² à ${immoEur(refs.moyenne_zone_m2)}/m² (moyenne de 6 communes). Cœur Schiltigheim–Bischheim–Hoenheim : ${immoEur(refs.moyenne_coeur_m2)}/m². Mensualité actuelle : ${immoEur(bien.mensualite_typique_actuelle)} hors assurance.`;
+  }
+  const src=(IMMO.sources||[]).slice(0,8).map(s=>`<li><a href="${immoEsc(s.url)}" target="_blank" rel="noopener noreferrer">${immoEsc(s.titre)}</a></li>`).join('');
+  const lim=(IMMO.limites||[]).slice(0,4).map(x=>`<li>${immoEsc(x)}</li>`).join('');
+  const cons=IMMO.constats||{};
+  return `<p class="immo-pop-h">Hypothèses et scénarios</p>
+    <p class="immo-t">${immoEsc(IMMO.avertissement||'')}</p>
+    <p class="immo-k">Les 3 scénarios de taux</p>
+    <table class="immo-tab"><thead><tr><th>Scénario</th><th>Meilleure fenêtre</th><th>Proba.</th><th>Note</th></tr></thead><tbody>${lignes}</tbody></table>
+    <p class="immo-t">Le mélange donne le même poids aux trois. Crédit Logement/CSA (octobre 2026) penche plutôt vers une remontée des taux en 2027.</p>
+    <p class="immo-k">Score sur 250</p>
+    <p class="immo-t">Prix ${pts.prix||70} · mensualité ${pts.accessibilite||60} · volumes ${pts.volume||50} · négociation ${pts.marge||40} · DPE ${pts.dpe||30}. Lecture à contre-courant : plus de points quand peu de gens veulent acheter.</p>
+    <p class="immo-k">Bien typique et budget</p>
+    <p class="immo-t">${immoEsc(refLigne)} Budget max à 1\u00a0500\u00a0€/mois sur 25 ans, aujourd’hui ${immoEur(bien.budget_accessible_actuel)}, autour de la meilleure fenêtre ${immoEur(bien.budget_accessible_fenetre)} (de ${immoEur(bien.budget_accessible_fenetre_min)} à ${immoEur(bien.budget_accessible_fenetre_max)} selon le scénario). Hors assurance, hors frais d’achat, hors travaux.</p>
+    ${bien.id==='ferme'&&cons.dpe?`<p class="immo-t">${immoEsc(cons.dpe)}</p>`:''}
+    <p class="immo-k">Saison</p>
+    <p class="immo-t">${immoEsc((IMMO.methode&&IMMO.methode.saison)||'En général, l’hiver (novembre à février) se négocie mieux.')}</p>
+    <p class="immo-k">Limites</p>
+    <ul class="immo-ul">${lim}</ul>
+    <p class="immo-k">Sources</p>
+    <ul class="immo-ul immo-src">${src}</ul>`;
+}
+
+function immoPlacePop(btn){
+  const pop=document.getElementById('immoPop');
+  if(!pop||!btn) return;
+  const r=btn.getBoundingClientRect();
+  const vw=window.innerWidth, vh=window.innerHeight;
+  const maxW=Math.min(440, vw-16);
+  pop.style.visibility='hidden';
+  pop.hidden=false;
+  pop.style.width=maxW+'px';
+  pop.style.maxWidth=maxW+'px';
+  pop.style.maxHeight=Math.min(520, vh-24)+'px';
+  const pr=pop.getBoundingClientRect();
+  let left=Math.min(Math.max(8, r.left), vw-pr.width-8);
+  let top=r.bottom+8;
+  if(top+pr.height>vh-8){
+    top=Math.max(8, r.top-pr.height-8);
+  }
+  if(top+pr.height>vh-8){
+    top=Math.max(8, (vh-pr.height)/2);
+  }
+  pop.style.left=left+'px';
+  pop.style.top=top+'px';
+  pop.style.visibility='visible';
+}
+
+function immoHidePop(){
+  const pop=document.getElementById('immoPop');
+  if(pop){ pop.hidden=true; pop.innerHTML=''; pop.removeAttribute('data-immo-for'); }
+  document.querySelectorAll('.immo-fig[aria-expanded="true"]').forEach(b=>b.setAttribute('aria-expanded','false'));
+}
+
+function immoShowPop(btn, pin){
+  if(!IMMO||!btn) return;
+  const id=btn.getAttribute('data-immo-id');
+  const bien=(IMMO.biens||{})[id];
+  if(!bien) return;
+  const pop=document.getElementById('immoPop');
+  if(!pop) return;
+  const already=btn.getAttribute('aria-expanded')==='true' && pop.getAttribute('data-immo-for')===id;
+  if(pin && already && pop._pinned){ immoHidePop(); pop._pinned=false; return; }
+  document.querySelectorAll('.immo-fig[aria-expanded="true"]').forEach(b=>{ if(b!==btn) b.setAttribute('aria-expanded','false'); });
+  btn.setAttribute('aria-expanded','true');
+  pop.innerHTML=immoPopHtml(bien);
+  pop.setAttribute('data-immo-for', id);
+  pop._pinned=!!pin;
+  immoPlacePop(btn);
+}
+
+function immoBind(root){
+  if(!root||root._immoBound) return;
+  root._immoBound=true;
+  let pop=document.getElementById('immoPop');
+  if(!pop){
+    pop=document.createElement('div');
+    pop.id='immoPop';
+    pop.className='immo-pop';
+    pop.hidden=true;
+    pop.setAttribute('role','dialog');
+    document.body.appendChild(pop);
+  }
+  root.querySelectorAll('.immo-fig').forEach(btn=>{
+    btn.addEventListener('mouseenter',()=>{ if(!window.matchMedia('(hover:hover) and (pointer:fine)').matches) return; immoShowPop(btn,false); });
+    btn.addEventListener('mouseleave',e=>{
+      const popEl=document.getElementById('immoPop');
+      if(popEl&&popEl._pinned) return;
+      const to=e.relatedTarget;
+      if(to&&(popEl.contains(to)||btn.contains(to))) return;
+      immoHidePop();
+    });
+    btn.addEventListener('click',e=>{ e.preventDefault(); immoShowPop(btn,true); });
+  });
+  pop.addEventListener('mouseleave',()=>{ if(!pop._pinned) immoHidePop(); });
+  if(!document._immoDoc){
+    document._immoDoc=true;
+    document.addEventListener('click',e=>{
+      if(e.target.closest('.immo-fig')||e.target.closest('#immoPop')) return;
+      immoHidePop();
+    });
+    document.addEventListener('keydown',e=>{ if(e.key==='Escape') immoHidePop(); });
+    window.addEventListener('resize',()=>{
+      const popEl=document.getElementById('immoPop');
+      if(!popEl||popEl.hidden) return;
+      const id=popEl.getAttribute('data-immo-for');
+      const btn=document.querySelector('.immo-fig[data-immo-id="'+id+'"]');
+      if(btn) immoPlacePop(btn);
+    },{passive:true});
+  }
+}
+
+function blocImmoPrev(){
+  if(!IMMO||!IMMO.biens) return '';
+  const f=IMMO.biens.ferme, a=IMMO.biens.appart;
+  return `<div class="card immo-prev no-acc no-group" id="immoPrev">
+    <h2>Quand chercher à acheter</h2>
+    <p class="immo-intro">Meilleure fenêtre d’ici fin 2031, à contre-courant. Estimation, pas une certitude. Le détail s’affiche au survol ou au toucher.</p>
+    <div class="immo-grid">${immoCarte(f)}${immoCarte(a)}</div>
+    <p class="immo-saison">Dans l’année, l’hiver (novembre à février) se négocie en général mieux, quelle que soit la fenêtre. ${IMMO.contrainte&&IMMO.contrainte.apport?immoEsc(IMMO.contrainte.apport):''}</p>
+  </div>`;
+}
+function immoInit(root){
+  if(!root) return;
+  immoBind(root);
 }
 
 /* ===== Onglet PEA : ETF à rendement éligibles, note APEX, projection des positions ===== */
