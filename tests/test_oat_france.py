@@ -140,14 +140,21 @@ def test_notes_apex_grille_et_couleurs():
 
 
 def test_affichage_js_et_css():
-    assert "function obOatFranceHTML" in JS
+    assert "function obOatTile" in JS
+    assert "function obRenderFrance" in JS
     assert "function obOatCurveChart" in JS
+    assert "function obOatFranceDetail" in JS
     assert "cObOatFr" in JS
     assert "obOatFranceHas" in JS
-    assert "Situation des taux français" in JS or "sit.titre" in JS
-    assert "g==='fr'&&obOatFranceHas()" in JS
-    assert "sans note APEX" in JS  # conservé pour les autres pays
-    assert ".ob-oat-row" in TPL
+    assert "srHead('OAT · Agence France Trésor')" in JS
+    assert "srCells(s)" in JS
+    assert "srWire(c)" in JS
+    assert "sec-grid" in JS
+    assert "dispo-badge" in JS
+    assert "note ob-pea" in JS
+    assert "oatFr" in JS
+    assert "blocks.filter(b=>b.marker)" in JS
+    assert "sans note APEX" in JS  # conservé pour les autres pays sans OAT
     assert ".ob-oat-curve" in TPL
     assert 'id="data15"' in TPL
     assert "data/obligations_dispo.json" in BUILD
