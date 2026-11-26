@@ -333,7 +333,8 @@ def test_ordres_traites_comme_positions_actives_dans_le_js():
     assert "219,99" not in amb and "MailPoet" not in amb and "Dualhook" not in amb and "Personal loan" not in amb
     assert "Fritz Schmitt" not in amb and "DGFIP" not in amb and "FRANCKY" not in amb and "Francky" not in amb
     assert "Apple Pay" not in amb and "*3356" not in amb and "*0225" not in amb and "Collège Foch" not in amb and "College Foch" not in amb
-    assert "Crédit Revolut 23 500" in BDG
+    assert "credit_revolut" in BDG
+    assert (comptes.get("totaux") or {}).get("credit_revolut") or any((c.get("libelle") or "").startswith("Crédit Revolut") for c in comptes["categories"])
     assert "bdg-cat-fixe" in BDG and "bdg-cat-fixe" in CSS
     assert "bdg-fold-btn" in BDG and "data-bdg-fold" in BDG
     assert "apex-bdg-fold" in BDG and "localStorage" in BDG
