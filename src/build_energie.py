@@ -1,4 +1,4 @@
-"""Onglet ÉNERGIE · fiches APEX Achat / Vente (gaz, pétrole, produits raffinés, uranium, charbon, XLE, carbone).
+"""Onglet ÉNERGIE · fiches APEX Achat / Vente (pétrole, gaz, produits raffinés : contrats à terme en repères, ETC à exposition directe).
 
 Même méthode et pondérations que l'onglet Actions (src/ind_core.py, 17/11/2026) : Charte graphique 20 %,
 Elliott 15 %, Fibonacci 15 % (corps, base → ATH), Divergence RSI / MACD weekly 10 % (seulement si une divergence
@@ -113,6 +113,17 @@ RISK_OPEC = (
 RISK_GAS = (
     "Le gaz naturel est particulièrement volatil (météo, stockage, saisonnalité hivernale)."
 )
+
+RISK_ETC = (
+    "ETC adossé à des contrats à terme, pas au prix spot : le roll des échéances "
+    "(souvent en situation de contango) peut éroder la performance en détention longue. "
+    "Frais courus. Une cotation en euros avec un sous-jacent en dollars entraîne un effet de change. "
+    "Aucun rendement n'est promis. Instrument volatil."
+)
+RISK_TTF = (
+    "EGAS suit des contrats à terme TTF (gaz européen), pas le Henry Hub américain. "
+    "Le prix européen peut diverger fortement du prix américain (météo, stocks, interconnexions, géopolitique)."
+)
 RISK_BNQ9 = (
     "BNQ9 (BNPP Natural Gas ETC, ISIN DE000PB6GAS5) est un ETP adossé à des contrats à terme Henry Hub, "
     "pas au prix spot du gaz. En détention longue, le roll des échéances (souvent en situation de contango) "
@@ -179,7 +190,7 @@ RISK_ZPDU = (
 # 17/11/2026 · règle Revolut : URA -> URNU, URNM -> U3O8, U-U -> CCJ, XLE -> XDW0, KOL (radié) retiré ; contrats à terme = repères de marché sans note.
 # 17/11/2026 · gaz : NG=F / NYMEX:NG1! remplacé par BNQ9 (ETP Revolut, toujours en repère car adossé à des futures).
 ASSETS = [
-    # ----- Pétrole et gaz (repères à terme, puis actions au comptant) -----
+    # ----- Pétrole et gaz (repères à terme, puis ETC à exposition directe) -----
     {
         'repere': True,
         'key': 'wti', 'sym': 'CL=F', 'nom': 'Pétrole WTI',
@@ -230,504 +241,63 @@ ASSETS = [
         'reuse': 'energie',
     },
     {
-        'key': 'tte', 'sym': 'TTE', 'nom': 'TotalEnergies',
-        'sous': 'EURONEXT:TTE · major intégrée, cotation Paris',
-        'groupe': 'Pétrole et gaz', 'kind': 'equity',
-        'yahoo': 'TTE.PA', 'tv': 'EURONEXT:TTE',
-        'src_name': 'Yahoo Finance · TTE.PA',
-        'url': 'https://finance.yahoo.com/quote/TTE.PA/history/',
-        'unit': '€', 'fsym': 'TTE.PA', 'syms': ['EURONEXT:TTE', 'TTE.PA', 'TTE'],
-        'risks': [RISK_COMMON, RISK_EQ, RISK_OPEC],
+        'key': 'crud', 'sym': 'CRUD', 'nom': 'Pétrole WTI (ETC WisdomTree)',
+        'sous': 'LSE:CRUD · WisdomTree WTI Crude Oil ETC (ISIN GB00B15KXV33). Même produit coté Xetra OD7F en euros, aussi chez XTB. Série Yahoo : CRUD.L (USD).',
+        'groupe': 'Pétrole et gaz', 'kind': 'etc',
+        'yahoo': 'CRUD.L', 'tv': 'LSE:CRUD',
+        'tv_alt': ['XETR:OD7F'],
+        'isin': 'GB00B15KXV33',
+        'src_name': 'Yahoo Finance · CRUD.L',
+        'url': 'https://finance.yahoo.com/quote/CRUD.L/history/',
+        'unit': '$', 'fsym': 'CRUD.L', 'syms': ['LSE:CRUD', 'CRUD.L', 'XETR:OD7F'],
+        'risks': [RISK_COMMON, RISK_ETC, RISK_OPEC],
     },
     {
-        'key': 'xom', 'sym': 'XOM', 'nom': 'Exxon Mobil',
-        'sous': 'NYSE:XOM · major intégrée (XTB au comptant)',
-        'groupe': 'Pétrole et gaz', 'kind': 'equity',
-        'yahoo': 'XOM', 'tv': 'NYSE:XOM',
-        'src_name': 'Yahoo Finance · XOM',
-        'url': 'https://finance.yahoo.com/quote/XOM/history/',
-        'unit': '$', 'fsym': 'XOM', 'syms': ['NYSE:XOM', 'XOM'],
-        'risks': [RISK_COMMON, RISK_EQ, RISK_OPEC],
+        'key': 'ooea', 'sym': 'OOEA', 'nom': 'Pétrole Brent (ETC WisdomTree)',
+        'sous': 'XETR:OOEA · WisdomTree Brent Crude Oil ETC (ISIN JE00B78CGV99), ligne Xetra en euros chez XTB. Série Yahoo : LSE:BRNT (même ISIN, USD) car la cotation Xetra n’est pas historisée sur Yahoo.',
+        'groupe': 'Pétrole et gaz', 'kind': 'etc',
+        'yahoo': 'BRNT.L', 'tv': 'XETR:OOEA',
+        'tv_alt': ['LSE:BRNT'],
+        'isin': 'JE00B78CGV99',
+        'src_name': 'Yahoo Finance · BRNT.L',
+        'url': 'https://finance.yahoo.com/quote/BRNT.L/history/',
+        'unit': '$', 'fsym': 'BRNT.L', 'syms': ['XETR:OOEA', 'OOEA.DE', 'LSE:BRNT', 'BRNT.L'],
+        'risks': [RISK_COMMON, RISK_ETC, RISK_OPEC],
     },
-    {
-        'key': 'cvx', 'sym': 'CVX', 'nom': 'Chevron',
-        'sous': 'NYSE:CVX · major intégrée',
-        'groupe': 'Pétrole et gaz', 'kind': 'equity',
-        'yahoo': 'CVX', 'tv': 'NYSE:CVX',
-        'src_name': 'Yahoo Finance · CVX',
-        'url': 'https://finance.yahoo.com/quote/CVX/history/',
-        'unit': '$', 'fsym': 'CVX', 'syms': ['NYSE:CVX', 'CVX'],
-        'risks': [RISK_COMMON, RISK_EQ, RISK_OPEC],
-    },
-    {
-        'key': 'cop', 'sym': 'COP', 'nom': 'ConocoPhillips',
-        'sous': 'NYSE:COP · exploration-production',
-        'groupe': 'Pétrole et gaz', 'kind': 'equity',
-        'yahoo': 'COP', 'tv': 'NYSE:COP',
-        'src_name': 'Yahoo Finance · COP',
-        'url': 'https://finance.yahoo.com/quote/COP/history/',
-        'unit': '$', 'fsym': 'COP', 'syms': ['NYSE:COP', 'COP'],
-        'risks': [RISK_COMMON, RISK_EQ, RISK_OPEC],
-    },
-    {
-        'key': 'eog', 'sym': 'EOG', 'nom': 'EOG Resources',
-        'sous': 'NYSE:EOG · exploration-production',
-        'groupe': 'Pétrole et gaz', 'kind': 'equity',
-        'yahoo': 'EOG', 'tv': 'NYSE:EOG',
-        'src_name': 'Yahoo Finance · EOG',
-        'url': 'https://finance.yahoo.com/quote/EOG/history/',
-        'unit': '$', 'fsym': 'EOG', 'syms': ['NYSE:EOG', 'EOG'],
-        'risks': [RISK_COMMON, RISK_EQ, RISK_OPEC],
-    },
-    {
-        'key': 'oxy', 'sym': 'OXY', 'nom': 'Occidental Petroleum',
-        'sous': 'NYSE:OXY · exploration-production',
-        'groupe': 'Pétrole et gaz', 'kind': 'equity',
-        'yahoo': 'OXY', 'tv': 'NYSE:OXY',
-        'src_name': 'Yahoo Finance · OXY',
-        'url': 'https://finance.yahoo.com/quote/OXY/history/',
-        'unit': '$', 'fsym': 'OXY', 'syms': ['NYSE:OXY', 'OXY'],
-        'risks': [RISK_COMMON, RISK_EQ, RISK_OPEC],
-    },
-    {
-        'key': 'vlo', 'sym': 'VLO', 'nom': 'Valero Energy',
-        'sous': 'NYSE:VLO · raffinage (XTB au comptant)',
-        'groupe': 'Pétrole et gaz', 'kind': 'equity',
-        'yahoo': 'VLO', 'tv': 'NYSE:VLO',
-        'src_name': 'Yahoo Finance · VLO',
-        'url': 'https://finance.yahoo.com/quote/VLO/history/',
-        'unit': '$', 'fsym': 'VLO', 'syms': ['NYSE:VLO', 'VLO'],
-        'risks': [RISK_COMMON, RISK_EQ, RISK_OPEC],
-    },
-    {
-        'key': 'dvn', 'sym': 'DVN', 'nom': 'Devon Energy',
-        'sous': 'NYSE:DVN · exploration-production (XTB au comptant)',
-        'groupe': 'Pétrole et gaz', 'kind': 'equity',
-        'yahoo': 'DVN', 'tv': 'NYSE:DVN',
-        'src_name': 'Yahoo Finance · DVN',
-        'url': 'https://finance.yahoo.com/quote/DVN/history/',
-        'unit': '$', 'fsym': 'DVN', 'syms': ['NYSE:DVN', 'DVN'],
-        'risks': [RISK_COMMON, RISK_EQ, RISK_OPEC],
-    },
-    {
-        'key': 'fang', 'sym': 'FANG', 'nom': 'Diamondback Energy',
-        'sous': 'NASDAQ:FANG · exploration-production (XTB au comptant)',
-        'groupe': 'Pétrole et gaz', 'kind': 'equity',
-        'yahoo': 'FANG', 'tv': 'NASDAQ:FANG',
-        'src_name': 'Yahoo Finance · FANG',
-        'url': 'https://finance.yahoo.com/quote/FANG/history/',
-        'unit': '$', 'fsym': 'FANG', 'syms': ['NASDAQ:FANG', 'FANG'],
-        'risks': [RISK_COMMON, RISK_EQ, RISK_OPEC],
-    },
-    {
-        'key': 'imo', 'sym': 'IMO', 'nom': 'Imperial Oil',
-        'sous': 'AMEX:IMO · producteur intégré canadien (XTB au comptant)',
-        'groupe': 'Pétrole et gaz', 'kind': 'equity',
-        'yahoo': 'IMO', 'tv': 'AMEX:IMO',
-        'src_name': 'Yahoo Finance · IMO',
-        'url': 'https://finance.yahoo.com/quote/IMO/history/',
-        'unit': '$', 'fsym': 'IMO', 'syms': ['AMEX:IMO', 'IMO'],
-        'risks': [RISK_COMMON, RISK_EQ, RISK_OPEC],
-    },
-    {
-        'key': 'sobo', 'sym': 'SOBO', 'nom': 'South Bow',
-        'sous': 'NYSE:SOBO · oléoducs (filiale de TC Energy, XTB au comptant)',
-        'groupe': 'Pétrole et gaz', 'kind': 'equity',
-        'yahoo': 'SOBO', 'tv': 'NYSE:SOBO',
-        'src_name': 'Yahoo Finance · SOBO',
-        'url': 'https://finance.yahoo.com/quote/SOBO/history/',
-        'unit': '$', 'fsym': 'SOBO', 'syms': ['NYSE:SOBO', 'SOBO'],
-        'risks': [RISK_COMMON, RISK_EQ, RISK_PIPE],
-    },
-
     # ----- Gaz naturel -----
     {
         'repere': True,
-        'key': 'ng', 'sym': 'BNQ9', 'nom': 'Gaz naturel (BNQ9)',
-        'sous': 'XETR:BNQ9 · BNPP Natural Gas ETC (ISIN DE000PB6GAS5)',
+        'key': 'nghh', 'sym': 'NG=F', 'nom': 'Gaz naturel Henry Hub',
+        'sous': 'NYMEX:NG1! · contrat à terme continu',
+        'groupe': 'Gaz naturel', 'kind': 'futures',
+        'yahoo': 'NG=F', 'tv': 'NYMEX:NG1!',
+        'src_name': 'Yahoo Finance · NG=F',
+        'url': 'https://finance.yahoo.com/quote/NG=F/history/',
+        'unit': '$/MMBtu', 'fsym': 'NG=F', 'syms': ['NYMEX:NG1!', 'NG=F', 'NG'],
+        'risks': [RISK_COMMON, RISK_FUT, RISK_GAS],
+    },
+    {
+        'key': 'egas', 'sym': 'EGAS', 'nom': 'Gaz naturel TTF (ETC WisdomTree)',
+        'sous': 'XETR:EGAS · WisdomTree European Natural Gas ETC (ISIN XS2872233403), contrats TTF, ligne Xetra en euros chez XTB. Série Yahoo : LSE:EGAS (même ISIN, GBp) car la cotation Xetra n’est pas historisée sur Yahoo.',
         'groupe': 'Gaz naturel', 'kind': 'etc',
-        'yahoo': 'BNQ9.DE', 'tv': 'XETR:BNQ9',
-        'src_name': 'Yahoo Finance · BNQ9.DE',
-        'url': 'https://finance.yahoo.com/quote/BNQ9.DE/history/',
-        'unit': '€', 'fsym': 'BNQ9.DE', 'syms': ['XETR:BNQ9', 'BNQ9.DE', 'BNQ9'],
-        'repere_texte': (
-            "ETP coté et achetable au comptant chez Revolut (BNPP Natural Gas ETC, ISIN DE000PB6GAS5, Xetra). "
-            "Il est affiché comme repère de marché, sans note APEX ni drapeau, parce qu'il est adossé à des "
-            "contrats à terme : ce n'est pas le prix spot du gaz, le roll des échéances a un coût en détention "
-            "longue, et l'instrument est très volatil."
-        ),
-        'risks': [RISK_COMMON, RISK_BNQ9, RISK_GAS],
-        'reuse': 'energie',
+        'yahoo': 'EGAS.L', 'tv': 'XETR:EGAS',
+        'tv_alt': ['LSE:EGAS'],
+        'isin': 'XS2872233403',
+        'src_name': 'Yahoo Finance · EGAS.L',
+        'url': 'https://finance.yahoo.com/quote/EGAS.L/history/',
+        'unit': 'GBp', 'fsym': 'EGAS.L', 'syms': ['XETR:EGAS', 'EGAS.DE', 'LSE:EGAS', 'EGAS.L'],
+        'risks': [RISK_COMMON, RISK_ETC, RISK_GAS, RISK_TTF],
     },
     {
-        'key': 'wmb', 'sym': 'WMB', 'nom': 'Williams Companies',
-        'sous': 'NYSE:WMB · gazoducs / midstream (XTB au comptant)',
-        'groupe': 'Gaz naturel', 'kind': 'equity',
-        'yahoo': 'WMB', 'tv': 'NYSE:WMB',
-        'src_name': 'Yahoo Finance · WMB',
-        'url': 'https://finance.yahoo.com/quote/WMB/history/',
-        'unit': '$', 'fsym': 'WMB', 'syms': ['NYSE:WMB', 'WMB'],
-        'risks': [RISK_COMMON, RISK_EQ, RISK_PIPE],
-    },
-    {
-        'key': 'kmi', 'sym': 'KMI', 'nom': 'Kinder Morgan',
-        'sous': 'NYSE:KMI · gazoducs / midstream (XTB au comptant)',
-        'groupe': 'Gaz naturel', 'kind': 'equity',
-        'yahoo': 'KMI', 'tv': 'NYSE:KMI',
-        'src_name': 'Yahoo Finance · KMI',
-        'url': 'https://finance.yahoo.com/quote/KMI/history/',
-        'unit': '$', 'fsym': 'KMI', 'syms': ['NYSE:KMI', 'KMI'],
-        'risks': [RISK_COMMON, RISK_EQ, RISK_PIPE],
-    },
-    {
-        'key': 'oke', 'sym': 'OKE', 'nom': 'ONEOK',
-        'sous': 'NYSE:OKE · midstream gaz / LGN (XTB au comptant)',
-        'groupe': 'Gaz naturel', 'kind': 'equity',
-        'yahoo': 'OKE', 'tv': 'NYSE:OKE',
-        'src_name': 'Yahoo Finance · OKE',
-        'url': 'https://finance.yahoo.com/quote/OKE/history/',
-        'unit': '$', 'fsym': 'OKE', 'syms': ['NYSE:OKE', 'OKE'],
-        'risks': [RISK_COMMON, RISK_EQ, RISK_PIPE],
-    },
-    {
-        'key': 'trgp', 'sym': 'TRGP', 'nom': 'Targa Resources',
-        'sous': 'NYSE:TRGP · midstream gaz / LGN (XTB au comptant)',
-        'groupe': 'Gaz naturel', 'kind': 'equity',
-        'yahoo': 'TRGP', 'tv': 'NYSE:TRGP',
-        'src_name': 'Yahoo Finance · TRGP',
-        'url': 'https://finance.yahoo.com/quote/TRGP/history/',
-        'unit': '$', 'fsym': 'TRGP', 'syms': ['NYSE:TRGP', 'TRGP'],
-        'risks': [RISK_COMMON, RISK_EQ, RISK_PIPE],
-    },
-    {
-        'key': 'enb', 'sym': 'ENB', 'nom': 'Enbridge',
-        'sous': 'NYSE:ENB · oléoducs et gazoducs (XTB au comptant)',
-        'groupe': 'Gaz naturel', 'kind': 'equity',
-        'yahoo': 'ENB', 'tv': 'NYSE:ENB',
-        'src_name': 'Yahoo Finance · ENB',
-        'url': 'https://finance.yahoo.com/quote/ENB/history/',
-        'unit': '$', 'fsym': 'ENB', 'syms': ['NYSE:ENB', 'ENB'],
-        'risks': [RISK_COMMON, RISK_EQ, RISK_PIPE],
-    },
-    {
-        'key': 'trp', 'sym': 'TRP', 'nom': 'TC Energy',
-        'sous': 'NYSE:TRP · gazoducs (XTB au comptant)',
-        'groupe': 'Gaz naturel', 'kind': 'equity',
-        'yahoo': 'TRP', 'tv': 'NYSE:TRP',
-        'src_name': 'Yahoo Finance · TRP',
-        'url': 'https://finance.yahoo.com/quote/TRP/history/',
-        'unit': '$', 'fsym': 'TRP', 'syms': ['NYSE:TRP', 'TRP'],
-        'risks': [RISK_COMMON, RISK_EQ, RISK_PIPE],
-    },
-    {
-        'key': 'pba', 'sym': 'PBA', 'nom': 'Pembina Pipeline',
-        'sous': 'NYSE:PBA · midstream canadien (XTB au comptant)',
-        'groupe': 'Gaz naturel', 'kind': 'equity',
-        'yahoo': 'PBA', 'tv': 'NYSE:PBA',
-        'src_name': 'Yahoo Finance · PBA',
-        'url': 'https://finance.yahoo.com/quote/PBA/history/',
-        'unit': '$', 'fsym': 'PBA', 'syms': ['NYSE:PBA', 'PBA'],
-        'risks': [RISK_COMMON, RISK_EQ, RISK_PIPE],
-    },
-    {
-        'key': 'gtt', 'sym': 'GTT', 'nom': 'Gaztransport & Technigaz',
-        'sous': 'EURONEXT:GTT · confinement GNL, cotation Paris',
-        'groupe': 'Gaz naturel', 'kind': 'equity',
-        'yahoo': 'GTT.PA', 'tv': 'EURONEXT:GTT',
-        'src_name': 'Yahoo Finance · GTT.PA',
-        'url': 'https://finance.yahoo.com/quote/GTT.PA/history/',
-        'unit': '€', 'fsym': 'GTT.PA', 'syms': ['EURONEXT:GTT', 'GTT.PA', 'GTT'],
-        'risks': [RISK_COMMON, RISK_EQ, RISK_PIPE],
-    },
-    {
-        'key': 'ig', 'sym': 'IG', 'nom': 'Italgas',
-        'sous': 'MIL:IG · distribution de gaz, cotation Milan',
-        'groupe': 'Gaz naturel', 'kind': 'equity',
-        'yahoo': 'IG.MI', 'tv': 'MIL:IG',
-        'src_name': 'Yahoo Finance · IG.MI',
-        'url': 'https://finance.yahoo.com/quote/IG.MI/history/',
-        'unit': '€', 'fsym': 'IG.MI', 'syms': ['MIL:IG', 'IG.MI', 'IG'],
-        'risks': [RISK_COMMON, RISK_EQ, RISK_PIPE],
-    },
-
-    # ----- Électricité et utilities -----
-    {
-        'key': 'nee', 'sym': 'NEE', 'nom': 'NextEra Energy',
-        'sous': 'NYSE:NEE · utility et renouvelables',
-        'groupe': 'Électricité et utilities', 'kind': 'equity',
-        'yahoo': 'NEE', 'tv': 'NYSE:NEE',
-        'src_name': 'Yahoo Finance · NEE',
-        'url': 'https://finance.yahoo.com/quote/NEE/history/',
-        'unit': '$', 'fsym': 'NEE', 'syms': ['NYSE:NEE', 'NEE'],
-        'risks': [RISK_COMMON, RISK_EQ, RISK_UTIL],
-    },
-    {
-        'key': 'vst', 'sym': 'VST', 'nom': 'Vistra',
-        'sous': 'NYSE:VST · producteur d\'électricité',
-        'groupe': 'Électricité et utilities', 'kind': 'equity',
-        'yahoo': 'VST', 'tv': 'NYSE:VST',
-        'src_name': 'Yahoo Finance · VST',
-        'url': 'https://finance.yahoo.com/quote/VST/history/',
-        'unit': '$', 'fsym': 'VST', 'syms': ['NYSE:VST', 'VST'],
-        'risks': [RISK_COMMON, RISK_EQ, RISK_UTIL],
-    },
-    {
-        'key': 'etr', 'sym': 'ETR', 'nom': 'Entergy',
-        'sous': 'NYSE:ETR · utility (nucléaire et réseaux)',
-        'groupe': 'Électricité et utilities', 'kind': 'equity',
-        'yahoo': 'ETR', 'tv': 'NYSE:ETR',
-        'src_name': 'Yahoo Finance · ETR',
-        'url': 'https://finance.yahoo.com/quote/ETR/history/',
-        'unit': '$', 'fsym': 'ETR', 'syms': ['NYSE:ETR', 'ETR'],
-        'risks': [RISK_COMMON, RISK_EQ, RISK_UTIL],
-    },
-    {
-        'key': 'awk', 'sym': 'AWK', 'nom': 'American Water Works',
-        'sous': 'NYSE:AWK · utility eau',
-        'groupe': 'Électricité et utilities', 'kind': 'equity',
-        'yahoo': 'AWK', 'tv': 'NYSE:AWK',
-        'src_name': 'Yahoo Finance · AWK',
-        'url': 'https://finance.yahoo.com/quote/AWK/history/',
-        'unit': '$', 'fsym': 'AWK', 'syms': ['NYSE:AWK', 'AWK'],
-        'risks': [RISK_COMMON, RISK_EQ, RISK_UTIL],
-    },
-    {
-        'key': 'so', 'sym': 'SO', 'nom': 'Southern Company',
-        'sous': 'NYSE:SO · utility (XTB au comptant)',
-        'groupe': 'Électricité et utilities', 'kind': 'equity',
-        'yahoo': 'SO', 'tv': 'NYSE:SO',
-        'src_name': 'Yahoo Finance · SO',
-        'url': 'https://finance.yahoo.com/quote/SO/history/',
-        'unit': '$', 'fsym': 'SO', 'syms': ['NYSE:SO', 'SO'],
-        'risks': [RISK_COMMON, RISK_EQ, RISK_UTIL],
-    },
-    {
-        'key': 'duk', 'sym': 'DUK', 'nom': 'Duke Energy',
-        'sous': 'NYSE:DUK · utility (XTB au comptant)',
-        'groupe': 'Électricité et utilities', 'kind': 'equity',
-        'yahoo': 'DUK', 'tv': 'NYSE:DUK',
-        'src_name': 'Yahoo Finance · DUK',
-        'url': 'https://finance.yahoo.com/quote/DUK/history/',
-        'unit': '$', 'fsym': 'DUK', 'syms': ['NYSE:DUK', 'DUK'],
-        'risks': [RISK_COMMON, RISK_EQ, RISK_UTIL],
-    },
-    {
-        'key': 'xel', 'sym': 'XEL', 'nom': 'Xcel Energy',
-        'sous': 'NASDAQ:XEL · utility (XTB au comptant)',
-        'groupe': 'Électricité et utilities', 'kind': 'equity',
-        'yahoo': 'XEL', 'tv': 'NASDAQ:XEL',
-        'src_name': 'Yahoo Finance · XEL',
-        'url': 'https://finance.yahoo.com/quote/XEL/history/',
-        'unit': '$', 'fsym': 'XEL', 'syms': ['NASDAQ:XEL', 'XEL'],
-        'risks': [RISK_COMMON, RISK_EQ, RISK_UTIL],
-    },
-    {
-        'key': 'aep', 'sym': 'AEP', 'nom': 'American Electric Power',
-        'sous': 'NASDAQ:AEP · utility (XTB au comptant)',
-        'groupe': 'Électricité et utilities', 'kind': 'equity',
-        'yahoo': 'AEP', 'tv': 'NASDAQ:AEP',
-        'src_name': 'Yahoo Finance · AEP',
-        'url': 'https://finance.yahoo.com/quote/AEP/history/',
-        'unit': '$', 'fsym': 'AEP', 'syms': ['NASDAQ:AEP', 'AEP'],
-        'risks': [RISK_COMMON, RISK_EQ, RISK_UTIL],
-    },
-    {
-        'key': 'enel', 'sym': 'ENEL', 'nom': 'Enel',
-        'sous': 'MIL:ENEL · utility, cotation Milan',
-        'groupe': 'Électricité et utilities', 'kind': 'equity',
-        'yahoo': 'ENEL.MI', 'tv': 'MIL:ENEL',
-        'src_name': 'Yahoo Finance · ENEL.MI',
-        'url': 'https://finance.yahoo.com/quote/ENEL.MI/history/',
-        'unit': '€', 'fsym': 'ENEL.MI', 'syms': ['MIL:ENEL', 'ENEL.MI', 'ENEL'],
-        'risks': [RISK_COMMON, RISK_EQ, RISK_UTIL],
-    },
-    {
-        'key': 'eoan', 'sym': 'EOAN', 'nom': 'E.ON',
-        'sous': 'XETR:EOAN · réseaux et énergie, cotation Xetra',
-        'groupe': 'Électricité et utilities', 'kind': 'equity',
-        'yahoo': 'EOAN.DE', 'tv': 'XETR:EOAN',
-        'src_name': 'Yahoo Finance · EOAN.DE',
-        'url': 'https://finance.yahoo.com/quote/EOAN.DE/history/',
-        'unit': '€', 'fsym': 'EOAN.DE', 'syms': ['XETR:EOAN', 'EOAN.DE', 'EOAN'],
-        'risks': [RISK_COMMON, RISK_EQ, RISK_UTIL],
-    },
-    {
-        'key': 'rwe', 'sym': 'RWE', 'nom': 'RWE',
-        'sous': 'XETR:RWE · producteur d\'électricité, cotation Xetra',
-        'groupe': 'Électricité et utilities', 'kind': 'equity',
-        'yahoo': 'RWE.DE', 'tv': 'XETR:RWE',
-        'src_name': 'Yahoo Finance · RWE.DE',
-        'url': 'https://finance.yahoo.com/quote/RWE.DE/history/',
-        'unit': '€', 'fsym': 'RWE.DE', 'syms': ['XETR:RWE', 'RWE.DE', 'RWE'],
-        'risks': [RISK_COMMON, RISK_EQ, RISK_UTIL],
-    },
-    {
-        'key': 'engi', 'sym': 'ENGI', 'nom': 'Engie',
-        'sous': 'EURONEXT:ENGI · énergie et services, cotation Paris',
-        'groupe': 'Électricité et utilities', 'kind': 'equity',
-        'yahoo': 'ENGI.PA', 'tv': 'EURONEXT:ENGI',
-        'src_name': 'Yahoo Finance · ENGI.PA',
-        'url': 'https://finance.yahoo.com/quote/ENGI.PA/history/',
-        'unit': '€', 'fsym': 'ENGI.PA', 'syms': ['EURONEXT:ENGI', 'ENGI.PA', 'ENGI'],
-        'risks': [RISK_COMMON, RISK_EQ, RISK_UTIL],
-    },
-    {
-        'key': 'fts', 'sym': 'FTS', 'nom': 'Fortis',
-        'sous': 'NYSE:FTS · utility canadienne (XTB au comptant)',
-        'groupe': 'Électricité et utilities', 'kind': 'equity',
-        'yahoo': 'FTS', 'tv': 'NYSE:FTS',
-        'src_name': 'Yahoo Finance · FTS',
-        'url': 'https://finance.yahoo.com/quote/FTS/history/',
-        'unit': '$', 'fsym': 'FTS', 'syms': ['NYSE:FTS', 'FTS'],
-        'risks': [RISK_COMMON, RISK_EQ, RISK_UTIL],
-    },
-    {
-        'key': 'aqn', 'sym': 'AQN', 'nom': 'Algonquin Power & Utilities',
-        'sous': 'NYSE:AQN · utility et renouvelables (XTB au comptant)',
-        'groupe': 'Électricité et utilities', 'kind': 'equity',
-        'yahoo': 'AQN', 'tv': 'NYSE:AQN',
-        'src_name': 'Yahoo Finance · AQN',
-        'url': 'https://finance.yahoo.com/quote/AQN/history/',
-        'unit': '$', 'fsym': 'AQN', 'syms': ['NYSE:AQN', 'AQN'],
-        'risks': [RISK_COMMON, RISK_EQ, RISK_UTIL],
-    },
-    {
-        'key': 'bepc', 'sym': 'BEPC', 'nom': 'Brookfield Renewable',
-        'sous': 'NYSE:BEPC · producteur renouvelable (XTB au comptant)',
-        'groupe': 'Électricité et utilities', 'kind': 'equity',
-        'yahoo': 'BEPC', 'tv': 'NYSE:BEPC',
-        'src_name': 'Yahoo Finance · BEPC',
-        'url': 'https://finance.yahoo.com/quote/BEPC/history/',
-        'unit': '$', 'fsym': 'BEPC', 'syms': ['NYSE:BEPC', 'BEPC'],
-        'risks': [RISK_COMMON, RISK_EQ, RISK_UTIL],
-    },
-
-    # ----- Solaire -----
-    {
-        'key': 'enph', 'sym': 'ENPH', 'nom': 'Enphase Energy',
-        'sous': 'NASDAQ:ENPH · micro-onduleurs solaires (XTB au comptant, position active)',
-        'groupe': 'Solaire', 'kind': 'equity',
-        'yahoo': 'ENPH', 'tv': 'NASDAQ:ENPH',
-        'src_name': 'Yahoo Finance · ENPH',
-        'url': 'https://finance.yahoo.com/quote/ENPH/history/',
-        'unit': '$', 'fsym': 'ENPH', 'syms': ['NASDAQ:ENPH', 'ENPH'],
-        'risks': [RISK_COMMON, RISK_EQ, RISK_SOLAR],
-    },
-    {
-        'key': 'csiq', 'sym': 'CSIQ', 'nom': 'Canadian Solar',
-        'sous': 'NASDAQ:CSIQ · modules solaires (XTB au comptant)',
-        'groupe': 'Solaire', 'kind': 'equity',
-        'yahoo': 'CSIQ', 'tv': 'NASDAQ:CSIQ',
-        'src_name': 'Yahoo Finance · CSIQ',
-        'url': 'https://finance.yahoo.com/quote/CSIQ/history/',
-        'unit': '$', 'fsym': 'CSIQ', 'syms': ['NASDAQ:CSIQ', 'CSIQ'],
-        'risks': [RISK_COMMON, RISK_EQ, RISK_SOLAR],
-    },
-
-    # ----- Éolien -----
-    {
-        'key': 'enr', 'sym': 'ENR', 'nom': 'Siemens Energy',
-        'sous': 'XETR:ENR · équipementier (éolien, turbines, réseau)',
-        'groupe': 'Éolien', 'kind': 'equity',
-        'yahoo': 'ENR.DE', 'tv': 'XETR:ENR',
-        'src_name': 'Yahoo Finance · ENR.DE',
-        'url': 'https://finance.yahoo.com/quote/ENR.DE/history/',
-        'unit': '€', 'fsym': 'ENR.DE', 'syms': ['XETR:ENR', 'ENR.DE', 'ENR'],
-        'risks': [RISK_COMMON, RISK_EQ, RISK_WIND],
-    },
-
-    # ----- Nucléaire et uranium -----
-    {
-        'key': 'urnu', 'sym': 'URNU', 'nom': 'ETF uranium URNU (UCITS)',
-        'sous': 'XETR:URNU · Global X Uranium UCITS ETF (remplace AMEX:URA, non vendu chez Revolut)',
-        'groupe': 'Nucléaire et uranium', 'kind': 'etf_equity',
-        'yahoo': 'URNU.DE', 'tv': 'XETR:URNU',
-        'src_name': 'Yahoo Finance · URNU.DE',
-        'url': 'https://finance.yahoo.com/quote/URNU.DE/history/',
-        'unit': '€', 'fsym': 'URNU.DE', 'syms': ['XETR:URNU', 'URNU.DE'],
-        'risks': [RISK_COMMON, RISK_U_ETF],
-        'reuse': 'energie',
-    },
-    {
-        'key': 'u3o8', 'sym': 'U3O8', 'nom': 'ETF minières uranium U3O8 (UCITS)',
-        'sous': 'XETR:U3O8 · Sprott Uranium Miners UCITS ETF (remplace AMEX:URNM, non vendu chez Revolut)',
-        'groupe': 'Nucléaire et uranium', 'kind': 'etf_equity',
-        'yahoo': 'U3O8.DE', 'tv': 'XETR:U3O8',
-        'src_name': 'Yahoo Finance · U3O8.DE',
-        'url': 'https://finance.yahoo.com/quote/U3O8.DE/history/',
-        'unit': '€', 'fsym': 'U3O8.DE', 'syms': ['XETR:U3O8', 'U3O8.DE'],
-        'risks': [RISK_COMMON, RISK_U_ETF],
-        'reuse': 'energie',
-    },
-    {
-        'key': 'ccj', 'sym': 'CCJ', 'nom': 'Uranium · proxy Cameco',
-        'sous': "NYSE:CCJ · action, pas le prix de l'uranium (remplace TSX:U-U, pas d'uranium physique chez Revolut)",
-        'groupe': 'Nucléaire et uranium', 'kind': 'equity_proxy',
-        'yahoo': 'CCJ', 'tv': 'NYSE:CCJ',
-        'src_name': 'Yahoo Finance · CCJ',
-        'url': 'https://finance.yahoo.com/quote/CCJ/history/',
-        'unit': '$', 'fsym': 'CCJ', 'syms': ['NYSE:CCJ', 'CCJ'],
-        'risks': [RISK_COMMON, RISK_CCJ],
-        'reuse': 'energie',
-    },
-    {
-        'key': 'ceg', 'sym': 'CEG', 'nom': 'Constellation Energy',
-        'sous': 'NASDAQ:CEG · producteur d\'électricité nucléaire',
-        'groupe': 'Nucléaire et uranium', 'kind': 'equity',
-        'yahoo': 'CEG', 'tv': 'NASDAQ:CEG',
-        'src_name': 'Yahoo Finance · CEG',
-        'url': 'https://finance.yahoo.com/quote/CEG/history/',
-        'unit': '$', 'fsym': 'CEG', 'syms': ['NASDAQ:CEG', 'CEG'],
-        'risks': [RISK_COMMON, RISK_EQ, RISK_UTIL],
-    },
-
-    # ----- Hydrogène et stockage -----
-    {
-        'key': 'bldp', 'sym': 'BLDP', 'nom': 'Ballard Power Systems',
-        'sous': 'NASDAQ:BLDP · piles à combustible (XTB au comptant)',
-        'groupe': 'Hydrogène et stockage', 'kind': 'equity',
-        'yahoo': 'BLDP', 'tv': 'NASDAQ:BLDP',
-        'src_name': 'Yahoo Finance · BLDP',
-        'url': 'https://finance.yahoo.com/quote/BLDP/history/',
-        'unit': '$', 'fsym': 'BLDP', 'syms': ['NASDAQ:BLDP', 'BLDP'],
-        'risks': [RISK_COMMON, RISK_EQ, RISK_H2],
-    },
-
-    # ----- Charbon (existant, conservé) -----
-    {
-        'key': 'btu', 'sym': 'BTU', 'nom': 'Charbon · proxy Peabody Energy',
-        'sous': 'NYSE:BTU · action, pas un indice du prix du charbon',
-        'groupe': 'Charbon', 'kind': 'equity_proxy',
-        'yahoo': 'BTU', 'tv': 'NYSE:BTU',
-        'src_name': 'Yahoo Finance · BTU',
-        'url': 'https://finance.yahoo.com/quote/BTU/history/',
-        'unit': '$', 'fsym': 'BTU', 'syms': ['NYSE:BTU', 'BTU'],
-        'risks': [RISK_COMMON, RISK_COAL],
-        'reuse': 'energie',
-    },
-
-    # ----- ETF UCITS -----
-    {
-        'key': 'xdw0', 'sym': 'XDW0', 'nom': 'ETF énergie mondiale XDW0 (UCITS)',
-        'sous': 'XETR:XDW0 · Xtrackers MSCI World Energy UCITS ETF (remplace AMEX:XLE, non vendu chez Revolut)',
-        'groupe': 'ETF énergie et utilities (UCITS)', 'kind': 'etf_equity',
-        'yahoo': 'XDW0.DE', 'tv': 'XETR:XDW0',
-        'src_name': 'Yahoo Finance · XDW0.DE',
-        'url': 'https://finance.yahoo.com/quote/XDW0.DE/history/',
-        'unit': '€', 'fsym': 'XDW0.DE', 'syms': ['XETR:XDW0', 'XDW0.DE'],
-        'risks': [RISK_COMMON, RISK_XLE, RISK_OPEC],
-        'reuse': 'energie',
-    },
-    {
-        'key': 'zpdu', 'sym': 'ZPDU', 'nom': 'ETF utilities US ZPDU (UCITS)',
-        'sous': 'XETR:ZPDU · SPDR S&P US Utilities Select Sector UCITS ETF (remplace AMEX:XLU, non vendu chez Revolut)',
-        'groupe': 'ETF énergie et utilities (UCITS)', 'kind': 'etf_equity',
-        'yahoo': 'ZPDU.DE', 'tv': 'XETR:ZPDU',
-        'src_name': 'Yahoo Finance · ZPDU.DE',
-        'url': 'https://finance.yahoo.com/quote/ZPDU.DE/history/',
-        'unit': '€', 'fsym': 'ZPDU.DE', 'syms': ['XETR:ZPDU', 'ZPDU.DE'],
-        'risks': [RISK_COMMON, RISK_ZPDU],
-        'reuse': 'secteurs',
+        'key': 'ngas', 'sym': 'NGAS', 'nom': 'Gaz naturel Henry Hub (ETC WisdomTree)',
+        'sous': 'LSE:NGAS · WisdomTree Natural Gas ETC (ISIN JE00BN7KB334), contrats Henry Hub',
+        'groupe': 'Gaz naturel', 'kind': 'etc',
+        'yahoo': 'NGAS.L', 'tv': 'LSE:NGAS',
+        'isin': 'JE00BN7KB334',
+        'src_name': 'Yahoo Finance · NGAS.L',
+        'url': 'https://finance.yahoo.com/quote/NGAS.L/history/',
+        'unit': '$', 'fsym': 'NGAS.L', 'syms': ['LSE:NGAS', 'NGAS.L', 'NGAS'],
+        'risks': [RISK_COMMON, RISK_ETC, RISK_GAS],
     },
 ]
 
@@ -850,9 +420,13 @@ def reuse_fiche(cfg):
 
 # ----- données de marché -----
 
-_spx_en = B + 'energie/yahoo_1wk_%5EGSPC.json'
-_spx_ac = B + 'actions/yahoo_1wk_%5EGSPC.json'
-spx_w, _ = K.yweekly(_spx_en if os.path.exists(_spx_en) else _spx_ac)
+_spx_cands = [
+    B + 'energie/yahoo_1wk_%5EGSPC.json',
+    B + 'actions/yahoo_1wk_%5EGSPC.json',
+    B + 'fibo_max/%5EGSPC.json',
+]
+_spx_path = next((p for p in _spx_cands if os.path.exists(p)), _spx_cands[0])
+spx_w, _ = K.yweekly(_spx_path)
 spx = {d: v for d, v, c in spx_w if c}
 
 fiches = []
@@ -936,9 +510,7 @@ out = {
     'benchmark': 'S&P 500',
     'assets': fiches,
     'groupes': [
-        'Pétrole et gaz', 'Gaz naturel', 'Électricité et utilities', 'Solaire', 'Éolien',
-        'Nucléaire et uranium', 'Hydrogène et stockage', 'Charbon',
-        'ETF énergie et utilities (UCITS)',
+        'Pétrole et gaz', 'Gaz naturel',
     ],
     'method_sent': (
         "Indice composite APEX, non officiel, identique à celui des secteurs Actions. Six sous-scores de 0 à 100, "
@@ -969,15 +541,14 @@ out = {
         "Score = Σ (poids × note) ÷ Σ (poids disponibles). Zones : ≤ −60 vente forte · −60 à −20 vente · "
         "−20 à +20 neutre · +20 à +60 achat · ≥ +60 achat fort. "
         "Contrats à terme : séries continues Yahoo (front month, rolls non ajustés). "
-        "Les ETF adossés à des contrats à terme (UNG, USO, BNO, UGA, KRBN) ne sont pas inclus. "
-        "Le charbon est suivi par l'action Peabody Energy (BTU), clairement identifiée comme proxy. "
-        "Seuls les actifs achetables au comptant chez Revolut Invest France ou XTB (pas de CFD) ont une note. "
-        "Les contrats à terme (WTI, Brent, fioul, essence) restent des repères de marché, sans note ni signal. "
-        "Le gaz est suivi par l'ETP BNQ9 (BNPP Natural Gas ETC, ISIN DE000PB6GAS5), également affiché comme "
-        "repère de marché sans note, car il est adossé à des contrats à terme (coût de roll, forte volatilité). "
-        "Les ETF ou ETP adossés à des contrats à terme (UNG, USO, BNO, UGA, KRBN) restent exclus. "
-        "Les notes déjà publiées au 18/11/2026 (URNU, U3O8, CCJ, BTU, XDW0, ZPDU) ne sont pas recalculées. "
-        "Le signal de l'onglet est la note APEX de XDW0 (ETF UCITS MSCI World Energy), la même que sur l'onglet Actions / Secteurs. "
+        "Cet onglet ne propose plus d'actions (majors, utilities, minières) ni d'ETF d'actions énergie. "
+        "Les instruments achetables au comptant sont des ETC à exposition directe sur la matière première "
+        "(WisdomTree WTI OD7F, Brent OOEA, gaz TTF EGAS, gaz Henry Hub NGAS), vérifiés dans la table OMI XTB "
+        "du 24/09/2026. Disponibilité Revolut Invest France non vérifiée pour ces ETC. Pas de CFD. "
+        "Les contrats à terme (WTI, Brent, fioul, essence, gaz Henry Hub) restent des repères de marché, "
+        "non achetables au comptant, avec une note APEX sur 250. "
+        "Les ETF américains adossés à des contrats à terme (UNG, USO, BNO, UGA) ne sont pas inclus "
+        "(PRIIPs, absents de la table OMI XTB du 24/09/2026). "
         "Aucun rendement n'est promis."
     ),
     'retrieved': {cfg['yahoo']: mtime('energie/yahoo_1wk_' + urllib.parse.quote(cfg['yahoo'], safe='') + '.json')
@@ -985,21 +556,6 @@ out = {
     'spx': mtime('actions/yahoo_1wk_%5EGSPC.json'),
 }
 
-xdw0 = next((s for s in fiches if s.get('sym')=='XDW0' and s.get('av') and s['av'].get('score') is not None), None)
-if xdw0:
-    av = json.loads(json.dumps(xdw0['av']))
-    av['date'] = xdw0.get('date') or av.get('date')
-    av['sens'] = av.get('sens') or (
-        "Score > 0 : contexte plus favorable à l'achat d'actions d'énergie ; < 0 : plus favorable à l'allègement."
-    )
-    av['method'] = (
-        "Signal du secteur Énergie : note APEX de l'ETF UCITS Xtrackers MSCI World Energy (XETR:XDW0), "
-        "déjà calculée le 18/11/2026 avec la grille APEX à 18/11 et reprise telle quelle (pas de recalcul). "
-        "C'est la même note que sur l'onglet Actions / Secteurs. Ce n'est pas une moyenne des fiches de l'onglet."
-    )
-    av['sources'] = [[xdw0.get('src_name') or 'Yahoo Finance · XDW0.DE', xdw0.get('url') or 'https://finance.yahoo.com/quote/XDW0.DE/history/']]
-    out['av'] = av
-    out['av_source'] = 'XETR:XDW0'
 json.dump(out, open(B + 'energie.json', 'w'), ensure_ascii=False)
 tp = B + 'tabs_data.json'
 if os.path.exists(tp):

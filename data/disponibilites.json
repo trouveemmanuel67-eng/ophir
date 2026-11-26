@@ -5687,6 +5687,31 @@
       "revolut": true,
       "xtb": false,
       "note": "Métal au comptant Revolut (XAU), acheté le 24/11/2026. Équivalent retenu à la place de TVC:GOLD, en plus de GLDA."
+    },
+    "XETR:OD7F": {
+      "revolut": null,
+      "xtb": true,
+      "note": "WisdomTree WTI Crude Oil ETC, GB00B15KXV33. XTB OMI OD7F.DE et CRUD.UK (même ISIN), table du 24/09/2026. Disponibilité Revolut Invest France non vérifiée dans les sources du site."
+    },
+    "LSE:CRUD": {
+      "revolut": null,
+      "xtb": true,
+      "note": "Même ISIN que XETR:OD7F (GB00B15KXV33). XTB OMI CRUD.UK, table du 24/09/2026. Disponibilité Revolut Invest France non vérifiée."
+    },
+    "XETR:OOEA": {
+      "revolut": null,
+      "xtb": true,
+      "note": "WisdomTree Brent Crude Oil ETC, JE00B78CGV99 (même produit que LSE:BRNT). XTB OMI OOEA.DE, table du 24/09/2026. Disponibilité Revolut Invest France non vérifiée dans les sources du site."
+    },
+    "XETR:EGAS": {
+      "revolut": null,
+      "xtb": true,
+      "note": "WisdomTree European Natural Gas ETC (TTF), XS2872233403. XTB OMI EGAS.DE, table du 24/09/2026. Disponibilité Revolut Invest France non vérifiée dans les sources du site."
+    },
+    "LSE:NGAS": {
+      "revolut": null,
+      "xtb": true,
+      "note": "WisdomTree Natural Gas ETC (Henry Hub), JE00BN7KB334. XTB OMI NGAS.UK, table du 24/09/2026. Disponibilité Revolut Invest France non vérifiée dans les sources du site."
     }
   }
 }

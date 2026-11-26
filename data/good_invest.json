@@ -1,6 +1,6 @@
 {
   "seuil": 75.0,
-  "n": 37,
+  "n": 33,
   "liste": [
     {
       "tv": "NYSE:PAAS",
@@ -266,25 +266,6 @@
       "tab": "liquidites"
     },
     {
-      "tv": "XETR:U3O8",
-      "yahoo": "U3O8.DE",
-      "nom": "ETF minières uranium U3O8 (UCITS)",
-      "note": 155.0,
-      "display": "155",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": -4.8,
-      "section": "Énergie – Nucléaire et uranium",
-      "montant": 600,
-      "brokers": {
-        "revolut": true,
-        "xtb": true
-      },
-      "scale": 250,
-      "tab": "energie"
-    },
-    {
       "tv": "NYSE:ETN",
       "yahoo": "ETN",
       "nom": "Eaton Corporation plc",
@@ -321,25 +302,6 @@
       },
       "scale": 250,
       "tab": "autres"
-    },
-    {
-      "tv": "NYSE:BTU",
-      "yahoo": "BTU",
-      "nom": "Charbon · proxy Peabody Energy",
-      "note": 150.0,
-      "display": "150",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": 7.9,
-      "section": "Énergie – Charbon",
-      "montant": 500,
-      "brokers": {
-        "revolut": true,
-        "xtb": true
-      },
-      "scale": 250,
-      "tab": "energie"
     },
     {
       "tv": "EURONEXT:SU",
@@ -393,7 +355,7 @@
         "xtb": true
       },
       "scale": 250,
-      "tab": "energie"
+      "tab": "autres"
     },
     {
       "tv": "NASDAQ:DASH",
@@ -466,7 +428,7 @@
         "xtb": true
       },
       "scale": 250,
-      "tab": "energie"
+      "tab": "autres"
     },
     {
       "tv": "EURONEXT:KER",
@@ -486,25 +448,6 @@
       },
       "scale": 250,
       "tab": "autres"
-    },
-    {
-      "tv": "NASDAQ:BLDP",
-      "yahoo": "BLDP",
-      "nom": "Ballard Power Systems",
-      "note": 140.0,
-      "display": "140",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": -7.1,
-      "section": "Énergie – Hydrogène et stockage",
-      "montant": 500,
-      "brokers": {
-        "revolut": null,
-        "xtb": true
-      },
-      "scale": 250,
-      "tab": "energie"
     },
     {
       "tv": "LSE:AUCP",
@@ -539,7 +482,7 @@
         "xtb": true
       },
       "scale": 250,
-      "tab": "energie"
+      "tab": "autres"
     },
     {
       "tv": "NASDAQ:BKNG",
@@ -673,25 +616,6 @@
       },
       "scale": 250,
       "tab": "autres"
-    },
-    {
-      "tv": "NASDAQ:CSIQ",
-      "yahoo": "CSIQ",
-      "nom": "Canadian Solar",
-      "note": 130.0,
-      "display": "130",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": -6.5,
-      "section": "Énergie – Solaire",
-      "montant": 500,
-      "brokers": {
-        "revolut": null,
-        "xtb": true
-      },
-      "scale": 250,
-      "tab": "energie"
     }
   ]
 }

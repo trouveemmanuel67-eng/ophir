@@ -338,11 +338,11 @@ def energie(T):
             rec['sentiment'] = g['payload']
         log('energie', a.get('tv'), note(a.get('apex10')), rec['note'], fnc)
         a['apex10'] = rec
-    T['energie']['apex250'] = {'grille': 'Technique 110 + Fondamental énergie 90 (actions : 9 ratios × 10 ; ETF et ETC : 9 critères justETF × 10 ; contrats à terme : critère de cycle seul, les 8 critères d’entreprise ou de fonds ne s’appliquent pas, sans redistribution) + F&G ±50'}
+    T['energie']['apex250'] = {'grille': 'Technique 110 + Fondamental énergie 90 (ETC : 9 critères justETF × 10 ; contrats à terme : critère de cycle seul, les 8 critères d’entreprise ou de fonds ne s’appliquent pas, sans redistribution) + F&G ±50'}
     notes = [float(a['apex10']['note']) for a in T['energie']['assets']
              if (a.get('apex10') or {}).get('note') is not None and (a.get('apex10') or {}).get('scale') == 250]
     if notes:
-        T['energie']['apex10'] = avg_rec(notes, 'Moyenne des notes −50 à 250 de tous les actifs Énergie affichés (actions, ETF, ETC, contrats à terme), arrondie au point.', 'actifs')
+        T['energie']['apex10'] = avg_rec(notes, 'Moyenne des notes −50 à 250 de tous les actifs Énergie affichés (ETC et contrats à terme), arrondie au point.', 'actifs')
 
 
 def energie_contrat(a, g=None, fgp=None):

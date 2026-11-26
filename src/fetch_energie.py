@@ -11,15 +11,11 @@ os.makedirs(O, exist_ok=True)
 os.makedirs(F, exist_ok=True)
 os.makedirs(YC, exist_ok=True)
 
-# Nouveaux symboles (22/11/2026). Les séries déjà notées (URNU, U3O8, CCJ, BTU, XDW0, BNQ9, futures)
-# ne sont pas retéléchargées ici, pour ne pas recalculer les notes APEX existantes.
+# ETC à exposition directe (pétrole, gaz) et gaz Henry Hub à terme.
+# Les contrats WTI / Brent / fioul / essence déjà notés ne sont pas retéléchargés ici.
 # ^GSPC est écrit seulement dans data/energie/ (pas dans data/actions/).
 SYMS = [
-    'TTE.PA', 'XOM', 'CVX', 'COP', 'EOG', 'OXY', 'VLO', 'DVN', 'FANG', 'IMO', 'SOBO',
-    'TRGP', 'WMB', 'KMI', 'OKE', 'ENB', 'TRP', 'PBA', 'GTT.PA', 'IG.MI',
-    'VST', 'NEE', 'ETR', 'AWK', 'SO', 'DUK', 'XEL', 'ENEL.MI', 'EOAN.DE', 'RWE.DE',
-    'ENGI.PA', 'FTS', 'AEP', 'AQN', 'BEPC',
-    'ENPH', 'CSIQ', 'ENR.DE', 'CEG', 'BLDP',
+    'CRUD.L', 'BRNT.L', 'EGAS.L', 'NGAS.L', 'NG=F',
 ]
 SPX = '^GSPC'
 
