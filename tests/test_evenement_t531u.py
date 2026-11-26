@@ -1,11 +1,13 @@
-"""t531u : section ÉVÈNEMENT sous INDICE ROTATION, même style que les cartes du rail."""
+"""t531u / t634u : section ÉVÈNEMENT compacte sous INDICE ROTATION."""
 from __future__ import annotations
+import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 JS = (ROOT / "src" / "evenements.js").read_text(encoding="utf-8")
 TPL = (ROOT / "src" / "template.html").read_text(encoding="utf-8")
 POS = (ROOT / "src" / "positions.js").read_text(encoding="utf-8")
+DATA = json.loads((ROOT / "data" / "evenements_sous_jacents.json").read_text(encoding="utf-8"))
 
 
 def test_carte_dans_le_rail_sous_indice_rotation():
@@ -43,21 +45,46 @@ def test_meme_style_que_les_autres_cartes():
     assert "evtOn" in POS
 
 
-def test_contenu_interne_conserve():
+def test_contenu_interne_conserve_dans_les_popovers():
     for token in (
         "evenement_mesure",
         "evtCardHtml",
-        "Signaux écartés cette fois",
-        "3 dates ou fenêtres de déclenchement à surveiller",
+        "evtPopHtml",
+        "decomposition_score",
+        "mediatisation",
+        "Signaux relevés",
+        "Dates à surveiller",
         "Les données des événements n’ont pas pu être chargées",
     ):
         assert token in JS
+    # Le détail n'est plus déployé en permanence.
+    assert "Signaux écartés cette fois" not in JS
+    assert "3 dates ou fenêtres de déclenchement à surveiller" not in JS
+    assert "evt-warn" not in JS
+    assert "horizon " not in JS
+    assert "Estimations, pas des conseils" in JS
+
+
+def test_fiches_compactes_et_champs_courts():
+    assert "titre_court" in JS
+    assert "resume_court" in JS
+    assert "evt-fig" in JS
+    assert "evtOpenPop" in JS
+    assert "evtPlacePop" in JS
+    evs = DATA["evenements"]
+    assert len(evs) >= 3
+    for e in evs[:3]:
+        titre = e.get("titre_court") or ""
+        resume = e.get("resume_court") or ""
+        assert 1 <= len(titre.split()) <= 10, (e["id"], titre)
+        assert 1 <= len(resume.split()) <= 20, (e["id"], resume)
+        assert e.get("impacts"), e["id"]
+        assert all(i.get("sens") in ("hausse", "baisse") and i.get("libelle") for i in e["impacts"])
+        assert any(d.get("label") and d.get("debut") for d in e.get("dates") or []), e["id"]
 
 
 def test_impacts_et_prochain_dans_les_donnees():
-    import json
-    data = json.loads((ROOT / "data" / "evenements_sous_jacents.json").read_text(encoding="utf-8"))
-    evs = data["evenements"]
+    evs = DATA["evenements"]
     assert len(evs) >= 3
     for e in evs[:3]:
         assert e.get("impacts"), e["id"]
