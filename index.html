@@ -6,18 +6,18 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<meta name="ophir-build" content="ab2c7c1-20261126-083545">
+<meta name="ophir-build" content="a5953d9-20261126-090855">
 <title>APEX INDICATOR INVESTMENT</title>
 <meta name="description" content="APEX Indicator Investment — notes et indicateurs de marché.">
 <meta name="theme-color" content="#0a1128">
 <meta name="apple-mobile-web-app-title" content="APEX">
 <meta name="application-name" content="APEX">
-<link rel="icon" href="favicon.ico?v=ab2c7c1-20261126-083545" sizes="any">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=ab2c7c1-20261126-083545">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=ab2c7c1-20261126-083545">
-<link rel="icon" type="image/png" sizes="64x64" href="favicon.png?v=ab2c7c1-20261126-083545">
-<link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png?v=ab2c7c1-20261126-083545">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=ab2c7c1-20261126-083545">
+<link rel="icon" href="favicon.ico?v=a5953d9-20261126-090855" sizes="any">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=a5953d9-20261126-090855">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=a5953d9-20261126-090855">
+<link rel="icon" type="image/png" sizes="64x64" href="favicon.png?v=a5953d9-20261126-090855">
+<link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png?v=a5953d9-20261126-090855">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=a5953d9-20261126-090855">
 <meta property="og:type" content="website">
 <meta property="og:title" content="APEX INDICATOR INVESTMENT">
 <meta property="og:description" content="APEX Indicator Investment — notes et indicateurs de marché.">
@@ -48,20 +48,21 @@ body{color:var(--txt);font-family:Inter,"Helvetica Neue",Helvetica,Arial,system-
 *::-webkit-scrollbar-thumb:active{background-color:var(--scroll-thumb-active)}
 *::-webkit-scrollbar-button,*::-webkit-scrollbar-button:single-button,*::-webkit-scrollbar-button:start:decrement,*::-webkit-scrollbar-button:end:increment,*::-webkit-scrollbar-button:vertical:start:increment,*::-webkit-scrollbar-button:vertical:end:decrement{display:none;width:0;height:0}
 *::-webkit-scrollbar-corner{background:transparent}
-#hbg{position:fixed;inset:0;z-index:-1;background-color:#0c1016;background-image:url("bg-ophir.jpg");background-image:image-set(url("bg-ophir.webp") type("image/webp"),url("bg-ophir.jpg") type("image/jpeg"));background-position:center center;background-size:cover;background-repeat:no-repeat}
-#hbg:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,10,12,.78),rgba(8,10,12,.62) 42%,rgba(8,10,12,.76))}
-@media(max-width:600px){#hbg{background-position:18% center}}
+#hbg{position:fixed;inset:0;z-index:-1;background-color:#0c1016;background-position:center center;background-size:cover;background-repeat:no-repeat;background-image:url("assets/bg/accueil.jpg?v=a5953d9-20261126-090855");background-image:image-set(url("assets/bg/accueil.webp?v=a5953d9-20261126-090855") type("image/webp"),url("assets/bg/accueil.jpg?v=a5953d9-20261126-090855") type("image/jpeg"))}
+body.bg-analyse #hbg{background-image:url("assets/bg/analyse.jpg?v=a5953d9-20261126-090855");background-image:image-set(url("assets/bg/analyse.webp?v=a5953d9-20261126-090855") type("image/webp"),url("assets/bg/analyse.jpg?v=a5953d9-20261126-090855") type("image/jpeg"))}
+body.bg-outils #hbg{background-image:url("assets/bg/outils.jpg?v=a5953d9-20261126-090855");background-image:image-set(url("assets/bg/outils.webp?v=a5953d9-20261126-090855") type("image/webp"),url("assets/bg/outils.jpg?v=a5953d9-20261126-090855") type("image/jpeg"))}
+#hbg:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(8,10,12,.58),rgba(8,10,12,.40) 42%,rgba(8,10,12,.62))}
 #hh{text-align:left;padding:8px 12px 4px;position:relative}
 #hh .hh-top{display:flex;align-items:center;gap:10px 22px;flex-wrap:wrap;position:relative}
 #hh h1{margin:0;display:flex;flex-direction:row;align-items:center;gap:10px;font-weight:600;font-size:22px;flex:none;z-index:2}
-#hh .brand{display:block;height:64px;width:auto;max-width:none}
+#hh picture{display:block;line-height:0}#hh .brand{display:block;height:80px;width:auto;max-width:none}
 #hh .brand-sub{font-size:10px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:#fff;line-height:1.35;max-width:9em}
 #hh .hh-nav{display:flex;flex-direction:column;align-items:flex-start;gap:6px;flex:1;min-width:min(100%,420px)}
 nav{display:inline-flex;flex-wrap:wrap;justify-content:flex-start;gap:8px}
 nav a{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;color:#fff;text-decoration:none;font-size:14px;font-weight:500;border-radius:999px;white-space:nowrap;transition:transform .25s,box-shadow .25s,background-color .25s}
 @media(max-width:600px){
   #hh{padding-top:10px}
-  #hh .brand{height:64px}
+  #hh .brand{height:76px}
   #hh .brand-sub{font-size:9px;letter-spacing:.14em}
   #hh .hh-nav{flex-basis:100%;min-width:0;align-items:flex-start}
   nav{justify-content:flex-start}
@@ -756,7 +757,9 @@ body{display:flex;flex-direction:column;min-height:100vh}
 .rg-btn:hover,body.rg-on .rg-btn{background:rgba(255,255,255,.12);color:#fff;box-shadow:0 0 0 1px rgba(255,255,255,.28)}
 .rg-btn:focus-visible{outline:1px solid rgba(255,255,255,.7);outline-offset:2px}
 
-#bdg-page{display:none;position:fixed;inset:0;z-index:241;flex-direction:column;background:#000;color:#fff;overflow:hidden}
+#bdg-page{display:none;position:fixed;inset:0;z-index:241;flex-direction:column;color:#fff;overflow:hidden;background-color:#0c1016;background-position:center center;background-size:cover;background-repeat:no-repeat;background-image:url("assets/bg/outils.jpg?v=a5953d9-20261126-090855");background-image:image-set(url("assets/bg/outils.webp?v=a5953d9-20261126-090855") type("image/webp"),url("assets/bg/outils.jpg?v=a5953d9-20261126-090855") type("image/jpeg"))}
+#bdg-page:before,#rg-page:before{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;background:linear-gradient(180deg,rgba(8,10,12,.58),rgba(8,10,12,.40) 42%,rgba(8,10,12,.62))}
+#bdg-page>*,#rg-page>*{position:relative;z-index:1}
 body.bdg-on{overflow:hidden}
 body.bdg-on #bdg-page{display:flex}
 body.bdg-on #bdg-page[hidden]{display:flex}
@@ -925,7 +928,7 @@ body.bdg-on .rg-btn[aria-expanded="true"],#bdgBtn.rg-btn[aria-expanded="true"],b
   .bdg-moy-th span:nth-child(3),.bdg-moy-row > :nth-child(3){display:none}
 }
 
-#rg-page{display:none;position:fixed;inset:0;z-index:240;flex-direction:column;background:#0c1016;color:#fff;overflow:hidden}
+#rg-page{display:none;position:fixed;inset:0;z-index:240;flex-direction:column;color:#fff;overflow:hidden;background-color:#0c1016;background-position:center center;background-size:cover;background-repeat:no-repeat;background-image:url("assets/bg/outils.jpg?v=a5953d9-20261126-090855");background-image:image-set(url("assets/bg/outils.webp?v=a5953d9-20261126-090855") type("image/webp"),url("assets/bg/outils.jpg?v=a5953d9-20261126-090855") type("image/jpeg"))}
 body.rg-on{overflow:hidden}
 body.rg-on #rg-page{display:flex}
 body.rg-on #rg-page[hidden]{display:flex}
@@ -1568,12 +1571,15 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
 }
 </style>
 </head>
-<body>
+<body class="bg-accueil">
 <div id="hbg"></div>
 <header id="hh">
   <div class="hh-top">
     <h1>
-      <img class="brand" src="apex-logo.png" width="622" height="640" alt="APEX">
+      <picture>
+        <source type="image/webp" srcset="apex-logo.webp?v=a5953d9-20261126-090855 1x, apex-logo@2x.webp?v=a5953d9-20261126-090855 2x">
+        <img class="brand" src="apex-logo.png?v=a5953d9-20261126-090855" srcset="apex-logo.png?v=a5953d9-20261126-090855 1x, apex-logo@2x.png?v=a5953d9-20261126-090855 2x" width="233" height="256" alt="APEX">
+      </picture>
       <span class="brand-sub">Indicator<br>Investment</span>
     </h1>
     <div class="hh-nav">
@@ -76660,7 +76666,7 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
   }
 }
 </script>
-<script type="application/json" id="dataBuild">{"version":"ab2c7c1-20261126-083545"}</script>
+<script type="application/json" id="dataBuild">{"version":"a5953d9-20261126-090855"}</script>
 <script>
 /* Cache iOS / Pages : le bloc Meilleurs short est embarqué dans index.html.
    Meta no-cache seules ne suffisent pas ; on casse le cache avec ?v= et on recharge si la version distante a changé. */
@@ -76677,6 +76683,22 @@ function apexAssetUrl(path){
   var v=apexBuildVer();
   var sep=path.indexOf('?')>=0?'&':'?';
   return v?(path+sep+'v='+encodeURIComponent(v)):path;
+}
+function apexApplyBg(){
+  var outils=(typeof rgIsOpen==='function'&&rgIsOpen())
+    ||(typeof bdgIsOpen==='function'&&bdgIsOpen())
+    ||(typeof ttIsOpen==='function'&&ttIsOpen());
+  var kind='accueil';
+  if(outils) kind='outils';
+  else{
+    var id=(location.hash||'#accueil').slice(1);
+    if(id.indexOf('regles')===0||id.indexOf('budget')===0) id='';
+    else id=id.split('/')[0];
+    if(id&&id!=='accueil') kind='analyse';
+  }
+  document.body.classList.toggle('bg-accueil',kind==='accueil');
+  document.body.classList.toggle('bg-analyse',kind==='analyse');
+  document.body.classList.toggle('bg-outils',kind==='outils');
 }
 if(navigator.serviceWorker){
   navigator.serviceWorker.getRegistrations().then(function(rs){ rs.forEach(function(r){ r.unregister(); }); }).catch(function(){});
@@ -76701,7 +76723,7 @@ if(navigator.serviceWorker){
 })();
 </script>
 
-<link rel="preload" href="config/regles.json?v=ab2c7c1-20261126-083545" as="fetch" crossorigin>
+<link rel="preload" href="config/regles.json?v=a5953d9-20261126-090855" as="fetch" crossorigin>
 
 <script type="application/json" id="dataMaj">{
   "at": "2026-11-23T21:45:22.168885+01:00",
@@ -84545,6 +84567,7 @@ function show(){
     if(isBudget) bdgSetOpen(true,{fromHash:true});
     else if(typeof bdgIsOpen==='function'&&bdgIsOpen()) bdgSetOpen(false,{fromHash:true});
   }
+  if(typeof apexApplyBg==='function') apexApplyBg();
 }
 
 /* ===== Onglet IMMOBILIER ===== */
@@ -88551,6 +88574,7 @@ function ttSetOpen(on){
   w.classList.toggle('is-open',!!on);
   b.setAttribute('aria-expanded', on?'true':'false');
   if(pan) pan.style.display=on?'block':'none';
+  if(typeof apexApplyBg==='function') apexApplyBg();
 }
 function ttRender(){
   const host=document.getElementById('tt-wrap');
@@ -88741,6 +88765,7 @@ function rgSetOpen(on, opts){
     if(!fromHash) rgSetHash(false);
     if(btn) try{btn.focus();}catch(e){}
   }
+  if(typeof apexApplyBg==='function') apexApplyBg();
 }
 function rgActionClass(){
   const fr=(RG&&RG.fiche_regles)||{};
@@ -90021,6 +90046,7 @@ function bdgSetOpen(on, opts){
     if(btn) btn.setAttribute('aria-expanded','false');
     if(!fromHash) bdgSetHash(false);
   }
+  if(typeof apexApplyBg==='function') apexApplyBg();
 }
 function bdgFx(b){
   if(!b||b.fx==null||b.fx==='') return '';
