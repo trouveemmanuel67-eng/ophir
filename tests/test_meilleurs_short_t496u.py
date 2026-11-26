@@ -86,7 +86,7 @@ def test_donnees_short():
         assert p["rsi"] in (0, 10, 25) and p["macd"] in (0, 10, 25) and p["cci"] in (0, 10, 25)
         assert 0 <= p["fondamental"] <= 125 and isinstance(p["fondamental"], int)
         if r["liste"]:
-            assert r["fibo_ok"] and r["note"] >= d.get("seuil_liste", 130) and r["tech_ok"]
+            assert r["fibo_ok"] and r["note"] >= d.get("seuil_liste", 70) and r["tech_ok"]
             assert max(p["rsi"], p["macd"], p["cci"]) >= 10
     assert CFG["apex_short"]["signal_tech_min"] == 1
     assert "tech_ok===false" in JS and "signal_tech" in RG

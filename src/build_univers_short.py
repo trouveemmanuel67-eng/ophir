@@ -351,7 +351,7 @@ def main():
         c['canada'] = (c.get('country') == 'Canada') or c['origine'].startswith('Canada')
         c['yahoo'] = ysym(t)
     doc = {
-        'regle': "NYSE + NASDAQ (S&P 500, canadiennes NYSE, CFD Revolut actions), RSI hebdo ≥ 60, dégradation ≥ 0,5 ; crypto (XRP…) exclue ; la liste Meilleurs short ne retient que les notes vertes ou mieux (≥ 130), sans complément orange, jusqu'à 10 titres",
+        'regle': "NYSE + NASDAQ (S&P 500, canadiennes NYSE, CFD Revolut actions), RSI hebdo ≥ 60, dégradation ≥ 0,5 ; crypto (XRP…) exclue ; la liste Meilleurs short retient les notes ≥ 70 (orange, vert ou cyan), jusqu'à 10 titres, hors positions déjà ouvertes",
         'genere': NOW.strftime('%Y-%m-%d %H:%M'), 'zone': 'Europe/Paris',
         'script': 'src/build_univers_short.py',
         'sources': {'sp500': f'SPDR SPY holdings (State Street), au {asof}', 'cours': 'Yahoo Finance, bougies hebdo clôturées',

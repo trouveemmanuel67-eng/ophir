@@ -2790,7 +2790,7 @@
     "total": "RSI 25 + MACD 25 + CCI 25 + fondamental 125 + sentiment sectoriel ±30 + hype ±20 + MM40 hebdo inversée 0 à +30 ; total affiché borné à −50…250.",
     "montant": "Mise (levier ×5) : 100 $ à 70/250, puis +20 $ tous les 24 points au-dessus (120 $ à 94, 140 $ à 118, 160 $ à 142, 180 $ à 166), 200 $ dès 190. En petit, l’exposition équivalente (mise × 5).",
     "univers": "Univers : actions NYSE et NASDAQ négociables en CFD chez Revolut (S&P 500, canadiennes cotées au NYSE, et symboles déjà négociés en CFD actions sur le compte), RSI hebdomadaire ≥ 60 (réglable : rsi_hebdo_min), santé en dégradation plus large (score ≥ 0,5). Distinct de la watchlist APEX. Crypto (XRP, BTC…) exclues.",
-    "lecture": "Entrent dans Meilleurs short uniquement les titres dont la note SHORT est verte ou mieux sur l’échelle APEX −50 à 250 (violet < 10, rouge 10–69, orange 70–129, vert 130–189, cyan ≥ 190) : seuil 130, sans complément orange. S’il y a moins de 10 titres verts, la liste en affiche moins (plafond 10). Conditions inchangées : au moins un signal technique de surachat (RSI > 70, MACD > 4 % du cours ou CCI > 80) et cours au-dessus du Fibonacci 38,2 %. Classement de la plus haute à la plus basse note SHORT. Les titres déjà en position sont exclus de la liste (ou simplement signalés). XRP et les crypto sont exclus. La mise (levier ×5) reste barémée dès 70/250.",
+    "lecture": "Entrent dans Meilleurs short les titres dont la note SHORT est orange, verte ou cyan sur l’échelle APEX −50 à 250 (violet < 10, rouge 10–69, orange 70–129, vert 130–189, cyan ≥ 190) : seuil 70/250. Classement de la plus haute à la plus basse note, plafond 10 titres. Conditions inchangées : au moins un signal technique de surachat (RSI > 70, MACD > 4 % du cours ou CCI > 80) et cours au-dessus du Fibonacci 38,2 %. Les titres déjà en position sont exclus de la liste. XRP et les crypto sont exclus. La mise (levier ×5) est barémée dès 70/250.",
     "levier": 5,
     "avertissement": "Le short peut faire perdre plus que la mise. Il faut un compte qui l’autorise (CFD chez XTB, par exemple). Levier ×5, marge commune Revolut : les shorts se soutiennent entre eux, mais une hausse générale du marché touche toutes les positions en même temps et peut déclencher un appel de marge sur l’ensemble.",
     "macd_pct": 4.0,
@@ -2806,7 +2806,7 @@
       "label": "MM40 hebdo inversée",
       "precision": "Inversée par rapport au LONG, sur les clôtures hebdomadaires confirmées (équivalent de la MM200 jours). 0 point si le cours est sous la MM40 semaines ; montée linéaire de 0 à +30 entre 0 % et +40 % au-dessus de la MM40 ; plafonné à +30 au-delà. Historique insuffisant (< 40 semaines) : n.c. = 0 point, affiché « — ». Les points s’ajoutent au total, borné à 250. N’entre pas dans les filtres d’entrée (seuil 70, Fibonacci 38,2 %, signal de surachat)."
     },
-    "seuil_liste": 130,
+    "seuil_liste": 70,
     "n_liste_max": 10
   }
 }

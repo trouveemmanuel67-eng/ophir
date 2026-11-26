@@ -2,14 +2,14 @@
    Note distincte de la note LONG, calculée par src/build_short250.py (data/apex_short.json) :
    RSI 25 + MACD 25 + CCI 25 + fondamental inversé 125 + sentiment du secteur inversé ±30 (t537u) + hype inversée ±20.
    Plus la note est haute, meilleur est le candidat short : tri de la plus haute à la plus basse.
-   Entrée dans la liste : note SHORT verte ou mieux (≥ 130/250, bande verte 130–189, cyan ≥ 190), sans complément orange, jusqu’à 10 titres. Également : (RSI, MACD ou CCI ≥ 10 pts) ET filtre Fibonacci (cours au niveau 38,2 % ou au-dessus, ATH et au-delà autorisés). Ces filtres ne changent pas avec la MM40 hebdo inversée (0 à +30), qui entre seulement dans la note.
+   Entrée dans la liste : note SHORT ≥ 70/250 (orange, vert ou cyan), jusqu’à 10 titres, triés de la plus haute à la plus basse. Également : (RSI, MACD ou CCI ≥ 10 pts) ET filtre Fibonacci (cours au niveau 38,2 % ou au-dessus, ATH et au-delà autorisés). Ces filtres ne changent pas avec la MM40 hebdo inversée (0 à +30), qui entre seulement dans la note.
    Mise (levier ×5) : 100 $ à 70, +20 $ tous les 24 points au-dessus (94, 118, 142, 166), 200 $ max dès 190.
    Exposition équivalente = mise × 5. Univers (t534u) : 50 actions NYSE en CFD chez Revolut, RSI hebdo en surachat, santé en dégradation
    (config/univers_short.json, src/build_univers_short.py) ; plus la watchlist APEX.
    La note LONG n'est pas modifiée.
 */
 const GS_SEUIL=70;
-const GS_SEUIL_LISTE=130;
+const GS_SEUIL_LISTE=70;
 const GS_LISTE_MAX=10;
 const GS_PALIER=24;
 const GS_MISE_BASE=100;
@@ -189,7 +189,7 @@ function gsRender(){
       <span class="pos-head-tot">${n}<small>titre${n>1?'s':''}</small></span>
     </div>
     <div class="pos-body gi-body" id="gsBody">
-      <div class="gi-list">${rows||'<div class="gi-empty">Aucun titre vert au seuil (note SHORT ≥ ${gsSeuilListe()}/250, bande verte ou cyan, signal technique de surachat et cours au-dessus du Fibonacci 38,2 %).</div>'}</div>
+      <div class="gi-list">${rows||'<div class="gi-empty">Aucun titre au seuil (note SHORT ≥ ${gsSeuilListe()}/250, orange, vert ou cyan, signal technique de surachat et cours au-dessus du Fibonacci 38,2 %).</div>'}</div>
       ${(nVal||gsShowValides)?`<div class="gi-valides">
         <button type="button" class="gi-valides-link gs-valides-link" aria-expanded="${gsShowValides?'true':'false'}">Validés (${nVal})</button>
         ${gsShowValides?(rowsVal||'<div class="gi-empty">Aucun titre validé en short.</div>'):''}

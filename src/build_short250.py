@@ -37,14 +37,14 @@ import build_apex_achat_v2_pilot as P  # noqa: E402
 from apex.score import mm40_hebdo_points, mm40_hebdo_texte, MM40_HEBDO_MAX_AUTRES  # noqa: E402
 
 SEUIL = 70
-SEUIL_LISTE = 130  # bande verte APEX (−50..250) : vert 130–189, cyan ≥ 190 ; pas d'orange (70–129)
+SEUIL_LISTE = 70  # orange, vert ou cyan (échelle APEX −50..250) : orange 70–129, vert 130–189, cyan ≥ 190
 SIG_MIN = 1  # t528u : nb minimal de blocs RSI / MACD / CCI à ≥ 10 points (surachat) pour entrer dans la liste
 N_LISTE_MAX = 10
 MACD_PCT = 4.0  # ligne MACD / cours × 100 > 4 % (calibré : ~15 % des actifs aujourd'hui, ~20 % des semaines sur 5 ans)
 try:
     _shcfg = json.loads((ROOT / 'config' / 'regles.json').read_text(encoding='utf-8'))['apex_short']
     SEUIL = int(_shcfg.get('seuil', 70))
-    SEUIL_LISTE = int(_shcfg.get('seuil_liste', 130))
+    SEUIL_LISTE = int(_shcfg.get('seuil_liste', 70))
     SIG_MIN = int(_shcfg.get('signal_tech_min', SIG_MIN))
     MACD_PCT = float(_shcfg.get('macd_pct', MACD_PCT))
 except Exception:
@@ -339,7 +339,7 @@ def main():
         if _crypto_tv(x.get('tv')):
             x['liste'] = False
     liste = sorted([x for x in out.values() if x['liste']], key=lambda x: (-x['note'], x['tv']))
-    # Pas de complément orange : si moins de 10 verts, la liste en affiche moins.
+    # Plafond 10 : si moins de 10 titres ≥ seuil (orange/vert/cyan), la liste en affiche moins ; pas de complément sous 70.
     if len(liste) > N_LISTE_MAX:
         for x in liste[N_LISTE_MAX:]:
             x['liste'] = False
