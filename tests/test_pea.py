@@ -192,3 +192,25 @@ def test_note_apex_formule_couleurs_et_nc():
     assert "cyan" in DATA["note_legende"]
     assert "pea-legende" in JS
     assert "apexNoteHTML" in JS
+
+
+def test_symbole_tradingview_dans_la_ligne():
+    """Chaque ETF a un symbole TradingView vérifié, affiché dans la ligne, sans bouton de copie."""
+    expected = {
+        "SPYW": "XETR:SPYW",
+        "SEL": "EURONEXT:SEL",
+        "EXSG": "XETR:EXSG",
+        "IQQA": "XETR:IQQA",
+        "XD3E": "XETR:DXSA",  # XETR:XD3E n'existe pas
+        "CD8": "EURONEXT:CD8",
+        "IDVA": "EURONEXT:IDVA",
+    }
+    for e in DATA["etfs"]:
+        assert e.get("tv") == expected[e["id"]], (e["id"], e.get("tv"))
+        assert ":" in e["tv"]
+    assert "pea-tv" in JS
+    assert "e.tv" in JS
+    assert "Copier pour TradingView" not in JS
+    assert "clipboard" not in JS
+    assert ".pea-tv" in TPL
+    assert "user-select:all" in TPL[TPL.find("/* ===== Onglet PEA ===== */"):]

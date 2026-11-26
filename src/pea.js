@@ -67,6 +67,7 @@ function peaRow(e,i){
     'XTB '+xtb,
     e.encours_meur!=null?(Number(e.encours_meur).toLocaleString('fr-FR')+'\u00a0M€'):null
   ].filter(Boolean).join(' · ');
+  const tv=e.tv?(` · <span class="pea-tv" title="Symbole TradingView">${peaEsc(e.tv)}</span>`):'';
   const tip=e.note||(e.apex10&&(e.apex10.ligne||(e.apex10.decomp&&e.apex10.decomp.texte)))||'';
   return `<article class="pea-row"${tip?(' title="'+peaEsc(tip)+'"'):''}>
     <span class="pea-rk">${i+1}</span>
@@ -75,7 +76,7 @@ function peaRow(e,i){
     <span class="pea-ter">TER ${peaPct(e.ter_pct)}</span>
     <span class="pea-pol">${peaEsc(peaPol(e))}</span>
     ${peaNote(e)}
-    <span class="pea-meta">${peaEsc(meta)}</span>
+    <span class="pea-meta">${peaEsc(meta)}${tv}</span>
   </article>`;
 }
 function peaSet(el,id,text){

@@ -268,7 +268,9 @@
           },
           "echelle": 250
         }
-      }
+      },
+      "tv": "XETR:SPYW",
+      "tv_place": "Xetra"
     },
     {
       "id": "SEL",
@@ -497,7 +499,9 @@
           },
           "echelle": 250
         }
-      }
+      },
+      "tv": "EURONEXT:SEL",
+      "tv_place": "Euronext Paris"
     },
     {
       "id": "EXSG",
@@ -725,7 +729,9 @@
           },
           "echelle": 250
         }
-      }
+      },
+      "tv": "XETR:EXSG",
+      "tv_place": "Xetra"
     },
     {
       "id": "IQQA",
@@ -955,7 +961,9 @@
           },
           "echelle": 250
         }
-      }
+      },
+      "tv": "XETR:IQQA",
+      "tv_place": "Xetra"
     },
     {
       "id": "XD3E",
@@ -1191,7 +1199,9 @@
           },
           "echelle": 250
         }
-      }
+      },
+      "tv": "XETR:DXSA",
+      "tv_place": "Xetra"
     },
     {
       "id": "CD8",
@@ -1420,7 +1430,9 @@
           },
           "echelle": 250
         }
-      }
+      },
+      "tv": "EURONEXT:CD8",
+      "tv_place": "Euronext Paris"
     },
     {
       "id": "IDVA",
@@ -1642,7 +1654,9 @@
           },
           "echelle": 250
         }
-      }
+      },
+      "tv": "EURONEXT:IDVA",
+      "tv_place": "Euronext Amsterdam"
     }
   ],
   "exclus": [
@@ -1753,5 +1767,6 @@
     "cours": "Yahoo Finance, clôtures hebdomadaires confirmées (vendredi), jusqu'au 20/11/2026 inclus (semaine en cours exclue).",
     "calcule_le": "2026-11-26",
     "zone": "Europe/Paris"
-  }
+  },
+  "tv_source": "Recherche publique TradingView (symbol-search, ISIN), 26/11/2026. Préfixe de place + ticker, vérifiés un par un."
 }
