@@ -89,7 +89,7 @@ function renderPea(el){
   const P=PEA.projection||{};
   const sc=Array.isArray(P.scenarios)?P.scenarios:[];
   const defTx=(sc.find(s=>s.id==='central')||sc[0]||{}).taux_pa_pct;
-  el.innerHTML=`<div class="card pea-card">
+  el.innerHTML=`<div class="card pea-card no-acc">
     <h2>ETF à rendement · PEA XTB</h2>
     <p class="pea-intro">${peaEsc(PEA.intro||'')}</p>
     <div class="pea-colh" aria-hidden="true"><span>#</span><span>Fonds</span><span>Rendement</span><span>Frais</span><span>Versement</span></div>
@@ -97,7 +97,7 @@ function renderPea(el){
     <p class="pea-class">${peaEsc(PEA.classement_libelle||'')}</p>
     <div class="src">${peaEsc(PEA.xtb_avertissement||'')}</div>
   </div>
-  <div class="card pea-card pea-proj">
+  <div class="card pea-card pea-proj no-acc">
     <h2>Projection ${peaEur(P.versement_mensuel_eur||200)}/mois sur ${P.duree_ans||5}\u00a0ans</h2>
     <div class="pea-kpis">
       <div><span>Versé</span><b>${peaEur(P.total_verse_eur||12000)}</b><small>${P.n_versements||60} versements</small></div>

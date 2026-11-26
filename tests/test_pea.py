@@ -36,6 +36,7 @@ def test_build_et_template_branchent_les_donnees():
     assert "function renderPea" in JS
     assert "peaFv" in JS
     assert "peaTaux" in JS
+    assert "no-acc" in JS  # cartes visibles, pas repliées par accMain
 
 
 def test_liste_max_10_et_donnees_relies():
