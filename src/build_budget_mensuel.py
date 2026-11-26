@@ -41,6 +41,16 @@ def r2(x, n=2):
     return round(float(x) + 1e-12, n)
 
 
+def fr_eur(x, nd=2):
+    """Montant pour un texte français (virgule, sans symbole)."""
+    if x is None:
+        return "—"
+    v = float(x)
+    if nd == 0 or abs(v - round(v)) < 1e-9:
+        return f"{int(round(v))}"
+    return f"{v:.{nd}f}".replace(".", ",")
+
+
 def usd(eur):
     return r2(eur * FX) if eur is not None else None
 
@@ -103,12 +113,12 @@ def load_objectif_courses(observe_octobre_hors_deco, observe_octobre_brut):
         "hors_perimetre": hors,
         "source": "data/budget/objectif_courses.json",
         "objectif_detail": (
-            f"Leclerc {lec_mois} €/mois ({lec_sem:.0f} € par semaine, "
+            f"Leclerc {fr_eur(lec_mois, 0)} €/mois ({fr_eur(lec_sem, 0)} € par semaine, "
             f"livré le {lec.get('jour') or 'jeudi'}, livraison comprise). "
-            f"Picard {pic_mois} €/mois ({pic_unit:.0f} € {freq.replace('_', ' ')}, "
+            f"Picard {fr_eur(pic_mois, 0)} €/mois ({fr_eur(pic_unit, 0)} € {freq.replace('_', ' ')}, "
             f"livraison de {pic.get('livraison_eur') or 6} € comprise ; fréquence à confirmer). "
-            f"Octobre : {observe:.2f} € hors déco Noël ({brut:.2f} € observés, toutes enseignes). "
-            f"Économie visée : {eco:.2f} €/mois. "
+            f"Octobre : {fr_eur(observe)} € hors déco Noël ({fr_eur(brut)} € observés, toutes enseignes). "
+            f"Économie visée : {fr_eur(eco)} €/mois. "
             "Hygiène, entretien et litière sont déjà dans Courses, pas un poste à part. "
             "Hors périmètre : Lidl d'appoint, marché et boulangerie (non chiffrés) ; déco, textile et bricolage exclus."
         ),
@@ -842,9 +852,9 @@ def build():
               dividendes_hors_base=True,
               source="budget.frais_octobre, relevés Revolut octobre 2026 (commit 320cc87)"),
         poste("courses", "Courses", courses_m,
-              f"Objectif {obj_courses['total_eur_mois']} €/mois (Leclerc {obj_courses['leclerc_eur_mois']} € + Picard {obj_courses['picard_eur_mois']} €). "
-              f"Octobre : {c_oct_r:.2f} € hors déco ({c_oct:.2f} € observés). "
-              f"Économie visée : {eco_courses:.2f} €/mois.",
+              f"Objectif {fr_eur(obj_courses['total_eur_mois'], 0)} €/mois (Leclerc {fr_eur(obj_courses['leclerc_eur_mois'], 0)} € + Picard {fr_eur(obj_courses['picard_eur_mois'], 0)} €). "
+              f"Octobre : {fr_eur(c_oct_r)} € hors déco ({fr_eur(c_oct)} € observés). "
+              f"Économie visée : {fr_eur(eco_courses)} €/mois.",
               octobre_eur=c_oct_r, novembre_eur=c_nov,
               objectif_eur=obj_courses["total_eur_mois"],
               objectif_usd=obj_courses["total_usd_mois"],

@@ -347,7 +347,7 @@
           "libelle": "Courses",
           "moyenne_eur": 980.57,
           "moyenne_usd": 1073.14,
-          "detail": "Objectif 867 €/mois (Leclerc 650 € + Picard 217 €). Octobre : 980.57 € hors déco (1001.54 € observés). Économie visée : 113.57 €/mois.",
+          "detail": "Objectif 867 €/mois (Leclerc 650 € + Picard 217 €). Octobre : 980,57 € hors déco (1001,54 € observés). Économie visée : 113,57 €/mois.",
           "octobre_eur": 980.57,
           "novembre_eur": 0.0,
           "objectif_eur": 867,
@@ -1034,7 +1034,7 @@
       "Achats ponctuels (déco, textile, bricolage) : exclus"
     ],
     "source": "data/budget/objectif_courses.json",
-    "objectif_detail": "Leclerc 650 €/mois (150 € par semaine, livré le jeudi, livraison comprise). Picard 217 €/mois (100 € toutes les 2 semaines, livraison de 6 € comprise ; fréquence à confirmer). Octobre : 980.57 € hors déco Noël (1001.54 € observés, toutes enseignes). Économie visée : 113.57 €/mois. Hygiène, entretien et litière sont déjà dans Courses, pas un poste à part. Hors périmètre : Lidl d'appoint, marché et boulangerie (non chiffrés) ; déco, textile et bricolage exclus."
+    "objectif_detail": "Leclerc 650 €/mois (150 € par semaine, livré le jeudi, livraison comprise). Picard 217 €/mois (100 € toutes les 2 semaines, livraison de 6 € comprise ; fréquence à confirmer). Octobre : 980,57 € hors déco Noël (1001,54 € observés, toutes enseignes). Économie visée : 113,57 €/mois. Hygiène, entretien et litière sont déjà dans Courses, pas un poste à part. Hors périmètre : Lidl d'appoint, marché et boulangerie (non chiffrés) ; déco, textile et bricolage exclus."
   },
   "source": {
     "comptes": "data/budget/comptes_2026-10_11.json",
