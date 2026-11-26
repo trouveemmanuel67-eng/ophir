@@ -77,6 +77,7 @@ function bdgSetOpen(on, opts){
     if(btn) btn.setAttribute('aria-expanded','false');
     if(!fromHash) bdgSetHash(false);
   }
+  if(typeof apexApplyBg==='function') apexApplyBg();
 }
 function bdgFx(b){
   if(!b||b.fx==null||b.fx==='') return '';

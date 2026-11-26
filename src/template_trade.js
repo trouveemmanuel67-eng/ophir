@@ -45,6 +45,7 @@ function ttSetOpen(on){
   w.classList.toggle('is-open',!!on);
   b.setAttribute('aria-expanded', on?'true':'false');
   if(pan) pan.style.display=on?'block':'none';
+  if(typeof apexApplyBg==='function') apexApplyBg();
 }
 function ttRender(){
   const host=document.getElementById('tt-wrap');

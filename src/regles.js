@@ -148,6 +148,7 @@ function rgSetOpen(on, opts){
     if(!fromHash) rgSetHash(false);
     if(btn) try{btn.focus();}catch(e){}
   }
+  if(typeof apexApplyBg==='function') apexApplyBg();
 }
 function rgActionClass(){
   const fr=(RG&&RG.fiche_regles)||{};
