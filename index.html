@@ -6,18 +6,18 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<meta name="ophir-build" content="ada4e75-20261126-121601">
+<meta name="ophir-build" content="4066802-20261126-121945">
 <title>APEX INDICATOR INVESTMENT</title>
 <meta name="description" content="APEX Indicator Investment — notes et indicateurs de marché.">
 <meta name="theme-color" content="#0a1128">
 <meta name="apple-mobile-web-app-title" content="APEX">
 <meta name="application-name" content="APEX">
-<link rel="icon" href="favicon.ico?v=ada4e75-20261126-121601" sizes="any">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=ada4e75-20261126-121601">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=ada4e75-20261126-121601">
-<link rel="icon" type="image/png" sizes="64x64" href="favicon.png?v=ada4e75-20261126-121601">
-<link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png?v=ada4e75-20261126-121601">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=ada4e75-20261126-121601">
+<link rel="icon" href="favicon.ico?v=4066802-20261126-121945" sizes="any">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=4066802-20261126-121945">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=4066802-20261126-121945">
+<link rel="icon" type="image/png" sizes="64x64" href="favicon.png?v=4066802-20261126-121945">
+<link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png?v=4066802-20261126-121945">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=4066802-20261126-121945">
 <meta property="og:type" content="website">
 <meta property="og:title" content="APEX INDICATOR INVESTMENT">
 <meta property="og:description" content="APEX Indicator Investment — notes et indicateurs de marché.">
@@ -48,9 +48,9 @@ body{color:var(--txt);font-family:Inter,"Helvetica Neue",Helvetica,Arial,system-
 *::-webkit-scrollbar-thumb:active{background-color:var(--scroll-thumb-active)}
 *::-webkit-scrollbar-button,*::-webkit-scrollbar-button:single-button,*::-webkit-scrollbar-button:start:decrement,*::-webkit-scrollbar-button:end:increment,*::-webkit-scrollbar-button:vertical:start:increment,*::-webkit-scrollbar-button:vertical:end:decrement{display:none;width:0;height:0}
 *::-webkit-scrollbar-corner{background:transparent}
-#hbg{position:fixed;inset:0;z-index:-1;background-color:#0c1016;background-position:center center;background-size:cover;background-repeat:no-repeat;background-image:url("assets/bg/accueil.jpg?v=ada4e75-20261126-121601");background-image:image-set(url("assets/bg/accueil.webp?v=ada4e75-20261126-121601") type("image/webp"),url("assets/bg/accueil.jpg?v=ada4e75-20261126-121601") type("image/jpeg"))}
-body.bg-analyse #hbg{background-image:url("assets/bg/analyse.jpg?v=ada4e75-20261126-121601");background-image:image-set(url("assets/bg/analyse.webp?v=ada4e75-20261126-121601") type("image/webp"),url("assets/bg/analyse.jpg?v=ada4e75-20261126-121601") type("image/jpeg"))}
-body.bg-outils #hbg{background-image:url("assets/bg/outils.jpg?v=ada4e75-20261126-121601");background-image:image-set(url("assets/bg/outils.webp?v=ada4e75-20261126-121601") type("image/webp"),url("assets/bg/outils.jpg?v=ada4e75-20261126-121601") type("image/jpeg"))}
+#hbg{position:fixed;inset:0;z-index:-1;background-color:#0c1016;background-position:center center;background-size:cover;background-repeat:no-repeat;background-image:url("assets/bg/accueil.jpg?v=4066802-20261126-121945");background-image:image-set(url("assets/bg/accueil.webp?v=4066802-20261126-121945") type("image/webp"),url("assets/bg/accueil.jpg?v=4066802-20261126-121945") type("image/jpeg"))}
+body.bg-analyse #hbg{background-image:url("assets/bg/analyse.jpg?v=4066802-20261126-121945");background-image:image-set(url("assets/bg/analyse.webp?v=4066802-20261126-121945") type("image/webp"),url("assets/bg/analyse.jpg?v=4066802-20261126-121945") type("image/jpeg"))}
+body.bg-outils #hbg{background-image:url("assets/bg/outils.jpg?v=4066802-20261126-121945");background-image:image-set(url("assets/bg/outils.webp?v=4066802-20261126-121945") type("image/webp"),url("assets/bg/outils.jpg?v=4066802-20261126-121945") type("image/jpeg"))}
 #hbg:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(8,10,12,.58),rgba(8,10,12,.40) 42%,rgba(8,10,12,.62))}
 #hh{text-align:left;padding:8px 12px 4px;position:relative}
 #hh .hh-top{display:flex;align-items:center;gap:10px 22px;flex-wrap:wrap;position:relative}
@@ -518,7 +518,8 @@ body{display:flex;flex-direction:column;min-height:100vh}
 
 
 /* ===== Onglet PEA ===== */
-.pea-intro,.pea-class,.pea-legende,.pea-warn{margin:8px 0 0;font-size:13px;line-height:1.45;color:var(--mut)}
+.pea-intro,.pea-class,.pea-legende,.pea-regle,.pea-warn{margin:8px 0 0;font-size:13px;line-height:1.45;color:var(--mut)}
+.pea-regle{font-size:12px}
 .pea-legende{font-size:12px}
 .pea-warn{color:#e6c27a}
 .pea-colh{display:grid;grid-template-columns:28px minmax(0,1.8fr) auto auto auto 86px;gap:8px 12px;padding:8px 12px 6px;font-size:11px;color:var(--mut);letter-spacing:.06em;text-transform:uppercase}
@@ -798,7 +799,7 @@ body{display:flex;flex-direction:column;min-height:100vh}
 .rg-btn:hover,body.rg-on .rg-btn{background:rgba(255,255,255,.12);color:#fff;box-shadow:0 0 0 1px rgba(255,255,255,.28)}
 .rg-btn:focus-visible{outline:1px solid rgba(255,255,255,.7);outline-offset:2px}
 
-#bdg-page{display:none;position:fixed;inset:0;z-index:241;flex-direction:column;color:#fff;overflow:hidden;background-color:#0c1016;background-position:center center;background-size:cover;background-repeat:no-repeat;background-image:url("assets/bg/outils.jpg?v=ada4e75-20261126-121601");background-image:image-set(url("assets/bg/outils.webp?v=ada4e75-20261126-121601") type("image/webp"),url("assets/bg/outils.jpg?v=ada4e75-20261126-121601") type("image/jpeg"))}
+#bdg-page{display:none;position:fixed;inset:0;z-index:241;flex-direction:column;color:#fff;overflow:hidden;background-color:#0c1016;background-position:center center;background-size:cover;background-repeat:no-repeat;background-image:url("assets/bg/outils.jpg?v=4066802-20261126-121945");background-image:image-set(url("assets/bg/outils.webp?v=4066802-20261126-121945") type("image/webp"),url("assets/bg/outils.jpg?v=4066802-20261126-121945") type("image/jpeg"))}
 #bdg-page:before,#rg-page:before{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;background:linear-gradient(180deg,rgba(8,10,12,.58),rgba(8,10,12,.40) 42%,rgba(8,10,12,.62))}
 #bdg-page>*,#rg-page>*{position:relative;z-index:1}
 body.bdg-on{overflow:hidden}
@@ -969,7 +970,7 @@ body.bdg-on .rg-btn[aria-expanded="true"],#bdgBtn.rg-btn[aria-expanded="true"],b
   .bdg-moy-th span:nth-child(3),.bdg-moy-row > :nth-child(3){display:none}
 }
 
-#rg-page{display:none;position:fixed;inset:0;z-index:240;flex-direction:column;color:#fff;overflow:hidden;background-color:#0c1016;background-position:center center;background-size:cover;background-repeat:no-repeat;background-image:url("assets/bg/outils.jpg?v=ada4e75-20261126-121601");background-image:image-set(url("assets/bg/outils.webp?v=ada4e75-20261126-121601") type("image/webp"),url("assets/bg/outils.jpg?v=ada4e75-20261126-121601") type("image/jpeg"))}
+#rg-page{display:none;position:fixed;inset:0;z-index:240;flex-direction:column;color:#fff;overflow:hidden;background-color:#0c1016;background-position:center center;background-size:cover;background-repeat:no-repeat;background-image:url("assets/bg/outils.jpg?v=4066802-20261126-121945");background-image:image-set(url("assets/bg/outils.webp?v=4066802-20261126-121945") type("image/webp"),url("assets/bg/outils.jpg?v=4066802-20261126-121945") type("image/jpeg"))}
 body.rg-on{overflow:hidden}
 body.rg-on #rg-page{display:flex}
 body.rg-on #rg-page[hidden]{display:flex}
@@ -1618,8 +1619,8 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
   <div class="hh-top">
     <h1>
       <picture>
-        <source type="image/webp" srcset="apex-logo.webp?v=ada4e75-20261126-121601 1x, apex-logo@2x.webp?v=ada4e75-20261126-121601 2x">
-        <img class="brand" src="apex-logo.png?v=ada4e75-20261126-121601" srcset="apex-logo.png?v=ada4e75-20261126-121601 1x, apex-logo@2x.png?v=ada4e75-20261126-121601 2x" width="233" height="256" alt="APEX">
+        <source type="image/webp" srcset="apex-logo.webp?v=4066802-20261126-121945 1x, apex-logo@2x.webp?v=4066802-20261126-121945 2x">
+        <img class="brand" src="apex-logo.png?v=4066802-20261126-121945" srcset="apex-logo.png?v=4066802-20261126-121945 1x, apex-logo@2x.png?v=4066802-20261126-121945 2x" width="233" height="256" alt="APEX">
       </picture>
       <span class="brand-sub">Indicator<br>Investment</span>
     </h1>
@@ -76707,7 +76708,7 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
   }
 }
 </script>
-<script type="application/json" id="dataBuild">{"version":"ada4e75-20261126-121601"}</script>
+<script type="application/json" id="dataBuild">{"version":"4066802-20261126-121945"}</script>
 <script>
 /* Cache iOS / Pages : le bloc Meilleurs short est embarqué dans index.html.
    Meta no-cache seules ne suffisent pas ; on casse le cache avec ?v= et on recharge si la version distante a changé. */
@@ -76764,7 +76765,7 @@ if(navigator.serviceWorker){
 })();
 </script>
 
-<link rel="preload" href="config/regles.json?v=ada4e75-20261126-121601" as="fetch" crossorigin>
+<link rel="preload" href="config/regles.json?v=4066802-20261126-121945" as="fetch" crossorigin>
 
 <script type="application/json" id="dataMaj">{
   "at": "2026-11-23T21:45:22.168885+01:00",
@@ -86200,30 +86201,35 @@ if(navigator.serviceWorker){
     }
   ],
   "projection": {
-    "versement_mensuel_eur": 200,
-    "versement_annuel_eur": 2400,
+    "titre": "Projection des positions",
+    "regle": "100 €/mois par ETF dès qu'il passe au vert (≥130)",
+    "seuil_vert": 130,
+    "versement_unitaire_eur": 100,
     "duree_ans": 5,
     "n_versements": 60,
-    "total_verse_eur": 12000,
     "mode": "fin_de_mois",
     "taux_defaut_pct": 7.0,
     "taux_convention": "mensuel_equivalent",
-    "mode_libelle": "Versements en fin de mois. Taux mensuel équivalent i = (1 + r)^(1/12) − 1. Valeur future d'une annuité ordinaire.",
+    "mode_libelle": "Versements en fin de mois, uniquement sur les ETF PEA effectivement détenus dont la note APEX est verte (≥ 130). Taux mensuel équivalent i = (1 + r)^(1/12) − 1. Sans position, tous les montants sont à 0.",
     "avertissement": "Estimation, aucun rendement garanti, risque de perte en capital.",
+    "n_etf_verts_detenus": 0,
+    "versement_mensuel_eur": 0,
+    "versement_annuel_eur": 0,
+    "total_verse_eur": 0,
     "defaut": {
       "taux_pa_pct": 7.0,
-      "taux_mensuel_equivalent_pct": 0.565415,
+      "taux_mensuel_equivalent_pct": 0.0,
       "an1": {
-        "verse": 2400,
-        "estime": 2476.06,
-        "gain": 76.06,
-        "gain_pct": 3.17
+        "verse": 0,
+        "estime": 0,
+        "gain": 0,
+        "gain_pct": 0
       },
       "an5": {
-        "verse": 12000,
-        "estime": 14239.17,
-        "gain": 2239.17,
-        "gain_pct": 18.66
+        "verse": 0,
+        "estime": 0,
+        "gain": 0,
+        "gain_pct": 0
       }
     },
     "justification": "Les ETF zone euro de cette liste ont fait environ 7 à 8,8 % par an sur 10 ans et 10 à 13 % sur 5 ans (dividendes réinvestis, Yahoo 26/11/2026 ; SEL : +78,97 % sur 5 ans selon justETF, soit environ 12,3 % par an). Les 5 dernières années ont été exceptionnelles. Le cas central reprend plutôt le rythme sur 10 ans. Le cas prudent reprend surtout le dividende, sans hausse des cours. Le cas favorable reste sous le rythme des 5 dernières années.",
@@ -86286,7 +86292,14 @@ if(navigator.serviceWorker){
     "calcule_le": "2026-11-26",
     "zone": "Europe/Paris"
   },
-  "tv_source": "Recherche publique TradingView (symbol-search, ISIN), 26/11/2026. Préfixe de place + ticker, vérifiés un par un."
+  "tv_source": "Recherche publique TradingView (symbol-search, ISIN), 26/11/2026. Préfixe de place + ticker, vérifiés un par un.",
+  "positions_pea": [],
+  "positions_pea_champs": [
+    "isin",
+    "quantite",
+    "prix_moyen",
+    "versement_mensuel"
+  ]
 }
 </script>
 <script>
@@ -94176,7 +94189,7 @@ function evtInit(){
   evtMount();
 }
 
-/* ===== Onglet PEA : ETF à rendement éligibles, note APEX, projection 200 €/mois ===== */
+/* ===== Onglet PEA : ETF à rendement éligibles, note APEX, projection des positions ===== */
 const PEA=(()=>{try{return JSON.parse(document.getElementById('dataPea').textContent);}catch(e){return {etfs:[],projection:{}};} })();
 
 function peaEsc(s){
@@ -94261,17 +94274,47 @@ function peaSet(el,id,text){
   const n=el.querySelector('#'+id);
   if(n) n.textContent=text;
 }
+/* Versement = 100 € × ETF détenus dont la note APEX est verte (≥ 130). Sinon 0. */
+function peaMensuel(){
+  const P=PEA.projection||{};
+  const unit=Number(P.versement_unitaire_eur!=null?P.versement_unitaire_eur:100);
+  const seuil=Number(P.seuil_vert!=null?P.seuil_vert:130);
+  const held=Array.isArray(PEA.positions_pea)?PEA.positions_pea:[];
+  const by={};
+  (PEA.etfs||[]).forEach(e=>{ if(e&&e.isin) by[e.isin]=e; });
+  let n=0, m=0;
+  held.forEach(p=>{
+    if(!p||!p.isin) return;
+    const e=by[p.isin];
+    const note=e&&e.apex10!=null?Number(e.apex10.total):NaN;
+    if(!Number.isFinite(note)||note<seuil) return;
+    const v=(p.versement_mensuel!=null&&Number.isFinite(Number(p.versement_mensuel)))?Number(p.versement_mensuel):unit;
+    n+=1; m+=v;
+  });
+  return {n:n, monthly:m, annual:m*12};
+}
 function peaBind(el){
   const P=PEA.projection||{};
   const inp=el.querySelector('#peaTaux');
-  const monthly=Number(P.versement_mensuel_eur||200);
   const upd=()=>{
-    if(!inp) return;
-    const raw=String(inp.value||'').replace(',','.');
+    const M=peaMensuel();
+    peaSet(el,'peaVm',peaEur(M.monthly,0));
+    peaSet(el,'peaVa',peaEur(M.annual,0));
+    if(M.monthly<=0){
+      peaSet(el,'peaIa','0,00\u00a0%');
+      peaSet(el,'peaIm','0,00\u00a0%');
+      peaSet(el,'peaC1',peaEur(0,0));
+      peaSet(el,'peaC5',peaEur(0,0));
+      peaSet(el,'peaG1','+0\u00a0€ · +0,0\u00a0%  ·  versé '+peaEur(0,0));
+      peaSet(el,'peaG5','+0\u00a0€ · +0,0\u00a0%  ·  versé '+peaEur(0,0));
+      return;
+    }
+    const raw=inp?String(inp.value||'').replace(',','.'):String(P.taux_defaut_pct!=null?P.taux_defaut_pct:7);
     const rPct=Number(raw);
     const r=rPct/100;
     if(!Number.isFinite(r)||r<=-1||r>0.5){
       peaSet(el,'peaIm','—');
+      peaSet(el,'peaIa','—');
       peaSet(el,'peaC1','—');
       peaSet(el,'peaC5','—');
       peaSet(el,'peaG1','Taux invalide');
@@ -94279,9 +94322,10 @@ function peaBind(el){
       return;
     }
     const i=peaIMensuel(r);
-    const c1=peaFv(monthly,r,12);
-    const c5=peaFv(monthly,r,60);
-    const v1=monthly*12, v5=monthly*60;
+    const c1=peaFv(M.monthly,r,12);
+    const c5=peaFv(M.monthly,r,60);
+    const v1=M.monthly*12, v5=M.monthly*60;
+    peaSet(el,'peaIa',peaPct(rPct,2));
     peaSet(el,'peaIm',peaPct(i*100,2));
     peaSet(el,'peaC1',peaEur(c1,0));
     peaSet(el,'peaC5',peaEur(c5,0));
@@ -94291,13 +94335,12 @@ function peaBind(el){
   if(inp){
     inp.addEventListener('input',upd);
     inp.addEventListener('change',upd);
-    upd();
   }
+  upd();
 }
 function renderPea(el){
   const L=Array.isArray(PEA.etfs)?PEA.etfs.slice(0,10):[];
   const P=PEA.projection||{};
-  const defTx=P.taux_defaut_pct!=null?P.taux_defaut_pct:7;
   el.innerHTML=`<div class="card pea-card no-acc">
     <h2>ETF à rendement · PEA XTB</h2>
     <p class="pea-intro">${peaEsc(PEA.intro||'')}</p>
@@ -94307,22 +94350,20 @@ function renderPea(el){
     <div class="src">${peaEsc(PEA.xtb_avertissement||'')}</div>
   </div>
   <div class="card pea-card pea-proj no-acc">
-    <h2>Projection ${peaEur(P.versement_mensuel_eur||200)}/mois sur ${P.duree_ans||5}\u00a0ans</h2>
+    <h2>${peaEsc(P.titre||'Projection des positions')}</h2>
     <div class="pea-vers">
-      <div><span>Mensuel</span><b>${peaEur(P.versement_mensuel_eur||200)}</b></div>
-      <div><span>Annualisé</span><b>${peaEur(P.versement_annuel_eur||2400)}</b></div>
+      <div><span>Mensuel</span><b id="peaVm"></b></div>
+      <div><span>Annualisé</span><b id="peaVa"></b></div>
     </div>
     <div class="pea-rates">
-      <div>
-        <span>Rendement annuel</span>
-        <label class="pea-taux"><input id="peaTaux" type="number" inputmode="decimal" min="-20" max="50" step="0.1" value="${peaEsc(defTx)}"> %</label>
-      </div>
+      <div><span>Rendement annuel</span><b id="peaIa"></b></div>
       <div><span>Rendement mensuel équivalent</span><b id="peaIm"></b></div>
     </div>
     <div class="pea-horiz">
       <div><span>Capital à 1 an</span><b id="peaC1"></b><small id="peaG1"></small></div>
       <div><span>Capital à 5 ans</span><b id="peaC5"></b><small id="peaG5"></small></div>
     </div>
+    <p class="pea-regle">${peaEsc(P.regle||'100 €/mois par ETF dès qu\'il passe au vert (≥130)')}</p>
     <p class="pea-warn">${peaEsc(P.avertissement||'Estimation, aucun rendement garanti, risque de perte en capital')}</p>
   </div>`;
   peaBind(el);
