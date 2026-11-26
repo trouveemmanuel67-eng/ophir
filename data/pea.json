@@ -1682,30 +1682,35 @@
     }
   ],
   "projection": {
-    "versement_mensuel_eur": 200,
-    "versement_annuel_eur": 2400,
+    "titre": "Projection des positions",
+    "regle": "100 €/mois par ETF dès qu'il passe au vert (≥130)",
+    "seuil_vert": 130,
+    "versement_unitaire_eur": 100,
     "duree_ans": 5,
     "n_versements": 60,
-    "total_verse_eur": 12000,
     "mode": "fin_de_mois",
     "taux_defaut_pct": 7.0,
     "taux_convention": "mensuel_equivalent",
-    "mode_libelle": "Versements en fin de mois. Taux mensuel équivalent i = (1 + r)^(1/12) − 1. Valeur future d'une annuité ordinaire.",
+    "mode_libelle": "Versements en fin de mois, uniquement sur les ETF PEA effectivement détenus dont la note APEX est verte (≥ 130). Taux mensuel équivalent i = (1 + r)^(1/12) − 1. Sans position, tous les montants sont à 0.",
     "avertissement": "Estimation, aucun rendement garanti, risque de perte en capital.",
+    "n_etf_verts_detenus": 0,
+    "versement_mensuel_eur": 0,
+    "versement_annuel_eur": 0,
+    "total_verse_eur": 0,
     "defaut": {
       "taux_pa_pct": 7.0,
-      "taux_mensuel_equivalent_pct": 0.565415,
+      "taux_mensuel_equivalent_pct": 0.0,
       "an1": {
-        "verse": 2400,
-        "estime": 2476.06,
-        "gain": 76.06,
-        "gain_pct": 3.17
+        "verse": 0,
+        "estime": 0,
+        "gain": 0,
+        "gain_pct": 0
       },
       "an5": {
-        "verse": 12000,
-        "estime": 14239.17,
-        "gain": 2239.17,
-        "gain_pct": 18.66
+        "verse": 0,
+        "estime": 0,
+        "gain": 0,
+        "gain_pct": 0
       }
     },
     "justification": "Les ETF zone euro de cette liste ont fait environ 7 à 8,8 % par an sur 10 ans et 10 à 13 % sur 5 ans (dividendes réinvestis, Yahoo 26/11/2026 ; SEL : +78,97 % sur 5 ans selon justETF, soit environ 12,3 % par an). Les 5 dernières années ont été exceptionnelles. Le cas central reprend plutôt le rythme sur 10 ans. Le cas prudent reprend surtout le dividende, sans hausse des cours. Le cas favorable reste sous le rythme des 5 dernières années.",
@@ -1768,5 +1773,12 @@
     "calcule_le": "2026-11-26",
     "zone": "Europe/Paris"
   },
-  "tv_source": "Recherche publique TradingView (symbol-search, ISIN), 26/11/2026. Préfixe de place + ticker, vérifiés un par un."
+  "tv_source": "Recherche publique TradingView (symbol-search, ISIN), 26/11/2026. Préfixe de place + ticker, vérifiés un par un.",
+  "positions_pea": [],
+  "positions_pea_champs": [
+    "isin",
+    "quantite",
+    "prix_moyen",
+    "versement_mensuel"
+  ]
 }

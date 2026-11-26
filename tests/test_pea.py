@@ -1,4 +1,4 @@
-"""Onglet PEA : ETF éligibles XTB, note APEX 250, projection 200 €/mois sur 5 ans."""
+"""Onglet PEA : ETF éligibles XTB, note APEX 250, projection des positions."""
 from __future__ import annotations
 
 import json
@@ -55,7 +55,8 @@ def test_build_et_template_branchent_les_donnees():
     assert "src/pea.js" in BUILD
     assert "function renderPea" in JS
     assert "peaFv" in JS
-    assert "peaTaux" in JS
+    assert "peaMensuel" in JS
+    assert "positions_pea" in JS
     assert "no-acc" in JS
     assert "apexNoteHTML" in JS
     assert "pea-legende" in JS
@@ -101,36 +102,53 @@ def test_classement_par_note_apex():
     assert "pas le CNN" in DATA["note_grille"]["regles"]["sentiment"].lower() or "Pas le CNN" in DATA["note_grille"]["regles"]["sentiment"]
 
 
-def test_projection_compacte_taux_equivalent():
+def test_projection_positions_vertes_vide_a_zero():
+    """Sans position PEA, le versement (100 € × ETF verts détenus) et tous les montants sont à 0."""
+    assert DATA["positions_pea"] == []
+    assert DATA["positions_pea_champs"] == ["isin", "quantite", "prix_moyen", "versement_mensuel"]
     p = DATA["projection"]
-    assert p["versement_mensuel_eur"] == 200
-    assert p["versement_annuel_eur"] == 2400
+    assert p["titre"] == "Projection des positions"
+    assert p["regle"] == "100 €/mois par ETF dès qu'il passe au vert (≥130)"
+    assert p["seuil_vert"] == 130
+    assert p["versement_unitaire_eur"] == 100
+    assert p["n_etf_verts_detenus"] == 0
+    assert p["versement_mensuel_eur"] == 0
+    assert p["versement_annuel_eur"] == 0
+    assert p["total_verse_eur"] == 0
     assert p["duree_ans"] == 5
-    assert p["n_versements"] == 60
-    assert p["total_verse_eur"] == 12000
-    assert p["taux_defaut_pct"] == 7.0
-    assert p["taux_convention"] == "mensuel_equivalent"
     d = p["defaut"]
-    c1 = _fv_eq(200, 0.07, 12)
-    c5 = _fv_eq(200, 0.07, 60)
-    assert abs(d["an1"]["estime"] - c1) < 0.05
-    assert abs(d["an5"]["estime"] - c5) < 0.05
-    assert d["an1"]["verse"] == 2400
-    assert d["an5"]["verse"] == 12000
-    assert abs(d["an1"]["gain"] - (c1 - 2400)) < 0.05
-    assert abs(d["an5"]["gain"] - (c5 - 12000)) < 0.05
+    assert d["an1"] == {"verse": 0, "estime": 0, "gain": 0, "gain_pct": 0}
+    assert d["an5"] == {"verse": 0, "estime": 0, "gain": 0, "gain_pct": 0}
+    assert d["taux_mensuel_equivalent_pct"] == 0
     assert "aucun rendement garanti" in p["avertissement"].lower()
     assert "perte en capital" in p["avertissement"]
-    # Formule JS = taux mensuel équivalent, pas r/12
+    # Formule toujours au taux mensuel équivalent, quand un versement existe
     assert "Math.pow(1+r,1/12)-1" in JS
     assert "r/12" not in JS
-    # L'UI ne reprend plus les scénarios ni les longs textes
-    assert "pea-scs" not in JS
-    assert "pea-just" not in JS
-    assert "pea-vers" in JS
+    assert "peaMensuel" in JS
+    assert "positions_pea" in JS
+    assert "Projection 200" not in JS
+    assert "200 €/mois" not in JS
+    assert "pea-regle" in JS
+    assert "peaVm" in JS
+    assert "peaVa" in JS
     assert "peaIm" in JS
+    assert "peaIa" in JS
     assert "peaC1" in JS
     assert "peaC5" in JS
+    # Aujourd'hui aucun ETF listé n'est vert, et surtout aucune position
+    assert all((e.get("apex10") or {}).get("total", 0) < 130 for e in DATA["etfs"])
+    # Si une position verte existait, le versement serait 100 € × le nombre
+    unit, seuil = p["versement_unitaire_eur"], p["seuil_vert"]
+    etf = next(e for e in DATA["etfs"] if e["isin"])
+    faux = {"isin": etf["isin"], "quantite": 1, "prix_moyen": 10, "versement_mensuel": unit}
+    note = (etf.get("apex10") or {}).get("total") or 0
+    attendu = unit if note >= seuil else 0
+    assert attendu == 0  # les notes actuelles sont sous 130
+    # La formule d'annuité reste juste pour un versement non nul
+    assert abs(_fv_eq(100, 0.07, 12) - 1238.03) < 0.05
+    assert "pea-scs" not in JS
+    assert "pea-just" not in JS
 
 
 def test_css_compact_mobile_et_note():
@@ -140,6 +158,7 @@ def test_css_compact_mobile_et_note():
     assert ".pea-legende" in bloc
     assert ".pea-vers" in bloc
     assert ".pea-horiz" in bloc
+    assert ".pea-regle" in bloc
     assert "@media(max-width:640px)" in bloc
     assert "pea-sc-cap" not in bloc
 

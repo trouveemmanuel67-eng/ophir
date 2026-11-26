@@ -1,4 +1,4 @@
-/* ===== Onglet PEA : ETF à rendement éligibles, note APEX, projection 200 €/mois ===== */
+/* ===== Onglet PEA : ETF à rendement éligibles, note APEX, projection des positions ===== */
 const PEA=(()=>{try{return JSON.parse(document.getElementById('dataPea').textContent);}catch(e){return {etfs:[],projection:{}};} })();
 
 function peaEsc(s){
@@ -83,17 +83,47 @@ function peaSet(el,id,text){
   const n=el.querySelector('#'+id);
   if(n) n.textContent=text;
 }
+/* Versement = 100 € × ETF détenus dont la note APEX est verte (≥ 130). Sinon 0. */
+function peaMensuel(){
+  const P=PEA.projection||{};
+  const unit=Number(P.versement_unitaire_eur!=null?P.versement_unitaire_eur:100);
+  const seuil=Number(P.seuil_vert!=null?P.seuil_vert:130);
+  const held=Array.isArray(PEA.positions_pea)?PEA.positions_pea:[];
+  const by={};
+  (PEA.etfs||[]).forEach(e=>{ if(e&&e.isin) by[e.isin]=e; });
+  let n=0, m=0;
+  held.forEach(p=>{
+    if(!p||!p.isin) return;
+    const e=by[p.isin];
+    const note=e&&e.apex10!=null?Number(e.apex10.total):NaN;
+    if(!Number.isFinite(note)||note<seuil) return;
+    const v=(p.versement_mensuel!=null&&Number.isFinite(Number(p.versement_mensuel)))?Number(p.versement_mensuel):unit;
+    n+=1; m+=v;
+  });
+  return {n:n, monthly:m, annual:m*12};
+}
 function peaBind(el){
   const P=PEA.projection||{};
   const inp=el.querySelector('#peaTaux');
-  const monthly=Number(P.versement_mensuel_eur||200);
   const upd=()=>{
-    if(!inp) return;
-    const raw=String(inp.value||'').replace(',','.');
+    const M=peaMensuel();
+    peaSet(el,'peaVm',peaEur(M.monthly,0));
+    peaSet(el,'peaVa',peaEur(M.annual,0));
+    if(M.monthly<=0){
+      peaSet(el,'peaIa','0,00\u00a0%');
+      peaSet(el,'peaIm','0,00\u00a0%');
+      peaSet(el,'peaC1',peaEur(0,0));
+      peaSet(el,'peaC5',peaEur(0,0));
+      peaSet(el,'peaG1','+0\u00a0€ · +0,0\u00a0%  ·  versé '+peaEur(0,0));
+      peaSet(el,'peaG5','+0\u00a0€ · +0,0\u00a0%  ·  versé '+peaEur(0,0));
+      return;
+    }
+    const raw=inp?String(inp.value||'').replace(',','.'):String(P.taux_defaut_pct!=null?P.taux_defaut_pct:7);
     const rPct=Number(raw);
     const r=rPct/100;
     if(!Number.isFinite(r)||r<=-1||r>0.5){
       peaSet(el,'peaIm','—');
+      peaSet(el,'peaIa','—');
       peaSet(el,'peaC1','—');
       peaSet(el,'peaC5','—');
       peaSet(el,'peaG1','Taux invalide');
@@ -101,9 +131,10 @@ function peaBind(el){
       return;
     }
     const i=peaIMensuel(r);
-    const c1=peaFv(monthly,r,12);
-    const c5=peaFv(monthly,r,60);
-    const v1=monthly*12, v5=monthly*60;
+    const c1=peaFv(M.monthly,r,12);
+    const c5=peaFv(M.monthly,r,60);
+    const v1=M.monthly*12, v5=M.monthly*60;
+    peaSet(el,'peaIa',peaPct(rPct,2));
     peaSet(el,'peaIm',peaPct(i*100,2));
     peaSet(el,'peaC1',peaEur(c1,0));
     peaSet(el,'peaC5',peaEur(c5,0));
@@ -113,13 +144,12 @@ function peaBind(el){
   if(inp){
     inp.addEventListener('input',upd);
     inp.addEventListener('change',upd);
-    upd();
   }
+  upd();
 }
 function renderPea(el){
   const L=Array.isArray(PEA.etfs)?PEA.etfs.slice(0,10):[];
   const P=PEA.projection||{};
-  const defTx=P.taux_defaut_pct!=null?P.taux_defaut_pct:7;
   el.innerHTML=`<div class="card pea-card no-acc">
     <h2>ETF à rendement · PEA XTB</h2>
     <p class="pea-intro">${peaEsc(PEA.intro||'')}</p>
@@ -129,22 +159,20 @@ function renderPea(el){
     <div class="src">${peaEsc(PEA.xtb_avertissement||'')}</div>
   </div>
   <div class="card pea-card pea-proj no-acc">
-    <h2>Projection ${peaEur(P.versement_mensuel_eur||200)}/mois sur ${P.duree_ans||5}\u00a0ans</h2>
+    <h2>${peaEsc(P.titre||'Projection des positions')}</h2>
     <div class="pea-vers">
-      <div><span>Mensuel</span><b>${peaEur(P.versement_mensuel_eur||200)}</b></div>
-      <div><span>Annualisé</span><b>${peaEur(P.versement_annuel_eur||2400)}</b></div>
+      <div><span>Mensuel</span><b id="peaVm"></b></div>
+      <div><span>Annualisé</span><b id="peaVa"></b></div>
     </div>
     <div class="pea-rates">
-      <div>
-        <span>Rendement annuel</span>
-        <label class="pea-taux"><input id="peaTaux" type="number" inputmode="decimal" min="-20" max="50" step="0.1" value="${peaEsc(defTx)}"> %</label>
-      </div>
+      <div><span>Rendement annuel</span><b id="peaIa"></b></div>
       <div><span>Rendement mensuel équivalent</span><b id="peaIm"></b></div>
     </div>
     <div class="pea-horiz">
       <div><span>Capital à 1 an</span><b id="peaC1"></b><small id="peaG1"></small></div>
       <div><span>Capital à 5 ans</span><b id="peaC5"></b><small id="peaG5"></small></div>
     </div>
+    <p class="pea-regle">${peaEsc(P.regle||'100 €/mois par ETF dès qu\'il passe au vert (≥130)')}</p>
     <p class="pea-warn">${peaEsc(P.avertissement||'Estimation, aucun rendement garanti, risque de perte en capital')}</p>
   </div>`;
   peaBind(el);
