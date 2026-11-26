@@ -39,11 +39,9 @@ function peaRow(e,i){
   const meta=[
     e.isin,
     'XTB '+xtb,
-    e.encours_meur!=null?(Number(e.encours_meur).toLocaleString('fr-FR')+'\u00a0M€'):null,
-    e.replication,
-    e.note
+    e.encours_meur!=null?(Number(e.encours_meur).toLocaleString('fr-FR')+'\u00a0M€'):null
   ].filter(Boolean).join(' · ');
-  return `<article class="pea-row">
+  return `<article class="pea-row"${e.note?(' title="'+peaEsc(e.note)+'"'):''}>
     <span class="pea-rk">${i+1}</span>
     <span class="pea-nm">${peaEsc(e.nom)}</span>
     <b class="pea-yld" title="Rendement de distribution actuel (justETF)">${peaEsc(yld)}</b>
