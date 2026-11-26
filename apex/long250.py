@@ -394,7 +394,92 @@ GROUP_CYCLE = {'Pétrole et gaz': 'wti', 'Gaz naturel': 'wti', 'Charbon': 'wti',
                'Solaire': 'taux', 'Éolien': 'taux', 'Hydrogène et stockage': 'taux', 'Nucléaire et uranium': 'uranium'}
 
 
+def cycle_hh():
+    """Henry Hub spot sous sa moyenne 5 ans (EIA RNGWHHD, équivalent FRED DHHNGSP)."""
+    return _cycle_sous_moy_5ans(
+        'DHHNGSP',
+        'Cycle gaz : Henry Hub sous sa moyenne 5 ans (achat en bas de cycle)',
+        '$/MMBtu',
+        source=('EIA Henry Hub spot USD/MMBtu (RNGWHHD, série équivalente à FRED DHHNGSP, '
+                'https://www.eia.gov/dnav/ng/hist/rngwhhdd.htm) ; FRED graph.csv injoignable le 26/11/2026'),
+    )
+
+
+def cycle_brent():
+    """Brent spot sous sa moyenne 5 ans (EIA RBRTE, équivalent FRED DCOILBRENTEU)."""
+    return _cycle_sous_moy_5ans(
+        'DCOILBRENTEU',
+        'Cycle pétrole : Brent sous sa moyenne 5 ans (achat en bas de cycle)',
+        '$',
+        source=('EIA Europe Brent spot FOB USD/bbl (RBRTE, série équivalente à FRED DCOILBRENTEU, '
+                'https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=PET&s=RBRTE&f=D) ; '
+                'FRED graph.csv injoignable le 26/11/2026'),
+    )
+
+
+def _cycle_sous_moy_5ans(sid, label, unite, source=None):
+    s = fred(sid)
+    if not s:
+        return crit('cycle', label, 'sous moyenne 5 ans', None, None, 10, source)
+    d, v = s[-1]
+    d0 = dt.date.fromisoformat(d)
+    lo = dt.date(d0.year - 5, d0.month, min(d0.day, 28)).isoformat()
+    vals = [x[1] for x in s if x[0] >= lo]
+    if not vals:
+        return crit('cycle', label, 'sous moyenne 5 ans', None, None, 10, source, d)
+    moy = sum(vals) / len(vals)
+    src = source or fred_src(sid)
+    return crit('cycle', label, f'< {moy:.2f} {unite}', v, v < moy, 10, src, d)
+
+
+def cycle_ttf():
+    """TTF sous sa moyenne 5 ans, clôtures hebdomadaires du contrat continu Yahoo TTF=F."""
+    label = 'Cycle gaz : TTF sous sa moyenne 5 ans (contrat continu Yahoo TTF=F, rolls non ajustés)'
+    p = F / 'ttf_weekly.json'
+    if not p.exists():
+        return crit('cycle', label, 'TTF < moyenne 5 ans', None, None, 10, 'série TTF 5 ans introuvable')
+    doc = json.loads(p.read_text(encoding='utf-8'))
+    rows = [(x['date'], float(x['close'])) for x in (doc.get('closes') or []) if x.get('close')]
+    if not rows:
+        return crit('cycle', label, 'TTF < moyenne 5 ans', None, None, 10, doc.get('source'))
+    d, v = rows[-1]
+    d0 = dt.date.fromisoformat(d)
+    lo = dt.date(d0.year - 5, d0.month, min(d0.day, 28)).isoformat()
+    vals = [x[1] for x in rows if x[0] >= lo]
+    if not vals:
+        return crit('cycle', label, 'TTF < moyenne 5 ans', None, None, 10, doc.get('source'), d)
+    moy = sum(vals) / len(vals)
+    src = (f"{doc.get('source')} au {d} (n={len(vals)} semaines, "
+           f"{doc.get('url') or 'https://finance.yahoo.com/quote/TTF=F/'})")
+    return crit('cycle', label, f'< {moy:.2f} €', v, v < moy, 10, src, d)
+
+
+# Cycle propre à chaque matière (onglet Énergie, contrats et ETC).
+COMMODITY_CYCLE = {
+    'NYMEX:CL1!': 'wti', 'LSE:CRUD': 'wti', 'XETR:OD7F': 'wti',
+    'NYMEX:HO1!': 'wti', 'NYMEX:RB1!': 'wti',
+    'TVC:UKOIL': 'brent', 'XETR:OOEA': 'brent', 'LSE:BRNT': 'brent',
+    'NYMEX:NG1!': 'hh', 'LSE:NGAS': 'hh',
+    'XETR:EGAS': 'ttf',
+}
+
+
+def cycle_energie(tv=None, groupe=None):
+    k = COMMODITY_CYCLE.get(tv)
+    if k == 'hh':
+        return cycle_hh()
+    if k == 'brent':
+        return cycle_brent()
+    if k == 'ttf':
+        return cycle_ttf()
+    if k == 'wti':
+        return cycle_wti()
+    return cycle_of(groupe, tv)
+
+
 def cycle_of(groupe, tv=None):
+    if tv in COMMODITY_CYCLE:
+        return cycle_energie(tv, groupe)
     if tv in ('NASDAQ:CEG',):
         return cycle_taux_us()
     k = GROUP_CYCLE.get(groupe)
@@ -440,6 +525,59 @@ def energie_fond(yahoo, groupe, tv=None):
 
 def energie_etf_fond(isin, groupe, tv):
     E = etf_quality(isin, ['ter40', 'ter20', 'enc300', 'enc1000', 'age3', 'age5', 'phys', 'lignes30', 'cycle'], cycle=cycle_of(groupe, tv))
+    return bloc(E) + (E,)
+
+
+# ETC à exposition directe (pétrole / gaz) : pas de « réplication physique » ni de « 30 lignes ».
+ETC_COURBE = {
+    'LSE:CRUD': 'CL=F', 'XETR:OD7F': 'CL=F',
+    'XETR:OOEA': 'BZ=F', 'LSE:BRNT': 'BZ=F',
+    'LSE:NGAS': 'NG=F',
+    'XETR:EGAS': 'TTF=F',
+}
+
+
+def roll_etc(tv):
+    """+10 si la courbe du contrat de référence est en backwardation (M2 < M1)."""
+    doc = _j('courbe_energie.json')
+    front = ETC_COURBE.get(tv)
+    c = ((doc.get('courbes') or {}).get(front) or {}) if front else {}
+    m1, m2 = c.get('m1') or {}, c.get('m2') or {}
+    v1, v2 = m1.get('last'), m2.get('last')
+    ok = None if v1 is None or v2 is None else (float(v2) < float(v1))
+    if m1.get('sym') and m2.get('sym'):
+        src = (f"Yahoo Finance {m1['sym']} {v1} ({m1.get('last_date')}) vs "
+               f"{m2['sym']} {v2} ({m2.get('last_date')}) ; M1 = échéance du contrat continu")
+    else:
+        src = 'courbe des contrats mensuels Yahoo introuvable'
+    date = (m1.get('last_date') or doc.get('date_releve'))
+    return crit('roll', 'Courbe : roulement favorable (backwardation, contrat M2 sous M1)',
+                'M2 < M1', None if v2 is None else v2, ok, 10, src, date)
+
+
+def suivi_etc(tv):
+    """+10 si la corrélation 1 an des rendements hebdo ETC vs contrat est ≥ 0,90."""
+    doc = _j('suivi_energie.json')
+    rec = (doc.get('items') or {}).get(tv) or {}
+    c = rec.get('corr')
+    n = rec.get('n_semaines')
+    ok = None if c is None or (n is not None and n < 45) else (float(c) >= float(rec.get('seuil') or 0.90))
+    src = rec.get('source')
+    if rec.get('fx'):
+        src = (src + ' ; ' + rec['fx']) if src else rec['fx']
+    if not src:
+        src = "corrélation 1 an ETC vs contrat introuvable"
+    seuil = rec.get('seuil') or 0.90
+    return crit('suivi', 'Suivi du contrat sur 1 an (corrélation des rendements hebdo ≥ 0,90)',
+                f'corr ≥ {seuil}'.replace('.', ','), c, ok, 10, src, rec.get('derniere') or doc.get('date_releve'))
+
+
+def energie_etc_fond(isin, groupe, tv):
+    """Fondamental ETC matières premières : 6 critères justETF + courbe + suivi + cycle = 90."""
+    E = etf_quality(isin, ['ter40', 'ter20', 'enc300', 'enc1000', 'age3', 'age5'])
+    E.append(roll_etc(tv))
+    E.append(suivi_etc(tv))
+    E.append(cycle_energie(tv, groupe))
     return bloc(E) + (E,)
 
 

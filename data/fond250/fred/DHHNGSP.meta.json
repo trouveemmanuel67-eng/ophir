@@ -1,0 +1,11 @@
+{
+ "source": "EIA Henry Hub Natural Gas Spot Price (RNGWHHD), série équivalente à FRED DHHNGSP",
+ "url": "https://www.eia.gov/dnav/ng/hist_xls/RNGWHHDd.xls",
+ "page": "https://www.eia.gov/dnav/ng/hist/rngwhhdd.htm",
+ "releve": "2026-11-25",
+ "unite": "USD/MMBtu",
+ "note": "FRED graph.csv injoignable le 26/11/2026 ; EIA est la source primaire de DHHNGSP.",
+ "n": 5737,
+ "dernier": "2026-11-24",
+ "dernier_valeur": 3.3
+}

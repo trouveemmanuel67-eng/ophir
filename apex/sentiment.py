@@ -55,6 +55,10 @@ ENERGIE_TV = {  # actifs énergie hors règle de groupe (secteur GICS réel)
     'NASDAQ:ENPH': 'us:XLK', 'NASDAQ:CSIQ': 'us:XLK', 'XETR:ENR': 'eu:DXSL', 'NASDAQ:BLDP': 'us:XLI',
     'NASDAQ:CEG': 'us:XLU', 'NYSE:CCJ': 'us:XLE', 'NYSE:BTU': 'us:XLE', 'XETR:URNU': 'us:XLE', 'XETR:U3O8': 'us:XLE',
     'XETR:XDW0': 'us:XLE', 'XETR:ZPDU': 'us:XLU', 'TVC:UKOIL': 'energie:brent', 'XETR:BNQ9': 'energie:gaz',
+    # ETC et contrats à terme : sentiment de la matière, pas du secteur actions XLE.
+    'LSE:CRUD': 'energie:petrole', 'XETR:OD7F': 'energie:petrole',
+    'XETR:OOEA': 'energie:brent', 'LSE:BRNT': 'energie:brent',
+    'LSE:NGAS': 'energie:gaz', 'XETR:EGAS': 'energie:gaz', 'NYMEX:NG1!': 'energie:gaz',
 }
 ETF_DEVISE_TV = {'ASX:SEMI': 'us:XLK', 'TSX:XCHP': 'us:XLK', 'NASDAQ:RING': 'metaux', 'LSE:AUCP': 'metaux',
                  'SIX:AUCO': 'metaux', 'TSE:1631': 'us:XLF'}
@@ -148,7 +152,12 @@ def tables():
         if tv in ENERGIE_TV:
             key = ENERGIE_TV[tv]
         elif kind == 'futures':
-            key = 'energie:petrole'
+            if tv == 'NYMEX:NG1!' or g == 'Gaz naturel':
+                key = 'energie:gaz'
+            elif tv in ('TVC:UKOIL',) or a.get('yahoo') == 'BZ=F':
+                key = 'energie:brent'
+            else:
+                key = 'energie:petrole'
         elif g == 'Gaz naturel' and kind == 'etc':
             key = 'energie:gaz'
         elif g in ('Pétrole et gaz', 'Gaz naturel'):

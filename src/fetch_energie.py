@@ -15,7 +15,7 @@ os.makedirs(YC, exist_ok=True)
 # Les contrats WTI / Brent / fioul / essence déjà notés ne sont pas retéléchargés ici.
 # ^GSPC est écrit seulement dans data/energie/ (pas dans data/actions/).
 SYMS = [
-    'CRUD.L', 'BRNT.L', 'EGAS.L', 'NGAS.L', 'NG=F',
+    'CRUD.L', 'BRNT.L', 'EGAS.L', 'NGAS.L', 'NG=F', 'TTF=F',
 ]
 SPX = '^GSPC'
 

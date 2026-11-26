@@ -1,0 +1,62 @@
+{
+ "date_releve": "2026-11-26",
+ "regle": "Corrélation des rendements hebdomadaires de l'ETC et du contrat de référence, sur 1 an, ≥ 0,90 (au moins 45 semaines alignées à ±4 jours). L'écart de performance brute n'est pas retenu : il mélange le roulement déjà noté par ailleurs.",
+ "items": {
+  "LSE:CRUD": {
+   "etc_yahoo": "CRUD.L",
+   "etc_devise": "USD",
+   "fut_yahoo": "CL=F",
+   "fut_devise": "USD",
+   "n_semaines": 54,
+   "corr": 0.7502,
+   "seuil": 0.9,
+   "ok": false,
+   "premiere": "2025-11-18",
+   "derniere": "2026-11-26",
+   "fx": null,
+   "source": "Yahoo Finance clôtures hebdomadaires CRUD.L vs CL=F, corrélation des rendements sur 1 an (semaines alignées à ±4 jours)"
+  },
+  "XETR:OOEA": {
+   "etc_yahoo": "BRNT.L",
+   "etc_devise": "USD",
+   "fut_yahoo": "BZ=F",
+   "fut_devise": "USD",
+   "n_semaines": 54,
+   "corr": 0.9584,
+   "seuil": 0.9,
+   "ok": true,
+   "premiere": "2025-11-17",
+   "derniere": "2026-11-26",
+   "fx": null,
+   "source": "Yahoo Finance clôtures hebdomadaires BRNT.L vs BZ=F, corrélation des rendements sur 1 an (semaines alignées à ±4 jours)"
+  },
+  "LSE:NGAS": {
+   "etc_yahoo": "NGAS.L",
+   "etc_devise": "USD",
+   "fut_yahoo": "NG=F",
+   "fut_devise": "USD",
+   "n_semaines": 54,
+   "corr": 0.813,
+   "seuil": 0.9,
+   "ok": false,
+   "premiere": "2025-11-18",
+   "derniere": "2026-11-26",
+   "fx": null,
+   "source": "Yahoo Finance clôtures hebdomadaires NGAS.L vs NG=F, corrélation des rendements sur 1 an (semaines alignées à ±4 jours)"
+  },
+  "XETR:EGAS": {
+   "etc_yahoo": "EGAS.L",
+   "etc_devise": "GBp",
+   "fut_yahoo": "TTF=F",
+   "fut_devise": "EUR",
+   "n_semaines": 54,
+   "corr": 0.9856,
+   "seuil": 0.9,
+   "ok": true,
+   "premiere": "2025-11-17",
+   "derniere": "2026-11-26",
+   "fx": "EGAS.L en GBp converti en EUR : (GBp/100) / cours BCE GBP par EUR (série ECB EXR.D.GBP.EUR.SP00.A), dernier change 2026-11-20=0.83735",
+   "source": "Yahoo Finance clôtures hebdomadaires EGAS.L vs TTF=F, corrélation des rendements sur 1 an (semaines alignées à ±4 jours)"
+  }
+ }
+}

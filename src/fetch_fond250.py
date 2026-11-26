@@ -152,7 +152,8 @@ def run_yahoo():
 FRED = ['DGS2', 'DGS10', 'DGS20', 'DFII5', 'DFII10', 'DFII20', 'T5YIE', 'T10YIE', 'BAMLC0A0CM', 'BAMLC0A0CMEY', 'BAMLH0A0HYM2', 'BAMLH0A0HYM2EY',
         'BAMLHE00EHYIOAS', 'BAMLHE00EHYIEY', 'BAMLEMCBPIOAS', 'BAMLEMCBPIEY', 'BAMLHE00EHYIOAS', 'BAMLEC0A0RMEY', 'BAMLEC0A0RMOAS' if False else 'BAMLC0A0CM',
         'IRLTLT01DEM156N', 'IRLTLT01FRM156N', 'IRLTLT01EZM156N', 'CP0000EZ19M086NEST', 'CPIAUCSL', 'DCOILWTICO', 'FEDFUNDS', 'ECBDFR', 'IR3TIB01EZM156N',
-        'IRLTLT01JPM156N', 'CP0000FRM086NEST', 'IRLTLT01GBM156N', 'IRLTLT01CHM156N', 'IRLTLT01AUM156N', 'IRLTLT01CAM156N', 'IRLTLT01KRM156N']
+        'IRLTLT01JPM156N', 'CP0000FRM086NEST', 'IRLTLT01GBM156N', 'IRLTLT01CHM156N', 'IRLTLT01AUM156N', 'IRLTLT01CAM156N', 'IRLTLT01KRM156N',
+        'DHHNGSP', 'DCOILBRENTEU']
 
 
 def run_fred():
@@ -170,6 +171,63 @@ def run_fred():
             print(sid, last)
         except Exception as e:
             print(sid, 'ERR', e)
+    run_eia_energy_spots()
+
+
+# EIA est la source primaire de FRED DHHNGSP (Henry Hub) et DCOILBRENTEU (Brent).
+# Repli utilisé quand fredgraph.csv est injoignable.
+EIA_SPOTS = {
+    'DHHNGSP': {
+        'url': 'https://www.eia.gov/dnav/ng/hist_xls/RNGWHHDd.xls',
+        'page': 'https://www.eia.gov/dnav/ng/hist/rngwhhdd.htm',
+    },
+    'DCOILBRENTEU': {
+        'url': 'https://www.eia.gov/dnav/pet/hist_xls/RBRTEd.xls',
+        'page': 'https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=PET&s=RBRTE&f=D',
+    },
+}
+
+
+def run_eia_energy_spots():
+    """Télécharge les spots EIA et les écrit au format FRED si la série manque ou est trop courte."""
+    import subprocess, tempfile
+    d = OUT / 'fred'
+    d.mkdir(exist_ok=True)
+    for sid, meta in EIA_SPOTS.items():
+        dest = d / f'{sid}.csv'
+        # On rafraîchit si le fichier a moins de 1000 lignes utiles (échec FRED fréquent).
+        n = 0
+        if dest.exists():
+            n = sum(1 for line in dest.read_text().splitlines() if line and not line.startswith('observation_date'))
+        if n >= 1000:
+            print(sid, 'EIA skip, déjà', n, 'lignes')
+            continue
+        try:
+            raw = subprocess.run(['curl', '-sL', '-m', '60', '-A', 'Mozilla/5.0', meta['url']], capture_output=True, timeout=90)
+            if raw.returncode != 0 or len(raw.stdout) < 1000:
+                raise RuntimeError(f'EIA HTTP/vide ({len(raw.stdout)} o)')
+            with tempfile.TemporaryDirectory() as td:
+                xls = Path(td) / 'spot.xls'
+                xls.write_bytes(raw.stdout)
+                conv = subprocess.run(['soffice', '--headless', '--convert-to', 'xlsx', '--outdir', td, str(xls)],
+                                      capture_output=True, text=True, timeout=60)
+                xlsx = Path(td) / 'spot.xlsx'
+                if not xlsx.exists():
+                    raise RuntimeError('conversion xlsx échouée: ' + (conv.stderr or conv.stdout or '')[:200])
+                import openpyxl
+                wb = openpyxl.load_workbook(xlsx, data_only=True)
+                sh = wb['Data 1']
+                rows = [('observation_date', sid)]
+                for r in range(4, sh.max_row + 1):
+                    day, val = sh.cell(r, 1).value, sh.cell(r, 2).value
+                    if hasattr(day, 'date') and isinstance(val, (int, float)):
+                        rows.append((day.date().isoformat(), str(val)))
+                if len(rows) < 100:
+                    raise RuntimeError('trop peu de lignes EIA')
+                dest.write_text('\n'.join(','.join(r) for r in rows) + '\n')
+                print(sid, 'EIA', rows[-1], 'n=', len(rows) - 1)
+        except Exception as e:
+            print(sid, 'EIA ERR', e)
 
 
 IMF_IND = {'PCPIPCH': 'inflation', 'BCA_NGDPD': 'balance_courante', 'GGXWDG_NGDP': 'dette_publique', 'GGXCNL_NGDP': 'solde_public',

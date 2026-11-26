@@ -338,7 +338,7 @@ def energie(T):
             rec['sentiment'] = g['payload']
         log('energie', a.get('tv'), note(a.get('apex10')), rec['note'], fnc)
         a['apex10'] = rec
-    T['energie']['apex250'] = {'grille': 'Technique 110 + Fondamental énergie 90 (ETC : 9 critères justETF × 10 ; contrats à terme : critère de cycle seul, les 8 critères d’entreprise ou de fonds ne s’appliquent pas, sans redistribution) + F&G ±50'}
+    T['energie']['apex250'] = {'grille': 'Technique 110 + Fondamental énergie 90 (ETC : 9 critères × 10, dont courbe et suivi du contrat ; contrats à terme : cycle de la matière seulement, sans redistribution) + F&G ±50'}
     notes = [float(a['apex10']['note']) for a in T['energie']['assets']
              if (a.get('apex10') or {}).get('note') is not None and (a.get('apex10') or {}).get('scale') == 250]
     if notes:
@@ -351,18 +351,18 @@ def energie_contrat(a, g=None, fgp=None):
     fgp, flab, fmeta = L.sent_pack(g)
     t, used = L.tech_of(a.get('tv'), a.get('yahoo'), None)
     if a.get('kind') == 'etc':
-        fpts, fnc, fel = L.energie_etf_fond(ENERGIE_ISIN.get(a.get('tv')) or a.get('isin') or ISIN_SOUS(a), a.get('groupe'), a.get('tv'))
+        fpts, fnc, fel = L.energie_etc_fond(ENERGIE_ISIN.get(a.get('tv')) or a.get('isin') or ISIN_SOUS(a), a.get('groupe'), a.get('tv'))
         lab = 'Fond. ETC'
     else:
-        cyc = L.cycle_wti()
+        cyc = L.cycle_energie(a.get('tv'), a.get('groupe'))
         fel = [cyc]
         fpts = int(cyc.get('points') or 0)
         fnc = ['cycle'] if cyc.get('nc') else []
         lab = 'Cycle'
     blocks = [('RSI', t and t['rsi']), ('MACD', t and t['macd']), ('Fibo', t and t['fibonacci']), ('CCI', t and t['cci']), (lab, fpts)]
-    regle = ('ETC : 9 critères justETF × 10 (TER, encours, ancienneté, réplication physique, ≥ 30 lignes, cycle WTI)'
+    regle = ('ETC : 9 critères × 10 (TER, encours, ancienneté, courbe backwardation M2 < M1, suivi du contrat corrélation 1 an ≥ 0,90, cycle de la matière). Manquant = 0, sans redistribution.'
              if a.get('kind') == 'etc' else
-             'Contrat à terme : seul le cycle (WTI sous sa moyenne 5 ans, FRED DCOILWTICO) s’applique, +10 ; les 8 critères d’entreprise ou de fonds ne s’appliquent pas à un contrat (0, sans redistribution)')
+             'Contrat à terme : seul le cycle de la matière s’applique (+10 si le prix est sous sa moyenne 5 ans : WTI, Brent, Henry Hub ou TTF selon l’actif). Les 8 autres critères ne s’appliquent pas (0, sans redistribution).')
     rec = L.assemble(blocks, fgp, flab, {
         'fondamental': {'points': fpts, 'max': 90, 'elements': fel, 'nc': fnc, 'regle': regle},
         'technique': {'symbole': used, 'date_cloture': t and t['date_cloture'], 'detail': t and t['detail']} if t else {'erreur': 'série hebdomadaire introuvable'},

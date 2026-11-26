@@ -1,0 +1,11 @@
+{
+ "source": "EIA Europe Brent Spot Price FOB (RBRTE), série équivalente à FRED DCOILBRENTEU",
+ "url": "https://www.eia.gov/dnav/pet/hist_xls/RBRTEd.xls",
+ "page": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=PET&s=RBRTE&f=D",
+ "releve": "2026-11-25",
+ "unite": "USD/bbl",
+ "note": "FRED graph.csv injoignable le 26/11/2026 ; EIA est la source primaire de DCOILBRENTEU.",
+ "n": 9137,
+ "dernier": "2026-11-24",
+ "dernier_valeur": 91.8
+}
