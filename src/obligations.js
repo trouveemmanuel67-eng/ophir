@@ -100,6 +100,62 @@ function obDispoHTML(s){
   }).join('');
   return `<div class="ob-dispo"><div class="ob-dispo-top"><b>Dispo Revolut</b>${sous.length?`<span>${sous.join(' · ')}</span>`:''}</div><table><tbody>${rows}</tbody></table></div>`;
 }
+function obEsc(s){
+  return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function obOatPack(){
+  return ((OB_DISPO.pays||{}).fr)||null;
+}
+function obOatFranceHas(){
+  const p=obOatPack();
+  return !!(p&&p.lignes&&p.lignes.length);
+}
+function obOatNote(r){
+  const a=r&&r.apex10;
+  const tip=a&&(a.ligne||(a.decomp&&a.decomp.texte))?obEsc(a.ligne||a.decomp.texte):'Note APEX';
+  const html=(typeof apexNoteHTML==='function')?apexNoteHTML(a):'<div class="apex10 apex10-pilot apex10-na"><b>–</b><small>/ 250</small></div>';
+  return `<span class="ob-oat-note" title="${tip}">${html}</span>`;
+}
+function obOatFranceHTML(){
+  const pack=obOatPack();
+  if(!pack||!pack.lignes||!pack.lignes.length) return '';
+  const sit=OB_DISPO.situation||{};
+  const date=OB_DISPO.date_libelle||'';
+  const rows=pack.lignes.map(r=>{
+    const dur=r.duration||{};
+    const mod=dur.modifiee!=null?fmt(dur.modifiee,1)+' ans':'';
+    const sens=dur.sensibilite_plus_1pt_pct!=null?(String(fmt(dur.sensibilite_plus_1pt_pct,0)).replace('-','−')+' % / +1 pt'):'';
+    const rdt=r.rdt==null?'—':fmt(r.rdt,2)+' %';
+    const bits=[rdt,mod?('dur. '+mod):'',sens].filter(Boolean).join(' · ');
+    const isin=r.isin||'';
+    const cp=(isin&&typeof ophirCopyBtn==='function')?ophirCopyBtn(isin):'';
+    const meta=[isin?('ISIN '+isin):'',r.dispo||'Revolut'].filter(Boolean).join(' · ');
+    return `<article class="ob-oat-row">
+      <span class="ob-oat-nm">${obEsc(r.nom)}</span>
+      ${obOatNote(r)}
+      <b class="ob-oat-rdt">${obEsc(bits)}</b>
+      <span class="ob-oat-meta">${obEsc(meta)}${cp}</span>
+    </article>`;
+  }).join('');
+  const risk=OB_DISPO.risque_court||'';
+  return `<div class="ob-oat">
+    <h3 class="ob-oat-h">${obEsc(sit.titre||'Situation des taux français')}</h3>
+    ${sit.texte?`<p class="ob-oat-txt">${obEsc(sit.texte)}</p>`:''}
+    <div class="chart ob-oat-curve"><canvas id="cObOatFr"></canvas></div>
+    <p class="ob-oat-src">${obEsc(date)}${pack.emetteur?' · '+obEsc(pack.emetteur):''}</p>
+    <div class="ob-oat-list">${rows}</div>
+    ${risk?`<p class="ob-oat-risk">${obEsc(risk)}</p>`:''}
+  </div>`;
+}
+function obOatCurveChart(){
+  const sit=OB_DISPO.situation||{};
+  const pts=sit.points||[];
+  const el=document.getElementById('cObOatFr');
+  if(!el||!pts.length||typeof Chart==='undefined') return;
+  if(el._oatChart){el._oatChart.destroy();el._oatChart=null;}
+  el._oatChart=new Chart(el,{type:'line',data:{labels:pts.map(p=>p.label||p.annee),datasets:[{label:'Rendement',data:pts.map(p=>p.rdt),borderColor:'#e6c27a',backgroundColor:'#e6c27a',pointRadius:4,tension:.2}]},
+    options:{maintainAspectRatio:false,animation:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' '+fmt(c.parsed.y,2)+' %'}}},scales:{y:{ticks:{callback:v=>v+' %'}}}}});
+}
 const eurAmt=(v,c)=>(v>=1e6?fmt(v/1e6,1)+' M':v>=1e3?fmt(v/1e3,0)+' k':fmt(v,0))+' '+(c==='EUR'?'€':c||'');
 /* t506u : l'ancien score de sélection /100 est remplacé par les points du fondamental obligataire de la note APEX (sur 90). */
 function obFondTag(r){
@@ -238,14 +294,16 @@ function renderSegments(el){
   });
   const markers=blocks.filter(b=>!b.S.length);
   [...multi,...scored,...markers].forEach(({g,L,S})=>{
-    if(!S.length){   // 17/11/2026 : segment retiré (aucun ETF disponible chez Revolut) -> taux du pays seuls, sans note APEX
+    if(!S.length){   // 17/11/2026 : segment retiré (aucun ETF disponible chez Revolut) -> taux du pays seuls, sans note APEX (sauf OAT France en direct)
       const P0=OBP.countries[g],F0=OB_FLAG[g];if(!P0&&!S.length)return;if(!P0)return;
+      const oat=g==='fr'&&obOatFranceHas();
       const c0=document.createElement('div');c0.className='card no-group ob-card';c0.dataset.cc=g;
-      c0.innerHTML=`<h2>${F0?`<img class="flag-us" src="${F0[0]}" width="28" height="15" alt="Drapeau : ${F0[1]}">`:''}Obligations ${F0?F0[1]:g} · taux (repère de marché)</h2>
-       <div class="desc acc-sum"><i>10 ans</i> <b>${pt(P0.last['10'][1])}</b>${P0.spread?` · <i>écart / Bund</i> <b>${fmt(P0.spread.last[1],2)} pt</b>`:''}${(P0.slope&&P0.slope.last&&P0.slope.last[1]!=null)?` · <i>${P0.slope.nom}</i> <b>${sign(P0.slope.last[1],2)} pt</b>`:''} · <i>sans note APEX</i></div>
+      c0.innerHTML=`<h2>${F0?`<img class="flag-us" src="${F0[0]}" width="28" height="15" alt="Drapeau : ${F0[1]}">`:''}Obligations ${F0?F0[1]:g}${oat?'':' · taux (repère de marché)'}</h2>
+       <div class="desc acc-sum"><i>10 ans</i> <b>${pt(P0.last['10'][1])}</b>${P0.spread?` · <i>écart / Bund</i> <b>${fmt(P0.spread.last[1],2)} pt</b>`:''}${(P0.slope&&P0.slope.last&&P0.slope.last[1]!=null)?` · <i>${P0.slope.nom}</i> <b>${sign(P0.slope.last[1],2)} pt</b>`:''}${oat?'':` · <i>sans note APEX</i>`}</div>
+       ${oat?obOatFranceHTML():''}
        <div class="note">${(OB.removed_notes||{})[g]||"Aucun ETF de ce segment n'est disponible chez Revolut : segment retiré d'APEX (pas de note achat / vente). Les taux restent affichés comme repère de marché."}</div>
        ${obRates(g)}`;
-      el.appendChild(c0);obRatesCharts(g);return;
+      el.appendChild(c0);if(oat)obOatCurveChart();obRatesCharts(g);return;
     }
     const cnt=z=>S.filter(s=>s.av&&s.av.label&&s.av.label.includes(z)).length,P=OBP.countries[g],F=OB_FLAG[g];
     const c=document.createElement('div');c.className='card no-group ob-card';c.dataset.cc=g;

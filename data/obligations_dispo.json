@@ -1,37 +1,1363 @@
 {
-  "max_par_pays": 5,
-  "date_libelle": "rendements Revolut au 22/11/2026",
-  "source": "Captures Revolut d'Emmanuel, 22/11/2026 à 22 h 44 (Europe/Paris)",
+  "max_par_pays": 6,
+  "date_libelle": "rendements Revolut au 26/11/2026 à 16 h 42",
+  "source": "App Revolut, onglet Obligations, 26/11/2026 à 16 h 42 (Europe/Paris)",
+  "date_valorisation": "2026-11-26",
+  "situation": {
+    "titre": "Situation des taux français",
+    "texte": "Courbe montante : plus l'échéance est longue, plus le rendement est élevé.",
+    "points": [
+      {
+        "annee": "2027",
+        "label": "2027",
+        "rdt": 3.06,
+        "nom": "OAT 2,75 % oct. 2027"
+      },
+      {
+        "annee": "2030",
+        "label": "2030",
+        "rdt": 3.77,
+        "nom": "OAT 2,50 % mai 2030"
+      },
+      {
+        "annee": "2039",
+        "label": "2039",
+        "rdt": 4.86,
+        "nom": "OAT verte 1,75 % juin 2039"
+      },
+      {
+        "annee": "2045",
+        "label": "2045",
+        "rdt": 5.16,
+        "nom": "OAT 3,25 % mai 2045"
+      },
+      {
+        "annee": "2056",
+        "label": "2056",
+        "rdt": 5.3,
+        "nom": "OAT 3,75 % mai 2056"
+      },
+      {
+        "annee": "2060",
+        "label": "2060",
+        "rdt": 5.3,
+        "nom": "OAT 4,00 % avr. 2060"
+      }
+    ]
+  },
+  "risque_court": "Risque de taux élevé sur les longues (2056 : ≈ −14 % si les taux montent d'1 pt). Flat tax 30 %, hors PEA.",
+  "methode_note": "Grille obligations APEX déjà en place : technique 110 (RSI, MACD, Fibonacci, CCI) + fondamental obligataire 90 (9 × 10) + sentiment maison à contre-courant ±50 + MM40 hebdo 0 à +30 à contre-courant. Critère manquant = 0. Le rendement réel utilise le rendement de chaque OAT (Revolut) moins l’inflation France sur 1 an. La prime de terme et le cycle des taux utilisent l’OAT 10 ans (FRED IRLTLT01FRM156N) et le taux de dépôt BCE. Pas de sentiment maison « OAT France » (segment ETF retiré) : sentiment souverains euro (EUNH). Technique et MM40 à 0 faute de cours hebdomadaires fiables.",
+  "non_verifie": [
+    "Cours hebdomadaires des 6 OAT : introuvables sur Yahoo Finance le 26/11/2026 (HTTP 404). Technique et MM40 = 0 (n.c.).",
+    "Pas de sentiment maison spécifique aux OAT françaises : repli sur le sentiment souverains euro (EUNH), à contre-courant."
+  ],
+  "sources": {
+    "rendements": "App Revolut, onglet Obligations, 26/11/2026 à 16 h 42 (Europe/Paris)",
+    "isin_encours": "Fiches Agence France Trésor consultées le 26/11/2026",
+    "inflation_taux": "FRED : CP0000FRM086NEST, IRLTLT01FRM156N, ECBDFR",
+    "notation": "Agence France Trésor, calendrier des notations, consulté le 26/11/2026 (https://www.aft.gouv.fr/fr/calendrier-notations-france) : S&P A+ (perspective stable, prochaine décision 27/11/2026), Fitch A+ (négative, 30/10/2026), Moody’s Aa3 (négative, 23/10/2026). Toutes les notes des agences majeures sont ≥ A."
+  },
   "pays": {
     "fr": {
       "emetteur": "Agence France Trésor",
+      "dispo": "Revolut",
+      "ccy": "EUR",
       "lignes": [
         {
           "nom": "OAT 2,75 % oct. 2027",
+          "isin": "FR0011317783",
+          "coupon": 2.75,
+          "maturite": "2027-10-25",
+          "maturite_libelle": "oct. 2027",
           "rdt": 3.06,
-          "terme": "court terme"
+          "terme": "court terme",
+          "ccy": "EUR",
+          "emetteur": "Agence France Trésor",
+          "dispo_revolut": true,
+          "dispo": "Revolut",
+          "verte": false,
+          "encours_meur": 56295,
+          "premiere_emission": "2012-09-06",
+          "url_aft": "https://www.aft.gouv.fr/fr/titre/fr0011317783",
+          "duration": {
+            "macaulay": 0.91,
+            "modifiee": 0.89,
+            "residuelle_ans": 0.91,
+            "sensibilite_plus_1pt_pct": -0.9,
+            "prix_sale": 99.963,
+            "prix_clean": 99.722,
+            "n_coupons": 1,
+            "date_reglement": "2026-11-26",
+            "formule": "Coupons annuels, convention ACT/ACT (ICMA). f = (date de règlement → prochain coupon) / (coupon précédent → prochain coupon). Prix sale P = Σ CF_k / (1+y)^{t_k}, t_k = f + k − 1. Duration de Macaulay = (1/P) Σ t_k · PV(CF_k). Duration modifiée = Macaulay / (1+y). Sensibilité +1 pt = variation relative du prix sale recalculé à y + 1 %.",
+            "convention": "ACT/ACT ICMA, coupons annuels, nominal 100"
+          },
+          "apex10": {
+            "note": 60,
+            "display": "60",
+            "hex": "#ff2d2d",
+            "flag": "red",
+            "band": "rouge",
+            "pos": 60,
+            "scale": 250,
+            "total_max": 250,
+            "total_min": -50,
+            "total": 60,
+            "v2": true,
+            "cap": "",
+            "decomp": {
+              "texte": "RSI 0 · MACD 0 · Fibo 0 · CCI 0 · Fond. obligataire 70 · MM40 hebdo : n.c. (pas de cours hebdomadaires fiables), 0 pt · Sentiment Souverains € (EUNH) −10  →  60 / 250",
+              "points": {
+                "RSI": 0,
+                "MACD": 0,
+                "Fibo": 0,
+                "CCI": 0,
+                "Fond. obligataire": 70,
+                "MM40 hebdo": 0,
+                "Sentiment Souverains € (EUNH)": -10,
+                "mm40": 0
+              },
+              "echelle": 250,
+              "fondamental": {
+                "points": 70,
+                "max": 90,
+                "elements": [
+                  {
+                    "id": "reel_pos",
+                    "label": "Rendement réel > 0",
+                    "seuil": "> 0 %",
+                    "valeur": -0.69,
+                    "ok": false,
+                    "points": 0,
+                    "max": 10,
+                    "nc": false,
+                    "source": "Rendement Revolut de l'OAT (3.06 %) au 26/11/2026 à 16 h 42 − inflation France sur 1 an (FRED FRED (St. Louis Fed) : CP0000FRM086NEST au 2026-10-01, 2026-10-01)",
+                    "date": "2026-10-01"
+                  },
+                  {
+                    "id": "reel_15",
+                    "label": "Rendement réel > 1,5 %",
+                    "seuil": "> 1,5 %",
+                    "valeur": -0.69,
+                    "ok": false,
+                    "points": 0,
+                    "max": 10,
+                    "nc": false,
+                    "source": "Rendement Revolut de l'OAT (3.06 %) au 26/11/2026 à 16 h 42 − inflation France sur 1 an (FRED FRED (St. Louis Fed) : CP0000FRM086NEST au 2026-10-01, 2026-10-01)",
+                    "date": "2026-10-01"
+                  },
+                  {
+                    "id": "prime",
+                    "label": "Prime de terme : OAT 10 ans − taux de dépôt BCE > 0,5 pt",
+                    "seuil": "> 0,5 pt",
+                    "valeur": 2.39,
+                    "ok": true,
+                    "points": 10,
+                    "max": 10,
+                    "nc": false,
+                    "source": "FRED (St. Louis Fed) : IRLTLT01FRM156N au 2026-10-01, ECBDFR au 2026-11-24",
+                    "date": "2026-10-01"
+                  },
+                  {
+                    "id": "duration_cycle",
+                    "label": "Duration courte et taux OAT 10 ans stables ou en hausse sur 6 mois",
+                    "seuil": "OAT 10 ans 3.73 % il y a 6 mois (2026-04-01)",
+                    "valeur": 4.89,
+                    "ok": true,
+                    "points": 10,
+                    "max": 10,
+                    "nc": false,
+                    "source": "FRED (St. Louis Fed) : IRLTLT01FRM156N au 2026-10-01 ; duration courte (échéance résiduelle 0.9 ans au 2026-11-26)",
+                    "date": "2026-10-01"
+                  },
+                  {
+                    "id": "notation",
+                    "label": "Qualité de crédit : notation souveraine France ≥ A",
+                    "seuil": "≥ A",
+                    "valeur": "S&P A+ / Fitch A+ / Moody’s Aa3",
+                    "ok": true,
+                    "points": 10,
+                    "max": 10,
+                    "nc": false,
+                    "source": "Agence France Trésor, calendrier des notations, consulté le 26/11/2026 (https://www.aft.gouv.fr/fr/calendrier-notations-france) : S&P A+ (perspective stable, prochaine décision 27/11/2026), Fitch A+ (négative, 30/10/2026), Moody’s Aa3 (négative, 23/10/2026). Toutes les notes des agences majeures sont ≥ A.",
+                    "date": null
+                  },
+                  {
+                    "id": "ter15",
+                    "label": "Frais courants ≤ 0,15 %",
+                    "seuil": "≤ 0,15 %",
+                    "valeur": 0.0,
+                    "ok": true,
+                    "points": 10,
+                    "max": 10,
+                    "nc": false,
+                    "source": "Obligation en direct (pas de frais courants de fonds)",
+                    "date": null
+                  },
+                  {
+                    "id": "enc500",
+                    "label": "Encours ≥ 500 M€",
+                    "seuil": "≥ 500 M€",
+                    "valeur": 56295,
+                    "ok": true,
+                    "points": 10,
+                    "max": 10,
+                    "nc": false,
+                    "source": "Agence France Trésor, encours de la fiche https://www.aft.gouv.fr/fr/titre/fr0011317783, consulté le 26/11/2026",
+                    "date": null
+                  },
+                  {
+                    "id": "age5",
+                    "label": "Ancienneté ≥ 5 ans",
+                    "seuil": "≥ 5 ans",
+                    "valeur": 14.2,
+                    "ok": true,
+                    "points": 10,
+                    "max": 10,
+                    "nc": false,
+                    "source": "Première émission 2012-09-06 (fiche AFT https://www.aft.gouv.fr/fr/titre/fr0011317783)",
+                    "date": null
+                  },
+                  {
+                    "id": "change",
+                    "label": "Risque de change maîtrisé (en EUR)",
+                    "seuil": "EUR",
+                    "valeur": "EUR",
+                    "ok": true,
+                    "points": 10,
+                    "max": 10,
+                    "nc": false,
+                    "source": "OAT libellée en euro, émetteur Agence France Trésor",
+                    "date": null
+                  }
+                ],
+                "nc": []
+              },
+              "technique": {
+                "etat": "n.c.",
+                "points": {
+                  "rsi": 0,
+                  "macd": 0,
+                  "fibonacci": 0,
+                  "cci": 0
+                },
+                "detail": "Cours hebdomadaires des OAT individuelles introuvables sur Yahoo Finance (requête 404 le 26/11/2026 pour les 6 ISIN, suffixes .PA / .DE et ISIN nu). Critère manquant = 0 point."
+              },
+              "fear_greed": {
+                "valeur": 61.1,
+                "source": "sentiment maison Souverains € (EUNH)",
+                "points": -10
+              },
+              "sentiment": {
+                "cle": "oblig:eurgov",
+                "nom": "Souverains € (EUNH)",
+                "valeur": 61.1,
+                "zone": "Avidité",
+                "points": -10,
+                "inverse": false,
+                "date": "2026-11-24",
+                "repli_cnn": false
+              },
+              "mm40": {
+                "max": 30,
+                "periode": "40 semaines",
+                "etat": "n.c.",
+                "points": 0,
+                "texte": "MM40 hebdo : n.c. (pas de cours hebdomadaires fiables), 0 pt"
+              },
+              "points_mm40": 0
+            },
+            "ligne": "RSI 0 · MACD 0 · Fibo 0 · CCI 0 · Fond. obligataire 70 · MM40 hebdo : n.c. (pas de cours hebdomadaires fiables), 0 pt · Sentiment Souverains € (EUNH) −10  →  60 / 250",
+            "sentiment": {
+              "cle": "oblig:eurgov",
+              "nom": "Souverains € (EUNH)",
+              "valeur": 61.1,
+              "zone": "Avidité",
+              "points": -10,
+              "inverse": false,
+              "date": "2026-11-24",
+              "repli_cnn": false
+            }
+          }
         },
         {
           "nom": "OAT 2,50 % mai 2030",
-          "rdt": 3.86,
-          "terme": "court terme"
+          "isin": "FR0011883966",
+          "coupon": 2.5,
+          "maturite": "2030-05-25",
+          "maturite_libelle": "mai 2030",
+          "rdt": 3.77,
+          "terme": "court terme",
+          "ccy": "EUR",
+          "emetteur": "Agence France Trésor",
+          "dispo_revolut": true,
+          "dispo": "Revolut",
+          "verte": false,
+          "encours_meur": 73381,
+          "premiere_emission": "2014-04-30",
+          "url_aft": "https://www.aft.gouv.fr/fr/titre/fr0011883966",
+          "duration": {
+            "macaulay": 3.35,
+            "modifiee": 3.22,
+            "residuelle_ans": 3.49,
+            "sensibilite_plus_1pt_pct": -3.2,
+            "prix_sale": 97.171,
+            "prix_clean": 95.903,
+            "n_coupons": 4,
+            "date_reglement": "2026-11-26",
+            "formule": "Coupons annuels, convention ACT/ACT (ICMA). f = (date de règlement → prochain coupon) / (coupon précédent → prochain coupon). Prix sale P = Σ CF_k / (1+y)^{t_k}, t_k = f + k − 1. Duration de Macaulay = (1/P) Σ t_k · PV(CF_k). Duration modifiée = Macaulay / (1+y). Sensibilité +1 pt = variation relative du prix sale recalculé à y + 1 %.",
+            "convention": "ACT/ACT ICMA, coupons annuels, nominal 100"
+          },
+          "apex10": {
+            "note": 70,
+            "display": "70",
+            "hex": "#ff8c1a",
+            "flag": "orange",
+            "band": "orange",
+            "pos": 70,
+            "scale": 250,
+            "total_max": 250,
+            "total_min": -50,
+            "total": 70,
+            "v2": true,
+            "cap": "",
+            "decomp": {
+              "texte": "RSI 0 · MACD 0 · Fibo 0 · CCI 0 · Fond. obligataire 80 · MM40 hebdo : n.c. (pas de cours hebdomadaires fiables), 0 pt · Sentiment Souverains € (EUNH) −10  →  70 / 250",
+              "points": {
+                "RSI": 0,
+                "MACD": 0,
+                "Fibo": 0,
+                "CCI": 0,
+                "Fond. obligataire": 80,
+                "MM40 hebdo": 0,
+                "Sentiment Souverains € (EUNH)": -10,
+                "mm40": 0
+              },
+              "echelle": 250,
+              "fondamental": {
+                "points": 80,
+                "max": 90,
+                "elements": [
+                  {
+                    "id": "reel_pos",
+                    "label": "Rendement réel > 0",
+                    "seuil": "> 0 %",
+                    "valeur": 0.02,
+                    "ok": true,
+                    "points": 10,
+                    "max": 10,
+                    "nc": false,
+                    "source": "Rendement Revolut de l'OAT (3.77 %) au 26/11/2026 à 16 h 42 − inflation France sur 1 an (FRED FRED (St. Louis Fed) : CP0000FRM086NEST au 2026-10-01, 2026-10-01)",
+                    "date": "2026-10-01"
+                  },
+                  {
+                    "id": "reel_15",
+                    "label": "Rendement réel > 1,5 %",
+                    "seuil": "> 1,5 %",
+                    "valeur": 0.02,
+                    "ok": false,
+                    "points": 0,
+                    "max": 10,
+                    "nc": false,
+                    "source": "Rendement Revolut de l'OAT (3.77 %) au 26/11/2026 à 16 h 42 − inflation France sur 1 an (FRED FRED (St. Louis Fed) : CP0000FRM086NEST au 2026-10-01, 2026-10-01)",
+                    "date": "2026-10-01"
+                  },
+                  {
+                    "id": "prime",
+                    "label": "Prime de terme : OAT 10 ans − taux de dépôt BCE > 0,5 pt",
+                    "seuil": "> 0,5 pt",
+                    "valeur": 2.39,
+                    "ok": true,
+                    "points": 10,
+                    "max": 10,
+                    "nc": false,
+                    "source": "FRED (St. Louis Fed) : IRLTLT01FRM156N au 2026-10-01, ECBDFR au 2026-11-24",
+                    "date": "2026-10-01"
+                  },
+                  {
+                    "id": "duration_cycle",
+                    "label": "Duration courte et taux OAT 10 ans stables ou en hausse sur 6 mois",
+                    "seuil": "OAT 10 ans 3.73 % il y a 6 mois (2026-04-01)",
+                    "valeur": 4.89,
+                    "ok": true,
+                    "points": 10,
+                    "max": 10,
+                    "nc": false,
+                    "source": "FRED (St. Louis Fed) : IRLTLT01FRM156N au 2026-10-01 ; duration courte (échéance résiduelle 3.5 ans au 2026-11-26)",
+                    "date": "2026-10-01"
+                  },
+                  {
+                    "id": "notation",
+                    "label": "Qualité de crédit : notation souveraine France ≥ A",
+                    "seuil": "≥ A",
+                    "valeur": "S&P A+ / Fitch A+ / Moody’s Aa3",
+                    "ok": true,
+                    "points": 10,
+                    "max": 10,
+                    "nc": false,
+                    "source": "Agence France Trésor, calendrier des notations, consulté le 26/11/2026 (https://www.aft.gouv.fr/fr/calendrier-notations-france) : S&P A+ (perspective stable, prochaine décision 27/11/2026), Fitch A+ (négative, 30/10/2026), Moody’s Aa3 (négative, 23/10/2026). Toutes les notes des agences majeures sont ≥ A.",
+                    "date": null
+                  },
+                  {
+                    "id": "ter15",
+                    "label": "Frais courants ≤ 0,15 %",
+                    "seuil": "≤ 0,15 %",
+                    "valeur": 0.0,
+                    "ok": true,
+                    "points": 10,
+                    "max": 10,
+                    "nc": false,
+                    "source": "Obligation en direct (pas de frais courants de fonds)",
+                    "date": null
+                  },
+                  {
+                    "id": "enc500",
+                    "label": "Encours ≥ 500 M€",
+                    "seuil": "≥ 500 M€",
+                    "valeur": 73381,
+                    "ok": true,
+                    "points": 10,
+                    "max": 10,
+                    "nc": false,
+                    "source": "Agence France Trésor, encours de la fiche https://www.aft.gouv.fr/fr/titre/fr0011883966, consulté le 26/11/2026",
+                    "date": null
+                  },
+                  {
+                    "id": "age5",
+                    "label": "Ancienneté ≥ 5 ans",
+                    "seuil": "≥ 5 ans",
+                    "valeur": 12.6,
+                    "ok": true,
+                    "points": 10,
+                    "max": 10,
+                    "nc": false,
+                    "source": "Première émission 2014-04-30 (fiche AFT https://www.aft.gouv.fr/fr/titre/fr0011883966)",
+                    "date": null
+                  },
+                  {
+                    "id": "change",
+                    "label": "Risque de change maîtrisé (en EUR)",
+                    "seuil": "EUR",
+                    "valeur": "EUR",
+                    "ok": true,
+                    "points": 10,
+                    "max": 10,
+                    "nc": false,
+                    "source": "OAT libellée en euro, émetteur Agence France Trésor",
+                    "date": null
+                  }
+                ],
+                "nc": []
+              },
+              "technique": {
+                "etat": "n.c.",
+                "points": {
+                  "rsi": 0,
+                  "macd": 0,
+                  "fibonacci": 0,
+                  "cci": 0
+                },
+                "detail": "Cours hebdomadaires des OAT individuelles introuvables sur Yahoo Finance (requête 404 le 26/11/2026 pour les 6 ISIN, suffixes .PA / .DE et ISIN nu). Critère manquant = 0 point."
+              },
+              "fear_greed": {
+                "valeur": 61.1,
+                "source": "sentiment maison Souverains € (EUNH)",
+                "points": -10
+              },
+              "sentiment": {
+                "cle": "oblig:eurgov",
+                "nom": "Souverains € (EUNH)",
+                "valeur": 61.1,
+                "zone": "Avidité",
+                "points": -10,
+                "inverse": false,
+                "date": "2026-11-24",
+                "repli_cnn": false
+              },
+              "mm40": {
+                "max": 30,
+                "periode": "40 semaines",
+                "etat": "n.c.",
+                "points": 0,
+                "texte": "MM40 hebdo : n.c. (pas de cours hebdomadaires fiables), 0 pt"
+              },
+              "points_mm40": 0
+            },
+            "ligne": "RSI 0 · MACD 0 · Fibo 0 · CCI 0 · Fond. obligataire 80 · MM40 hebdo : n.c. (pas de cours hebdomadaires fiables), 0 pt · Sentiment Souverains € (EUNH) −10  →  70 / 250",
+            "sentiment": {
+              "cle": "oblig:eurgov",
+              "nom": "Souverains € (EUNH)",
+              "valeur": 61.1,
+              "zone": "Avidité",
+              "points": -10,
+              "inverse": false,
+              "date": "2026-11-24",
+              "repli_cnn": false
+            }
+          }
         },
         {
-          "nom": "OAT 1,75 % juin 2039",
-          "rdt": 4.97,
+          "nom": "OAT verte 1,75 % juin 2039",
+          "isin": "FR0013234333",
+          "coupon": 1.75,
+          "maturite": "2039-06-25",
+          "maturite_libelle": "juin 2039",
+          "rdt": 4.86,
           "terme": "moyen terme",
-          "reference": true,
-          "reference_libelle": "Référence du bloc"
+          "ccy": "EUR",
+          "emetteur": "Agence France Trésor",
+          "dispo_revolut": true,
+          "dispo": "Revolut",
+          "verte": true,
+          "encours_meur": 36304,
+          "premiere_emission": "2017-01-31",
+          "url_aft": "https://www.aft.gouv.fr/en/titre/fr0013234333",
+          "duration": {
+            "macaulay": 11.01,
+            "modifiee": 10.5,
+            "residuelle_ans": 12.58,
+            "sensibilite_plus_1pt_pct": -9.9,
+            "prix_sale": 71.965,
+            "prix_clean": 71.226,
+            "n_coupons": 13,
+            "date_reglement": "2026-11-26",
+            "formule": "Coupons annuels, convention ACT/ACT (ICMA). f = (date de règlement → prochain coupon) / (coupon précédent → prochain coupon). Prix sale P = Σ CF_k / (1+y)^{t_k}, t_k = f + k − 1. Duration de Macaulay = (1/P) Σ t_k · PV(CF_k). Duration modifiée = Macaulay / (1+y). Sensibilité +1 pt = variation relative du prix sale recalculé à y + 1 %.",
+            "convention": "ACT/ACT ICMA, coupons annuels, nominal 100"
+          },
+          "apex10": {
+            "note": 60,
+            "display": "60",
+            "hex": "#ff2d2d",
+            "flag": "red",
+            "band": "rouge",
+            "pos": 60,
+            "scale": 250,
+            "total_max": 250,
+            "total_min": -50,
+            "total": 60,
+            "v2": true,
+            "cap": "",
+            "decomp": {
+              "texte": "RSI 0 · MACD 0 · Fibo 0 · CCI 0 · Fond. obligataire 70 · MM40 hebdo : n.c. (pas de cours hebdomadaires fiables), 0 pt · Sentiment Souverains € (EUNH) −10  →  60 / 250",
+              "points": {
+                "RSI": 0,
+                "MACD": 0,
+                "Fibo": 0,
+                "CCI": 0,
+                "Fond. obligataire": 70,
+                "MM40 hebdo": 0,
+                "Sentiment Souverains € (EUNH)": -10,
+                "mm40": 0
+              },
+              "echelle": 250,
+              "fondamental": {
+                "points": 70,
+                "max": 90,
+                "elements": [
+                  {
+                    "id": "reel_pos",
+                    "label": "Rendement réel > 0",
+                    "seuil": "> 0 %",
+                    "valeur": 1.11,
+                    "ok": true,
+                    "points": 10,
+                    "max": 10,
+                    "nc": false,
+                    "source": "Rendement Revolut de l'OAT (4.86 %) au 26/11/2026 à 16 h 42 − inflation France sur 1 an (FRED FRED (St. Louis Fed) : CP0000FRM086NEST au 2026-10-01, 2026-10-01)",
+                    "date": "2026-10-01"
+                  },
+                  {
+                    "id": "reel_15",
+                    "label": "Rendement réel > 1,5 %",
+                    "seuil": "> 1,5 %",
+                    "valeur": 1.11,
+                    "ok": false,
+                    "points": 0,
+                    "max": 10,
+                    "nc": false,
+                    "source": "Rendement Revolut de l'OAT (4.86 %) au 26/11/2026 à 16 h 42 − inflation France sur 1 an (FRED FRED (St. Louis Fed) : CP0000FRM086NEST au 2026-10-01, 2026-10-01)",
+                    "date": "2026-10-01"
+                  },
+                  {
+                    "id": "prime",
+                    "label": "Prime de terme : OAT 10 ans − taux de dépôt BCE > 0,5 pt",
+                    "seuil": "> 0,5 pt",
+                    "valeur": 2.39,
+                    "ok": true,
+                    "points": 10,
+                    "max": 10,
+                    "nc": false,
+                    "source": "FRED (St. Louis Fed) : IRLTLT01FRM156N au 2026-10-01, ECBDFR au 2026-11-24",
+                    "date": "2026-10-01"
+                  },
+                  {
+                    "id": "duration_cycle",
+                    "label": "Duration longue et taux OAT 10 ans en baisse sur 6 mois",
+                    "seuil": "OAT 10 ans 3.73 % il y a 6 mois (2026-04-01)",
+                    "valeur": 4.89,
+                    "ok": false,
+                    "points": 0,
+                    "max": 10,
+                    "nc": false,
+                    "source": "FRED (St. Louis Fed) : IRLTLT01FRM156N au 2026-10-01 ; duration longue (échéance résiduelle 12.6 ans au 2026-11-26)",
+                    "date": "2026-10-01"
+                  },
+                  {
+                    "id": "notation",
+                    "label": "Qualité de crédit : notation souveraine France ≥ A",
+                    "seuil": "≥ A",
+                    "valeur": "S&P A+ / Fitch A+ / Moody’s Aa3",
+                    "ok": true,
+                    "points": 10,
+                    "max": 10,
+                    "nc": false,
+                    "source": "Agence France Trésor, calendrier des notations, consulté le 26/11/2026 (https://www.aft.gouv.fr/fr/calendrier-notations-france) : S&P A+ (perspective stable, prochaine décision 27/11/2026), Fitch A+ (négative, 30/10/2026), Moody’s Aa3 (négative, 23/10/2026). Toutes les notes des agences majeures sont ≥ A.",
+                    "date": null
+                  },
+                  {
+                    "id": "ter15",
+                    "label": "Frais courants ≤ 0,15 %",
+                    "seuil": "≤ 0,15 %",
+                    "valeur": 0.0,
+                    "ok": true,
+                    "points": 10,
+                    "max": 10,
+                    "nc": false,
+                    "source": "Obligation en direct (pas de frais courants de fonds)",
+                    "date": null
+                  },
+                  {
+                    "id": "enc500",
+                    "label": "Encours ≥ 500 M€",
+                    "seuil": "≥ 500 M€",
+                    "valeur": 36304,
+                    "ok": true,
+                    "points": 10,
+                    "max": 10,
+                    "nc": false,
+                    "source": "Agence France Trésor, encours de la fiche https://www.aft.gouv.fr/en/titre/fr0013234333, consulté le 26/11/2026",
+                    "date": null
+                  },
+                  {
+                    "id": "age5",
+                    "label": "Ancienneté ≥ 5 ans",
+                    "seuil": "≥ 5 ans",
+                    "valeur": 9.8,
+                    "ok": true,
+                    "points": 10,
+                    "max": 10,
+                    "nc": false,
+                    "source": "Première émission 2017-01-31 (fiche AFT https://www.aft.gouv.fr/en/titre/fr0013234333)",
+                    "date": null
+                  },
+                  {
+                    "id": "change",
+                    "label": "Risque de change maîtrisé (en EUR)",
+                    "seuil": "EUR",
+                    "valeur": "EUR",
+                    "ok": true,
+                    "points": 10,
+                    "max": 10,
+                    "nc": false,
+                    "source": "OAT libellée en euro, émetteur Agence France Trésor",
+                    "date": null
+                  }
+                ],
+                "nc": []
+              },
+              "technique": {
+                "etat": "n.c.",
+                "points": {
+                  "rsi": 0,
+                  "macd": 0,
+                  "fibonacci": 0,
+                  "cci": 0
+                },
+                "detail": "Cours hebdomadaires des OAT individuelles introuvables sur Yahoo Finance (requête 404 le 26/11/2026 pour les 6 ISIN, suffixes .PA / .DE et ISIN nu). Critère manquant = 0 point."
+              },
+              "fear_greed": {
+                "valeur": 61.1,
+                "source": "sentiment maison Souverains € (EUNH)",
+                "points": -10
+              },
+              "sentiment": {
+                "cle": "oblig:eurgov",
+                "nom": "Souverains € (EUNH)",
+                "valeur": 61.1,
+                "zone": "Avidité",
+                "points": -10,
+                "inverse": false,
+                "date": "2026-11-24",
+                "repli_cnn": false
+              },
+              "mm40": {
+                "max": 30,
+                "periode": "40 semaines",
+                "etat": "n.c.",
+                "points": 0,
+                "texte": "MM40 hebdo : n.c. (pas de cours hebdomadaires fiables), 0 pt"
+              },
+              "points_mm40": 0
+            },
+            "ligne": "RSI 0 · MACD 0 · Fibo 0 · CCI 0 · Fond. obligataire 70 · MM40 hebdo : n.c. (pas de cours hebdomadaires fiables), 0 pt · Sentiment Souverains € (EUNH) −10  →  60 / 250",
+            "sentiment": {
+              "cle": "oblig:eurgov",
+              "nom": "Souverains € (EUNH)",
+              "valeur": 61.1,
+              "zone": "Avidité",
+              "points": -10,
+              "inverse": false,
+              "date": "2026-11-24",
+              "repli_cnn": false
+            }
+          }
         },
         {
           "nom": "OAT 3,25 % mai 2045",
-          "rdt": 5.26,
-          "terme": "long terme"
+          "isin": "FR0011461037",
+          "coupon": 3.25,
+          "maturite": "2045-05-25",
+          "maturite_libelle": "mai 2045",
+          "rdt": 5.16,
+          "terme": "long terme",
+          "ccy": "EUR",
+          "emetteur": "Agence France Trésor",
+          "dispo_revolut": true,
+          "dispo": "Revolut",
+          "verte": false,
+          "encours_meur": 31657,
+          "premiere_emission": "2013-03-26",
+          "url_aft": "https://www.aft.gouv.fr/en/titre/fr0011461037",
+          "duration": {
+            "macaulay": 13.23,
+            "modifiee": 12.58,
+            "residuelle_ans": 18.49,
+            "sensibilite_plus_1pt_pct": -11.6,
+            "prix_sale": 79.209,
+            "prix_clean": 77.562,
+            "n_coupons": 19,
+            "date_reglement": "2026-11-26",
+            "formule": "Coupons annuels, convention ACT/ACT (ICMA). f = (date de règlement → prochain coupon) / (coupon précédent → prochain coupon). Prix sale P = Σ CF_k / (1+y)^{t_k}, t_k = f + k − 1. Duration de Macaulay = (1/P) Σ t_k · PV(CF_k). Duration modifiée = Macaulay / (1+y). Sensibilité +1 pt = variation relative du prix sale recalculé à y + 1 %.",
+            "convention": "ACT/ACT ICMA, coupons annuels, nominal 100"
+          },
+          "apex10": {
+            "note": 60,
+            "display": "60",
+            "hex": "#ff2d2d",
+            "flag": "red",
+            "band": "rouge",
+            "pos": 60,
+            "scale": 250,
+            "total_max": 250,
+            "total_min": -50,
+            "total": 60,
+            "v2": true,
+            "cap": "",
+            "decomp": {
+              "texte": "RSI 0 · MACD 0 · Fibo 0 · CCI 0 · Fond. obligataire 70 · MM40 hebdo : n.c. (pas de cours hebdomadaires fiables), 0 pt · Sentiment Souverains € (EUNH) −10  →  60 / 250",
+              "points": {
+                "RSI": 0,
+                "MACD": 0,
+                "Fibo": 0,
+                "CCI": 0,
+                "Fond. obligataire": 70,
+                "MM40 hebdo": 0,
+                "Sentiment Souverains € (EUNH)": -10,
+                "mm40": 0
+              },
+              "echelle": 250,
+              "fondamental": {
+                "points": 70,
+                "max": 90,
+                "elements": [
+                  {
+                    "id": "reel_pos",
+                    "label": "Rendement réel > 0",
+                    "seuil": "> 0 %",
+                    "valeur": 1.41,
+                    "ok": true,
+                    "points": 10,
+                    "max": 10,
+                    "nc": false,
+                    "source": "Rendement Revolut de l'OAT (5.16 %) au 26/11/2026 à 16 h 42 − inflation France sur 1 an (FRED FRED (St. Louis Fed) : CP0000FRM086NEST au 2026-10-01, 2026-10-01)",
+                    "date": "2026-10-01"
+                  },
+                  {
+                    "id": "reel_15",
+                    "label": "Rendement réel > 1,5 %",
+                    "seuil": "> 1,5 %",
+                    "valeur": 1.41,
+                    "ok": false,
+                    "points": 0,
+                    "max": 10,
+                    "nc": false,
+                    "source": "Rendement Revolut de l'OAT (5.16 %) au 26/11/2026 à 16 h 42 − inflation France sur 1 an (FRED FRED (St. Louis Fed) : CP0000FRM086NEST au 2026-10-01, 2026-10-01)",
+                    "date": "2026-10-01"
+                  },
+                  {
+                    "id": "prime",
+                    "label": "Prime de terme : OAT 10 ans − taux de dépôt BCE > 0,5 pt",
+                    "seuil": "> 0,5 pt",
+                    "valeur": 2.39,
+                    "ok": true,
+                    "points": 10,
+                    "max": 10,
+                    "nc": false,
+                    "source": "FRED (St. Louis Fed) : IRLTLT01FRM156N au 2026-10-01, ECBDFR au 2026-11-24",
+                    "date": "2026-10-01"
+                  },
+                  {
+                    "id": "duration_cycle",
+                    "label": "Duration longue et taux OAT 10 ans en baisse sur 6 mois",
+                    "seuil": "OAT 10 ans 3.73 % il y a 6 mois (2026-04-01)",
+                    "valeur": 4.89,
+                    "ok": false,
+                    "points": 0,
+                    "max": 10,
+                    "nc": false,
+                    "source": "FRED (St. Louis Fed) : IRLTLT01FRM156N au 2026-10-01 ; duration longue (échéance résiduelle 18.5 ans au 2026-11-26)",
+                    "date": "2026-10-01"
+                  },
+                  {
+                    "id": "notation",
+                    "label": "Qualité de crédit : notation souveraine France ≥ A",
+                    "seuil": "≥ A",
+                    "valeur": "S&P A+ / Fitch A+ / Moody’s Aa3",
+                    "ok": true,
+                    "points": 10,
+                    "max": 10,
+                    "nc": false,
+                    "source": "Agence France Trésor, calendrier des notations, consulté le 26/11/2026 (https://www.aft.gouv.fr/fr/calendrier-notations-france) : S&P A+ (perspective stable, prochaine décision 27/11/2026), Fitch A+ (négative, 30/10/2026), Moody’s Aa3 (négative, 23/10/2026). Toutes les notes des agences majeures sont ≥ A.",
+                    "date": null
+                  },
+                  {
+                    "id": "ter15",
+                    "label": "Frais courants ≤ 0,15 %",
+                    "seuil": "≤ 0,15 %",
+                    "valeur": 0.0,
+                    "ok": true,
+                    "points": 10,
+                    "max": 10,
+                    "nc": false,
+                    "source": "Obligation en direct (pas de frais courants de fonds)",
+                    "date": null
+                  },
+                  {
+                    "id": "enc500",
+                    "label": "Encours ≥ 500 M€",
+                    "seuil": "≥ 500 M€",
+                    "valeur": 31657,
+                    "ok": true,
+                    "points": 10,
+                    "max": 10,
+                    "nc": false,
+                    "source": "Agence France Trésor, encours de la fiche https://www.aft.gouv.fr/en/titre/fr0011461037, consulté le 26/11/2026",
+                    "date": null
+                  },
+                  {
+                    "id": "age5",
+                    "label": "Ancienneté ≥ 5 ans",
+                    "seuil": "≥ 5 ans",
+                    "valeur": 13.7,
+                    "ok": true,
+                    "points": 10,
+                    "max": 10,
+                    "nc": false,
+                    "source": "Première émission 2013-03-26 (fiche AFT https://www.aft.gouv.fr/en/titre/fr0011461037)",
+                    "date": null
+                  },
+                  {
+                    "id": "change",
+                    "label": "Risque de change maîtrisé (en EUR)",
+                    "seuil": "EUR",
+                    "valeur": "EUR",
+                    "ok": true,
+                    "points": 10,
+                    "max": 10,
+                    "nc": false,
+                    "source": "OAT libellée en euro, émetteur Agence France Trésor",
+                    "date": null
+                  }
+                ],
+                "nc": []
+              },
+              "technique": {
+                "etat": "n.c.",
+                "points": {
+                  "rsi": 0,
+                  "macd": 0,
+                  "fibonacci": 0,
+                  "cci": 0
+                },
+                "detail": "Cours hebdomadaires des OAT individuelles introuvables sur Yahoo Finance (requête 404 le 26/11/2026 pour les 6 ISIN, suffixes .PA / .DE et ISIN nu). Critère manquant = 0 point."
+              },
+              "fear_greed": {
+                "valeur": 61.1,
+                "source": "sentiment maison Souverains € (EUNH)",
+                "points": -10
+              },
+              "sentiment": {
+                "cle": "oblig:eurgov",
+                "nom": "Souverains € (EUNH)",
+                "valeur": 61.1,
+                "zone": "Avidité",
+                "points": -10,
+                "inverse": false,
+                "date": "2026-11-24",
+                "repli_cnn": false
+              },
+              "mm40": {
+                "max": 30,
+                "periode": "40 semaines",
+                "etat": "n.c.",
+                "points": 0,
+                "texte": "MM40 hebdo : n.c. (pas de cours hebdomadaires fiables), 0 pt"
+              },
+              "points_mm40": 0
+            },
+            "ligne": "RSI 0 · MACD 0 · Fibo 0 · CCI 0 · Fond. obligataire 70 · MM40 hebdo : n.c. (pas de cours hebdomadaires fiables), 0 pt · Sentiment Souverains € (EUNH) −10  →  60 / 250",
+            "sentiment": {
+              "cle": "oblig:eurgov",
+              "nom": "Souverains € (EUNH)",
+              "valeur": 61.1,
+              "zone": "Avidité",
+              "points": -10,
+              "inverse": false,
+              "date": "2026-11-24",
+              "repli_cnn": false
+            }
+          }
+        },
+        {
+          "nom": "OAT 3,75 % mai 2056",
+          "isin": "FR001400XJJ3",
+          "coupon": 3.75,
+          "maturite": "2056-05-25",
+          "maturite_libelle": "mai 2056",
+          "rdt": 5.3,
+          "terme": "long terme",
+          "ccy": "EUR",
+          "emetteur": "Agence France Trésor",
+          "dispo_revolut": true,
+          "dispo": "Revolut",
+          "verte": false,
+          "encours_meur": 20676,
+          "premiere_emission": "2025-02-12",
+          "url_aft": "https://www.aft.gouv.fr/en/titre/fr001400xjj3",
+          "duration": {
+            "macaulay": 16.3,
+            "modifiee": 15.48,
+            "residuelle_ans": 29.49,
+            "sensibilite_plus_1pt_pct": -13.8,
+            "prix_sale": 79.008,
+            "prix_clean": 77.107,
+            "n_coupons": 30,
+            "date_reglement": "2026-11-26",
+            "formule": "Coupons annuels, convention ACT/ACT (ICMA). f = (date de règlement → prochain coupon) / (coupon précédent → prochain coupon). Prix sale P = Σ CF_k / (1+y)^{t_k}, t_k = f + k − 1. Duration de Macaulay = (1/P) Σ t_k · PV(CF_k). Duration modifiée = Macaulay / (1+y). Sensibilité +1 pt = variation relative du prix sale recalculé à y + 1 %.",
+            "convention": "ACT/ACT ICMA, coupons annuels, nominal 100"
+          },
+          "apex10": {
+            "note": 60,
+            "display": "60",
+            "hex": "#ff2d2d",
+            "flag": "red",
+            "band": "rouge",
+            "pos": 60,
+            "scale": 250,
+            "total_max": 250,
+            "total_min": -50,
+            "total": 60,
+            "v2": true,
+            "cap": "",
+            "decomp": {
+              "texte": "RSI 0 · MACD 0 · Fibo 0 · CCI 0 · Fond. obligataire 70 · MM40 hebdo : n.c. (pas de cours hebdomadaires fiables), 0 pt · Sentiment Souverains € (EUNH) −10  →  60 / 250",
+              "points": {
+                "RSI": 0,
+                "MACD": 0,
+                "Fibo": 0,
+                "CCI": 0,
+                "Fond. obligataire": 70,
+                "MM40 hebdo": 0,
+                "Sentiment Souverains € (EUNH)": -10,
+                "mm40": 0
+              },
+              "echelle": 250,
+              "fondamental": {
+                "points": 70,
+                "max": 90,
+                "elements": [
+                  {
+                    "id": "reel_pos",
+                    "label": "Rendement réel > 0",
+                    "seuil": "> 0 %",
+                    "valeur": 1.55,
+                    "ok": true,
+                    "points": 10,
+                    "max": 10,
+                    "nc": false,
+                    "source": "Rendement Revolut de l'OAT (5.30 %) au 26/11/2026 à 16 h 42 − inflation France sur 1 an (FRED FRED (St. Louis Fed) : CP0000FRM086NEST au 2026-10-01, 2026-10-01)",
+                    "date": "2026-10-01"
+                  },
+                  {
+                    "id": "reel_15",
+                    "label": "Rendement réel > 1,5 %",
+                    "seuil": "> 1,5 %",
+                    "valeur": 1.55,
+                    "ok": true,
+                    "points": 10,
+                    "max": 10,
+                    "nc": false,
+                    "source": "Rendement Revolut de l'OAT (5.30 %) au 26/11/2026 à 16 h 42 − inflation France sur 1 an (FRED FRED (St. Louis Fed) : CP0000FRM086NEST au 2026-10-01, 2026-10-01)",
+                    "date": "2026-10-01"
+                  },
+                  {
+                    "id": "prime",
+                    "label": "Prime de terme : OAT 10 ans − taux de dépôt BCE > 0,5 pt",
+                    "seuil": "> 0,5 pt",
+                    "valeur": 2.39,
+                    "ok": true,
+                    "points": 10,
+                    "max": 10,
+                    "nc": false,
+                    "source": "FRED (St. Louis Fed) : IRLTLT01FRM156N au 2026-10-01, ECBDFR au 2026-11-24",
+                    "date": "2026-10-01"
+                  },
+                  {
+                    "id": "duration_cycle",
+                    "label": "Duration longue et taux OAT 10 ans en baisse sur 6 mois",
+                    "seuil": "OAT 10 ans 3.73 % il y a 6 mois (2026-04-01)",
+                    "valeur": 4.89,
+                    "ok": false,
+                    "points": 0,
+                    "max": 10,
+                    "nc": false,
+                    "source": "FRED (St. Louis Fed) : IRLTLT01FRM156N au 2026-10-01 ; duration longue (échéance résiduelle 29.5 ans au 2026-11-26)",
+                    "date": "2026-10-01"
+                  },
+                  {
+                    "id": "notation",
+                    "label": "Qualité de crédit : notation souveraine France ≥ A",
+                    "seuil": "≥ A",
+                    "valeur": "S&P A+ / Fitch A+ / Moody’s Aa3",
+                    "ok": true,
+                    "points": 10,
+                    "max": 10,
+                    "nc": false,
+                    "source": "Agence France Trésor, calendrier des notations, consulté le 26/11/2026 (https://www.aft.gouv.fr/fr/calendrier-notations-france) : S&P A+ (perspective stable, prochaine décision 27/11/2026), Fitch A+ (négative, 30/10/2026), Moody’s Aa3 (négative, 23/10/2026). Toutes les notes des agences majeures sont ≥ A.",
+                    "date": null
+                  },
+                  {
+                    "id": "ter15",
+                    "label": "Frais courants ≤ 0,15 %",
+                    "seuil": "≤ 0,15 %",
+                    "valeur": 0.0,
+                    "ok": true,
+                    "points": 10,
+                    "max": 10,
+                    "nc": false,
+                    "source": "Obligation en direct (pas de frais courants de fonds)",
+                    "date": null
+                  },
+                  {
+                    "id": "enc500",
+                    "label": "Encours ≥ 500 M€",
+                    "seuil": "≥ 500 M€",
+                    "valeur": 20676,
+                    "ok": true,
+                    "points": 10,
+                    "max": 10,
+                    "nc": false,
+                    "source": "Agence France Trésor, encours de la fiche https://www.aft.gouv.fr/en/titre/fr001400xjj3, consulté le 26/11/2026",
+                    "date": null
+                  },
+                  {
+                    "id": "age5",
+                    "label": "Ancienneté ≥ 5 ans",
+                    "seuil": "≥ 5 ans",
+                    "valeur": 1.8,
+                    "ok": false,
+                    "points": 0,
+                    "max": 10,
+                    "nc": false,
+                    "source": "Première émission 2025-02-12 (fiche AFT https://www.aft.gouv.fr/en/titre/fr001400xjj3)",
+                    "date": null
+                  },
+                  {
+                    "id": "change",
+                    "label": "Risque de change maîtrisé (en EUR)",
+                    "seuil": "EUR",
+                    "valeur": "EUR",
+                    "ok": true,
+                    "points": 10,
+                    "max": 10,
+                    "nc": false,
+                    "source": "OAT libellée en euro, émetteur Agence France Trésor",
+                    "date": null
+                  }
+                ],
+                "nc": []
+              },
+              "technique": {
+                "etat": "n.c.",
+                "points": {
+                  "rsi": 0,
+                  "macd": 0,
+                  "fibonacci": 0,
+                  "cci": 0
+                },
+                "detail": "Cours hebdomadaires des OAT individuelles introuvables sur Yahoo Finance (requête 404 le 26/11/2026 pour les 6 ISIN, suffixes .PA / .DE et ISIN nu). Critère manquant = 0 point."
+              },
+              "fear_greed": {
+                "valeur": 61.1,
+                "source": "sentiment maison Souverains € (EUNH)",
+                "points": -10
+              },
+              "sentiment": {
+                "cle": "oblig:eurgov",
+                "nom": "Souverains € (EUNH)",
+                "valeur": 61.1,
+                "zone": "Avidité",
+                "points": -10,
+                "inverse": false,
+                "date": "2026-11-24",
+                "repli_cnn": false
+              },
+              "mm40": {
+                "max": 30,
+                "periode": "40 semaines",
+                "etat": "n.c.",
+                "points": 0,
+                "texte": "MM40 hebdo : n.c. (pas de cours hebdomadaires fiables), 0 pt"
+              },
+              "points_mm40": 0
+            },
+            "ligne": "RSI 0 · MACD 0 · Fibo 0 · CCI 0 · Fond. obligataire 70 · MM40 hebdo : n.c. (pas de cours hebdomadaires fiables), 0 pt · Sentiment Souverains € (EUNH) −10  →  60 / 250",
+            "sentiment": {
+              "cle": "oblig:eurgov",
+              "nom": "Souverains € (EUNH)",
+              "valeur": 61.1,
+              "zone": "Avidité",
+              "points": -10,
+              "inverse": false,
+              "date": "2026-11-24",
+              "repli_cnn": false
+            }
+          }
         },
         {
           "nom": "OAT 4,00 % avr. 2060",
-          "rdt": 5.38,
-          "terme": "long terme"
+          "isin": "FR0010870956",
+          "coupon": 4.0,
+          "maturite": "2060-04-25",
+          "maturite_libelle": "avr. 2060",
+          "rdt": 5.3,
+          "terme": "long terme",
+          "ccy": "EUR",
+          "emetteur": "Agence France Trésor",
+          "dispo_revolut": true,
+          "dispo": "Revolut",
+          "verte": false,
+          "encours_meur": 22843,
+          "premiere_emission": "2010-03-17",
+          "url_aft": "https://www.aft.gouv.fr/fr/titre/fr0010870956",
+          "duration": {
+            "macaulay": 16.78,
+            "modifiee": 15.94,
+            "residuelle_ans": 33.41,
+            "sensibilite_plus_1pt_pct": -14.1,
+            "prix_sale": 82.171,
+            "prix_clean": 79.815,
+            "n_coupons": 34,
+            "date_reglement": "2026-11-26",
+            "formule": "Coupons annuels, convention ACT/ACT (ICMA). f = (date de règlement → prochain coupon) / (coupon précédent → prochain coupon). Prix sale P = Σ CF_k / (1+y)^{t_k}, t_k = f + k − 1. Duration de Macaulay = (1/P) Σ t_k · PV(CF_k). Duration modifiée = Macaulay / (1+y). Sensibilité +1 pt = variation relative du prix sale recalculé à y + 1 %.",
+            "convention": "ACT/ACT ICMA, coupons annuels, nominal 100"
+          },
+          "apex10": {
+            "note": 70,
+            "display": "70",
+            "hex": "#ff8c1a",
+            "flag": "orange",
+            "band": "orange",
+            "pos": 70,
+            "scale": 250,
+            "total_max": 250,
+            "total_min": -50,
+            "total": 70,
+            "v2": true,
+            "cap": "",
+            "decomp": {
+              "texte": "RSI 0 · MACD 0 · Fibo 0 · CCI 0 · Fond. obligataire 80 · MM40 hebdo : n.c. (pas de cours hebdomadaires fiables), 0 pt · Sentiment Souverains € (EUNH) −10  →  70 / 250",
+              "points": {
+                "RSI": 0,
+                "MACD": 0,
+                "Fibo": 0,
+                "CCI": 0,
+                "Fond. obligataire": 80,
+                "MM40 hebdo": 0,
+                "Sentiment Souverains € (EUNH)": -10,
+                "mm40": 0
+              },
+              "echelle": 250,
+              "fondamental": {
+                "points": 80,
+                "max": 90,
+                "elements": [
+                  {
+                    "id": "reel_pos",
+                    "label": "Rendement réel > 0",
+                    "seuil": "> 0 %",
+                    "valeur": 1.55,
+                    "ok": true,
+                    "points": 10,
+                    "max": 10,
+                    "nc": false,
+                    "source": "Rendement Revolut de l'OAT (5.30 %) au 26/11/2026 à 16 h 42 − inflation France sur 1 an (FRED FRED (St. Louis Fed) : CP0000FRM086NEST au 2026-10-01, 2026-10-01)",
+                    "date": "2026-10-01"
+                  },
+                  {
+                    "id": "reel_15",
+                    "label": "Rendement réel > 1,5 %",
+                    "seuil": "> 1,5 %",
+                    "valeur": 1.55,
+                    "ok": true,
+                    "points": 10,
+                    "max": 10,
+                    "nc": false,
+                    "source": "Rendement Revolut de l'OAT (5.30 %) au 26/11/2026 à 16 h 42 − inflation France sur 1 an (FRED FRED (St. Louis Fed) : CP0000FRM086NEST au 2026-10-01, 2026-10-01)",
+                    "date": "2026-10-01"
+                  },
+                  {
+                    "id": "prime",
+                    "label": "Prime de terme : OAT 10 ans − taux de dépôt BCE > 0,5 pt",
+                    "seuil": "> 0,5 pt",
+                    "valeur": 2.39,
+                    "ok": true,
+                    "points": 10,
+                    "max": 10,
+                    "nc": false,
+                    "source": "FRED (St. Louis Fed) : IRLTLT01FRM156N au 2026-10-01, ECBDFR au 2026-11-24",
+                    "date": "2026-10-01"
+                  },
+                  {
+                    "id": "duration_cycle",
+                    "label": "Duration longue et taux OAT 10 ans en baisse sur 6 mois",
+                    "seuil": "OAT 10 ans 3.73 % il y a 6 mois (2026-04-01)",
+                    "valeur": 4.89,
+                    "ok": false,
+                    "points": 0,
+                    "max": 10,
+                    "nc": false,
+                    "source": "FRED (St. Louis Fed) : IRLTLT01FRM156N au 2026-10-01 ; duration longue (échéance résiduelle 33.4 ans au 2026-11-26)",
+                    "date": "2026-10-01"
+                  },
+                  {
+                    "id": "notation",
+                    "label": "Qualité de crédit : notation souveraine France ≥ A",
+                    "seuil": "≥ A",
+                    "valeur": "S&P A+ / Fitch A+ / Moody’s Aa3",
+                    "ok": true,
+                    "points": 10,
+                    "max": 10,
+                    "nc": false,
+                    "source": "Agence France Trésor, calendrier des notations, consulté le 26/11/2026 (https://www.aft.gouv.fr/fr/calendrier-notations-france) : S&P A+ (perspective stable, prochaine décision 27/11/2026), Fitch A+ (négative, 30/10/2026), Moody’s Aa3 (négative, 23/10/2026). Toutes les notes des agences majeures sont ≥ A.",
+                    "date": null
+                  },
+                  {
+                    "id": "ter15",
+                    "label": "Frais courants ≤ 0,15 %",
+                    "seuil": "≤ 0,15 %",
+                    "valeur": 0.0,
+                    "ok": true,
+                    "points": 10,
+                    "max": 10,
+                    "nc": false,
+                    "source": "Obligation en direct (pas de frais courants de fonds)",
+                    "date": null
+                  },
+                  {
+                    "id": "enc500",
+                    "label": "Encours ≥ 500 M€",
+                    "seuil": "≥ 500 M€",
+                    "valeur": 22843,
+                    "ok": true,
+                    "points": 10,
+                    "max": 10,
+                    "nc": false,
+                    "source": "Agence France Trésor, encours de la fiche https://www.aft.gouv.fr/fr/titre/fr0010870956, consulté le 26/11/2026",
+                    "date": null
+                  },
+                  {
+                    "id": "age5",
+                    "label": "Ancienneté ≥ 5 ans",
+                    "seuil": "≥ 5 ans",
+                    "valeur": 16.7,
+                    "ok": true,
+                    "points": 10,
+                    "max": 10,
+                    "nc": false,
+                    "source": "Première émission 2010-03-17 (fiche AFT https://www.aft.gouv.fr/fr/titre/fr0010870956)",
+                    "date": null
+                  },
+                  {
+                    "id": "change",
+                    "label": "Risque de change maîtrisé (en EUR)",
+                    "seuil": "EUR",
+                    "valeur": "EUR",
+                    "ok": true,
+                    "points": 10,
+                    "max": 10,
+                    "nc": false,
+                    "source": "OAT libellée en euro, émetteur Agence France Trésor",
+                    "date": null
+                  }
+                ],
+                "nc": []
+              },
+              "technique": {
+                "etat": "n.c.",
+                "points": {
+                  "rsi": 0,
+                  "macd": 0,
+                  "fibonacci": 0,
+                  "cci": 0
+                },
+                "detail": "Cours hebdomadaires des OAT individuelles introuvables sur Yahoo Finance (requête 404 le 26/11/2026 pour les 6 ISIN, suffixes .PA / .DE et ISIN nu). Critère manquant = 0 point."
+              },
+              "fear_greed": {
+                "valeur": 61.1,
+                "source": "sentiment maison Souverains € (EUNH)",
+                "points": -10
+              },
+              "sentiment": {
+                "cle": "oblig:eurgov",
+                "nom": "Souverains € (EUNH)",
+                "valeur": 61.1,
+                "zone": "Avidité",
+                "points": -10,
+                "inverse": false,
+                "date": "2026-11-24",
+                "repli_cnn": false
+              },
+              "mm40": {
+                "max": 30,
+                "periode": "40 semaines",
+                "etat": "n.c.",
+                "points": 0,
+                "texte": "MM40 hebdo : n.c. (pas de cours hebdomadaires fiables), 0 pt"
+              },
+              "points_mm40": 0
+            },
+            "ligne": "RSI 0 · MACD 0 · Fibo 0 · CCI 0 · Fond. obligataire 80 · MM40 hebdo : n.c. (pas de cours hebdomadaires fiables), 0 pt · Sentiment Souverains € (EUNH) −10  →  70 / 250",
+            "sentiment": {
+              "cle": "oblig:eurgov",
+              "nom": "Souverains € (EUNH)",
+              "valeur": 61.1,
+              "zone": "Avidité",
+              "points": -10,
+              "inverse": false,
+              "date": "2026-11-24",
+              "repli_cnn": false
+            }
+          }
         }
       ]
     }
