@@ -1,26 +1,131 @@
 {
   "titre": "Détection d'événements SOUS-JACENTS non médiatisés",
-  "maj": "2026-11-25T07:08:00+01:00",
-  "maj_label": "25/11/2026 à 07 h 08 (heure de Paris)",
-  "horizon": "90 jours (jusqu'au 23 février 2027)",
+  "maj": "2026-11-26T07:05:00+01:00",
+  "maj_label": "26/11/2026 à 07 h 05 (heure de Paris)",
+  "horizon": "90 jours (jusqu'au 24 février 2027)",
   "avertissement": "estimations à partir de signaux faibles, pas des prévisions ; aucun conseil d'achat ou de vente",
   "methode": [
-    "Veille du 25 novembre 2026 : lectures publiques X (comptages sur 7 jours et recherches depuis le 18 novembre), recherche Reddit, think tanks (ISW, CSIS), OMS, USDA APHIS, Texas Animal Health Commission, SEC/EDGAR via CrowdfundedWealth, Stanger, Cedarpool, KBRA et FRED. Reddit n'a fourni aucun élément assez récent et vérifiable pour le Top 3 ; les rumeurs sociales ne sont pas des preuves.",
+    "Veille du 26 novembre 2026 : lectures publiques X (comptages sur 7 jours et recherches depuis le 24 novembre), recherche Reddit, ISW, CSIS, ministère taïwanais de la Défense, OMS, USDA APHIS, Texas Animal Health Commission, SEC/EDGAR via CrowdfundedWealth, Stanger, Cedarpool, KBRA et FRED. Reddit n'a fourni aucun élément assez récent et vérifiable pour le Top 3 ; les rumeurs sociales ne sont pas des preuves.",
     "Classement de surveillance (pas classement des probabilités) : intensité du signal /25 + corroboration indépendante /25 + sous-exposition médiatique estimée /25 + impact potentiel /25. Les quatre composantes sont des appréciations éditoriales, non des mesures statistiques. Les scores ne modifient pas les notes APEX des actifs.",
     "Probabilités subjectives sur 90 jours : non calibrées, sans modèle prédictif ni backtest ; ce ne sont pas des fréquences observées ou des probabilités de marché. La confiance porte sur le scénario, pas seulement sur l'existence des faits. Les événements sont indépendants : leurs pourcentages ne doivent pas totaliser 100 %.",
-    "Médiatisation : échantillon exploratoire de requêtes X du 18 au 25 novembre (heure de Paris), complété par recherche web. Les comptes dépendent fortement des mots-clés ; la comparaison à « Fed hike » (19 770 posts) est indicative, pas un indicateur normalisé ni une preuve de faible couverture mondiale. Aucun recensement exhaustif des grands médias n'est disponible.",
+    "Médiatisation : échantillon exploratoire de requêtes X du 19 au 26 novembre (heure de Paris), complété par recherche web. Les comptes dépendent fortement des mots-clés ; la comparaison à « Fed hike » (19 576 posts) est indicative, pas un indicateur normalisé ni une preuve de faible couverture mondiale. Aucun recensement exhaustif des grands médias n'est disponible.",
     "Trois fenêtres de surveillance par scénario, reliées à des échéances connues ou à un précédent daté. Il n'existe pas de base vérifiable pour désigner les trois dates de déclenchement les plus probables. Une échéance est un point de contrôle, pas une prédiction ; aucune probabilité n'est attribuée aux dates."
   ],
   "evenements": [
     {
       "rang": 1,
+      "id": "credit-prive-rachats",
+      "titre": "Crédit privé non coté : file de sorties bloquée, risque de suspension ou de forte décote d'un grand fonds",
+      "categorie": "Crise financière / bulle",
+      "score": 82,
+      "probabilite": 31,
+      "confiance": "faible",
+      "resume": "Les sorties persistent malgré l'amélioration des rendements et du taux de satisfaction des rachats au 3e trimestre ; les échéances du 4e trimestre constituent des tests de liquidité, pas la preuve d'un défaut imminent.",
+      "evenement_mesure": "Au moins un fonds de crédit privé non coté de plus de 5 Md$ suspend ses rachats, n'honore pas son offre trimestrielle ou annonce une baisse marquée de sa valeur liquidative, d'ici le 23 février 2027.",
+      "actifs": [
+        "BDC cotées (ARCC, BXSL, OBDC, GSBD)",
+        "Gérants alternatifs (BX, APO, ARES, OWL, KKR)",
+        "High yield (HYG, JNK)",
+        "Banques régionales US"
+      ],
+      "mediatisation": {
+        "niveau": "angle spécialisé, couverture partielle",
+        "mesure": "91 posts X en 7 jours (19 au 26 novembre, 7 h, heure de Paris) sur « (private credit) (redemptions OR gated OR prorated) », contre 19 576 pour « Fed hike ».",
+        "pourquoi": "Le crédit privé est déjà médiatisé. L'angle retenu est le calendrier précis des offres et le rationnement des sorties ; les 91 posts (76 la veille) ne prouvent pas à eux seuls une faible couverture générale.",
+        "requete_x": "(private credit) (redemptions OR gated OR prorated)"
+      },
+      "signaux": [
+        "Sorties nettes de 4,1 Md$ au 3e trimestre (3e trimestre de suite) ; 8,2 Md$ de demandes de rachat non satisfaites (Stanger, 6 novembre 2026).",
+        "Au 3e trimestre, BCRED n'a accepté que 49,9 % des parts présentées, HLEND 43,7 % et Apollo Debt Solutions 33,9 % ; l'offre BCRED du 4e trimestre porte sur 87,46 millions de parts (environ 5 %) et expire le 1er décembre (CrowdfundedWealth, d'après les dépôts SEC).",
+        "Cedarpool (24 novembre 2026, 162 BDC) : la part de la dette des BDC valorisée sous 90 cents passe de 7,23 % à 7,40 % (4e trimestre de hausse de suite) ; les encours stagnent à 460,0 Md$ pour le 3e trimestre consécutif.",
+        "KBRA a révisé la perspective de Goldman Sachs BDC à négative le 23 novembre ; les prêts non productifs atteignent 7,3 % du coût au 30 septembre, contre 2,8 % fin 2025.",
+        "Spread high yield ICE BofA (FRED BAMLH0A0HYM2) : 3,23 % le 13 novembre, 3,76 % le 20 novembre, 3,63 % le 23 novembre puis 3,72 % le 24 novembre (dernier point publié), soit +49 pb en sept séances.",
+        "Nouvelles offres déposées le 24 novembre : Goldman Sachs Private Credit Corp. (environ 9,6 Md$ d'actif net, jusqu'à 19,26 millions de parts, soit environ 5 %) et Fortress Private Lending Fund, toutes deux jusqu'au 22 décembre (Schedule TO-I, via CrowdfundedWealth). En Australie, le prêteur CVS Lane (2,1 Md$) a déprécié 27,6 M$ de prêts immobiliers (−4,9 % de VNI) et prolongé le gel des rachats jusqu'à l'an prochain (AFR, 25 novembre) : fonds trop petit pour le seuil de 5 Md$, mais signe de contagion des gels.",
+        "Contre-signal : les demandes ont baissé de 12,5 % de la VNI au T2 à 11,5 % au T3 et 40 % ont été satisfaites (37 % au T2) (Stanger) ; la part de dette payée en nature (PIK) recule de 11,93 % à 11,30 % et celle sous 80 cents de 4,15 % à 3,91 % (Cedarpool). Un plafonnement contractuel n'est pas un défaut. Goldman Sachs Private Credit Corp. n'a reçu que 2,03 % de demandes au 3e trimestre et a tout payé (CrowdfundedWealth)."
+      ],
+      "sources": [
+        {
+          "nom": "Stanger : Non-Listed BDC Net Outflows Surpass $4 Billion in Q3 2026",
+          "url": "https://www.rastanger.com/news/non-listed-bdc-net-outflows-surpass-4-billion-in-q3-as-fundraising-continues-to-decline",
+          "date": "2026-11-06"
+        },
+        {
+          "nom": "CrowdfundedWealth : Q4 2026 Redemption Dates (dépôts SEC)",
+          "url": "https://www.crowdfundedwealth.com/articles/q4-2026-redemption-tender-deadlines-non-traded-reit-bdc-interval",
+          "date": "2026-11-23"
+        },
+        {
+          "nom": "Alternative Credit Investor : PIK falls for BDC debt as more loans slip below 90c (Cedarpool)",
+          "url": "https://alternativecreditinvestor.com/2026/11/24/pik-falls-for-bdc-debt-as-more-loans-slip-below-90c/",
+          "date": "2026-11-24"
+        },
+        {
+          "nom": "KBRA : Goldman Sachs BDC, perspective négative",
+          "url": "https://www.kbra.com/publications/QgZPVwBn/kbra-affirms-ratings-for-goldman-sachs-bdc-inc-revises-outlook-to-negative",
+          "date": "2026-11-23"
+        }
+      ],
+      "dates": [
+        {
+          "fenetre": "1er – 4 déc. 2026",
+          "debut": "2026-12-01",
+          "fin": "2026-12-04",
+          "fait": "Expiration de l'offre de rachat du 4e trimestre de BCRED (1er décembre), puis Bain, StepStone, New Mountain, TPG Twin Brook et North Haven (2 au 4 décembre).",
+          "source": "https://www.crowdfundedwealth.com/articles/q4-2026-redemption-tender-deadlines-non-traded-reit-bdc-interval",
+          "label": "rachat BCRED"
+        },
+        {
+          "fenetre": "9 déc. 2026",
+          "debut": "2026-12-09",
+          "fin": "2026-12-09",
+          "fait": "Réunion FOMC les 8–9 décembre, point de contrôle du coût de financement ; expiration des offres HLEND, HPS et BlackRock le 9 décembre selon le calendrier CrowdfundedWealth (source ci-dessus). La décision de taux n'est pas connue.",
+          "source": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
+          "label": "FOMC"
+        },
+        {
+          "fenetre": "14 – 31 déc. 2026",
+          "debut": "2026-12-14",
+          "fin": "2026-12-31",
+          "fait": "Expiration de l'offre d'Apollo Debt Solutions (14 décembre), puis de celles de Goldman Sachs Private Credit Corp. et de Fortress Private Lending Fund (22 décembre) ; les rachats sont valorisés à la VNI du 31 décembre. La date de publication des résultats et des nouvelles valorisations n'est pas encore garantie.",
+          "source": "https://www.crowdfundedwealth.com/articles/q4-2026-redemption-tender-deadlines-non-traded-reit-bdc-interval",
+          "label": "rachat Apollo"
+        }
+      ],
+      "decomposition_score": {
+        "intensite": 23,
+        "corroboration": 23,
+        "sous_exposition": 15,
+        "impact": 21
+      },
+      "impacts": [
+        {
+          "sens": "baisse",
+          "libelle": "BDC cotées"
+        },
+        {
+          "sens": "baisse",
+          "libelle": "Gérants alternatifs"
+        },
+        {
+          "sens": "baisse",
+          "libelle": "High yield"
+        },
+        {
+          "sens": "baisse",
+          "libelle": "Banques régionales US"
+        }
+      ],
+      "impacts_source": "Actifs déjà listés. L'événement mesuré est une suspension de rachats ou une baisse marquée de VNI d'un grand fonds de crédit privé : canal baissier sur ces titres de crédit et d'intermédiation, sans contrepartie haussière listée."
+    },
+    {
+      "rang": 2,
       "id": "taiwan-quarantaine",
       "titre": "Taïwan : exercice de blocus nommé ou « quarantaine » douanière par les garde-côtes chinois",
       "categorie": "Géopolitique / guerre",
-      "score": 81,
-      "probabilite": 38,
+      "score": 80,
+      "probabilite": 37,
       "confiance": "faible",
-      "resume": "La présence record des garde-côtes et les interceptions radio font surveiller un durcissement autour du scrutin local du 28 novembre ; le CSIS conteste toutefois l'idée d'un exercice unique sans précédent, et la déclaration commune Xi-Trump-Poutine du 19 novembre signale plutôt une détente au sommet.",
+      "resume": "La présence record des garde-côtes et les interceptions radio font surveiller un durcissement autour du scrutin local du 28 novembre ; mais l'activité militaire relevée par Taïwan est faible ces derniers jours, le CSIS conteste l'idée d'un exercice unique sans précédent et la déclaration commune Xi-Trump-Poutine du 19 novembre signale plutôt une détente.",
       "evenement_mesure": "Un exercice militaire chinois nommé simulant un blocus, ou une inspection/quarantaine effective de navires à destination de Taïwan, d'ici le 23 février 2027.",
       "actifs": [
         "Semi-conducteurs (TSM, ASML, NVDA, AMD, SOXX)",
@@ -32,7 +137,7 @@
       ],
       "mediatisation": {
         "niveau": "partielle / non établie",
-        "mesure": "21 posts X en 7 jours (18 au 25 novembre, 7 h, heure de Paris) sur « Taiwan (blockade OR quarantine) coast guard », contre 19 770 pour « Fed hike ».",
+        "mesure": "17 posts X en 7 jours (19 au 26 novembre, 7 h, heure de Paris) sur « Taiwan (blockade OR quarantine) coast guard », contre 19 576 pour « Fed hike ».",
         "pourquoi": "La pression des garde-côtes est un angle spécialisé déjà traité par CSIS, ISW et The Wire China. Le risque Taïwan est largement connu : nous ne prétendons pas qu'il est absent des grands médias. Le faible comptage porte sur cet angle précis.",
         "requete_x": "Taiwan (blockade OR quarantine) coast guard"
       },
@@ -41,7 +146,7 @@
         "L'ISW juge « très probable » un grand exercice non annoncé simulant l'isolement de Taïwan (mise à jour du 13 novembre 2026).",
         "Le 12 novembre, le navire 2503 des garde-côtes chinois s'est présenté à 40 milles nautiques au sud-est de l'île des Orchidées en se disant « en patrouille de police » ; le Taiwan Security Monitor (université George Mason) compte 69 incursions des garde-côtes chinois en 2026 au 11 novembre (TCN, 18 novembre 2026).",
         "Ingérence électorale : un candidat du TPP à Taoyuan a été inculpé le 20 novembre pour financement par le PCC ; le vice-ministre du MAC parle le 23 novembre de menace pour la sécurité nationale (ISW, 24 novembre 2026).",
-        "Contre-signal important : le CSIS juge qu'il n'y a pas de preuve solide d'un exercice unique coordonné et sans précédent ; l'activité navale baisse en octobre. Xi Jinping, Donald Trump et Vladimir Poutine ont publié une « déclaration de paix » commune après leur rencontre du 19 novembre (ISW, 24 novembre 2026), ce qui plaide contre une escalade à court terme."
+        "Contre-signal important : le CSIS juge qu'il n'y a pas de preuve solide d'un exercice unique coordonné et sans précédent ; l'activité navale baisse en octobre. Xi Jinping, Donald Trump et Vladimir Poutine ont publié une « déclaration de paix » commune après leur rencontre du 19 novembre (ISW, 24 novembre 2026), ce qui plaide contre une escalade à court terme. Le ministère taïwanais de la Défense ne relève que 2 sorties aériennes et 6 navires de l'APL entre le 25 et le 26 novembre (6 h, heure de Taïwan), et 1 sortie et 9 navires la veille : pas de montée en puissance visible à deux jours du scrutin."
       ],
       "sources": [
         {
@@ -92,7 +197,7 @@
         }
       ],
       "decomposition_score": {
-        "intensite": 22,
+        "intensite": 21,
         "corroboration": 21,
         "sous_exposition": 14,
         "impact": 24
@@ -114,118 +219,14 @@
       "impacts_source": "Canaux déjà listés dans actifs (semi-conducteurs TSM/ASML/NVDA/AMD/SOXX, or, défense). Sens : choc d'offre et d'incertitude lié à un blocus ou une quarantaine autour de Taïwan. Pas une prévision de cours."
     },
     {
-      "rang": 2,
-      "id": "credit-prive-rachats",
-      "titre": "Crédit privé non coté : file de sorties bloquée, risque de suspension ou de forte décote d'un grand fonds",
-      "categorie": "Crise financière / bulle",
-      "score": 81,
-      "probabilite": 30,
-      "confiance": "faible",
-      "resume": "Les sorties persistent malgré l'amélioration des rendements et du taux de satisfaction des rachats au 3e trimestre ; les échéances du 4e trimestre constituent des tests de liquidité, pas la preuve d'un défaut imminent.",
-      "evenement_mesure": "Au moins un fonds de crédit privé non coté de plus de 5 Md$ suspend ses rachats, n'honore pas son offre trimestrielle ou annonce une baisse marquée de sa valeur liquidative, d'ici le 23 février 2027.",
-      "actifs": [
-        "BDC cotées (ARCC, BXSL, OBDC, GSBD)",
-        "Gérants alternatifs (BX, APO, ARES, OWL, KKR)",
-        "High yield (HYG, JNK)",
-        "Banques régionales US"
-      ],
-      "mediatisation": {
-        "niveau": "angle spécialisé, couverture partielle",
-        "mesure": "76 posts X en 7 jours (18 au 25 novembre, 7 h, heure de Paris) sur « (private credit) (redemptions OR gated OR prorated) », contre 19 770 pour « Fed hike ».",
-        "pourquoi": "Le crédit privé est déjà médiatisé. L'angle retenu est le calendrier précis des offres et le rationnement des sorties ; les 76 posts ne prouvent pas à eux seuls une faible couverture générale.",
-        "requete_x": "(private credit) (redemptions OR gated OR prorated)"
-      },
-      "signaux": [
-        "Sorties nettes de 4,1 Md$ au 3e trimestre (3e trimestre de suite) ; 8,2 Md$ de demandes de rachat non satisfaites (Stanger, 6 novembre 2026).",
-        "Au 3e trimestre, BCRED n'a accepté que 49,9 % des parts présentées, HLEND 43,7 % et Apollo Debt Solutions 33,9 % ; l'offre BCRED du 4e trimestre porte sur 87,46 millions de parts (environ 5 %) et expire le 1er décembre (CrowdfundedWealth, d'après les dépôts SEC).",
-        "Cedarpool (24 novembre 2026, 162 BDC) : la part de la dette des BDC valorisée sous 90 cents passe de 7,23 % à 7,40 % (4e trimestre de hausse de suite) ; les encours stagnent à 460,0 Md$ pour le 3e trimestre consécutif.",
-        "KBRA a révisé la perspective de Goldman Sachs BDC à négative le 23 novembre ; les prêts non productifs atteignent 7,3 % du coût au 30 septembre, contre 2,8 % fin 2025.",
-        "Spread high yield ICE BofA (FRED BAMLH0A0HYM2) : 3,23 % le 13 novembre, 3,76 % le 20 novembre (+53 pb en une semaine), 3,63 % le 23 novembre (dernier point publié).",
-        "Contre-signal : les demandes ont baissé de 12,5 % de la VNI au T2 à 11,5 % au T3 et 40 % ont été satisfaites (37 % au T2) (Stanger) ; la part de dette payée en nature (PIK) recule de 11,93 % à 11,30 % et celle sous 80 cents de 4,15 % à 3,91 % (Cedarpool). Un plafonnement contractuel n'est pas un défaut."
-      ],
-      "sources": [
-        {
-          "nom": "Stanger : Non-Listed BDC Net Outflows Surpass $4 Billion in Q3 2026",
-          "url": "https://www.rastanger.com/news/non-listed-bdc-net-outflows-surpass-4-billion-in-q3-as-fundraising-continues-to-decline",
-          "date": "2026-11-06"
-        },
-        {
-          "nom": "CrowdfundedWealth : Q4 2026 Redemption Dates (dépôts SEC)",
-          "url": "https://www.crowdfundedwealth.com/articles/q4-2026-redemption-tender-deadlines-non-traded-reit-bdc-interval",
-          "date": "2026-11-23"
-        },
-        {
-          "nom": "Alternative Credit Investor : PIK falls for BDC debt as more loans slip below 90c (Cedarpool)",
-          "url": "https://alternativecreditinvestor.com/2026/11/24/pik-falls-for-bdc-debt-as-more-loans-slip-below-90c/",
-          "date": "2026-11-24"
-        },
-        {
-          "nom": "KBRA : Goldman Sachs BDC, perspective négative",
-          "url": "https://www.kbra.com/publications/QgZPVwBn/kbra-affirms-ratings-for-goldman-sachs-bdc-inc-revises-outlook-to-negative",
-          "date": "2026-11-23"
-        }
-      ],
-      "dates": [
-        {
-          "fenetre": "1er – 4 déc. 2026",
-          "debut": "2026-12-01",
-          "fin": "2026-12-04",
-          "fait": "Expiration de l'offre de rachat du 4e trimestre de BCRED (1er décembre), puis Bain, StepStone, New Mountain, TPG Twin Brook et North Haven (2 au 4 décembre).",
-          "source": "https://www.crowdfundedwealth.com/articles/q4-2026-redemption-tender-deadlines-non-traded-reit-bdc-interval",
-          "label": "rachat BCRED"
-        },
-        {
-          "fenetre": "9 déc. 2026",
-          "debut": "2026-12-09",
-          "fin": "2026-12-09",
-          "fait": "Réunion FOMC les 8–9 décembre, point de contrôle du coût de financement ; expiration des offres HLEND, HPS et BlackRock le 9 décembre selon le calendrier CrowdfundedWealth (source ci-dessus). La décision de taux n'est pas connue.",
-          "source": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
-          "label": "FOMC"
-        },
-        {
-          "fenetre": "14 – 31 déc. 2026",
-          "debut": "2026-12-14",
-          "fin": "2026-12-31",
-          "fait": "Expiration de l'offre d'Apollo Debt Solutions (14 décembre) ; les rachats sont valorisés à la VNI du 31 décembre. La date de publication des résultats et des nouvelles valorisations n'est pas encore garantie.",
-          "source": "https://www.crowdfundedwealth.com/articles/q4-2026-redemption-tender-deadlines-non-traded-reit-bdc-interval",
-          "label": "rachat Apollo"
-        }
-      ],
-      "decomposition_score": {
-        "intensite": 22,
-        "corroboration": 23,
-        "sous_exposition": 15,
-        "impact": 21
-      },
-      "impacts": [
-        {
-          "sens": "baisse",
-          "libelle": "BDC cotées"
-        },
-        {
-          "sens": "baisse",
-          "libelle": "Gérants alternatifs"
-        },
-        {
-          "sens": "baisse",
-          "libelle": "High yield"
-        },
-        {
-          "sens": "baisse",
-          "libelle": "Banques régionales US"
-        }
-      ],
-      "impacts_source": "Actifs déjà listés. L'événement mesuré est une suspension de rachats ou une baisse marquée de VNI d'un grand fonds de crédit privé : canal baissier sur ces titres de crédit et d'intermédiation, sans contrepartie haussière listée."
-    },
-    {
       "rang": 3,
       "id": "lucilie-bouchere",
       "titre": "Lucilie bouchère (screwworm) : flambée au sud des États-Unis, risque de nouvelle fermeture aux bovins mexicains",
       "categorie": "Épizootie / réglementation",
-      "score": 72,
-      "probabilite": 38,
+      "score": 73,
+      "probabilite": 40,
       "confiance": "faible",
-      "resume": "La lucilie bouchère progresse au Texas (premier cas dans le comté de Cameron, nouvelle zone infestée dans le bassin permien) et en Arizona, alors que les mouches stériles manquent jusqu'en 2027 et que l'USDA maintient la réouverture du port de Nogales au 30 novembre.",
+      "resume": "La lucilie bouchère accélère (83 cas animaux en novembre au 25 novembre, contre 34 en octobre ; 54 cas actifs dans 23 comtés du Texas), alors que les mouches stériles manquent jusqu'en 2027 et que l'USDA maintient au 25 novembre la réouverture du port de Nogales au 30 novembre.",
       "evenement_mesure": "L'USDA suspend de nouveau des importations de bovins mexicains, ou des cas apparaissent dans les grandes zones d'engraissement du Texas, d'ici le 23 février 2027.",
       "actifs": [
         "Futures bovins (Live Cattle LE, Feeder Cattle GF)",
@@ -235,16 +236,17 @@
       ],
       "mediatisation": {
         "niveau": "couvert par Reuters, angle sectoriel",
-        "mesure": "412 posts X en 7 jours (18 au 25 novembre, 7 h, heure de Paris) sur « screwworm », contre 19 770 pour « Fed hike » (requêtes de portée différente).",
+        "mesure": "379 posts X en 7 jours (19 au 26 novembre, 7 h, heure de Paris) sur « screwworm », contre 19 576 pour « Fed hike » (requêtes de portée différente).",
         "pourquoi": "Reuters a publié un article le 20 novembre et Pro Farmer suit les cas : ce n'est pas un événement caché. Le risque de nouvelles restrictions reste une hypothèse sectorielle, pas une absence de médiatisation démontrée.",
         "requete_x": "screwworm"
       },
       "signaux": [
         "64 animaux infestés en novembre au 19 novembre, contre 34 en octobre et 3 en septembre ; 73 cas actifs, contre 2 fin septembre (USDA, via Reuters, 20 novembre 2026).",
+        "KVUE (25 novembre 2026) : 104 cas animaux en 30 jours au Texas, au Nouveau-Mexique et en Arizona, dont 103 actifs ; 83 cas en novembre contre 34 en octobre ; 22 cas confirmés en une semaine au Texas, 54 cas actifs dans 23 comtés. Le comté de Goliad a voté une déclaration de catastrophe (Crossroads Today, 25 novembre).",
         "Extension vers le nord-ouest du Texas : après un cas chez un chien dans le comté de Midland le 20 novembre, la TAHC a créé la zone infestée 42 (comtés d'Andrews, Martin et Midland) avec restrictions de mouvement des animaux (ordre du 21 novembre 2026).",
         "Premier cas confirmé dans le comté de Cameron le 24 novembre ; 11 cas actifs dans la vallée du Rio Grande (7 à Starr, 3 à Hidalgo) (KRGV, 24 novembre 2026). L'Arizona compte 9 cas dans 4 comtés (Reuters).",
         "Pénurie de mouches stériles ; l'usine du sud du Texas n'ouvrira que l'an prochain, et l'hiver ne devrait pas être assez froid pour tuer le parasite au Texas, au Nouveau-Mexique et en Arizona (Reuters). La fermeture de 2025 avait porté les prix du bœuf à des records (Reuters).",
-        "Contre-signal : l'USDA maintient au 24 novembre la réouverture de Nogales au 30 novembre et juge que les importations, inspectées plusieurs fois, ne sont pas à l'origine de la hausse des cas, attribuée aux pluies liées à El Niño (USDA APHIS, Reuters)."
+        "Contre-signal : la page USDA APHIS modifiée le 25 novembre maintient la réouverture de Nogales au 30 novembre et l'USDA juge que les importations, inspectées plusieurs fois, ne sont pas à l'origine de la hausse des cas, attribuée aux pluies liées à El Niño (USDA APHIS, Reuters). Texas A&M AgriLife annonce une stérilisation des mouches sans matière radioactive (KVUE, 25 novembre), piste encore expérimentale."
       ],
       "sources": [
         {
@@ -255,7 +257,7 @@
         {
           "nom": "USDA APHIS : Current Status of New World Screwworm",
           "url": "https://direct.aphis.usda.gov/animals/animal-health/livestock-and-poultry-disease/stop-screwworm/current-status",
-          "date": "2026-11-24"
+          "date": "2026-11-25"
         },
         {
           "nom": "TAHC : ordre de restriction des mouvements, comtés d'Andrews, Martin et Midland",
@@ -263,9 +265,9 @@
           "date": "2026-11-21"
         },
         {
-          "nom": "KRGV : First case of New World screwworm confirmed in Cameron County",
-          "url": "https://www.krgv.com/news/first-case-of-new-world-screwworm-confirmed-in-cameron-county-rgv-total-rises-to-11",
-          "date": "2026-11-24"
+          "nom": "KVUE : As screwworm cases surge, researchers say they've found new, safer technology",
+          "url": "https://www.kvue.com/article/news/national/screwworm-cases-surge-researchers-found-new-safer-technology-combat-pest/269-aaab4568-a70e-46ae-a7a4-1548d0d9b5cf",
+          "date": "2026-11-25"
         }
       ],
       "dates": [
@@ -295,7 +297,7 @@
         }
       ],
       "decomposition_score": {
-        "intensite": 22,
+        "intensite": 23,
         "corroboration": 22,
         "sous_exposition": 12,
         "impact": 16
@@ -322,6 +324,11 @@
     }
   ],
   "ecartes": [
+    {
+      "sujet": "Détroit d'Ormuz : pétroliers touchés par des mines selon l'Iran (24-25 novembre)",
+      "raison": "Choc pétrolier potentiel majeur mais déjà en une des agences et de la presse internationale : sujet médiatisé, hors Top 3.",
+      "url": "https://www.arabnews.com/middle-east/third-tanker-hits-mine-in-strait-of-hormuz-iran-says-3013942"
+    },
     {
       "sujet": "Ebola (virus Bundibugyo) en RDC",
       "raison": "Urgence sanitaire internationale ; au 17 novembre, 11 613 cas confirmés dont 5 678 décès en RDC, aucun nouveau cas au Kenya ni au Nigeria (OMS, 20 novembre). Largement suivi et sans échéance de marché vérifiable : hors Top 3.",

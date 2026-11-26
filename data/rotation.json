@@ -1,7 +1,7 @@
 {
   "titre": "INDICE ROTATION",
   "cadre": "Charles Gave · ratio S&P 500 / WTI",
-  "updated": "2026-11-25 07:05",
+  "updated": "2026-11-26 07:03",
   "updated_tz": "Europe/Paris",
   "ma_mois": 84,
   "officiel": {
@@ -17,12 +17,12 @@
     "above": true
   },
   "provisoire": {
-    "date": "2026-11-17",
-    "spx": 7340.53,
-    "wti": 89.53,
-    "ratio": 81.9896,
+    "date": "2026-11-24",
+    "spx": 7201.09,
+    "wti": 82.24,
+    "ratio": 87.5619,
     "ma84": 71.6471,
-    "ecart_pct": 14.44,
+    "ecart_pct": 22.21,
     "above": true
   },
   "regime_officiel": {
@@ -4570,9 +4570,9 @@
     "n_mois": 970,
     "n_ma": 887,
     "spx_premier": "1927-12-30",
-    "spx_dernier": "2026-11-24",
+    "spx_dernier": "2026-11-25",
     "wti_daily_premier": "1986-01-02",
-    "wti_daily_dernier": "2026-11-17",
+    "wti_daily_dernier": "2026-11-24",
     "wti_mensuel_premier": "1946-01-01",
     "wti_mensuel_dernier": "2026-10-01"
   },
