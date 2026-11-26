@@ -17,6 +17,24 @@ function bdgAmtEuro(n){
   if(!Number.isFinite(v)) return '—';
   return v.toLocaleString('fr-FR')+'\u00a0€';
 }
+function bdgObjectifCourses(b){
+  const m=bdgMoy(b);
+  if(m&&m.objectif_courses) return m.objectif_courses;
+  const cours=((m&&m.groupes)||[]).flatMap(g=>g.postes||[]).find(p=>p.id==='courses');
+  return cours||{};
+}
+function bdgCoursesDetHtml(oc, fallback){
+  const txt=(oc&&(oc.objectif_detail||oc.detail))||fallback||'';
+  if(!txt) return '';
+  const eco=oc.economie_visee_eur;
+  const sum=eco!=null?('Économie visée '+bdgAmt(eco,'EUR')+'/mois'):'Détail de l’objectif';
+  return `<details class="bdg-ops bdg-courses-det"><summary>${sum}</summary><p class="bdg-courses-det-p">${bdgEsc(txt)}</p></details>`;
+}
+function bdgCoursesObjLine(oc){
+  const obj=oc&&(oc.total_eur_mois!=null?oc.total_eur_mois:oc.objectif_eur);
+  if(obj==null||obj==='') return '';
+  return `<div class="bdg-obj-line">Objectif ${bdgAmtEuro(obj)}</div>`;
+}
 function bdgPair(usd,eur){
   const a=bdgAmt(usd,'USD'), b=bdgAmt(eur,'EUR');
   if(a==='—'&&b==='—') return '—';
@@ -484,7 +502,7 @@ function bdgLidlBlock(c){
   return `<div class="bdg-sous bdg-lidl" id="bdg-courses-sous" data-bdg-fold="tickets">
     <div class="home-hero-top">
       <h3>${bdgFoldTitle('tickets', s.libelle||'Tickets de caisse — détail par rayons', 'bdg-tickets-body')}</h3>
-      <p class="desc">Lidl (octobre et novembre au 24) et E.Leclerc (date inconnue, reçu le 25/11/2026) · change 1,0944 · objectif —</p>
+      <p class="desc">Lidl (octobre et novembre au 24) et E.Leclerc (date inconnue, reçu le 25/11/2026) · change 1,0944</p>
     </div>
     <div class="bdg-fold-body" id="bdg-tickets-body">
       <div class="bdg-ens-filt" role="tablist" aria-label="Filtrer par enseigne">${filt}</div>
@@ -618,6 +636,7 @@ function bdgComptes(b){ return (b&&b.comptes)||null; }
 function bdgComptesHtml(b){
   const j=bdgComptes(b);
   if(!j) return '';
+  const oc=bdgObjectifCourses(b);
   const tot=j.totaux||{};
   const per=(j.periode&&j.periode.libelle)||'1er octobre – 31 octobre 2026';
   const fxVal=(j.fx&&(j.fx.taux!=null?j.fx.taux:j.fx));
@@ -629,30 +648,30 @@ function bdgComptesHtml(b){
     const obsU=empty&&!(c.observe_eur)? '—' : bdgAmt(c.observe_usd,'USD');
     const obsE=empty&&!(c.observe_eur)? '—' : bdgAmt(c.observe_eur,'EUR');
     const zeroEmpty=empty && !(Number(c.observe_eur));
-    let extra='';
-    if(c.id==='courses'){
-      extra='';
-    }
+    const isCourses=c.id==='courses';
     const sum=(c.id==='virements_internes'&&viDet)?viDet:(c.detail||(c.n_operations? (c.n_operations+' opération'+(c.n_operations>1?'s':'')) : 'Aucune opération sur la période.'));
-    const det=empty?`<div class="bdg-det">${bdgEsc(c.detail||'Aucune opération sur la période.')}</div>`:bdgOpsDetails(c.operations,sum,extra);
+    const det=isCourses?bdgCoursesDetHtml(oc):(empty?`<div class="bdg-det">${bdgEsc(c.detail||'Aucune opération sur la période.')}</div>`:bdgOpsDetails(c.operations,sum,''));
     const cls=['bdg-cat'];
-    if(c.id==='courses') cls.push('bdg-cat-courses');
+    if(isCourses) cls.push('bdg-cat-courses');
     if(c.id==='virements_internes') cls.push('bdg-cat-interne');
     if(c.id==='credit_revolut') cls.push('bdg-cat-fixe');
     if(bdgIsAirGlow(c)) cls.push('bdg-cat-pro');
     if(zeroEmpty) cls.push('is-empty');
+    if(isCourses&&oc.total_eur_mois!=null&&c.observe_eur!=null&&Number(c.observe_eur)>Number(oc.total_eur_mois)) cls.push('is-over');
+    const objTxt=isCourses&&oc.total_eur_mois!=null?bdgAmtEuro(oc.total_eur_mois):'—';
+    const poste=isCourses?(`${bdgEsc(c.poste||c.id)}${bdgCoursesObjLine(oc)}`):(c.poste||c.id);
     const row=bdgRow({
       id:'bdg-cat-'+c.id,
       cls:cls,
-      poste:c.poste||c.id,
+      poste:poste,
       detailsHtml:det,
       obsUsd:zeroEmpty?'—':obsU,
       obsEur:zeroEmpty?'—':obsE,
       projUsd:zeroEmpty?'—':bdgAmt(c.projection_usd,'USD'),
       projEur:zeroEmpty?'—':bdgAmt(c.projection_eur,'EUR'),
-      objectif:'—'
+      objectif:objTxt
     });
-    return c.id==='courses'? (row+bdgLidlBlock(c)) : row;
+    return isCourses? (row+bdgLidlBlock(c)) : row;
   }).join('');
   const resteNeg=Number(tot.reste_eur)<0;
   const depRow=bdgRow({id:'bdg-comptes-depenses',cls:['bdg-foot','bdg-tot-dep'],poste:'Total dépenses personnelles',detail:'Hors virements internes, épargne, investissement, capital du crédit Revolut et Air Glow, frais de fonctionnement',obsUsd:bdgAmt(tot.depenses_usd,'USD'),obsEur:bdgAmt(tot.depenses_eur,'EUR'),projUsd:bdgAmt(tot.depenses_usd,'USD'),projEur:bdgAmt(tot.depenses_eur,'EUR'),objectif:'—'});
@@ -725,14 +744,18 @@ function bdgMoyHead(){
   </div>`;
 }
 function bdgMoyRow(p, cls){
-  const c=['bdg-moy-row'].concat(cls||[]).join(' ');
+  const isCourses=p&&p.id==='courses'&&(p.objectif_eur!=null||p.economie_visee_eur!=null);
+  const over=isCourses&&p.moyenne_eur!=null&&p.objectif_eur!=null&&Number(p.moyenne_eur)>Number(p.objectif_eur);
+  const c=['bdg-moy-row'].concat(cls||[]).concat(isCourses?['bdg-moy-courses']:[]).concat(over?['is-over']:[]).join(' ');
   const divNet=p.dividendes_coupons_nets_eur;
   const side=(divNet!=null&&divNet!=='')
     ? `<div class="bdg-moy-side">En face : dividendes et coupons nets ${bdgAmt(divNet,'EUR')}${p.dividendes_coupons_nets_usd!=null?(' / '+bdgAmt(p.dividendes_coupons_nets_usd,'USD')):''} <small>(hors base prudente)</small></div>`
     : '';
+  const objLine=isCourses?bdgCoursesObjLine(p):'';
+  const det=isCourses? (bdgCoursesDetHtml(p, p.objectif_detail||p.detail)+side) : `${bdgEsc(p.detail||'—')}${side}`;
   return `<div class="${c}">
-    <div class="bdg-poste"><h2>${bdgEsc(p.libelle||p.id||'')}</h2></div>
-    <div class="bdg-det">${bdgEsc(p.detail||'—')}${side}</div>
+    <div class="bdg-poste"><h2>${bdgEsc(p.libelle||p.id||'')}</h2>${objLine}</div>
+    <div class="bdg-det">${det}</div>
     <div class="bdg-num">${bdgAmt(p.moyenne_usd,'USD')}</div>
     <div class="bdg-num">${bdgAmt(p.moyenne_eur,'EUR')}</div>
   </div>`;
@@ -786,7 +809,7 @@ function bdgMensuelHtml(b){
       ${bdgMoyKv('Air Glow, frais de fonctionnement (moyenne d\'octobre)', ag.moyenne_octobre_eur, ag.moyenne_octobre_usd, ['bdg-kv-pro'])}
       ${bdgMoyKv("Capacité personnelle (hors Air Glow)", act.eur, act.usd, [], actTone)}
       ${bdgMoyKv('Capacité y compris Air Glow', act.avec_air_glow_eur, act.avec_air_glow_usd, ['bdg-kv-pro'], actAgTone)}
-      ${bdgMoyKv('Capacité cible personnelle (panier inchangé)', cib.eur, cib.usd, ['bdg-kv-fixe'], cibTone)}
+      ${bdgMoyKv('Capacité cible personnelle', cib.eur, cib.usd, ['bdg-kv-fixe'], cibTone)}
       ${bdgMoyKv('Capacité cible y compris Air Glow', cib.avec_air_glow_eur, cib.avec_air_glow_usd, ['bdg-kv-pro'], cibAgTone)}
       ${bdgMoyKv("Objectif de réduction personnel pour l'équilibre", red.eur, red.usd, [], 'down')}
       <div class="home-kv${(moisSec!=null&&moisSec<3)?' is-down':''}"><span class="l">Mois de sécurité</span><b class="${(moisSec!=null&&moisSec<3)?'down':''}">${moisSecTxt}</b><small>${bdgAmt(res.epargne_disponible_eur,'EUR')} d'épargne dispo</small></div>
@@ -869,9 +892,9 @@ const eparBlock=`<div class="bdg-moy-block" id="bdg-moy-epargne">
       <ul class="bdg-moy-abo">${aboList}</ul>
     </div>`;
   const pistesHtml=`<div class="bdg-moy-block" id="bdg-moy-pistes">
-      <h3 class="bdg-moy-h">Pistes de réduction (propositions, pas des décisions)</h3>
+      <h3 class="bdg-moy-h">Objectif courses et pistes de réduction</h3>
       <ul class="bdg-moy-list">${(m.pistes||[]).map(t=>{
-        const flag=t.dans_panier_cible?' · retenue dans la capacité cible':'';
+        const flag=t.decide?' · décidé le 26/11/2026':(t.dans_panier_cible?' · retenue dans la capacité cible':'');
         return `<li><h3>${bdgEsc(t.libelle||'')} <span class="bdg-moy-eco">${bdgAmt(t.economie_eur_mois,'EUR')}/mois</span></h3><p>${bdgEsc((t.source||'')+' '+(t.note||'')+flag)}</p></li>`;
       }).join('')}</ul>
       <p class="bdg-moy-p">${bdgEsc(pan.note||'')} Total du panier : ${bdgAmt(pan.total_economie_eur,'EUR')} / ${bdgAmt(pan.total_economie_usd,'USD')}. ${bdgEsc(red.libelle||"Objectif de réduction sur les autres postes pour atteindre l'équilibre")} : ${bdgAmt(red.eur,'EUR')} / ${bdgAmt(red.usd,'USD')} (déficit actuel − panier).</p>
@@ -884,7 +907,7 @@ const eparBlock=`<div class="bdg-moy-block" id="bdg-moy-epargne">
         ${bdgMoyRow({libelle:'Air Glow, frais de fonctionnement (moyenne d\'octobre)', moyenne_eur:ag.moyenne_octobre_eur, moyenne_usd:ag.moyenne_octobre_usd, detail:ag.note||''})}
         ${bdgMoyRow({libelle:"Capacité personnelle (hors Air Glow)", moyenne_eur:act.eur, moyenne_usd:act.usd, detail:(act.formule||'')+' '+(act.note||'')+(defic?' Budget personnel déficitaire sur cette base.':'')})}
         ${bdgMoyRow({libelle:'Capacité y compris Air Glow', moyenne_eur:act.avec_air_glow_eur, moyenne_usd:act.avec_air_glow_usd, detail:act.avec_air_glow_formule||''})}
-        ${bdgMoyRow({libelle:'Capacité cible personnelle (panier inchangé)', moyenne_eur:cib.eur, moyenne_usd:cib.usd, detail:cib.formule})}
+        ${bdgMoyRow({libelle:'Capacité cible personnelle', moyenne_eur:cib.eur, moyenne_usd:cib.usd, detail:cib.formule})}
         ${bdgMoyRow({libelle:'Capacité cible y compris Air Glow', moyenne_eur:cib.avec_air_glow_eur, moyenne_usd:cib.avec_air_glow_usd, detail:cib.avec_air_glow_formule||''})}
         ${bdgMoyRow({libelle:(red.libelle||"Objectif de réduction personnel pour l'équilibre"), moyenne_eur:red.eur, moyenne_usd:red.usd, detail:(red.formule||'')+' '+(red.note||'')})}
         ${bdgMoyRow({libelle:"Objectif proposé", moyenne_eur:obj.propose_eur, moyenne_usd:obj.propose_usd, detail:obj.note})}

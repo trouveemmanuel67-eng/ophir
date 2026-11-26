@@ -1,0 +1,27 @@
+{
+  "id": "objectif_courses",
+  "date": "2026-11-26",
+  "libelle": "Objectif courses Leclerc + Picard",
+  "semaines_par_an": 52,
+  "mois_par_an": 12,
+  "arrondi_mois": "euro",
+  "leclerc": {
+    "eur_semaine": 150,
+    "livraison_comprise": true,
+    "jour": "jeudi",
+    "perimetre": "Alimentaire et non-alimentaire courant (hygiène, entretien, sacs poubelle, litière)."
+  },
+  "picard": {
+    "eur_par_passage": 100,
+    "livraison_comprise": true,
+    "livraison_eur": 6,
+    "frequence": "toutes_les_2_semaines",
+    "frequence_note": "Fréquence encore à confirmer par Emmanuel. Pour une livraison par semaine, passer frequence à toutes_les_semaines. Autres valeurs : toutes_les_3_semaines, une_fois_par_mois. Tu peux aussi fixer passages_par_an ou eur_mois.",
+    "intervalles_jours": 14
+  },
+  "hors_perimetre": [
+    "Lidl d'appoint (dentifrice Colgate, etc.) : non chiffré",
+    "Marché et boulangerie : non chiffrés",
+    "Achats ponctuels (déco, textile, bricolage) : exclus"
+  ]
+}

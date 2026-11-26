@@ -20,7 +20,16 @@ COMPTES = BUDGET_DIR / "comptes_2026-10_11.json"
 LIDL = BUDGET_DIR / "lidl_tickets_2026-10_11.json"
 ABO_TV = DATA / "abonnement_tradingview.json"
 OUT = BUDGET_DIR / "budget_mensuel_moyen.json"
+OBJECTIF_COURSES = BUDGET_DIR / "objectif_courses.json"
 FX = 1.0944
+# Fréquence Picard → passages par an. Changer frequence (ou passages_par_an) dans
+# data/budget/objectif_courses.json, puis relancer ce script.
+PICARD_PASSAGES_AN = {
+    "toutes_les_2_semaines": 26,
+    "toutes_les_semaines": 52,
+    "toutes_les_3_semaines": 17,
+    "une_fois_par_mois": 12,
+}
 JOURS_NOV_OBSERVES = 25
 JOURS_NOV_COMPLETS = 30
 SCALE_NOV = JOURS_NOV_COMPLETS / JOURS_NOV_OBSERVES  # 1.2
@@ -34,6 +43,76 @@ def r2(x, n=2):
 
 def usd(eur):
     return r2(eur * FX) if eur is not None else None
+
+
+def _mois_arrondi_euro(annuel, mois):
+    """Conversion annuelle → mensuelle, arrondie à l'euro le plus proche (650, 217, 867)."""
+    return int(round(float(annuel) / float(mois)))
+
+
+def load_objectif_courses(observe_octobre_hors_deco, observe_octobre_brut):
+    """Lit data/budget/objectif_courses.json (paramètres faciles à changer)."""
+    raw = json.loads(OBJECTIF_COURSES.read_text(encoding="utf-8")) if OBJECTIF_COURSES.exists() else {}
+    semaines = int(raw.get("semaines_par_an") or 52)
+    mois = int(raw.get("mois_par_an") or 12)
+    lec = raw.get("leclerc") or {}
+    pic = raw.get("picard") or {}
+    lec_sem = float(lec.get("eur_semaine") or 0)
+    if lec.get("eur_mois") is not None:
+        lec_mois = int(round(float(lec["eur_mois"])))
+    else:
+        lec_mois = _mois_arrondi_euro(lec_sem * semaines, mois)
+    freq = (pic.get("frequence") or "toutes_les_2_semaines").strip()
+    if pic.get("passages_par_an") is not None:
+        passages = int(pic["passages_par_an"])
+    else:
+        passages = int(PICARD_PASSAGES_AN.get(freq, 26))
+    pic_unit = float(pic.get("eur_par_passage") or 0)
+    if pic.get("eur_mois") is not None:
+        pic_mois = int(round(float(pic["eur_mois"])))
+    else:
+        pic_mois = _mois_arrondi_euro(pic_unit * passages, mois)
+    total = int(lec_mois + pic_mois)
+    observe = r2(observe_octobre_hors_deco)
+    brut = r2(observe_octobre_brut)
+    eco = r2((observe if observe is not None else 0) - total)
+    hors = list(raw.get("hors_perimetre") or [])
+    return {
+        "id": "objectif_courses",
+        "date": raw.get("date") or "2026-11-26",
+        "libelle": raw.get("libelle") or "Objectif courses Leclerc + Picard",
+        "leclerc_eur_semaine": lec_sem,
+        "leclerc_eur_mois": lec_mois,
+        "leclerc_jour": lec.get("jour") or "jeudi",
+        "leclerc_livraison_comprise": bool(lec.get("livraison_comprise", True)),
+        "leclerc_perimetre": lec.get("perimetre") or "",
+        "picard_eur_par_passage": pic_unit,
+        "picard_frequence": freq,
+        "picard_frequence_note": pic.get("frequence_note") or "",
+        "picard_passages_par_an": passages,
+        "picard_livraison_eur": pic.get("livraison_eur"),
+        "picard_livraison_comprise": bool(pic.get("livraison_comprise", True)),
+        "picard_eur_mois": pic_mois,
+        "total_eur_mois": total,
+        "total_usd_mois": usd(total),
+        "observe_octobre_eur": observe,
+        "observe_octobre_brut_eur": brut,
+        "economie_visee_eur": eco,
+        "economie_visee_usd": usd(eco),
+        "hygiene_entretien_litiere": "déjà dans Courses (tickets Lidl), pas un poste à part",
+        "hors_perimetre": hors,
+        "source": "data/budget/objectif_courses.json",
+        "objectif_detail": (
+            f"Leclerc {lec_mois} €/mois ({lec_sem:.0f} € par semaine, "
+            f"livré le {lec.get('jour') or 'jeudi'}, livraison comprise). "
+            f"Picard {pic_mois} €/mois ({pic_unit:.0f} € {freq.replace('_', ' ')}, "
+            f"livraison de {pic.get('livraison_eur') or 6} € comprise ; fréquence à confirmer). "
+            f"Octobre : {observe:.2f} € hors déco Noël ({brut:.2f} € observés, toutes enseignes). "
+            f"Économie visée : {eco:.2f} €/mois. "
+            "Hygiène, entretien et litière sont déjà dans Courses, pas un poste à part. "
+            "Hors périmètre : Lidl d'appoint, marché et boulangerie (non chiffrés) ; déco, textile et bricolage exclus."
+        ),
+    }
 
 
 def moy_fixe(oct_e, nov_e=0):
@@ -656,6 +735,8 @@ def build():
     c_oct_r = r2(c_oct - (deco_par.get("2026-10") or 0))
     c_nov_r = r2(c_nov - (deco_par.get("2026-11") or 0))
     courses_m = moy_var(c_oct_r, c_nov_r)
+    obj_courses = load_objectif_courses(c_oct_r, c_oct)
+    eco_courses = r2(obj_courses["economie_visee_eur"])
 
     # transport hors LOA, hors séjour
     tr_var_ops = [o for o in transport_ops if not is_loa(o) and not is_trip_transport(o)]
@@ -761,9 +842,25 @@ def build():
               dividendes_hors_base=True,
               source="budget.frais_octobre, relevés Revolut octobre 2026 (commit 320cc87)"),
         poste("courses", "Courses", courses_m,
-              f"Mois de référence octobre : {c_oct:.2f} € observés − déco Noël {deco_oct:.2f} € = {c_oct_r:.2f} €. "
-              "Novembre (partiel) ne compte pas dans cette moyenne.",
-              octobre_eur=c_oct_r, novembre_eur=c_nov),
+              f"Objectif {obj_courses['total_eur_mois']} €/mois (Leclerc {obj_courses['leclerc_eur_mois']} € + Picard {obj_courses['picard_eur_mois']} €). "
+              f"Octobre : {c_oct_r:.2f} € hors déco ({c_oct:.2f} € observés). "
+              f"Économie visée : {eco_courses:.2f} €/mois.",
+              octobre_eur=c_oct_r, novembre_eur=c_nov,
+              objectif_eur=obj_courses["total_eur_mois"],
+              objectif_usd=obj_courses["total_usd_mois"],
+              economie_visee_eur=eco_courses,
+              economie_visee_usd=obj_courses["economie_visee_usd"],
+              objectif_detail=(
+                  f"Leclerc {obj_courses['leclerc_eur_mois']} €/mois ({obj_courses['leclerc_eur_semaine']:.0f} € par semaine, "
+                  f"livré le {obj_courses['leclerc_jour']}, livraison comprise). "
+                  f"Picard {obj_courses['picard_eur_mois']} €/mois ({obj_courses['picard_eur_par_passage']:.0f} € "
+                  f"{obj_courses['picard_frequence'].replace('_', ' ')}, livraison de "
+                  f"{obj_courses['picard_livraison_eur'] or 6} € comprise ; fréquence à confirmer). "
+                  f"Octobre : {c_oct_r:.2f} € hors déco Noël ({c_oct:.2f} € observés, toutes enseignes). "
+                  f"Économie visée : {eco_courses:.2f} €/mois. "
+                  "Hygiène, entretien et litière sont déjà dans Courses, pas un poste à part. "
+                  "Hors périmètre : Lidl d'appoint, marché et boulangerie (non chiffrés) ; déco, textile et bricolage exclus."
+              )),
         poste("transport_hors_loa", "Transport hors LOA", tr_m,
               f"Péages, CTS, stationnement, carburant et recharges Tesla d'octobre, hors LOA et hors trajet du séjour Ramatuelle "
               f"({trip_tr_tot:.2f} € lissés en provisions) : {tr_oct:.2f} €.",
@@ -847,6 +944,26 @@ def build():
     video_stack = r2(m_nf + m_ds + m_yt + m_pv)
 
     pistes = [
+        {
+            "id": "courses",
+            "libelle": f"Objectif courses {obj_courses['total_eur_mois']} € (Leclerc + Picard)",
+            "economie_eur_mois": eco_courses,
+            "economie_usd_mois": usd(eco_courses),
+            "source": (
+                f"Octobre hors déco {c_oct_r:.2f} € (observé brut {c_oct:.2f} €, toutes enseignes) "
+                f"− objectif {obj_courses['total_eur_mois']} € "
+                f"(Leclerc {obj_courses['leclerc_eur_mois']} € + Picard {obj_courses['picard_eur_mois']} €) "
+                f"= {eco_courses:.2f} €. Fixé le {obj_courses['date']}."
+            ),
+            "note": (
+                "Décision du 26/11/2026, pas une simple proposition. "
+                "Hygiène, entretien et litière restent dans Courses (déjà le cas sur les tickets Lidl). "
+                "Lidl d'appoint, marché et boulangerie ne sont pas chiffrés. "
+                "La fréquence Picard (toutes les 2 semaines) reste à confirmer."
+            ),
+            "decide": True,
+            "dans_panier_cible": True,
+        },
         {
             "id": "ovn",
             "libelle": "OVN ramené sous 20 €",
@@ -1235,8 +1352,14 @@ def build():
         "abonnements": rec_abos,
         "pistes": pistes,
         "panier_cible": {
-            "libelle": "Panier de propositions retenu pour la capacité cible",
-            "note": "Ce n'est pas une décision. Grok Heavy est conservé (outil de pilotage) et n'entre pas dans le panier. Panier retenu : OVN ramené sous 20 € (37,85 €), résiliation Revolut Ultra, résiliation YouTube, moitié du textile Lidl d'octobre, moitié de la restauration courante d'octobre.",
+            "libelle": "Panier retenu pour la capacité cible",
+            "note": (
+                f"L'objectif courses de {obj_courses['total_eur_mois']} €/mois (Leclerc + Picard) est fixé depuis le 26/11/2026 "
+                f"et entre dans le panier ({eco_courses:.2f} € d'économie visée). "
+                "Les autres lignes restent des propositions. Grok Heavy est conservé (outil de pilotage) et n'entre pas dans le panier. "
+                "Autres lignes retenues : OVN ramené sous 20 €, résiliation Revolut Ultra, résiliation YouTube, "
+                "moitié du textile Lidl d'octobre, moitié de la restauration courante d'octobre."
+            ),
             "lignes": [{"id": p["id"], "libelle": p["libelle"], "economie_eur_mois": p["economie_eur_mois"], "economie_usd_mois": p["economie_usd_mois"]} for p in panier],
             "total_economie_eur": eco_panier,
             "total_economie_usd": usd(eco_panier),
@@ -1245,10 +1368,10 @@ def build():
             "eur": capa_cible,
             "usd": usd(capa_cible),
             "perimetre": "personnelle_hors_air_glow",
-            "formule": "Capacité personnelle (hors Air Glow) + somme du panier de propositions (inchangé).",
+            "formule": "Capacité personnelle (hors Air Glow) + somme du panier (objectif courses inclus).",
             "avec_air_glow_eur": capa_cible_avec_ag,
             "avec_air_glow_usd": usd(capa_cible_avec_ag),
-            "avec_air_glow_formule": "Capacité y compris Air Glow + somme du panier de propositions (inchangé).",
+            "avec_air_glow_formule": "Capacité y compris Air Glow + somme du panier (objectif courses inclus).",
             "variante_grok_heavy_mensuel_eur": capa_actuelle,
             "variante_grok_heavy_mensuel_cible_eur": capa_cible,
             "variante_grok_heavy_mensuel_note": "Grok Heavy (219,99 € le 4/11) est confirmé mensuel, conservé comme outil de pilotage, et reste dans les charges fixes. Il n'entre pas dans le panier : l'équilibre doit venir des autres postes.",
@@ -1258,7 +1381,7 @@ def build():
             "eur": objectif_reduction_autres,
             "usd": usd(objectif_reduction_autres),
             "perimetre": "personnelle_hors_air_glow",
-            "formule": "Déficit personnel (hors Air Glow) − panier de propositions (Grok Heavy conservé, hors panier).",
+            "formule": "Déficit personnel (hors Air Glow) − panier (objectif courses inclus, Grok Heavy conservé hors panier).",
             "note": (
                 f"Grok Heavy reste dans les charges fixes. Pour l'équilibre personnel (hors Air Glow), il faut encore trouver "
                 f"{objectif_reduction_autres:.2f} €/mois sur les autres postes, après le panier de {eco_panier:.2f} €. "
@@ -1275,11 +1398,11 @@ def build():
             "objectif_reduction_autres_postes_eur": objectif_reduction_autres,
             "objectif_reduction_autres_postes_usd": usd(objectif_reduction_autres),
             "objectif_reduction_autres_postes_libelle": "Objectif de réduction sur les autres postes pour atteindre l'équilibre",
-            "objectif_reduction_autres_postes_formule": "Déficit actuel − panier de propositions (Grok Heavy conservé, hors panier).",
+            "objectif_reduction_autres_postes_formule": "Déficit actuel − panier (objectif courses inclus, Grok Heavy conservé hors panier).",
             "note": (
                 f"Sur la base prudente de 3 133,33 €, la capacité personnelle (hors Air Glow) est déficitaire de {ecart_equilibre:.2f} €/mois. "
                 f"Y compris la ligne Air Glow ({airglow_m:.2f} € en moyenne d'octobre), le déficit est de {ecart_equilibre_ag:.2f} €/mois. "
-                f"Grok Heavy est conservé (outil de pilotage) et n'entre pas dans le panier, qui reste inchangé ({eco_panier:.2f} €). "
+                f"Grok Heavy est conservé (outil de pilotage) et n'entre pas dans le panier, qui vaut {eco_panier:.2f} € (dont objectif courses {eco_courses:.2f} €). "
                 f"L'objectif de réduction personnel (hors Air Glow) pour l'équilibre est de {objectif_reduction_autres:.2f} €/mois "
                 f"(déficit {ecart_equilibre:.2f} € − panier {eco_panier:.2f} €) ; y compris Air Glow, {objectif_reduction_autres_ag:.2f} €/mois. "
                 f"Avec le bonus temporaire France Travail, la capacité personnelle passerait à {capa_avec_ft:.2f} €/mois "
@@ -1314,12 +1437,14 @@ def build():
                     + "Ce n'est pas un ordre de virement. Le crédit de 23 500 € n'est pas une réserve.",
         },
         "lignes_floues": floues,
+        "objectif_courses": obj_courses,
         "source": {
             "comptes": "data/budget/comptes_2026-10_11.json",
             "lidl": "data/budget/lidl_tickets_2026-10_11.json",
             "tradingview": "data/abonnement_tradingview.json et budget.tradingview",
             "ovn": "budget.ovn (positions.json)",
             "frais_octobre": "budget.frais_octobre (relevés Revolut Securities octobre 2026, commit 320cc87)",
+            "objectif_courses": "data/budget/objectif_courses.json",
             "genere_par": "src/build_budget_mensuel.py",
         },
     }
