@@ -802,6 +802,74 @@ def check_positions_root(root=ROOT):
         raise SystemExit(1)
 
 
+
+def check_moyennes_segments(root=ROOT):
+    """La note d'un segment (moyenne de N ETF / actifs) égale la moyenne de ses membres, à ±1 près."""
+    import json as _json
+    import sys as _sys
+    src = str(root / 'src')
+    if src not in _sys.path:
+        _sys.path.insert(0, src)
+    from build_long250 import child_notes, _is_avg_rec, avg_rec  # noqa: E402
+
+    print('[moyennes] note de segment = moyenne des membres, à ±1 près')
+    bad = []
+
+    def walk(obj, path, fname):
+        if isinstance(obj, dict):
+            if obj.get('mlist'):
+                return
+            rec = obj.get('apex10') if isinstance(obj.get('apex10'), dict) else None
+            if rec and _is_avg_rec(rec):
+                notes = child_notes(obj)
+                if notes:
+                    attendu = avg_rec(notes, '', 'x')['note']
+                    got = rec.get('note')
+                    if got is None or abs(float(got) - attendu) > 1:
+                        nom = obj.get('nom') or obj.get('name') or obj.get('tv') or obj.get('key') or path
+                        bad.append((fname, nom, got, attendu, len(notes)))
+            for k, v in obj.items():
+                if k in ('series', 'history', 'charts', 'hist', 'mlist'):
+                    continue
+                walk(v, path + '.' + k, fname)
+        elif isinstance(obj, list):
+            for i, v in enumerate(obj):
+                walk(v, f'{path}[{i}]', fname)
+
+    for fn in ('obligations.json', 'secteurs.json', 'pays.json', 'tabs_data.json',
+               'crypto_fiches.json', 'achatvente.json'):
+        pth = root / 'data' / fn
+        if not pth.exists():
+            continue
+        walk(_json.loads(pth.read_text(encoding='utf-8')), 'root', fn)
+
+    # achatvente : enfants dans d'autres fichiers
+    try:
+        AV = _json.loads((root / 'data' / 'achatvente.json').read_text(encoding='utf-8'))
+        S = _json.loads((root / 'data' / 'secteurs.json').read_text(encoding='utf-8'))
+        T = _json.loads((root / 'data' / 'tabs_data.json').read_text(encoding='utf-8'))
+        pairs = [
+            ('actions / 11 secteurs', (AV.get('actions') or {}).get('apex10'), child_notes(S)),
+            ('crypto / fiches', (AV.get('crypto') or {}).get('apex10'), child_notes((T.get('crypto') or {}).get('fiches') or {})),
+            ('liquidites / devises', (AV.get('liquidites') or {}).get('apex10'), child_notes(((T.get('liquidites') or {}).get('fx') or {}))),
+        ]
+        for nom, rec, notes in pairs:
+            if rec and notes and _is_avg_rec(rec):
+                attendu = avg_rec(notes, '', 'x')['note']
+                got = rec.get('note')
+                if got is None or abs(float(got) - attendu) > 1:
+                    bad.append(('achatvente.json', nom, got, attendu, len(notes)))
+    except FileNotFoundError:
+        pass
+
+    if bad:
+        _fail('moyennes incohérentes : ' + '; '.join(
+            f'{fn} {nom} = {got}, attendu {att} (n={n})' for fn, nom, got, att, n in bad[:8]
+        ))
+        raise SystemExit(1)
+    _ok('toutes les moyennes 250 vérifiées égales à leurs membres, à ±1 près')
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(
         description='Garde-fou : syntaxe JS + rendu headless avant publication.'
@@ -831,6 +899,7 @@ def main(argv=None):
         if both or args.syntax:
             check_syntax(root)
             check_positions_root(root)
+            check_moyennes_segments(root)
         if both or args.headless:
             check_headless(root)
     except SystemExit as e:

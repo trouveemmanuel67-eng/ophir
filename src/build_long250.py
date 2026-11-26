@@ -549,6 +549,196 @@ def sync_bars_energie():
     print('apex_bars : notes 250 synchronisées', n, '/', len(new))
 
 
+# ------------------------------------------------------------------ moyennes affichées
+_AVG_LABEL_RE = re.compile(r'moyenne de\s+\d+\s+(.+?)\s*→', re.I)
+_CHILD_LISTS = ('list', 'assets', 'rows', 'sectors', 'secteurs')
+
+
+def _is_avg_rec(rec):
+    """True si rec est une note 250 présentée comme moyenne de membres affichés."""
+    if not isinstance(rec, dict):
+        return False
+    if not (rec.get('scale') == 250 or rec.get('total_max') == 250 or rec.get('v2')):
+        return False
+    if rec.get('n_moy') or rec.get('cap') in ('moyenne', 'panier'):
+        return True
+    t = rec.get('ligne') or ''
+    return isinstance(t, str) and t.lower().startswith('moyenne')
+
+
+def _label_from(rec, default='éléments'):
+    t = rec.get('ligne') or ''
+    m = _AVG_LABEL_RE.search(t) if isinstance(t, str) else None
+    if m:
+        return m.group(1).strip()
+    return default
+
+
+def child_notes(obj):
+    """Notes 250 des membres affichés (ETF, secteurs, paniers, actifs), hors moyennes imbriquées."""
+    notes = []
+    if not isinstance(obj, dict):
+        return notes
+    for key in _CHILD_LISTS:
+        v = obj.get(key)
+        if not isinstance(v, list):
+            continue
+        found = []
+        for x in v:
+            if not isinstance(x, dict):
+                continue
+            a = x.get('apex10')
+            if not isinstance(a, dict) or a.get('note') is None:
+                continue
+            if a.get('display') == '–':
+                continue
+            if not (a.get('scale') == 250 or a.get('total_max') == 250 or a.get('v2')):
+                continue
+            if _is_avg_rec(a) and key in ('rows', 'sectors', 'secteurs'):
+                # un bandeau-pays ne doit pas se moyenner sur d'autres bandeaux
+                continue
+            found.append(float(a['note']))
+        if found:
+            return found
+    return notes
+
+
+def apply_avg_rec(rec, notes, label=None):
+    """Met à jour les champs numériques d'une moyenne, en conservant le sentiment déjà posé."""
+    if not rec or not notes:
+        return False
+    detail = rec.get('detail') or 'Moyenne des notes −50 à 250, arrondie au point.'
+    new = avg_rec(notes, detail, label or _label_from(rec))
+    changed = (
+        rec.get('note') != new['note']
+        or rec.get('total') != new['total']
+        or rec.get('n_moy') != new['n_moy']
+        or rec.get('ligne') != new['ligne']
+    )
+    for k in ('note', 'display', 'hex', 'flag', 'band', 'pos', 'cap', 'n_moy',
+              'detail', 'scale', 'total', 'total_min', 'total_max', 'v2', 'ligne'):
+        rec[k] = new[k]
+    return changed
+
+
+def recalc_moyennes_doc(doc, fname=None, skip_mlist=True):
+    """Recalcule les notes « moyenne de N … » à partir des membres déjà notés.
+
+    À appeler après apply_sentiment : celui-ci mettait à jour le sentiment des
+    moyennes sans recalculer le total (sauf les lignes métaux). Les lignes
+    métaux (clé mlist) restent gérées par recalc_moyennes_metaux.
+    """
+    n = 0
+
+    def walk(obj):
+        nonlocal n
+        if isinstance(obj, dict):
+            if skip_mlist and obj.get('mlist'):
+                return
+            rec = obj.get('apex10') if isinstance(obj.get('apex10'), dict) else None
+            if rec and _is_avg_rec(rec):
+                notes = child_notes(obj)
+                if notes and apply_avg_rec(rec, notes):
+                    n += 1
+            for k, v in obj.items():
+                if k in ('series', 'history', 'charts', 'hist', 'mlist'):
+                    continue
+                walk(v)
+        elif isinstance(obj, list):
+            for v in obj:
+                walk(v)
+
+    walk(doc)
+    return n
+
+
+def _dump_like(raw, doc):
+    if raw.startswith('{\n'):
+        m = re.match(r'\{\n( +)', raw)
+        out = json.dumps(doc, ensure_ascii=False, indent=len(m.group(1)) if m else 2)
+    elif raw.startswith('{"generated":"') or raw[:200].count('": ') == 0:
+        out = json.dumps(doc, ensure_ascii=False, separators=(',', ':'))
+    else:
+        out = json.dumps(doc, ensure_ascii=False)
+    return out + ('\n' if raw.endswith('\n') else '')
+
+
+def sync_achatvente_moyennes(AV=None, close=None):
+    """Aligne les moyennes d'achatvente.json sur les notes affichées ailleurs."""
+    save_it = AV is None
+    if AV is None:
+        p = D / 'achatvente.json'
+        raw = p.read_text(encoding='utf-8')
+        AV = json.loads(raw)
+    else:
+        raw, p = None, D / 'achatvente.json'
+        save_it = bool(close)
+
+    changes = []
+
+    def set_avg(slot, notes, detail, label):
+        if not notes or not isinstance(slot, dict):
+            return
+        rec = slot.get('apex10') if isinstance(slot.get('apex10'), dict) else None
+        if not rec:
+            return
+        before = rec.get('note')
+        if apply_avg_rec(rec, notes, label):
+            rec['detail'] = detail
+            rec['ligne'] = f"moyenne de {len(notes)} {label}  →  {rec['note']} / 250"
+            changes.append((label, before, rec['note'], len(notes)))
+
+    try:
+        S = load('secteurs.json')
+        sn = child_notes(S)
+        set_avg(AV.get('actions'), sn,
+                'Moyenne des notes −50 à 250 des 11 secteurs USA affichés.', 'secteurs')
+    except FileNotFoundError:
+        pass
+    try:
+        T = load('tabs_data.json')
+        crypto = ((T.get('crypto') or {}).get('fiches') or {})
+        cn = child_notes(crypto)
+        set_avg(AV.get('crypto'), cn,
+                'Moyenne des notes −50 à 250 des cryptos affichées.', 'cryptos')
+        fx = ((T.get('liquidites') or {}).get('fx') or {})
+        fn = child_notes(fx)
+        set_avg(AV.get('liquidites'), fn,
+                'Moyenne des notes −50 à 250 des devises affichées.', 'devises')
+        en = T.get('energie') or {}
+        # déjà recalculé dans recalc_moyennes_doc(tabs_data) ; rien de plus ici
+        _ = en
+    except FileNotFoundError:
+        pass
+
+    if save_it and p.exists():
+        raw = raw if raw is not None else p.read_text(encoding='utf-8')
+        p.write_text(_dump_like(raw, AV), encoding='utf-8')
+    return changes
+
+
+def recalc_all_moyennes(save=True):
+    """Recalcule toutes les moyennes 250 des fichiers de données du site."""
+    files = ['obligations.json', 'secteurs.json', 'pays.json', 'tabs_data.json',
+             'crypto_fiches.json', 'energie.json', 'achatvente.json']
+    report = []
+    for f in files:
+        p = D / f
+        if not p.exists():
+            continue
+        raw = p.read_text(encoding='utf-8')
+        doc = json.loads(raw)
+        n = recalc_moyennes_doc(doc, f)
+        extra = []
+        if f == 'achatvente.json':
+            extra = sync_achatvente_moyennes(doc, close=False)
+        if save and (n or extra):
+            p.write_text(_dump_like(raw, doc), encoding='utf-8')
+        report.append((f, n, extra))
+    return report
+
+
+
 def main():
     metaux()
     obligations()

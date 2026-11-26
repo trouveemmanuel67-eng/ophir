@@ -8,7 +8,9 @@ puis remplacé ; le total est recalculé (actions : somme des composantes ; sino
 borné à −50..250. La ligne de détail affiche « Sentiment Santé (XLV) 66 : −10 ».
 Rattachement : voir apex/sentiment.py. Si aucun secteur ni classe : 0 point, pas de repli CNN.
 Crypto : même sentiment de classe (alternative.me via sentiment_secteurs.json).
-Les moyennes (segments, paniers, bandeaux) reçoivent le sentiment maison de leurs membres.
+Les moyennes (segments, paniers, bandeaux) reçoivent le sentiment maison de leurs membres,
+et leur note est recalculée comme la moyenne des notes affichées (sauf les lignes métaux,
+déjà traitées par recalc_moyennes_metaux).
 Plus de repli CNN dans les notes. SHORT : src/build_short250.py.
 Usage : python3 apply_sentiment.py [--dry-run]
 """
@@ -341,6 +343,14 @@ def main(dry=False):
         if f == 'metaux.json':
             from build_long250 import recalc_moyennes_metaux
             recalc_moyennes_metaux(doc)
+        from build_long250 import recalc_moyennes_doc, sync_achatvente_moyennes
+        nm = recalc_moyennes_doc(doc, f)
+        if nm:
+            print(f'  moyennes recalculées : {nm}')
+        if f == 'achatvente.json':
+            extra = sync_achatvente_moyennes(doc, close=False)
+            if extra:
+                print('  achatvente aligné :', extra)
         print(f'{f}: {STATS["notes"] - n0} notes')
         if not dry:
             if raw.startswith('{\n'):
