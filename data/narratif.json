@@ -1,0 +1,560 @@
+{
+  "titre": "Narratif",
+  "maj": "2026-11-26T21:30:00+01:00",
+  "maj_label": "26/11/2026 à 21 h 30 (heure de Paris)",
+  "horizon": "2 à 6 semaines",
+  "avertissement": "Lectures à contre-courant, pas des conseils ni des ordres. Aucun rendement n’est promis. Un récit peut se réaliser, s’essouffler ou arriver plus tard.",
+  "methode": [
+    "Veille du 26 novembre 2026 : notes de banques et d’analystes, calendrier (OPEC+ le 29/11, Fed les 8-9/12), articles datés de la presse financière, et exemples passés d’acteurs avec intérêt déclaré (lettres d’investisseurs, rapports short, 13F, passages TV). Google Trends n’a pas été interrogeable de façon fiable au moment de cette mise à jour.",
+    "Le stade (naissant / en montée / déjà grand public) est une appréciation éditoriale selon le type de source, pas une mesure d’audience. La date d’arrivée dans les médias traditionnels est une estimation liée à un catalyseur connu, pas une prédiction.",
+    "Un acteur n’est relié à un récit en cours que si une source le documente. En l’absence de position déclarée récente, c’est indiqué « non trouvé ». Aucun chiffre n’est inventé.",
+    "Rafraîchissement prévu chaque semaine : relancer `python3 src/build_narratif.py --veille` pour collecter les titres récents, puis mettre à jour `data/narratif.json` à la main (jugement éditorial), valider avec `python3 src/build_narratif.py`, et reconstruire le site."
+  ],
+  "narratifs": [
+    {
+      "id": "opec-surplus-2027",
+      "titre": "Surplus pétrole en 2027",
+      "type": "Peur",
+      "stade": "en montée",
+      "arrivee_estimee": "29/11/2026 (réunion OPEC+)",
+      "arrivee_debut": "2026-11-29",
+      "secteurs": [
+        "Énergie",
+        "pétrole"
+      ],
+      "actifs": [
+        "Brent",
+        "WTI",
+        "ETC pétrole"
+      ],
+      "lecture": "Si la peur d’un surplus 2027 monte après la réunion OPEC+, le pétrole et les ETC liés pourraient devenir intéressants à surveiller, uniquement si le marché a déjà beaucoup intégré ce récit.",
+      "risque": "Le conflit au Moyen-Orient peut à tout moment resserrer l’offre et faire remonter les prix ; MUFG lie son scénario à l’absence d’aggravation géopolitique.",
+      "acteurs": [
+        "banques-recherche"
+      ],
+      "signaux": [
+        {
+          "date": "2026-11-26",
+          "texte": "MUFG : réunion ministérielle OPEC+ le 29 novembre pour les cibles 2027 ; surplus 2027 « grandissant dans le consensus », avec une baisse attendue de l’appel à l’OPEC selon les dernières estimations de l’AIE. Objectif MUFG : Brent en moyenne 88,75 $ en 2027 contre 93 $ en 2026, sous réserve de stabilité géopolitique. Production des membres dépendant d’Ormuz encore inférieure de 1,8 million de barils/jour à leurs cibles en octobre. Environ 3,6 millions de barils/jour de capacité pourraient revenir si les bases actuelles sont conservées, surtout côté Arabie saoudite.",
+          "source": {
+            "nom": "MUFG Research",
+            "url": "https://www.mufgresearch.com/commodities/commodities-update-november-26-2026/"
+          }
+        },
+        {
+          "date": "2026-11-26",
+          "texte": "Bloomberg, le jour même : l’OPEC+ envisage de maintenir les quotas, avec des tensions sur l’audit des capacités.",
+          "source": {
+            "nom": "Bloomberg",
+            "url": "https://www.bloomberg.com/news/articles/2026-11-26/opec-considers-sticking-with-current-oil-quotas-delegates-say"
+          }
+        }
+      ]
+    },
+    {
+      "id": "fed-recession-decembre",
+      "titre": "Fed de décembre et récession",
+      "type": "Peur",
+      "stade": "en montée",
+      "arrivee_estimee": "8-9/12/2026 (FOMC)",
+      "arrivee_debut": "2026-12-08",
+      "secteurs": [
+        "Taux",
+        "actions US",
+        "tech"
+      ],
+      "actifs": [
+        "Treasuries",
+        "Nasdaq",
+        "S&P 500"
+      ],
+      "lecture": "Si la peur d’une erreur de la Fed envahit les plateaux autour du 9 décembre, les actifs déjà vendus sous cette angoisse méritent d’être regardés, sans en faire un signal d’achat.",
+      "risque": "L’inflation reste au-dessus de 2 % ; une Fed qui reste restrictive, ou une hausse plus forte que prévu, peut prolonger la baisse des actions et des obligations longues. Ce n’est pas un conseil.",
+      "acteurs": [
+        "ackman-pershing",
+        "apollo-slok",
+        "medias-amplificateurs"
+      ],
+      "signaux": [
+        {
+          "date": "2026-11-26",
+          "texte": "CME FedWatch : probabilité 99,4 % d’une hausse en décembre, vers la fourchette 4 %-4,25 %. PCE d’octobre à 3,8 % sur un an, PCE cœur à 3,3 %. PIB du T3 révisé à 4,3 % en rythme annualisé. Le Nasdaq 100 est brièvement entré en marché baissier le 25 novembre (environ −20 % sous le pic d’octobre) avant de se reprendre.",
+          "source": {
+            "nom": "Invezz (données CME FedWatch, Commerce Department)",
+            "url": "https://invezz.com/news/2026/11/26/fed-rate-hike-odds-rise-to-almost-100-can-ai-selloff-force-a-rethink/"
+          }
+        },
+        {
+          "date": "2026-11-24",
+          "texte": "Bill Ackman, fondateur de Pershing Square, prévient sur X et dans la presse qu’une nouvelle hausse le 9 décembre et l’objectif d’inflation à 2 % pourraient « mettre les États-Unis et le monde en récession ». Il juge 3 % plus réaliste. Position actuelle de Pershing Square sur ce récit : non trouvée dans les sources ouvertes de cette mise à jour.",
+          "source": {
+            "nom": "Fortune",
+            "url": "https://fortune.com/2026/11/24/bill-ackman-recession-inflation-federal-reserve-target/"
+          }
+        },
+        {
+          "date": "2026-11-26",
+          "texte": "Torsten Sløk, économiste en chef d’Apollo Global Management, au Financial Times : « S’ils regardent l’inflation, ils devraient monter les taux. Mais si l’on regarde les perspectives de l’IA, ils devraient peut-être les baisser. »",
+          "source": {
+            "nom": "Invezz citant le Financial Times",
+            "url": "https://invezz.com/news/2026/11/26/fed-rate-hike-odds-rise-to-almost-100-can-ai-selloff-force-a-rethink/"
+          }
+        }
+      ]
+    },
+    {
+      "id": "achat-repli-ia",
+      "titre": "Achat du repli sur l’IA",
+      "type": "Bulle-euphorie",
+      "stade": "naissant",
+      "arrivee_estimee": "à partir du 9/12 et jusqu’en janvier",
+      "arrivee_debut": "2026-12-09",
+      "secteurs": [
+        "Tech",
+        "semi-conducteurs",
+        "IA"
+      ],
+      "actifs": [
+        "panier IA",
+        "Nasdaq",
+        "NVDA"
+      ],
+      "lecture": "Si les grands médias transforment la note Goldman (« trois signes de plancher ») en appel à racheter la baisse, la prudence s’impose : un récit d’euphorie naissant après une grosse chute peut revenir trop tôt.",
+      "risque": "Goldman elle-même juge les perspectives d’IA « très incertaines » à partir de 2028 ; le rebond n’est pas acquis. Ce n’est pas un conseil de vendre ou d’acheter.",
+      "acteurs": [
+        "banques-recherche",
+        "ark-cathie-wood",
+        "medias-amplificateurs"
+      ],
+      "signaux": [
+        {
+          "date": "2026-11-21",
+          "texte": "Note Goldman Sachs (stratégiste Snider), reprise par Fortune : le repli est passé d’un « AI unwind » à une révision plus large de la croissance. Panier IA de Goldman : −32 % depuis le 6 octobre. Trois conditions pour un plancher (une seule suffirait selon la banque) : une meilleure visibilité sur les résultats d’IA, un signal dovish de la Fed, ou un net allègement des positions. Les économistes de Goldman attendent des hausses en décembre et en mars, vers un pic de 4,25 %-4,50 %.",
+          "source": {
+            "nom": "Fortune",
+            "url": "https://fortune.com/2026/11/21/goldman-sachs-sp-500-correction-ai-unwind-bottom-three-conditions-hedge-funds-positioning/"
+          }
+        },
+        {
+          "date": "2026-11-20",
+          "texte": "Cathie Wood, dirigeante d’ARK Invest, dit sur CNBC être « assez optimiste » et que la confiance d’ARK dans sa position Anthropic « a grandi avec le temps ». CNBC indique qu’ARK a été un gros acheteur d’Anthropic lors de l’introduction. Intérêt long déclaré du gérant, commenté à la télévision le jour de l’IPO.",
+          "source": {
+            "nom": "CNBC",
+            "url": "https://www.cnbc.com/2026/11/20/cathie-woods-ark-invest-was-a-big-buyer-of-anthropic-during-debut.html"
+          }
+        }
+      ]
+    },
+    {
+      "id": "credit-prive-banques",
+      "titre": "Peur sur le crédit privé",
+      "type": "Peur",
+      "stade": "en montée",
+      "arrivee_estimee": "décembre 2026 – janvier 2027",
+      "arrivee_debut": "2026-12-15",
+      "secteurs": [
+        "Crédit privé",
+        "banques",
+        "private equity"
+      ],
+      "actifs": [
+        "banques",
+        "marché privé",
+        "BDC"
+      ],
+      "lecture": "Si ce récit, aujourd’hui surtout chez les spécialistes et les régulateurs, passe sur BFM ou CNBC après une nouvelle hausse de la Fed, l’excès de peur serait à surveiller ; le marché privé reste peu liquide et chargé de frais.",
+      "risque": "Les défauts peuvent encore monter si les taux restent élevés. L’illiquidité et les frais sont réels ; le capital n’est pas garanti. Ce n’est pas un conseil.",
+      "acteurs": [
+        "banques-recherche",
+        "apollo-slok",
+        "medias-amplificateurs"
+      ],
+      "signaux": [
+        {
+          "date": "2026-11-19",
+          "texte": "Houlihan Lokey, rapport du 19 novembre repris par PitchBook : taux de défaut des prêts de crédit privé à 1,5 % au T3, contre 0,8 % au T2, surtout chez les emprunteurs de moins de 100 M$ d’EBITDA. Santé : 7,1 % en nombre de dossiers, 4,6 % pondéré par la taille. Timothy Kang (Houlihan) : la récente hausse de la Fed et d’éventuelles hausses suivantes peuvent peser sur la couverture des intérêts.",
+          "source": {
+            "nom": "PitchBook / Houlihan Lokey",
+            "url": "https://pitchbook.com/news/articles/private-credit-default-rate-nearly-doubles-in-q3-houlihan-lokey"
+          }
+        },
+        {
+          "date": "2026-11-04",
+          "texte": "Fed de Boston : prêts des banques aux intermédiaires non bancaires à 1 700 milliards de dollars début 2026 (engagements tirés) ; 2 700 milliards en engagements totaux. Private equity et intermédiaires de crédit aux entreprises : 1 300 milliards d’engagements, dont plus de 800 milliards déjà tirés. Environ 20 % des prêts des grandes banques systémiques, contre 9 % en 2020.",
+          "source": {
+            "nom": "Federal Reserve Bank of Boston",
+            "url": "https://www.bostonfed.org/news-and-events/news/2026/11/bank-loans-nbfi-private-equity-private-credit.aspx"
+          }
+        },
+        {
+          "date": "2026-11-19",
+          "texte": "BCE : inspections sur les liens des banques avec les prêteurs directs et les hedge funds, après des lacunes dans la gestion des risques.",
+          "source": {
+            "nom": "Bloomberg Law",
+            "url": "https://news.bloomberglaw.com/banking-law/ecb-to-probe-riskier-private-credit-hedge-fund-links-at-banks"
+          }
+        }
+      ]
+    },
+    {
+      "id": "effet-richesse-recession",
+      "titre": "Krach IA, effet richesse, récession",
+      "type": "Peur",
+      "stade": "en montée",
+      "arrivee_estimee": "mi-décembre à janvier",
+      "arrivee_debut": "2026-12-15",
+      "secteurs": [
+        "Actions US",
+        "consommation",
+        "tech"
+      ],
+      "actifs": [
+        "S&P 500",
+        "Nasdaq",
+        "valeurs cycliques"
+      ],
+      "lecture": "Si les plateaux grand public transforment les tribunes d’économistes en scénario de récession inévitable, le pessimisme lui-même peut devenir un contre-indicateur à surveiller, sans nier un vrai risque sur la croissance.",
+      "risque": "Un recul durable des actions et de l’investissement IA peut effectivement freiner l’économie. Les chiffrages d’effet richesse sont des hypothèses, pas des faits observés. Ce n’est pas un conseil.",
+      "acteurs": [
+        "medias-amplificateurs"
+      ],
+      "signaux": [
+        {
+          "date": "2026-11-23",
+          "texte": "Fortune donne la parole à Paul Krugman, Matt Stoller et Dean Baker, qui jugent que la bulle IA a éclaté. Baker, sur la base d’un effet richesse d’environ 3 cents par dollar, calcule qu’une baisse de 30 % des actions effacerait environ 24 000 milliards de dollars de patrimoine boursier et 720 milliards de dépenses annuelles, « un peu plus de 2 % du PIB », assez selon lui, combiné à un recul de l’investissement IA, pour une récession.",
+          "source": {
+            "nom": "Fortune",
+            "url": "https://fortune.com/2026/11/23/ai-bubble-krugman-stoller-dean-baker-wall-street-recession-wealth-effect/"
+          }
+        },
+        {
+          "date": "2026-11-21",
+          "texte": "Le S&P 500 a clôturé le vendredi 20 novembre en correction, à 6 918,45, −3,59 % sur la séance, septième baisse d’affilée, 12 % sous le record du 6 octobre selon Goldman repris par Fortune. Le panier IA de Goldman : −32 % depuis le 6 octobre. Nvidia : −47,5 % depuis le 6 octobre (chiffres de cet article, avant le rebond lié au retour de Jensen Huang).",
+          "source": {
+            "nom": "Fortune",
+            "url": "https://fortune.com/2026/11/21/goldman-sachs-sp-500-correction-ai-unwind-bottom-three-conditions-hedge-funds-positioning/"
+          }
+        }
+      ]
+    },
+    {
+      "id": "bureaux-refinancement",
+      "titre": "Mur de dette des bureaux",
+      "type": "Peur",
+      "stade": "naissant",
+      "arrivee_estimee": "décembre 2026 – janvier 2027, si les taux US remontent encore",
+      "arrivee_debut": "2026-12-20",
+      "secteurs": [
+        "Immobilier commercial",
+        "bureaux",
+        "banques"
+      ],
+      "actifs": [
+        "foncières de bureaux",
+        "banques",
+        "crédit immobilier pro"
+      ],
+      "lecture": "Le sujet est encore surtout chez les superviseurs et les brokers. S’il devient un récit de « nouvelle crise immobilière » à la télévision, il faudra séparer le vrai mur de refinancement d’une peur trop large sur tout l’immobilier.",
+      "risque": "Le refinancement peut vraiment se tendre si les taux restent hauts et si les valeurs de bureaux baissent encore. Ce n’est pas un conseil.",
+      "acteurs": [
+        "medias-amplificateurs"
+      ],
+      "signaux": [
+        {
+          "date": "2026-11-01",
+          "texte": "ACPR (analyses et synthèses n° 184) : le financement bancaire de l’immobilier commercial français est resté résilient en 2025, mais le rebond ne se confirme pas au T1 2026 (investissements −37 %). Expositions des cinq principaux groupes : 558 Md€ fin 2025. Risque plus marqué chez les professionnels de l’immobilier (crédits in fine, taux variables, maturités courtes).",
+          "source": {
+            "nom": "ACPR / Banque de France",
+            "url": "https://acpr.banque-france.fr/fr/publications-et-statistiques/publications/ndeg-184-le-financement-de-limmobilier-commercial-par-les-banques-francaises-en-2025"
+          }
+        },
+        {
+          "date": "2026",
+          "texte": "Colliers, étude financement des bureaux en Île-de-France : environ 19 Md€ de prêts arrivent à échéance entre 2026 et 2028 ; déficit de financement estimé à 5 Md€ d’ici 2028 sur ce segment. Colliers ne voit pas de risque systémique pour les banques françaises, mais un risque majeur de refinancement pour certains propriétaires. La date exacte de publication de l’étude, au-delà de l’année 2026, : non trouvée.",
+          "source": {
+            "nom": "Colliers",
+            "url": "https://www.colliers.com/fr-fr/etudes/2026-etude-financement"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ia-ne-rapporte-pas",
+      "titre": "L’IA ne rapporte pas",
+      "type": "Peur",
+      "stade": "déjà grand public",
+      "arrivee_estimee": "déjà là ; relance attendue autour du 9/12 et des résultats de janvier",
+      "arrivee_debut": "2026-12-09",
+      "secteurs": [
+        "Tech",
+        "semi-conducteurs",
+        "IA"
+      ],
+      "actifs": [
+        "NVDA",
+        "Nasdaq",
+        "hyperscalers"
+      ],
+      "lecture": "Le récit de peur est déjà dans Fortune, Vox ou CNBC. S’il s’intensifie encore, certains noms déjà très vendus peuvent devenir intéressants à surveiller, seulement si le marché a déjà beaucoup payé cette peur.",
+      "risque": "Le doute sur le retour des investissements IA peut être justifié ; la baisse peut continuer. SEC : enquête sur la comptabilité de Nvidia rapportée par Reuters (Fortune, 21/11). Ce n’est pas un conseil.",
+      "acteurs": [
+        "banques-recherche",
+        "medias-amplificateurs",
+        "ark-cathie-wood",
+        "burry-13f"
+      ],
+      "signaux": [
+        {
+          "date": "2026-11-23",
+          "texte": "Fortune titre sur une bulle IA « qui a éclaté ». UBS, cité plus tôt par Fortune (21/11) : le débat a changé, il ne s’agit plus de savoir si l’investissement IA continue, mais s’il rapporte assez aux actionnaires.",
+          "source": {
+            "nom": "Fortune",
+            "url": "https://fortune.com/2026/11/23/ai-bubble-krugman-stoller-dean-baker-wall-street-recession-wealth-effect/"
+          }
+        },
+        {
+          "date": "2026-11-21",
+          "texte": "Selon Fortune : Anthropic a levé 93,5 Md$ (plus grande IPO devant SpaceX, 85,7 Md$) ; l’action a fini le vendredi 20 novembre à 88,91 $, peu au-dessus du prix d’introduction de 83 $. Morgan Stanley, chef de file chargé de soutenir le cours, a clôturé sa position de soutien. Dan Niles sur CNBC : croissance séquentielle combinée Anthropic + OpenAI passée de 75 % au T2 à 48 % au T3, pertes combinées d’environ 7,9 à 8,4 Md$.",
+          "source": {
+            "nom": "Fortune",
+            "url": "https://fortune.com/2026/11/21/goldman-sachs-sp-500-correction-ai-unwind-bottom-three-conditions-hedge-funds-positioning/"
+          }
+        }
+      ]
+    },
+    {
+      "id": "dette-france-oat",
+      "titre": "Crise de la dette française",
+      "type": "Peur",
+      "stade": "déjà grand public",
+      "arrivee_estimee": "déjà là en France ; relance possible si les taux US montent encore en décembre",
+      "arrivee_debut": "2026-12-09",
+      "secteurs": [
+        "Obligations souveraines",
+        "France",
+        "banques"
+      ],
+      "actifs": [
+        "OAT",
+        "spread OAT-Bund",
+        "banques françaises"
+      ],
+      "lecture": "Si la peur d’une « crise de la dette » revient en boucle à la télévision alors que les enchères trouvent encore preneur, les OAT déjà décotées peuvent devenir intéressantes à regarder pour un détenteur de long terme, pas pour spéculer sur les taux.",
+      "risque": "Une hausse des taux de 1 point fait beaucoup baisser le prix d’une obligation longue. Le rendement n’est acquis que si on porte le titre jusqu’à l’échéance. Flat tax 30 %, hors PEA. Taux exact des OAT 10 ans au 26/11/2026 : non trouvé dans cette mise à jour (derniers chiffres publics cités en octobre).",
+      "acteurs": [
+        "medias-amplificateurs",
+        "banques-recherche"
+      ],
+      "signaux": [
+        {
+          "date": "2026-10-03",
+          "texte": "BFM Business consacre un explainer à la « crise » de la dette française, alors que le taux à 10 ans est évoqué autour de 5 % et le spread avec l’Allemagne autour de 1,58 point (exemple BFM : Allemagne 3,42 %, France 5 %). Dette à 119 % du PIB, 3 595,5 Md€ fin T2 2026. BFM rappelle que le taux moyen du stock n’est pas 5 % (2,2 % cette année selon Rexecode, cité par BFM) et que la France continue d’emprunter.",
+          "source": {
+            "nom": "BFM Business",
+            "url": "https://www.bfmtv.com/economie/economie-social/finances-publiques/la-france-emprunte-a-5-et-alors-quel-est-le-probleme-taux-a-10-ans-oat-spread-on-vous-explique-la-crise-de-la-dette-francaise-sans-jargon-financier_AV-202610030055.html"
+          }
+        },
+        {
+          "date": "2026-10",
+          "texte": "Les Échos : une adjudication d’OAT 10 ans encore bien demandée (plus de 12 Md€ demandés pour 6,27 Md€ servis) alors que le taux est décrit comme particulièrement élevé (4,93 % dans l’article). Date de publication exacte au jour près : non trouvée au-delà du contexte d’octobre 2026.",
+          "source": {
+            "nom": "Les Échos",
+            "url": "https://www.lesechos.fr/finance-marches/marches-financiers/dette-le-taux-demprunt-a-dix-ans-de-la-france-a-son-plus-haut-depuis-2002-2254465"
+          }
+        }
+      ]
+    }
+  ],
+  "acteurs": [
+    {
+      "id": "short-research",
+      "nom": "Cabinets de recherche short",
+      "categorie": "Vendeurs à découvert / rapports publics",
+      "resume": "Ils publient un rapport d’enquête et indiquent presque toujours détenir une position baissière sur le nom visé. Le récit (fraude, bulle, comptes) précède souvent une chute brutale.",
+      "signaux_alerte": [
+        "Rapport public avec position short déclarée",
+        "Teasing d’un « prochain rapport » sur X",
+        "Hausse soudaine des mentions du cabinet ou de la cible"
+      ],
+      "exemples": [
+        {
+          "titre": "Hindenburg / Adani, janvier 2023",
+          "date": "2023-01-24",
+          "fait": "Hindenburg Research a publié un rapport accusant le groupe Adani et a déclaré détenir une position short via des obligations négociées aux États-Unis et des dérivés hors Inde. Le modèle public du cabinet était : enquêter, prendre une position baissière, puis publier.",
+          "source": {
+            "nom": "Hindenburg Research (rapport)",
+            "url": "https://hindenburgresearch.com/adani/"
+          }
+        },
+        {
+          "titre": "Muddy Waters / Luckin Coffee, 2020",
+          "date": "2020-01-31",
+          "fait": "Muddy Waters a rendu publique une position short sur Luckin Coffee le 31 janvier 2020, après un rapport alléguant des ventes gonflées. Le 2 avril, Luckin a confirmé que son directeur des opérations et des employés avaient fabriqué environ 310 M$ de ventes 2019.",
+          "source": {
+            "nom": "CNBC",
+            "url": "https://www.cnbc.com/2020/04/02/luckin-coffee-stock-plummets-after-investigation-finds-coo-fabricated-sales.html"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ackman-pershing",
+      "nom": "Bill Ackman / Pershing Square",
+      "categorie": "Gérant très médiatisé",
+      "resume": "Lettres aux investisseurs, longs posts sur X et passages TV. Le discours peut précéder ou accompagner une position déclarée. La position actuelle sur les récits de novembre 2026 n’a pas été trouvée dans les sources ouvertes de cette mise à jour.",
+      "signaux_alerte": [
+        "Long fil sur X (@BillAckman)",
+        "Passage CNBC ou lettre aux investisseurs",
+        "Présentation détaillée d’un risque macro juste avant un FOMC"
+      ],
+      "exemples": [
+        {
+          "titre": "CNBC, 18 mars 2020, et couverture CDS",
+          "date": "2020-03-26",
+          "fait": "Dans sa lettre du 26 mars 2020, Pershing Square a indiqué avoir acheté des CDS (CDX IG, CDX HY, iTraxx Europe) pour se protéger, puis avoir commencé à déboucler dès le 12 mars. La sortie s’est achevée le 23 mars, pour un gain de 2,6 Md$ contre 27 M$ de primes et commissions. Ackman écrit que plus de la moitié de la position avait déjà été vendue avant son passage du 18 mars sur CNBC (« Hell is coming »). Intérêt déclaré, documenté par la société elle-même.",
+          "source": {
+            "nom": "Lettre Pershing Square aux investisseurs, 26 mars 2020",
+            "url": "https://pershingsquareholdings.com/wp-content/uploads/2020/03/Pershing-Square-Capital-Management-L.P.-Releases-Letter-to-Investors-March-26-2020.pdf"
+          }
+        }
+      ]
+    },
+    {
+      "id": "burry-13f",
+      "nom": "Michael Burry / déclarations 13F",
+      "categorie": "Gérant dont les dépôts SEC deviennent un récit",
+      "resume": "Les fichiers 13F, publics avec un décalage d’environ 45 jours, sont souvent transformés par la presse en « Burry parie contre X ». La valeur notionnelle des options y est souvent bien plus élevée que le coût réel.",
+      "signaux_alerte": [
+        "Nouveau 13F Scion Asset Management",
+        "Vague d’articles « Burry short / puts sur… »",
+        "Démenti ou précision du gérant sur le coût réel des options"
+      ],
+      "exemples": [
+        {
+          "titre": "Puts Nvidia et Palantir, 13F de 2025",
+          "date": "2025-11-04",
+          "fait": "Bloomberg a rendu compte d’un 13F de Burry montrant des puts sur Nvidia et Palantir, après des mises en garde sur une bulle. La presse a souvent cité la valeur notionnelle, pas le montant payé. Burry avait déjà corrigé le même type de lecture sur Tesla en 2021, en indiquant que la position en puts était un trade et que les médias en avaient gonflé la taille.",
+          "source": {
+            "nom": "Bloomberg",
+            "url": "https://www.bloomberg.com/news/articles/2025-11-04/burry-discloses-puts-on-nvidia-and-palantir-after-bubble-warning"
+          }
+        },
+        {
+          "titre": "Précision Tesla, 2021",
+          "date": "2021-10-15",
+          "fait": "Burry a déclaré n’être plus baissier sur Tesla et que sa position en puts n’était « qu’un trade », après une couverture médiatique qu’il jugeait exagérée sur la taille du pari.",
+          "source": {
+            "nom": "CNBC",
+            "url": "https://www.cnbc.com/2021/10/15/michael-burry-says-hes-no-longer-betting-against-tesla-and-that-his-put-position-was-just-a-trade.html"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ark-cathie-wood",
+      "nom": "Cathie Wood / ARK Invest",
+      "categorie": "Gérant très médiatisé, positions longues déclarées",
+      "resume": "Interviews fréquentes sur CNBC pour défendre des thèmes (innovation, IA) alors que les fonds ARK détiennent les titres concernés (13F et communications du gérant).",
+      "signaux_alerte": [
+        "Interview CNBC au moment d’une IPO ou d’un repli",
+        "Achats déclarés ou 13F ARK sur le même thème",
+        "Formules très confiantes (« conviction », « optimistic »)"
+      ],
+      "exemples": [
+        {
+          "titre": "IPO Anthropic, 20 novembre 2026",
+          "date": "2026-11-20",
+          "fait": "CNBC indique qu’ARK Invest a été un gros acheteur d’Anthropic lors de l’introduction, tandis que Cathie Wood déclarait à l’antenne être « assez optimiste » et que la confiance d’ARK dans cette position avait grandi. Intérêt long déclaré, commenté en direct.",
+          "source": {
+            "nom": "CNBC",
+            "url": "https://www.cnbc.com/2026/11/20/cathie-woods-ark-invest-was-a-big-buyer-of-anthropic-during-debut.html"
+          }
+        }
+      ]
+    },
+    {
+      "id": "banques-recherche",
+      "nom": "Notes des grandes banques",
+      "categorie": "Recherche sell-side (Goldman, Morgan Stanley, J.P. Morgan…)",
+      "resume": "Une note de stratégie est souvent reprise le jour même par Fortune, CNBC ou Bloomberg, et peut lancer un récit (« plancher », « unwind », « surplus »). Ces banques ont aussi des activités de marché, de tenue de livre ou de conseil (conflit d’intérêts public, rappelé dans les mentions légales des notes). Cela ne prouve pas un profit sur le récit du jour.",
+      "signaux_alerte": [
+        "Note « strategy » ou « outlook » reprise en une",
+        "Changement de recommandation sur un secteur entier",
+        "Rôle d’underwriter sur une IPO du même thème (intérêt déclaré)"
+      ],
+      "exemples": [
+        {
+          "titre": "Goldman, « AI unwind » et trois signes de plancher",
+          "date": "2026-11-21",
+          "fait": "Fortune relaie une note Goldman (Snider) qui fixe trois conditions pour un plancher après le repli IA. C’est un exemple actuel de note de banque qui peut nourrir un récit d’« achat de la baisse ». Un profit de Goldman sur ce récit : non trouvé.",
+          "source": {
+            "nom": "Fortune",
+            "url": "https://fortune.com/2026/11/21/goldman-sachs-sp-500-correction-ai-unwind-bottom-three-conditions-hedge-funds-positioning/"
+          }
+        },
+        {
+          "titre": "Morgan Stanley, soutien du cours Anthropic",
+          "date": "2026-11-21",
+          "fait": "Fortune indique que Morgan Stanley, chef de file chargé de stabiliser l’action Anthropic après l’IPO, a clôturé sa position de soutien. Rôle d’underwriter public, distinct d’une recommandation de recherche.",
+          "source": {
+            "nom": "Fortune",
+            "url": "https://fortune.com/2026/11/21/goldman-sachs-sp-500-correction-ai-unwind-bottom-three-conditions-hedge-funds-positioning/"
+          }
+        }
+      ]
+    },
+    {
+      "id": "apollo-slok",
+      "nom": "Torsten Sløk / Apollo",
+      "categorie": "Économiste de maison de gestion",
+      "resume": "Très cité par le FT, CNBC ou la presse en ligne sur la Fed et l’IA. Employeur public : Apollo Global Management, gérant notamment d’actifs alternatifs et de crédit privé. Aucune position personnelle déclarée n’a été trouvée pour les citations de novembre 2026.",
+      "signaux_alerte": [
+        "Citation dans le FT ou sur CNBC avant un FOMC",
+        "Note Apollo sur les taux, l’IA ou le crédit",
+        "Changement de ton (hike vs cut)"
+      ],
+      "exemples": [
+        {
+          "titre": "Citation FT sur la Fed et l’IA, novembre 2026",
+          "date": "2026-11-26",
+          "fait": "Sløk, présenté comme chef économiste d’Apollo, juge que la Fed devrait peut-être baisser les taux si l’on regarde les perspectives de l’IA, et les monter si l’on regarde l’inflation. Intérêt personnel déclaré : non trouvé. Le lien pertinent est l’employeur, dont l’activité de crédit privé est publique.",
+          "source": {
+            "nom": "Invezz citant le Financial Times",
+            "url": "https://invezz.com/news/2026/11/26/fed-rate-hike-odds-rise-to-almost-100-can-ai-selloff-force-a-rethink/"
+          }
+        }
+      ]
+    },
+    {
+      "id": "medias-amplificateurs",
+      "nom": "Médias financiers et chaînes TV",
+      "categorie": "Amplificateurs d’agenda (CNBC, Bloomberg, FT, WSJ, Reuters, BFM, Les Échos)",
+      "resume": "Ils ne sont en général pas des investisseurs en compte propre sur les récits qu’ils couvrent. Leur rôle est de transformer une note, un post ou un rapport en récit grand public. Les invités, eux, ont souvent un intérêt déclaré.",
+      "signaux_alerte": [
+        "Une une ou un explainer « crise de… » / « bulle de… »",
+        "Invité gérant ou banquier avec position ou mandat public",
+        "Répétition du même angle pendant plusieurs jours"
+      ],
+      "exemples": [
+        {
+          "titre": "BFM, explainer sur la « crise » de la dette française",
+          "date": "2026-10-03",
+          "fait": "BFM Business a popularisé le récit de tension sur les OAT auprès d’un public large, tout en expliquant que la France continuait d’emprunter. Exemple d’amplification grand public d’un thème déjà présent chez les spécialistes, sans position de marché déclarée du média.",
+          "source": {
+            "nom": "BFM Business",
+            "url": "https://www.bfmtv.com/economie/economie-social/finances-publiques/la-france-emprunte-a-5-et-alors-quel-est-le-probleme-taux-a-10-ans-oat-spread-on-vous-explique-la-crise-de-la-dette-francaise-sans-jargon-financier_AV-202610030055.html"
+          }
+        },
+        {
+          "titre": "CNBC, interview Ackman de mars 2020",
+          "date": "2020-03-18",
+          "fait": "Le passage d’Ackman sur CNBC a donné une audience de masse à un récit de peur, alors que Pershing Square avait un intérêt déclaré documenté ensuite dans sa lettre du 26 mars. Le média amplifie ; l’intérêt déclaré est celui de l’invité.",
+          "source": {
+            "nom": "CNBC",
+            "url": "https://www.cnbc.com/2020/03/25/bill-ackman-exits-market-hedges-uses-2-billion-he-made-to-buy-more-stocks-including-hilton.html"
+          }
+        }
+      ]
+    }
+  ]
+}

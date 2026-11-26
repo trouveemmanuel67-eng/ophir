@@ -85,6 +85,12 @@ t=t.replace('__DATA_EVT__', esc(evt) if evt else 'null')
 _evtjs=_P(B+'src/evenements.js')
 t=t.replace('/*__EVTJS__*/', _evtjs.read_text() if _evtjs.exists() else '')
 
+_nar=_P(B+'data/narratif.json')
+nar=_nar.read_text() if _nar.exists() else ''
+t=t.replace('__DATA_NARRATIF__', esc(nar) if nar else 'null')
+_narjs=_P(B+'src/narratif.js')
+t=t.replace('/*__NARJS__*/', _narjs.read_text() if _narjs.exists() else '')
+
 _pea=_P(B+'data/pea.json')
 pea=_pea.read_text() if _pea.exists() else ''
 t=t.replace('__DATA_PEA__', esc(pea) if pea else 'null')
