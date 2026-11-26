@@ -6,18 +6,18 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<meta name="ophir-build" content="a5953d9-20261126-090855">
+<meta name="ophir-build" content="135caee-20261126-111311">
 <title>APEX INDICATOR INVESTMENT</title>
 <meta name="description" content="APEX Indicator Investment — notes et indicateurs de marché.">
 <meta name="theme-color" content="#0a1128">
 <meta name="apple-mobile-web-app-title" content="APEX">
 <meta name="application-name" content="APEX">
-<link rel="icon" href="favicon.ico?v=a5953d9-20261126-090855" sizes="any">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=a5953d9-20261126-090855">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=a5953d9-20261126-090855">
-<link rel="icon" type="image/png" sizes="64x64" href="favicon.png?v=a5953d9-20261126-090855">
-<link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png?v=a5953d9-20261126-090855">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=a5953d9-20261126-090855">
+<link rel="icon" href="favicon.ico?v=135caee-20261126-111311" sizes="any">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=135caee-20261126-111311">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=135caee-20261126-111311">
+<link rel="icon" type="image/png" sizes="64x64" href="favicon.png?v=135caee-20261126-111311">
+<link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png?v=135caee-20261126-111311">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=135caee-20261126-111311">
 <meta property="og:type" content="website">
 <meta property="og:title" content="APEX INDICATOR INVESTMENT">
 <meta property="og:description" content="APEX Indicator Investment — notes et indicateurs de marché.">
@@ -48,9 +48,9 @@ body{color:var(--txt);font-family:Inter,"Helvetica Neue",Helvetica,Arial,system-
 *::-webkit-scrollbar-thumb:active{background-color:var(--scroll-thumb-active)}
 *::-webkit-scrollbar-button,*::-webkit-scrollbar-button:single-button,*::-webkit-scrollbar-button:start:decrement,*::-webkit-scrollbar-button:end:increment,*::-webkit-scrollbar-button:vertical:start:increment,*::-webkit-scrollbar-button:vertical:end:decrement{display:none;width:0;height:0}
 *::-webkit-scrollbar-corner{background:transparent}
-#hbg{position:fixed;inset:0;z-index:-1;background-color:#0c1016;background-position:center center;background-size:cover;background-repeat:no-repeat;background-image:url("assets/bg/accueil.jpg?v=a5953d9-20261126-090855");background-image:image-set(url("assets/bg/accueil.webp?v=a5953d9-20261126-090855") type("image/webp"),url("assets/bg/accueil.jpg?v=a5953d9-20261126-090855") type("image/jpeg"))}
-body.bg-analyse #hbg{background-image:url("assets/bg/analyse.jpg?v=a5953d9-20261126-090855");background-image:image-set(url("assets/bg/analyse.webp?v=a5953d9-20261126-090855") type("image/webp"),url("assets/bg/analyse.jpg?v=a5953d9-20261126-090855") type("image/jpeg"))}
-body.bg-outils #hbg{background-image:url("assets/bg/outils.jpg?v=a5953d9-20261126-090855");background-image:image-set(url("assets/bg/outils.webp?v=a5953d9-20261126-090855") type("image/webp"),url("assets/bg/outils.jpg?v=a5953d9-20261126-090855") type("image/jpeg"))}
+#hbg{position:fixed;inset:0;z-index:-1;background-color:#0c1016;background-position:center center;background-size:cover;background-repeat:no-repeat;background-image:url("assets/bg/accueil.jpg?v=135caee-20261126-111311");background-image:image-set(url("assets/bg/accueil.webp?v=135caee-20261126-111311") type("image/webp"),url("assets/bg/accueil.jpg?v=135caee-20261126-111311") type("image/jpeg"))}
+body.bg-analyse #hbg{background-image:url("assets/bg/analyse.jpg?v=135caee-20261126-111311");background-image:image-set(url("assets/bg/analyse.webp?v=135caee-20261126-111311") type("image/webp"),url("assets/bg/analyse.jpg?v=135caee-20261126-111311") type("image/jpeg"))}
+body.bg-outils #hbg{background-image:url("assets/bg/outils.jpg?v=135caee-20261126-111311");background-image:image-set(url("assets/bg/outils.webp?v=135caee-20261126-111311") type("image/webp"),url("assets/bg/outils.jpg?v=135caee-20261126-111311") type("image/jpeg"))}
 #hbg:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(8,10,12,.58),rgba(8,10,12,.40) 42%,rgba(8,10,12,.62))}
 #hh{text-align:left;padding:8px 12px 4px;position:relative}
 #hh .hh-top{display:flex;align-items:center;gap:10px 22px;flex-wrap:wrap;position:relative}
@@ -516,6 +516,47 @@ body{display:flex;flex-direction:column;min-height:100vh}
   .plc-taux{grid-area:taux;font-size:12px}
 }
 
+
+/* ===== Onglet PEA ===== */
+.pea-intro,.pea-class,.pea-just,.pea-warn{margin:8px 0 0;font-size:13px;line-height:1.45;color:var(--mut)}
+.pea-warn{color:#e6c27a}
+.pea-colh{display:grid;grid-template-columns:28px minmax(0,1.8fr) auto auto auto;gap:8px 12px;padding:8px 12px 6px;font-size:11px;color:var(--mut);letter-spacing:.06em;text-transform:uppercase}
+.pea-list{display:flex;flex-direction:column;gap:6px}
+.pea-row{display:grid;grid-template-columns:28px minmax(0,1.8fr) auto auto auto;gap:4px 12px;align-items:baseline;padding:8px 12px;border:1px solid rgba(255,255,255,.14);border-radius:10px;background:rgba(255,255,255,.03);font-variant-numeric:tabular-nums}
+.pea-rk{color:var(--mut);font-size:12px}
+.pea-nm{font-weight:650;min-width:0}
+.pea-yld{justify-self:end;font-size:16px;font-weight:700;color:var(--acc2,#e6c27a);white-space:nowrap}
+.pea-ter,.pea-pol{justify-self:end;font-size:12px;color:var(--mut);white-space:nowrap}
+.pea-meta{grid-column:1/-1;font-size:11px;color:var(--mut);line-height:1.4}
+.pea-kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:10px 0}
+.pea-kpis div{border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:8px 10px;background:rgba(255,255,255,.03)}
+.pea-kpis span{display:block;font-size:10px;color:var(--mut);text-transform:uppercase;letter-spacing:.05em}
+.pea-kpis b{display:block;font-size:22px;font-weight:750;letter-spacing:-.03em;font-variant-numeric:tabular-nums;margin-top:2px}
+.pea-kpis small{display:block;font-size:11px;color:var(--mut)}
+.pea-scs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:8px 0 12px}
+.pea-sc{border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:10px 12px;background:rgba(255,255,255,.03)}
+.pea-sc-nom{display:block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--mut)}
+.pea-sc-cap{display:block;font-size:26px;font-weight:750;letter-spacing:-.03em;font-variant-numeric:tabular-nums;margin:4px 0 2px}
+.pea-sc-tx{display:block;font-size:13px;color:var(--acc2,#e6c27a)}
+.pea-sc-why{display:block;margin-top:6px;font-size:11px;color:var(--mut);line-height:1.35}
+.pea-taux{display:flex;align-items:center;gap:8px;font-size:13px;margin:8px 0}
+.pea-taux input{width:5.5rem;padding:6px 8px;border:1px solid rgba(255,255,255,.2);border-radius:8px;background:rgba(0,0,0,.25);color:#fff;font:inherit;font-variant-numeric:tabular-nums}
+.pea-custom{font-size:15px;margin:4px 0 8px}
+@media(max-width:640px){
+  .pea-colh{display:none}
+  .pea-row{grid-template-columns:auto 1fr auto;grid-template-areas:"rk nm yld" "ter ter pol" "meta meta meta";gap:2px 8px;padding:8px 10px}
+  .pea-rk{grid-area:rk}
+  .pea-nm{grid-area:nm}
+  .pea-yld{grid-area:yld;font-size:18px}
+  .pea-ter{grid-area:ter;justify-self:start}
+  .pea-pol{grid-area:pol}
+  .pea-meta{grid-area:meta}
+  .pea-kpis{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+  .pea-kpis b{font-size:15px}
+  .pea-scs{grid-template-columns:1fr;gap:6px}
+  .pea-sc-cap{font-size:28px}
+}
+
 /* ===== En-têtes et jauge compactés (tous les onglets) ===== */
 .card.acc{padding:4px 10px;margin-bottom:2px;border-radius:8px;transition:border-color .15s,background-color .15s,transform .15s,padding .15s}
 .card.acc.acc-open{padding:12px 16px;margin-bottom:10px}
@@ -757,7 +798,7 @@ body{display:flex;flex-direction:column;min-height:100vh}
 .rg-btn:hover,body.rg-on .rg-btn{background:rgba(255,255,255,.12);color:#fff;box-shadow:0 0 0 1px rgba(255,255,255,.28)}
 .rg-btn:focus-visible{outline:1px solid rgba(255,255,255,.7);outline-offset:2px}
 
-#bdg-page{display:none;position:fixed;inset:0;z-index:241;flex-direction:column;color:#fff;overflow:hidden;background-color:#0c1016;background-position:center center;background-size:cover;background-repeat:no-repeat;background-image:url("assets/bg/outils.jpg?v=a5953d9-20261126-090855");background-image:image-set(url("assets/bg/outils.webp?v=a5953d9-20261126-090855") type("image/webp"),url("assets/bg/outils.jpg?v=a5953d9-20261126-090855") type("image/jpeg"))}
+#bdg-page{display:none;position:fixed;inset:0;z-index:241;flex-direction:column;color:#fff;overflow:hidden;background-color:#0c1016;background-position:center center;background-size:cover;background-repeat:no-repeat;background-image:url("assets/bg/outils.jpg?v=135caee-20261126-111311");background-image:image-set(url("assets/bg/outils.webp?v=135caee-20261126-111311") type("image/webp"),url("assets/bg/outils.jpg?v=135caee-20261126-111311") type("image/jpeg"))}
 #bdg-page:before,#rg-page:before{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;background:linear-gradient(180deg,rgba(8,10,12,.58),rgba(8,10,12,.40) 42%,rgba(8,10,12,.62))}
 #bdg-page>*,#rg-page>*{position:relative;z-index:1}
 body.bdg-on{overflow:hidden}
@@ -928,7 +969,7 @@ body.bdg-on .rg-btn[aria-expanded="true"],#bdgBtn.rg-btn[aria-expanded="true"],b
   .bdg-moy-th span:nth-child(3),.bdg-moy-row > :nth-child(3){display:none}
 }
 
-#rg-page{display:none;position:fixed;inset:0;z-index:240;flex-direction:column;color:#fff;overflow:hidden;background-color:#0c1016;background-position:center center;background-size:cover;background-repeat:no-repeat;background-image:url("assets/bg/outils.jpg?v=a5953d9-20261126-090855");background-image:image-set(url("assets/bg/outils.webp?v=a5953d9-20261126-090855") type("image/webp"),url("assets/bg/outils.jpg?v=a5953d9-20261126-090855") type("image/jpeg"))}
+#rg-page{display:none;position:fixed;inset:0;z-index:240;flex-direction:column;color:#fff;overflow:hidden;background-color:#0c1016;background-position:center center;background-size:cover;background-repeat:no-repeat;background-image:url("assets/bg/outils.jpg?v=135caee-20261126-111311");background-image:image-set(url("assets/bg/outils.webp?v=135caee-20261126-111311") type("image/webp"),url("assets/bg/outils.jpg?v=135caee-20261126-111311") type("image/jpeg"))}
 body.rg-on{overflow:hidden}
 body.rg-on #rg-page{display:flex}
 body.rg-on #rg-page[hidden]{display:flex}
@@ -1577,8 +1618,8 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
   <div class="hh-top">
     <h1>
       <picture>
-        <source type="image/webp" srcset="apex-logo.webp?v=a5953d9-20261126-090855 1x, apex-logo@2x.webp?v=a5953d9-20261126-090855 2x">
-        <img class="brand" src="apex-logo.png?v=a5953d9-20261126-090855" srcset="apex-logo.png?v=a5953d9-20261126-090855 1x, apex-logo@2x.png?v=a5953d9-20261126-090855 2x" width="233" height="256" alt="APEX">
+        <source type="image/webp" srcset="apex-logo.webp?v=135caee-20261126-111311 1x, apex-logo@2x.webp?v=135caee-20261126-111311 2x">
+        <img class="brand" src="apex-logo.png?v=135caee-20261126-111311" srcset="apex-logo.png?v=135caee-20261126-111311 1x, apex-logo@2x.png?v=135caee-20261126-111311 2x" width="233" height="256" alt="APEX">
       </picture>
       <span class="brand-sub">Indicator<br>Investment</span>
     </h1>
@@ -76666,7 +76707,7 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
   }
 }
 </script>
-<script type="application/json" id="dataBuild">{"version":"a5953d9-20261126-090855"}</script>
+<script type="application/json" id="dataBuild">{"version":"135caee-20261126-111311"}</script>
 <script>
 /* Cache iOS / Pages : le bloc Meilleurs short est embarqué dans index.html.
    Meta no-cache seules ne suffisent pas ; on casse le cache avec ?v= et on recharge si la version distante a changé. */
@@ -76723,7 +76764,7 @@ if(navigator.serviceWorker){
 })();
 </script>
 
-<link rel="preload" href="config/regles.json?v=a5953d9-20261126-090855" as="fetch" crossorigin>
+<link rel="preload" href="config/regles.json?v=135caee-20261126-111311" as="fetch" crossorigin>
 
 <script type="application/json" id="dataMaj">{
   "at": "2026-11-23T21:45:22.168885+01:00",
@@ -84475,6 +84516,292 @@ if(navigator.serviceWorker){
   ]
 }
 </script>
+<script type="application/json" id="dataPea">{
+  "generated": "2026-11-26",
+  "zone": "Europe/Paris",
+  "titre": "PEA",
+  "intro": "Les meilleurs ETF à rendement éligibles au PEA, présents chez XTB. Classés par rendement de distribution, puis par frais et encours.",
+  "classement": "rendement_qualite",
+  "classement_libelle": "Classement par rendement de distribution actuel, puis par frais (TER) et encours. La note APEX sur 250 n'est pas calculée : le moteur actuel couvre les actions US et France, pas ces ETF européens.",
+  "xtb_avertissement": "Chaque fonds est dans la table OMI XTB France du 24/09/2026 (compte-titres). L'éligibilité PEA vient de justETF. Vérifie dans ton PEA XTB avant d'acheter : un ETF chez XTB n'est pas forcément achetable dans le PEA.",
+  "pea_regles": "Avantage fiscal après 5 ans (impôt sur le revenu exonéré, prélèvements sociaux dus). Plafond de versements : 150 000 €.",
+  "sources": [
+    {
+      "nom": "justETF, fiches des ETF (éligibilité PEA, TER, encours, rendement de distribution, politique de distribution)",
+      "url": "https://www.justetf.com/fr/",
+      "date": "2026-11-26"
+    },
+    {
+      "nom": "Table OMI XTB France (disponibilité au comptant)",
+      "url": "https://www.xtb.com/fr/specification_table_omi-fr.pdf",
+      "date": "2026-09-24"
+    },
+    {
+      "nom": "Page produit XTB SEL.FR",
+      "url": "https://www.xtb.com/fr/etfs/sel-fr",
+      "date": "2026-11-26"
+    },
+    {
+      "nom": "Page PEA XTB (plafond 150 000 €, exonération d'impôt sur le revenu après 5 ans)",
+      "url": "https://www.xtb.com/fr/pea",
+      "date": "2026-11-26"
+    },
+    {
+      "nom": "Yahoo Finance, cours ajustés (performances 5 ans et 10 ans, dividendes réinvestis)",
+      "url": "https://finance.yahoo.com/",
+      "date": "2026-11-26"
+    }
+  ],
+  "etfs": [
+    {
+      "id": "SEL",
+      "nom": "Amundi Europe Select Div. 30",
+      "nom_long": "Amundi Stoxx Europe Select Dividend 30 UCITS ETF Dist",
+      "isin": "LU1812092168",
+      "ticker": "SEL",
+      "xtb": "SEL.FR",
+      "ter_pct": 0.30,
+      "encours_meur": 549,
+      "politique": "distribution",
+      "frequence": "annuelle",
+      "rendement_actuel_pct": 5.56,
+      "rendement_12m_pct": 6.50,
+      "replication": "synthétique",
+      "indice": "STOXX Europe Select Dividend 30",
+      "lancement": "2006-10-25",
+      "pea": true,
+      "xtb_omi": true,
+      "xtb_page": true,
+      "note": "Rendement le plus élevé de la liste. Swap : risque de contrepartie. Environ 29 % au Royaume-Uni dans l'indice, éligible au PEA grâce à la réplication synthétique.",
+      "meme_indice": null,
+      "perf_5a_pct": 78.97,
+      "perf_5a_pa_pct": 12.35,
+      "perf_5a_source": "justETF, au 26/11/2026",
+      "perf_10a_pa_pct": null,
+      "sources_fiche": ["https://www.justetf.com/fr/etf-profile.html?isin=LU1812092168", "https://www.xtb.com/fr/etfs/sel-fr"]
+    },
+    {
+      "id": "EXSG",
+      "nom": "iShares Euro Select Div. 30",
+      "nom_long": "iShares EURO STOXX Select Dividend 30 UCITS ETF (DE)",
+      "isin": "DE0002635281",
+      "ticker": "EXSG",
+      "xtb": "SD3EEX.DE",
+      "ter_pct": 0.32,
+      "encours_meur": 591,
+      "politique": "distribution",
+      "frequence": "trimestrielle",
+      "rendement_actuel_pct": 4.47,
+      "rendement_12m_pct": 5.12,
+      "replication": "physique",
+      "indice": "EURO STOXX Select Dividend 30",
+      "lancement": "2005-05-03",
+      "pea": true,
+      "xtb_omi": true,
+      "xtb_page": false,
+      "note": "Même indice que IQQA, frais plus bas. Forte concentration financière (environ 54 %).",
+      "meme_indice": "IQQA",
+      "perf_5a_pct": 60.9,
+      "perf_5a_pa_pct": 9.98,
+      "perf_5a_source": "Yahoo Finance, cours ajustés au 26/11/2026 (EXSG.DE)",
+      "perf_10a_pa_pct": 6.96,
+      "sources_fiche": ["https://www.justetf.com/fr/etf-profile.html?isin=DE0002635281"]
+    },
+    {
+      "id": "IQQA",
+      "nom": "iShares Euro Dividend",
+      "nom_long": "iShares Euro Dividend UCITS ETF",
+      "isin": "IE00B0M62S72",
+      "ticker": "IQQA",
+      "xtb": "IQQA.DE",
+      "xtb_alt": "IDVY.NL",
+      "ter_pct": 0.40,
+      "encours_meur": 1603,
+      "politique": "distribution",
+      "frequence": "trimestrielle",
+      "rendement_actuel_pct": 4.41,
+      "rendement_12m_pct": 5.05,
+      "replication": "physique",
+      "indice": "EURO STOXX Select Dividend 30",
+      "lancement": "2005-10-28",
+      "pea": true,
+      "xtb_omi": true,
+      "xtb_page": true,
+      "note": "Même indice que EXSG. Plus gros encours, mais frais plus élevés (0,40 %). Aussi coté IDVY.NL chez XTB.",
+      "meme_indice": "EXSG",
+      "perf_5a_pct": 60.9,
+      "perf_5a_pa_pct": 9.98,
+      "perf_5a_source": "Yahoo Finance, cours ajustés au 26/11/2026 (IQQA.DE)",
+      "perf_10a_pa_pct": 6.91,
+      "sources_fiche": ["https://www.justetf.com/fr/etf-profile.html?isin=IE00B0M62S72", "https://www.xtb.com/fr/etfs/iqqa-de"]
+    },
+    {
+      "id": "XD3E",
+      "nom": "Xtrackers Euro Quality Div.",
+      "nom_long": "Xtrackers Euro Stoxx Quality Dividend UCITS ETF 1D",
+      "isin": "LU0292095535",
+      "ticker": "DXSA",
+      "xtb": "XD3E.DE",
+      "ter_pct": 0.30,
+      "encours_meur": 776,
+      "politique": "distribution",
+      "frequence": "trimestrielle",
+      "rendement_actuel_pct": 4.37,
+      "rendement_12m_pct": 5.02,
+      "replication": "physique",
+      "indice": "EURO STOXX Quality Dividend 50",
+      "lancement": "2007-06-01",
+      "pea": true,
+      "xtb_omi": true,
+      "xtb_page": false,
+      "note": "Filtre qualité en plus du dividende, 50 lignes. Meilleur rythme sur 10 ans de la liste (Yahoo).",
+      "meme_indice": null,
+      "perf_5a_pct": 82.9,
+      "perf_5a_pa_pct": 12.83,
+      "perf_5a_source": "Yahoo Finance, cours ajustés au 26/11/2026 (DXSA.DE)",
+      "perf_10a_pa_pct": 8.80,
+      "sources_fiche": ["https://www.justetf.com/fr/etf-profile.html?isin=LU0292095535"]
+    },
+    {
+      "id": "SPYW",
+      "nom": "SPDR Euro Div. Aristocrats",
+      "nom_long": "State Street SPDR S&P Euro Dividend Aristocrats UCITS ETF EUR",
+      "isin": "IE00B5M1WJ87",
+      "ticker": "SPYW",
+      "xtb": "SPYW.DE",
+      "ticker_alt": "EUDV",
+      "ter_pct": 0.30,
+      "encours_meur": 1838,
+      "politique": "distribution",
+      "frequence": "semestrielle",
+      "rendement_actuel_pct": 3.66,
+      "rendement_12m_pct": 4.17,
+      "replication": "physique",
+      "indice": "S&P Euro High Yield Dividend Aristocrats",
+      "lancement": "2012-02-28",
+      "pea": true,
+      "xtb_omi": true,
+      "xtb_page": false,
+      "note": "Plus gros encours. Entreprises de la zone euro avec dividendes stables ou en hausse depuis 10 ans. Rendement plus bas, panier plus exigeant.",
+      "meme_indice": null,
+      "perf_5a_pct": 59.4,
+      "perf_5a_pa_pct": 9.78,
+      "perf_5a_source": "Yahoo Finance, cours ajustés au 26/11/2026 (SPYW.DE)",
+      "perf_10a_pa_pct": 7.26,
+      "sources_fiche": ["https://www.justetf.com/fr/etf-profile.html?isin=IE00B5M1WJ87"]
+    },
+    {
+      "id": "CD8",
+      "nom": "Amundi EMU High Dividend",
+      "nom_long": "Amundi MSCI EMU High Dividend UCITS ETF Acc",
+      "isin": "FR0010717090",
+      "ticker": "CD8",
+      "xtb": "18M2.DE",
+      "ter_pct": 0.30,
+      "encours_meur": 391,
+      "politique": "capitalisation",
+      "frequence": null,
+      "rendement_actuel_pct": null,
+      "rendement_12m_pct": null,
+      "replication": "physique",
+      "indice": "MSCI EMU High Dividend Yield",
+      "lancement": "2009-02-26",
+      "pea": true,
+      "xtb_omi": true,
+      "xtb_page": false,
+      "note": "Capitalisant : les dividendes sont réinvestis automatiquement, pratique pour 200 €/mois. Pas de rendement versé à afficher.",
+      "meme_indice": null,
+      "perf_5a_pct": 61.0,
+      "perf_5a_pa_pct": 10.00,
+      "perf_5a_source": "Yahoo Finance, cours ajustés au 26/11/2026 (CD8.PA)",
+      "perf_10a_pa_pct": 8.42,
+      "sources_fiche": ["https://www.justetf.com/fr/etf-profile.html?isin=FR0010717090"]
+    },
+    {
+      "id": "IDVA",
+      "nom": "iShares Euro Select Div. 30 Acc",
+      "nom_long": "iShares EURO STOXX Select Dividend 30 UCITS ETF (DE) EUR (Acc)",
+      "isin": "DE000A2QP380",
+      "ticker": "IDVA",
+      "xtb": "IDVA.NL",
+      "ter_pct": 0.32,
+      "encours_meur": 96,
+      "politique": "capitalisation",
+      "frequence": null,
+      "rendement_actuel_pct": null,
+      "rendement_12m_pct": null,
+      "replication": "physique",
+      "indice": "EURO STOXX Select Dividend 30",
+      "lancement": "2021-12-03",
+      "pea": true,
+      "xtb_omi": true,
+      "xtb_page": true,
+      "note": "Version capitalisante de EXSG, même indice. Encours faible (96 M€), lancée en 2021.",
+      "meme_indice": "EXSG",
+      "perf_5a_pct": 60.7,
+      "perf_5a_pa_pct": 9.95,
+      "perf_5a_source": "Yahoo Finance, cours ajustés au 26/11/2026 (IDVA.AS), historique depuis le 31/12/2021 (presque 5 ans)",
+      "perf_10a_pa_pct": null,
+      "sources_fiche": ["https://www.justetf.com/fr/etf-profile.html?isin=DE000A2QP380", "https://www.xtb.com/fr/etfs/idva-nl"]
+    }
+  ],
+  "exclus": [
+    {
+      "nom": "iShares STOXX Europe Select Dividend 30",
+      "isin": "DE0002635299",
+      "raison": "justETF : non éligible au PEA (réplication physique, forte poche Royaume-Uni). Présent chez XTB (SD3PEX.DE)."
+    },
+    {
+      "nom": "Amundi MSCI Europe High Dividend Factor",
+      "isin": "LU1681041973",
+      "raison": "justETF : non éligible au PEA. Présent chez XTB (EHF1.DE)."
+    },
+    {
+      "nom": "Franklin European Quality Dividend",
+      "isin": "IE00BF2B0L69",
+      "raison": "justETF : non éligible au PEA. Présent chez XTB (FLXD.DE)."
+    },
+    {
+      "nom": "Invesco EURO STOXX High Dividend Low Volatility",
+      "isin": "IE00BZ4BMM98",
+      "raison": "justETF : non éligible au PEA. Présent chez XTB (EHDV.DE)."
+    }
+  ],
+  "projection": {
+    "versement_mensuel_eur": 200,
+    "duree_ans": 5,
+    "n_versements": 60,
+    "total_verse_eur": 12000,
+    "mode": "fin_de_mois",
+    "mode_libelle": "Versements en fin de mois, dividendes supposés réinvestis. Formule de la valeur future d'une annuité ordinaire.",
+    "avertissement": "Estimation. Aucun rendement n'est garanti. Risque de perte en capital.",
+    "justification": "Les ETF zone euro de cette liste ont fait environ 7 à 8,8 % par an sur 10 ans et 10 à 13 % sur 5 ans (dividendes réinvestis, Yahoo 26/11/2026 ; SEL : +78,97 % sur 5 ans selon justETF, soit environ 12,3 % par an). Les 5 dernières années ont été exceptionnelles. Le cas central reprend plutôt le rythme sur 10 ans. Le cas prudent reprend surtout le dividende, sans hausse des cours. Le cas favorable reste sous le rythme des 5 dernières années.",
+    "scenarios": [
+      {
+        "id": "prudent",
+        "nom": "Prudent",
+        "taux_pa_pct": 4.0,
+        "capital_eur": 13259.80,
+        "justification": "Autour du rendement de dividende actuel du panier (3,7 à 5,6 %), sans hausse des cours."
+      },
+      {
+        "id": "central",
+        "nom": "Central",
+        "taux_pa_pct": 7.0,
+        "capital_eur": 14318.58,
+        "justification": "Proche du rythme sur 10 ans des ETF zone euro de la liste (environ 7 à 8,8 % par an)."
+      },
+      {
+        "id": "favorable",
+        "nom": "Favorable",
+        "taux_pa_pct": 10.0,
+        "capital_eur": 15487.41,
+        "justification": "Proche du rythme sur 5 ans (environ 10 à 13 %), période exceptionnelle, non retenue comme cas de base."
+      }
+    ]
+  }
+}
+</script>
 <script>
 "use strict";
 const DATA = JSON.parse(document.getElementById('data').textContent);
@@ -84529,6 +84856,7 @@ const TABS=[
   {id:'liquidites',label:'Liquidités',enabled:true,render:el=>renderLiquidites(el)},
   {id:'placements',label:'Placements',enabled:true,render:el=>renderPlacements(el)},
   {id:'immobilier',label:'Immobilier',enabled:true,render:renderImmobilier},
+  {id:'pea',label:'PEA',enabled:true,render:renderPea},
 ];
 
 function buildTabs(){
@@ -92359,6 +92687,124 @@ function evtMount(){
 }
 function evtInit(){
   evtMount();
+}
+
+/* ===== Onglet PEA : ETF à rendement éligibles, projection 200 €/mois ===== */
+const PEA=(()=>{try{return JSON.parse(document.getElementById('dataPea').textContent);}catch(e){return {etfs:[],projection:{scenarios:[]}};} })();
+
+function peaEsc(s){
+  return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function peaEur(v,dec){
+  const n=Number(v);
+  if(!Number.isFinite(n)) return '—';
+  const d=dec==null?0:dec;
+  return n.toLocaleString('fr-FR',{minimumFractionDigits:d,maximumFractionDigits:d})+'\u00a0€';
+}
+function peaPct(v,dec){
+  const n=Number(v);
+  if(!Number.isFinite(n)) return '—';
+  const d=dec==null?2:dec;
+  return n.toLocaleString('fr-FR',{minimumFractionDigits:d,maximumFractionDigits:d})+'\u00a0%';
+}
+function peaFv(monthly, ratePa, months){
+  const p=Number(monthly), r=Number(ratePa), n=Number(months);
+  if(!Number.isFinite(p)||!Number.isFinite(r)||!Number.isFinite(n)||n<=0) return NaN;
+  const i=r/12;
+  if(Math.abs(i)<1e-15) return p*n;
+  return p*((Math.pow(1+i,n)-1)/i);
+}
+function peaPol(e){
+  if(e.politique==='capitalisation') return 'Cap.';
+  if(e.politique==='distribution'){
+    if(e.frequence==='annuelle') return 'Dist. / an';
+    if(e.frequence==='semestrielle') return 'Dist. / 6 mois';
+    if(e.frequence==='trimestrielle') return 'Dist. / trim.';
+    return 'Dist.';
+  }
+  return '—';
+}
+function peaRow(e,i){
+  const yld=e.rendement_actuel_pct==null?'Cap.':peaPct(e.rendement_actuel_pct);
+  const xtb=e.xtb+(e.xtb_alt?(' ou '+e.xtb_alt):'');
+  const meta=[
+    e.isin,
+    'XTB '+xtb,
+    e.encours_meur!=null?(Number(e.encours_meur).toLocaleString('fr-FR')+'\u00a0M€'):null,
+    e.replication,
+    e.note
+  ].filter(Boolean).join(' · ');
+  return `<article class="pea-row">
+    <span class="pea-rk">${i+1}</span>
+    <span class="pea-nm">${peaEsc(e.nom)}</span>
+    <b class="pea-yld" title="Rendement de distribution actuel (justETF)">${peaEsc(yld)}</b>
+    <span class="pea-ter">TER ${peaPct(e.ter_pct)}</span>
+    <span class="pea-pol">${peaEsc(peaPol(e))}</span>
+    <span class="pea-meta">${peaEsc(meta)}</span>
+  </article>`;
+}
+function peaScenCard(s, capital){
+  const cap=capital!=null?capital:s.capital_eur;
+  return `<div class="pea-sc" data-id="${peaEsc(s.id)}">
+    <span class="pea-sc-nom">${peaEsc(s.nom)}</span>
+    <b class="pea-sc-cap">${peaEur(cap)}</b>
+    <span class="pea-sc-tx">${peaPct(s.taux_pa_pct,1)} / an</span>
+    <span class="pea-sc-why">${peaEsc(s.justification||'')}</span>
+  </div>`;
+}
+function peaBind(el){
+  const P=PEA.projection||{};
+  const inp=el.querySelector('#peaTaux');
+  const out=el.querySelector('#peaCustom');
+  const monthly=Number(P.versement_mensuel_eur||200);
+  const months=Number(P.n_versements||60);
+  const upd=()=>{
+    if(!inp||!out) return;
+    const raw=String(inp.value||'').replace(',','.');
+    const r=Number(raw)/100;
+    if(!Number.isFinite(r)||r<=-1||r>0.5){
+      out.textContent='Taux invalide';
+      return;
+    }
+    const cap=peaFv(monthly,r,months);
+    out.innerHTML='À <b>'+peaPct(r*100,1)+'</b> / an : <b>'+peaEur(cap)+'</b>';
+  };
+  if(inp){
+    inp.addEventListener('input',upd);
+    inp.addEventListener('change',upd);
+    upd();
+  }
+}
+function renderPea(el){
+  const L=Array.isArray(PEA.etfs)?PEA.etfs.slice(0,10):[];
+  const P=PEA.projection||{};
+  const sc=Array.isArray(P.scenarios)?P.scenarios:[];
+  const defTx=(sc.find(s=>s.id==='central')||sc[0]||{}).taux_pa_pct;
+  el.innerHTML=`<div class="card pea-card">
+    <h2>ETF à rendement · PEA XTB</h2>
+    <p class="pea-intro">${peaEsc(PEA.intro||'')}</p>
+    <div class="pea-colh" aria-hidden="true"><span>#</span><span>Fonds</span><span>Rendement</span><span>Frais</span><span>Versement</span></div>
+    <div class="pea-list">${L.map(peaRow).join('')}</div>
+    <p class="pea-class">${peaEsc(PEA.classement_libelle||'')}</p>
+    <div class="src">${peaEsc(PEA.xtb_avertissement||'')}</div>
+  </div>
+  <div class="card pea-card pea-proj">
+    <h2>Projection ${peaEur(P.versement_mensuel_eur||200)}/mois sur ${P.duree_ans||5}\u00a0ans</h2>
+    <div class="pea-kpis">
+      <div><span>Versé</span><b>${peaEur(P.total_verse_eur||12000)}</b><small>${P.n_versements||60} versements</small></div>
+      <div><span>PEA</span><b>5\u00a0ans</b><small>Avantage fiscal</small></div>
+      <div><span>Plafond</span><b>150\u00a0000\u00a0€</b><small>versements</small></div>
+    </div>
+    <div class="pea-scs">${sc.map(s=>peaScenCard(s)).join('')}</div>
+    <label class="pea-taux">Taux annuel
+      <input id="peaTaux" type="number" inputmode="decimal" min="-20" max="50" step="0.1" value="${peaEsc(defTx==null?7:defTx)}"> %
+    </label>
+    <div id="peaCustom" class="pea-custom"></div>
+    <p class="pea-just">${peaEsc(P.justification||'')}</p>
+    <p class="pea-warn">${peaEsc(P.avertissement||'')} ${peaEsc(PEA.pea_regles||'')}</p>
+    <div class="src">Sources : justETF (26/11/2026) · table OMI XTB France (24/09/2026) · Yahoo Finance pour les rythmes 5 ans et 10 ans (26/11/2026). ${peaEsc(P.mode_libelle||'')}</div>
+  </div>`;
+  peaBind(el);
 }
 
 /* ===== Recherche d'actifs (t449u, t458u) : début de mot du nom ou début du ticker ===== */
