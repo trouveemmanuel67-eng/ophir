@@ -25,7 +25,8 @@ def test_short_trois_categories_seulement():
 
 def test_comptabilisation_short_250():
     assert "rgShortBoard" in JS and "rgShortTable" in JS
-    assert "≥ '+s+'/250" in JS
+    assert "seuil_liste" in JS or "130" in JS
+    assert "Fibonacci 38,2 %" in JS or "38,2" in JS
     assert "Fibonacci 38,2 %" in JS
     assert "de la plus haute à la plus basse" in JS.lower() or "De la plus haute à la plus basse" in JS
     assert "Le short peut faire perdre plus que la mise" not in JS

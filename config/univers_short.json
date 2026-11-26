@@ -1,30 +1,32 @@
 {
- "regle": "t534u : 50 actions cotées au NYSE (canadiennes comprises), CFD Revolut, RSI hebdo en surachat, santé en dégradation",
- "genere": "2026-11-24 23:16",
+ "regle": "NYSE + NASDAQ (S&P 500, canadiennes NYSE, CFD Revolut actions), RSI hebdo ≥ 60, dégradation ≥ 0,5 ; crypto (XRP…) exclue ; la liste Meilleurs short ne retient que les notes vertes ou mieux (≥ 130), sans complément orange, jusqu'à 10 titres",
+ "genere": "2026-11-26 08:09",
  "zone": "Europe/Paris",
  "script": "src/build_univers_short.py",
  "sources": {
-  "sp500": "SPDR SPY holdings (State Street), au As of 23-Nov-2026",
+  "sp500": "SPDR SPY holdings (State Street), au As of 24-Nov-2026",
   "cours": "Yahoo Finance, bougies hebdo clôturées",
   "fondamentaux": "Yahoo Finance (yfinance) : info, estimations, tendance BPA, comptes trimestriels / annuels",
   "cfd": "config/revolut_cfd_confirmes.json (relevé CFD Revolut)"
  },
  "stats": {
-  "univers_large": 718,
-  "nyse": 449,
-  "rsi_sup_70": 7,
-  "rsi_sup_65": 28,
-  "eligibles_degradation": 15,
-  "retenus": 15,
+  "univers_large": 707,
+  "nyse": 659,
+  "rsi_sup_70": 8,
+  "rsi_sup_65": 35,
+  "rsi_sup_min": 84,
+  "eligibles_degradation": 54,
+  "retenus": 54,
   "retenus_rsi_sup_70": 4,
-  "retenus_rsi_65_70": 11,
-  "retenus_complement_sous_65": 0,
-  "rsi_min_retenu": 65.2,
-  "cfd_confirmes": 3
+  "retenus_rsi_65_70": 17,
+  "retenus_rsi_60_65": 33,
+  "retenus_complement_sous_65": 33,
+  "rsi_min_retenu": 60.0,
+  "cfd_confirmes": 8
  },
  "rsi_seuil": 70.0,
- "rsi_min_complement": 65.0,
- "n": 50,
+ "rsi_min_complement": 60.0,
+ "n": 54,
  "actions": [
   {
    "tv": "NYSE:EG",
@@ -37,7 +39,7 @@
    "sector": "Financial Services",
    "industry": "Insurance - Reinsurance",
    "is_bank": false,
-   "market_cap": 15849216000,
+   "market_cap": 16063325184,
    "rsi": 71.9,
    "rsi_sem_sup70": 4,
    "palier": "RSI > 70",
@@ -77,7 +79,7 @@
    "sector": "Consumer Defensive",
    "industry": "Household & Personal Products",
    "is_bank": false,
-   "market_cap": 3692827648,
+   "market_cap": 3745708288,
    "rsi": 71.4,
    "rsi_sem_sup70": 3,
    "palier": "RSI > 70",
@@ -117,7 +119,7 @@
    "sector": "Industrials",
    "industry": "Pollution & Treatment Controls",
    "is_bank": false,
-   "market_cap": 28943603712,
+   "market_cap": 29223217152,
    "rsi": 73.4,
    "rsi_sem_sup70": 4,
    "palier": "RSI > 70",
@@ -136,8 +138,8 @@
     "roe": 32.961,
     "roa": 9.959,
     "current": 2.029,
-    "eps_0y": 15.6,
-    "eps_1y": 7.89,
+    "eps_0y": 15.63,
+    "eps_1y": 7.85,
     "rev_0y": 7.98,
     "rev_1y": 6.04
    },
@@ -154,7 +156,7 @@
    "sector": "Healthcare",
    "industry": "Medical Distribution",
    "is_bank": false,
-   "market_cap": 124472672256,
+   "market_cap": 124383764480,
    "rsi": 71.0,
    "rsi_sem_sup70": 3,
    "palier": "RSI > 70",
@@ -181,43 +183,124 @@
    "cfd_revolut": "à vérifier"
   },
   {
-   "tv": "NYSE:BIP",
-   "ticker": "BIP",
-   "yahoo": "BIP",
-   "nom": " Brookfield Infrastructure Partners Inc.",
-   "origine": "Canada (NYSE)",
-   "country": "United States",
-   "canada": true,
-   "sector": "Utilities",
-   "industry": "Utilities - Diversified",
+   "tv": "NASDAQ:ACGL",
+   "ticker": "ACGL",
+   "yahoo": "ACGL",
+   "nom": "Arch Capital Group Ltd.",
+   "origine": "S&P 500",
+   "country": "Bermuda",
+   "canada": false,
+   "sector": "Financial Services",
+   "industry": "Insurance - Diversified",
    "is_bank": false,
-   "market_cap": 36048007168,
-   "rsi": 67.8,
+   "market_cap": 35902189568,
+   "rsi": 67.4,
    "rsi_sem_sup70": 0,
    "palier": "RSI 65–70",
    "date_cloture": "2026-11-20",
-   "close": 42.810001373291016,
+   "close": 108.81999969482422,
    "degradation": {
-    "score": 4.5,
+    "score": 5.5,
     "signes": [
-     "révision BPA an -54 % sur 90 j",
-     "révision BPA an+1 -13 % sur 90 j",
-     "BPA attendu -63 % cette année",
-     "FCF annuel négatif",
-     "dette nette/EBITDA 5.9"
+     "BPA attendu -2 % l'an prochain",
+     "CA attendu -4 % cette année",
+     "bénéfice trim. -23 % a/a",
+     "CA trim. -9 % a/a",
+     "marge op. 31 → 28 % (trim. a/a)",
+     "dette +57 % sur 1 an"
     ]
    },
    "metrics": {
-    "nd_ebitda": 5.89,
-    "op_margin": 24.619,
-    "fcf_margin": 0.906,
-    "roe": 5.824,
-    "roa": 3.222,
-    "current": 0.782,
-    "eps_0y": -63.18,
-    "eps_1y": 280.26,
-    "rev_0y": 2.35,
-    "rev_1y": -23.67
+    "nd_ebitda": -0.034,
+    "op_margin": 27.096,
+    "fcf_margin": 20.774,
+    "roe": 18.741,
+    "roa": 3.896,
+    "current": 0.577,
+    "eps_0y": 3.96,
+    "eps_1y": -2.45,
+    "rev_0y": -4.01,
+    "rev_1y": -0.81
+   },
+   "cfd_revolut": "à vérifier"
+  },
+  {
+   "tv": "NASDAQ:BIIB",
+   "ticker": "BIIB",
+   "yahoo": "BIIB",
+   "nom": "Biogen Inc.",
+   "origine": "S&P 500",
+   "country": "United States",
+   "canada": false,
+   "sector": "Healthcare",
+   "industry": "Drug Manufacturers - General",
+   "is_bank": false,
+   "market_cap": 38646120448,
+   "rsi": 68.7,
+   "rsi_sem_sup70": 0,
+   "palier": "RSI 65–70",
+   "date_cloture": "2026-11-20",
+   "close": 249.58999633789062,
+   "degradation": {
+    "score": 4.0,
+    "signes": [
+     "BPA attendu -18 % cette année",
+     "marge op. 24 → 17 % (trim. a/a)",
+     "dette +18 % sur 1 an",
+     "FCF -22 % sur l'exercice"
+    ]
+   },
+   "metrics": {
+    "nd_ebitda": 1.968,
+    "op_margin": 23.504,
+    "fcf_margin": 7.848,
+    "roe": 1.872,
+    "roa": 4.938,
+    "current": 1.946,
+    "eps_0y": -17.98,
+    "eps_1y": 29.58,
+    "rev_0y": 7.05,
+    "rev_1y": 1.76
+   },
+   "cfd_revolut": "à vérifier"
+  },
+  {
+   "tv": "NASDAQ:GILD",
+   "ticker": "GILD",
+   "yahoo": "GILD",
+   "nom": "Gilead Sciences, Inc.",
+   "origine": "S&P 500",
+   "country": "United States",
+   "canada": false,
+   "sector": "Healthcare",
+   "industry": "Drug Manufacturers - General",
+   "is_bank": false,
+   "market_cap": 219217444864,
+   "rsi": 66.8,
+   "rsi_sem_sup70": 0,
+   "palier": "RSI 65–70",
+   "date_cloture": "2026-11-20",
+   "close": 166.42999267578125,
+   "degradation": {
+    "score": 4.0,
+    "signes": [
+     "révision BPA an -134 % sur 90 j",
+     "BPA attendu -112 % cette année",
+     "bénéfice trim. -20 % a/a",
+     "marge op. 45 → 42 % (trim. a/a)"
+    ]
+   },
+   "metrics": {
+    "nd_ebitda": 1.247,
+    "op_margin": 38.228,
+    "fcf_margin": 34.455,
+    "roe": -22.446,
+    "roa": 13.469,
+    "current": 1.379,
+    "eps_0y": -112.16,
+    "eps_1y": null,
+    "rev_0y": 6.6,
+    "rev_1y": 6.95
    },
    "cfd_revolut": "à vérifier"
   },
@@ -232,7 +315,7 @@
    "sector": "Consumer Defensive",
    "industry": "Farm Products",
    "is_bank": false,
-   "market_cap": 21850103808,
+   "market_cap": 21884557312,
    "rsi": 66.2,
    "rsi_sem_sup70": 0,
    "palier": "RSI 65–70",
@@ -262,6 +345,46 @@
    "cfd_revolut": "à vérifier"
   },
   {
+   "tv": "NASDAQ:PTC",
+   "ticker": "PTC",
+   "yahoo": "PTC",
+   "nom": "PTC Inc.",
+   "origine": "S&P 500",
+   "country": "United States",
+   "canada": false,
+   "sector": "Technology",
+   "industry": "Software - Application",
+   "is_bank": false,
+   "market_cap": 21369034752,
+   "rsi": 69.1,
+   "rsi_sem_sup70": 0,
+   "palier": "RSI 65–70",
+   "date_cloture": "2026-11-20",
+   "close": 195.10000610351562,
+   "degradation": {
+    "score": 3.5,
+    "signes": [
+     "bénéfice trim. -55 % a/a",
+     "CA trim. -25 % a/a",
+     "marge op. 50 → 32 % (trim. a/a)",
+     "dette +31 % sur 1 an"
+    ]
+   },
+   "metrics": {
+    "nd_ebitda": 1.499,
+    "op_margin": 34.562,
+    "fcf_margin": 31.513,
+    "roe": 28.55,
+    "roa": 8.859,
+    "current": 1.169,
+    "eps_0y": 9.51,
+    "eps_1y": 11.08,
+    "rev_0y": 6.16,
+    "rev_1y": 8.11
+   },
+   "cfd_revolut": "à vérifier"
+  },
+  {
    "tv": "NYSE:WRB",
    "ticker": "WRB",
    "yahoo": "WRB",
@@ -272,7 +395,7 @@
    "sector": "Financial Services",
    "industry": "Insurance - Property & Casualty",
    "is_bank": false,
-   "market_cap": 29245722624,
+   "market_cap": 29476061184,
    "rsi": 65.2,
    "rsi_sem_sup70": 0,
    "palier": "RSI 65–70",
@@ -294,10 +417,49 @@
     "roe": 19.263,
     "roa": 3.425,
     "current": 0.397,
-    "eps_0y": 14.16,
-    "eps_1y": -2.02,
+    "eps_0y": 14.21,
+    "eps_1y": -1.92,
     "rev_0y": 2.64,
     "rev_1y": 2.99
+   },
+   "cfd_revolut": "à vérifier"
+  },
+  {
+   "tv": "NYSE:BIP",
+   "ticker": "BIP",
+   "yahoo": "BIP",
+   "nom": " Brookfield Infrastructure Partners Inc.",
+   "origine": "Canada (NYSE)",
+   "country": "United States",
+   "canada": true,
+   "sector": "Utilities",
+   "industry": "Utilities - Diversified",
+   "is_bank": false,
+   "market_cap": 35335282688,
+   "rsi": 67.8,
+   "rsi_sem_sup70": 0,
+   "palier": "RSI 65–70",
+   "date_cloture": "2026-11-20",
+   "close": 42.810001373291016,
+   "degradation": {
+    "score": 2.5,
+    "signes": [
+     "BPA attendu -41 % l'an prochain",
+     "FCF annuel négatif",
+     "dette nette/EBITDA 5.9"
+    ]
+   },
+   "metrics": {
+    "nd_ebitda": 5.89,
+    "op_margin": 24.619,
+    "fcf_margin": 0.906,
+    "roe": 5.824,
+    "roa": 3.222,
+    "current": 0.782,
+    "eps_0y": null,
+    "eps_1y": -41.38,
+    "rev_0y": 2.35,
+    "rev_1y": -23.67
    },
    "cfd_revolut": "à vérifier"
   },
@@ -312,7 +474,7 @@
    "sector": "Consumer Defensive",
    "industry": "Discount Stores",
    "is_bank": false,
-   "market_cap": 79708454912,
+   "market_cap": 77969956864,
    "rsi": 68.5,
    "rsi_sem_sup70": 0,
    "palier": "RSI 65–70",
@@ -350,7 +512,7 @@
    "sector": "Technology",
    "industry": "Consumer Electronics",
    "is_bank": false,
-   "market_cap": 161967177728,
+   "market_cap": 166046941184,
    "rsi": 68.2,
    "rsi_sem_sup70": 0,
    "palier": "RSI 65–70",
@@ -378,6 +540,44 @@
    "cfd_revolut": "confirmé"
   },
   {
+   "tv": "NASDAQ:TECH",
+   "ticker": "TECH",
+   "yahoo": "TECH",
+   "nom": "Bio-Techne Corporation",
+   "origine": "S&P 500",
+   "country": "United States",
+   "canada": false,
+   "sector": "Healthcare",
+   "industry": "Biotechnology",
+   "is_bank": false,
+   "market_cap": 11412640768,
+   "rsi": 65.2,
+   "rsi_sem_sup70": 0,
+   "palier": "RSI 65–70",
+   "date_cloture": "2026-11-20",
+   "close": 72.66999816894531,
+   "degradation": {
+    "score": 2.0,
+    "signes": [
+     "bénéfice trim. -26 % a/a",
+     "marge op. 17 → 12 % (trim. a/a)"
+    ]
+   },
+   "metrics": {
+    "nd_ebitda": -0.202,
+    "op_margin": 21.693,
+    "fcf_margin": 22.615,
+    "roe": 8.325,
+    "roa": 6.451,
+    "current": 2.283,
+    "eps_0y": 4.03,
+    "eps_1y": 15.17,
+    "rev_0y": 4.48,
+    "rev_1y": 10.02
+   },
+   "cfd_revolut": "à vérifier"
+  },
+  {
    "tv": "NYSE:BDX",
    "ticker": "BDX",
    "yahoo": "BDX",
@@ -388,7 +588,7 @@
    "sector": "Healthcare",
    "industry": "Medical Instruments & Supplies",
    "is_bank": false,
-   "market_cap": 59925098496,
+   "market_cap": 60262858752,
    "rsi": 69.7,
    "rsi_sem_sup70": 0,
    "palier": "RSI 65–70",
@@ -416,6 +616,44 @@
    "cfd_revolut": "à vérifier"
   },
   {
+   "tv": "NYSE:SJM",
+   "ticker": "SJM",
+   "yahoo": "SJM",
+   "nom": "The J. M. Smucker Company",
+   "origine": "S&P 500",
+   "country": "United States",
+   "canada": false,
+   "sector": "Consumer Defensive",
+   "industry": "Packaged Foods",
+   "is_bank": false,
+   "market_cap": 13893423104,
+   "rsi": 66.8,
+   "rsi_sem_sup70": 0,
+   "palier": "RSI 65–70",
+   "date_cloture": "2026-11-20",
+   "close": 133.67999267578125,
+   "degradation": {
+    "score": 1.5,
+    "signes": [
+     "CA attendu -1 % cette année",
+     "CA trim. -2 % a/a"
+    ]
+   },
+   "metrics": {
+    "nd_ebitda": 2.868,
+    "op_margin": 19.595,
+    "fcf_margin": 15.179,
+    "roe": 3.96,
+    "roa": 6.572,
+    "current": 0.953,
+    "eps_0y": 20.72,
+    "eps_1y": 1.87,
+    "rev_0y": -1.33,
+    "rev_1y": 1.21
+   },
+   "cfd_revolut": "à vérifier"
+  },
+  {
    "tv": "NYSE:AWK",
    "ticker": "AWK",
    "yahoo": "AWK",
@@ -426,7 +664,7 @@
    "sector": "Utilities",
    "industry": "Utilities - Regulated Water",
    "is_bank": false,
-   "market_cap": 29945339904,
+   "market_cap": 30431154176,
    "rsi": 66.5,
    "rsi_sem_sup70": 0,
    "palier": "RSI 65–70",
@@ -464,7 +702,7 @@
    "sector": "Healthcare",
    "industry": "Drug Manufacturers - General",
    "is_bank": false,
-   "market_cap": 530779799552,
+   "market_cap": 520527642624,
    "rsi": 69.8,
    "rsi_sem_sup70": 0,
    "palier": "RSI 65–70",
@@ -501,7 +739,7 @@
    "sector": "Technology",
    "industry": "Communication Equipment",
    "is_bank": false,
-   "market_cap": 87640219648,
+   "market_cap": 89445662720,
    "rsi": 68.2,
    "rsi_sem_sup70": 0,
    "palier": "RSI 65–70",
@@ -538,7 +776,7 @@
    "sector": "Financial Services",
    "industry": "Insurance - Diversified",
    "is_bank": false,
-   "market_cap": 1226293772288,
+   "market_cap": 1230776565760,
    "rsi": 67.2,
    "rsi_sem_sup70": 0,
    "palier": "RSI 65–70",
@@ -565,39 +803,1295 @@
    "cfd_revolut": "à vérifier"
   },
   {
-   "tv": "NYSE:SJM",
-   "ticker": "SJM",
-   "yahoo": "SJM",
-   "nom": "The J. M. Smucker Company",
+   "tv": "NYSE:ED",
+   "ticker": "ED",
+   "yahoo": "ED",
+   "nom": "Consolidated Edison, Inc.",
+   "origine": "S&P 500",
+   "country": "United States",
+   "canada": false,
+   "sector": "Utilities",
+   "industry": "Utilities - Regulated Electric",
+   "is_bank": false,
+   "market_cap": 44679417856,
+   "rsi": 65.3,
+   "rsi_sem_sup70": 0,
+   "palier": "RSI 65–70",
+   "date_cloture": "2026-11-20",
+   "close": 119.36000061035156,
+   "degradation": {
+    "score": 0.5,
+    "signes": [
+     "dette nette/EBITDA 4.4"
+    ]
+   },
+   "metrics": {
+    "nd_ebitda": 4.421,
+    "op_margin": 21.99,
+    "fcf_margin": -7.437,
+    "roe": 9.096,
+    "roa": 3.333,
+    "current": 1.179,
+    "eps_0y": 7.24,
+    "eps_1y": 6.39,
+    "rev_0y": 5.62,
+    "rev_1y": 4.88
+   },
+   "cfd_revolut": "à vérifier"
+  },
+  {
+   "tv": "NYSE:HDB",
+   "ticker": "HDB",
+   "yahoo": "HDB",
+   "nom": "HDFC Bank Limited",
+   "origine": "CFD Revolut déjà négocié",
+   "country": "India",
+   "canada": false,
+   "sector": "Financial Services",
+   "industry": "Banks - Regional",
+   "is_bank": true,
+   "market_cap": 145848532992,
+   "rsi": 61.3,
+   "rsi_sem_sup70": 0,
+   "palier": "RSI 60–65",
+   "date_cloture": "2026-11-20",
+   "close": 27.420000076293945,
+   "degradation": {
+    "score": 4.0,
+    "signes": [
+     "révision BPA an -22 % sur 90 j",
+     "révision BPA an+1 -3 % sur 90 j",
+     "BPA attendu -21 % cette année",
+     "CA attendu -36 % cette année"
+    ]
+   },
+   "metrics": {
+    "nd_ebitda": null,
+    "op_margin": 36.597,
+    "fcf_margin": null,
+    "roe": 11.005,
+    "roa": 1.663,
+    "current": null,
+    "eps_0y": -21.11,
+    "eps_1y": 11.87,
+    "rev_0y": -35.77,
+    "rev_1y": 15.22
+   },
+   "cfd_revolut": "confirmé"
+  },
+  {
+   "tv": "NASDAQ:CINF",
+   "ticker": "CINF",
+   "yahoo": "CINF",
+   "nom": "Cincinnati Financial Corporation",
+   "origine": "S&P 500",
+   "country": "United States",
+   "canada": false,
+   "sector": "Financial Services",
+   "industry": "Insurance - Property & Casualty",
+   "is_bank": false,
+   "market_cap": 29523105792,
+   "rsi": 62.3,
+   "rsi_sem_sup70": 0,
+   "palier": "RSI 60–65",
+   "date_cloture": "2026-11-20",
+   "close": 186.5399932861328,
+   "degradation": {
+    "score": 3.5,
+    "signes": [
+     "BPA attendu -2 % l'an prochain",
+     "bénéfice trim. -59 % a/a",
+     "CA trim. -18 % a/a",
+     "marge op. 38 → 19 % (trim. a/a)"
+    ]
+   },
+   "metrics": {
+    "nd_ebitda": -0.144,
+    "op_margin": 25.213,
+    "fcf_margin": 18.12,
+    "roe": 16.867,
+    "roa": 5.03,
+    "current": 1.052,
+    "eps_0y": 18.93,
+    "eps_1y": -2.42,
+    "rev_0y": 4.66,
+    "rev_1y": -5.92
+   },
+   "cfd_revolut": "à vérifier"
+  },
+  {
+   "tv": "NYSE:AER",
+   "ticker": "AER",
+   "yahoo": "AER",
+   "nom": "AerCap Holdings N.V.",
+   "origine": "CFD Revolut déjà négocié",
+   "country": "Ireland",
+   "canada": false,
+   "sector": "Industrials",
+   "industry": "Rental & Leasing Services",
+   "is_bank": false,
+   "market_cap": 25630019584,
+   "rsi": 61.1,
+   "rsi_sem_sup70": 0,
+   "palier": "RSI 60–65",
+   "date_cloture": "2026-11-20",
+   "close": 164.08999633789062,
+   "degradation": {
+    "score": 3.5,
+    "signes": [
+     "BPA attendu -13 % l'an prochain",
+     "bénéfice trim. -22 % a/a",
+     "FCF annuel négatif",
+     "dette nette/EBITDA 7.8"
+    ]
+   },
+   "metrics": {
+    "nd_ebitda": 7.766,
+    "op_margin": 57.357,
+    "fcf_margin": -18.758,
+    "roe": 16.999,
+    "roa": 4.515,
+    "current": 1.445,
+    "eps_0y": 42.4,
+    "eps_1y": -13.01,
+    "rev_0y": 6.11,
+    "rev_1y": -6.08
+   },
+   "cfd_revolut": "confirmé"
+  },
+  {
+   "tv": "NYSE:FTS",
+   "ticker": "FTS",
+   "yahoo": "FTS",
+   "nom": "Fortis Inc.",
+   "origine": "Canada (NYSE)",
+   "country": "Canada",
+   "canada": true,
+   "sector": "Utilities",
+   "industry": "Utilities - Regulated Electric",
+   "is_bank": false,
+   "market_cap": 30633361408,
+   "rsi": 60.7,
+   "rsi_sem_sup70": 0,
+   "palier": "RSI 60–65",
+   "date_cloture": "2026-11-20",
+   "close": 59.09000015258789,
+   "degradation": {
+    "score": 3.5,
+    "signes": [
+     "BPA attendu -1 % cette année",
+     "dette +10 % sur 1 an",
+     "FCF annuel négatif",
+     "dette nette/EBITDA 6.2"
+    ]
+   },
+   "metrics": {
+    "nd_ebitda": 6.218,
+    "op_margin": 29.183,
+    "fcf_margin": -23.307,
+    "roe": 7.554,
+    "roa": 2.925,
+    "current": 0.692,
+    "eps_0y": -0.61,
+    "eps_1y": 7.2,
+    "rev_0y": 8.08,
+    "rev_1y": 7.05
+   },
+   "cfd_revolut": "à vérifier"
+  },
+  {
+   "tv": "NYSE:ALL",
+   "ticker": "ALL",
+   "yahoo": "ALL",
+   "nom": "The Allstate Corporation",
+   "origine": "S&P 500",
+   "country": "United States",
+   "canada": false,
+   "sector": "Financial Services",
+   "industry": "Insurance - Property & Casualty",
+   "is_bank": false,
+   "market_cap": 67155324928,
+   "rsi": 62.6,
+   "rsi_sem_sup70": 0,
+   "palier": "RSI 60–65",
+   "date_cloture": "2026-11-20",
+   "close": 267.0,
+   "degradation": {
+    "score": 3.0,
+    "signes": [
+     "BPA attendu -27 % l'an prochain",
+     "bénéfice trim. -44 % a/a",
+     "marge op. 29 → 16 % (trim. a/a)"
+    ]
+   },
+   "metrics": {
+    "nd_ebitda": 0.075,
+    "op_margin": 21.704,
+    "fcf_margin": 12.595,
+    "roe": 38.929,
+    "roa": 7.675,
+    "current": 0.423,
+    "eps_0y": 11.86,
+    "eps_1y": -26.7,
+    "rev_0y": 3.85,
+    "rev_1y": 3.47
+   },
+   "cfd_revolut": "à vérifier"
+  },
+  {
+   "tv": "NYSE:BIPC",
+   "ticker": "BIPC",
+   "yahoo": "BIPC",
+   "nom": "Brookfield Infrastructure Corporation",
+   "origine": "Canada (NYSE)",
+   "country": "United States",
+   "canada": true,
+   "sector": "Utilities",
+   "industry": "Utilities - Regulated Gas",
+   "is_bank": false,
+   "market_cap": 5267762176,
+   "rsi": 61.3,
+   "rsi_sem_sup70": 0,
+   "palier": "RSI 60–65",
+   "date_cloture": "2026-11-20",
+   "close": 42.81999969482422,
+   "degradation": {
+    "score": 3.0,
+    "signes": [
+     "révision BPA an -446 % sur 90 j",
+     "CA trim. -1 % a/a",
+     "marge op. 61 → 58 % (trim. a/a)",
+     "dette nette/EBITDA 4.3"
+    ]
+   },
+   "metrics": {
+    "nd_ebitda": 4.312,
+    "op_margin": 59.415,
+    "fcf_margin": 18.992,
+    "roe": 21.325,
+    "roa": 5.772,
+    "current": 0.428,
+    "eps_0y": null,
+    "eps_1y": null,
+    "rev_0y": 9.5,
+    "rev_1y": 6.35
+   },
+   "cfd_revolut": "à vérifier"
+  },
+  {
+   "tv": "NYSE:WAT",
+   "ticker": "WAT",
+   "yahoo": "WAT",
+   "nom": "Waters Corporation",
+   "origine": "S&P 500",
+   "country": "United States",
+   "canada": false,
+   "sector": "Healthcare",
+   "industry": "Diagnostics & Research",
+   "is_bank": false,
+   "market_cap": 89409093632,
+   "rsi": 61.0,
+   "rsi_sem_sup70": 0,
+   "palier": "RSI 60–65",
+   "date_cloture": "2026-11-20",
+   "close": 440.45001220703125,
+   "degradation": {
+    "score": 3.0,
+    "signes": [
+     "bénéfice trim. -46 % a/a",
+     "marge op. 24 → 8 % (trim. a/a)",
+     "dette +270 % sur 1 an"
+    ]
+   },
+   "metrics": {
+    "nd_ebitda": 2.8,
+    "op_margin": 15.985,
+    "fcf_margin": -3.014,
+    "roe": 1.119,
+    "roa": 3.869,
+    "current": 1.892,
+    "eps_0y": 11.69,
+    "eps_1y": 12.59,
+    "rev_0y": 105.05,
+    "rev_1y": 10.43
+   },
+   "cfd_revolut": "à vérifier"
+  },
+  {
+   "tv": "NYSE:TRV",
+   "ticker": "TRV",
+   "yahoo": "TRV",
+   "nom": "The Travelers Companies, Inc.",
+   "origine": "S&P 500",
+   "country": "United States",
+   "canada": false,
+   "sector": "Financial Services",
+   "industry": "Insurance - Property & Casualty",
+   "is_bank": false,
+   "market_cap": 83384467456,
+   "rsi": 64.2,
+   "rsi_sem_sup70": 0,
+   "palier": "RSI 60–65",
+   "date_cloture": "2026-11-20",
+   "close": 393.239990234375,
+   "degradation": {
+    "score": 2.5,
+    "signes": [
+     "BPA attendu -16 % l'an prochain",
+     "CA attendu -1 % cette année",
+     "CA trim. -0 % a/a"
+    ]
+   },
+   "metrics": {
+    "nd_ebitda": 0.315,
+    "op_margin": 22.119,
+    "fcf_margin": 32.337,
+    "roe": 27.497,
+    "roa": 4.733,
+    "current": 0.329,
+    "eps_0y": 33.58,
+    "eps_1y": -15.53,
+    "rev_0y": -0.93,
+    "rev_1y": 1.9
+   },
+   "cfd_revolut": "à vérifier"
+  },
+  {
+   "tv": "NYSE:CRL",
+   "ticker": "CRL",
+   "yahoo": "CRL",
+   "nom": "Charles River Laboratories International, Inc.",
+   "origine": "S&P 500",
+   "country": "United States",
+   "canada": false,
+   "sector": "Healthcare",
+   "industry": "Diagnostics & Research",
+   "is_bank": false,
+   "market_cap": 15912432640,
+   "rsi": 61.9,
+   "rsi_sem_sup70": 0,
+   "palier": "RSI 60–65",
+   "date_cloture": "2026-11-20",
+   "close": 314.32000732421875,
+   "degradation": {
+    "score": 2.5,
+    "signes": [
+     "CA attendu -2 % cette année",
+     "CA trim. -2 % a/a",
+     "dette +11 % sur 3 trim."
+    ]
+   },
+   "metrics": {
+    "nd_ebitda": 2.916,
+    "op_margin": 14.27,
+    "fcf_margin": 11.145,
+    "roe": 1.266,
+    "roa": 4.74,
+    "current": 1.409,
+    "eps_0y": 11.6,
+    "eps_1y": 13.05,
+    "rev_0y": -1.56,
+    "rev_1y": 2.74
+   },
+   "cfd_revolut": "à vérifier"
+  },
+  {
+   "tv": "NYSE:AEE",
+   "ticker": "AEE",
+   "yahoo": "AEE",
+   "nom": "Ameren Corporation",
+   "origine": "S&P 500",
+   "country": "United States",
+   "canada": false,
+   "sector": "Utilities",
+   "industry": "Utilities - Regulated Electric",
+   "is_bank": false,
+   "market_cap": 31814580224,
+   "rsi": 60.6,
+   "rsi_sem_sup70": 0,
+   "palier": "RSI 60–65",
+   "date_cloture": "2026-11-20",
+   "close": 112.80999755859375,
+   "degradation": {
+    "score": 2.5,
+    "signes": [
+     "dette +13 % sur 1 an",
+     "FCF annuel négatif",
+     "dette nette/EBITDA 5.6"
+    ]
+   },
+   "metrics": {
+    "nd_ebitda": 5.615,
+    "op_margin": 28.588,
+    "fcf_margin": -29.661,
+    "roe": 11.775,
+    "roa": 3.062,
+    "current": 0.744,
+    "eps_0y": 1.35,
+    "eps_1y": 7.64,
+    "rev_0y": 4.03,
+    "rev_1y": 6.41
+   },
+   "cfd_revolut": "à vérifier"
+  },
+  {
+   "tv": "NYSE:CB",
+   "ticker": "CB",
+   "yahoo": "CB",
+   "nom": "Chubb Limited",
+   "origine": "S&P 500",
+   "country": "Switzerland",
+   "canada": false,
+   "sector": "Financial Services",
+   "industry": "Insurance - Property & Casualty",
+   "is_bank": false,
+   "market_cap": 145384980480,
+   "rsi": 64.8,
+   "rsi_sem_sup70": 0,
+   "palier": "RSI 60–65",
+   "date_cloture": "2026-11-20",
+   "close": 371.6300048828125,
+   "degradation": {
+    "score": 2.0,
+    "signes": [
+     "marge op. 25 → 22 % (trim. a/a)",
+     "FCF -21 % sur l'exercice"
+    ]
+   },
+   "metrics": {
+    "nd_ebitda": 1.267,
+    "op_margin": 22.223,
+    "fcf_margin": 18.138,
+    "roe": 14.25,
+    "roa": 3.107,
+    "current": 0.395,
+    "eps_0y": 17.44,
+    "eps_1y": 1.23,
+    "rev_0y": 3.36,
+    "rev_1y": 4.16
+   },
+   "cfd_revolut": "à vérifier"
+  },
+  {
+   "tv": "NYSE:A",
+   "ticker": "A",
+   "yahoo": "A",
+   "nom": "Agilent Technologies, Inc.",
+   "origine": "S&P 500",
+   "country": "United States",
+   "canada": false,
+   "sector": "Healthcare",
+   "industry": "Diagnostics & Research",
+   "is_bank": false,
+   "market_cap": 50293207040,
+   "rsi": 64.6,
+   "rsi_sem_sup70": 0,
+   "palier": "RSI 60–65",
+   "date_cloture": "2026-11-20",
+   "close": 170.3800048828125,
+   "degradation": {
+    "score": 2.0,
+    "signes": [
+     "dette +16 % sur 1 an",
+     "FCF -16 % sur l'exercice"
+    ]
+   },
+   "metrics": {
+    "nd_ebitda": 0.912,
+    "op_margin": 22.58,
+    "fcf_margin": 13.506,
+    "roe": 20.032,
+    "roa": 7.87,
+    "current": 1.729,
+    "eps_0y": 5.96,
+    "eps_1y": 12.38,
+    "rev_0y": 6.93,
+    "rev_1y": 6.86
+   },
+   "cfd_revolut": "à vérifier"
+  },
+  {
+   "tv": "NASDAQ:WMT",
+   "ticker": "WMT",
+   "yahoo": "WMT",
+   "nom": "Walmart Inc.",
    "origine": "S&P 500",
    "country": "United States",
    "canada": false,
    "sector": "Consumer Defensive",
-   "industry": "Packaged Foods",
+   "industry": "Discount Stores",
    "is_bank": false,
-   "market_cap": 13977814016,
-   "rsi": 66.8,
+   "market_cap": 1046778478592,
+   "rsi": 64.4,
    "rsi_sem_sup70": 0,
-   "palier": "RSI 65–70",
+   "palier": "RSI 60–65",
    "date_cloture": "2026-11-20",
-   "close": 133.67999267578125,
+   "close": 127.94999694824219,
    "degradation": {
-    "score": 1.0,
+    "score": 2.0,
     "signes": [
-     "CA attendu -1 % cette année"
+     "bénéfice trim. -20 % a/a",
+     "dette +13 % sur 1 an"
     ]
    },
    "metrics": {
-    "nd_ebitda": 3.047,
-    "op_margin": 18.556,
-    "fcf_margin": 15.992,
-    "roe": 3.931,
-    "roa": 6.257,
+    "nd_ebitda": 1.391,
+    "op_margin": 4.453,
+    "fcf_margin": 0.851,
+    "roe": 20.553,
+    "roa": 6.909,
+    "current": 0.814,
+    "eps_0y": 9.38,
+    "eps_1y": 11.73,
+    "rev_0y": 6.73,
+    "rev_1y": 4.18
+   },
+   "cfd_revolut": "confirmé"
+  },
+  {
+   "tv": "NASDAQ:DLTR",
+   "ticker": "DLTR",
+   "yahoo": "DLTR",
+   "nom": "Dollar Tree, Inc.",
+   "origine": "S&P 500",
+   "country": "United States",
+   "canada": false,
+   "sector": "Consumer Defensive",
+   "industry": "Discount Stores",
+   "is_bank": false,
+   "market_cap": 28298811392,
+   "rsi": 62.3,
+   "rsi_sem_sup70": 0,
+   "palier": "RSI 60–65",
+   "date_cloture": "2026-11-20",
+   "close": 137.9600067138672,
+   "degradation": {
+    "score": 2.0,
+    "signes": [
+     "BPA attendu -2 % l'an prochain",
+     "bénéfice trim. -5 % a/a"
+    ]
+   },
+   "metrics": {
+    "nd_ebitda": 2.363,
+    "op_margin": 10.587,
+    "fcf_margin": 6.747,
+    "roe": 46.32,
+    "roa": 9.592,
+    "current": 1.131,
+    "eps_0y": 41.3,
+    "eps_1y": -1.67,
+    "rev_0y": 6.72,
+    "rev_1y": 6.08
+   },
+   "cfd_revolut": "à vérifier"
+  },
+  {
+   "tv": "NASDAQ:MRNA",
+   "ticker": "MRNA",
+   "yahoo": "MRNA",
+   "nom": "Moderna, Inc.",
+   "origine": "S&P 500",
+   "country": "United States",
+   "canada": false,
+   "sector": "Healthcare",
+   "industry": "Biotechnology",
+   "is_bank": false,
+   "market_cap": 89356492800,
+   "rsi": 60.8,
+   "rsi_sem_sup70": 0,
+   "palier": "RSI 60–65",
+   "date_cloture": "2026-11-20",
+   "close": 195.0,
+   "degradation": {
+    "score": 2.0,
+    "signes": [
+     "dette +476 % sur 1 an",
+     "FCF annuel négatif"
+    ]
+   },
+   "metrics": {
+    "nd_ebitda": null,
+    "op_margin": -80.792,
+    "fcf_margin": -23.149,
+    "roe": -34.502,
+    "roa": -9.96,
+    "current": 3.621,
+    "eps_0y": null,
+    "eps_1y": null,
+    "rev_0y": 24.2,
+    "rev_1y": 11.31
+   },
+   "cfd_revolut": "à vérifier"
+  },
+  {
+   "tv": "NYSE:CPAY",
+   "ticker": "CPAY",
+   "yahoo": "CPAY",
+   "nom": "Corpay, Inc.",
+   "origine": "S&P 500",
+   "country": "United States",
+   "canada": false,
+   "sector": "Technology",
+   "industry": "Software - Infrastructure",
+   "is_bank": false,
+   "market_cap": 29064318976,
+   "rsi": 60.5,
+   "rsi_sem_sup70": 0,
+   "palier": "RSI 60–65",
+   "date_cloture": "2026-11-20",
+   "close": 429.8399963378906,
+   "degradation": {
+    "score": 2.0,
+    "signes": [
+     "dette +38 % sur 1 an",
+     "FCF -26 % sur l'exercice"
+    ]
+   },
+   "metrics": {
+    "nd_ebitda": 2.783,
+    "op_margin": 49.786,
+    "fcf_margin": 38.148,
+    "roe": 32.21,
+    "roa": 6.804,
+    "current": 0.955,
+    "eps_0y": 30.97,
+    "eps_1y": 13.69,
+    "rev_0y": 18.25,
+    "rev_1y": 8.31
+   },
+   "cfd_revolut": "à vérifier"
+  },
+  {
+   "tv": "NYSE:LLY",
+   "ticker": "LLY",
+   "yahoo": "LLY",
+   "nom": "Eli Lilly and Company",
+   "origine": "S&P 500",
+   "country": "United States",
+   "canada": false,
+   "sector": "Healthcare",
+   "industry": "Drug Manufacturers - General",
+   "is_bank": false,
+   "market_cap": 1240112955392,
+   "rsi": 60.2,
+   "rsi_sem_sup70": 0,
+   "palier": "RSI 60–65",
+   "date_cloture": "2026-11-20",
+   "close": 1347.1099853515625,
+   "degradation": {
+    "score": 2.0,
+    "signes": [
+     "révision BPA an -3 % sur 90 j",
+     "dette +16 % sur 1 an"
+    ]
+   },
+   "metrics": {
+    "nd_ebitda": 0.96,
+    "op_margin": 51.254,
+    "fcf_margin": 10.807,
+    "roe": 86.024,
+    "roa": 21.062,
+    "current": 1.389,
+    "eps_0y": 46.55,
+    "eps_1y": 43.37,
+    "rev_0y": 40.67,
+    "rev_1y": 16.25
+   },
+   "cfd_revolut": "confirmé"
+  },
+  {
+   "tv": "NASDAQ:HLT",
+   "ticker": "HLT",
+   "yahoo": "HLT",
+   "nom": "Hilton Worldwide Holdings Inc.",
+   "origine": "S&P 500",
+   "country": "United States",
+   "canada": false,
+   "sector": "Consumer Cyclical",
+   "industry": "Lodging",
+   "is_bank": false,
+   "market_cap": 81481097216,
+   "rsi": 61.5,
+   "rsi_sem_sup70": 0,
+   "palier": "RSI 60–65",
+   "date_cloture": "2026-11-20",
+   "close": 356.25,
+   "degradation": {
+    "score": 1.5,
+    "signes": [
+     "dette +13 % sur 1 an",
+     "dette nette/EBITDA 4.1"
+    ]
+   },
+   "metrics": {
+    "nd_ebitda": 4.09,
+    "op_margin": 58.486,
+    "fcf_margin": 28.43,
+    "roe": null,
+    "roa": 11.322,
+    "current": 0.59,
+    "eps_0y": 12.72,
+    "eps_1y": 14.31,
+    "rev_0y": 7.78,
+    "rev_1y": 8.76
+   },
+   "cfd_revolut": "à vérifier"
+  },
+  {
+   "tv": "NYSE:WEC",
+   "ticker": "WEC",
+   "yahoo": "WEC",
+   "nom": "WEC Energy Group, Inc.",
+   "origine": "S&P 500",
+   "country": "United States",
+   "canada": false,
+   "sector": "Utilities",
+   "industry": "Utilities - Regulated Electric",
+   "is_bank": false,
+   "market_cap": 39179694080,
+   "rsi": 60.9,
+   "rsi_sem_sup70": 0,
+   "palier": "RSI 60–65",
+   "date_cloture": "2026-11-20",
+   "close": 117.06999969482422,
+   "degradation": {
+    "score": 1.5,
+    "signes": [
+     "FCF annuel négatif",
+     "dette nette/EBITDA 5.7"
+    ]
+   },
+   "metrics": {
+    "nd_ebitda": 5.658,
+    "op_margin": 24.75,
+    "fcf_margin": -19.056,
+    "roe": 12.494,
+    "roa": 3.08,
+    "current": 0.53,
+    "eps_0y": 16.8,
+    "eps_1y": 7.47,
+    "rev_0y": 5.12,
+    "rev_1y": 6.26
+   },
+   "cfd_revolut": "à vérifier"
+  },
+  {
+   "tv": "NYSE:DUK",
+   "ticker": "DUK",
+   "yahoo": "DUK",
+   "nom": "Duke Energy Corporation",
+   "origine": "S&P 500",
+   "country": "United States",
+   "canada": false,
+   "sector": "Utilities",
+   "industry": "Utilities - Regulated Electric",
+   "is_bank": false,
+   "market_cap": 102843514880,
+   "rsi": 60.8,
+   "rsi_sem_sup70": 0,
+   "palier": "RSI 60–65",
+   "date_cloture": "2026-11-20",
+   "close": 129.77999877929688,
+   "degradation": {
+    "score": 1.5,
+    "signes": [
+     "FCF annuel négatif",
+     "dette nette/EBITDA 5.6"
+    ]
+   },
+   "metrics": {
+    "nd_ebitda": 5.569,
+    "op_margin": 27.775,
+    "fcf_margin": -18.054,
+    "roe": 10.099,
+    "roa": 2.924,
+    "current": 0.681,
+    "eps_0y": 7.09,
+    "eps_1y": 6.08,
+    "rev_0y": 5.04,
+    "rev_1y": 4.74
+   },
+   "cfd_revolut": "confirmé"
+  },
+  {
+   "tv": "NASDAQ:HAS",
+   "ticker": "HAS",
+   "yahoo": "HAS",
+   "nom": "Hasbro, Inc.",
+   "origine": "S&P 500",
+   "country": "United States",
+   "canada": false,
+   "sector": "Consumer Cyclical",
+   "industry": "Leisure",
+   "is_bank": false,
+   "market_cap": 15466005504,
+   "rsi": 64.6,
+   "rsi_sem_sup70": 0,
+   "palier": "RSI 60–65",
+   "date_cloture": "2026-11-20",
+   "close": 112.41000366210938,
+   "degradation": {
+    "score": 1.0,
+    "signes": [
+     "BPA attendu -2 % l'an prochain"
+    ]
+   },
+   "metrics": {
+    "nd_ebitda": 1.565,
+    "op_margin": 27.52,
+    "fcf_margin": 15.528,
+    "roe": 139.781,
+    "roa": 14.943,
+    "current": 1.4,
+    "eps_0y": 28.49,
+    "eps_1y": -1.81,
+    "rev_0y": 9.87,
+    "rev_1y": 7.46
+   },
+   "cfd_revolut": "à vérifier"
+  },
+  {
+   "tv": "NYSE:AJG",
+   "ticker": "AJG",
+   "yahoo": "AJG",
+   "nom": "Arthur J. Gallagher & Co.",
+   "origine": "S&P 500",
+   "country": "United States",
+   "canada": false,
+   "sector": "Financial Services",
+   "industry": "Insurance Brokers",
+   "is_bank": false,
+   "market_cap": 74973184000,
+   "rsi": 63.9,
+   "rsi_sem_sup70": 0,
+   "palier": "RSI 60–65",
+   "date_cloture": "2026-11-20",
+   "close": 279.260009765625,
+   "degradation": {
+    "score": 1.0,
+    "signes": [
+     "FCF -27 % sur l'exercice"
+    ]
+   },
+   "metrics": {
+    "nd_ebitda": 2.666,
+    "op_margin": 20.605,
+    "fcf_margin": 17.512,
+    "roe": 7.212,
+    "roa": 2.568,
+    "current": 1.053,
+    "eps_0y": 22.41,
+    "eps_1y": 13.05,
+    "rev_0y": 20.62,
+    "rev_1y": 8.1
+   },
+   "cfd_revolut": "à vérifier"
+  },
+  {
+   "tv": "NASDAQ:ADP",
+   "ticker": "ADP",
+   "yahoo": "ADP",
+   "nom": "Automatic Data Processing, Inc.",
+   "origine": "S&P 500",
+   "country": "United States",
+   "canada": false,
+   "sector": "Technology",
+   "industry": "Software - Application",
+   "is_bank": false,
+   "market_cap": 125028204544,
+   "rsi": 63.4,
+   "rsi_sem_sup70": 0,
+   "palier": "RSI 60–65",
+   "date_cloture": "2026-11-20",
+   "close": 301.7099914550781,
+   "degradation": {
+    "score": 1.0,
+    "signes": [
+     "dette +22 % sur 3 trim."
+    ]
+   },
+   "metrics": {
+    "nd_ebitda": 0.346,
+    "op_margin": 26.74,
+    "fcf_margin": 29.032,
+    "roe": 78.942,
+    "roa": 6.318,
+    "current": 1.028,
+    "eps_0y": 11.21,
+    "eps_1y": 9.35,
+    "rev_0y": 6.09,
+    "rev_1y": 5.7
+   },
+   "cfd_revolut": "à vérifier"
+  },
+  {
+   "tv": "NYSE:MAS",
+   "ticker": "MAS",
+   "yahoo": "MAS",
+   "nom": "Masco Corporation",
+   "origine": "S&P 500",
+   "country": "United States",
+   "canada": false,
+   "sector": "Industrials",
+   "industry": "Building Products & Equipment",
+   "is_bank": false,
+   "market_cap": 16757417984,
+   "rsi": 62.5,
+   "rsi_sem_sup70": 0,
+   "palier": "RSI 60–65",
+   "date_cloture": "2026-11-20",
+   "close": 82.5999984741211,
+   "degradation": {
+    "score": 1.0,
+    "signes": [
+     "BPA attendu -0 % l'an prochain"
+    ]
+   },
+   "metrics": {
+    "nd_ebitda": 1.983,
+    "op_margin": 16.941,
+    "fcf_margin": 10.637,
+    "roe": null,
+    "roa": 15.248,
+    "current": 1.834,
+    "eps_0y": 19.23,
+    "eps_1y": -0.37,
+    "rev_0y": 1.98,
+    "rev_1y": 2.08
+   },
+   "cfd_revolut": "à vérifier"
+  },
+  {
+   "tv": "NYSE:TMO",
+   "ticker": "TMO",
+   "yahoo": "TMO",
+   "nom": "Thermo Fisher Scientific Inc.",
+   "origine": "S&P 500",
+   "country": "United States",
+   "canada": false,
+   "sector": "Healthcare",
+   "industry": "Diagnostics & Research",
+   "is_bank": false,
+   "market_cap": 253996040192,
+   "rsi": 61.7,
+   "rsi_sem_sup70": 0,
+   "palier": "RSI 60–65",
+   "date_cloture": "2026-11-20",
+   "close": 669.5399780273438,
+   "degradation": {
+    "score": 1.0,
+    "signes": [
+     "dette +16 % sur 1 an"
+    ]
+   },
+   "metrics": {
+    "nd_ebitda": 2.91,
+    "op_margin": 19.062,
+    "fcf_margin": 13.604,
+    "roe": 13.379,
+    "roa": 5.193,
+    "current": 1.808,
+    "eps_0y": 10.52,
+    "eps_1y": 9.88,
+    "rev_0y": 7.74,
+    "rev_1y": 5.24
+   },
+   "cfd_revolut": "à vérifier"
+  },
+  {
+   "tv": "NYSE:MA",
+   "ticker": "MA",
+   "yahoo": "MA",
+   "nom": "Mastercard Incorporated",
+   "origine": "S&P 500",
+   "country": "United States",
+   "canada": false,
+   "sector": "Financial Services",
+   "industry": "Credit Services",
+   "is_bank": false,
+   "market_cap": 574950080512,
+   "rsi": 61.6,
+   "rsi_sem_sup70": 0,
+   "palier": "RSI 60–65",
+   "date_cloture": "2026-11-20",
+   "close": 625.5900268554688,
+   "degradation": {
+    "score": 1.0,
+    "signes": [
+     "dette +26 % sur 1 an"
+    ]
+   },
+   "metrics": {
+    "nd_ebitda": 0.585,
+    "op_margin": 60.069,
+    "fcf_margin": 45.826,
+    "roe": 231.366,
+    "roa": 24.451,
+    "current": 1.012,
+    "eps_0y": 17.92,
+    "eps_1y": 15.54,
+    "rev_0y": 13.98,
+    "rev_1y": 12.62
+   },
+   "cfd_revolut": "à vérifier"
+  },
+  {
+   "tv": "NYSE:V",
+   "ticker": "V",
+   "yahoo": "V",
+   "nom": "Visa Inc.",
+   "origine": "S&P 500",
+   "country": "United States",
+   "canada": false,
+   "sector": "Financial Services",
+   "industry": "Credit Services",
+   "is_bank": false,
+   "market_cap": 791826923520,
+   "rsi": 61.5,
+   "rsi_sem_sup70": 0,
+   "palier": "RSI 60–65",
+   "date_cloture": "2026-11-20",
+   "close": 401.8699951171875,
+   "degradation": {
+    "score": 1.0,
+    "signes": [
+     "marge op. 66 → 64 % (trim. a/a)"
+    ]
+   },
+   "metrics": {
+    "nd_ebitda": 0.279,
+    "op_margin": 66.307,
+    "fcf_margin": 45.712,
+    "roe": 63.507,
+    "roa": 19.613,
+    "current": 0.965,
+    "eps_0y": 13.3,
+    "eps_1y": 13.95,
+    "rev_0y": 11.28,
+    "rev_1y": 11.06
+   },
+   "cfd_revolut": "à vérifier"
+  },
+  {
+   "tv": "NYSE:TYL",
+   "ticker": "TYL",
+   "yahoo": "TYL",
+   "nom": "Tyler Technologies, Inc.",
+   "origine": "S&P 500",
+   "country": "United States",
+   "canada": false,
+   "sector": "Technology",
+   "industry": "Software - Application",
+   "is_bank": false,
+   "market_cap": 16710132736,
+   "rsi": 61.1,
+   "rsi_sem_sup70": 0,
+   "palier": "RSI 60–65",
+   "date_cloture": "2026-11-20",
+   "close": 404.44000244140625,
+   "degradation": {
+    "score": 1.0,
+    "signes": [
+     "dette +126 % sur 1 an"
+    ]
+   },
+   "metrics": {
+    "nd_ebitda": 1.208,
+    "op_margin": 15.735,
+    "fcf_margin": 27.79,
+    "roe": 10.489,
+    "roa": 4.396,
+    "current": 1.332,
+    "eps_0y": 15.79,
+    "eps_1y": 18.77,
+    "rev_0y": 9.37,
+    "rev_1y": 9.92
+   },
+   "cfd_revolut": "à vérifier"
+  },
+  {
+   "tv": "NYSE:DRI",
+   "ticker": "DRI",
+   "yahoo": "DRI",
+   "nom": "Darden Restaurants, Inc.",
+   "origine": "S&P 500",
+   "country": "United States",
+   "canada": false,
+   "sector": "Consumer Cyclical",
+   "industry": "Restaurants",
+   "is_bank": false,
+   "market_cap": 27285620736,
+   "rsi": 60.0,
+   "rsi_sem_sup70": 0,
+   "palier": "RSI 60–65",
+   "date_cloture": "2026-11-20",
+   "close": 225.74000549316406,
+   "degradation": {
+    "score": 1.0,
+    "signes": [
+     "bénéfice trim. -10 % a/a"
+    ]
+   },
+   "metrics": {
+    "nd_ebitda": 3.907,
+    "op_margin": 11.898,
+    "fcf_margin": 5.946,
+    "roe": 55.431,
+    "roa": 7.65,
+    "current": 0.298,
+    "eps_0y": 5.91,
+    "eps_1y": 10.18,
+    "rev_0y": 3.74,
+    "rev_1y": 6.1
+   },
+   "cfd_revolut": "à vérifier"
+  },
+  {
+   "tv": "NASDAQ:VTRS",
+   "ticker": "VTRS",
+   "yahoo": "VTRS",
+   "nom": "Viatris Inc.",
+   "origine": "S&P 500",
+   "country": "United States",
+   "canada": false,
+   "sector": "Healthcare",
+   "industry": "Drug Manufacturers - Specialty & Generic",
+   "is_bank": false,
+   "market_cap": 22734198784,
+   "rsi": 63.7,
+   "rsi_sem_sup70": 0,
+   "palier": "RSI 60–65",
+   "date_cloture": "2026-11-20",
+   "close": 19.6299991607666,
+   "degradation": {
+    "score": 0.5,
+    "signes": [
+     "CA trim. -0 % a/a"
+    ]
+   },
+   "metrics": {
+    "nd_ebitda": 2.644,
+    "op_margin": 11.486,
+    "fcf_margin": 21.447,
+    "roe": -4.206,
+    "roa": 2.912,
+    "current": 1.552,
+    "eps_0y": 10.97,
+    "eps_1y": 8.68,
+    "rev_0y": 3.59,
+    "rev_1y": 6.53
+   },
+   "cfd_revolut": "à vérifier"
+  },
+  {
+   "tv": "NYSE:SWK",
+   "ticker": "SWK",
+   "yahoo": "SWK",
+   "nom": "Stanley Black & Decker, Inc.",
+   "origine": "S&P 500",
+   "country": "United States",
+   "canada": false,
+   "sector": "Industrials",
+   "industry": "Tools & Accessories",
+   "is_bank": false,
+   "market_cap": 16240602112,
+   "rsi": 61.8,
+   "rsi_sem_sup70": 0,
+   "palier": "RSI 60–65",
+   "date_cloture": "2026-11-20",
+   "close": 106.62000274658203,
+   "degradation": {
+    "score": 0.5,
+    "signes": [
+     "CA trim. -1 % a/a"
+    ]
+   },
+   "metrics": {
+    "nd_ebitda": 2.687,
+    "op_margin": 7.646,
+    "fcf_margin": 12.759,
+    "roe": 9.442,
+    "roa": 3.481,
+    "current": 1.42,
+    "eps_0y": 29.76,
+    "eps_1y": 8.68,
+    "rev_0y": 0.24,
+    "rev_1y": 0.92
+   },
+   "cfd_revolut": "à vérifier"
+  },
+  {
+   "tv": "NYSE:EXR",
+   "ticker": "EXR",
+   "yahoo": "EXR",
+   "nom": "Extra Space Storage Inc.",
+   "origine": "S&P 500",
+   "country": "United States",
+   "canada": false,
+   "sector": "Real Estate",
+   "industry": "REIT - Industrial",
+   "is_bank": false,
+   "market_cap": 35207684096,
+   "rsi": 61.1,
+   "rsi_sem_sup70": 0,
+   "palier": "RSI 60–65",
+   "date_cloture": "2026-11-20",
+   "close": 154.91000366210938,
+   "degradation": {
+    "score": 0.5,
+    "signes": [
+     "dette nette/EBITDA 6.1"
+    ]
+   },
+   "metrics": {
+    "nd_ebitda": 6.073,
+    "op_margin": 44.808,
+    "fcf_margin": 45.384,
+    "roe": 7.705,
+    "roa": 3.388,
     "current": 0.87,
-    "eps_0y": 18.73,
-    "eps_1y": 1.04,
-    "rev_0y": -1.02,
-    "rev_1y": 1.26
+    "eps_0y": 2.21,
+    "eps_1y": 4.51,
+    "rev_0y": 3.31,
+    "rev_1y": 3.02
+   },
+   "cfd_revolut": "à vérifier"
+  },
+  {
+   "tv": "NYSE:KIM",
+   "ticker": "KIM",
+   "yahoo": "KIM",
+   "nom": "Kimco Realty Corporation",
+   "origine": "S&P 500",
+   "country": "United States",
+   "canada": false,
+   "sector": "Real Estate",
+   "industry": "REIT - Retail",
+   "is_bank": false,
+   "market_cap": 17309929472,
+   "rsi": 61.0,
+   "rsi_sem_sup70": 0,
+   "palier": "RSI 60–65",
+   "date_cloture": "2026-11-20",
+   "close": 25.3700008392334,
+   "degradation": {
+    "score": 0.5,
+    "signes": [
+     "dette nette/EBITDA 6.0"
+    ]
+   },
+   "metrics": {
+    "nd_ebitda": 5.954,
+    "op_margin": 35.093,
+    "fcf_margin": 39.967,
+    "roe": 7.196,
+    "roa": 2.434,
+    "current": 1.053,
+    "eps_0y": 13.16,
+    "eps_1y": 5.65,
+    "rev_0y": 3.54,
+    "rev_1y": 3.03
    },
    "cfd_revolut": "à vérifier"
   }

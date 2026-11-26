@@ -56,6 +56,37 @@ def iter_held_shorts():
             }
 
 
+
+def mark_held(doc):
+    """Marque tous les shorts déjà en position (même s'ils sont dans l'univers) et les retire de la liste."""
+    by = doc.get('by_tv') or {}
+    keys = set(by)
+    for a in iter_held_shorts():
+        found = None
+        for k in [a['tv']] + list(a.get('aliases') or []):
+            if k in by:
+                found = k
+                break
+        if not found:
+            # ticker sans préfixe
+            tick = (a.get('ticker') or '').upper()
+            for k, rec in by.items():
+                if (rec.get('ticker') or k.split(':')[-1]).upper() == tick:
+                    found = k
+                    break
+        if found:
+            by[found]['held_position'] = True
+            by[found]['liste'] = False
+    liste = sorted(
+        [r for r in by.values() if r.get('liste') and not r.get('held_position')],
+        key=lambda x: (-x['note'], x['tv']),
+    )
+    doc['liste'] = [x['tv'] for x in liste]
+    doc['n_liste'] = len(liste)
+    doc['n'] = sum(1 for r in by.values() if not r.get('held_position'))
+    return doc
+
+
 def missing_held_shorts(by_tv):
     by_tv = by_tv or {}
     out = []

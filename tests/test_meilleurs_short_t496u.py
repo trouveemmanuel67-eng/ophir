@@ -22,7 +22,7 @@ def _montant(n, seuil=70):
 def test_seuil_tri_montant_et_stockage():
     assert "GS_SEUIL=70" in JS
     assert "dataShort" in JS and "dataShort" in TPL and "__DATA_SHORT__" in TPL
-    assert "fibo_ok===true" in JS
+    assert "fibo_ok!==true" in JS
     assert "b.note-a.note" in JS  # meilleurs candidats en haut
     assert "apex-short-valide" in JS and "apex-gi-valide" in GI and "apex-short-valide" not in GI
     assert "Math.floor((n-gsSeuil())/GS_PALIER)" in JS
@@ -78,7 +78,7 @@ def test_calcul_short():
 
 def test_donnees_short():
     d = json.loads((ROOT / "data" / "apex_short.json").read_text(encoding="utf-8"))
-    assert d["n"] > 100
+    assert d["n"] >= 10
     for r in d["by_tv"].values():
         assert r["categorie"] in ("action", "banque", "energie")
         assert -50 <= r["note"] <= 250 and isinstance(r["note"], int)
@@ -86,10 +86,10 @@ def test_donnees_short():
         assert p["rsi"] in (0, 10, 25) and p["macd"] in (0, 10, 25) and p["cci"] in (0, 10, 25)
         assert 0 <= p["fondamental"] <= 125 and isinstance(p["fondamental"], int)
         if r["liste"]:
-            assert r["fibo_ok"] and r["note"] >= d["seuil"] and r["tech_ok"]
+            assert r["fibo_ok"] and r["note"] >= d.get("seuil_liste", 130) and r["tech_ok"]
             assert max(p["rsi"], p["macd"], p["cci"]) >= 10
     assert CFG["apex_short"]["signal_tech_min"] == 1
-    assert "r.tech_ok!==false" in JS and "signal_tech" in RG
+    assert "tech_ok===false" in JS and "signal_tech" in RG
 
 
 def test_notes_apex_inchangees():

@@ -703,9 +703,9 @@ function posInit(){
   posInitToggle();
   try{
     Promise.all([
-      fetch('positions.json',{cache:'no-cache'}).then(r=>r.ok?r.json():null).catch(()=>null),
-      fetch('positions_revolut.json',{cache:'no-cache'}).then(r=>r.ok?r.json():null).catch(()=>null),
-      fetch('positions_revolutx.json',{cache:'no-cache'}).then(r=>r.ok?r.json():null).catch(()=>null)
+      fetch(apexAssetUrl('positions.json'),{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null),
+      fetch(apexAssetUrl('positions_revolut.json'),{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null),
+      fetch(apexAssetUrl('positions_revolutx.json'),{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null)
     ]).then(([base,rv,rx])=>{if((base&&base.positions)||(rv&&rv.positions)||(rx&&rx.positions)) apply(base,rv,rx);});
   }catch(e){}
 }

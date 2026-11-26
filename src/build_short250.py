@@ -37,12 +37,16 @@ import build_apex_achat_v2_pilot as P  # noqa: E402
 from apex.score import mm40_hebdo_points, mm40_hebdo_texte, MM40_HEBDO_MAX_AUTRES  # noqa: E402
 
 SEUIL = 70
+SEUIL_LISTE = 130  # bande verte APEX (−50..250) : vert 130–189, cyan ≥ 190 ; pas d'orange (70–129)
 SIG_MIN = 1  # t528u : nb minimal de blocs RSI / MACD / CCI à ≥ 10 points (surachat) pour entrer dans la liste
+N_LISTE_MAX = 10
 MACD_PCT = 4.0  # ligne MACD / cours × 100 > 4 % (calibré : ~15 % des actifs aujourd'hui, ~20 % des semaines sur 5 ans)
 try:
-    SEUIL = int(json.loads((ROOT / 'config' / 'regles.json').read_text(encoding='utf-8'))['apex_short'].get('seuil', 70))
-    SIG_MIN = int(json.loads((ROOT / 'config' / 'regles.json').read_text(encoding='utf-8'))['apex_short'].get('signal_tech_min', SIG_MIN))
-    MACD_PCT = float(json.loads((ROOT / 'config' / 'regles.json').read_text(encoding='utf-8'))['apex_short'].get('macd_pct', MACD_PCT))
+    _shcfg = json.loads((ROOT / 'config' / 'regles.json').read_text(encoding='utf-8'))['apex_short']
+    SEUIL = int(_shcfg.get('seuil', 70))
+    SEUIL_LISTE = int(_shcfg.get('seuil_liste', 130))
+    SIG_MIN = int(_shcfg.get('signal_tech_min', SIG_MIN))
+    MACD_PCT = float(_shcfg.get('macd_pct', MACD_PCT))
 except Exception:
     pass
 MISE_BASE, MISE_PAS, MISE_MAX, PALIER = 100, 20, 200, 24
@@ -204,7 +208,7 @@ def assemble(base, t, fond, fgv, att, sent=None):
         manq.append('MM40 hebdo (historique insuffisant)')
     n_sig = sum(1 for k in ('rsi', 'macd', 'cci') if t[k]['points'] >= 10)
     tech_ok = n_sig >= SIG_MIN
-    entre = note >= SEUIL and t['fibo']['ok'] and tech_ok
+    entre = note >= SEUIL_LISTE and t['fibo']['ok'] and tech_ok
     mm40_txt = (mm40_det or {}).get('texte') or mm40_hebdo_texte((mm40_det or {}).get('ecart'), mm40_pts)
     ligne = (f"RSI +{t['rsi']['points']} · MACD +{t['macd']['points']} · CCI +{t['cci']['points']} · Fond +{fpts}"
              f" · {flab} {(fgp or 0):+d} · H {(hp or 0):+d} · {mm40_txt}"
@@ -221,7 +225,7 @@ def assemble(base, t, fond, fgv, att, sent=None):
         'attention': att, 'manquants': manq,
         'mm40': mm40_det,
         'fibo_ok': t['fibo']['ok'], 'signaux_tech': n_sig, 'tech_ok': tech_ok, 'au_seuil': note >= SEUIL, 'liste': entre,
-        'mise': mise(note) if entre else None,
+        'mise': mise(note) if note >= SEUIL else None,
     })
     base['expo'] = None if base['mise'] is None else base['mise'] * 5
     return base
@@ -243,7 +247,11 @@ def load_univers():
 
 
 def tech_univers(yahoo, tv):
-    path = ROOT / 'data' / 'short_cache' / ('yahoo_1wk_' + urllib.parse.quote(yahoo, safe='') + '.json')
+    name = 'yahoo_1wk_' + urllib.parse.quote(yahoo, safe='') + '.json'
+    path = ROOT / 'data' / 'short_cache' / name
+    if not path.exists():
+        alt = Path('/workspace/invest/ophir-site/data/short_cache') / name
+        path = alt if alt.exists() else path
     if not path.exists():
         return None
     closed, _m, _a = P.load_closed_weekly(str(path))
@@ -319,13 +327,30 @@ def main():
     if U:
         out, sans_serie = main_univers(U, fgv, fg)
 
+    def _crypto_tv(tv):
+        try:
+            from build_univers_short import is_crypto
+        except Exception:
+            is_crypto = lambda s: str(s).upper().split(':')[-1] in {'XRP', 'BTC', 'ETH', 'DOGE', 'SOL'}
+        tick = (tv or '').split(':')[-1]
+        return is_crypto(tick) or is_crypto(tv)
+
+    for x in out.values():
+        if _crypto_tv(x.get('tv')):
+            x['liste'] = False
     liste = sorted([x for x in out.values() if x['liste']], key=lambda x: (-x['note'], x['tv']))
+    # Pas de complément orange : si moins de 10 verts, la liste en affiche moins.
+    if len(liste) > N_LISTE_MAX:
+        for x in liste[N_LISTE_MAX:]:
+            x['liste'] = False
+        liste = liste[:N_LISTE_MAX]
     exclus_tech = sorted([x for x in out.values() if x['au_seuil'] and x['fibo_ok'] and not x['tech_ok']], key=lambda x: (-x['note'], x['tv']))
     exclus_fibo = sorted([x for x in out.values() if x['au_seuil'] and not x['fibo_ok']], key=lambda x: (-x['note'], x['tv']))
     doc = {
-        'regles': 'apex_short_250', 'seuil': SEUIL, 'fear_greed': {'value': fgv, 'points_short': fg_short(fgv), 'date': fg.get('date_valeur'),
+        'regles': 'apex_short_250', 'seuil': SEUIL, 'seuil_liste': SEUIL_LISTE,
+        'fear_greed': {'value': fgv, 'points_short': fg_short(fgv), 'date': fg.get('date_valeur'),
                                                        'role': 'repère d\'information, hors note (sentiment maison par secteur)'},
-        'n': len(out), 'n_liste': len(liste),
+        'n': len(out), 'n_liste': len(liste), 'n_liste_max': N_LISTE_MAX,
         'liste': [x['tv'] for x in liste],
         'exclus_fibo': [{'tv': x['tv'], 'note': x['note'], 'r': x['fibo']['r']} for x in exclus_fibo],
         'signal_tech_min': SIG_MIN,
@@ -338,6 +363,7 @@ def main():
     held = HS.score_missing(doc.get('by_tv') or {}, fgv=fgv, fg=fg)
     if held:
         HS.inject(doc, held)
+    HS.mark_held(doc)
     (D / 'apex_short.json').write_text(json.dumps(doc, ensure_ascii=False, separators=(',', ':')) + '\n', encoding='utf-8')
     print('notes SHORT', len(out), 'liste', len(liste), 'exclus fibo', len(exclus_fibo), 'sans série', sans_serie)
     top = sorted(out.values(), key=lambda x: -x['note'])[:15]

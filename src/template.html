@@ -824,7 +824,9 @@ body.bdg-on .rg-btn[aria-expanded="true"],#bdgBtn.rg-btn[aria-expanded="true"],b
 .bdg-lidl-kvs .home-kv b{font-size:15px}
 .bdg-lidl-kvs .home-kv small{color:var(--mut);font-size:10px;letter-spacing:.04em;text-transform:uppercase;margin-right:6px}
 .bdg-lidl-table{display:flex;flex-direction:column;gap:2px;width:100%;font-variant-numeric:tabular-nums;min-width:640px}
+.bdg-lidl-table.is-oct-only{min-width:0}
 .bdg-lidl-row{display:grid;grid-template-columns:minmax(9rem,1.4fr) repeat(6,minmax(4.4rem,1fr));align-items:center;gap:0 8px;padding:5px 10px;border-radius:6px}
+.bdg-lidl-table.is-oct-only .bdg-lidl-row{grid-template-columns:minmax(9rem,1.4fr) repeat(3,minmax(4.4rem,1fr))}
 .bdg-lidl-th{padding:2px 10px 4px;font-size:9.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--mut);font-weight:650}
 .bdg-lidl-th>div:nth-child(n+2){text-align:right}
 .bdg-lidl-row:not(.bdg-lidl-th){background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06)}
@@ -836,6 +838,7 @@ body.bdg-on .rg-btn[aria-expanded="true"],#bdgBtn.rg-btn[aria-expanded="true"],b
 .bdg-lidl-tot{border-color:rgba(230,194,122,.4);background:rgba(230,194,122,.08)}
 .bdg-lidl-tot .bdg-lidl-lab,.bdg-lidl-tot .bdg-num{color:#e6c27a}
 .bdg-lidl-lists{display:grid;grid-template-columns:1fr 1fr;gap:10px 18px;margin-top:12px}
+.bdg-lidl-table.is-oct-only + .bdg-lidl-lists{grid-template-columns:1fr}
 
 .bdg-ens-filt{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px}
 .bdg-ens-btn{appearance:none;cursor:pointer;padding:4px 12px;border-radius:999px;border:1px solid rgba(230,194,122,.4);background:transparent;color:#d8d0c2;font-size:11px;font-weight:650;letter-spacing:.04em;text-transform:uppercase}
@@ -1089,9 +1092,11 @@ body.rg-on #rg-page[hidden]{display:flex}
 .apx-s-empty{padding:10px 12px;color:#c8c4bc;font-size:13px}
 @media(max-width:800px){
   .apx-s-tog{display:inline-flex}
-  .apx-s-box{display:none;position:absolute;top:100%;right:0;width:min(92vw,320px);margin-top:6px}
+  .apx-s-box{display:none;position:fixed;left:0;right:0;top:0;width:auto;max-width:100vw;margin:0;padding:8px 12px;padding-top:calc(8px + env(safe-area-inset-top,0px));box-sizing:border-box;z-index:200;background:rgba(10,12,16,.96);border-bottom:1px solid rgba(255,255,255,.16);box-shadow:0 8px 24px rgba(0,0,0,.4)}
   .apx-s.is-open .apx-s-box{display:block}
   .apx-s.is-open .apx-s-tog{background:rgba(230,194,122,.16);border-color:rgba(230,194,122,.6)}
+  #apx-s-q{font-size:16px;height:44px;min-height:44px}
+  #apx-s-sug{left:12px;right:12px;width:auto;max-width:none;box-sizing:border-box}
 }
 
 @media(min-width:1100px){
@@ -1556,6 +1561,10 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
   .apex-block-pilot .pilot-brk,
   .pilot-brk{white-space:normal}
   .db-pilot .pilot-leg{white-space:normal}
+
+  /* Recherche ouverte : pas de débordement horizontal, champ ≥ 16 px (pas de zoom iOS) */
+  html,body{overflow-x:hidden;max-width:100vw}
+  .apx-s{max-width:100%}
 }
 </style>
 </head>
@@ -1601,6 +1610,46 @@ a.home-card:focus-visible{outline:2px solid #e6c27a;outline-offset:2px}
 <script id="data18" type="application/json">__DATA18__</script>
 <script id="dataRegles" type="application/json">__DATA19__</script>
 <script type="application/json" id="dataBuild">{"version":"__BUILD__"}</script>
+<script>
+/* Cache iOS / Pages : le bloc Meilleurs short est embarqué dans index.html.
+   Meta no-cache seules ne suffisent pas ; on casse le cache avec ?v= et on recharge si la version distante a changé. */
+function apexBuildVer(){
+  try{
+    var el=document.getElementById('dataBuild');
+    var j=el?JSON.parse(el.textContent):null;
+    if(j&&j.version) return String(j.version);
+  }catch(e){}
+  var m=document.querySelector('meta[name="ophir-build"]');
+  return (m&&m.getAttribute('content'))||'';
+}
+function apexAssetUrl(path){
+  var v=apexBuildVer();
+  var sep=path.indexOf('?')>=0?'&':'?';
+  return v?(path+sep+'v='+encodeURIComponent(v)):path;
+}
+if(navigator.serviceWorker){
+  navigator.serviceWorker.getRegistrations().then(function(rs){ rs.forEach(function(r){ r.unregister(); }); }).catch(function(){});
+  if(navigator.serviceWorker.getRegistrations){ /* déjà fait */ }
+}
+(function(){
+  var local=apexBuildVer();
+  var bust=Date.now();
+  fetch('data/build-version.json?t='+bust,{cache:'no-store'}).then(function(r){ return r.ok?r.json():null; }).then(function(j){
+    var remote=j&&j.version;
+    if(remote&&local&&String(remote)!==String(local)){
+      var u=new URL(location.href);
+      u.searchParams.set('v', remote);
+      location.replace(u.pathname+u.search+u.hash);
+    }
+  }).catch(function(){});
+  fetch('data/apex_short.json?t='+bust,{cache:'no-store'}).then(function(r){ return r.ok?r.json():null; }).then(function(d){
+    if(!d||!d.by_tv) return;
+    if(typeof gsApplyShort==='function'){ gsApplyShort(d); if(typeof gsRender==='function') gsRender(); }
+    else { window.APEX_SHORT_PENDING=d; }
+  }).catch(function(){});
+})();
+</script>
+
 <link rel="preload" href="config/regles.json?v=__BUILD__" as="fetch" crossorigin>
 
 <script type="application/json" id="dataMaj">__MAJ__</script>
@@ -1838,6 +1887,7 @@ if(typeof bdgInit==='function') bdgInit();
 if(typeof posInit==='function') posInit();
 if(typeof giInit==='function') giInit();
 if(typeof gsInit==='function') gsInit();
+if(window.APEX_SHORT_PENDING&&typeof gsApplyShort==='function'){ gsApplyShort(window.APEX_SHORT_PENDING); window.APEX_SHORT_PENDING=null; if(typeof gsRender==='function') gsRender(); }
 if(typeof irInit==='function') irInit();
 if(typeof evtInit==='function') evtInit();
 if(typeof apxSearchInit==='function') apxSearchInit();

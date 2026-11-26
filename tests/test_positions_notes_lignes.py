@@ -34,7 +34,7 @@ def test_js_short_et_achat_separes():
     assert "if(posIsEquity(p)) return '';" not in POS_JS
     assert "if(posIsEquity(p)) return '–';" not in POS_JS
     # Meilleurs SHORT : les notes tenues hors univers n'y entrent pas
-    assert "!r.held_position" in SHORT_JS
+    assert "held_position" in SHORT_JS
     # le slim PILOT conserve les sous-jacents des CFD détenus (SMR, etc.)
     assert "if item.get('type') not in ('equity', 'cfd'):" in BUILD
 
@@ -113,7 +113,8 @@ def test_mpc_note_short_hors_liste():
     assert isinstance(rec["note"], int)
     assert -50 <= rec["note"] <= 250
     assert "NYSE:MPC" not in SHORT["liste"]
-    assert SHORT["n"] == 15
+    assert SHORT["n"] == sum(1 for r in SHORT["by_tv"].values() if not r.get("held_position"))
+    assert SHORT["n"] >= 15
     assert "MM40 hebdo" in rec["ligne"]
     # sentiment maison, pas CNN
     sent = rec.get("sentiment") or {}

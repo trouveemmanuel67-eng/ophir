@@ -286,48 +286,48 @@ def test_ordres_traites_comme_positions_actives_dans_le_js():
     comptes = bud["comptes"]
     assert comptes["titre"] == "Comptes"
     assert comptes["periode"]["debut"] == "2026-10-01"
-    assert comptes["periode"]["fin"] == "2026-11-25"
-    assert comptes["totaux"]["salaire_eur"] == 10485.0
-    assert comptes["totaux"]["france_travail_eur"] == 1753.2
-    assert comptes["totaux"]["revenus_eur"] == 12238.68
-    assert comptes["totaux"]["depenses_eur"] == 12628.58
-    assert comptes["totaux"]["reste_eur"] == -389.9
-    assert comptes["totaux"]["investissement_eur"] == 14882.73
-    assert comptes["totaux"]["investissement_xtb_apple_pay_eur"] == 1006.0
+    assert comptes["periode"]["fin"] == "2026-10-31"
+    assert comptes["totaux"]["salaire_eur"] == 4169.59
+    assert comptes["totaux"]["france_travail_eur"] == 876.6
+    assert comptes["totaux"]["revenus_eur"] == 5046.19
+    assert comptes["totaux"]["depenses_eur"] == 5736.05
+    assert comptes["totaux"]["reste_eur"] == -689.86
+    assert comptes["totaux"]["investissement_eur"] == 2589.34
+    assert comptes["totaux"]["investissement_xtb_apple_pay_eur"] == 0.0
     assert comptes["totaux"]["octobre"]["depenses_eur"] == 5736.05
     assert comptes["totaux"]["novembre_1_25"]["depenses_eur"] == 6892.53
-    assert comptes["totaux"]["remboursements_eur"] == 552.3
-    assert comptes["totaux"]["air_glow_pub_eur"] == 874.34
+    assert comptes["totaux"]["remboursements_eur"] == 126.86
+    assert comptes["totaux"]["air_glow_pub_eur"] == 607.75
     assert comptes["totaux"]["n_transferts_dedoublonnes"] == 36
     assert comptes["totaux"]["charges_fixes_credit_mensuel_eur"] == 655.92
     assert comptes["totaux"]["credit_revolut"]["capital_eur"] == 23500.0
     assert comptes["totaux"]["credit_revolut"]["mensualite_eur"] == 169.6
     abo_c = next(c for c in comptes["categories"] if c["id"] == "abonnements")
     assert any(o["libelle"] == "Grok (via Apple)" and o["montant_eur"] == 114.99 for o in abo_c["operations"])
-    assert any(o["libelle"] == "Grok Heavy (via Apple)" and o["montant_eur"] == 219.99 for o in abo_c["operations"])
+    assert all(o["libelle"] != "Grok Heavy (via Apple)" for o in abo_c["operations"])
     tr_c = next(c for c in comptes["categories"] if c["id"] == "transport")
     assert all(o["libelle"] != "Cofica Bail" for o in tr_c["operations"])
-    assert sum(o["montant_eur"] for o in tr_c["operations"] if o["libelle"] == "LOA Tesla (Cofica Bail)") == 972.64
+    assert sum(o["montant_eur"] for o in tr_c["operations"] if o["libelle"] == "LOA Tesla (Cofica Bail)") == 486.32
     cred = next(c for c in comptes["categories"] if c["id"] == "credit_revolut")
     assert cred["poste"] == "Crédit Revolut (remboursement)"
-    assert cred["observe_eur"] == 339.2
+    assert cred["observe_eur"] == 169.6
     assert cred["compte_dans_total_depenses"] is True
     lois = next(c for c in comptes["categories"] if c["id"] == "loisirs")
     assert any(o["libelle"] == "Cadeau / pot de naissance (travail)" and o["montant_eur"] == 20.93 for o in lois["operations"])
     assert all(o["libelle"] != "Fritz Schmitt" for o in lois["operations"])
     courses_ops = next(c for c in comptes["categories"] if c["id"] == "courses")["operations"]
-    assert any(o["libelle"] == "Vin, confiture, tire-bouchon (Fritz Schmitt)" and o["montant_eur"] == 23.2 for o in courses_ops)
+    assert all(o["libelle"] != "Vin, confiture, tire-bouchon (Fritz Schmitt)" for o in courses_ops)
     enf = next(c for c in comptes["categories"] if c["id"] == "enfant")
     assert any(o["libelle"] == "Photo de classe (Collège Foch)" and o["montant_eur"] == 36.35 and o["sens"] == "credit" for o in enf["operations"])
     remb_ops = comptes.get("remboursements_operations") or []
-    assert any(o["libelle"] == "Remboursement Red Bull (Francky Vetsch)" and o["montant_eur"] == 2.0 for o in remb_ops)
+    assert all(o["libelle"] != "Remboursement Red Bull (Francky Vetsch)" for o in remb_ops)
     vin_ops = comptes.get("virements_internes_entrants") or []
-    assert any(o["libelle"] == "Investissement XTB (Apple Pay *3356)" and o["montant_eur"] == 86.0 for o in vin_ops)
-    assert sum(o["montant_eur"] for o in vin_ops if o["libelle"] == "Investissement XTB (Apple Pay *0225)") == 920.0
+    assert all("Apple Pay" not in (o["libelle"] or "") for o in vin_ops)
+    assert sum(o["montant_eur"] for o in vin_ops if "Apple Pay" in (o["libelle"] or "")) == 0
     assert not (comptes.get("credits_a_confirmer") or [])
     glow_c = next(c for c in comptes["categories"] if c["id"] in ("air_glow", "air_glow_pub"))
-    assert any(o["libelle"] == "MailPoet" and o["montant_eur"] == 85.95 for o in glow_c["operations"])
-    assert any(o["libelle"] == "Dualhook" and o["montant_eur"] == 14.4 for o in glow_c["operations"])
+    assert all(o["libelle"] != "MailPoet" for o in glow_c["operations"])
+    assert all(o["libelle"] != "Dualhook" for o in glow_c["operations"])
     amb = " ".join((a.get("sujet") or "") for a in (comptes.get("operations_ambigues") or []))
     assert "Cofica" not in amb and "repayment" not in amb and "Bastos" not in amb
     assert "219,99" not in amb and "MailPoet" not in amb and "Dualhook" not in amb and "Personal loan" not in amb
@@ -341,7 +341,7 @@ def test_ordres_traites_comme_positions_actives_dans_le_js():
     assert "is-folded" in CSS and ".bdg-fold-btn" in CSS
     san_c = next(c for c in comptes["categories"] if c["id"] == "sante")
     koch_c = [o for o in san_c["operations"] if o["libelle"] == "Dentiste (Dr Koch)"]
-    assert len(koch_c) == 2
+    assert len(koch_c) == 1
     assert all(o.get("sous_categorie") == "dentaire" for o in koch_c)
     deblock_c = [o for c in comptes["categories"] if c["id"]=="virements_internes" for o in c["operations"] if o["libelle"]=="Deblock"]
     assert round(sum(o["montant_eur"] for o in deblock_c), 2) == 150.0
@@ -349,7 +349,13 @@ def test_ordres_traites_comme_positions_actives_dans_le_js():
     assert courses_c["sous_categories"][0]["id"] == "tickets_caisse"
     assert courses_c["sous_categories"][0]["statut"] == "complet"
     assert "mois" in courses_c["sous_categories"][0]
+    assert "2026-11" not in (courses_c["sous_categories"][0].get("mois") or {})
+    assert "2026-10" in (courses_c["sous_categories"][0].get("mois") or {})
     assert "function bdgComptesHtml" in BDG
+    assert "Il te manque" in BDG and "function bdgAmtEuro" in BDG
+    assert "Grok Heavy est conservé" not in BDG
+    assert "bdgMensuelHtml(b)+bdgComptesHtml(b)" in BDG
+    assert "bdgMensuelHtml(b)+bdgCourtHtml(b)+bdgComptesHtml(b)" not in BDG
     assert "bdg-comptes" in BDG
     assert "bdg-op-src" in BDG and "bdg-op-src" in CSS
     assert "home-hero" in CSS

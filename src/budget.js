@@ -11,6 +11,12 @@ function bdgAmt(n,d){
   const sym=(typeof posSym==='function')?posSym(d):(d==='EUR'?'€':'$');
   return v.toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+'\u00a0'+sym;
 }
+function bdgAmtEuro(n){
+  if(n==null||n==='') return '—';
+  const v=Math.round(Math.abs(Number(n)));
+  if(!Number.isFinite(v)) return '—';
+  return v.toLocaleString('fr-FR')+'\u00a0€';
+}
 function bdgPair(usd,eur){
   const a=bdgAmt(usd,'USD'), b=bdgAmt(eur,'EUR');
   if(a==='—'&&b==='—') return '—';
@@ -378,7 +384,8 @@ function bdgTicketsEns(s, ens){
 function bdgTicketsPanel(s, ens){
   const pack=bdgTicketsEns(s, ens)||{mois:{}};
   const oct=pack.mois['2026-10']||{};
-  const nov=pack.mois['2026-11']||{};
+  const hasNov=!!(pack.mois&&pack.mois['2026-11']);
+  const nov=hasNov?(pack.mois['2026-11']||{}):{};
   const cats=oct.par_sous_categorie&&oct.par_sous_categorie.length?oct.par_sous_categorie:(nov.par_sous_categorie||[]);
   const rows=cats.map((o,i)=>{
     const n=(nov.par_sous_categorie||[]).find(x=>x.libelle===o.libelle)||(nov.par_sous_categorie||[])[i]||{};
@@ -389,9 +396,9 @@ function bdgTicketsPanel(s, ens){
       <div class="bdg-num">${bdgAmt(o.eur,'EUR')}</div>
       <div class="bdg-num">${bdgAmt(o.usd,'USD')}</div>
       <div class="bdg-num">${bdgLidlPct(o.pct)}</div>
-      <div class="bdg-num">${bdgAmt(n.eur,'EUR')}</div>
+      ${hasNov?`<div class="bdg-num">${bdgAmt(n.eur,'EUR')}</div>
       <div class="bdg-num">${bdgAmt(n.usd,'USD')}</div>
-      <div class="bdg-num">${bdgLidlPct(n.pct)}</div>
+      <div class="bdg-num">${bdgLidlPct(n.pct)}</div>`:''}
     </div>`;
   }).join('');
   const foot=(lab,oa,na,cls='')=>`<div class="bdg-lidl-row bdg-lidl-foot ${cls}">
@@ -399,9 +406,9 @@ function bdgTicketsPanel(s, ens){
       <div class="bdg-num">${bdgAmt(oa.eur,'EUR')}</div>
       <div class="bdg-num">${bdgAmt(oa.usd,'USD')}</div>
       <div class="bdg-num">${bdgLidlPct(oa.pct)}</div>
-      <div class="bdg-num">${bdgAmt(na.eur,'EUR')}</div>
+      ${hasNov?`<div class="bdg-num">${bdgAmt(na.eur,'EUR')}</div>
       <div class="bdg-num">${bdgAmt(na.usd,'USD')}</div>
-      <div class="bdg-num">${bdgLidlPct(na.pct)}</div>
+      <div class="bdg-num">${bdgLidlPct(na.pct)}</div>`:''}
     </div>`;
   const totLab=ens==='lidl'?'Total Lidl':(ens==='leclerc'?'Total E.Leclerc':'Total tickets');
   const totFoot=foot(totLab,{eur:oct.total_eur,usd:oct.total_usd,pct:oct.total_eur?100:0},{eur:nov.total_eur,usd:nov.total_usd,pct:nov.total_eur?100:0},'bdg-lidl-tot');
@@ -410,7 +417,9 @@ function bdgTicketsPanel(s, ens){
   const ncNov=nov.non_classe_eur, ncOct=oct.non_classe_eur;
   const ncFoot=(Number(ncOct)||Number(ncNov))?foot('Non classé (écart de lecture)',{eur:ncOct||0,usd:oct.non_classe_usd,pct:oct.total_eur?((Number(ncOct)||0)/Number(oct.total_eur)*100):0},{eur:ncNov||0,usd:nov.non_classe_usd,pct:nov.total_eur?((Number(ncNov)||0)/Number(nov.total_eur)*100):0},'bdg-lidl-nc'):'';
   const trNovTxt=bdgAmt(nov.tr_eur,'EUR')+' · '+bdgLidlPct(nov.tr_pct)+(Number(nov.tr_a_confirmer_eur)?(' dont '+bdgAmt(nov.tr_a_confirmer_eur,'EUR')+' à confirmer'):'');
-  const kv=(lab,octV,novV)=>`<div class="home-kv"><span class="l">${bdgEsc(lab)}</span><b>${octV}</b><small>oct</small><b>${novV}</b><small>nov</small></div>`;
+  const kv=(lab,octV,novV)=>hasNov
+    ? `<div class="home-kv"><span class="l">${bdgEsc(lab)}</span><b>${octV}</b><small>oct</small><b>${novV}</b><small>nov</small></div>`
+    : `<div class="home-kv"><span class="l">${bdgEsc(lab)}</span><b>${octV}</b></div>`;
   const kvs=`<div class="home-strip bdg-kvs bdg-lidl-kvs">
     ${kv('Alimentaire',bdgAmt(oct.alimentaire_eur,'EUR'),bdgAmt(nov.alimentaire_eur,'EUR'))}
     ${kv('Non alimentaire',bdgAmt(oct.non_alimentaire_eur,'EUR'),bdgAmt(nov.non_alimentaire_eur,'EUR'))}
@@ -442,11 +451,11 @@ function bdgTicketsPanel(s, ens){
   </details>`;
   return `${kvs}
     <div class="home-table-scroll">
-      <div class="bdg-lidl-table">
+      <div class="bdg-lidl-table${hasNov?'':' is-oct-only'}">
         <div class="bdg-lidl-row bdg-lidl-th" aria-hidden="true">
           <div>Rayon</div>
           <div>Octobre €</div><div>$</div><div>%</div>
-          <div>Novembre €</div><div>$</div><div>%</div>
+          ${hasNov?`<div>Novembre €</div><div>$</div><div>%</div>`:''}
         </div>
         ${rows}
         ${alimFoot}
@@ -457,7 +466,7 @@ function bdgTicketsPanel(s, ens){
     </div>
     <div class="bdg-lidl-lists">
       ${ticketList(oct,oct.tickets)}
-      ${ticketList(nov,nov.tickets)}
+      ${hasNov?ticketList(nov,nov.tickets):''}
     </div>`;
 }
 function bdgLidlBlock(c){
@@ -609,7 +618,7 @@ function bdgComptesHtml(b){
   const j=bdgComptes(b);
   if(!j) return '';
   const tot=j.totaux||{};
-  const per=(j.periode&&j.periode.libelle)||'1er octobre – 25 novembre 2026';
+  const per=(j.periode&&j.periode.libelle)||'1er octobre – 31 octobre 2026';
   const fxVal=(j.fx&&(j.fx.taux!=null?j.fx.taux:j.fx));
   const fx=fxVal!=null?String(fxVal).replace('.',','):(bdgFx(b)||'1,0944');
   const cats=j.categories||[];
@@ -671,7 +680,7 @@ function bdgComptesHtml(b){
   const src='Source : '+srcBits.join(' · ')+'.';
   const cptes=(j.comptes||[]).map(x=>x.libelle+(x.titulaires?(' ('+x.titulaires+')'):'')).join(' · ');
   const oct=tot.octobre||{}, nov=tot.novembre_1_25||{};
-  const moisNote=(oct.depenses_eur!=null)?(`Octobre : dépenses ${bdgAmt(oct.depenses_eur,'EUR')} / revenus ${bdgAmt(oct.revenus_eur,'EUR')} / reste ${bdgAmt(oct.reste_eur,'EUR')}. 1–25 novembre : dépenses ${bdgAmt(nov.depenses_eur,'EUR')} / revenus ${bdgAmt(nov.revenus_eur,'EUR')} / reste ${bdgAmt(nov.reste_eur,'EUR')}.`):'';
+  const moisNote='';
   return `<section class="card home-hero bdg-hero" id="bdg-comptes" data-bdg-fold="comptes">
     <div class="home-hero-top">
       <h2>${bdgFoldTitle('comptes', j.titre||'Comptes', 'bdg-comptes-body')}</h2>
@@ -769,7 +778,7 @@ function bdgMensuelHtml(b){
   const ag=m.air_glow||{};
   const actAgTone=Number(act.avec_air_glow_eur)<0?'down':'up';
   const cibAgTone=Number(cib.avec_air_glow_eur)<0?'down':'up';
-  const alerte=defic?`<div class="bdg-moy-alerte" role="status">Capacité personnelle (hors Air Glow) déficitaire : ${bdgAmt(act.eur,'EUR')} / mois (base prudente 3 133,33 € − dépenses personnelles d'octobre). Y compris Air Glow : ${bdgAmt(act.avec_air_glow_eur,'EUR')} / mois. Grok Heavy est conservé (outil de pilotage). Le panier d'économies est inchangé. Objectif de réduction personnel pour l'équilibre : ${bdgAmt(red.eur,'EUR')} / mois (y compris Air Glow : ${bdgAmt(red.avec_air_glow_eur,'EUR')}).</div>`:'';
+  const alerte=defic?`<div class="bdg-moy-alerte" role="status">Il te manque ${bdgAmtEuro(act.eur)}/mois (${bdgAmtEuro(act.avec_air_glow_eur)} avec Air Glow). Objectif : réduire tes dépenses de ${bdgAmtEuro(red.eur)}/mois (${bdgAmtEuro(red.avec_air_glow_eur)} avec Air Glow).</div>`:'';
   const kv=`<div class="home-strip bdg-kvs bdg-moy-kvs">
       ${bdgMoyKv('Base prudente', rev.total_moyenne_eur, rev.total_moyenne_usd)}
       ${bdgMoyKv('Dépenses personnelles (octobre, hors Air Glow)', dep.moyenne_eur, dep.moyenne_usd)}
@@ -919,7 +928,7 @@ function usdSafe(eur){
   return Math.round((n*1.0944+1e-12)*100)/100;
 }
 function bdgTableHTML(b){
-  return bdgMensuelHtml(b)+bdgCourtHtml(b)+bdgComptesHtml(b);
+  return bdgMensuelHtml(b)+bdgComptesHtml(b);
 }
 function bdgPageHTML(){
   const b=bdgData()||{};

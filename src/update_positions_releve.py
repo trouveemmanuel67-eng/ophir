@@ -1088,6 +1088,28 @@ def build_compte_joint(fx):
 
 
 
+
+def _tickets_octobre_only(sous):
+    """Le bloc Comptes n'affiche qu'octobre : on retire les mois suivants des tickets."""
+    out = []
+    for s in sous or []:
+        rec = dict(s)
+        mois = rec.get("mois")
+        if isinstance(mois, dict):
+            rec["mois"] = {k: v for k, v in mois.items() if k == "2026-10"}
+        ens = rec.get("enseignes")
+        if isinstance(ens, dict):
+            new_ens = {}
+            for ek, ev in ens.items():
+                ev2 = dict(ev) if isinstance(ev, dict) else ev
+                if isinstance(ev2, dict) and isinstance(ev2.get("mois"), dict):
+                    ev2["mois"] = {k: v for k, v in ev2["mois"].items() if k == "2026-10"}
+                new_ens[ek] = ev2
+            rec["enseignes"] = new_ens
+        out.append(rec)
+    return out
+
+
 def build_comptes(fx):
     """Bloc fusionné « Comptes » (joint + perso), sourcé (data/budget/comptes_2026-10_11.json)."""
     if not COMPTES.exists():
@@ -1106,7 +1128,7 @@ def build_comptes(fx):
                 mm = dict(m)
                 mm["total_usd"] = _cj_usd(mm.get("total_eur"), fx)
                 rec["commercants"].append(mm)
-            rec["sous_categories"] = _attach_lidl_tickets(c.get("sous_categories") or [], fx)
+            rec["sous_categories"] = _tickets_octobre_only(_attach_lidl_tickets(c.get("sous_categories") or [], fx))
         cats.append(rec)
     tot = dict(raw.get("totaux") or {})
     for k in list(tot):

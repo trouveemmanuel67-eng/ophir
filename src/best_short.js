@@ -2,13 +2,15 @@
    Note distincte de la note LONG, calculée par src/build_short250.py (data/apex_short.json) :
    RSI 25 + MACD 25 + CCI 25 + fondamental inversé 125 + sentiment du secteur inversé ±30 (t537u) + hype inversée ±20.
    Plus la note est haute, meilleur est le candidat short : tri de la plus haute à la plus basse.
-   Entrée : note SHORT ≥ 70/250 ET au moins un signal technique de surachat (RSI, MACD ou CCI ≥ 10 pts) ET filtre Fibonacci (cours au niveau 38,2 % ou au-dessus, ATH et au-delà autorisés). Ces filtres ne changent pas avec la MM40 hebdo inversée (0 à +30), qui entre seulement dans la note.
+   Entrée dans la liste : note SHORT verte ou mieux (≥ 130/250, bande verte 130–189, cyan ≥ 190), sans complément orange, jusqu’à 10 titres. Également : (RSI, MACD ou CCI ≥ 10 pts) ET filtre Fibonacci (cours au niveau 38,2 % ou au-dessus, ATH et au-delà autorisés). Ces filtres ne changent pas avec la MM40 hebdo inversée (0 à +30), qui entre seulement dans la note.
    Mise (levier ×5) : 100 $ à 70, +20 $ tous les 24 points au-dessus (94, 118, 142, 166), 200 $ max dès 190.
    Exposition équivalente = mise × 5. Univers (t534u) : 50 actions NYSE en CFD chez Revolut, RSI hebdo en surachat, santé en dégradation
    (config/univers_short.json, src/build_univers_short.py) ; plus la watchlist APEX.
    La note LONG n'est pas modifiée.
 */
 const GS_SEUIL=70;
+const GS_SEUIL_LISTE=130;
+const GS_LISTE_MAX=10;
 const GS_PALIER=24;
 const GS_MISE_BASE=100;
 const GS_MISE_PAS=20;
@@ -17,12 +19,17 @@ const GS_VALIDE_KEY='apex-short-valide';
 const GS_LIST_KEY='apex-short-list';
 const GS_ELLIOTT_KEY='apex-short-elliott-hide';
 const GS_PATTERN_KEY='apex-short-pattern-hide';
-const SHORT=(()=>{try{const el=document.getElementById('dataShort');return el?JSON.parse(el.textContent):null;}catch(e){return null;}})();
+let SHORT=(()=>{try{const el=document.getElementById('dataShort');return el?JSON.parse(el.textContent):null;}catch(e){return null;}})();
+function gsApplyShort(d){ if(d&&d.by_tv){ SHORT=d; const el=document.getElementById('dataShort'); if(el) el.textContent=JSON.stringify(d);} }
 let gsShowValides=false;
 
 function gsSeuil(){
   const s=SHORT&&Number(SHORT.seuil);
   return Number.isFinite(s)?s:GS_SEUIL;
+}
+function gsSeuilListe(){
+  const s=SHORT&&Number(SHORT.seuil_liste);
+  return Number.isFinite(s)?s:GS_SEUIL_LISTE;
 }
 function gsAuSeuil(note){
   const n=Number(note);
@@ -95,7 +102,15 @@ function gsSetValide(tv, on){
 
 function gsCollect(){
   const by=(SHORT&&SHORT.by_tv)||{};
-  return Object.keys(by).map(tv=>by[tv]).filter(r=>r&&r.tv&&r.note!=null&&r.fibo_ok===true&&r.tech_ok!==false&&gsAuSeuil(r.note)&&!r.held_position).map(r=>{
+  const sl=gsSeuilListe();
+  const crypto=/^(XRP|BTC|ETH|DOGE|SOL|ADA|AVAX|AAVE|UNI|HBAR)(-|$)/i;
+  return Object.keys(by).map(tv=>by[tv]).filter(r=>{
+    if(!r||!r.tv||r.note==null||r.fibo_ok!==true||r.tech_ok===false||r.held_position) return false;
+    const tick=String(r.tv).split(':').pop();
+    if(crypto.test(tick)||/^XRP/i.test(tick)) return false;
+    if(r.liste===false) return false;
+    return Number(r.note)>=sl;
+  }).map(r=>{
     const note=Number(r.note);
     const mise=gsMontant(note);
     const hex=(typeof pilotHex==='function')?pilotHex({total:note, scale:250, total_max:250}):'#22c55e';
@@ -136,8 +151,10 @@ function gsRender(){
   const hiddenP=gsHideMap(GS_PATTERN_KEY);
   const valides=gsValideMap();
   const all=gsCollect().filter(it=>!gsIsHidden(it.tv, hiddenE)&&!gsIsHidden(it.tv, hiddenP));
-  const list=all.filter(it=>!gsIsValide(it.tv, valides));
-  const listVal=all.filter(it=>gsIsValide(it.tv, valides));
+  const cap=Math.max(0, Number((SHORT&&SHORT.n_liste_max)||GS_LISTE_MAX)||10);
+  const verd=all.slice(0, cap);
+  const list=verd.filter(it=>!gsIsValide(it.tv, valides));
+  const listVal=verd.filter(it=>gsIsValide(it.tv, valides));
   const n=list.length;
   const nVal=listVal.length;
   const rowOf=(it, checked)=>{
@@ -172,7 +189,7 @@ function gsRender(){
       <span class="pos-head-tot">${n}<small>titre${n>1?'s':''}</small></span>
     </div>
     <div class="pos-body gi-body" id="gsBody">
-      <div class="gi-list">${rows||'<div class="gi-empty">Aucun titre au seuil (note SHORT ≥ ${gsSeuil()}/250 au moins un signal technique de surachat et cours au-dessus du Fibonacci 38,2 %).</div>'}</div>
+      <div class="gi-list">${rows||'<div class="gi-empty">Aucun titre vert au seuil (note SHORT ≥ ${gsSeuilListe()}/250, bande verte ou cyan, signal technique de surachat et cours au-dessus du Fibonacci 38,2 %).</div>'}</div>
       ${(nVal||gsShowValides)?`<div class="gi-valides">
         <button type="button" class="gi-valides-link gs-valides-link" aria-expanded="${gsShowValides?'true':'false'}">Validés (${nVal})</button>
         ${gsShowValides?(rowsVal||'<div class="gi-empty">Aucun titre validé en short.</div>'):''}

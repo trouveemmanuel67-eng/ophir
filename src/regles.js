@@ -1089,8 +1089,9 @@ function rgShortNoteTexte(){
 }
 function rgShortEntreeTexte(){
   const cfg=rgShortCfg();
-  const s=cfg.seuil!=null?cfg.seuil:70;
-  return 'Entrent les actifs dont la note SHORT est ≥ '+s+'/250, qui ont au moins un signal technique de surachat (RSI > 70, MACD > 4 % du cours ou CCI > 80) et dont le cours est au-dessus du Fibonacci 38,2 %. Classement de la plus haute à la plus basse note SHORT (meilleurs candidats en haut). '+(cfg.montant||'');
+  const sl=cfg.seuil_liste!=null?cfg.seuil_liste:130;
+  const mx=cfg.n_liste_max!=null?cfg.n_liste_max:10;
+  return (cfg.lecture||('Entrent dans Meilleurs short uniquement les titres dont la note SHORT est verte ou mieux (seuil '+sl+'/250 : bande verte 130–189, cyan ≥ 190). Pas de complément orange : s’il y a moins de '+mx+' titres verts, la liste en affiche moins. Au moins un signal technique de surachat (RSI > 70, MACD > 4 % du cours ou CCI > 80) et cours au-dessus du Fibonacci 38,2 %. Classement de la plus haute à la plus basse note. Les titres déjà en position sont exclus ; XRP et les crypto aussi. La mise reste barémée dès 70/250. '+(cfg.montant||'')));
 }
 function rgShortComptaP(){
   return `<p class="rg-p rg-app">${rgEsc(rgShortNoteTexte())}</p><p class="rg-p rg-app">${rgEsc(rgShortEntreeTexte())}</p>`;
@@ -1160,7 +1161,8 @@ function rgShortUniversStats(){
   const u=S&&S.univers&&typeof S.univers==='object'?S.univers:null;
   const st=u&&u.stats; if(!st) return '';
   const n=v=>(v==null?'—':String(v));
-  return `<p class="rg-p rg-app">Mise à jour ${rgEsc(u.genere||'')} : ${n(st.retenus)} titres retenus sur ${n(st.nyse)} actions NYSE analysées ; RSI hebdo &gt; 70 : ${n(st.rsi_sup_70)} sur le marché (${n(st.retenus_rsi_sup_70)} retenus), RSI 65–70 : ${n(st.retenus_rsi_65_70)} retenus, RSI min. retenu ${n(st.rsi_min_retenu)} (seuil ≥ 65, sans complément). CFD Revolut confirmés : ${n(st.cfd_confirmes)}, les autres sont à vérifier.</p>`;
+  const rsiMin=n(st.rsi_min_complement||60);
+  return `<p class="rg-p rg-app">Mise à jour ${rgEsc(u.genere||'')} : ${n(st.retenus)} titres retenus sur ${n(st.nyse)} actions NYSE + NASDAQ analysées ; RSI hebdo &gt; 70 : ${n(st.rsi_sup_70)} sur le marché (${n(st.retenus_rsi_sup_70)} retenus), RSI 65–70 : ${n(st.retenus_rsi_65_70)} retenus, RSI 60–65 : ${n(st.retenus_rsi_60_65)} retenus, RSI min. retenu ${n(st.rsi_min_retenu)} (seuil ≥ ${rsiMin}, sans complément orange). CFD Revolut confirmés : ${n(st.cfd_confirmes)}, les autres sont à vérifier. Meilleurs short : notes vertes ou mieux (≥ 130) uniquement, jusqu’à 10 titres.</p>`;
 }
 function rgShortCommons(){
   if(!RG) return '';

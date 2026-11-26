@@ -2,7 +2,7 @@
 """t534u (Emmanuel, 24/11/2026) : univers propre des Meilleurs SHORT, à la place de la watchlist APEX.
 
 50 actions cotées au NYSE (y compris les sociétés canadiennes cotées au NYSE), négociables en CFD chez Revolut,
-en surachat sur le RSI 14 HEBDO (≥ rsi_hebdo_min = 65, > 70 en tête ; aucun complément sous le seuil) et dont la santé
+en surachat sur le RSI 14 HEBDO (≥ rsi_hebdo_min = 60, > 70 en tête ; aucun complément sous le seuil) et dont la santé
 financière se dégrade (révisions de BPA en baisse, CA en recul, marges en recul, dette en hausse, FCF en baisse…).
 
 Étapes (régénérable : python3 src/build_univers_short.py [--force]) :
@@ -10,9 +10,9 @@ financière se dégrade (révisions de BPA en baisse, CA en recul, marges en rec
      au NYSE (liste CANADA ci-dessous) + actions déjà négociées en CFD sur le compte Revolut
      (config/revolut_cfd_confirmes.json).
   2. Bougies hebdo Yahoo (historique max, period1/period2) → data/short_cache/ (non versionné).
-     Place vérifiée dans les métadonnées Yahoo : exchangeName == 'NYQ' (NYSE). Les autres places sont écartées.
+     Place vérifiée dans les métadonnées Yahoo : exchangeName NYQ (NYSE) ou NMS/NGM (NASDAQ). Crypto (XRP, BTC…) exclues.
   3. RSI 14 sur clôtures HEBDO clôturées (même moteur que le site : ind_core.rsi, yahoo_week).
-  4. Pour les RSI ≥ 65 : fondamentaux Yahoo (yfinance) + signes de dégradation ; tri : RSI > 70 d'abord,
+  4. Pour les RSI ≥ rsi_hebdo_min (60) : fondamentaux Yahoo (yfinance) + signes de dégradation ; tri : RSI > 70 d'abord,
      puis score de dégradation décroissant, puis RSI décroissant. On retient N = 50 titres ayant au moins un signe.
   5. CFD Revolut : « confirmé » si le symbole figure dans config/revolut_cfd_confirmes.json, sinon « à vérifier ».
 → config/univers_short.json (+ les métriques fondamentales nécessaires à la note SHORT).
@@ -33,10 +33,20 @@ PARIS = ZoneInfo('Europe/Paris')
 NOW = D.datetime.now(PARIS)
 CACHE = ROOT / 'data' / 'short_cache'
 CACHE.mkdir(parents=True, exist_ok=True)
+# Repli lecture : cache déjà calculé sur le site partagé, écritures dans ce worktree.
+CACHE_SHARED = Path('/workspace/invest/ophir-site/data/short_cache')
 OUT = ROOT / 'config' / 'univers_short.json'
-N = 50
+N = 200  # plafond large : on vise jusqu'à 10 verts, sans inventer ni remplir avec de l'orange
 RSI_SUR = 70.0
-RSI_MIN = 65.0  # réglable : config/regles.json → apex_short.rsi_hebdo_min (décision Emmanuel : ≥ 65, plus de complément)
+DEG_MIN = 0.5  # dégradation plus large qu'un score entier ≥ 1
+EXCHANGES_OK = {'NYQ', 'NMS', 'NGM', 'NASDAQ', 'NYE'}
+# Crypto (CFD ou ticker) : jamais dans Meilleurs short. COIN (Coinbase, action) reste éligible.
+CRYPTO_EXCL = {
+    'XRP', 'BTC', 'ETH', 'DOGE', 'SOL', 'ADA', 'AVAX', 'AAVE', 'UNI', 'HBAR',
+    'DOT', 'LINK', 'MATIC', 'SHIB', 'LTC', 'BCH', 'XLM', 'ATOM', 'NEAR', 'APT',
+    'SUI', 'FIL', 'PEPE', 'WIF', 'TRX', 'TON', 'OP', 'ARB', 'INJ', 'SEI',
+}
+RSI_MIN = 60.0  # réglable : config/regles.json → apex_short.rsi_hebdo_min (Emmanuel : ≥ 60, NYSE + NASDAQ)
 try:
     RSI_MIN = float(json.loads((ROOT / 'config' / 'regles.json').read_text(encoding='utf-8'))['apex_short'].get('rsi_hebdo_min', RSI_MIN))
 except Exception:
@@ -74,8 +84,27 @@ def ysym(t):
     return t.replace('.', '-').replace('/', '-')
 
 
-def chart_path(y):
-    return CACHE / f'yahoo_1wk_{urllib.parse.quote(y, safe="")}.json'
+def chart_path(y, write=False):
+    name = f'yahoo_1wk_{urllib.parse.quote(y, safe="")}.json'
+    local = CACHE / name
+    if write or local.exists():
+        return local
+    shared = CACHE_SHARED / name
+    if shared.exists():
+        return shared
+    return local
+
+
+def tv_of(ticker, exchange):
+    t = ticker.replace('-', '.')
+    if (exchange or '') in ('NMS', 'NGM', 'NASDAQ'):
+        return 'NASDAQ:' + t
+    return 'NYSE:' + t
+
+
+def is_crypto(ticker):
+    t = (ticker or '').upper().replace('-USD', '').replace('USD', '').replace('-', '')
+    return t in CRYPTO_EXCL or t.startswith('XRP')
 
 
 def stale(p):
@@ -90,7 +119,10 @@ def stale(p):
 
 
 def fetch_chart(y):
-    p = chart_path(y)
+    p = chart_path(y, write=True)
+    src = chart_path(y, write=False)
+    if src.exists() and src != p and not p.exists():
+        p.write_bytes(src.read_bytes())
     if not FORCE and not stale(p):
         return y, True
     p2 = int(time.time())
@@ -109,7 +141,7 @@ def fetch_chart(y):
 
 
 def weekly_info(y):
-    p = chart_path(y)
+    p = chart_path(y, write=False)
     if not p.exists():
         return None
     try:
@@ -271,7 +303,7 @@ def main():
     for t in CANADA:
         base.setdefault(ysym(t), {'ticker': t, 'origine': 'Canada (NYSE)'})
     for t in cfd:
-        if t.isalpha() and len(t) <= 5:
+        if t.isalpha() and len(t) <= 5 and not is_crypto(t):
             base.setdefault(ysym(t), {'ticker': t, 'origine': 'CFD Revolut déjà négocié'})
     print('univers large', len(base), 'SPY au', asof, flush=True)
     with ThreadPoolExecutor(6) as ex:
@@ -282,12 +314,15 @@ def main():
         w = weekly_info(y) if ok else None
         if not w:
             continue
-        if w['exchange'] != 'NYQ':
+        if w['exchange'] not in EXCHANGES_OK:
+            continue
+        if is_crypto(base[y]['ticker']) or is_crypto(y):
             continue
         nyse[y] = {**base[y], **w}
     n70 = [y for y, w in nyse.items() if (w['rsi'] or 0) > RSI_SUR]
-    n65 = [y for y, w in nyse.items() if (w['rsi'] or 0) >= RSI_MIN]
-    print('NYSE', len(nyse), 'RSI>70', len(n70), 'RSI>=65', len(n65), flush=True)
+    n65 = [y for y, w in nyse.items() if (w['rsi'] or 0) >= 65]
+    n60 = [y for y, w in nyse.items() if (w['rsi'] or 0) >= RSI_MIN]
+    print('NYSE+NASDAQ', len(nyse), 'RSI>70', len(n70), 'RSI>=65', len(n65), 'RSI>=min', len(n60), flush=True)
     # Fondamentaux par RSI hebdo décroissant, uniquement RSI hebdo ≥ RSI_MIN (liste plus courte si besoin, plafond N).
     cands, elig = {}, []
     for y in sorted(nyse, key=lambda y: -(nyse[y]['rsi'] or 0)):
@@ -300,36 +335,38 @@ def main():
             print('fond ERR', y, e)
             continue
         c = {**nyse[y], **f}
-        c['palier'] = 'RSI > 70' if r > RSI_SUR else ('RSI 65–70' if r >= RSI_MIN else 'complément RSI < 65')
+        c['palier'] = 'RSI > 70' if r > RSI_SUR else ('RSI 65–70' if r >= 65 else ('RSI 60–65' if r >= RSI_MIN else 'complément sous seuil'))
         cands[y] = c
-        if f['degradation']['score'] >= 1:
+        if f['degradation']['score'] >= DEG_MIN:
             elig.append(c)
         print(f"{y:6} RSI {r:5} deg {f['degradation']['score']:3} {f['country']} {'; '.join(f['degradation']['signes'])}", flush=True)
         time.sleep(0.3)
-    rang = {'RSI > 70': 0, 'RSI 65–70': 1, 'complément RSI < 65': 2}
-    elig.sort(key=lambda c: (rang[c['palier']], -c['degradation']['score'] if c['palier'] != 'complément RSI < 65' else -c['rsi'], -c['rsi']))
+    rang = {'RSI > 70': 0, 'RSI 65–70': 1, 'RSI 60–65': 2, 'complément sous seuil': 3}
+    elig.sort(key=lambda c: (rang.get(c['palier'], 9), -c['degradation']['score'], -c['rsi']))
     retenus = elig[:N]
     for c in retenus:
         t = c['ticker']
-        c['tv'] = 'NYSE:' + t.replace('-', '.')
+        c['tv'] = tv_of(t, c.get('exchange'))
         c['cfd_revolut'] = 'confirmé' if t in cfd else 'à vérifier'
         c['canada'] = (c.get('country') == 'Canada') or c['origine'].startswith('Canada')
         c['yahoo'] = ysym(t)
     doc = {
-        'regle': "t534u : 50 actions cotées au NYSE (canadiennes comprises), CFD Revolut, RSI hebdo en surachat, santé en dégradation",
+        'regle': "NYSE + NASDAQ (S&P 500, canadiennes NYSE, CFD Revolut actions), RSI hebdo ≥ 60, dégradation ≥ 0,5 ; crypto (XRP…) exclue ; la liste Meilleurs short ne retient que les notes vertes ou mieux (≥ 130), sans complément orange, jusqu'à 10 titres",
         'genere': NOW.strftime('%Y-%m-%d %H:%M'), 'zone': 'Europe/Paris',
         'script': 'src/build_univers_short.py',
         'sources': {'sp500': f'SPDR SPY holdings (State Street), au {asof}', 'cours': 'Yahoo Finance, bougies hebdo clôturées',
                     'fondamentaux': 'Yahoo Finance (yfinance) : info, estimations, tendance BPA, comptes trimestriels / annuels',
                     'cfd': 'config/revolut_cfd_confirmes.json (relevé CFD Revolut)'},
         'stats': {'univers_large': len(base), 'nyse': len(nyse), 'rsi_sup_70': len(n70), 'rsi_sup_65': len(n65),
+                  'rsi_sup_min': len(n60),
                   'eligibles_degradation': len(elig), 'retenus': len(retenus),
                   'retenus_rsi_sup_70': sum(1 for c in retenus if c['rsi'] > RSI_SUR),
-                  'retenus_rsi_65_70': sum(1 for c in retenus if RSI_MIN <= c['rsi'] <= RSI_SUR),
-                  'retenus_complement_sous_65': sum(1 for c in retenus if c['rsi'] < RSI_MIN),
+                  'retenus_rsi_65_70': sum(1 for c in retenus if 65 <= c['rsi'] <= RSI_SUR),
+                  'retenus_rsi_60_65': sum(1 for c in retenus if RSI_MIN <= c['rsi'] < 65),
+                  'retenus_complement_sous_65': sum(1 for c in retenus if c['rsi'] < 65),
                   'rsi_min_retenu': min((c['rsi'] for c in retenus), default=None),
                   'cfd_confirmes': sum(1 for c in retenus if c['cfd_revolut'] == 'confirmé')},
-        'rsi_seuil': RSI_SUR, 'rsi_min_complement': RSI_MIN, 'n': N,
+        'rsi_seuil': RSI_SUR, 'rsi_min_complement': RSI_MIN, 'n': len(retenus),
         'actions': [{k: c.get(k) for k in ('tv', 'ticker', 'yahoo', 'nom', 'origine', 'country', 'canada', 'sector', 'industry', 'is_bank',
                                             'market_cap', 'rsi', 'rsi_sem_sup70', 'palier', 'date_cloture', 'close', 'degradation', 'metrics', 'cfd_revolut')}
                     for c in retenus],

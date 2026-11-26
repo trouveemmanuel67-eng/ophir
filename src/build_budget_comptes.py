@@ -585,6 +585,11 @@ def build():
     def is_nov(o):
         return "2026-11-01" <= o["date"] <= "2026-11-25"
 
+    # Le bloc affiché « Comptes » ne compte que le mois d'octobre (1er–31).
+    # Les règles de classification (virements internes, Air Glow, etc.) restent inchangées.
+    fused_all = fused
+    fused = [o for o in fused_all if is_oct(o)]
+
     revenus_ops = [o for o in fused if o["type"] == "revenus"]
     remb_ops = [o for o in fused if o["type"] == "remboursements"]
     fin_ops = [o for o in fused if o["type"] in ("financement_entrant", "financement_sortant")]
@@ -691,7 +696,7 @@ def build():
 
     # monthly splits for transparency (crédits de catégorie déduits, y compris Apple)
     def slice_tot(pred):
-        ops_m = [o for o in fused if pred(o)]
+        ops_m = [o for o in fused_all if pred(o)]
         dep_m = r2(sum(
             (o["montant_eur"] if o["sens"] == "debit" else -o["montant_eur"])
             for o in ops_m
@@ -739,10 +744,10 @@ def build():
         "revenus_eur": rev,
         "revenus_usd": usd(rev),
         "revenus_detail": (
-            "Salaire Tesla France 10 485,00 € (4 169,59 € le 22/10, réf. Salary 102026 ; "
-            "6 315,41 € le 24/11, réf. Salary 112026) + France Travail Grand Est 1 753,20 € "
-            "(876,60 € le 1/10 et 876,60 € le 2/11) + intérêts d'épargne Revolut 0,48 €. "
-            "Les virements entre comptes, le prêt personnel, les alimentations Apple Pay destinées à l'investissement XTB et les remboursements Aon / AXA / Francky Vetsch ne sont pas des revenus."
+            "Salaire Tesla France {salaire:.2f} € (22/10, réf. Salary 102026) "
+            "+ France Travail Grand Est {ft:.2f} € (1/10)".format(salaire=salaire, ft=ft)
+            + (f" + intérêts d'épargne Revolut {interets:.2f} €" if interets else "")
+            + ". Les virements entre comptes, le prêt personnel, les alimentations Apple Pay destinées à l'investissement XTB et les remboursements d'assurance ne sont pas des revenus."
         ),
         "salaire_eur": salaire,
         "salaire_usd": usd(salaire),
@@ -802,9 +807,13 @@ def build():
         "investissement_note": (
             "Vers l'investissement (XTB, Revolut X, marge, métaux, Deblock, compte-titres) : "
             + f"{inv_out_eur:,.2f}".replace(",", "§").replace(".", ",").replace("§", " ")
-            + " € sortants, exclus des dépenses. "
-            "Les recharges Apple Pay 1 006,00 € (86 + 650 + 270) sont classées en virements internes / investissement XTB "
-            "(confirmé le 25/11/2026) ; elles ne sont ni une dépense ni un revenu, et ne sont pas additionnées aux sortants courtiers."
+            + " € sortants en octobre, exclus des dépenses."
+            + (
+                " Les recharges Apple Pay du mois, classées en virements internes / investissement XTB, "
+                "ne sont ni une dépense ni un revenu, et ne sont pas additionnées aux sortants courtiers."
+                if apple_xtb_eur else
+                " Aucune recharge Apple Pay vers XTB n'apparaît en octobre."
+            )
         ),
         "credit_revolut": {
             "libelle": "Crédit Revolut 23 500 €",
@@ -820,7 +829,8 @@ def build():
             "note": (
                 "Crédit Revolut 23 500 €, confirmé par Emmanuel le 25/11/2026. "
                 "Ni un revenu ni une dépense. Mensualité 169,60 €. "
-                "Le capital 23 434,34 € a été viré le 6/11 vers FR7610278010100002262220176."
+                "Une échéance de 169,60 € apparaît en octobre. "
+                "Le versement du capital (23 434,34 € le 6/11) est hors période."
             ),
         },
         "loa_tesla_mensualite_eur": loa_mens,
@@ -831,6 +841,7 @@ def build():
     }
 
     # perso JSON
+    perso_all = [o for o in perso_all if is_oct(o)]
     perso_cats = []
     for cid, poste, in_dep in CAT_DEFS:
         ops_c = [o for o in perso_all if o.get("categorie") == cid]
@@ -855,7 +866,7 @@ def build():
 
     perso_doc = {
         "id": "compte_perso_2026-10_11",
-        "titre": "Compte perso Emmanuel Trouvé, 1er octobre – 25 novembre 2026",
+        "titre": "Compte perso Emmanuel Trouvé, 1er octobre – 31 octobre 2026",
         "compte": {
             "banque": "Revolut France succursale de Revolut Bank UAB",
             "etablissement": "Revolut Bank UAB (Lituanie), succursale France, SIREN 917 420 077",
@@ -888,8 +899,8 @@ def build():
         },
         "periode": {
             "debut": "2026-10-01",
-            "fin": "2026-11-25",
-            "libelle": "1er octobre – 25 novembre 2026",
+            "fin": "2026-10-31",
+            "libelle": "1er octobre – 31 octobre 2026",
         },
         "soldes": {
             "courant_ouverture_eur": 45.86,
@@ -943,8 +954,8 @@ def build():
         "titre": "Comptes",
         "periode": {
             "debut": "2026-10-01",
-            "fin": "2026-11-25",
-            "libelle": "1er octobre – 25 novembre 2026",
+            "fin": "2026-10-31",
+            "libelle": "1er octobre – 31 octobre 2026",
         },
         "comptes": [
             {
@@ -970,8 +981,8 @@ def build():
             "genere_le": "2026-11-25",
             "genere_le_libelle": "25 nov. 2026",
             "extraction": (
-                "Fusion des opérations du compte joint (data/budget/compte_joint_2026-10.json, y compris les 134 opérations "
-                "du 1–25/11 précédemment hors bloc octobre) et du compte perso (même période). "
+                "Fusion des opérations du compte joint (data/budget/compte_joint_2026-10.json) "
+                "et du compte perso. Le bloc affiché est limité au mois d'octobre 2026 (1er–31). "
                 "Les corrections déjà faites sur le joint sont conservées : ligne unique Air Glow, frais de fonctionnement, Grok (via Apple), "
                 "Dentiste (Dr Koch), Deblock en virement interne. "
                 "Les virements perso → joint (et l'inverse) et les virements vers l'épargne / les courtiers / les métaux "
@@ -995,7 +1006,9 @@ def build():
         "virements_internes_entrants": vin_ops,
         "financement_operations": fin_ops,
         "credits_a_confirmer": autre_credits,
-        "operations_ambigues": ambigues,
+        # Le bloc affiché est limité à octobre : on retire les ambiguïtés datées de novembre.
+        "operations_ambigues": [a for a in ambigues if not re.search(r"\b\d{1,2}/11(?:/2026)?\b", a.get("sujet") or "")],
+
         "tradingview_sur_le_releve": {
             "present_sur_le_releve": True,
             "total_eur": r2(sum(
@@ -1003,9 +1016,9 @@ def build():
                 if o["libelle"] == "Tradingview" and o["sens"] == "debit"
             )),
             "note": (
-                "Deux prélèvements TradingView Premium de 83,94 € figurent sur le compte joint (7/10 et 7/11). "
-                "Ils restent dans Abonnements. Ils ne sont pas recopiés en seconde ligne dans le bloc courtage, "
-                "où l'objectif Essential annuel (186,48 € / an) est déjà suivi."
+                "Un prélèvement TradingView Premium de 83,94 € figure sur le compte joint le 7/10. "
+                "Il reste dans Abonnements. Il n'est pas recopié en seconde ligne dans le budget mensuel moyen, "
+                "où l'abonnement Essential annuel est déjà suivi en provisions."
             ),
         },
         "en_attente": joint.get("en_attente"),
@@ -1054,7 +1067,7 @@ def build():
 
 def detail_cat(cid, ops, debit, credit, observe):
     if not ops:
-        return "Aucune opération sur la période (1er octobre – 25 novembre 2026)."
+        return "Aucune opération sur la période (1er octobre – 31 octobre 2026)."
     n = len(ops)
     bits = [f"{n} opération" + ("s" if n != 1 else "")]
     srcs = {}
