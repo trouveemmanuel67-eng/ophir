@@ -566,6 +566,44 @@ body{display:flex;flex-direction:column;min-height:100vh}
 }
 
 
+
+/* ===== Onglet Marché privé ===== */
+.mp-intro,.mp-legende{margin:8px 0 0;font-size:13px;line-height:1.45;color:var(--mut)}
+.mp-legende{font-size:12px}
+.mp-list{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.mp-card{border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:10px 12px;background:rgba(255,255,255,.03)}
+.mp-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.mp-id{min-width:0}
+.mp-card h3{margin:0;font-size:15px;font-weight:750;color:#fff;line-height:1.25}
+.mp-type{display:block;margin-top:2px;font-size:11px;color:var(--mut);letter-spacing:.04em;text-transform:uppercase}
+.mp-apex{flex:none}
+.mp-apex .apex10{margin:0}
+.mp-apex .apex10 b{font-size:22px}
+.mp-apex .apex10 small{font-size:11px}
+.mp-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-top:8px}
+.mp-kpis div{border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:6px 8px;min-width:0}
+.mp-kpis span{display:block;font-size:10px;color:var(--mut);text-transform:uppercase;letter-spacing:.05em}
+.mp-kpis b{display:block;font-size:15px;font-weight:750;letter-spacing:-.03em;font-variant-numeric:tabular-nums;margin-top:2px;white-space:nowrap}
+.mp-det{margin-top:8px}
+.mp-det summary{cursor:pointer;font-size:12px;color:var(--mut);list-style:none}
+.mp-det summary::-webkit-details-marker{display:none}
+.mp-det summary::after{content:" ▾";font-size:10px}
+.mp-det[open] summary::after{content:" ▴"}
+.mp-meta,.mp-ligne,.mp-t{margin:6px 0 0;font-size:12px;line-height:1.4;color:var(--mut)}
+.mp-ligne{color:#e8e8e8}
+.mp-isin{user-select:all;-webkit-user-select:all}
+.mp-k{margin:8px 0 3px;font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--mut)}
+.mp-crit,.mp-miss,.mp-risques{margin:4px 0 0;padding-left:16px}
+.mp-crit li,.mp-miss li,.mp-risques li{font-size:12px;line-height:1.4;color:#d8d8d8;margin:0 0 3px}
+.mp-risques{margin-top:12px;color:#e6c27a}
+.mp-risques li{color:#e6c27a}
+@media(max-width:640px){
+  .mp-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .mp-apex .apex10 b{font-size:20px}
+  .mp-card{padding:8px 10px}
+  .mp-card h3{font-size:14px}
+}
+
 /* ===== Prévisionnel Immobilier ===== */
 .immo-prev h2{margin-bottom:6px}
 .immo-intro,.immo-saison,.immo-resume{margin:6px 0 0;font-size:13px;line-height:1.45;color:var(--mut)}
@@ -1814,6 +1852,7 @@ if(navigator.serviceWorker){
 <script type="application/json" id="dataEvenements">__DATA_EVT__</script>
 <script type="application/json" id="dataPea">__DATA_PEA__</script>
 <script type="application/json" id="dataImmo">__DATA_IMMO__</script>
+<script type="application/json" id="dataMarchePrive">__DATA_MARCHE_PRIVE__</script>
 <script>
 "use strict";
 const DATA = JSON.parse(document.getElementById('data').textContent);
@@ -1869,6 +1908,7 @@ const TABS=[
   {id:'placements',label:'Placements',enabled:true,render:el=>renderPlacements(el)},
   {id:'immobilier',label:'Immobilier',enabled:true,render:renderImmobilier},
   {id:'pea',label:'PEA',enabled:true,render:renderPea},
+  {id:'marche-prive',label:'Marché privé',enabled:true,render:renderMarchePrive},
 ];
 
 function buildTabs(){
@@ -2039,6 +2079,7 @@ function chartTrends(){
 /*__EVTJS__*/
 /*__IMMOJS__*/
 /*__PEAJS__*/
+/*__MARCHE_PRIVE_JS__*/
 /*__SEARCHJS__*/
 buildTabs();
 if(typeof ttInit==='function') ttInit();

@@ -98,6 +98,14 @@ _immojs=_P(B+'src/immobilier.js')
 t=t.replace('/*__IMMOJS__*/', _immojs.read_text() if _immojs.exists() else '')
 
 
+_mp=_P(B+'data/marche_prive.json')
+mp=_mp.read_text() if _mp.exists() else ''
+t=t.replace('__DATA_MARCHE_PRIVE__', esc(mp) if mp else 'null')
+_mpjs=_P(B+'src/marche_prive.js')
+t=t.replace('/*__MARCHE_PRIVE_JS__*/', _mpjs.read_text() if _mpjs.exists() else '')
+
+
+
 def _slim_pilot(raw):
     import json as _json
     d=_json.loads(raw)

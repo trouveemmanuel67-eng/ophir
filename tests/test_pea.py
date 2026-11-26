@@ -43,8 +43,7 @@ def test_onglet_apres_immobilier():
     assert "id:'pea',label:'PEA'" in nav
     assert nav.index("id:'immobilier'") < nav.index("id:'pea'")
     assert "render:renderPea" in nav
-    after = nav.split("id:'pea'")[1]
-    assert "id:'" not in after  # dernier onglet du menu
+    assert nav.index("id:'pea'") < nav.index("id:'marche-prive'")
 
 
 def test_build_et_template_branchent_les_donnees():

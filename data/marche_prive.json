@@ -1,0 +1,692 @@
+{
+  "generated": "2026-11-26",
+  "zone": "Europe/Paris",
+  "titre": "Marché privé",
+  "intro": "Quatre fonds ELTIF proposés par Revolut, avec une note APEX sur 250. Capital non garanti, liquidité limitée, frais élevés. Aucun rendement promis.",
+  "classement": "note_apex",
+  "classement_libelle": "Classés par note APEX sur 250.",
+  "note_legende": "Note APEX −50 à 250 : violet < 10, rouge 10–69, orange 70–129, vert 130–189, cyan ≥ 190. Critère manquant = 0, sans redistribution.",
+  "risques": [
+    "Capital non garanti : tu peux tout perdre.",
+    "Liquidité faible : rachats seulement par fenêtres, avec des limites, parfois des frais, et le gérant peut les suspendre.",
+    "Frais élevés, souvent autour de 3,5 % à 5,8 % par an.",
+    "La valeur n'est pas un prix de Bourse : elle est calculée de temps en temps par le gérant.",
+    "Horizon long (4 à 10 ans selon le fonds). Aucun rendement n'est promis."
+  ],
+  "note_grille": {
+    "echelle": "−50 à 250",
+    "points": {
+      "frais": 40,
+      "encours": 30,
+      "anciennete": 30,
+      "performance": 30,
+      "liquidite": 30,
+      "sri": 20,
+      "transparence": 20,
+      "sentiment": 50
+    },
+    "fondamental_somme": 200,
+    "technique": 0,
+    "mm40": 0,
+    "borne": "total ramené dans [−50, 250]",
+    "regles": {
+      "technique": "Non applicable : pas de cours quotidien. 0 point, sans redistribution.",
+      "mm40": "Non applicable : pas de série hebdomadaire cotée. 0 point, sans redistribution.",
+      "sentiment": "Sentiment maison APEX à contre-courant, s'il existe pour la classe d'actifs. Ici : aucun indicateur maison sur le private equity ou le crédit privé non coté. 0 point, sans invention.",
+      "fondamental": "200 points : frais 40, encours 30, ancienneté 30, performance vérifiée 30, liquidité 30, SRI 20, transparence 20. n.c. = 0, sans redistribution."
+    },
+    "fond_paliers": {
+      "frais": "Incidence annuelle des coûts du KID, sur la durée recommandée : ≤ 3,0 % → 40 ; ≤ 3,5 % → 25 ; ≤ 4,0 % → 15 ; ≤ 5,0 % → 5 ; sinon ou n.c. → 0.",
+      "encours": "NAV officielle du gérant : ≥ 500 M€ → 30 ; ≥ 250 M€ → 20 ; ≥ 100 M€ → 15 ; ≥ 50 M€ → 10 ; ≥ 20 M€ → 5 ; sinon ou n.c. → 0.",
+      "anciennete": "Date de lancement du fonds, au 26/11/2026 : ≥ 5 ans → 30 ; ≥ 3 ans → 20 ; ≥ 2 ans → 10 ; ≥ 1 an → 5 ; moins d'un an ou n.c. → 0. Une simple autorisation réglementaire ne compte pas.",
+      "performance": "Chiffres officiels du gérant uniquement, pas les scénarios du KID : historique d'au moins 12 mois avec une valeur, plus un chiffre sur 1 an ou depuis janvier → 30 ; au moins 12 mois → 20 ; moins de 12 mois → 10 ; non publié ou introuvable → 0.",
+      "liquidite": "Rachats mensuels sans frais de sortie ni lock-up en cours → 30 ; mensuels avec frais de sortie possibles (jusqu'à 5 %) → 20 ; trimestriels sans frais de sortie ni lock-up en cours → 15 ; trimestriels avec frais de sortie ou lock-up en cours → 5 ; pas de rachat régulier ou n.c. → 0. Les limites (gates) existent sur tous ces fonds.",
+      "sri": "Indicateur de risque du KID : 1–2 → 20 ; 3 → 15 ; 4 → 10 ; 5 → 5 ; 6–7 ou n.c. → 0.",
+      "transparence": "Factsheet gérant de moins de 3 mois avec encours, performance et frais → 20 ; factsheet ou page gérant récente avec encours ou performance, plus KID complet → 15 ; KID officiel complet seulement → 10 ; infos partielles ou n.c. → 0."
+    },
+    "calcule_le": "2026-11-26",
+    "zone": "Europe/Paris"
+  },
+  "revolut": "Chez Revolut, l'achat part de 1 €, par fractions de parts. Les KID indiquent souvent un minimum de 5 000 € ou 10 000 € pour une souscription directe chez le gérant. Les parts sont détenues via Revolut, et tu ne sors qu'aux fenêtres de rachat.",
+  "fonds": [
+    {
+      "id": "ares",
+      "nom": "Ares European Strategic Income ELTIF",
+      "nom_officiel": "Ares European Strategic Income ELTIF Fund — classe RA-EUR",
+      "type": "Crédit privé",
+      "type_id": "credit_prive",
+      "resume": "Prêt direct européen, revenu, entreprises de taille moyenne.",
+      "isin": "LU3091050792",
+      "part": "RA-EUR, capitalisante",
+      "gerant": "Ares Management Luxembourg",
+      "lancement": "2025-11-01",
+      "lancement_libelle": "1er novembre 2025 (fonds). Classe A capitalisante : 1er janvier 2026.",
+      "encours_meur": 278,
+      "encours_libelle": "278 M€ de valeur nette (NAV). Actif total annoncé 498 M€, mais une note précise que des engagements peuvent ne pas être versés.",
+      "frais_annuels_pct": 3.5,
+      "frais_detail": "Incidence annuelle 3,5 % (KID, 4 ans, scénario modéré). Dont 2,50 % de frais courants, 0,93 % de commission de performance estimée et 0,04 % de coûts de transaction. Pas de frais d'entrée.",
+      "frais_sortie": "En principe 0, mais le gérant peut appliquer jusqu'à 5 % du NAV, à sa discrétion.",
+      "liquidite": "Rachats mensuels, dans la limite de 2 % du fonds par mois et 5 % par trimestre. Le programme peut être modifié ou suspendu.",
+      "horizon_ans": 4,
+      "sri": 3,
+      "min_kid_eur": 10000,
+      "min_revolut_eur": 1,
+      "rendement_distribue": "La part Revolut est capitalisante : aucun coupon versé. Le factsheet affiche un rendement de distribution annualisé de 7,00 % au 30/09/2026, mais le gérant précise que ce n'est pas un rendement pour l'investisseur, et que les distributions ne sont pas garanties.",
+      "perf_officielle": null,
+      "infos_manquantes": [
+        "Performance historique officielle de la part RA-EUR (et des autres parts) : non publiée au 30/09/2026."
+      ],
+      "sources": [
+        {
+          "nom": "KID RA-EUR LU3091050792, daté du 01/01/2026, téléchargé depuis l'app Revolut (frais 3,5 %, SRI 3/7, horizon 4 ans, rachats, frais de sortie jusqu'à 5 %)",
+          "url": "https://www.filosofaresuimercati.eu/2026/11/23/private-credit-revolut-ares-eltif-rischi/",
+          "date": "2026-11-23"
+        },
+        {
+          "nom": "Factsheet officiel AESIF ELTIF au 30/09/2026 (lancement, NAV 278 M€, actif total 498 M€, conditions de rachat, tableau de performance vide)",
+          "url": "https://merrillconnect.iscorp.com/blackcreek/services/viewDocument?itemNbr=AESIFELTIF-8893-MURL",
+          "date": "2026-09-30"
+        },
+        {
+          "nom": "KID classe A capitalisante LU3091051337 (SRI 3/7 et horizon 4 ans, cohérents avec la part RA-EUR)",
+          "url": "https://api.fundinfo.com/document/1b5e2eee735e81476bc599f3aa8b14c1_169620/PRP_DE_en_LU3091051337_YES_2026-05-07.pdf?apiKey=4e1b44bc-126f-4928-8e69-7e39450f162f",
+          "date": "2026-05-07"
+        },
+        {
+          "nom": "Revolut : accès dès 1 € par fractions de parts",
+          "url": "https://www.eupersonalfinance.eu/articles/revolut-private-markets",
+          "date": "2026-11-24"
+        }
+      ],
+      "apex10": {
+        "note": 100,
+        "display": "100",
+        "hex": "#ff8c1a",
+        "flag": "orange",
+        "band": "orange",
+        "scale": 250,
+        "total": 100,
+        "total_min": -50,
+        "total_max": 250,
+        "v2": true,
+        "ligne": "Frais 25 · Encours 20 · Ancienneté 5 · Perf. 0 · Liquidité 20 · SRI 15 · Transparence 15 · Sentiment 0  →  100 / 250",
+        "brut": 100,
+        "technique": 0,
+        "mm40": 0,
+        "sentiment": 0,
+        "fondamental": 100,
+        "decomp": {
+          "texte": "Frais 25 · Encours 20 · Ancienneté 5 · Perf. 0 · Liquidité 20 · SRI 15 · Transparence 15 · Sentiment 0  →  100 / 250",
+          "points": {
+            "frais": 25,
+            "encours": 20,
+            "anciennete": 5,
+            "performance": 0,
+            "liquidite": 20,
+            "sri": 15,
+            "transparence": 15,
+            "sentiment": 0,
+            "total": 100
+          },
+          "fondamental": {
+            "points": 100,
+            "max": 200,
+            "criteres": [
+              {
+                "id": "frais",
+                "label": "Frais",
+                "points": 25,
+                "max": 40,
+                "etat": "ok",
+                "valeur": "3,5 % / an",
+                "texte": "Incidence annuelle 3,5 % (KID, 4 ans, scénario modéré). Dont 2,50 % de frais courants, 0,93 % de commission de performance estimée et 0,04 % de coûts de transaction. Pas de frais d'entrée."
+              },
+              {
+                "id": "encours",
+                "label": "Encours",
+                "points": 20,
+                "max": 30,
+                "etat": "ok",
+                "valeur": "278 M€",
+                "texte": "278 M€ de valeur nette (NAV). Actif total annoncé 498 M€, mais une note précise que des engagements peuvent ne pas être versés."
+              },
+              {
+                "id": "anciennete",
+                "label": "Ancienneté",
+                "points": 5,
+                "max": 30,
+                "etat": "ok",
+                "valeur": "1er novembre 2025 (fonds). Classe A capitalisante : 1er janvier 2026.",
+                "texte": "1er novembre 2025 (fonds). Classe A capitalisante : 1er janvier 2026."
+              },
+              {
+                "id": "performance",
+                "label": "Performance vérifiée",
+                "points": 0,
+                "max": 30,
+                "etat": "n.c.",
+                "valeur": "Le factsheet du 30/09/2026 ne publie aucun chiffre (tirets) : le gérant attend un an d'historique. Les scénarios du KID ne comptent pas.",
+                "texte": "Le factsheet du 30/09/2026 ne publie aucun chiffre (tirets) : le gérant attend un an d'historique. Les scénarios du KID ne comptent pas."
+              },
+              {
+                "id": "liquidite",
+                "label": "Liquidité / rachats",
+                "points": 20,
+                "max": 30,
+                "etat": "ok",
+                "valeur": "Rachats mensuels, dans la limite de 2 % du fonds par mois et 5 % par trimestre. Le programme peut être modifié ou suspendu.",
+                "texte": "Rachats mensuels, dans la limite de 2 % du fonds par mois et 5 % par trimestre. Le programme peut être modifié ou suspendu. En principe 0, mais le gérant peut appliquer jusqu'à 5 % du NAV, à sa discrétion."
+              },
+              {
+                "id": "sri",
+                "label": "Indicateur de risque SRI",
+                "points": 15,
+                "max": 20,
+                "etat": "ok",
+                "valeur": "3/7",
+                "texte": "SRI 3 sur 7 (KID)."
+              },
+              {
+                "id": "transparence",
+                "label": "Transparence",
+                "points": 15,
+                "max": 20,
+                "etat": "ok",
+                "valeur": "KID complet (app Revolut, 01/01/2026) et factsheet gérant au 30/09/2026 (encours, conditions). Performance officielle non publiée.",
+                "texte": "KID complet (app Revolut, 01/01/2026) et factsheet gérant au 30/09/2026 (encours, conditions). Performance officielle non publiée."
+              }
+            ]
+          },
+          "sentiment": {
+            "points": 0,
+            "max": 50,
+            "etat": "n.c.",
+            "texte": "Pas de sentiment maison APEX sur le capital-investissement ou le crédit privé non coté. Critère à 0, sans invention."
+          }
+        }
+      }
+    },
+    {
+      "id": "hamilton-lane",
+      "nom": "Hamilton Lane Private Markets Access ELTIF",
+      "nom_officiel": "Hamilton Lane Private Markets Access ELTIF Fund — classe F-4",
+      "type": "Capital-investissement",
+      "type_id": "capital_investissement",
+      "resume": "Exposition mondiale au capital-investissement et aux infrastructures, multi-gérants.",
+      "isin": "LU3051916800",
+      "part": "F-4, capitalisante",
+      "gerant": "Hamilton Lane (AIFM : FundRock LIS S.A.)",
+      "lancement": "2025-04-01",
+      "lancement_libelle": "Avril 2025 (fonds et classe F-4).",
+      "encours_meur": 66.34,
+      "encours_libelle": "66,34 M€ au 31/10/2026, page officielle du gérant. Factsheet de juin 2026 : 53,47 M€.",
+      "frais_annuels_pct": 5.8,
+      "frais_detail": "Incidence annuelle 5,8 % sur 10 ans (4,9 % si sortie après 1 an). Frais de gestion 2,35 %. Carried interest 12,5 % au-dessus d'un high-water mark. Pas de frais d'entrée ni de sortie.",
+      "frais_sortie": "Aucun, d'après le KID F-4 du 01/07/2026.",
+      "liquidite": "Rachats trimestriels, préavis d'un mois, limite de 5 % de la valeur du fonds par trimestre. Lock-up d'un an à compter du lancement d'avril 2025 : il est terminé depuis avril 2026.",
+      "horizon_ans": 10,
+      "sri": 4,
+      "min_kid_eur": 5000,
+      "min_revolut_eur": 1,
+      "rendement_distribue": "Part capitalisante, pas de dividende prévu.",
+      "perf_officielle": {
+        "nav": 124.3156,
+        "devise": "EUR",
+        "mtd_pct": 0.84,
+        "ytd_pct": 9.43,
+        "si_pa_pct": 19.02,
+        "date": "2026-06-30",
+        "couverture_mois": 14
+      },
+      "infos_manquantes": [
+        "Performance officielle plus récente que juin 2026 : non trouvée sur le site public."
+      ],
+      "sources": [
+        {
+          "nom": "KID F-4 LU3051916800 du 01/07/2026 (SRI 4/7, horizon 10 ans, coûts 5,8 %, pas de frais d'entrée/sortie)",
+          "url": "https://assets.finanzfluss.de/hippoverse/documents/LU3051916800-kiid.pdf",
+          "date": "2026-07-01"
+        },
+        {
+          "nom": "Factsheet Hamilton Lane Private Markets Access Fund, juin 2026 (lancement, AUM 53,47 M€, performance F-4, lock-up, gate 5 %)",
+          "url": "https://assets.finanzfluss.de/hippoverse/documents/LU3051916800-factsheet.pdf",
+          "date": "2026-06-30"
+        },
+        {
+          "nom": "Page Evergreen Strategies, Hamilton Lane : AUM 66,34 M€ au 31/10/2026",
+          "url": "https://www.hamiltonlane.com/en-us/strategies/evergreen",
+          "date": "2026-10-31"
+        },
+        {
+          "nom": "Revolut : accès dès 1 €",
+          "url": "https://www.eupersonalfinance.eu/articles/revolut-private-markets",
+          "date": "2026-11-24"
+        }
+      ],
+      "apex10": {
+        "note": 85,
+        "display": "85",
+        "hex": "#ff8c1a",
+        "flag": "orange",
+        "band": "orange",
+        "scale": 250,
+        "total": 85,
+        "total_min": -50,
+        "total_max": 250,
+        "v2": true,
+        "ligne": "Frais 0 · Encours 10 · Ancienneté 5 · Perf. 30 · Liquidité 15 · SRI 10 · Transparence 15 · Sentiment 0  →  85 / 250",
+        "brut": 85,
+        "technique": 0,
+        "mm40": 0,
+        "sentiment": 0,
+        "fondamental": 85,
+        "decomp": {
+          "texte": "Frais 0 · Encours 10 · Ancienneté 5 · Perf. 30 · Liquidité 15 · SRI 10 · Transparence 15 · Sentiment 0  →  85 / 250",
+          "points": {
+            "frais": 0,
+            "encours": 10,
+            "anciennete": 5,
+            "performance": 30,
+            "liquidite": 15,
+            "sri": 10,
+            "transparence": 15,
+            "sentiment": 0,
+            "total": 85
+          },
+          "fondamental": {
+            "points": 85,
+            "max": 200,
+            "criteres": [
+              {
+                "id": "frais",
+                "label": "Frais",
+                "points": 0,
+                "max": 40,
+                "etat": "ok",
+                "valeur": "5,8 % / an",
+                "texte": "Incidence annuelle 5,8 % sur 10 ans (4,9 % si sortie après 1 an). Frais de gestion 2,35 %. Carried interest 12,5 % au-dessus d'un high-water mark. Pas de frais d'entrée ni de sortie."
+              },
+              {
+                "id": "encours",
+                "label": "Encours",
+                "points": 10,
+                "max": 30,
+                "etat": "ok",
+                "valeur": "66,34 M€",
+                "texte": "66,34 M€ au 31/10/2026, page officielle du gérant. Factsheet de juin 2026 : 53,47 M€."
+              },
+              {
+                "id": "anciennete",
+                "label": "Ancienneté",
+                "points": 5,
+                "max": 30,
+                "etat": "ok",
+                "valeur": "Avril 2025 (fonds et classe F-4).",
+                "texte": "Avril 2025 (fonds et classe F-4)."
+              },
+              {
+                "id": "performance",
+                "label": "Performance vérifiée",
+                "points": 30,
+                "max": 30,
+                "etat": "ok",
+                "valeur": "Factsheet juin 2026, classe F-4 : valeur 124,3156 €, +0,84 % sur le mois, +9,43 % depuis le 1er janvier, +19,02 % par an depuis le lancement (avril 2025, soit plus de 12 mois). Chiffre un peu ancien (juin), mais officiel.",
+                "texte": "Factsheet juin 2026, classe F-4 : valeur 124,3156 €, +0,84 % sur le mois, +9,43 % depuis le 1er janvier, +19,02 % par an depuis le lancement (avril 2025, soit plus de 12 mois). Chiffre un peu ancien (juin), mais officiel."
+              },
+              {
+                "id": "liquidite",
+                "label": "Liquidité / rachats",
+                "points": 15,
+                "max": 30,
+                "etat": "ok",
+                "valeur": "Rachats trimestriels, préavis d'un mois, limite de 5 % de la valeur du fonds par trimestre. Lock-up d'un an à compter du lancement d'avril 2025 : il est terminé depuis avril 2026.",
+                "texte": "Rachats trimestriels, préavis d'un mois, limite de 5 % de la valeur du fonds par trimestre. Lock-up d'un an à compter du lancement d'avril 2025 : il est terminé depuis avril 2026. Aucun, d'après le KID F-4 du 01/07/2026."
+              },
+              {
+                "id": "sri",
+                "label": "Indicateur de risque SRI",
+                "points": 10,
+                "max": 20,
+                "etat": "ok",
+                "valeur": "4/7",
+                "texte": "SRI 4 sur 7 (KID)."
+              },
+              {
+                "id": "transparence",
+                "label": "Transparence",
+                "points": 15,
+                "max": 20,
+                "etat": "ok",
+                "valeur": "KID F-4 du 01/07/2026, factsheet juin 2026 (performance et conditions) et encours officiel au 31/10/2026. La performance publiée s'arrête à juin.",
+                "texte": "KID F-4 du 01/07/2026, factsheet juin 2026 (performance et conditions) et encours officiel au 31/10/2026. La performance publiée s'arrête à juin."
+              }
+            ]
+          },
+          "sentiment": {
+            "points": 0,
+            "max": 50,
+            "etat": "n.c.",
+            "texte": "Pas de sentiment maison APEX sur le capital-investissement ou le crédit privé non coté. Critère à 0, sans invention."
+          }
+        }
+      }
+    },
+    {
+      "id": "apollo",
+      "nom": "Apollo Global Private Credit ELTIF",
+      "nom_officiel": "Apollo Global Diversified Credit ELTIF — classe FA2",
+      "type": "Crédit privé",
+      "type_id": "credit_prive",
+      "resume": "Fonds de crédit mondial, revenu, prêt aux grandes entreprises. Nom officiel : Apollo Global Diversified Credit ELTIF.",
+      "isin": "LU3146842573",
+      "part": "FA2",
+      "gerant": "Apollo (AIFM : Carne Global Fund Managers Luxembourg)",
+      "lancement": null,
+      "lancement_libelle": "Date de lancement de la part FA2 non trouvée. Le compartiment a été autorisé par la CSSF le 5 août 2025 ; le KID FA2 est daté du 05/06/2026. L'autorisation n'est pas une date de lancement.",
+      "encours_meur": null,
+      "encours_libelle": "Encours officiel non trouvé (ni factsheet public récent, ni NAV publiée).",
+      "frais_annuels_pct": 3.7,
+      "frais_detail": "Incidence annuelle 3,7 % (KID FA2, 5 ans). Pas de frais d'entrée ni de sortie d'après le KID lu depuis Revolut et un article du 24/11/2026. Commission de performance de 10 % au-dessus de 5 %, avec high-water mark, d'après la présentation Apollo dans l'app.",
+      "frais_sortie": "Aucun, d'après le KID FA2.",
+      "liquidite": "Rachats trimestriels, limite de 5 % de la valeur du fonds (ou de la liquidité disponible si elle est plus basse).",
+      "horizon_ans": 5,
+      "sri": 3,
+      "min_kid_eur": null,
+      "min_revolut_eur": 1,
+      "rendement_distribue": "Objectif de revenu, mais aucun rendement distribué officiel trouvé pour la part FA2. Aucun chiffre n'est promis.",
+      "perf_officielle": null,
+      "infos_manquantes": [
+        "Date de lancement de la part FA2.",
+        "Encours (AUM / NAV).",
+        "Performance historique réelle.",
+        "Minimum d'investissement indiqué dans le KID de cette part.",
+        "Rendement distribué visé, chiffré et officiel."
+      ],
+      "sources": [
+        {
+          "nom": "KID FA2 LU3146842573 du 05/06/2026, téléchargé depuis l'app Revolut (SRI 3/7, horizon 5 ans, coûts 3,7 %, rachats trimestriels, gate 5 %)",
+          "url": "https://www.filosofaresuimercati.eu/2026/11/23/private-credit-revolut-ares-eltif-rischi/",
+          "date": "2026-11-23"
+        },
+        {
+          "nom": "KIDs Revolut, juin 2026 : pas de frais de sortie, incidence 3,7 %",
+          "url": "https://www.eupersonalfinance.eu/articles/revolut-private-markets",
+          "date": "2026-11-24"
+        },
+        {
+          "nom": "Communiqué Apollo du 24/09/2025 : autorisation CSSF de trois ELTIF evergreen le 5 août 2025, dont Apollo Global Diversified Credit ELTIF",
+          "url": "https://ir.apollo.com/news-events/press-releases/detail/579/apollo-expands-wealth-platform-with-three-evergreen-eltifs",
+          "date": "2025-09-24"
+        },
+        {
+          "nom": "Revolut : accès dès 1 €",
+          "url": "https://www.eupersonalfinance.eu/articles/revolut-private-markets",
+          "date": "2026-11-24"
+        }
+      ],
+      "apex10": {
+        "note": 55,
+        "display": "55",
+        "hex": "#ff2d2d",
+        "flag": "rouge",
+        "band": "rouge",
+        "scale": 250,
+        "total": 55,
+        "total_min": -50,
+        "total_max": 250,
+        "v2": true,
+        "ligne": "Frais 15 · Encours 0 · Ancienneté 0 · Perf. 0 · Liquidité 15 · SRI 15 · Transparence 10 · Sentiment 0  →  55 / 250",
+        "brut": 55,
+        "technique": 0,
+        "mm40": 0,
+        "sentiment": 0,
+        "fondamental": 55,
+        "decomp": {
+          "texte": "Frais 15 · Encours 0 · Ancienneté 0 · Perf. 0 · Liquidité 15 · SRI 15 · Transparence 10 · Sentiment 0  →  55 / 250",
+          "points": {
+            "frais": 15,
+            "encours": 0,
+            "anciennete": 0,
+            "performance": 0,
+            "liquidite": 15,
+            "sri": 15,
+            "transparence": 10,
+            "sentiment": 0,
+            "total": 55
+          },
+          "fondamental": {
+            "points": 55,
+            "max": 200,
+            "criteres": [
+              {
+                "id": "frais",
+                "label": "Frais",
+                "points": 15,
+                "max": 40,
+                "etat": "ok",
+                "valeur": "3,7 % / an",
+                "texte": "Incidence annuelle 3,7 % (KID FA2, 5 ans). Pas de frais d'entrée ni de sortie d'après le KID lu depuis Revolut et un article du 24/11/2026. Commission de performance de 10 % au-dessus de 5 %, avec high-water mark, d'après la présentation Apollo dans l'app."
+              },
+              {
+                "id": "encours",
+                "label": "Encours",
+                "points": 0,
+                "max": 30,
+                "etat": "n.c.",
+                "valeur": null,
+                "texte": "Encours officiel non trouvé (ni factsheet public récent, ni NAV publiée)."
+              },
+              {
+                "id": "anciennete",
+                "label": "Ancienneté",
+                "points": 0,
+                "max": 30,
+                "etat": "n.c.",
+                "valeur": "Date de lancement de la part FA2 non trouvée. Le compartiment a été autorisé par la CSSF le 5 août 2025 ; le KID FA2 est daté du 05/06/2026. L'autorisation n'est pas une date de lancement.",
+                "texte": "Date de lancement de la part FA2 non trouvée. Le compartiment a été autorisé par la CSSF le 5 août 2025 ; le KID FA2 est daté du 05/06/2026. L'autorisation n'est pas une date de lancement."
+              },
+              {
+                "id": "performance",
+                "label": "Performance vérifiée",
+                "points": 0,
+                "max": 30,
+                "etat": "n.c.",
+                "valeur": "Aucune performance officielle trouvée (pas de factsheet public avec une valeur ou un rendement).",
+                "texte": "Aucune performance officielle trouvée (pas de factsheet public avec une valeur ou un rendement)."
+              },
+              {
+                "id": "liquidite",
+                "label": "Liquidité / rachats",
+                "points": 15,
+                "max": 30,
+                "etat": "ok",
+                "valeur": "Rachats trimestriels, limite de 5 % de la valeur du fonds (ou de la liquidité disponible si elle est plus basse).",
+                "texte": "Rachats trimestriels, limite de 5 % de la valeur du fonds (ou de la liquidité disponible si elle est plus basse). Aucun, d'après le KID FA2."
+              },
+              {
+                "id": "sri",
+                "label": "Indicateur de risque SRI",
+                "points": 15,
+                "max": 20,
+                "etat": "ok",
+                "valeur": "3/7",
+                "texte": "SRI 3 sur 7 (KID)."
+              },
+              {
+                "id": "transparence",
+                "label": "Transparence",
+                "points": 10,
+                "max": 20,
+                "etat": "ok",
+                "valeur": "KID FA2 du 05/06/2026, lu depuis l'app Revolut (frais, SRI, horizon, rachats). Pas de factsheet public récent avec encours ou performance.",
+                "texte": "KID FA2 du 05/06/2026, lu depuis l'app Revolut (frais, SRI, horizon, rachats). Pas de factsheet public récent avec encours ou performance."
+              }
+            ]
+          },
+          "sentiment": {
+            "points": 0,
+            "max": 50,
+            "etat": "n.c.",
+            "texte": "Pas de sentiment maison APEX sur le capital-investissement ou le crédit privé non coté. Critère à 0, sans invention."
+          }
+        }
+      }
+    },
+    {
+      "id": "partners-group",
+      "nom": "Partners Group Private Markets ELTIF",
+      "nom_officiel": "Partners Group Private Markets Opportunities — classe EB-TR (EUR) ACC",
+      "type": "Multi-actifs",
+      "type_id": "multi_actifs",
+      "resume": "Capital-investissement, crédit et infrastructures. Nom officiel : Partners Group Private Markets Opportunities.",
+      "isin": "LU3173236467",
+      "part": "EB-TR (EUR) ACC, capitalisante",
+      "gerant": "Partners Group (Luxembourg) S.A.",
+      "lancement": null,
+      "lancement_libelle": "Date de lancement officielle de la part EB-TR non trouvée. Le KID est daté du 08/06/2026, donc la part a moins d'un an, mais sans date précise le critère reste à 0.",
+      "encours_meur": null,
+      "encours_libelle": "Encours officiel non trouvé. Des sites tiers citent un chiffre, sans factsheet du gérant pour le vérifier.",
+      "frais_annuels_pct": 4.8,
+      "frais_detail": "Incidence annuelle 4,8 % sur 5 ans (6,8 % si sortie après 1 an), KID du 08/06/2026.",
+      "frais_sortie": "3 % pendant les deux premières années après le lancement de la classe, plus jusqu'à 5 % à la discrétion du gérant.",
+      "liquidite": "Rachats trimestriels, avec une limite (non chiffrée dans le KID). Frais de sortie de 3 % les deux premières années, et jusqu'à 5 % en plus à la discrétion du gérant.",
+      "horizon_ans": 5,
+      "sri": 4,
+      "min_kid_eur": null,
+      "min_revolut_eur": 1,
+      "rendement_distribue": "Part capitalisante. Pas de rendement distribué visé trouvé.",
+      "perf_officielle": null,
+      "infos_manquantes": [
+        "Date de lancement officielle de la part EB-TR.",
+        "Encours (AUM / NAV).",
+        "Performance historique réelle.",
+        "Minimum d'investissement indiqué dans le KID de cette part.",
+        "Limite exacte des rachats trimestriels (non chiffrée dans le KID)."
+      ],
+      "sources": [
+        {
+          "nom": "KID EB-TR (EUR) ACC LU3173236467 du 08/06/2026, téléchargé depuis l'app Revolut (SRI 4/7, horizon 5 ans, coûts 4,8 %, frais de sortie 3 % + jusqu'à 5 %)",
+          "url": "https://www.filosofaresuimercati.eu/2026/11/23/private-credit-revolut-ares-eltif-rischi/",
+          "date": "2026-11-23"
+        },
+        {
+          "nom": "KIDs Revolut, juin 2026 : confirmation des coûts 4,8 % et d'un frais de sortie (3 %, jusqu'à 5 %)",
+          "url": "https://www.eupersonalfinance.eu/articles/revolut-private-markets",
+          "date": "2026-11-24"
+        },
+        {
+          "nom": "Revolut : accès dès 1 €",
+          "url": "https://www.eupersonalfinance.eu/articles/revolut-private-markets",
+          "date": "2026-11-24"
+        }
+      ],
+      "apex10": {
+        "note": 30,
+        "display": "30",
+        "hex": "#ff2d2d",
+        "flag": "rouge",
+        "band": "rouge",
+        "scale": 250,
+        "total": 30,
+        "total_min": -50,
+        "total_max": 250,
+        "v2": true,
+        "ligne": "Frais 5 · Encours 0 · Ancienneté 0 · Perf. 0 · Liquidité 5 · SRI 10 · Transparence 10 · Sentiment 0  →  30 / 250",
+        "brut": 30,
+        "technique": 0,
+        "mm40": 0,
+        "sentiment": 0,
+        "fondamental": 30,
+        "decomp": {
+          "texte": "Frais 5 · Encours 0 · Ancienneté 0 · Perf. 0 · Liquidité 5 · SRI 10 · Transparence 10 · Sentiment 0  →  30 / 250",
+          "points": {
+            "frais": 5,
+            "encours": 0,
+            "anciennete": 0,
+            "performance": 0,
+            "liquidite": 5,
+            "sri": 10,
+            "transparence": 10,
+            "sentiment": 0,
+            "total": 30
+          },
+          "fondamental": {
+            "points": 30,
+            "max": 200,
+            "criteres": [
+              {
+                "id": "frais",
+                "label": "Frais",
+                "points": 5,
+                "max": 40,
+                "etat": "ok",
+                "valeur": "4,8 % / an",
+                "texte": "Incidence annuelle 4,8 % sur 5 ans (6,8 % si sortie après 1 an), KID du 08/06/2026."
+              },
+              {
+                "id": "encours",
+                "label": "Encours",
+                "points": 0,
+                "max": 30,
+                "etat": "n.c.",
+                "valeur": null,
+                "texte": "Encours officiel non trouvé. Des sites tiers citent un chiffre, sans factsheet du gérant pour le vérifier."
+              },
+              {
+                "id": "anciennete",
+                "label": "Ancienneté",
+                "points": 0,
+                "max": 30,
+                "etat": "n.c.",
+                "valeur": "Date de lancement officielle de la part EB-TR non trouvée. Le KID est daté du 08/06/2026, donc la part a moins d'un an, mais sans date précise le critère reste à 0.",
+                "texte": "Date de lancement officielle de la part EB-TR non trouvée. Le KID est daté du 08/06/2026, donc la part a moins d'un an, mais sans date précise le critère reste à 0."
+              },
+              {
+                "id": "performance",
+                "label": "Performance vérifiée",
+                "points": 0,
+                "max": 30,
+                "etat": "n.c.",
+                "valeur": "Aucune performance officielle du gérant trouvée pour cette part.",
+                "texte": "Aucune performance officielle du gérant trouvée pour cette part."
+              },
+              {
+                "id": "liquidite",
+                "label": "Liquidité / rachats",
+                "points": 5,
+                "max": 30,
+                "etat": "ok",
+                "valeur": "Rachats trimestriels, avec une limite (non chiffrée dans le KID). Frais de sortie de 3 % les deux premières années, et jusqu'à 5 % en plus à la discrétion du gérant.",
+                "texte": "Rachats trimestriels, avec une limite (non chiffrée dans le KID). Frais de sortie de 3 % les deux premières années, et jusqu'à 5 % en plus à la discrétion du gérant. 3 % pendant les deux premières années après le lancement de la classe, plus jusqu'à 5 % à la discrétion du gérant."
+              },
+              {
+                "id": "sri",
+                "label": "Indicateur de risque SRI",
+                "points": 10,
+                "max": 20,
+                "etat": "ok",
+                "valeur": "4/7",
+                "texte": "SRI 4 sur 7 (KID)."
+              },
+              {
+                "id": "transparence",
+                "label": "Transparence",
+                "points": 10,
+                "max": 20,
+                "etat": "ok",
+                "valeur": "KID EB-TR du 08/06/2026, lu depuis l'app Revolut (frais, SRI, horizon, frais de sortie). Pas de factsheet public récent avec encours ou performance.",
+                "texte": "KID EB-TR du 08/06/2026, lu depuis l'app Revolut (frais, SRI, horizon, frais de sortie). Pas de factsheet public récent avec encours ou performance."
+              }
+            ]
+          },
+          "sentiment": {
+            "points": 0,
+            "max": 50,
+            "etat": "n.c.",
+            "texte": "Pas de sentiment maison APEX sur le capital-investissement ou le crédit privé non coté. Critère à 0, sans invention."
+          }
+        }
+      }
+    }
+  ]
+}
