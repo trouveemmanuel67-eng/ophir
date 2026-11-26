@@ -214,7 +214,7 @@ def test_note_apex_formule_couleurs_et_nc():
 
 
 def test_symbole_tradingview_dans_la_ligne():
-    """Chaque ETF a un symbole TradingView vérifié, affiché dans la ligne, sans bouton de copie."""
+    """Chaque ETF a un symbole TradingView vérifié et un bouton qui copie ce ticker."""
     expected = {
         "SPYW": "XETR:SPYW",
         "SEL": "EURONEXT:SEL",
@@ -229,7 +229,17 @@ def test_symbole_tradingview_dans_la_ligne():
         assert ":" in e["tv"]
     assert "pea-tv" in JS
     assert "e.tv" in JS
-    assert "Copier pour TradingView" not in JS
-    assert "clipboard" not in JS
+    assert "pea-cp" in JS
+    assert "peaCopyTv" in JS
+    assert "navigator.clipboard" in JS
+    assert "execCommand('copy')" in JS
+    assert "Copié" in JS
+    assert "Copier pour TradingView" not in JS  # pas un bouton global, un bouton par ligne
     assert ".pea-tv" in TPL
-    assert "user-select:all" in TPL[TPL.find("/* ===== Onglet PEA ===== */"):]
+    assert ".pea-cp" in TPL
+    bloc = TPL[TPL.find("/* ===== Onglet PEA ===== */"):]
+    assert "user-select:all" in bloc
+    assert "width:32px" in bloc
+    assert "height:32px" in bloc
+    assert "min-width:32px" in bloc
+    assert "min-height:32px" in bloc

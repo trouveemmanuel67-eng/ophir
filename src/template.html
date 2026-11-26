@@ -535,6 +535,12 @@ body{display:flex;flex-direction:column;min-height:100vh}
 .pea-apex .apex10 small{font-size:11px}
 .pea-meta{grid-column:1/-1;font-size:11px;color:var(--mut);line-height:1.4}
 .pea-tv{user-select:all;-webkit-user-select:all;cursor:text;white-space:nowrap}
+.pea-cp{position:relative;display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;min-width:32px;min-height:32px;margin:0 0 0 4px;padding:0;border:1px solid rgba(255,255,255,.3);border-radius:6px;background:transparent;color:#fff;cursor:pointer;vertical-align:middle;-webkit-tap-highlight-color:transparent}
+.pea-cp:hover{background:rgba(255,255,255,.12)}
+.pea-cp.ok{border-color:#22c55e;color:#22c55e}
+.pea-cp.ko{border-color:#ff2d2d;color:#ff2d2d}
+.pea-cp.ok::after,.pea-cp.ko::after{content:attr(data-tip);position:absolute;left:50%;bottom:calc(100% + 4px);transform:translateX(-50%);background:#0b0f14;border:1px solid currentColor;border-radius:4px;padding:1px 6px;font-size:10px;white-space:nowrap;pointer-events:none;z-index:2}
+
 .pea-vers,.pea-rates,.pea-horiz{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:10px 0}
 .pea-vers div,.pea-rates div,.pea-horiz div{border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:8px 10px;background:rgba(255,255,255,.03)}
 .pea-vers span,.pea-rates span,.pea-horiz span{display:block;font-size:10px;color:var(--mut);text-transform:uppercase;letter-spacing:.05em}

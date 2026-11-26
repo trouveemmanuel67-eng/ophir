@@ -59,6 +59,43 @@ function peaNote(e){
   const html=(typeof apexNoteHTML==='function')?apexNoteHTML(a):'<div class="apex10 apex10-pilot apex10-na"><b>–</b><small>/ 250</small></div>';
   return `<span class="pea-apex" title="${tip}">${html}</span>`;
 }
+const PEA_CP_SVG='<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" fill="none" stroke="currentColor" stroke-width="2"/></svg>';
+function peaCopyTv(btn){
+  const t=btn&&btn.getAttribute('data-c');
+  if(!t) return;
+  const done=ok=>{
+    btn.classList.remove('ok','ko');
+    void btn.offsetWidth;
+    btn.classList.add(ok?'ok':'ko');
+    btn.setAttribute('data-tip',ok?'Copié':'Échec');
+    btn.setAttribute('aria-label',ok?('Copié : '+t):('Copier '+t));
+    clearTimeout(btn._t);
+    btn._t=setTimeout(()=>{
+      btn.classList.remove('ok','ko');
+      btn.setAttribute('aria-label','Copier '+t);
+    },1600);
+  };
+  const fb=()=>{
+    const ta=document.createElement('textarea');
+    ta.value=t;
+    ta.setAttribute('readonly','');
+    ta.style.cssText='position:fixed;top:0;left:0;opacity:0;font-size:16px';
+    document.body.appendChild(ta);
+    ta.focus();ta.select();ta.setSelectionRange(0,t.length);
+    let ok=false;try{ok=document.execCommand('copy');}catch(e){}
+    ta.remove();
+    done(ok);
+  };
+  if(navigator.clipboard&&window.isSecureContext) navigator.clipboard.writeText(t).then(()=>done(true),fb);
+  else fb();
+}
+document.addEventListener('click',e=>{
+  const b=e.target.closest&&e.target.closest('.pea-cp');
+  if(!b) return;
+  e.preventDefault();
+  e.stopPropagation();
+  peaCopyTv(b);
+});
 function peaRow(e,i){
   const yld=e.rendement_actuel_pct==null?'Cap.':peaPct(e.rendement_actuel_pct);
   const xtb=e.xtb+(e.xtb_alt?(' ou '+e.xtb_alt):'');
@@ -67,7 +104,7 @@ function peaRow(e,i){
     'XTB '+xtb,
     e.encours_meur!=null?(Number(e.encours_meur).toLocaleString('fr-FR')+'\u00a0M€'):null
   ].filter(Boolean).join(' · ');
-  const tv=e.tv?(` · <span class="pea-tv" title="Symbole TradingView">${peaEsc(e.tv)}</span>`):'';
+  const tv=e.tv?(` · <span class="pea-tv" title="Symbole TradingView">${peaEsc(e.tv)}</span><button type="button" class="pea-cp" data-c="${peaEsc(e.tv)}" aria-label="Copier ${peaEsc(e.tv)}" title="Copier">${PEA_CP_SVG}</button>`):'';
   const tip=e.note||(e.apex10&&(e.apex10.ligne||(e.apex10.decomp&&e.apex10.decomp.texte)))||'';
   return `<article class="pea-row"${tip?(' title="'+peaEsc(tip)+'"'):''}>
     <span class="pea-rk">${i+1}</span>
