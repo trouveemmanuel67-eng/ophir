@@ -163,6 +163,20 @@ function bdgOpsDetails(ops, summary, extra){
   const list=(ops&&ops.length)?(`<ul class="bdg-op-list">${ops.map(bdgOpLine).join('')}</ul>`):'<p class="desc">Aucune opération.</p>';
   return `<details class="bdg-ops"><summary>${bdgEsc(summary)}</summary>${list}${extra||''}</details>`;
 }
+function bdgOpsDetailsSimple(ops, summary){
+  const list=(ops&&ops.length)?(`<ul class="bdg-op-list">${ops.map(bdgOpLine).join('')}</ul>`):'';
+  const intro=summary?`<p class="desc">${bdgEsc(summary)}</p>`:'';
+  if(!list && !intro) return '';
+  return `<details class="bdg-ops"><summary>Détail</summary>${intro}${list}</details>`;
+}
+function bdgCoursesDetSimple(oc){
+  const txt=(oc&&(oc.objectif_detail||oc.detail))||'';
+  const eco=oc&&oc.economie_visee_eur;
+  const intro=eco!=null?`<p class="bdg-courses-det-p">Économie visée ${bdgAmt(eco,'EUR')}/mois</p>`:'';
+  const body=txt?`<p class="bdg-courses-det-p">${bdgEsc(txt)}</p>`:'';
+  if(!intro && !body) return '';
+  return `<details class="bdg-ops bdg-courses-det"><summary>Détail</summary>${intro}${body}</details>`;
+}
 function bdgRow(opts){
   const id=opts.id?` id="${opts.id}"`:'';
   const cls=['card','bdg-row'].concat(opts.cls||[]).join(' ');
@@ -673,7 +687,7 @@ function bdgComptesHtml(b){
     if(zeroEmpty) return '';
     const isCourses=c.id==='courses';
     const sum=c.detail||(c.n_operations? (c.n_operations+' opération'+(c.n_operations>1?'s':'')) : '');
-    const det=isCourses?bdgCoursesDetHtml(oc):(c.n_operations?bdgOpsDetails(c.operations,sum,''):'');
+    const det=isCourses?bdgCoursesDetSimple(oc):(c.n_operations?bdgOpsDetailsSimple(c.operations,sum):'');
     const cls=['bdg-cat'];
     if(isCourses) cls.push('bdg-cat-courses');
     if(c.id==='credit_revolut') cls.push('bdg-cat-fixe');
@@ -691,13 +705,13 @@ function bdgComptesHtml(b){
   }).join('');
   const resteNeg=Number(tot.reste_eur)<0;
   const depRow=bdgRowSimple({id:'bdg-comptes-depenses',cls:['bdg-foot','bdg-tot-dep'],poste:'Dépenses',obsEur:bdgAmt(tot.depenses_eur,'EUR'),objectif:'—'});
-  const revRow=bdgRowSimple({id:'bdg-comptes-revenus',cls:['bdg-foot','bdg-tot-rev'],poste:'Revenus',detailsHtml:(j.revenus_operations||[]).length?bdgOpsDetails(j.revenus_operations, (j.revenus_operations.length+' encaissement'+(j.revenus_operations.length>1?'s':'')), ''):'',obsEur:bdgAmt(tot.revenus_eur,'EUR'),objectif:'—'});
+  const revRow=bdgRowSimple({id:'bdg-comptes-revenus',cls:['bdg-foot','bdg-tot-rev'],poste:'Revenus',detailsHtml:(j.revenus_operations||[]).length?bdgOpsDetailsSimple(j.revenus_operations, (j.revenus_operations.length+' encaissement'+(j.revenus_operations.length>1?'s':''))):'',obsEur:bdgAmt(tot.revenus_eur,'EUR'),objectif:'—'});
   const resteRow=bdgRowSimple({id:'bdg-comptes-reste',cls:['bdg-foot','bdg-tot-reste',resteNeg?'is-over':'is-ok'],poste:'Reste',obsEur:bdgAmt(tot.reste_eur,'EUR'),objectif:'—'});
   const remb=j.remboursements_operations||[];
-  const rembRow=remb.length?bdgRowSimple({id:'bdg-comptes-remb',cls:['bdg-annexe'],poste:'Remboursements',detailsHtml:bdgOpsDetails(remb, 'à part, hors revenus', ''),obsEur:bdgAmt(tot.remboursements_eur,'EUR'),objectif:'—'}):'';
+  const rembRow=remb.length?bdgRowSimple({id:'bdg-comptes-remb',cls:['bdg-annexe'],poste:'Remboursements',detailsHtml:bdgOpsDetailsSimple(remb, 'à part, hors revenus'),obsEur:bdgAmt(tot.remboursements_eur,'EUR'),objectif:'—'}):'';
   const glow=bdgAirGlowOf(cats);
   const glowAmt=bdgAirGlowAmt(tot,glow,'eur');
-  const glowRow=glow?bdgRowSimple({id:'bdg-comptes-airglow',cls:['bdg-annexe','bdg-cat-pro'],poste:'Air Glow',detailsHtml:bdgOpsDetails(glow.operations||[], 'frais de fonctionnement, hors dépenses perso', ''),obsEur:bdgAmt(glowAmt,'EUR'),objectif:'—' }):'';
+  const glowRow=glow?bdgRowSimple({id:'bdg-comptes-airglow',cls:['bdg-annexe','bdg-cat-pro'],poste:'Air Glow',detailsHtml:bdgOpsDetailsSimple(glow.operations||[], 'frais de fonctionnement, hors dépenses perso'),obsEur:bdgAmt(glowAmt,'EUR'),objectif:'—' }):'';
   const viAmt=viCat&&viCat.observe_eur!=null?viCat.observe_eur:tot.virements_internes_sortants_eur;
   const viHtml=(viCat||viAmt)?`<p class="bdg-annex-line">Épargne et virements internes : ${bdgAmt(viAmt,'EUR')} — ce n’est pas une dépense.</p>`:'';
   return `<section class="card home-hero bdg-hero" id="bdg-comptes">
