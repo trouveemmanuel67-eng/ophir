@@ -565,6 +565,52 @@ body{display:flex;flex-direction:column;min-height:100vh}
   .pea-rates b{font-size:20px}
 }
 
+
+/* ===== Prévisionnel Immobilier ===== */
+.immo-prev h2{margin-bottom:6px}
+.immo-intro,.immo-saison,.immo-resume{margin:6px 0 0;font-size:13px;line-height:1.45;color:var(--mut)}
+.immo-saison{font-size:12px}
+.immo-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:10px}
+.immo-card{border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:10px 12px;background:rgba(255,255,255,.03);min-width:0}
+.immo-top{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+.immo-card h3{margin:0;font-size:15px;font-weight:750;color:#fff;line-height:1.25}
+.immo-note{flex:none;font-size:20px;font-weight:800;font-variant-numeric:tabular-nums;color:var(--immo,#22c55e);letter-spacing:-.03em}
+.immo-note small{font-size:11px;font-weight:650;color:var(--mut);margin-left:2px}
+.immo-fig{appearance:none;-webkit-appearance:none;display:block;width:100%;margin:8px 0 6px;padding:6px 4px;border:0;border-radius:8px;background:transparent;color:inherit;font:inherit;cursor:pointer;text-align:left}
+.immo-fig:hover,.immo-fig:focus-visible,.immo-fig[aria-expanded="true"]{background:rgba(255,255,255,.07)}
+.immo-fig:focus-visible{outline:1px solid rgba(230,194,122,.8);outline-offset:1px}
+.immo-win{display:block;font-size:26px;font-weight:800;letter-spacing:-.03em;color:#fff;line-height:1.1}
+.immo-proba{display:block;font-size:32px;font-weight:800;letter-spacing:-.04em;line-height:1.05;font-variant-numeric:tabular-nums;margin-top:2px}
+.immo-fig-l{display:block;font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--mut);margin-top:2px}
+.immo-frise{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:3px;margin:8px 0}
+.immo-frise-i{display:block;height:22px;border-radius:4px;position:relative;min-width:0;opacity:.92}
+.immo-frise-i.on{outline:2px solid #fff;outline-offset:1px;opacity:1}
+.immo-frise-i i{display:block;font-style:normal;font-size:8px;font-weight:700;letter-spacing:.02em;color:#0b0f14;text-align:center;line-height:22px;white-space:nowrap;overflow:hidden}
+.immo-kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:8px}
+.immo-kpis div{border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:6px 8px;min-width:0}
+.immo-kpis span{display:block;font-size:10px;color:var(--mut);text-transform:uppercase;letter-spacing:.05em}
+.immo-kpis b{display:block;font-size:16px;font-weight:750;letter-spacing:-.03em;font-variant-numeric:tabular-nums;margin-top:2px;white-space:nowrap}
+.immo-pop{position:fixed;z-index:9999;box-sizing:border-box;min-width:0;padding:10px 12px;background:#14181f;border:1px solid rgba(230,194,122,.45);border-radius:10px;box-shadow:0 12px 32px rgba(0,0,0,.5);color:#e8e8e8;overflow-x:hidden;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.immo-pop[hidden]{display:none !important}
+.immo-pop-h{margin:0 0 6px;font-size:13px;font-weight:800;color:#fff}
+.immo-k{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mut,#bababa);margin:8px 0 3px}
+.immo-t{font-size:11.5px;line-height:1.4;color:#d8d8d8;margin:0 0 4px;overflow-wrap:anywhere}
+.immo-ul{margin:0;padding-left:16px}
+.immo-ul li{font-size:11.5px;line-height:1.4;color:#d8d8d8;margin:0 0 3px;overflow-wrap:anywhere}
+.immo-ul a{color:var(--acc,#a9cdf5);text-decoration:none}
+.immo-ul a:hover{text-decoration:underline}
+.immo-tab{width:100%;border-collapse:collapse;font-size:11.5px;font-variant-numeric:tabular-nums;margin:4px 0 6px}
+.immo-tab th,.immo-tab td{text-align:left;padding:3px 6px 3px 0;border-bottom:1px solid rgba(255,255,255,.08)}
+.immo-tab th{color:var(--mut);font-size:10px;text-transform:uppercase;letter-spacing:.05em;font-weight:700}
+@media(max-width:800px){
+  .immo-grid{grid-template-columns:1fr}
+  .immo-win{font-size:22px}
+  .immo-proba{font-size:28px}
+  .immo-kpis b{font-size:14px}
+  .immo-frise-i{height:20px}
+  .immo-frise-i i{line-height:20px;font-size:7px}
+}
+
 /* ===== En-têtes et jauge compactés (tous les onglets) ===== */
 .card.acc{padding:4px 10px;margin-bottom:2px;border-radius:8px;transition:border-color .15s,background-color .15s,transform .15s,padding .15s}
 .card.acc.acc-open{padding:12px 16px;margin-bottom:10px}
@@ -1732,6 +1778,7 @@ if(navigator.serviceWorker){
 <script type="application/json" id="dataRotationCapitaux">__DATA_ROTATION_CAPITAUX__</script>
 <script type="application/json" id="dataEvenements">__DATA_EVT__</script>
 <script type="application/json" id="dataPea">__DATA_PEA__</script>
+<script type="application/json" id="dataImmo">__DATA_IMMO__</script>
 <script>
 "use strict";
 const DATA = JSON.parse(document.getElementById('data').textContent);
@@ -1830,7 +1877,9 @@ function show(){
 
 /* ===== Onglet IMMOBILIER ===== */
 function renderImmobilier(el){
-  el.innerHTML=blocPrix()+blocTaux()+blocTrends();
+  const prev=(typeof blocImmoPrev==='function')?blocImmoPrev():'';
+  el.innerHTML=prev+blocPrix()+blocTaux()+blocTrends();
+  if(typeof immoInit==='function') immoInit(el);
   chartPrix();chartTaux();chartTrends();
 }
 
@@ -1953,6 +2002,7 @@ function chartTrends(){
 /*__GSJS__*/
 /*__IRJS__*/
 /*__EVTJS__*/
+/*__IMMOJS__*/
 /*__PEAJS__*/
 /*__SEARCHJS__*/
 buildTabs();

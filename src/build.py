@@ -91,6 +91,12 @@ t=t.replace('__DATA_PEA__', esc(pea) if pea else 'null')
 _peajs=_P(B+'src/pea.js')
 t=t.replace('/*__PEAJS__*/', _peajs.read_text() if _peajs.exists() else '')
 
+_immo=_P(B+'data/immobilier_previsionnel.json')
+immo=_immo.read_text() if _immo.exists() else ''
+t=t.replace('__DATA_IMMO__', esc(immo) if immo else 'null')
+_immojs=_P(B+'src/immobilier.js')
+t=t.replace('/*__IMMOJS__*/', _immojs.read_text() if _immojs.exists() else '')
+
 
 def _slim_pilot(raw):
     import json as _json
