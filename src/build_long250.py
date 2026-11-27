@@ -751,6 +751,8 @@ def main():
     save('placements.json', PL)
     immobilier()
     sync_bars_energie()
+    import score_held_etfs as HEF
+    HEF.inject()
     (D / 'fond250').mkdir(exist_ok=True)
     (D / 'fond250' / 'journal_notes.json').write_text(json.dumps(J, ensure_ascii=False, indent=1), encoding='utf-8')
     for cat, d in J['avant_apres'].items():

@@ -167,6 +167,10 @@ def tables():
         else:
             key = 'eu:EXH1' if eur else 'us:XLE'
         T[tv] = key
+    # Actifs encore mappés dans ENERGIE_TV mais retirés de l'onglet (URNU, U3O8, etc.) :
+    # la clé sert à Mes positions, sans les réafficher dans Énergie.
+    for tv, key in ENERGIE_TV.items():
+        T.setdefault(tv, key)
     T.update(ETF_DEVISE_TV)
     T.update(HELD_EQUITY_TV)
     # ETF sectoriels US et leurs équivalents UCITS

@@ -259,6 +259,7 @@ function giCollect(){
   // Barres individuelles
   Object.keys(bars).forEach(tv=>{
     const b=bars[tv]||{};
+    if(b.held_only) return; /* ETF détenu hors onglet : note pour Mes positions seulement */
     take(tv, tv, '', b.apex10, b.av, '', '', tv.includes(':')?tv.split(':')[1]:tv);
   });
   // USA — tops fondamentaux
