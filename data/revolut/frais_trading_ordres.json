@@ -2,9 +2,9 @@
   "mode_emploi": "Ajouter une entrée dans « ordres » pour chaque frais d'ordre relu (commission, frais de change ou frais d'exécution) chez Revolut, XTB ou Revolut X : date, heure, zone, courtier, actif, type (commission / change / exécution), montant signé, devise, source. Ne pas inventer un frais non relu. Le site recalcule le total du mois et le total général.",
   "note": "Transactions sans commission épuisées jusqu'au 7 décembre 2026 (indiqué par Emmanuel le 25/11/2026).",
   "recherche_repo": {
-    "date": "2026-11-25",
+    "date": "2026-11-27",
     "zone": "Europe/Paris",
-    "resultat": "Frais d'ordres du 25/11/2026 sourcés sur les captures d'Emmanuel (6 ventes spot + ouverture short BDX:CFD + ouverture short ABBV:CFD + renfort long SPCX:CFD à 20 h 08). 4 × 1,00 € + 2 × 1,09 $ + 1,95 $ + 1,86 $ + 0,48 $. Frais d'ouverture des 4 premières unités SPCX:CFD (20 h 04) et d'EG:CFD non communiqués : non inventés. Aucun frais d'achat URNU n'a été communiqué : non inventé.",
+    "resultat": "Frais d'ordres du 25/11/2026 sourcés sur les captures d'Emmanuel (6 ventes spot + ouverture short BDX:CFD + ouverture short ABBV:CFD + renfort long SPCX:CFD à 20 h 08) et du 27/11/2026 (ouverture short TGT:CFD + ouverture short MCK:CFD). 4 × 1,00 € + 2 × 1,09 $ + 1,95 $ + 1,86 $ + 0,48 $ + 1,25 $ + 1,25 $. Frais d'ouverture des 4 premières unités SPCX:CFD (20 h 04) et d'EG:CFD non communiqués : non inventés. Aucun frais d'achat URNU n'a été communiqué : non inventé.",
     "fichiers_lus": [
       "captures Emmanuel 25/11/2026",
       "data/revolut/ventes_2026-11-25.json"
@@ -176,6 +176,41 @@
       "prix": 126.97,
       "valeur_brute": 190.46,
       "source": "Capture Emmanuel 25/11/2026 à 20 h 08 (Europe/Paris) : renfort SPCX:CFD, 1,5 @ 126,97 $, levier ×4, exposition 190,46 $, marge 47,62 $, frais 0,48 $. Les frais d'ouverture des 4 unités de 20 h 04 n'étaient pas visibles : non inventés."
+    },
+    {
+      "date": "2026-11-27",
+      "heure": "07:07",
+      "zone": "Europe/Paris",
+      "courtier": "revolut",
+      "actif": "MCK",
+      "nom": "McKesson Corporation (CFD)",
+      "type": "trading_fee",
+      "sens": "sortie",
+      "montant": -1.25,
+      "devise": "USD",
+      "ordre": "vente_cfd",
+      "quantite": 0.47,
+      "prix": 1063.7,
+      "valeur_brute": 499.94,
+      "prix_estime": true,
+      "source": "Ordre « Vendre MCK:CFD » envoyé le 27/11/2026 vers 07 h 07 (Europe/Paris), confirmé par Emmanuel : 0,47 @ 1 063,7 $ (cours affiché avant envoi, prix d'exécution réel non connu, donc estimé), levier ×5, exposition 499,94 $, marge 100,39 $, frais 1,25 $, OVN affiché +0,01 $."
+    },
+    {
+      "date": "2026-11-27",
+      "heure": "07:22",
+      "zone": "Europe/Paris",
+      "courtier": "revolut",
+      "actif": "TGT",
+      "nom": "Target Corporation (CFD)",
+      "type": "trading_fee",
+      "sens": "sortie",
+      "montant": -1.25,
+      "devise": "USD",
+      "ordre": "vente_cfd",
+      "quantite": 2.9,
+      "prix": 172.0,
+      "valeur_brute": 498.8,
+      "source": "Capture Emmanuel 27/11/2026 à 07 h 22 (Europe/Paris) : « Vendre TGT:CFD », statut Exécuté, 2,9 @ 172 $, levier ×5, exposition 498,80 $, marge 99,76 $, frais 1,25 $."
     }
   ]
 }

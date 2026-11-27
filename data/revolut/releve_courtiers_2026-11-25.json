@@ -437,7 +437,10 @@
             "prix_actuel": 222.56,
             "valeur_affichee_usd": null,
             "exposition_capturee_usd": 778.96,
-            "pl_usd": 0.0
+            "pl_usd": 0.0,
+            "date_achat": "2026-11-25",
+            "date_execution": "2026-11-25T19:25:00+01:00",
+            "frais_ouverture_usd": 1.95
           },
           {
             "ticker": "EG",
@@ -452,7 +455,8 @@
             "prix_actuel": 434.27,
             "valeur_affichee_usd": null,
             "exposition_capturee_usd": 495.07,
-            "pl_usd": 0.0
+            "pl_usd": 0.0,
+            "date_achat": "2026-11-25"
           },
           {
             "ticker": "ABBV",
@@ -467,7 +471,10 @@
             "prix_actuel": 296.84,
             "valeur_affichee_usd": null,
             "exposition_capturee_usd": 742.12,
-            "pl_usd": 0.0
+            "pl_usd": 0.0,
+            "date_achat": "2026-11-25",
+            "date_execution": "2026-11-25T19:41:00+01:00",
+            "frais_ouverture_usd": 1.86
           },
           {
             "ticker": "SPCX",
@@ -482,10 +489,50 @@
             "prix_actuel": 126.7,
             "valeur_affichee_usd": null,
             "exposition_capturee_usd": 1076.95,
-            "pl_usd": 0.0
+            "pl_usd": 0.0,
+            "date_achat": "2026-11-25",
+            "date_execution": "2026-11-25T20:04:00+01:00",
+            "frais_ouverture_usd": 0.48
+          },
+          {
+            "ticker": "TGT",
+            "sens": "Sell",
+            "levier": 5,
+            "quantite": 2.9,
+            "prix_ouverture": 172.0,
+            "marge_usd": 99.76,
+            "devise": "USD",
+            "a_confirmer": false,
+            "note": "Capture du 27/11/2026 à 07 h 22 (Europe/Paris) : « Vendre TGT:CFD », statut Exécuté, 2,9 unités à 172 $, levier ×5, exposition 498,80 $, marge 99,76 $, frais 1,25 $. Exposition retenue = quantité × cours = 2,9 × 172 = 498,80 $. Coût d'entrée 498,80 $ ; P&L latent à l'ouverture 0,00 $ (0,00 %). Les totaux du compte CFD (valeur 2 614,02 $, marge de maintenance 98 %, seuil 1 336,40 $) restent ceux de 10 h 14 : pas de nouveau total de compte à 07 h 22.",
+            "prix_actuel": 172.0,
+            "valeur_affichee_usd": null,
+            "exposition_capturee_usd": 498.8,
+            "pl_usd": 0.0,
+            "date_achat": "2026-11-27",
+            "date_execution": "2026-11-27T07:22:00+01:00",
+            "frais_ouverture_usd": 1.25
+          },
+          {
+            "ticker": "MCK",
+            "sens": "Sell",
+            "levier": 5,
+            "quantite": 0.47,
+            "prix_ouverture": 1063.7,
+            "marge_usd": 100.39,
+            "devise": "USD",
+            "a_confirmer": false,
+            "prix_estime": true,
+            "note": "Ordre « Vendre MCK:CFD » envoyé le 27/11/2026 vers 07 h 07 (Europe/Paris), confirmé par Emmanuel. Quantité 0,47 unité, levier ×5, exposition 499,94 $, marge 100,39 $, frais 1,25 $, OVN affiché +0,01 $ (indicatif de l'app, non utilisé pour inventer la projection overnight : seuls les OVN observés après clôture sont retenus). Cours retenu 1 063,7 $ : cours affiché avant envoi, prix d'exécution réel non connu, donc estimé. Contrôle : 0,47 × 1 063,7 = 499,94 $. Coût d'entrée 499,94 $ ; P&L latent à l'ouverture 0,00 $ (0,00 %). Les totaux du compte CFD (valeur 2 614,02 $, marge de maintenance 98 %, seuil 1 336,40 $) restent ceux de 10 h 14 : pas de nouveau total de compte à 07 h 07.",
+            "prix_actuel": 1063.7,
+            "valeur_affichee_usd": null,
+            "exposition_capturee_usd": 499.94,
+            "pl_usd": 0.0,
+            "date_achat": "2026-11-27",
+            "date_execution": "2026-11-27T07:07:00+01:00",
+            "frais_ouverture_usd": 1.25
           }
         ],
-        "note": "Compte CFD relevé le 25/11/2026 vers 10 h 11–10 h 14 (Europe/Paris) : valeur 2 614 02 $ (affiché 2 644 26 $  −61 56 %)  P&L −4 264 65 $  marge réservée 2 672 80 $  solde prêt à investir 0 $  cash USD 0 $  marge de maintenance 98 % (fermeture forcée si valeur < 1 336 40 $). Cinq lignes lues (MSTR ×5  XPD ×5  SMR ×7  MPC ×2  AMD ×3). Exposition retenue (quantité × cours) 15 473.92 $. Somme des P&L lignes −4 231,88 $ contre P&L du compte −4 264,65 $ (écart 32,77 $ non ventilé : peut inclure COST non relu, d'autres lignes sous « Afficher plus », ou des frais). Addendum 25/11 vers 11 h 01 : short COST confirmé (0,55 @ 1 097,51 $, levier ×5, marge 120,62 $, P&L −3,58 $). Exposition COST retenue 603,63 $ (quantité × cours) ; la capture affiche 603,09 $ (écart 0,54 $). Somme des expositions des 6 lignes 16 077,55 $. P&L lignes −4 235,46 $ contre P&L du compte à 10 h 14 (−4 264,65 $), écart 29,19 $ non ventilé. Totaux du compte CFD non relus à 11 h 01. Addendum 25/11 à 19 h 25 : nouveau short BDX:CFD exécuté (3,5 @ 222,56 $, levier ×5, exposition 778,96 $, marge 155,79 $, frais 1,95 $). Somme des expositions des 7 lignes 16 856,51 $. Totaux du compte CFD non relus à 19 h 25. Addendum 25/11 soir : shorts EG:CFD (1,14 @ 434,27 $, ×5, exposition 495,07 $, marge implicite 99,01 $, frais d'ouverture non communiqués) et ABBV:CFD (2,5 @ 296,84 $, ×5, exposition retenue 742,10 $, capture 742,12 $, marge 148,42 $, frais 1,86 $ à 19 h 41). Somme des expositions des 9 lignes 18 093,68 $. Totaux du compte CFD non relus le soir. Addendum levier MSTR : badge et levier alignés sur la capture Revolut CFD L ×6 (précédemment lu ×5 à 10 h 14). Addendum 25/11 vers 20 h 04 : long SPCX:CFD ouvert (4 @ 126,26 $, ×4, exposition à l'ouverture 505,04 $, marge 126,26 $). Frais d'ouverture de cette première exécution non visibles, non inventés. Addendum 25/11 à 20 h 08 : renfort long SPCX:CFD (1,5 @ 126,97 $, ×4, exposition 190,46 $, marge 47,62 $, frais 0,48 $). Ligne consolidée 5,5 u, PM 126,45 $, exposition 695,50 $, marge 173,88 $. Somme des expositions des 10 lignes 18 789,18 $. Totaux du compte CFD non relus à 20 h 08. Addendum 25/11 à 20 h 36 : renfort long SPCX:CFD (3 @ 127,29 $, ×4, exposition capture 381,45 $, marge 95,37 $, P&L latent de l'exécution −0,51 $ à 127,12 $ ; frais non visibles, non inventés). Ligne consolidée 8,5 u, PM 126,70 $ (1 076,95 / 8,5), exposition 1 076,95 $, marge 269,25 $. Somme des expositions des 10 lignes 19 170,63 $. Totaux du compte CFD non relus à 20 h 36.",
+        "note": "Compte CFD relevé le 25/11/2026 vers 10 h 11–10 h 14 (Europe/Paris) : valeur 2 614 02 $ (affiché 2 644 26 $  −61 56 %)  P&L −4 264 65 $  marge réservée 2 672 80 $  solde prêt à investir 0 $  cash USD 0 $  marge de maintenance 98 % (fermeture forcée si valeur < 1 336 40 $). Cinq lignes lues (MSTR ×5  XPD ×5  SMR ×7  MPC ×2  AMD ×3). Exposition retenue (quantité × cours) 15 473.92 $. Somme des P&L lignes −4 231,88 $ contre P&L du compte −4 264,65 $ (écart 32,77 $ non ventilé : peut inclure COST non relu, d'autres lignes sous « Afficher plus », ou des frais). Addendum 25/11 vers 11 h 01 : short COST confirmé (0,55 @ 1 097,51 $, levier ×5, marge 120,62 $, P&L −3,58 $). Exposition COST retenue 603,63 $ (quantité × cours) ; la capture affiche 603,09 $ (écart 0,54 $). Somme des expositions des 6 lignes 16 077,55 $. P&L lignes −4 235,46 $ contre P&L du compte à 10 h 14 (−4 264,65 $), écart 29,19 $ non ventilé. Totaux du compte CFD non relus à 11 h 01. Addendum 25/11 à 19 h 25 : nouveau short BDX:CFD exécuté (3,5 @ 222,56 $, levier ×5, exposition 778,96 $, marge 155,79 $, frais 1,95 $). Somme des expositions des 7 lignes 16 856,51 $. Totaux du compte CFD non relus à 19 h 25. Addendum 25/11 soir : shorts EG:CFD (1,14 @ 434,27 $, ×5, exposition 495,07 $, marge implicite 99,01 $, frais d'ouverture non communiqués) et ABBV:CFD (2,5 @ 296,84 $, ×5, exposition retenue 742,10 $, capture 742,12 $, marge 148,42 $, frais 1,86 $ à 19 h 41). Somme des expositions des 9 lignes 18 093,68 $. Totaux du compte CFD non relus le soir. Addendum levier MSTR : badge et levier alignés sur la capture Revolut CFD L ×6 (précédemment lu ×5 à 10 h 14). Addendum 25/11 vers 20 h 04 : long SPCX:CFD ouvert (4 @ 126,26 $, ×4, exposition à l'ouverture 505,04 $, marge 126,26 $). Frais d'ouverture de cette première exécution non visibles, non inventés. Addendum 25/11 à 20 h 08 : renfort long SPCX:CFD (1,5 @ 126,97 $, ×4, exposition 190,46 $, marge 47,62 $, frais 0,48 $). Ligne consolidée 5,5 u, PM 126,45 $, exposition 695,50 $, marge 173,88 $. Somme des expositions des 10 lignes 18 789,18 $. Totaux du compte CFD non relus à 20 h 08. Addendum 25/11 à 20 h 36 : renfort long SPCX:CFD (3 @ 127,29 $, ×4, exposition capture 381,45 $, marge 95,37 $, P&L latent de l'exécution −0,51 $ à 127,12 $ ; frais non visibles, non inventés). Ligne consolidée 8,5 u, PM 126,70 $ (1 076,95 / 8,5), exposition 1 076,95 $, marge 269,25 $. Somme des expositions des 10 lignes 19 170,63 $. Totaux du compte CFD non relus à 20 h 36. Addendum 27/11 à 07 h 22 : nouveau short TGT:CFD exécuté (2,9 @ 172 $, ×5, exposition 498,80 $, marge 99,76 $, frais 1,25 $). Addendum 27/11 vers 07 h 07 : nouveau short MCK:CFD envoyé et confirmé (0,47 @ 1 063,7 $ estimé, cours affiché avant envoi, prix d'exécution réel non connu, ×5, exposition 499,94 $, marge 100,39 $, frais 1,25 $, OVN affiché +0,01 $). Somme des expositions des 12 lignes 20 169,37 $. Totaux du compte CFD non relus le 27/11.",
         "pl_pct": -61.56,
         "pl_usd": -4264.65,
         "releve": "2026-11-25T10:14:00+01:00",
@@ -515,7 +562,7 @@
             "source": "Capture Revolut 25/11 10 h 11–10 h 14."
           }
         ],
-        "exposition_usd": 19170.63,
+        "exposition_usd": 20169.37,
         "pl_lignes_usd": -4235.46
       },
       "matieres_premieres": {
@@ -646,5 +693,7 @@
   },
   "heure_cfd": "10:14",
   "heure_cost": "11:01",
-  "heure_bdx": "19:25"
+  "heure_bdx": "19:25",
+  "heure_tgt": "07:22",
+  "heure_mck": "07:07"
 }

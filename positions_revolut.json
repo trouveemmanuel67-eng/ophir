@@ -3,7 +3,7 @@
   "releve_libelle": "SPCX CFD 25/11/2026 vers 20 h 04, renforts 20 h 08 et 20 h 36 · ABBV CFD 19 h 41 · EG CFD 25/11 · BDX CFD 19 h 25 · COST CFD 11 h 01 · autres CFD 10 h 14 · ventes spot 15 h 49–16 h 07 et pointage URNU · autres comptes 09 h 50 (Europe/Paris)",
   "source": "Captures du 25/11/2026 : courtage, métaux, Revolut X, XTB et Tesla vers 09 h 50 ; CFD vers 10 h 11–10 h 14 (Europe/Paris). Revolut Invest, montant retenu 34 479,48 $ = courtage 13 226,17 $ + métaux 2 082,68 $ (−4,12 %) + exposition CFD 19 170,63 $. Attention : l'exposition CFD dépasse le capital du compte (2 614,02 $ ; exposition 19 170,63 $ (somme quantité × cours des 10 lignes relues, COST à 11 h 01, BDX à 19 h 25, EG le 25/11, ABBV à 19 h 41 et SPCX à 20 h 04 inclus), P&L lignes −4 235,46 $, valeur du compte 2 614,02 $ (affiché 2 644,26 $, −4 264,65 $, −61,56 %), marge de maintenance 98 % / seuil de fermeture 1 336,40 $). Les CFD sont des positions normales dans Mes positions, les totaux, le tableau sectoriel et le patrimoine (montant = exposition, pas la marge). Après-midi et soir 25/11/2026 : six ventes spot exécutées (PPX, BKNG, HMI, DASH, LVMH, XUTL), liquidités en règlement le 27/11 (2 569,08 € et 1 112,72 $), URNU relu à 92,34519963 parts, et ouverture du short BDX:CFD à 19 h 25 (3,5 @ 222,56 $, ×5, exposition 778,96 $, marge 155,79 $, frais 1,95 $). Ouverture des shorts EG:CFD (1,14 @ 434,27 $, ×5, exposition 495,07 $) et ABBV:CFD (2,5 @ 296,84 $, ×5, exposition retenue 742,10 $, frais 1,86 $ à 19 h 41). Ouverture du long SPCX:CFD vers 20 h 04 (4 @ 126,26 $, ×4, cours actuel 126,24 $, exposition retenue 504,96 $, P&L −0,08 $ ; frais d'ouverture non visibles, non inventés). Renfort SPCX:CFD à 20 h 08 (1,5 @ 126,97 $) inclus dans l'exposition 695,50 $. Renfort SPCX:CFD à 20 h 36 (3 @ 127,29 $) inclus dans l'exposition 1 076,95 $.",
   "compte": "Revolut Invest",
-  "n_actives": 30,
+  "n_actives": 32,
   "n_en_attente": 0,
   "positions": [
     {
@@ -222,7 +222,7 @@
       "rendement_type": "etf_capitalisant",
       "rendement_source": "Global X (https://globalxetfs.eu/funds/urnu) et JustETF (https://www.justetf.com/en/etf-profile.html?isin=IE000NDWFGA5) : compartiment USD Accumulating, ISIN IE000NDWFGA5, politique de distribution accumulating (dividendes réinvestis, non versés).",
       "rendement_date": "2026-11-25",
-      "poids_pct": 2.8
+      "poids_pct": 2.7
     },
     {
       "id": "AVGO",
@@ -311,7 +311,7 @@
       "rendement_source": "Yahoo Finance, trailingAnnualDividendYield 0,08 % (forward 0,10 %, taux 0,60 $), page https://finance.yahoo.com/quote/MU/",
       "rendement_date": "2026-11-25",
       "rendement_forward_pct": 0.1,
-      "poids_pct": 1.1
+      "poids_pct": 1.0
     },
     {
       "id": "HWM",
@@ -442,7 +442,7 @@
       "rendement_type": "sans_dividende",
       "rendement_source": "Yahoo Finance, trailingAnnualDividendYield 0,00 % et Forward Dividend & Yield -- (0,00 %), page https://finance.yahoo.com/quote/ENPH/",
       "rendement_date": "2026-11-25",
-      "poids_pct": 1.1
+      "poids_pct": 1.0
     },
     {
       "id": "LRCX",
@@ -529,7 +529,7 @@
       "rendement_source": "Vallourec, page officielle Actions et dividendes (https://www.vallourec.com/fr/investisseurs/informations-boursieres/actions-et-dividendes/) : l'AG du 21/05/2026 a décidé qu'il ne serait pas distribué de dividende au titre de l'exercice 2025. Un dividende intérimaire exceptionnel de 2,05 € par action, décidé par le conseil et mis en paiement le 05/08/2026, n'est pas retenu dans le rendement récurrent. Yahoo Finance (VK.PA) affiche aussi trailingAnnualDividendYield 0,00 %.",
       "rendement_date": "2026-11-25",
       "rendement_note": "Dividende intérimaire exceptionnel 2,05 € (paiement 05/08/2026) exclu du rendement retenu.",
-      "poids_pct": 1.1
+      "poids_pct": 1.0
     },
     {
       "id": "XHYG",
@@ -820,7 +820,7 @@
       "valeur_eur": 2569.08,
       "investi_eur": 2569.08,
       "reglement": "2026-11-27",
-      "poids_pct": 5.6
+      "poids_pct": 5.5
     },
     {
       "id": "CASH-REV-USD-REG",
@@ -905,7 +905,7 @@
       "valeur_eur": 4667.47,
       "investi_eur": 5126.83,
       "pnl_relu": true,
-      "poids_pct": 10.2
+      "poids_pct": 10.0
     },
     {
       "id": "CFD-XPD",
@@ -951,7 +951,7 @@
       "valeur_eur": 5813.4,
       "investi_eur": 7679.08,
       "pnl_relu": true,
-      "poids_pct": 12.7
+      "poids_pct": 12.5
     },
     {
       "id": "CFD-SMR",
@@ -997,7 +997,7 @@
       "valeur_eur": 1733.98,
       "investi_eur": 2785.08,
       "pnl_relu": true,
-      "poids_pct": 3.8
+      "poids_pct": 3.7
     },
     {
       "id": "CFD-SPCX",
@@ -1046,7 +1046,7 @@
       "pnl_relu": true,
       "date_achat": "2026-11-25",
       "date_execution": "2026-11-25T20:04:00+01:00",
-      "poids_pct": 2.2,
+      "poids_pct": 2.1,
       "frais_ouverture_usd": 0.48,
       "date_renfort": "2026-11-25T20:08:00+01:00",
       "date_renfort_2": "2026-11-25T20:36:00+01:00"
@@ -1141,7 +1141,7 @@
       "valeur_eur": 949.87,
       "investi_eur": 685.64,
       "pnl_relu": true,
-      "poids_pct": 2.1
+      "poids_pct": 2.0
     },
     {
       "id": "CFD-COST",
@@ -1238,7 +1238,7 @@
       "date_achat": "2026-11-25",
       "date_execution": "2026-11-25T19:25:00+01:00",
       "frais_ouverture_usd": 1.95,
-      "poids_pct": 1.6
+      "poids_pct": 1.5
     },
     {
       "id": "CFD-EG",
@@ -1337,6 +1337,107 @@
       "date_execution": "2026-11-25T19:41:00+01:00",
       "frais_ouverture_usd": 1.86,
       "poids_pct": 1.5
+    },
+    {
+      "id": "CFD-TGT",
+      "nom": "Target CFD",
+      "ticker": "TGT-CFD",
+      "type": "cfd",
+      "statut": "active",
+      "tv_note": "NYSE:TGT",
+      "note_tv_ok": true,
+      "fiche_tv": "NYSE:TGT",
+      "fiche_nom": "Target Corporation",
+      "fiche_proxy": false,
+      "fiche_note": "Capture du 27/11/2026 à 07 h 22 (Europe/Paris) : « Vendre TGT:CFD », statut Exécuté, 2,9 unités à 172 $, levier ×5, exposition 498,80 $, marge 99,76 $, frais 1,25 $. Exposition retenue = quantité × cours = 2,9 × 172 = 498,80 $. Coût d'entrée 498,80 $ ; P&L latent à l'ouverture 0,00 $ (0,00 %). Les totaux du compte CFD (valeur 2 614,02 $, marge de maintenance 98 %, seuil 1 336,40 $) restent ceux de 10 h 14 : pas de nouveau total de compte à 07 h 22.",
+      "tab": "actions",
+      "apex_score": null,
+      "apex_label": null,
+      "drapeau": null,
+      "drapeau_code": null,
+      "courtier": "revolut",
+      "perf_1an_pct": null,
+      "perf_1an_libelle": "à venir",
+      "perf_1an_note": "Le relevé ne donne pas d'historique de la ligne ; le rendement 1 an n'est pas inventé.",
+      "sous_jacent": "TGT",
+      "sens": "short",
+      "levier": 5,
+      "cfd_badge": "CFD S x5",
+      "marge_usd": 99.76,
+      "prix_moyen": 172.0,
+      "cours": 172.0,
+      "valeur_affichee_usd": null,
+      "quantite": 2.9,
+      "a_confirmer": false,
+      "exposition_usd": 498.8,
+      "devise": "USD",
+      "valeur": 498.8,
+      "valeur_arrondie": 499,
+      "investi": 498.8,
+      "investi_arrondi": 499,
+      "pnl_valeur": 0.0,
+      "pnl_pct": 0.0,
+      "perf_debut_pct": 0.0,
+      "valeur_usd": 498.8,
+      "investi_usd": 498.8,
+      "valeur_eur": 455.77,
+      "investi_eur": 455.77,
+      "pnl_relu": true,
+      "date_achat": "2026-11-27",
+      "date_execution": "2026-11-27T07:22:00+01:00",
+      "frais_ouverture_usd": 1.25,
+      "poids_pct": 1.0
+    },
+    {
+      "id": "CFD-MCK",
+      "nom": "McKesson CFD",
+      "ticker": "MCK-CFD",
+      "type": "cfd",
+      "statut": "active",
+      "tv_note": "NYSE:MCK",
+      "note_tv_ok": true,
+      "fiche_tv": "NYSE:MCK",
+      "fiche_nom": "McKesson Corporation",
+      "fiche_proxy": false,
+      "fiche_note": "Ordre « Vendre MCK:CFD » envoyé le 27/11/2026 vers 07 h 07 (Europe/Paris), confirmé par Emmanuel. Quantité 0,47 unité, levier ×5, exposition 499,94 $, marge 100,39 $, frais 1,25 $, OVN affiché +0,01 $ (indicatif de l'app, non utilisé pour inventer la projection overnight : seuls les OVN observés après clôture sont retenus). Cours retenu 1 063,7 $ : cours affiché avant envoi, prix d'exécution réel non connu, donc estimé. Contrôle : 0,47 × 1 063,7 = 499,94 $. Coût d'entrée 499,94 $ ; P&L latent à l'ouverture 0,00 $ (0,00 %). Les totaux du compte CFD (valeur 2 614,02 $, marge de maintenance 98 %, seuil 1 336,40 $) restent ceux de 10 h 14 : pas de nouveau total de compte à 07 h 07.",
+      "tab": "actions",
+      "apex_score": null,
+      "apex_label": null,
+      "drapeau": null,
+      "drapeau_code": null,
+      "courtier": "revolut",
+      "perf_1an_pct": null,
+      "perf_1an_libelle": "à venir",
+      "perf_1an_note": "Le relevé ne donne pas d'historique de la ligne ; le rendement 1 an n'est pas inventé.",
+      "sous_jacent": "MCK",
+      "sens": "short",
+      "levier": 5,
+      "cfd_badge": "CFD S x5",
+      "marge_usd": 100.39,
+      "prix_moyen": 1063.7,
+      "cours": 1063.7,
+      "valeur_affichee_usd": null,
+      "quantite": 0.47,
+      "a_confirmer": false,
+      "exposition_usd": 499.94,
+      "devise": "USD",
+      "valeur": 499.94,
+      "valeur_arrondie": 500,
+      "investi": 499.94,
+      "investi_arrondi": 500,
+      "pnl_valeur": 0.0,
+      "pnl_pct": 0.0,
+      "perf_debut_pct": 0.0,
+      "valeur_usd": 499.94,
+      "investi_usd": 499.94,
+      "valeur_eur": 456.82,
+      "investi_eur": 456.82,
+      "pnl_relu": true,
+      "date_achat": "2026-11-27",
+      "date_execution": "2026-11-27T07:07:00+01:00",
+      "frais_ouverture_usd": 1.25,
+      "prix_estime": true,
+      "poids_pct": 1.0
     }
   ],
   "fx": {
@@ -1354,27 +1455,27 @@
     "inclus_dans_total": true
   },
   "totaux": {
-    "valeur_eur": 31505.37,
-    "valeur_usd": 34479.48,
-    "investi_usd": 37814.4,
-    "investi_eur": 34552.63,
-    "perf_debut_pct": -8.8,
+    "valeur_eur": 32417.96,
+    "valeur_usd": 35478.22,
+    "investi_usd": 38813.14,
+    "investi_eur": 35465.22,
+    "perf_debut_pct": -8.6,
     "statut": "ok",
-    "n": 30,
+    "n": 32,
     "compte_courtage_usd": 13226.17,
     "compte_courtage_pct": -1.1,
     "matieres_usd": 2082.68,
     "matieres_pct": -4.12,
-    "cfd_exposition_usd": 19170.63,
-    "cfd_entree_usd": 22324.84,
+    "cfd_exposition_usd": 20169.37,
+    "cfd_entree_usd": 23323.58,
     "cfd_compte_usd": 2614.02,
     "cfd_compte_affiche_usd": 2644.26,
-    "cfd_usd": 19170.63,
+    "cfd_usd": 20169.37,
     "cfd_pct": -61.56,
     "cfd_pl_usd": -4264.65,
     "cfd_pl_lignes_usd": -4235.46,
-    "somme_lignes_usd": 34437.83,
-    "note": "Total Revolut = courtage 13226.17 $ (officiel 09 h 50 de 12549.34 $ ajusté des 6 ventes du 25/11 15 h 49–16 h 07, du nouveau pointage URNU et des liquidités en règlement le 27/11) + métaux 2082.68 $ (captures 09 h 50) + exposition CFD 19170.63 $ (10 h 14, COST 11 h 01, BDX 19 h 25, EG le 25/11, ABBV 19 h 41, SPCX 20 h 04). Le capital du compte CFD n'est que 2614.02 $ : l'exposition dépasse le capital. Le % du courtage est recalculé sur les lignes restantes (pas de nouveau total officiel Revolut pour l'après-midi). Shorts EG:CFD et ABBV:CFD ajoutés le 25/11/2026 au soir (expositions 495,07 $ et 742,10 $). Long SPCX:CFD ajouté le 25/11/2026 vers 20 h 04 (4 @ 126,26 $, ×4, exposition retenue 504,96 $). Renfort SPCX:CFD à 20 h 08 (1,5 @ 126,97 $) : ligne consolidée 5,5 u, exposition 695,50 $. Renfort SPCX:CFD à 20 h 36 (3 @ 127,29 $) : ligne consolidée 8,5 u, PM 126,70 $, exposition 1 076,95 $."
+    "somme_lignes_usd": 35436.57,
+    "note": "Total Revolut = courtage 13226.17 $ (officiel 09 h 50 de 12549.34 $ ajusté des 6 ventes du 25/11 15 h 49–16 h 07, du nouveau pointage URNU et des liquidités en règlement le 27/11) + métaux 2082.68 $ (captures 09 h 50) + exposition CFD 20169.37 $ (10 h 14, COST 11 h 01, BDX 19 h 25, EG le 25/11, ABBV 19 h 41, SPCX 20 h 04). Le capital du compte CFD n'est que 2614.02 $ : l'exposition dépasse le capital. Le % du courtage est recalculé sur les lignes restantes (pas de nouveau total officiel Revolut pour l'après-midi). Shorts EG:CFD et ABBV:CFD ajoutés le 25/11/2026 au soir (expositions 495,07 $ et 742,10 $). Long SPCX:CFD ajouté le 25/11/2026 vers 20 h 04 (4 @ 126,26 $, ×4, exposition retenue 504,96 $). Renfort SPCX:CFD à 20 h 08 (1,5 @ 126,97 $) : ligne consolidée 5,5 u, exposition 695,50 $. Renfort SPCX:CFD à 20 h 36 (3 @ 127,29 $) : ligne consolidée 8,5 u, PM 126,70 $, exposition 1 076,95 $. Shorts TGT:CFD (2,9 @ 172 $, ×5, exposition 498,80 $) et MCK:CFD (0,47 @ 1 063,7 $ estimé, ×5, exposition 499,94 $) ajoutés le 27/11/2026 (MCK vers 07 h 07, TGT à 07 h 22, Europe/Paris)."
   },
   "cfd_alerte": {
     "courtier": "revolut",
@@ -1384,29 +1485,31 @@
     "valeur_affichee_usd": 2644.26,
     "pnl_usd": -4264.65,
     "pnl_pct": -61.56,
-    "exposition_usd": 19170.63,
+    "exposition_usd": 20169.37,
     "pl_lignes_usd": -4235.46,
     "marge_reservee_usd": 2672.8,
     "solde_pret_a_investir_usd": 0,
     "liquidites_usd": 0,
     "marge_maintenance_pct": 98,
     "seuil_fermeture_usd": 1336.4,
-    "n": 10,
+    "n": 12,
     "tickers": [
       "MSTR",
       "XPD",
       "SMR",
-      "SPCX",
       "MPC",
       "AMD",
       "COST",
       "BDX",
       "EG",
-      "ABBV"
+      "ABBV",
+      "SPCX",
+      "TGT",
+      "MCK"
     ],
     "a_confirmer": [],
-    "libelle": "Alerte CFD : l'exposition 19 170,63 $ dépasse le capital du compte (2 614,02 $, affiché 2 644,26 $, P&L −4 264,65 $, −61,56 %). Marge de maintenance 98 % — fermeture forcée si la valeur passe sous 1 336,40 $. Marge réservée 2 672,80 $, solde prêt à investir 0 $, cash USD 0 $.",
-    "note": "Compte CFD relevé le 25/11/2026 vers 10 h 11–10 h 14 (Europe/Paris) : valeur 2 614 02 $ (affiché 2 644 26 $  −61 56 %)  P&L −4 264 65 $  marge réservée 2 672 80 $  solde prêt à investir 0 $  cash USD 0 $  marge de maintenance 98 % (fermeture forcée si valeur < 1 336 40 $). Cinq lignes lues (MSTR ×5  XPD ×5  SMR ×7  MPC ×2  AMD ×3). Exposition retenue (quantité × cours) 15 473.92 $. Somme des P&L lignes −4 231,88 $ contre P&L du compte −4 264,65 $ (écart 32,77 $ non ventilé : peut inclure COST non relu, d'autres lignes sous « Afficher plus », ou des frais). Addendum 25/11 vers 11 h 01 : short COST confirmé (0,55 @ 1 097,51 $, levier ×5, marge 120,62 $, P&L −3,58 $). Exposition COST retenue 603,63 $ (quantité × cours) ; la capture affiche 603,09 $ (écart 0,54 $). Somme des expositions des 6 lignes 16 077,55 $. P&L lignes −4 235,46 $ contre P&L du compte à 10 h 14 (−4 264,65 $), écart 29,19 $ non ventilé. Totaux du compte CFD non relus à 11 h 01. Addendum 25/11 à 19 h 25 : nouveau short BDX:CFD exécuté (3,5 @ 222,56 $, levier ×5, exposition 778,96 $, marge 155,79 $, frais 1,95 $). Somme des expositions des 7 lignes 16 856,51 $. Totaux du compte CFD non relus à 19 h 25. Addendum 25/11 soir : shorts EG:CFD (1,14 @ 434,27 $, ×5, exposition 495,07 $, marge implicite 99,01 $, frais d'ouverture non communiqués) et ABBV:CFD (2,5 @ 296,84 $, ×5, exposition retenue 742,10 $, capture 742,12 $, marge 148,42 $, frais 1,86 $ à 19 h 41). Somme des expositions des 10 lignes 19 170,63 $. Totaux du compte CFD non relus le soir. Addendum 25/11 vers 20 h 04 : long SPCX:CFD (4 @ 126,26 $, ×4, cours 126,24 $, exposition retenue 504,96 $, P&L −0,08 $). Somme des expositions des 10 lignes 19 170,63 $. Totaux du compte CFD non relus à 20 h 04. Frais d'ouverture non visibles, non inventés. Addendum 25/11 à 20 h 08 : renfort long SPCX:CFD (1,5 @ 126,97 $, ×4, exposition 190,46 $, marge 47,62 $, frais 0,48 $). Ligne consolidée 5,5 u, PM 126,45 $, exposition 695,50 $, marge 173,88 $. Somme des expositions des 10 lignes 19 170,63 $. Totaux du compte CFD non relus à 20 h 08. Addendum 25/11 à 20 h 36 : renfort long SPCX:CFD (3 @ 127,29 $, ×4, exposition capture 381,45 $, marge 95,37 $, P&L latent de l'exécution −0,51 $ à 127,12 $ ; frais non visibles, non inventés). Ligne consolidée 8,5 u, PM 126,70 $ (1 076,95 / 8,5), exposition 1 076,95 $, marge 269,25 $. Somme des expositions des 10 lignes 19 170,63 $. Totaux du compte CFD non relus à 20 h 36."
+    "libelle": "Alerte CFD : l'exposition 20 169,37 $ dépasse le capital du compte (2 614,02 $, affiché 2 644,26 $, P&L −4 264,65 $, −61,56 %). Marge de maintenance 98 % — fermeture forcée si la valeur passe sous 1 336,40 $. Marge réservée 2 672,80 $, solde prêt à investir 0 $, cash USD 0 $.",
+    "note": "Compte CFD relevé le 25/11/2026 vers 10 h 11–10 h 14 (Europe/Paris) : valeur 2 614 02 $ (affiché 2 644 26 $  −61 56 %)  P&L −4 264 65 $  marge réservée 2 672 80 $  solde prêt à investir 0 $  cash USD 0 $  marge de maintenance 98 % (fermeture forcée si valeur < 1 336 40 $). Cinq lignes lues (MSTR ×5  XPD ×5  SMR ×7  MPC ×2  AMD ×3). Exposition retenue (quantité × cours) 15 473.92 $. Somme des P&L lignes −4 231,88 $ contre P&L du compte −4 264,65 $ (écart 32,77 $ non ventilé : peut inclure COST non relu, d'autres lignes sous « Afficher plus », ou des frais). Addendum 25/11 vers 11 h 01 : short COST confirmé (0,55 @ 1 097,51 $, levier ×5, marge 120,62 $, P&L −3,58 $). Exposition COST retenue 603,63 $ (quantité × cours) ; la capture affiche 603,09 $ (écart 0,54 $). Somme des expositions des 6 lignes 16 077,55 $. P&L lignes −4 235,46 $ contre P&L du compte à 10 h 14 (−4 264,65 $), écart 29,19 $ non ventilé. Totaux du compte CFD non relus à 11 h 01. Addendum 25/11 à 19 h 25 : nouveau short BDX:CFD exécuté (3,5 @ 222,56 $, levier ×5, exposition 778,96 $, marge 155,79 $, frais 1,95 $). Somme des expositions des 7 lignes 16 856,51 $. Totaux du compte CFD non relus à 19 h 25. Addendum 25/11 soir : shorts EG:CFD (1,14 @ 434,27 $, ×5, exposition 495,07 $, marge implicite 99,01 $, frais d'ouverture non communiqués) et ABBV:CFD (2,5 @ 296,84 $, ×5, exposition retenue 742,10 $, capture 742,12 $, marge 148,42 $, frais 1,86 $ à 19 h 41). Somme des expositions des 9 lignes 18 093,68 $. Totaux du compte CFD non relus le soir. Addendum levier MSTR : badge et levier alignés sur la capture Revolut CFD L ×6 (précédemment lu ×5 à 10 h 14). Addendum 25/11 vers 20 h 04 : long SPCX:CFD ouvert (4 @ 126,26 $, ×4, exposition à l'ouverture 505,04 $, marge 126,26 $). Frais d'ouverture de cette première exécution non visibles, non inventés. Addendum 25/11 à 20 h 08 : renfort long SPCX:CFD (1,5 @ 126,97 $, ×4, exposition 190,46 $, marge 47,62 $, frais 0,48 $). Ligne consolidée 5,5 u, PM 126,45 $, exposition 695,50 $, marge 173,88 $. Somme des expositions des 10 lignes 18 789,18 $. Totaux du compte CFD non relus à 20 h 08. Addendum 25/11 à 20 h 36 : renfort long SPCX:CFD (3 @ 127,29 $, ×4, exposition capture 381,45 $, marge 95,37 $, P&L latent de l'exécution −0,51 $ à 127,12 $ ; frais non visibles, non inventés). Ligne consolidée 8,5 u, PM 126,70 $ (1 076,95 / 8,5), exposition 1 076,95 $, marge 269,25 $. Somme des expositions des 10 lignes 19 170,63 $. Totaux du compte CFD non relus à 20 h 36. Addendum 27/11 à 07 h 22 : nouveau short TGT:CFD exécuté (2,9 @ 172 $, ×5, exposition 498,80 $, marge 99,76 $, frais 1,25 $). Addendum 27/11 vers 07 h 07 : nouveau short MCK:CFD envoyé et confirmé (0,47 @ 1 063,7 $ estimé, cours affiché avant envoi, prix d'exécution réel non connu, ×5, exposition 499,94 $, marge 100,39 $, frais 1,25 $, OVN affiché +0,01 $). Somme des expositions des 12 lignes 20 169,37 $. Totaux du compte CFD non relus le 27/11."
   },
   "frais_cfd": {
     "objectif_eur_mois": 20,
@@ -1507,9 +1610,9 @@
     "trading": {
       "mode_emploi": "Ajouter une entrée dans « ordres » pour chaque frais d'ordre relu (commission, frais de change ou frais d'exécution) chez Revolut, XTB ou Revolut X : date, heure, zone, courtier, actif, type (commission / change / exécution), montant signé, devise, source. Ne pas inventer un frais non relu. Le site recalcule le total du mois et le total général.",
       "recherche_repo": {
-        "date": "2026-11-25",
+        "date": "2026-11-27",
         "zone": "Europe/Paris",
-        "resultat": "Frais d'ordres du 25/11/2026 sourcés sur les captures d'Emmanuel (6 ventes spot + ouverture short BDX:CFD + ouverture short ABBV:CFD + renfort long SPCX:CFD à 20 h 08). 4 × 1,00 € + 2 × 1,09 $ + 1,95 $ + 1,86 $ + 0,48 $. Frais d'ouverture des 4 premières unités SPCX:CFD (20 h 04) et d'EG:CFD non communiqués : non inventés. Aucun frais d'achat URNU n'a été communiqué : non inventé.",
+        "resultat": "Frais d'ordres du 25/11/2026 sourcés sur les captures d'Emmanuel (6 ventes spot + ouverture short BDX:CFD + ouverture short ABBV:CFD + renfort long SPCX:CFD à 20 h 08) et du 27/11/2026 (ouverture short TGT:CFD + ouverture short MCK:CFD). 4 × 1,00 € + 2 × 1,09 $ + 1,95 $ + 1,86 $ + 0,48 $ + 1,25 $ + 1,25 $. Frais d'ouverture des 4 premières unités SPCX:CFD (20 h 04) et d'EG:CFD non communiqués : non inventés. Aucun frais d'achat URNU n'a été communiqué : non inventé.",
         "fichiers_lus": [
           "captures Emmanuel 25/11/2026",
           "data/revolut/ventes_2026-11-25.json"
@@ -1699,6 +1802,45 @@
           "source": "Capture Emmanuel 25/11/2026 à 20 h 08 (Europe/Paris) : renfort SPCX:CFD, 1,5 @ 126,97 $, levier ×4, exposition 190,46 $, marge 47,62 $, frais 0,48 $. Les frais d'ouverture des 4 unités de 20 h 04 n'étaient pas visibles : non inventés.",
           "montant_usd": 0.48,
           "montant_eur": 0.44
+        },
+        {
+          "date": "2026-11-27",
+          "heure": "07:07",
+          "zone": "Europe/Paris",
+          "courtier": "revolut",
+          "actif": "MCK",
+          "nom": "McKesson Corporation (CFD)",
+          "type": "trading_fee",
+          "sens": "sortie",
+          "montant": -1.25,
+          "devise": "USD",
+          "ordre": "vente_cfd",
+          "quantite": 0.47,
+          "prix": 1063.7,
+          "valeur_brute": 499.94,
+          "prix_estime": true,
+          "source": "Ordre « Vendre MCK:CFD » envoyé le 27/11/2026 vers 07 h 07 (Europe/Paris), confirmé par Emmanuel : 0,47 @ 1 063,7 $ (cours affiché avant envoi, prix d'exécution réel non connu, donc estimé), levier ×5, exposition 499,94 $, marge 100,39 $, frais 1,25 $, OVN affiché +0,01 $.",
+          "montant_usd": 1.25,
+          "montant_eur": 1.14
+        },
+        {
+          "date": "2026-11-27",
+          "heure": "07:22",
+          "zone": "Europe/Paris",
+          "courtier": "revolut",
+          "actif": "TGT",
+          "nom": "Target Corporation (CFD)",
+          "type": "trading_fee",
+          "sens": "sortie",
+          "montant": -1.25,
+          "devise": "USD",
+          "ordre": "vente_cfd",
+          "quantite": 2.9,
+          "prix": 172.0,
+          "valeur_brute": 498.8,
+          "source": "Capture Emmanuel 27/11/2026 à 07 h 22 (Europe/Paris) : « Vendre TGT:CFD », statut Exécuté, 2,9 @ 172 $, levier ×5, exposition 498,80 $, marge 99,76 $, frais 1,25 $.",
+          "montant_usd": 1.25,
+          "montant_eur": 1.14
         }
       ],
       "lignes_mois": [
@@ -1885,13 +2027,52 @@
           "source": "Capture Emmanuel 25/11/2026 à 20 h 08 (Europe/Paris) : renfort SPCX:CFD, 1,5 @ 126,97 $, levier ×4, exposition 190,46 $, marge 47,62 $, frais 0,48 $. Les frais d'ouverture des 4 unités de 20 h 04 n'étaient pas visibles : non inventés.",
           "montant_usd": 0.48,
           "montant_eur": 0.44
+        },
+        {
+          "date": "2026-11-27",
+          "heure": "07:07",
+          "zone": "Europe/Paris",
+          "courtier": "revolut",
+          "actif": "MCK",
+          "nom": "McKesson Corporation (CFD)",
+          "type": "trading_fee",
+          "sens": "sortie",
+          "montant": -1.25,
+          "devise": "USD",
+          "ordre": "vente_cfd",
+          "quantite": 0.47,
+          "prix": 1063.7,
+          "valeur_brute": 499.94,
+          "prix_estime": true,
+          "source": "Ordre « Vendre MCK:CFD » envoyé le 27/11/2026 vers 07 h 07 (Europe/Paris), confirmé par Emmanuel : 0,47 @ 1 063,7 $ (cours affiché avant envoi, prix d'exécution réel non connu, donc estimé), levier ×5, exposition 499,94 $, marge 100,39 $, frais 1,25 $, OVN affiché +0,01 $.",
+          "montant_usd": 1.25,
+          "montant_eur": 1.14
+        },
+        {
+          "date": "2026-11-27",
+          "heure": "07:22",
+          "zone": "Europe/Paris",
+          "courtier": "revolut",
+          "actif": "TGT",
+          "nom": "Target Corporation (CFD)",
+          "type": "trading_fee",
+          "sens": "sortie",
+          "montant": -1.25,
+          "devise": "USD",
+          "ordre": "vente_cfd",
+          "quantite": 2.9,
+          "prix": 172.0,
+          "valeur_brute": 498.8,
+          "source": "Capture Emmanuel 27/11/2026 à 07 h 22 (Europe/Paris) : « Vendre TGT:CFD », statut Exécuté, 2,9 @ 172 $, levier ×5, exposition 498,80 $, marge 99,76 $, frais 1,25 $.",
+          "montant_usd": 1.25,
+          "montant_eur": 1.14
         }
       ],
       "a_relever": false,
-      "total_mois_usd": 10.85,
-      "total_mois_eur": 9.91,
-      "projection_usd": 10.85,
-      "projection_eur": 9.91,
+      "total_mois_usd": 13.35,
+      "total_mois_eur": 12.2,
+      "projection_usd": 13.35,
+      "projection_eur": 12.2,
       "projection_note": "Transactions sans commission épuisées jusqu'au 7 décembre 2026 (indiqué par Emmanuel le 25/11/2026).",
       "note": "Transactions sans commission épuisées jusqu'au 7 décembre 2026 (indiqué par Emmanuel le 25/11/2026)."
     },
@@ -34667,21 +34848,21 @@
         "salaire_tesla": {
           "octobre_eur": 4169.59,
           "octobre_usd": 4563.2,
-          "novembre_eur": 6315.41,
-          "novembre_usd": 6911.58,
+          "novembre_eur": 0.0,
+          "novembre_usd": 0.0,
           "moyenne_eur": 4169.59,
           "moyenne_usd": 4563.2,
           "note": "Salaire Tesla réellement perçu en octobre : 4 169,59 € le 22/10 (réf. Salary 102026), affiché pour comparer à la base prudente de 2 800 € net. Le salaire de novembre est différent : 6 315,41 € le 24/11 (réf. Salary 112026), hors moyenne."
         },
         "france_travail": {
           "octobre_eur": 876.6,
-          "novembre_eur": 876.6,
+          "novembre_eur": 0.0,
           "moyenne_eur": 876.6,
           "moyenne_usd": 959.35,
           "note": "876,60 € le 1/10, observé en octobre, affiché pour comparer. Traité comme bonus temporaire, pas dans la base."
         },
         "interets_epargne": {
-          "periode_eur": 0.48,
+          "periode_eur": 0.0,
           "moyenne_eur": 0.0,
           "moyenne_usd": 0.0,
           "note": "Aucun intérêt d'épargne en octobre (0 €)."
@@ -34697,8 +34878,8 @@
         "total_moyenne_usd": 3429.12,
         "variante_avec_france_travail_eur": 4009.93,
         "variante_avec_france_travail_usd": 4388.47,
-        "variante_salaire_novembre_eur": 7192.01,
-        "variante_salaire_novembre_usd": 7870.94,
+        "variante_salaire_novembre_eur": 876.6,
+        "variante_salaire_novembre_usd": 959.35,
         "variante_sans_france_travail_eur": 3133.33,
         "variante_sans_france_travail_usd": 3429.12
       },
@@ -34715,7 +34896,7 @@
               "moyenne_usd": 985.16,
               "detail": "Fonds Logement Intermédiaire : 900.18 € le 5/10. Mois de référence octobre (le même montant reparaît le 3/11, hors moyenne).",
               "octobre_eur": 900.18,
-              "novembre_eur": 900.18
+              "novembre_eur": 0.0
             },
             {
               "id": "loa_tesla",
@@ -34724,7 +34905,7 @@
               "moyenne_usd": 532.23,
               "detail": "486,32 € le 5/10. Confirmé par Emmanuel le 25/11. Charge fixe, isolée ici. Même mensualité le 5/11, hors moyenne.",
               "octobre_eur": 486.32,
-              "novembre_eur": 486.32
+              "novembre_eur": 0.0
             },
             {
               "id": "credit_revolut",
@@ -34733,7 +34914,7 @@
               "moyenne_usd": 185.61,
               "detail": "Mensualité 169,60 € le 9/10. Confirmé par Emmanuel. Charge fixe. Le capital n'est ni un revenu ni une dépense. Même échéance le 9/11, hors moyenne.",
               "octobre_eur": 169.6,
-              "novembre_eur": 169.6
+              "novembre_eur": 0.0
             },
             {
               "id": "assurances",
@@ -34742,16 +34923,16 @@
               "moyenne_usd": 95.17,
               "detail": "Trois prélèvements AXA le 5/10, total 86.96 €. Même trio le 5/11, hors moyenne.",
               "octobre_eur": 86.96,
-              "novembre_eur": 86.96
+              "novembre_eur": 0.0
             },
             {
               "id": "telecom",
               "libelle": "Télécom / internet",
               "moyenne_eur": 39.99,
               "moyenne_usd": 43.77,
-              "detail": "Mois de référence octobre : Free Haut Débit 39.99 € le 6/10. Free Mobile 45.97 € (19,99 € + 25,98 €) n'apparaît que le 8/11 : hors mois de référence, non inclus ici.",
+              "detail": "Mois de référence octobre : Free Haut Débit 39.99 € le 6/10. Free Mobile 0.00 € (19,99 € + 25,98 €) n'apparaît que le 8/11 : hors mois de référence, non inclus ici.",
               "octobre_eur": 39.99,
-              "novembre_eur": 85.96,
+              "novembre_eur": 0.0,
               "hypothese": "Free Mobile constaté en novembre seulement, donc absent du budget d'octobre."
             },
             {
@@ -34767,10 +34948,10 @@
                   "id": "microsoft",
                   "libelle": "Microsoft",
                   "octobre_eur": 10.0,
-                  "novembre_eur": 10.0,
+                  "novembre_eur": 0.0,
                   "moyenne_eur": 10.0,
                   "moyenne_usd": 10.94,
-                  "n": 2,
+                  "n": 1,
                   "detail": "10,00 € les 2/10 et 3/11.",
                   "type": "both"
                 },
@@ -34778,10 +34959,10 @@
                   "id": "netflix",
                   "libelle": "Netflix",
                   "octobre_eur": 7.99,
-                  "novembre_eur": 7.99,
+                  "novembre_eur": 0.0,
                   "moyenne_eur": 7.99,
                   "moyenne_usd": 8.74,
-                  "n": 2,
+                  "n": 1,
                   "detail": "7,99 € les 15/10 et 15/11.",
                   "type": "both"
                 },
@@ -34789,10 +34970,10 @@
                   "id": "disney",
                   "libelle": "Disney+",
                   "octobre_eur": 6.99,
-                  "novembre_eur": 6.99,
+                  "novembre_eur": 0.0,
                   "moyenne_eur": 6.99,
                   "moyenne_usd": 7.65,
-                  "n": 2,
+                  "n": 1,
                   "detail": "6,99 € les 16/10 et 16/11.",
                   "type": "both"
                 },
@@ -34800,10 +34981,10 @@
                   "id": "youtube",
                   "libelle": "YouTube",
                   "octobre_eur": 12.99,
-                  "novembre_eur": 12.99,
+                  "novembre_eur": 0.0,
                   "moyenne_eur": 12.99,
                   "moyenne_usd": 14.22,
-                  "n": 2,
+                  "n": 1,
                   "detail": "12,99 € les 18/10 et 18/11.",
                   "type": "both"
                 },
@@ -34811,10 +34992,10 @@
                   "id": "revolut_ultra",
                   "libelle": "Revolut Ultra",
                   "octobre_eur": 60.0,
-                  "novembre_eur": 60.0,
+                  "novembre_eur": 0.0,
                   "moyenne_eur": 60.0,
                   "moyenne_usd": 65.66,
-                  "n": 2,
+                  "n": 1,
                   "detail": "60,00 € les 7/10 et 7/11.",
                   "type": "both"
                 },
@@ -34822,10 +35003,10 @@
                   "id": "apple_3495",
                   "libelle": "Apple 34,95 €",
                   "octobre_eur": 34.95,
-                  "novembre_eur": 34.95,
+                  "novembre_eur": 0.0,
                   "moyenne_eur": 34.95,
                   "moyenne_usd": 38.25,
-                  "n": 2,
+                  "n": 1,
                   "detail": "Prélèvement Apple.com/bill de 34,95 € les 20/10 et 20/11 (formule non identifiée : iCloud / Apple One / autre).",
                   "type": "both"
                 },
@@ -34833,10 +35014,10 @@
                   "id": "apple_499",
                   "libelle": "Apple 4,99 €",
                   "octobre_eur": 4.99,
-                  "novembre_eur": 4.99,
+                  "novembre_eur": 0.0,
                   "moyenne_eur": 4.99,
                   "moyenne_usd": 5.46,
-                  "n": 2,
+                  "n": 1,
                   "detail": "Prélèvement Apple.com/bill de 4,99 € les 22/10 et 22/11.",
                   "type": "both"
                 },
@@ -34858,7 +35039,7 @@
                   "novembre_eur": 219.99,
                   "moyenne_eur": 219.99,
                   "moyenne_usd": 240.76,
-                  "n": 1,
+                  "n": 0,
                   "detail": "219,99 € le 4/11 via Apple.com/bill, confirmé mensuel. Conservé : c'est l'outil de pilotage qui doit aider à réduire les autres dépenses. Hors du panier de réductions, même s'il n'est apparu qu'en novembre.",
                   "type": "mensuel_confirme",
                   "famille": "grok",
@@ -34944,9 +35125,14 @@
               "libelle": "Courses",
               "moyenne_eur": 980.57,
               "moyenne_usd": 1073.14,
-              "detail": "Mois de référence octobre : 1001.54 € observés − déco Noël 20.97 € = 980.57 €. Novembre (partiel) ne compte pas dans cette moyenne.",
+              "detail": "Objectif 867 €/mois (Leclerc 650 € + Picard 217 €). Octobre : 980,57 € hors déco (1001,54 € observés). Économie visée : 113,57 €/mois.",
               "octobre_eur": 980.57,
-              "novembre_eur": 983.67
+              "novembre_eur": 0.0,
+              "objectif_eur": 867,
+              "objectif_usd": 948.84,
+              "economie_visee_eur": 113.57,
+              "economie_visee_usd": 124.29,
+              "objectif_detail": "Leclerc 650 €/mois (150 € par semaine, livré le jeudi, livraison comprise). Picard 217 €/mois (100 € toutes les 2 semaines, livraison de 6 € comprise ; fréquence à confirmer). Octobre : 980,57 € hors déco Noël (1001,54 € observés, toutes enseignes). Économie visée : 113,57 €/mois. Hygiène, entretien et litière sont déjà dans Courses, pas un poste à part. Hors périmètre : Lidl d'appoint, marché et boulangerie (non chiffrés) ; déco, textile et bricolage exclus."
             },
             {
               "id": "transport_hors_loa",
@@ -34955,7 +35141,7 @@
               "moyenne_usd": 126.06,
               "detail": "Péages, CTS, stationnement, carburant et recharges Tesla d'octobre, hors LOA et hors trajet du séjour Ramatuelle (239.07 € lissés en provisions) : 115.19 €.",
               "octobre_eur": 115.19,
-              "novembre_eur": 15.2
+              "novembre_eur": 0.0
             },
             {
               "id": "sante",
@@ -34991,7 +35177,7 @@
               "moyenne_usd": 670.08,
               "detail": "Achats d'octobre hors Salomon (234,70 €, en provisions) et hors Envato (87,97 €, ligne Air Glow) : 612.28 €. Les pics de novembre (Decathlon, gros Amazon) sont hors mois de référence et n'entrent ni dans ce courant ni dans les provisions.",
               "octobre_eur": 612.28,
-              "novembre_eur": 572.59
+              "novembre_eur": 0.0
             },
             {
               "id": "loisirs",
@@ -35000,7 +35186,7 @@
               "moyenne_usd": 39.56,
               "detail": "Octobre hors séjour Ramatuelle et pot de naissance : 36.15 €. Restauration courante seule : 30.15 €.",
               "octobre_eur": 36.15,
-              "novembre_eur": 157.28,
+              "novembre_eur": 0.0,
               "restauration_courante_eur": 30.15
             },
             {
@@ -35010,7 +35196,7 @@
               "moyenne_usd": 18.25,
               "detail": "Octobre hors INPI, CCI et X Ads (ligne Air Glow) : 16.68 € (MaxiZoo). MaxiZoo reste à confirmer (animalerie, ou Courses).",
               "octobre_eur": 16.68,
-              "novembre_eur": 28.85
+              "novembre_eur": 0.0
             }
           ],
           "total_moyenne_eur": 665.11,
@@ -35028,7 +35214,7 @@
             "total_periode_usd": 900.68,
             "moyenne_eur": 68.58,
             "moyenne_usd": 75.05,
-            "detail": "822.99 € le 27/10, sorti du courant Santé et lissé sur 12 mois. Un second paiement de 126.37 € le 17/11 est hors mois de référence. Remboursements Aon reçus en novembre : 423.44 € (à rapprocher ; le net n'est pas déduit d'octobre)."
+            "detail": "822.99 € le 27/10, sorti du courant Santé et lissé sur 12 mois. Un second paiement de 0.00 € le 17/11 est hors mois de référence. Remboursements Aon reçus en novembre : 0.00 € (à rapprocher ; le net n'est pas déduit d'octobre)."
           },
           {
             "id": "salomon",
@@ -35091,7 +35277,7 @@
             "total_periode_usd": 125.85,
             "moyenne_eur": 9.58,
             "moyenne_usd": 10.48,
-            "detail": "114.99 € le 26/10. Formule remplacée par Grok Heavy, désormais retenu comme abonnement mensuel de 219.99 € dans les charges fixes. Ce paiement d'octobre reste lissé en provision, pas dans le récurrent."
+            "detail": "114.99 € le 26/10. Formule remplacée par Grok Heavy, désormais retenu comme abonnement mensuel de 0.00 € dans les charges fixes. Ce paiement d'octobre reste lissé en provision, pas dans le récurrent."
           },
           {
             "id": "tradingview",
@@ -35114,8 +35300,8 @@
         "moyenne_octobre_usd": 294.71,
         "caisse_octobre_eur": 607.75,
         "caisse_octobre_usd": 665.12,
-        "novembre_info_eur": 266.59,
-        "novembre_info_usd": 291.76,
+        "novembre_info_eur": 0.0,
+        "novembre_info_usd": 0.0,
         "hors_capacite_personnelle": true,
         "lignes": [
           {
@@ -35125,7 +35311,7 @@
             "total_periode_usd": 140.39,
             "moyenne_eur": 128.28,
             "moyenne_usd": 140.39,
-            "detail": "128.28 € en octobre (déjà hors dépenses perso). Novembre 31.64 €, hors référence."
+            "detail": "128.28 € en octobre (déjà hors dépenses perso). Novembre 0.00 €, hors référence."
           },
           {
             "id": "pub_xads",
@@ -35152,7 +35338,7 @@
             "total_periode_usd": 23.64,
             "moyenne_eur": 1.8,
             "moyenne_usd": 1.97,
-            "detail": "21.60 € le 30/10, sortis des provisions, lissés sur 12 mois (1.80 €). Les 134.60 € de novembre sont hors référence."
+            "detail": "21.60 € le 30/10, sortis des provisions, lissés sur 12 mois (1.80 €). Les 0.00 € de novembre sont hors référence."
           },
           {
             "id": "inpi_cci",
@@ -35176,30 +35362,22 @@
       },
       "epargne_realisee": {
         "libelle": "Vers l'investissement (épargne réalisée, pas une dépense)",
-        "periode_eur": 15888.73,
-        "periode_usd": 17388.63,
+        "periode_eur": 2589.34,
+        "periode_usd": 2833.77,
         "octobre_eur": 2589.34,
-        "novembre_eur": 13299.39,
+        "novembre_eur": 0.0,
         "moyenne_eur": 2589.34,
         "moyenne_usd": 2833.77,
-        "n": 41,
-        "note": "Flux sortants vers les courtiers et les métaux, exclus des dépenses. Investissement XTB (Apple Pay): 1006.0 € (Recharges Apple Pay 86 € + 650 € + 270 € = 1 006 €, confirmées par Emmanuel le 25/11/2026 : transferts de Revolut vers XTB pour acheter des actions. Virements internes / investissement (XTB), exclus des dépenses et des revenus. Montant constaté en entrées sur les comptes Revolut, non additionné aux virements sortants déjà partis vers les courtiers.)",
+        "n": 9,
+        "note": "Flux sortants vers les courtiers et les métaux, exclus des dépenses.",
         "lignes": [
           {
             "id": "investissement",
             "libelle": "Vers l'investissement (XTB, Revolut X, marge, métaux, Deblock, compte-titres)",
-            "montant_eur": 14882.73,
-            "montant_usd": 16287.66,
-            "n": 38,
+            "montant_eur": 2589.34,
+            "montant_usd": 2833.77,
+            "n": 9,
             "note": "Flux sortants vers les courtiers et les métaux, exclus des dépenses."
-          },
-          {
-            "id": "investissement_xtb_apple_pay",
-            "libelle": "Investissement XTB (Apple Pay)",
-            "montant_eur": 1006.0,
-            "montant_usd": 1100.97,
-            "n": 3,
-            "note": "Recharges Apple Pay 86 € + 650 € + 270 € = 1 006 €, confirmées par Emmanuel le 25/11/2026 : transferts de Revolut vers XTB pour acheter des actions. Virements internes / investissement (XTB), exclus des dépenses et des revenus. Montant constaté en entrées sur les comptes Revolut, non additionné aux virements sortants déjà partis vers les courtiers."
           }
         ],
         "alerte": "Le flux de novembre est très supérieur à celui d'octobre et au reste du budget (revenus − dépenses). Il a pu être alimenté par le crédit Revolut de 23 500 € (capital viré le 6/11, compte destinataire clôturé le 16/11), pas seulement par un excédent mensuel. Ce n'est donc pas une capacité d'épargne récurrente."
@@ -35222,10 +35400,10 @@
         "variante_octobre_observe_usd": 943.39,
         "variante_octobre_observe_avec_air_glow_eur": 592.73,
         "variante_octobre_observe_avec_air_glow_usd": 648.68,
-        "variante_salaire_novembre_eur": 3007.84,
-        "variante_salaire_novembre_usd": 3291.78,
-        "variante_salaire_novembre_avec_air_glow_eur": 2738.55,
-        "variante_salaire_novembre_avec_air_glow_usd": 2997.07,
+        "variante_salaire_novembre_eur": -3307.57,
+        "variante_salaire_novembre_usd": -3619.8,
+        "variante_salaire_novembre_avec_air_glow_eur": -3576.86,
+        "variante_salaire_novembre_avec_air_glow_usd": -3914.52,
         "variante_sans_france_travail_eur": -1050.84,
         "variante_sans_france_travail_usd": -1150.04
       },
@@ -35243,7 +35421,7 @@
         {
           "id": "frequence_courses",
           "titre": "Fréquence des courses en octobre : 58 paiements, 27 jours distincts",
-          "detail": "Mois de référence octobre : 27 jours / 58 paiements carte. Novembre au 25 (hors moyenne) : 22 jours / 58 paiements. Beaucoup de petits passages. Carrefour 29× (476.32 €) · Lidl 16× (326.02 €) · IKA 5× (19.70 €) · Magasin U 5× (136.00 €) · E.Leclerc 1× (17.07 €) · MaxiCoffee 1× (3.60 €) · Auchan 1× (22.83 €)"
+          "detail": "Mois de référence octobre : 27 jours / 58 paiements carte. Novembre au 25 (hors moyenne) : 0 jours / 0 paiements. Beaucoup de petits passages. Carrefour 29× (476.32 €) · Lidl 16× (326.02 €) · IKA 5× (19.70 €) · Magasin U 5× (136.00 €) · E.Leclerc 1× (17.07 €) · MaxiCoffee 1× (3.60 €) · Auchan 1× (22.83 €)"
         },
         {
           "id": "non_alim_lidl",
@@ -35263,7 +35441,7 @@
         {
           "id": "pret",
           "titre": "Crédit Revolut 23 500 € et vague d'investissement de novembre",
-          "detail": "Mensualité 169,60 € déjà dans les charges fixes. Le capital a été viré le 6/11 vers FR76…20176 (clôturé le 16/11). Les versements vers l'investissement atteignent 15888.73 € sur la période (octobre 2589.34 €, novembre 13299.39 €), soit bien plus que le reste du budget. Une partie de l'épargne de novembre a pu être financée par le prêt, pas par un excédent mensuel. Ce prêt a un coût : il s'ajoute à un budget qui, en flux observé (non lissé), était dans le rouge en octobre."
+          "detail": "Mensualité 169,60 € déjà dans les charges fixes. Le capital a été viré le 6/11 vers FR76…20176 (clôturé le 16/11). Les versements vers l'investissement atteignent 2589.34 € sur la période (octobre 2589.34 €, novembre 0.00 €), soit bien plus que le reste du budget. Une partie de l'épargne de novembre a pu être financée par le prêt, pas par un excédent mensuel. Ce prêt a un coût : il s'ajoute à un budget qui, en flux observé (non lissé), était dans le rouge en octobre."
         }
       ],
       "abonnements": [
@@ -35271,10 +35449,10 @@
           "id": "microsoft",
           "libelle": "Microsoft",
           "octobre_eur": 10.0,
-          "novembre_eur": 10.0,
+          "novembre_eur": 0.0,
           "moyenne_eur": 10.0,
           "moyenne_usd": 10.94,
-          "n": 2,
+          "n": 1,
           "detail": "10,00 € les 2/10 et 3/11.",
           "type": "both"
         },
@@ -35282,10 +35460,10 @@
           "id": "netflix",
           "libelle": "Netflix",
           "octobre_eur": 7.99,
-          "novembre_eur": 7.99,
+          "novembre_eur": 0.0,
           "moyenne_eur": 7.99,
           "moyenne_usd": 8.74,
-          "n": 2,
+          "n": 1,
           "detail": "7,99 € les 15/10 et 15/11.",
           "type": "both"
         },
@@ -35293,10 +35471,10 @@
           "id": "disney",
           "libelle": "Disney+",
           "octobre_eur": 6.99,
-          "novembre_eur": 6.99,
+          "novembre_eur": 0.0,
           "moyenne_eur": 6.99,
           "moyenne_usd": 7.65,
-          "n": 2,
+          "n": 1,
           "detail": "6,99 € les 16/10 et 16/11.",
           "type": "both"
         },
@@ -35304,10 +35482,10 @@
           "id": "youtube",
           "libelle": "YouTube",
           "octobre_eur": 12.99,
-          "novembre_eur": 12.99,
+          "novembre_eur": 0.0,
           "moyenne_eur": 12.99,
           "moyenne_usd": 14.22,
-          "n": 2,
+          "n": 1,
           "detail": "12,99 € les 18/10 et 18/11.",
           "type": "both"
         },
@@ -35315,10 +35493,10 @@
           "id": "revolut_ultra",
           "libelle": "Revolut Ultra",
           "octobre_eur": 60.0,
-          "novembre_eur": 60.0,
+          "novembre_eur": 0.0,
           "moyenne_eur": 60.0,
           "moyenne_usd": 65.66,
-          "n": 2,
+          "n": 1,
           "detail": "60,00 € les 7/10 et 7/11.",
           "type": "both"
         },
@@ -35326,10 +35504,10 @@
           "id": "apple_3495",
           "libelle": "Apple 34,95 €",
           "octobre_eur": 34.95,
-          "novembre_eur": 34.95,
+          "novembre_eur": 0.0,
           "moyenne_eur": 34.95,
           "moyenne_usd": 38.25,
-          "n": 2,
+          "n": 1,
           "detail": "Prélèvement Apple.com/bill de 34,95 € les 20/10 et 20/11 (formule non identifiée : iCloud / Apple One / autre).",
           "type": "both"
         },
@@ -35337,10 +35515,10 @@
           "id": "apple_499",
           "libelle": "Apple 4,99 €",
           "octobre_eur": 4.99,
-          "novembre_eur": 4.99,
+          "novembre_eur": 0.0,
           "moyenne_eur": 4.99,
           "moyenne_usd": 5.46,
-          "n": 2,
+          "n": 1,
           "detail": "Prélèvement Apple.com/bill de 4,99 € les 22/10 et 22/11.",
           "type": "both"
         },
@@ -35362,7 +35540,7 @@
           "novembre_eur": 219.99,
           "moyenne_eur": 219.99,
           "moyenne_usd": 240.76,
-          "n": 1,
+          "n": 0,
           "detail": "219,99 € le 4/11 via Apple.com/bill, confirmé mensuel. Conservé : c'est l'outil de pilotage qui doit aider à réduire les autres dépenses. Hors du panier de réductions, même s'il n'est apparu qu'en novembre.",
           "type": "mensuel_confirme",
           "famille": "grok",
@@ -35400,6 +35578,16 @@
         }
       ],
       "pistes": [
+        {
+          "id": "courses",
+          "libelle": "Objectif courses 867 € (Leclerc + Picard)",
+          "economie_eur_mois": 113.57,
+          "economie_usd_mois": 124.29,
+          "source": "Octobre hors déco 980.57 € (observé brut 1001.54 €, toutes enseignes) − objectif 867 € (Leclerc 650 € + Picard 217 €) = 113.57 €. Fixé le 2026-11-26.",
+          "note": "Décision du 26/11/2026, pas une simple proposition. Hygiène, entretien et litière restent dans Courses (déjà le cas sur les tickets Lidl). Lidl d'appoint, marché et boulangerie ne sont pas chiffrés. La fréquence Picard (toutes les 2 semaines) reste à confirmer.",
+          "decide": true,
+          "dans_panier_cible": true
+        },
         {
           "id": "ovn",
           "libelle": "OVN ramené sous 20 €",
@@ -35447,9 +35635,15 @@
         }
       ],
       "panier_cible": {
-        "libelle": "Panier de propositions retenu pour la capacité cible",
-        "note": "Ce n'est pas une décision. Grok Heavy est conservé (outil de pilotage) et n'entre pas dans le panier. Panier retenu : OVN ramené sous 20 € (37,85 €), résiliation Revolut Ultra, résiliation YouTube, moitié du textile Lidl d'octobre, moitié de la restauration courante d'octobre.",
+        "libelle": "Panier retenu pour la capacité cible",
+        "note": "L'objectif courses de 867 €/mois (Leclerc + Picard) est fixé depuis le 26/11/2026 et entre dans le panier (113.57 € d'économie visée). Les autres lignes restent des propositions. Grok Heavy est conservé (outil de pilotage) et n'entre pas dans le panier. Autres lignes retenues : OVN ramené sous 20 €, résiliation Revolut Ultra, résiliation YouTube, moitié du textile Lidl d'octobre, moitié de la restauration courante d'octobre.",
         "lignes": [
+          {
+            "id": "courses",
+            "libelle": "Objectif courses 867 € (Leclerc + Picard)",
+            "economie_eur_mois": 113.57,
+            "economie_usd_mois": 124.29
+          },
           {
             "id": "ovn",
             "libelle": "OVN ramené sous 20 €",
@@ -35481,44 +35675,44 @@
             "economie_usd_mois": 16.5
           }
         ],
-        "total_economie_eur": 135.91,
-        "total_economie_usd": 148.74
+        "total_economie_eur": 249.48,
+        "total_economie_usd": 273.03
       },
       "capacite_cible": {
-        "eur": -914.93,
-        "usd": -1001.3,
+        "eur": -801.36,
+        "usd": -877.01,
         "perimetre": "personnelle_hors_air_glow",
-        "formule": "Capacité personnelle (hors Air Glow) + somme du panier de propositions (inchangé).",
-        "avec_air_glow_eur": -1184.22,
-        "avec_air_glow_usd": -1296.01,
-        "avec_air_glow_formule": "Capacité y compris Air Glow + somme du panier de propositions (inchangé).",
+        "formule": "Capacité personnelle (hors Air Glow) + somme du panier (objectif courses inclus).",
+        "avec_air_glow_eur": -1070.65,
+        "avec_air_glow_usd": -1171.72,
+        "avec_air_glow_formule": "Capacité y compris Air Glow + somme du panier (objectif courses inclus).",
         "variante_grok_heavy_mensuel_eur": -1050.84,
-        "variante_grok_heavy_mensuel_cible_eur": -914.93,
+        "variante_grok_heavy_mensuel_cible_eur": -801.36,
         "variante_grok_heavy_mensuel_note": "Grok Heavy (219,99 € le 4/11) est confirmé mensuel, conservé comme outil de pilotage, et reste dans les charges fixes. Il n'entre pas dans le panier : l'équilibre doit venir des autres postes."
       },
       "objectif_reduction_autres_postes": {
         "libelle": "Objectif de réduction sur les autres postes pour atteindre l'équilibre",
-        "eur": 914.93,
-        "usd": 1001.3,
+        "eur": 801.36,
+        "usd": 877.01,
         "perimetre": "personnelle_hors_air_glow",
-        "formule": "Déficit personnel (hors Air Glow) − panier de propositions (Grok Heavy conservé, hors panier).",
-        "note": "Grok Heavy reste dans les charges fixes. Pour l'équilibre personnel (hors Air Glow), il faut encore trouver 914.93 €/mois sur les autres postes, après le panier de 135.91 €. Y compris Air Glow, l'objectif serait de 1184.22 €/mois.",
-        "avec_air_glow_eur": 1184.22,
-        "avec_air_glow_usd": 1296.01
+        "formule": "Déficit personnel (hors Air Glow) − panier (objectif courses inclus, Grok Heavy conservé hors panier).",
+        "note": "Grok Heavy reste dans les charges fixes. Pour l'équilibre personnel (hors Air Glow), il faut encore trouver 801.36 €/mois sur les autres postes, après le panier de 249.48 €. Y compris Air Glow, l'objectif serait de 1070.65 €/mois.",
+        "avec_air_glow_eur": 1070.65,
+        "avec_air_glow_usd": 1171.72
       },
       "objectif_epargne": {
         "propose_eur": 0,
         "propose_usd": 0.0,
         "ecart_equilibre_eur": 1050.84,
-        "ecart_apres_panier_eur": 914.93,
-        "objectif_reduction_autres_postes_eur": 914.93,
-        "objectif_reduction_autres_postes_usd": 1001.3,
+        "ecart_apres_panier_eur": 801.36,
+        "objectif_reduction_autres_postes_eur": 801.36,
+        "objectif_reduction_autres_postes_usd": 877.01,
         "objectif_reduction_autres_postes_libelle": "Objectif de réduction sur les autres postes pour atteindre l'équilibre",
-        "objectif_reduction_autres_postes_formule": "Déficit actuel − panier de propositions (Grok Heavy conservé, hors panier).",
-        "note": "Sur la base prudente de 3 133,33 €, la capacité personnelle (hors Air Glow) est déficitaire de 1050.84 €/mois. Y compris la ligne Air Glow (269.29 € en moyenne d'octobre), le déficit est de 1320.13 €/mois. Grok Heavy est conservé (outil de pilotage) et n'entre pas dans le panier, qui reste inchangé (135.91 €). L'objectif de réduction personnel (hors Air Glow) pour l'équilibre est de 914.93 €/mois (déficit 1050.84 € − panier 135.91 €) ; y compris Air Glow, 1184.22 €/mois. Avec le bonus temporaire France Travail, la capacité personnelle passerait à -174.24 €/mois (y compris Air Glow : -443.53 €). Si l'on comparait aux revenus réellement perçus en octobre (5 046,19 €), la capacité personnelle serait de 862.02 €/mois (y compris Air Glow : 592.73 €) — cet écart montre le poids des commissions / heures au-delà de 2 800 € net.",
+        "objectif_reduction_autres_postes_formule": "Déficit actuel − panier (objectif courses inclus, Grok Heavy conservé hors panier).",
+        "note": "Sur la base prudente de 3 133,33 €, la capacité personnelle (hors Air Glow) est déficitaire de 1050.84 €/mois. Y compris la ligne Air Glow (269.29 € en moyenne d'octobre), le déficit est de 1320.13 €/mois. Grok Heavy est conservé (outil de pilotage) et n'entre pas dans le panier, qui vaut 249.48 € (dont objectif courses 113.57 €). L'objectif de réduction personnel (hors Air Glow) pour l'équilibre est de 801.36 €/mois (déficit 1050.84 € − panier 249.48 €) ; y compris Air Glow, 1070.65 €/mois. Avec le bonus temporaire France Travail, la capacité personnelle passerait à -174.24 €/mois (y compris Air Glow : -443.53 €). Si l'on comparait aux revenus réellement perçus en octobre (5 046,19 €), la capacité personnelle serait de 862.02 €/mois (y compris Air Glow : 592.73 €) — cet écart montre le poids des commissions / heures au-delà de 2 800 € net.",
         "ecart_equilibre_avec_air_glow_eur": 1320.13,
-        "ecart_apres_panier_avec_air_glow_eur": 1184.22,
-        "objectif_reduction_autres_postes_avec_air_glow_eur": 1184.22,
+        "ecart_apres_panier_avec_air_glow_eur": 1070.65,
+        "objectif_reduction_autres_postes_avec_air_glow_eur": 1070.65,
         "cible_si_reductions_eur": 0
       },
       "reserve_securite": {
@@ -35539,13 +35733,6 @@
         "note": "Indicateur « mois de sécurité » : 0.78 mois de charges fixes (2052.44 €/mois) couverts par l'épargne disponible (1603.40 € au 25/11). La réserve conseillée est de 3 à 6 mois, soit 6157.32 € à 12314.64 €. La capacité personnelle (hors Air Glow) est déficitaire de 1050.84 €/mois sur la base prudente : à ce rythme, les soldes couvriraient environ 1.53 mois de déficit personnel. Y compris Air Glow, le déficit est de 1320.13 €/mois. Ce n'est pas un ordre de virement. Le crédit de 23 500 € n'est pas une réserve."
       },
       "lignes_floues": [
-        {
-          "sujet": "Cb Nx000018 28,85 € (Strasbourg, 15/11)",
-          "montant_eur": 28.85,
-          "montant_usd": 31.57,
-          "classification": "autres",
-          "question": "Commerçant exact ?"
-        },
         {
           "sujet": "Le Jardin des Pins, Ramatuelle",
           "montant_eur": 142.8,
@@ -35583,8 +35770,8 @@
         },
         {
           "sujet": "Free Mobile 19,99 € + 25,98 € (8/11 seulement)",
-          "montant_eur": 45.97,
-          "montant_usd": 50.31,
+          "montant_eur": 0.0,
+          "montant_usd": 0.0,
           "classification": "telecom",
           "question": "Deux lignes mensuelles déjà en cours en octobre (prélèvement hors période) ou nouvelles lignes ?"
         },
@@ -35596,22 +35783,54 @@
           "question": "Où est payée l'électricité / le gaz ?"
         }
       ],
+      "objectif_courses": {
+        "id": "objectif_courses",
+        "date": "2026-11-26",
+        "libelle": "Objectif courses Leclerc + Picard",
+        "leclerc_eur_semaine": 150.0,
+        "leclerc_eur_mois": 650,
+        "leclerc_jour": "jeudi",
+        "leclerc_livraison_comprise": true,
+        "leclerc_perimetre": "Alimentaire et non-alimentaire courant (hygiène, entretien, sacs poubelle, litière).",
+        "picard_eur_par_passage": 100.0,
+        "picard_frequence": "toutes_les_2_semaines",
+        "picard_frequence_note": "Fréquence encore à confirmer par Emmanuel. Pour une livraison par semaine, passer frequence à toutes_les_semaines. Autres valeurs : toutes_les_3_semaines, une_fois_par_mois. Tu peux aussi fixer passages_par_an ou eur_mois.",
+        "picard_passages_par_an": 26,
+        "picard_livraison_eur": 6,
+        "picard_livraison_comprise": true,
+        "picard_eur_mois": 217,
+        "total_eur_mois": 867,
+        "total_usd_mois": 948.84,
+        "observe_octobre_eur": 980.57,
+        "observe_octobre_brut_eur": 1001.54,
+        "economie_visee_eur": 113.57,
+        "economie_visee_usd": 124.29,
+        "hygiene_entretien_litiere": "déjà dans Courses (tickets Lidl), pas un poste à part",
+        "hors_perimetre": [
+          "Lidl d'appoint (dentifrice Colgate, etc.) : non chiffré",
+          "Marché et boulangerie : non chiffrés",
+          "Achats ponctuels (déco, textile, bricolage) : exclus"
+        ],
+        "source": "data/budget/objectif_courses.json",
+        "objectif_detail": "Leclerc 650 €/mois (150 € par semaine, livré le jeudi, livraison comprise). Picard 217 €/mois (100 € toutes les 2 semaines, livraison de 6 € comprise ; fréquence à confirmer). Octobre : 980,57 € hors déco Noël (1001,54 € observés, toutes enseignes). Économie visée : 113,57 €/mois. Hygiène, entretien et litière sont déjà dans Courses, pas un poste à part. Hors périmètre : Lidl d'appoint, marché et boulangerie (non chiffrés) ; déco, textile et bricolage exclus."
+      },
       "source": {
         "comptes": "data/budget/comptes_2026-10_11.json",
         "lidl": "data/budget/lidl_tickets_2026-10_11.json",
         "tradingview": "data/abonnement_tradingview.json et budget.tradingview",
         "ovn": "budget.ovn (positions.json)",
         "frais_octobre": "budget.frais_octobre (relevés Revolut Securities octobre 2026, commit 320cc87)",
+        "objectif_courses": "data/budget/objectif_courses.json",
         "genere_par": "src/build_budget_mensuel.py"
       }
     },
-    "total_observe_usd": 13.19,
-    "total_observe_eur": 12.05,
-    "projection_usd": 98.06,
-    "projection_eur": 89.59,
+    "total_observe_usd": 15.69,
+    "total_observe_eur": 14.34,
+    "projection_usd": 100.56,
+    "projection_eur": 91.88,
     "projection_note": "Projection mensuelle = OVN projeté (dernier jour relu × ~30 jours), abonnement TradingView (Essential annuel / 12) et frais d'ordres déjà sourcés en novembre. Les transactions sans commission sont épuisées jusqu'au 7 décembre 2026."
   },
-  "desc": "Captures du 25/11/2026 : courtage, métaux, Revolut X, XTB et Tesla vers 09 h 50 ; CFD vers 10 h 11–10 h 14 (Europe/Paris). Revolut Invest, montant retenu 34 479,48 $ = courtage 13 226,17 $ + métaux 2 082,68 $ (−4,12 %) + exposition CFD 19 170,63 $. Attention : l'exposition CFD dépasse le capital du compte (2 614,02 $ ; exposition 19 170,63 $ (somme quantité × cours des 10 lignes relues, COST à 11 h 01, BDX à 19 h 25, EG le 25/11, ABBV à 19 h 41 et SPCX à 20 h 04 inclus), P&L lignes −4 235,46 $, valeur du compte 2 614,02 $ (affiché 2 644,26 $, −4 264,65 $, −61,56 %), marge de maintenance 98 % / seuil de fermeture 1 336,40 $). Les CFD sont des positions normales dans Mes positions, les totaux, le tableau sectoriel et le patrimoine (montant = exposition, pas la marge). Après-midi et soir 25/11/2026 : six ventes spot exécutées (PPX, BKNG, HMI, DASH, LVMH, XUTL), liquidités en règlement le 27/11 (2 569,08 € et 1 112,72 $), URNU relu à 92,34519963 parts, et ouverture du short BDX:CFD à 19 h 25 (3,5 @ 222,56 $, ×5, exposition 778,96 $, marge 155,79 $, frais 1,95 $). Ouverture des shorts EG:CFD (1,14 @ 434,27 $, ×5, exposition 495,07 $) et ABBV:CFD (2,5 @ 296,84 $, ×5, exposition retenue 742,10 $, frais 1,86 $ à 19 h 41). Ouverture du long SPCX:CFD vers 20 h 04 (4 @ 126,26 $, ×4, cours actuel 126,24 $, exposition retenue 504,96 $, P&L −0,08 $ ; frais d'ouverture non visibles, non inventés). Renfort SPCX:CFD à 20 h 08 (1,5 @ 126,97 $, ×4, frais 0,48 $) : ligne 5,5 u, PM 126,45 $, exposition 695,50 $, marge 173,88 $. Renfort SPCX:CFD à 20 h 36 (3 @ 127,29 $, ×4, exposition capture 381,45 $, marge 95,37 $, frais non visibles non inventés) : ligne 8,5 u, PM 126,70 $, exposition 1 076,95 $, marge 269,25 $.",
+  "desc": "Captures du 25/11/2026 : courtage, métaux, Revolut X, XTB et Tesla vers 09 h 50 ; CFD vers 10 h 11–10 h 14 (Europe/Paris). Revolut Invest, montant retenu 35 478,22 $ = courtage 13 226,17 $ + métaux 2 082,68 $ (−4,12 %) + exposition CFD 20 169,37 $. Attention : l'exposition CFD dépasse le capital du compte (2 614,02 $ ; exposition 20 169,37 $ (somme quantité × cours des 10 lignes relues, COST à 11 h 01, BDX à 19 h 25, EG le 25/11, ABBV à 19 h 41 et SPCX à 20 h 04 inclus), P&L lignes −4 235,46 $, valeur du compte 2 614,02 $ (affiché 2 644,26 $, −4 264,65 $, −61,56 %), marge de maintenance 98 % / seuil de fermeture 1 336,40 $). Les CFD sont des positions normales dans Mes positions, les totaux, le tableau sectoriel et le patrimoine (montant = exposition, pas la marge). Après-midi et soir 25/11/2026 : six ventes spot exécutées (PPX, BKNG, HMI, DASH, LVMH, XUTL), liquidités en règlement le 27/11 (2 569,08 € et 1 112,72 $), URNU relu à 92,34519963 parts, et ouverture du short BDX:CFD à 19 h 25 (3,5 @ 222,56 $, ×5, exposition 778,96 $, marge 155,79 $, frais 1,95 $). Ouverture des shorts EG:CFD (1,14 @ 434,27 $, ×5, exposition 495,07 $) et ABBV:CFD (2,5 @ 296,84 $, ×5, exposition retenue 742,10 $, frais 1,86 $ à 19 h 41). Ouverture du long SPCX:CFD vers 20 h 04 (4 @ 126,26 $, ×4, cours actuel 126,24 $, exposition retenue 504,96 $, P&L −0,08 $ ; frais d'ouverture non visibles, non inventés). Renfort SPCX:CFD à 20 h 08 (1,5 @ 126,97 $, ×4, frais 0,48 $) : ligne 5,5 u, PM 126,45 $, exposition 695,50 $, marge 173,88 $. Renfort SPCX:CFD à 20 h 36 (3 @ 127,29 $, ×4, exposition capture 381,45 $, marge 95,37 $, frais non visibles non inventés) : ligne 8,5 u, PM 126,70 $, exposition 1 076,95 $, marge 269,25 $. Shorts TGT:CFD (2,9 @ 172 $, ×5, exposition 498,80 $) et MCK:CFD (0,47 @ 1 063,7 $ estimé, ×5, exposition 499,94 $) ajoutés le 27/11/2026 (MCK vers 07 h 07, TGT à 07 h 22, Europe/Paris).",
   "ventes_2026_11_25": {
     "titre": "Ventes du 25/11/2026, règlement le 27/11",
     "source": "Captures d'Emmanuel Trouvé, 25/11/2026. Tous les ordres sont exécutés ; règlement le 27/11/2026.",
@@ -35843,5 +36062,5 @@
       "note_lvmh": "LVMH : P&L réalisé calculé sur les 1 000,00 € investis du livre, pas sur qty × 396,80 € (995,02 €)."
     }
   },
-  "positions_json_sha256": "7305989833e56267bc535414baba923371ff2c51e8b00ab78035632858a86d95"
+  "positions_json_sha256": "c6a23f9b5dd12f339cb0572e6596360bfe3164e79cf29f9ad37e3cd25f93eedc"
 }

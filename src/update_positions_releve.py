@@ -176,6 +176,18 @@ META = {
                  "tv_note": "NASDAQ:SPCX", "fiche_tv": "NASDAQ:SPCX",
                  "fiche_nom": "Space Exploration Technologies Corp",
                  "fiche_proxy": False, "note_tv_ok": True},
+    "CFD-TGT": {"nom": "Target CFD", "type": "cfd", "tab": "actions",
+                "tv_note": "NYSE:TGT", "fiche_tv": "NYSE:TGT",
+                "fiche_nom": "Target Corporation",
+                "fiche_proxy": False, "note_tv_ok": True,
+                "date_achat": "2026-11-27",
+                "date_execution": "2026-11-27T07:22:00+01:00"},
+    "CFD-MCK": {"nom": "McKesson CFD", "type": "cfd", "tab": "actions",
+                "tv_note": "NYSE:MCK", "fiche_tv": "NYSE:MCK",
+                "fiche_nom": "McKesson Corporation",
+                "fiche_proxy": False, "note_tv_ok": True,
+                "date_achat": "2026-11-27",
+                "date_execution": "2026-11-27T07:07:00+01:00"},
 }
 
 
@@ -611,6 +623,18 @@ def from_cfd(p, fx):
         out["pnl_valeur"] = None
         out["pnl_pct"] = None
         out["perf_debut_pct"] = None
+    apply_known_dates(out, key, out.get("quantite") or 0)
+    if p.get("date_achat"):
+        out["date_achat"] = p["date_achat"]
+    if p.get("date_execution"):
+        out["date_execution"] = p["date_execution"]
+    fee = p.get("frais_ouverture_usd")
+    if fee is None:
+        fee = (META.get(key) or {}).get("frais_ouverture_usd")
+    if fee not in (None, ""):
+        out["frais_ouverture_usd"] = r2(fee)
+    if p.get("prix_estime"):
+        out["prix_estime"] = True
     return out
 
 
