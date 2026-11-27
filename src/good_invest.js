@@ -110,6 +110,38 @@ function giEstActionHorsUnivers(it){
   return false;
 }
 
+/* Alias de tickers pour l'exclusion des titres déjà détenus (XAU = XAUUSD, etc.). */
+const GI_TICKER_ALIAS_GROUPS=[
+  ['XAU','XAUUSD','OANDA:XAUUSD'],
+  ['XAG','XAGUSD','OANDA:XAGUSD'],
+  ['XPT','XPTUSD','OANDA:XPTUSD'],
+  ['XPD','XPDUSD','OANDA:XPDUSD']
+];
+function giAliasKeys(s){
+  const u=String(s||'').trim();
+  if(!u||u==='PEA') return [];
+  const out=[u,u.toUpperCase()];
+  if(u.includes(':')){
+    const bare=u.split(':').pop();
+    out.push(bare,bare.toUpperCase());
+  }
+  const up=u.toUpperCase();
+  const bareUp=(u.includes(':')?u.split(':').pop():u).toUpperCase();
+  GI_TICKER_ALIAS_GROUPS.forEach(g=>{
+    const keys=[];
+    g.forEach(x=>{
+      keys.push(x,String(x).toUpperCase());
+      if(String(x).includes(':')){
+        const b=String(x).split(':').pop();
+        keys.push(b,b.toUpperCase());
+      }
+    });
+    if(keys.includes(u)||keys.includes(up)||keys.includes(bareUp)){
+      keys.forEach(k=>out.push(k));
+    }
+  });
+  return out;
+}
 function giHeldSet(){
   const set=new Set();
   const add=p=>{
@@ -118,12 +150,7 @@ function giHeldSet(){
     if(st==='solde'||st==='sold'||st==='ferme'||st==='closed'||st==='annule') return;
     // Actives, ordres en attente et ventes en attente : déjà en portefeuille (ou en cours de sortie).
     [p.fiche_tv,p.tv_note,p.tv,p.ticker,p.yahoo,p.sym].forEach(s=>{
-      if(!s) return;
-      const u=String(s).trim();
-      if(!u||u==='PEA') return;
-      set.add(u);
-      set.add(u.toUpperCase());
-      if(u.includes(':')) set.add(u.split(':').pop());
+      giAliasKeys(s).forEach(k=>set.add(k));
     });
   };
   (typeof POS!=='undefined'&&POS&&POS.positions||[]).forEach(add);
@@ -133,13 +160,7 @@ function giHeldSet(){
 }
 function giIsHeld(it, held){
   const keys=[it.tv,it.yahoo,it.ticker,it.sym];
-  return keys.some(s=>{
-    if(!s) return false;
-    const u=String(s).trim();
-    if(held.has(u)||held.has(u.toUpperCase())) return true;
-    if(u.includes(':')&&held.has(u.split(':').pop())) return true;
-    return false;
-  });
+  return keys.some(s=>giAliasKeys(s).some(k=>held.has(k)));
 }
 function giMontant(note, scale, tab){
   const n=Number(note);
