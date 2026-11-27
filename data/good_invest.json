@@ -1,26 +1,7 @@
 {
   "seuil": 75.0,
-  "n": 33,
+  "n": 44,
   "liste": [
-    {
-      "tv": "NYSE:PAAS",
-      "yahoo": "PAAS",
-      "nom": "Pan American Silver Corp.",
-      "note": 229.0,
-      "display": "229",
-      "hex": "#00e5ff",
-      "flag": "cyan",
-      "bande": "cyan",
-      "av": 14.5,
-      "section": "Canada – Matériaux",
-      "montant": 900,
-      "brokers": {
-        "revolut": true,
-        "xtb": true
-      },
-      "scale": 250,
-      "tab": "metaux"
-    },
     {
       "tv": "LSE:IPDM",
       "yahoo": "IPDM.L",
@@ -30,7 +11,7 @@
       "hex": "#00e5ff",
       "flag": "cyan",
       "bande": "cyan",
-      "av": -7.5,
+      "av": -7.6,
       "section": "Métaux – Palladium",
       "montant": 800,
       "brokers": {
@@ -41,34 +22,15 @@
       "tab": "metaux"
     },
     {
-      "tv": "LSE:ISLN",
-      "yahoo": "ISLN.L",
-      "nom": "iShares Physical Silver ETC",
-      "note": 214.0,
-      "display": "214",
+      "tv": "NYSE:PAAS",
+      "yahoo": "PAAS",
+      "nom": "Pan American Silver Corp.",
+      "note": 213.0,
+      "display": "213",
       "hex": "#00e5ff",
       "flag": "cyan",
       "bande": "cyan",
-      "av": 17.7,
-      "section": "Métaux – Argent",
-      "montant": 800,
-      "brokers": {
-        "revolut": false,
-        "xtb": true
-      },
-      "scale": 250,
-      "tab": "metaux"
-    },
-    {
-      "tv": "NYSE:AG",
-      "yahoo": "AG",
-      "nom": "First Majestic Silver Corp.",
-      "note": 210.0,
-      "display": "210",
-      "hex": "#00e5ff",
-      "flag": "cyan",
-      "bande": "cyan",
-      "av": 30.4,
+      "av": 3.0,
       "section": "Canada – Matériaux",
       "montant": 800,
       "brokers": {
@@ -79,16 +41,16 @@
       "tab": "metaux"
     },
     {
-      "tv": "NYSE:SBSW",
-      "yahoo": "SBSW",
-      "nom": "Sibanye Stillwater Limited",
-      "note": 206.0,
-      "display": "206",
+      "tv": "NYSE:AG",
+      "yahoo": "AG",
+      "nom": "First Majestic Silver Corp.",
+      "note": 205.0,
+      "display": "205",
       "hex": "#00e5ff",
       "flag": "cyan",
       "bande": "cyan",
-      "av": 14.3,
-      "section": "Métaux – Platine",
+      "av": 9.1,
+      "section": "Canada – Matériaux",
       "montant": 800,
       "brokers": {
         "revolut": true,
@@ -117,6 +79,82 @@
       "tab": "autres"
     },
     {
+      "tv": "LSE:ISLN",
+      "yahoo": "ISLN.L",
+      "nom": "iShares Physical Silver ETC",
+      "note": 204.0,
+      "display": "204",
+      "hex": "#00e5ff",
+      "flag": "cyan",
+      "bande": "cyan",
+      "av": 17.7,
+      "section": "Métaux – Argent",
+      "montant": 800,
+      "brokers": {
+        "revolut": false,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "metaux"
+    },
+    {
+      "tv": "XETR:ELG",
+      "yahoo": "ELG.DE",
+      "nom": "Elmos Semiconductor SE",
+      "note": 197.0,
+      "display": "197",
+      "hex": "#00e5ff",
+      "flag": "cyan",
+      "bande": "cyan",
+      "av": -0.2,
+      "section": "Allemagne – Technologie",
+      "montant": 700,
+      "brokers": {
+        "revolut": true,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "autres"
+    },
+    {
+      "tv": "NYSE:SBSW",
+      "yahoo": "SBSW",
+      "nom": "Sibanye Stillwater Limited",
+      "note": 196.0,
+      "display": "196",
+      "hex": "#00e5ff",
+      "flag": "cyan",
+      "bande": "cyan",
+      "av": 14.3,
+      "section": "Métaux – Platine",
+      "montant": 700,
+      "brokers": {
+        "revolut": true,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "metaux"
+    },
+    {
+      "tv": "LSE:IPLT",
+      "yahoo": "IPLT.L",
+      "nom": "iShares Physical Platinum ETC",
+      "note": 187.0,
+      "display": "187",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": 32.0,
+      "section": "Métaux – Platine",
+      "montant": 700,
+      "brokers": {
+        "revolut": false,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "metaux"
+    },
+    {
       "tv": "CRYPTO:SOLUSD",
       "yahoo": "SOL",
       "nom": "Solana",
@@ -136,16 +174,54 @@
       "tab": "crypto"
     },
     {
-      "tv": "NYSE:FCX",
-      "yahoo": "FCX",
-      "nom": "Freeport-McMoRan Inc.",
-      "note": 181.0,
-      "display": "181",
+      "tv": "NYSE:CLS",
+      "yahoo": "CLS",
+      "nom": "Celestica Inc.",
+      "note": 184.0,
+      "display": "184",
       "hex": "#22c55e",
       "flag": "green",
       "bande": "vert",
-      "av": -34.6,
-      "section": "USA – XLB",
+      "av": 10.8,
+      "section": "Canada – Technologie",
+      "montant": 700,
+      "brokers": {
+        "revolut": null,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "autres"
+    },
+    {
+      "tv": "LSE:IGLN",
+      "yahoo": "IGLN.L",
+      "nom": "iShares Physical Gold ETC",
+      "note": 180.0,
+      "display": "180",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": 25.7,
+      "section": "Métaux – Or",
+      "montant": 700,
+      "brokers": {
+        "revolut": false,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "metaux"
+    },
+    {
+      "tv": "XETR:AIXA",
+      "yahoo": "AIXA.DE",
+      "nom": "AIXTRON SE",
+      "note": 180.0,
+      "display": "180",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": -5.1,
+      "section": "Allemagne – Technologie",
       "montant": 700,
       "brokers": {
         "revolut": true,
@@ -174,36 +250,261 @@
       "tab": "autres"
     },
     {
-      "tv": "LSE:IPLT",
-      "yahoo": "IPLT.L",
-      "nom": "iShares Physical Platinum ETC",
-      "note": 177.0,
-      "display": "177",
+      "tv": "NYSE:FCX",
+      "yahoo": "FCX",
+      "nom": "Freeport-McMoRan Inc.",
+      "note": 171.0,
+      "display": "171",
       "hex": "#22c55e",
       "flag": "green",
       "bande": "vert",
-      "av": 32.0,
-      "section": "Métaux – Platine",
+      "av": -34.6,
+      "section": "USA – XLB",
+      "montant": 600,
+      "brokers": {
+        "revolut": true,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "autres"
+    },
+    {
+      "tv": "OANDA:XAUUSD",
+      "yahoo": null,
+      "nom": "OANDA:XAUUSD",
+      "note": 170.0,
+      "display": "170",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": null,
+      "section": null,
+      "montant": 600,
+      "brokers": {},
+      "scale": 250,
+      "tab": "metaux"
+    },
+    {
+      "tv": "SIX:VACN",
+      "yahoo": "VACN.SW",
+      "nom": "VAT Group AG",
+      "note": 168.0,
+      "display": "168",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": -25.8,
+      "section": "Suisse – Industrie",
       "montant": 600,
       "brokers": {
         "revolut": false,
         "xtb": true
       },
       "scale": 250,
-      "tab": "metaux"
+      "tab": "autres"
+    },
+    {
+      "tv": "XETR:IFX",
+      "yahoo": "IFX.DE",
+      "nom": "Infineon Technologies AG",
+      "note": 165.0,
+      "display": "165",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": -18.2,
+      "section": "Allemagne – Technologie",
+      "montant": 600,
+      "brokers": {
+        "revolut": true,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "autres"
+    },
+    {
+      "tv": "EURONEXT:SOI",
+      "yahoo": "SOI.PA",
+      "nom": "Soitec SA",
+      "note": 160.0,
+      "display": "160",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": 3.4,
+      "section": "France – Technologie",
+      "montant": 600,
+      "brokers": {
+        "revolut": false,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "autres"
+    },
+    {
+      "tv": "NASDAQ:NOVT",
+      "yahoo": "NOVT",
+      "nom": "Novanta Inc.",
+      "note": 159.0,
+      "display": "159",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": 11.0,
+      "section": "Canada – Technologie",
+      "montant": 600,
+      "brokers": {
+        "revolut": null,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "autres"
+    },
+    {
+      "tv": "AMEX:DNN",
+      "yahoo": "DNN",
+      "nom": "Denison Mines Corp.",
+      "note": 158.0,
+      "display": "158",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": -13.3,
+      "section": "Canada – Énergie",
+      "montant": 600,
+      "brokers": {
+        "revolut": null,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "autres"
+    },
+    {
+      "tv": "NASDAQ:SSRM",
+      "yahoo": "SSRM",
+      "nom": "SSR Mining Inc.",
+      "note": 157.0,
+      "display": "157",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": -28.2,
+      "section": "Canada – Matériaux",
+      "montant": 600,
+      "brokers": {
+        "revolut": null,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "autres"
+    },
+    {
+      "tv": "XETR:ENR",
+      "yahoo": "ENR.DE",
+      "nom": "Siemens Energy AG",
+      "note": 153.0,
+      "display": "153",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": -29.7,
+      "section": "Allemagne – Industrie",
+      "montant": 500,
+      "brokers": {
+        "revolut": true,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "autres"
+    },
+    {
+      "tv": "NYSE:HBM",
+      "yahoo": "HBM",
+      "nom": "Hudbay Minerals Inc.",
+      "note": 151.0,
+      "display": "151",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": 6.0,
+      "section": "Canada – Matériaux",
+      "montant": 500,
+      "brokers": {
+        "revolut": null,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "autres"
+    },
+    {
+      "tv": "EURONEXT:SU",
+      "yahoo": "SU.PA",
+      "nom": "Schneider Electric S.E.",
+      "note": 151.0,
+      "display": "151",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": -33.5,
+      "section": "France – Industrie",
+      "montant": 500,
+      "brokers": {
+        "revolut": true,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "autres"
     },
     {
       "tv": "NYSE:TT",
       "yahoo": "TT",
       "nom": "Trane Technologies plc",
-      "note": 161.0,
-      "display": "161",
+      "note": 151.0,
+      "display": "151",
       "hex": "#22c55e",
       "flag": "green",
       "bande": "vert",
       "av": -34.3,
       "section": "USA – XLI",
-      "montant": 600,
+      "montant": 500,
+      "brokers": {
+        "revolut": true,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "autres"
+    },
+    {
+      "tv": "NYSE:CCJ",
+      "yahoo": "CCJ",
+      "nom": "Uranium · proxy Cameco",
+      "note": 149.0,
+      "display": "149",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": 2.6,
+      "section": "Canada – Énergie",
+      "montant": 500,
+      "brokers": {
+        "revolut": true,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "autres"
+    },
+    {
+      "tv": "XETR:NEM",
+      "yahoo": "NEM.DE",
+      "nom": "Nemetschek SE",
+      "note": 148.0,
+      "display": "148",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": -37.7,
+      "section": "Allemagne – Technologie",
+      "montant": 500,
       "brokers": {
         "revolut": true,
         "xtb": true
@@ -215,14 +516,14 @@
       "tv": "NYSE:GEV",
       "yahoo": "GEV",
       "nom": "GE Vernova Inc.",
-      "note": 157.0,
-      "display": "157",
+      "note": 147.0,
+      "display": "147",
       "hex": "#22c55e",
       "flag": "green",
       "bande": "vert",
       "av": 19.7,
       "section": "USA – XLI",
-      "montant": 600,
+      "montant": 500,
       "brokers": {
         "revolut": true,
         "xtb": true
@@ -231,52 +532,17 @@
       "tab": "autres"
     },
     {
-      "tv": "XETR:8PSG",
-      "yahoo": "8PSG.DE",
-      "nom": "Invesco Physical Gold ETC",
-      "note": 157.0,
-      "display": "157",
+      "tv": "NYSE:FSM",
+      "yahoo": "FSM",
+      "nom": "Fortuna Mining Corp.",
+      "note": 147.0,
+      "display": "147",
       "hex": "#22c55e",
       "flag": "green",
       "bande": "vert",
-      "av": 10.0,
-      "section": "Métaux – Or",
-      "montant": 600,
-      "brokers": {
-        "revolut": true,
-        "xtb": false
-      },
-      "scale": 250,
-      "tab": "metaux"
-    },
-    {
-      "tv": "ASX:SEMI",
-      "yahoo": "SEMI.AX",
-      "nom": "Global X Semiconductor ETF",
-      "note": 155.0,
-      "display": "155",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": null,
-      "section": "Liquidités – ETF par devise",
-      "montant": 600,
-      "brokers": {},
-      "scale": 250,
-      "tab": "liquidites"
-    },
-    {
-      "tv": "NYSE:ETN",
-      "yahoo": "ETN",
-      "nom": "Eaton Corporation plc",
-      "note": 155.0,
-      "display": "155",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": -35.4,
-      "section": "USA – XLI",
-      "montant": 600,
+      "av": -9.8,
+      "section": "Canada – Matériaux",
+      "montant": 500,
       "brokers": {
         "revolut": null,
         "xtb": true
@@ -285,35 +551,35 @@
       "tab": "autres"
     },
     {
-      "tv": "EURONEXT:ERA",
-      "yahoo": "ERA.PA",
-      "nom": "ERAMET S.A.",
-      "note": 154.0,
-      "display": "154",
+      "tv": "NYSE:BB",
+      "yahoo": "BB",
+      "nom": "BlackBerry Limited",
+      "note": 147.0,
+      "display": "147",
       "hex": "#22c55e",
       "flag": "green",
       "bande": "vert",
-      "av": -7.2,
-      "section": "France – Matériaux",
-      "montant": 600,
+      "av": -9.9,
+      "section": "Canada – Technologie",
+      "montant": 500,
       "brokers": {
-        "revolut": true,
+        "revolut": null,
         "xtb": true
       },
       "scale": 250,
       "tab": "autres"
     },
     {
-      "tv": "EURONEXT:SU",
-      "yahoo": "SU.PA",
-      "nom": "Schneider Electric S.E.",
-      "note": 150.0,
-      "display": "150",
+      "tv": "XETR:CBK",
+      "yahoo": "CBK.DE",
+      "nom": "Commerzbank AG",
+      "note": 146.0,
+      "display": "146",
       "hex": "#22c55e",
       "flag": "green",
       "bande": "vert",
-      "av": -32.6,
-      "section": "France – Industrie",
+      "av": 2.6,
+      "section": "Allemagne – Finance",
       "montant": 500,
       "brokers": {
         "revolut": true,
@@ -323,35 +589,95 @@
       "tab": "autres"
     },
     {
-      "tv": "SIX:AUCO",
-      "yahoo": "AUCO.SW",
-      "nom": "L&G Gold Mining UCITS ETF",
-      "note": 147.0,
-      "display": "147",
+      "tv": "NYSE:ETN",
+      "yahoo": "ETN",
+      "nom": "Eaton Corporation plc",
+      "note": 145.0,
+      "display": "145",
       "hex": "#22c55e",
       "flag": "green",
       "bande": "vert",
-      "av": null,
-      "section": "Liquidités – ETF par devise",
+      "av": -35.4,
+      "section": "USA – XLI",
       "montant": 500,
-      "brokers": {},
+      "brokers": {
+        "revolut": null,
+        "xtb": true
+      },
       "scale": 250,
-      "tab": "liquidites"
+      "tab": "autres"
     },
     {
-      "tv": "XETR:ENR",
-      "yahoo": "ENR.DE",
-      "nom": "Siemens Energy AG",
-      "note": 147.0,
-      "display": "147",
+      "tv": "XETR:WAF",
+      "yahoo": "WAF.DE",
+      "nom": "Siltronic AG",
+      "note": 144.0,
+      "display": "144",
       "hex": "#22c55e",
       "flag": "green",
       "bande": "vert",
-      "av": -29.4,
+      "av": 15.6,
+      "section": "Allemagne – Technologie",
+      "montant": 500,
+      "brokers": {
+        "revolut": null,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "autres"
+    },
+    {
+      "tv": "NYSE:B",
+      "yahoo": "B",
+      "nom": "Barrick Mining Corporation",
+      "note": 143.0,
+      "display": "143",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": 18.0,
+      "section": "Canada – Matériaux",
+      "montant": 500,
+      "brokers": {
+        "revolut": null,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "autres"
+    },
+    {
+      "tv": "XETR:HOT",
+      "yahoo": "HOT.DE",
+      "nom": "HOCHTIEF Aktiengesellschaft",
+      "note": 143.0,
+      "display": "143",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": -39.4,
       "section": "Allemagne – Industrie",
       "montant": 500,
       "brokers": {
         "revolut": true,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "autres"
+    },
+    {
+      "tv": "NYSE:AGI",
+      "yahoo": "AGI",
+      "nom": "Alamos Gold Inc.",
+      "note": 142.0,
+      "display": "142",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": 11.5,
+      "section": "Canada – Matériaux",
+      "montant": 500,
+      "brokers": {
+        "revolut": null,
         "xtb": true
       },
       "scale": 250,
@@ -377,22 +703,6 @@
       "tab": "autres"
     },
     {
-      "tv": "TSX:XCHP",
-      "yahoo": "XCHP.TO",
-      "nom": "iShares Semiconductor Index ETF",
-      "note": 141.0,
-      "display": "141",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": null,
-      "section": "Liquidités – ETF par devise",
-      "montant": 500,
-      "brokers": {},
-      "scale": 250,
-      "tab": "liquidites"
-    },
-    {
       "tv": "NASDAQ:TXN",
       "yahoo": "TXN",
       "nom": "Texas Instruments Incorporated",
@@ -412,73 +722,38 @@
       "tab": "autres"
     },
     {
-      "tv": "NYSE:CCJ",
-      "yahoo": "CCJ",
-      "nom": "Uranium · proxy Cameco",
-      "note": 140.0,
-      "display": "140",
+      "tv": "SIX:ABBN",
+      "yahoo": "ABBN.SW",
+      "nom": "ABB Ltd",
+      "note": 139.0,
+      "display": "139",
       "hex": "#22c55e",
       "flag": "green",
       "bande": "vert",
-      "av": 2.6,
-      "section": "Canada – Énergie",
+      "av": -38.1,
+      "section": "Suisse – Industrie",
       "montant": 500,
       "brokers": {
-        "revolut": true,
+        "revolut": false,
         "xtb": true
       },
       "scale": 250,
       "tab": "autres"
     },
     {
-      "tv": "EURONEXT:KER",
-      "yahoo": "KER.PA",
-      "nom": "Kering SA",
-      "note": 140.0,
-      "display": "140",
+      "tv": "XETR:JEN",
+      "yahoo": "JEN.DE",
+      "nom": "Jenoptik AG",
+      "note": 136.0,
+      "display": "136",
       "hex": "#22c55e",
       "flag": "green",
       "bande": "vert",
-      "av": -3.4,
-      "section": "France – Consommation discrétionnaire",
+      "av": 22.6,
+      "section": "Allemagne – Technologie",
       "montant": 500,
       "brokers": {
-        "revolut": true,
-        "xtb": true
-      },
-      "scale": 250,
-      "tab": "autres"
-    },
-    {
-      "tv": "LSE:AUCP",
-      "yahoo": "AUCP.L",
-      "nom": "L&G Gold Mining UCITS ETF",
-      "note": 138.0,
-      "display": "138",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": null,
-      "section": "Liquidités – ETF par devise",
-      "montant": 500,
-      "brokers": {},
-      "scale": 250,
-      "tab": "liquidites"
-    },
-    {
-      "tv": "EURONEXT:GTT",
-      "yahoo": "GTT.PA",
-      "nom": "Gaztransport & Technigaz SA",
-      "note": 137.0,
-      "display": "137",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": -40.7,
-      "section": "France – Énergie",
-      "montant": 500,
-      "brokers": {
-        "revolut": true,
+        "revolut": null,
         "xtb": true
       },
       "scale": 250,
@@ -504,42 +779,42 @@
       "tab": "autres"
     },
     {
-      "tv": "NYSE:UBER",
-      "yahoo": "UBER",
-      "nom": "Uber Technologies, Inc.",
-      "note": 135.0,
-      "display": "135",
+      "tv": "EURONEXT:ERA",
+      "yahoo": "ERA.PA",
+      "nom": "ERAMET S.A.",
+      "note": 134.0,
+      "display": "134",
       "hex": "#22c55e",
       "flag": "green",
       "bande": "vert",
-      "av": -8.0,
-      "section": "USA – XLI",
-      "montant": 500,
-      "brokers": {
-        "revolut": null,
-        "xtb": true
-      },
-      "scale": 250,
-      "tab": "autres"
-    },
-    {
-      "tv": "NASDAQ:RGLD",
-      "yahoo": "RGLD",
-      "nom": "Royal Gold, Inc.",
-      "note": 135.0,
-      "display": "135",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": -13.3,
-      "section": "Métaux – Or",
+      "av": -7.2,
+      "section": "France – Matériaux",
       "montant": 500,
       "brokers": {
         "revolut": true,
         "xtb": true
       },
       "scale": 250,
-      "tab": "metaux"
+      "tab": "autres"
+    },
+    {
+      "tv": "XETR:RHM",
+      "yahoo": "RHM.DE",
+      "nom": "Rheinmetall AG",
+      "note": 134.0,
+      "display": "134",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": -33.4,
+      "section": "Allemagne – Industrie",
+      "montant": 500,
+      "brokers": {
+        "revolut": true,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "autres"
     },
     {
       "tv": "NYSE:ANET",
@@ -552,63 +827,6 @@
       "bande": "vert",
       "av": -15.2,
       "section": "USA – XLK",
-      "montant": 500,
-      "brokers": {
-        "revolut": true,
-        "xtb": true
-      },
-      "scale": 250,
-      "tab": "autres"
-    },
-    {
-      "tv": "EURONEXT:SOI",
-      "yahoo": "SOI.PA",
-      "nom": "Soitec SA",
-      "note": 132.0,
-      "display": "132",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": -16.5,
-      "section": "France – Technologie",
-      "montant": 500,
-      "brokers": {
-        "revolut": false,
-        "xtb": true
-      },
-      "scale": 250,
-      "tab": "autres"
-    },
-    {
-      "tv": "XETR:ENDH",
-      "yahoo": "ENDH.DE",
-      "nom": "L&G Emerging Markets Government Bond (USD) 0-5 Year Screened UCITS ETF EUR Hedged Accumulation",
-      "note": 131.0,
-      "display": "131",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": -9.4,
-      "section": "Obligations – Dette émergente",
-      "montant": 500,
-      "brokers": {
-        "revolut": true,
-        "xtb": false
-      },
-      "scale": 250,
-      "tab": "obligations"
-    },
-    {
-      "tv": "NYSE:PWR",
-      "yahoo": "PWR",
-      "nom": "Quanta Services, Inc.",
-      "note": 131.0,
-      "display": "131",
-      "hex": "#22c55e",
-      "flag": "green",
-      "bande": "vert",
-      "av": -9.5,
-      "section": "USA – XLI",
       "montant": 500,
       "brokers": {
         "revolut": true,

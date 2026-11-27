@@ -77,10 +77,23 @@ def mark_held(doc):
         if found:
             by[found]['held_position'] = True
             by[found]['liste'] = False
+    # Reconstruire la liste après exclusion des positions, puis plafonner à 10.
+    # Sinon les shorts détenus occupent des places et, une fois retirés, la liste
+    # reste incomplète (titres ≥ 70, fibo et signaux OK, jamais rappelés).
+    cap = int(doc.get('n_liste_max') or getattr(S, 'N_LISTE_MAX', 10))
+    for rec in by.values():
+        if rec.get('held_position'):
+            rec['liste'] = False
+        else:
+            rec['liste'] = bool(rec.get('au_seuil') and rec.get('fibo_ok') and rec.get('tech_ok'))
     liste = sorted(
         [r for r in by.values() if r.get('liste') and not r.get('held_position')],
         key=lambda x: (-x['note'], x['tv']),
     )
+    if len(liste) > cap:
+        for x in liste[cap:]:
+            x['liste'] = False
+        liste = liste[:cap]
     doc['liste'] = [x['tv'] for x in liste]
     doc['n_liste'] = len(liste)
     doc['n'] = sum(1 for r in by.values() if not r.get('held_position'))

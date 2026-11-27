@@ -1,10 +1,10 @@
 {
  "regle": "NYSE + NASDAQ (S&P 500, canadiennes NYSE, CFD Revolut actions), RSI hebdo ≥ 60, dégradation ≥ 0,5 ; crypto (XRP…) exclue ; la liste Meilleurs short retient les notes ≥ 70 (orange, vert ou cyan), jusqu'à 10 titres, hors positions déjà ouvertes",
- "genere": "2026-11-26 08:09",
+ "genere": "2026-11-27 13:32",
  "zone": "Europe/Paris",
  "script": "src/build_univers_short.py",
  "sources": {
-  "sp500": "SPDR SPY holdings (State Street), au As of 24-Nov-2026",
+  "sp500": "SPDR SPY holdings (State Street), au As of 25-Nov-2026",
   "cours": "Yahoo Finance, bougies hebdo clôturées",
   "fondamentaux": "Yahoo Finance (yfinance) : info, estimations, tendance BPA, comptes trimestriels / annuels",
   "cfd": "config/revolut_cfd_confirmes.json (relevé CFD Revolut)"
@@ -474,7 +474,7 @@
    "sector": "Consumer Defensive",
    "industry": "Discount Stores",
    "is_bank": false,
-   "market_cap": 77969956864,
+   "market_cap": 77971251200,
    "rsi": 68.5,
    "rsi_sem_sup70": 0,
    "palier": "RSI 65–70",
@@ -488,11 +488,11 @@
     ]
    },
    "metrics": {
-    "nd_ebitda": 1.637,
-    "op_margin": 5.205,
-    "fcf_margin": 2.251,
+    "nd_ebitda": 1.658,
+    "op_margin": 5.172,
+    "fcf_margin": 2.23,
     "roe": 29.019,
-    "roa": 5.744,
+    "roa": 5.707,
     "current": 0.992,
     "eps_0y": 46.09,
     "eps_1y": -11.6,
@@ -578,44 +578,6 @@
    "cfd_revolut": "à vérifier"
   },
   {
-   "tv": "NYSE:BDX",
-   "ticker": "BDX",
-   "yahoo": "BDX",
-   "nom": "Becton, Dickinson and Company",
-   "origine": "S&P 500",
-   "country": "United States",
-   "canada": false,
-   "sector": "Healthcare",
-   "industry": "Medical Instruments & Supplies",
-   "is_bank": false,
-   "market_cap": 60262858752,
-   "rsi": 69.7,
-   "rsi_sem_sup70": 0,
-   "palier": "RSI 65–70",
-   "date_cloture": "2026-11-20",
-   "close": 212.77999877929688,
-   "degradation": {
-    "score": 1.5,
-    "signes": [
-     "CA trim. -10 % a/a",
-     "marge op. 18 → 15 % (trim. a/a)"
-    ]
-   },
-   "metrics": {
-    "nd_ebitda": 2.953,
-    "op_margin": 15.665,
-    "fcf_margin": 21.291,
-    "roe": 5.656,
-    "roa": 3.59,
-    "current": 0.872,
-    "eps_0y": 4.06,
-    "eps_1y": 7.65,
-    "rev_0y": 1.65,
-    "rev_1y": 4.25
-   },
-   "cfd_revolut": "à vérifier"
-  },
-  {
    "tv": "NYSE:SJM",
    "ticker": "SJM",
    "yahoo": "SJM",
@@ -626,7 +588,7 @@
    "sector": "Consumer Defensive",
    "industry": "Packaged Foods",
    "is_bank": false,
-   "market_cap": 13893423104,
+   "market_cap": 13910092800,
    "rsi": 66.8,
    "rsi_sem_sup70": 0,
    "palier": "RSI 65–70",
@@ -640,16 +602,16 @@
     ]
    },
    "metrics": {
-    "nd_ebitda": 2.868,
-    "op_margin": 19.595,
-    "fcf_margin": 15.179,
+    "nd_ebitda": 3.161,
+    "op_margin": 17.984,
+    "fcf_margin": 13.723,
     "roe": 3.96,
-    "roa": 6.572,
+    "roa": 6.031,
     "current": 0.953,
     "eps_0y": 20.72,
     "eps_1y": 1.87,
-    "rev_0y": -1.33,
-    "rev_1y": 1.21
+    "rev_0y": -1.35,
+    "rev_1y": 1.23
    },
    "cfd_revolut": "à vérifier"
   },
@@ -727,6 +689,43 @@
     "rev_1y": 9.19
    },
    "cfd_revolut": "confirmé"
+  },
+  {
+   "tv": "NYSE:BDX",
+   "ticker": "BDX",
+   "yahoo": "BDX",
+   "nom": "Becton, Dickinson and Company",
+   "origine": "S&P 500",
+   "country": "United States",
+   "canada": false,
+   "sector": "Healthcare",
+   "industry": "Medical Instruments & Supplies",
+   "is_bank": false,
+   "market_cap": 59978797056,
+   "rsi": 69.7,
+   "rsi_sem_sup70": 0,
+   "palier": "RSI 65–70",
+   "date_cloture": "2026-11-20",
+   "close": 212.77999877929688,
+   "degradation": {
+    "score": 1.0,
+    "signes": [
+     "marge op. 18 → 15 % (trim. a/a)"
+    ]
+   },
+   "metrics": {
+    "nd_ebitda": 2.963,
+    "op_margin": 16.508,
+    "fcf_margin": 22.804,
+    "roe": 5.656,
+    "roa": 3.784,
+    "current": 0.872,
+    "eps_0y": 4.06,
+    "eps_1y": 7.65,
+    "rev_0y": 1.65,
+    "rev_1y": 4.25
+   },
+   "cfd_revolut": "à vérifier"
   },
   {
    "tv": "NYSE:MSI",
@@ -1321,7 +1320,7 @@
    "sector": "Consumer Defensive",
    "industry": "Discount Stores",
    "is_bank": false,
-   "market_cap": 1046778478592,
+   "market_cap": 1049988956160,
    "rsi": 64.4,
    "rsi_sem_sup70": 0,
    "palier": "RSI 60–65",
@@ -1341,10 +1340,10 @@
     "roe": 20.553,
     "roa": 6.909,
     "current": 0.814,
-    "eps_0y": 9.38,
-    "eps_1y": 11.73,
-    "rev_0y": 6.73,
-    "rev_1y": 4.18
+    "eps_0y": 9.4,
+    "eps_1y": 11.72,
+    "rev_0y": 6.74,
+    "rev_1y": 4.17
    },
    "cfd_revolut": "confirmé"
   },
@@ -1373,16 +1372,16 @@
     ]
    },
    "metrics": {
-    "nd_ebitda": 2.363,
-    "op_margin": 10.587,
-    "fcf_margin": 6.747,
+    "nd_ebitda": 2.715,
+    "op_margin": 8.761,
+    "fcf_margin": 5.667,
     "roe": 46.32,
-    "roa": 9.592,
+    "roa": 7.938,
     "current": 1.131,
-    "eps_0y": 41.3,
-    "eps_1y": -1.67,
+    "eps_0y": 41.67,
+    "eps_1y": -1.97,
     "rev_0y": 6.72,
-    "rev_1y": 6.08
+    "rev_1y": 6.1
    },
    "cfd_revolut": "à vérifier"
   },

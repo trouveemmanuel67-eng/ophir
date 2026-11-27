@@ -1,6 +1,6 @@
 {
   "titre": "Rotation de capitaux la plus probable",
-  "updated": "2026-11-25 09:55",
+  "updated": "2026-11-27 13:34",
   "updated_tz": "Europe/Paris",
   "ok": true,
   "affichage": {
@@ -8,13 +8,13 @@
     "from_label": "Immobilier",
     "to_label": "Crypto",
     "confiance": "moyenne",
-    "infobulle": "Score de sortie le plus élevé côté Immobilier (Immobilier : sentiment 53,9 / 100 ; essoufflement 100,0 ; RSI 51,3 ; perf. 21 j +1,90 % (-4,86 pt vs il y a 10 séances)). Score d'entrée le plus élevé côté Crypto (Crypto : sentiment 11,0 / 100 ; momentum pas encore retourné 44,2 ; RSI 26,8 ; perf. 21 j -24,29 % (-1,53 pt vs il y a 10 séances)). Flux ETF non disponibles, non utilisés.",
+    "infobulle": "Score de sortie le plus élevé côté Immobilier (Immobilier : sentiment 59,5 / 100 ; essoufflement 84,3 ; RSI 56,2 ; perf. 21 j +3,15 % (-3,02 pt vs il y a 10 séances)). Score d'entrée le plus élevé côté Crypto (Crypto : sentiment 12,0 / 100 ; retournement 50,2 ; RSI 32,7 ; perf. 21 j -20,93 % (+0,06 pt vs il y a 10 séances)). Flux ETF non disponibles, non utilisés.",
     "secteurs": {
-      "ligne": "Santé → Technologie · confiance faible",
+      "ligne": "Santé → Communication · confiance faible",
       "from_label": "Santé",
-      "to_label": "Technologie",
+      "to_label": "Communication",
       "confiance": "faible",
-      "infobulle": "Score de sortie le plus élevé côté Santé (Santé : sentiment 66,1 / 100 ; essoufflement 98,2 ; RSI 55,5 ; perf. 21 j +3,03 % (-6,79 pt vs il y a 10 séances)). Score d'entrée le plus élevé côté Technologie (Technologie : sentiment 19,1 / 100 ; momentum pas encore retourné 45,0 ; RSI 37,8 ; perf. 21 j -15,69 % (-1,71 pt vs il y a 10 séances)). Flux ETF non disponibles, non utilisés."
+      "infobulle": "Score de sortie le plus élevé côté Santé (Santé : sentiment 64,2 / 100 ; essoufflement 100,0 ; RSI 53,4 ; perf. 21 j +2,51 % (-8,86 pt vs il y a 10 séances)). Score d'entrée le plus élevé côté Communication (Communication : sentiment 38,3 / 100 ; retournement 81,3 ; RSI 49,1 ; perf. 21 j +1,74 % (+5,02 pt vs il y a 10 séances)). Flux ETF non disponibles, non utilisés."
     }
   },
   "classes": {
@@ -26,94 +26,94 @@
       "to_id": "crypto",
       "to_label": "Crypto",
       "affichage": "Immobilier → Crypto",
-      "score_combine": 68.9,
+      "score_combine": 68.3,
       "from": {
         "id": "immobilier",
         "label": "Immobilier",
-        "sortie": 67.0,
-        "entree": 33.1,
-        "sentiment": 53.9,
-        "rsi": 51.3,
-        "fade": 100.0,
-        "turn": 0.0,
-        "ret21_pct": 1.9,
-        "delta_ret21_pct": -4.86,
+        "sortie": 66.0,
+        "entree": 34.1,
+        "sentiment": 59.5,
+        "rsi": 56.2,
+        "fade": 84.3,
+        "turn": 15.7,
+        "ret21_pct": 3.15,
+        "delta_ret21_pct": -3.02,
         "missing": []
       },
       "to": {
         "id": "crypto",
         "label": "Crypto",
-        "sortie": 29.2,
-        "entree": 70.8,
-        "sentiment": 11.0,
-        "rsi": 26.8,
-        "fade": 55.8,
-        "turn": 44.2,
-        "ret21_pct": -24.29,
-        "delta_ret21_pct": -1.53,
+        "sortie": 29.6,
+        "entree": 70.5,
+        "sentiment": 12.0,
+        "rsi": 32.7,
+        "fade": 49.8,
+        "turn": 50.2,
+        "ret21_pct": -20.93,
+        "delta_ret21_pct": 0.06,
         "missing": []
       },
-      "pourquoi": "Score de sortie le plus élevé côté Immobilier (Immobilier : sentiment 53,9 / 100 ; essoufflement 100,0 ; RSI 51,3 ; perf. 21 j +1,90 % (-4,86 pt vs il y a 10 séances)). Score d'entrée le plus élevé côté Crypto (Crypto : sentiment 11,0 / 100 ; momentum pas encore retourné 44,2 ; RSI 26,8 ; perf. 21 j -24,29 % (-1,53 pt vs il y a 10 séances)). Flux ETF non disponibles, non utilisés.",
+      "pourquoi": "Score de sortie le plus élevé côté Immobilier (Immobilier : sentiment 59,5 / 100 ; essoufflement 84,3 ; RSI 56,2 ; perf. 21 j +3,15 % (-3,02 pt vs il y a 10 séances)). Score d'entrée le plus élevé côté Crypto (Crypto : sentiment 12,0 / 100 ; retournement 50,2 ; RSI 32,7 ; perf. 21 j -20,93 % (+0,06 pt vs il y a 10 séances)). Flux ETF non disponibles, non utilisés.",
       "confiance": "moyenne",
-      "confiance_detail": "Écart mini 7,9 pts entre le premier et le deuxième de chaque côté.",
-      "ecart_sortie_pts": 8.2,
-      "ecart_entree_pts": 7.9
+      "confiance_detail": "Écart mini 6,2 pts entre le premier et le deuxième de chaque côté.",
+      "ecart_sortie_pts": 6.2,
+      "ecart_entree_pts": 6.6
     },
     "alternative": {
-      "from_id": "immobilier",
-      "from_label": "Immobilier",
-      "to_id": "metaux",
-      "to_label": "Métaux",
-      "affichage": "Immobilier → Métaux",
-      "score_combine": 65.0,
+      "from_id": "obligations",
+      "from_label": "Obligations",
+      "to_id": "crypto",
+      "to_label": "Crypto",
+      "affichage": "Obligations → Crypto",
+      "score_combine": 65.2,
       "from": {
-        "id": "immobilier",
-        "label": "Immobilier",
-        "sortie": 67.0,
-        "entree": 33.1,
-        "sentiment": 53.9,
-        "rsi": 51.3,
-        "fade": 100.0,
-        "turn": 0.0,
-        "ret21_pct": 1.9,
-        "delta_ret21_pct": -4.86,
+        "id": "obligations",
+        "label": "Obligations",
+        "sortie": 59.8,
+        "entree": 40.2,
+        "sentiment": 54.4,
+        "rsi": 59.0,
+        "fade": 67.7,
+        "turn": 32.3,
+        "ret21_pct": 0.19,
+        "delta_ret21_pct": -1.06,
         "missing": []
       },
       "to": {
-        "id": "metaux",
-        "label": "Métaux",
-        "sortie": 37.2,
-        "entree": 62.9,
-        "sentiment": 8.2,
-        "rsi": 24.6,
-        "fade": 88.3,
-        "turn": 11.7,
-        "ret21_pct": -18.24,
-        "delta_ret21_pct": -8.87,
+        "id": "crypto",
+        "label": "Crypto",
+        "sortie": 29.6,
+        "entree": 70.5,
+        "sentiment": 12.0,
+        "rsi": 32.7,
+        "fade": 49.8,
+        "turn": 50.2,
+        "ret21_pct": -20.93,
+        "delta_ret21_pct": 0.06,
         "missing": []
       },
-      "pourquoi": "Score de sortie le plus élevé côté Immobilier (Immobilier : sentiment 53,9 / 100 ; essoufflement 100,0 ; RSI 51,3 ; perf. 21 j +1,90 % (-4,86 pt vs il y a 10 séances)). Score d'entrée le plus élevé côté Métaux (Métaux : sentiment 8,2 / 100 ; momentum pas encore retourné 11,7 ; RSI 24,6 ; perf. 21 j -18,24 % (-8,87 pt vs il y a 10 séances)). Flux ETF non disponibles, non utilisés."
+      "pourquoi": "Score de sortie le plus élevé côté Obligations (Obligations : sentiment 54,4 / 100 ; essoufflement 67,7 ; RSI 59,0 ; perf. 21 j +0,19 % (-1,06 pt vs il y a 10 séances)). Score d'entrée le plus élevé côté Crypto (Crypto : sentiment 12,0 / 100 ; retournement 50,2 ; RSI 32,7 ; perf. 21 j -20,93 % (+0,06 pt vs il y a 10 séances)). Flux ETF non disponibles, non utilisés."
     },
     "classement_sortie": [
       {
         "id": "immobilier",
         "label": "Immobilier",
-        "sortie": 67.0
+        "sortie": 66.0
       },
       {
         "id": "obligations",
         "label": "Obligations",
-        "sortie": 58.8
+        "sortie": 59.8
       },
       {
         "id": "actions",
         "label": "Actions",
-        "sortie": 56.8
+        "sortie": 58.9
       },
       {
         "id": "energie",
         "label": "Énergie",
-        "sortie": 42.2
+        "sortie": 47.9
       },
       {
         "id": "liquidites",
@@ -123,24 +123,24 @@
       {
         "id": "metaux",
         "label": "Métaux",
-        "sortie": 37.2
+        "sortie": 36.1
       },
       {
         "id": "crypto",
         "label": "Crypto",
-        "sortie": 29.2
+        "sortie": 29.6
       }
     ],
     "classement_entree": [
       {
         "id": "crypto",
         "label": "Crypto",
-        "entree": 70.8
+        "entree": 70.5
       },
       {
         "id": "metaux",
         "label": "Métaux",
-        "entree": 62.9
+        "entree": 63.9
       },
       {
         "id": "liquidites",
@@ -150,205 +150,205 @@
       {
         "id": "energie",
         "label": "Énergie",
-        "entree": 57.8
+        "entree": 52.1
       },
       {
         "id": "actions",
         "label": "Actions",
-        "entree": 43.2
+        "entree": 41.2
       },
       {
         "id": "obligations",
         "label": "Obligations",
-        "entree": 41.2
+        "entree": 40.2
       },
       {
         "id": "immobilier",
         "label": "Immobilier",
-        "entree": 33.1
+        "entree": 34.1
       }
     ],
     "lignes": [
       {
         "id": "actions",
         "label": "Actions",
-        "sentiment": 44.6,
+        "sentiment": 46.7,
         "sentiment_detail": [
           {
             "id": "XLK",
-            "value": 19.1,
+            "value": 19.7,
             "label": "Peur extrême",
-            "date": "2026-11-24"
+            "date": "2026-11-25"
           },
           {
             "id": "XLF",
-            "value": 45.3,
+            "value": 48.8,
             "label": "Neutre",
-            "date": "2026-11-24"
+            "date": "2026-11-25"
           },
           {
             "id": "XLE",
-            "value": 22.4,
+            "value": 24.3,
             "label": "Peur extrême",
-            "date": "2026-11-24"
+            "date": "2026-11-25"
           },
           {
             "id": "XLV",
-            "value": 66.1,
+            "value": 64.2,
             "label": "Avidité",
-            "date": "2026-11-24"
+            "date": "2026-11-25"
           },
           {
             "id": "XLI",
-            "value": 28.4,
+            "value": 31.3,
             "label": "Peur",
-            "date": "2026-11-24"
+            "date": "2026-11-25"
           },
           {
             "id": "XLC",
-            "value": 36.7,
+            "value": 38.3,
             "label": "Peur",
-            "date": "2026-11-24"
+            "date": "2026-11-25"
           },
           {
             "id": "XLY",
-            "value": 53.2,
+            "value": 52.4,
             "label": "Neutre",
-            "date": "2026-11-24"
+            "date": "2026-11-25"
           },
           {
             "id": "XLP",
-            "value": 70.7,
+            "value": 72.6,
             "label": "Avidité",
-            "date": "2026-11-24"
+            "date": "2026-11-25"
           },
           {
             "id": "XLU",
-            "value": 57.8,
+            "value": 59.6,
             "label": "Avidité",
-            "date": "2026-11-24"
+            "date": "2026-11-25"
           },
           {
             "id": "XLRE",
-            "value": 52.4,
-            "label": "Neutre",
-            "date": "2026-11-24"
+            "value": 57.6,
+            "label": "Avidité",
+            "date": "2026-11-25"
           },
           {
             "id": "XLB",
-            "value": 38.7,
-            "label": "Peur",
-            "date": "2026-11-24"
+            "value": 45.0,
+            "label": "Neutre",
+            "date": "2026-11-25"
           }
         ],
         "sentiment_note": "Moyenne simple des 11 secteurs GICS US (ETF SPDR).",
-        "rsi": 45.3,
-        "fade": 84.6,
-        "turn": 15.4,
-        "ret21_pct": -1.8,
-        "delta_ret21_pct": -4.13,
+        "rsi": 47.4,
+        "fade": 86.5,
+        "turn": 13.5,
+        "ret21_pct": -1.34,
+        "delta_ret21_pct": -4.38,
         "prix": {
-          "date": "2026-11-24",
-          "close": 237.8207,
-          "rsi": 45.3,
-          "ret21_pct": -1.8,
-          "ret21_prev_pct": 2.33,
-          "delta_ret21_pct": -4.13,
-          "vol20_ann_pct": 20.67,
-          "vol21_pct": 5.97,
-          "n": 2385
+          "date": "2026-11-25",
+          "close": 239.0152,
+          "rsi": 47.4,
+          "ret21_pct": -1.34,
+          "ret21_prev_pct": 3.04,
+          "delta_ret21_pct": -4.38,
+          "vol20_ann_pct": 20.77,
+          "vol21_pct": 6.0,
+          "n": 2386
         },
         "tickers_ok": [
           {
             "ticker": "XLK",
-            "last": "2026-11-24",
-            "n": 2385
+            "last": "2026-11-25",
+            "n": 2386
           },
           {
             "ticker": "XLF",
-            "last": "2026-11-24",
-            "n": 2385
+            "last": "2026-11-25",
+            "n": 2386
           },
           {
             "ticker": "XLE",
-            "last": "2026-11-24",
-            "n": 2385
+            "last": "2026-11-25",
+            "n": 2386
           },
           {
             "ticker": "XLV",
-            "last": "2026-11-24",
-            "n": 2385
+            "last": "2026-11-25",
+            "n": 2386
           },
           {
             "ticker": "XLI",
-            "last": "2026-11-24",
-            "n": 2385
+            "last": "2026-11-25",
+            "n": 2386
           },
           {
             "ticker": "XLC",
-            "last": "2026-11-24",
-            "n": 2121
+            "last": "2026-11-25",
+            "n": 2122
           },
           {
             "ticker": "XLY",
-            "last": "2026-11-24",
-            "n": 2385
+            "last": "2026-11-25",
+            "n": 2386
           },
           {
             "ticker": "XLP",
-            "last": "2026-11-24",
-            "n": 2385
+            "last": "2026-11-25",
+            "n": 2386
           },
           {
             "ticker": "XLU",
-            "last": "2026-11-24",
-            "n": 2385
+            "last": "2026-11-25",
+            "n": 2386
           },
           {
             "ticker": "XLRE",
-            "last": "2026-11-24",
-            "n": 2385
+            "last": "2026-11-25",
+            "n": 2386
           },
           {
             "ticker": "XLB",
-            "last": "2026-11-24",
-            "n": 2385
+            "last": "2026-11-25",
+            "n": 2386
           }
         ],
-        "date_prix": "2026-11-24",
-        "sortie": 56.8,
-        "entree": 43.2,
+        "date_prix": "2026-11-25",
+        "sortie": 58.9,
+        "entree": 41.2,
         "sortie_detail": [
           {
             "nom": "sentiment élevé",
-            "value": 44.6,
+            "value": 46.7,
             "poids": 0.4
           },
           {
             "nom": "essoufflement du momentum",
-            "value": 84.6,
+            "value": 86.5,
             "poids": 0.3
           },
           {
             "nom": "RSI élevé",
-            "value": 45.3,
+            "value": 47.4,
             "poids": 0.3
           }
         ],
         "entree_detail": [
           {
             "nom": "sentiment bas",
-            "value": 55.4,
+            "value": 53.3,
             "poids": 0.4
           },
           {
             "nom": "retournement du momentum",
-            "value": 15.4,
+            "value": 13.5,
             "poids": 0.3
           },
           {
             "nom": "RSI bas",
-            "value": 54.7,
+            "value": 52.6,
             "poids": 0.3
           }
         ],
@@ -357,183 +357,183 @@
       {
         "id": "obligations",
         "label": "Obligations",
-        "sentiment": 52.0,
+        "sentiment": 54.4,
         "sentiment_detail": [
           {
             "id": "oblig:tcourt",
-            "value": 45.9,
+            "value": 49.8,
             "label": "Neutre",
-            "date": "2026-11-24"
+            "date": "2026-11-25"
           },
           {
             "id": "oblig:tlong",
-            "value": 63.5,
+            "value": 69.1,
             "label": "Avidité",
-            "date": "2026-11-24"
+            "date": "2026-11-25"
           },
           {
             "id": "oblig:t710",
-            "value": 55.2,
+            "value": 59.6,
             "label": "Avidité",
-            "date": "2026-11-24"
+            "date": "2026-11-25"
           },
           {
             "id": "oblig:agg",
-            "value": 52.5,
-            "label": "Neutre",
-            "date": "2026-11-24"
+            "value": 57.5,
+            "label": "Avidité",
+            "date": "2026-11-25"
           },
           {
             "id": "oblig:usig",
-            "value": 48.0,
+            "value": 51.1,
             "label": "Neutre",
-            "date": "2026-11-24"
+            "date": "2026-11-25"
           },
           {
             "id": "oblig:hy",
-            "value": 32.7,
+            "value": 32.3,
             "label": "Peur",
-            "date": "2026-11-24"
+            "date": "2026-11-25"
           },
           {
             "id": "oblig:infl",
-            "value": 43.9,
-            "label": "Peur",
-            "date": "2026-11-24"
+            "value": 46.8,
+            "label": "Neutre",
+            "date": "2026-11-25"
           },
           {
             "id": "oblig:em",
-            "value": 33.7,
+            "value": 34.6,
             "label": "Peur",
-            "date": "2026-11-24"
+            "date": "2026-11-25"
           },
           {
             "id": "oblig:eurgov",
-            "value": 61.1,
+            "value": 63.5,
             "label": "Avidité",
-            "date": "2026-11-24"
+            "date": "2026-11-27"
           },
           {
             "id": "oblig:eurig",
-            "value": 58.8,
+            "value": 60.1,
             "label": "Avidité",
-            "date": "2026-11-24"
+            "date": "2026-11-27"
           },
           {
             "id": "oblig:de",
-            "value": 76.6,
-            "label": "Euphorie",
-            "date": "2026-11-24"
+            "value": 74.5,
+            "label": "Avidité",
+            "date": "2026-11-27"
           }
         ],
         "sentiment_note": "Moyenne simple des 11 indicateurs obligataires APEX (US, Europe, HY, TIPS, émergents).",
-        "rsi": 54.0,
-        "fade": 72.8,
-        "turn": 27.2,
-        "ret21_pct": -0.03,
-        "delta_ret21_pct": -1.37,
+        "rsi": 59.0,
+        "fade": 67.7,
+        "turn": 32.3,
+        "ret21_pct": 0.19,
+        "delta_ret21_pct": -1.06,
         "prix": {
-          "date": "2026-11-24",
-          "close": 83.9458,
-          "rsi": 54.0,
-          "ret21_pct": -0.03,
-          "ret21_prev_pct": 1.34,
-          "delta_ret21_pct": -1.37,
-          "vol20_ann_pct": 4.6,
-          "vol21_pct": 1.33,
-          "n": 2385
+          "date": "2026-11-25",
+          "close": 84.2384,
+          "rsi": 59.0,
+          "ret21_pct": 0.19,
+          "ret21_prev_pct": 1.25,
+          "delta_ret21_pct": -1.06,
+          "vol20_ann_pct": 4.71,
+          "vol21_pct": 1.36,
+          "n": 2386
         },
         "tickers_ok": [
           {
             "ticker": "SHY",
-            "last": "2026-11-24",
-            "n": 2385
+            "last": "2026-11-25",
+            "n": 2386
           },
           {
             "ticker": "IEF",
-            "last": "2026-11-24",
-            "n": 2385
+            "last": "2026-11-25",
+            "n": 2386
           },
           {
             "ticker": "TLT",
-            "last": "2026-11-24",
-            "n": 2385
+            "last": "2026-11-25",
+            "n": 2386
           },
           {
             "ticker": "AGG",
-            "last": "2026-11-24",
-            "n": 2385
+            "last": "2026-11-25",
+            "n": 2386
           },
           {
             "ticker": "LQD",
-            "last": "2026-11-24",
-            "n": 2385
+            "last": "2026-11-25",
+            "n": 2386
           },
           {
             "ticker": "HYG",
-            "last": "2026-11-24",
-            "n": 2385
+            "last": "2026-11-25",
+            "n": 2386
           },
           {
             "ticker": "TIP",
-            "last": "2026-11-24",
-            "n": 2385
+            "last": "2026-11-25",
+            "n": 2386
           },
           {
             "ticker": "EMB",
-            "last": "2026-11-24",
-            "n": 2385
+            "last": "2026-11-25",
+            "n": 2386
           },
           {
             "ticker": "EUNH.DE",
-            "last": "2026-11-24",
-            "n": 2411
+            "last": "2026-11-27",
+            "n": 2414
           },
           {
             "ticker": "EUN5.DE",
-            "last": "2026-11-24",
-            "n": 2409
+            "last": "2026-11-27",
+            "n": 2412
           },
           {
             "ticker": "EXX6.DE",
-            "last": "2026-11-24",
-            "n": 2409
+            "last": "2026-11-27",
+            "n": 2412
           }
         ],
-        "date_prix": "2026-11-24",
-        "sortie": 58.8,
-        "entree": 41.2,
+        "date_prix": "2026-11-25",
+        "sortie": 59.8,
+        "entree": 40.2,
         "sortie_detail": [
           {
             "nom": "sentiment élevé",
-            "value": 52.0,
+            "value": 54.4,
             "poids": 0.4
           },
           {
             "nom": "essoufflement du momentum",
-            "value": 72.8,
+            "value": 67.7,
             "poids": 0.3
           },
           {
             "nom": "RSI élevé",
-            "value": 54.0,
+            "value": 59.0,
             "poids": 0.3
           }
         ],
         "entree_detail": [
           {
             "nom": "sentiment bas",
-            "value": 48.0,
+            "value": 45.6,
             "poids": 0.4
           },
           {
             "nom": "retournement du momentum",
-            "value": 27.2,
+            "value": 32.3,
             "poids": 0.3
           },
           {
             "nom": "RSI bas",
-            "value": 46.0,
+            "value": 41.0,
             "poids": 0.3
           }
         ],
@@ -542,106 +542,106 @@
       {
         "id": "metaux",
         "label": "Métaux",
-        "sentiment": 8.2,
+        "sentiment": 10.8,
         "sentiment_detail": [
           {
             "id": "metal:or",
-            "value": 6.9,
+            "value": 9.6,
             "label": "Peur extrême",
-            "date": "2026-11-24"
+            "date": "2026-11-27"
           },
           {
             "id": "metal:argent",
-            "value": 6.7,
+            "value": 9.5,
             "label": "Peur extrême",
-            "date": "2026-11-24"
+            "date": "2026-11-27"
           },
           {
             "id": "metal:platine",
-            "value": 7.4,
+            "value": 10.1,
             "label": "Peur extrême",
-            "date": "2026-11-24"
+            "date": "2026-11-27"
           },
           {
             "id": "metal:palladium",
-            "value": 11.7,
+            "value": 14.1,
             "label": "Peur extrême",
-            "date": "2026-11-24"
+            "date": "2026-11-27"
           }
         ],
         "sentiment_note": "Moyenne simple or, argent, platine, palladium (contrats Yahoo).",
-        "rsi": 24.6,
-        "fade": 88.3,
-        "turn": 11.7,
-        "ret21_pct": -18.24,
-        "delta_ret21_pct": -8.87,
+        "rsi": 38.8,
+        "fade": 67.0,
+        "turn": 33.0,
+        "ret21_pct": -12.27,
+        "delta_ret21_pct": -4.97,
         "prix": {
-          "date": "2026-11-24",
-          "close": 211.2799,
-          "rsi": 24.6,
-          "ret21_pct": -18.24,
-          "ret21_prev_pct": -9.37,
-          "delta_ret21_pct": -8.87,
-          "vol20_ann_pct": 40.08,
-          "vol21_pct": 11.57,
-          "n": 2386
+          "date": "2026-11-27",
+          "close": 224.5167,
+          "rsi": 38.8,
+          "ret21_pct": -12.27,
+          "ret21_prev_pct": -7.31,
+          "delta_ret21_pct": -4.97,
+          "vol20_ann_pct": 50.65,
+          "vol21_pct": 14.62,
+          "n": 2388
         },
         "tickers_ok": [
           {
             "ticker": "GC=F",
-            "last": "2026-11-24",
-            "n": 2387
+            "last": "2026-11-27",
+            "n": 2389
           },
           {
             "ticker": "SI=F",
-            "last": "2026-11-24",
-            "n": 2386
+            "last": "2026-11-27",
+            "n": 2388
           },
           {
             "ticker": "PL=F",
-            "last": "2026-11-24",
-            "n": 2386
+            "last": "2026-11-27",
+            "n": 2388
           },
           {
             "ticker": "PA=F",
-            "last": "2026-11-24",
-            "n": 2385
+            "last": "2026-11-27",
+            "n": 2387
           }
         ],
-        "date_prix": "2026-11-24",
-        "sortie": 37.2,
-        "entree": 62.9,
+        "date_prix": "2026-11-27",
+        "sortie": 36.1,
+        "entree": 63.9,
         "sortie_detail": [
           {
             "nom": "sentiment élevé",
-            "value": 8.2,
+            "value": 10.8,
             "poids": 0.4
           },
           {
             "nom": "essoufflement du momentum",
-            "value": 88.3,
+            "value": 67.0,
             "poids": 0.3
           },
           {
             "nom": "RSI élevé",
-            "value": 24.6,
+            "value": 38.8,
             "poids": 0.3
           }
         ],
         "entree_detail": [
           {
             "nom": "sentiment bas",
-            "value": 91.8,
+            "value": 89.2,
             "poids": 0.4
           },
           {
             "nom": "retournement du momentum",
-            "value": 11.7,
+            "value": 33.0,
             "poids": 0.3
           },
           {
             "nom": "RSI bas",
-            "value": 75.4,
+            "value": 61.2,
             "poids": 0.3
           }
         ],
@@ -650,95 +650,95 @@
       {
         "id": "energie",
         "label": "Énergie",
-        "sentiment": 35.1,
+        "sentiment": 40.6,
         "sentiment_detail": [
           {
             "id": "energie:petrole",
-            "value": 21.6,
-            "label": "Peur extrême",
-            "date": "2026-11-24"
+            "value": 29.2,
+            "label": "Peur",
+            "date": "2026-11-27"
           },
           {
             "id": "energie:brent",
-            "value": 20.0,
-            "label": "Peur extrême",
-            "date": "2026-11-24"
+            "value": 27.2,
+            "label": "Peur",
+            "date": "2026-11-27"
           },
           {
             "id": "energie:gaz",
-            "value": 63.8,
+            "value": 65.5,
             "label": "Avidité",
-            "date": "2026-11-24"
+            "date": "2026-11-27"
           }
         ],
         "sentiment_note": "Moyenne simple WTI, Brent et gaz naturel (contrats). Classe matières premières, distincte du secteur actions XLE.",
-        "rsi": 50.9,
-        "fade": 43.1,
-        "turn": 56.9,
-        "ret21_pct": -3.87,
-        "delta_ret21_pct": 1.82,
+        "rsi": 47.8,
+        "fade": 57.7,
+        "turn": 42.3,
+        "ret21_pct": -5.3,
+        "delta_ret21_pct": -1.88,
         "prix": {
-          "date": "2026-11-24",
-          "close": -3.4522,
-          "rsi": 50.9,
-          "ret21_pct": -3.87,
-          "ret21_prev_pct": -5.69,
-          "delta_ret21_pct": 1.82,
-          "vol20_ann_pct": 45.75,
-          "vol21_pct": 13.21,
-          "n": 2387
+          "date": "2026-11-27",
+          "close": -3.5004,
+          "rsi": 47.8,
+          "ret21_pct": -5.3,
+          "ret21_prev_pct": -3.42,
+          "delta_ret21_pct": -1.88,
+          "vol20_ann_pct": 42.39,
+          "vol21_pct": 12.24,
+          "n": 2389
         },
         "tickers_ok": [
           {
             "ticker": "CL=F",
-            "last": "2026-11-24",
-            "n": 2387
+            "last": "2026-11-27",
+            "n": 2389
           },
           {
             "ticker": "BZ=F",
-            "last": "2026-11-24",
-            "n": 2388
+            "last": "2026-11-27",
+            "n": 2390
           },
           {
             "ticker": "NG=F",
-            "last": "2026-11-24",
-            "n": 2388
+            "last": "2026-11-27",
+            "n": 2390
           }
         ],
-        "date_prix": "2026-11-24",
-        "sortie": 42.2,
-        "entree": 57.8,
+        "date_prix": "2026-11-27",
+        "sortie": 47.9,
+        "entree": 52.1,
         "sortie_detail": [
           {
             "nom": "sentiment élevé",
-            "value": 35.1,
+            "value": 40.6,
             "poids": 0.4
           },
           {
             "nom": "essoufflement du momentum",
-            "value": 43.1,
+            "value": 57.7,
             "poids": 0.3
           },
           {
             "nom": "RSI élevé",
-            "value": 50.9,
+            "value": 47.8,
             "poids": 0.3
           }
         ],
         "entree_detail": [
           {
             "nom": "sentiment bas",
-            "value": 64.9,
+            "value": 59.4,
             "poids": 0.4
           },
           {
             "nom": "retournement du momentum",
-            "value": 56.9,
+            "value": 42.3,
             "poids": 0.3
           },
           {
             "nom": "RSI bas",
-            "value": 49.1,
+            "value": 52.2,
             "poids": 0.3
           }
         ],
@@ -747,78 +747,78 @@
       {
         "id": "crypto",
         "label": "Crypto",
-        "sentiment": 11.0,
+        "sentiment": 12.0,
         "sentiment_detail": [
           {
             "id": "crypto",
-            "value": 11.0,
+            "value": 12.0,
             "label": "Peur extrême",
-            "date": "2026-11-24"
+            "date": "2026-11-27"
           }
         ],
         "sentiment_note": "Crypto Fear & Greed d'alternative.me (officiel). Momentum : moyenne Bitcoin et Ether.",
-        "rsi": 26.8,
-        "fade": 55.8,
-        "turn": 44.2,
-        "ret21_pct": -24.29,
-        "delta_ret21_pct": -1.53,
+        "rsi": 32.7,
+        "fade": 49.8,
+        "turn": 50.2,
+        "ret21_pct": -20.93,
+        "delta_ret21_pct": 0.06,
         "prix": {
-          "date": "2026-11-24",
-          "close": 889.7665,
-          "rsi": 26.8,
-          "ret21_pct": -24.29,
-          "ret21_prev_pct": -22.76,
-          "delta_ret21_pct": -1.53,
-          "vol20_ann_pct": 45.91,
-          "vol21_pct": 13.25,
-          "n": 3303
+          "date": "2026-11-27",
+          "close": 912.0067,
+          "rsi": 32.7,
+          "ret21_pct": -20.93,
+          "ret21_prev_pct": -20.99,
+          "delta_ret21_pct": 0.06,
+          "vol20_ann_pct": 43.88,
+          "vol21_pct": 12.67,
+          "n": 3306
         },
         "tickers_ok": [
           {
             "ticker": "BTC-USD",
-            "last": "2026-11-24",
-            "n": 3464
+            "last": "2026-11-27",
+            "n": 3467
           },
           {
             "ticker": "ETH-USD",
-            "last": "2026-11-24",
-            "n": 3303
+            "last": "2026-11-27",
+            "n": 3306
           }
         ],
-        "date_prix": "2026-11-24",
-        "sortie": 29.2,
-        "entree": 70.8,
+        "date_prix": "2026-11-27",
+        "sortie": 29.6,
+        "entree": 70.5,
         "sortie_detail": [
           {
             "nom": "sentiment élevé",
-            "value": 11.0,
+            "value": 12.0,
             "poids": 0.4
           },
           {
             "nom": "essoufflement du momentum",
-            "value": 55.8,
+            "value": 49.8,
             "poids": 0.3
           },
           {
             "nom": "RSI élevé",
-            "value": 26.8,
+            "value": 32.7,
             "poids": 0.3
           }
         ],
         "entree_detail": [
           {
             "nom": "sentiment bas",
-            "value": 89.0,
+            "value": 88.0,
             "poids": 0.4
           },
           {
             "nom": "retournement du momentum",
-            "value": 44.2,
+            "value": 50.2,
             "poids": 0.3
           },
           {
             "nom": "RSI bas",
-            "value": 73.2,
+            "value": 67.3,
             "poids": 0.3
           }
         ],
@@ -889,7 +889,7 @@
       {
         "id": "immobilier",
         "label": "Immobilier",
-        "sentiment": 53.9,
+        "sentiment": 59.5,
         "sentiment_detail": [
           {
             "id": "immo:fr",
@@ -899,80 +899,80 @@
           },
           {
             "id": "immo:reit_us",
-            "value": 50.2,
-            "label": "Neutre",
-            "date": "2026-11-24"
+            "value": 56.3,
+            "label": "Avidité",
+            "date": "2026-11-25"
           },
           {
             "id": "immo:reit_eu",
-            "value": 58.6,
+            "value": 69.2,
             "label": "Avidité",
-            "date": "2026-11-24"
+            "date": "2026-11-27"
           }
         ],
         "sentiment_note": "Moyenne de l'indice APEX immobilier France et des sentiments REIT US (VNQ) et Europe (EXI5). Momentum et RSI : uniquement les deux ETF REIT (pas de cours quotidien de l'immobilier physique français).",
-        "rsi": 51.3,
-        "fade": 100.0,
-        "turn": 0.0,
-        "ret21_pct": 1.9,
-        "delta_ret21_pct": -4.86,
+        "rsi": 56.2,
+        "fade": 84.3,
+        "turn": 15.7,
+        "ret21_pct": 3.15,
+        "delta_ret21_pct": -3.02,
         "prix": {
-          "date": "2026-11-24",
-          "close": 96.613,
-          "rsi": 51.3,
-          "ret21_pct": 1.9,
-          "ret21_prev_pct": 6.76,
-          "delta_ret21_pct": -4.86,
-          "vol20_ann_pct": 15.15,
-          "vol21_pct": 4.37,
-          "n": 2345
+          "date": "2026-11-25",
+          "close": 97.5576,
+          "rsi": 56.2,
+          "ret21_pct": 3.15,
+          "ret21_prev_pct": 6.17,
+          "delta_ret21_pct": -3.02,
+          "vol20_ann_pct": 15.25,
+          "vol21_pct": 4.4,
+          "n": 2346
         },
         "tickers_ok": [
           {
             "ticker": "VNQ",
-            "last": "2026-11-24",
-            "n": 2385
+            "last": "2026-11-25",
+            "n": 2386
           },
           {
             "ticker": "EXI5.DE",
-            "last": "2026-11-24",
-            "n": 2409
+            "last": "2026-11-27",
+            "n": 2412
           }
         ],
-        "date_prix": "2026-11-24",
-        "sortie": 67.0,
-        "entree": 33.1,
+        "date_prix": "2026-11-25",
+        "sortie": 66.0,
+        "entree": 34.1,
         "sortie_detail": [
           {
             "nom": "sentiment élevé",
-            "value": 53.9,
+            "value": 59.5,
             "poids": 0.4
           },
           {
             "nom": "essoufflement du momentum",
-            "value": 100.0,
+            "value": 84.3,
             "poids": 0.3
           },
           {
             "nom": "RSI élevé",
-            "value": 51.3,
+            "value": 56.2,
             "poids": 0.3
           }
         ],
         "entree_detail": [
           {
             "nom": "sentiment bas",
-            "value": 46.1,
+            "value": 40.5,
             "poids": 0.4
           },
           {
             "nom": "retournement du momentum",
-            "value": 0.0,
+            "value": 15.7,
             "poids": 0.3
           },
           {
             "nom": "RSI bas",
-            "value": 48.7,
+            "value": 43.8,
             "poids": 0.3
           }
         ],
@@ -986,262 +986,262 @@
     "paire": {
       "from_id": "XLV",
       "from_label": "Santé",
-      "to_id": "XLK",
-      "to_label": "Technologie",
-      "affichage": "Santé → Technologie",
-      "score_combine": 68.6,
-      "from": {
-        "id": "XLV",
-        "label": "Santé",
-        "sortie": 72.6,
-        "entree": 27.5,
-        "sentiment": 66.1,
-        "rsi": 55.5,
-        "fade": 98.2,
-        "turn": 1.8,
-        "ret21_pct": 3.03,
-        "delta_ret21_pct": -6.79,
-        "missing": []
-      },
-      "to": {
-        "id": "XLK",
-        "label": "Technologie",
-        "sortie": 35.5,
-        "entree": 64.5,
-        "sentiment": 19.1,
-        "rsi": 37.8,
-        "fade": 55.0,
-        "turn": 45.0,
-        "ret21_pct": -15.69,
-        "delta_ret21_pct": -1.71,
-        "missing": []
-      },
-      "pourquoi": "Score de sortie le plus élevé côté Santé (Santé : sentiment 66,1 / 100 ; essoufflement 98,2 ; RSI 55,5 ; perf. 21 j +3,03 % (-6,79 pt vs il y a 10 séances)). Score d'entrée le plus élevé côté Technologie (Technologie : sentiment 19,1 / 100 ; momentum pas encore retourné 45,0 ; RSI 37,8 ; perf. 21 j -15,69 % (-1,71 pt vs il y a 10 séances)). Flux ETF non disponibles, non utilisés.",
-      "confiance": "faible",
-      "confiance_detail": "Les scores sont proches (écart mini 0,9 pts) : la paire est peu tranchée.",
-      "ecart_sortie_pts": 2.8,
-      "ecart_entree_pts": 0.9
-    },
-    "alternative": {
-      "from_id": "XLV",
-      "from_label": "Santé",
       "to_id": "XLC",
       "to_label": "Communication",
       "affichage": "Santé → Communication",
-      "score_combine": 68.1,
+      "score_combine": 68.0,
       "from": {
         "id": "XLV",
         "label": "Santé",
-        "sortie": 72.6,
-        "entree": 27.5,
-        "sentiment": 66.1,
-        "rsi": 55.5,
-        "fade": 98.2,
-        "turn": 1.8,
-        "ret21_pct": 3.03,
-        "delta_ret21_pct": -6.79,
+        "sortie": 71.7,
+        "entree": 28.3,
+        "sentiment": 64.2,
+        "rsi": 53.4,
+        "fade": 100.0,
+        "turn": 0.0,
+        "ret21_pct": 2.51,
+        "delta_ret21_pct": -8.86,
         "missing": []
       },
       "to": {
         "id": "XLC",
         "label": "Communication",
-        "sortie": 36.4,
-        "entree": 63.6,
-        "sentiment": 36.7,
-        "rsi": 46.7,
-        "fade": 25.7,
-        "turn": 74.3,
-        "ret21_pct": 0.58,
-        "delta_ret21_pct": 3.89,
+        "sortie": 35.7,
+        "entree": 64.3,
+        "sentiment": 38.3,
+        "rsi": 49.1,
+        "fade": 18.7,
+        "turn": 81.3,
+        "ret21_pct": 1.74,
+        "delta_ret21_pct": 5.02,
         "missing": []
       },
-      "pourquoi": "Score de sortie le plus élevé côté Santé (Santé : sentiment 66,1 / 100 ; essoufflement 98,2 ; RSI 55,5 ; perf. 21 j +3,03 % (-6,79 pt vs il y a 10 séances)). Score d'entrée le plus élevé côté Communication (Communication : sentiment 36,7 / 100 ; retournement 74,3 ; RSI 46,7 ; perf. 21 j +0,58 % (+3,89 pt vs il y a 10 séances)). Flux ETF non disponibles, non utilisés."
+      "pourquoi": "Score de sortie le plus élevé côté Santé (Santé : sentiment 64,2 / 100 ; essoufflement 100,0 ; RSI 53,4 ; perf. 21 j +2,51 % (-8,86 pt vs il y a 10 séances)). Score d'entrée le plus élevé côté Communication (Communication : sentiment 38,3 / 100 ; retournement 81,3 ; RSI 49,1 ; perf. 21 j +1,74 % (+5,02 pt vs il y a 10 séances)). Flux ETF non disponibles, non utilisés.",
+      "confiance": "faible",
+      "confiance_detail": "Les scores sont proches (écart mini 2,4 pts) : la paire est peu tranchée.",
+      "ecart_sortie_pts": 2.4,
+      "ecart_entree_pts": 4.1
+    },
+    "alternative": {
+      "from_id": "XLP",
+      "from_label": "Consommation de base",
+      "to_id": "XLC",
+      "to_label": "Communication",
+      "affichage": "Consommation de base → Communication",
+      "score_combine": 66.8,
+      "from": {
+        "id": "XLP",
+        "label": "Consommation de base",
+        "sortie": 69.3,
+        "entree": 30.7,
+        "sentiment": 72.6,
+        "rsi": 61.3,
+        "fade": 73.0,
+        "turn": 27.0,
+        "ret21_pct": 5.91,
+        "delta_ret21_pct": -2.71,
+        "missing": []
+      },
+      "to": {
+        "id": "XLC",
+        "label": "Communication",
+        "sortie": 35.7,
+        "entree": 64.3,
+        "sentiment": 38.3,
+        "rsi": 49.1,
+        "fade": 18.7,
+        "turn": 81.3,
+        "ret21_pct": 1.74,
+        "delta_ret21_pct": 5.02,
+        "missing": []
+      },
+      "pourquoi": "Score de sortie le plus élevé côté Consommation de base (Consommation de base : sentiment 72,6 / 100 ; essoufflement 73,0 ; RSI 61,3 ; perf. 21 j +5,91 % (-2,71 pt vs il y a 10 séances)). Score d'entrée le plus élevé côté Communication (Communication : sentiment 38,3 / 100 ; retournement 81,3 ; RSI 49,1 ; perf. 21 j +1,74 % (+5,02 pt vs il y a 10 séances)). Flux ETF non disponibles, non utilisés."
     },
     "classement_sortie": [
       {
         "id": "XLV",
         "label": "Santé",
-        "sortie": 72.6
+        "sortie": 71.7
       },
       {
         "id": "XLP",
         "label": "Consommation de base",
-        "sortie": 69.8
+        "sortie": 69.3
       },
       {
         "id": "XLU",
         "label": "Services aux collectivités",
-        "sortie": 66.1
-      },
-      {
-        "id": "XLRE",
-        "label": "Immobilier",
-        "sortie": 63.7
-      },
-      {
-        "id": "XLY",
-        "label": "Consommation discrétionnaire",
-        "sortie": 59.4
-      },
-      {
-        "id": "XLF",
-        "label": "Finance",
-        "sortie": 59.4
+        "sortie": 67.2
       },
       {
         "id": "XLB",
         "label": "Matériaux",
-        "sortie": 58.7
+        "sortie": 63.0
       },
       {
-        "id": "XLE",
-        "label": "Énergie",
-        "sortie": 47.8
+        "id": "XLRE",
+        "label": "Immobilier",
+        "sortie": 62.9
+      },
+      {
+        "id": "XLF",
+        "label": "Finance",
+        "sortie": 61.7
+      },
+      {
+        "id": "XLY",
+        "label": "Consommation discrétionnaire",
+        "sortie": 60.6
       },
       {
         "id": "XLI",
         "label": "Industrie",
-        "sortie": 44.2
+        "sortie": 48.3
       },
       {
-        "id": "XLC",
-        "label": "Communication",
-        "sortie": 36.4
+        "id": "XLE",
+        "label": "Énergie",
+        "sortie": 45.1
       },
       {
         "id": "XLK",
         "label": "Technologie",
-        "sortie": 35.5
+        "sortie": 39.8
+      },
+      {
+        "id": "XLC",
+        "label": "Communication",
+        "sortie": 35.7
       }
     ],
     "classement_entree": [
       {
-        "id": "XLK",
-        "label": "Technologie",
-        "entree": 64.5
-      },
-      {
         "id": "XLC",
         "label": "Communication",
-        "entree": 63.6
+        "entree": 64.3
       },
       {
-        "id": "XLI",
-        "label": "Industrie",
-        "entree": 55.9
+        "id": "XLK",
+        "label": "Technologie",
+        "entree": 60.2
       },
       {
         "id": "XLE",
         "label": "Énergie",
-        "entree": 52.2
+        "entree": 54.9
       },
       {
-        "id": "XLB",
-        "label": "Matériaux",
-        "entree": 41.3
+        "id": "XLI",
+        "label": "Industrie",
+        "entree": 51.7
       },
       {
         "id": "XLY",
         "label": "Consommation discrétionnaire",
-        "entree": 40.7
+        "entree": 39.4
       },
       {
         "id": "XLF",
         "label": "Finance",
-        "entree": 40.6
+        "entree": 38.3
       },
       {
         "id": "XLRE",
         "label": "Immobilier",
-        "entree": 36.3
+        "entree": 37.1
+      },
+      {
+        "id": "XLB",
+        "label": "Matériaux",
+        "entree": 37.0
       },
       {
         "id": "XLU",
         "label": "Services aux collectivités",
-        "entree": 33.9
+        "entree": 32.8
       },
       {
         "id": "XLP",
         "label": "Consommation de base",
-        "entree": 30.2
+        "entree": 30.7
       },
       {
         "id": "XLV",
         "label": "Santé",
-        "entree": 27.5
+        "entree": 28.3
       }
     ],
     "lignes": [
       {
         "id": "XLK",
         "label": "Technologie",
-        "sentiment": 19.1,
+        "sentiment": 19.7,
         "sentiment_detail": [
           {
             "id": "XLK",
-            "value": 19.1,
+            "value": 19.7,
             "label": "Peur extrême",
-            "date": "2026-11-24"
+            "date": "2026-11-25"
           }
         ],
         "sentiment_note": "Sentiment APEX du secteur US Technologie (XLK).",
-        "rsi": 37.8,
-        "fade": 55.0,
-        "turn": 45.0,
-        "ret21_pct": -15.69,
-        "delta_ret21_pct": -1.71,
+        "rsi": 37.0,
+        "fade": 69.5,
+        "turn": 30.5,
+        "ret21_pct": -17.78,
+        "delta_ret21_pct": -6.62,
         "prix": {
-          "date": "2026-11-24",
-          "close": 157.09,
-          "rsi": 37.8,
-          "ret21_pct": -15.69,
-          "ret21_prev_pct": -13.98,
-          "delta_ret21_pct": -1.71,
-          "vol20_ann_pct": 59.01,
-          "vol21_pct": 17.03,
-          "n": 2385
+          "date": "2026-11-25",
+          "close": 155.79,
+          "rsi": 37.0,
+          "ret21_pct": -17.78,
+          "ret21_prev_pct": -11.17,
+          "delta_ret21_pct": -6.62,
+          "vol20_ann_pct": 58.7,
+          "vol21_pct": 16.95,
+          "n": 2386
         },
         "tickers_ok": [
           {
             "ticker": "XLK",
-            "last": "2026-11-24",
-            "n": 2385
+            "last": "2026-11-25",
+            "n": 2386
           }
         ],
-        "date_prix": "2026-11-24",
-        "sortie": 35.5,
-        "entree": 64.5,
+        "date_prix": "2026-11-25",
+        "sortie": 39.8,
+        "entree": 60.2,
         "sortie_detail": [
           {
             "nom": "sentiment élevé",
-            "value": 19.1,
+            "value": 19.7,
             "poids": 0.4
           },
           {
             "nom": "essoufflement du momentum",
-            "value": 55.0,
+            "value": 69.5,
             "poids": 0.3
           },
           {
             "nom": "RSI élevé",
-            "value": 37.8,
+            "value": 37.0,
             "poids": 0.3
           }
         ],
         "entree_detail": [
           {
             "nom": "sentiment bas",
-            "value": 80.9,
+            "value": 80.3,
             "poids": 0.4
           },
           {
             "nom": "retournement du momentum",
-            "value": 45.0,
+            "value": 30.5,
             "poids": 0.3
           },
           {
             "nom": "RSI bas",
-            "value": 62.2,
+            "value": 63.0,
             "poids": 0.3
           }
         ],
@@ -1250,73 +1250,73 @@
       {
         "id": "XLF",
         "label": "Finance",
-        "sentiment": 45.3,
+        "sentiment": 48.8,
         "sentiment_detail": [
           {
             "id": "XLF",
-            "value": 45.3,
+            "value": 48.8,
             "label": "Neutre",
-            "date": "2026-11-24"
+            "date": "2026-11-25"
           }
         ],
         "sentiment_note": "Sentiment APEX du secteur US Finance (XLF).",
-        "rsi": 47.1,
-        "fade": 90.6,
-        "turn": 9.4,
-        "ret21_pct": 0.16,
-        "delta_ret21_pct": -5.72,
+        "rsi": 49.5,
+        "fade": 91.2,
+        "turn": 8.8,
+        "ret21_pct": 1.13,
+        "delta_ret21_pct": -5.82,
         "prix": {
-          "date": "2026-11-24",
-          "close": 56.11,
-          "rsi": 47.1,
-          "ret21_pct": 0.16,
-          "ret21_prev_pct": 5.89,
-          "delta_ret21_pct": -5.72,
-          "vol20_ann_pct": 24.42,
-          "vol21_pct": 7.05,
-          "n": 2385
+          "date": "2026-11-25",
+          "close": 56.51,
+          "rsi": 49.5,
+          "ret21_pct": 1.13,
+          "ret21_prev_pct": 6.95,
+          "delta_ret21_pct": -5.82,
+          "vol20_ann_pct": 24.49,
+          "vol21_pct": 7.07,
+          "n": 2386
         },
         "tickers_ok": [
           {
             "ticker": "XLF",
-            "last": "2026-11-24",
-            "n": 2385
+            "last": "2026-11-25",
+            "n": 2386
           }
         ],
-        "date_prix": "2026-11-24",
-        "sortie": 59.4,
-        "entree": 40.6,
+        "date_prix": "2026-11-25",
+        "sortie": 61.7,
+        "entree": 38.3,
         "sortie_detail": [
           {
             "nom": "sentiment élevé",
-            "value": 45.3,
+            "value": 48.8,
             "poids": 0.4
           },
           {
             "nom": "essoufflement du momentum",
-            "value": 90.6,
+            "value": 91.2,
             "poids": 0.3
           },
           {
             "nom": "RSI élevé",
-            "value": 47.1,
+            "value": 49.5,
             "poids": 0.3
           }
         ],
         "entree_detail": [
           {
             "nom": "sentiment bas",
-            "value": 54.7,
+            "value": 51.2,
             "poids": 0.4
           },
           {
             "nom": "retournement du momentum",
-            "value": 9.4,
+            "value": 8.8,
             "poids": 0.3
           },
           {
             "nom": "RSI bas",
-            "value": 52.9,
+            "value": 50.5,
             "poids": 0.3
           }
         ],
@@ -1325,73 +1325,73 @@
       {
         "id": "XLE",
         "label": "Énergie",
-        "sentiment": 22.4,
+        "sentiment": 24.3,
         "sentiment_detail": [
           {
             "id": "XLE",
-            "value": 22.4,
+            "value": 24.3,
             "label": "Peur extrême",
-            "date": "2026-11-24"
+            "date": "2026-11-25"
           }
         ],
         "sentiment_note": "Sentiment APEX du secteur US Énergie (XLE).",
-        "rsi": 36.1,
-        "fade": 93.5,
-        "turn": 6.5,
-        "ret21_pct": -13.2,
-        "delta_ret21_pct": -7.44,
+        "rsi": 38.6,
+        "fade": 79.2,
+        "turn": 20.8,
+        "ret21_pct": -10.72,
+        "delta_ret21_pct": -5.02,
         "prix": {
-          "date": "2026-11-24",
-          "close": 60.45,
-          "rsi": 36.1,
-          "ret21_pct": -13.2,
-          "ret21_prev_pct": -5.76,
-          "delta_ret21_pct": -7.44,
-          "vol20_ann_pct": 29.61,
-          "vol21_pct": 8.55,
-          "n": 2385
+          "date": "2026-11-25",
+          "close": 60.9,
+          "rsi": 38.6,
+          "ret21_pct": -10.72,
+          "ret21_prev_pct": -5.7,
+          "delta_ret21_pct": -5.02,
+          "vol20_ann_pct": 29.8,
+          "vol21_pct": 8.6,
+          "n": 2386
         },
         "tickers_ok": [
           {
             "ticker": "XLE",
-            "last": "2026-11-24",
-            "n": 2385
+            "last": "2026-11-25",
+            "n": 2386
           }
         ],
-        "date_prix": "2026-11-24",
-        "sortie": 47.8,
-        "entree": 52.2,
+        "date_prix": "2026-11-25",
+        "sortie": 45.1,
+        "entree": 54.9,
         "sortie_detail": [
           {
             "nom": "sentiment élevé",
-            "value": 22.4,
+            "value": 24.3,
             "poids": 0.4
           },
           {
             "nom": "essoufflement du momentum",
-            "value": 93.5,
+            "value": 79.2,
             "poids": 0.3
           },
           {
             "nom": "RSI élevé",
-            "value": 36.1,
+            "value": 38.6,
             "poids": 0.3
           }
         ],
         "entree_detail": [
           {
             "nom": "sentiment bas",
-            "value": 77.6,
+            "value": 75.7,
             "poids": 0.4
           },
           {
             "nom": "retournement du momentum",
-            "value": 6.5,
+            "value": 20.8,
             "poids": 0.3
           },
           {
             "nom": "RSI bas",
-            "value": 63.9,
+            "value": 61.4,
             "poids": 0.3
           }
         ],
@@ -1400,73 +1400,73 @@
       {
         "id": "XLV",
         "label": "Santé",
-        "sentiment": 66.1,
+        "sentiment": 64.2,
         "sentiment_detail": [
           {
             "id": "XLV",
-            "value": 66.1,
+            "value": 64.2,
             "label": "Avidité",
-            "date": "2026-11-24"
+            "date": "2026-11-25"
           }
         ],
         "sentiment_note": "Sentiment APEX du secteur US Santé (XLV).",
-        "rsi": 55.5,
-        "fade": 98.2,
-        "turn": 1.8,
-        "ret21_pct": 3.03,
-        "delta_ret21_pct": -6.79,
+        "rsi": 53.4,
+        "fade": 100.0,
+        "turn": 0.0,
+        "ret21_pct": 2.51,
+        "delta_ret21_pct": -8.86,
         "prix": {
-          "date": "2026-11-24",
-          "close": 184.72,
-          "rsi": 55.5,
-          "ret21_pct": 3.03,
-          "ret21_prev_pct": 9.82,
-          "delta_ret21_pct": -6.79,
-          "vol20_ann_pct": 24.39,
-          "vol21_pct": 7.04,
-          "n": 2385
+          "date": "2026-11-25",
+          "close": 183.68,
+          "rsi": 53.4,
+          "ret21_pct": 2.51,
+          "ret21_prev_pct": 11.37,
+          "delta_ret21_pct": -8.86,
+          "vol20_ann_pct": 24.51,
+          "vol21_pct": 7.08,
+          "n": 2386
         },
         "tickers_ok": [
           {
             "ticker": "XLV",
-            "last": "2026-11-24",
-            "n": 2385
+            "last": "2026-11-25",
+            "n": 2386
           }
         ],
-        "date_prix": "2026-11-24",
-        "sortie": 72.6,
-        "entree": 27.5,
+        "date_prix": "2026-11-25",
+        "sortie": 71.7,
+        "entree": 28.3,
         "sortie_detail": [
           {
             "nom": "sentiment élevé",
-            "value": 66.1,
+            "value": 64.2,
             "poids": 0.4
           },
           {
             "nom": "essoufflement du momentum",
-            "value": 98.2,
+            "value": 100.0,
             "poids": 0.3
           },
           {
             "nom": "RSI élevé",
-            "value": 55.5,
+            "value": 53.4,
             "poids": 0.3
           }
         ],
         "entree_detail": [
           {
             "nom": "sentiment bas",
-            "value": 33.9,
+            "value": 35.8,
             "poids": 0.4
           },
           {
             "nom": "retournement du momentum",
-            "value": 1.8,
+            "value": 0.0,
             "poids": 0.3
           },
           {
             "nom": "RSI bas",
-            "value": 44.5,
+            "value": 46.6,
             "poids": 0.3
           }
         ],
@@ -1475,73 +1475,73 @@
       {
         "id": "XLI",
         "label": "Industrie",
-        "sentiment": 28.4,
+        "sentiment": 31.3,
         "sentiment_detail": [
           {
             "id": "XLI",
-            "value": 28.4,
+            "value": 31.3,
             "label": "Peur",
-            "date": "2026-11-24"
+            "date": "2026-11-25"
           }
         ],
         "sentiment_note": "Sentiment APEX du secteur US Industrie (XLI).",
-        "rsi": 42.5,
-        "fade": 66.8,
-        "turn": 33.2,
-        "ret21_pct": -3.2,
-        "delta_ret21_pct": -2.96,
+        "rsi": 45.0,
+        "fade": 74.4,
+        "turn": 25.6,
+        "ret21_pct": -2.96,
+        "delta_ret21_pct": -4.32,
         "prix": {
-          "date": "2026-11-24",
-          "close": 161.61,
-          "rsi": 42.5,
-          "ret21_pct": -3.2,
-          "ret21_prev_pct": -0.25,
-          "delta_ret21_pct": -2.96,
-          "vol20_ann_pct": 30.58,
-          "vol21_pct": 8.83,
-          "n": 2385
+          "date": "2026-11-25",
+          "close": 162.95,
+          "rsi": 45.0,
+          "ret21_pct": -2.96,
+          "ret21_prev_pct": 1.36,
+          "delta_ret21_pct": -4.32,
+          "vol20_ann_pct": 30.73,
+          "vol21_pct": 8.87,
+          "n": 2386
         },
         "tickers_ok": [
           {
             "ticker": "XLI",
-            "last": "2026-11-24",
-            "n": 2385
+            "last": "2026-11-25",
+            "n": 2386
           }
         ],
-        "date_prix": "2026-11-24",
-        "sortie": 44.2,
-        "entree": 55.9,
+        "date_prix": "2026-11-25",
+        "sortie": 48.3,
+        "entree": 51.7,
         "sortie_detail": [
           {
             "nom": "sentiment élevé",
-            "value": 28.4,
+            "value": 31.3,
             "poids": 0.4
           },
           {
             "nom": "essoufflement du momentum",
-            "value": 66.8,
+            "value": 74.4,
             "poids": 0.3
           },
           {
             "nom": "RSI élevé",
-            "value": 42.5,
+            "value": 45.0,
             "poids": 0.3
           }
         ],
         "entree_detail": [
           {
             "nom": "sentiment bas",
-            "value": 71.6,
+            "value": 68.7,
             "poids": 0.4
           },
           {
             "nom": "retournement du momentum",
-            "value": 33.2,
+            "value": 25.6,
             "poids": 0.3
           },
           {
             "nom": "RSI bas",
-            "value": 57.5,
+            "value": 55.0,
             "poids": 0.3
           }
         ],
@@ -1550,73 +1550,73 @@
       {
         "id": "XLC",
         "label": "Communication",
-        "sentiment": 36.7,
+        "sentiment": 38.3,
         "sentiment_detail": [
           {
             "id": "XLC",
-            "value": 36.7,
+            "value": 38.3,
             "label": "Peur",
-            "date": "2026-11-24"
+            "date": "2026-11-25"
           }
         ],
         "sentiment_note": "Sentiment APEX du secteur US Communication (XLC).",
-        "rsi": 46.7,
-        "fade": 25.7,
-        "turn": 74.3,
-        "ret21_pct": 0.58,
-        "delta_ret21_pct": 3.89,
+        "rsi": 49.1,
+        "fade": 18.7,
+        "turn": 81.3,
+        "ret21_pct": 1.74,
+        "delta_ret21_pct": 5.02,
         "prix": {
-          "date": "2026-11-24",
-          "close": 104.45,
-          "rsi": 46.7,
-          "ret21_pct": 0.58,
-          "ret21_prev_pct": -3.31,
-          "delta_ret21_pct": 3.89,
-          "vol20_ann_pct": 27.71,
-          "vol21_pct": 8.0,
-          "n": 2121
+          "date": "2026-11-25",
+          "close": 105.38,
+          "rsi": 49.1,
+          "ret21_pct": 1.74,
+          "ret21_prev_pct": -3.28,
+          "delta_ret21_pct": 5.02,
+          "vol20_ann_pct": 27.8,
+          "vol21_pct": 8.02,
+          "n": 2122
         },
         "tickers_ok": [
           {
             "ticker": "XLC",
-            "last": "2026-11-24",
-            "n": 2121
+            "last": "2026-11-25",
+            "n": 2122
           }
         ],
-        "date_prix": "2026-11-24",
-        "sortie": 36.4,
-        "entree": 63.6,
+        "date_prix": "2026-11-25",
+        "sortie": 35.7,
+        "entree": 64.3,
         "sortie_detail": [
           {
             "nom": "sentiment élevé",
-            "value": 36.7,
+            "value": 38.3,
             "poids": 0.4
           },
           {
             "nom": "essoufflement du momentum",
-            "value": 25.7,
+            "value": 18.7,
             "poids": 0.3
           },
           {
             "nom": "RSI élevé",
-            "value": 46.7,
+            "value": 49.1,
             "poids": 0.3
           }
         ],
         "entree_detail": [
           {
             "nom": "sentiment bas",
-            "value": 63.3,
+            "value": 61.7,
             "poids": 0.4
           },
           {
             "nom": "retournement du momentum",
-            "value": 74.3,
+            "value": 81.3,
             "poids": 0.3
           },
           {
             "nom": "RSI bas",
-            "value": 53.3,
+            "value": 50.9,
             "poids": 0.3
           }
         ],
@@ -1625,267 +1625,42 @@
       {
         "id": "XLY",
         "label": "Consommation discrétionnaire",
-        "sentiment": 53.2,
+        "sentiment": 52.4,
         "sentiment_detail": [
           {
             "id": "XLY",
-            "value": 53.2,
+            "value": 52.4,
             "label": "Neutre",
-            "date": "2026-11-24"
+            "date": "2026-11-25"
           }
         ],
         "sentiment_note": "Sentiment APEX du secteur US Consommation discrétionnaire (XLY).",
-        "rsi": 52.0,
-        "fade": 74.9,
-        "turn": 25.1,
-        "ret21_pct": 3.03,
-        "delta_ret21_pct": -4.79,
+        "rsi": 51.5,
+        "fade": 80.7,
+        "turn": 19.3,
+        "ret21_pct": 1.77,
+        "delta_ret21_pct": -5.91,
         "prix": {
-          "date": "2026-11-24",
-          "close": 117.72,
-          "rsi": 52.0,
-          "ret21_pct": 3.03,
-          "ret21_prev_pct": 7.82,
-          "delta_ret21_pct": -4.79,
-          "vol20_ann_pct": 33.27,
+          "date": "2026-11-25",
+          "close": 117.49,
+          "rsi": 51.5,
+          "ret21_pct": 1.77,
+          "ret21_prev_pct": 7.68,
+          "delta_ret21_pct": -5.91,
+          "vol20_ann_pct": 33.28,
           "vol21_pct": 9.61,
-          "n": 2385
+          "n": 2386
         },
         "tickers_ok": [
           {
             "ticker": "XLY",
-            "last": "2026-11-24",
-            "n": 2385
+            "last": "2026-11-25",
+            "n": 2386
           }
         ],
-        "date_prix": "2026-11-24",
-        "sortie": 59.4,
-        "entree": 40.7,
-        "sortie_detail": [
-          {
-            "nom": "sentiment élevé",
-            "value": 53.2,
-            "poids": 0.4
-          },
-          {
-            "nom": "essoufflement du momentum",
-            "value": 74.9,
-            "poids": 0.3
-          },
-          {
-            "nom": "RSI élevé",
-            "value": 52.0,
-            "poids": 0.3
-          }
-        ],
-        "entree_detail": [
-          {
-            "nom": "sentiment bas",
-            "value": 46.8,
-            "poids": 0.4
-          },
-          {
-            "nom": "retournement du momentum",
-            "value": 25.1,
-            "poids": 0.3
-          },
-          {
-            "nom": "RSI bas",
-            "value": 48.0,
-            "poids": 0.3
-          }
-        ],
-        "missing": []
-      },
-      {
-        "id": "XLP",
-        "label": "Consommation de base",
-        "sentiment": 70.7,
-        "sentiment_detail": [
-          {
-            "id": "XLP",
-            "value": 70.7,
-            "label": "Avidité",
-            "date": "2026-11-24"
-          }
-        ],
-        "sentiment_note": "Sentiment APEX du secteur US Consommation de base (XLP).",
-        "rsi": 59.9,
-        "fade": 78.6,
-        "turn": 21.4,
-        "ret21_pct": 4.46,
-        "delta_ret21_pct": -3.39,
-        "prix": {
-          "date": "2026-11-24",
-          "close": 91.88,
-          "rsi": 59.9,
-          "ret21_pct": 4.46,
-          "ret21_prev_pct": 7.84,
-          "delta_ret21_pct": -3.39,
-          "vol20_ann_pct": 20.54,
-          "vol21_pct": 5.93,
-          "n": 2385
-        },
-        "tickers_ok": [
-          {
-            "ticker": "XLP",
-            "last": "2026-11-24",
-            "n": 2385
-          }
-        ],
-        "date_prix": "2026-11-24",
-        "sortie": 69.8,
-        "entree": 30.2,
-        "sortie_detail": [
-          {
-            "nom": "sentiment élevé",
-            "value": 70.7,
-            "poids": 0.4
-          },
-          {
-            "nom": "essoufflement du momentum",
-            "value": 78.6,
-            "poids": 0.3
-          },
-          {
-            "nom": "RSI élevé",
-            "value": 59.9,
-            "poids": 0.3
-          }
-        ],
-        "entree_detail": [
-          {
-            "nom": "sentiment bas",
-            "value": 29.3,
-            "poids": 0.4
-          },
-          {
-            "nom": "retournement du momentum",
-            "value": 21.4,
-            "poids": 0.3
-          },
-          {
-            "nom": "RSI bas",
-            "value": 40.1,
-            "poids": 0.3
-          }
-        ],
-        "missing": []
-      },
-      {
-        "id": "XLU",
-        "label": "Services aux collectivités",
-        "sentiment": 57.8,
-        "sentiment_detail": [
-          {
-            "id": "XLU",
-            "value": 57.8,
-            "label": "Avidité",
-            "date": "2026-11-24"
-          }
-        ],
-        "sentiment_note": "Sentiment APEX du secteur US Services aux collectivités (XLU).",
-        "rsi": 54.2,
-        "fade": 89.1,
-        "turn": 10.9,
-        "ret21_pct": 2.0,
-        "delta_ret21_pct": -3.05,
-        "prix": {
-          "date": "2026-11-24",
-          "close": 43.4,
-          "rsi": 54.2,
-          "ret21_pct": 2.0,
-          "ret21_prev_pct": 5.04,
-          "delta_ret21_pct": -3.05,
-          "vol20_ann_pct": 13.52,
-          "vol21_pct": 3.9,
-          "n": 2385
-        },
-        "tickers_ok": [
-          {
-            "ticker": "XLU",
-            "last": "2026-11-24",
-            "n": 2385
-          }
-        ],
-        "date_prix": "2026-11-24",
-        "sortie": 66.1,
-        "entree": 33.9,
-        "sortie_detail": [
-          {
-            "nom": "sentiment élevé",
-            "value": 57.8,
-            "poids": 0.4
-          },
-          {
-            "nom": "essoufflement du momentum",
-            "value": 89.1,
-            "poids": 0.3
-          },
-          {
-            "nom": "RSI élevé",
-            "value": 54.2,
-            "poids": 0.3
-          }
-        ],
-        "entree_detail": [
-          {
-            "nom": "sentiment bas",
-            "value": 42.2,
-            "poids": 0.4
-          },
-          {
-            "nom": "retournement du momentum",
-            "value": 10.9,
-            "poids": 0.3
-          },
-          {
-            "nom": "RSI bas",
-            "value": 45.8,
-            "poids": 0.3
-          }
-        ],
-        "missing": []
-      },
-      {
-        "id": "XLRE",
-        "label": "Immobilier",
-        "sentiment": 52.4,
-        "sentiment_detail": [
-          {
-            "id": "XLRE",
-            "value": 52.4,
-            "label": "Neutre",
-            "date": "2026-11-24"
-          }
-        ],
-        "sentiment_note": "Sentiment APEX du secteur US Immobilier (XLRE).",
-        "rsi": 51.3,
-        "fade": 91.1,
-        "turn": 8.9,
-        "ret21_pct": 1.54,
-        "delta_ret21_pct": -4.8,
-        "prix": {
-          "date": "2026-11-24",
-          "close": 43.46,
-          "rsi": 51.3,
-          "ret21_pct": 1.54,
-          "ret21_prev_pct": 6.35,
-          "delta_ret21_pct": -4.8,
-          "vol20_ann_pct": 20.22,
-          "vol21_pct": 5.84,
-          "n": 2385
-        },
-        "tickers_ok": [
-          {
-            "ticker": "XLRE",
-            "last": "2026-11-24",
-            "n": 2385
-          }
-        ],
-        "date_prix": "2026-11-24",
-        "sortie": 63.7,
-        "entree": 36.3,
+        "date_prix": "2026-11-25",
+        "sortie": 60.6,
+        "entree": 39.4,
         "sortie_detail": [
           {
             "nom": "sentiment élevé",
@@ -1894,12 +1669,12 @@
           },
           {
             "nom": "essoufflement du momentum",
-            "value": 91.1,
+            "value": 80.7,
             "poids": 0.3
           },
           {
             "nom": "RSI élevé",
-            "value": 51.3,
+            "value": 51.5,
             "poids": 0.3
           }
         ],
@@ -1911,12 +1686,237 @@
           },
           {
             "nom": "retournement du momentum",
-            "value": 8.9,
+            "value": 19.3,
             "poids": 0.3
           },
           {
             "nom": "RSI bas",
-            "value": 48.7,
+            "value": 48.5,
+            "poids": 0.3
+          }
+        ],
+        "missing": []
+      },
+      {
+        "id": "XLP",
+        "label": "Consommation de base",
+        "sentiment": 72.6,
+        "sentiment_detail": [
+          {
+            "id": "XLP",
+            "value": 72.6,
+            "label": "Avidité",
+            "date": "2026-11-25"
+          }
+        ],
+        "sentiment_note": "Sentiment APEX du secteur US Consommation de base (XLP).",
+        "rsi": 61.3,
+        "fade": 73.0,
+        "turn": 27.0,
+        "ret21_pct": 5.91,
+        "delta_ret21_pct": -2.71,
+        "prix": {
+          "date": "2026-11-25",
+          "close": 92.3,
+          "rsi": 61.3,
+          "ret21_pct": 5.91,
+          "ret21_prev_pct": 8.62,
+          "delta_ret21_pct": -2.71,
+          "vol20_ann_pct": 20.42,
+          "vol21_pct": 5.9,
+          "n": 2386
+        },
+        "tickers_ok": [
+          {
+            "ticker": "XLP",
+            "last": "2026-11-25",
+            "n": 2386
+          }
+        ],
+        "date_prix": "2026-11-25",
+        "sortie": 69.3,
+        "entree": 30.7,
+        "sortie_detail": [
+          {
+            "nom": "sentiment élevé",
+            "value": 72.6,
+            "poids": 0.4
+          },
+          {
+            "nom": "essoufflement du momentum",
+            "value": 73.0,
+            "poids": 0.3
+          },
+          {
+            "nom": "RSI élevé",
+            "value": 61.3,
+            "poids": 0.3
+          }
+        ],
+        "entree_detail": [
+          {
+            "nom": "sentiment bas",
+            "value": 27.4,
+            "poids": 0.4
+          },
+          {
+            "nom": "retournement du momentum",
+            "value": 27.0,
+            "poids": 0.3
+          },
+          {
+            "nom": "RSI bas",
+            "value": 38.7,
+            "poids": 0.3
+          }
+        ],
+        "missing": []
+      },
+      {
+        "id": "XLU",
+        "label": "Services aux collectivités",
+        "sentiment": 59.6,
+        "sentiment_detail": [
+          {
+            "id": "XLU",
+            "value": 59.6,
+            "label": "Avidité",
+            "date": "2026-11-25"
+          }
+        ],
+        "sentiment_note": "Sentiment APEX du secteur US Services aux collectivités (XLU).",
+        "rsi": 56.5,
+        "fade": 87.9,
+        "turn": 12.1,
+        "ret21_pct": 1.77,
+        "delta_ret21_pct": -2.88,
+        "prix": {
+          "date": "2026-11-25",
+          "close": 43.61,
+          "rsi": 56.5,
+          "ret21_pct": 1.77,
+          "ret21_prev_pct": 4.66,
+          "delta_ret21_pct": -2.88,
+          "vol20_ann_pct": 13.17,
+          "vol21_pct": 3.8,
+          "n": 2386
+        },
+        "tickers_ok": [
+          {
+            "ticker": "XLU",
+            "last": "2026-11-25",
+            "n": 2386
+          }
+        ],
+        "date_prix": "2026-11-25",
+        "sortie": 67.2,
+        "entree": 32.8,
+        "sortie_detail": [
+          {
+            "nom": "sentiment élevé",
+            "value": 59.6,
+            "poids": 0.4
+          },
+          {
+            "nom": "essoufflement du momentum",
+            "value": 87.9,
+            "poids": 0.3
+          },
+          {
+            "nom": "RSI élevé",
+            "value": 56.5,
+            "poids": 0.3
+          }
+        ],
+        "entree_detail": [
+          {
+            "nom": "sentiment bas",
+            "value": 40.4,
+            "poids": 0.4
+          },
+          {
+            "nom": "retournement du momentum",
+            "value": 12.1,
+            "poids": 0.3
+          },
+          {
+            "nom": "RSI bas",
+            "value": 43.5,
+            "poids": 0.3
+          }
+        ],
+        "missing": []
+      },
+      {
+        "id": "XLRE",
+        "label": "Immobilier",
+        "sentiment": 57.6,
+        "sentiment_detail": [
+          {
+            "id": "XLRE",
+            "value": 57.6,
+            "label": "Avidité",
+            "date": "2026-11-25"
+          }
+        ],
+        "sentiment_note": "Sentiment APEX du secteur US Immobilier (XLRE).",
+        "rsi": 54.9,
+        "fade": 78.0,
+        "turn": 22.0,
+        "ret21_pct": 3.35,
+        "delta_ret21_pct": -3.25,
+        "prix": {
+          "date": "2026-11-25",
+          "close": 43.86,
+          "rsi": 54.9,
+          "ret21_pct": 3.35,
+          "ret21_prev_pct": 6.6,
+          "delta_ret21_pct": -3.25,
+          "vol20_ann_pct": 20.14,
+          "vol21_pct": 5.81,
+          "n": 2386
+        },
+        "tickers_ok": [
+          {
+            "ticker": "XLRE",
+            "last": "2026-11-25",
+            "n": 2386
+          }
+        ],
+        "date_prix": "2026-11-25",
+        "sortie": 62.9,
+        "entree": 37.1,
+        "sortie_detail": [
+          {
+            "nom": "sentiment élevé",
+            "value": 57.6,
+            "poids": 0.4
+          },
+          {
+            "nom": "essoufflement du momentum",
+            "value": 78.0,
+            "poids": 0.3
+          },
+          {
+            "nom": "RSI élevé",
+            "value": 54.9,
+            "poids": 0.3
+          }
+        ],
+        "entree_detail": [
+          {
+            "nom": "sentiment bas",
+            "value": 42.4,
+            "poids": 0.4
+          },
+          {
+            "nom": "retournement du momentum",
+            "value": 22.0,
+            "poids": 0.3
+          },
+          {
+            "nom": "RSI bas",
+            "value": 45.1,
             "poids": 0.3
           }
         ],
@@ -1925,73 +1925,73 @@
       {
         "id": "XLB",
         "label": "Matériaux",
-        "sentiment": 38.7,
+        "sentiment": 45.0,
         "sentiment_detail": [
           {
             "id": "XLB",
-            "value": 38.7,
-            "label": "Peur",
-            "date": "2026-11-24"
+            "value": 45.0,
+            "label": "Neutre",
+            "date": "2026-11-25"
           }
         ],
         "sentiment_note": "Sentiment APEX du secteur US Matériaux (XLB).",
-        "rsi": 44.1,
-        "fade": 100.0,
-        "turn": 0.0,
-        "ret21_pct": -2.36,
-        "delta_ret21_pct": -9.25,
+        "rsi": 50.4,
+        "fade": 99.7,
+        "turn": 0.3,
+        "ret21_pct": -1.1,
+        "delta_ret21_pct": -7.74,
         "prix": {
-          "date": "2026-11-24",
-          "close": 50.17,
-          "rsi": 44.1,
-          "ret21_pct": -2.36,
-          "ret21_prev_pct": 6.9,
-          "delta_ret21_pct": -9.25,
-          "vol20_ann_pct": 25.88,
-          "vol21_pct": 7.47,
-          "n": 2385
+          "date": "2026-11-25",
+          "close": 51.21,
+          "rsi": 50.4,
+          "ret21_pct": -1.1,
+          "ret21_prev_pct": 6.64,
+          "delta_ret21_pct": -7.74,
+          "vol20_ann_pct": 26.99,
+          "vol21_pct": 7.79,
+          "n": 2386
         },
         "tickers_ok": [
           {
             "ticker": "XLB",
-            "last": "2026-11-24",
-            "n": 2385
+            "last": "2026-11-25",
+            "n": 2386
           }
         ],
-        "date_prix": "2026-11-24",
-        "sortie": 58.7,
-        "entree": 41.3,
+        "date_prix": "2026-11-25",
+        "sortie": 63.0,
+        "entree": 37.0,
         "sortie_detail": [
           {
             "nom": "sentiment élevé",
-            "value": 38.7,
+            "value": 45.0,
             "poids": 0.4
           },
           {
             "nom": "essoufflement du momentum",
-            "value": 100.0,
+            "value": 99.7,
             "poids": 0.3
           },
           {
             "nom": "RSI élevé",
-            "value": 44.1,
+            "value": 50.4,
             "poids": 0.3
           }
         ],
         "entree_detail": [
           {
             "nom": "sentiment bas",
-            "value": 61.3,
+            "value": 55.0,
             "poids": 0.4
           },
           {
             "nom": "retournement du momentum",
-            "value": 0.0,
+            "value": 0.3,
             "poids": 0.3
           },
           {
             "nom": "RSI bas",
-            "value": 55.9,
+            "value": 49.6,
             "poids": 0.3
           }
         ],

@@ -5,15 +5,15 @@
   "fcf_margin": 8.51,
   "roe": 8.11,
   "current": 4.092,
-  "eps_0y": -43.98,
-  "eps_1y": -18.72,
-  "rev_0y": -24.85,
-  "rev_1y": -8.44
+  "eps_0y": -45.47,
+  "eps_1y": -16.51,
+  "rev_0y": -24.63,
+  "rev_1y": -8.71
  },
  "industry": "Solar",
  "sector": "Technology",
  "source": "Yahoo Finance key-statistics + earnings/revenue estimate",
  "url": "https://finance.yahoo.com/quote/ENPH/key-statistics/",
- "retrieved": "2026-11-25 16:43 Europe/Paris",
+ "retrieved": "2026-11-27 13:31 Europe/Paris",
  "yahoo": "ENPH"
 }

@@ -1,577 +1,359 @@
 {
  "avant_apres": {
   "metaux": {
-   "XETR:GLDA": [
-    145,
-    145
+   "LSE:IGLN": [
+    170,
+    180
    ],
    "OANDA:XAUUSD": [
-    106,
-    106
-   ],
-   "XETR:XAD5": [
-    126,
-    126
-   ],
-   "XETR:8PSG": [
-    135,
-    135
-   ],
-   "XETR:4GLD": [
-    135,
-    135
-   ],
-   "LSE:IGLN": [
-    145,
-    145
-   ],
-   "LSE:PHGP": [
-    127,
-    127
+    null,
+    170
    ],
    "NASDAQ:RGLD": [
-    120,
-    120
+    135,
+    125
    ],
    "NYSE:FNV": [
-    110,
-    110
-   ],
-   "XETR:XAD6": [
-    157,
-    157
-   ],
-   "OANDA:XAGUSD": [
-    164,
-    164
-   ],
-   "XETR:8PSB": [
-    166,
-    166
-   ],
-   "LSE:PHAG": [
-    166,
-    166
+    125,
+    115
    ],
    "LSE:ISLN": [
-    175,
-    175
+    185,
+    204
+   ],
+   "OANDA:XAGUSD": [
+    null,
+    250
    ],
    "NYSE:AG": [
-    170,
-    170
-   ],
-   "NYSE:PAAS": [
-    190,
-    190
-   ],
-   "LSE:IPLT": [
-    146,
-    146
-   ],
-   "OANDA:XPTUSD": [
-    144,
-    144
-   ],
-   "XETR:8PSA": [
-    146,
-    146
-   ],
-   "XETR:XPPT": [
-    137,
-    137
-   ],
-   "XETR:XAD3": [
-    137,
-    137
-   ],
-   "EURONEXT:PHPT": [
-    null,
-    137
-   ],
-   "NYSE:SBSW": [
-    170,
-    170
-   ],
-   "LSE:IPDM": [
-    192,
-    192
-   ],
-   "OANDA:XPDUSD": [
-    200,
+    210,
     200
    ],
-   "XETR:8PSC": [
-    192,
-    192
+   "NYSE:PAAS": [
+    229,
+    219
    ],
-   "EURONEXT:PHPD": [
-    173,
-    173
+   "LSE:IPLT": [
+    158,
+    187
+   ],
+   "OANDA:XPTUSD": [
+    null,
+    233
+   ],
+   "NYSE:SBSW": [
+    196,
+    196
+   ],
+   "LSE:IPDM": [
+    172,
+    217
+   ],
+   "OANDA:XPDUSD": [
+    null,
+    250
    ]
   },
   "metaux_un_etc": {
    "Or": [
     null,
-    135
+    180
    ],
    "Argent": [
     null,
-    175
+    204
    ],
    "Platine": [
     null,
-    146
+    187
    ],
    "Palladium": [
     null,
-    192
+    217
    ]
   },
   "obligations": {
    "XETR:IUSU": [
-    110,
-    110
-   ],
-   "XETR:2B7S": [
-    120,
-    120
-   ],
-   "XETR:TRD3": [
-    120,
-    120
-   ],
-   "XETR:JA13": [
-    100,
-    100
-   ],
-   "XETR:IS04": [
-    160,
-    160
-   ],
-   "XETR:SPPX": [
-    140,
-    140
-   ],
-   "XETR:DJAD": [
-    120,
-    120
-   ],
-   "XETR:XUTL": [
-    130,
-    130
-   ],
-   "XETR:EUNH": [
-    130,
-    130
-   ],
-   "XETR:XGLE": [
-    110,
-    110
-   ],
-   "XETR:PRAR": [
-    130,
-    130
-   ],
-   "XETR:SECA": [
-    130,
-    130
-   ],
-   "EURONEXT:IFRB": [
-    170,
-    170
-   ],
-   "XETR:IBCD": [
-    110,
-    110
-   ],
-   "XETR:PRAP": [
-    90,
-    90
-   ],
-   "XETR:XDGU": [
-    150,
-    150
-   ],
-   "XETR:GCRE": [
-    90,
-    90
-   ],
-   "XETR:SYBN": [
-    140,
-    140
-   ],
-   "XETR:EUN5": [
-    110,
-    110
-   ],
-   "XETR:D5BG": [
-    90,
-    90
-   ],
-   "XETR:PR1C": [
-    100,
-    100
-   ],
-   "XETR:JEBE": [
-    80,
-    80
-   ],
-   "XETR:SYBC": [
-    110,
-    110
-   ],
-   "XETR:XUHY": [
-    100,
-    100
-   ],
-   "XETR:XHYG": [
-    150,
-    150
-   ],
-   "XETR:EH1Y": [
-    130,
-    130
-   ],
-   "XETR:CBU1": [
-    110,
-    110
-   ],
-   "XETR:AEHY": [
-    120,
-    120
-   ],
-   "XETR:TIUP": [
-    90,
-    90
-   ],
-   "EURONEXT:IBCI": [
-    150,
-    150
-   ],
-   "XETR:LYQ7": [
-    150,
-    150
-   ],
-   "XETR:IBC5": [
-    150,
-    150
-   ],
-   "XETR:XEIN": [
-    150,
-    150
-   ],
-   "XETR:IUS7": [
-    110,
-    110
-   ],
-   "XETR:XUEM": [
-    120,
-    120
-   ],
-   "XETR:XEMB": [
-    120,
-    120
-   ],
-   "XETR:ENDH": [
-    150,
-    150
-   ],
-   "EURONEXT:EMBH": [
-    110,
-    110
-   ],
-   "XETR:PEML": [
-    70,
+    32.0,
     70
    ],
-   "XETR:IS0L": [
-    110,
-    110
+   "XETR:2B7S": [
+    27.0,
+    90
    ],
-   "XETR:X03G": [
-    130,
-    130
+   "XETR:TRD3": [
+    31.0,
+    90
    ],
-   "XETR:EXHD": [
-    110,
-    110
+   "XETR:JA13": [
+    9.0,
+    70
    ],
-   "XETR:EXHC": [
-    120,
+   "XETR:IS04": [
+    46.0,
+    90
+   ],
+   "XETR:SPPX": [
+    28.0,
+    70
+   ],
+   "XETR:DJAD": [
+    25.0,
+    80
+   ],
+   "XETR:XUTL": [
+    30.0,
+    60
+   ],
+   "XETR:EUNH": [
+    56.0,
+    91
+   ],
+   "XETR:XGLE": [
+    46.0,
+    71
+   ],
+   "XETR:PRAR": [
+    76.0,
+    90
+   ],
+   "XETR:SECA": [
+    76.0,
+    90
+   ],
+   "EURONEXT:IFRB": [
+    57.0,
+    112
+   ],
+   "XETR:IBCD": [
+    40.0,
+    70
+   ],
+   "XETR:PRAP": [
+    25.0,
+    60
+   ],
+   "XETR:XDGU": [
+    35.0,
     120
    ],
+   "XETR:GCRE": [
+    25.0,
+    60
+   ],
+   "XETR:SYBN": [
+    53.0,
+    90
+   ],
+   "XETR:EUN5": [
+    43.0,
+    71
+   ],
+   "XETR:D5BG": [
+    39.0,
+    50
+   ],
+   "XETR:PR1C": [
+    74.0,
+    60
+   ],
+   "XETR:JEBE": [
+    58.0,
+    41
+   ],
+   "XETR:SYBC": [
+    75.0,
+    71
+   ],
+   "XETR:XUHY": [
+    48.0,
+    80
+   ],
+   "XETR:XHYG": [
+    75.0,
+    132
+   ],
+   "XETR:EH1Y": [
+    74.0,
+    102
+   ],
+   "XETR:CBU1": [
+    59.0,
+    91
+   ],
+   "XETR:AEHY": [
+    65.0,
+    101
+   ],
+   "XETR:TIUP": [
+    39.0,
+    60
+   ],
+   "EURONEXT:IBCI": [
+    49.0,
+    122
+   ],
+   "XETR:LYQ7": [
+    55.0,
+    111
+   ],
+   "XETR:IBC5": [
+    77.0,
+    121
+   ],
+   "XETR:XEIN": [
+    54.0,
+    122
+   ],
+   "XETR:IUS7": [
+    47.0,
+    80
+   ],
+   "XETR:XUEM": [
+    55.0,
+    100
+   ],
+   "XETR:XEMB": [
+    43.0,
+    92
+   ],
+   "XETR:ENDH": [
+    50.0,
+    100
+   ],
+   "EURONEXT:EMBH": [
+    43.0,
+    81
+   ],
+   "XETR:PEML": [
+    37.0,
+    50
+   ],
+   "XETR:IS0L": [
+    49.0,
+    60
+   ],
+   "XETR:X03G": [
+    76.0,
+    80
+   ],
+   "XETR:EXHD": [
+    53.0,
+    61
+   ],
+   "XETR:EXHC": [
+    75.0,
+    70
+   ],
    "XETR:EXHA": [
-    110,
-    110
+    56.0,
+    60
    ],
    "XETR:EXX6": [
-    110,
-    110
+    48.0,
+    61
    ]
   },
   "energie": {
    "NYMEX:CL1!": [
-    40,
-    40
+    null,
+    35
    ],
    "TVC:UKOIL": [
-    40,
-    40
+    null,
+    33
    ],
    "NYMEX:HO1!": [
-    30,
-    30
+    null,
+    22
    ],
    "NYMEX:RB1!": [
-    100,
-    100
+    null,
+    105
    ],
-   "EURONEXT:TTE": [
-    100,
-    100
-   ],
-   "NYSE:XOM": [
-    60,
-    60
-   ],
-   "NYSE:CVX": [
-    90,
+   "LSE:CRUD": [
+    55.0,
     90
    ],
-   "NYSE:COP": [
-    90,
-    90
-   ],
-   "NYSE:EOG": [
-    110,
-    110
-   ],
-   "NYSE:OXY": [
-    110,
-    110
-   ],
-   "NYSE:VLO": [
-    110,
-    110
-   ],
-   "NYSE:DVN": [
-    120,
-    120
-   ],
-   "NASDAQ:FANG": [
-    70,
+   "XETR:OOEA": [
+    43.0,
     70
    ],
-   "AMEX:IMO": [
-    80,
-    80
+   "NYMEX:NG1!": [
+    null,
+    30
    ],
-   "NYSE:SOBO": [
-    110,
-    110
+   "XETR:EGAS": [
+    45.0,
+    10
    ],
-   "XETR:BNQ9": [
-    90,
-    90
-   ],
-   "NYSE:WMB": [
-    90,
-    90
-   ],
-   "NYSE:KMI": [
-    70,
-    70
-   ],
-   "NYSE:OKE": [
-    60,
-    60
-   ],
-   "NYSE:TRGP": [
-    60,
-    60
-   ],
-   "NYSE:ENB": [
-    80,
-    80
-   ],
-   "NYSE:TRP": [
-    70,
-    70
-   ],
-   "NYSE:PBA": [
-    70,
-    70
-   ],
-   "EURONEXT:GTT": [
-    140,
-    140
-   ],
-   "NYSE:NEE": [
-    70,
-    70
-   ],
-   "NYSE:VST": [
-    130,
-    130
-   ],
-   "NYSE:ETR": [
-    50,
-    50
-   ],
-   "NYSE:AWK": [
-    50,
-    50
-   ],
-   "NYSE:SO": [
-    70,
-    70
-   ],
-   "NYSE:DUK": [
-    60,
-    60
-   ],
-   "NASDAQ:XEL": [
-    50,
-    50
-   ],
-   "NASDAQ:AEP": [
-    70,
-    70
-   ],
-   "XETR:EOAN": [
-    90,
-    90
-   ],
-   "XETR:RWE": [
-    40,
-    40
-   ],
-   "EURONEXT:ENGI": [
-    70,
-    70
-   ],
-   "NYSE:FTS": [
-    50,
-    50
-   ],
-   "NYSE:AQN": [
-    90,
-    90
-   ],
-   "NYSE:BEPC": [
-    100,
-    100
-   ],
-   "NASDAQ:ENPH": [
-    140,
-    140
-   ],
-   "NASDAQ:CSIQ": [
-    100,
-    100
-   ],
-   "XETR:ENR": [
-    140,
-    140
-   ],
-   "XETR:URNU": [
-    140,
-    140
-   ],
-   "XETR:U3O8": [
-    140,
-    140
-   ],
-   "NYSE:CCJ": [
-    120,
-    120
-   ],
-   "NASDAQ:CEG": [
-    80,
-    80
-   ],
-   "NASDAQ:BLDP": [
-    120,
-    120
-   ],
-   "NYSE:BTU": [
-    130,
-    130
-   ],
-   "XETR:XDW0": [
-    100,
-    100
-   ],
-   "XETR:ZPDU": [
-    90,
+   "LSE:NGAS": [
+    54.0,
     90
    ]
   },
   "devises": {
    "USD": [
-    60,
-    60
+    22.0,
+    50
    ],
    "JPY": [
-    70,
-    70
-   ],
-   "GBP": [
-    60,
+    50.0,
     60
    ],
+   "GBP": [
+    44.0,
+    50
+   ],
    "CHF": [
-    70,
-    70
+    27.0,
+    60
    ],
    "AUD": [
-    100,
-    100
+    59.0,
+    91
    ],
    "CAD": [
-    100,
-    100
+    59.0,
+    90
    ],
    "KRW": [
-    100,
-    100
-   ]
-  },
-  "etf_devise": {
-   "LSE:AUCP": [
-    119,
-    119
-   ],
-   "SIX:AUCO": [
-    126,
-    126
-   ],
-   "ASX:SEMI": [
-    144,
-    144
-   ],
-   "TSX:XCHP": [
-    125,
-    125
+    30.0,
+    90
    ]
   },
   "epargne": {
    "livret_a": [
     null,
-    60
+    90
+   ],
+   "ldds": [
+    null,
+    90
    ],
    "lep": [
+    null,
+    120
+   ],
+   "livret_jeune": [
+    null,
+    90
+   ],
+   "pel": [
+    null,
+    70
+   ],
+   "cel": [
     null,
     90
    ],
    "revolut-epargne-eur": [
     null,
-    90
+    120
    ],
    "revolut-mmf-usd": [
     null,
-    30
+    90
    ]
   },
   "immobilier": {
@@ -584,24 +366,24 @@
  "nc": {
   "metaux_un_etc": {
    "Or": [
-    "retenu XETR:8PSG (Revolut et XTB)",
-    "retirés GLDA, XAD5, 4GLD, IGLN, PHGP",
+    "retenu LSE:IGLN (XTB)",
+    "retirés aucun",
     "introuvables Revolut/XTB : 0"
    ],
    "Argent": [
     "retenu LSE:ISLN (XTB)",
-    "retirés XAD6, 8PSB",
-    "introuvables Revolut/XTB : 1"
+    "retirés aucun",
+    "introuvables Revolut/XTB : 0"
    ],
    "Platine": [
     "retenu LSE:IPLT (XTB)",
     "retirés aucun",
-    "introuvables Revolut/XTB : 4"
+    "introuvables Revolut/XTB : 0"
    ],
    "Palladium": [
     "retenu LSE:IPDM (XTB)",
-    "retirés PHPD",
-    "introuvables Revolut/XTB : 1"
+    "retirés aucun",
+    "introuvables Revolut/XTB : 0"
    ]
   },
   "obligations": {
@@ -662,34 +444,6 @@
     "Frais courants ≤ 0,15 %",
     "Encours ≥ 500 M€",
     "Ancienneté ≥ 5 ans"
-   ]
-  },
-  "energie": {
-   "XETR:BNQ9": [
-    "Au moins 30 lignes"
-   ],
-   "NYSE:BEPC": [
-    "PER < 12"
-   ],
-   "NASDAQ:CSIQ": [
-    "PER < 12"
-   ],
-   "XETR:URNU": [
-    "Au moins 30 lignes",
-    "Cycle uranium : prix spot sous sa moyenne 5 ans"
-   ],
-   "XETR:U3O8": [
-    "Cycle uranium : prix spot sous sa moyenne 5 ans"
-   ],
-   "NYSE:CCJ": [
-    "Cycle uranium : prix spot sous sa moyenne 5 ans"
-   ],
-   "NASDAQ:BLDP": [
-    "PER < 12",
-    "Dette nette / EBITDA < 2"
-   ],
-   "NYSE:BTU": [
-    "PER < 12"
    ]
   },
   "devises": {
@@ -726,350 +480,5 @@
     "Taux de logements vacants < 8 %"
    ]
   }
- },
- "t506u": {
-  "date": "2026-11-24",
-  "objet": "Toutes les notes sur −50..250 (audit du site)",
-  "avant_apres": {
-   "energie": {
-    "NYMEX:CL1!": [
-     null,
-     40
-    ],
-    "TVC:UKOIL": [
-     null,
-     40
-    ],
-    "NYMEX:HO1!": [
-     null,
-     30
-    ],
-    "NYMEX:RB1!": [
-     null,
-     100
-    ],
-    "XETR:BNQ9": [
-     null,
-     90
-    ]
-   },
-   "metaux": {
-    "EURONEXT:PHPT": [
-     null,
-     137
-    ]
-   }
-  },
-  "actions_hors_paniers": "CAC 40 (EURONEXT:CAC) et Fanuc (TSE:6954) : voir data/fond250/harmonise250_t506u.json",
-  "nc": {
-   "XETR:BNQ9": [
-    "Au moins 30 lignes"
-   ]
-  }
- },
- "t507u": {
-  "date": "2026-11-24",
-  "objet": "Un seul ETC physique par métal",
-  "retenus": {
-   "Or": [
-    null,
-    135
-   ],
-   "Argent": [
-    null,
-    175
-   ],
-   "Platine": [
-    null,
-    146
-   ],
-   "Palladium": [
-    null,
-    192
-   ]
-  },
-  "detail": {
-   "Or": [
-    "retenu XETR:8PSG",
-    "retirés GLDA, XAD5, 4GLD, IGLN, PHGP"
-   ],
-   "Argent": [
-    "retenu LSE:ISLN",
-    "retirés XAD6, 8PSB, PHAG"
-   ],
-   "Platine": [
-    "retenu XETR:8PSA",
-    "retirés IPLT, XPPT, XAD3, PHPT"
-   ],
-   "Palladium": [
-    "retenu XETR:8PSC",
-    "retirés IPDM, PHPD"
-   ]
-  },
-  "etc": {
-   "Or": {
-    "retenu": {
-     "tv": "XETR:8PSG",
-     "isin": "IE00B579F325",
-     "note": 135,
-     "qualite_etc": 45,
-     "ter": 0.12,
-     "devise": "EUR"
-    },
-    "retires": [
-     {
-      "tv": "XETR:GLDA",
-      "isin": "FR0013416716",
-      "note": 145,
-      "qualite_etc": 45,
-      "ter": 0.12,
-      "devise": "EUR"
-     },
-     {
-      "tv": "XETR:XAD5",
-      "isin": "DE000A1E0HR8",
-      "note": 126,
-      "qualite_etc": 36,
-      "ter": 0.25,
-      "devise": "EUR"
-     },
-     {
-      "tv": "XETR:4GLD",
-      "isin": "DE000A0S9GB0",
-      "note": 135,
-      "qualite_etc": 45,
-      "ter": 0.36,
-      "devise": "EUR"
-     },
-     {
-      "tv": "LSE:IGLN",
-      "isin": "IE00B4ND3602",
-      "note": 145,
-      "qualite_etc": 45,
-      "ter": 0.12,
-      "devise": "USD"
-     },
-     {
-      "tv": "LSE:PHGP",
-      "isin": "JE00B1VS3770",
-      "note": 127,
-      "qualite_etc": 27,
-      "ter": 0.39,
-      "devise": "GBp"
-     }
-    ]
-   },
-   "Argent": {
-    "retenu": {
-     "tv": "LSE:ISLN",
-     "isin": "IE00B4NCWG09",
-     "note": 175,
-     "qualite_etc": 36,
-     "ter": 0.2,
-     "devise": "USD"
-    },
-    "retires": [
-     {
-      "tv": "XETR:XAD6",
-      "isin": "DE000A1E0HS6",
-      "note": 157,
-      "qualite_etc": 18,
-      "ter": null,
-      "devise": "EUR"
-     },
-     {
-      "tv": "XETR:8PSB",
-      "isin": "IE00B43VDT70",
-      "note": 166,
-      "qualite_etc": 27,
-      "ter": 0.19,
-      "devise": "EUR"
-     },
-     {
-      "tv": "LSE:PHAG",
-      "isin": "JE00B1VS3333",
-      "note": 166,
-      "qualite_etc": 27,
-      "ter": 0.49,
-      "devise": "USD"
-     }
-    ]
-   },
-   "Platine": {
-    "retenu": {
-     "tv": "XETR:8PSA",
-     "isin": "IE00B40QP990",
-     "note": 146,
-     "qualite_etc": 27,
-     "ter": 0.19,
-     "devise": "EUR"
-    },
-    "retires": [
-     {
-      "tv": "LSE:IPLT",
-      "isin": "IE00B4LHWP62",
-      "note": 146,
-      "qualite_etc": 27,
-      "ter": 0.2,
-      "devise": "USD"
-     },
-     {
-      "tv": "XETR:XPPT",
-      "isin": "DE000A2T0VT7",
-      "note": 137,
-      "qualite_etc": 18,
-      "ter": 0.38,
-      "devise": "EUR"
-     },
-     {
-      "tv": "XETR:XAD3",
-      "isin": "DE000A1EK0H1",
-      "note": 137,
-      "qualite_etc": 18,
-      "ter": 0.75,
-      "devise": "EUR"
-     },
-     {
-      "tv": "EURONEXT:PHPT",
-      "isin": "JE00B1VS2W53",
-      "note": 137,
-      "qualite_etc": 18,
-      "ter": 0.49,
-      "devise": "EUR"
-     }
-    ]
-   },
-   "Palladium": {
-    "retenu": {
-     "tv": "XETR:8PSC",
-     "isin": "IE00B4LJS984",
-     "note": 192,
-     "qualite_etc": 27,
-     "ter": 0.19,
-     "devise": "EUR"
-    },
-    "retires": [
-     {
-      "tv": "LSE:IPDM",
-      "isin": "IE00B4556L06",
-      "note": 192,
-      "qualite_etc": 27,
-      "ter": 0.2,
-      "devise": "USD"
-     },
-     {
-      "tv": "EURONEXT:PHPD",
-      "isin": "JE00B1VS3002",
-      "note": 173,
-      "qualite_etc": 18,
-      "ter": 0.49,
-      "devise": "EUR"
-     }
-    ]
-   }
-  },
-  "remplace_par": "t508u (24/11/2026) : choix limité aux ETC achetables chez Revolut ou XTB"
- },
- "t508u": {
-  "date": "2026-11-24",
-  "objet": "Un seul ETC par métal, choisi parmi les ETC achetables chez Revolut ou XTB (config/dispo_etf_etc_2026-11-24.csv)",
-  "retenus": {
-   "Or": {
-    "tv": "XETR:8PSG",
-    "isin": "IE00B579F325",
-    "note": 135,
-    "qualite_etc": 45,
-    "ter": 0.12,
-    "devise": "EUR",
-    "courtiers": "Revolut et XTB"
-   },
-   "Argent": {
-    "tv": "LSE:ISLN",
-    "isin": "IE00B4NCWG09",
-    "note": 175,
-    "qualite_etc": 36,
-    "ter": 0.2,
-    "devise": "USD",
-    "courtiers": "XTB"
-   },
-   "Platine": {
-    "tv": "LSE:IPLT",
-    "isin": "IE00B4LHWP62",
-    "note": 146,
-    "qualite_etc": 27,
-    "ter": 0.2,
-    "devise": "USD",
-    "courtiers": "XTB"
-   },
-   "Palladium": {
-    "tv": "LSE:IPDM",
-    "isin": "IE00B4556L06",
-    "note": 192,
-    "qualite_etc": 27,
-    "ter": 0.2,
-    "devise": "USD",
-    "courtiers": "XTB"
-   }
-  },
-  "retires_disponibles": {
-   "Or": [
-    "XETR:GLDA",
-    "XETR:XAD5",
-    "XETR:4GLD",
-    "LSE:IGLN",
-    "LSE:PHGP"
-   ],
-   "Argent": [
-    "XETR:XAD6",
-    "XETR:8PSB"
-   ],
-   "Platine": [],
-   "Palladium": [
-    "EURONEXT:PHPD"
-   ]
-  }
- },
- "t509": {
-  "date": "2026-11-24",
-  "objet": "Produits introuvables chez Revolut et XTB retirés du site (validé par Emmanuel)",
-  "retires": {
-   "TSE:1631": "NEXT FUNDS Banks (TOPIX-17), ETF par devise JPY : ni Revolut ni XTB",
-   "NASDAQ:RING": "iShares MSCI Global Gold Miners ETF (droit US, PRIIPs), ETF par devise USD : ni Revolut ni XTB",
-   "EURONEXT:IFRB": "iShares France Govt Bond, référence du segment OAT : ni Revolut ni XTB",
-   "XETR:8PSA": "Invesco Physical Platinum : ni Revolut ni XTB",
-   "XETR:8PSC": "Invesco Physical Palladium : ni Revolut ni XTB",
-   "LSE:PHAG": "WisdomTree Physical Silver : ni Revolut ni XTB",
-   "EURONEXT:PHPT": "WisdomTree Physical Platinum : ni Revolut ni XTB",
-   "XETR:XAD3": "Xtrackers Physical Platinum EUR Hedged : ni Revolut ni XTB",
-   "XETR:XPPT": "Xtrackers IE Physical Platinum : ni Revolut ni XTB",
-   "AMEX:SPY": "SPDR S&P 500 ETF Trust (ETF de référence de l'accueil, droit US, PRIIPs) : ni Revolut ni XTB ; remplacé dans config/etf_reference.json",
-   "AMEX:AGG": "iShares Core US Aggregate Bond ETF (ETF de référence de l'accueil, droit US, PRIIPs) : ni Revolut ni XTB ; remplacé dans config/etf_reference.json",
-   "AMEX:GLD": "SPDR Gold Shares (ETF de référence de l'accueil, droit US, PRIIPs) : ni Revolut ni XTB ; remplacé dans config/etf_reference.json",
-   "AMEX:XLE": "Energy Select Sector SPDR Fund (ETF de référence de l'accueil, droit US, PRIIPs) : ni Revolut ni XTB ; remplacé dans config/etf_reference.json",
-   "AMEX:BIL": "SPDR Bloomberg 1-3 Month T-Bill ETF (ETF de référence de l'accueil, droit US, PRIIPs) : ni Revolut ni XTB ; remplacé dans config/etf_reference.json",
-   "AMEX:VNQ": "Vanguard Real Estate ETF (ETF de référence de l'accueil, droit US, PRIIPs) : ni Revolut ni XTB ; remplacé dans config/etf_reference.json",
-   "NASDAQ:IBIT": "iShares Bitcoin Trust ETF (ETF de référence de l'accueil, droit US, PRIIPs) : ni Revolut ni XTB ; remplacé dans config/etf_reference.json"
-  },
-  "accueil_etf_reference": {
-   "actions": "XETR:VUAA",
-   "obligations": "XETR:EUNH",
-   "metaux": "XETR:8PSG",
-   "energie": "XETR:XDW0",
-   "crypto": null,
-   "liquidites": "XETR:IUSU",
-   "immobilier": "XETR:IQQ7"
-  },
-  "journal": [
-   "segment france retiré (EURONEXT:IFRB, introuvable Revolut/XTB)",
-   "LSE:PHAG retiré (introuvable Revolut/XTB)",
-   "XETR:8PSA retiré (introuvable Revolut/XTB)",
-   "XETR:XPPT retiré (introuvable Revolut/XTB)",
-   "XETR:XAD3 retiré (introuvable Revolut/XTB)",
-   "EURONEXT:PHPT retiré (introuvable Revolut/XTB)",
-   "XETR:8PSC retiré (introuvable Revolut/XTB)",
-   "ETF par devise USD : NASDAQ:RING retiré (introuvable Revolut/XTB)",
-   "ETF par devise JPY : TSE:1631 retiré (introuvable Revolut/XTB)",
-   "accueil : AMEX:SPY→XETR:VUAA, AMEX:AGG→XETR:EUNH, AMEX:GLD→XETR:8PSG, AMEX:XLE→XETR:XDW0, AMEX:BIL→XETR:IUSU, AMEX:VNQ→XETR:IQQ7, NASDAQ:IBIT retiré (pas d'ETP bitcoin vérifié chez Revolut/XTB)"
-  ]
  }
 }

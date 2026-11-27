@@ -1,12 +1,12 @@
 {
- "generated": "2026-11-24 23:09 Europe/Paris",
+ "generated": "2026-11-27 13:30 Europe/Paris",
  "secteurs_us": {
   "XLK": {
-   "value": 19.1,
+   "value": 19.7,
    "label": "Peur extrême",
    "nom": "Technologie US",
    "court": "Technologie (XLK)",
-   "date": "2026-11-24",
+   "date": "2026-11-25",
    "points_long": 30,
    "points_short": -18,
    "official": false,
@@ -15,52 +15,52 @@
    "etf": "XLK",
    "fr": "Technologie",
    "ampleur": {
-    "pct_above_ma50": 13.2,
-    "pct_above_ma200": 32.9,
-    "force_52s": 53.3,
+    "pct_above_ma50": 19.7,
+    "pct_above_ma200": 34.2,
+    "force_52s": 52.6,
     "n_ma50": 76
    },
    "composantes": [
     {
      "nom": "Momentum vs SMA 125 j (rang 5 ans)",
-     "value": 1.9
+     "value": 1.5
     },
     {
      "nom": "RSI 14 journalier (valeur brute 0-100)",
-     "value": 37.8
+     "value": 37.0
     },
     {
      "nom": "Distance au plus haut 52 semaines (rang 5 ans)",
-     "value": 11.3
+     "value": 10.6
     },
     {
      "nom": "Volatilité réalisée 20 j, inversée (rang 5 ans)",
-     "value": 1.4
+     "value": 1.5
     },
     {
      "nom": "Performance 21 j (rang 5 ans)",
-     "value": 0.6
+     "value": 0.2
     },
     {
      "nom": "Ampleur : % de titres > SMA 50 j",
-     "value": 13.2
+     "value": 19.7
     },
     {
      "nom": "Ampleur : % de titres > SMA 200 j",
-     "value": 32.9
+     "value": 34.2
     },
     {
      "nom": "Force interne (proche 52 s. hauts vs bas)",
-     "value": 53.3
+     "value": 52.6
     }
    ]
   },
   "XLF": {
-   "value": 45.3,
+   "value": 48.8,
    "label": "Neutre",
    "nom": "Finance US",
    "court": "Finance (XLF)",
-   "date": "2026-11-24",
+   "date": "2026-11-25",
    "points_long": 0,
    "points_short": 0,
    "official": false,
@@ -69,52 +69,52 @@
    "etf": "XLF",
    "fr": "Finance",
    "ampleur": {
-    "pct_above_ma50": 55.3,
-    "pct_above_ma200": 59.2,
-    "force_52s": 59.2,
+    "pct_above_ma50": 61.8,
+    "pct_above_ma200": 63.2,
+    "force_52s": 60.5,
     "n_ma50": 76
    },
    "composantes": [
     {
      "nom": "Momentum vs SMA 125 j (rang 5 ans)",
-     "value": 35.9
+     "value": 39.8
     },
     {
      "nom": "RSI 14 journalier (valeur brute 0-100)",
-     "value": 47.1
+     "value": 49.5
     },
     {
      "nom": "Distance au plus haut 52 semaines (rang 5 ans)",
-     "value": 48.5
+     "value": 52.7
     },
     {
      "nom": "Volatilité réalisée 20 j, inversée (rang 5 ans)",
-     "value": 13.1
+     "value": 12.8
     },
     {
      "nom": "Performance 21 j (rang 5 ans)",
-     "value": 44.0
+     "value": 50.0
     },
     {
      "nom": "Ampleur : % de titres > SMA 50 j",
-     "value": 55.3
+     "value": 61.8
     },
     {
      "nom": "Ampleur : % de titres > SMA 200 j",
-     "value": 59.2
+     "value": 63.2
     },
     {
      "nom": "Force interne (proche 52 s. hauts vs bas)",
-     "value": 59.2
+     "value": 60.5
     }
    ]
   },
   "XLE": {
-   "value": 22.4,
+   "value": 24.3,
    "label": "Peur extrême",
    "nom": "Énergie US",
    "court": "Énergie (XLE)",
-   "date": "2026-11-24",
+   "date": "2026-11-25",
    "points_long": 20,
    "points_short": -12,
    "official": false,
@@ -125,29 +125,29 @@
    "ampleur": {
     "pct_above_ma50": 0.0,
     "pct_above_ma200": 42.9,
-    "force_52s": 40.5,
+    "force_52s": 45.2,
     "n_ma50": 21
    },
    "composantes": [
     {
      "nom": "Momentum vs SMA 125 j (rang 5 ans)",
-     "value": 25.5
+     "value": 30.4
     },
     {
      "nom": "RSI 14 journalier (valeur brute 0-100)",
-     "value": 36.1
+     "value": 38.6
     },
     {
      "nom": "Distance au plus haut 52 semaines (rang 5 ans)",
-     "value": 14.2
+     "value": 16.3
     },
     {
      "nom": "Volatilité réalisée 20 j, inversée (rang 5 ans)",
-     "value": 17.4
+     "value": 16.9
     },
     {
      "nom": "Performance 21 j (rang 5 ans)",
-     "value": 2.3
+     "value": 4.0
     },
     {
      "nom": "Ampleur : % de titres > SMA 50 j",
@@ -159,16 +159,16 @@
     },
     {
      "nom": "Force interne (proche 52 s. hauts vs bas)",
-     "value": 40.5
+     "value": 45.2
     }
    ]
   },
   "XLV": {
-   "value": 66.1,
+   "value": 64.2,
    "label": "Avidité",
    "nom": "Santé US",
    "court": "Santé (XLV)",
-   "date": "2026-11-24",
+   "date": "2026-11-25",
    "points_long": -10,
    "points_short": 6,
    "official": false,
@@ -179,29 +179,29 @@
    "ampleur": {
     "pct_above_ma50": 76.7,
     "pct_above_ma200": 85.0,
-    "force_52s": 69.2,
+    "force_52s": 66.7,
     "n_ma50": 60
    },
    "composantes": [
     {
      "nom": "Momentum vs SMA 125 j (rang 5 ans)",
-     "value": 95.0
+     "value": 93.1
     },
     {
      "nom": "RSI 14 journalier (valeur brute 0-100)",
-     "value": 55.5
+     "value": 53.4
     },
     {
      "nom": "Distance au plus haut 52 semaines (rang 5 ans)",
-     "value": 73.9
+     "value": 69.2
     },
     {
      "nom": "Volatilité réalisée 20 j, inversée (rang 5 ans)",
-     "value": 2.9
+     "value": 2.8
     },
     {
      "nom": "Performance 21 j (rang 5 ans)",
-     "value": 70.6
+     "value": 66.8
     },
     {
      "nom": "Ampleur : % de titres > SMA 50 j",
@@ -213,41 +213,41 @@
     },
     {
      "nom": "Force interne (proche 52 s. hauts vs bas)",
-     "value": 69.2
+     "value": 66.7
     }
    ]
   },
   "XLI": {
-   "value": 28.4,
+   "value": 31.3,
    "label": "Peur",
    "nom": "Industrie US",
    "court": "Industrie (XLI)",
-   "date": "2026-11-24",
-   "points_long": 20,
-   "points_short": -12,
+   "date": "2026-11-25",
+   "points_long": 10,
+   "points_short": -6,
    "official": false,
    "source": "Yahoo Finance + holdings SPDR",
    "gics": "Industrials",
    "etf": "XLI",
    "fr": "Industrie",
    "ampleur": {
-    "pct_above_ma50": 54.2,
-    "pct_above_ma200": 46.9,
-    "force_52s": 51.8,
+    "pct_above_ma50": 61.4,
+    "pct_above_ma200": 49.4,
+    "force_52s": 58.4,
     "n_ma50": 83
    },
    "composantes": [
     {
      "nom": "Momentum vs SMA 125 j (rang 5 ans)",
-     "value": 4.7
+     "value": 6.0
     },
     {
      "nom": "RSI 14 journalier (valeur brute 0-100)",
-     "value": 42.5
+     "value": 45.0
     },
     {
      "nom": "Distance au plus haut 52 semaines (rang 5 ans)",
-     "value": 6.9
+     "value": 8.0
     },
     {
      "nom": "Volatilité réalisée 20 j, inversée (rang 5 ans)",
@@ -255,28 +255,28 @@
     },
     {
      "nom": "Performance 21 j (rang 5 ans)",
-     "value": 18.6
+     "value": 20.5
     },
     {
      "nom": "Ampleur : % de titres > SMA 50 j",
-     "value": 54.2
+     "value": 61.4
     },
     {
      "nom": "Ampleur : % de titres > SMA 200 j",
-     "value": 46.9
+     "value": 49.4
     },
     {
      "nom": "Force interne (proche 52 s. hauts vs bas)",
-     "value": 51.8
+     "value": 58.4
     }
    ]
   },
   "XLC": {
-   "value": 36.7,
+   "value": 38.3,
    "label": "Peur",
    "nom": "Communication US",
    "court": "Communication (XLC)",
-   "date": "2026-11-24",
+   "date": "2026-11-25",
    "points_long": 10,
    "points_short": -6,
    "official": false,
@@ -285,23 +285,23 @@
    "etf": "XLC",
    "fr": "Communication",
    "ampleur": {
-    "pct_above_ma50": 54.5,
-    "pct_above_ma200": 31.8,
-    "force_52s": 47.7,
+    "pct_above_ma50": 50.0,
+    "pct_above_ma200": 36.4,
+    "force_52s": 45.5,
     "n_ma50": 22
    },
    "composantes": [
     {
      "nom": "Momentum vs SMA 125 j (rang 5 ans)",
-     "value": 23.3
+     "value": 25.3
     },
     {
      "nom": "RSI 14 journalier (valeur brute 0-100)",
-     "value": 46.7
+     "value": 49.1
     },
     {
      "nom": "Distance au plus haut 52 semaines (rang 5 ans)",
-     "value": 26.3
+     "value": 27.4
     },
     {
      "nom": "Volatilité réalisée 20 j, inversée (rang 5 ans)",
@@ -309,28 +309,28 @@
     },
     {
      "nom": "Performance 21 j (rang 5 ans)",
-     "value": 47.1
+     "value": 56.1
     },
     {
      "nom": "Ampleur : % de titres > SMA 50 j",
-     "value": 54.5
+     "value": 50.0
     },
     {
      "nom": "Ampleur : % de titres > SMA 200 j",
-     "value": 31.8
+     "value": 36.4
     },
     {
      "nom": "Force interne (proche 52 s. hauts vs bas)",
-     "value": 47.7
+     "value": 45.5
     }
    ]
   },
   "XLY": {
-   "value": 53.2,
+   "value": 52.4,
    "label": "Neutre",
    "nom": "Consommation discrétionnaire US",
    "court": "Consommation discrétionnaire (XLY)",
-   "date": "2026-11-24",
+   "date": "2026-11-25",
    "points_long": 0,
    "points_short": 0,
    "official": false,
@@ -339,23 +339,23 @@
    "etf": "XLY",
    "fr": "Consommation discrétionnaire",
    "ampleur": {
-    "pct_above_ma50": 70.2,
-    "pct_above_ma200": 61.7,
-    "force_52s": 54.3,
+    "pct_above_ma50": 76.6,
+    "pct_above_ma200": 57.4,
+    "force_52s": 56.4,
     "n_ma50": 47
    },
    "composantes": [
     {
      "nom": "Momentum vs SMA 125 j (rang 5 ans)",
-     "value": 52.3
+     "value": 51.0
     },
     {
      "nom": "RSI 14 journalier (valeur brute 0-100)",
-     "value": 52.0
+     "value": 51.5
     },
     {
      "nom": "Distance au plus haut 52 semaines (rang 5 ans)",
-     "value": 57.9
+     "value": 56.3
     },
     {
      "nom": "Volatilité réalisée 20 j, inversée (rang 5 ans)",
@@ -363,28 +363,28 @@
     },
     {
      "nom": "Performance 21 j (rang 5 ans)",
-     "value": 66.9
+     "value": 59.7
     },
     {
      "nom": "Ampleur : % de titres > SMA 50 j",
-     "value": 70.2
+     "value": 76.6
     },
     {
      "nom": "Ampleur : % de titres > SMA 200 j",
-     "value": 61.7
+     "value": 57.4
     },
     {
      "nom": "Force interne (proche 52 s. hauts vs bas)",
-     "value": 54.3
+     "value": 56.4
     }
    ]
   },
   "XLP": {
-   "value": 70.7,
+   "value": 72.6,
    "label": "Avidité",
    "nom": "Consommation de base US",
    "court": "Consommation de base (XLP)",
-   "date": "2026-11-24",
+   "date": "2026-11-25",
    "points_long": -20,
    "points_short": 12,
    "official": false,
@@ -395,29 +395,29 @@
    "ampleur": {
     "pct_above_ma50": 87.5,
     "pct_above_ma200": 71.9,
-    "force_52s": 65.6,
+    "force_52s": 70.3,
     "n_ma50": 32
    },
    "composantes": [
     {
      "nom": "Momentum vs SMA 125 j (rang 5 ans)",
-     "value": 97.3
+     "value": 97.7
     },
     {
      "nom": "RSI 14 journalier (valeur brute 0-100)",
-     "value": 59.9
+     "value": 61.3
     },
     {
      "nom": "Distance au plus haut 52 semaines (rang 5 ans)",
-     "value": 91.7
+     "value": 94.4
     },
     {
      "nom": "Volatilité réalisée 20 j, inversée (rang 5 ans)",
-     "value": 5.7
+     "value": 5.8
     },
     {
      "nom": "Performance 21 j (rang 5 ans)",
-     "value": 86.2
+     "value": 91.9
     },
     {
      "nom": "Ampleur : % de titres > SMA 50 j",
@@ -429,16 +429,16 @@
     },
     {
      "nom": "Force interne (proche 52 s. hauts vs bas)",
-     "value": 65.6
+     "value": 70.3
     }
    ]
   },
   "XLU": {
-   "value": 57.8,
+   "value": 59.6,
    "label": "Avidité",
    "nom": "Services aux collectivités US",
    "court": "Services aux collectivités (XLU)",
-   "date": "2026-11-24",
+   "date": "2026-11-25",
    "points_long": 0,
    "points_short": 0,
    "official": false,
@@ -448,30 +448,30 @@
    "fr": "Services aux collectivités",
    "ampleur": {
     "pct_above_ma50": 87.1,
-    "pct_above_ma200": 48.4,
-    "force_52s": 59.7,
+    "pct_above_ma200": 51.6,
+    "force_52s": 61.3,
     "n_ma50": 31
    },
    "composantes": [
     {
      "nom": "Momentum vs SMA 125 j (rang 5 ans)",
-     "value": 41.8
+     "value": 46.0
     },
     {
      "nom": "RSI 14 journalier (valeur brute 0-100)",
-     "value": 54.2
+     "value": 56.5
     },
     {
      "nom": "Distance au plus haut 52 semaines (rang 5 ans)",
-     "value": 35.1
+     "value": 37.7
     },
     {
      "nom": "Volatilité réalisée 20 j, inversée (rang 5 ans)",
-     "value": 74.8
+     "value": 77.2
     },
     {
      "nom": "Performance 21 j (rang 5 ans)",
-     "value": 61.3
+     "value": 59.8
     },
     {
      "nom": "Ampleur : % de titres > SMA 50 j",
@@ -479,20 +479,20 @@
     },
     {
      "nom": "Ampleur : % de titres > SMA 200 j",
-     "value": 48.4
+     "value": 51.6
     },
     {
      "nom": "Force interne (proche 52 s. hauts vs bas)",
-     "value": 59.7
+     "value": 61.3
     }
    ]
   },
   "XLRE": {
-   "value": 52.4,
-   "label": "Neutre",
+   "value": 57.6,
+   "label": "Avidité",
    "nom": "Immobilier US",
    "court": "Immobilier (XLRE)",
-   "date": "2026-11-24",
+   "date": "2026-11-25",
    "points_long": 0,
    "points_short": 0,
    "official": false,
@@ -501,39 +501,39 @@
    "etf": "XLRE",
    "fr": "Immobilier",
    "ampleur": {
-    "pct_above_ma50": 73.3,
-    "pct_above_ma200": 40.0,
+    "pct_above_ma50": 80.0,
+    "pct_above_ma200": 43.3,
     "force_52s": 55.0,
     "n_ma50": 30
    },
    "composantes": [
     {
      "nom": "Momentum vs SMA 125 j (rang 5 ans)",
-     "value": 45.1
+     "value": 53.2
     },
     {
      "nom": "RSI 14 journalier (valeur brute 0-100)",
-     "value": 51.3
+     "value": 54.9
     },
     {
      "nom": "Distance au plus haut 52 semaines (rang 5 ans)",
-     "value": 67.8
+     "value": 74.6
     },
     {
      "nom": "Volatilité réalisée 20 j, inversée (rang 5 ans)",
-     "value": 25.0
+     "value": 25.3
     },
     {
      "nom": "Performance 21 j (rang 5 ans)",
-     "value": 61.4
+     "value": 74.8
     },
     {
      "nom": "Ampleur : % de titres > SMA 50 j",
-     "value": 73.3
+     "value": 80.0
     },
     {
      "nom": "Ampleur : % de titres > SMA 200 j",
-     "value": 40.0
+     "value": 43.3
     },
     {
      "nom": "Force interne (proche 52 s. hauts vs bas)",
@@ -542,48 +542,48 @@
    ]
   },
   "XLB": {
-   "value": 38.7,
-   "label": "Peur",
+   "value": 45.0,
+   "label": "Neutre",
    "nom": "Matériaux US",
    "court": "Matériaux (XLB)",
-   "date": "2026-11-24",
-   "points_long": 10,
-   "points_short": -6,
+   "date": "2026-11-25",
+   "points_long": 0,
+   "points_short": 0,
    "official": false,
    "source": "Yahoo Finance + holdings SPDR",
    "gics": "Materials",
    "etf": "XLB",
    "fr": "Matériaux",
    "ampleur": {
-    "pct_above_ma50": 45.8,
+    "pct_above_ma50": 50.0,
     "pct_above_ma200": 50.0,
-    "force_52s": 56.2,
+    "force_52s": 62.5,
     "n_ma50": 24
    },
    "composantes": [
     {
      "nom": "Momentum vs SMA 125 j (rang 5 ans)",
-     "value": 25.7
+     "value": 36.5
     },
     {
      "nom": "RSI 14 journalier (valeur brute 0-100)",
-     "value": 44.1
+     "value": 50.4
     },
     {
      "nom": "Distance au plus haut 52 semaines (rang 5 ans)",
-     "value": 45.8
+     "value": 59.6
     },
     {
      "nom": "Volatilité réalisée 20 j, inversée (rang 5 ans)",
-     "value": 10.9
+     "value": 9.3
     },
     {
      "nom": "Performance 21 j (rang 5 ans)",
-     "value": 31.3
+     "value": 41.3
     },
     {
      "nom": "Ampleur : % de titres > SMA 50 j",
-     "value": 45.8
+     "value": 50.0
     },
     {
      "nom": "Ampleur : % de titres > SMA 200 j",
@@ -591,18 +591,18 @@
     },
     {
      "nom": "Force interne (proche 52 s. hauts vs bas)",
-     "value": 56.2
+     "value": 62.5
     }
    ]
   }
  },
  "secteurs_eu": {
   "XS8R": {
-   "value": 10.6,
+   "value": 12.5,
    "label": "Peur extrême",
    "nom": "Technologie Europe",
    "court": "Technologie Europe (XS8R)",
-   "date": "2026-11-24",
+   "date": "2026-11-27",
    "points_long": 30,
    "points_short": -18,
    "official": false,
@@ -614,32 +614,32 @@
    "composantes": [
     {
      "nom": "Momentum vs SMA 125 j (rang 5 ans)",
-     "value": 4.6
+     "value": 8.0
     },
     {
      "nom": "RSI 14 journalier (valeur brute 0-100)",
-     "value": 35.1
+     "value": 40.9
     },
     {
      "nom": "Distance au plus haut 52 semaines (rang 5 ans)",
-     "value": 10.4
+     "value": 12.5
     },
     {
      "nom": "Volatilité réalisée 20 j, inversée (rang 5 ans)",
-     "value": 0.0
+     "value": 0.1
     },
     {
      "nom": "Performance 21 j (rang 5 ans)",
-     "value": 2.8
+     "value": 1.2
     }
    ]
   },
   "DXSE": {
-   "value": 70.3,
+   "value": 71.5,
    "label": "Avidité",
    "nom": "Santé Europe",
    "court": "Santé Europe (DXSE)",
-   "date": "2026-11-24",
+   "date": "2026-11-27",
    "points_long": -20,
    "points_short": 12,
    "official": false,
@@ -651,32 +651,32 @@
    "composantes": [
     {
      "nom": "Momentum vs SMA 125 j (rang 5 ans)",
-     "value": 98.5
+     "value": 98.2
     },
     {
      "nom": "RSI 14 journalier (valeur brute 0-100)",
-     "value": 61.6
+     "value": 62.0
     },
     {
      "nom": "Distance au plus haut 52 semaines (rang 5 ans)",
-     "value": 84.4
+     "value": 86.2
     },
     {
      "nom": "Volatilité réalisée 20 j, inversée (rang 5 ans)",
-     "value": 18.6
+     "value": 32.8
     },
     {
      "nom": "Performance 21 j (rang 5 ans)",
-     "value": 88.2
+     "value": 78.3
     }
    ]
   },
   "XS7R": {
-   "value": 24.9,
-   "label": "Peur extrême",
+   "value": 29.6,
+   "label": "Peur",
    "nom": "Finance Europe",
    "court": "Finance Europe (XS7R)",
-   "date": "2026-11-24",
+   "date": "2026-11-27",
    "points_long": 20,
    "points_short": -12,
    "official": false,
@@ -688,32 +688,32 @@
    "composantes": [
     {
      "nom": "Momentum vs SMA 125 j (rang 5 ans)",
-     "value": 10.2
+     "value": 14.6
     },
     {
      "nom": "RSI 14 journalier (valeur brute 0-100)",
-     "value": 42.4
+     "value": 49.9
     },
     {
      "nom": "Distance au plus haut 52 semaines (rang 5 ans)",
-     "value": 22.2
+     "value": 26.9
     },
     {
      "nom": "Volatilité réalisée 20 j, inversée (rang 5 ans)",
-     "value": 16.8
+     "value": 9.8
     },
     {
      "nom": "Performance 21 j (rang 5 ans)",
-     "value": 32.7
+     "value": 46.9
     }
    ]
   },
   "DXSG": {
-   "value": 50.6,
-   "label": "Neutre",
+   "value": 56.6,
+   "label": "Avidité",
    "nom": "Communication Europe",
    "court": "Communication Europe (DXSG)",
-   "date": "2026-11-24",
+   "date": "2026-11-27",
    "points_long": 0,
    "points_short": 0,
    "official": false,
@@ -725,34 +725,34 @@
    "composantes": [
     {
      "nom": "Momentum vs SMA 125 j (rang 5 ans)",
-     "value": 62.7
+     "value": 70.7
     },
     {
      "nom": "RSI 14 journalier (valeur brute 0-100)",
-     "value": 53.2
+     "value": 57.2
     },
     {
      "nom": "Distance au plus haut 52 semaines (rang 5 ans)",
-     "value": 49.2
+     "value": 59.6
     },
     {
      "nom": "Volatilité réalisée 20 j, inversée (rang 5 ans)",
-     "value": 7.2
+     "value": 13.5
     },
     {
      "nom": "Performance 21 j (rang 5 ans)",
-     "value": 80.8
+     "value": 82.0
     }
    ]
   },
   "SPYR": {
-   "value": 39.3,
-   "label": "Peur",
+   "value": 47.4,
+   "label": "Neutre",
    "nom": "Consommation discrétionnaire Europe",
    "court": "Consommation discrétionnaire Europe (SPYR)",
-   "date": "2026-11-24",
-   "points_long": 10,
-   "points_short": -6,
+   "date": "2026-11-27",
+   "points_long": 0,
+   "points_short": 0,
    "official": false,
    "source": "Yahoo Finance (SPDR MSCI Europe Cons. Disc.)",
    "gics": "Consumer Discretionary",
@@ -762,34 +762,34 @@
    "composantes": [
     {
      "nom": "Momentum vs SMA 125 j (rang 5 ans)",
-     "value": 34.4
+     "value": 48.2
     },
     {
      "nom": "RSI 14 journalier (valeur brute 0-100)",
-     "value": 45.8
+     "value": 55.1
     },
     {
      "nom": "Distance au plus haut 52 semaines (rang 5 ans)",
-     "value": 28.5
+     "value": 37.7
     },
     {
      "nom": "Volatilité réalisée 20 j, inversée (rang 5 ans)",
-     "value": 27.2
+     "value": 24.3
     },
     {
      "nom": "Performance 21 j (rang 5 ans)",
-     "value": 60.5
+     "value": 71.5
     }
    ]
   },
   "DXSK": {
-   "value": 67.5,
+   "value": 71.2,
    "label": "Avidité",
    "nom": "Consommation de base Europe",
    "court": "Consommation de base Europe (DXSK)",
-   "date": "2026-11-24",
-   "points_long": -10,
-   "points_short": 6,
+   "date": "2026-11-27",
+   "points_long": -20,
+   "points_short": 12,
    "official": false,
    "source": "Yahoo Finance (Xtrackers MSCI Europe Staples)",
    "gics": "Consumer Staples",
@@ -799,32 +799,32 @@
    "composantes": [
     {
      "nom": "Momentum vs SMA 125 j (rang 5 ans)",
-     "value": 98.2
+     "value": 98.7
     },
     {
      "nom": "RSI 14 journalier (valeur brute 0-100)",
-     "value": 58.2
+     "value": 60.0
     },
     {
      "nom": "Distance au plus haut 52 semaines (rang 5 ans)",
-     "value": 93.8
+     "value": 95.4
     },
     {
      "nom": "Volatilité réalisée 20 j, inversée (rang 5 ans)",
-     "value": 8.7
+     "value": 11.8
     },
     {
      "nom": "Performance 21 j (rang 5 ans)",
-     "value": 78.5
+     "value": 90.3
     }
    ]
   },
   "DXSL": {
-   "value": 24.8,
+   "value": 23.8,
    "label": "Peur extrême",
    "nom": "Industrie Europe",
    "court": "Industrie Europe (DXSL)",
-   "date": "2026-11-24",
+   "date": "2026-11-27",
    "points_long": 20,
    "points_short": -12,
    "official": false,
@@ -836,34 +836,34 @@
    "composantes": [
     {
      "nom": "Momentum vs SMA 125 j (rang 5 ans)",
-     "value": 11.0
+     "value": 15.2
     },
     {
      "nom": "RSI 14 journalier (valeur brute 0-100)",
-     "value": 40.0
+     "value": 46.9
     },
     {
      "nom": "Distance au plus haut 52 semaines (rang 5 ans)",
-     "value": 21.5
+     "value": 23.5
     },
     {
      "nom": "Volatilité réalisée 20 j, inversée (rang 5 ans)",
-     "value": 19.3
+     "value": 13.1
     },
     {
      "nom": "Performance 21 j (rang 5 ans)",
-     "value": 32.2
+     "value": 20.4
     }
    ]
   },
   "DXSC": {
-   "value": 19.6,
-   "label": "Peur extrême",
+   "value": 31.9,
+   "label": "Peur",
    "nom": "Matériaux Europe",
    "court": "Matériaux Europe (DXSC)",
-   "date": "2026-11-24",
-   "points_long": 30,
-   "points_short": -18,
+   "date": "2026-11-27",
+   "points_long": 10,
+   "points_short": -6,
    "official": false,
    "source": "Yahoo Finance (Xtrackers MSCI Europe Materials)",
    "gics": "Materials",
@@ -873,32 +873,32 @@
    "composantes": [
     {
      "nom": "Momentum vs SMA 125 j (rang 5 ans)",
-     "value": 9.8
+     "value": 26.4
     },
     {
      "nom": "RSI 14 journalier (valeur brute 0-100)",
-     "value": 35.3
+     "value": 47.5
     },
     {
      "nom": "Distance au plus haut 52 semaines (rang 5 ans)",
-     "value": 18.0
+     "value": 34.7
     },
     {
      "nom": "Volatilité réalisée 20 j, inversée (rang 5 ans)",
-     "value": 18.9
+     "value": 15.6
     },
     {
      "nom": "Performance 21 j (rang 5 ans)",
-     "value": 15.9
+     "value": 35.3
     }
    ]
   },
   "XS6R": {
-   "value": 52.4,
-   "label": "Neutre",
+   "value": 56.7,
+   "label": "Avidité",
    "nom": "Services aux collectivités Europe",
    "court": "Services aux collectivités Europe (XS6R)",
-   "date": "2026-11-24",
+   "date": "2026-11-27",
    "points_long": 0,
    "points_short": 0,
    "official": false,
@@ -910,32 +910,32 @@
    "composantes": [
     {
      "nom": "Momentum vs SMA 125 j (rang 5 ans)",
-     "value": 58.3
+     "value": 68.5
     },
     {
      "nom": "RSI 14 journalier (valeur brute 0-100)",
-     "value": 53.4
+     "value": 58.8
     },
     {
      "nom": "Distance au plus haut 52 semaines (rang 5 ans)",
-     "value": 51.1
+     "value": 63.4
     },
     {
      "nom": "Volatilité réalisée 20 j, inversée (rang 5 ans)",
-     "value": 34.0
+     "value": 30.4
     },
     {
      "nom": "Performance 21 j (rang 5 ans)",
-     "value": 65.3
+     "value": 62.3
     }
    ]
   },
   "EXH1": {
-   "value": 20.1,
+   "value": 24.8,
    "label": "Peur extrême",
    "nom": "Énergie Europe",
    "court": "Énergie Europe (EXH1)",
-   "date": "2026-11-24",
+   "date": "2026-11-27",
    "points_long": 20,
    "points_short": -12,
    "official": false,
@@ -947,34 +947,34 @@
    "composantes": [
     {
      "nom": "Momentum vs SMA 125 j (rang 5 ans)",
-     "value": 17.9
+     "value": 27.8
     },
     {
      "nom": "RSI 14 journalier (valeur brute 0-100)",
-     "value": 33.1
+     "value": 43.2
     },
     {
      "nom": "Distance au plus haut 52 semaines (rang 5 ans)",
-     "value": 13.7
+     "value": 23.9
     },
     {
      "nom": "Volatilité réalisée 20 j, inversée (rang 5 ans)",
-     "value": 32.8
+     "value": 25.7
     },
     {
      "nom": "Performance 21 j (rang 5 ans)",
-     "value": 2.9
+     "value": 3.5
     }
    ]
   },
   "EXI5": {
-   "value": 58.6,
+   "value": 69.2,
    "label": "Avidité",
    "nom": "Immobilier Europe",
    "court": "Immobilier Europe (EXI5)",
-   "date": "2026-11-24",
-   "points_long": 0,
-   "points_short": 0,
+   "date": "2026-11-27",
+   "points_long": -10,
+   "points_short": 6,
    "official": false,
    "source": "Yahoo Finance (iShares STOXX Europe 600 Real Estate (ICB))",
    "gics": "Real Estate",
@@ -984,34 +984,34 @@
    "composantes": [
     {
      "nom": "Momentum vs SMA 125 j (rang 5 ans)",
-     "value": 46.0
+     "value": 61.2
     },
     {
      "nom": "RSI 14 journalier (valeur brute 0-100)",
-     "value": 50.3
+     "value": 64.3
     },
     {
      "nom": "Distance au plus haut 52 semaines (rang 5 ans)",
-     "value": 44.1
+     "value": 58.4
     },
     {
      "nom": "Volatilité réalisée 20 j, inversée (rang 5 ans)",
-     "value": 86.4
+     "value": 82.7
     },
     {
      "nom": "Performance 21 j (rang 5 ans)",
-     "value": 66.4
+     "value": 79.6
     }
    ]
   }
  },
  "classes": {
   "metal:or": {
-   "value": 6.9,
+   "value": 9.6,
    "label": "Peur extrême",
    "nom": "Or (GC)",
    "court": "Or (GC)",
-   "date": "2026-11-24",
+   "date": "2026-11-27",
    "points_long": 40,
    "points_short": -24,
    "official": false,
@@ -1019,11 +1019,11 @@
    "yahoo": "GC=F"
   },
   "metal:argent": {
-   "value": 6.7,
+   "value": 9.5,
    "label": "Peur extrême",
    "nom": "Argent (SI)",
    "court": "Argent (SI)",
-   "date": "2026-11-24",
+   "date": "2026-11-27",
    "points_long": 40,
    "points_short": -24,
    "official": false,
@@ -1031,23 +1031,23 @@
    "yahoo": "SI=F"
   },
   "metal:platine": {
-   "value": 7.4,
+   "value": 10.1,
    "label": "Peur extrême",
    "nom": "Platine (PL)",
    "court": "Platine (PL)",
-   "date": "2026-11-24",
-   "points_long": 40,
-   "points_short": -24,
+   "date": "2026-11-27",
+   "points_long": 30,
+   "points_short": -18,
    "official": false,
    "source": "Yahoo Finance (PL=F)",
    "yahoo": "PL=F"
   },
   "metal:palladium": {
-   "value": 11.7,
+   "value": 14.1,
    "label": "Peur extrême",
    "nom": "Palladium (PA)",
    "court": "Palladium (PA)",
-   "date": "2026-11-24",
+   "date": "2026-11-27",
    "points_long": 30,
    "points_short": -18,
    "official": false,
@@ -1055,11 +1055,11 @@
    "yahoo": "PA=F"
   },
   "energie:petrole": {
-   "value": 21.6,
-   "label": "Peur extrême",
+   "value": 29.2,
+   "label": "Peur",
    "nom": "Pétrole WTI (CL)",
    "court": "Pétrole WTI (CL)",
-   "date": "2026-11-24",
+   "date": "2026-11-27",
    "points_long": 20,
    "points_short": -12,
    "official": false,
@@ -1067,23 +1067,23 @@
    "yahoo": "CL=F"
   },
   "energie:brent": {
-   "value": 20.0,
-   "label": "Peur extrême",
+   "value": 27.2,
+   "label": "Peur",
    "nom": "Pétrole Brent (BZ)",
    "court": "Pétrole Brent (BZ)",
-   "date": "2026-11-24",
-   "points_long": 30,
-   "points_short": -18,
+   "date": "2026-11-27",
+   "points_long": 20,
+   "points_short": -12,
    "official": false,
    "source": "Yahoo Finance (BZ=F)",
    "yahoo": "BZ=F"
   },
   "energie:gaz": {
-   "value": 63.8,
+   "value": 65.5,
    "label": "Avidité",
    "nom": "Gaz naturel (NG)",
    "court": "Gaz naturel (NG)",
-   "date": "2026-11-24",
+   "date": "2026-11-27",
    "points_long": -10,
    "points_short": 6,
    "official": false,
@@ -1091,11 +1091,11 @@
    "yahoo": "NG=F"
   },
   "oblig:tcourt": {
-   "value": 45.9,
+   "value": 49.8,
    "label": "Neutre",
    "nom": "Treasuries courts (SHY)",
    "court": "Treasuries courts (SHY)",
-   "date": "2026-11-24",
+   "date": "2026-11-25",
    "points_long": 0,
    "points_short": 0,
    "official": false,
@@ -1103,11 +1103,11 @@
    "yahoo": "SHY"
   },
   "oblig:tlong": {
-   "value": 63.5,
+   "value": 69.1,
    "label": "Avidité",
    "nom": "Treasuries longs (TLT)",
    "court": "Treasuries longs (TLT)",
-   "date": "2026-11-24",
+   "date": "2026-11-25",
    "points_long": -10,
    "points_short": 6,
    "official": false,
@@ -1115,11 +1115,11 @@
    "yahoo": "TLT"
   },
   "oblig:t710": {
-   "value": 55.2,
+   "value": 59.6,
    "label": "Avidité",
    "nom": "Treasuries 7-10 ans (IEF)",
    "court": "Treasuries 7-10 ans (IEF)",
-   "date": "2026-11-24",
+   "date": "2026-11-25",
    "points_long": 0,
    "points_short": 0,
    "official": false,
@@ -1127,11 +1127,11 @@
    "yahoo": "IEF"
   },
   "oblig:agg": {
-   "value": 52.5,
-   "label": "Neutre",
+   "value": 57.5,
+   "label": "Avidité",
    "nom": "Oblig. US agrégées (AGG)",
    "court": "Oblig. US agrégées (AGG)",
-   "date": "2026-11-24",
+   "date": "2026-11-25",
    "points_long": 0,
    "points_short": 0,
    "official": false,
@@ -1139,11 +1139,11 @@
    "yahoo": "AGG"
   },
   "oblig:usig": {
-   "value": 48.0,
+   "value": 51.1,
    "label": "Neutre",
    "nom": "Crédit IG USD (LQD)",
    "court": "Crédit IG USD (LQD)",
-   "date": "2026-11-24",
+   "date": "2026-11-25",
    "points_long": 0,
    "points_short": 0,
    "official": false,
@@ -1151,11 +1151,11 @@
    "yahoo": "LQD"
   },
   "oblig:hy": {
-   "value": 32.7,
+   "value": 32.3,
    "label": "Peur",
    "nom": "High yield (HYG)",
    "court": "High yield (HYG)",
-   "date": "2026-11-24",
+   "date": "2026-11-25",
    "points_long": 10,
    "points_short": -6,
    "official": false,
@@ -1163,11 +1163,11 @@
    "yahoo": "HYG"
   },
   "oblig:infl": {
-   "value": 43.9,
-   "label": "Peur",
+   "value": 46.8,
+   "label": "Neutre",
    "nom": "Indexées inflation (TIP)",
    "court": "Indexées inflation (TIP)",
-   "date": "2026-11-24",
+   "date": "2026-11-25",
    "points_long": 0,
    "points_short": 0,
    "official": false,
@@ -1175,11 +1175,11 @@
    "yahoo": "TIP"
   },
   "oblig:em": {
-   "value": 33.7,
+   "value": 34.6,
    "label": "Peur",
    "nom": "Dette émergente (EMB)",
    "court": "Dette émergente (EMB)",
-   "date": "2026-11-24",
+   "date": "2026-11-25",
    "points_long": 10,
    "points_short": -6,
    "official": false,
@@ -1187,11 +1187,11 @@
    "yahoo": "EMB"
   },
   "oblig:eurgov": {
-   "value": 61.1,
+   "value": 63.5,
    "label": "Avidité",
    "nom": "Souverains € (EUNH)",
    "court": "Souverains € (EUNH)",
-   "date": "2026-11-24",
+   "date": "2026-11-27",
    "points_long": -10,
    "points_short": 6,
    "official": false,
@@ -1199,23 +1199,23 @@
    "yahoo": "EUNH.DE"
   },
   "oblig:eurig": {
-   "value": 58.8,
+   "value": 60.1,
    "label": "Avidité",
    "nom": "Crédit IG € (EUN5)",
    "court": "Crédit IG € (EUN5)",
-   "date": "2026-11-24",
-   "points_long": 0,
-   "points_short": 0,
+   "date": "2026-11-27",
+   "points_long": -10,
+   "points_short": 6,
    "official": false,
    "source": "Yahoo Finance (EUN5.DE)",
    "yahoo": "EUN5.DE"
   },
   "oblig:de": {
-   "value": 76.6,
-   "label": "Euphorie",
+   "value": 74.5,
+   "label": "Avidité",
    "nom": "Bund (EXX6)",
    "court": "Bund (EXX6)",
-   "date": "2026-11-24",
+   "date": "2026-11-27",
    "points_long": -20,
    "points_short": 12,
    "official": false,
@@ -1223,11 +1223,11 @@
    "yahoo": "EXX6.DE"
   },
   "immo:reit_us": {
-   "value": 50.2,
-   "label": "Neutre",
+   "value": 56.3,
+   "label": "Avidité",
    "nom": "REIT US (VNQ)",
    "court": "REIT US (VNQ)",
-   "date": "2026-11-24",
+   "date": "2026-11-25",
    "points_long": 0,
    "points_short": 0,
    "official": false,
@@ -1235,23 +1235,23 @@
    "yahoo": "VNQ"
   },
   "immo:reit_eu": {
-   "value": 58.6,
+   "value": 69.2,
    "label": "Avidité",
    "nom": "Immobilier Europe (EXI5)",
    "court": "Immobilier Europe (EXI5)",
-   "date": "2026-11-24",
-   "points_long": 0,
-   "points_short": 0,
+   "date": "2026-11-27",
+   "points_long": -10,
+   "points_short": 6,
    "official": false,
    "source": "Yahoo Finance (EXI5.DE)",
    "yahoo": "EXI5.DE"
   },
   "fx:dxy": {
-   "value": 73.7,
+   "value": 72.4,
    "label": "Avidité",
    "nom": "Dollar Index (DXY)",
    "court": "Dollar Index (DXY)",
-   "date": "2026-11-24",
+   "date": "2026-11-27",
    "points_long": -20,
    "points_short": 12,
    "official": false,
@@ -1259,11 +1259,11 @@
    "yahoo": "DX-Y.NYB"
   },
   "fx:audjpy": {
-   "value": 25.6,
+   "value": 27.4,
    "label": "Peur",
    "nom": "AUD/JPY",
    "court": "AUD/JPY",
-   "date": "2026-11-24",
+   "date": "2026-11-27",
    "points_long": 20,
    "points_short": -12,
    "official": false,
@@ -1271,11 +1271,11 @@
    "yahoo": "AUDJPY=X"
   },
   "pays:FR": {
-   "value": 41.1,
+   "value": 42.9,
    "label": "Peur",
    "nom": "France (CAC 40)",
    "court": "France (CAC 40)",
-   "date": "2026-11-24",
+   "date": "2026-11-27",
    "points_long": 0,
    "points_short": 0,
    "official": false,
@@ -1283,11 +1283,11 @@
    "yahoo": "^FCHI"
   },
   "pays:DE": {
-   "value": 25.5,
+   "value": 26.4,
    "label": "Peur",
    "nom": "Allemagne (DAX)",
    "court": "Allemagne (DAX)",
-   "date": "2026-11-24",
+   "date": "2026-11-27",
    "points_long": 20,
    "points_short": -12,
    "official": false,
@@ -1295,11 +1295,11 @@
    "yahoo": "^GDAXI"
   },
   "pays:CA": {
-   "value": 13.5,
+   "value": 15.8,
    "label": "Peur extrême",
    "nom": "Canada (TSX)",
    "court": "Canada (TSX)",
-   "date": "2026-11-24",
+   "date": "2026-11-26",
    "points_long": 30,
    "points_short": -18,
    "official": false,
@@ -1307,11 +1307,11 @@
    "yahoo": "^GSPTSE"
   },
   "pays:CH": {
-   "value": 54.4,
-   "label": "Neutre",
+   "value": 55.2,
+   "label": "Avidité",
    "nom": "Suisse (SMI)",
    "court": "Suisse (SMI)",
-   "date": "2026-11-24",
+   "date": "2026-11-27",
    "points_long": 0,
    "points_short": 0,
    "official": false,
@@ -1319,11 +1319,11 @@
    "yahoo": "^SSMI"
   },
   "pays:US": {
-   "value": 17.2,
+   "value": 16.6,
    "label": "Peur extrême",
    "nom": "États-Unis (S&P 500)",
    "court": "États-Unis (S&P 500)",
-   "date": "2026-11-24",
+   "date": "2026-11-25",
    "points_long": 30,
    "points_short": -18,
    "official": false,
@@ -1331,37 +1331,37 @@
    "yahoo": "^GSPC"
   },
   "pays:EU": {
-   "value": 27.8,
+   "value": 33.4,
    "label": "Peur",
    "nom": "Europe (STOXX 600)",
    "court": "Europe (STOXX 600)",
-   "date": "2026-11-24",
-   "points_long": 20,
-   "points_short": -12,
+   "date": "2026-11-27",
+   "points_long": 10,
+   "points_short": -6,
    "official": false,
    "source": "Yahoo Finance (^STOXX)",
    "yahoo": "^STOXX"
   },
   "pays:JP": {
-   "value": 8.0,
+   "value": 11.3,
    "label": "Peur extrême",
    "nom": "Japon (Nikkei)",
    "court": "Japon (Nikkei)",
-   "date": "2026-11-20",
-   "points_long": 40,
-   "points_short": -24,
+   "date": "2026-11-27",
+   "points_long": 30,
+   "points_short": -18,
    "official": false,
    "source": "Yahoo Finance (^N225)",
    "yahoo": "^N225"
   },
   "pays:KR": {
-   "value": 8.3,
+   "value": 10.4,
    "label": "Peur extrême",
    "nom": "Corée (KOSPI)",
    "court": "Corée (KOSPI)",
-   "date": "2026-11-23",
-   "points_long": 40,
-   "points_short": -24,
+   "date": "2026-11-27",
+   "points_long": 30,
+   "points_short": -18,
    "official": false,
    "source": "Yahoo Finance (^KS11)",
    "yahoo": "^KS11"
@@ -1378,33 +1378,33 @@
    "source": "metaux.json"
   },
   "metaux": {
-   "value": 9.8,
+   "value": 12.0,
    "label": "Peur extrême",
    "nom": "Métaux précieux (panier)",
    "court": "Métaux précieux",
-   "date": "2026-11-24",
-   "points_long": 40,
-   "points_short": -24,
+   "date": "2026-11-27",
+   "points_long": 30,
+   "points_short": -18,
    "official": false,
    "source": "moyenne pondérée : metal:or 0.4, metal:argent 0.2, metal:platine 0.1, metal:palladium 0.1, metal:cftc 0.2"
   },
   "devises": {
-   "value": 25.9,
+   "value": 27.5,
    "label": "Peur",
    "nom": "Devises : appétit pour le risque",
    "court": "Devises",
-   "date": "2026-11-24",
+   "date": "2026-11-27",
    "points_long": 20,
    "points_short": -12,
    "official": false,
    "source": "(100 − sentiment DXY + sentiment AUD/JPY) / 2"
   },
   "crypto": {
-   "value": 11.0,
+   "value": 12.0,
    "label": "Peur extrême",
    "nom": "Crypto Fear & Greed (alternative.me)",
    "court": "Crypto (alternative.me)",
-   "date": "2026-11-24",
+   "date": "2026-11-27",
    "points_long": 30,
    "points_short": -18,
    "official": true,
