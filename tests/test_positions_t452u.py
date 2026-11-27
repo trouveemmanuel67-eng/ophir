@@ -46,7 +46,7 @@ def test_lignes_du_releve_et_ordres():
     assert by[("MAU", "active")]["valeur"] == 519.21
     assert by[("PEA", "active")]["nom"] == "ligne PEA non identifiée"
     assert POS["n_en_attente"] == 0
-    assert POS["n_actives"] == 36
+    assert POS["n_actives"] == 39
     assert {p["ticker"] for p in RX["positions"]} == {"BTC", "ETH"}
     eth=next(p for p in RX["positions"] if p["ticker"]=="ETH")
     btc=next(p for p in RX["positions"] if p["ticker"]=="BTC")
@@ -57,7 +57,7 @@ def test_lignes_du_releve_et_ordres():
     assert "09 h 50" in RX["releve_libelle"]
     # CFD : montant = exposition (quantité × cours), levier lu par ligne
     cfds = {p["ticker"]: p for p in POS["positions"] if p.get("type") == "cfd"}
-    assert set(cfds) == {"XPD-CFD", "COST-CFD", "MSTR-CFD", "SMR-CFD", "MPC-CFD", "AMD-CFD", "BDX-CFD", "EG-CFD", "ABBV-CFD", "SPCX-CFD", "TGT-CFD", "MCK-CFD"}
+    assert set(cfds) == {"XPD-CFD", "COST-CFD", "MSTR-CFD", "SMR-CFD", "MPC-CFD", "AMD-CFD", "BDX-CFD", "EG-CFD", "ABBV-CFD", "SPCX-CFD", "TGT-CFD", "MCK-CFD", "DLTR-CFD", "ED-CFD", "WAT-CFD"}
     assert cfds["MSTR-CFD"]["cfd_badge"] == "CFD L x6"
     assert cfds["MSTR-CFD"]["levier"] == 6
     assert cfds["XPD-CFD"]["cfd_badge"] == "CFD L x5"
@@ -146,7 +146,7 @@ def test_lignes_du_releve_et_ordres():
     assert al["valeur_usd"] == 2614.02
     assert al["exposition_usd"] == 20169.37
     assert al["n"] == 12
-    assert "COST" in al["tickers"] and "BDX" in al["tickers"] and "EG" in al["tickers"] and "ABBV" in al["tickers"] and "SPCX" in al["tickers"] and "TGT" in al["tickers"] and "MCK" in al["tickers"]
+    assert "COST" in al["tickers"] and "BDX" in al["tickers"] and "EG" in al["tickers"] and "ABBV" in al["tickers"] and "SPCX" in al["tickers"] and "TGT" in al["tickers"] and "MCK" in al["tickers"] and "DLTR" in al["tickers"] and "ED" in al["tickers"] and "WAT" in al["tickers"]
     assert al.get("a_confirmer") in (None, [], ())
     assert al["marge_maintenance_pct"] == 98
     assert al["seuil_fermeture_usd"] == 1336.40
@@ -413,3 +413,46 @@ def test_source_dashboard_presente():
     rel = json.loads(src.read_text())
     assert rel["date"] == "2026-11-25"
     assert (ROOT / "src" / "update_positions_releve.py").exists()
+
+def test_shorts_dltr_ed_wat_27_11():
+    """Nouveaux shorts du 27/11 (capture transactions) : DLTR, ED, WAT. TGT déjà présent, non doublé."""
+    cfds = {p["ticker"]: p for p in POS["positions"] if p.get("type") == "cfd"}
+    assert "TGT-CFD" in cfds and sum(1 for p in POS["positions"] if p["ticker"] == "TGT-CFD") == 1
+    assert POS["n_actives"] == 39
+    assert POS["cfd_alerte"]["n"] == 15
+    assert POS["totaux"]["courtiers"]["revolut"]["cfd_exposition_usd"] == 22264.52
+    # DLTR
+    d = cfds["DLTR-CFD"]
+    assert d["cfd_badge"] == "CFD S x5"
+    assert d["sens"] == "short" and d["levier"] == 5 and d["tab"] == "actions"
+    assert d["quantite"] == 3.27 and d["prix_moyen"] == 151.58
+    assert d["investi"] == 495.67 and d["marge_usd"] == 99.13
+    assert d["date_execution"] == "2026-11-27T07:25:00+01:00"
+    assert d.get("frais_ouverture_usd") in (None, "")  # non communiqué, non inventé
+    # ED
+    e = cfds["ED-CFD"]
+    assert e["cfd_badge"] == "CFD S x5"
+    assert e["sens"] == "short" and e["levier"] == 5 and e["tab"] == "actions"
+    assert e["quantite"] == 4.15 and e["prix_moyen"] == 119.67
+    assert e["investi"] == 496.63 and e["marge_usd"] == 99.33
+    assert e["date_execution"] == "2026-11-27T15:31:00+01:00"
+    assert e.get("frais_ouverture_usd") in (None, "")
+    # WAT
+    w = cfds["WAT-CFD"]
+    assert w["cfd_badge"] == "CFD S x5"
+    assert w["sens"] == "short" and w["levier"] == 5 and w["tab"] == "actions"
+    assert w["quantite"] == 0.5 and w["prix_moyen"] == 462.9
+    assert w["investi"] == 231.45 and w["marge_usd"] == 46.29
+    assert w["date_execution"] == "2026-11-27T17:05:00+01:00"
+    assert w.get("frais_ouverture_usd") in (None, "")
+    # WAT sort des Meilleurs short (short détenu)
+    short = json.loads((ROOT / "data" / "apex_short.json").read_text(encoding="utf-8"))
+    assert short["by_tv"]["NYSE:WAT"].get("held_position") is True
+    assert short["by_tv"]["NYSE:WAT"].get("liste") is False
+    assert "NYSE:WAT" not in short["liste"]
+    assert short["by_tv"]["NYSE:ED"].get("held_position") is True
+    assert short["by_tv"]["NASDAQ:DLTR"].get("held_position") is True
+    # projection OVN inchangée : seul l'OVN du 24/11 est observé
+    assert POS["frais_cfd"]["projection_eur"] == 64.14
+    assert POS["frais_cfd"]["projection_usd"] == 70.2
+
