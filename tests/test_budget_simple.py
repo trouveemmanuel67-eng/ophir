@@ -89,3 +89,18 @@ def test_calculs_non_modifies_dans_le_js():
     assert "objectif_reduction_autres_postes" in JS
     assert "capacite_actuelle" in JS
     assert "depenses_recurrentes" in JS
+
+
+def test_periode_octobre_uniquement():
+    """La page Budget et le bouton n'affichent plus novembre."""
+    assert "Budget · Octobre" in JS
+    assert "Budget — Octobre 2026" in JS
+    assert "Lidl (octobre et novembre au 24)" not in JS
+    assert "Tickets Lidl, octobre 2026" in JS
+    assert "const hasNov=false;" in JS
+    lidl = _extract("bdgLidlBlock")
+    assert "novembre au 24" not in lidl
+    mens = _extract("bdgMensuelHtml")
+    assert "Novembre au 25 (hors moyenne)" not in mens
+    assert "WordPress 134,60" not in mens
+    assert "Novembre, pour information seulement" not in mens

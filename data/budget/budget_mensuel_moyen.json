@@ -1,14 +1,14 @@
 {
   "id": "budget_mensuel_moyen",
-  "titre": "Budget mensuel moyen",
+  "titre": "Budget — Octobre 2026",
   "note_haut": "Base prudente : 2 800 € net + prime 4 000 €/an, sans commissions, Priscilla sans revenu",
   "deficitaire": true,
   "mois_reference": "2026-10",
-  "mois_reference_libelle": "Mois de référence : octobre 2026",
+  "mois_reference_libelle": "Octobre 2026",
   "periode": {
     "debut": "2026-10-01",
     "fin": "2026-10-31",
-    "libelle": "Mois de référence : octobre 2026"
+    "libelle": "Octobre 2026"
   },
   "fx": {
     "taux": 1.0944,
@@ -17,24 +17,24 @@
   },
   "methode": {
     "mois_reference": "2026-10",
-    "mois_reference_libelle": "Mois de référence : octobre 2026",
+    "mois_reference_libelle": "Octobre 2026",
     "jours_octobre": 31,
     "novembre_exclu": true,
-    "novembre_note": "Novembre 2026 est partiel (1–25) et n'entre pas dans la moyenne. Les montants de novembre sont indiqués pour information seulement.",
+    "novembre_note": "Novembre 2026 reste dans les fichiers bruts, hors calcul et hors affichage.",
     "formule": "montant d'octobre, après sortie des exceptionnels d'octobre lissés / 12",
     "en_attente_inclus_eur": 0,
     "hypotheses": [
-      "Mois de référence : octobre 2026. Novembre est un mois partiel (arrêté au 25) et ne compte pas dans la moyenne.",
+      "Période : octobre 2026 uniquement. Les opérations de novembre restent dans les fichiers bruts, hors calcul et hors affichage.",
       "Base prudente des revenus (consigne Emmanuel) : 2 800 € net par mois + prime de participation 4 000 €/an, soit 333,33 €/mois lissés, total 3 133,33 €/mois, sans commissions. Priscilla n'a aucun revenu.",
       "France Travail (876,60 € en octobre) n'entre pas dans cette base : c'est un bonus temporaire, car ce revenu peut s'arrêter. Affiché à part.",
-      "Les revenus réels d'octobre restent affichés pour comparer : salaire Tesla 4 169,59 € (22/10, réf. Salary 102026) + France Travail 876,60 € (1/10) = 5 046,19 €. Le salaire de novembre (6 315,41 € le 24/11) est différent et hors moyenne.",
-      "Chaque poste de dépense retenu est le montant d'octobre, après sortie des exceptionnels d'octobre. Rien n'est ramené ni lissé avec novembre.",
-      "Les dépenses exceptionnelles d'octobre sont sorties du courant et lissées sur 12 mois dans « Provisions annuelles » (dentiste Koch du 27/10, Salomon, déco de Noël Lidl d'octobre, séjour Ramatuelle, pot de naissance, solde IR 2025, Grok via Apple d'octobre). TradingView Essential annuel (186,48 € / 12) est aussi provisionné, à la place du Premium encore prélevé en octobre.",
-      "Grok Heavy (219,99 € le 4/11 via Apple) est confirmé comme abonnement mensuel et conservé (outil de pilotage) : il reste dans les charges fixes, hors du panier de réductions. L'équilibre doit être trouvé en réduisant les autres postes. Les autres pics de novembre (Decathlon, gros Amazon, déco de Noël, Free Mobile, second paiement Koch, WordPress / MailPoet / Dualhook de novembre, opérations en attente des 23–24/11) restent hors mois de référence : ils n'entrent ni dans le courant personnel ni dans les provisions. WordPress, MailPoet et Dualhook de novembre figurent seulement en information sur la ligne Air Glow.",
-      "Les frais de courtage et overnight d'octobre, relevés sur les relevés Revolut Securities (99,41 € : entrée 26,16 €, sortie 15,37 €, overnight 57,85 €, autres 0,03 €), sont une charge variable du mois de référence. Les dividendes et coupons nets d'octobre (27,99 €) sont affichés en face, sans être ajoutés à la base prudente.",
-      "Les virements vers l'investissement ne sont pas des dépenses. L'épargne réalisée de référence est celle d'octobre. Le flux de novembre, très supérieur, est hors moyenne et a pu être alimenté par le crédit Revolut de 23 500 €.",
+      "Les revenus réels d'octobre restent affichés pour comparer : salaire Tesla 4 169,59 € (22/10, réf. Salary 102026) + France Travail 876,60 € (1/10) = 5 046,19 €.",
+      "Chaque poste de dépense retenu est le montant d'octobre, après sortie des exceptionnels d'octobre lissés / 12.",
+      "Les dépenses exceptionnelles d'octobre sont sorties du courant et lissées sur 12 mois dans « Provisions annuelles » (dentiste Koch du 27/10, Salomon, déco de Noël Lidl d'octobre, séjour Ramatuelle, pot de naissance, solde IR 2025). TradingView Essential annuel (186,48 € / 12) est aussi provisionné, à la place du Premium encore prélevé en octobre.",
+      "Grok (via Apple) 114,99 € le 26/10 figure dans les abonnements d'octobre, au réel du mois.",
+      "Les frais de courtage et overnight d'octobre, relevés sur les relevés Revolut Securities (99,41 € : entrée 26,16 €, sortie 15,37 €, overnight 57,85 €, autres 0,03 €), sont une charge variable d'octobre. Les dividendes et coupons nets d'octobre (27,99 €) sont affichés en face, sans être ajoutés à la base prudente.",
+      "Les virements vers l'investissement ne sont pas des dépenses. L'épargne réalisée affichée est celle d'octobre.",
       "Le crédit Revolut n'est ni un revenu ni une dépense ; sa mensualité d'octobre (169,60 €) est une charge fixe, comme la LOA Tesla (486,32 €).",
-      "Tout ce qui relève d'Air Glow est regroupé sur une seule ligne « Air Glow, frais de fonctionnement », hors des dépenses personnelles et du panier d'économies (inchangé). Moyenne d'octobre 269.29 € : publicité Facebook 128.28 €, X Ads 22.27 € et Envato 87.97 € au montant d'octobre, plus WordPress d'octobre 21.60 € et INPI + CCI 347.63 € lissés / 12 (1.80 € et 28.97 €). Les 134,60 € de WordPress, MailPoet et Dualhook de novembre sont hors référence. Mollie « Thood Franc… » à Roppenheim (23 €) reste dans les achats, non identifié comme frais pro. La capacité personnelle (hors Air Glow) est -1050.84 €/mois ; y compris Air Glow, elle est de -1320.13 €/mois. Le futur gestionnaire de budget famille traitera le détail ; APEX n'affiche Air Glow que sur cette ligne.",
+      "Tout ce qui relève d'Air Glow est regroupé sur une seule ligne « Air Glow, frais de fonctionnement », hors des dépenses personnelles et du panier d'économies (inchangé). Moyenne d'octobre 269.29 € : publicité Facebook 128.28 €, X Ads 22.27 € et Envato 87.97 € au montant d'octobre, plus WordPress d'octobre 21.60 € et INPI + CCI 347.63 € lissés / 12 (1.80 € et 28.97 €). Mollie « Thood Franc… » à Roppenheim (23 €) reste dans les achats, non identifié comme frais pro. La capacité personnelle (hors Air Glow) est -936.26 €/mois ; y compris Air Glow, elle est de -1205.55 €/mois. Le futur gestionnaire de budget famille traitera le détail ; APEX n'affiche Air Glow que sur cette ligne.",
       "Tous les montants viennent des fichiers data/budget et de l'abonnement TradingView déjà suivi sur le site. Rien n'est inventé."
     ]
   },
@@ -74,7 +74,7 @@
       "novembre_usd": 0.0,
       "moyenne_eur": 4169.59,
       "moyenne_usd": 4563.2,
-      "note": "Salaire Tesla réellement perçu en octobre : 4 169,59 € le 22/10 (réf. Salary 102026), affiché pour comparer à la base prudente de 2 800 € net. Le salaire de novembre est différent : 6 315,41 € le 24/11 (réf. Salary 112026), hors moyenne."
+      "note": "Salaire Tesla réellement perçu en octobre : 4 169,59 € le 22/10 (réf. Salary 102026), affiché pour comparer à la base prudente de 2 800 € net."
     },
     "france_travail": {
       "octobre_eur": 876.6,
@@ -116,7 +116,7 @@
           "libelle": "Logement / loyer",
           "moyenne_eur": 900.18,
           "moyenne_usd": 985.16,
-          "detail": "Fonds Logement Intermédiaire : 900.18 € le 5/10. Mois de référence octobre (le même montant reparaît le 3/11, hors moyenne).",
+          "detail": "Fonds Logement Intermédiaire : 900.18 € le 5/10.",
           "octobre_eur": 900.18,
           "novembre_eur": 0.0
         },
@@ -125,7 +125,7 @@
           "libelle": "LOA Tesla (Cofica Bail)",
           "moyenne_eur": 486.32,
           "moyenne_usd": 532.23,
-          "detail": "486,32 € le 5/10. Confirmé par Emmanuel le 25/11. Charge fixe, isolée ici. Même mensualité le 5/11, hors moyenne.",
+          "detail": "486,32 € le 5/10. Confirmé par Emmanuel le 25/11. Charge fixe, isolée ici.",
           "octobre_eur": 486.32,
           "novembre_eur": 0.0
         },
@@ -134,7 +134,7 @@
           "libelle": "Crédit Revolut 23 500 €",
           "moyenne_eur": 169.6,
           "moyenne_usd": 185.61,
-          "detail": "Mensualité 169,60 € le 9/10. Confirmé par Emmanuel. Charge fixe. Le capital n'est ni un revenu ni une dépense. Même échéance le 9/11, hors moyenne.",
+          "detail": "Mensualité 169,60 € le 9/10. Confirmé par Emmanuel. Charge fixe. Le capital n'est ni un revenu ni une dépense.",
           "octobre_eur": 169.6,
           "novembre_eur": 0.0
         },
@@ -143,7 +143,7 @@
           "libelle": "Assurances / mutuelle (AXA)",
           "moyenne_eur": 86.96,
           "moyenne_usd": 95.17,
-          "detail": "Trois prélèvements AXA le 5/10, total 86.96 €. Même trio le 5/11, hors moyenne.",
+          "detail": "Trois prélèvements AXA le 5/10, total 86.96 €.",
           "octobre_eur": 86.96,
           "novembre_eur": 0.0
         },
@@ -152,18 +152,18 @@
           "libelle": "Télécom / internet",
           "moyenne_eur": 39.99,
           "moyenne_usd": 43.77,
-          "detail": "Mois de référence octobre : Free Haut Débit 39.99 € le 6/10. Free Mobile 0.00 € (19,99 € + 25,98 €) n'apparaît que le 8/11 : hors mois de référence, non inclus ici.",
+          "detail": "Free Haut Débit 39.99 € le 6/10.",
           "octobre_eur": 39.99,
           "novembre_eur": 0.0,
-          "hypothese": "Free Mobile constaté en novembre seulement, donc absent du budget d'octobre."
+          "hypothese": "Free Mobile (19,99 € + 25,98 €) n'apparaît que le 8/11 : hors budget d'octobre."
         },
         {
           "id": "abonnements",
           "libelle": "Abonnements récurrents",
-          "moyenne_eur": 369.39,
-          "moyenne_usd": 404.26,
-          "detail": "Somme des abonnements mensuels retenus, dont Grok Heavy 219.99 € (confirmé mensuel, conservé comme outil de pilotage pour réduire les autres dépenses, apparu le 4/11). Voir l'encart des abonnements pour les trois formules Grok. TradingView Essential et Grok (via Apple) 114,99 € d'octobre restent dans les provisions annuelles. WordPress est sur la ligne Air Glow.",
-          "octobre_eur": null,
+          "moyenne_eur": 264.39,
+          "moyenne_usd": 289.35,
+          "detail": "Somme des abonnements mensuels payés en octobre, dont Grok (via Apple) 114,99 € le 26/10. TradingView Essential annuel est dans les provisions. WordPress est sur la ligne Air Glow.",
+          "octobre_eur": 264.39,
           "novembre_eur": null,
           "abonnements": [
             {
@@ -174,7 +174,7 @@
               "moyenne_eur": 10.0,
               "moyenne_usd": 10.94,
               "n": 1,
-              "detail": "10,00 € les 2/10 et 3/11.",
+              "detail": "10,00 € le 2/10.",
               "type": "both"
             },
             {
@@ -185,7 +185,7 @@
               "moyenne_eur": 7.99,
               "moyenne_usd": 8.74,
               "n": 1,
-              "detail": "7,99 € les 15/10 et 15/11.",
+              "detail": "7,99 € le 15/10.",
               "type": "both"
             },
             {
@@ -196,7 +196,7 @@
               "moyenne_eur": 6.99,
               "moyenne_usd": 7.65,
               "n": 1,
-              "detail": "6,99 € les 16/10 et 16/11.",
+              "detail": "6,99 € le 16/10.",
               "type": "both"
             },
             {
@@ -207,7 +207,7 @@
               "moyenne_eur": 12.99,
               "moyenne_usd": 14.22,
               "n": 1,
-              "detail": "12,99 € les 18/10 et 18/11.",
+              "detail": "12,99 € le 18/10.",
               "type": "both"
             },
             {
@@ -218,7 +218,7 @@
               "moyenne_eur": 60.0,
               "moyenne_usd": 65.66,
               "n": 1,
-              "detail": "60,00 € les 7/10 et 7/11.",
+              "detail": "60,00 € le 7/10.",
               "type": "both"
             },
             {
@@ -229,7 +229,7 @@
               "moyenne_eur": 34.95,
               "moyenne_usd": 38.25,
               "n": 1,
-              "detail": "Prélèvement Apple.com/bill de 34,95 € les 20/10 et 20/11 (formule non identifiée : iCloud / Apple One / autre).",
+              "detail": "Prélèvement Apple.com/bill de 34,95 € le 20/10 (formule non identifiée : iCloud / Apple One / autre).",
               "type": "both"
             },
             {
@@ -240,7 +240,7 @@
               "moyenne_eur": 4.99,
               "moyenne_usd": 5.46,
               "n": 1,
-              "detail": "Prélèvement Apple.com/bill de 4,99 € les 22/10 et 22/11.",
+              "detail": "Prélèvement Apple.com/bill de 4,99 € le 22/10.",
               "type": "both"
             },
             {
@@ -251,38 +251,21 @@
               "moyenne_eur": 6.99,
               "moyenne_usd": 7.65,
               "n": 1,
-              "detail": "Une seule échéance dans la période (6,99 € le 29/10). Retenu comme mensuel probable ; la prochaine tombée peut être après le 25/11.",
+              "detail": "6,99 € le 29/10. Retenu comme mensuel probable.",
               "type": "once_probable"
             },
             {
-              "id": "grok_heavy",
-              "libelle": "Grok Heavy (via Apple) — conservé (outil de pilotage)",
-              "octobre_eur": 0.0,
-              "novembre_eur": 219.99,
-              "moyenne_eur": 219.99,
-              "moyenne_usd": 240.76,
-              "n": 0,
-              "detail": "219,99 € le 4/11 via Apple.com/bill, confirmé mensuel. Conservé : c'est l'outil de pilotage qui doit aider à réduire les autres dépenses. Hors du panier de réductions, même s'il n'est apparu qu'en novembre.",
-              "type": "mensuel_confirme",
-              "famille": "grok",
-              "inclus_dans_recurrent": true,
-              "conserve": true,
-              "badge": "conservé (outil de pilotage)"
-            },
-            {
               "id": "grok_apple",
-              "libelle": "Grok (via Apple) — octobre, remplacé",
+              "libelle": "Grok (via Apple)",
               "octobre_eur": 114.99,
               "novembre_eur": 0.0,
-              "moyenne_eur": 0.0,
-              "moyenne_usd": 0.0,
-              "affichage_eur": 114.99,
-              "affichage_usd": 125.85,
+              "moyenne_eur": 114.99,
+              "moyenne_usd": 125.85,
               "n": 1,
-              "detail": "114.99 € le 26/10, remplacé par Grok Heavy. Conservé en provisions annuelles (9.58 €/mois), pas dans les abonnements récurrents.",
-              "type": "remplace",
+              "detail": "114.99 € le 26/10, abonnement mensuel effectivement payé en octobre.",
+              "type": "both",
               "famille": "grok",
-              "inclus_dans_recurrent": false
+              "inclus_dans_recurrent": true
             },
             {
               "id": "grok_direct",
@@ -292,7 +275,7 @@
               "moyenne_eur": 4.5,
               "moyenne_usd": 4.92,
               "n": 1,
-              "detail": "Une seule échéance (4,50 € / 5,00 $ le 26/10, SpaceXSI). Retenu comme mensuel probable, à confirmer s'il est toujours actif à côté de Grok Heavy.",
+              "detail": "4,50 € / 5,00 $ le 26/10 (SpaceXSI). Retenu comme mensuel probable.",
               "type": "once_probable",
               "famille": "grok",
               "inclus_dans_recurrent": true
@@ -304,7 +287,7 @@
           "libelle": "Impôts récurrents",
           "moyenne_eur": 0.0,
           "moyenne_usd": 0.0,
-          "detail": "Le solde IR 2025 (288 €) est en provisions. Aucun autre prélèvement d'impôt sur la période ; le PAS est déjà dans le salaire net Tesla.",
+          "detail": "Le solde IR 2025 (288 €) est en provisions. Aucun autre prélèvement d'impôt en octobre ; le PAS est déjà dans le salaire net Tesla.",
           "octobre_eur": 0.0,
           "novembre_eur": 0.0
         },
@@ -313,13 +296,13 @@
           "libelle": "Énergie",
           "moyenne_eur": 0.0,
           "moyenne_usd": 0.0,
-          "detail": "Aucune facture d'électricité ou de gaz sur les 56 jours. Possible inclusion dans le loyer, facturation trimestrielle, ou paiement hors de ces comptes — trou à vérifier.",
+          "detail": "Aucune facture d'électricité ou de gaz en octobre 2026. Possible inclusion dans le loyer, facturation trimestrielle, ou paiement hors de ces comptes — trou à vérifier.",
           "octobre_eur": 0.0,
           "novembre_eur": 0.0
         }
       ],
-      "total_moyenne_eur": 2052.44,
-      "total_moyenne_usd": 2246.19
+      "total_moyenne_eur": 1947.44,
+      "total_moyenne_usd": 2131.28
     },
     {
       "id": "variables",
@@ -397,7 +380,7 @@
           "libelle": "Achats courants",
           "moyenne_eur": 612.28,
           "moyenne_usd": 670.08,
-          "detail": "Achats d'octobre hors Salomon (234,70 €, en provisions) et hors Envato (87,97 €, ligne Air Glow) : 612.28 €. Les pics de novembre (Decathlon, gros Amazon) sont hors mois de référence et n'entrent ni dans ce courant ni dans les provisions.",
+          "detail": "Achats d'octobre hors Salomon (234,70 €, en provisions) et hors Envato (87,97 €, ligne Air Glow) : 612.28 €.",
           "octobre_eur": 612.28,
           "novembre_eur": 0.0
         },
@@ -427,7 +410,7 @@
   ],
   "provisions": {
     "libelle": "Provisions annuelles",
-    "note": "Dépenses exceptionnelles d'octobre, lissées sur 12 mois, pour ne pas les laisser gonfler le budget récurrent ni les oublier. WordPress d'octobre et INPI + CCI sont sortis d'ici et figurent sur la ligne Air Glow. Les pics de novembre ne sont pas lissés ici.",
+    "note": "Dépenses exceptionnelles d'octobre, lissées sur 12 mois, pour ne pas les laisser gonfler le budget récurrent ni les oublier. WordPress d'octobre et INPI + CCI sont sortis d'ici et figurent sur la ligne Air Glow.",
     "lignes": [
       {
         "id": "dentiste_koch",
@@ -436,7 +419,7 @@
         "total_periode_usd": 900.68,
         "moyenne_eur": 68.58,
         "moyenne_usd": 75.05,
-        "detail": "822.99 € le 27/10, sorti du courant Santé et lissé sur 12 mois. Un second paiement de 0.00 € le 17/11 est hors mois de référence. Remboursements Aon reçus en novembre : 0.00 € (à rapprocher ; le net n'est pas déduit d'octobre)."
+        "detail": "822.99 € le 27/10, sorti du courant Santé et lissé sur 12 mois."
       },
       {
         "id": "salomon",
@@ -454,7 +437,7 @@
         "total_periode_usd": 22.95,
         "moyenne_eur": 1.75,
         "moyenne_usd": 1.92,
-        "detail": "Rayon « Maison & déco (dont Noël) » des tickets Lidl d'octobre : 20.97 €, sorti des courses courantes. Le pic de novembre (123.35 €) est hors mois de référence."
+        "detail": "Rayon « Maison & déco (dont Noël) » des tickets Lidl d'octobre : 20.97 €, sorti des courses courantes."
       },
       {
         "id": "sejour_ramatuelle_loisirs",
@@ -493,15 +476,6 @@
         "detail": "288,00 € le 26/10 (DGFIP, facture 2667005282776). Le prélèvement à la source est déjà dans le salaire net Tesla."
       },
       {
-        "id": "grok_apple",
-        "libelle": "Grok (via Apple) — octobre",
-        "total_periode_eur": 114.99,
-        "total_periode_usd": 125.85,
-        "moyenne_eur": 9.58,
-        "moyenne_usd": 10.48,
-        "detail": "114.99 € le 26/10. Formule remplacée par Grok Heavy, désormais retenu comme abonnement mensuel de 0.00 € dans les charges fixes. Ce paiement d'octobre reste lissé en provision, pas dans le récurrent."
-      },
-      {
         "id": "tradingview",
         "libelle": "TradingView Essential annuel",
         "total_periode_eur": 186.48,
@@ -511,13 +485,13 @@
         "detail": "Formule retenue pour le budget récurrent : Essential annuel 186,48 €/an, soit 15.54 €/mois (prélèvement le 6/12). En octobre, le Premium mensuel de 83.94 € a encore été prélevé ; il n'est pas reconduit."
       }
     ],
-    "total_moyenne_eur": 176.74,
-    "total_moyenne_usd": 193.42
+    "total_moyenne_eur": 167.16,
+    "total_moyenne_usd": 182.94
   },
   "air_glow": {
     "id": "air_glow",
     "libelle": "Air Glow, frais de fonctionnement",
-    "note": "Ligne unique, hors dépenses personnelles. Moyenne d'octobre : montants d'octobre pour Facebook, X Ads et Envato ; WordPress d'octobre et INPI + CCI lissés / 12. MailPoet, Dualhook et WordPress de novembre (134,60 €) sont hors référence, indiqués pour information. Mollie « Thood Franc… » à Roppenheim (23 €) n'est pas inclus. Le panier d'économies et les abonnements personnels restent inchangés. Le futur gestionnaire de budget famille traitera le détail ; APEX n'affiche Air Glow que sur cette ligne.",
+    "note": "Ligne unique, hors dépenses personnelles. Moyenne d'octobre : montants d'octobre pour Facebook, X Ads et Envato ; WordPress d'octobre et INPI + CCI lissés / 12. Mollie « Thood Franc… » à Roppenheim (23 €) n'est pas inclus. Le panier d'économies et les abonnements personnels restent inchangés. Le futur gestionnaire de budget famille traitera le détail ; APEX n'affiche Air Glow que sur cette ligne.",
     "moyenne_octobre_eur": 269.29,
     "moyenne_octobre_usd": 294.71,
     "caisse_octobre_eur": 607.75,
@@ -560,7 +534,7 @@
         "total_periode_usd": 23.64,
         "moyenne_eur": 1.8,
         "moyenne_usd": 1.97,
-        "detail": "21.60 € le 30/10, sortis des provisions, lissés sur 12 mois (1.80 €). Les 0.00 € de novembre sont hors référence."
+        "detail": "21.60 € le 30/10, sortis des provisions, lissés sur 12 mois (1.80 €)."
       },
       {
         "id": "inpi_cci",
@@ -574,12 +548,12 @@
     ]
   },
   "depenses_recurrentes": {
-    "moyenne_eur": 4184.17,
-    "moyenne_usd": 4579.16,
+    "moyenne_eur": 4069.59,
+    "moyenne_usd": 4453.76,
     "detail": "Somme des charges fixes, variables courantes et discrétionnaires d'octobre, plus les provisions sur exceptionnels d'octobre / 12 (et TradingView Essential annuel). Hors ligne Air Glow, présentée à part.",
     "hors_air_glow": true,
-    "avec_air_glow_eur": 4453.46,
-    "avec_air_glow_usd": 4873.87,
+    "avec_air_glow_eur": 4338.88,
+    "avec_air_glow_usd": 4748.47,
     "avec_air_glow_detail": "Dépenses personnelles récurrentes + moyenne d'octobre de la ligne Air Glow, frais de fonctionnement."
   },
   "epargne_realisee": {
@@ -602,32 +576,32 @@
         "note": "Flux sortants vers les courtiers et les métaux, exclus des dépenses."
       }
     ],
-    "alerte": "Le flux de novembre est très supérieur à celui d'octobre et au reste du budget (revenus − dépenses). Il a pu être alimenté par le crédit Revolut de 23 500 € (capital viré le 6/11, compte destinataire clôturé le 16/11), pas seulement par un excédent mensuel. Ce n'est donc pas une capacité d'épargne récurrente."
+    "alerte": "Les versements d'octobre vers l'investissement ne sont pas une capacité d'épargne récurrente."
   },
   "capacite_actuelle": {
-    "eur": -1050.84,
-    "usd": -1150.04,
+    "eur": -936.26,
+    "usd": -1024.64,
     "deficitaire": true,
     "perimetre": "personnelle_hors_air_glow",
     "formule": "Base prudente 3 133,33 € (2 800 € net + 333,33 € de prime lissée) − dépenses personnelles récurrentes d'octobre (hors Air Glow, y compris provisions / 12).",
-    "note": "Capacité personnelle, hors ligne Air Glow. Y compris Air Glow (moyenne d'octobre 269.29 €), la capacité est de -1320.13 €/mois.",
-    "avec_air_glow_eur": -1320.13,
-    "avec_air_glow_usd": -1444.75,
-    "avec_air_glow_formule": "Base prudente 3 133,33 € − (dépenses personnelles 4184.17 € + moyenne d'octobre Air Glow 269.29 €).",
-    "variante_avec_france_travail_eur": -174.24,
-    "variante_avec_france_travail_usd": -190.69,
-    "variante_avec_france_travail_avec_air_glow_eur": -443.53,
-    "variante_avec_france_travail_avec_air_glow_usd": -485.4,
-    "variante_octobre_observe_eur": 862.02,
-    "variante_octobre_observe_usd": 943.39,
-    "variante_octobre_observe_avec_air_glow_eur": 592.73,
-    "variante_octobre_observe_avec_air_glow_usd": 648.68,
-    "variante_salaire_novembre_eur": -3307.57,
-    "variante_salaire_novembre_usd": -3619.8,
-    "variante_salaire_novembre_avec_air_glow_eur": -3576.86,
-    "variante_salaire_novembre_avec_air_glow_usd": -3914.52,
-    "variante_sans_france_travail_eur": -1050.84,
-    "variante_sans_france_travail_usd": -1150.04
+    "note": "Capacité personnelle, hors ligne Air Glow. Y compris Air Glow (moyenne d'octobre 269.29 €), la capacité est de -1205.55 €/mois.",
+    "avec_air_glow_eur": -1205.55,
+    "avec_air_glow_usd": -1319.35,
+    "avec_air_glow_formule": "Base prudente 3 133,33 € − (dépenses personnelles 4069.59 € + moyenne d'octobre Air Glow 269.29 €).",
+    "variante_avec_france_travail_eur": -59.66,
+    "variante_avec_france_travail_usd": -65.29,
+    "variante_avec_france_travail_avec_air_glow_eur": -328.95,
+    "variante_avec_france_travail_avec_air_glow_usd": -360.0,
+    "variante_octobre_observe_eur": 976.6,
+    "variante_octobre_observe_usd": 1068.79,
+    "variante_octobre_observe_avec_air_glow_eur": 707.31,
+    "variante_octobre_observe_avec_air_glow_usd": 774.08,
+    "variante_salaire_novembre_eur": -3192.99,
+    "variante_salaire_novembre_usd": -3494.41,
+    "variante_salaire_novembre_avec_air_glow_eur": -3462.28,
+    "variante_salaire_novembre_avec_air_glow_usd": -3789.12,
+    "variante_sans_france_travail_eur": -936.26,
+    "variante_sans_france_travail_usd": -1024.64
   },
   "trous": [
     {
@@ -637,33 +611,28 @@
     },
     {
       "id": "grok_stack",
-      "titre": "Stack Grok potentiellement en double",
-      "detail": "Les trois formules sont réunies dans l'encart des abonnements : Grok Heavy 219.99 €/mois (confirmé mensuel, retenu dans les charges fixes), Grok (via Apple) 114.99 € le 26/10 (remplacé, en provisions), Grok direct 4,50 € le 26/10 (mensuel probable). Crédit Apple 85,20 € le 4/11 : probable ajustement de formule, à confirmer."
+      "titre": "Deux formules Grok en octobre",
+      "detail": "En octobre : Grok (via Apple) 114.99 € le 26/10 et Grok direct 4,50 € le 26/10 (mensuel probable). Les deux sont dans les abonnements du mois."
     },
     {
       "id": "frequence_courses",
       "titre": "Fréquence des courses en octobre : 58 paiements, 27 jours distincts",
-      "detail": "Mois de référence octobre : 27 jours / 58 paiements carte. Novembre au 25 (hors moyenne) : 0 jours / 0 paiements. Beaucoup de petits passages. Carrefour 29× (476.32 €) · Lidl 16× (326.02 €) · IKA 5× (19.70 €) · Magasin U 5× (136.00 €) · E.Leclerc 1× (17.07 €) · MaxiCoffee 1× (3.60 €) · Auchan 1× (22.83 €)"
-    },
-    {
-      "id": "non_alim_lidl",
-      "titre": "Non-alimentaire Lidl, surtout en novembre",
-      "detail": "Novembre : non-alimentaire 262,76 € > alimentaire 224,04 € (tickets au 24). Dont déco Noël 123.35 € (déjà lissée) et textile 67.88 €."
+      "detail": "Octobre : 27 jours / 58 paiements carte. Beaucoup de petits passages. Carrefour 29× (476.32 €) · Lidl 16× (326.02 €) · IKA 5× (19.70 €) · Magasin U 5× (136.00 €) · E.Leclerc 1× (17.07 €) · MaxiCoffee 1× (3.60 €) · Auchan 1× (22.83 €)"
     },
     {
       "id": "ovn_frais",
       "titre": "Frais de courtage et overnight d'octobre au-dessus de l'objectif",
-      "detail": "Relevés Revolut d'octobre : 99.41 € de frais (entrée 26.16 €, sortie 15.37 €, overnight 57.85 €, autres 0.03 €). L'overnight dépasse l'objectif de 20 €/mois. Dividendes et coupons nets en face : 27.99 €, hors base prudente. Une projection de novembre (64.14 €/mois à partir d'une nuit du 24/11) reste hors mois de référence."
+      "detail": "Relevés Revolut d'octobre : 99.41 € de frais (entrée 26.16 €, sortie 15.37 €, overnight 57.85 €, autres 0.03 €). L'overnight dépasse l'objectif de 20 €/mois. Dividendes et coupons nets en face : 27.99 €, hors base prudente."
     },
     {
       "id": "energie",
-      "titre": "Pas de facture d'énergie sur 56 jours",
+      "titre": "Pas de facture d'énergie en octobre 2026",
       "detail": "À vérifier : incluse dans le loyer, prélevée ailleurs, ou trimestrielle hors période."
     },
     {
       "id": "pret",
-      "titre": "Crédit Revolut 23 500 € et vague d'investissement de novembre",
-      "detail": "Mensualité 169,60 € déjà dans les charges fixes. Le capital a été viré le 6/11 vers FR76…20176 (clôturé le 16/11). Les versements vers l'investissement atteignent 2589.34 € sur la période (octobre 2589.34 €, novembre 0.00 €), soit bien plus que le reste du budget. Une partie de l'épargne de novembre a pu être financée par le prêt, pas par un excédent mensuel. Ce prêt a un coût : il s'ajoute à un budget qui, en flux observé (non lissé), était dans le rouge en octobre."
+      "titre": "Crédit Revolut : mensualité d'octobre",
+      "detail": "Mensualité 169,60 € le 9/10, déjà dans les charges fixes. Le capital n'est ni un revenu ni une dépense. Les versements vers l'investissement d'octobre s'élèvent à 2589.34 € ; ce n'est pas une capacité d'épargne récurrente."
     }
   ],
   "abonnements": [
@@ -675,7 +644,7 @@
       "moyenne_eur": 10.0,
       "moyenne_usd": 10.94,
       "n": 1,
-      "detail": "10,00 € les 2/10 et 3/11.",
+      "detail": "10,00 € le 2/10.",
       "type": "both"
     },
     {
@@ -686,7 +655,7 @@
       "moyenne_eur": 7.99,
       "moyenne_usd": 8.74,
       "n": 1,
-      "detail": "7,99 € les 15/10 et 15/11.",
+      "detail": "7,99 € le 15/10.",
       "type": "both"
     },
     {
@@ -697,7 +666,7 @@
       "moyenne_eur": 6.99,
       "moyenne_usd": 7.65,
       "n": 1,
-      "detail": "6,99 € les 16/10 et 16/11.",
+      "detail": "6,99 € le 16/10.",
       "type": "both"
     },
     {
@@ -708,7 +677,7 @@
       "moyenne_eur": 12.99,
       "moyenne_usd": 14.22,
       "n": 1,
-      "detail": "12,99 € les 18/10 et 18/11.",
+      "detail": "12,99 € le 18/10.",
       "type": "both"
     },
     {
@@ -719,7 +688,7 @@
       "moyenne_eur": 60.0,
       "moyenne_usd": 65.66,
       "n": 1,
-      "detail": "60,00 € les 7/10 et 7/11.",
+      "detail": "60,00 € le 7/10.",
       "type": "both"
     },
     {
@@ -730,7 +699,7 @@
       "moyenne_eur": 34.95,
       "moyenne_usd": 38.25,
       "n": 1,
-      "detail": "Prélèvement Apple.com/bill de 34,95 € les 20/10 et 20/11 (formule non identifiée : iCloud / Apple One / autre).",
+      "detail": "Prélèvement Apple.com/bill de 34,95 € le 20/10 (formule non identifiée : iCloud / Apple One / autre).",
       "type": "both"
     },
     {
@@ -741,7 +710,7 @@
       "moyenne_eur": 4.99,
       "moyenne_usd": 5.46,
       "n": 1,
-      "detail": "Prélèvement Apple.com/bill de 4,99 € les 22/10 et 22/11.",
+      "detail": "Prélèvement Apple.com/bill de 4,99 € le 22/10.",
       "type": "both"
     },
     {
@@ -752,38 +721,21 @@
       "moyenne_eur": 6.99,
       "moyenne_usd": 7.65,
       "n": 1,
-      "detail": "Une seule échéance dans la période (6,99 € le 29/10). Retenu comme mensuel probable ; la prochaine tombée peut être après le 25/11.",
+      "detail": "6,99 € le 29/10. Retenu comme mensuel probable.",
       "type": "once_probable"
     },
     {
-      "id": "grok_heavy",
-      "libelle": "Grok Heavy (via Apple) — conservé (outil de pilotage)",
-      "octobre_eur": 0.0,
-      "novembre_eur": 219.99,
-      "moyenne_eur": 219.99,
-      "moyenne_usd": 240.76,
-      "n": 0,
-      "detail": "219,99 € le 4/11 via Apple.com/bill, confirmé mensuel. Conservé : c'est l'outil de pilotage qui doit aider à réduire les autres dépenses. Hors du panier de réductions, même s'il n'est apparu qu'en novembre.",
-      "type": "mensuel_confirme",
-      "famille": "grok",
-      "inclus_dans_recurrent": true,
-      "conserve": true,
-      "badge": "conservé (outil de pilotage)"
-    },
-    {
       "id": "grok_apple",
-      "libelle": "Grok (via Apple) — octobre, remplacé",
+      "libelle": "Grok (via Apple)",
       "octobre_eur": 114.99,
       "novembre_eur": 0.0,
-      "moyenne_eur": 0.0,
-      "moyenne_usd": 0.0,
-      "affichage_eur": 114.99,
-      "affichage_usd": 125.85,
+      "moyenne_eur": 114.99,
+      "moyenne_usd": 125.85,
       "n": 1,
-      "detail": "114.99 € le 26/10, remplacé par Grok Heavy. Conservé en provisions annuelles (9.58 €/mois), pas dans les abonnements récurrents.",
-      "type": "remplace",
+      "detail": "114.99 € le 26/10, abonnement mensuel effectivement payé en octobre.",
+      "type": "both",
       "famille": "grok",
-      "inclus_dans_recurrent": false
+      "inclus_dans_recurrent": true
     },
     {
       "id": "grok_direct",
@@ -793,7 +745,7 @@
       "moyenne_eur": 4.5,
       "moyenne_usd": 4.92,
       "n": 1,
-      "detail": "Une seule échéance (4,50 € / 5,00 $ le 26/10, SpaceXSI). Retenu comme mensuel probable, à confirmer s'il est toujours actif à côté de Grok Heavy.",
+      "detail": "4,50 € / 5,00 $ le 26/10 (SpaceXSI). Retenu comme mensuel probable.",
       "type": "once_probable",
       "famille": "grok",
       "inclus_dans_recurrent": true
@@ -842,8 +794,8 @@
       "libelle": "Réduire de moitié le textile Lidl (hors déco déjà lissée)",
       "economie_eur_mois": 9.99,
       "economie_usd_mois": 10.93,
-      "source": "Textile Lidl 19.98 € en octobre et 67.88 € en novembre, moyenne ramenée 19.98 €/mois (tickets Lidl).",
-      "note": "Proposition : moitié du textile Lidl d'octobre, sans viser zéro. Le pic non-alimentaire de novembre (déco, vêtements) est hors mois de référence.",
+      "source": "Textile Lidl d'octobre : 19.98 € (tickets Lidl).",
+      "note": "Proposition : moitié du textile Lidl d'octobre, sans viser zéro.",
       "dans_panier_cible": true
     },
     {
@@ -851,14 +803,14 @@
       "libelle": "Réduire de moitié la restauration courante",
       "economie_eur_mois": 15.08,
       "economie_usd_mois": 16.5,
-      "source": "McDonald's, snacks, cafés, restaurants hors séjour Ramatuelle : 30.15 €/mois après ramener novembre.",
+      "source": "McDonald's, snacks, cafés, restaurants hors séjour Ramatuelle : 30.15 € en octobre.",
       "note": "Proposition : moitié du rythme observé. Le séjour est déjà sorti du courant et lissé en provisions.",
       "dans_panier_cible": true
     }
   ],
   "panier_cible": {
     "libelle": "Panier retenu pour la capacité cible",
-    "note": "L'objectif courses de 867 €/mois (Leclerc + Picard) est fixé depuis le 26/11/2026 et entre dans le panier (113.57 € d'économie visée). Les autres lignes restent des propositions. Grok Heavy est conservé (outil de pilotage) et n'entre pas dans le panier. Autres lignes retenues : OVN ramené sous 20 €, résiliation Revolut Ultra, résiliation YouTube, moitié du textile Lidl d'octobre, moitié de la restauration courante d'octobre.",
+    "note": "L'objectif courses de 867 €/mois (Leclerc + Picard) est fixé depuis le 26/11/2026 et entre dans le panier (113.57 € d'économie visée). Les autres lignes restent des propositions. Autres lignes retenues : OVN ramené sous 20 €, résiliation Revolut Ultra, résiliation YouTube, moitié du textile Lidl d'octobre, moitié de la restauration courante d'octobre.",
     "lignes": [
       {
         "id": "courses",
@@ -901,58 +853,58 @@
     "total_economie_usd": 273.03
   },
   "capacite_cible": {
-    "eur": -801.36,
-    "usd": -877.01,
+    "eur": -686.78,
+    "usd": -751.61,
     "perimetre": "personnelle_hors_air_glow",
     "formule": "Capacité personnelle (hors Air Glow) + somme du panier (objectif courses inclus).",
-    "avec_air_glow_eur": -1070.65,
-    "avec_air_glow_usd": -1171.72,
+    "avec_air_glow_eur": -956.07,
+    "avec_air_glow_usd": -1046.32,
     "avec_air_glow_formule": "Capacité y compris Air Glow + somme du panier (objectif courses inclus).",
-    "variante_grok_heavy_mensuel_eur": -1050.84,
-    "variante_grok_heavy_mensuel_cible_eur": -801.36,
-    "variante_grok_heavy_mensuel_note": "Grok Heavy (219,99 € le 4/11) est confirmé mensuel, conservé comme outil de pilotage, et reste dans les charges fixes. Il n'entre pas dans le panier : l'équilibre doit venir des autres postes."
+    "variante_grok_heavy_mensuel_eur": -936.26,
+    "variante_grok_heavy_mensuel_cible_eur": -686.78,
+    "variante_grok_heavy_mensuel_note": ""
   },
   "objectif_reduction_autres_postes": {
     "libelle": "Objectif de réduction sur les autres postes pour atteindre l'équilibre",
-    "eur": 801.36,
-    "usd": 877.01,
+    "eur": 686.78,
+    "usd": 751.61,
     "perimetre": "personnelle_hors_air_glow",
-    "formule": "Déficit personnel (hors Air Glow) − panier (objectif courses inclus, Grok Heavy conservé hors panier).",
-    "note": "Grok Heavy reste dans les charges fixes. Pour l'équilibre personnel (hors Air Glow), il faut encore trouver 801.36 €/mois sur les autres postes, après le panier de 249.48 €. Y compris Air Glow, l'objectif serait de 1070.65 €/mois.",
-    "avec_air_glow_eur": 1070.65,
-    "avec_air_glow_usd": 1171.72
+    "formule": "Déficit personnel (hors Air Glow) − panier (objectif courses inclus).",
+    "note": "Pour l'équilibre personnel (hors Air Glow), il faut encore trouver 686.78 €/mois sur les autres postes, après le panier de 249.48 €. Y compris Air Glow, l'objectif serait de 956.07 €/mois.",
+    "avec_air_glow_eur": 956.07,
+    "avec_air_glow_usd": 1046.32
   },
   "objectif_epargne": {
     "propose_eur": 0,
     "propose_usd": 0.0,
-    "ecart_equilibre_eur": 1050.84,
-    "ecart_apres_panier_eur": 801.36,
-    "objectif_reduction_autres_postes_eur": 801.36,
-    "objectif_reduction_autres_postes_usd": 877.01,
+    "ecart_equilibre_eur": 936.26,
+    "ecart_apres_panier_eur": 686.78,
+    "objectif_reduction_autres_postes_eur": 686.78,
+    "objectif_reduction_autres_postes_usd": 751.61,
     "objectif_reduction_autres_postes_libelle": "Objectif de réduction sur les autres postes pour atteindre l'équilibre",
-    "objectif_reduction_autres_postes_formule": "Déficit actuel − panier (objectif courses inclus, Grok Heavy conservé hors panier).",
-    "note": "Sur la base prudente de 3 133,33 €, la capacité personnelle (hors Air Glow) est déficitaire de 1050.84 €/mois. Y compris la ligne Air Glow (269.29 € en moyenne d'octobre), le déficit est de 1320.13 €/mois. Grok Heavy est conservé (outil de pilotage) et n'entre pas dans le panier, qui vaut 249.48 € (dont objectif courses 113.57 €). L'objectif de réduction personnel (hors Air Glow) pour l'équilibre est de 801.36 €/mois (déficit 1050.84 € − panier 249.48 €) ; y compris Air Glow, 1070.65 €/mois. Avec le bonus temporaire France Travail, la capacité personnelle passerait à -174.24 €/mois (y compris Air Glow : -443.53 €). Si l'on comparait aux revenus réellement perçus en octobre (5 046,19 €), la capacité personnelle serait de 862.02 €/mois (y compris Air Glow : 592.73 €) — cet écart montre le poids des commissions / heures au-delà de 2 800 € net.",
-    "ecart_equilibre_avec_air_glow_eur": 1320.13,
-    "ecart_apres_panier_avec_air_glow_eur": 1070.65,
-    "objectif_reduction_autres_postes_avec_air_glow_eur": 1070.65,
+    "objectif_reduction_autres_postes_formule": "Déficit actuel − panier (objectif courses inclus).",
+    "note": "Sur la base prudente de 3 133,33 €, la capacité personnelle (hors Air Glow) est déficitaire de 936.26 €/mois. Y compris la ligne Air Glow (269.29 € en moyenne d'octobre), le déficit est de 1205.55 €/mois. Le panier vaut 249.48 € (dont objectif courses 113.57 €). L'objectif de réduction personnel (hors Air Glow) pour l'équilibre est de 686.78 €/mois (déficit 936.26 € − panier 249.48 €) ; y compris Air Glow, 956.07 €/mois. Avec le bonus temporaire France Travail, la capacité personnelle passerait à -59.66 €/mois (y compris Air Glow : -328.95 €). Si l'on comparait aux revenus réellement perçus en octobre (5 046,19 €), la capacité personnelle serait de 976.60 €/mois (y compris Air Glow : 707.31 €) — cet écart montre le poids des commissions / heures au-delà de 2 800 € net.",
+    "ecart_equilibre_avec_air_glow_eur": 1205.55,
+    "ecart_apres_panier_avec_air_glow_eur": 956.07,
+    "objectif_reduction_autres_postes_avec_air_glow_eur": 956.07,
     "cible_si_reductions_eur": 0
   },
   "reserve_securite": {
-    "charges_fixes_eur": 2052.44,
-    "charges_fixes_usd": 2246.19,
+    "charges_fixes_eur": 1947.44,
+    "charges_fixes_usd": 2131.28,
     "detail": "Loyer + LOA Tesla + crédit Revolut + assurances + télécom + abonnements mensuels identifiés. Les frais de courtage et overnight sont des variables, hors de cette réserve, tout comme les provisions.",
     "epargne_disponible_eur": 1603.4,
     "epargne_disponible_usd": 1754.76,
     "epargne_disponible_date": "2026-11-25",
     "epargne_disponible_note": "Soldes des deux comptes Revolut au 25/11/2026 : joint 1287.51 € + perso 315.89 € = 1603.40 € (courant, dépôt et poche Shana inclus). Le solde du joint en fin octobre était 1640.41 €. Les positions d'investissement et le capital du crédit Revolut ne sont pas une réserve disponible.",
-    "mois_securite": 0.78,
-    "mois_couverture_deficit": 1.53,
+    "mois_securite": 0.82,
+    "mois_couverture_deficit": 1.71,
     "sous_reserve_3_mois": true,
-    "mois_3_eur": 6157.32,
-    "mois_3_usd": 6738.57,
-    "mois_6_eur": 12314.64,
-    "mois_6_usd": 13477.14,
-    "note": "Indicateur « mois de sécurité » : 0.78 mois de charges fixes (2052.44 €/mois) couverts par l'épargne disponible (1603.40 € au 25/11). La réserve conseillée est de 3 à 6 mois, soit 6157.32 € à 12314.64 €. La capacité personnelle (hors Air Glow) est déficitaire de 1050.84 €/mois sur la base prudente : à ce rythme, les soldes couvriraient environ 1.53 mois de déficit personnel. Y compris Air Glow, le déficit est de 1320.13 €/mois. Ce n'est pas un ordre de virement. Le crédit de 23 500 € n'est pas une réserve."
+    "mois_3_eur": 5842.32,
+    "mois_3_usd": 6393.84,
+    "mois_6_eur": 11684.64,
+    "mois_6_usd": 12787.67,
+    "note": "Indicateur « mois de sécurité » : 0.82 mois de charges fixes (1947.44 €/mois) couverts par l'épargne disponible (1603.40 € au 25/11). La réserve conseillée est de 3 à 6 mois, soit 5842.32 € à 11684.64 €. La capacité personnelle (hors Air Glow) est déficitaire de 936.26 €/mois sur la base prudente : à ce rythme, les soldes couvriraient environ 1.71 mois de déficit personnel. Y compris Air Glow, le déficit est de 1205.55 €/mois. Ce n'est pas un ordre de virement. Le crédit de 23 500 € n'est pas une réserve."
   },
   "lignes_floues": [
     {

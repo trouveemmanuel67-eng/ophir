@@ -1010,8 +1010,6 @@ def _build_tickets_caisse(fx):
     tous_mois = {}
     for ym in sorted(set(lidl_mois) | set(lec_mois)):
         lib = (lidl_mois.get(ym) or lec_mois.get(ym) or {}).get("libelle") or ym
-        if ym == "2026-11":
-            lib = "Novembre 2026 (Lidl au 24 + ticket Leclerc reçu le 25/11)"
         tous_mois[ym] = _tickets_add_month(lidl_mois.get(ym), lec_mois.get(ym), lib, fx)
     # empty oct for leclerc display
     if "2026-10" not in lec_mois:
@@ -1020,21 +1018,17 @@ def _build_tickets_caisse(fx):
         pass
     part = (lidl or {}).get("courses_releve_octobre") or {}
     note = part.get("note") or "Les Courses du relevé incluent aussi d’autres enseignes."
-    extra = (
-        " Un ticket E.Leclerc (date inconnue, reçu le 25/11/2026, 101,78 €) est ajouté aux totaux de novembre. "
-        "Les 25,00 € payés à part sont comptés en titres-restaurant, à confirmer."
-    )
     return {
         "id": "tickets_caisse",
         "libelle": "Tickets de caisse — détail par rayons",
         "statut": "complet",
         "objectif": None,
         "source": {
-            "intitule": "Tickets Lidl Plus (octobre et novembre au 24) et ticket E.Leclerc (photo reçue le 25/11/2026).",
+            "intitule": "Tickets Lidl Plus, octobre 2026.",
             "fx": 1.0944,
         },
         "courses_releve_octobre": part,
-        "note": note + extra,
+        "note": note,
         "enseigne_defaut": "tous",
         "enseignes": {
             "tous": {"id": "tous", "libelle": "Tous", "mois": tous_mois},
@@ -1065,7 +1059,7 @@ def build_compte_joint(fx):
                 mm = dict(m)
                 mm["total_usd"] = _cj_usd(mm.get("total_eur"), fx)
                 rec["commercants"].append(mm)
-            rec["sous_categories"] = _attach_lidl_tickets(c.get("sous_categories") or [], fx)
+            rec["sous_categories"] = _tickets_octobre_only(_attach_lidl_tickets(c.get("sous_categories") or [], fx))
         cats.append(rec)
     tot = dict(raw.get("totaux") or {})
     for k in list(tot):

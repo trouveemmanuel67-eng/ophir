@@ -52,14 +52,14 @@ def test_hygiene_pas_un_poste_a_part():
 
 
 def test_bandeau_recalcule_avec_le_panier():
-    # Avant : déficit 1050.84, panier 135.91, réduction 914.93 / 1184.22.
-    # Après : panier 249.48 (+113.57), réduction 801.36 / 1070.65.
-    # Le déficit courant (il te manque) ne change pas.
-    assert DATA["capacite_actuelle"]["eur"] == -1050.84
-    assert DATA["capacite_actuelle"]["avec_air_glow_eur"] == -1320.13
+    # Budget d'octobre uniquement : Grok Heavy (219,99 €, apparu le 4/11) sorti des charges,
+    # Grok via Apple d'octobre (114,99 €) remis dans les abonnements, plus provision / 12 retirée.
+    # Déficit 936.26 / 1205.55, panier 249.48, réduction 686.78 / 956.07.
+    assert DATA["capacite_actuelle"]["eur"] == -936.26
+    assert DATA["capacite_actuelle"]["avec_air_glow_eur"] == -1205.55
     assert DATA["panier_cible"]["total_economie_eur"] == 249.48
-    assert DATA["objectif_reduction_autres_postes"]["eur"] == 801.36
-    assert DATA["objectif_reduction_autres_postes"]["avec_air_glow_eur"] == 1070.65
+    assert DATA["objectif_reduction_autres_postes"]["eur"] == 686.78
+    assert DATA["objectif_reduction_autres_postes"]["avec_air_glow_eur"] == 956.07
     ids = [p["id"] for p in DATA["panier_cible"]["lignes"]]
     assert "courses" in ids
     assert "ovn" in ids

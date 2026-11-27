@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-"""Budget mensuel moyen du foyer, sourcé sur data/budget (1er oct. – 25 nov. 2026).
+"""Budget du foyer pour octobre 2026, sourcé sur data/budget.
 
 Ne modifie pas les fichiers de relevé ni la zone Lidl : lit
 comptes_2026-10_11.json, lidl_tickets_2026-10_11.json et
 data/abonnement_tradingview.json, puis écrit
-data/budget/budget_mensuel_moyen.json et l'accroche à positions.json
-sous budget.budget_mensuel.
+data/budget/budget_mensuel_moyen.json et l'accroche aux fichiers
+positions sous budget.budget_mensuel. Novembre reste dans les
+fichiers bruts, hors calcul et hors affichage.
 """
 from __future__ import annotations
 
@@ -546,14 +547,11 @@ def build():
 
     provisions = [
         prov("dentiste_koch", "Dentiste (Dr Koch)", koch_tot,
-             f"{koch_tot:.2f} € le 27/10, sorti du courant Santé et lissé sur 12 mois. "
-             f"Un second paiement de {koch_nov:.2f} € le 17/11 est hors mois de référence. "
-             f"Remboursements Aon reçus en novembre : {aon:.2f} € (à rapprocher ; le net n'est pas déduit d'octobre)."),
+             f"{koch_tot:.2f} € le 27/10, sorti du courant Santé et lissé sur 12 mois."),
         prov("salomon", "Salomon Roppenheim", salomon_tot,
              "234,70 € le 28/10, outlet de Roppenheim. Seuil ≥ 200 €."),
         prov("deco_noel", "Déco de Noël Lidl (octobre)", deco_oct,
-             f"Rayon « Maison & déco (dont Noël) » des tickets Lidl d'octobre : {deco_oct:.2f} €, sorti des courses courantes. "
-             f"Le pic de novembre ({deco_nov:.2f} €) est hors mois de référence."),
+             f"Rayon « Maison & déco (dont Noël) » des tickets Lidl d'octobre : {deco_oct:.2f} €, sorti des courses courantes."),
         prov("sejour_ramatuelle_loisirs", "Séjour Ramatuelle — loisirs", trip_loisir_tot,
              "Le Jardin des Pins 142,80 € + Yelloh ! Village 38,00 € + Le Glacier du Vin 12,00 € (20–24/10)."),
         prov("sejour_ramatuelle_transport", "Séjour Ramatuelle — transport", trip_tr_tot,
@@ -562,9 +560,6 @@ def build():
              "Bastos 67, 20,93 € le 16/10. Ponctuel, confirmé par Emmanuel."),
         prov("impot_solde", "Solde impôt sur les revenus 2025", ir_tot,
              "288,00 € le 26/10 (DGFIP, facture 2667005282776). Le prélèvement à la source est déjà dans le salaire net Tesla."),
-        prov("grok_apple", "Grok (via Apple) — octobre", grok_ap_tot,
-             f"{grok_ap_tot:.2f} € le 26/10. Formule remplacée par Grok Heavy, désormais retenu comme abonnement mensuel "
-             f"de {heavy_tot:.2f} € dans les charges fixes. Ce paiement d'octobre reste lissé en provision, pas dans le récurrent."),
         prov("tradingview", "TradingView Essential annuel", tv_an,
              f"Formule retenue pour le budget récurrent : Essential annuel 186,48 €/an, soit {tv_mois:.2f} €/mois (prélèvement le 6/12). "
              f"En octobre, le Premium mensuel de {tv_paid_oct:.2f} € a encore été prélevé ; il n'est pas reconduit."),
@@ -627,11 +622,11 @@ def build():
         })
         return m
 
-    m_ms = add_abo("microsoft", "Microsoft", is_microsoft, "both", "10,00 € les 2/10 et 3/11.")
-    m_nf = add_abo("netflix", "Netflix", is_netflix, "both", "7,99 € les 15/10 et 15/11.")
-    m_ds = add_abo("disney", "Disney+", is_disney, "both", "6,99 € les 16/10 et 16/11.")
-    m_yt = add_abo("youtube", "YouTube", is_youtube, "both", "12,99 € les 18/10 et 18/11.")
-    m_ul = add_abo("revolut_ultra", "Revolut Ultra", is_revolut_ultra, "both", "60,00 € les 7/10 et 7/11.")
+    m_ms = add_abo("microsoft", "Microsoft", is_microsoft, "both", "10,00 € le 2/10.")
+    m_nf = add_abo("netflix", "Netflix", is_netflix, "both", "7,99 € le 15/10.")
+    m_ds = add_abo("disney", "Disney+", is_disney, "both", "6,99 € le 16/10.")
+    m_yt = add_abo("youtube", "YouTube", is_youtube, "both", "12,99 € le 18/10.")
+    m_ul = add_abo("revolut_ultra", "Revolut Ultra", is_revolut_ultra, "both", "60,00 € le 7/10.")
 
     # Apple 34.95 and 4.99 (same amounts both months)
     apple_ops = [o for o in abo_ops if is_apple(o) and not is_grok_heavy(o) and not is_grok_apple(o)]
@@ -639,49 +634,29 @@ def build():
     apple_499 = [o for o in apple_ops if o.get("sens") != "credit" and abs(amt(o) - 4.99) < 0.01]
     m_a3495 = moy_fixe(*by_month(apple_3495)) if apple_3495 else 0.0
     m_a499 = moy_fixe(*by_month(apple_499)) if apple_499 else 0.0
-    rec_abos.append({"id": "apple_3495", "libelle": "Apple 34,95 €", "octobre_eur": r2(sum(amt(o) for o in apple_3495 if month(o)=="2026-10")), "novembre_eur": r2(sum(amt(o) for o in apple_3495 if month(o)=="2026-11")), "moyenne_eur": m_a3495, "moyenne_usd": usd(m_a3495), "n": len(apple_3495), "detail": "Prélèvement Apple.com/bill de 34,95 € les 20/10 et 20/11 (formule non identifiée : iCloud / Apple One / autre).", "type": "both"})
-    rec_abos.append({"id": "apple_499", "libelle": "Apple 4,99 €", "octobre_eur": r2(sum(amt(o) for o in apple_499 if month(o)=="2026-10")), "novembre_eur": r2(sum(amt(o) for o in apple_499 if month(o)=="2026-11")), "moyenne_eur": m_a499, "moyenne_usd": usd(m_a499), "n": len(apple_499), "detail": "Prélèvement Apple.com/bill de 4,99 € les 22/10 et 22/11.", "type": "both"})
+    rec_abos.append({"id": "apple_3495", "libelle": "Apple 34,95 €", "octobre_eur": r2(sum(amt(o) for o in apple_3495 if month(o)=="2026-10")), "novembre_eur": r2(sum(amt(o) for o in apple_3495 if month(o)=="2026-11")), "moyenne_eur": m_a3495, "moyenne_usd": usd(m_a3495), "n": len([o for o in apple_3495 if month(o)=="2026-10"]), "detail": "Prélèvement Apple.com/bill de 34,95 € le 20/10 (formule non identifiée : iCloud / Apple One / autre).", "type": "both"})
+    rec_abos.append({"id": "apple_499", "libelle": "Apple 4,99 €", "octobre_eur": r2(sum(amt(o) for o in apple_499 if month(o)=="2026-10")), "novembre_eur": r2(sum(amt(o) for o in apple_499 if month(o)=="2026-11")), "moyenne_eur": m_a499, "moyenne_usd": usd(m_a499), "n": len([o for o in apple_499 if month(o)=="2026-10"]), "detail": "Prélèvement Apple.com/bill de 4,99 € le 22/10.", "type": "both"})
 
     m_pv = add_abo("prime_video", "Prime Video (Amazon Digital)", is_prime_video, "once_probable",
-                   "Une seule échéance dans la période (6,99 € le 29/10). Retenu comme mensuel probable ; la prochaine tombée peut être après le 25/11.")
-    # Formules Grok réunies dans l'encart. Heavy est confirmé mensuel (Emmanuel, 25/11/2026)
-    # et entre dans les charges fixes, même s'il n'est apparu que le 4/11.
-    m_heavy = r2(heavy_tot) if heavy_tot else 219.99
-    rec_abos.append({
-        "id": "grok_heavy",
-        "libelle": "Grok Heavy (via Apple) — conservé (outil de pilotage)",
-        "octobre_eur": 0.0,
-        "novembre_eur": m_heavy,
-        "moyenne_eur": m_heavy,
-        "moyenne_usd": usd(m_heavy),
-        "n": len(heavy_ops),
-        "detail": "219,99 € le 4/11 via Apple.com/bill, confirmé mensuel. Conservé : c'est l'outil de pilotage "
-                  "qui doit aider à réduire les autres dépenses. Hors du panier de réductions, même s'il n'est apparu qu'en novembre.",
-        "type": "mensuel_confirme",
-        "famille": "grok",
-        "inclus_dans_recurrent": True,
-        "conserve": True,
-        "badge": "conservé (outil de pilotage)",
-    })
+                   "6,99 € le 29/10. Retenu comme mensuel probable.")
+    # Grok Heavy (219,99 € le 4/11) n'est pas dans le budget d'octobre :
+    # la charge n'a commencé qu'en novembre. Le réel d'octobre est Grok via Apple 114,99 €.
+    m_heavy = r2(heavy_tot) if heavy_tot else 0.0
     rec_abos.append({
         "id": "grok_apple",
-        "libelle": "Grok (via Apple) — octobre, remplacé",
+        "libelle": "Grok (via Apple)",
         "octobre_eur": grok_ap_tot,
         "novembre_eur": 0.0,
-        "moyenne_eur": 0.0,
-        "moyenne_usd": usd(0.0),
-        "affichage_eur": grok_ap_tot,
-        "affichage_usd": usd(grok_ap_tot),
+        "moyenne_eur": grok_ap_tot,
+        "moyenne_usd": usd(grok_ap_tot),
         "n": len(grok_ap_ops),
-        "detail": f"{grok_ap_tot:.2f} € le 26/10, remplacé par Grok Heavy. Conservé en provisions annuelles "
-                  f"({r2(grok_ap_tot / 12):.2f} €/mois), pas dans les abonnements récurrents.",
-        "type": "remplace",
+        "detail": f"{grok_ap_tot:.2f} € le 26/10, abonnement mensuel effectivement payé en octobre.",
+        "type": "both",
         "famille": "grok",
-        "inclus_dans_recurrent": False,
+        "inclus_dans_recurrent": True,
     })
     m_gd = add_abo("grok_direct", "Grok direct (grok.com)", is_grok_direct, "once_probable",
-                   "Une seule échéance (4,50 € / 5,00 $ le 26/10, SpaceXSI). Retenu comme mensuel probable, "
-                   "à confirmer s'il est toujours actif à côté de Grok Heavy.")
+                   "4,50 € / 5,00 $ le 26/10 (SpaceXSI). Retenu comme mensuel probable.")
     rec_abos[-1]["famille"] = "grok"
     rec_abos[-1]["inclus_dans_recurrent"] = True
 
@@ -799,32 +774,30 @@ def build():
     # groupes
     fixes_postes = [
         poste("logement", "Logement / loyer", log_m,
-              f"Fonds Logement Intermédiaire : {log_oct:.2f} € le 5/10. Mois de référence octobre (le même montant reparaît le 3/11, hors moyenne).",
+              f"Fonds Logement Intermédiaire : {log_oct:.2f} € le 5/10.",
               octobre_eur=log_oct, novembre_eur=log_nov),
         poste("loa_tesla", "LOA Tesla (Cofica Bail)", loa_m,
-              f"486,32 € le 5/10. Confirmé par Emmanuel le 25/11. Charge fixe, isolée ici. Même mensualité le 5/11, hors moyenne.",
+              f"486,32 € le 5/10. Confirmé par Emmanuel le 25/11. Charge fixe, isolée ici.",
               octobre_eur=loa_oct, novembre_eur=loa_nov),
         poste("credit_revolut", "Crédit Revolut 23 500 €", cr_m,
-              f"Mensualité 169,60 € le 9/10. Confirmé par Emmanuel. Charge fixe. Le capital n'est ni un revenu ni une dépense. Même échéance le 9/11, hors moyenne.",
+              f"Mensualité 169,60 € le 9/10. Confirmé par Emmanuel. Charge fixe. Le capital n'est ni un revenu ni une dépense.",
               octobre_eur=cr_oct, novembre_eur=cr_nov),
         poste("assurances", "Assurances / mutuelle (AXA)", as_m,
-              f"Trois prélèvements AXA le 5/10, total {as_m:.2f} €. Même trio le 5/11, hors moyenne.",
+              f"Trois prélèvements AXA le 5/10, total {as_m:.2f} €.",
               octobre_eur=as_oct, novembre_eur=as_nov),
         poste("telecom", "Télécom / internet", tel_retenu,
-              f"Mois de référence octobre : Free Haut Débit {tel_retenu:.2f} € le 6/10. "
-              f"Free Mobile {mob_tot_nov:.2f} € (19,99 € + 25,98 €) n'apparaît que le 8/11 : hors mois de référence, non inclus ici.",
+              f"Free Haut Débit {tel_retenu:.2f} € le 6/10.",
               octobre_eur=tel_obs_oct, novembre_eur=tel_obs_nov,
-              hypothese="Free Mobile constaté en novembre seulement, donc absent du budget d'octobre."),
+              hypothese="Free Mobile (19,99 € + 25,98 €) n'apparaît que le 8/11 : hors budget d'octobre."),
         poste("abonnements", "Abonnements récurrents", abo_recurrent,
-              f"Somme des abonnements mensuels retenus, dont Grok Heavy {m_heavy:.2f} € (confirmé mensuel, conservé comme outil de pilotage "
-              f"pour réduire les autres dépenses, apparu le 4/11). Voir l'encart des abonnements pour les trois formules Grok. "
-              "TradingView Essential et Grok (via Apple) 114,99 € d'octobre restent dans les provisions annuelles. WordPress est sur la ligne Air Glow.",
-              octobre_eur=None, novembre_eur=None, abonnements=rec_abos),
+              "Somme des abonnements mensuels payés en octobre, dont Grok (via Apple) 114,99 € le 26/10. "
+              "TradingView Essential annuel est dans les provisions. WordPress est sur la ligne Air Glow.",
+              octobre_eur=abo_recurrent, novembre_eur=None, abonnements=rec_abos),
         poste("impots_recurrents", "Impôts récurrents", 0.0,
-              "Le solde IR 2025 (288 €) est en provisions. Aucun autre prélèvement d'impôt sur la période ; le PAS est déjà dans le salaire net Tesla.",
+              "Le solde IR 2025 (288 €) est en provisions. Aucun autre prélèvement d'impôt en octobre ; le PAS est déjà dans le salaire net Tesla.",
               octobre_eur=0.0, novembre_eur=0.0),
         poste("energie", "Énergie", 0.0,
-              "Aucune facture d'électricité ou de gaz sur les 56 jours. Possible inclusion dans le loyer, facturation trimestrielle, ou paiement hors de ces comptes — trou à vérifier.",
+              "Aucune facture d'électricité ou de gaz en octobre 2026. Possible inclusion dans le loyer, facturation trimestrielle, ou paiement hors de ces comptes — trou à vérifier.",
               octobre_eur=0.0, novembre_eur=0.0),
     ]
     fixes_tot = r2(sum(p["moyenne_eur"] for p in fixes_postes))
@@ -878,8 +851,7 @@ def build():
 
     disc_postes = [
         poste("achats", "Achats courants", achats_m,
-              f"Achats d'octobre hors Salomon (234,70 €, en provisions) et hors Envato (87,97 €, ligne Air Glow) : {ac_oct:.2f} €. "
-              "Les pics de novembre (Decathlon, gros Amazon) sont hors mois de référence et n'entrent ni dans ce courant ni dans les provisions.",
+              f"Achats d'octobre hors Salomon (234,70 €, en provisions) et hors Envato (87,97 €, ligne Air Glow) : {ac_oct:.2f} €.",
               octobre_eur=ac_oct, novembre_eur=ac_nov),
         poste("loisirs", "Loisirs / restaurants courants", loisirs_m,
               f"Octobre hors séjour Ramatuelle et pot de naissance : {lo_oct:.2f} €. Restauration courante seule : {resto_m:.2f} €.",
@@ -998,8 +970,8 @@ def build():
             "libelle": "Réduire de moitié le textile Lidl (hors déco déjà lissée)",
             "economie_eur_mois": eco_tex_half,
             "economie_usd_mois": usd(eco_tex_half),
-            "source": f"Textile Lidl {tex_par.get('2026-10', 0):.2f} € en octobre et {tex_par.get('2026-11', 0):.2f} € en novembre, moyenne ramenée {tex_m:.2f} €/mois (tickets Lidl).",
-            "note": "Proposition : moitié du textile Lidl d'octobre, sans viser zéro. Le pic non-alimentaire de novembre (déco, vêtements) est hors mois de référence.",
+            "source": f"Textile Lidl d'octobre : {tex_par.get('2026-10', 0):.2f} € (tickets Lidl).",
+            "note": "Proposition : moitié du textile Lidl d'octobre, sans viser zéro.",
             "dans_panier_cible": True,
         },
         {
@@ -1007,7 +979,7 @@ def build():
             "libelle": "Réduire de moitié la restauration courante",
             "economie_eur_mois": eco_resto_half,
             "economie_usd_mois": usd(eco_resto_half),
-            "source": f"McDonald's, snacks, cafés, restaurants hors séjour Ramatuelle : {resto_m:.2f} €/mois après ramener novembre.",
+            "source": f"McDonald's, snacks, cafés, restaurants hors séjour Ramatuelle : {resto_m:.2f} € en octobre.",
             "note": "Proposition : moitié du rythme observé. Le séjour est déjà sorti du courant et lissé en provisions.",
             "dans_panier_cible": True,
         },
@@ -1070,46 +1042,33 @@ def build():
         },
         {
             "id": "grok_stack",
-            "titre": "Stack Grok potentiellement en double",
-            "detail": f"Les trois formules sont réunies dans l'encart des abonnements : Grok Heavy {m_heavy:.2f} €/mois (confirmé mensuel, retenu dans les charges fixes), "
-                      f"Grok (via Apple) {grok_ap_tot:.2f} € le 26/10 (remplacé, en provisions), Grok direct 4,50 € le 26/10 (mensuel probable). "
-                      "Crédit Apple 85,20 € le 4/11 : probable ajustement de formule, à confirmer.",
+            "titre": "Deux formules Grok en octobre",
+            "detail": f"En octobre : Grok (via Apple) {grok_ap_tot:.2f} € le 26/10 et Grok direct 4,50 € le 26/10 (mensuel probable). Les deux sont dans les abonnements du mois.",
         },
         {
             "id": "frequence_courses",
             "titre": f"Fréquence des courses en octobre : {sum(1 for o in courses_bank if month(o)=='2026-10')} paiements, {len(jours_oct)} jours distincts",
-            "detail": f"Mois de référence octobre : {len(jours_oct)} jours / {sum(1 for o in courses_bank if month(o)=='2026-10')} paiements carte. "
-                      f"Novembre au 25 (hors moyenne) : {len(jours_nov)} jours / {sum(1 for o in courses_bank if month(o)=='2026-11')} paiements. "
+            "detail": f"Octobre : {len(jours_oct)} jours / {sum(1 for o in courses_bank if month(o)=='2026-10')} paiements carte. "
                       "Beaucoup de petits passages. "
                       + " · ".join(f"{k} {v}× ({r2(merch_amt[k]):.2f} €)" for k, v in merch.most_common()),
-        },
-        {
-            "id": "non_alim_lidl",
-            "titre": "Non-alimentaire Lidl, surtout en novembre",
-            "detail": f"Novembre : non-alimentaire 262,76 € > alimentaire 224,04 € (tickets au 24). "
-                      f"Dont déco Noël {deco_par.get('2026-11', 0):.2f} € (déjà lissée) et textile {tex_par.get('2026-11', 0):.2f} €.",
         },
         {
             "id": "ovn_frais",
             "titre": "Frais de courtage et overnight d'octobre au-dessus de l'objectif",
             "detail": f"Relevés Revolut d'octobre : {frais_oct_eur:.2f} € de frais (entrée {frais_entree_eur:.2f} €, sortie {frais_sortie_eur:.2f} €, "
                       f"overnight {frais_ovn_eur:.2f} €, autres {frais_autres_eur:.2f} €). L'overnight dépasse l'objectif de {ovn_obj:.0f} €/mois. "
-                      f"Dividendes et coupons nets en face : {div_net_eur:.2f} €, hors base prudente. "
-                      f"Une projection de novembre ({ovn_proj:.2f} €/mois à partir d'une nuit du 24/11) reste hors mois de référence.",
+                      f"Dividendes et coupons nets en face : {div_net_eur:.2f} €, hors base prudente.",
         },
         {
             "id": "energie",
-            "titre": "Pas de facture d'énergie sur 56 jours",
+            "titre": "Pas de facture d'énergie en octobre 2026",
             "detail": "À vérifier : incluse dans le loyer, prélevée ailleurs, ou trimestrielle hors période.",
         },
         {
             "id": "pret",
-            "titre": "Crédit Revolut 23 500 € et vague d'investissement de novembre",
-            "detail": f"Mensualité 169,60 € déjà dans les charges fixes. Le capital a été viré le 6/11 vers FR76…20176 (clôturé le 16/11). "
-                      f"Les versements vers l'investissement atteignent {inv_tot:.2f} € sur la période "
-                      f"(octobre {inv_oct:.2f} €, novembre {inv_nov:.2f} €), soit bien plus que le reste du budget. "
-                      "Une partie de l'épargne de novembre a pu être financée par le prêt, pas par un excédent mensuel. "
-                      "Ce prêt a un coût : il s'ajoute à un budget qui, en flux observé (non lissé), était dans le rouge en octobre.",
+            "titre": "Crédit Revolut : mensualité d'octobre",
+            "detail": f"Mensualité 169,60 € le 9/10, déjà dans les charges fixes. Le capital n'est ni un revenu ni une dépense. "
+                      f"Les versements vers l'investissement d'octobre s'élèvent à {inv_oct:.2f} € ; ce n'est pas une capacité d'épargne récurrente.",
         },
     ]
 
@@ -1142,27 +1101,25 @@ def build():
             floues.append(e)
 
     methodes = [
-        "Mois de référence : octobre 2026. Novembre est un mois partiel (arrêté au 25) et ne compte pas dans la moyenne.",
+        "Période : octobre 2026 uniquement. Les opérations de novembre restent dans les fichiers bruts, hors calcul et hors affichage.",
         "Base prudente des revenus (consigne Emmanuel) : 2 800 € net par mois + prime de participation 4 000 €/an, soit 333,33 €/mois lissés, total 3 133,33 €/mois, sans commissions. Priscilla n'a aucun revenu.",
         "France Travail (876,60 € en octobre) n'entre pas dans cette base : c'est un bonus temporaire, car ce revenu peut s'arrêter. Affiché à part.",
-        "Les revenus réels d'octobre restent affichés pour comparer : salaire Tesla 4 169,59 € (22/10, réf. Salary 102026) + France Travail 876,60 € (1/10) = 5 046,19 €. Le salaire de novembre (6 315,41 € le 24/11) est différent et hors moyenne.",
-        "Chaque poste de dépense retenu est le montant d'octobre, après sortie des exceptionnels d'octobre. Rien n'est ramené ni lissé avec novembre.",
+        "Les revenus réels d'octobre restent affichés pour comparer : salaire Tesla 4 169,59 € (22/10, réf. Salary 102026) + France Travail 876,60 € (1/10) = 5 046,19 €.",
+        "Chaque poste de dépense retenu est le montant d'octobre, après sortie des exceptionnels d'octobre lissés / 12.",
         "Les dépenses exceptionnelles d'octobre sont sorties du courant et lissées sur 12 mois dans « Provisions annuelles » "
-        "(dentiste Koch du 27/10, Salomon, déco de Noël Lidl d'octobre, séjour Ramatuelle, pot de naissance, solde IR 2025, Grok via Apple d'octobre). "
+        "(dentiste Koch du 27/10, Salomon, déco de Noël Lidl d'octobre, séjour Ramatuelle, pot de naissance, solde IR 2025). "
         "TradingView Essential annuel (186,48 € / 12) est aussi provisionné, à la place du Premium encore prélevé en octobre.",
-        "Grok Heavy (219,99 € le 4/11 via Apple) est confirmé comme abonnement mensuel et conservé (outil de pilotage) : il reste dans les charges fixes, hors du panier de réductions. L'équilibre doit être trouvé en réduisant les autres postes. "
-        "Les autres pics de novembre (Decathlon, gros Amazon, déco de Noël, Free Mobile, second paiement Koch, WordPress / MailPoet / Dualhook de novembre, opérations en attente des 23–24/11) restent hors mois de référence : ils n'entrent ni dans le courant personnel ni dans les provisions. WordPress, MailPoet et Dualhook de novembre figurent seulement en information sur la ligne Air Glow.",
+        "Grok (via Apple) 114,99 € le 26/10 figure dans les abonnements d'octobre, au réel du mois.",
         "Les frais de courtage et overnight d'octobre, relevés sur les relevés Revolut Securities (99,41 € : entrée 26,16 €, sortie 15,37 €, overnight 57,85 €, autres 0,03 €), "
-        "sont une charge variable du mois de référence. Les dividendes et coupons nets d'octobre (27,99 €) sont affichés en face, sans être ajoutés à la base prudente.",
-        "Les virements vers l'investissement ne sont pas des dépenses. L'épargne réalisée de référence est celle d'octobre. Le flux de novembre, très supérieur, est hors moyenne et a pu être alimenté par le crédit Revolut de 23 500 €.",
+        "sont une charge variable d'octobre. Les dividendes et coupons nets d'octobre (27,99 €) sont affichés en face, sans être ajoutés à la base prudente.",
+        "Les virements vers l'investissement ne sont pas des dépenses. L'épargne réalisée affichée est celle d'octobre.",
         "Le crédit Revolut n'est ni un revenu ni une dépense ; sa mensualité d'octobre (169,60 €) est une charge fixe, comme la LOA Tesla (486,32 €).",
         (
             f"Tout ce qui relève d'Air Glow est regroupé sur une seule ligne « Air Glow, frais de fonctionnement », "
             f"hors des dépenses personnelles et du panier d'économies (inchangé). Moyenne d'octobre {airglow_m:.2f} € : "
             f"publicité Facebook {fb_oct:.2f} €, X Ads {xads_oct:.2f} € et Envato {envato_oct:.2f} € au montant d'octobre, "
             f"plus WordPress d'octobre {wp_tot:.2f} € et INPI + CCI {inpi_cci_tot:.2f} € lissés / 12 "
-            f"({wp_m:.2f} € et {inpi_cci_m:.2f} €). Les 134,60 € de WordPress, MailPoet et Dualhook de novembre "
-            f"sont hors référence. Mollie « Thood Franc… » à Roppenheim (23 €) reste dans les achats, non identifié comme frais pro. "
+            f"({wp_m:.2f} € et {inpi_cci_m:.2f} €). Mollie « Thood Franc… » à Roppenheim (23 €) reste dans les achats, non identifié comme frais pro. "
             f"La capacité personnelle (hors Air Glow) est {capa_actuelle:.2f} €/mois ; y compris Air Glow, elle est de {capa_avec_ag:.2f} €/mois. "
             "Le futur gestionnaire de budget famille traitera le détail ; APEX n'affiche Air Glow que sur cette ligne."
         ),
@@ -1171,19 +1128,19 @@ def build():
 
     out = {
         "id": "budget_mensuel_moyen",
-        "titre": "Budget mensuel moyen",
+        "titre": "Budget — Octobre 2026",
         "note_haut": NOTE_BASE_PRUDENTE,
         "deficitaire": deficitaire,
         "mois_reference": "2026-10",
-        "mois_reference_libelle": "Mois de référence : octobre 2026",
-        "periode": {"debut": "2026-10-01", "fin": "2026-10-31", "libelle": "Mois de référence : octobre 2026"},
+        "mois_reference_libelle": "Octobre 2026",
+        "periode": {"debut": "2026-10-01", "fin": "2026-10-31", "libelle": "Octobre 2026"},
         "fx": {"taux": FX, "paire": "EURUSD", "source": "Taux déjà utilisé sur le site APEX (1,0944)."},
         "methode": {
             "mois_reference": "2026-10",
-            "mois_reference_libelle": "Mois de référence : octobre 2026",
+            "mois_reference_libelle": "Octobre 2026",
             "jours_octobre": 31,
             "novembre_exclu": True,
-            "novembre_note": "Novembre 2026 est partiel (1–25) et n'entre pas dans la moyenne. Les montants de novembre sont indiqués pour information seulement.",
+            "novembre_note": "Novembre 2026 reste dans les fichiers bruts, hors calcul et hors affichage.",
             "formule": "montant d'octobre, après sortie des exceptionnels d'octobre lissés / 12",
             "en_attente_inclus_eur": 0,
             "hypotheses": methodes,
@@ -1223,8 +1180,7 @@ def build():
                 "octobre_eur": sal_oct, "octobre_usd": usd(sal_oct),
                 "novembre_eur": sal_nov, "novembre_usd": usd(sal_nov),
                 "moyenne_eur": sal_oct, "moyenne_usd": usd(sal_oct),
-                "note": "Salaire Tesla réellement perçu en octobre : 4 169,59 € le 22/10 (réf. Salary 102026), affiché pour comparer à la base prudente de 2 800 € net. "
-                        "Le salaire de novembre est différent : 6 315,41 € le 24/11 (réf. Salary 112026), hors moyenne.",
+                "note": "Salaire Tesla réellement perçu en octobre : 4 169,59 € le 22/10 (réf. Salary 102026), affiché pour comparer à la base prudente de 2 800 € net.",
             },
             "france_travail": {
                 "octobre_eur": ft_oct, "novembre_eur": ft_nov,
@@ -1256,7 +1212,7 @@ def build():
         ],
         "provisions": {
             "libelle": "Provisions annuelles",
-            "note": "Dépenses exceptionnelles d'octobre, lissées sur 12 mois, pour ne pas les laisser gonfler le budget récurrent ni les oublier. WordPress d'octobre et INPI + CCI sont sortis d'ici et figurent sur la ligne Air Glow. Les pics de novembre ne sont pas lissés ici.",
+            "note": "Dépenses exceptionnelles d'octobre, lissées sur 12 mois, pour ne pas les laisser gonfler le budget récurrent ni les oublier. WordPress d'octobre et INPI + CCI sont sortis d'ici et figurent sur la ligne Air Glow.",
             "lignes": provisions,
             "total_moyenne_eur": prov_total,
             "total_moyenne_usd": usd(prov_total),
@@ -1266,8 +1222,7 @@ def build():
             "libelle": "Air Glow, frais de fonctionnement",
             "note": (
                 "Ligne unique, hors dépenses personnelles. Moyenne d'octobre : montants d'octobre pour Facebook, X Ads et Envato ; "
-                "WordPress d'octobre et INPI + CCI lissés / 12. MailPoet, Dualhook et WordPress de novembre (134,60 €) sont hors référence, "
-                "indiqués pour information. Mollie « Thood Franc… » à Roppenheim (23 €) n'est pas inclus. "
+                "WordPress d'octobre et INPI + CCI lissés / 12. Mollie « Thood Franc… » à Roppenheim (23 €) n'est pas inclus. "
                 "Le panier d'économies et les abonnements personnels restent inchangés. "
                 "Le futur gestionnaire de budget famille traitera le détail ; APEX n'affiche Air Glow que sur cette ligne."
             ),
@@ -1290,7 +1245,7 @@ def build():
                  "detail": f"{envato_oct:.2f} € le 5/10, sortis des « Achats » courants et portés au montant d'octobre."},
                 {"id": "wordpress", "libelle": "WordPress (octobre, lissé / 12)", "total_periode_eur": wp_tot, "total_periode_usd": usd(wp_tot),
                  "moyenne_eur": wp_m, "moyenne_usd": usd(wp_m),
-                 "detail": f"{wp_tot:.2f} € le 30/10, sortis des provisions, lissés sur 12 mois ({wp_m:.2f} €). Les {wp_nov:.2f} € de novembre sont hors référence."},
+                 "detail": f"{wp_tot:.2f} € le 30/10, sortis des provisions, lissés sur 12 mois ({wp_m:.2f} €)."},
                 {"id": "inpi_cci", "libelle": "INPI + CCI Alsace (octobre, lissé / 12)", "total_periode_eur": inpi_cci_tot, "total_periode_usd": usd(inpi_cci_tot),
                  "moyenne_eur": inpi_cci_m, "moyenne_usd": usd(inpi_cci_m),
                  "detail": f"INPI 230,00 € le 7/10 et CCI 117,63 € le 17/10, sortis des provisions, lissés sur 12 mois ({inpi_cci_m:.2f} €)."},
@@ -1307,18 +1262,16 @@ def build():
         },
         "epargne_realisee": {
             "libelle": "Vers l'investissement (épargne réalisée, pas une dépense)",
-            "periode_eur": inv_tot,
-            "periode_usd": usd(inv_tot),
+            "periode_eur": inv_oct,
+            "periode_usd": usd(inv_oct),
             "octobre_eur": inv_oct,
             "novembre_eur": inv_nov,
-            "moyenne_eur": inv_moy,
-            "moyenne_usd": usd(inv_moy),
+            "moyenne_eur": inv_oct,
+            "moyenne_usd": usd(inv_oct),
             "n": inv_n,
             "note": " ".join(inv_note_bits),
             "lignes": [{"id": x.get("id"), "libelle": x.get("libelle"), "montant_eur": x.get("montant_eur"), "montant_usd": usd(x.get("montant_eur")), "n": x.get("n"), "note": x.get("note")} for x in inv_dets],
-            "alerte": "Le flux de novembre est très supérieur à celui d'octobre et au reste du budget (revenus − dépenses). "
-                      "Il a pu être alimenté par le crédit Revolut de 23 500 € (capital viré le 6/11, compte destinataire clôturé le 16/11), "
-                      "pas seulement par un excédent mensuel. Ce n'est donc pas une capacité d'épargne récurrente.",
+            "alerte": "Les versements d'octobre vers l'investissement ne sont pas une capacité d'épargne récurrente.",
         },
         "capacite_actuelle": {
             "eur": capa_actuelle,
@@ -1356,7 +1309,7 @@ def build():
             "note": (
                 f"L'objectif courses de {obj_courses['total_eur_mois']} €/mois (Leclerc + Picard) est fixé depuis le 26/11/2026 "
                 f"et entre dans le panier ({eco_courses:.2f} € d'économie visée). "
-                "Les autres lignes restent des propositions. Grok Heavy est conservé (outil de pilotage) et n'entre pas dans le panier. "
+                "Les autres lignes restent des propositions. "
                 "Autres lignes retenues : OVN ramené sous 20 €, résiliation Revolut Ultra, résiliation YouTube, "
                 "moitié du textile Lidl d'octobre, moitié de la restauration courante d'octobre."
             ),
@@ -1374,16 +1327,16 @@ def build():
             "avec_air_glow_formule": "Capacité y compris Air Glow + somme du panier (objectif courses inclus).",
             "variante_grok_heavy_mensuel_eur": capa_actuelle,
             "variante_grok_heavy_mensuel_cible_eur": capa_cible,
-            "variante_grok_heavy_mensuel_note": "Grok Heavy (219,99 € le 4/11) est confirmé mensuel, conservé comme outil de pilotage, et reste dans les charges fixes. Il n'entre pas dans le panier : l'équilibre doit venir des autres postes.",
+            "variante_grok_heavy_mensuel_note": "",
         },
         "objectif_reduction_autres_postes": {
             "libelle": "Objectif de réduction sur les autres postes pour atteindre l'équilibre",
             "eur": objectif_reduction_autres,
             "usd": usd(objectif_reduction_autres),
             "perimetre": "personnelle_hors_air_glow",
-            "formule": "Déficit personnel (hors Air Glow) − panier (objectif courses inclus, Grok Heavy conservé hors panier).",
+            "formule": "Déficit personnel (hors Air Glow) − panier (objectif courses inclus).",
             "note": (
-                f"Grok Heavy reste dans les charges fixes. Pour l'équilibre personnel (hors Air Glow), il faut encore trouver "
+                f"Pour l'équilibre personnel (hors Air Glow), il faut encore trouver "
                 f"{objectif_reduction_autres:.2f} €/mois sur les autres postes, après le panier de {eco_panier:.2f} €. "
                 f"Y compris Air Glow, l'objectif serait de {objectif_reduction_autres_ag:.2f} €/mois."
             ),
@@ -1398,11 +1351,11 @@ def build():
             "objectif_reduction_autres_postes_eur": objectif_reduction_autres,
             "objectif_reduction_autres_postes_usd": usd(objectif_reduction_autres),
             "objectif_reduction_autres_postes_libelle": "Objectif de réduction sur les autres postes pour atteindre l'équilibre",
-            "objectif_reduction_autres_postes_formule": "Déficit actuel − panier (objectif courses inclus, Grok Heavy conservé hors panier).",
+            "objectif_reduction_autres_postes_formule": "Déficit actuel − panier (objectif courses inclus).",
             "note": (
                 f"Sur la base prudente de 3 133,33 €, la capacité personnelle (hors Air Glow) est déficitaire de {ecart_equilibre:.2f} €/mois. "
                 f"Y compris la ligne Air Glow ({airglow_m:.2f} € en moyenne d'octobre), le déficit est de {ecart_equilibre_ag:.2f} €/mois. "
-                f"Grok Heavy est conservé (outil de pilotage) et n'entre pas dans le panier, qui vaut {eco_panier:.2f} € (dont objectif courses {eco_courses:.2f} €). "
+                f"Le panier vaut {eco_panier:.2f} € (dont objectif courses {eco_courses:.2f} €). "
                 f"L'objectif de réduction personnel (hors Air Glow) pour l'équilibre est de {objectif_reduction_autres:.2f} €/mois "
                 f"(déficit {ecart_equilibre:.2f} € − panier {eco_panier:.2f} €) ; y compris Air Glow, {objectif_reduction_autres_ag:.2f} €/mois. "
                 f"Avec le bonus temporaire France Travail, la capacité personnelle passerait à {capa_avec_ft:.2f} €/mois "
@@ -1452,7 +1405,12 @@ def build():
 
 
 def attach_to_positions(payload):
-    for path in (DATA / "positions.json", ROOT / "positions.json"):
+    for path in (
+        DATA / "positions.json",
+        ROOT / "positions.json",
+        DATA / "positions_revolut.json",
+        ROOT / "positions_revolut.json",
+    ):
         if not path.exists():
             continue
         book = json.loads(path.read_text(encoding="utf-8"))

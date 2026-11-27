@@ -866,7 +866,7 @@ def build():
 
     perso_doc = {
         "id": "compte_perso_2026-10_11",
-        "titre": "Compte perso Emmanuel Trouvé, 1er octobre – 31 octobre 2026",
+        "titre": "Compte perso Emmanuel Trouvé, octobre 2026",
         "compte": {
             "banque": "Revolut France succursale de Revolut Bank UAB",
             "etablissement": "Revolut Bank UAB (Lituanie), succursale France, SIREN 917 420 077",
@@ -900,7 +900,7 @@ def build():
         "periode": {
             "debut": "2026-10-01",
             "fin": "2026-10-31",
-            "libelle": "1er octobre – 31 octobre 2026",
+            "libelle": "Octobre 2026",
         },
         "soldes": {
             "courant_ouverture_eur": 45.86,
@@ -955,7 +955,7 @@ def build():
         "periode": {
             "debut": "2026-10-01",
             "fin": "2026-10-31",
-            "libelle": "1er octobre – 31 octobre 2026",
+            "libelle": "Octobre 2026",
         },
         "comptes": [
             {
@@ -1067,7 +1067,7 @@ def build():
 
 def detail_cat(cid, ops, debit, credit, observe):
     if not ops:
-        return "Aucune opération sur la période (1er octobre – 31 octobre 2026)."
+        return "Aucune opération en octobre 2026."
     n = len(ops)
     bits = [f"{n} opération" + ("s" if n != 1 else "")]
     srcs = {}

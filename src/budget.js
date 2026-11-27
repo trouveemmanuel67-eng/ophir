@@ -300,7 +300,7 @@ function bdgOctCatRow(c, opts){
   const absent=c.observe_usd==null&&c.observe_eur==null&&!(c.operations&&c.operations.length);
   const n=c.n_operations!=null?c.n_operations:((c.operations&&c.operations.length)||0);
   const sum=absent?(c.detail||'Aucun montant sur le relevé'):((n? (n+' opération'+(n>1?'s':'')):'')+(c.detail?((n?' · ':'')+c.detail):''));
-  const det=absent?(`<div class="bdg-det">${bdgEsc(c.detail||'—')}</div>`):bdgFeeOpsDetails(c.operations||[], sum||'octobre 2026');
+  const det=absent?(`<div class="bdg-det">${bdgEsc(c.detail||'—')}</div>`):bdgFeeOpsDetails(c.operations||[], sum||'Octobre 2026');
   const cls=opts.cls||((c.id==='ovn'&&c.depasse_objectif)?['is-over']:[]);
   const obj=opts.objectif!=null?opts.objectif:(c.objectif_eur!=null?('&lt; '+String(c.objectif_eur).replace('.', ',')+'\u00a0€'):'—');
   return bdgRow({id:opts.id||('bdg-oct-'+c.id),cls:cls,poste:c.poste||c.id,detailsHtml:det,obsUsd:absent?'—':bdgAmt(c.observe_usd,'USD'),obsEur:absent?'—':bdgAmt(c.observe_eur,'EUR'),projUsd:absent?'—':bdgAmt(c.projection_usd,'USD'),projEur:absent?'—':bdgAmt(c.projection_eur,'EUR'),objectif:obj});
@@ -440,8 +440,8 @@ function bdgTicketsEns(s, ens){
 function bdgTicketsPanel(s, ens){
   const pack=bdgTicketsEns(s, ens)||{mois:{}};
   const oct=pack.mois['2026-10']||{};
-  const hasNov=!!(pack.mois&&pack.mois['2026-11']);
-  const nov=hasNov?(pack.mois['2026-11']||{}):{};
+  const hasNov=false;
+  const nov={};
   const cats=oct.par_sous_categorie&&oct.par_sous_categorie.length?oct.par_sous_categorie:(nov.par_sous_categorie||[]);
   const rows=cats.map((o,i)=>{
     const n=(nov.par_sous_categorie||[]).find(x=>x.libelle===o.libelle)||(nov.par_sous_categorie||[])[i]||{};
@@ -541,7 +541,7 @@ function bdgLidlBlock(c){
       <h3>${bdgFoldTitle('tickets-simple', 'Tickets de caisse', 'bdg-tickets-body')}</h3>
     </div>
     <div class="bdg-fold-body" id="bdg-tickets-body">
-      <p class="desc">Lidl (octobre et novembre au 24) et E.Leclerc (date inconnue, reçu le 25/11/2026)</p>
+      <p class="desc">Tickets Lidl, octobre 2026</p>
       <div class="bdg-ens-filt" role="tablist" aria-label="Filtrer par enseigne">${filt}</div>
       ${panels}
       <p class="bdg-src">${bdgEsc(note)}${partLine?(' '+partLine):''}</p>
@@ -585,7 +585,7 @@ function bdgJointHtml(b){
   const j=bdgJoint(b);
   if(!j) return '';
   const tot=j.totaux||{};
-  const per=(j.periode&&j.periode.libelle)||'octobre 2026';
+  const per=(j.periode&&j.periode.libelle)||'Octobre 2026';
   const fx=j.fx!=null?String(j.fx).replace('.', ','):(bdgFx(b)||'1,0944');
   const cats=j.categories||[];
   const rows=cats.filter(c=>!bdgIsAirGlow(c)).map(c=>{
@@ -675,7 +675,7 @@ function bdgComptesHtml(b){
   if(!j) return '';
   const oc=bdgObjectifCourses(b);
   const tot=j.totaux||{};
-  const per=(j.periode&&j.periode.libelle)||'1er octobre – 31 octobre 2026';
+  const per=(j.periode&&j.periode.libelle)||'Octobre 2026';
   const fxVal=(j.fx&&(j.fx.taux!=null?j.fx.taux:j.fx));
   const fx=fxVal!=null?String(fxVal).replace('.',','):(bdgFx(b)||'1,0944');
   const cats=j.categories||[];
@@ -802,7 +802,7 @@ function bdgMensuelHtml(b){
   const actTone=defic?'down':'up';
   const cibTone=Number(cib.eur)<0?'down':'up';
   const noteHaut=m.note_haut||rev.note_base||'Base prudente : 2 800 € net + prime 4 000 €/an, sans commissions, Priscilla sans revenu';
-  const refLib=m.mois_reference_libelle||'Mois de référence : octobre 2026';
+  const refLib=m.mois_reference_libelle||(m.periode&&m.periode.libelle)||'Octobre 2026';
   const moisSec=res.mois_securite;
   const moisSecTxt=(moisSec==null||moisSec==='')?'—':(Number(moisSec).toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+'\u00a0mois');
   const red=m.objectif_reduction_autres_postes||{};
@@ -871,15 +871,14 @@ function bdgMensuelHtml(b){
       <div class="bdg-fold-body" id="bdg-moy-airglow-body">
       <p class="bdg-moy-p">${bdgEsc(ag.note||'')}</p>
       <div class="bdg-moy-table">${bdgMoyHead()}${agLignes}${bdgMoyFoot('Moyenne d’octobre (ligne unique)', ag.moyenne_octobre_eur, ag.moyenne_octobre_usd)}</div>
-      <p class="bdg-moy-p">Caisse d'octobre (non lissée) : ${bdgAmt(ag.caisse_octobre_eur,'EUR')} / ${bdgAmt(ag.caisse_octobre_usd,'USD')}. Novembre, pour information seulement (hors moyenne) : ${bdgAmt(ag.novembre_info_eur,'EUR')} / ${bdgAmt(ag.novembre_info_usd,'USD')} (WordPress 134,60 €, MailPoet, Dualhook et Facebook de novembre).</p>
+      <p class="bdg-moy-p">Caisse d'octobre (non lissée) : ${bdgAmt(ag.caisse_octobre_eur,'EUR')} / ${bdgAmt(ag.caisse_octobre_usd,'USD')}.</p>
       </div>
     </div>`:'';
 const eparBlock=`<div class="bdg-moy-block" id="bdg-moy-epargne">
       <h3 class="bdg-moy-h">${bdgEsc(epar.libelle||"Vers l'investissement")}</h3>
       <p class="bdg-moy-p">${bdgEsc(epar.note||'')}</p>
       <div class="bdg-moy-table">${bdgMoyHead()}
-        ${bdgMoyRow({libelle:'Octobre (référence)', moyenne_eur:epar.octobre_eur, moyenne_usd:epar.octobre_usd, detail:"Épargne réalisée en octobre, ce n'est pas une dépense."})}
-        ${bdgMoyRow({libelle:'Novembre au 25 (hors moyenne)', moyenne_eur:epar.novembre_eur, moyenne_usd:epar.novembre_usd, detail:'Hors mois de référence. Vague importante, éventuellement alimentée par le crédit Revolut.'})}
+        ${bdgMoyRow({libelle:'Octobre 2026', moyenne_eur:epar.octobre_eur, moyenne_usd:epar.octobre_usd, detail:"Épargne réalisée en octobre, ce n'est pas une dépense."})}
         ${bdgMoyFoot('Épargne réalisée d\'octobre (pas une capacité récurrente)', epar.moyenne_eur, epar.moyenne_usd)}
       </div>
       ${epar.alerte?`<p class="bdg-src bdg-moy-flag">${bdgEsc(epar.alerte)}</p>`:''}
@@ -935,7 +934,7 @@ const eparBlock=`<div class="bdg-moy-block" id="bdg-moy-epargne">
   const src=(m.source&&(m.source.comptes||''))?'Source : relevés data/budget (comptes fusionnés + tickets Lidl), abonnement TradingView Essential. Change '+fx+'. Soldes au 25/11/2026.':'';
   return `<section class="card home-hero bdg-hero bdg-moy${defic?' is-deficitaire':''}" id="bdg-mensuel">
     <div class="home-hero-top">
-      <h2>${bdgEsc(m.titre||'Budget mensuel moyen')}</h2>
+      <h2>${bdgEsc(m.titre||'Budget — Octobre 2026')}</h2>
       <p class="desc">${bdgEsc(refLib)}</p>
     </div>
     ${kv}
@@ -970,7 +969,7 @@ function bdgTableHTML(b){
 }
 function bdgPageHTML(){
   const b=bdgData()||{};
-  const title='Budget';
+  const title=(b.budget_mensuel&&b.budget_mensuel.titre)||'Budget — Octobre 2026';
   return `<div class="rg-top">
       <button type="button" id="bdgBack" class="rg-back">← Retour</button>
       <h1 id="bdgPageTitle">${bdgEsc(title)}</h1>
@@ -993,7 +992,7 @@ function bdgRender(){
     else if(tools) tools.insertBefore(wrap, tools.firstChild);
     else document.body.appendChild(wrap);
   }
-  wrap.innerHTML=`<button type="button" id="bdgBtn" class="rg-btn" aria-expanded="false" aria-controls="bdg-page">Budget</button>`;
+  wrap.innerHTML=`<button type="button" id="bdgBtn" class="rg-btn" aria-expanded="false" aria-controls="bdg-page">Budget · Octobre</button>`;
   let page=document.getElementById('bdg-page');
   if(!page){
     page=document.createElement('div');
