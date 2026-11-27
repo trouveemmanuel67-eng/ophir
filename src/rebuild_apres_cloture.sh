@@ -25,6 +25,7 @@ for s in \
   build_obpays.py \
   build_apex10.py \
   apply_sentiment.py \
+  fetch_valo_short.py \
   build_univers_short.py \
   build_short250.py \
   build_good_invest.py \

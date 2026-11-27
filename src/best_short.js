@@ -1,6 +1,7 @@
 /* ===== MEILLEURS SHORT : note SHORT sur 250 (APE-32, validée par Emmanuel le 24/11/2026) =====
    Note distincte de la note LONG, calculée par src/build_short250.py (data/apex_short.json) :
-   RSI 25 + MACD 25 + CCI 25 + fondamental inversé 125 + sentiment du secteur inversé ±30 (t537u) + hype inversée ±20.
+   RSI 25 + MACD 25 + CCI 25 + fondamental inversé tolérant 10 à 100 (t686u) + sentiment du secteur inversé ±30 (t537u) + hype inversée ±20
+   + MM40 hebdo inversée 0 à +30 + valorisation excessive 0 à +30 (PER / médiane du secteur, t686u).
    Plus la note est haute, meilleur est le candidat short : tri de la plus haute à la plus basse.
    Entrée dans la liste : note SHORT ≥ 70/250 (orange, vert ou cyan), jusqu’à 10 titres, triés de la plus haute à la plus basse. Également : (RSI, MACD ou CCI ≥ 10 pts) ET filtre Fibonacci (cours au niveau 38,2 % ou au-dessus, ATH et au-delà autorisés). Ces filtres ne changent pas avec la MM40 hebdo inversée (0 à +30), qui entre seulement dans la note.
    Mise (levier ×5) : 100 $ à 70, +20 $ tous les 24 points au-dessus (94, 118, 142, 166), 200 $ max dès 190.

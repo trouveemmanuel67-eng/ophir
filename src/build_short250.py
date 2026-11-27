@@ -7,8 +7,12 @@ Plus la note est haute, plus l'actif est un bon candidat short. Points entiers.
   MACD 12/26/9 (max 25)  : +10 si la ligne MACD / cours × 100 > 4 % ; +15 de plus si, en plus, les 4 dernières barres
                            d'histogramme clôturées sont bleues (> 0) d'affilée. Cumulables.
   CCI Stoch. D (max 25)  : +10 si > 80 ; +15 de plus s'il est resté > 80 plus de 3 semaines (≥ 4 clôtures).
-  Fondamental (max 125)   : lecture inversée du fondamental LONG : +125/9 par critère NON rempli ; critère sans
-                           donnée = moitié ; sous-total arrondi au point entier (demi vers le haut).
+  Fondamental (max 100)   : t686u (27/11/2026, tolérance) : base 10 + 10 par critère LONG NON rempli (9 critères) ;
+                           critère sans donnée = moitié (5) ; une société saine garde 10, 9 non remplis = 100.
+                           (avant : 125/9 ≈ 13,9 par critère non rempli, 0 pour une société saine.)
+  Valorisation (max 30)  : t686u : PER (prévisionnel, repli courant) / médiane du PER de son secteur (S&P 500, Yahoo,
+                           data/valo_short.json). 0 si ≤ 1× la médiane ; linéaire jusqu'à +30 à 2× ; plafonné.
+                           PER absent ou négatif : n.c. = 0 point.
   Fear & Greed (±30)     : inverse du LONG, échelonné à 30 (avidité 60 → +6 … 100 → +30 ; peur 40 → −6 … 0 → −30).
                            valeur d'entrée = sentiment maison du SECTEUR de l'action (ETF SPDR US ou MSCI Europe,
                            data/sentiment_secteurs.json, apex/sentiment.py). Plus de repli CNN : si le secteur est inconnu, 0 point.
@@ -19,7 +23,7 @@ Plus la note est haute, plus l'actif est un bon candidat short. Points entiers.
   MM40 hebdo (max 30)    : inversée par rapport au LONG. 0 point sous la MM40 semaines ; montée linéaire
                            de 0 à +30 entre 0 % et +40 % au-dessus ; plafonnée à +30 au-delà.
                            N'entre pas dans les filtres d'entrée (seuil, Fibonacci, signal de surachat).
-Total borné −50..250 (le barème théorique dépasse 250, le total affiché est plafonné). Catégories : Actions (hors banque), Actions bancaires, Énergie.
+Total borné −50..250 (t686u : + valorisation 0..30 ; le barème théorique dépasse 250, le total affiché est plafonné). Catégories : Actions (hors banque), Actions bancaires, Énergie.
 La note LONG n'est ni lue pour le calcul technique ni modifiée.
 """
 from __future__ import annotations
@@ -54,6 +58,49 @@ FIB_MAX_R = 0.382
 H_COEF = 0.4
 H_ABS = 20
 FOND_MAX = 125
+FOND_BASE = 10   # t686u : plancher fondamental (une bonne santé n'écrase plus la note SHORT)
+FOND_PAS = 10  # points par critère LONG non rempli (n.c. = moitié) : 10 + 9 × 10 = 100
+VALO_MAX = 30    # t686u : valorisation excessive (PER / médiane du secteur)
+VALO_R0, VALO_R1 = 1.0, 2.0  # 0 point à 1× la médiane, +30 à 2× et au-delà
+try:
+    _f = _shcfg.get('fond_tolerance') or {}
+    FOND_BASE = int(_f.get('base', FOND_BASE)); FOND_PAS = int(_f.get('pas', FOND_PAS))
+    _v = _shcfg.get('valorisation') or {}
+    VALO_MAX = int(_v.get('max', VALO_MAX)); VALO_R0 = float(_v.get('ratio_0', VALO_R0)); VALO_R1 = float(_v.get('ratio_max', VALO_R1))
+except Exception:
+    pass
+_VALO = None
+
+
+def valo_doc():
+    global _VALO
+    if _VALO is None:
+        try:
+            _VALO = json.loads((ROOT / 'data' / 'valo_short.json').read_text(encoding='utf-8'))
+        except Exception:
+            _VALO = {}
+    return _VALO
+
+
+def valo_points(yahoo=None, ticker=None, tv=None):
+    """t686u : (points 0..VALO_MAX ou None si n.c., détail). PER / médiane du PER du secteur."""
+    V = valo_doc()
+    by = V.get('by_yahoo') or {}
+    rec = None
+    for k in (yahoo, ticker, (tv or '').split(':')[-1]):
+        if k and (k in by or str(k).replace('.', '-') in by):
+            rec = by.get(k) or by.get(str(k).replace('.', '-'))
+            break
+    if not rec or not rec.get('per'):
+        return None, {'per': None, 'texte': 'Valo n.c.'}
+    med = ((V.get('secteurs') or {}).get(rec.get('sector') or '') or {}).get('mediane_per')
+    if not med:
+        return None, {'per': rec['per'], 'texte': 'Valo n.c.'}
+    r = rec['per'] / med
+    pts = 0 if r <= VALO_R0 else min(VALO_MAX, jround(VALO_MAX * (r - VALO_R0) / (VALO_R1 - VALO_R0)))
+    return pts, {'per': rec['per'], 'per_source': rec.get('per_source'), 'secteur': rec.get('sector'),
+                 'mediane_secteur': med, 'ratio': round(r, 2), 'points': pts, 'date': V.get('genere'),
+                 'texte': f"Valo +{pts}"}
 FG_TRANCHE = 6  # t524u : grille F&G échelonnée à ±30 (6 points par tranche de 10)
 USA_FR = ('NYSE', 'NASDAQ', 'AMEX', 'EURONEXT')
 
@@ -168,13 +215,14 @@ def tech_from_closed(closed, used, tv, ticker=None):
 
 
 def fond_from(elements, missing_key):
-    """t524u : 125 points répartis à parts égales sur les 9 critères (125/9 ≈ 13,9 par critère NON rempli) ;
-    critère sans donnée = moitié ; sous-total arrondi au point (demi vers le haut). 9 non remplis = 125 exactement."""
-    brut, n_ko, n_nc, det = 0.0, 0, 0, []
+    """t686u : base FOND_BASE (10) + FOND_PAS (10) par critère NON rempli ; critère sans donnée = moitié (5) ;
+    sous-total arrondi au point (demi vers le haut). Société saine = 10 ; 9 non remplis = 100.
+    (t524u, avant : 125/9 ≈ 13,9 par critère non rempli, base 0.)"""
+    brut, n_ko, n_nc, det = float(FOND_BASE), 0, 0, []
     for e in elements or []:
         nc = bool(e.get(missing_key)) or e.get('ok') is None
         ko = (not nc) and e.get('ok') is False
-        pts = (FOND_MAX / 9) if ko else ((FOND_MAX / 18) if nc else 0)
+        pts = FOND_PAS if ko else ((FOND_PAS / 2) if nc else 0)
         brut += pts
         n_ko += ko
         n_nc += nc
@@ -193,7 +241,8 @@ def assemble(base, t, fond, fgv, att, sent=None):
     mm40_pts = t.get('mm40_points')
     if mm40_pts is None and isinstance(mm40_det, dict) and isinstance(mm40_det.get('points'), int):
         mm40_pts = mm40_det['points']
-    tot = t['rsi']['points'] + t['macd']['points'] + t['cci']['points'] + fpts + (fgp or 0) + (hp or 0) + (mm40_pts or 0)
+    vpts, vdet = valo_points(base.get('yahoo'), base.get('ticker'), base.get('tv'))
+    tot = t['rsi']['points'] + t['macd']['points'] + t['cci']['points'] + fpts + (fgp or 0) + (hp or 0) + (mm40_pts or 0) + (vpts or 0)
     note = max(-50, min(250, int(tot)))
     manq = []
     if att is None:
@@ -201,7 +250,9 @@ def assemble(base, t, fond, fgv, att, sent=None):
     if fgv is None:
         manq.append('Fear & Greed')
     if n_nc:
-        manq.append(f'{n_nc} critère(s) fondamental n.c. (≈ 6,9 pts chacun)')
+        manq.append(f'{n_nc} critère(s) fondamental n.c. ({FOND_PAS / 2:g} pts chacun)'.replace('.', ','))
+    if vpts is None:
+        manq.append('valorisation (PER n.c.)')
     if t['fibo']['r'] is None:
         manq.append('Fibonacci')
     if mm40_pts is None:
@@ -211,12 +262,13 @@ def assemble(base, t, fond, fgv, att, sent=None):
     entre = note >= SEUIL_LISTE and t['fibo']['ok'] and tech_ok
     mm40_txt = (mm40_det or {}).get('texte') or mm40_hebdo_texte((mm40_det or {}).get('ecart'), mm40_pts)
     ligne = (f"RSI +{t['rsi']['points']} · MACD +{t['macd']['points']} · CCI +{t['cci']['points']} · Fond +{fpts}"
-             f" · {flab} {(fgp or 0):+d} · H {(hp or 0):+d} · {mm40_txt}"
+             f" · {flab} {(fgp or 0):+d} · H {(hp or 0):+d} · {mm40_txt} · {vdet['texte']}"
              f"  →  {note} / 250").replace('+-', '−').replace('-', '−')
     base.update({
         'note': note, 'scale': 250,
         'points': {'rsi': t['rsi']['points'], 'macd': t['macd']['points'], 'cci': t['cci']['points'],
-                   'fondamental': fpts, 'fear_greed': fgp, 'hype': hp, 'mm40': mm40_pts},
+                   'fondamental': fpts, 'fear_greed': fgp, 'hype': hp, 'mm40': mm40_pts, 'valorisation': vpts},
+        'valorisation': vdet,
         'sentiment': (None if not sent else {'cle': sent[2], 'nom': sent[1], 'valeur': None if fgv is None else round(fgv, 1),
                                              'points': fgp, 'repli_cnn': sent[2] == 'cnn'}),
         'ligne': ligne, 'date_cloture': t['date_cloture'], 'close': t['close'],

@@ -4,6 +4,7 @@
 50 actions cotées au NYSE (y compris les sociétés canadiennes cotées au NYSE), négociables en CFD chez Revolut,
 en surachat sur le RSI 14 HEBDO (≥ rsi_hebdo_min = 60, > 70 en tête ; aucun complément sous le seuil) et dont la santé
 financière se dégrade (révisions de BPA en baisse, CA en recul, marges en recul, dette en hausse, FCF en baisse…).
+t686u (27/11/2026) : la dégradation n'est plus exigée (degradation_min = 0) ; elle sert au tri et la note SHORT tranche.
 
 Étapes (régénérable : python3 src/build_univers_short.py [--force]) :
   1. Univers large : composants du S&P 500 (fichier officiel SPDR SPY, State Street) + grandes canadiennes cotées
@@ -13,7 +14,7 @@ financière se dégrade (révisions de BPA en baisse, CA en recul, marges en rec
      Place vérifiée dans les métadonnées Yahoo : exchangeName NYQ (NYSE) ou NMS/NGM (NASDAQ). Crypto (XRP, BTC…) exclues.
   3. RSI 14 sur clôtures HEBDO clôturées (même moteur que le site : ind_core.rsi, yahoo_week).
   4. Pour les RSI ≥ rsi_hebdo_min (60) : fondamentaux Yahoo (yfinance) + signes de dégradation ; tri : RSI > 70 d'abord,
-     puis score de dégradation décroissant, puis RSI décroissant. On retient N = 50 titres ayant au moins un signe.
+     puis score de dégradation décroissant, puis RSI décroissant. On retient jusqu'à N titres (score de dégradation ≥ degradation_min).
   5. CFD Revolut : « confirmé » si le symbole figure dans config/revolut_cfd_confirmes.json, sinon « à vérifier ».
 → config/univers_short.json (+ les métriques fondamentales nécessaires à la note SHORT).
 """
@@ -38,7 +39,7 @@ CACHE_SHARED = Path('/workspace/invest/ophir-site/data/short_cache')
 OUT = ROOT / 'config' / 'univers_short.json'
 N = 200  # plafond large : on vise jusqu'à 10 verts, sans inventer ni remplir avec de l'orange
 RSI_SUR = 70.0
-DEG_MIN = 0.5  # dégradation plus large qu'un score entier ≥ 1
+DEG_MIN = 0.0  # t686u (27/11) : tolérance fondamentale, une société saine entre aussi (la note SHORT tranche) ; réglable apex_short.degradation_min
 EXCHANGES_OK = {'NYQ', 'NMS', 'NGM', 'NASDAQ', 'NYE'}
 # Crypto (CFD ou ticker) : jamais dans Meilleurs short. COIN (Coinbase, action) reste éligible.
 CRYPTO_EXCL = {
@@ -49,6 +50,10 @@ CRYPTO_EXCL = {
 RSI_MIN = 60.0  # réglable : config/regles.json → apex_short.rsi_hebdo_min (Emmanuel : ≥ 60, NYSE + NASDAQ)
 try:
     RSI_MIN = float(json.loads((ROOT / 'config' / 'regles.json').read_text(encoding='utf-8'))['apex_short'].get('rsi_hebdo_min', RSI_MIN))
+except Exception:
+    pass
+try:
+    DEG_MIN = float(json.loads((ROOT / 'config' / 'regles.json').read_text(encoding='utf-8'))['apex_short'].get('degradation_min', DEG_MIN))
 except Exception:
     pass
 RSI_PLANCHER = RSI_MIN  # plus aucun complément sous le seuil
@@ -351,7 +356,7 @@ def main():
         c['canada'] = (c.get('country') == 'Canada') or c['origine'].startswith('Canada')
         c['yahoo'] = ysym(t)
     doc = {
-        'regle': "NYSE + NASDAQ (S&P 500, canadiennes NYSE, CFD Revolut actions), RSI hebdo ≥ 60, dégradation ≥ 0,5 ; crypto (XRP…) exclue ; la liste Meilleurs short retient les notes ≥ 70 (orange, vert ou cyan), jusqu'à 10 titres, hors positions déjà ouvertes",
+        'regle': "NYSE + NASDAQ (S&P 500, canadiennes NYSE, CFD Revolut actions), RSI hebdo ≥ 60 (santé saine acceptée, dégradation au tri) ; crypto (XRP…) exclue ; la liste Meilleurs short retient les notes ≥ 70 (orange, vert ou cyan), jusqu'à 10 titres, hors positions déjà ouvertes",
         'genere': NOW.strftime('%Y-%m-%d %H:%M'), 'zone': 'Europe/Paris',
         'script': 'src/build_univers_short.py',
         'sources': {'sp500': f'SPDR SPY holdings (State Street), au {asof}', 'cours': 'Yahoo Finance, bougies hebdo clôturées',

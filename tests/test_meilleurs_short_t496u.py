@@ -54,10 +54,12 @@ def test_regles_short_grille():
     g = s["grille"]
     assert s["seuil"] == 70 and s["macd_pct"] == 4.0
     assert g["rsi"]["max"] == 25 and g["macd"]["max"] == 25 and g["cci"]["max"] == 25
-    assert g["fondamental"]["max"] == 125 and g["fear_greed"]["max"] == 30 and g["hype"]["max"] == 20
+    assert g["fondamental"]["max"] == 100 and g["fear_greed"]["max"] == 30 and g["hype"]["max"] == 20  # t686u : fond tolérant 10..100
     assert g["fibonacci"]["max"] == 0
     assert g["mm40"]["max"] == 30
-    assert sum(g[k]["max"] for k in ("rsi", "macd", "cci", "fondamental", "fear_greed", "hype")) == 250
+    assert g["valorisation"]["max"] == 30
+    # t686u : barème théorique 285 (fond 100 + MM40 30 + valorisation 30…), total affiché borné à 250
+    assert sum(g[k]["max"] for k in ("rsi", "macd", "cci", "fondamental", "fear_greed", "hype", "mm40", "valorisation")) == 285
     # MM40 inversée s'ajoute, le total affiché reste borné à 250
     assert "MM40" in (s.get("total") or "")
     assert "marge commune Revolut" in s["avertissement"]
@@ -71,9 +73,10 @@ def test_calcul_short():
     assert S.mise(69) is None and S.mise(70) == 100 and S.mise(190) == 200 and S.mise(250) == 200
     assert S.streak([80, 60, 71, 72, 73, 75], lambda v: v > 70) == 4
     pts, ko, nc, _ = S.fond_from([{"ok": False}, {"ok": True}, {"ok": None, "manquant": True}], "manquant")
-    assert (pts, ko, nc) == (21, 1, 1)  # 13,89 + 6,94 → 20,8 → 21
-    assert S.fond_from([{"ok": False}] * 9, "manquant")[0] == 125
-    assert S.fond_from([{"ok": None}], "manquant")[0] == 7
+    assert (pts, ko, nc) == (25, 1, 1)  # t686u : base 10 + 10 (non rempli) + 5 (n.c.)
+    assert S.fond_from([{"ok": False}] * 9, "manquant")[0] == 100
+    assert S.fond_from([{"ok": True}] * 9, "manquant")[0] == 10  # société saine : plancher 10
+    assert S.fond_from([{"ok": None}], "manquant")[0] == 15
 
 
 def test_donnees_short():
