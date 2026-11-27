@@ -62,7 +62,11 @@ def _chart_weekly(j):
     return weekly, {'symbol': meta.get('symbol'), 'name': meta.get('shortName') or meta.get('symbol'), 'weekly': weekly}
 
 def weekly(sym):
-    raw=json.load(open(B+f'w_{sym.replace("^","_")}.json')); pairs,j=_chart_weekly(raw); wk={}
+    fn=f'w_{sym.replace("^","_")}.json'
+    raw=json.load(open(B+fn)); pairs,j=_chart_weekly(raw)
+    if not j.get('retrieved'):
+        j['retrieved']=mt(fn)
+    wk={}
     for d0,c0 in pairs:
         d1=D.date.fromisoformat(d0[:10]); fri=d1+D.timedelta(days=(4-d1.weekday())%7) if d1.weekday()<=4 else d1-D.timedelta(days=d1.weekday()-4)
         wk[fri]=c0
