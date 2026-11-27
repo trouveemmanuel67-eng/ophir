@@ -458,13 +458,43 @@ function posTickerCourt(p){
   if(tv) return String(tv);
   return (p&&p.nom)?String(p.nom):'—';
 }
+function posTvBare(s){
+  if(!s||s==='pas de note') return '';
+  const t=String(s).replace(/-CFD$/i,'');
+  return t.indexOf(':')>=0?t.slice(t.lastIndexOf(':')+1):t;
+}
+function posTvIsFull(s){
+  return !!(s&&s!=='pas de note'&&String(s).indexOf(':')>=0);
+}
+function posTvChartSymbol(p){
+  /* Symbole du graphique APEX (Price Note). CASH / PEA : pas de lien. */
+  if(!p) return '';
+  const tick=String((p.sous_jacent||p.ticker)||'').toUpperCase().replace(/-CFD$/,'');
+  if(tick==='CASH'||tick==='PEA'||tick.indexOf('CASH-')===0) return '';
+  if(p.type==='cash'||p.tab==='liquidites'||p.reglement) return '';
+  const CHART={BTC:'BITSTAMP:BTCUSD',ETH:'BITSTAMP:ETHUSD',XAU:'TVC:GOLD',WAT:'NYSE:WAT',ED:'NYSE:ED',DLTR:'NASDAQ:DLTR'};
+  if(CHART[tick]) return CHART[tick];
+  const fromFiche=posTvBare(p.fiche_tv).toUpperCase();
+  if(CHART[fromFiche]) return CHART[fromFiche];
+  /* tv_note si c'est un symbole complet (là où est la note), sinon fiche_tv. */
+  if(posTvIsFull(p.tv_note)) return String(p.tv_note);
+  if(posTvIsFull(p.fiche_tv)) return String(p.fiche_tv);
+  if(posTvIsFull(p.tv)) return String(p.tv);
+  return '';
+}
+function posTvChartUrl(sym){
+  if(!sym) return '';
+  return 'https://www.tradingview.com/chart/lGi0h59c/?symbol='+encodeURIComponent(sym);
+}
 function posTvCopy(p){
-  /* Symbole TradingView complet. CASH / PEA n'en ont pas : pas de bouton copier. */
-  const tv=p&&p.fiche_tv;
-  if(!tv) return '';
+  /* Symbole TradingView complet (graphique APEX). CASH / PEA n'en ont pas : pas de bouton copier. */
   const tick=String((p&&p.ticker)||'').toUpperCase();
   if(tick==='CASH'||tick==='PEA') return '';
-  return String(tv);
+  const tv=posTvChartSymbol(p);
+  if(tv) return tv;
+  const fiche=p&&p.fiche_tv;
+  if(!fiche||fiche==='pas de note') return '';
+  return String(fiche);
 }
 function posShortName(p){
   let n=p.nom||p.ticker||'—';
@@ -594,8 +624,10 @@ function renderMesPositions(){
     const abbr=posTickerCourt(p);
     const nom=p.nom||abbr;
     const tipNom=String(nom).replace(/"/g,'&quot;');
-    const go=(p.tab&&p.fiche_tv)
-      ? `<button type="button" class="pos-link" data-tab="${p.tab}" data-tv="${String(p.fiche_tv).replace(/"/g,'&quot;')}" title="${tipNom}">${abbr.replace(/</g,'')}</button>`
+    const tvChart=posTvChartSymbol(p);
+    const tvHref=posTvChartUrl(tvChart);
+    const go=tvHref
+      ? `<a class="pos-link" href="${tvHref.replace(/"/g,'&quot;')}" target="_blank" rel="noopener" title="${tipNom}">${abbr.replace(/</g,'')}</a>`
       : `<span class="pos-nm" title="${tipNom}">${abbr.replace(/</g,'')}</span>`;
     const tvCopy=posTvCopy(p);
     const cp=tvCopy?((typeof ophirCopyBtn==='function')?ophirCopyBtn(tvCopy):`<button type="button" class="cp" data-c="${String(tvCopy).replace(/"/g,'&quot;')}" aria-label="Copier ${String(tvCopy).replace(/"/g,'&quot;')}" title="Copier ${String(tvCopy).replace(/"/g,'&quot;')}">⎘</button>`):'';
@@ -670,9 +702,8 @@ function renderMesPositions(){
   else host.insertAdjacentHTML('afterbegin', html);
   const card=document.getElementById('mesPosCard');
   if(!card) return;
-  card.querySelectorAll('.pos-link').forEach(b=>b.addEventListener('click',()=>{
+  card.querySelectorAll('a.pos-link').forEach(a=>a.addEventListener('click',()=>{
     if(window.matchMedia('(max-width:1099px)').matches) posSetListOpen(false);
-    posOpenFiche(b.dataset.tab,b.dataset.tv);
   }));
   const head=card.querySelector('.pos-rail-h');
   if(head){
