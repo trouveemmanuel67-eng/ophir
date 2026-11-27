@@ -1,16 +1,66 @@
 {
   "titre": "Narratif",
-  "maj": "2026-11-26T21:30:00+01:00",
-  "maj_label": "26/11/2026 à 21 h 30 (heure de Paris)",
+  "maj": "2026-11-27T12:45:00+01:00",
+  "maj_label": "27/11/2026 à 12 h 45 (heure de Paris)",
   "horizon": "2 à 6 semaines",
   "avertissement": "Lectures à contre-courant, pas des conseils ni des ordres. Aucun rendement n’est promis. Un récit peut se réaliser, s’essouffler ou arriver plus tard.",
   "methode": [
-    "Veille du 26 novembre 2026 : notes de banques et d’analystes, calendrier (OPEC+ le 29/11, Fed les 8-9/12), articles datés de la presse financière, et exemples passés d’acteurs avec intérêt déclaré (lettres d’investisseurs, rapports short, 13F, passages TV). Google Trends n’a pas été interrogeable de façon fiable au moment de cette mise à jour.",
+    "Veille du 27 novembre 2026 : signal Iran (rationnement électrique sous pression US) recoupé avec AFP et The Washington Post ; notes de banques et d’analystes, calendrier (OPEC+ le 29/11, Fed les 8-9/12), articles datés de la presse financière, et exemples passés d’acteurs avec intérêt déclaré (lettres d’investisseurs, rapports short, 13F, passages TV). Google Trends n’a pas été interrogeable de façon fiable au moment de cette mise à jour.",
     "Le stade (naissant / en montée / déjà grand public) est une appréciation éditoriale selon le type de source, pas une mesure d’audience. La date d’arrivée dans les médias traditionnels est une estimation liée à un catalyseur connu, pas une prédiction.",
     "Un acteur n’est relié à un récit en cours que si une source le documente. En l’absence de position déclarée récente, c’est indiqué « non trouvé ». Aucun chiffre n’est inventé.",
     "Rafraîchissement prévu chaque semaine : relancer `python3 src/build_narratif.py --veille` pour collecter les titres récents, puis mettre à jour `data/narratif.json` à la main (jugement éditorial), valider avec `python3 src/build_narratif.py`, et reconstruire le site."
   ],
   "narratifs": [
+    {
+      "id": "pression-usa-iran",
+      "titre": "Pression maximale USA–Iran",
+      "type": "Peur",
+      "stade": "en montée",
+      "arrivee_estimee": "déjà là côté Iran ; relance possible si le récit d’escalade (Ormuz) passe dans les médias financiers",
+      "arrivee_debut": "2026-11-22",
+      "secteurs": [
+        "Énergie",
+        "pétrole",
+        "métaux précieux"
+      ],
+      "actifs": [
+        "pétrole / XLE",
+        "or (XAU)",
+        "argent (XAG)",
+        "URNU"
+      ],
+      "lecture": "Le rationnement électrique iranien est confirmé. S’il se transforme en récit d’escalade (Ormuz), pétrole, or, argent et URNU seraient les premiers concernés. Ce n’est pas un conseil.",
+      "risque": "Les coupures elles-mêmes ne coupent pas les exportations de pétrole iranien. Une tension sur Ormuz n’est pas un fait observé. Un récit trop tôt, ou au contraire un choc réel sous-estimé, sont les deux biais. Aucun ordre n’est passé.",
+      "acteurs": [
+        "medias-amplificateurs"
+      ],
+      "signaux": [
+        {
+          "date": "2026-11-27",
+          "texte": "Polymarket sur X (01 h 13, heure de Paris, environ 178 k vues) : l’Iran commence à rationner l’électricité, crise économique aggravée sous pression américaine. Relais d’un fait déjà annoncé par Tavanir le 21/11, avec coupures depuis le 22/11.",
+          "source": {
+            "nom": "Polymarket (X)",
+            "url": "https://x.com/Polymarket/status/2126106981488287847"
+          }
+        },
+        {
+          "date": "2026-11-22",
+          "texte": "AFP (reprise par The Straits Times) : l’Iran impose des coupures tournantes dès le 22 novembre. Mohammad Allahdad (Tavanir) : restrictions de distribution faute de carburant pour les centrales, jusqu’à deux heures par jour selon les zones. Le président Pezeshkian lie l’aggravation hivernale aux frappes sur les infrastructures gazières.",
+          "source": {
+            "nom": "AFP / The Straits Times",
+            "url": "https://www.straitstimes.com/world/middle-east/iran-to-ration-electricity-as-war-hits-energy-network"
+          }
+        },
+        {
+          "date": "2026-11-26",
+          "texte": "The Washington Post : l’Iran rationne l’électricité et réduit les subventions au pain et à l’essence, alors que la pression économique américaine s’accentue après près de neuf mois de guerre. Recoupé aussi par Al Jazeera (25/11). Aucun article Reuters ni Bloomberg trouvé sur ce rationnement à la date de cette mise à jour.",
+          "source": {
+            "nom": "The Washington Post",
+            "url": "https://www.washingtonpost.com/world/2026/11/26/tehran-imposes-austerity-under-us-pressure-iranians-frustrations-grow/"
+          }
+        }
+      ]
+    },
     {
       "id": "opec-surplus-2027",
       "titre": "Surplus pétrole en 2027",
