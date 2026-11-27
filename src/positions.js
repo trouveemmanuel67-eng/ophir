@@ -518,10 +518,8 @@ function posMoneyUsdEur(usd,eur){
   return a+' / '+b;
 }
 function posCfdAlertHTML(){
-  const a=POS.cfd_alerte||(POS_RV&&POS_RV.cfd_alerte);
-  if(!a||a.afficher_encadre!==true) return '';
-  const tip=(a.note||'').replace(/"/g,'&quot;');
-  return `<div class="pos-cfd-alert" role="alert" title="${tip}">${a.libelle||'CFD Revolut'}</div>`;
+  /* Encadré rouge retiré (t672u). Les données restent dans POS.cfd_alerte. */
+  return '';
 }
 function posFraisCfdHTML(){
   /* Encart détaillé retiré : le tableau des frais vit dans le panneau Budget. */

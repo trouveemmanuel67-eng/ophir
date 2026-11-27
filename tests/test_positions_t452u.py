@@ -200,7 +200,8 @@ def test_ordres_traites_comme_positions_actives_dans_le_js():
     assert "p.statut==='active'||p.statut==='en_attente'" in JS
     assert "p.statut==='active'||p.statut==='en_attente'" in ACC
     assert "pos-mark-ordre" in JS and "pos-mark-ordre" in CSS
-    assert "pos-cfd-alert" in JS and "pos-cfd-alert" in CSS
+    assert "function posCfdAlertHTML" in JS
+    assert "pos-cfd-alert" not in CSS
     assert "function posFraisCfdHTML" in JS
     assert "${posCfdAlertHTML()}${posFraisCfdHTML()}" not in JS
     assert "FRAIS CFD" not in JS
