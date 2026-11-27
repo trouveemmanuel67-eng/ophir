@@ -6,6 +6,8 @@ build_univers_short.py) : PER prévisionnel (forwardPE, consensus 12 mois) et PE
 (yfinance, Ticker.info). Puis médiane du PER par secteur Yahoo sur cet univers (PER prévisionnel, repli PER courant ;
 PER ≤ 0 ou absent : ignoré, aucune invention).
 → data/valo_short.json (versionné) : {'secteurs': {secteur: {'mediane_per': x, 'n': k}}, 'by_yahoo': {...}}.
+t687u (27/11/2026) : + short interest (shortPercentOfFloat en % du flottant, shortRatio = jours pour couvrir,
+dateShortInterest = date de relevé FINRA/bourses, publié deux fois par mois, donc en retard).
 Régénérable : python3 src/fetch_valo_short.py
 """
 from __future__ import annotations
@@ -37,7 +39,11 @@ def one(y):
             i = yf.Ticker(y).info or {}
             fwd, trl = B.clean(i.get('forwardPE')), B.clean(i.get('trailingPE'))
             per, src = per_of(fwd, trl)
-            return y, {'sector': i.get('sector'), 'forward_pe': None if fwd is None else round(float(fwd), 2),
+            spf, sr, dsi = B.clean(i.get('shortPercentOfFloat')), B.clean(i.get('shortRatio')), B.clean(i.get('dateShortInterest'))
+            return y, {'short_pct_float': None if spf is None else round(float(spf) * 100, 2),
+                       'short_ratio': None if sr is None else round(float(sr), 2),
+                       'date_short': None if not dsi else D.datetime.fromtimestamp(int(dsi), ZoneInfo('UTC')).strftime('%Y-%m-%d'),
+                       'sector': i.get('sector'), 'forward_pe': None if fwd is None else round(float(fwd), 2),
                        'trailing_pe': None if trl is None else round(float(trl), 2),
                        'per': None if per is None else round(per, 2), 'per_source': src}
         except Exception:
@@ -58,7 +64,7 @@ def main():
             sect.setdefault(r['sector'], []).append(r['per'])
     med = {s: {'mediane_per': round(statistics.median(v), 2), 'n': len(v)} for s, v in sorted(sect.items())}
     doc = {'genere': D.datetime.now(ZoneInfo('Europe/Paris')).strftime('%Y-%m-%d %H:%M'), 'zone': 'Europe/Paris',
-           'source': f'Yahoo Finance (yfinance, Ticker.info : forwardPE, trailingPE, sector) ; univers SPY au {asof} + canadiennes NYSE + CFD Revolut',
+           'source': f'Yahoo Finance (yfinance, Ticker.info : forwardPE, trailingPE, sector, shortPercentOfFloat, shortRatio, dateShortInterest) ; univers SPY au {asof} + canadiennes NYSE + CFD Revolut',
            'regle': 'PER retenu = prévisionnel (12 mois) s’il est > 0, sinon courant s’il est > 0 ; médiane par secteur Yahoo',
            'n': len(res), 'secteurs': med, 'by_yahoo': res}
     OUT.write_text(json.dumps(doc, ensure_ascii=False, separators=(',', ':')) + '\n', encoding='utf-8')

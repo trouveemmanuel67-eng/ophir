@@ -49,9 +49,9 @@ def test_bdx_levier_x5():
 
 
 def test_notes_short_existantes():
-    assert SHORT["by_tv"]["NYSE:BDX"]["note"] == 140  # t686u : fond tolérant + valorisation
-    assert SHORT["by_tv"]["NYSE:EG"]["note"] == 112
-    assert SHORT["by_tv"]["NYSE:ABBV"]["note"] == 81
+    assert SHORT["by_tv"]["NYSE:BDX"]["note"] == 145  # t686u–t687u : fond tolérant, valorisation, short interest
+    assert SHORT["by_tv"]["NYSE:EG"]["note"] == 114
+    assert SHORT["by_tv"]["NYSE:ABBV"]["note"] == 91
     # la note d'achat ABBV (61) ne doit pas être celle affichée en short
     assert PILOT["by_tv"]["NYSE:ABBV"]["total"] == 61
     assert SHORT["by_tv"]["NYSE:ABBV"]["note"] != PILOT["by_tv"]["NYSE:ABBV"]["total"]

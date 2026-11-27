@@ -13,6 +13,9 @@ Plus la note est haute, plus l'actif est un bon candidat short. Points entiers.
   Valorisation (max 30)  : t686u : PER (prévisionnel, repli courant) / médiane du PER de son secteur (S&P 500, Yahoo,
                            data/valo_short.json). 0 si ≤ 1× la médiane ; linéaire jusqu'à +30 à 2× ; plafonné.
                            PER absent ou négatif : n.c. = 0 point.
+  Short interest (−20..+10) : t687u : à contre-courant, part du flottant vendue à découvert (Yahoo shortPercentOfFloat,
+                           relevé bimensuel). +10 jusqu'à 2 % ; linéaire jusqu'à 0 à 5 % ; puis jusqu'à −20 à 15 % et au-delà.
+                           Jours pour couvrir (shortRatio) ≥ 7 : −5 de plus (borné à −20). Donnée absente : n.c. = 0.
   Fear & Greed (±30)     : inverse du LONG, échelonné à 30 (avidité 60 → +6 … 100 → +30 ; peur 40 → −6 … 0 → −30).
                            valeur d'entrée = sentiment maison du SECTEUR de l'action (ETF SPDR US ou MSCI Europe,
                            data/sentiment_secteurs.json, apex/sentiment.py). Plus de repli CNN : si le secteur est inconnu, 0 point.
@@ -69,6 +72,17 @@ try:
     VALO_MAX = int(_v.get('max', VALO_MAX)); VALO_R0 = float(_v.get('ratio_0', VALO_R0)); VALO_R1 = float(_v.get('ratio_max', VALO_R1))
 except Exception:
     pass
+# t687u (27/11/2026) : short interest à contre-courant (éviter d'aller où tout le monde va).
+SI_MAX = 10          # bonus max si peu shorté (asymétrique : la foule et le squeeze pèsent plus)
+SI_MALUS = 20        # malus max si très shorté
+SI_BAS, SI_ZERO, SI_HAUT = 2.0, 5.0, 15.0  # % du flottant : +10 ≤ 2 % → 0 à 5 % → −20 à 15 % et au-delà
+SI_DTC_JOURS, SI_DTC_MALUS = 7.0, 5         # jours pour couvrir ≥ 7 : −5 de plus (risque de squeeze)
+try:
+    _si = _shcfg.get('short_interest') or {}
+    SI_MAX = int(_si.get('bonus_max', SI_MAX)); SI_MALUS = int(_si.get('malus_max', SI_MALUS)); SI_BAS = float(_si.get('bas', SI_BAS)); SI_ZERO = float(_si.get('zero', SI_ZERO))
+    SI_HAUT = float(_si.get('haut', SI_HAUT)); SI_DTC_JOURS = float(_si.get('dtc_jours', SI_DTC_JOURS)); SI_DTC_MALUS = int(_si.get('dtc_malus', SI_DTC_MALUS))
+except Exception:
+    pass
 _VALO = None
 
 
@@ -80,6 +94,43 @@ def valo_doc():
         except Exception:
             _VALO = {}
     return _VALO
+
+
+def _valo_rec(yahoo=None, ticker=None, tv=None):
+    by = valo_doc().get('by_yahoo') or {}
+    for k in (yahoo, ticker, (tv or '').split(':')[-1]):
+        if k and (k in by or str(k).replace('.', '-') in by):
+            return by.get(k) or by.get(str(k).replace('.', '-'))
+    return None
+
+
+def si_points_from(spf, dtc=None):
+    """t687u : points short interest (−SI_MALUS..+SI_MAX) ; None si la part du flottant shortée manque."""
+    if spf is None:
+        return None
+    x = float(spf)
+    if x <= SI_BAS:
+        pts = SI_MAX
+    elif x <= SI_ZERO:
+        pts = SI_MAX * (SI_ZERO - x) / (SI_ZERO - SI_BAS)
+    elif x < SI_HAUT:
+        pts = -SI_MALUS * (x - SI_ZERO) / (SI_HAUT - SI_ZERO)
+    else:
+        pts = -SI_MALUS
+    pts = jround(pts)
+    if dtc is not None and float(dtc) >= SI_DTC_JOURS:
+        pts -= SI_DTC_MALUS
+    return max(-SI_MALUS, min(SI_MAX, pts))
+
+
+def si_points(yahoo=None, ticker=None, tv=None):
+    rec = _valo_rec(yahoo, ticker, tv) or {}
+    spf, dtc = rec.get('short_pct_float'), rec.get('short_ratio')
+    pts = si_points_from(spf, dtc)
+    if pts is None:
+        return None, {'pct_flottant': None, 'texte': 'SI n.c.'}
+    return pts, {'pct_flottant': spf, 'jours_couvrir': dtc, 'date': rec.get('date_short'), 'points': pts,
+                 'texte': f"SI {pts:+d}"}
 
 
 def valo_points(yahoo=None, ticker=None, tv=None):
@@ -242,7 +293,8 @@ def assemble(base, t, fond, fgv, att, sent=None):
     if mm40_pts is None and isinstance(mm40_det, dict) and isinstance(mm40_det.get('points'), int):
         mm40_pts = mm40_det['points']
     vpts, vdet = valo_points(base.get('yahoo'), base.get('ticker'), base.get('tv'))
-    tot = t['rsi']['points'] + t['macd']['points'] + t['cci']['points'] + fpts + (fgp or 0) + (hp or 0) + (mm40_pts or 0) + (vpts or 0)
+    spts, sdet = si_points(base.get('yahoo'), base.get('ticker'), base.get('tv'))
+    tot = t['rsi']['points'] + t['macd']['points'] + t['cci']['points'] + fpts + (fgp or 0) + (hp or 0) + (mm40_pts or 0) + (vpts or 0) + (spts or 0)
     note = max(-50, min(250, int(tot)))
     manq = []
     if att is None:
@@ -253,6 +305,8 @@ def assemble(base, t, fond, fgv, att, sent=None):
         manq.append(f'{n_nc} critère(s) fondamental n.c. ({FOND_PAS / 2:g} pts chacun)'.replace('.', ','))
     if vpts is None:
         manq.append('valorisation (PER n.c.)')
+    if spts is None:
+        manq.append('short interest n.c.')
     if t['fibo']['r'] is None:
         manq.append('Fibonacci')
     if mm40_pts is None:
@@ -262,13 +316,13 @@ def assemble(base, t, fond, fgv, att, sent=None):
     entre = note >= SEUIL_LISTE and t['fibo']['ok'] and tech_ok
     mm40_txt = (mm40_det or {}).get('texte') or mm40_hebdo_texte((mm40_det or {}).get('ecart'), mm40_pts)
     ligne = (f"RSI +{t['rsi']['points']} · MACD +{t['macd']['points']} · CCI +{t['cci']['points']} · Fond +{fpts}"
-             f" · {flab} {(fgp or 0):+d} · H {(hp or 0):+d} · {mm40_txt} · {vdet['texte']}"
+             f" · {flab} {(fgp or 0):+d} · H {(hp or 0):+d} · {mm40_txt} · {vdet['texte']} · {sdet['texte']}"
              f"  →  {note} / 250").replace('+-', '−').replace('-', '−')
     base.update({
         'note': note, 'scale': 250,
         'points': {'rsi': t['rsi']['points'], 'macd': t['macd']['points'], 'cci': t['cci']['points'],
-                   'fondamental': fpts, 'fear_greed': fgp, 'hype': hp, 'mm40': mm40_pts, 'valorisation': vpts},
-        'valorisation': vdet,
+                   'fondamental': fpts, 'fear_greed': fgp, 'hype': hp, 'mm40': mm40_pts, 'valorisation': vpts, 'short_interest': spts},
+        'valorisation': vdet, 'short_interest': sdet,
         'sentiment': (None if not sent else {'cle': sent[2], 'nom': sent[1], 'valeur': None if fgv is None else round(fgv, 1),
                                              'points': fgp, 'repli_cnn': sent[2] == 'cnn'}),
         'ligne': ligne, 'date_cloture': t['date_cloture'], 'close': t['close'],

@@ -1136,6 +1136,7 @@ function rgShortBoard(kind, boardId){
     ${block('hype','Hype / attention (H)',hy.max_affiche||'±20',`<div class="rg-cards rg-cards-span">${card('hype_short',hy.label||'Hype inversée',hy.regle||'',hy.max_affiche||'±20')}</div>`,'inversée par rapport au LONG')}
     ${(g.mm40)?block('mm40','MM40 hebdo',g.mm40.max_affiche||'0 à +30',`<div class="rg-cards rg-cards-span">${card('mm40_short',g.mm40.label||'MM40 hebdo, inversée',g.mm40.regle||'','0 à +'+rgNum(g.mm40.max||30))}</div>`,'inversée par rapport au LONG · 0 sous la MM40, linéaire jusqu’à +40 %'):''}
     ${(g.valorisation)?block('valorisation','Valorisation',g.valorisation.max_affiche||'0 à +30',`<div class="rg-cards rg-cards-span">${card('valorisation_short',g.valorisation.label||'Valorisation excessive',g.valorisation.regle||'','0 à +'+rgNum(g.valorisation.max||30))}</div>`,'PER ÷ médiane du secteur · 0 à 1×, +30 à 2×'):''}
+    ${(g.short_interest)?block('short-interest','Short interest',g.short_interest.max_affiche||'−20 à +10',`<div class="rg-cards rg-cards-span">${card('short_interest_short',g.short_interest.label||'Short interest',g.short_interest.regle||'',g.short_interest.max_affiche||'−20 à +10')}</div>`,'% du flottant shorté · peu shorté = points, très shorté = malus'):''}
     ${g.signal_tech?block('signal-tech-filtre','Filtre technique',"filtre",`<div class="rg-cards rg-cards-span">${card('signal_tech_filtre',g.signal_tech.label,g.signal_tech.regle||'','0')}</div>`,'au moins un signal de surachat'):''}
     ${block('fibonacci-filtre','Fibonacci',"filtre",`<div class="rg-cards rg-cards-span">${card('fibonacci_filtre',fb.label||'Fibonacci : filtre',fb.regle||'','0')}</div>`,'aucun point, condition d’entrée')}
   </div>`;
@@ -1143,7 +1144,7 @@ function rgShortBoard(kind, boardId){
 function rgShortTable(){
   /* Tableau récapitulatif de la grille SHORT pour les 3 catégories. */
   const g=rgShortCfg().grille||{};
-  const rows=[['rsi','RSI'],['macd','MACD'],['cci','CCI'],['fondamental','Fondamental inversé'],['fear_greed','Sentiment du secteur inversé'],['hype','Hype H inversée'],['mm40','MM40 hebdo inversée'],['valorisation','Valorisation excessive (PER / secteur)'],['signal_tech','Filtre : au moins un signal technique de surachat'],['fibonacci','Fibonacci']];
+  const rows=[['rsi','RSI'],['macd','MACD'],['cci','CCI'],['fondamental','Fondamental inversé'],['fear_greed','Sentiment du secteur inversé'],['hype','Hype H inversée'],['mm40','MM40 hebdo inversée'],['valorisation','Valorisation excessive (PER / secteur)'],['short_interest','Short interest, à contre-courant'],['signal_tech','Filtre : au moins un signal technique de surachat'],['fibonacci','Fibonacci']];
   const tr=rows.map(([k,l])=>{
     const c=g[k]||{};
     const pts=(k==='fibonacci'||k==='signal_tech')?'filtre':(c.max_affiche||rgNum(c.max));
