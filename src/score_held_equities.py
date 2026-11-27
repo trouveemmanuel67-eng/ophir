@@ -28,6 +28,7 @@ import apply_attention as AA  # noqa: E402
 import apply_sentiment as AS  # noqa: E402
 import attention_apex as ATT  # noqa: E402
 import yahoo_week as YW  # noqa: E402
+import exceptions_actions as EX  # noqa: E402
 
 # Déjà traités à part (tête CAC 40, Fanuc Tokyo) : ne pas les re-noter ici.
 SKIP_TV = frozenset({'EURONEXT:CAC', 'TSE:6954', 'XETR:FUC'})
@@ -90,13 +91,26 @@ def iter_held_equities():
 def missing_held(by_tv):
     by_tv = by_tv or {}
     out = []
-    for a in iter_held_equities():
+    seen = set()
+    ex_by_tv = {a['tv']: a for a in EX.assets_for_score()}
+    for a in list(iter_held_equities()) + EX.assets_for_score():
         keys = [a['tv']] + list(a.get('aliases') or [])
+        if a['tv'] in seen or a['tv'] in SKIP_TV:
+            continue
+        if a['tv'] in ex_by_tv:
+            ex = ex_by_tv[a['tv']]
+            a = dict(a)
+            a['exception_apex'] = True
+            a['industry'] = a.get('industry') or ex.get('industry')
+            a['section'] = a.get('section') or ex.get('section')
+            a['source'] = a.get('source') or ex.get('source')
         if any(k in by_tv and (by_tv[k] or {}).get('ok') and (by_tv[k] or {}).get('total') is not None
                for k in keys):
+            # Une exception déjà notée n'a pas à être recalculée ici, mais on
+            # la laisse dans la config / fondamentaux (survie aux refresh).
+            seen.add(a['tv'])
             continue
-        if a['tv'] in SKIP_TV:
-            continue
+        seen.add(a['tv'])
         out.append(a)
     return out
 
@@ -261,8 +275,9 @@ def load_closed(asset):
 def score_asset_held(asset, fg=None):
     """Note complète d'une action détenue : score_asset + H + sentiment de secteur."""
     path, used, closed = load_closed(asset)
-    if not closed or len([b for b in closed if b.get('closed') and b.get('close') and b['close'] > 0]) < 52:
-        return {'tv': asset.get('tv'), 'ok': False, 'erreur': 'série hebdomadaire introuvable ou trop courte'}
+    n_ok = len([b for b in (closed or []) if b.get('closed') and b.get('close') and b['close'] > 0])
+    if not closed or n_ok == 0:
+        return {'tv': asset.get('tv'), 'ok': False, 'erreur': 'série hebdomadaire introuvable'}
     meta = metrics_from_yahoo(asset.get('yahoo'), asset.get('ticker'))
     asset = dict(asset)
     asset['m'] = meta['m']
@@ -271,16 +286,23 @@ def score_asset_held(asset, fg=None):
     asset['regles'] = 'apex_achat_v2'
     if fg is None:
         fg = P.fetch_cnn_fng()
-    rec = P.score_asset(asset, fg, fond_rules=P.FOND_RULES, closed_bars=closed)
+    rec = P.score_asset(asset, fg, fond_rules=P.FOND_RULES, closed_bars=closed, allow_partial=True)
     if not rec.get('ok'):
         return rec
     att_val, att, raw = attention_for(asset, closed)
     h = None if att_val is None else AA.h_points(att_val)
     AA.apply_rec(rec, h, att)
-    rec['hors_univers_position'] = (
-        f"{asset.get('ticker')} · action détenue hors univers Actions "
-        f"(onglet {asset.get('tab') or 'n.c.'}, absente des tops secteur / pays)"
-    )
+    if asset.get('exception_apex'):
+        rec['exception_apex'] = True
+        rec['hors_univers_position'] = (
+            f"{asset.get('ticker')} · exception APEX (hors tops secteur / pays, "
+            f"config/exceptions_actions.json)"
+        )
+    else:
+        rec['hors_univers_position'] = (
+            f"{asset.get('ticker')} · action détenue hors univers Actions "
+            f"(onglet {asset.get('tab') or 'n.c.'}, absente des tops secteur / pays)"
+        )
     rec['fond_source'] = f"{meta['source']} relevé {meta['retrieved']}"
     rec['weekly_path'] = path
     rec['weekly_symbol_used'] = used
@@ -305,6 +327,14 @@ def score_asset_held(asset, fg=None):
     if isinstance(rec.get('ligne'), str):
         rec['ligne'] = rec['ligne'].replace('F&G n.d.', 'F&G +0')
     AS.patch(rec, skey, 'held')
+    if rec.get('historique_partiel') and rec.get('ok'):
+        n = rec.get('n_closed')
+        extra = (
+            f" · historique court ({n} semaines clôturées depuis l'IPO, "
+            "MACD, Fibonacci, CCI et MM40 = 0, non inventés)"
+        )
+        if extra not in (rec.get('ligne') or ''):
+            rec['ligne'] = (rec.get('ligne') or '') + extra
     return rec
 
 
@@ -325,7 +355,8 @@ def score_missing(by_tv, fg=None):
 def compact_held(rec):
     from build_apex_achat_v2_world import compact_rec
     out = compact_rec(rec)
-    for k in ('sentiment', 'hors_univers_position', 'fond_source', 'points_brut', 'date_cloture', 'close'):
+    for k in ('sentiment', 'hors_univers_position', 'fond_source', 'points_brut',
+              'date_cloture', 'close', 'historique_partiel', 'n_closed', 'exception_apex'):
         if rec.get(k) is not None and k not in out:
             out[k] = rec[k]
     # fond déjà posé par compact_rec depuis detail ; après apply_rec il est aussi dans rec['fond']
@@ -355,11 +386,20 @@ def inject(docs, held):
 def main():
     pil = json.loads((ROOT / 'data' / 'apex_achat_v2_pilot.json').read_text(encoding='utf-8'))
     held = score_missing(pil.get('by_tv') or {})
+    metrics = {}
+    for rec in held.values():
+        y = rec.get('yahoo')
+        if y:
+            cache = CACHE / f'{y}.json'
+            if cache.exists():
+                metrics[y] = json.loads(cache.read_text(encoding='utf-8'))
+    EX.merge_fondamentaux_file(metrics)
     if not held:
-        print('held: rien à ajouter')
+        print('held: rien à ajouter ; exceptions fusionnées dans fondamentaux.json')
         return 0
     names = ('apex_achat_v2_pilot.json', 'apex_achat_v2_scores_full.json')
     docs = []
+    compact = {k: compact_held(v) if 'detail' in (v or {}) else v for k, v in held.items()}
     for name in names:
         p = ROOT / 'data' / name
         if not p.exists():
@@ -369,6 +409,8 @@ def main():
         p.write_text(json.dumps(doc, ensure_ascii=False) + '\n', encoding='utf-8')
         print('wrote', p, 'held', list(held))
         docs.append(doc)
+    EX.inject_site_by_tv(compact)
+    print('wrote site by_tv', list(compact))
     return 0
 
 

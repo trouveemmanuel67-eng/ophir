@@ -1,0 +1,19 @@
+{
+ "m": {
+  "nd_ebitda": -4.31,
+  "op_margin": 1.79,
+  "fcf_margin": null,
+  "roe": null,
+  "current": 3.084,
+  "eps_0y": null,
+  "eps_1y": 1253.62,
+  "rev_0y": null,
+  "rev_1y": 270.67
+ },
+ "industry": "Aerospace & Defense",
+ "sector": "Industrials",
+ "source": "Yahoo Finance key-statistics + earnings/revenue estimate",
+ "url": "https://finance.yahoo.com/quote/SPCX/key-statistics/",
+ "retrieved": "2026-11-27 08:20 Europe/Paris",
+ "yahoo": "SPCX"
+}

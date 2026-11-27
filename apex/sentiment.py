@@ -62,7 +62,7 @@ ENERGIE_TV = {  # actifs énergie hors règle de groupe (secteur GICS réel)
 }
 ETF_DEVISE_TV = {'ASX:SEMI': 'us:XLK', 'TSX:XCHP': 'us:XLK', 'NASDAQ:RING': 'metaux', 'LSE:AUCP': 'metaux',
                  'SIX:AUCO': 'metaux', 'TSE:1631': 'us:XLF'}
-HELD_EQUITY_TV = {'NASDAQ:MSTR': 'us:XLK', 'NYSE:SMR': 'us:XLE'}
+HELD_EQUITY_TV = {'NASDAQ:MSTR': 'us:XLK', 'NYSE:SMR': 'us:XLE', 'NASDAQ:SPCX': 'us:XLI'}
 
 
 def fg_long(v):
@@ -173,6 +173,17 @@ def tables():
         T.setdefault(tv, key)
     T.update(ETF_DEVISE_TV)
     T.update(HELD_EQUITY_TV)
+    try:
+        import sys
+        from pathlib import Path as _P
+        _src = _P(__file__).resolve().parent.parent / 'src'
+        if str(_src) not in sys.path:
+            sys.path.insert(0, str(_src))
+        import exceptions_actions as EX
+        T.update(EX.sentiment_map())
+    except Exception:
+        pass
+
     # ETF sectoriels US et leurs équivalents UCITS
     s = _load('secteurs.json')
     for x in s.get('sectors') or []:

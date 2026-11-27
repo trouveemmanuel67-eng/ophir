@@ -105,7 +105,13 @@ for etf,u in U.items():
     out['sectors'][etf]={'asof':u['asof'].replace('As of ',''),'profile':prof,'universe':len(rows),'eligible':len(el),
        'etf':(lambda u:{'sym':u['tv'].split(':')[1],'name':u['nom'],'tv':u['tv'],'ref_us':f"{te[0]['exchange']}:{etf}" if te else None,'revolut':u['revolut']})(RV.rep('AMEX:'+etf)),   # 17/11/2026 : équivalent UCITS Revolut
        'top':top,'panier':{'actuel':PANIER_ACTUEL,'max':PANIER_MAX},'excluded':[[r['ticker'],r['why_not']] for r in rows if not r['eligible']]}
+try:
+    import exceptions_actions as EX
+    EX.merge_into(out)
+except Exception as _ex:
+    print('exceptions_actions non fusionnées:', _ex)
 json.dump(out,open(_APEX_ROOT + '/data/fondamentaux.json','w'),ensure_ascii=False)
+
 for e,s in out['sectors'].items():
     print(f"\n{e} {s['etf']['tv']} « {s['etf']['name']} » univers {s['universe']} éligibles {s['eligible']} profil {s['profile']} exclus {s['excluded']}")
     for r in s['top']:

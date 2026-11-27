@@ -532,7 +532,7 @@ def compact_line(parts, total):
     return ' · '.join(bits) + f'  →  {total} / {SCALE_MAX}'
 
 
-def score_asset(asset, fg, elliott_key=None, fond_rules=None, closed_bars=None):
+def score_asset(asset, fg, elliott_key=None, fond_rules=None, closed_bars=None, allow_partial=False):
     path, used = (None, None)
     if not closed_bars:
         path, used = find_wk(yahoo_cands(asset.get('tv'), asset.get('yahoo'), asset.get('ticker')))
@@ -559,10 +559,15 @@ def score_asset(asset, fg, elliott_key=None, fond_rules=None, closed_bars=None):
         return out
     else:
         closed, meta, all_bars = load_closed_weekly(path)
-    if len(closed) < 52:
+    if len(closed) < 52 and not allow_partial:
         out['ok'] = False
         out['erreur'] = f'historique insuffisant ({len(closed)} semaines clôturées)'
         out['n_closed'] = len(closed)
+        return out
+    if not closed:
+        out['ok'] = False
+        out['erreur'] = 'série hebdomadaire introuvable'
+        out['n_closed'] = 0
         return out
     ds = [b['date'] for b in closed]
     c = [b['close'] for b in closed]
@@ -570,10 +575,20 @@ def score_asset(asset, fg, elliott_key=None, fond_rules=None, closed_bars=None):
     last = closed[-1]
     r = K.rsi(c)
     rsi_val = r[-1]
-    div = CH.divergence(c, ds, r)
+    div = CH.divergence(c, ds, r) if rsi_val is not None else None
     rsi_pts, rsi_det = rsi_points(rsi_val, div)
-    m, sg, h = K.macd_series(c)
-    macd_pts, macd_det = macd_points(m[-1], h)
+    # MACD 12/26/9 : même seuil officiel de 52 semaines clôturées que le bloc technique.
+    # En deçà, la ligne EMA n'est pas retenue (0, pas de chiffre inventé).
+    if len(closed) < 52:
+        m, sg, h = [None], [None], [None]
+        macd_pts, macd_det = 0, {
+            'ok': False, 'points': 0, 'insuffisant': True,
+            'raison': f'historique insuffisant ({len(closed)} semaines clôturées, minimum 52)',
+            'n_closed': len(closed), 'min_semaines': 52,
+        }
+    else:
+        m, sg, h = K.macd_series(c)
+        macd_pts, macd_det = macd_points(m[-1], h)
     fib = FB.analyse(o, c, ds, adjust_splits=True, sym=used, syms=[used, asset.get('tv'), asset.get('ticker')], combine=False)
     r_hist = fib.get('r') if fib.get('ok') else None
     # si combine=False, r est déjà le retracement historique
@@ -632,6 +647,10 @@ def score_asset(asset, fg, elliott_key=None, fond_rules=None, closed_bars=None):
         fg_ok = False
         fg_lab = 'Sentiment'
     mm40_pts, mm40_det = mm40_hebdo_points(c, max_pts=MM40_HEBDO_MAX_AUTRES)
+    if allow_partial and mm40_pts is None:
+        mm40_pts = 0
+        if isinstance(mm40_det, dict):
+            mm40_det = dict(mm40_det, points=0, etat='insuffisant')
     total = rsi_pts + macd_pts + fibo_pts + cci_pts + int(round(fond_total or 0)) + (fg_pts or 0) + (mm40_pts or 0)
     band = band_of(total)
     parts = [
@@ -646,6 +665,7 @@ def score_asset(asset, fg, elliott_key=None, fond_rules=None, closed_bars=None):
         'date_cloture': last['date'],
         'close': last['close'],
         'n_closed': len(closed),
+        'historique_partiel': bool(allow_partial and len(closed) < 52),
         'currency': (meta or {}).get('currency'),
         'points': {
             'rsi': rsi_pts, 'macd': macd_pts, 'fibonacci': fibo_pts,

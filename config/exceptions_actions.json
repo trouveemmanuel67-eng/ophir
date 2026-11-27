@@ -1,0 +1,22 @@
+{
+  "generated": "2026-11-27",
+  "description": "Actions hors univers quantitatif (tops 10 des ETF SPDR / paniers pays), ajoutées à APEX sur demande. Relues à chaque rafraîchissement par src/exceptions_actions.py, score_held_equities.py, build_fondamentaux.py et fonds.js — jamais écrites en dur dans le HTML.",
+  "actions": [
+    {
+      "ticker": "SPCX",
+      "yahoo": "SPCX",
+      "tv": "NASDAQ:SPCX",
+      "nom": "SpaceX",
+      "name": "SpaceX",
+      "pays": "USA",
+      "secteur_etf": "XLI",
+      "secteur_nom": "Industrie",
+      "industry": "Aerospace & Defense",
+      "sentiment_cle": "us:XLI",
+      "mention": "exception",
+      "ipo_date": "2026-06-12",
+      "ipo_source": "SpaceX IR et Nasdaq : cotation Nasdaq Global Select / Nasdaq Texas, ticker SPCX, à partir du 12/06/2026, prix d'introduction 135 $.",
+      "motif": "Exception demandée le 27/11/2026 : action récemment cotée, hors tops 10 de l'ETF XLI."
+    }
+  ]
+}
