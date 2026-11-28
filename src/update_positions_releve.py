@@ -27,8 +27,10 @@ FRAIS_OCTOBRE = DATA / "budget" / "frais_courtage_2026-10.json"
 PARIS = ZoneInfo("Europe/Paris")
 
 # Métadonnées APEX (tickers TV, onglets, dates d'achat déjà connues).
-# Les dates 19/11 ne sont conservées que si la quantité est inchangée
-# (même lot). Aucune date n'est inventée.
+# date_entree = date du premier achat encore détenu (jamais inventée).
+# Un renfort met à jour date_renfort, sans écraser date_entree.
+# keep_qty documente le lot d'origine ; il n'efface plus les dates.
+# Le livre précédent est relu à chaque MAJ pour ne pas perdre ces champs.
 META = {
     "NFLX": {"nom": "Netflix", "type": "equity", "tab": "actions",
              "tv_note": "NASDAQ:NFLX", "fiche_tv": "NASDAQ:NFLX", "fiche_nom": "Netflix, Inc.",
@@ -73,7 +75,8 @@ META = {
              "fiche_proxy": False, "note_tv_ok": True},
     "RDDT": {"nom": "Reddit", "type": "equity", "tab": "actions",
              "tv_note": "NYSE:RDDT", "fiche_tv": "NYSE:RDDT", "fiche_nom": "Reddit, Inc.",
-             "fiche_proxy": False, "note_tv_ok": True},
+             "fiche_proxy": False, "note_tv_ok": True,
+             "date_renfort": "2026-11-24T10:24:00+01:00"},
     "XUTL": {"nom": "Xtrackers II US Treasuries 10+ UCITS ETF 1D", "type": "etf", "tab": "obligations",
              "tv_note": "XETR:XUTL", "fiche_tv": "XETR:XUTL",
              "fiche_nom": "Xtrackers II US Treasuries 10+ UCITS ETF 1D",
@@ -163,19 +166,28 @@ META = {
     "CFD-BDX": {"nom": "Becton Dickinson CFD", "type": "cfd", "tab": "actions",
                 "tv_note": "NYSE:BDX", "fiche_tv": "NYSE:BDX",
                 "fiche_nom": "Becton, Dickinson and Company",
-                "fiche_proxy": False, "note_tv_ok": True},
+                "fiche_proxy": False, "note_tv_ok": True,
+                "date_achat": "2026-11-25",
+                "date_execution": "2026-11-25T19:25:00+01:00"},
     "CFD-EG": {"nom": "Everest Group CFD", "type": "cfd", "tab": "actions",
                "tv_note": "NYSE:EG", "fiche_tv": "NYSE:EG",
                "fiche_nom": "Everest Group, Ltd.",
-               "fiche_proxy": False, "note_tv_ok": True},
+               "fiche_proxy": False, "note_tv_ok": True,
+               "date_achat": "2026-11-25"},
     "CFD-ABBV": {"nom": "AbbVie CFD", "type": "cfd", "tab": "actions",
                  "tv_note": "NYSE:ABBV", "fiche_tv": "NYSE:ABBV",
                  "fiche_nom": "AbbVie Inc.",
-                 "fiche_proxy": False, "note_tv_ok": True},
+                 "fiche_proxy": False, "note_tv_ok": True,
+                 "date_achat": "2026-11-25",
+                 "date_execution": "2026-11-25T19:41:00+01:00"},
     "CFD-SPCX": {"nom": "SpaceX CFD", "type": "cfd", "tab": "actions",
                  "tv_note": "NASDAQ:SPCX", "fiche_tv": "NASDAQ:SPCX",
                  "fiche_nom": "Space Exploration Technologies Corp",
-                 "fiche_proxy": False, "note_tv_ok": True},
+                 "fiche_proxy": False, "note_tv_ok": True,
+                 "date_achat": "2026-11-25",
+                 "date_execution": "2026-11-25T20:04:00+01:00",
+                 "date_renfort": "2026-11-25T20:08:00+01:00",
+                 "date_renfort_2": "2026-11-25T20:36:00+01:00"},
     "CFD-TGT": {"nom": "Target CFD", "type": "cfd", "tab": "actions",
                 "tv_note": "NYSE:TGT", "fiche_tv": "NYSE:TGT",
                 "fiche_nom": "Target Corporation",
@@ -318,17 +330,100 @@ def fill_money(out, valeur, investi, devise, fx, pl=None, pnl_pct=None):
         out["investi_eur"] = r2(investi / fx) if investi is not None else None
 
 
-def apply_known_dates(out, ticker, qty):
+def _parse_dt(s, default_hm="00:00"):
+    """Parse une date ou un ISO Paris ; None si vide ou illisible (jamais inventée)."""
+    if not s:
+        return None
+    return parse_fr_dt(s, default_hm=default_hm)
+
+
+def first_entry_raw(obj):
+    """Source de la date d'entrée : premier achat encore détenu, pas un renfort."""
+    if not obj:
+        return None
+    for k in ("date_execution", "date_entree", "date_achat", "date_ouverture", "opened_at", "purchase_date"):
+        v = obj.get(k)
+        if v not in (None, ""):
+            return v
+    if obj.get("vente_en_attente"):
+        return None
+    v = obj.get("date_ordre")
+    return v if v not in (None, "") else None
+
+
+def first_entry_date(obj):
+    dt = _parse_dt(first_entry_raw(obj))
+    return dt.date().isoformat() if dt else None
+
+
+def last_renfort_raw(obj):
+    if not obj:
+        return None
+    cands = []
+    for k in ("date_renfort", "date_renfort_2"):
+        v = obj.get(k)
+        if v not in (None, ""):
+            dt = _parse_dt(v)
+            if dt:
+                cands.append((dt, v))
+    if not cands:
+        return None
+    cands.sort(key=lambda x: x[0])
+    return cands[-1][1]
+
+
+def apply_known_dates(out, ticker, qty=None):
+    """Pose les dates d'entrée déjà connues (META). Un renfort (quantité
+    différente de keep_qty) ne les efface plus : date_entree reste celle du
+    premier achat encore détenu. Aucune date n'est inventée."""
     m = META.get(ticker) or {}
-    keep = m.get("keep_qty")
-    if keep is not None and abs(float(qty) - float(keep)) > 1e-6:
-        return
-    if m.get("date_achat"):
-        out["date_achat"] = m["date_achat"]
-    if m.get("date_ordre"):
-        out["date_ordre"] = m["date_ordre"]
-    if m.get("date_execution"):
-        out["date_execution"] = m["date_execution"]
+    for k in ("date_achat", "date_ordre", "date_execution", "date_renfort", "date_renfort_2"):
+        if m.get(k) and not out.get(k):
+            out[k] = m[k]
+
+
+def stamp_entry_dates(rows, previous=None):
+    """Calcule date_entree et conserve les dates du livre précédent.
+
+    Appelé à chaque MAJ pour que le pipeline 22 h 30 (ou un relevé incomplet)
+    n'écrase pas une date déjà établie. Une date plus ancienne l'emporte sur
+    une plus récente (premier achat encore détenu). Aucune date inventée.
+    """
+    prev = {}
+    for p in previous or []:
+        if isinstance(p, dict) and p.get("id"):
+            prev[p["id"]] = p
+    date_keys = (
+        "date_entree", "date_achat", "date_execution", "date_ordre",
+        "date_ouverture", "date_renfort", "date_renfort_2",
+    )
+    for out in rows or []:
+        if not isinstance(out, dict):
+            continue
+        old = prev.get(out.get("id")) or {}
+        for k in date_keys:
+            if not out.get(k) and old.get(k):
+                out[k] = old[k]
+        computed = first_entry_date(out)
+        existing_raw = out.get("date_entree") or old.get("date_entree")
+        existing_dt = _parse_dt(existing_raw) if existing_raw else None
+        computed_dt = _parse_dt(computed) if computed else None
+        if existing_dt and computed_dt:
+            out["date_entree"] = (existing_dt if existing_dt <= computed_dt else computed_dt).date().isoformat()
+        elif existing_dt:
+            out["date_entree"] = existing_dt.date().isoformat()
+        elif computed_dt:
+            out["date_entree"] = computed_dt.date().isoformat()
+        # date_renfort : on garde la plus récente déjà connue, jamais inventée
+        r_new = last_renfort_raw(out)
+        r_old = last_renfort_raw(old)
+        pick = None
+        if r_new and r_old:
+            pick = r_new if _parse_dt(r_new) >= _parse_dt(r_old) else r_old
+        else:
+            pick = r_new or r_old
+        if pick and not out.get("date_renfort") and not out.get("date_renfort_2"):
+            out["date_renfort"] = pick
 
 
 def from_invest_line(p, fx):
@@ -394,8 +489,6 @@ def from_metal(p, fx):
     out["cours"] = cours
     fill_money(out, val, investi, "USD", fx, pl=pl, pnl_pct=p.get("pl_pct"))
     apply_known_dates(out, ticker, qty)
-    # date d'achat connue (24/11), même si le relevé ne l'affiche pas
-    out["date_achat"] = "2026-11-24"
     return out
 
 
@@ -646,6 +739,10 @@ def from_cfd(p, fx):
         out["date_achat"] = p["date_achat"]
     if p.get("date_execution"):
         out["date_execution"] = p["date_execution"]
+    if p.get("date_renfort"):
+        out["date_renfort"] = p["date_renfort"]
+    if p.get("date_renfort_2"):
+        out["date_renfort_2"] = p["date_renfort_2"]
     fee = p.get("frais_ouverture_usd")
     if fee is None:
         fee = (META.get(key) or {}).get("frais_ouverture_usd")
@@ -1701,6 +1798,18 @@ def main():
         ),
         "note": cfd_note,
     }
+
+    prev_book, prev_rx = [], []
+    try:
+        prev_book = json.loads((DATA / "positions.json").read_text(encoding="utf-8")).get("positions") or []
+    except Exception:
+        prev_book = []
+    try:
+        prev_rx = json.loads((DATA / "positions_revolutx.json").read_text(encoding="utf-8")).get("positions") or []
+    except Exception:
+        prev_rx = []
+    stamp_entry_dates(book_rows, prev_book)
+    stamp_entry_dates(rx_rows, prev_rx)
 
     book = {
         "releve": now.isoformat(),

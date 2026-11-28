@@ -323,7 +323,7 @@ function homePosBuyDate(p){
   if(!p) return null;
   const st=String(p.statut||'active').toLowerCase();
   if(st!=='active'&&st!=='en_attente') return null;
-  const raw=p.date_achat||p.date_ouverture||p.opened_at||p.purchase_date||null;
+  const raw=p.date_entree||p.date_achat||p.date_ouverture||p.opened_at||p.purchase_date||null;
   let s=raw;
   if(s==null&&!p.vente_en_attente) s=p.date_execution||p.date_ordre||null;
   return homeParseParisDate(s);

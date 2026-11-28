@@ -604,6 +604,92 @@ function posVentesHTML(){
   </div>`;
 }
 
+
+function posParseDate(s){
+  if(!s) return null;
+  const str=String(s).trim();
+  if(/^\d{4}-\d{2}-\d{2}$/.test(str)){
+    const [y,m,d]=str.split('-').map(Number);
+    return new Date(y,m-1,d,0,0,0);
+  }
+  const d=new Date(str);
+  return isNaN(d.getTime())?null:d;
+}
+function posFmtJJMMAA(s){
+  const d=posParseDate(s);
+  if(!d) return '';
+  try{
+    return new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Paris',day:'2-digit',month:'2-digit',year:'2-digit'}).format(d);
+  }catch(e){
+    const dd=String(d.getDate()).padStart(2,'0');
+    const mo=String(d.getMonth()+1).padStart(2,'0');
+    const yy=String(d.getFullYear()).slice(-2);
+    return dd+'/'+mo+'/'+yy;
+  }
+}
+function posFmtDateTip(s){
+  const d=posParseDate(s);
+  if(!d) return '';
+  const day=posFmtJJMMAA(s);
+  const hasTime=/T\d{2}:/.test(String(s))||/\d{2}:\d{2}/.test(String(s));
+  if(!hasTime) return day;
+  let hm='';
+  try{
+    hm=new Intl.DateTimeFormat('fr-FR',{timeZone:'Europe/Paris',hour:'2-digit',minute:'2-digit',hour12:false}).format(d);
+  }catch(e){
+    hm=String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
+  }
+  hm=String(hm).replace(/:/,' h ').replace(/\s*h\s*/,' h ');
+  return day+' '+hm;
+}
+function posEntryRaw(p){
+  if(!p||posBlocOf(p)==='cash') return null;
+  if(p.date_execution) return p.date_execution;
+  if(p.date_entree) return p.date_entree;
+  if(p.date_achat) return p.date_achat;
+  if(p.date_ouverture) return p.date_ouverture;
+  if(p.opened_at) return p.opened_at;
+  if(p.purchase_date) return p.purchase_date;
+  if(p.vente_en_attente) return null;
+  if(p.date_ordre) return p.date_ordre;
+  return null;
+}
+function posRenfortRaw(p){
+  if(!p) return null;
+  const cands=[p.date_renfort_2,p.date_renfort].filter(Boolean);
+  if(!cands.length) return null;
+  cands.sort((a,b)=>{
+    const da=posParseDate(a), db=posParseDate(b);
+    return (db?db.getTime():0)-(da?da.getTime():0);
+  });
+  return cands[0];
+}
+function posEntryTs(p){
+  const d=posParseDate(posEntryRaw(p));
+  return d?d.getTime():NaN;
+}
+function posSortByEntry(list){
+  return (list||[]).slice().sort((a,b)=>{
+    const ta=posEntryTs(a), tb=posEntryTs(b);
+    const aMiss=!Number.isFinite(ta), bMiss=!Number.isFinite(tb);
+    if(aMiss&&bMiss) return 0;
+    if(aMiss) return 1;
+    if(bMiss) return -1;
+    return tb-ta;
+  });
+}
+function posDateHTML(p){
+  const raw=posEntryRaw(p);
+  const txt=raw?posFmtJJMMAA(raw):'';
+  const shown=txt||'—';
+  const bits=[];
+  if(txt) bits.push(posFmtDateTip(raw));
+  const ren=posRenfortRaw(p);
+  if(ren) bits.push('renfort '+posFmtDateTip(ren));
+  const tip=bits.join(' · ');
+  return `<span class="pos-dt${txt?'':' is-none'}"${tip?` title="${tip.replace(/"/g,'&quot;')}"`:''}>${shown}</span>`;
+}
+
 function renderMesPositions(){
   const host=document.getElementById('mes-pos'); if(!host) return;
   const L=POS.positions||[];
@@ -641,7 +727,7 @@ function renderMesPositions(){
     const posTv=p.fiche_tv||p.tv_note||p.ticker||'';
     return `<article class="pos-row pos-row-c ${p.statut==='en_attente'?'is-pend':''}${p.vente_en_attente?' is-sell':''}${p.fiche_tv?' has-fiche':''}"${posTv?` data-pos-tv="${String(posTv).replace(/"/g,'&quot;')}"`:''} title="${tip.replace(/"/g,'&quot;')}">
       <span class="pos-cx pos-cx-${cx.toLowerCase()}" title="${court}">${cx}</span>
-      <span class="pos-id">${go}${cp}${cfd}${rsu}${sell}${ordre}${stale}</span>
+      <span class="pos-id">${go}${cp}${posDateHTML(p)}${cfd}${rsu}${sell}${ordre}${stale}</span>
       <b class="pos-m">${mon}</b>
       <span class="pos-p">${poids}</span>
       <span class="pos-d">${posLinePerf(p,'debut')}</span>
@@ -692,7 +778,7 @@ function renderMesPositions(){
         const sh=act.filter(p=>posBlocOf(p)==='short');
         const cash=act.filter(p=>posBlocOf(p)==='cash');
         const hors=act.filter(p=>posBlocOf(p)==='hors');
-        const bloc=(id,label,list)=>!list.length?'':(`<div class="pos-bloc" data-pos-bloc="${id}">${posBlocHead(label,list)}<div class="pos-list">${list.map(row).join('')}</div></div>`);
+        const bloc=(id,label,list)=>!list.length?'':(`<div class="pos-bloc" data-pos-bloc="${id}">${posBlocHead(label,list)}<div class="pos-list">${posSortByEntry(list).map(row).join('')}</div></div>`);
         return bloc('long','LONG',long)+bloc('short','SHORT',sh)+bloc('cash','CASH',cash)+bloc('hors','Non liquide',hors)+posVentesHTML();
       })()}
     </div>
