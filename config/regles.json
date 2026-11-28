@@ -2209,14 +2209,14 @@
       "macd": "MACD < 0 : +10 ; MACD < 0 et 4 barres rouges d'histogramme consécutives (histogramme < 0 ou en baisse) : +20 ; cumulables, plafond 30.",
       "fibonacci": "Plus bas → plus haut (corps hebdo). Sous 38,2 % : +10 ; 61,8 % : +20 ; 78,6 % : +30. Non cumulables.",
       "cci": "+20 si le CCI Stochastic Daveatt (ligne D) est sous 20.",
-      "fear_greed": "Milieu 50 = 0. Tranche de 10 : peur 40 → +10 … 0 → +50 ; avidité 60 → −10 … 100 → −50. Valeur d’entrée (t537u, 24/11/2026) : sentiment APEX 0–100 du segment (SHY, TLT, LQD, HYG, TIP, EMB, EUNH, EUN5, EXX6…), à la place du CNN global.",
+      "fear_greed": "Milieu 50 = 0. Tranche de 10 : peur 40 → +10 … 0 → +50 ; avidité 60 → −10 … 100 → −50. Valeur d’entrée (t697u, 28/11/2026) : sentiment APEX hebdo 0–100 de l’ETF lui-même (même calcul que le sentiment affiché dans l’onglet Obligations), à la place du sentiment de classe journalier.",
       "mm40": "Écart à la MM40 semaines (clôtures hebdomadaires confirmées, équivalent de la MM200 jours), à contre-courant : 0 point au-dessus de la MM40 ; montée linéaire de 0 à +30 entre 0 % et −40 % ; plafonné à +30 au-delà. Les points s’ajoutent au total, borné à 250. Historique insuffisant (< 40 semaines) : n.c. = 0 point, affiché « — »."
     },
     "fond_criteres": [
       {
         "id": "reel_pos",
         "label": "Rendement réel > 0",
-        "regle": "Rendement de l’indice du segment − inflation sur 1 an de la devise (TIPS : rendement réel direct) > 0",
+        "regle": "Rendement de l’indice du segment − inflation sur 1 an de la devise (TIPS : rendement réel direct ; indexées euro : taux réel anticipé du Bund 10 ans, Bundesbank BBSEI) > 0",
         "points": 10,
         "statut": "calcule"
       },
@@ -2230,21 +2230,21 @@
       {
         "id": "prime",
         "label": "Prime de terme ou de crédit",
-        "regle": "Crédit : spread OAS ≥ sa médiane 10 ans. Souverains US : pente 10 − 2 ans > 0. Souverains euro : 10 ans − taux de dépôt BCE > 0,5 pt",
+        "regle": "Crédit IG US : spread Moody’s Baa − Treasury 10 ans (FRED BAA10Y) ≥ sa médiane depuis 1986. High yield et émergents : spread OAS ICE BofA ≥ son 75ᵉ percentile depuis nov. 2023 (FRED ne diffuse que 3 ans, seuil durci). Souverains US : pente 10 − 2 ans > 0. Souverains euro : 10 ans − taux de dépôt BCE > 0,5 pt",
         "points": 10,
         "statut": "calcule"
       },
       {
-        "id": "duration_cycle",
-        "label": "Duration et cycle des taux",
-        "regle": "Duration longue et taux 10 ans en baisse sur 6 mois, ou duration courte (1-3, 0-5 ans) et taux stables ou en hausse",
+        "id": "duration_niveau",
+        "label": "Duration et niveau des taux",
+        "regle": "Duration longue : taux 10 ans (US ou Bund) ≥ son 60ᵉ percentile depuis 2000 ; duration courte (1-3, 0-5 ans) : taux 2 ans US ou taux de dépôt BCE ≥ son 60ᵉ percentile depuis 2000. Taux hauts = duration attractive (à contre-courant)",
         "points": 10,
         "statut": "calcule"
       },
       {
         "id": "notation",
         "label": "Qualité de crédit",
-        "regle": "≥ 50 % des titres notés A ou mieux",
+        "regle": "≥ 50 % des titres notés A ou mieux ; high yield : ≥ 50 % notés BB ou mieux et ≤ 10 % sous B",
         "points": 10,
         "statut": "calcule"
       },

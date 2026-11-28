@@ -273,7 +273,7 @@ def obligations():
         head_isin = next((k for k, v in L.HEADS.items() if v == s.get('tv')), None)
         def one(tv, yahoo, isin, nom, rating_a=None, hedged=None):
             t, used = L.tech_of(tv, yahoo, None)
-            fpts, fnc, fel = L.oblig_fond(s['key'], tv, isin, nom, rating_a, hedged)
+            fpts, fnc, fel = L.oblig_fond(s['key'], tv, isin, nom, rating_a, hedged, yahoo=yahoo)
             g = L.house(tv=tv, classe='oblig:'+s['key'])
             fgp, flab, fmeta = L.sent_pack(g)
             blocks = [('RSI', t and t['rsi']), ('MACD', t and t['macd']), ('Fibo', t and t['fibonacci']), ('CCI', t and t['cci']), ('Fond. oblig.', fpts)]
@@ -289,7 +289,8 @@ def obligations():
                 rec['cap'] = 'sans_technique'
                 fnc = (fnc or []) + ['technique (série hebdomadaire introuvable)']
             return rec, fnc
-        hrec, hnc = one(s.get('tv'), s.get('sym'), head_isin, s.get('pname'))
+        # t697u : nom du segment + symbole, pour lire l'échéance (« 1-3 ans ») de l'ETF de tête (ex. IUSU).
+        hrec, hnc = one(s.get('tv'), s.get('sym'), head_isin, f"{s.get('nom') or ''} {s.get('pname') or ''}".strip())
         log('obligations', s.get('tv'), note(s.get('apex10_panier')), hrec['note'], hnc)
         s['apex10_panier'] = hrec
         notes = []

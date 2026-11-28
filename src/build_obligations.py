@@ -84,7 +84,7 @@ def monthly(daily,start='2000-01'):
     m={}
     for d,v in daily: m.setdefault(d[:7],[]).append(v)
     return [[k,round(sum(v)/len(v),3)] for k,v in sorted(m.items()) if k>=start]
-F={s:fred(s) for s in ['DGS10','DGS2','DGS3MO','DGS30','T10Y2Y','T10Y3M','DFII10','T10YIE','BAMLC0A0CM','BAMLH0A0HYM2','BAMLHE00EHYIOAS','BAMLEMCBPIOAS','DFEDTARU','DFF']}
+F={s:fred(s) for s in ['DGS10','DGS2','DGS3MO','DGS30','T10Y2Y','T10Y3M','DFII10','T10YIE','BAMLC0A0CM','BAMLH0A0HYM2','BAMLHE00EHYIOAS','BAMLEMCBPIOAS','DFEDTARU','DFF','BAA10Y']}
 FR=ecb('ecb_IRS_FR.csv'); DE=ecb('ecb_IRS_DE.csv'); DFR=ecb('ecb_DFR.csv')
 W={s:weekly(s) for s in ['TLT','IEF','SHY','AGG','LQD','HYG','TIP','EMB','^MOVE','EUNH.DE','IFRB.AS','EUN5.DE','IS0L.DE','IS0M.DE','XJSE.DE','148070.KS','XCS2.DE','IUSU.DE','IS04.DE','IBCD.DE','XUHY.DE','TIUP.DE','IUS7.DE','IS0P.DE','CBUS.DE']}   # 18/11/2026 : + souverains FR (IFRB) / ES / UK
 out={'generated':NOW.strftime('%Y-%m-%d %H:%M')}
@@ -137,7 +137,7 @@ momb=[];gapb=[]
 for d in dates:
     xs=[mom13(P[s],at(P[s],d)) for s in BASK]; momb.append([d,sum(xs)/3 if None not in xs else None])
     a=P['AGG'];i=at(a,d); gapb.append([d,(a['c'][i]/a['mm'][i]-1)*100 if a['mm'][i] else None])
-hyW=to_weekly(F['BAMLH0A0HYM2'],'2023-01-01'); igW=to_weekly(F['BAMLC0A0CM'],'2023-01-01')
+hyW=to_weekly(F['BAMLH0A0HYM2'],'2023-01-01'); igW=to_weekly(F['BAMLC0A0CM'],'2023-01-01'); baaW=to_weekly(F['BAA10Y'],'1986-01-01')
 def sent_tab(d):
     comps=[]
     m=asof(momb,d)[1]; comps.append(('Momentum 13 semaines TLT / IEF / AGG (rang 5 ans)',.25,prank(win(momb,d,lo5(d)),m),f"{fs(m)} % en moyenne"))
@@ -165,19 +165,20 @@ fedt=F['DFEDTARU']
 def av_tab(d,sv):
     c=[E.comp_multi([(s_,ell(P[s_],at(P[s_],d))) for s_ in BASK],W_EL),FB.comp_multi([(s_,fib(P[s_],at(P[s_],d))) for s_ in BASK],W_FI)]
     rs=[P[s]['r'][at(P[s],d)] for s in BASK]; rr=sum(rs)/3
-    c.append({'nom':'RSI 14 hebdo (moyenne TLT, IEF, AGG)','poids':.15,'valeur':f1(rr),'note':clip((rr-50)/20*100),'regle':'(RSI − 50) / 20 × 100'})
+    # t697u : lecture contrarienne du PRIX (alignée sur la note /250) : RSI bas, MACD sous zéro, cours sous la MM40 = achat.
+    c.append({'nom':'RSI 14 hebdo (moyenne TLT, IEF, AGG)','poids':.15,'valeur':f1(rr),'note':K.score_rsi_contrarien(rr),'regle':K.RULE_RSI_CONTRARIEN})
     M=[]
     for s in BASK:
-        p=P[s];i=at(p,d); M.append(r_macd(p['m'][i],p['sg'][i],p['h'][i],p['h'][i-1],p['h'],i))
-    c.append({'nom':'MACD 12/26/9 hebdo (TLT, IEF, AGG)','poids':.15,'valeur':' · '.join(n+' '+{100:'↑↑',50:'↑',-50:'↓',-100:'↓↓'}.get(x,str(x)) for n,x in zip(BASK,M)),'note':sum(M)/3,'regle':K.RULE_MACD})
+        p=P[s];i=at(p,d); M.append(K.score_macd_contrarien(p['m'][i],p['sg'][i],p['h'][i],p['h'][i-1],p['h'],i))
+    c.append({'nom':'MACD 12/26/9 hebdo (TLT, IEF, AGG)','poids':.15,'valeur':' · '.join(f"{n} {x:+.0f}".replace('-','−') for n,x in zip(BASK,M)),'note':sum(M)/3,'regle':K.RULE_MACD_CONTRARIEN})
     G=[]
     for s in BASK:
         p=P[s];i=at(p,d); G.append((p['c'][i]/p['mm'][i]-1)*100)
-    g=sum(G)/3; c.append({'nom':'Écart à la moyenne mobile 40 semaines (moyenne 3 ETF)','poids':.10,'valeur':fs(g)+' %','note':clip(g/5*100),'regle':'±5 % → ±100'})
+    g=sum(G)/3; c.append({'nom':'Écart à la moyenne mobile 40 semaines (moyenne 3 ETF)','poids':.10,'valeur':fs(g)+' %','note':clip(-g/5*100),'regle':'lecture contrarienne : −5 % sous la MM40 → +100 ; +5 % au-dessus → −100'})
     t=asof(F['DFII10'],d); c.append({'nom':'Niveau du taux réel 10 ans US (TIPS)','poids':.15,'valeur':f1(t[1],2)+' %','note':clip((t[1]-1.0)/1.5*100),'regle':'taux réel 2,5 % → +100 ; 1 % → 0 ; −0,5 % → −100 (un rendement réel élevé rend les obligations attractives)'})
     sl=asof(F['T10Y2Y'],d); c.append({'nom':'Pente de la courbe US 10 ans − 2 ans','poids':.10,'valeur':fs(sl[1],2)+' pt','note':clip(sl[1]/1.0*100),'regle':'pente +1 pt → +100 ; −1 pt (inversion) → −100 : une courbe pentue rémunère la duration'})
-    h=asof(hyW,d); p=prank(win(hyW,d),h[1]) if h else None
-    c.append({'nom':'Spread high yield US (rang depuis nov. 2023)','poids':.10,'valeur':(f"{f1(h[1],2)} pt · {p:.0f}ᵉ pct" if p is not None else 'n.d.'),'note':None if p is None else clip((p-50)*2),'regle':'(percentile − 50) × 2 : spread large = crédit mieux rémunéré'})
+    h=asof(baaW,d); p=prank(win(baaW,d),h[1]) if h else None
+    c.append({'nom':"Spread de crédit Baa − Treasury 10 ans (Moody's, rang depuis 1986)",'poids':.10,'valeur':(f"{f1(h[1],2)} pt · {p:.0f}ᵉ pct" if p is not None else 'n.d.'),'note':None if p is None else clip((p-50)*2),'regle':'(percentile depuis 1986 − 50) × 2 : spread large = crédit mieux rémunéré (t697u : historique long au lieu de 3 ans ICE BofA)'})
     f0=asof(fedt,(D.date.fromisoformat(d)-D.timedelta(days=182)).isoformat()); f_=asof(fedt,d); df=f_[1]-f0[1]
     c.append({'nom':'Tendance du taux directeur de la Fed sur 6 mois','poids':.10,'valeur':f"{fs(df,2)} pt ({f1(f_[1],2)} %)",'note':clip(-df/0.5*100),'regle':'baisse de 0,5 pt → +100 ; hausse de 0,5 pt → −100'})
     c.append({'nom':'Sentiment obligataire APEX (lecture contrarienne)','poids':.15,'valeur':f1(sv,0),'note':clip((50-sv)*2),'regle':'(50 − sentiment) × 2'})
@@ -185,7 +186,7 @@ def av_tab(d,sv):
     IT=[(s_,cha(P[s_],at(P[s_],d))) for s_ in BASK]; c[2:2]=[CH.comp_multi(IT,W_CH),CH.comp_div_multi(IT,W_DV)]
     ccis=[P[s]['cci'][at(P[s],d)] for s in BASK]
     ccis=[x for x in ccis if x is not None]
-    K.add_cci(c, (sum(ccis)/len(ccis) if ccis else None))
+    K.add_cci_toujours(c, (sum(ccis)/len(ccis) if ccis else None))
     av=[x for x in c if x['note'] is not None]; tw=sum(x['poids'] for x in av)
     for x in c: x['contrib']=round(x['poids']*x['note']/tw,1) if x['note'] is not None else None
     return round(sum(x['poids']*x['note'] for x in av)/tw,1),c
@@ -196,8 +197,8 @@ a,c=av_tab(dates[-1],s)
 for x in c: x['note']=None if x['note'] is None else round(x['note'],1)
 out['av']={'score':a,'label':lab_av(a),'date':dates[-1],'sens':"Score > 0 : contexte plus favorable à l'achat d'obligations (allonger la duration) ; < 0 : plus favorable à l'attente ou aux échéances courtes.",
   'components':c,'missing':[x['nom'] for x in c if x['note'] is None and not x.get('facultatif')],'history':hist,'avg':round(sum(x[1] for x in hist)/len(hist),1),'min':min(hist,key=lambda x:x[1]),'max':max(hist,key=lambda x:x[1]),
-  'method':"Douze composantes notées de −100 à +100 puis pondérées : vagues d'Elliott de TLT, IEF et AGG selon ta règle (15 %, moyenne des trois : zones vertes d'entrée : fin de vague 2, fin de vague 4, vague C ; zones rouges (aucune entrée) : vagues 1, 3, 5, A et B), retracement de Fibonacci plus bas historique → plus haut historique des mêmes ETF (15 %, moyenne des trois : plus le cours est bas dans le retracement, plus la note pousse à l'achat), "+CH.TXT_CRIT+" (moyennes des trois ETF), technique hebdo des mêmes ETF (RSI 6 %, MACD 6 % avec plafond −50 dès 4 barres d'histogramme positives, CCI 20 facultatif 6 % en zone ±100, moyenne mobile 40 semaines 4 %), niveau du taux réel 10 ans US (6 %), pente 10 − 2 ans (4 %), spread high yield (4 %), tendance du taux de la Fed sur 6 mois (4 %), sentiment obligataire APEX lu de façon contrarienne (6 %). Les vagues, le retracement et la Charte graphique sont lus automatiquement sur les corps des bougies hebdomadaires (clôture précédente → clôture, faute d'ouverture dans les données Yahoo enregistrées) : approximation qui peut différer de ton indicateur TradingView. Bougies hebdomadaires clôturées uniquement ; historique 52 semaines.",
-  'sources':[['Yahoo Finance (TLT, IEF, AGG)','https://finance.yahoo.com/quote/AGG/history/'],['FRED (DFII10, T10Y2Y, BAMLH0A0HYM2, DFEDTARU)','https://fred.stlouisfed.org/series/DFII10']]}
+  'method':"Douze composantes notées de −100 à +100 puis pondérées : vagues d'Elliott de TLT, IEF et AGG selon ta règle (15 %, moyenne des trois : zones vertes d'entrée : fin de vague 2, fin de vague 4, vague C ; zones rouges (aucune entrée) : vagues 1, 3, 5, A et B), retracement de Fibonacci plus bas historique → plus haut historique des mêmes ETF (15 %, moyenne des trois : plus le cours est bas dans le retracement, plus la note pousse à l'achat), "+CH.TXT_CRIT+" (moyennes des trois ETF), technique hebdo des mêmes ETF en lecture contrarienne du prix, alignée sur la note /250 (t697u : RSI 6 %, RSI 30 = +100 et RSI 70 = −100 ; MACD 6 %, sous zéro = achat ; CCI 20 toujours compté 6 % ; cours sous la moyenne mobile 40 semaines = achat 4 %), niveau du taux réel 10 ans US (6 %, lu sur le rendement : taux haut = achat), pente 10 − 2 ans (4 %), spread de crédit Moody's Baa − Treasury 10 ans classé depuis 1986 (4 %), tendance du taux de la Fed sur 6 mois (4 %), sentiment obligataire APEX lu de façon contrarienne (6 %). Les vagues, le retracement et la Charte graphique sont lus automatiquement sur les corps des bougies hebdomadaires (clôture précédente → clôture, faute d'ouverture dans les données Yahoo enregistrées) : approximation qui peut différer de ton indicateur TradingView. Bougies hebdomadaires clôturées uniquement ; historique 52 semaines.",
+  'sources':[['Yahoo Finance (TLT, IEF, AGG)','https://finance.yahoo.com/quote/AGG/history/'],['FRED (DFII10, T10Y2Y, BAA10Y, DFEDTARU)','https://fred.stlouisfed.org/series/DFII10']]}
 json.dump(out,open(_APEX_ROOT + '/data/obligations.json','w'),ensure_ascii=False)
 print('sentiment',out['ind']['value'],out['ind']['label'],out['ind']['date'],[(x['name'][:30],x['value']) for x in out['ind']['components']])
 print('achat/vente',a,lab_av(a),[(x['nom'][:25],x['valeur'],x['note']) for x in c])
@@ -218,7 +219,7 @@ USX={'NASDAQ','NYSE','AMEX','CBOE'}
 yl=lambda s:[x for x in F[s]]
 VAL={'tcourt':('Niveau du taux US 2 ans (rang depuis 2000)',F['DGS2'],'2000-01-01'),'tlong':('Niveau du taux US 30 ans (rang depuis 2000)',F['DGS30'],'2000-01-01'),
      'eurgov':('Niveau du Bund 10 ans (rang depuis 2000)',[[m+'-28',v] for m,v in DE],'2000-01-01'),'france':('Niveau de l\'OAT 10 ans (rang depuis 2000)',[[m+'-28',v] for m,v in FR],'2000-01-01'),
-     'usig':('Spread investment grade US (rang depuis nov. 2023)',F['BAMLC0A0CM'],'2023-01-01'),'eurig':None,'hy':('Spread high yield US (rang depuis nov. 2023)',F['BAMLH0A0HYM2'],'2023-01-01'),
+     'usig':("Spread de crédit Baa − Treasury 10 ans (Moody's, rang depuis 1986)",F['BAA10Y'],'1986-01-01'),'eurig':None,'hy':('Spread high yield US (rang depuis nov. 2023)',F['BAMLH0A0HYM2'],'2023-01-01'),
      'infl':('Niveau du taux réel 10 ans US (rang depuis 2003)',F['DFII10'],'2003-01-01'),'em':('Spread des obligations d\'entreprises émergentes (ICE BofA, rang depuis nov. 2023)',F['BAMLEMCBPIOAS'],'2023-01-01')}
 OBP=json.load(open(_APEX_ROOT + '/data/obpays.json'))['countries']
 _m=lambda cc:[[m+'-28',v] for m,v in OBP[cc]['y']['10']]
@@ -299,20 +300,20 @@ def seg_build(k,cfg):
         av=[x for x in parts if x is not None]; return sum(av)/len(av),parts
     def av_at(i,sv):
         d=ds[i]; comps=[E.comp(ell(p,i),W_EL),FB.comp(fib(p,i),W_FI),
-         {'nom':'RSI 14 hebdo','poids':.15,'valeur':f1(p['r'][i]),'note':clip((p['r'][i]-50)/20*100),'regle':'(RSI − 50) / 20 × 100'},
-         {'nom':'MACD 12/26/9 hebdo','poids':.15,'valeur':K.macd_valeur(p['m'][i],p['sg'][i],p['h'][i],p['h'][i-1],p['h'],i),'note':r_macd(p['m'][i],p['sg'][i],p['h'][i],p['h'][i-1],p['h'],i),'regle':K.RULE_MACD},
-         {'nom':'Écart à la moyenne mobile 40 semaines','poids':.15,'valeur':fs(gap[i])+' %','note':clip(gap[i]/5*100),'regle':'±5 % → ±100'},
+         {'nom':'RSI 14 hebdo','poids':.15,'valeur':f1(p['r'][i]),'note':K.score_rsi_contrarien(p['r'][i]),'regle':K.RULE_RSI_CONTRARIEN},
+         {'nom':'MACD 12/26/9 hebdo','poids':.15,'valeur':K.macd_valeur(p['m'][i],p['sg'][i],p['h'][i],p['h'][i-1],p['h'],i),'note':K.score_macd_contrarien(p['m'][i],p['sg'][i],p['h'][i],p['h'][i-1],p['h'],i),'regle':K.RULE_MACD_CONTRARIEN},
+         {'nom':'Écart à la moyenne mobile 40 semaines','poids':.15,'valeur':fs(gap[i])+' %','note':clip(-gap[i]/5*100),'regle':'lecture contrarienne : −5 % sous la MM40 → +100 ; +5 % au-dessus → −100'},
          {'nom':'Distance au plus haut 52 semaines','poids':.10,'valeur':fs(dd52[i])+' %','note':r_dd(dd52[i]),'regle':"≥ −1 % : −40 (pas d'entrée au plus haut) ; −1 → −8 % : de −40 à +60 ; −8 → −20 % : +60 ; au-delà : retour vers 0"},
-         {'nom':'Momentum 13 et 26 semaines','poids':.15,'valeur':f"13 s. {fs(mo13[i])} % · 26 s. {fs(mo26[i])} %",'note':(clip(mo13[i]/5*100)+clip(mo26[i]/8*100))/2,'regle':'moyenne de (13 s. : ±5 % → ±100) et (26 s. : ±8 % → ±100)'}]
+         {'nom':'Momentum 13 et 26 semaines','poids':.15,'valeur':f"13 s. {fs(mo13[i])} % · 26 s. {fs(mo26[i])} %",'note':-(clip(mo13[i]/5*100)+clip(mo26[i]/8*100))/2,'regle':'lecture contrarienne (baisse = achat) : moyenne de (13 s. : ±5 % → ∓100) et (26 s. : ±8 % → ∓100)'}]
         if val:
             hist=[x for x in val[1] if x[0]>=val[2] and x[0]<=d]; v=hist[-1] if hist else None; q=prank([x[1] for x in hist],v[1]) if v else None
-            comps.append({'nom':'Valorisation : '+val[0],'poids':.20,'valeur':(f"{f1(v[1],2)} % · {q:.0f}ᵉ pct" if 'Niveau' in val[0] else f"{f1(v[1],2)} pt · {q:.0f}ᵉ pct") if q is not None else 'n.d.','note':None if q is None else clip((q-50)*2),'regle':'(percentile − 50) × 2 : rendement ou spread élevé = point d\'entrée plus attractif'})
+            comps.append({'nom':'Valorisation : '+val[0],'poids':.20,'valeur':(f"{f1(v[1],2)} % · {q:.0f}ᵉ pct" if 'Niveau' in val[0] else f"{f1(v[1],2)} pt · {q:.0f}ᵉ pct") if q is not None else 'n.d.','note':None if q is None else (clip((q-75)*4) if 'nov. 2023' in val[0] else clip((q-50)*2)),'regle':("(percentile − 75) × 4 : seuil durci, historique ICE BofA limité à 3 ans (depuis nov. 2023) sur FRED" if 'nov. 2023' in val[0] else '(percentile − 50) × 2 : rendement ou spread élevé = point d\'entrée plus attractif')})
         else:
             comps.append({'nom':'Valorisation : spread investment grade euro','poids':.20,'valeur':'non récupéré','note':None,'regle':'série ICE BofA euro IG absente de FRED'})
         comps.append({'nom':'Sentiment du segment (lecture contrarienne)','poids':.10,'valeur':f1(sv,0),'note':clip((50-sv)*2),'regle':'(50 − sentiment) × 2'})
         for x in comps[2:]: x['poids']=round(x['poids']*SC,4)
         comps[2:2]=[CH.comp(cha(p,i),W_CH),CH.comp_div(cha(p,i),W_DV)]
-        K.add_cci(comps, p['cci'][i])
+        K.add_cci_toujours(comps, p['cci'][i])
         av=[x for x in comps if x['note'] is not None]; tw=sum(x['poids'] for x in av)
         for x in comps: x['contrib']=round(x['poids']*x['note']/tw,1) if x['note'] is not None else None
         return round(sum(x['poids']*x['note'] for x in av)/tw,1),comps
@@ -409,7 +410,7 @@ out['removed_notes']={'kr':"L'ETF KOSEF 10 ans (KRX:148070) n'est pas disponible
  'nl':"L'iShares Netherlands Government Bond UCITS ETF a été liquidé ; aucun successeur UCITS souverain néerlandais largement listé sur Xetra n'a été trouvé. Les Pays-Bas restent couverts par les ETF souverains zone euro (EUNH, XGLE). Taux DSL affichés comme repère de marché, sans note APEX.",
  'be':"L'iShares Belgium Government Bond UCITS ETF a été liquidé ; aucun successeur UCITS souverain belge largement listé sur Xetra n'a été trouvé. La Belgique reste couverte par les ETF souverains zone euro (EUNH, XGLE). Taux OLO affichés comme repère de marché, sans note APEX."}
 out['method_seg_sent']="Indice composite APEX, non officiel, calculé sur les clôtures hebdomadaires confirmées de l'ETF de référence du segment, sans données futures : RSI 14, écart à la moyenne mobile 40 semaines, momentum 26 semaines, force relative sur 13 semaines (contre AGG pour les segments en dollars, contre l'ETF souverains euro EUNH pour les segments en euros), distance au plus haut 52 semaines, volatilité 13 semaines inversée. Poids égaux sur les composantes disponibles ; rangs sur 5 ans."
-out['method_seg_av']="Indice composite APEX, non officiel. Vagues d'Elliott selon ta règle 15 % (zones vertes d'entrée : fin de vague 2, fin de vague 4, vague C ; zones rouges (aucune entrée) : vagues 1, 3, 5, A et B), retracement de Fibonacci plus bas historique → plus haut historique 15 % (plus le cours est bas dans le retracement, plus la note pousse à l'achat ; négative près de l'ATH ; plafonnée sous la base), "+CH.TXT_CRIT+", RSI hebdo 6 %, MACD hebdo 6 % (plafond −50 dès 4 barres d'histogramme positives), CCI 20 facultatif 6 % en zone ±100, écart à la moyenne mobile 40 semaines 6 % (±5 % → ±100), distance au plus haut 52 semaines 4 % (règle « pas d'entrée au plus haut », bandes adaptées aux obligations), momentum 13 et 26 semaines 6 %, valorisation du segment 8 % (niveau de taux ou de spread classé sur son historique), sentiment du segment lu de façon contrarienne 4 %. Les autres poids gardent leurs proportions d'origine sur les 40 % restants. Score recalculé sur les composantes disponibles. Les vagues, le retracement et la Charte graphique sont lus automatiquement sur les corps des bougies hebdomadaires (clôture précédente → clôture, faute d'ouverture et de mèches dans les données enregistrées) : approximation qui peut différer de ton indicateur TradingView. Pour les ETF obligataires, les figures (tête-épaules, triangles, biseaux, drapeaux, etc.) sont lues sur le cours de l’ETF (relation inverse cours / rendement) et confirmées à la clôture hebdomadaire, selon le dossier ressources/figures_chartistes_obligations_weekly.txt."
+out['method_seg_av']="Indice composite APEX, non officiel. Vagues d'Elliott selon ta règle 15 % (zones vertes d'entrée : fin de vague 2, fin de vague 4, vague C ; zones rouges (aucune entrée) : vagues 1, 3, 5, A et B), retracement de Fibonacci plus bas historique → plus haut historique 15 % (plus le cours est bas dans le retracement, plus la note pousse à l'achat ; négative près de l'ATH ; plafonnée sous la base), "+CH.TXT_CRIT+", puis, en lecture contrarienne du PRIX de l'ETF comme la note /250 (t697u : prix bas = rendement haut = achat) : RSI hebdo 6 % ((50 − RSI) / 20 × 100), MACD hebdo 6 % (sous zéro = achat), CCI 20 toujours compté 6 % (≤ −100 = achat), écart à la moyenne mobile 40 semaines 6 % (−5 % sous la MM40 → +100), distance au plus haut 52 semaines 4 % (règle « pas d'entrée au plus haut », bandes adaptées aux obligations), momentum 13 et 26 semaines 6 % (baisse = achat), valorisation du segment 8 % (niveau de taux ou de spread classé sur son historique, lu sur le RENDEMENT : taux ou spread élevé = achat ; spreads ICE BofA limités à 3 ans sur FRED : seuil durci au 75ᵉ percentile ; crédit IG US : Moody's Baa − Treasury 10 ans depuis 1986), sentiment du segment lu de façon contrarienne 4 %. Les autres poids gardent leurs proportions d'origine sur les 40 % restants. Score recalculé sur les composantes disponibles. Les vagues, le retracement et la Charte graphique sont lus automatiquement sur les corps des bougies hebdomadaires (clôture précédente → clôture, faute d'ouverture et de mèches dans les données enregistrées) : approximation qui peut différer de ton indicateur TradingView. Pour les ETF obligataires, les figures (tête-épaules, triangles, biseaux, drapeaux, etc.) sont lues sur le cours de l’ETF (relation inverse cours / rendement) et confirmées à la clôture hebdomadaire, selon le dossier ressources/figures_chartistes_obligations_weekly.txt."
 out['method_list']="Univers : ETF UCITS cotés sur Xetra ou Euronext trouvés par la recherche TradingView pour chaque segment (mots-clés affichés dans le script), une seule ligne par fonds (code ISIN, cotation la plus liquide retenue), à l'exclusion de l'ETF de référence. Données Yahoo Finance : frais courants, volume moyen sur 3 mois, cours, date de première cotation, rendement distribué sur 12 mois, répartition par notation. Score APEX 0-100 = rang des frais (40 %, plus bas = mieux) + rang de la liquidité (volume moyen × cours, 40 %) + rang de l'ancienneté (20 %). La duration et le rendement à l'échéance ne sont pas affichés : les valeurs fournies par Yahoo sont incohérentes (exemple : 3,6 ans de duration pour TLT, ETF d'obligations à plus de 20 ans) et aucune source gratuite fiable n'a été trouvée."
 json.dump(out,open(_APEX_ROOT + '/data/obligations.json','w'),ensure_ascii=False)
 for s in out['segments']:

@@ -582,6 +582,14 @@ def energie_etc_fond(isin, groupe, tv):
 
 
 # ---------------------------------------------------------------- obligations
+# t697u (28/11/2026) : refonte validée par Emmanuel.
+#  · prime de crédit IG US sur longue période (Moody's Baa − Treasury 10 ans, FRED BAA10Y, depuis 1986) ;
+#  · spreads ICE BofA (HY, émergents) : FRED n'en diffuse que 3 ans (depuis nov. 2023) -> libellé explicite et
+#    seuil durci (≥ 75ᵉ percentile de cette fenêtre au lieu de la médiane) ;
+#  · indexées euro : vrai taux réel euro (Bundesbank, taux réel anticipé du Bund 10 ans) au lieu des TIPS US ;
+#  · HY : plancher de qualité adapté (≥ 50 % BB ou mieux et ≤ 10 % sous B) au lieu de « ≥ 50 % notés A » ;
+#  · cycle de duration remplacé par le niveau du taux de l'échéance (percentile depuis 2000) : la duration
+#    est d'autant plus attractive que les taux sont hauts (achat à contre-courant, pas après la baisse).
 SEG = {
     # key: (rendement nominal, réel direct, inflation, type, prime)
     'tcourt': {'rdt': 'DGS2', 'reel': 'DFII5', 'infl': 'CPIAUCSL', 'prime': ('pente_us',), 'ccy': 'USD'},
@@ -589,14 +597,21 @@ SEG = {
     'eurgov': {'rdt': ('IRLTLT01DEM156N', 'IRLTLT01FRM156N'), 'infl': 'CP0000EZ19M086NEST', 'prime': ('pente_eur', 'IRLTLT01DEM156N'), 'ccy': 'EUR'},
     'france': {'rdt': 'IRLTLT01FRM156N', 'infl': 'CP0000FRM086NEST', 'prime': ('pente_eur', 'IRLTLT01FRM156N'), 'ccy': 'EUR'},
     'de': {'rdt': 'IRLTLT01DEM156N', 'infl': 'CP0000EZ19M086NEST', 'prime': ('pente_eur', 'IRLTLT01DEM156N'), 'ccy': 'EUR'},
-    'usig': {'rdt': 'BAMLC0A0CMEY', 'infl': 'CPIAUCSL', 'prime': ('oas', 'BAMLC0A0CM'), 'ccy': 'USD'},
+    'usig': {'rdt': 'BAMLC0A0CMEY', 'infl': 'CPIAUCSL', 'prime': ('oas_long', 'BAA10Y'), 'ccy': 'USD'},
     'eurig': {'rdt': None, 'infl': 'CP0000EZ19M086NEST', 'prime': ('oas', None), 'ccy': 'EUR'},
-    'hy': {'rdt': 'BAMLH0A0HYM2EY', 'infl': 'CPIAUCSL', 'prime': ('oas', 'BAMLH0A0HYM2'), 'ccy': 'USD'},
+    'hy': {'rdt': 'BAMLH0A0HYM2EY', 'infl': 'CPIAUCSL', 'prime': ('oas', 'BAMLH0A0HYM2'), 'ccy': 'USD', 'qualite': 'hy'},
     'infl': {'rdt': 'DFII10', 'reel': 'DFII10', 'infl': 'CPIAUCSL', 'prime': ('pente_us',), 'ccy': 'USD'},
     'em': {'rdt': 'BAMLEMCBPIEY', 'infl': 'CPIAUCSL', 'prime': ('oas', 'BAMLEMCBPIOAS'), 'ccy': 'USD'},
 }
-# Les ETF de la liste HY en euro utilisent l'indice ICE BofA Euro High Yield.
-HY_EUR = {'rdt': 'BAMLHE00EHYIEY', 'infl': 'CP0000EZ19M086NEST', 'prime': ('oas', 'BAMLHE00EHYIOAS'), 'ccy': 'EUR'}
+# Les ETF HY en euro utilisent l'indice ICE BofA Euro High Yield.
+HY_EUR = {'rdt': 'BAMLHE00EHYIEY', 'infl': 'CP0000EZ19M086NEST', 'prime': ('oas', 'BAMLHE00EHYIOAS'), 'ccy': 'EUR', 'qualite': 'hy'}
+# Indexées sur l'inflation de la zone euro : taux réel anticipé du Bund 10 ans (Bundesbank) et prime de terme euro.
+INFL_EUR = {'rdt': None, 'reel': 'BBSEI_DE_R10', 'infl': 'CP0000EZ19M086NEST', 'prime': ('pente_eur', 'IRLTLT01DEM156N'), 'ccy': 'EUR'}
+SRC_REEL = {'DFII5': 'rendement réel des TIPS 5 ans', 'DFII10': 'rendement réel des TIPS 10 ans', 'DFII20': 'rendement réel des TIPS 20 ans',
+            'BBSEI_DE_R10': 'Bundesbank BBSEI.M.ERZ.GVB.DE._Z.R10XX, taux réel anticipé du Bund 10 ans (rendement − inflation anticipée Consensus)'}
+OAS_PCT_COURT = 75   # seuil durci (percentile) sur la fenêtre courte ICE BofA (depuis nov. 2023)
+TAUX_PCT = 60        # percentile du taux depuis 2000 au-delà duquel le niveau est jugé attractif
+TAUX_DEPUIS = '2000-01-01'
 
 
 def _rdt(spec):
@@ -611,12 +626,32 @@ def _rdt(spec):
     return v, d, spec
 
 
+def _nom_bas(nom):
+    return ' ' + (nom or '').lower().replace('-', ' - ').replace('(', ' ').replace(')', ' ') + ' '
+
+
+def est_euro(nom):
+    """Fonds investi en euro (pas de « $ », « USD », « US », « TIPS » dans le nom ; « € », « EUR », « euro » présents)."""
+    n = _nom_bas(nom)
+    if '$' in n or ' usd ' in n or ' us ' in n or 'u.s.' in n or 'tips' in n or 'treasury' in n:
+        return False
+    return '€' in n or ' eur ' in n or 'euro' in n
+
+
 def court_ou_long(nom):
     n = (nom or '').lower()
-    for k in ('1-3', '0-5', '2.5-5.5', '0-3', '1-5', 'short', 'ultrashort', '0-1'):
+    for k in ('1-3', '0-5', '2.5-5.5', '0-3', '1-5', 'short', 'ultrashort', '0-1', 'court'):
         if k in n:
             return 'courte'
     return 'longue'
+
+
+def pct_depuis(sid, depuis, v):
+    s = [x for x in fred(sid) if x[0] >= depuis]
+    if v is None or len(s) < 20:
+        return None
+    vals = [x[1] for x in s]
+    return round(100 * (sum(1 for x in vals if x < v) + 0.5 * sum(1 for x in vals if x == v)) / len(vals), 1)
 
 
 def oblig_macro(spec, nom):
@@ -625,7 +660,7 @@ def oblig_macro(spec, nom):
     rdt, d_r, lab_r = _rdt(spec.get('rdt'))
     if spec.get('reel'):
         dre, reel = last(spec['reel'])
-        src_reel = fred_src(spec['reel']) + ' (rendement réel des TIPS)'
+        src_reel = fred_src(spec['reel']) + ' (' + SRC_REEL.get(spec['reel'], 'taux réel') + ')'
     else:
         inf, d_i = yoy(spec['infl'])
         reel = None if rdt is None or inf is None else round(rdt - inf, 2)
@@ -643,51 +678,101 @@ def oblig_macro(spec, nom):
         d10, v10 = last(pr[1]); _dd, dfr = last('ECBDFR')
         pente = None if None in (v10, dfr) else round(v10 - dfr, 2)
         E.append(crit('prime', 'Prime de terme : 10 ans − taux de dépôt BCE > 0,5 pt', '> 0,5 pt', pente, None if pente is None else pente > 0.5, 10, fred_src(pr[1], 'ECBDFR'), d10))
+    elif pr[0] == 'oas_long':
+        sid = pr[1]
+        d, v = last(sid)
+        s = fred(sid)
+        med = None
+        if s:
+            vals = sorted(x[1] for x in s)
+            med = vals[len(vals) // 2]
+        E.append(crit('prime', f'Prime de crédit : spread Baa − Treasury 10 ans ≥ sa médiane depuis {s[0][0][:4] if s else "—"}',
+                      f'≥ {med:.2f} pt' if med is not None else '—', v, None if v is None or med is None else v >= med, 10,
+                      fred_src(sid) + ' (Moody\'s Baa − Treasury 10 ans, historique long)', d))
     else:
         sid = pr[1]
         if sid:
-            d, v = last(sid); med = median_years(sid, 10)
-            E.append(crit('prime', 'Prime de crédit : spread OAS ≥ sa médiane 10 ans', f'≥ {med:.2f} pt' if med is not None else '—', v,
-                          None if v is None or med is None else v >= med, 10, fred_src(sid), d))
+            d, v = last(sid)
+            s = fred(sid)
+            depuis = s[0][0] if s else None
+            vals = sorted(x[1] for x in s)
+            seuil = vals[min(len(vals) - 1, int(len(vals) * OAS_PCT_COURT / 100))] if vals else None
+            lab_d = f"{int(depuis[8:10])}/{depuis[5:7]}/{depuis[:4]}" if depuis else '—'
+            E.append(crit('prime', f'Prime de crédit : spread OAS ≥ son {OAS_PCT_COURT}ᵉ percentile depuis {lab_d} (FRED ne diffuse que 3 ans)',
+                          f'≥ {seuil:.2f} pt' if seuil is not None else '—', v,
+                          None if v is None or seuil is None else v >= seuil, 10, fred_src(sid) + ' ; historique ICE BofA limité à 3 ans sur FRED', d))
         else:
-            E.append(crit('prime', 'Prime de crédit : spread OAS ≥ sa médiane 10 ans', '—', None, None, 10,
-                          'spread de l’indice euro investment grade introuvable dans les sources gratuites', None))
+            E.append(crit('prime', 'Prime de crédit : spread OAS (indice euro investment grade)', '—', None, None, 10,
+                          'spread de l’indice euro investment grade introuvable dans les sources gratuites (FRED ne publie plus ICE BofA Euro Corporate)', None))
     dur = court_ou_long(nom)
-    d, v = last('DGS10' if spec['ccy'] == 'USD' else 'IRLTLT01DEM156N')
-    d6, v6 = ago('DGS10' if spec['ccy'] == 'USD' else 'IRLTLT01DEM156N', 6)
-    if v is None or v6 is None:
-        ok = None
-    elif dur == 'longue':
-        ok = v < v6
+    usd = spec['ccy'] == 'USD'
+    if dur == 'longue':
+        sid = 'DGS10' if usd else 'IRLTLT01DEM156N'
+        lib = 'taux 10 ans ' + ('US' if usd else 'allemand')
     else:
-        ok = v >= v6
-    sid10 = 'DGS10' if spec['ccy'] == 'USD' else 'IRLTLT01DEM156N'
-    lab = ('Duration longue et taux 10 ans en baisse sur 6 mois' if dur == 'longue' else 'Duration courte et taux 10 ans stables ou en hausse sur 6 mois')
-    E.append(crit('duration_cycle', lab, f'10 ans {v6} % il y a 6 mois ({d6})', v, ok, 10,
-                  fred_src(sid10) + f' ; duration {dur} déduite de l’échéance indiquée dans le nom du fonds', d))
+        sid = 'DGS2' if usd else 'ECBDFR'
+        lib = 'taux 2 ans US' if usd else 'taux de dépôt BCE'
+    d, v = last(sid)
+    q = pct_depuis(sid, TAUX_DEPUIS, v)
+    lab = (f'Duration {dur} : {lib} au-dessus de son {TAUX_PCT}ᵉ percentile depuis 2000 (taux hauts = duration attractive)' if dur == 'longue'
+           else f'Duration {dur} : {lib} au-dessus de son {TAUX_PCT}ᵉ percentile depuis 2000 (portage élevé)')
+    E.append(crit('duration_niveau', lab, f'≥ {TAUX_PCT}ᵉ pct', None if v is None or q is None else f'{v:.2f} % · {q:.0f}ᵉ pct',
+                  None if q is None else q >= TAUX_PCT, 10,
+                  fred_src(sid) + f' ; duration {dur} déduite de l’échéance indiquée dans le nom du fonds ou du segment', d))
     return E
 
 
-def rating_share(tv, rating_a=None):
-    if rating_a is not None:
-        return float(rating_a), 'Yahoo Finance, répartition des notations (obligations.json)'
-    sym = {'XETR:IUSU': 'IUSU.DE', 'XETR:IS04': 'IS04.DE', 'XETR:EUNH': 'EUNH.DE', 'EURONEXT:IFRB': 'IFRB.AS', 'XETR:IBCD': 'IBCD.DE',
-           'XETR:EUN5': 'EUN5.DE', 'XETR:XUHY': 'XUHY.DE', 'XETR:TIUP': 'TIUP.DE', 'XETR:IUS7': 'IUS7.DE', 'XETR:IS0L': 'IS0L.DE'}.get(tv)
-    p = Path('/workspace/invest/patrimoine-dashboard/data/obligations/etf') / f'{sym}.json'
-    if sym and p.exists():
-        r = json.loads(p.read_text()).get('ratings') or {}
-        if r and any(r.get(k) for k in ('aaa', 'aa', 'a', 'bbb', 'bb', 'b', 'below_b')):
-            return round((float(r.get('aaa') or 0) + float(r.get('aa') or 0) + float(r.get('a') or 0)) * 100, 1), f'Yahoo Finance, répartition des notations ({sym}, relevé {json.loads(p.read_text()).get("retrieved")})'
+def _ratings_of(tv, yahoo=None):
+    """Répartition des notations Yahoo (fichiers ETF déjà relevés), en fractions."""
+    sym = yahoo or {'XETR:IUSU': 'IUSU.DE', 'XETR:IS04': 'IS04.DE', 'XETR:EUNH': 'EUNH.DE', 'EURONEXT:IFRB': 'IFRB.AS', 'XETR:IBCD': 'IBCD.DE',
+                    'XETR:EUN5': 'EUN5.DE', 'XETR:XUHY': 'XUHY.DE', 'XETR:TIUP': 'TIUP.DE', 'XETR:IUS7': 'IUS7.DE', 'XETR:IS0L': 'IS0L.DE'}.get(tv)
+    if not sym:
+        return None, None
+    for base in (ROOT / 'data' / 'obligations' / 'etf', Path('/workspace/invest/patrimoine-dashboard/data/obligations/etf')):
+        p = base / f'{sym}.json'
+        if p.exists():
+            doc = json.loads(p.read_text())
+            r = doc.get('ratings') or {}
+            if r and any(r.get(k) for k in ('aaa', 'aa', 'a', 'bbb', 'bb', 'b', 'below_b')):
+                return r, f'Yahoo Finance, répartition des notations ({sym}, relevé {doc.get("retrieved")})'
     return None, None
 
 
-def oblig_fond(seg_key, tv, isin, nom, rating_a=None, hedged=None):
+def rating_share(tv, rating_a=None, yahoo=None):
+    if rating_a is not None:
+        return float(rating_a), 'Yahoo Finance, répartition des notations (obligations.json)'
+    r, src = _ratings_of(tv, yahoo)
+    if r:
+        return round((float(r.get('aaa') or 0) + float(r.get('aa') or 0) + float(r.get('a') or 0)) * 100, 1), src
+    return None, None
+
+
+def critere_qualite(spec, tv, rating_a=None, yahoo=None):
+    if spec.get('qualite') == 'hy':
+        r, src = _ratings_of(tv, yahoo)
+        if not r:
+            return crit('notation', 'Qualité HY : ≥ 50 % notés BB ou mieux et ≤ 10 % sous B', '≥ 50 % / ≤ 10 %', None, None, 10, None)
+        bb = round(sum(float(r.get(k) or 0) for k in ('aaa', 'aa', 'a', 'bbb', 'bb')) * 100, 1)
+        sous_b = round(float(r.get('below_b') or 0) * 100, 1)
+        return crit('notation', 'Qualité HY : ≥ 50 % notés BB ou mieux et ≤ 10 % sous B', '≥ 50 % / ≤ 10 %',
+                    f'BB ou mieux {bb} % · sous B {sous_b} %', bb >= 50 and sous_b <= 10, 10, src)
+    ra, src_ra = rating_share(tv, rating_a, yahoo)
+    return crit('notation', 'Qualité : ≥ 50 % des titres notés A ou mieux', '≥ 50 %', ra, None if ra is None else ra >= 50, 10, src_ra)
+
+
+def oblig_spec(seg_key, nom):
     spec = SEG[seg_key]
-    if seg_key == 'hy' and nom and ('EUR High Yield' in nom or 'Euro High Yield' in nom or 'EUR HIGH YIELD' in nom.upper()) and 'USD' not in nom:
+    if seg_key == 'hy' and est_euro(nom):
         spec = HY_EUR
+    if seg_key == 'infl' and est_euro(nom):
+        spec = INFL_EUR
+    return spec
+
+
+def oblig_fond(seg_key, tv, isin, nom, rating_a=None, hedged=None, yahoo=None):
+    spec = oblig_spec(seg_key, nom)
     E = oblig_macro(spec, nom)
-    ra, src_ra = rating_share(tv, rating_a)
-    E.append(crit('notation', 'Qualité : ≥ 50 % des titres notés A ou mieux', '≥ 50 %', ra, None if ra is None else ra >= 50, 10, src_ra))
+    E.append(critere_qualite(spec, tv, rating_a, yahoo))
     E += etf_quality(isin, ['ter15', 'enc500', 'age5'])
     for e in E:
         if e['id'] == 'ter15':

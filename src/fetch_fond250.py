@@ -153,7 +153,9 @@ FRED = ['DGS2', 'DGS10', 'DGS20', 'DFII5', 'DFII10', 'DFII20', 'T5YIE', 'T10YIE'
         'BAMLHE00EHYIOAS', 'BAMLHE00EHYIEY', 'BAMLEMCBPIOAS', 'BAMLEMCBPIEY', 'BAMLHE00EHYIOAS', 'BAMLEC0A0RMEY', 'BAMLEC0A0RMOAS' if False else 'BAMLC0A0CM',
         'IRLTLT01DEM156N', 'IRLTLT01FRM156N', 'IRLTLT01EZM156N', 'CP0000EZ19M086NEST', 'CPIAUCSL', 'DCOILWTICO', 'FEDFUNDS', 'ECBDFR', 'IR3TIB01EZM156N',
         'IRLTLT01JPM156N', 'CP0000FRM086NEST', 'IRLTLT01GBM156N', 'IRLTLT01CHM156N', 'IRLTLT01AUM156N', 'IRLTLT01CAM156N', 'IRLTLT01KRM156N',
-        'DHHNGSP', 'DCOILBRENTEU']
+        'DHHNGSP', 'DCOILBRENTEU',
+        # t697u (obligations) : spread Moody's Baa − Treasury 10 ans, historique depuis 1986 (crédit IG US sur longue période).
+        'BAA10Y']
 
 
 def run_fred():
@@ -171,7 +173,28 @@ def run_fred():
             print(sid, last)
         except Exception as e:
             print(sid, 'ERR', e)
+    run_bbk_real()
     run_eia_energy_spots()
+
+
+def run_bbk_real():
+    """t697u : taux réel anticipé 10 ans allemand (Bundesbank BBSEI.M.ERZ.GVB.DE._Z.R10XX, rendement nominal du Bund
+    10 ans − inflation anticipée Consensus), écrit au format FRED (date, valeur) dans fred/BBSEI_DE_R10.csv."""
+    import subprocess
+    url = 'https://api.statistiken.bundesbank.de/rest/download/BBSEI/M.ERZ.GVB.DE._Z.R10XX?format=csv&lang=en'
+    try:
+        s = subprocess.run(['curl', '-sfL', '-m', '90', '-A', 'Mozilla/5.0', url], capture_output=True, text=True, timeout=120).stdout
+        rows = []
+        for line in s.splitlines():
+            parts = line.split(',')
+            if len(parts) >= 2 and len(parts[0]) == 7 and parts[0][4] == '-' and parts[1] not in ('', '.'):
+                rows.append(f'{parts[0]}-01,{float(parts[1])}')
+        if len(rows) < 100:
+            raise RuntimeError('série trop courte')
+        (OUT / 'fred' / 'BBSEI_DE_R10.csv').write_text('observation_date,BBSEI_DE_R10\n' + '\n'.join(rows) + '\n')
+        print('BBSEI_DE_R10', rows[-1])
+    except Exception as e:
+        print('BBSEI_DE_R10', 'ERR', e)
 
 
 # EIA est la source primaire de FRED DHHNGSP (Henry Hub) et DCOILBRENTEU (Brent).

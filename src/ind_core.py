@@ -313,14 +313,18 @@ def av_agrege(comps, hole=0.0):
         return None, comps
     return round(sum(x['poids']*x['note'] for x in av)/tw,1), comps
 
-def compute(w,BEN,BN,opens=None,fsym=None,fpre=None,hl=None,syms=None,fibo_adjust_splits=True,contrarien=False,sans_elliott=False):
+def compute(w,BEN,BN,opens=None,fsym=None,fpre=None,hl=None,syms=None,fibo_adjust_splits=True,contrarien=False,sans_elliott=False,oblig=False):
     """w = [(date ISO du vendredi, clôture, semaine clôturée ?)] ; BEN = {date: clôture de l'indice de référence}
     fpre : préfixe Fibonacci déjà calculé (ouvertures, clôtures, dates) ; sinon fsym sert à FB.prefix.
     fibo_adjust_splits : passé à fibo.analyse (False pour les crypto, afin de ne pas traiter un pump comme une division).
     contrarien : si vrai (métaux précieux uniquement), RSI / MACD en lecture contrarienne et CCI toujours compté,
     comme dans la note APEX /100 des actions. Les autres classes gardent le barème classique du bandeau.
     sans_elliott : si vrai (métaux précieux uniquement), les vagues d'Elliott (15 %) sont retirées du bandeau
-    sans redistribuer leur poids (le 15 % reste dans le dénominateur). Les autres classes sont inchangées."""
+    sans redistribuer leur poids (le 15 % reste dans le dénominateur). Les autres classes sont inchangées.
+    oblig : si vrai (ETF obligataires, t697u), lecture contrarienne du PRIX alignée sur la note /250 : RSI / MACD
+    contrariens, CCI toujours compté, écart à la MM40, momentum et force relative inversés (prix bas = achat)."""
+    if oblig:
+        contrarien=True
     live=[x for x in w if not x[2]]; wc=[x for x in w if x[2]]
     ds=[x[0] for x in wc]; c=[x[1] for x in wc]; n=len(c)
     op=[(opens or {}).get(d) for d in ds]
@@ -361,10 +365,10 @@ def compute(w,BEN,BN,opens=None,fsym=None,fpre=None,hl=None,syms=None,fibo_adjus
         comps=[E.comp(ell(i),W_EL),FB.comp(fib(i),W_FI),
          {'nom':'RSI 14 hebdo','poids':.15,'valeur':f1(r[i]) if r[i] is not None else 'n.d.','note':(score_rsi_contrarien(r[i]) if contrarien else clip((r[i]-50)/20*100)) if r[i] is not None else None,'regle':(RULE_RSI_CONTRARIEN if contrarien else '(RSI − 50) / 20 × 100')},
          {'nom':'MACD 12/26/9 hebdo','poids':.15,'valeur':macd_valeur(m[i],sg[i],h[i],h[i-1],h,i) if i and None not in (m[i],sg[i],h[i],h[i-1]) else 'n.d.','note':(score_macd_contrarien(m[i],sg[i],h[i],h[i-1],h,i) if contrarien else r_macd(m[i],sg[i],h[i],h[i-1],h,i)) if i and None not in (m[i],sg[i],h[i],h[i-1]) else None,'regle':(RULE_MACD_CONTRARIEN if contrarien else RULE_MACD)},
-         {'nom':'Écart à la moyenne mobile 40 semaines','poids':.15,'valeur':(fs(gap[i])+' %') if gap[i] is not None else 'n.d.','note':clip(gap[i]/10*100) if gap[i] is not None else None,'regle':'±10 % → ±100'},
+         {'nom':'Écart à la moyenne mobile 40 semaines','poids':.15,'valeur':(fs(gap[i])+' %') if gap[i] is not None else 'n.d.','note':(clip(-gap[i]/10*100) if oblig else clip(gap[i]/10*100)) if gap[i] is not None else None,'regle':('lecture contrarienne : −10 % sous la MM40 → +100 ; +10 % au-dessus → −100' if oblig else '±10 % → ±100')},
          {'nom':'Distance au plus haut 52 semaines','poids':.15,'valeur':fs(dd52[i])+' %','note':r_dd(dd52[i]),'regle':"≥ −2 % : −60 (pas d'entrée au plus haut) ; −2 → −12 % : de −60 à +60 ; −12 → −25 % : +60 ; au-delà : retour vers 0"},
-         {'nom':'Momentum 13 et 26 semaines','poids':.15,'valeur':f"13 s. {fs(mo13[i]) if mo13[i] is not None else 'n.d.'} % · 26 s. {fs(mo26[i]) if mo26[i] is not None else 'n.d.'} %",'note':(clip(mo13[i]/15*100)+clip(mo26[i]/25*100))/2 if mo13[i] is not None and mo26[i] is not None else None,'regle':'moyenne de (13 s. : ±15 % → ±100) et (26 s. : ±25 % → ±100)'},
-         {'nom':f'Force relative vs {BN} sur 26 semaines','poids':.15,'valeur':(fs(rs26[i])+' pt') if rs26[i] is not None else 'n.d.','note':clip(rs26[i]/10*100) if rs26[i] is not None else None,'regle':'surperformance de +10 pt → +100 ; sous-performance de −10 pt → −100'},
+         {'nom':'Momentum 13 et 26 semaines','poids':.15,'valeur':f"13 s. {fs(mo13[i]) if mo13[i] is not None else 'n.d.'} % · 26 s. {fs(mo26[i]) if mo26[i] is not None else 'n.d.'} %",'note':((-1 if oblig else 1)*(clip(mo13[i]/15*100)+clip(mo26[i]/25*100))/2) if mo13[i] is not None and mo26[i] is not None else None,'regle':('lecture contrarienne : baisse = achat ; ' if oblig else '')+'moyenne de (13 s. : ±15 % → ±100) et (26 s. : ±25 % → ±100)'},
+         {'nom':f'Force relative vs {BN} sur 26 semaines','poids':.15,'valeur':(fs(rs26[i])+' pt') if rs26[i] is not None else 'n.d.','note':(clip(-rs26[i]/10*100) if oblig else clip(rs26[i]/10*100)) if rs26[i] is not None else None,'regle':('lecture contrarienne : sous-performance de −10 pt → +100 ; surperformance de +10 pt → −100' if oblig else 'surperformance de +10 pt → +100 ; sous-performance de −10 pt → −100')},
          {'nom':'Sentiment du secteur (lecture contrarienne)','poids':.10,'valeur':f1(sv,0),'note':clip((50-sv)*2),'regle':'(50 − sentiment) × 2 : euphorie = prudence, peur = opportunité'}]
         for x in comps[2:]: x['poids']=round(x['poids']*SC,4)
         comps[2:2]=[CH.comp(cha(i),W_CH),CH.comp_div(cha(i),W_DV)]

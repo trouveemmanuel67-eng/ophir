@@ -1,6 +1,6 @@
 {
   "seuil": 75.0,
-  "n": 44,
+  "n": 45,
   "liste": [
     {
       "tv": "NYSE:PAAS",
@@ -834,6 +834,25 @@
       },
       "scale": 250,
       "tab": "autres"
+    },
+    {
+      "tv": "XETR:IBC5",
+      "yahoo": "IBC5.DE",
+      "nom": "iShares $ TIPS UCITS ETF EUR Hedged (Acc)",
+      "note": 131.0,
+      "display": "131",
+      "hex": "#22c55e",
+      "flag": "green",
+      "bande": "vert",
+      "av": 38.7,
+      "section": "Obligations – Obligations indexées sur l'inflation",
+      "montant": 500,
+      "brokers": {
+        "revolut": true,
+        "xtb": true
+      },
+      "scale": 250,
+      "tab": "obligations"
     }
   ]
 }

@@ -20,7 +20,7 @@ def clean(x):
     if hasattr(x,'item'): x=x.item()
     if isinstance(x,float) and (math.isnan(x) or math.isinf(x)): return None
     return x
-FRED=['DGS10','DGS2','DGS3MO','DGS30','T10Y2Y','T10Y3M','DFII10','T10YIE','BAMLC0A0CM','BAMLH0A0HYM2','BAMLHE00EHYIOAS','BAMLEMCBPIOAS','DFEDTARU','DFF']
+FRED=['DGS10','DGS2','DGS3MO','DGS30','T10Y2Y','T10Y3M','DFII10','T10YIE','BAMLC0A0CM','BAMLH0A0HYM2','BAMLHE00EHYIOAS','BAMLEMCBPIOAS','DFEDTARU','DFF','BAA10Y']
 for s in FRED:
     open(B+f'fred_{s}.csv','wb').write(get(f'https://fred.stlouisfed.org/graph/fredgraph.csv?id={s}')); time.sleep(.5)
 for c in ['FR','DE']:

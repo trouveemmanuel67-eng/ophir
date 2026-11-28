@@ -20,7 +20,9 @@ def test_rattachement():
     assert S.key_for_tv('EURONEXT:SOP') == 'eu:XS8R'
     assert S.key_for_tv('APEX:PANIER-FR-SANTE') == 'eu:DXSE'
     assert S.key_for_tv('NYSE:AG') == 'metal:argent'
-    assert S.key_for_tv('XETR:XHYG') == 'oblig:hy'
+    # t697u : sentiment unifié = sentiment hebdo de l'ETF obligataire lui-même (même calcul que l'onglet).
+    assert S.key_for_tv('XETR:XHYG') == 'oblig_etf:XETR:XHYG'
+    assert S.get('oblig_etf:XETR:XHYG')['value'] is not None
     assert S.key_for_pilote('fr_fin') == 'eu:XS7R' and S.key_for_pilote('XLK') == 'us:XLK'
     k, rec = S.resolve(None)
     assert k is None and rec is None

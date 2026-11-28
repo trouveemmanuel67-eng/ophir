@@ -107,7 +107,34 @@ def get(key):
         return (d.get('secteurs_us') or {}).get(key[3:])
     if key.startswith('eu:'):
         return (d.get('secteurs_eu') or {}).get(key[3:])
+    if key.startswith('oblig_etf:'):
+        return oblig_etf(key[len('oblig_etf:'):])
     return (d.get('classes') or {}).get(key)
+
+
+@lru_cache(maxsize=None)
+def oblig_etf(tv):
+    """t697u : sentiment hebdo d'un ETF obligataire (tête de segment : obligations.json ; liste : apex_bars.json,
+    même formule à six composantes). Repli sur le sentiment de classe du segment si la série manque."""
+    o = _load('obligations.json')
+    seg = None
+    for s in o.get('segments') or []:
+        if s.get('tv') == tv:
+            sv = s.get('sent') or {}
+            if sv.get('value') is not None:
+                return {'value': sv['value'], 'label': sv.get('label'), 'court': f"{tv.split(':')[-1]} hebdo",
+                        'nom': f"{tv.split(':')[-1]} hebdo", 'date': s.get('date'), 'source': 'onglet Obligations (sentiment du segment)'}
+            seg = s
+        elif any(e.get('tv') == tv for e in (s.get('list') or [])):
+            seg = s
+    b = ((_load('apex_bars.json').get('bars') or {}).get(tv) or {})
+    sv = b.get('sent') or {}
+    if b.get('ok') and sv.get('value') is not None:
+        return {'value': sv['value'], 'label': sv.get('label'), 'court': f"{tv.split(':')[-1]} hebdo",
+                'nom': f"{tv.split(':')[-1]} hebdo", 'date': b.get('date'), 'source': 'apex_bars (sentiment hebdo de l’ETF)'}
+    if seg is not None:
+        return (data().get('classes') or {}).get('oblig:' + seg['key'])
+    return None
 
 
 def _walk_tvs(obj, acc):
@@ -142,6 +169,11 @@ def tables():
         _walk_tvs(s, acc)
         for tv in acc:
             T.setdefault(tv, key)
+        # t697u : sentiment unifié = sentiment APEX hebdo de l'ETF lui-même (même calcul que l'onglet
+        # Obligations : RSI, écart MM40, momentum 26 s., force relative, distance au plus haut, volatilité).
+        for tv in [s.get('tv')] + [e.get('tv') for e in (s.get('list') or [])]:
+            if tv:
+                T[tv] = 'oblig_etf:' + tv
     e = _load('energie.json')
     for a in e.get('assets') or []:
         tv = a.get('tv')
